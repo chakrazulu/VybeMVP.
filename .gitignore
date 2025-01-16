@@ -1,0 +1,15 @@
+# IDE preferences
+*.pbxuser
+*.mode1v3
+*.mode2v3
+
+# Other files
+Pods/
+*.xcworkspace
+xcdebugger/
+*.xcconfig
+
+# Temporary files
+*.tmp
+.DS_Store
+
