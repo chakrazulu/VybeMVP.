@@ -1,44 +1,46 @@
-//
-//  ContentView.swift
-//  VybeMVP
-//
-//  Created by Corey Davis on 1/12/25.
-//
-
 import SwiftUI
 import AuthenticationServices
 
 struct ContentView: View {
+    @StateObject private var focusManager = FocusNumberManager()
+    @State private var isSignedIn = false
+    @State private var showPicker = false
+    
     var body: some View {
-        VStack {
-            SignInWithAppleButton(.signIn, onRequest: { request in
-                // Configure the request here
-                request.requestedScopes = [.fullName, .email]
-            }, onCompletion: { result in
-                // Handle the result here
-                switch result {
-                case .success(let authorization):
-                    handleAuthorization(authorization)
-                case .failure(let error):
-                    print("Sign in with Apple failed: \(error)")
+        NavigationView {
+            if isSignedIn {
+                VStack {
+                    Text("Welcome to Vybe!")
+                        .font(.largeTitle)
+                        .padding()
+                    
+                    Text("Your Focus Number: \(focusManager.userFocusNumber)")
+                        .font(.title2)
+                        .padding()
+                    
+                    Button(action: {
+                        showPicker = true
+                    }) {
+                        Text("Choose Your Focus Number")
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .sheet(isPresented: $showPicker) {
+                        FocusNumberPicker(selectedFocusNumber: .init(
+                            get: { focusManager.userFocusNumber },
+                            set: { focusManager.userDidPickFocusNumber($0) }
+                        ))
+                    }
                 }
-            })
-            .signInWithAppleButtonStyle(.black) // Customize button style
-            .frame(height: 50)
-            .padding()
+                .navigationTitle("Vybe")
+                .onAppear {
+                    focusManager.enableAutoFocusNumber()
+                }
+            } else {
+                SignInView(isSignedIn: $isSignedIn)
+            }
         }
-    }
-}
-
-func handleAuthorization(_ authorization: ASAuthorization) {
-    if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-        // Extract user details
-        let userIdentifier = appleIDCredential.user
-        let fullName = appleIDCredential.fullName
-        let email = appleIDCredential.email
-
-        print("User ID: \(userIdentifier)")
-        print("Full Name: \(String(describing: fullName))")
-        print("Email: \(String(describing: email))")
     }
 }

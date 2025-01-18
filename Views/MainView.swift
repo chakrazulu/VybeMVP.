@@ -1,97 +1,79 @@
-//
-//  MainView.swift
-//  VybeMVP
-//
-//  Created by Corey Davis on 1/12/25.
-//
 import SwiftUI
-import CoreLocation
 
-struct MainView: View, Hashable, Equatable {
-    // MARK: - Equatable and Hashable Conformance
-    static func == (lhs: MainView, rhs: MainView) -> Bool {
-        return true
-    }
+struct MainView: View {
+    @StateObject private var focusManager = FocusNumberManager()
+    @State private var isPickerPresented = false
 
-    func hash(into hasher: inout Hasher) {
-        hasher.combine("MainView")
-    }
-
-    // MARK: - State Properties
-    @State private var focusNumber: Int = 0 // Placeholder for the focus number
-    @State private var currentLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0) // Mock location
-    @State private var bpm: Int = 70 // Mock BPM value for now
-
-    // MARK: - Body
     var body: some View {
-        TabView {
-            // Home Tab
+        VStack(spacing: 20) {
+            // Header
+            Text("Your Focus Number")
+                .font(.headline)
+            
+            // Auto-Updating Focus Number
             VStack {
-                Text("Welcome to Vybe")
-                    .font(.largeTitle)
-                    .padding()
+                Text("\(focusManager.currentFocusNumber)")
+                    .font(.system(size: 60, weight: .bold, design: .rounded))
+                Text(Date(), style: .time)
+                    .font(.caption)
+            }
+            .foregroundColor(.purple)
+            .padding()
+            .background(Circle().fill(Color.purple.opacity(0.2)))
+            .shadow(radius: 10)
+            .onChange(of: focusManager.currentFocusNumber) { oldValue, newValue in
+                print("\n🔄 UI UPDATE")
+                print("----------------------------------------")
+                print("Focus Number Changed in UI: \(oldValue) → \(newValue)")
+                print("----------------------------------------\n")
+            }
 
-                Text("Your Focus Number: \(focusNumber)")
-                    .font(.title)
-                    .foregroundColor(.blue)
-                    .padding()
-
+            // Buttons
+            HStack(spacing: 20) {
                 Button(action: {
-                    calculateFocusNumber()
+                    focusManager.enableAutoFocusNumber()
                 }) {
-                    Text("Recalculate Focus Number")
+                    Text("Restart Timer")
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                
+                Button(action: {
+                    isPickerPresented = true
+                }) {
+                    Text("Choose Number")
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
-                .padding()
             }
-            .tabItem {
-                Label("Home", systemImage: "house.fill")
+            
+            // Debug Logs
+            List(focusManager.matchLogs, id: \.self) { log in
+                Text(log)
             }
-
-            // Profile Tab
-            VStack {
-                Text("Profile")
-                    .font(.largeTitle)
-            }
-            .tabItem {
-                Label("Profile", systemImage: "person.fill")
-            }
-
-            // Settings Tab
-            VStack {
-                Text("Settings")
-                    .font(.largeTitle)
-            }
-            .tabItem {
-                Label("Settings", systemImage: "gearshape.fill")
-            }
+            .frame(height: 150)
+        }
+        .padding()
+        .sheet(isPresented: $isPickerPresented) {
+            FocusNumberPicker(selectedFocusNumber: .init(
+                get: { focusManager.userFocusNumber },
+                set: { focusManager.userDidPickFocusNumber($0) }
+            ))
         }
         .onAppear {
-            debugLogInfo() // Debugging info for console
-            getCurrentLocation()
-            calculateFocusNumber()
+            print("\n📱 MAIN VIEW APPEARED")
+            print("----------------------------------------")
+            focusManager.checkTimerStatus()
+            focusManager.startUpdates()
+            print("View setup complete")
+            print("----------------------------------------\n")
         }
-    }
-
-    // MARK: - Functions
-    private func calculateFocusNumber() {
-        let currentDate = Date()
-        focusNumber = FocusNumberHelper.calculateFocusNumber(date: currentDate, coordinates: currentLocation, bpm: bpm)
-        debugLogInfo()
-    }
-
-    private func getCurrentLocation() {
-        // Placeholder: Mock location
-        currentLocation = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194) // San Francisco coordinates
-    }
-
-    private func debugLogInfo() {
-        print("DEBUG: Current Date: \(Date())")
-        print("DEBUG: Current Location: \(currentLocation.latitude), \(currentLocation.longitude)")
-        print("DEBUG: BPM: \(bpm)")
-        print("DEBUG: Calculated Focus Number: \(focusNumber)")
+        .onDisappear {
+            focusManager.stopUpdates()
+        }
     }
 }

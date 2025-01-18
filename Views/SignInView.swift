@@ -8,45 +8,23 @@ import SwiftUI
 import AuthenticationServices
 
 struct SignInView: View {
-    @StateObject private var viewModel = SignInViewModel()
-    @State private var navigateToMainView = false // Add state for navigation
-
+    @Binding var isSignedIn: Bool
+    
     var body: some View {
-        NavigationStack {
-            VStack {
-                if viewModel.isSignedIn {
-                    // Trigger navigation automatically
-                    Text("You are signed in!")
-                        .onAppear {
-                            navigateToMainView = true
-                        }
-                    
-                    // Navigation to MainView
-                    NavigationLink(value: MainView()) {
-                        EmptyView() // Invisible link
-                    }
-                    .hidden() // Hide the link visually
-                } else {
-                    // Sign-in button
-                    SignInWithAppleButton(
-                        onRequest: { request in
-                            request.requestedScopes = [.fullName, .email]
-                        },
-                        onCompletion: { result in
-                            viewModel.handleSignIn(result: result)
-                        }
-                    )
-                    .signInWithAppleButtonStyle(.black)
-                    .frame(height: 50)
-                    .padding()
+        VStack {
+            SignInWithAppleButton(.signIn, onRequest: { request in
+                request.requestedScopes = [.fullName, .email]
+            }, onCompletion: { result in
+                switch result {
+                case .success:
+                    isSignedIn = true
+                case .failure(let error):
+                    print("Sign in with Apple failed: \(error)")
                 }
-            }
-            .navigationDestination(isPresented: $navigateToMainView) {
-                MainView()
-            }
-            .onAppear {
-                viewModel.checkSignInStatus()
-            }
+            })
+            .signInWithAppleButtonStyle(.black)
+            .frame(height: 50)
+            .padding()
         }
     }
 }
