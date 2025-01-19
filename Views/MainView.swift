@@ -1,79 +1,19 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject private var focusManager = FocusNumberManager()
-    @State private var isPickerPresented = false
+    @EnvironmentObject var focusManager: FocusNumberManager
 
     var body: some View {
-        VStack(spacing: 20) {
-            // Header
-            Text("Your Focus Number")
-                .font(.headline)
-            
-            // Auto-Updating Focus Number
-            VStack {
-                Text("\(focusManager.currentFocusNumber)")
-                    .font(.system(size: 60, weight: .bold, design: .rounded))
-                Text(Date(), style: .time)
-                    .font(.caption)
-            }
-            .foregroundColor(.purple)
-            .padding()
-            .background(Circle().fill(Color.purple.opacity(0.2)))
-            .shadow(radius: 10)
-            .onChange(of: focusManager.currentFocusNumber) { oldValue, newValue in
-                print("\n🔄 UI UPDATE")
-                print("----------------------------------------")
-                print("Focus Number Changed in UI: \(oldValue) → \(newValue)")
-                print("----------------------------------------\n")
-            }
+        VStack {
+            Text("Main Focus Number: \(focusManager.selectedFocusNumber)")
+                .font(.largeTitle)
+                .padding()
 
-            // Buttons
-            HStack(spacing: 20) {
-                Button(action: {
-                    focusManager.enableAutoFocusNumber()
-                }) {
-                    Text("Restart Timer")
-                        .padding()
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                
-                Button(action: {
-                    isPickerPresented = true
-                }) {
-                    Text("Choose Number")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
+            Button("Restart Timer") {
+                focusManager.startUpdates()
+                print("🟢 Timer restarted")
             }
-            
-            // Debug Logs
-            List(focusManager.matchLogs, id: \.self) { log in
-                Text(log)
-            }
-            .frame(height: 150)
-        }
-        .padding()
-        .sheet(isPresented: $isPickerPresented) {
-            FocusNumberPicker(selectedFocusNumber: .init(
-                get: { focusManager.userFocusNumber },
-                set: { focusManager.userDidPickFocusNumber($0) }
-            ))
-        }
-        .onAppear {
-            print("\n📱 MAIN VIEW APPEARED")
-            print("----------------------------------------")
-            focusManager.checkTimerStatus()
-            focusManager.startUpdates()
-            print("View setup complete")
-            print("----------------------------------------\n")
-        }
-        .onDisappear {
-            focusManager.stopUpdates()
+            .padding()
         }
     }
 }

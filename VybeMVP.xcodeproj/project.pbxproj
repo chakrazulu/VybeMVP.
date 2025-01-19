@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D8AB7642D3B7A7900009BC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D8AB75F2D3B7A7900009BC9 /* Assets.xcassets */; };
+		4D8AB7652D3B7A7900009BC9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8AB7602D3B7A7900009BC9 /* ContentView.swift */; };
 		4D8AB76A2D3B811E00009BC9 /* FocusNumberPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8AB7692D3B810200009BC9 /* FocusNumberPicker.swift */; };
 		4DC602382D345A1B00B5E4A9 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602342D34570200B5E4A9 /* SignInViewModel.swift */; };
 		4DC602392D345A3500B5E4A9 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602352D34577E00B5E4A9 /* SignInView.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D8AB75F2D3B7A7900009BC9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4D8AB7602D3B7A7900009BC9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4D8AB7692D3B810200009BC9 /* FocusNumberPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberPicker.swift; sourceTree = "<group>"; };
 		4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VybeMVP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DC602322D34552200B5E4A9 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -27,6 +31,8 @@
 		4DC6023D2D3464FA00B5E4A9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		4DC6023F2D34650C00B5E4A9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		4DC602412D34652300B5E4A9 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		4DCE3BCF2D3C75E80022F283 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DCE3BD02D3C75E80022F283 /* VybeMVP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VybeMVP.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -38,6 +44,11 @@
 		4D74C21A2D3B3FF400DBE623 /* FocusNumber */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = FocusNumber;
+			sourceTree = "<group>";
+		};
+		4D8AB7702D3C746200009BC9 /* Preview Content */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		4DC6021D2D343E8D00B5E4A9 /* VybeMVP */ = {
@@ -61,13 +72,15 @@
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
-				4D74C2162D3B3EE800DBE623 /* Scipts */,
+				4DCE3BCF2D3C75E80022F283 /* Info.plist */,
 				4DC6022C2D34440900B5E4A9 /* App */,
+				4D74C2162D3B3EE800DBE623 /* Scipts */,
 				4DC6022D2D34440900B5E4A9 /* Core */,
 				4DC6022E2D34440900B5E4A9 /* Features */,
-				4DC6022F2D34440900B5E4A9 /* Models */,
 				4DC602302D34440900B5E4A9 /* Views */,
 				4DC6021D2D343E8D00B5E4A9 /* VybeMVP */,
+				4D8AB7702D3C746200009BC9 /* Preview Content */,
+				4DC6022F2D34440900B5E4A9 /* Models */,
 				4DC6021C2D343E8D00B5E4A9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -107,6 +120,8 @@
 		4DC6022F2D34440900B5E4A9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4DCE3BD02D3C75E80022F283 /* VybeMVP.entitlements */,
+				4D8AB75F2D3B7A7900009BC9 /* Assets.xcassets */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -117,6 +132,7 @@
 				4D8AB7692D3B810200009BC9 /* FocusNumberPicker.swift */,
 				4DC602412D34652300B5E4A9 /* AboutView.swift */,
 				4DC6023F2D34650C00B5E4A9 /* SettingsView.swift */,
+				4D8AB7602D3B7A7900009BC9 /* ContentView.swift */,
 				4DC6023D2D3464FA00B5E4A9 /* HomeView.swift */,
 				4DC6023B2D345E1C00B5E4A9 /* MainView.swift */,
 				4DC602352D34577E00B5E4A9 /* SignInView.swift */,
@@ -150,6 +166,7 @@
 			fileSystemSynchronizedGroups = (
 				4D74C2162D3B3EE800DBE623 /* Scipts */,
 				4D74C21A2D3B3FF400DBE623 /* FocusNumber */,
+				4D8AB7702D3C746200009BC9 /* Preview Content */,
 				4DC6021D2D343E8D00B5E4A9 /* VybeMVP */,
 			);
 			name = VybeMVP;
@@ -198,6 +215,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D8AB7642D3B7A7900009BC9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +233,7 @@
 				4DC602422D34652600B5E4A9 /* AboutView.swift in Sources */,
 				4DC602392D345A3500B5E4A9 /* SignInView.swift in Sources */,
 				4DC6023A2D345C9E00B5E4A9 /* KeychainHelper.swift in Sources */,
+				4D8AB7652D3B7A7900009BC9 /* ContentView.swift in Sources */,
 				4DC602382D345A1B00B5E4A9 /* SignInViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,13 +365,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = VybeMVP/VybeMVP.entitlements;
+				CODE_SIGN_ENTITLEMENTS = /Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP/Models;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"VybeMVP/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = /Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP;
 				DEVELOPMENT_TEAM = 78GUR5644G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -376,13 +396,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = VybeMVP/VybeMVP.entitlements;
+				CODE_SIGN_ENTITLEMENTS = /Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP/Models;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"VybeMVP/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = /Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP;
 				DEVELOPMENT_TEAM = 78GUR5644G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

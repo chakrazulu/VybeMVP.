@@ -4,10 +4,10 @@
 //
 //  Created by Corey Davis on 1/17/25.
 //
+
 import SwiftUI
 
 struct FocusNumberView: View {
-    
     @ObservedObject var manager = FocusNumberManager()
     
     var body: some View {

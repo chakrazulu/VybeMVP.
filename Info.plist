@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Vybe needs your location to calculate your accurate focus number.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Vybe needs your location to keep your focus number updated.</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.infinitiesinn.vybe.VybeMVP</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.lifestyle</string>
+	<key>CFBundleName</key>
+	<string>VybeMVP</string>
+	<key>CFBundleDisplayName</key>
+	<string>Vybe</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.0</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Focus Number Calculator</string>
+</dict>
+</plist>
