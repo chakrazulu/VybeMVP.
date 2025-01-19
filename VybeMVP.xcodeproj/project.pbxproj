@@ -7,9 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D3055AE2D3C9942009A7BBD /* FocusNumberManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055AC2D3C9942009A7BBD /* FocusNumberManager.swift */; };
+		4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */; };
+		4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */; };
+		4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BF2D3CA97C009A7BBD /* VybeMVP.xcdatamodeld */; };
+		4D3055C32D3CB018009A7BBD /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055C22D3CB018009A7BBD /* PersistenceController.swift */; };
+		4D3055C62D3CB201009A7BBD /* UserPreferences+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055C52D3CB201009A7BBD /* UserPreferences+Helper.swift */; };
+		4D3055C82D3CB8ED009A7BBD /* FocusMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055C72D3CB8ED009A7BBD /* FocusMatch.swift */; };
+		4D3055CA2D3CB981009A7BBD /* FocusMatch+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055C92D3CB981009A7BBD /* FocusMatch+Helper.swift */; };
+		4D3055CC2D3CBB36009A7BBD /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055CB2D3CBB36009A7BBD /* UserPreferences.swift */; };
+		4D3055CE2D3CC9CA009A7BBD /* FocusNumberPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055CD2D3CC9CA009A7BBD /* FocusNumberPicker.swift */; };
 		4D8AB7642D3B7A7900009BC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D8AB75F2D3B7A7900009BC9 /* Assets.xcassets */; };
 		4D8AB7652D3B7A7900009BC9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8AB7602D3B7A7900009BC9 /* ContentView.swift */; };
-		4D8AB76A2D3B811E00009BC9 /* FocusNumberPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8AB7692D3B810200009BC9 /* FocusNumberPicker.swift */; };
 		4DC602382D345A1B00B5E4A9 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602342D34570200B5E4A9 /* SignInViewModel.swift */; };
 		4DC602392D345A3500B5E4A9 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602352D34577E00B5E4A9 /* SignInView.swift */; };
 		4DC6023A2D345C9E00B5E4A9 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602322D34552200B5E4A9 /* KeychainHelper.swift */; };
@@ -20,9 +29,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D3055AC2D3C9942009A7BBD /* FocusNumberManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberManager.swift; sourceTree = "<group>"; };
+		4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberHelper.swift; sourceTree = "<group>"; };
+		4D3055B62D3C9C3B009A7BBD /* VybeMVP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VybeMVP.xcodeproj; sourceTree = SOURCE_ROOT; };
+		4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberView.swift; sourceTree = "<group>"; };
+		4D3055C02D3CA97C009A7BBD /* VybeMVP.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VybeMVP.xcdatamodel; sourceTree = "<group>"; };
+		4D3055C22D3CB018009A7BBD /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		4D3055C52D3CB201009A7BBD /* UserPreferences+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserPreferences+Helper.swift"; sourceTree = "<group>"; };
+		4D3055C72D3CB8ED009A7BBD /* FocusMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusMatch.swift; sourceTree = "<group>"; };
+		4D3055C92D3CB981009A7BBD /* FocusMatch+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FocusMatch+Helper.swift"; sourceTree = "<group>"; };
+		4D3055CB2D3CBB36009A7BBD /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		4D3055CD2D3CC9CA009A7BBD /* FocusNumberPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberPicker.swift; sourceTree = "<group>"; };
 		4D8AB75F2D3B7A7900009BC9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D8AB7602D3B7A7900009BC9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		4D8AB7692D3B810200009BC9 /* FocusNumberPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberPicker.swift; sourceTree = "<group>"; };
 		4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VybeMVP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DC602322D34552200B5E4A9 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		4DC602342D34570200B5E4A9 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
@@ -36,9 +55,9 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		4D74C2162D3B3EE800DBE623 /* Scipts */ = {
+		4D74C2162D3B3EE800DBE623 /* Scripts */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Scipts;
+			path = Scripts;
 			sourceTree = "<group>";
 		};
 		4D74C21A2D3B3FF400DBE623 /* FocusNumber */ = {
@@ -72,6 +91,13 @@
 		4D3055972D3C941B009A7BBD /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				4D3055C52D3CB201009A7BBD /* UserPreferences+Helper.swift */,
+				4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */,
+				4D3055BF2D3CA97C009A7BBD /* VybeMVP.xcdatamodeld */,
+				4D3055C22D3CB018009A7BBD /* PersistenceController.swift */,
+				4D3055C72D3CB8ED009A7BBD /* FocusMatch.swift */,
+				4D3055C92D3CB981009A7BBD /* FocusMatch+Helper.swift */,
+				4D3055CB2D3CBB36009A7BBD /* UserPreferences.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -79,6 +105,7 @@
 		4D3055982D3C9462009A7BBD /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				4D3055AC2D3C9942009A7BBD /* FocusNumberManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -93,12 +120,13 @@
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
+				4D3055B62D3C9C3B009A7BBD /* VybeMVP.xcodeproj */,
+				4DCE3BCF2D3C75E80022F283 /* Info.plist */,
+				4DC6022D2D34440900B5E4A9 /* Core */,
 				4D3055992D3C94A4009A7BBD /* Resources */,
 				4D3055982D3C9462009A7BBD /* Managers */,
-				4DCE3BCF2D3C75E80022F283 /* Info.plist */,
 				4DC6022C2D34440900B5E4A9 /* App */,
-				4D74C2162D3B3EE800DBE623 /* Scipts */,
-				4DC6022D2D34440900B5E4A9 /* Core */,
+				4D74C2162D3B3EE800DBE623 /* Scripts */,
 				4DC6022E2D34440900B5E4A9 /* Features */,
 				4DC602302D34440900B5E4A9 /* Views */,
 				4DC6021D2D343E8D00B5E4A9 /* VybeMVP */,
@@ -153,13 +181,14 @@
 		4DC602302D34440900B5E4A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4D8AB7692D3B810200009BC9 /* FocusNumberPicker.swift */,
 				4DC602412D34652300B5E4A9 /* AboutView.swift */,
 				4DC6023F2D34650C00B5E4A9 /* SettingsView.swift */,
 				4D8AB7602D3B7A7900009BC9 /* ContentView.swift */,
 				4DC6023D2D3464FA00B5E4A9 /* HomeView.swift */,
 				4DC6023B2D345E1C00B5E4A9 /* MainView.swift */,
 				4DC602352D34577E00B5E4A9 /* SignInView.swift */,
+				4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */,
+				4D3055CD2D3CC9CA009A7BBD /* FocusNumberPicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -188,7 +217,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				4D74C2162D3B3EE800DBE623 /* Scipts */,
+				4D74C2162D3B3EE800DBE623 /* Scripts */,
 				4D74C21A2D3B3FF400DBE623 /* FocusNumber */,
 				4D8AB7702D3C746200009BC9 /* Preview Content */,
 				4DC6021D2D343E8D00B5E4A9 /* VybeMVP */,
@@ -251,9 +280,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DC602402D34651C00B5E4A9 /* SettingsView.swift in Sources */,
-				4D8AB76A2D3B811E00009BC9 /* FocusNumberPicker.swift in Sources */,
 				4DC6023E2D34650400B5E4A9 /* HomeView.swift in Sources */,
+				4D3055C62D3CB201009A7BBD /* UserPreferences+Helper.swift in Sources */,
+				4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */,
+				4D3055CE2D3CC9CA009A7BBD /* FocusNumberPicker.swift in Sources */,
+				4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */,
+				4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */,
+				4D3055CC2D3CBB36009A7BBD /* UserPreferences.swift in Sources */,
+				4D3055C82D3CB8ED009A7BBD /* FocusMatch.swift in Sources */,
+				4D3055AE2D3C9942009A7BBD /* FocusNumberManager.swift in Sources */,
 				4DC6023C2D345E2000B5E4A9 /* MainView.swift in Sources */,
+				4D3055C32D3CB018009A7BBD /* PersistenceController.swift in Sources */,
+				4D3055CA2D3CB981009A7BBD /* FocusMatch+Helper.swift in Sources */,
 				4DC602422D34652600B5E4A9 /* AboutView.swift in Sources */,
 				4DC602392D345A3500B5E4A9 /* SignInView.swift in Sources */,
 				4DC6023A2D345C9E00B5E4A9 /* KeychainHelper.swift in Sources */,
@@ -468,6 +506,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4D3055BF2D3CA97C009A7BBD /* VybeMVP.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4D3055C02D3CA97C009A7BBD /* VybeMVP.xcdatamodel */,
+			);
+			currentVersion = 4D3055C02D3CA97C009A7BBD /* VybeMVP.xcdatamodel */;
+			path = VybeMVP.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4DC602132D343E8D00B5E4A9 /* Project object */;
 }

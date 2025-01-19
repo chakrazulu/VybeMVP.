@@ -1,20 +1,71 @@
 import Foundation
 import Combine
 import CoreLocation
+import CoreData
 
 class FocusNumberManager: NSObject, ObservableObject {
     @Published var currentFocusNumber: Int = 0
     @Published var selectedFocusNumber: Int = 0
-    @Published var matchLogs: [String] = []
+    @Published var matchLogs: [FocusMatch] = []  // Changed to use Core Data entity
     @Published var isAutoUpdateEnabled: Bool = false
     
     private var timer: Timer?
     private var locationManager = CLLocationManager()
     private var currentLocation: CLLocationCoordinate2D?
+    private var viewContext: NSManagedObjectContext
     
-    override init() {
+    init(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
+        self.viewContext = context
         super.init()
         setupLocationManager()
+        loadPreferences()
+        loadMatchLogs()
+        print("📱 Manager initialized with number: \(selectedFocusNumber)")
+    }
+    
+    private func loadPreferences() {
+        let preferences = UserPreferences.fetch(in: viewContext)
+        selectedFocusNumber = Int(preferences.lastSelectedNumber)
+        isAutoUpdateEnabled = preferences.isAutoUpdateEnabled
+        print("📱 Loaded preferences - Selected Number: \(selectedFocusNumber), Auto Update: \(isAutoUpdateEnabled)")
+        
+        if isAutoUpdateEnabled {
+            startUpdates()
+        }
+    }
+    
+    private func saveMatch() {
+        guard let location = currentLocation else { return }
+        
+        // Create and save the match
+        _ = FocusMatch.create(
+            in: viewContext,
+            chosenNumber: Int16(selectedFocusNumber),
+            matchedNumber: Int16(currentFocusNumber),
+            latitude: location.latitude,
+            longitude: location.longitude
+        )
+        
+        do {
+            try viewContext.save()
+            loadMatchLogs()
+            print("✅ Match saved successfully")
+            print("📝 Current matches count: \(matchLogs.count)")
+        } catch {
+            print("❌ Failed to save match: \(error)")
+        }
+    }
+    
+    private func loadMatchLogs() {
+        let request = NSFetchRequest<FocusMatch>(entityName: "FocusMatch")
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \FocusMatch.timestamp, ascending: false)]
+        
+        do {
+            matchLogs = try viewContext.fetch(request)
+            print("📱 Loaded \(matchLogs.count) matches from storage")
+        } catch {
+            print("❌ Failed to fetch matches: \(error)")
+        }
     }
     
     private func setupLocationManager() {
@@ -27,7 +78,12 @@ class FocusNumberManager: NSObject, ObservableObject {
         print("🕒 Starting focus number updates")
         stopUpdates() // Ensure no timer duplication
         isAutoUpdateEnabled = true
-        timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
+        
+        // Start location updates
+        locationManager.startUpdatingLocation()
+        
+        // Create timer for updates
+        timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { [weak self] _ in  // Changed to 10 seconds for testing
             self?.updateFocusNumber()
         }
         // Initial update
@@ -47,32 +103,45 @@ class FocusNumberManager: NSObject, ObservableObject {
             return
         }
         
-        // Get current date and mock BPM (replace with actual BPM later)
-        let currentDate = Date()
-        let mockBPM = 80 // Replace with actual BPM measurement
+        print("\n🔢 FOCUS NUMBER CALCULATION STARTED")
+        print("----------------------------------------")
         
-        // Calculate focus number using helper
+        // Get current date and mock BPM
+        let currentDate = Date()
+        let mockBPM = 80
+        
+        print("📅 Current Date: \(currentDate)")
+        print("📍 Location: \(coordinates.latitude), \(coordinates.longitude)")
+        print("❤️ BPM: \(mockBPM)")
+        
+        // Calculate focus number
         currentFocusNumber = FocusNumberHelper.calculateFocusNumber(
             date: currentDate,
             coordinates: coordinates,
             bpm: mockBPM
         )
         
+        print("✨ Calculated Focus Number: \(currentFocusNumber)")
+        print("----------------------------------------\n")
+        
         checkForMatch()
     }
 
     func checkForMatch() {
         if currentFocusNumber == selectedFocusNumber {
-            let timestamp = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .medium)
-            let logEntry = "🎯 Match! Focus Number \(currentFocusNumber) at \(timestamp)"
-            matchLogs.append(logEntry)
-            print(logEntry)
+            saveMatch() // Now using Core Data to save matches
         }
     }
     
     func userDidPickFocusNumber(_ number: Int) {
+        print("🔢 User picked number: \(number)")
         selectedFocusNumber = number
-        print("🎲 User selected focus number: \(number)")
+        // Save to Core Data
+        UserPreferences.save(
+            in: viewContext,
+            lastSelectedNumber: Int16(number),
+            isAutoUpdateEnabled: isAutoUpdateEnabled
+        )
         checkForMatch()
     }
     
@@ -137,6 +206,6 @@ extension FocusNumberManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("🚫 Location error: \(error.localizedDescription)")
+        print("📍 Location error: \(error.localizedDescription)")
     }
 }

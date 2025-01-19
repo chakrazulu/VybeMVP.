@@ -4,51 +4,66 @@
 //
 //  Created by Corey Davis on 1/17/25.
 //
+
 import SwiftUI
 
-struct MainView: View {
-    @StateObject private var focusManager = FocusNumberManager()
-
+struct FocusNumberView: View {
+    @EnvironmentObject var focusNumberManager: FocusNumberManager
+    @Environment(\.dismiss) var dismiss
+    @State private var showingPicker = false
+    
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Your Focus Number")
-                .font(.headline)
-            
-            Text("\(focusManager.currentFocusNumber)")
-                .font(.system(size: 60, weight: .bold, design: .rounded))
-                .foregroundColor(.purple)
-                .padding()
-                .background(Circle().fill(Color.purple.opacity(0.2)))
-                .shadow(radius: 10)
-
-            HStack(spacing: 20) {
-                Button(action: {
-                    focusManager.enableAutoFocusNumber()
-                }) {
-                    Text("Enable Auto-Update")
-                        .padding()
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+        NavigationView {
+            VStack(spacing: 20) {
+                // Selected Number Display
+                VStack {
+                    Text("Selected Focus Number")
+                        .font(.headline)
+                    
+                    Text("\(focusNumberManager.selectedFocusNumber)")
+                        .font(.system(size: 48, weight: .bold, design: .rounded))
+                        .foregroundColor(.blue)
+                        .frame(width: 100, height: 100)
+                        .background(Circle().fill(Color.blue.opacity(0.2)))
+                        .shadow(radius: 5)
                 }
+                .padding()
                 
+                // Choose Number Button
                 Button(action: {
-                    focusManager.userDidPickFocusNumber(Int.random(in: 0...9)) // Replace with UI picker later
+                    showingPicker = true
                 }) {
-                    Text("Pick a Number")
+                    Label("Choose Number", systemImage: "number.circle")
+                        .font(.headline)
                         .padding()
+                        .frame(maxWidth: .infinity)
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
+                .padding(.horizontal)
+                .sheet(isPresented: $showingPicker) {
+                    FocusNumberPicker()
+                }
+                
+                #if DEBUG
+                // Debug Controls
+                VStack {
+                    Button(action: {
+                        focusNumberManager.testLocationPermissions()
+                    }) {
+                        Label("Test Location", systemImage: "location.circle.fill")
+                            .padding()
+                            .background(Color.orange.opacity(0.2))
+                            .cornerRadius(10)
+                    }
+                }
+                .padding()
+                #endif
+                
+                Spacer()
             }
-        }
-        .padding()
-        .onAppear {
-            focusManager.startUpdates()
-        }
-        .onDisappear {
-            focusManager.timer?.invalidate()
+            .navigationTitle("Focus Number")
         }
     }
 }
