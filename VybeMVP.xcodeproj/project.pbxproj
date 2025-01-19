@@ -69,9 +69,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D3055972D3C941B009A7BBD /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		4D3055982D3C9462009A7BBD /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		4D3055992D3C94A4009A7BBD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
+				4D3055992D3C94A4009A7BBD /* Resources */,
+				4D3055982D3C9462009A7BBD /* Managers */,
 				4DCE3BCF2D3C75E80022F283 /* Info.plist */,
 				4DC6022C2D34440900B5E4A9 /* App */,
 				4D74C2162D3B3EE800DBE623 /* Scipts */,
@@ -103,6 +126,7 @@
 		4DC6022D2D34440900B5E4A9 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				4D3055972D3C941B009A7BBD /* Data */,
 				4DC602322D34552200B5E4A9 /* KeychainHelper.swift */,
 			);
 			path = Core;
