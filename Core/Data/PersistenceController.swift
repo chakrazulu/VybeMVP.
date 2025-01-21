@@ -1,6 +1,6 @@
 import CoreData
 
-struct PersistenceController {
+class PersistenceController {
     // Shared instance for the app
     static let shared = PersistenceController()
     
@@ -15,10 +15,32 @@ struct PersistenceController {
     
     // Initialize Core Data stack
     init(inMemory: Bool = false) {
+        // Disable CoreData debug output
+        UserDefaults.standard.set(false, forKey: "com.apple.CoreData.SQLDebug")
+        UserDefaults.standard.set(false, forKey: "com.apple.CoreData.Logging.stderr")
+        UserDefaults.standard.set(false, forKey: "com.apple.CoreData.CloudKitDebug")
+        
         container = NSPersistentContainer(name: "VybeMVP")
         
+        if let description = container.persistentStoreDescriptions.first {
+            description.setOption(true as NSNumber, 
+                                forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+            
+            // Optimize for performance
+            description.setOption(true as NSNumber, 
+                                forKey: NSPersistentHistoryTrackingKey)
+            description.setOption(true as NSNumber, 
+                                forKey: "NSPersistentStoreRemoveUbiquitousMetadataOption")
+            description.setOption(false as NSNumber, 
+                                forKey: "NSPersistentStoreLoggingKey")
+            
+            // Configure automatic lightweight migration
+            description.shouldMigrateStoreAutomatically = true
+            description.shouldInferMappingModelAutomatically = true
+        }
+        
         if inMemory {
-            container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
+            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
         
         container.loadPersistentStores { description, error in
@@ -27,21 +49,43 @@ struct PersistenceController {
             }
         }
         
-        // Enable automatic merging of changes
         container.viewContext.automaticallyMergesChangesFromParent = true
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
+        // Optimize view context
+        container.viewContext.shouldDeleteInaccessibleFaults = true
+        container.viewContext.name = "MainContext"
+        container.viewContext.undoManager = nil  // Disable undo management for better performance
     }
     
     // Save changes if there are any
     func save() {
         let context = container.viewContext
         
-        if context.hasChanges {
+        guard context.hasChanges else { return }
+        
+        // Perform save on background thread
+        DispatchQueue.global(qos: .userInitiated).async {
             do {
-                try context.save()
+                try context.performAndWait {
+                    try context.save()
+                }
             } catch {
-                print("Error saving context: \(error)")
+                let nsError = error as NSError
+                Logger.error("Error saving context: \(nsError.localizedDescription)", category: Logger.coreData)
+                
+                #if DEBUG
+                DispatchQueue.main.async {
+                    fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                }
+                #endif
             }
+        }
+    }
+    
+    func saveIfNeeded() {
+        if container.viewContext.hasChanges {
+            save()
         }
     }
 } 

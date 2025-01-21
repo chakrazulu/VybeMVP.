@@ -11,65 +11,84 @@ struct HomeView: View {
     @State private var showingPicker = false
     
     var body: some View {
-        NavigationView {
-            VStack(spacing: 20) {
-                // Current Focus Number Display
-                VStack {
-                    Text("Your Focus Number")
-                        .font(.title)
+        VStack(spacing: 30) {
+            Text("Vybe")
+                .font(.system(size: 40, weight: .bold))
+            
+            Text("Your Focus Number")
+                .font(.title)
+            
+            // Focus Number Display
+            ZStack {
+                Circle()
+                    .fill(Color.purple.opacity(0.2))
+                    .frame(width: 120, height: 120)
+                
+                Text("\(focusNumberManager.selectedFocusNumber)")
+                    .font(.system(size: 60, weight: .bold))
+                    .foregroundColor(.purple)
+            }
+            
+            // Recent Matches Section
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Recent Matches")
+                    .font(.headline)
+                    .padding(.horizontal)
+                
+                if focusNumberManager.matchLogs.isEmpty {
+                    Text("No matches yet")
+                        .foregroundColor(.secondary)
                         .padding()
-                    
-                    Text("\(focusNumberManager.selectedFocusNumber)")
-                        .font(.system(size: 60, weight: .bold, design: .rounded))
-                        .foregroundColor(.purple)
-                        .frame(width: 120, height: 120)
-                        .background(Circle().fill(Color.purple.opacity(0.2)))
-                        .shadow(radius: 5)
-                }
-                
-                // Auto-Update Toggle
-                Toggle("Auto Update", isOn: $focusNumberManager.isAutoUpdateEnabled)
-                    .padding()
-                    .onChange(of: focusNumberManager.isAutoUpdateEnabled) { _, newValue in
-                        if newValue {
-                            focusNumberManager.startUpdates()
-                        } else {
-                            focusNumberManager.stopUpdates()
-                        }
-                    }
-                
-                // Match Logs Section
-                if !focusNumberManager.matchLogs.isEmpty {
-                    Section(header: Text("Recent Matches")) {
-                        List(focusNumberManager.matchLogs, id: \.timestamp) { match in
-                            VStack(alignment: .leading) {
-                                Text("Match! Number \(match.matchedNumber)")
-                                    .font(.headline)
-                                Text(match.timestamp, style: .date)
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
+                } else {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 15) {
+                            ForEach(Array(focusNumberManager.matchLogs.prefix(5).enumerated()), id: \.offset) { index, match in
+                                VStack {
+                                    Text("#\(match.matchedNumber)")
+                                        .font(.title2)
+                                        .bold()
+                                    Text(match.timestamp, style: .time)
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                                .padding()
+                                .background(Color.purple.opacity(0.1))
+                                .cornerRadius(10)
                             }
                         }
+                        .padding(.horizontal)
                     }
                 }
-                
-                Spacer()
             }
-            .navigationTitle("Vybe")
-            .toolbar {
-                Button("Change Number") {
-                    showingPicker = true
-                }
+            
+            Spacer()
+            
+            // Change Number Button
+            Button("Change Number") {
+                showingPicker = true
             }
-            .sheet(isPresented: $showingPicker) {
-                FocusNumberPicker()
-            }
+            .font(.headline)
+            .foregroundColor(.blue)
+        }
+        .padding(.top, 50)
+        .sheet(isPresented: $showingPicker) {
+            FocusNumberPicker()
+        }
+        .onAppear {
+            focusNumberManager.loadMatchLogs()
         }
     }
+    
+    private let timeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter
+    }()
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+            .environmentObject(FocusNumberManager())
     }
 }
