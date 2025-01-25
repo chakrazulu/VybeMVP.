@@ -2,10 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>location</string>
+		<string>processing</string>
+		<string>remote-notification</string>
+	</array>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.infinitiesinn.vybe.backgroundUpdate</string>
+		<string>com.infinitiesinn.vybe.backgroundProcessing</string>
+	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Vybe needs your location to calculate your accurate focus number.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Vybe needs your location to keep your focus number updated.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Vybe needs your location to keep your focus number updated, even when the app is in the background.</string>
+	<key>UIRequiresPersistentWiFi</key>
+	<true/>
 	<key>CFBundleIdentifier</key>
 	<string>com.infinitiesinn.vybe.VybeMVP</string>
 	<key>CFBundleExecutable</key>

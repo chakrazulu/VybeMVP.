@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "4D06479A-0358-4C63-9CB0-04E94E368A5C",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:VybeMVP.xcodeproj",
+      "identifier" : "4DC6021A2D343E8D00B5E4A9",
+      "name" : "VybeMVP"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:VybeMVP.xcodeproj",
+        "identifier" : "4D80E10B2D41E17A0020F7BB",
+        "name" : "VybeMVPTests"
+      }
+    }
+  ],
+  "version" : 1
+}

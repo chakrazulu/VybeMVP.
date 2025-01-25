@@ -28,19 +28,26 @@ struct ContentView: View {
                 }
                 .tag(2)
             
+            MatchAnalyticsView()
+                .tabItem {
+                    Image(systemName: "chart.bar.fill")
+                    Text("Analytics")
+                }
+                .tag(3)
+            
             NumberMeaningView()
                 .tabItem {
                     Image(systemName: "number.circle.fill")
                     Text("Meanings")
                 }
-                .tag(3)
+                .tag(4)
             
             AboutView()
                 .tabItem {
                     Image(systemName: "info.circle.fill")
                     Text("About")
                 }
-                .tag(4)
+                .tag(5)
         }
         .onAppear {
             // Set the tab bar appearance

@@ -33,6 +33,8 @@
 		4D3056022D3DB59B009A7BBD /* RealmNumberManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3056012D3DB59B009A7BBD /* RealmNumberManager.swift */; };
 		4D80E0FD2D3F1B0B0020F7BB /* NumberMeaningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E0FC2D3F1B0B0020F7BB /* NumberMeaningView.swift */; };
 		4D80E1012D3F1DD80020F7BB /* NumberMeaning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E1002D3F1DD80020F7BB /* NumberMeaning.swift */; };
+		4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */; };
+		4D80E11B2D448C190020F7BB /* BackgroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E11A2D448C190020F7BB /* BackgroundManager.swift */; };
 		4D8AB7652D3B7A7900009BC9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8AB7602D3B7A7900009BC9 /* ContentView.swift */; };
 		4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */; };
 		4DC602382D345A1B00B5E4A9 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602342D34570200B5E4A9 /* SignInViewModel.swift */; };
@@ -43,6 +45,16 @@
 		4DC602402D34651C00B5E4A9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC6023F2D34650C00B5E4A9 /* SettingsView.swift */; };
 		4DC602422D34652600B5E4A9 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602412D34652300B5E4A9 /* AboutView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4D80E1102D41E17A0020F7BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DC602132D343E8D00B5E4A9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4DC6021A2D343E8D00B5E4A9;
+			remoteInfo = VybeMVP;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		4D3055AC2D3C9942009A7BBD /* FocusNumberManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberManager.swift; sourceTree = "<group>"; };
@@ -72,6 +84,10 @@
 		4D3056012D3DB59B009A7BBD /* RealmNumberManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberManager.swift; sourceTree = "<group>"; };
 		4D80E0FC2D3F1B0B0020F7BB /* NumberMeaningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMeaningView.swift; sourceTree = "<group>"; };
 		4D80E1002D3F1DD80020F7BB /* NumberMeaning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMeaning.swift; sourceTree = "<group>"; };
+		4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchAnalyticsView.swift; sourceTree = "<group>"; };
+		4D80E10C2D41E17A0020F7BB /* VybeMVPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VybeMVPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D80E1192D41F0900020F7BB /* VybeMVP.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = VybeMVP.xctestplan; sourceTree = "<group>"; };
+		4D80E11A2D448C190020F7BB /* BackgroundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundManager.swift; sourceTree = "<group>"; };
 		4D8AB7602D3B7A7900009BC9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberView.swift; sourceTree = "<group>"; };
 		4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VybeMVP.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +112,11 @@
 			path = FocusNumber;
 			sourceTree = "<group>";
 		};
+		4D80E10D2D41E17A0020F7BB /* VybeMVPTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = VybeMVPTests;
+			sourceTree = "<group>";
+		};
 		4D8AB7702D3C746200009BC9 /* Preview Content */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Preview Content";
@@ -109,6 +130,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4D80E1092D41E17A0020F7BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4DC602182D343E8D00B5E4A9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -140,6 +168,7 @@
 				4D3055AC2D3C9942009A7BBD /* FocusNumberManager.swift */,
 				4D3055DB2D3CE741009A7BBD /* JournalManager.swift */,
 				4D3056012D3DB59B009A7BBD /* RealmNumberManager.swift */,
+				4D80E11A2D448C190020F7BB /* BackgroundManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -187,6 +216,7 @@
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
+				4D80E1192D41F0900020F7BB /* VybeMVP.xctestplan */,
 				4D3055B62D3C9C3B009A7BBD /* VybeMVP.xcodeproj */,
 				4D3055ED2D3CF838009A7BBD /* Utilities */,
 				4DCE3BCF2D3C75E80022F283 /* Info.plist */,
@@ -198,6 +228,7 @@
 				4DC6022E2D34440900B5E4A9 /* Features */,
 				4DC602302D34440900B5E4A9 /* Views */,
 				4D8AB7702D3C746200009BC9 /* Preview Content */,
+				4D80E10D2D41E17A0020F7BB /* VybeMVPTests */,
 				4DC6021C2D343E8D00B5E4A9 /* Products */,
 				4DC6021D2D343E8D00B5E4A9 /* VybeMVP */,
 			);
@@ -207,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */,
+				4D80E10C2D41E17A0020F7BB /* VybeMVPTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -256,6 +288,7 @@
 				4D3055FD2D3D903B009A7BBD /* JournalEntryRow.swift */,
 				4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */,
 				4D80E0FC2D3F1B0B0020F7BB /* NumberMeaningView.swift */,
+				4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -271,6 +304,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4D80E10B2D41E17A0020F7BB /* VybeMVPTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D80E1122D41E17A0020F7BB /* Build configuration list for PBXNativeTarget "VybeMVPTests" */;
+			buildPhases = (
+				4D80E1082D41E17A0020F7BB /* Sources */,
+				4D80E1092D41E17A0020F7BB /* Frameworks */,
+				4D80E10A2D41E17A0020F7BB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4D80E1112D41E17A0020F7BB /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				4D80E10D2D41E17A0020F7BB /* VybeMVPTests */,
+			);
+			name = VybeMVPTests;
+			packageProductDependencies = (
+			);
+			productName = VybeMVPTests;
+			productReference = 4D80E10C2D41E17A0020F7BB /* VybeMVPTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		4DC6021A2D343E8D00B5E4A9 /* VybeMVP */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4DC602292D343E8E00B5E4A9 /* Build configuration list for PBXNativeTarget "VybeMVP" */;
@@ -306,6 +362,10 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					4D80E10B2D41E17A0020F7BB = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 4DC6021A2D343E8D00B5E4A9;
+					};
 					4DC6021A2D343E8D00B5E4A9 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -332,11 +392,19 @@
 			projectRoot = "";
 			targets = (
 				4DC6021A2D343E8D00B5E4A9 /* VybeMVP */,
+				4D80E10B2D41E17A0020F7BB /* VybeMVPTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4D80E10A2D41E17A0020F7BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4DC602192D343E8D00B5E4A9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -347,6 +415,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4D80E1082D41E17A0020F7BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4DC602172D343E8D00B5E4A9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -356,7 +431,9 @@
 				4D80E1012D3F1DD80020F7BB /* NumberMeaning.swift in Sources */,
 				4DC6023E2D34650400B5E4A9 /* HomeView.swift in Sources */,
 				4D3055FA2D3D899A009A7BBD /* JournalMood.swift in Sources */,
+				4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */,
 				4D3055C62D3CB201009A7BBD /* UserPreferences+Helper.swift in Sources */,
+				4D80E11B2D448C190020F7BB /* BackgroundManager.swift in Sources */,
 				4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */,
 				4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */,
 				4D3055CE2D3CC9CA009A7BBD /* FocusNumberPicker.swift in Sources */,
@@ -391,7 +468,51 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		4D80E1112D41E17A0020F7BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4DC6021A2D343E8D00B5E4A9 /* VybeMVP */;
+			targetProxy = 4D80E1102D41E17A0020F7BB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		4D80E1132D41E17A0020F7BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 78GUR5644G;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infinitiesinn.vybe.VybeMVPTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VybeMVP.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VybeMVP";
+			};
+			name = Debug;
+		};
+		4D80E1142D41E17A0020F7BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 78GUR5644G;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infinitiesinn.vybe.VybeMVPTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VybeMVP.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VybeMVP";
+			};
+			name = Release;
+		};
 		4DC602272D343E8E00B5E4A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -576,6 +697,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4D80E1122D41E17A0020F7BB /* Build configuration list for PBXNativeTarget "VybeMVPTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D80E1132D41E17A0020F7BB /* Debug */,
+				4D80E1142D41E17A0020F7BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4DC602162D343E8D00B5E4A9 /* Build configuration list for PBXProject "VybeMVP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

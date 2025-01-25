@@ -13,7 +13,7 @@ class FocusNumberManager: NSObject, ObservableObject {
     
     private var timer: Timer?
     private var locationManager = CLLocationManager()
-    private var _currentLocation: CLLocationCoordinate2D?  // Renamed to _currentLocation
+    private var _currentLocation: CLLocationCoordinate2D?
     private var viewContext: NSManagedObjectContext
     
     static let validFocusNumbers = 1...9
@@ -33,8 +33,14 @@ class FocusNumberManager: NSObject, ObservableObject {
         return calendar
     }()
     
-    var currentLocation: CLLocationCoordinate2D? {
-        return _currentLocation
+    var currentLocation: CLLocation? {
+        get {
+            guard let coordinate = _currentLocation else { return nil }
+            return CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        }
+        set {
+            _currentLocation = newValue?.coordinate
+        }
     }
     
     private var lastUpdateTime: Date = Date()
@@ -181,8 +187,8 @@ class FocusNumberManager: NSObject, ObservableObject {
         var locationFactor = 0
         if let location = currentLocation {
             // Convert coordinates to strings and sum their digits
-            let latString = String(format: "%.4f", abs(location.latitude))
-            let longString = String(format: "%.4f", abs(location.longitude))
+            let latString = String(format: "%.4f", abs(location.coordinate.latitude))
+            let longString = String(format: "%.4f", abs(location.coordinate.longitude))
             
             let latDigits = latString.compactMap { $0.isNumber ? Int(String($0)) : nil }
             let longDigits = longString.compactMap { $0.isNumber ? Int(String($0)) : nil }
@@ -194,9 +200,9 @@ class FocusNumberManager: NSObject, ObservableObject {
             locationFactor = reduceToSingleDigit(latSum + longSum)
             
             Logger.debug("📍 Location Analysis:", category: Logger.focus)
-            Logger.debug("   Raw Latitude: \(location.latitude)", category: Logger.focus)
+            Logger.debug("   Raw Latitude: \(location.coordinate.latitude)", category: Logger.focus)
             Logger.debug("   → Digits: \(latDigits.map(String.init).joined(separator: "+")) = \(latDigits.reduce(0, +)) reduces to \(latSum)", category: Logger.focus)
-            Logger.debug("   Raw Longitude: \(location.longitude)", category: Logger.focus)
+            Logger.debug("   Raw Longitude: \(location.coordinate.longitude)", category: Logger.focus)
             Logger.debug("   → Digits: \(longDigits.map(String.init).joined(separator: "+")) = \(longDigits.reduce(0, +)) reduces to \(longSum)", category: Logger.focus)
             Logger.debug("   Location Factor (reduced): \(locationFactor)", category: Logger.focus)
         } else {
@@ -238,8 +244,8 @@ class FocusNumberManager: NSObject, ObservableObject {
         checkForMatches()
     }
     
-    // Helper function to reduce a number to a single digit (digital root)
-    private func reduceToSingleDigit(_ number: Int) -> Int {
+    // Change from private to internal for testing
+    func reduceToSingleDigit(_ number: Int) -> Int {
         var num = abs(number)
         while num > 9 {
             let digits = String(num).compactMap { Int(String($0)) }

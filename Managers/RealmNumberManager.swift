@@ -41,160 +41,212 @@ class RealmNumberManager: NSObject, ObservableObject {
     }
     
     // MARK: - Published Properties
-    @Published var currentRealmNumber: Int = 1
+    @Published private(set) var currentRealmNumber: Int = 1
+    
+    // Add strong reference to prevent deallocation
+    private var retainedSelf: RealmNumberManager?
     
     // MARK: - Private Properties
     private var timer: Timer?
     private var locationManager: CLLocationManager?
     private var currentLocation: CLLocationCoordinate2D?
+    private var isActive: Bool = false
+    private var lastCalculationTime: Date?
     
     // Mock BPM values for testing
-    private let mockBPMs: [Int] = [
-        Constants.minBPM,     // Resting/Meditation
-        75,                   // Normal relaxed state
-        85,                   // Light activity
-        95,                   // Moderate activity
-        115,                  // Exercise
-        Constants.maxBPM      // Peak exercise
-    ]
-    
+    private let mockBPMs: [Int] = [62, 75, 85, 95, 115, 135]
     private var currentMockBPMIndex = 0
+    private var mockBPM: Int { mockBPMs[currentMockBPMIndex] }
     
-    // Helper to get current mock BPM
-    private var mockBPM: Int {
-        return mockBPMs[currentMockBPMIndex]
-    }
+    // Public getter for testing
+    var currentMockBPM: Int { mockBPM }
     
-    // UTC Calendar for calculations
-    private lazy var utcCalendar: Calendar = {
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = TimeZone(identifier: "UTC")!
-        return calendar
-    }()
+    // For testing
+    private var testDate: Date?
     
     // MARK: - Initialization
     override init() {
         super.init()
         print(ManagerState.initializing.description)
-        // Delay setup to prevent blocking main thread
-        DispatchQueue.main.async { [weak self] in
-            self?.setupManager()
-        }
+        setupManager()
+        // Retain self after setup
+        retainedSelf = self
     }
     
     private func setupManager() {
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.desiredAccuracy = Constants.locationAccuracy
-        locationManager?.distanceFilter = Constants.locationUpdateDistance
-        locationManager?.requestWhenInUseAuthorization()
-        
-        currentState = .waitingForLocation
-        print(currentState.description)
-        
-        // Start with initial calculation
-        calculateRealmNumber()
-        
-        // Setup timer on main thread
-        DispatchQueue.main.async { [weak self] in
-            self?.startUpdates()
+        // Setup location manager on main thread
+        DispatchQueue.main.async {
+            self.locationManager = CLLocationManager()
+            self.locationManager?.delegate = self
+            self.locationManager?.desiredAccuracy = Constants.locationAccuracy
+            self.locationManager?.distanceFilter = Constants.locationUpdateDistance
+            self.locationManager?.requestWhenInUseAuthorization()
+            
+            self.currentState = .waitingForLocation
+            print(self.currentState.description)
+            
+            // Initial calculation
+            self.calculateRealmNumber()
+            
+            // Start updates after setup
+            self.startUpdates()
         }
     }
     
+    // MARK: - Core Calculation Logic
     func calculateRealmNumber() {
+        // Ensure we're on main thread for UI updates
+        if !Thread.isMainThread {
+            DispatchQueue.main.async { [weak self] in
+                self?.calculateRealmNumber()
+            }
+            return
+        }
+        
         print("\n🔮 RealmNumberManager - Starting calculation...")
         
-        // Perform calculation on background thread
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else {
-                print("❌ RealmNumberManager - Self is nil during calculation")
-                return
-            }
+        // Get UTC date components
+        let utcNow = getCurrentUTCDate()
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        
+        // Extract components
+        let hour = calendar.component(.hour, from: utcNow)
+        let minute = calendar.component(.minute, from: utcNow)
+        let day = calendar.component(.day, from: utcNow)
+        let month = calendar.component(.month, from: utcNow)
+        
+        // Calculate time sum (hour + minute)
+        let timeSum = reduceToSingleDigit(hour + minute)
+        
+        // Calculate date sum (day + month)
+        let dateSum = reduceToSingleDigit(day + month)
+        
+        // Process location
+        var locationSum = 0
+        if let location = currentLocation {
+            let latDegrees = String(format: "%.6f", abs(location.latitude))
+                .replacingOccurrences(of: ".", with: "")
+            let lonDegrees = String(format: "%.6f", abs(location.longitude))
+                .replacingOccurrences(of: ".", with: "")
             
-            let utcNow = Date()
+            let latSum = reduceToSingleDigit(Int(latDegrees) ?? 0)
+            let lonSum = reduceToSingleDigit(Int(lonDegrees) ?? 0)
+            locationSum = reduceToSingleDigit(latSum + lonSum)
+        }
+        
+        // Get BPM value and reduce
+        let bpmSum = reduceToSingleDigit(mockBPM)
+        
+        // Calculate final number
+        let totalSum = timeSum + dateSum + locationSum + bpmSum
+        let finalNumber = reduceToSingleDigit(totalSum)
+        
+        let oldNumber = currentRealmNumber
+        if finalNumber != oldNumber || testDate != nil {
+            currentRealmNumber = finalNumber
+            print("🔄 Realm Number changed from \(oldNumber) to \(finalNumber)")
+            print("\n🔢 Component Breakdown:")
+            print("Time: \(hour)h:\(minute)m = \(timeSum)")
+            print("Date: \(month)/\(day) = \(dateSum)")
+            print("Location: \(locationSum)")
+            print("BPM: \(bpmSum)")
+            print("Total: \(totalSum) → \(finalNumber)")
             
-            // Time components
-            let hour = self.utcCalendar.component(.hour, from: utcNow)
-            let minute = self.utcCalendar.component(.minute, from: utcNow)
-            let day = self.utcCalendar.component(.day, from: utcNow)
-            let month = self.utcCalendar.component(.month, from: utcNow)
-            
-            // Calculate raw sums first
-            let timeSum = hour + minute
-            let dateSum = day + month
-            
-            // Location component with detailed logging
-            var locationSum = 0
-            if let location = self.currentLocation {
-                let latDegrees = Int(abs(location.latitude))
-                let lonDegrees = Int(abs(location.longitude))
-                locationSum = latDegrees + lonDegrees
-                print("📍 Location Update: \(String(format: "%.4f°, %.4f°", location.latitude, location.longitude))")
-                print("   → Raw Sum: \(latDegrees)° + \(lonDegrees)° = \(locationSum)")
-            } else {
-                print("📍 Location: Waiting for data...")
-            }
-            
-            // Get raw BPM value with activity level
-            let bpmValue = self.mockBPM
-            print("💓 BPM: \(bpmValue) (\(self.getActivityLevelDescription()))")
-            
-            // Calculate total of raw values
-            let totalSum = timeSum + dateSum + locationSum + bpmValue
-            
-            // Only reduce at the very end
-            let rawNumber = self.reduceToSingleDigit(totalSum)
-            
-            // Update debug logging to show the pure calculation
-            DispatchQueue.main.async {
-                self.debugLog(
-                    hour: hour,
-                    minute: minute,
-                    timeSum: timeSum,
-                    day: day,
-                    month: month,
-                    dateSum: dateSum,
-                    locationSum: locationSum,
-                    bpmValue: bpmValue,
-                    totalSum: totalSum,
-                    result: rawNumber
-                )
-                
-                if self.currentRealmNumber != rawNumber {
-                    print("🔄 Realm Number changed from \(self.currentRealmNumber) to \(rawNumber)")
-                    self.currentRealmNumber = rawNumber
-                } else {
-                    print("✨ Realm Number remains at \(rawNumber)")
-                }
+            if testDate != nil {
+                print("\n🧪 Test Calculation Breakdown:")
+                print("Time Sum (\(hour) + \(minute) = \(hour + minute) → \(timeSum)): \(timeSum)")
+                print("Date Sum (\(day) + \(month) = \(day + month) → \(dateSum)): \(dateSum)")
+                print("Location Sum (\(locationSum)): \(locationSum)")
+                print("BPM Sum (\(mockBPM) → \(bpmSum)): \(bpmSum)")
+                print("Total Sum (\(timeSum) + \(dateSum) + \(locationSum) + \(bpmSum) = \(totalSum) → \(finalNumber))")
             }
         }
     }
     
-    private func reduceToSingleDigit(_ number: Int) -> Int {
+    func reduceToSingleDigit(_ number: Int) -> Int {
         var num = abs(number)
-        var reductionSteps: [Int] = [num]
-        
         while num > 9 {
-            let digits = String(num).compactMap { Int(String($0)) }
-            num = digits.reduce(0, +)
-            reductionSteps.append(num)
+            num = String(num).compactMap { Int(String($0)) }.reduce(0, +)
         }
-        
         return num
     }
     
-    private func getReductionSteps(_ number: Int) -> String {
-        var num = abs(number)
-        var steps: [String] = [String(num)]
+    // MARK: - Test Support
+    func setTestDate(_ date: Date) {
+        testDate = date
+        calculateRealmNumber()
+    }
+    
+    func cycleToNextMockBPM() {
+        currentMockBPMIndex = (currentMockBPMIndex + 1) % mockBPMs.count
+        calculateRealmNumber()
+    }
+    
+    func updateLocation(_ location: CLLocation) {
+        let oldLocation = currentLocation
+        currentLocation = location.coordinate
         
-        while num > 9 {
-            let digits = String(num).compactMap { Int(String($0)) }
-            let digitStr = digits.map(String.init).joined(separator: "+")
-            num = digits.reduce(0, +)
-            steps.append("\(digitStr)=\(num)")
+        // Always trigger calculation on location update during tests
+        if testDate != nil || oldLocation == nil || 
+           abs(oldLocation!.latitude - location.coordinate.latitude) > 0.001 ||
+           abs(oldLocation!.longitude - location.coordinate.longitude) > 0.001 {
+            calculateRealmNumber()
         }
+    }
+    
+    private func getCurrentUTCDate() -> Date {
+        if let testDate = testDate {
+            return testDate
+        }
+        let current = Date()
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: current)
+        return calendar.date(from: components) ?? current
+    }
+    
+    func startUpdates() {
+        guard !isActive else { return }
         
-        return steps.joined(separator: " → ")
+        DispatchQueue.main.async {
+            self.isActive = true
+            self.currentState = .active
+            print(self.currentState.description)
+            
+            // Stop existing timer if any
+            self.stopTimer()
+            
+            // Start location updates
+            self.locationManager?.startUpdatingLocation()
+            
+            // Create new timer
+            self.timer = Timer.scheduledTimer(withTimeInterval: Constants.timerUpdateInterval, repeats: true) { [weak self] _ in
+                self?.calculateRealmNumber()
+            }
+            self.timer?.tolerance = 1.0
+            
+            // Force immediate calculation
+            self.calculateRealmNumber()
+        }
+    }
+    
+    private func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    func stopUpdates() {
+        isActive = false
+        currentState = .stopped
+        print(currentState.description)
+        stopTimer()
+        locationManager?.stopUpdatingLocation()
+    }
+    
+    deinit {
+        stopUpdates()
+        retainedSelf = nil
     }
     
     // Activity level descriptions
@@ -233,47 +285,36 @@ class RealmNumberManager: NSObject, ObservableObject {
         print("📅 UTC Time Components:")
         print("   Hour: \(hour)")
         print("   Minute: \(minute)")
-        print("   Raw Time Sum: \(hour) + \(minute) = \(timeSum)")
+        print("   Raw Time Sum: \(hour) + \(minute) = \(hour + minute)")
         print("\n📅 UTC Date Components:")
         print("   Day: \(day)")
         print("   Month: \(month)")
-        print("   Raw Date Sum: \(day) + \(month) = \(dateSum)")
+        print("   Raw Date Sum: \(day) + \(month) = \(day + month)")
         print("\n🧮 Raw Components:")
-        print("   Time Sum: \(timeSum)")
-        print("   Date Sum: \(dateSum)")
+        print("   Time Sum: \(hour + minute)")
+        print("   Date Sum: \(day + month)")
         print("   Location: \(getLocationDescription())")
         print("   Location Sum: \(locationSum)\(locationSum == 0 ? " (Waiting for location)" : "")")
-        print("   BPM: \(bpmValue) (\(getActivityLevelDescription()))")
+        print("   BPM: \(mockBPM) → \(bpmValue) (\(getActivityLevelDescription()))")
         print("\n📊 Transcendental Reduction:")
-        print("   Raw Total: \(timeSum) + \(dateSum) + \(locationSum) + \(bpmValue) = \(totalSum)")
+        print("   Raw Total: \(hour + minute) + \(day + month) + \(locationSum) + \(bpmValue) = \(totalSum)")
         print("   Reduction Steps: \(getReductionSteps(totalSum))")
         print("   Final Number: \(result)")
         print("🌟 ===============================\n")
     }
     
-    func startUpdates() {
-        print(ManagerState.active.description)
-        currentState = .active
-        stopUpdates()
-        locationManager?.startUpdatingLocation()
+    private func getReductionSteps(_ number: Int) -> String {
+        var num = abs(number)
+        var steps: [String] = [String(num)]
         
-        timer = Timer.scheduledTimer(withTimeInterval: Constants.timerUpdateInterval, repeats: true) { [weak self] _ in
-            self?.calculateRealmNumber()
+        while num > 9 {
+            let digits = String(num).compactMap { Int(String($0)) }
+            let digitStr = digits.map(String.init).joined(separator: "+")
+            num = digits.reduce(0, +)
+            steps.append("\(digitStr)=\(num)")
         }
         
-        calculateRealmNumber()
-    }
-    
-    func stopUpdates() {
-        currentState = .stopped
-        print(currentState.description)
-        timer?.invalidate()
-        timer = nil
-        locationManager?.stopUpdatingLocation()
-    }
-    
-    deinit {
-        stopUpdates()
+        return steps.joined(separator: " → ")
     }
 }
 
