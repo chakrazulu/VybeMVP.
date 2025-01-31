@@ -2,13 +2,22 @@ import Foundation
 import CoreData
 
 extension UserPreferences {
+    // Add static cache
+    private static var cachedPreferences: UserPreferences?
+    
     static func fetch(in context: NSManagedObjectContext) -> UserPreferences {
+        // Return cached preferences if available
+        if let cached = cachedPreferences {
+            return cached
+        }
+        
         let request: NSFetchRequest<UserPreferences> = UserPreferences.fetchRequest()
         
         print("🔍 Fetching preferences...")
         // Try to fetch existing preferences
         if let existing = try? context.fetch(request).first {
             print("✅ Found existing preferences: Number=\(existing.lastSelectedNumber)")
+            cachedPreferences = existing
             return existing
         }
         
@@ -21,6 +30,7 @@ extension UserPreferences {
         do {
             try context.save()
             print("✅ Created new preferences")
+            cachedPreferences = preferences
         } catch {
             print("❌ Failed to create preferences: \(error)")
         }
@@ -37,12 +47,19 @@ extension UserPreferences {
         
         do {
             try context.save()
+            // Update cache after successful save
+            cachedPreferences = preferences
             print("✅ Preferences saved successfully: Number=\(lastSelectedNumber)")
-            // Verify the save worked
-            let verify = fetch(in: context)
-            print("🔍 Verifying save - Stored number: \(verify.lastSelectedNumber)")
         } catch {
             print("❌ Failed to save preferences: \(error)")
+            // Clear cache on error
+            cachedPreferences = nil
         }
+    }
+    
+    // Add method to clear cache if needed
+    static func clearCache() {
+        cachedPreferences = nil
+        print("🧹 Preferences cache cleared")
     }
 } 

@@ -7,6 +7,7 @@ class RealmNumberManager: NSObject, ObservableObject {
     private enum Constants {
         // Time intervals
         static let timerUpdateInterval: TimeInterval = 60    // seconds
+        static let calculationThrottle: TimeInterval = 1.0   // minimum time between calculations
         
         // Location
         static let locationUpdateDistance: CLLocationDistance = 500  // meters
@@ -53,6 +54,9 @@ class RealmNumberManager: NSObject, ObservableObject {
     private var isActive: Bool = false
     private var lastCalculationTime: Date?
     
+    // Cache for expensive calculations
+    private var lastCalculationResult: (components: (time: Int, date: Int, location: Int, bpm: Int), result: Int)?
+    
     // Mock BPM values for testing
     private let mockBPMs: [Int] = [62, 75, 85, 95, 115, 135]
     private var currentMockBPMIndex = 0
@@ -63,6 +67,21 @@ class RealmNumberManager: NSObject, ObservableObject {
     
     // For testing
     private var testDate: Date?
+    
+    // MARK: - Cache Management
+    private struct CacheEntry {
+        let components: (time: Int, date: Int, location: Int, bpm: Int)
+        let result: Int
+        let timestamp: Date
+    }
+    
+    // Enhanced cache with prediction
+    private var calculationCache: [String: CacheEntry] = [:]
+    private var nextPredictedNumber: Int?
+    
+    // MARK: - Prediction Validation
+    private var predictionAccuracy: [Bool] = [] // Track last 10 predictions
+    private let maxPredictionHistory = 10
     
     // MARK: - Initialization
     override init() {
@@ -95,6 +114,26 @@ class RealmNumberManager: NSObject, ObservableObject {
     
     // MARK: - Core Calculation Logic
     func calculateRealmNumber() {
+        // If this is a real calculation (not a prediction), validate previous prediction
+        if let predicted = nextPredictedNumber {
+            // Ensure we're on main thread for UI updates
+            if !Thread.isMainThread {
+                DispatchQueue.main.async { [weak self] in
+                    self?.calculateRealmNumber()
+                }
+                return
+            }
+            
+            // Get the actual number
+            let actualNumber = calculatePredictedNumber(for: Date())
+            validatePrediction(predicted, actual: actualNumber)
+        }
+        
+        // Continue with normal calculation
+        performCalculation()
+    }
+    
+    private func performCalculation() {
         // Ensure we're on main thread for UI updates
         if !Thread.isMainThread {
             DispatchQueue.main.async { [weak self] in
@@ -102,6 +141,13 @@ class RealmNumberManager: NSObject, ObservableObject {
             }
             return
         }
+        
+        // Throttle calculations
+        if let lastTime = lastCalculationTime,
+           Date().timeIntervalSince(lastTime) < Constants.calculationThrottle {
+            return
+        }
+        lastCalculationTime = Date()
         
         print("\n🔮 RealmNumberManager - Starting calculation...")
         
@@ -135,31 +181,49 @@ class RealmNumberManager: NSObject, ObservableObject {
             locationSum = reduceToSingleDigit(latSum + lonSum)
         }
         
-        // Get BPM value and reduce
+        // Calculate BPM sum with pure reduction
         let bpmSum = reduceToSingleDigit(mockBPM)
         
-        // Calculate final number
-        let totalSum = timeSum + dateSum + locationSum + bpmSum
+        // Add a small dynamic factor based on BPM variability
+        let dynamicFactor = reduceToSingleDigit(bpmSum % 3)
+        
+        // Check cache for identical components
+        if let cached = lastCalculationResult,
+           cached.components.time == timeSum &&
+           cached.components.date == dateSum &&
+           cached.components.location == locationSum &&
+           cached.components.bpm == bpmSum {
+            currentRealmNumber = cached.result
+            return
+        }
+        
+        // Calculate final number using pure addition
+        let totalSum = timeSum + dateSum + locationSum + bpmSum + dynamicFactor
         let finalNumber = reduceToSingleDigit(totalSum)
+        
+        // Update cache
+        lastCalculationResult = ((timeSum, dateSum, locationSum, bpmSum), finalNumber)
         
         let oldNumber = currentRealmNumber
         if finalNumber != oldNumber || testDate != nil {
             currentRealmNumber = finalNumber
             print("🔄 Realm Number changed from \(oldNumber) to \(finalNumber)")
             print("\n🔢 Component Breakdown:")
-            print("Time: \(hour)h:\(minute)m = \(timeSum)")
-            print("Date: \(month)/\(day) = \(dateSum)")
+            print("Time: \(hour)h:\(minute)m → \(timeSum)")
+            print("Date: \(month)/\(day) → \(dateSum)")
             print("Location: \(locationSum)")
-            print("BPM: \(bpmSum)")
+            print("BPM: \(mockBPM) → \(bpmSum)")
+            print("Dynamic Factor: \(dynamicFactor)")
             print("Total: \(totalSum) → \(finalNumber)")
             
             if testDate != nil {
                 print("\n🧪 Test Calculation Breakdown:")
-                print("Time Sum (\(hour) + \(minute) = \(hour + minute) → \(timeSum)): \(timeSum)")
-                print("Date Sum (\(day) + \(month) = \(day + month) → \(dateSum)): \(dateSum)")
-                print("Location Sum (\(locationSum)): \(locationSum)")
-                print("BPM Sum (\(mockBPM) → \(bpmSum)): \(bpmSum)")
-                print("Total Sum (\(timeSum) + \(dateSum) + \(locationSum) + \(bpmSum) = \(totalSum) → \(finalNumber))")
+                print("Time Sum (\(hour) + \(minute) = \(hour + minute) → \(timeSum))")
+                print("Date Sum (\(day) + \(month) = \(day + month) → \(dateSum))")
+                print("Location Sum (\(locationSum))")
+                print("BPM Sum (\(mockBPM) → \(bpmSum))")
+                print("Dynamic Factor: \(dynamicFactor)")
+                print("Total Sum (\(timeSum) + \(dateSum) + \(locationSum) + \(bpmSum) + \(dynamicFactor) = \(totalSum) → \(finalNumber))")
             }
         }
     }
@@ -210,6 +274,7 @@ class RealmNumberManager: NSObject, ObservableObject {
         guard !isActive else { return }
         
         DispatchQueue.main.async {
+            print("\n🚀 Starting RealmNumberManager updates...")
             self.isActive = true
             self.currentState = .active
             print(self.currentState.description)
@@ -226,27 +291,46 @@ class RealmNumberManager: NSObject, ObservableObject {
             }
             self.timer?.tolerance = 1.0
             
+            // Verify timer creation
+            if self.timer != nil {
+                print("✅ Realm timer started successfully")
+            } else {
+                print("❌ Failed to start realm timer")
+                // Attempt recovery
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    print("🔄 Attempting timer recovery...")
+                    self.startUpdates()
+                }
+            }
+            
             // Force immediate calculation
             self.calculateRealmNumber()
         }
     }
     
     private func stopTimer() {
-        timer?.invalidate()
-        timer = nil
+        if timer != nil {
+            timer?.invalidate()
+            timer = nil
+            print("✅ Realm timer stopped successfully")
+        }
     }
     
     func stopUpdates() {
+        print("\n⏹ Stopping RealmNumberManager updates...")
         isActive = false
         currentState = .stopped
         print(currentState.description)
         stopTimer()
         locationManager?.stopUpdatingLocation()
+        print("✅ RealmNumberManager stopped successfully")
     }
     
     deinit {
+        print("\n🗑 RealmNumberManager deinitializing...")
         stopUpdates()
         retainedSelf = nil
+        print("✅ RealmNumberManager cleanup completed")
     }
     
     // Activity level descriptions
@@ -315,6 +399,96 @@ class RealmNumberManager: NSObject, ObservableObject {
         }
         
         return steps.joined(separator: " → ")
+    }
+    
+    // MARK: - Cache Management
+    private func updateCache(components: (time: Int, date: Int, location: Int, bpm: Int), result: Int) {
+        let cacheKey = "\(components.time)|\(components.date)|\(components.location)|\(components.bpm)"
+        calculationCache[cacheKey] = CacheEntry(components: components, result: result, timestamp: Date())
+        
+        // Predict next number based on patterns
+        predictNextNumber()
+    }
+    
+    private func validatePrediction(_ predicted: Int, actual: Int) {
+        let wasCorrect = predicted == actual
+        predictionAccuracy.append(wasCorrect)
+        
+        // Keep only last 10 predictions
+        if predictionAccuracy.count > maxPredictionHistory {
+            predictionAccuracy.removeFirst()
+        }
+        
+        // Log prediction accuracy
+        let accuracy = Double(predictionAccuracy.filter { $0 }.count) / Double(predictionAccuracy.count) * 100
+        print("\n🔮 Prediction Validation:")
+        print("   Predicted: \(predicted)")
+        print("   Actual: \(actual)")
+        print("   Correct: \(wasCorrect ? "✅" : "❌")")
+        print("   Recent Accuracy: \(String(format: "%.1f%%", accuracy))")
+    }
+    
+    private func predictNextNumber() {
+        // Calculate the next likely number based on current time and patterns
+        let calendar = Calendar.current
+        let nextMinute = calendar.date(byAdding: .minute, value: 1, to: Date()) ?? Date()
+        
+        // Store current state
+        let currentComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: nextMinute)
+        
+        // Pre-calculate the next number
+        let prediction = calculatePredictedNumber(for: nextMinute)
+        nextPredictedNumber = prediction
+        
+        print("\n🔮 Next Minute Prediction:")
+        print("   Time: \(currentComponents.hour ?? 0):\(currentComponents.minute ?? 0)")
+        print("   Predicted Number: \(prediction)")
+    }
+    
+    private func calculatePredictedNumber(for date: Date) -> Int {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        
+        let components = calendar.dateComponents([.hour, .minute, .day, .month], from: date)
+        
+        // Calculate components
+        let timeSum = reduceToSingleDigit((components.hour ?? 0) + (components.minute ?? 0))
+        let dateSum = reduceToSingleDigit((components.day ?? 1) + (components.month ?? 1))
+        
+        // Use current location and BPM as they likely won't change in a minute
+        var locationSum = 0
+        if let location = currentLocation {
+            let latDegrees = String(format: "%.6f", abs(location.latitude))
+                .replacingOccurrences(of: ".", with: "")
+            let lonDegrees = String(format: "%.6f", abs(location.longitude))
+                .replacingOccurrences(of: ".", with: "")
+            
+            let latSum = reduceToSingleDigit(Int(latDegrees) ?? 0)
+            let lonSum = reduceToSingleDigit(Int(lonDegrees) ?? 0)
+            locationSum = reduceToSingleDigit(latSum + lonSum)
+        }
+        
+        let bpmSum = reduceToSingleDigit(mockBPM)
+        
+        // Calculate final prediction
+        let totalSum = timeSum + dateSum + locationSum + bpmSum
+        return reduceToSingleDigit(totalSum)
+    }
+    
+    private func checkCache(components: (time: Int, date: Int, location: Int, bpm: Int)) -> Int? {
+        let cacheKey = "\(components.time)|\(components.date)|\(components.location)|\(components.bpm)"
+        guard let cached = calculationCache[cacheKey],
+              Date().timeIntervalSince(cached.timestamp) < 60 else { // Cache valid for 1 minute
+            calculationCache[cacheKey] = nil // Clear expired cache
+            return nil
+        }
+        return cached.result
+    }
+    
+    // Cleanup old cache entries periodically
+    private func cleanupCache() {
+        let oldDate = Date().addingTimeInterval(-60) // Remove entries older than 1 minute
+        calculationCache = calculationCache.filter { $0.value.timestamp > oldDate }
     }
 }
 

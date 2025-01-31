@@ -2,12 +2,8 @@ import SwiftUI
 import Charts
 
 struct MatchAnalyticsView: View {
-    @ObservedObject var focusNumberManager: FocusNumberManager
+    @EnvironmentObject var focusNumberManager: FocusNumberManager
     @State private var selectedTimeFrame: TimeFrame = .day
-    
-    init(focusNumberManager: FocusNumberManager = FocusNumberManager()) {
-        self.focusNumberManager = focusNumberManager
-    }
     
     enum TimeFrame: String, CaseIterable {
         case day = "24 Hours"
@@ -116,12 +112,12 @@ struct MatchAnalyticsView: View {
     }
     
     func getMostCommonFocusNumber() -> String {
-        let numberCounts: [Int: Int] = focusNumberManager.matchLogs.reduce(into: [:]) { counts, match in
-            counts[Int(match.chosenNumber), default: 0] += 1
-        }
+        let matchCounts = Dictionary(grouping: focusNumberManager.matchLogs) { $0.chosenNumber }
+            .mapValues { $0.count }
         
-        if let (number, count) = numberCounts.max(by: { $0.value < $1.value }) {
-            return "\(number) (\(count) times)"
+        if let maxCount = matchCounts.values.max(),
+           let mostCommonNumber = matchCounts.first(where: { $0.value == maxCount })?.key {
+            return "\(mostCommonNumber) (\(maxCount) times)"
         }
         
         return "No matches yet"
@@ -129,60 +125,61 @@ struct MatchAnalyticsView: View {
     
     func getPeakMatchTime() -> String {
         let calendar = Calendar.current
-        let hourCounts: [Int: Int] = focusNumberManager.matchLogs.reduce(into: [:]) { counts, match in
-            let hour = calendar.component(.hour, from: match.timestamp)
-            counts[hour, default: 0] += 1
+        let matchesByHour = Dictionary(grouping: focusNumberManager.matchLogs) { match in
+            calendar.component(.hour, from: match.timestamp)
         }
         
-        if let (hour, _) = hourCounts.max(by: { $0.value < $1.value }) {
-            let hourString = hour == 0 ? "12 AM" : 
-                            hour < 12 ? "\(hour) AM" : 
-                            hour == 12 ? "12 PM" : 
-                            "\(hour-12) PM"
-            return hourString
+        if let maxCount = matchesByHour.values.map({ $0.count }).max(),
+           let peakHour = matchesByHour.first(where: { $0.value.count == maxCount })?.key {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            let date = calendar.date(bySettingHour: peakHour, minute: 0, second: 0, of: Date()) ?? Date()
+            return dateFormatter.string(from: date)
         }
         
-        return "Not enough data"
+        return "No matches yet"
     }
     
     func getMatchFrequency() -> String {
-        guard focusNumberManager.matchLogs.count > 1 else { return "Not enough data" }
+        let matchCount = focusNumberManager.matchLogs.count
+        let calendar = Calendar.current
         
-        let sortedMatches = focusNumberManager.matchLogs.sorted { $0.timestamp < $1.timestamp }
-        guard let firstMatch = sortedMatches.first?.timestamp,
-              let lastMatch = sortedMatches.last?.timestamp else {
-            return "Calculating..."
+        if matchCount == 0 {
+            return "No matches yet"
         }
         
-        let totalHours = lastMatch.timeIntervalSince(firstMatch) / 3600
-        let intervals = Double(sortedMatches.count - 1) // Number of gaps between matches
+        // Get the earliest and latest match timestamps
+        guard !focusNumberManager.matchLogs.isEmpty else {
+            return "No matches yet"
+        }
         
-        guard intervals > 0 else { return "Just started" }
+        let firstMatch = focusNumberManager.matchLogs.last!.timestamp
+        let lastMatch = focusNumberManager.matchLogs.first!.timestamp
         
-        let hoursPerMatch = totalHours / intervals
+        let daysBetween = calendar.dateComponents([.day], from: firstMatch, to: lastMatch).day ?? 0
         
-        if hoursPerMatch < 1 {
-            let minutesPerMatch = hoursPerMatch * 60
-            return "Every \(Int(round(minutesPerMatch))) minutes"
+        if daysBetween == 0 {
+            return "\(matchCount) today"
         } else {
-            return String(format: "Every %.1f hours", hoursPerMatch)
+            let average = Double(matchCount) / Double(daysBetween + 1)
+            return String(format: "%.1f per day", average)
         }
     }
     
     private func getMatchData() -> [MatchData] {
         let calendar = Calendar.current
         var timeSlots: [MatchData] = []
+        let now = Date()
         
         switch selectedTimeFrame {
         case .day:
             // Create 6-hour slots for the day
             let slots = ["12 AM", "6 AM", "12 PM", "6 PM"]
-            let now = Date()
             let dayStart = calendar.startOfDay(for: now)
             
             for (index, slot) in slots.enumerated() {
-                let slotStart = calendar.date(byAdding: .hour, value: index * 6, to: dayStart)!
-                let slotEnd = calendar.date(byAdding: .hour, value: 6, to: slotStart)!
+                let slotStart = addHours(index * 6, to: dayStart)
+                let slotEnd = addHours(6, to: slotStart)
                 
                 let count = focusNumberManager.matchLogs.filter { match in
                     match.timestamp >= slotStart && match.timestamp < slotEnd
@@ -193,12 +190,13 @@ struct MatchAnalyticsView: View {
             
         case .week:
             // Create daily slots for the week
-            let weekStart = calendar.date(byAdding: .day, value: -6, to: Date())!
+            let weekStart = addDays(-6, to: now)
+            
             for dayOffset in 0...6 {
-                let dayDate = calendar.date(byAdding: .day, value: dayOffset, to: weekStart)!
+                let dayDate = addDays(dayOffset, to: weekStart)
+                let nextDay = addDays(1, to: dayDate)
                 let dayString = calendar.shortWeekdaySymbols[calendar.component(.weekday, from: dayDate) - 1]
                 
-                let nextDay = calendar.date(byAdding: .day, value: 1, to: dayDate)!
                 let count = focusNumberManager.matchLogs.filter { match in
                     match.timestamp >= dayDate && match.timestamp < nextDay
                 }.count
@@ -208,10 +206,11 @@ struct MatchAnalyticsView: View {
             
         case .month:
             // Create weekly slots for the month
-            let monthStart = calendar.date(byAdding: .day, value: -30, to: Date())!
+            let monthStart = addDays(-30, to: now)
+            
             for weekOffset in 0...4 {
-                let weekStart = calendar.date(byAdding: .day, value: weekOffset * 7, to: monthStart)!
-                let weekEnd = calendar.date(byAdding: .day, value: 7, to: weekStart)!
+                let weekStart = addDays(weekOffset * 7, to: monthStart)
+                let weekEnd = addDays(7, to: weekStart)
                 
                 let count = focusNumberManager.matchLogs.filter { match in
                     match.timestamp >= weekStart && match.timestamp < weekEnd
@@ -222,6 +221,15 @@ struct MatchAnalyticsView: View {
         }
         
         return timeSlots
+    }
+    
+    // Helper functions for date calculations
+    private func addDays(_ days: Int, to date: Date) -> Date {
+        Calendar.current.date(byAdding: .day, value: days, to: date) ?? date
+    }
+    
+    private func addHours(_ hours: Int, to date: Date) -> Date {
+        Calendar.current.date(byAdding: .hour, value: hours, to: date) ?? date
     }
 }
 
@@ -274,5 +282,6 @@ struct MatchData: Identifiable {
 
 #Preview {
     MatchAnalyticsView()
-        .environmentObject(FocusNumberManager())
+        .environmentObject(FocusNumberManager.shared)
+        .environmentObject(RealmNumberManager())
 } 

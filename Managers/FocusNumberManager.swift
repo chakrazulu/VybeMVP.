@@ -5,79 +5,93 @@ import CoreData
 import os.log
 
 class FocusNumberManager: NSObject, ObservableObject {
-    @Published var currentFocusNumber: Int = 0
+    // Singleton instance
+    static let shared = FocusNumberManager()
+    
     @Published var selectedFocusNumber: Int = 0
-    @Published var matchLogs: [FocusMatch] = []  // Changed to use Core Data entity
+    @Published var matchLogs: [FocusMatch] = []
     @Published var isAutoUpdateEnabled: Bool = false
-    @Published var realmNumber: Int = 0  // To track realm number
+    @Published var realmNumber: Int = 0 {
+        didSet {
+                checkForMatches()
+            }
+        }
     
     private var timer: Timer?
-    private var locationManager = CLLocationManager()
     private var _currentLocation: CLLocationCoordinate2D?
-    private var viewContext: NSManagedObjectContext
+    private let viewContext: NSManagedObjectContext
+    
+    // Add currentLocation property
+    var currentLocation: CLLocation? {
+        didSet {
+            _currentLocation = currentLocation?.coordinate
+        }
+    }
     
     static let validFocusNumbers = 1...9
     static let defaultFocusNumber = 1
     
-    // UTC Calendar for calculations
-    private let utcCalendar: Calendar = {
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = TimeZone(identifier: "UTC")!
-        return calendar
-    }()
-    
-    // Local Calendar for display
-    private let localCalendar: Calendar = {
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = TimeZone.current
-        return calendar
-    }()
-    
-    var currentLocation: CLLocation? {
-        get {
-            guard let coordinate = _currentLocation else { return nil }
-            return CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        }
-        set {
-            _currentLocation = newValue?.coordinate
-        }
+    // For testing
+    static func createForTesting(with persistenceController: PersistenceController) -> FocusNumberManager {
+        return FocusNumberManager(persistenceController: persistenceController)
     }
     
-    private var lastUpdateTime: Date = Date()
-    private let minimumUpdateInterval: TimeInterval = 60 // 1 minute
-    
-    // Mock BPM values for testing
-    private let mockBPMs: [Int] = [
-        62,   // Resting/Meditation
-        75,   // Normal relaxed state
-        85,   // Light activity
-        95,   // Moderate activity
-        115,  // Exercise
-        135   // Peak exercise
-    ]
-    private var currentMockBPMIndex = 0
-    
-    // Helper to cycle through mock BPMs
-    private var currentMockBPM: Int {
-        let bpm = mockBPMs[currentMockBPMIndex]
-        Logger.debug("🎯 Using mock BPM #\(currentMockBPMIndex + 1): \(bpm)", category: Logger.focus)
-        return bpm
-    }
-    
-    // Function to test next mock BPM
-    func cycleToNextMockBPM() {
-        currentMockBPMIndex = (currentMockBPMIndex + 1) % mockBPMs.count
-        Logger.debug("🔄 Cycling to next mock BPM...", category: Logger.focus)
-        calculateFocusNumber()
-    }
-    
-    init(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
-        self.viewContext = context
+    private init(persistenceController: PersistenceController = .shared) {
+        self.viewContext = persistenceController.container.viewContext
         super.init()
-        setupLocationManager()
+        
         loadPreferences()
         loadMatchLogs()
-        Logger.debug("📱 Manager initialized with number: \(selectedFocusNumber)", category: Logger.focus)
+        Logger.debug("📱 FocusNumberManager initialized with number: \(selectedFocusNumber)", category: Logger.focus)
+    }
+    
+    // Add reduceToSingleDigit method
+    func reduceToSingleDigit(_ number: Int) -> Int {
+        var sum = 0
+        var num = abs(number)
+        
+        // First sum all digits
+        while num > 0 {
+            sum += num % 10
+            num /= 10
+        }
+        
+        // If sum is still greater than 9, reduce again
+        while sum > 9 {
+            var tempSum = 0
+            while sum > 0 {
+                tempSum += sum % 10
+                sum /= 10
+            }
+            sum = tempSum
+        }
+        
+        return sum
+    }
+    
+    // Computed property for journal entries
+    var effectiveFocusNumber: Int {
+        max(1, min(selectedFocusNumber, 9))  // Ensure valid range
+    }
+    
+    func startUpdates() {
+        stopUpdates() // Clear any existing timer
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
+            self?.checkForMatches()
+        }
+        
+        isAutoUpdateEnabled = true
+        saveAutoUpdatePreference(true)
+        Logger.debug("▶️ Started focus number updates", category: Logger.focus)
+    }
+    
+    func stopUpdates() {
+        timer?.invalidate()
+        timer = nil
+        isAutoUpdateEnabled = false
+        saveAutoUpdatePreference(false)
+        Logger.debug("⏹ Stopped focus number updates", category: Logger.focus)
     }
     
     private func loadPreferences() {
@@ -90,19 +104,21 @@ class FocusNumberManager: NSObject, ObservableObject {
             UserPreferences.save(
                 in: viewContext,
                 lastSelectedNumber: Int16(Self.defaultFocusNumber),
-                isAutoUpdateEnabled: preferences.isAutoUpdateEnabled
+                isAutoUpdateEnabled: false
             )
         }
         
         isAutoUpdateEnabled = preferences.isAutoUpdateEnabled
         Logger.debug("Loaded preferences - Number: \(selectedFocusNumber), Auto Update: \(isAutoUpdateEnabled)", category: Logger.focus)
-        
-        if isAutoUpdateEnabled {
-            startUpdates()
-        }
     }
     
-    // MARK: - Match Logs
+    private func saveAutoUpdatePreference(_ enabled: Bool) {
+        UserPreferences.save(
+            in: viewContext,
+            lastSelectedNumber: Int16(selectedFocusNumber),
+            isAutoUpdateEnabled: enabled
+        )
+    }
     
     func loadMatchLogs() {
         let request = NSFetchRequest<FocusMatch>(entityName: "FocusMatch")
@@ -116,262 +132,99 @@ class FocusNumberManager: NSObject, ObservableObject {
         }
     }
     
-    func saveMatch() {
+    // Add verification method
+    func verifyAndSaveMatch(realmNumber: Int, completion: @escaping (Bool) -> Void) {
+        // Ensure we're on the main thread for Core Data
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                print("❌ FocusNumberManager deallocated")
+                completion(false)
+                return
+            }
+            
+            print("\n🔍 Verifying match...")
+            print("   Selected Focus Number: \(self.selectedFocusNumber)")
+            print("   Realm Number: \(realmNumber)")
+            print("   Valid Range: \(Self.validFocusNumbers)")
+            
+            // Verify all conditions
+            guard Self.validFocusNumbers.contains(self.selectedFocusNumber),
+                  Self.validFocusNumbers.contains(realmNumber),
+                  self.selectedFocusNumber == realmNumber else {
+                print("❌ Match verification failed:")
+                if !Self.validFocusNumbers.contains(self.selectedFocusNumber) {
+                    print("   - Focus number \(self.selectedFocusNumber) not in valid range")
+                }
+                if !Self.validFocusNumbers.contains(realmNumber) {
+                    print("   - Realm number \(realmNumber) not in valid range")
+                }
+                if self.selectedFocusNumber != realmNumber {
+                    print("   - Numbers don't match")
+                }
+                completion(false)
+                return
+            }
+            
+            // Check for recent matches to prevent duplicates
+            let recentMatchExists = self.checkForRecentMatch()
+            if recentMatchExists {
+                print("❌ Recent match exists - preventing duplicate")
+                completion(false)
+                return
+            }
+            
+            // All verifications passed, save the match
+            self.saveMatch()
+            completion(true)
+        }
+    }
+    
+    private func checkForRecentMatch() -> Bool {
+        // Get current time
+        let now = Date()
+        
+        // Check if there's a match in the last minute
+        return matchLogs.contains { match in
+            let timeDifference = now.timeIntervalSince(match.timestamp)
+            return timeDifference < 60 // Less than 1 minute
+        }
+    }
+    
+    private func saveMatch() {
         // Create a new FocusMatch entity
         let match = FocusMatch(context: viewContext)
         match.timestamp = Date()
         match.chosenNumber = Int16(selectedFocusNumber)
-        match.matchedNumber = Int16(currentFocusNumber)
+        match.matchedNumber = Int16(realmNumber)
         
-        print("\n🌈 ================================")
-        print("🌈         MATCH DETECTED!         ")
-        print("🌈 ================================")
+        print("\n🌟 ================================")
+        print("🌟         MATCH DETECTED!         ")
+        print("🌟 ================================")
         print("📊 Match Details:")
         print("   Time: \(match.timestamp)")
-        print("   Focus Number: \(currentFocusNumber)")
-        print("   Selected Number: \(selectedFocusNumber)")
+        print("   Focus Number: \(selectedFocusNumber)")
         print("   Realm Number: \(realmNumber)")
-        print("   Total Matches: \(matchLogs.count + 1)")
-        print("🌈 ================================\n")
+        print("   Previous Match Count: \(matchLogs.count)")
         
-        // Save to Core Data
         do {
             try viewContext.save()
-            print("✅ Match saved successfully")
-            print("📝 Current matches count: \(matchLogs.count + 1)")
-            loadMatchLogs() // Reload to refresh the UI
-            print("✨ Recent matches updated - new count: \(matchLogs.count)")
+            print("   ✅ Match saved successfully")
+            loadMatchLogs() // Reload matches after saving
+            print("   📱 New Match Count: \(matchLogs.count)")
         } catch {
-            print("❌ Failed to save match: \(error.localizedDescription)")
+            print("❌ Failed to save match: \(error)")
+            print("   Error Description: \(error.localizedDescription)")
+        }
+        print("🌟 ================================\n")
+    }
+    
+    private func checkForMatches() {
+        // Only create a match if the numbers are equal and valid
+        if selectedFocusNumber == realmNumber && Self.validFocusNumbers.contains(selectedFocusNumber) {
+            verifyAndSaveMatch(realmNumber: realmNumber) { _ in }
         }
     }
     
-    private func setupLocationManager() {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationManager.distanceFilter = 500
-        locationManager.allowsBackgroundLocationUpdates = false
-        locationManager.pausesLocationUpdatesAutomatically = true
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation() // Start location updates immediately
-        Logger.debug("📍 Location updates started", category: Logger.location)
-    }
-
-    // Calculate Focus Number based on UTC time, location, and BPM
-    func calculateFocusNumber() {
-        let utcNow = Date()
-        let components = utcCalendar.dateComponents([.year, .month, .day, .hour, .minute], from: utcNow)
-        
-        // Convert year to sum of digits (2025 -> 2+0+2+5 = 9)
-        let yearString = String(components.year ?? 0)
-        let yearSum = yearString.compactMap { Int(String($0)) }.reduce(0, +)
-        
-        // Reduce each component to a single digit
-        let monthSum = reduceToSingleDigit(components.month ?? 0)
-        let daySum = reduceToSingleDigit(components.day ?? 0)
-        let hourSum = reduceToSingleDigit(components.hour ?? 0)
-        let minuteSum = reduceToSingleDigit(components.minute ?? 0)
-        
-        // Sum all time components and reduce again
-        let timeSum = reduceToSingleDigit(yearSum + monthSum + daySum + hourSum + minuteSum)
-        
-        Logger.debug("⏰ Time Components:", category: Logger.focus)
-        Logger.debug("   Year(\(components.year ?? 0)) digits: \(yearString.map { String($0) }.joined(separator: "+")) = \(yearSum)", category: Logger.focus)
-        Logger.debug("   Month(\(components.month ?? 0)): \(monthSum)", category: Logger.focus)
-        Logger.debug("   Day(\(components.day ?? 0)): \(daySum)", category: Logger.focus)
-        Logger.debug("   Hour(\(components.hour ?? 0)): \(hourSum)", category: Logger.focus)
-        Logger.debug("   Minute(\(components.minute ?? 0)): \(minuteSum)", category: Logger.focus)
-        Logger.debug("   Time Sum (reduced): \(timeSum)", category: Logger.focus)
-        
-        // Add location influence if available
-        var locationFactor = 0
-        if let location = currentLocation {
-            // Convert coordinates to strings and sum their digits
-            let latString = String(format: "%.4f", abs(location.coordinate.latitude))
-            let longString = String(format: "%.4f", abs(location.coordinate.longitude))
-            
-            let latDigits = latString.compactMap { $0.isNumber ? Int(String($0)) : nil }
-            let longDigits = longString.compactMap { $0.isNumber ? Int(String($0)) : nil }
-            
-            let latSum = reduceToSingleDigit(latDigits.reduce(0, +))
-            let longSum = reduceToSingleDigit(longDigits.reduce(0, +))
-            
-            // Combine and reduce location factors
-            locationFactor = reduceToSingleDigit(latSum + longSum)
-            
-            Logger.debug("📍 Location Analysis:", category: Logger.focus)
-            Logger.debug("   Raw Latitude: \(location.coordinate.latitude)", category: Logger.focus)
-            Logger.debug("   → Digits: \(latDigits.map(String.init).joined(separator: "+")) = \(latDigits.reduce(0, +)) reduces to \(latSum)", category: Logger.focus)
-            Logger.debug("   Raw Longitude: \(location.coordinate.longitude)", category: Logger.focus)
-            Logger.debug("   → Digits: \(longDigits.map(String.init).joined(separator: "+")) = \(longDigits.reduce(0, +)) reduces to \(longSum)", category: Logger.focus)
-            Logger.debug("   Location Factor (reduced): \(locationFactor)", category: Logger.focus)
-        } else {
-            Logger.debug("📍 Waiting for location data...", category: Logger.focus)
-        }
-        
-        // BPM calculation
-        let rawBPM = currentMockBPM
-        let bpmDigits = String(rawBPM).map { Int(String($0))! }
-        let bpmSum = bpmDigits.reduce(0, +)
-        let bpmFactor = reduceToSingleDigit(bpmSum)
-        
-        Logger.debug("💓 BPM Analysis:", category: Logger.focus)
-        Logger.debug("   Raw BPM: \(rawBPM)", category: Logger.focus)
-        Logger.debug("   → Digits: \(bpmDigits.map(String.init).joined(separator: "+")) = \(bpmSum)", category: Logger.focus)
-        Logger.debug("   → Reduced: \(bpmSum) → \(bpmFactor)", category: Logger.focus)
-        
-        // Combine all factors and reduce one final time
-        let totalValue = reduceToSingleDigit(timeSum + locationFactor + bpmFactor)
-        
-        // Update current focus number
-        currentFocusNumber = totalValue
-        
-        Logger.debug("🧮 Final Calculation:", category: Logger.focus)
-        Logger.debug("   Time Sum (reduced): \(timeSum)", category: Logger.focus)
-        Logger.debug("   Location Factor (reduced): \(locationFactor)", category: Logger.focus)
-        Logger.debug("   BPM Factor (reduced): \(bpmFactor)", category: Logger.focus)
-        Logger.debug("   Combined Total (reduced): \(totalValue)", category: Logger.focus)
-        Logger.debug("📊 Final Focus Number: \(currentFocusNumber)", category: Logger.focus)
-        
-        Logger.debug("🎭 Current State:", category: Logger.focus)
-        Logger.debug("   Selected Number: \(selectedFocusNumber)", category: Logger.focus)
-        Logger.debug("   Current Focus Number: \(currentFocusNumber)", category: Logger.focus)
-        Logger.debug("   Realm Number: \(realmNumber)", category: Logger.focus)
-        Logger.debug("   Auto-Update: \(isAutoUpdateEnabled)", category: Logger.focus)
-        Logger.debug("   Match Count: \(matchLogs.count)", category: Logger.focus)
-        
-        // Check for matches with both selected number and realm number
-        checkForMatches()
-    }
-    
-    // Change from private to internal for testing
-    func reduceToSingleDigit(_ number: Int) -> Int {
-        var num = abs(number)
-        while num > 9 {
-            let digits = String(num).compactMap { Int(String($0)) }
-            num = digits.reduce(0, +)
-        }
-        return num
-    }
-
-    func startUpdates() {
-        stopUpdates() // Clear any existing timer
-        calculateFocusNumber() // Initial calculation
-        
-        timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
-            self?.calculateFocusNumber()
-        }
-        
-        isAutoUpdateEnabled = true
-        saveAutoUpdatePreference(true)
-        Logger.debug("▶️ Started focus number updates", category: Logger.focus)
-    }
-
-    func stopUpdates() {
-        timer?.invalidate()
-        timer = nil
-        isAutoUpdateEnabled = false
-        saveAutoUpdatePreference(false)
-        Logger.debug("⏹ Stopped focus number updates", category: Logger.focus)
-    }
-
-    private func saveAutoUpdatePreference(_ enabled: Bool) {
-        UserPreferences.save(
-            in: viewContext,
-            lastSelectedNumber: Int16(selectedFocusNumber),
-            isAutoUpdateEnabled: enabled
-        )
-    }
-
-    func checkForMatch() {
-        guard currentFocusNumber > 0 && currentFocusNumber == selectedFocusNumber else {
-            return
-        }
-        saveMatch()
-    }
-    
-    var effectiveFocusNumber: Int {
-        let number = currentFocusNumber == 0 ? selectedFocusNumber : currentFocusNumber
-        return max(1, min(number, 9))  // Ensure valid range
-    }
-    
-    func userDidPickFocusNumber(_ number: Int) {
-        let validNumber = max(1, min(number, 9))
-        
-        // Only update if the number actually changed
-        guard validNumber != selectedFocusNumber else { return }
-        
-        selectedFocusNumber = validNumber
-        
-        // If current focus number is 0 or invalid, update it
-        if currentFocusNumber < 1 || currentFocusNumber > 9 {
-            currentFocusNumber = validNumber
-        }
-        
-        // Save to Core Data
-        UserPreferences.save(
-            in: viewContext,
-            lastSelectedNumber: Int16(validNumber),
-            isAutoUpdateEnabled: isAutoUpdateEnabled
-        )
-        
-        // Check for match after a brief delay to allow animations to complete
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.checkForMatch()
-        }
-    }
-    
-    func enableAutoFocusNumber() {
-        startUpdates()
-    }
-
-    /// Tests location permissions and prints detailed status to console
-    func testLocationPermissions() {
-        print("\n📍 LOCATION PERMISSIONS TEST")
-        print("----------------------------------------")
-        
-        // Check current authorization status
-        let status = locationManager.authorizationStatus
-        print("🔍 Current Status: \(authorizationStatusString(status))")
-        
-        // Start location updates if authorized
-        switch status {
-        case .notDetermined:
-            print("⏳ Requesting location permission...")
-            locationManager.requestWhenInUseAuthorization()
-            
-        case .restricted:
-            print("⚠️ Location access is restricted!")
-            print("💡 TIP: Check parental controls or device management settings")
-            
-        case .denied:
-            print("🚫 Location access denied!")
-            print("💡 TIP: User needs to enable location in Settings > Privacy > Location Services")
-            
-        case .authorizedWhenInUse, .authorizedAlways:
-            print("✅ Location permission granted!")
-            print("🎯 Starting location updates...")
-            locationManager.startUpdatingLocation()
-            
-        @unknown default:
-            print("❓ Unknown authorization status")
-        }
-        print("----------------------------------------\n")
-    }
-
-    /// Converts location authorization status to readable string
-    private func authorizationStatusString(_ status: CLAuthorizationStatus) -> String {
-        switch status {
-        case .notDetermined: return "Not Determined"
-        case .restricted: return "Restricted"
-        case .denied: return "Denied"
-        case .authorizedWhenInUse: return "Authorized When In Use"
-        case .authorizedAlways: return "Authorized Always"
-        @unknown default: return "Unknown"
-        }
-    }
-
-    // Add this method to update realm number
     func updateRealmNumber(_ newValue: Int) {
         if realmNumber != newValue {
             print("\n🔄 Realm number changed: \(realmNumber) → \(newValue)")
@@ -380,42 +233,79 @@ class FocusNumberManager: NSObject, ObservableObject {
         }
     }
     
-    private func checkForMatches() {
-        if currentFocusNumber == selectedFocusNumber {
-            print("\n🎯 SELECTED MATCH! Focus number matches your selected number!")
-            saveMatch()
+    func userDidPickFocusNumber(_ number: Int) {
+        let validNumber = max(1, min(number, 9))
+        selectedFocusNumber = validNumber
+        
+        // Save to Core Data
+        UserPreferences.save(
+            in: viewContext,
+            lastSelectedNumber: Int16(validNumber),
+            isAutoUpdateEnabled: isAutoUpdateEnabled
+        )
+        
+        print("\n📝 Focus Number set to: \(validNumber)")
+        // Check for immediate match with current realm number
+        checkForMatches()
+    }
+    
+    // Add calculateTranscendentalNumber method
+    func calculateTranscendentalNumber() -> Int {
+        let timeFactor = calculateTimeFactor()
+        let locationFactor = calculateLocationFactor()
+        let focusFactor = selectedFocusNumber
+        
+        // Calculate the transcendental number by combining all factors
+        let sum = timeFactor + locationFactor + focusFactor
+        return reduceToSingleDigit(sum)
+    }
+    
+    func calculateTimeFactor() -> Int {
+        let now = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.hour, .minute], from: now)
+        
+        guard let hour = components.hour,
+              let minute = components.minute else {
+            return 1 // Default to 1 if we can't get time components
         }
         
-        if currentFocusNumber == realmNumber {
-            print("\n🌟 REALM MATCH! Focus number matches the realm number!")
-            saveMatch()
-        }
+        // Combine hour and minute into a single number and reduce
+        return reduceToSingleDigit(hour + minute)
     }
-}
-
+    
+    func calculateLocationFactor() -> Int {
+        guard let location = _currentLocation else {
+            return 1 // Default to 1 if no location available
+        }
+        
+        // Convert coordinates to positive integers by removing decimal point
+        let latString = String(format: "%.6f", abs(location.latitude))
+            .replacingOccurrences(of: ".", with: "")
+        let longString = String(format: "%.6f", abs(location.longitude))
+            .replacingOccurrences(of: ".", with: "")
+        
+        // Convert strings to integers and reduce to single digits
+        let latSum = reduceToSingleDigit(Int(latString) ?? 0)
+        let longSum = reduceToSingleDigit(Int(longString) ?? 0)
+        
+        // Combine latitude and longitude factors
+        return reduceToSingleDigit(latSum + longSum)
+    }
+    }
+    
 // MARK: - CLLocationManagerDelegate
 extension FocusNumberManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last?.coordinate else { return }
-        
-        // Only update if location has changed significantly
-        if let currentLoc = _currentLocation {
-            let oldLocation = CLLocation(latitude: currentLoc.latitude, longitude: currentLoc.longitude)
-            let newLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
-            
-            guard oldLocation.distance(from: newLocation) > 500 else { return }
-        }
-        
         _currentLocation = location
         Logger.debug("📍 Location updated: \(location.latitude), \(location.longitude)", category: Logger.location)
-        calculateFocusNumber() // Recalculate with new location
     }
-    
+        
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         if let error = error as? CLError {
             switch error.code {
             case .denied:
-                stopUpdates()
                 Logger.error("❌ Location access denied", category: Logger.location)
             case .locationUnknown:
                 Logger.debug("⚠️ Location temporarily unavailable", category: Logger.location)
@@ -423,5 +313,5 @@ extension FocusNumberManager: CLLocationManagerDelegate {
                 Logger.error("❌ Location error: \(error.localizedDescription)", category: Logger.location)
             }
         }
-    }
-}
+    }}
+

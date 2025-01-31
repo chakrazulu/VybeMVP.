@@ -8,13 +8,30 @@ import SwiftUI
 
 struct SettingsView: View {
     var body: some View {
-        Text("Settings")
-            .font(.title)
+        List {
+            Section(header: Text("Testing")) {
+                NavigationLink(destination: TestingView()) {
+                    Label("Match Testing", systemImage: "checkmark.circle")
+                }
+            }
+            
+            Section(header: Text("App Info")) {
+                HStack {
+                    Text("Version")
+                    Spacer()
+                    Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
+                        .foregroundColor(.secondary)
+                }
+            }
+        }
+        .navigationTitle("Settings")
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
+#Preview {
+    NavigationView {
         SettingsView()
+            .environmentObject(FocusNumberManager.shared)
+            .environmentObject(RealmNumberManager())
     }
 }

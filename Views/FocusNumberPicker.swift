@@ -76,3 +76,10 @@ struct NumberButton_Previews: PreviewProvider {
         .previewLayout(.sizeThatFits)
     }
 }
+
+struct FocusNumberPicker_Previews: PreviewProvider {
+    static var previews: some View {
+        FocusNumberPicker()
+            .environmentObject(FocusNumberManager.shared)
+    }
+}

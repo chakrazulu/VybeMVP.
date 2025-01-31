@@ -46,24 +46,16 @@ struct FocusNumberView: View {
                     FocusNumberPicker()
                 }
                 
-                #if DEBUG
-                // Debug Controls
-                VStack {
-                    Button(action: {
-                        focusNumberManager.testLocationPermissions()
-                    }) {
-                        Label("Test Location", systemImage: "location.circle.fill")
-                            .padding()
-                            .background(Color.orange.opacity(0.2))
-                            .cornerRadius(10)
-                    }
-                }
-                .padding()
-                #endif
-                
                 Spacer()
             }
             .navigationTitle("Focus Number")
         }
+    }
+}
+
+struct FocusNumberView_Previews: PreviewProvider {
+    static var previews: some View {
+        FocusNumberView()
+            .environmentObject(FocusNumberManager.shared)
     }
 }

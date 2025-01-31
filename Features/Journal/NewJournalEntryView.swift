@@ -16,8 +16,8 @@ struct NewJournalEntryView: View {
         case title, content, mood
     }
     
-    private var currentFocusNumber: Int {
-        return focusNumberManager.effectiveFocusNumber
+    private var focusNumber: Int {
+        focusNumberManager.effectiveFocusNumber
     }
     
     var body: some View {
@@ -46,7 +46,7 @@ struct NewJournalEntryView: View {
                 
                 Section(header: Text("Additional Info")) {
                     TextField("Mood (optional)", text: $selectedMoodEmoji)
-                    Text("Focus Number: \(currentFocusNumber)")
+                    Text("Focus Number: \(focusNumber)")
                 }
             }
             .navigationTitle("New Entry")
@@ -69,7 +69,7 @@ struct NewJournalEntryView: View {
         _ = journalManager.createEntry(
             title: title.isEmpty ? "Untitled" : title,
             content: content,
-            focusNumber: currentFocusNumber,
+            focusNumber: focusNumber,
             moodEmoji: selectedMoodEmoji.isEmpty ? nil : selectedMoodEmoji
         )
         

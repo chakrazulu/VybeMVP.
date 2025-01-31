@@ -17,7 +17,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct VybeMVPApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @StateObject private var focusNumberManager = FocusNumberManager()
+    @StateObject private var focusNumberManager = FocusNumberManager.shared
     @StateObject private var journalManager = JournalManager()
     @StateObject private var realmNumberManager = RealmNumberManager()
     @StateObject private var backgroundManager = BackgroundManager.shared
