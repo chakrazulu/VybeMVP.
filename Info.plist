@@ -20,6 +20,10 @@
 	<string>Vybe needs your location to keep your focus number updated.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Vybe needs your location to keep your focus number updated, even when the app is in the background.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Vybe needs access to your heart rate data to calculate your focus number.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Vybe needs access to your heart rate data to calculate your focus number.</string>
 	<key>UIRequiresPersistentWiFi</key>
 	<true/>
 	<key>CFBundleIdentifier</key>
