@@ -10,7 +10,42 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             using: nil) { task in
                 BackgroundManager.shared.handleBackgroundTask(task as! BGAppRefreshTask)
             }
+        
+        // Register background tasks
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.infinitiesinn.vybe.heartrate-update", using: nil) { task in
+            self.handleHeartRateUpdate(task: task as! BGAppRefreshTask)
+        }
+        
         return true
+    }
+    
+    private func handleHeartRateUpdate(task: BGAppRefreshTask) {
+        // Schedule the next background task
+        scheduleNextUpdate()
+        
+        // Create a task to update heart rate
+        task.expirationHandler = {
+            // Handle task expiration
+            print("⚠️ Background task expired")
+        }
+        
+        // Perform heart rate update
+        Task {
+            await HealthKitManager.shared.fetchInitialHeartRate()
+            task.setTaskCompleted(success: true)
+        }
+    }
+    
+    private func scheduleNextUpdate() {
+        let request = BGAppRefreshTaskRequest(identifier: "com.infinitiesinn.vybe.heartrate-update")
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 60) // Schedule next update in 1 minute
+        
+        do {
+            try BGTaskScheduler.shared.submit(request)
+            print("📅 Next background update scheduled")
+        } catch {
+            print("❌ Could not schedule next update: \(error)")
+        }
     }
 }
 
@@ -21,6 +56,7 @@ struct VybeMVPApp: App {
     @StateObject private var journalManager = JournalManager()
     @StateObject private var realmNumberManager = RealmNumberManager()
     @StateObject private var backgroundManager = BackgroundManager.shared
+    @StateObject private var healthKitManager = HealthKitManager.shared
     @Environment(\.scenePhase) private var scenePhase
     let persistenceController = PersistenceController.shared
     
@@ -52,15 +88,22 @@ struct VybeMVPApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(focusNumberManager)
-                .environmentObject(journalManager)
                 .environmentObject(realmNumberManager)
+                .environmentObject(journalManager)
+                .environmentObject(focusNumberManager)
+                .environmentObject(backgroundManager)
+                .environmentObject(healthKitManager)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onAppear {
                     // Set up manager references
                     backgroundManager.setManagers(realm: realmNumberManager, focus: focusNumberManager)
                     // Schedule initial background task when app launches
                     backgroundManager.scheduleBackgroundTask()
+                    
+                    // Start HealthKit monitoring if authorized
+                    if healthKitManager.authorizationStatus == .sharingAuthorized {
+                        healthKitManager.startHeartRateMonitoring()
+                    }
                 }
                 .onChange(of: scenePhase) { oldPhase, newPhase in
                     switch newPhase {

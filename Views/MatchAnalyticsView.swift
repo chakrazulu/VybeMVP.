@@ -3,6 +3,7 @@ import Charts
 
 struct MatchAnalyticsView: View {
     @EnvironmentObject var focusNumberManager: FocusNumberManager
+    @StateObject private var healthKitManager = HealthKitManager.shared
     @State private var selectedTimeFrame: TimeFrame = .day
     
     enum TimeFrame: String, CaseIterable {
@@ -15,6 +16,34 @@ struct MatchAnalyticsView: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 20) {
+                    // Heart Rate Analytics Card
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Heart Rate Analytics")
+                            .font(.headline)
+                            .padding(.horizontal)
+                        
+                        HeartRateView()
+                            .frame(height: 200)
+                            .padding(.horizontal)
+                        
+                        if healthKitManager.authorizationStatus == .sharingAuthorized {
+                            HStack {
+                                StatCard(title: "Current BPM", 
+                                       value: "\(Int(healthKitManager.currentHeartRate ?? 0))",
+                                       icon: "heart.fill")
+                                
+                                StatCard(title: "Last Valid BPM",
+                                       value: "\(healthKitManager.lastValidBPM)",
+                                       icon: "heart.circle.fill")
+                            }
+                            .padding(.horizontal)
+                        }
+                    }
+                    .padding(.vertical)
+                    .background(Color(.systemBackground))
+                    .cornerRadius(12)
+                    .shadow(radius: 2)
+                    
                     // Time Frame Selector
                     Picker("Time Frame", selection: $selectedTimeFrame) {
                         ForEach(TimeFrame.allCases, id: \.self) { timeFrame in

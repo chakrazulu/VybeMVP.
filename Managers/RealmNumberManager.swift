@@ -57,6 +57,10 @@ class RealmNumberManager: NSObject, ObservableObject {
     // Cache for expensive calculations
     private var lastCalculationResult: (components: (time: Int, date: Int, location: Int, bpm: Int), result: Int)?
     
+    // HealthKit integration
+    private let healthKitManager = HealthKitManager.shared
+    @Published private var currentBPM: Int = 0
+    
     // Mock BPM values for testing
     private let mockBPMs: [Int] = [62, 75, 85, 95, 115, 135]
     private var currentMockBPMIndex = 0
@@ -83,11 +87,18 @@ class RealmNumberManager: NSObject, ObservableObject {
     private var predictionAccuracy: [Bool] = [] // Track last 10 predictions
     private let maxPredictionHistory = 10
     
+    // Add cancellables property for Combine subscriptions
+    private var cancellables = Set<AnyCancellable>()
+    
+    // Add property for last valid BPM
+    private var lastValidBPM: Int = 0
+    
     // MARK: - Initialization
     override init() {
         super.init()
         print(ManagerState.initializing.description)
         setupManager()
+        setupHealthKitObserver()
         // Retain self after setup
         retainedSelf = self
     }
@@ -109,6 +120,39 @@ class RealmNumberManager: NSObject, ObservableObject {
             
             // Start updates after setup
             self.startUpdates()
+        }
+    }
+    
+    private func setupHealthKitObserver() {
+        // Observe changes in heart rate through Combine
+        healthKitManager.$currentHeartRate
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] heartRate in
+                if let heartRate = heartRate {
+                    print("💓 Received heart rate update via Combine: \(Int(round(heartRate))) BPM")
+                    self?.currentBPM = Int(round(heartRate))
+                    self?.calculateRealmNumber()
+                }
+            }
+            .store(in: &cancellables)
+            
+        // Also observe heart rate updates through NotificationCenter as backup
+        NotificationCenter.default.publisher(for: HealthKitManager.heartRateUpdated)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] notification in
+                if let heartRate = notification.userInfo?["heartRate"] as? Double {
+                    print("💓 Received heart rate update via Notification: \(Int(round(heartRate))) BPM")
+                    self?.currentBPM = Int(round(heartRate))
+                    self?.calculateRealmNumber()
+                }
+            }
+            .store(in: &cancellables)
+            
+        // Initial heart rate check
+        if let currentHeartRate = healthKitManager.currentHeartRate {
+            print("💓 Initial heart rate value: \(Int(round(currentHeartRate))) BPM")
+            currentBPM = Int(round(currentHeartRate))
+            calculateRealmNumber()
         }
     }
     
@@ -181,11 +225,27 @@ class RealmNumberManager: NSObject, ObservableObject {
             locationSum = reduceToSingleDigit(latSum + lonSum)
         }
         
-        // Calculate BPM sum with pure reduction
-        let bpmSum = reduceToSingleDigit(mockBPM)
+        // Use real BPM from HealthKit, falling back to last valid reading
+        let actualBPM = currentBPM
+        let bpmValue: Int
+        let bpmSum: Int
         
-        // Add a small dynamic factor based on BPM variability
-        let dynamicFactor = reduceToSingleDigit(bpmSum % 3)
+        if actualBPM > 0 {
+            print("💓 Using actual heart rate: \(actualBPM) BPM")
+            bpmValue = actualBPM
+            lastValidBPM = actualBPM  // Store this valid reading
+        } else if lastValidBPM > 0 {
+            print("ℹ️ Using last valid heart rate: \(lastValidBPM) BPM")
+            bpmValue = lastValidBPM
+        } else {
+            print("⚠️ No heart rate history available yet")
+            bpmValue = actualBPM
+        }
+        
+        bpmSum = reduceToSingleDigit(bpmValue)
+        
+        // Add a small dynamic factor based on actual BPM variability
+        let dynamicFactor = reduceToSingleDigit(bpmValue % 3)
         
         // Check cache for identical components
         if let cached = lastCalculationResult,
@@ -212,7 +272,7 @@ class RealmNumberManager: NSObject, ObservableObject {
             print("Time: \(hour)h:\(minute)m → \(timeSum)")
             print("Date: \(month)/\(day) → \(dateSum)")
             print("Location: \(locationSum)")
-            print("BPM: \(mockBPM) → \(bpmSum)")
+            print("BPM: \(bpmValue) → \(bpmSum)")
             print("Dynamic Factor: \(dynamicFactor)")
             print("Total: \(totalSum) → \(finalNumber)")
             
@@ -221,7 +281,7 @@ class RealmNumberManager: NSObject, ObservableObject {
                 print("Time Sum (\(hour) + \(minute) = \(hour + minute) → \(timeSum))")
                 print("Date Sum (\(day) + \(month) = \(day + month) → \(dateSum))")
                 print("Location Sum (\(locationSum))")
-                print("BPM Sum (\(mockBPM) → \(bpmSum))")
+                print("BPM Sum (\(bpmSum))")
                 print("Dynamic Factor: \(dynamicFactor)")
                 print("Total Sum (\(timeSum) + \(dateSum) + \(locationSum) + \(bpmSum) + \(dynamicFactor) = \(totalSum) → \(finalNumber))")
             }
