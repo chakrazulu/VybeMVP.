@@ -1,141 +1,217 @@
 import SwiftUI
+import HealthKit
 
 struct HeartRateView: View {
-    @ObservedObject private var healthKitManager = HealthKitManager.shared
-    @State private var isLoading = true
+    // Keep track of retry attempts to avoid infinite refresh
+    @State private var retryCount = 0
+    private let maxRetryCount = 3
     @State private var showingNoDataAlert = false
     
-    private let gradientColors = [
-        Color.blue.opacity(0.5),
-        Color.purple.opacity(0.7),
-        Color.red.opacity(0.8)
-    ]
+    // Use concrete type with dependency injection for testability
+    @ObservedObject private var healthKitManager: HealthKitManager
+    
+    // Initialize with dependency injection
+    init(healthKitManager: HealthKitManager = HealthKitManager.shared) {
+        self.healthKitManager = healthKitManager
+    }
+    
+    // Timer for periodic refresh
+    @State private var timer: Timer? = nil
+    
+    // Computed property to check if we have valid heart rate data
+    private var hasValidHeartRate: Bool {
+        return healthKitManager.lastValidBPM > 0
+    }
     
     var body: some View {
-        VStack(spacing: 25) {
-            // Heart Rate Display
-            ZStack {
-                Circle()
-                    .stroke(
-                        LinearGradient(
-                            colors: gradientColors,
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: 8
-                    )
-                    .frame(width: 150, height: 150)
+        ZStack {
+            Color(UIColor.systemBackground)
+                .edgesIgnoringSafeArea(.all)
+            
+            VStack(spacing: 20) {
+                heartRateDisplay
                 
-                VStack(spacing: 5) {
-                    if isLoading {
-                        ProgressView()
-                            .scaleEffect(1.5)
-                    } else {
-                        Text("\(Int(healthKitManager.currentHeartRate ?? 0))")
-                            .font(.system(size: 48, weight: .bold, design: .rounded))
-                            .foregroundColor(.primary)
-                        
-                        Text("BPM")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
+                if !hasValidHeartRate && retryCount >= maxRetryCount {
+                    // Show "No Data Available" button
+                    noDataView
+                } else if healthKitManager.authorizationStatus != .sharingAuthorized || healthKitManager.needsSettingsAccess {
+                    // Show authorization button
+                    authorizationView
+                } else if !hasValidHeartRate {
+                    // Show loading indicator
+                    loadingView
                 }
+                
+                // Always show refresh button
+                refreshButton
             }
-            .animation(.easeInOut(duration: 0.3), value: healthKitManager.currentHeartRate)
-            
-            // Status and Controls
-            if healthKitManager.authorizationStatus == .sharingAuthorized {
-                VStack(spacing: 15) {
-                    // Status Indicator
-                    HStack {
-                        Image(systemName: "heart.fill")
-                            .foregroundColor(.green)
-                        Text(isLoading ? "Fetching..." : "Monitoring")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-                    
-                    // Refresh Button
-                    Button(action: {
-                        isLoading = true
-                        Task {
-                            await healthKitManager.fetchInitialHeartRate()
-                            // Reset loading state after 3 seconds
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                isLoading = false
-                                if healthKitManager.currentHeartRate == nil {
-                                    showingNoDataAlert = true
-                                }
-                            }
-                        }
-                    }) {
-                        Label("Refresh", systemImage: "arrow.clockwise")
-                            .foregroundColor(.blue)
-                    }
-                    .padding(.vertical, 5)
-                }
-                .padding(.bottom, 20)
-            } else {
-                // Not Authorized State
-                VStack(spacing: 10) {
-                    HStack {
-                        Image(systemName: "heart.slash.fill")
-                            .foregroundColor(.red)
-                        Text(statusText)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-                    
-                    if healthKitManager.needsSettingsAccess {
-                        Button(action: {
-                            healthKitManager.openHealthAppSettings()
-                        }) {
-                            Text("Open Health Settings")
-                                .font(.caption)
-                                .foregroundColor(.blue)
-                        }
-                    }
-                }
-            }
-            
-            Spacer(minLength: 40)  // Add more space before time picker
-        }
-        .padding()
-        .alert("No Heart Rate Data", isPresented: $showingNoDataAlert) {
-            Button("OK", role: .cancel) { }
-        } message: {
-            Text("Make sure your Apple Watch is connected and measuring heart rate.")
+            .padding()
         }
         .onAppear {
-            Task {
-                await healthKitManager.fetchInitialHeartRate()
-                // Reset loading state after 3 seconds
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    isLoading = false
-                    if healthKitManager.currentHeartRate == nil {
-                        showingNoDataAlert = true
+            setupHeartRateRefresh()
+        }
+        .onDisappear {
+            // Clean up timer when view disappears
+            timer?.invalidate()
+            timer = nil
+        }
+    }
+    
+    // MARK: - Component Views
+    
+    private var heartRateDisplay: some View {
+        VStack(spacing: 5) {
+            Text("Current Heart Rate")
+                .font(.headline)
+                .foregroundColor(.secondary)
+            
+            Text("\(hasValidHeartRate ? "\(healthKitManager.lastValidBPM)" : "--")")
+                .font(.system(size: 70, weight: .bold))
+                .foregroundColor(hasValidHeartRate ? .primary : .secondary)
+            
+            Text("BPM")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+        }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background(Color(UIColor.secondarySystemBackground))
+        .cornerRadius(12)
+    }
+    
+    private var loadingView: some View {
+        VStack(spacing: 10) {
+            ProgressView()
+                .scaleEffect(1.5)
+            
+            Text("Measuring heart rate...")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+        }
+        .padding()
+    }
+    
+    private var noDataView: some View {
+        VStack(spacing: 10) {
+            Image(systemName: "heart.slash")
+                .font(.system(size: 30))
+                .foregroundColor(.red)
+            
+            Text("No heart rate data available")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+            
+            Text("Please ensure your Apple Watch is worn properly and try again")
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+        }
+        .padding()
+        .alert(isPresented: $showingNoDataAlert) {
+            Alert(
+                title: Text("No Heart Rate Data"),
+                message: Text("Make sure your Apple Watch is properly worn and connected. You might need to open the Health app on your watch to refresh data."),
+                dismissButton: .default(Text("OK"))
+            )
+        }
+    }
+    
+    private var authorizationView: some View {
+        VStack(spacing: 10) {
+            Image(systemName: "heart.text.square")
+                .font(.system(size: 30))
+                .foregroundColor(.blue)
+            
+            Text(healthKitManager.needsSettingsAccess ? "Health Access Required" : "Health Permission Required")
+                .font(.headline)
+            
+            Text(healthKitManager.needsSettingsAccess ? 
+                "Please enable heart rate access in Settings > Privacy > Health" : 
+                "Please grant access to your heart rate data")
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+            
+            Button(action: {
+                if healthKitManager.needsSettingsAccess {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
+                } else {
+                    Task {
+                        do {
+                            try await healthKitManager.requestAuthorization()
+                        } catch {
+                            print("Authorization error: \(error)")
+                        }
                     }
                 }
+            }) {
+                Text(healthKitManager.needsSettingsAccess ? "Open Settings" : "Grant Access")
+                    .fontWeight(.bold)
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 10)
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
             }
         }
-        // Add timer to update heart rate every minute
-        .onReceive(Timer.publish(every: 60, on: .main, in: .common).autoconnect()) { _ in
-            Task {
-                await healthKitManager.fetchInitialHeartRate()
+        .padding()
+    }
+    
+    private var refreshButton: some View {
+        Button(action: refreshHeartRate) {
+            HStack(spacing: 8) {
+                Image(systemName: "arrow.clockwise")
+                Text("Refresh")
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 10)
+            .background(Color(UIColor.tertiarySystemBackground))
+            .cornerRadius(8)
+        }
+    }
+    
+    // MARK: - Functions
+    
+    private func setupHeartRateRefresh() {
+        // Initial refresh
+        refreshHeartRate()
+        
+        // Set up timer for periodic refresh (every 30 seconds)
+        timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
+            if retryCount < maxRetryCount || hasValidHeartRate {
+                refreshHeartRate()
             }
         }
     }
     
-    private var statusText: String {
-        switch healthKitManager.authorizationStatus {
-        case .sharingAuthorized:
-            return "Monitoring"
-        case .sharingDenied:
-            return "Access Denied"
-        case .notDetermined:
-            return "Not Authorized"
-        @unknown default:
-            return "Unknown Status"
+    private func refreshHeartRate() {
+        // Only allow refresh if we haven't reached max retries
+        if retryCount < maxRetryCount || hasValidHeartRate {
+            Task {
+                if healthKitManager.authorizationStatus == .sharingAuthorized {
+                    // If we're authorized, try to get heart rate data
+                    if !hasValidHeartRate {
+                        retryCount += 1
+                        print("Refreshing heart rate (attempt \(retryCount))")
+                    }
+                    
+                    await healthKitManager.forceHeartRateUpdate()
+                    
+                    // If we still don't have data after max retries, show alert
+                    if retryCount >= maxRetryCount && !hasValidHeartRate {
+                        showingNoDataAlert = true
+                    }
+                } else {
+                    // If not authorized, try to request authorization
+                    do {
+                        try await healthKitManager.requestAuthorization()
+                    } catch {
+                        print("Authorization error: \(error)")
+                    }
+                }
+            }
         }
     }
 }
