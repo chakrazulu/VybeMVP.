@@ -36,12 +36,14 @@ struct ContentView: View {
                     }
                     .tag(3)
                 
-                NumberMeaningView()
-                    .tabItem {
-                        Image(systemName: "number.circle.fill")
-                        Text("Meanings")
-                    }
-                    .tag(4)
+                NavigationView {
+                    NumberMeaningView()
+                }
+                .tabItem {
+                    Image(systemName: "number.circle.fill")
+                    Text("Meanings")
+                }
+                .tag(4)
                 
                 NavigationView {
                     SettingsView()
