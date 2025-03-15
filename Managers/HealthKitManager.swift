@@ -1,9 +1,19 @@
-//
-//  HealthKitManager.swift
-//  VybeMVP
-//
-//  Created by Corey Davis on 2/1/25.
-//
+/**
+ * Filename: HealthKitManager.swift
+ * 
+ * Purpose: Manages all interactions with HealthKit to retrieve health data,
+ * particularly heart rate information for use in the app's calculations.
+ *
+ * Key responsibilities:
+ * - Request authorization for HealthKit data access
+ * - Monitor and retrieve heart rate data
+ * - Manage background delivery of health data updates
+ * - Track authorization status and handle permission changes
+ * - Provide heart rate information to other components
+ * 
+ * This manager is central to the app's health data integration, providing
+ * the real-time heart rate values needed for realm number calculations.
+ */
 
 import Foundation
 import HealthKit
@@ -14,80 +24,188 @@ import os.log
 import SwiftUI
 import BackgroundTasks
 
-class HealthKitManager: ObservableObject, @unchecked Sendable {
-    // MARK: - Properties
-    static let shared = HealthKitManager()
-    private let healthStore = HKHealthStore()
-    private let logger = OSLog(subsystem: Bundle.main.bundleIdentifier ?? "com.infinitiesinn.vybe.VybeMVP", category: "HealthKit")
+// MARK: - HealthKitManager Implementation
+/**
+ * Core manager class for HealthKit operations and heart rate monitoring.
+ *
+ * This class is responsible for:
+ * - Managing HealthKit authorization status
+ * - Retrieving and monitoring heart rate data
+ * - Setting up background delivery of health updates
+ * - Publishing heart rate values to subscribers
+ *
+ * Design pattern: Singleton with protocol conformance for testing
+ * Threading: Uses main thread for UI updates and background threads for HealthKit queries
+ * Permissions: Requires explicit user authorization to access heart rate data
+ */
+@objc open class HealthKitManager: NSObject, ObservableObject, HealthKitManaging, @unchecked Sendable {
+    // MARK: - Shared Instance
+    /// Singleton instance for app-wide access to HealthKit functionality
+    @objc public static let shared = HealthKitManager()
     
-    @Published private(set) var currentHeartRate: Double?
-    @Published private(set) var lastValidBPM: Int = 0
-    @Published private(set) var authorizationStatus: HKAuthorizationStatus = .notDetermined
-    @Published private(set) var needsSettingsAccess: Bool = false
+    // MARK: - Published Properties
+    /// The current heart rate reading in beats per minute (BPM)
+    @Published public private(set) var currentHeartRate: Int = 0
+    
+    /// The most recent valid heart rate reading (non-zero) in BPM
+    @Published public private(set) var lastValidBPM: Int = 0
+    
+    /// Current authorization status for heart rate data access
+    @Published public private(set) var authorizationStatus: HKAuthorizationStatus = .notDetermined
+    
+    /// Indicates whether the user needs to manually enable HealthKit in Settings
+    @Published public private(set) var needsSettingsAccess: Bool = false
+    
+    /// Detailed authorization statuses for each health data type
     @Published private(set) var authorizationStatuses: [String: HKAuthorizationStatus] = [:]
     
+    // MARK: - Notification Names
+    /// Notification sent when heart rate data is updated
+    public static let heartRateUpdated = Notification.Name("heartRateUpdated")
+    
+    // MARK: - Private Properties
+    /// Core HealthKit store for accessing health data
+    private let healthStore = HKHealthStore()
+    
+    /// Logger for HealthKit-related operations
+    private let logger = OSLog(subsystem: Bundle.main.bundleIdentifier ?? "com.infinitiesinn.vybe.VybeMVP", category: "HealthKit")
+    
+    /// Active query for heart rate monitoring
     private var heartRateQuery: HKQuery?
+    
+    /// Observer query for background updates
+    private var observerQuery: HKObserverQuery?
+    
+    /// Timer for periodic heart rate updates
     private var updateTimer: Timer?
+    
+    /// Timestamp of the last heart rate update
     private var lastUpdateTime: Date?
     
-    // Add notification name for heart rate updates
-    static let heartRateUpdated = Notification.Name("com.infinitiesinn.vybe.heartRateUpdated")
-    
-    // Helper to get health settings URL
-    var healthSettingsURL: URL? {
-        URL(string: "x-apple-health://")
-    }
-    
-    // Helper to get app settings URL
-    var appSettingsURL: URL? {
-        URL(string: UIApplication.openSettingsURLString)
-    }
-    
     // MARK: - Initialization
-    private init() {
-        setupIfAvailable()
-    }
-    
-    // MARK: - Setup
-    private func setupIfAvailable() {
+    /**
+     * Initializes the HealthKit manager and checks data availability.
+     *
+     * This initializer:
+     * 1. Verifies that HealthKit is available on the device
+     * 2. Checks the current authorization status
+     * 3. Sets up the manager's initial state
+     *
+     * The initialization triggers an asynchronous check of permissions
+     * but does not request authorization (that requires explicit user action).
+     */
+    public override init() {
+        super.init()
+        print("HealthKitManager initialized")
+        
+        // Check if HealthKit is available on the device
         guard HKHealthStore.isHealthDataAvailable() else {
-            os_log("HealthKit is not available on this device", log: logger, type: .error)
+            print("HealthKit not available on this device")
             return
         }
         
-        // Initialize status for heart rate only
-        if let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate) {
-            let status = healthStore.authorizationStatus(for: heartRateType)
-            authorizationStatuses[heartRateType.identifier] = status
-            authorizationStatus = status
-        }
-        
-        os_log("HealthKit setup completed successfully", log: logger, type: .default)
-    }
-    
-    private func enableBackgroundDelivery() async throws {
-        guard let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate) else {
-            throw HealthKitError.heartRateNotAvailable
-        }
-        
-        print("\n🔄 Setting up background delivery...")
-        
-        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            healthStore.enableBackgroundDelivery(for: heartRateType, frequency: .immediate) { success, error in
-                if let error = error {
-                    continuation.resume(throwing: error)
-                } else if !success {
-                    continuation.resume(throwing: HealthKitError.requiresBackgroundAccess)
-                } else {
-                    print("✅ Background delivery enabled successfully")
-                    continuation.resume()
-                }
+        // Access HealthKit data types we need
+        Task {
+            do {
+                try await checkAuthorizationStatus()
+            } catch {
+                print("Error checking authorization: \(error)")
             }
         }
     }
     
-    // MARK: - Authorization
-    func requestAuthorization() async throws {
+    // MARK: - Update Methods for Published Properties
+    /**
+     * Updates the current heart rate value.
+     *
+     * - Parameter value: The heart rate value in beats per minute, or nil if unavailable
+     *
+     * This method ensures updates occur on the main thread for thread safety
+     * with SwiftUI's published properties.
+     */
+    internal func updateCurrentHeartRate(_ value: Double?) {
+        DispatchQueue.main.async {
+            self.currentHeartRate = Int(value ?? 0.0)
+        }
+    }
+    
+    /**
+     * Updates the last valid BPM value.
+     *
+     * - Parameter value: The heart rate value in beats per minute
+     *
+     * This method updates the lastValidBPM property, which tracks
+     * the most recent non-zero heart rate reading.
+     */
+    internal func updateLastValidBPM(_ value: Int) {
+        DispatchQueue.main.async {
+            self.lastValidBPM = value
+        }
+    }
+    
+    /**
+     * Updates the authorization status for HealthKit access.
+     *
+     * - Parameter status: The current HealthKit authorization status
+     *
+     * This method ensures UI updates occur on the main thread.
+     */
+    internal func updateAuthorizationStatus(_ status: HKAuthorizationStatus) {
+        DispatchQueue.main.async {
+            self.authorizationStatus = status
+        }
+    }
+    
+    /**
+     * Updates whether Settings access is needed for permission changes.
+     *
+     * - Parameter value: Boolean indicating if Settings access is required
+     *
+     * This is set to true when permissions have been denied and the user
+     * needs to manually enable them in the Settings app.
+     */
+    internal func updateNeedsSettingsAccess(_ value: Bool) {
+        DispatchQueue.main.async {
+            self.needsSettingsAccess = value
+        }
+    }
+    
+    // MARK: - Authorization and Status Methods
+    /**
+     * Checks the current authorization status for heart rate data.
+     *
+     * This asynchronous method:
+     * 1. Retrieves the current authorization status from HealthKit
+     * 2. Updates the published status property
+     * 3. Sets the needsSettingsAccess flag if permissions were denied
+     *
+     * Throws an error if the HealthKit status check fails.
+     */
+    private func checkAuthorizationStatus() async throws {
+        let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate)!
+        let status = healthStore.authorizationStatus(for: heartRateType)
+        
+        updateAuthorizationStatus(status)
+        
+        print("Health data authorization status: \(status.rawValue)")
+        
+        if status == .sharingDenied {
+            updateNeedsSettingsAccess(true)
+        }
+    }
+    
+    /**
+     * Requests authorization to access heart rate data from HealthKit.
+     *
+     * This method:
+     * 1. Defines the health data types needed (heart rate)
+     * 2. Requests user permission via system dialog
+     * 3. Updates the authorization status based on user's choice
+     * 4. Sets up heart rate monitoring if authorized
+     *
+     * Throws an error if the authorization request fails.
+     */
+    public func requestAuthorization() async throws {
         print("\n=== HealthKitManager: Starting Authorization Process ===")
         
         // Verify bundle identifier
@@ -196,202 +314,350 @@ class HealthKitManager: ObservableObject, @unchecked Sendable {
     }
     
     // MARK: - Heart Rate Monitoring
-    func startHeartRateMonitoring() {
-        guard let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate) else {
-            os_log("Heart rate type is not available", log: logger, type: .error)
+    /**
+     * Begins monitoring heart rate data from HealthKit.
+     *
+     * This method:
+     * 1. Verifies that HealthKit is available and authorized
+     * 2. Sets up an observer for heart rate changes
+     * 3. Configures background delivery for continuous updates
+     *
+     * This is typically called after successful authorization
+     * or when the app becomes active again after being in the background.
+     */
+    public func startHeartRateMonitoring() {
+        guard HKHealthStore.isHealthDataAvailable(),
+              authorizationStatus == .sharingAuthorized else {
+            print("Cannot start monitoring: Health data not available or not authorized")
             return
         }
         
-        // Check authorization status
-        let status = healthStore.authorizationStatus(for: heartRateType)
-        guard status == .sharingAuthorized else {
-            os_log("HealthKit authorization not granted", log: logger, type: .error)
-            return
-        }
+        print("Starting heart rate monitoring")
         
-        print("\n🫀 Starting heart rate monitoring...")
+        setupHeartRateObserver()
+        setupBackgroundDelivery()
+    }
+    
+    /**
+     * Configures an observer query to monitor heart rate changes.
+     *
+     * This method:
+     * 1. Creates an HKObserverQuery for heart rate samples
+     * 2. Sets up a callback to fetch the latest heart rate when changes occur
+     * 3. Executes the query against the HealthKit store
+     *
+     * The observer triggers background fetches when new heart rate 
+     * data becomes available, even when the app is not active.
+     */
+    private func setupHeartRateObserver() {
+        let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate)!
         
-        // Create a predicate for recent samples (last 30 seconds)
-        let now = Date()
-        let past = Calendar.current.date(byAdding: .second, value: -30, to: now) ?? now
-        let predicate = HKQuery.predicateForSamples(withStart: past, end: nil, options: .strictEndDate)
-        
-        // Stop any existing query
-        stopHeartRateMonitoring()
-        
-        // Create the heart rate query for historical data
-        let query = HKAnchoredObjectQuery(
-            type: heartRateType,
-            predicate: predicate,
-            anchor: nil,
-            limit: HKObjectQueryNoLimit
-        ) { [weak self] (query: HKAnchoredObjectQuery, samples: [HKSample]?, deletedObjects: [HKDeletedObject]?, anchor: HKQueryAnchor?, error: Error?) in
+        // Create observer query for background updates
+        observerQuery = HKObserverQuery(sampleType: heartRateType, predicate: nil) { [weak self] (query, completionHandler, error) in
             if let error = error {
-                print("❌ Heart rate query error: \(error.localizedDescription)")
+                print("Heart rate observer error: \(error)")
+                completionHandler()
                 return
             }
             
-            Task { @MainActor in
-                self?.processHeartRateSamples(samples)
-            }
-        }
-        
-        // Set up update handler for real-time updates
-        query.updateHandler = { [weak self] (query: HKAnchoredObjectQuery, samples: [HKSample]?, deletedObjects: [HKDeletedObject]?, anchor: HKQueryAnchor?, error: Error?) in
-            if let error = error {
-                print("❌ Heart rate update error: \(error.localizedDescription)")
-                return
-            }
-            
-            Task { @MainActor in
-                self?.processHeartRateSamples(samples)
+            Task {
+                do {
+                    try await self?.fetchLatestHeartRate()
+                } catch {
+                    print("Error fetching heart rate in observer: \(error)")
+                }
+                completionHandler()
             }
         }
         
         // Execute the query
-        healthStore.execute(query)
-        heartRateQuery = query
-        
-        // Enable background delivery
-        Task {
-            do {
-                try await enableBackgroundDelivery()
-            } catch {
-                print("❌ Error enabling background delivery: \(error.localizedDescription)")
-            }
+        if let observerQuery = observerQuery {
+            healthStore.execute(observerQuery)
+            print("Heart rate observer query started")
         }
-        
-        // Set up a periodic query every 15 seconds
-        updateTimer?.invalidate()
-        updateTimer = Timer.scheduledTimer(withTimeInterval: 15.0, repeats: true) { [weak self] _ in
-            Task { @MainActor in
-                await self?.forceHeartRateUpdate()
-            }
-        }
-        
-        print("✅ Heart rate monitoring started with 15-second updates")
     }
     
-    private func scheduleBackgroundTask() {
-        let request = BGAppRefreshTaskRequest(identifier: "com.infinitiesinn.vybe.heartrate-update")
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 60) // Schedule for 1 minute from now
+    /**
+     * Configures background delivery for heart rate updates.
+     *
+     * This method enables the app to receive heart rate data updates
+     * even when the app is in the background or not actively running.
+     * It uses HealthKit's background delivery feature with immediate
+     * frequency to ensure timely updates.
+     *
+     * Requires proper background modes to be configured in the app's
+     * capabilities and Info.plist file.
+     */
+    private func setupBackgroundDelivery() {
+        let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate)!
+        
+        // Enable background delivery for heart rate
+        healthStore.enableBackgroundDelivery(for: heartRateType, frequency: .immediate) { (success, error) in
+            if success {
+                print("Background delivery enabled for heart rate")
+            } else if let error = error {
+                print("Failed to enable background delivery: \(error)")
+            }
+        }
+    }
+    
+    /**
+     * Stops monitoring heart rate data from HealthKit.
+     *
+     * This method:
+     * 1. Stops any active observer queries
+     * 2. Disables background delivery for heart rate data
+     * 3. Cleans up internal query references
+     *
+     * Typically called when the app is being terminated or
+     * when heart rate monitoring is no longer needed.
+     */
+    public func stopHeartRateMonitoring() {
+        print("Stopping heart rate monitoring")
+        
+        // Stop observer query
+        if let observerQuery = observerQuery {
+            healthStore.stop(observerQuery)
+            self.observerQuery = nil
+            print("Heart rate observer stopped")
+        }
+        
+        // Disable background delivery
+        let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate)!
+        healthStore.disableBackgroundDelivery(for: heartRateType) { (success, error) in
+            if success {
+                print("Background delivery disabled for heart rate")
+            } else if let error = error {
+                print("Failed to disable background delivery: \(error)")
+            }
+        }
+    }
+    
+    // MARK: - Heart Rate Data Fetching
+    /**
+     * Explicitly requests an immediate heart rate update.
+     *
+     * This public method triggers a manual fetch of the latest heart rate
+     * data from HealthKit. It can be called when the app needs the most
+     * current heart rate reading outside of the regular background updates.
+     *
+     * Typically used when the app becomes active or when a specific feature
+     * requires the most up-to-date heart rate value.
+     */
+    public func forceHeartRateUpdate() async {
+        print("Forcing heart rate update")
         
         do {
-            try BGTaskScheduler.shared.submit(request)
-            print("✅ Background task scheduled successfully")
+            try await fetchLatestHeartRate()
         } catch {
-            print("❌ Could not schedule background task: \(error.localizedDescription)")
+            print("Error forcing heart rate update: \(error)")
         }
     }
     
-    @MainActor
-    private func processHeartRateSamples(_ samples: [HKSample]?) {
-        guard let samples = samples as? [HKQuantitySample] else {
-            print("⚠️ No heart rate samples to process")
+    /**
+     * Retrieves the most recent heart rate reading from HealthKit.
+     *
+     * This method:
+     * 1. Verifies HealthKit is available and authorized
+     * 2. Creates a query for the most recent heart rate sample
+     * 3. Executes the query against the HealthKit store
+     * 4. Processes the result and updates the published heart rate value
+     * 5. Notifies observers via a notification
+     *
+     * The method uses a limit of 1 and sorts by end date to ensure
+     * only the most recent reading is retrieved.
+     *
+     * Throws an error if the health data is not available or authorized.
+     */
+    private func fetchLatestHeartRate() async throws {
+        guard HKHealthStore.isHealthDataAvailable(),
+              authorizationStatus == .sharingAuthorized else {
+            print("Cannot fetch heart rate: Health data not available or not authorized")
             return
         }
         
-        // Get the most recent heart rate
-        if let mostRecentSample = samples.last {
-            let heartRate = mostRecentSample.quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
-            let timestamp = mostRecentSample.startDate
-            let age = Date().timeIntervalSince(timestamp)
+        let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate)!
+        
+        // Get the most recent heart rate reading
+        let predicate = HKQuery.predicateForSamples(
+            withStart: Date.distantPast,
+            end: Date(),
+            options: .strictEndDate
+        )
+        
+        // Sort by date to get the most recent
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
+        
+        let query = HKSampleQuery(
+            sampleType: heartRateType,
+            predicate: predicate,
+            limit: 1,
+            sortDescriptors: [sortDescriptor]
+        ) { [weak self] (query, samples, error) in
+            guard let self = self else { return }
             
-            print("💓 Processing heart rate: \(Int(heartRate)) BPM at \(timestamp) (age: \(Int(age)) seconds)")
+            if let error = error {
+                print("Error querying heart rate: \(error)")
+                return
+            }
             
-            // Only update if the reading is fresh (less than 60 seconds old)
-            if age <= 60 {
-                // Update both current and last valid BPM
-                self.currentHeartRate = heartRate
-                self.lastValidBPM = Int(heartRate)
-                self.lastUpdateTime = Date()
+            guard let samples = samples, let sample = samples.first as? HKQuantitySample else {
+                print("No heart rate samples available")
+                return
+            }
+            
+            // Get heart rate in beats per minute
+            let heartRateUnit = HKUnit.count().unitDivided(by: .minute())
+            let heartRate = sample.quantity.doubleValue(for: heartRateUnit)
+            
+            print("Latest heart rate: \(heartRate) BPM")
+            
+            // Update state on main thread
+            DispatchQueue.main.async {
+                self.updateCurrentHeartRate(heartRate)
                 
-                // Post notification with the new heart rate
+                if heartRate > 0 {
+                    self.updateLastValidBPM(Int(heartRate))
+                }
+                
+                // Post notification of heart rate update for observers
                 NotificationCenter.default.post(
                     name: Self.heartRateUpdated,
                     object: heartRate,
-                    userInfo: ["heartRate": heartRate, "timestamp": timestamp]
+                    userInfo: ["heartRate": heartRate]
                 )
-                
-                print("✅ Updated heart rate to \(Int(heartRate)) BPM")
-                
-                // Update trend analysis
-                updateHeartRateTrend(heartRate)
-            } else {
-                print("⚠️ Heart rate reading too old (\(Int(age)) seconds), requesting fresh data")
-                // Request a fresh reading
-                Task {
-                    await forceHeartRateUpdate()
+            }
+        }
+        
+        healthStore.execute(query)
+    }
+    
+    public func fetchInitialHeartRate() async {
+        print("Fetching initial heart rate")
+        
+        do {
+            try await fetchLatestHeartRate()
+        } catch {
+            print("Error fetching initial heart rate: \(error)")
+        }
+    }
+    
+    /**
+     * Enables background delivery for heart rate data updates.
+     *
+     * This asynchronous method:
+     * 1. Configures HealthKit to deliver heart rate updates in the background
+     * 2. Sets the frequency to immediate for real-time monitoring
+     * 3. Returns a continuation when the setup is complete or throws an error
+     *
+     * Background delivery is essential for maintaining continuous heart rate
+     * monitoring even when the app is not in the foreground.
+     *
+     * Throws an error if heart rate type is not available or if background
+     * delivery cannot be enabled.
+     */
+    private func enableBackgroundDelivery() async throws {
+        guard let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate) else {
+            throw HealthKitError.heartRateNotAvailable
+        }
+        
+        print("\n🔄 Setting up background delivery...")
+        
+        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            healthStore.enableBackgroundDelivery(for: heartRateType, frequency: .immediate) { success, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else if !success {
+                    continuation.resume(throwing: HealthKitError.requiresBackgroundAccess)
+                } else {
+                    print("✅ Background delivery enabled successfully")
+                    continuation.resume()
                 }
             }
-        } else {
-            print("⚠️ No recent heart rate sample found, requesting fresh data")
-            // Request a fresh reading
-            Task {
-                await forceHeartRateUpdate()
-            }
-        }
-    }
-    
-    func stopHeartRateMonitoring() {
-        if let query = heartRateQuery {
-            healthStore.stop(query)
-            heartRateQuery = nil
-            updateTimer?.invalidate()
-            updateTimer = nil
-            print("⏹ Heart rate monitoring stopped")
-        }
-    }
-    
-    // MARK: - Private Methods
-    // Helper method to check if all required permissions are granted
-    func checkAllPermissions() -> Bool {
-        let types: [HKQuantityTypeIdentifier] = [
-            .heartRate,
-            .heartRateVariabilitySDNN,
-            .restingHeartRate,
-            .walkingHeartRateAverage
-        ]
-        
-        return types.allSatisfy { identifier in
-            guard let type = HKQuantityType.quantityType(forIdentifier: identifier) else { return false }
-            return healthStore.authorizationStatus(for: type) == .sharingAuthorized
         }
     }
     
     // MARK: - Settings Access
+    /**
+     * Opens the Health app settings to allow the user to modify permissions.
+     *
+     * This method uses a deep link to the Health app, enabling users to
+     * directly access their health data sharing settings when permissions
+     * need to be granted or modified.
+     */
     func openHealthAppSettings() {
         if let url = URL(string: "x-apple-health://") {
             UIApplication.shared.open(url)
         }
     }
     
+    /**
+     * Opens the app's settings page in the iOS Settings app.
+     *
+     * This method directs users to the app's settings page where they can
+     * modify permissions, notifications, and other app-specific settings.
+     * Useful when the app needs system-level permission changes.
+     */
     func openAppSettings() {
         if let url = URL(string: UIApplication.openSettingsURLString) {
             UIApplication.shared.open(url)
         }
     }
     
-    // Helper method to check if heart rate permission is granted
+    /**
+     * Checks if heart rate permission has been granted.
+     *
+     * This helper method quickly determines if the app has the necessary
+     * authorization to access heart rate data without going through the
+     * full authorization process.
+     *
+     * Returns true if heart rate access is authorized, false otherwise.
+     */
     func checkHeartRatePermission() -> Bool {
         guard let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate) else { return false }
         return healthStore.authorizationStatus(for: heartRateType) == .sharingAuthorized
     }
     
-    // Add method to get current heart rate
+    /**
+     * Returns the current heart rate value.
+     *
+     * This convenience method provides the current heart rate as a Double,
+     * allowing for easier use in calculations where Double precision is needed.
+     *
+     * Returns the current heart rate in beats per minute.
+     */
     func getCurrentHeartRate() -> Double {
-        return currentHeartRate ?? 0.0
+        return Double(currentHeartRate)
     }
     
     // MARK: - Heart Rate Analytics
+    /**
+     * Represents a point in the heart rate trend analysis.
+     *
+     * This structure pairs a heart rate reading with its timestamp
+     * to enable time-based trend analysis.
+     */
     private struct HeartRateTrend {
         let timestamp: Date
         let bpm: Double
     }
     
+    /// Collection of recent heart rate readings for trend analysis
     private var recentHeartRates: [HeartRateTrend] = []
+    
+    /// Maximum number of data points to retain for trend analysis
     private let maxTrendDataPoints = 10
     
+    /**
+     * Updates the heart rate trend analysis with a new reading.
+     *
+     * This method:
+     * 1. Adds the new heart rate reading to the trend collection
+     * 2. Maintains a maximum number of data points by removing older readings
+     * 3. Triggers analysis of the trend to detect significant changes
+     *
+     * - Parameter bpm: The heart rate in beats per minute to add to the trend
+     */
     private func updateHeartRateTrend(_ bpm: Double) {
         let trend = HeartRateTrend(timestamp: Date(), bpm: bpm)
         recentHeartRates.append(trend)
@@ -404,6 +670,19 @@ class HealthKitManager: ObservableObject, @unchecked Sendable {
         analyzeTrend()
     }
     
+    /**
+     * Analyzes recent heart rate readings to detect significant changes.
+     *
+     * This method:
+     * 1. Requires at least 3 data points for meaningful analysis
+     * 2. Calculates the rate of change in BPM over time
+     * 3. Identifies significant changes (more than 5 BPM per minute)
+     * 4. Logs important trends for debugging and analysis
+     *
+     * The analysis helps in identifying potential health events or
+     * exercise intensity changes that may be relevant for the app's
+     * functionality.
+     */
     private func analyzeTrend() {
         guard recentHeartRates.count >= 3 else { return }
         
@@ -421,9 +700,19 @@ class HealthKitManager: ObservableObject, @unchecked Sendable {
         }
     }
     
-    // Add to existing updateHeartRate method
+    /**
+     * Updates the current heart rate value and triggers analytics.
+     *
+     * This comprehensive method:
+     * 1. Updates the current heart rate property
+     * 2. Updates the last valid reading (if non-zero)
+     * 3. Adds the new reading to trend analysis
+     * 4. Posts a notification for observers
+     *
+     * - Parameter bpm: The new heart rate value in beats per minute
+     */
     private func updateHeartRate(_ bpm: Double) {
-        currentHeartRate = bpm
+        currentHeartRate = Int(bpm)
         lastValidBPM = Int(bpm)
         updateHeartRateTrend(bpm)  // Add trend analysis
         
@@ -433,130 +722,45 @@ class HealthKitManager: ObservableObject, @unchecked Sendable {
             object: bpm
         )
     }
-    
-    // Add method to force immediate reading
-    func forceHeartRateUpdate() async {
-        guard let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate) else { return }
-        
-        print("\n🔄 Forcing immediate heart rate update...")
-        
-        // Check authorization and request if needed
-        let status = healthStore.authorizationStatus(for: heartRateType)
-        if status != .sharingAuthorized {
-            print("⚠️ Authorization needed, requesting...")
-            do {
-                try await requestAuthorization()
-            } catch {
-                print("❌ Authorization failed: \(error.localizedDescription)")
-                return
-            }
-        }
-        
-        // Query for the most recent heart rate in the last 30 seconds
-        let now = Date()
-        let past = Calendar.current.date(byAdding: .second, value: -30, to: now) ?? now
-        let predicate = HKQuery.predicateForSamples(withStart: past, end: nil, options: .strictEndDate)
-        
-        print("📊 Querying heart rate data from \(past) to \(now)")
-        
-        let query = HKSampleQuery(
-            sampleType: heartRateType,
-            predicate: predicate,
-            limit: 1,
-            sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)]
-        ) { [weak self] (_, samples, error) in
-            if let error = error {
-                print("❌ Force update error: \(error.localizedDescription)")
-                return
-            }
-            
-            if let samples = samples as? [HKQuantitySample], let latest = samples.last {
-                print("✅ Found heart rate sample: \(latest)")
-            } else {
-                print("⚠️ No recent heart rate samples found")
-            }
-            
-            Task { @MainActor in
-                self?.processHeartRateSamples(samples)
-            }
-        }
-        
-        healthStore.execute(query)
-        
-        // Also start continuous monitoring if not already started
-        if heartRateQuery == nil {
-            startHeartRateMonitoring()
-        }
-    }
-    
-    // Add method for initial heart rate fetch
-    func fetchInitialHeartRate() async {
-        guard let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate) else { return }
-        
-        print("\n📊 Fetching initial heart rate...")
-        
-        // Look back just 30 seconds for the most recent reading
-        let now = Date()
-        let past = Calendar.current.date(byAdding: .second, value: -30, to: now) ?? now
-        let predicate = HKQuery.predicateForSamples(withStart: past, end: nil, options: .strictEndDate)
-        
-        // Start monitoring immediately regardless of fetch result
-        if heartRateQuery == nil {
-            startHeartRateMonitoring()
-        }
-        
-        do {
-            let samples = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
-                let query = HKSampleQuery(
-                    sampleType: heartRateType,
-                    predicate: predicate,
-                    limit: 1,
-                    sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)]
-                ) { _, samples, error in
-                    if let error = error {
-                        continuation.resume(throwing: error)
-                        return
-                    }
-                    continuation.resume(returning: samples ?? [])
-                }
-                healthStore.execute(query)
-            }
-            
-            if let quantitySamples = samples as? [HKQuantitySample], let latest = quantitySamples.last {
-                let heartRate = latest.quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
-                let timestamp = latest.startDate
-                let age = now.timeIntervalSince(timestamp)
-                
-                print("📊 Found heart rate: \(Int(heartRate)) BPM from \(Int(age)) seconds ago")
-                
-                // Use any reading less than 60 seconds old
-                if age <= 60 {
-                    await MainActor.run {
-                        processHeartRateSamples(samples)
-                    }
-                } else {
-                    print("⚠️ Heart rate reading too old (\(Int(age)) seconds), waiting for fresh data")
-                }
-            } else {
-                print("⚠️ No recent heart rate samples found, waiting for fresh data")
-            }
-        } catch {
-            print("❌ Initial heart rate fetch failed: \(error.localizedDescription)")
-        }
-    }
 }
 
 // MARK: - Error Types
+/**
+ * Custom error types for HealthKit operations.
+ *
+ * This enum provides specific error cases for HealthKit interactions,
+ * offering detailed explanations and recovery suggestions for each error.
+ * It conforms to LocalizedError to provide user-friendly error messages.
+ *
+ * These errors help in diagnosing issues with HealthKit access, permissions,
+ * and configuration throughout the app.
+ */
 enum HealthKitError: LocalizedError {
+    /// HealthKit framework is not available on the current device
     case notAvailable
+    
+    /// Heart rate data specifically is not available
     case heartRateNotAvailable
+    
+    /// Authorization request failed with an optional underlying error
     case authorizationFailed(Error?)
+    
+    /// HealthKit capability is not properly configured in the app
     case capabilityMissing
+    
+    /// User has not yet made a decision about HealthKit access
     case notDetermined
+    
+    /// User has explicitly denied access to health data
     case denied
+    
+    /// App lacks the necessary background modes for continuous monitoring
     case requiresBackgroundAccess
+    
+    /// All requested HealthKit access has been denied
     case allAccessDenied
     
+    /// User-friendly error description for display in the app
     var errorDescription: String? {
         switch self {
         case .notAvailable:
