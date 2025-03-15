@@ -532,6 +532,16 @@ import BackgroundTasks
         healthStore.execute(query)
     }
     
+    /**
+     * Retrieves the initial heart rate reading when the app starts.
+     *
+     * This method is called during app initialization to get the
+     * first heart rate reading. It handles errors internally and logs
+     * any issues that occur during the initial fetch.
+     *
+     * This is typically called after authorization is confirmed
+     * and before regular monitoring begins.
+     */
     public func fetchInitialHeartRate() async {
         print("Fetching initial heart rate")
         
