@@ -1,25 +1,77 @@
+/**
+ * Filename: BackgroundManager.swift
+ * 
+ * Purpose: Manages background tasks, notifications, and scheduled updates 
+ * for the app, ensuring proper functioning when the app is in both foreground 
+ * and background states.
+ *
+ * Key responsibilities:
+ * - Schedule and manage background app refresh tasks
+ * - Handle local notification permissions and delivery
+ * - Coordinate updates between various managers when in background
+ * - Manage app lifecycle transitions (active/background)
+ * - Clear notification badges when app becomes active
+ * 
+ * This manager is critical for ensuring the app continues to function
+ * properly when not in active use, maintaining the realm number updates
+ * and detecting matches even when the app is not in the foreground.
+ */
+
 import Foundation
 import BackgroundTasks
 import UserNotifications
 import UIKit
 
+/**
+ * Manager responsible for background operations and notifications.
+ *
+ * This class handles:
+ * - Background task scheduling and execution
+ * - Local notification presentation and management
+ * - Coordinating updates between realm and focus number managers
+ * - Responding to app lifecycle events
+ * - Badge count maintenance
+ *
+ * Design pattern: Singleton
+ * Threading: Main thread for UI updates, background threads for tasks
+ * Dependencies: RealmNumberManager, FocusNumberManager
+ */
 class BackgroundManager: NSObject, ObservableObject {
+    /// Shared singleton instance for app-wide access
     static let shared = BackgroundManager()
+    
+    /// Identifier for the background refresh task registration
     private let backgroundTaskIdentifier = "com.infinitiesinn.vybe.backgroundUpdate"
     
-    // Reference to other managers - using weak to avoid retain cycles
+    /// Reference to the realm number manager (weak to avoid retain cycles)
     private weak var realmNumberManager: RealmNumberManager?
+    
+    /// Reference to the focus number manager (weak to avoid retain cycles)
     private weak var focusNumberManager: FocusNumberManager?
+    
+    /// Timer for scheduling updates when app is active
     private var activeTimer: Timer?
     
-    // Update intervals with tolerance for better battery life
-    private let activeUpdateInterval: TimeInterval = 60 // 1 minute for active app
-    private let backgroundUpdateInterval: TimeInterval = 15 * 60 // 15 minutes for background
-    private let timerTolerance: TimeInterval = 0.1 * 60 // 10% of a minute
+    /// Update frequency when app is in the foreground (1 minute)
+    private let activeUpdateInterval: TimeInterval = 60
     
-    // Track background task for proper cleanup
+    /// Update frequency when app is in the background (15 minutes)
+    private let backgroundUpdateInterval: TimeInterval = 15 * 60
+    
+    /// Tolerance for timer scheduling to optimize battery life (10% of a minute)
+    private let timerTolerance: TimeInterval = 0.1 * 60
+    
+    /// Currently executing background task
     private var backgroundTask: BGAppRefreshTask?
     
+    /**
+     * Private initializer to enforce singleton pattern.
+     *
+     * This initializer:
+     * 1. Sets up notification handling
+     * 2. Clears any existing badge count
+     * 3. Registers for app lifecycle notifications
+     */
     private override init() {
         super.init()
         print("🔄 Initializing BackgroundManager...")
@@ -37,6 +89,14 @@ class BackgroundManager: NSObject, ObservableObject {
         )
     }
     
+    /**
+     * Cleanup when the manager is deallocated.
+     *
+     * This method:
+     * 1. Stops any active update timers
+     * 2. Removes notification observers
+     * 3. Completes any pending background tasks
+     */
     deinit {
         stopActiveUpdates()
         NotificationCenter.default.removeObserver(self)
@@ -44,12 +104,24 @@ class BackgroundManager: NSObject, ObservableObject {
         backgroundTask = nil
     }
     
+    /**
+     * Handles app becoming active in the foreground.
+     *
+     * This method clears notification badges and delivered notifications
+     * when the user returns to the app.
+     */
     @objc private func appDidBecomeActive() {
         // Clear badge count when app becomes active
         clearBadgeCount()
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
     }
     
+    /**
+     * Resets the app's badge count to zero.
+     *
+     * This method communicates with the notification center to
+     * clear any numerical badges on the app icon.
+     */
     private func clearBadgeCount() {
         UNUserNotificationCenter.current().setBadgeCount(0) { error in
             if let error = error {
@@ -60,6 +132,14 @@ class BackgroundManager: NSObject, ObservableObject {
         }
     }
     
+    /**
+     * Sets up notification categories and delegates.
+     *
+     * This method:
+     * 1. Configures the notification center delegate
+     * 2. Defines notification categories (like match notifications)
+     * 3. Registers for user notifications
+     */
     private func setupNotifications() {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.delegate = self
@@ -76,6 +156,17 @@ class BackgroundManager: NSObject, ObservableObject {
         registerForNotifications()
     }
     
+    /**
+     * Sets the manager references for coordinated updates.
+     *
+     * This method:
+     * 1. Stores references to the realm and focus number managers
+     * 2. Starts active updates immediately after managers are set
+     *
+     * - Parameters:
+     *   - realm: The RealmNumberManager instance
+     *   - focus: The FocusNumberManager instance
+     */
     func setManagers(realm: RealmNumberManager?, focus: FocusNumberManager?) {
         self.realmNumberManager = realm
         self.focusNumberManager = focus
@@ -85,7 +176,14 @@ class BackgroundManager: NSObject, ObservableObject {
         startActiveUpdates()
     }
     
-    // Start frequent updates when app is active
+    /**
+     * Begins frequent updates when the app is in the foreground.
+     *
+     * This method:
+     * 1. Performs an immediate update
+     * 2. Schedules a timer for future updates at the active interval
+     * 3. Configures the timer with appropriate tolerance for battery optimization
+     */
     func startActiveUpdates() {
         print("\n⚡️ Starting active updates...")
         print("   Update interval: \(activeUpdateInterval) seconds")

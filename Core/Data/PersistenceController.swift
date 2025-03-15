@@ -1,19 +1,66 @@
+/**
+ * Filename: PersistenceController.swift
+ * 
+ * Purpose: Manages Core Data persistence for the app, providing a centralized
+ * storage interface for all model data.
+ *
+ * Key responsibilities:
+ * - Initialize and configure the Core Data stack
+ * - Provide access to the persistence container and view context
+ * - Handle data saving operations
+ * - Manage migration of data between app versions
+ * - Support in-memory stores for testing and previews
+ * 
+ * This controller is central to the app's data persistence strategy,
+ * ensuring that all CoreData operations follow consistent patterns.
+ */
+
 import CoreData
 
+/**
+ * Controller responsible for Core Data persistence operations.
+ *
+ * This class provides:
+ * - A shared instance for app-wide persistence
+ * - Configuration of the Core Data stack
+ * - Optimized context settings for performance
+ * - Automatic migration capabilities
+ * - Support for both persistent and in-memory stores
+ *
+ * Design pattern: Singleton with dependency injection support
+ * Threading: Main thread for view context, background for saving
+ * Performance: Optimized for mobile with automatic merging
+ */
 class PersistenceController {
-    // Shared instance for the app
+    /// Shared singleton instance for app-wide access
     static let shared = PersistenceController()
     
-    // Storage for Core Data
+    /// Core Data persistent container managing the object model
     let container: NSPersistentContainer
     
-    // Test configuration for SwiftUI previews
+    /**
+     * Preview instance with in-memory store for SwiftUI previews.
+     *
+     * This static property provides a non-persistent Core Data stack
+     * that can be used in SwiftUI previews without affecting real data.
+     */
     static var preview: PersistenceController = {
         let controller = PersistenceController(inMemory: true)
         return controller
     }()
     
-    // Initialize Core Data stack
+    /**
+     * Initializes the Core Data persistence stack.
+     *
+     * This method:
+     * 1. Configures debug settings for Core Data
+     * 2. Sets up the persistent container with the data model
+     * 3. Configures store descriptors with optimization settings
+     * 4. Enables automatic migration
+     * 5. Sets up optimized view context settings
+     *
+     * - Parameter inMemory: When true, creates an in-memory store that does not persist data
+     */
     init(inMemory: Bool = false) {
         // Disable CoreData debug output
         UserDefaults.standard.set(false, forKey: "com.apple.CoreData.SQLDebug")
@@ -58,7 +105,15 @@ class PersistenceController {
         container.viewContext.undoManager = nil  // Disable undo management for better performance
     }
     
-    // Save changes if there are any
+    /**
+     * Saves any pending changes in the view context.
+     *
+     * This method:
+     * 1. Checks if there are changes to be saved
+     * 2. Performs the save operation on a background thread
+     * 3. Handles and logs any errors that occur during saving
+     * 4. In DEBUG builds, crashes with details if saving fails
+     */
     func save() {
         let context = container.viewContext
         
@@ -83,6 +138,12 @@ class PersistenceController {
         }
     }
     
+    /**
+     * Convenience method to save only if changes exist.
+     *
+     * This method checks if the view context has changes before
+     * calling the save method, avoiding unnecessary operations.
+     */
     func saveIfNeeded() {
         if container.viewContext.hasChanges {
             save()
