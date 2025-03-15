@@ -1,6 +1,31 @@
+/**
+ * Filename: NumberMeaning.swift
+ * 
+ * Purpose: Defines the transcendental meaning and symbolism of numbers (0-9) used throughout
+ * the application for focus numbers and realm numbers.
+ *
+ * Key components:
+ * - NumberMeaning struct: Represents the symbolic meaning of a single number
+ * - NumberMeaningManager: Singleton that manages and provides access to number meanings
+ *
+ * This file provides the philosophical foundation for the app's numerical system,
+ * explaining the significance of each number in transcendental theory and how
+ * they relate to personal growth, consciousness, and universal patterns.
+ *
+ * Design pattern: Singleton manager with value-type model objects
+ * Dependencies: Foundation
+ */
+
 import Foundation
 
-/// Represents the meaning and symbolism of a number in transcendental theory
+/**
+ * Represents the meaning and symbolism of a number in transcendental theory
+ *
+ * Each number from 0-9 has a unique meaning, symbolism, and application within
+ * the transcendental framework. This struct encapsulates all aspects of a number's
+ * significance and provides a structured way to access this information throughout
+ * the app.
+ */
 struct NumberMeaning {
     /// The number being described (0-9)
     let number: Int
@@ -21,16 +46,51 @@ struct NumberMeaning {
     var notes: [String] = []
 }
 
-/// Manages the documentation of transcendental number meanings
+/**
+ * Manages the documentation of transcendental number meanings
+ *
+ * This singleton class provides access to the meanings of numbers 0-9 in the
+ * transcendental framework. It initializes with a comprehensive set of meanings
+ * and provides methods to access, update, and extend these meanings.
+ *
+ * Key features:
+ * - Provides access to predefined number meanings
+ * - Allows for dynamic updates to meanings
+ * - Supports adding supplementary notes to existing meanings
+ * - Maintains a consistent source of truth for number interpretations
+ *
+ * Usage:
+ * ```
+ * // Get meaning for number 7
+ * let sevenMeaning = NumberMeaningManager.shared.getMeaning(for: 7)
+ * 
+ * // Get all meanings
+ * let allMeanings = NumberMeaningManager.shared.getAllMeanings()
+ * ```
+ */
 class NumberMeaningManager {
+    /// Shared singleton instance for app-wide access
     static let shared = NumberMeaningManager()
     
+    /// Collection of all number meanings (0-9)
     private var meanings: [NumberMeaning] = []
     
+    /// Private initializer to enforce singleton pattern
     private init() {
         setupInitialMeanings()
     }
     
+    /**
+     * Initializes the default meanings for numbers 0-9
+     *
+     * This method populates the meanings array with detailed interpretations
+     * for each number in the transcendental system. Each number includes:
+     * - A title representing its core concept
+     * - An essence description of its fundamental nature
+     * - Symbolism explaining its representation
+     * - Application describing how it's used in transcendental theory
+     * - A shared integration note explaining how all numbers form a cycle
+     */
     func setupInitialMeanings() {
         // 0 - The Void / The All
         addOrUpdateMeaning(NumberMeaning(
@@ -129,12 +189,21 @@ class NumberMeaningManager {
         }
     }
     
-    /// Get the meaning for a specific number
+    /**
+     * Get the meaning for a specific number
+     *
+     * @param number The number (0-9) to retrieve meaning for
+     * @return The NumberMeaning object if found, nil otherwise
+     */
     func getMeaning(for number: Int) -> NumberMeaning? {
         return meanings.first { $0.number == number }
     }
     
-    /// Add a new meaning or update existing
+    /**
+     * Add a new meaning or update an existing one
+     *
+     * @param meaning The NumberMeaning object to add or update
+     */
     func addOrUpdateMeaning(_ meaning: NumberMeaning) {
         if let index = meanings.firstIndex(where: { $0.number == meaning.number }) {
             meanings[index] = meaning
@@ -143,14 +212,23 @@ class NumberMeaningManager {
         }
     }
     
-    /// Add a note to a specific number's meaning
+    /**
+     * Add a supplementary note to a specific number's meaning
+     *
+     * @param number The number (0-9) to add the note to
+     * @param note The note text to add
+     */
     func addNote(to number: Int, note: String) {
         if let index = meanings.firstIndex(where: { $0.number == number }) {
             meanings[index].notes.append(note)
         }
     }
     
-    /// Get all documented meanings
+    /**
+     * Get all documented number meanings in numerical order
+     *
+     * @return Array of NumberMeaning objects sorted by number
+     */
     func getAllMeanings() -> [NumberMeaning] {
         return meanings.sorted { $0.number < $1.number }
     }
