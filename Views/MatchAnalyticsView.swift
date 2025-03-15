@@ -1,20 +1,66 @@
+/**
+ * Filename: MatchAnalyticsView.swift
+ * 
+ * Purpose: Displays analytical information about a user's focus number matches,
+ * providing insights into patterns, frequency, and distribution of matches.
+ *
+ * Key components:
+ * - MatchAnalyticsViewModel: Contains logic for analytics calculations
+ * - TimeFrame enum: Defines time periods for data analysis
+ * - Various chart and statistics components
+ * 
+ * This view serves as the central analytics dashboard for the app,
+ * helping users understand their match patterns and trends.
+ */
+
 import SwiftUI
 import Charts
 import CoreData
 
-// New ViewModel to contain analytics logic
+/**
+ * View model that handles the analytics calculations for match data.
+ *
+ * This class processes the raw match data and provides derived metrics 
+ * such as match counts, frequencies, and patterns. It encapsulates all
+ * the business logic for analytics, keeping the view focused on presentation.
+ *
+ * Design pattern: MVVM (Model-View-ViewModel)
+ * Dependencies: CoreData for match history access
+ */
 class MatchAnalyticsViewModel: ObservableObject {
+    /// The selected time range for analytics display
     @Published var selectedTimeFrame: TimeFrame = .day
+    
+    /// Collection of match records from Core Data
     var matchLogs: [FocusMatch] = []
+    
+    /// Managed object context for database operations
     var managedObjectContext: NSManagedObjectContext?
     
+    /**
+     * Time periods for filtering and grouping analytics data.
+     *
+     * These define the scope of analytics calculations and chart displays:
+     * - day: Shows match data for the previous 24 hours
+     * - week: Shows match data for the past week
+     * - month: Shows match data for the past month
+     */
     enum TimeFrame: String, CaseIterable {
         case day = "24 Hours"
         case week = "Week"
         case month = "Month"
     }
     
-    // Helper functions for analytics
+    /**
+     * Counts matches that occurred today.
+     *
+     * This method:
+     * 1. Gets the start of the current day
+     * 2. Filters matches to only include those from today
+     * 3. Returns the count as a formatted string
+     *
+     * - Returns: String representation of today's match count
+     */
     func getTodayMatchCount() -> String {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
@@ -24,6 +70,17 @@ class MatchAnalyticsViewModel: ObservableObject {
         return String(count)
     }
     
+    /**
+     * Determines the most frequently matched focus number.
+     *
+     * This method:
+     * 1. Groups matches by the chosen focus number
+     * 2. Counts occurrences of each number
+     * 3. Finds the number with the highest count
+     * 4. Returns the number and count as a formatted string
+     *
+     * - Returns: String describing the most common focus number and its frequency
+     */
     func getMostCommonFocusNumber() -> String {
         let matchCounts = Dictionary(grouping: matchLogs) { $0.chosenNumber }
             .mapValues { $0.count }
@@ -36,6 +93,17 @@ class MatchAnalyticsViewModel: ObservableObject {
         return "No matches yet"
     }
     
+    /**
+     * Identifies the hour of day when matches most frequently occur.
+     *
+     * This method:
+     * 1. Groups matches by the hour they occurred
+     * 2. Counts matches in each hour
+     * 3. Finds the hour with the highest count
+     * 4. Returns the time as a formatted string (HH:MM)
+     *
+     * - Returns: String representation of the peak match time
+     */
     func getPeakMatchTime() -> String {
         let calendar = Calendar.current
         let matchesByHour = Dictionary(grouping: matchLogs) { match in
@@ -53,6 +121,18 @@ class MatchAnalyticsViewModel: ObservableObject {
         return "No matches yet"
     }
     
+    /**
+     * Calculates the average frequency of matches over time.
+     *
+     * This method:
+     * 1. Determines the time span between first and last match
+     * 2. Calculates the average matches per day
+     * 3. Returns the frequency as a formatted string
+     *
+     * For matches all occurring today, returns a count instead of an average.
+     *
+     * - Returns: String representation of match frequency (per day)
+     */
     func getMatchFrequency() -> String {
         let matchCount = matchLogs.count
         let calendar = Calendar.current
@@ -79,6 +159,21 @@ class MatchAnalyticsViewModel: ObservableObject {
         }
     }
     
+    /**
+     * Generates data for match distribution charts.
+     *
+     * This method:
+     * 1. Creates time slots based on the selected time frame (day, week, month)
+     * 2. Counts matches in each time slot
+     * 3. Returns an array of MatchData objects for display in charts
+     *
+     * The time slot granularity varies by time frame:
+     * - Day: 6-hour slots
+     * - Week: Daily slots
+     * - Month: Weekly slots
+     *
+     * - Returns: Array of MatchData objects for chart rendering
+     */
     func getMatchData() -> [MatchData] {
         let calendar = Calendar.current
         var timeSlots: [MatchData] = []
@@ -137,19 +232,72 @@ class MatchAnalyticsViewModel: ObservableObject {
     }
     
     // Helper functions for date calculations
+    /**
+     * Adds a specified number of days to a date.
+     *
+     * - Parameters:
+     *   - days: Number of days to add (negative for past dates)
+     *   - date: Base date to add days to
+     * - Returns: New date with days added
+     */
     private func addDays(_ days: Int, to date: Date) -> Date {
         Calendar.current.date(byAdding: .day, value: days, to: date) ?? date
     }
     
+    /**
+     * Adds a specified number of hours to a date.
+     *
+     * - Parameters:
+     *   - hours: Number of hours to add (negative for past times)
+     *   - date: Base date to add hours to
+     * - Returns: New date with hours added
+     */
     private func addHours(_ hours: Int, to date: Date) -> Date {
         Calendar.current.date(byAdding: .hour, value: hours, to: date) ?? date
     }
 }
 
+/**
+ * Data model for match distribution chart entries.
+ *
+ * This struct represents a single data point for charts, containing:
+ * - A time label (varies based on the selected time frame)
+ * - A count of matches in that time period
+ */
+struct MatchData: Identifiable {
+    /// Unique identifier for SwiftUI List/ForEach
+    var id = UUID()
+    
+    /// Time label (e.g., "12 PM", "Mon", "Week 2")
+    var time: String
+    
+    /// Number of matches in this time slot
+    var count: Int
+}
+
+/**
+ * View that displays analytics for focus number matches.
+ *
+ * This view displays several visualizations and statistics:
+ * 1. Heart rate data and analytics
+ * 2. Match count statistics
+ * 3. Match distribution charts
+ * 4. Pattern analysis
+ *
+ * It allows filtering data by different time frames (day, week, month)
+ * and automatically updates when new match data is available.
+ */
 struct MatchAnalyticsView: View {
+    /// Access to the focus number manager for match data
     @EnvironmentObject var focusNumberManager: FocusNumberManager
+    
+    /// Core Data context for database operations
     @Environment(\.managedObjectContext) private var viewContext
+    
+    /// Access to heart rate data for analytics
     @StateObject private var healthKitManager = HealthKitManager.shared
+    
+    /// View model containing analytics calculation logic
     @StateObject private var viewModel = MatchAnalyticsViewModel()
     
     var body: some View {
@@ -272,15 +420,32 @@ struct MatchAnalyticsView: View {
                 viewModel.matchLogs = focusNumberManager.matchLogs
                 viewModel.managedObjectContext = viewContext
             }
+            .onChange(of: focusNumberManager.matchLogs) { newValue in
+                viewModel.matchLogs = newValue
+            }
         }
     }
 }
 
-// Supporting Views
+/**
+ * Component for displaying a statistical metric with title and icon.
+ *
+ * This reusable card component displays:
+ * - An icon representing the statistic
+ * - A title describing what the statistic measures
+ * - The value of the statistic
+ * 
+ * Used throughout the analytics view to present various metrics consistently.
+ */
 struct StatCard: View {
-    let title: String
-    let value: String
-    let icon: String
+    /// The Font Awesome icon name to display
+    var icon: String
+    
+    /// Title describing what this statistic represents
+    var title: String
+    
+    /// The actual statistic value to display
+    var value: String
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -302,9 +467,20 @@ struct StatCard: View {
     }
 }
 
+/**
+ * Component for displaying pattern analysis data.
+ *
+ * This row displays information about patterns in the match data, such as:
+ * - Time-based patterns (hour of day, day of week)
+ * - Match frequency information
+ * - Common focus numbers
+ */
 struct PatternRow: View {
-    let title: String
-    let value: String
+    /// Title describing what pattern this row analyzes
+    var title: String
+    
+    /// The pattern value or result to display
+    var value: String
     
     var body: some View {
         HStack {
@@ -315,12 +491,6 @@ struct PatternRow: View {
                 .fontWeight(.medium)
         }
     }
-}
-
-struct MatchData: Identifiable {
-    let id = UUID()
-    let time: String
-    let count: Int
 }
 
 #Preview {

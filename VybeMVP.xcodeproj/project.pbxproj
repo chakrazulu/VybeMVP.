@@ -7,14 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4D14E1222D5067B900E9F02E /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D14E1212D5067B900E9F02E /* HeartRateView.swift */; };
-		4D14E1232D5067B900E9F02E /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D14E1212D5067B900E9F02E /* HeartRateView.swift */; };
 		4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */; };
 		4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */; };
 		4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BF2D3CA97C009A7BBD /* VybeMVP.xcdatamodeld */; };
 		4D3055C32D3CB018009A7BBD /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055C22D3CB018009A7BBD /* PersistenceController.swift */; };
 		4D3055C62D3CB201009A7BBD /* UserPreferences+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055C52D3CB201009A7BBD /* UserPreferences+Helper.swift */; };
-		4D3055C82D3CB8ED009A7BBD /* FocusMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055C72D3CB8ED009A7BBD /* FocusMatch.swift */; };
 		4D3055CA2D3CB981009A7BBD /* FocusMatch+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055C92D3CB981009A7BBD /* FocusMatch+Helper.swift */; };
 		4D3055CC2D3CBB36009A7BBD /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055CB2D3CBB36009A7BBD /* UserPreferences.swift */; };
 		4D3055CE2D3CC9CA009A7BBD /* FocusNumberPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055CD2D3CC9CA009A7BBD /* FocusNumberPicker.swift */; };
@@ -41,6 +38,10 @@
 		4D92F4BD2D4DE1E80001A16E /* BackgroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F4B62D4DE1E80001A16E /* BackgroundManager.swift */; };
 		4D92F4BF2D4DE6050001A16E /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F4BE2D4DE5EA0001A16E /* HealthKitManager.swift */; };
 		4DA2EE2D2D502D1D001F8E9D /* HealthKitPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA2EE2C2D502D1D001F8E9D /* HealthKitPermissionView.swift */; };
+		4DA6425D2D8113D80047287B /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA6425C2D8113D80047287B /* HeartRateView.swift */; };
+		4DA642642D8122590047287B /* HealthKitManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA642632D8122590047287B /* HealthKitManaging.swift */; };
+		4DA642652D8122C70047287B /* HealthKitManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA642632D8122590047287B /* HealthKitManaging.swift */; };
+		4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */; };
 		4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */; };
 		4DC602382D345A1B00B5E4A9 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602342D34570200B5E4A9 /* SignInViewModel.swift */; };
 		4DC602392D345A3500B5E4A9 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602352D34577E00B5E4A9 /* SignInView.swift */; };
@@ -62,14 +63,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4D14E1212D5067B900E9F02E /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
 		4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberHelper.swift; sourceTree = "<group>"; };
 		4D3055B62D3C9C3B009A7BBD /* VybeMVP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VybeMVP.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberView.swift; sourceTree = "<group>"; };
 		4D3055C02D3CA97C009A7BBD /* VybeMVP.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VybeMVP.xcdatamodel; sourceTree = "<group>"; };
 		4D3055C22D3CB018009A7BBD /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		4D3055C52D3CB201009A7BBD /* UserPreferences+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserPreferences+Helper.swift"; sourceTree = "<group>"; };
-		4D3055C72D3CB8ED009A7BBD /* FocusMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusMatch.swift; sourceTree = "<group>"; };
 		4D3055C92D3CB981009A7BBD /* FocusMatch+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FocusMatch+Helper.swift"; sourceTree = "<group>"; };
 		4D3055CB2D3CBB36009A7BBD /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		4D3055CD2D3CC9CA009A7BBD /* FocusNumberPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberPicker.swift; sourceTree = "<group>"; };
@@ -98,6 +97,9 @@
 		4D92F4B92D4DE1E80001A16E /* RealmNumberManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberManager.swift; sourceTree = "<group>"; };
 		4D92F4BE2D4DE5EA0001A16E /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		4DA2EE2C2D502D1D001F8E9D /* HealthKitPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitPermissionView.swift; sourceTree = "<group>"; };
+		4DA6425C2D8113D80047287B /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
+		4DA642632D8122590047287B /* HealthKitManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManaging.swift; sourceTree = "<group>"; };
+		4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusMatch.swift; sourceTree = "<group>"; };
 		4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberView.swift; sourceTree = "<group>"; };
 		4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VybeMVP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DC602322D34552200B5E4A9 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -155,11 +157,11 @@
 		4D3055972D3C941B009A7BBD /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */,
 				4D3055C52D3CB201009A7BBD /* UserPreferences+Helper.swift */,
 				4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */,
 				4D3055BF2D3CA97C009A7BBD /* VybeMVP.xcdatamodeld */,
 				4D3055C22D3CB018009A7BBD /* PersistenceController.swift */,
-				4D3055C72D3CB8ED009A7BBD /* FocusMatch.swift */,
 				4D3055C92D3CB981009A7BBD /* FocusMatch+Helper.swift */,
 				4D3055CB2D3CBB36009A7BBD /* UserPreferences.swift */,
 				4D3055E22D3CEADA009A7BBD /* JournalEntry+CoreDataHelpers.swift */,
@@ -170,6 +172,7 @@
 		4D3055982D3C9462009A7BBD /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				4DA642632D8122590047287B /* HealthKitManaging.swift */,
 				4D92F4BE2D4DE5EA0001A16E /* HealthKitManager.swift */,
 				4D92F4B62D4DE1E80001A16E /* BackgroundManager.swift */,
 				4D92F4B72D4DE1E80001A16E /* FocusNumberManager.swift */,
@@ -263,7 +266,7 @@
 		4DC602302D34440900B5E4A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4D14E1212D5067B900E9F02E /* HeartRateView.swift */,
+				4DA6425C2D8113D80047287B /* HeartRateView.swift */,
 				4DA2EE2C2D502D1D001F8E9D /* HealthKitPermissionView.swift */,
 				4D92F48B2D49E9BF0001A16E /* TestingView.swift */,
 				4D3055FF2D3D9245009A7BBD /* JournalEntryView.swift */,
@@ -411,7 +414,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D14E1232D5067B900E9F02E /* HeartRateView.swift in Sources */,
+				4DA642652D8122C70047287B /* HealthKitManaging.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +431,7 @@
 				4DA2EE2D2D502D1D001F8E9D /* HealthKitPermissionView.swift in Sources */,
 				4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */,
 				4D3055C62D3CB201009A7BBD /* UserPreferences+Helper.swift in Sources */,
+				4DA642642D8122590047287B /* HealthKitManaging.swift in Sources */,
 				4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */,
 				4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */,
 				4D3055CE2D3CC9CA009A7BBD /* FocusNumberPicker.swift in Sources */,
@@ -436,13 +440,12 @@
 				4D80E0FD2D3F1B0B0020F7BB /* NumberMeaningView.swift in Sources */,
 				4D3055E72D3CEEC9009A7BBD /* JournalEntryDetailView.swift in Sources */,
 				4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */,
-				4D14E1222D5067B900E9F02E /* HeartRateView.swift in Sources */,
+				4DA6425D2D8113D80047287B /* HeartRateView.swift in Sources */,
 				4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */,
 				4D3055EE2D3CF838009A7BBD /* Logger.swift in Sources */,
 				4D92F4BF2D4DE6050001A16E /* HealthKitManager.swift in Sources */,
 				4D3055CC2D3CBB36009A7BBD /* UserPreferences.swift in Sources */,
 				4D3055FE2D3D903B009A7BBD /* JournalEntryRow.swift in Sources */,
-				4D3055C82D3CB8ED009A7BBD /* FocusMatch.swift in Sources */,
 				4DC6023C2D345E2000B5E4A9 /* MainView.swift in Sources */,
 				4D3055E92D3CEF45009A7BBD /* EditJournalEntryView.swift in Sources */,
 				4D3055E52D3CEDA5009A7BBD /* NewJournalEntryView.swift in Sources */,
@@ -457,6 +460,7 @@
 				4D92F4BA2D4DE1E80001A16E /* FocusNumberManager.swift in Sources */,
 				4D92F4BB2D4DE1E80001A16E /* JournalManager.swift in Sources */,
 				4D92F4BC2D4DE1E80001A16E /* RealmNumberManager.swift in Sources */,
+				4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */,
 				4D92F4BD2D4DE1E80001A16E /* BackgroundManager.swift in Sources */,
 				4D3055E32D3CEADA009A7BBD /* JournalEntry+CoreDataHelpers.swift in Sources */,
 				4D3055E12D3CE90C009A7BBD /* FocusNumberContent.swift in Sources */,

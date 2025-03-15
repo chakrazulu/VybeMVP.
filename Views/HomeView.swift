@@ -4,10 +4,29 @@
 //
 //  Created by Corey Davis on 1/12/25.
 //
+
+/**
+ * HomeView: The primary landing screen of the application.
+ *
+ * Purpose: 
+ * Provides a visual dashboard that displays the user's selected focus number and recent matches.
+ * Serves as the central hub that users return to after navigating through other sections.
+ *
+ * Key features:
+ * 1. Prominently displays the user's current focus number
+ * 2. Shows a horizontal scrollable list of recent matches
+ * 3. Provides quick access to change the focus number
+ *
+ * Design pattern: MVVM view component
+ * Dependencies: FocusNumberManager for data
+ */
 import SwiftUI
 
 struct HomeView: View {
+    /// Access to the focus number manager for displaying the selected number and match history
     @EnvironmentObject var focusNumberManager: FocusNumberManager
+    
+    /// Controls visibility of the focus number picker sheet
     @State private var showingPicker = false
     
     var body: some View {

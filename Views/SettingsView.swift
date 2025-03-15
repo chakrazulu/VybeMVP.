@@ -66,10 +66,8 @@ struct SettingsView: View {
                 }
                 
                 // Heart Rate Display Row
-                if let heartRate = healthKitManager.currentHeartRate {
-                    Text("Current Heart Rate: \(Int(round(heartRate))) BPM")
-                        .foregroundColor(.secondary)
-                }
+                Text("Current Heart Rate: \(healthKitManager.currentHeartRate) BPM")
+                    .foregroundColor(.secondary)
             }
             
             // Testing Section
