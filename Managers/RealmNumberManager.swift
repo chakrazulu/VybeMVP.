@@ -827,8 +827,8 @@ extension RealmNumberManager: CLLocationManagerDelegate {
      * Called when location services encounters an error.
      *
      * This method handles location errors, particularly focusing on
-     * permission denied cases, which require stopping updates and
-     * updating the manager's state accordingly.
+     * permission denied cases, but now continues to run without location data
+     * instead of stopping completely.
      *
      * - Parameters:
      *   - manager: The location manager providing the update
@@ -836,9 +836,20 @@ extension RealmNumberManager: CLLocationManagerDelegate {
      */
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         if let error = error as? CLError, error.code == .denied {
-            currentState = .stopped
-            print("\(currentState.description) - Location access denied")
-            stopUpdates()
+            // Instead of stopping updates completely, just note that location is unavailable
+            print("⚠️ Location access denied - continuing with limited functionality")
+            
+            // Set state to active but note the limitation
+            if currentState != .active {
+                currentState = .active
+                print("\(currentState.description) (without location data)")
+            }
+            
+            // Stop location updates to save battery, but keep timer running
+            locationManager?.stopUpdatingLocation()
+            
+            // Continue with calculations (will use default location factor)
+            calculateRealmNumber()
         }
     }
 } 

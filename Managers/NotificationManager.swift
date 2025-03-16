@@ -108,6 +108,41 @@ class NotificationManager: NSObject, ObservableObject {
         }
     }
     
+    /// Create a silent background update notification for testing
+    /// This simulates what would come from Firebase
+    func scheduleSilentBackgroundUpdate() {
+        let content = UNMutableNotificationContent()
+        content.title = "" // Empty title for silent notification
+        content.body = ""  // Empty body for silent notification
+        content.sound = nil // No sound for silent notification
+        
+        // Include the silent_update flag that the AppDelegate checks for
+        content.userInfo = [
+            "silent_update": true,
+            "update_type": "realm_calculation",
+            "timestamp": Date().timeIntervalSince1970
+        ]
+        
+        // Prevent device from alerting the user
+        content.categoryIdentifier = "SILENT_UPDATE"
+        
+        // Trigger after 5 seconds (for testing)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let request = UNNotificationRequest(
+            identifier: "com.infinitiesinn.vybe.silentupdate-\(UUID().uuidString)",
+            content: content,
+            trigger: trigger
+        )
+        
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("⚠️ Error scheduling silent update: \(error.localizedDescription)")
+            } else {
+                print("✅ Silent background update scheduled")
+            }
+        }
+    }
+    
     /// Handle a received push notification
     func handlePushNotification(userInfo: [AnyHashable: Any]) {
         print("📲 Received push notification: \(userInfo)")

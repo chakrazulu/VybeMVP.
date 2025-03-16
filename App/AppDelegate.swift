@@ -26,6 +26,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         // Register for remote notifications
         application.registerForRemoteNotifications()
         
+        // Enable Firebase for background updates
+        Messaging.messaging().isAutoInitEnabled = true
+        
         // Print FCM token to console for testing
         Messaging.messaging().token { token, error in
             if let token = token {
@@ -120,15 +123,42 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         print("⚠️ Failed to register for remote notifications: \(error.localizedDescription)")
     }
     
-    /// Called when a remote notification is received while the app is in the foreground
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    /// Called when a remote notification is received
+    /// This handles both foreground and background notifications
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         print("📲 Received remote notification: \(userInfo)")
+        
+        // Check if this is a silent background update notification
+        if let isSilent = userInfo["silent_update"] as? Bool, isSilent {
+            handleSilentUpdateNotification(userInfo: userInfo)
+            completionHandler(.newData)
+            return
+        }
         
         // Handle the notification
         notificationManager.handlePushNotification(userInfo: userInfo)
         
         // Notify system of completion
         completionHandler(.newData)
+    }
+    
+    /// Handle silent background update notifications
+    private func handleSilentUpdateNotification(userInfo: [AnyHashable: Any]) {
+        print("🔄 Received silent background update notification")
+        
+        // Start the realm and focus managers if needed
+        if realmNumberManager.currentState == .stopped {
+            realmNumberManager.startUpdates()
+        }
+        
+        // Force an immediate realm number calculation
+        realmNumberManager.calculateRealmNumber()
+        
+        // Check for matches
+        if let realmNumber = realmNumberManager.currentRealmNumber {
+            focusNumberManager.updateRealmNumber(realmNumber)
+            print("🔍 Performing background match check for realm number: \(realmNumber)")
+        }
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -153,6 +183,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         print("\n📱 Application entered background")
         // Schedule background task
         backgroundManager.scheduleBackgroundTask()
+        
+        // Don't stop the realm manager when going to background
+        // This allows it to continue running during background execution
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

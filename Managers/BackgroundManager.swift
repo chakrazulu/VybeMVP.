@@ -258,16 +258,33 @@ class BackgroundManager: NSObject, ObservableObject {
             }
         }
         
-        // Perform update
-        performUpdate()
+        // Make sure managers are running before attempting operations
+        if let realmManager = realmNumberManager, realmManager.currentState == .stopped {
+            print("🔄 Starting RealmNumberManager for background processing")
+            realmManager.startUpdates()
+        }
         
-        // Schedule next background refresh
-        scheduleBackgroundTask()
-        
-        // Mark task as completed
-        task.setTaskCompleted(success: true)
-        backgroundTask = nil
-        print("✅ Background task completed successfully")
+        // Perform extended background update
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let self = self else { return }
+            
+            // Force realm calculation to check for matches
+            self.realmNumberManager?.calculateRealmNumber()
+            
+            // Allow some time for calculation to complete
+            Thread.sleep(forTimeInterval: 2.0)
+            
+            // Perform standard update
+            self.performUpdate()
+            
+            // Schedule next background refresh
+            self.scheduleBackgroundTask()
+            
+            // Mark task as completed
+            task.setTaskCompleted(success: true)
+            self.backgroundTask = nil
+            print("✅ Background task completed successfully")
+        }
     }
     
     func scheduleBackgroundTask() {

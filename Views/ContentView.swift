@@ -75,6 +75,7 @@ struct ContentView: View {
                 
                 NavigationView {
                     SettingsView()
+                        .environmentObject(realmNumberManager)
                 }
                 .tabItem {
                     Image(systemName: "gear")

@@ -10,9 +10,15 @@ import SafariServices
 
 struct SettingsView: View {
     @EnvironmentObject private var healthKitManager: HealthKitManager
+    @EnvironmentObject private var realmNumberManager: RealmNumberManager
     @State private var showHealthKitError = false
     @State private var errorMessage = ""
     @Environment(\.openURL) var openURL
+    
+    // Add these state variables for feedback
+    @State private var showSilentUpdateConfirmation = false
+    @State private var showManualCalculationConfirmation = false
+    @State private var lastRealmNumber = 0
     
     var body: some View {
         List {
@@ -87,6 +93,9 @@ struct SettingsView: View {
                         .foregroundColor(.secondary)
                 }
             }
+            
+            // Background Updates Testing Section
+            backgroundTestingSection
         }
         .navigationTitle("Settings")
         .alert("HealthKit Error", isPresented: $showHealthKitError) {
@@ -166,6 +175,49 @@ struct SettingsView: View {
         @unknown default:
             return Label("Unknown", systemImage: "exclamationmark.circle.fill")
                 .foregroundColor(.gray)
+        }
+    }
+    
+    // Background Updates Testing Section
+    private var backgroundTestingSection: some View {
+        Section(header: Text("Background Updates Testing")) {
+            Button("Schedule Silent Background Update") {
+                NotificationManager.shared.scheduleSilentBackgroundUpdate()
+                showSilentUpdateConfirmation = true
+            }
+            .foregroundColor(.blue)
+            
+            Button("Perform Manual Realm Calculation") {
+                // Store current realm number to show change
+                lastRealmNumber = realmNumberManager.currentRealmNumber
+                // Force an immediate calculation
+                realmNumberManager.calculateRealmNumber()
+                showManualCalculationConfirmation = true
+            }
+            .foregroundColor(.blue)
+            
+            if realmNumberManager.currentRealmNumber > 0 {
+                Text("Current Realm Number: \(realmNumberManager.currentRealmNumber)")
+                    .foregroundColor(.green)
+                    .fontWeight(.semibold)
+            }
+            
+            Text("Use these options to test background calculations. The silent update simulates a push notification that would wake the app to perform calculations in the background.")
+                .font(.caption)
+                .foregroundColor(.secondary)
+        }
+        .alert("Silent Update Scheduled", isPresented: $showSilentUpdateConfirmation) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("A silent background update has been scheduled. The app will perform calculations in the background shortly.")
+        }
+        .alert("Realm Calculation Performed", isPresented: $showManualCalculationConfirmation) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            let message = lastRealmNumber != realmNumberManager.currentRealmNumber ? 
+                "Realm number changed from \(lastRealmNumber) to \(realmNumberManager.currentRealmNumber)" :
+                "Realm number calculation completed (stayed at \(realmNumberManager.currentRealmNumber))"
+            return Text(message)
         }
     }
 }
