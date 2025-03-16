@@ -37,6 +37,13 @@
 		4D92F4BC2D4DE1E80001A16E /* RealmNumberManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F4B92D4DE1E80001A16E /* RealmNumberManager.swift */; };
 		4D92F4BD2D4DE1E80001A16E /* BackgroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F4B62D4DE1E80001A16E /* BackgroundManager.swift */; };
 		4D92F4BF2D4DE6050001A16E /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F4BE2D4DE5EA0001A16E /* HealthKitManager.swift */; };
+		4DA01CAE2D8533F50070309D /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA01CAD2D8533F50070309D /* NotificationManager.swift */; };
+		4DA01CB02D8534630070309D /* NumberMatchInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA01CAF2D8534630070309D /* NumberMatchInsight.swift */; };
+		4DA01CB22D8534BF0070309D /* NumberMatchNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA01CB12D8534BF0070309D /* NumberMatchNotificationView.swift */; };
+		4DA01CB42D8537FB0070309D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4DA01CB32D8537FB0070309D /* GoogleService-Info.plist */; };
+		4DA01CB72D853A640070309D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA01CB62D853A640070309D /* FirebaseAnalytics */; };
+		4DA01CB92D853A640070309D /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA01CB82D853A640070309D /* FirebaseCore */; };
+		4DA01CBB2D853A640070309D /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA01CBA2D853A640070309D /* FirebaseMessaging */; };
 		4DA2EE2D2D502D1D001F8E9D /* HealthKitPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA2EE2C2D502D1D001F8E9D /* HealthKitPermissionView.swift */; };
 		4DA6425D2D8113D80047287B /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA6425C2D8113D80047287B /* HeartRateView.swift */; };
 		4DA642642D8122590047287B /* HealthKitManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA642632D8122590047287B /* HealthKitManaging.swift */; };
@@ -96,6 +103,10 @@
 		4D92F4B82D4DE1E80001A16E /* JournalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalManager.swift; sourceTree = "<group>"; };
 		4D92F4B92D4DE1E80001A16E /* RealmNumberManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberManager.swift; sourceTree = "<group>"; };
 		4D92F4BE2D4DE5EA0001A16E /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		4DA01CAD2D8533F50070309D /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		4DA01CAF2D8534630070309D /* NumberMatchInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMatchInsight.swift; sourceTree = "<group>"; };
+		4DA01CB12D8534BF0070309D /* NumberMatchNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMatchNotificationView.swift; sourceTree = "<group>"; };
+		4DA01CB32D8537FB0070309D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4DA2EE2C2D502D1D001F8E9D /* HealthKitPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitPermissionView.swift; sourceTree = "<group>"; };
 		4DA6425C2D8113D80047287B /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
 		4DA642632D8122590047287B /* HealthKitManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManaging.swift; sourceTree = "<group>"; };
@@ -148,6 +159,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DA01CBB2D853A640070309D /* FirebaseMessaging in Frameworks */,
+				4DA01CB92D853A640070309D /* FirebaseCore in Frameworks */,
+				4DA01CB72D853A640070309D /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +186,7 @@
 		4D3055982D3C9462009A7BBD /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				4DA01CAD2D8533F50070309D /* NotificationManager.swift */,
 				4DA642632D8122590047287B /* HealthKitManaging.swift */,
 				4D92F4BE2D4DE5EA0001A16E /* HealthKitManager.swift */,
 				4D92F4B62D4DE1E80001A16E /* BackgroundManager.swift */,
@@ -209,6 +224,7 @@
 		4D3055F92D3D899A009A7BBD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4DA01CAF2D8534630070309D /* NumberMatchInsight.swift */,
 				4D3055F82D3D899A009A7BBD /* JournalMood.swift */,
 				4D80E1002D3F1DD80020F7BB /* NumberMeaning.swift */,
 			);
@@ -218,6 +234,7 @@
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
+				4DA01CB32D8537FB0070309D /* GoogleService-Info.plist */,
 				4DF0F5A82D4FEF3F007EC3BF /* VybeMVP.entitlements */,
 				4D80E1192D41F0900020F7BB /* VybeMVP.xctestplan */,
 				4D3055B62D3C9C3B009A7BBD /* VybeMVP.xcodeproj */,
@@ -266,6 +283,7 @@
 		4DC602302D34440900B5E4A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4DA01CB12D8534BF0070309D /* NumberMatchNotificationView.swift */,
 				4DA6425C2D8113D80047287B /* HeartRateView.swift */,
 				4DA2EE2C2D502D1D001F8E9D /* HealthKitPermissionView.swift */,
 				4D92F48B2D49E9BF0001A16E /* TestingView.swift */,
@@ -342,6 +360,9 @@
 			);
 			name = VybeMVP;
 			packageProductDependencies = (
+				4DA01CB62D853A640070309D /* FirebaseAnalytics */,
+				4DA01CB82D853A640070309D /* FirebaseCore */,
+				4DA01CBA2D853A640070309D /* FirebaseMessaging */,
 			);
 			productName = VybeMVP;
 			productReference = 4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */;
@@ -375,6 +396,9 @@
 			);
 			mainGroup = 4DC602122D343E8D00B5E4A9;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4DA01CB52D853A640070309D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4DC6021C2D343E8D00B5E4A9 /* Products */;
 			projectDirPath = "";
@@ -404,6 +428,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DA01CB42D8537FB0070309D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +465,7 @@
 				4D80E0FD2D3F1B0B0020F7BB /* NumberMeaningView.swift in Sources */,
 				4D3055E72D3CEEC9009A7BBD /* JournalEntryDetailView.swift in Sources */,
 				4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */,
+				4DA01CAE2D8533F50070309D /* NotificationManager.swift in Sources */,
 				4DA6425D2D8113D80047287B /* HeartRateView.swift in Sources */,
 				4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */,
 				4D3055EE2D3CF838009A7BBD /* Logger.swift in Sources */,
@@ -448,6 +474,7 @@
 				4D3055FE2D3D903B009A7BBD /* JournalEntryRow.swift in Sources */,
 				4DC6023C2D345E2000B5E4A9 /* MainView.swift in Sources */,
 				4D3055E92D3CEF45009A7BBD /* EditJournalEntryView.swift in Sources */,
+				4DA01CB22D8534BF0070309D /* NumberMatchNotificationView.swift in Sources */,
 				4D3055E52D3CEDA5009A7BBD /* NewJournalEntryView.swift in Sources */,
 				4D3055C32D3CB018009A7BBD /* PersistenceController.swift in Sources */,
 				4D3055CA2D3CB981009A7BBD /* FocusMatch+Helper.swift in Sources */,
@@ -456,6 +483,7 @@
 				4DC602392D345A3500B5E4A9 /* SignInView.swift in Sources */,
 				4DC6023A2D345C9E00B5E4A9 /* KeychainHelper.swift in Sources */,
 				4D8AB7652D3B7A7900009BC9 /* ContentView.swift in Sources */,
+				4DA01CB02D8534630070309D /* NumberMatchInsight.swift in Sources */,
 				4DC602382D345A1B00B5E4A9 /* SignInViewModel.swift in Sources */,
 				4D92F4BA2D4DE1E80001A16E /* FocusNumberManager.swift in Sources */,
 				4D92F4BB2D4DE1E80001A16E /* JournalManager.swift in Sources */,
@@ -743,6 +771,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4DA01CB52D853A640070309D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4DA01CB62D853A640070309D /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DA01CB52D853A640070309D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		4DA01CB82D853A640070309D /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DA01CB52D853A640070309D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		4DA01CBA2D853A640070309D /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DA01CB52D853A640070309D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		4D3055BF2D3CA97C009A7BBD /* VybeMVP.xcdatamodeld */ = {

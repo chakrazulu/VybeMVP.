@@ -79,6 +79,12 @@ class FocusNumberManager: NSObject, ObservableObject {
     /// Default focus number for new users (1)
     static let defaultFocusNumber = 1
     
+    /// Access to notification manager for sending notifications
+    private let notificationManager = NotificationManager.shared
+    
+    /// Access to insights manager for notification content
+    private let insightManager = NumberMatchInsightManager.shared
+    
     // MARK: - Initialization
     
     /**
@@ -417,11 +423,44 @@ class FocusNumberManager: NSObject, ObservableObject {
                     print("   ❌ Error counting matches: \(error)")
                 }
             }
+            
+            // Send local notification for the match
+            sendMatchNotification(for: matchedRealmNumber)
         } catch {
             print("❌ Failed to save match: \(error)")
             print("   Error Description: \(error.localizedDescription)")
         }
         print("🌟 ================================\n")
+    }
+    
+    /**
+     * Sends a local notification for a number match
+     *
+     * - Parameter number: The number that matched
+     *
+     * Creates and schedules a local notification using the NotificationManager.
+     * The notification includes detailed information about the match significance.
+     */
+    private func sendMatchNotification(for number: Int) {
+        // Get insight for this number match
+        if let insight = insightManager.getInsight(for: number) {
+            print("📲 Sending match notification for number \(number)")
+            
+            // Create notification content with match details
+            notificationManager.scheduleLocalNotification(
+                title: insight.title,
+                body: insight.summary,
+                userInfo: [
+                    "type": "number_match",
+                    "matchNumber": "\(number)",
+                    "insight": insight.detailedInsight
+                ]
+            )
+            
+            print("📲 Notification scheduled")
+        } else {
+            print("⚠️ No insight found for number \(number) - notification skipped")
+        }
     }
     
     /**

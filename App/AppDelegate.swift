@@ -1,13 +1,41 @@
 import UIKit
 import BackgroundTasks
+import UserNotifications
+import FirebaseCore
+import FirebaseMessaging
+// Firebase imports will be added once the SDK is installed
 
-class AppDelegate: NSObject, UIApplicationDelegate {
+class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
     private let backgroundManager = BackgroundManager.shared
     private let realmNumberManager = RealmNumberManager()
     private let focusNumberManager = FocusNumberManager.shared
+    private let notificationManager = NotificationManager.shared
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         print("\n🚀 Application launching...")
+        
+        // Firebase is now initialized in VybeMVPApp.swift at file scope
+        // No need to initialize here
+        
+        // Set up Firebase Messaging
+        Messaging.messaging().delegate = self
+        
+        // Set notification delegate
+        UNUserNotificationCenter.current().delegate = self
+        
+        // Register for remote notifications
+        application.registerForRemoteNotifications()
+        
+        // Print FCM token to console for testing
+        Messaging.messaging().token { token, error in
+            if let token = token {
+                print("🔥 FCM Registration Token: \(token)")
+                // Save token for later use if needed
+                UserDefaults.standard.set(token, forKey: "FCMToken")
+            } else if let error = error {
+                print("🔥 Error fetching FCM token: \(error)")
+            }
+        }
         
         // Register background task
         BGTaskScheduler.shared.register(
@@ -32,7 +60,75 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             print("✅ All managers initialized and started")
         }
         
+        // Request notification permissions
+        notificationManager.requestNotificationAuthorization()
+        
         return true
+    }
+    
+    // MARK: - Firebase Messaging Delegate
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("🔥 Firebase registration token refreshed: \(fcmToken ?? "nil")")
+        
+        // Store this token for sending notifications to this specific device
+        if let token = fcmToken {
+            UserDefaults.standard.set(token, forKey: "FCMToken")
+            
+            // You can also send this token to your server if needed
+            // let dataDict: [String: String] = ["token": token]
+            // NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+        }
+    }
+    
+    // MARK: - UNUserNotificationCenter Delegate
+    
+    // Handle foreground notifications
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let userInfo = notification.request.content.userInfo
+        print("📲 Received notification in foreground: \(userInfo)")
+        
+        // Show the notification in foreground with alert, badge, and sound
+        completionHandler([.banner, .badge, .sound])
+    }
+    
+    // Handle notification response when user taps on notification
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        print("📲 User responded to notification: \(userInfo)")
+        
+        // Process the notification action
+        notificationManager.handleNotificationResponse(response)
+        
+        completionHandler()
+    }
+    
+    // MARK: - Remote Notifications
+    
+    /// Called when APNs has assigned the device a unique token
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        let token = tokenParts.joined()
+        print("📱 Device Token: \(token)")
+        
+        // Set APNs token on Firebase Messaging
+        Messaging.messaging().apnsToken = deviceToken
+    }
+    
+    /// Called when APNs failed to register the device for push notifications
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("⚠️ Failed to register for remote notifications: \(error.localizedDescription)")
+    }
+    
+    /// Called when a remote notification is received while the app is in the foreground
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print("📲 Received remote notification: \(userInfo)")
+        
+        // Handle the notification
+        notificationManager.handlePushNotification(userInfo: userInfo)
+        
+        // Notify system of completion
+        completionHandler(.newData)
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -43,6 +139,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             realmNumberManager.startUpdates()
             focusNumberManager.startUpdates()
         }
+        
+        // Clear app badge when app becomes active
+        UNUserNotificationCenter.current().setBadgeCount(0)
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

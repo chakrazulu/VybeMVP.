@@ -52,7 +52,7 @@ struct ContentView: View {
                 
                 RealmNumberView()
                     .tabItem {
-                        Image(systemName: "sparkles.circle")
+                        Image(systemName: "sparkles")
                         Text("Realm")
                     }
                     .tag(2)

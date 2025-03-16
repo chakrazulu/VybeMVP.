@@ -305,32 +305,7 @@ struct MatchAnalyticsView: View {
             ScrollView {
                 VStack(spacing: 20) {
                     // Heart Rate Analytics Card
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Heart Rate Analytics")
-                            .font(.headline)
-                            .padding(.horizontal)
-                        
-                        HeartRateView()
-                            .frame(height: 200)
-                            .padding(.horizontal)
-                        
-                        if healthKitManager.authorizationStatus == .sharingAuthorized {
-                            HStack {
-                                StatCard(title: "Current BPM", 
-                                       value: "\(healthKitManager.currentHeartRate)",
-                                       icon: "heart.fill")
-                                
-                                StatCard(title: "Last Valid BPM",
-                                       value: "\(healthKitManager.lastValidBPM)",
-                                       icon: "heart.circle.fill")
-                            }
-                            .padding(.horizontal)
-                        }
-                    }
-                    .padding(.vertical)
-                    .background(Color(.systemBackground))
-                    .cornerRadius(12)
-                    .shadow(radius: 2)
+                    cardHeart
                     
                     // Time Frame Selector
                     Picker("Time Frame", selection: $viewModel.selectedTimeFrame) {
@@ -342,74 +317,13 @@ struct MatchAnalyticsView: View {
                     .padding()
                     
                     // Match Statistics Card
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Match Statistics")
-                            .font(.headline)
-                            .padding(.horizontal)
-                        
-                        HStack {
-                            StatCard(title: "Total Matches", 
-                                   value: "\(focusNumberManager.matchLogs.count)",
-                                   icon: "checkmark.circle.fill")
-                            
-                            StatCard(title: "Today's Matches",
-                                   value: "\(viewModel.getTodayMatchCount())",
-                                   icon: "clock.fill")
-                        }
-                        .padding(.horizontal)
-                    }
-                    .padding(.vertical)
-                    .background(Color(.systemBackground))
-                    .cornerRadius(12)
-                    .shadow(radius: 2)
+                    cardMatchStats
                     
                     // Match Distribution Chart
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Match Distribution")
-                            .font(.headline)
-                            .padding(.horizontal)
-                        
-                        if #available(iOS 16.0, *) {
-                            Chart(viewModel.getMatchData()) { matchData in
-                                BarMark(
-                                    x: .value("Time", matchData.time),
-                                    y: .value("Matches", matchData.count)
-                                )
-                                .foregroundStyle(Color.blue.gradient)
-                            }
-                            .frame(height: 200)
-                            .padding()
-                        } else {
-                            Text("Charts require iOS 16.0 or later")
-                                .foregroundColor(.secondary)
-                                .padding()
-                        }
-                    }
-                    .padding(.vertical)
-                    .background(Color(.systemBackground))
-                    .cornerRadius(12)
-                    .shadow(radius: 2)
+                    cardDistribution
                     
                     // Pattern Analysis Card
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Pattern Analysis")
-                            .font(.headline)
-                            .padding(.horizontal)
-                        
-                        VStack(alignment: .leading, spacing: 8) {
-                            PatternRow(title: "Most Common Focus Number",
-                                     value: viewModel.getMostCommonFocusNumber())
-                            PatternRow(title: "Peak Match Time",
-                                     value: viewModel.getPeakMatchTime())
-                            PatternRow(title: "Match Frequency",
-                                     value: viewModel.getMatchFrequency())
-                        }
-                        .padding()
-                    }
-                    .padding(.vertical)
-                    .background(Color(.systemBackground))
-                    .cornerRadius(12)
-                    .shadow(radius: 2)
+                    cardPatterns
                 }
                 .padding()
             }
@@ -420,10 +334,154 @@ struct MatchAnalyticsView: View {
                 viewModel.matchLogs = focusNumberManager.matchLogs
                 viewModel.managedObjectContext = viewContext
             }
-            .onChange(of: focusNumberManager.matchLogs) { newValue in
+            .onChange(of: focusNumberManager.matchLogs) { oldValue, newValue in
                 viewModel.matchLogs = newValue
             }
         }
+    }
+    
+    // MARK: - Card Components
+    
+    /// Heart rate analytics component
+    private var cardHeart: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Heart Rate Analytics")
+                .font(.headline)
+                .padding(.horizontal)
+            
+            HeartRateView()
+                .frame(height: 200)
+                .padding(.horizontal)
+            
+            if healthKitManager.authorizationStatus == .sharingAuthorized {
+                heartRateStats
+            }
+        }
+        .padding(.vertical)
+        .background(Color(.systemBackground))
+        .cornerRadius(12)
+        .shadow(radius: 2)
+    }
+    
+    /// Heart rate statistics (BPM values)
+    private var heartRateStats: some View {
+        HStack {
+            // Current BPM
+            let currentRate = String(healthKitManager.currentHeartRate)
+            StatCard(
+                icon: "heart.fill",
+                title: "Current BPM",
+                value: currentRate
+            )
+            
+            // Last valid BPM
+            let lastRate = String(healthKitManager.lastValidBPM)
+            StatCard(
+                icon: "heart.circle.fill",
+                title: "Last Valid BPM",
+                value: lastRate
+            )
+        }
+        .padding(.horizontal)
+    }
+    
+    /// Match statistics card
+    private var cardMatchStats: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Match Statistics")
+                .font(.headline)
+                .padding(.horizontal)
+            
+            HStack {
+                // Total matches
+                let totalCount = String(focusNumberManager.matchLogs.count)
+                StatCard(
+                    icon: "checkmark.circle.fill",
+                    title: "Total Matches", 
+                    value: totalCount
+                )
+                
+                // Today's matches
+                let todayCount = viewModel.getTodayMatchCount()
+                StatCard(
+                    icon: "clock.fill",
+                    title: "Today's Matches",
+                    value: todayCount
+                )
+            }
+            .padding(.horizontal)
+        }
+        .padding(.vertical)
+        .background(Color(.systemBackground))
+        .cornerRadius(12)
+        .shadow(radius: 2)
+    }
+    
+    /// Match distribution chart card
+    private var cardDistribution: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Match Distribution")
+                .font(.headline)
+                .padding(.horizontal)
+            
+            if #available(iOS 16.0, *) {
+                let matchData = viewModel.getMatchData()
+                Chart(matchData) { matchData in
+                    BarMark(
+                        x: .value("Time", matchData.time),
+                        y: .value("Matches", matchData.count)
+                    )
+                    .foregroundStyle(Color.blue.gradient)
+                }
+                .frame(height: 200)
+                .padding()
+            } else {
+                Text("Charts require iOS 16.0 or later")
+                    .foregroundColor(.secondary)
+                    .padding()
+            }
+        }
+        .padding(.vertical)
+        .background(Color(.systemBackground))
+        .cornerRadius(12)
+        .shadow(radius: 2)
+    }
+    
+    /// Pattern analysis card
+    private var cardPatterns: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Pattern Analysis")
+                .font(.headline)
+                .padding(.horizontal)
+            
+            VStack(alignment: .leading, spacing: 8) {
+                // Most common focus number
+                let commonNumber = viewModel.getMostCommonFocusNumber()
+                PatternRow(
+                    title: "Most Common Focus Number",
+                    value: commonNumber
+                )
+                
+                // Peak match time
+                let peakTime = viewModel.getPeakMatchTime()
+                PatternRow(
+                    title: "Peak Match Time",
+                    value: peakTime
+                )
+                
+                // Match frequency
+                let frequency = viewModel.getMatchFrequency()
+                PatternRow(
+                    title: "Match Frequency",
+                    value: frequency
+                )
+            }
+            .padding()
+        }
+        .padding(.vertical)
+        .background(Color(.systemBackground))
+        .cornerRadius(12)
+        .shadow(radius: 2)
     }
 }
 
@@ -493,8 +551,11 @@ struct PatternRow: View {
     }
 }
 
+// Preview provider isn't necessary for runtime - comment out to reduce complexity
+/*
 #Preview {
     MatchAnalyticsView()
         .environmentObject(FocusNumberManager.shared)
         .environmentObject(RealmNumberManager())
-} 
+}
+*/ 
