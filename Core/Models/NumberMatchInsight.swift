@@ -54,6 +54,19 @@ class NumberMatchInsightManager {
     /// Collection of insights for each number (0-9)
     private var insights: [NumberMatchInsight] = []
     
+    /// Flag to track if insights have been initialized
+    private var initialized = false
+    
+    /// Default fallback insight used when a specific number insight isn't found
+    private var fallbackInsight: NumberMatchInsight {
+        return NumberMatchInsight(
+            matchNumber: -1,
+            title: "Number Match Found!",
+            summary: "Your focus number has aligned with the realm number.",
+            detailedInsight: "When your focus number matches the realm number, it creates a moment of synchronicity. This alignment suggests you're in flow with the universal energy."
+        )
+    }
+    
     /// Private initializer to enforce singleton pattern
     private init() {
         setupInitialInsights()
@@ -66,6 +79,8 @@ class NumberMatchInsightManager {
      * In future iterations, these could be dynamically generated or personalized.
      */
     private func setupInitialInsights() {
+        print("📚 Setting up number match insights...")
+        
         // Number 0 Match
         addOrUpdateInsight(NumberMatchInsight(
             matchNumber: 0,
@@ -145,16 +160,33 @@ class NumberMatchInsightManager {
             summary: "Your focus on Nine aligns with today's realm energy!",
             detailedInsight: "The alignment of Nine in both focus and realm numbers creates a transcendent energy of completion and universal love. This synchronicity enhances your capacity for compassion, letting go, and embracing the bigger picture. It's a powerful time for humanitarian efforts, completing cycles, and spiritual awakening."
         ))
+        
+        initialized = true
+        print("✅ Initialized \(insights.count) number match insights")
     }
     
     /**
      * Get the insight for a specific match number
      *
      * @param number The number (0-9) to retrieve the insight for
-     * @return The NumberMatchInsight if found, nil otherwise
+     * @return The NumberMatchInsight if found, a fallback insight otherwise
      */
-    func getInsight(for number: Int) -> NumberMatchInsight? {
-        return insights.first { $0.matchNumber == number }
+    func getInsight(for number: Int) -> NumberMatchInsight {
+        // Ensure insights are initialized
+        if !initialized {
+            print("⚠️ Insights were not initialized, initializing now...")
+            setupInitialInsights()
+        }
+        
+        // Check if the insight is available
+        if let insight = insights.first(where: { $0.matchNumber == number }) {
+            print("✅ Found insight for number \(number): \(insight.title)")
+            return insight
+        }
+        
+        // Log the missing insight and return a fallback
+        print("⚠️ No insight found for number \(number), using fallback insight")
+        return fallbackInsight
     }
     
     /**
@@ -176,6 +208,23 @@ class NumberMatchInsightManager {
      * @return Array of NumberMatchInsight objects sorted by match number
      */
     func getAllInsights() -> [NumberMatchInsight] {
+        // Ensure insights are initialized
+        if !initialized {
+            print("⚠️ Insights were not initialized, initializing now...")
+            setupInitialInsights()
+        }
+        
         return insights.sorted { $0.matchNumber < $1.matchNumber }
+    }
+    
+    /**
+     * Force reinitialization of insights
+     * Useful for ensuring insights are fresh before background operations
+     */
+    func reinitializeInsights() {
+        print("🔄 Reinitializing number match insights...")
+        insights.removeAll()
+        initialized = false
+        setupInitialInsights()
     }
 } 

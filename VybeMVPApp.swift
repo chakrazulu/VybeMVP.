@@ -3,7 +3,7 @@ import FirebaseCore
 
 // Initialize Firebase at the earliest possible moment
 // This will run before any other code in the app
-let firebaseInitializer = FirebaseApp.configure()
+FirebaseApp.configure()
 
 @main
 struct VybeMVPApp: App {

@@ -107,16 +107,20 @@ import SwiftUI
         }
     }
     
-    func forceHeartRateUpdate() async {
+    func forceHeartRateUpdate() async -> Bool {
         if shouldSucceed {
             updateHeartRate()
+            return true
         }
+        return false
     }
     
-    func fetchInitialHeartRate() async {
+    func fetchInitialHeartRate() async -> Bool {
         if shouldSucceed {
             updateHeartRate()
+            return true
         }
+        return false
     }
     
     func stopHeartRateMonitoring() {

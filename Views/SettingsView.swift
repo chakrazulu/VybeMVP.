@@ -181,6 +181,12 @@ struct SettingsView: View {
     // Background Updates Testing Section
     private var backgroundTestingSection: some View {
         Section(header: Text("Background Updates Testing")) {
+            Toggle("Use Simulated Heart Rate", isOn: Binding(
+                get: { healthKitManager.isHeartRateSimulated },
+                set: { healthKitManager.setSimulationMode(enabled: $0) }
+            ))
+            .foregroundColor(.blue)
+            
             Button("Schedule Silent Background Update") {
                 NotificationManager.shared.scheduleSilentBackgroundUpdate()
                 showSilentUpdateConfirmation = true
@@ -196,13 +202,42 @@ struct SettingsView: View {
             }
             .foregroundColor(.blue)
             
+            Button("Force Heart Rate Update") {
+                Task {
+                    await healthKitManager.forceHeartRateUpdate()
+                }
+            }
+            .foregroundColor(.blue)
+            
+            Button("Generate Simulated Heart Rate") {
+                // Use the public method instead of reflection
+                healthKitManager.simulateHeartRateForDevelopment()
+            }
+            .foregroundColor(.blue)
+            
             if realmNumberManager.currentRealmNumber > 0 {
                 Text("Current Realm Number: \(realmNumberManager.currentRealmNumber)")
                     .foregroundColor(.green)
                     .fontWeight(.semibold)
             }
             
-            Text("Use these options to test background calculations. The silent update simulates a push notification that would wake the app to perform calculations in the background.")
+            if healthKitManager.currentHeartRate > 0 {
+                Text("Current Heart Rate: \(healthKitManager.currentHeartRate) BPM")
+                    .foregroundColor(.blue)
+                    .fontWeight(.semibold)
+                
+                if healthKitManager.isHeartRateSimulated {
+                    Text("(Simulated Heart Rate)")
+                        .font(.caption)
+                        .foregroundColor(.orange)
+                } else {
+                    Text("(Real Heart Rate from HealthKit)")
+                        .font(.caption)
+                        .foregroundColor(.green)
+                }
+            }
+            
+            Text("Use these options to test background calculations. Toggle simulation mode to switch between real and simulated heart rate data. The silent update simulates a push notification that would wake the app to perform calculations in the background.")
                 .font(.caption)
                 .foregroundColor(.secondary)
         }

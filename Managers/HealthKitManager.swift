@@ -59,6 +59,15 @@ import BackgroundTasks
     /// Detailed authorization statuses for each health data type
     @Published private(set) var authorizationStatuses: [String: HKAuthorizationStatus] = [:]
     
+    /// Flag to indicate whether the heart rate is from a real device or simulated
+    @Published public private(set) var isHeartRateSimulated: Bool = true
+    
+    /// The last real (non-simulated) heart rate reading from HealthKit
+    private var lastRealHeartRate: Int = 0
+    
+    /// Flag to control whether simulation is allowed
+    private var simulationEnabled: Bool = true
+    
     // MARK: - Notification Names
     /// Notification sent when heart rate data is updated
     public static let heartRateUpdated = Notification.Name("heartRateUpdated")
@@ -82,6 +91,9 @@ import BackgroundTasks
     /// Timestamp of the last heart rate update
     private var lastUpdateTime: Date?
     
+    /// Timer for simulating heart rate data
+    private var simulationTimer: Timer?
+    
     // MARK: - Initialization
     /**
      * Initializes the HealthKit manager and checks data availability.
@@ -98,9 +110,21 @@ import BackgroundTasks
         super.init()
         print("HealthKitManager initialized")
         
+        // Load simulation preference from UserDefaults
+        let simulationPreference = UserDefaults.standard.bool(forKey: "HeartRateSimulationEnabled")
+        simulationEnabled = simulationPreference
+        isHeartRateSimulated = simulationPreference
+        
+        if simulationPreference {
+            print("🔄 Heart rate simulation ENABLED from saved preferences")
+        }
+        
         // Check if HealthKit is available on the device
         guard HKHealthStore.isHealthDataAvailable() else {
             print("HealthKit not available on this device")
+            // Only start simulation if HealthKit is not available
+            enableSimulationMode(true)
+            simulateHeartRateForTesting()
             return
         }
         
@@ -108,8 +132,33 @@ import BackgroundTasks
         Task {
             do {
                 try await checkAuthorizationStatus()
+                
+                // If we have authorization, immediately start monitoring and force an update
+                if authorizationStatus == .sharingAuthorized {
+                    startHeartRateMonitoring()
+                    let success = await forceHeartRateUpdate()
+                    
+                    // Only enable simulation if we couldn't get real data and simulation is enabled in preferences
+                    if !success && simulationEnabled {
+                        print("⚠️ Could not get real heart rate data, enabling simulation mode")
+                        enableSimulationMode(true)
+                        simulateHeartRateForTesting()
+                    } else if success {
+                        enableSimulationMode(false)
+                    }
+                } else if simulationEnabled {
+                    // No HealthKit authorization but simulation is enabled
+                    print("⚠️ No HealthKit authorization, enabling simulation mode")
+                    enableSimulationMode(true)
+                    simulateHeartRateForTesting()
+                }
             } catch {
                 print("Error checking authorization: \(error)")
+                // Enable simulation on error if preferences allow
+                if simulationEnabled {
+                    enableSimulationMode(true)
+                    simulateHeartRateForTesting()
+                }
             }
         }
     }
@@ -119,13 +168,32 @@ import BackgroundTasks
      * Updates the current heart rate value.
      *
      * - Parameter value: The heart rate value in beats per minute, or nil if unavailable
+     * - Parameter fromSimulation: Boolean indicating if the value is from a simulated source
      *
      * This method ensures updates occur on the main thread for thread safety
      * with SwiftUI's published properties.
      */
-    internal func updateCurrentHeartRate(_ value: Double?) {
+    internal func updateCurrentHeartRate(_ value: Double?, fromSimulation: Bool = false) {
         DispatchQueue.main.async {
-            self.currentHeartRate = Int(value ?? 0.0)
+            let previousValue = self.currentHeartRate
+            let newValue = Int(value ?? 0.0)
+            
+            if !fromSimulation {
+                // This is a real heart rate from HealthKit
+                if newValue > 0 {
+                    self.lastRealHeartRate = newValue
+                    self.isHeartRateSimulated = false
+                    print("❤️ Real heart rate updated: \(newValue) BPM")
+                }
+            }
+            
+            // Always update the current value
+            self.currentHeartRate = newValue
+            
+            // Log change if there was one
+            if previousValue != newValue {
+                print("\(fromSimulation ? "🔄 Simulated" : "❤️ Real") heart rate: \(newValue) BPM")
+            }
         }
     }
     
@@ -326,16 +394,45 @@ import BackgroundTasks
      * or when the app becomes active again after being in the background.
      */
     public func startHeartRateMonitoring() {
+        print("Starting heart rate monitoring")
+        
+        // Only proceed with real HealthKit queries if available and authorized
         guard HKHealthStore.isHealthDataAvailable(),
               authorizationStatus == .sharingAuthorized else {
-            print("Cannot start monitoring: Health data not available or not authorized")
+            print("Cannot start real heart rate monitoring: Health data not available or not authorized")
+            print("Using simulated heart rate data instead")
+            enableSimulationMode(true)
+            simulateHeartRateForTesting()
             return
         }
         
-        print("Starting heart rate monitoring")
-        
+        // Try to start real monitoring
         setupHeartRateObserver()
         setupBackgroundDelivery()
+        
+        // Prioritize real data - keep simulation disabled by default
+        enableSimulationMode(false)
+        
+        // Force an update to get real data, but don't automatically enable simulation
+        // if we don't find data immediately
+        Task {
+            print("❤️ Attempting to get initial real heart rate data...")
+            let success = await forceHeartRateUpdate()
+            
+            if !success {
+                print("⚠️ Initial attempt to get real heart rate data unsuccessful")
+                print("❤️ Will continue trying to get real data during normal operation")
+                
+                // Only enable simulation as a last resort if explicitly set in preferences
+                if UserDefaults.standard.bool(forKey: "HeartRateSimulationEnabled") {
+                    print("🔄 Simulation enabled in preferences - activating simulation mode")
+                    enableSimulationMode(true)
+                    simulateHeartRateForTesting()
+                }
+            } else {
+                print("✅ Successfully retrieved initial real heart rate data")
+            }
+        }
     }
     
     /**
@@ -362,7 +459,9 @@ import BackgroundTasks
             
             Task {
                 do {
-                    try await self?.fetchLatestHeartRate()
+                    if let self = self {
+                        _ = try await self.fetchLatestHeartRate()
+                    }
                 } catch {
                     print("Error fetching heart rate in observer: \(error)")
                 }
@@ -443,14 +542,141 @@ import BackgroundTasks
      *
      * Typically used when the app becomes active or when a specific feature
      * requires the most up-to-date heart rate value.
+     * 
+     * Returns: A Boolean indicating whether the heart rate update was successful
      */
-    public func forceHeartRateUpdate() async {
+    public func forceHeartRateUpdate() async -> Bool {
         print("Forcing heart rate update")
         
+        // First try to directly access the most recent samples (last minute)
         do {
-            try await fetchLatestHeartRate()
+            let success = try await fetchMostRecentHeartRate(timeWindowSeconds: 60)
+            if success {
+                print("✅ Retrieved very recent heart rate data")
+                return true
+            }
+            
+            // If no recent data found, try a longer time window
+            print("⚠️ No heart rate data in the last minute, trying last 5 minutes...")
+            let fallbackSuccess = try await fetchMostRecentHeartRate(timeWindowSeconds: 300)
+            if fallbackSuccess {
+                print("✅ Retrieved heart rate data from last 5 minutes")
+                return true
+            }
+            
+            // If still no data, fall back to the regular method with 1-hour window
+            print("⚠️ No heart rate data in the last 5 minutes, trying standard method...")
+            return try await fetchLatestHeartRate()
         } catch {
             print("Error forcing heart rate update: \(error)")
+            
+            // Try the older method as a fallback
+            do {
+                return try await fetchLatestHeartRate()
+            } catch {
+                print("Error in fallback heart rate update: \(error)")
+                return false
+            }
+        }
+    }
+    
+    /**
+     * Attempts to fetch very recent heart rate data within a specified time window
+     * This method provides more aggressive, real-time heart rate fetching for 
+     * immediate updates rather than historical analysis
+     */
+    private func fetchMostRecentHeartRate(timeWindowSeconds: Double) async throws -> Bool {
+        guard HKHealthStore.isHealthDataAvailable(),
+              authorizationStatus == .sharingAuthorized else {
+            print("Cannot fetch heart rate: Health data not available or not authorized")
+            return false
+        }
+        
+        let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate)!
+        
+        // Create a much shorter time window for more recent data
+        let recentTimeWindow = Date().addingTimeInterval(-timeWindowSeconds)
+        
+        print("❤️ Aggressively fetching heart rate data from the last \(Int(timeWindowSeconds)) seconds...")
+        
+        // Get the most recent heart rate reading with a tighter time window
+        let predicate = HKQuery.predicateForSamples(
+            withStart: recentTimeWindow,
+            end: Date(),
+            options: .strictEndDate
+        )
+        
+        // Create a task and continuation to handle the async query
+        return try await withCheckedThrowingContinuation { continuation in
+            // Sort by date to get the most recent
+            let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
+            
+            let query = HKSampleQuery(
+                sampleType: heartRateType,
+                predicate: predicate,
+                limit: 5, // Just need a few samples from this short window
+                sortDescriptors: [sortDescriptor]
+            ) { [weak self] (query, samples, error) in
+                guard let self = self else {
+                    print("❌ Self reference lost during heart rate query")
+                    continuation.resume(returning: false)
+                    return
+                }
+                
+                if let error = error {
+                    print("❌ Error querying recent heart rate: \(error)")
+                    continuation.resume(returning: false)
+                    return
+                }
+                
+                guard let samples = samples, !samples.isEmpty else {
+                    print("❌ No heart rate samples found in the last \(Int(timeWindowSeconds)) seconds")
+                    continuation.resume(returning: false)
+                    return
+                }
+                
+                print("✅ Found \(samples.count) very recent heart rate samples")
+                
+                // Get the most recent sample
+                guard let sample = samples.first as? HKQuantitySample else {
+                    print("❌ Cannot convert heart rate sample to HKQuantitySample")
+                    continuation.resume(returning: false)
+                    return
+                }
+                
+                // Get heart rate in beats per minute
+                let heartRateUnit = HKUnit.count().unitDivided(by: .minute())
+                let heartRate = sample.quantity.doubleValue(for: heartRateUnit)
+                
+                // Calculate how old the sample is - should be very recent now
+                let sampleAge = Date().timeIntervalSince(sample.endDate)
+                let ageMinutes = Int(sampleAge / 60)
+                let ageSeconds = Int(sampleAge) % 60
+                
+                print("❤️ Latest REAL heart rate: \(heartRate) BPM (from \(ageMinutes)m \(ageSeconds)s ago)")
+                
+                // Update state on main thread (marking as not from simulation)
+                DispatchQueue.main.async {
+                    self.updateCurrentHeartRate(heartRate, fromSimulation: false)
+                    
+                    if heartRate > 0 {
+                        self.updateLastValidBPM(Int(heartRate))
+                        self.lastRealHeartRate = Int(heartRate)
+                        self.isHeartRateSimulated = false
+                    }
+                    
+                    // Post notification of heart rate update for observers
+                    NotificationCenter.default.post(
+                        name: Self.heartRateUpdated,
+                        object: self,
+                        userInfo: ["heartRate": Int(heartRate), "isSimulated": false]
+                    )
+                }
+                
+                continuation.resume(returning: true)
+            }
+            
+            healthStore.execute(query)
         }
     }
     
@@ -469,67 +695,126 @@ import BackgroundTasks
      *
      * Throws an error if the health data is not available or authorized.
      */
-    private func fetchLatestHeartRate() async throws {
+    @discardableResult
+    public func fetchLatestHeartRate() async throws -> Bool {
+        // Check if we've recently fetched heart rate data (within the last 30 seconds)
+        // to avoid too frequent queries to HealthKit which drain battery
+        if let lastUpdate = lastUpdateTime, Date().timeIntervalSince(lastUpdate) < 30 {
+            print("⏱ Skipping heart rate fetch - performed too recently")
+            return true // Return success without fetching to avoid redundant queries
+        }
+        
         guard HKHealthStore.isHealthDataAvailable(),
               authorizationStatus == .sharingAuthorized else {
             print("Cannot fetch heart rate: Health data not available or not authorized")
-            return
+            return false
         }
         
         let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate)!
         
+        // Get heart rate readings from the past hour instead of just the latest
+        let oneHourAgo = Date().addingTimeInterval(-3600)
+        
+        print("❤️ Fetching heart rate data from the past hour...")
+        
         // Get the most recent heart rate reading
         let predicate = HKQuery.predicateForSamples(
-            withStart: Date.distantPast,
+            withStart: oneHourAgo,
             end: Date(),
             options: .strictEndDate
         )
         
-        // Sort by date to get the most recent
-        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
+        // Update the time of the last fetch attempt
+        lastUpdateTime = Date()
         
-        let query = HKSampleQuery(
-            sampleType: heartRateType,
-            predicate: predicate,
-            limit: 1,
-            sortDescriptors: [sortDescriptor]
-        ) { [weak self] (query, samples, error) in
-            guard let self = self else { return }
+        // Create a task and continuation to handle the async query
+        return try await withCheckedThrowingContinuation { continuation in
+            // Sort by date to get the most recent
+            let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
             
-            if let error = error {
-                print("Error querying heart rate: \(error)")
-                return
-            }
-            
-            guard let samples = samples, let sample = samples.first as? HKQuantitySample else {
-                print("No heart rate samples available")
-                return
-            }
-            
-            // Get heart rate in beats per minute
-            let heartRateUnit = HKUnit.count().unitDivided(by: .minute())
-            let heartRate = sample.quantity.doubleValue(for: heartRateUnit)
-            
-            print("Latest heart rate: \(heartRate) BPM")
-            
-            // Update state on main thread
-            DispatchQueue.main.async {
-                self.updateCurrentHeartRate(heartRate)
-                
-                if heartRate > 0 {
-                    self.updateLastValidBPM(Int(heartRate))
+            let query = HKSampleQuery(
+                sampleType: heartRateType,
+                predicate: predicate,
+                limit: 10, // Get up to 10 recent readings instead of just 1
+                sortDescriptors: [sortDescriptor]
+            ) { [weak self] (query, samples, error) in
+                guard let self = self else {
+                    print("❌ Self reference lost during heart rate query")
+                    continuation.resume(returning: false)
+                    return
                 }
                 
-                // Post notification of heart rate update for observers
-                NotificationCenter.default.post(
-                    name: Self.heartRateUpdated,
-                    object: heartRate,
-                    userInfo: ["heartRate": heartRate]
-                )
+                if let error = error {
+                    print("❌ Error querying heart rate: \(error)")
+                    continuation.resume(returning: false)
+                    return
+                }
+                
+                guard let samples = samples, !samples.isEmpty else {
+                    print("❌ No heart rate samples available from HealthKit in the past hour")
+                    continuation.resume(returning: false)
+                    return
+                }
+                
+                // Don't log every time if we get expected results
+                print("✅ Found \(samples.count) heart rate samples from HealthKit")
+                
+                // Get the most recent sample
+                guard let sample = samples.first as? HKQuantitySample else {
+                    print("❌ Cannot convert heart rate sample to HKQuantitySample")
+                    continuation.resume(returning: false)
+                    return
+                }
+                
+                // Get heart rate in beats per minute
+                let heartRateUnit = HKUnit.count().unitDivided(by: .minute())
+                let heartRate = sample.quantity.doubleValue(for: heartRateUnit)
+                
+                // Calculate how old the sample is
+                let sampleAge = Date().timeIntervalSince(sample.endDate)
+                let ageMinutes = Int(sampleAge / 60)
+                let ageSeconds = Int(sampleAge) % 60
+                
+                // Only log detailed info if the heart rate has changed significantly
+                let hasSignificantChange = abs(Double(self.currentHeartRate) - heartRate) >= 5.0
+                
+                if hasSignificantChange {
+                    print("❤️ Latest REAL heart rate from HealthKit: \(heartRate) BPM (from \(ageMinutes)m \(ageSeconds)s ago)")
+                }
+                
+                // Check if the sample is very recent (less than 5 minutes old)
+                let isRecent = sampleAge < 300 // 5 minutes
+                
+                if !isRecent && hasSignificantChange {
+                    print("⚠️ Heart rate data is \(ageMinutes) minutes old - may not be current")
+                }
+                
+                // Update state on main thread (marking as not from simulation)
+                DispatchQueue.main.async {
+                    self.updateCurrentHeartRate(heartRate, fromSimulation: false)
+                    
+                    if heartRate > 0 {
+                        self.updateLastValidBPM(Int(heartRate))
+                        self.lastRealHeartRate = Int(heartRate)
+                        self.isHeartRateSimulated = false
+                        
+                        // Only post notification if the heart rate has changed significantly
+                        if hasSignificantChange {
+                            // Post notification of heart rate update for observers
+                            NotificationCenter.default.post(
+                                name: Self.heartRateUpdated,
+                                object: self,
+                                userInfo: ["heartRate": Int(heartRate), "isSimulated": false]
+                            )
+                        }
+                    }
+                }
+                
+                continuation.resume(returning: true)
             }
+            
+            healthStore.execute(query)
         }
-        
-        healthStore.execute(query)
     }
     
     /**
@@ -541,14 +826,17 @@ import BackgroundTasks
      *
      * This is typically called after authorization is confirmed
      * and before regular monitoring begins.
+     * 
+     * Returns: A Boolean indicating whether the initial heart rate retrieval was successful
      */
-    public func fetchInitialHeartRate() async {
+    public func fetchInitialHeartRate() async -> Bool {
         print("Fetching initial heart rate")
         
         do {
-            try await fetchLatestHeartRate()
+            return try await fetchLatestHeartRate()
         } catch {
             print("Error fetching initial heart rate: \(error)")
+            return false
         }
     }
     
@@ -731,6 +1019,171 @@ import BackgroundTasks
             name: Self.heartRateUpdated,
             object: bpm
         )
+    }
+    
+    // MARK: - Testing Support
+    
+    /**
+     * Provides simulated heart rate data for testing when no actual data is available.
+     * 
+     * This is useful for:
+     * - Devices without a paired Apple Watch
+     * - Simulator testing
+     * - Development when health data is not available
+     * 
+     * Generates a reasonable heart rate value (60-100 BPM) and broadcasts it
+     * through the same channels as a real reading.
+     */
+    private func simulateHeartRateForTesting() {
+        // Only simulate if simulation is enabled
+        guard simulationEnabled else {
+            print("🔄 Heart rate simulation requested but simulation mode is disabled")
+            return
+        }
+        
+        // Stop any existing timer to prevent multiple timers running simultaneously
+        if let existingTimer = simulationTimer {
+            existingTimer.invalidate()
+            simulationTimer = nil
+        }
+        
+        // If we have a valid real heart rate, prefer that as our base
+        let baseHeartRate = lastRealHeartRate > 0 ? lastRealHeartRate : Int.random(in: 55...95)
+        let simulatedHeartRate = Double(baseHeartRate)
+        
+        print("🔄 Simulating heart rate: \(simulatedHeartRate) BPM (based on " + 
+              (lastRealHeartRate > 0 ? "last real reading" : "random value") + ")")
+        
+        // Directly set the published properties for immediate access
+        updateCurrentHeartRate(simulatedHeartRate, fromSimulation: true)
+        lastValidBPM = Int(simulatedHeartRate)
+        isHeartRateSimulated = true
+        
+        // Post notification as if it came from HealthKit
+        NotificationCenter.default.post(
+            name: Self.heartRateUpdated,
+            object: self,
+            userInfo: ["heartRate": Int(simulatedHeartRate), "isSimulated": true]
+        )
+        
+        // Set up a timer to periodically update the simulated heart rate (every 15 seconds)
+        simulationTimer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { [weak self] _ in
+            guard let self = self, self.simulationEnabled else { return }
+            
+            // Use last real heart rate as base if available
+            let baseRate = self.lastRealHeartRate > 0 ? self.lastRealHeartRate : baseHeartRate
+            
+            // Increase the variation range for more diverse readings
+            // Ensure the range doesn't go below 50 or above 100
+            let minRate = max(50, baseRate-20)
+            let maxRate = min(100, baseRate+20)
+            let newRate = Double(Int.random(in: minRate...maxRate))
+            
+            print("🔄 Updating simulated heart rate: \(newRate) BPM")
+            
+            // Directly update the published properties
+            self.updateCurrentHeartRate(newRate, fromSimulation: true)
+            self.lastValidBPM = Int(newRate)
+            self.isHeartRateSimulated = true
+            
+            // Post notification with the object as self for proper receipt
+            NotificationCenter.default.post(
+                name: Self.heartRateUpdated,
+                object: self,
+                userInfo: ["heartRate": Int(newRate), "isSimulated": true]
+            )
+        }
+    }
+    
+    /**
+     * Manually simulate a heart rate reading for development.
+     *
+     * This public method allows other components to trigger heart rate
+     * simulation on demand, especially useful during development without
+     * a paired Apple Watch or in testing environments.
+     *
+     * - Parameter rate: Optional specific heart rate value to use (if nil, a random value is generated)
+     */
+    public func simulateHeartRateForDevelopment(rate: Int? = nil) {
+        // Check if simulation is disabled, but we have a valid heart rate to use
+        if !simulationEnabled && lastRealHeartRate > 0 {
+            print("❤️ Using last real heart rate instead of simulation: \(lastRealHeartRate) BPM")
+            
+            // Post notification to trigger realm calculations with the real heart rate
+            NotificationCenter.default.post(
+                name: Self.heartRateUpdated,
+                object: self,
+                userInfo: ["heartRate": lastRealHeartRate, "isSimulated": false]
+            )
+            return
+        }
+        
+        // Either simulation is enabled or we don't have a real heart rate
+        // Generate a more varied heart rate if none provided
+        let heartRate = rate ?? (lastRealHeartRate > 0 ? 
+                                lastRealHeartRate + Int.random(in: -10...10) : 
+                                Int.random(in: 55...110))
+        
+        print("📢 Manual heart rate simulation triggered: \(heartRate) BPM" +
+              (lastRealHeartRate > 0 ? " (based on last real reading of \(lastRealHeartRate) BPM)" : ""))
+        
+        // Set the values directly
+        updateCurrentHeartRate(Double(heartRate), fromSimulation: true)
+        lastValidBPM = heartRate
+        isHeartRateSimulated = true
+        
+        // Post notification to trigger realm calculations
+        NotificationCenter.default.post(
+            name: Self.heartRateUpdated,
+            object: self,
+            userInfo: ["heartRate": heartRate, "isSimulated": true]
+        )
+    }
+    
+    // Add this method to control simulation mode
+    private func enableSimulationMode(_ enabled: Bool) {
+        simulationEnabled = enabled
+        isHeartRateSimulated = enabled
+        
+        if enabled {
+            print("🔄 Heart rate simulation mode ENABLED")
+        } else {
+            print("🔄 Heart rate simulation mode DISABLED - using real data")
+            
+            // Stop any existing timer when disabling simulation
+            if let existingTimer = simulationTimer {
+                existingTimer.invalidate()
+                simulationTimer = nil
+            }
+        }
+    }
+    
+    /// Utility method to manually control simulation mode for testing purposes
+    public func setSimulationMode(enabled: Bool) {
+        enableSimulationMode(enabled)
+        
+        // Save the preference to UserDefaults
+        UserDefaults.standard.set(enabled, forKey: "HeartRateSimulationEnabled")
+        print("🔄 Heart rate simulation preference \(enabled ? "ENABLED" : "DISABLED") and saved to UserDefaults")
+        
+        if enabled {
+            // Start simulation if enabling
+            simulateHeartRateForTesting()
+        } else {
+            // Try to get real data if disabling
+            Task {
+                await forceHeartRateUpdate()
+            }
+        }
+    }
+    
+    deinit {
+        // Clean up the simulation timer when the manager is deallocated
+        if let timer = simulationTimer {
+            timer.invalidate()
+            simulationTimer = nil
+        }
+        print("HealthKitManager deallocated")
     }
 }
 

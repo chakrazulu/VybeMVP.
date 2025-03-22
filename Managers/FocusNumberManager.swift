@@ -20,6 +20,9 @@ import Combine
 import CoreLocation
 import CoreData
 import os.log
+import HealthKit
+import UserNotifications
+import UIKit
 
 /**
  * Core manager class for focus number operations and match detection.
@@ -274,68 +277,52 @@ class FocusNumberManager: NSObject, ObservableObject {
     // MARK: - Match Detection and Saving
     
     /**
-     * Verifies and saves a match between the focus number and realm number.
+     * Verifies if the given realm number matches the current focus number and saves the match if needed.
+     *
+     * This method:
+     * 1. Checks if the realm number matches the current focus number
+     * 2. Validates that this match hasn't been recorded recently
+     * 3. Saves a new match record to Core Data if conditions are met
+     * 4. Sends a notification about the match
      *
      * - Parameters:
-     *   - realmNumber: The current realm number to check against the focus number
-     *   - completion: Closure that receives a Boolean indicating success (true) or failure (false)
-     *
-     * This method performs several verification steps:
-     * 1. Checks that both numbers are in valid range (1-9)
-     * 2. Verifies the numbers match each other
-     * 3. Prevents duplicate matches within a short time window
-     * 4. Saves the match to Core Data if all conditions are met
-     *
-     * Thread safety: This method ensures all Core Data operations run on the main thread
+     *   - realmNumber: The current realm number to check against
+     *   - completion: Closure called with whether a match was verified and saved
      */
-    func verifyAndSaveMatch(realmNumber: Int, completion: @escaping (Bool) -> Void) {
-        // Ensure we're on the main thread for Core Data
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else {
-                print("❌ FocusNumberManager deallocated")
-                completion(false)
-                return
-            }
-            
-            print("\n🔍 Verifying match...")
-            print("   Selected Focus Number: \(self.selectedFocusNumber)")
-            print("   Realm Number: \(realmNumber)")
-            print("   Valid Range: \(Self.validFocusNumbers)")
-            
-            // Verify all conditions
-            guard Self.validFocusNumbers.contains(self.selectedFocusNumber),
-                  Self.validFocusNumbers.contains(realmNumber),
-                  self.selectedFocusNumber == realmNumber else {
-                print("❌ Match verification failed:")
-                if !Self.validFocusNumbers.contains(self.selectedFocusNumber) {
-                    print("   - Focus number \(self.selectedFocusNumber) not in valid range")
-                }
-                if !Self.validFocusNumbers.contains(realmNumber) {
-                    print("   - Realm number \(realmNumber) not in valid range")
-                }
-                if self.selectedFocusNumber != realmNumber {
-                    print("   - Numbers don't match")
-                }
-                completion(false)
-                return
-            }
-            
-            // Check for recent matches to prevent duplicates - skip during tests
-            if self.viewContext.parent == nil { // Regular context, not a test context
-                let recentMatchExists = self.checkForRecentMatch()
-                if recentMatchExists {
-                    print("❌ Recent match exists - preventing duplicate")
-                    completion(false)
-                    return
-                }
-            } else {
-                print("🧪 Test context detected - bypassing recent match check")
-            }
-            
-            // All verifications passed, save the match
-            self.saveMatch(matchedRealmNumber: realmNumber)
-            completion(true)
+    func verifyAndSaveMatch(realmNumber: Int?, completion: @escaping (Bool) -> Void = { _ in }) {
+        print("\n🔍 Verifying potential match...")
+        
+        // Pre-load insight manager for background operations
+        let insightManager = NumberMatchInsightManager.shared
+        let _ = insightManager.getAllInsights()
+        
+        // Must have a valid realm number
+        guard let matchedRealmNumber = realmNumber else {
+            print("❌ Cannot verify match - no realm number provided")
+            completion(false)
+            return
         }
+        
+        // Must match the current focus number
+        guard matchedRealmNumber == selectedFocusNumber else {
+            print("ℹ️ No match: realm number \(matchedRealmNumber) ≠ focus number \(selectedFocusNumber)")
+            completion(false)
+            return
+        }
+        
+        // Check if we already recorded this match recently
+        print("🔍 Match found! Checking if it's a new match...")
+        if isRecentMatch(realmNumber: matchedRealmNumber) {
+            print("ℹ️ Match already recorded recently - skipping")
+            completion(false)
+            return
+        }
+        
+        print("✨ New match confirmed! Recording match between Focus Number \(selectedFocusNumber) and Realm Number \(matchedRealmNumber)")
+        
+        // Continue with the rest of the existing method
+        saveMatch(matchedRealmNumber: matchedRealmNumber)
+        completion(true)
     }
     
     /**
@@ -358,49 +345,42 @@ class FocusNumberManager: NSObject, ObservableObject {
     }
     
     /**
-     * Creates and saves a new match record to Core Data.
+     * Saves a match to Core Data and sends a notification
      *
-     * - Parameter matchedRealmNumber: The realm number that matched with the focus number
-     *
-     * This method:
-     * 1. Creates a new FocusMatch entity
-     * 2. Sets the timestamp, chosen number, and matched number properties
-     * 3. Saves to Core Data
-     * 4. Reloads match logs to refresh the in-memory collection
-     * 5. Logs detailed information for debugging and analytics
-     *
-     * The matched realm number is explicitly passed as a parameter rather than using
-     * the class property to ensure the exact matching value is recorded, even if the
-     * realm number changes before the save completes.
+     * - Parameter matchedRealmNumber: The realm number that matched
      */
     private func saveMatch(matchedRealmNumber: Int) {
-        // Create a new FocusMatch entity with explicit entity description
-        let entityDescription = NSEntityDescription.entity(forEntityName: "FocusMatch", in: viewContext)
-        let match: FocusMatch
+        print("\n🌟 Saving new match...")
+        print("   Focus Number: \(selectedFocusNumber)")
+        print("   Realm Number: \(matchedRealmNumber)")
+        print("   Timestamp: \(Date())")
         
-        // Create entity with explicit description to avoid conflicts in test environments
-        if let entityDescription = entityDescription {
-            match = FocusMatch(entity: entityDescription, insertInto: viewContext)
-        } else {
-            print("❌ Error: Could not find entity description for FocusMatch")
+        // Ensure we save on the main thread for Core Data
+        if !Thread.isMainThread {
+            DispatchQueue.main.async { [weak self] in
+                self?.saveMatch(matchedRealmNumber: matchedRealmNumber)
+            }
             return
         }
         
-        // Set up the match properties
-        match.timestamp = Date()
-        match.chosenNumber = Int16(selectedFocusNumber)
-        match.matchedNumber = Int16(matchedRealmNumber)
+        // Create a new match entity
+        let newMatch = FocusMatch(context: viewContext)
+        // No UUID/id property in the FocusMatch entity
+        newMatch.timestamp = Date()
+        newMatch.chosenNumber = Int16(selectedFocusNumber)
+        newMatch.matchedNumber = Int16(matchedRealmNumber)
         
-        print("\n🌟 ================================")
-        print("🌟         MATCH DETECTED!         ")
-        print("🌟 ================================")
-        print("📊 Match Details:")
-        print("   Time: \(match.timestamp)")
-        print("   Focus Number: \(selectedFocusNumber)")
-        print("   Realm Number: \(matchedRealmNumber)")
-        print("   Previous Match Count: \(matchLogs.count)")
-        print("   Is in test context: \(viewContext.parent != nil)")
+        // Add location if available
+        if let location = _currentLocation {
+            newMatch.locationLatitude = location.latitude
+            newMatch.locationLongitude = location.longitude
+        } else {
+            // Default to 0,0 if no location
+            newMatch.locationLatitude = 0
+            newMatch.locationLongitude = 0
+        }
         
+        // Save to Core Data
         do {
             // Ensure changes are saved synchronously in test context
             viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
@@ -442,24 +422,70 @@ class FocusNumberManager: NSObject, ObservableObject {
      * The notification includes detailed information about the match significance.
      */
     private func sendMatchNotification(for number: Int) {
-        // Get insight for this number match
-        if let insight = insightManager.getInsight(for: number) {
-            print("📲 Sending match notification for number \(number)")
+        // Create a background task identifier to ensure completion in background
+        var backgroundTaskID: UIBackgroundTaskIdentifier = .invalid
+        backgroundTaskID = UIApplication.shared.beginBackgroundTask {
+            // End the task if we run out of time
+            if backgroundTaskID != .invalid {
+                UIApplication.shared.endBackgroundTask(backgroundTaskID)
+                backgroundTaskID = .invalid
+                print("⚠️ Background task for notification in FocusNumberManager timed out")
+            }
+        }
+        
+        // Ensure insight manager is loaded early for background operation
+        let insightManager = NumberMatchInsightManager.shared
+        let insights = insightManager.getAllInsights()
+        print("📲 Preparing to send match notification (loaded \(insights.count) insights)")
+        
+        // Get insight for this number match - always returns a valid insight
+        let insight = insightManager.getInsight(for: number)
+        print("📲 Sending match notification for number \(number) with insight: \(insight.title)")
+        print("📲 Insight summary: \(insight.summary)")
+        print("📲 Insight detailed: \(insight.detailedInsight.prefix(50))...")
+        
+        // Create our own notification content directly instead of using NotificationManager
+        // This ensures consistent behavior in all app states
+        let content = UNMutableNotificationContent()
+        content.title = insight.title
+        content.body = insight.summary
+        content.sound = .default
+        content.badge = 1
+        content.categoryIdentifier = "MATCH_NOTIFICATION"
+        
+        // Include additional information for when notification is tapped
+        content.userInfo = [
+            "type": "number_match",
+            "matchNumber": "\(number)",
+            "insight": insight.detailedInsight,
+            "sent_from": "focus_manager",
+            "timestamp": Date().timeIntervalSince1970
+        ]
+        
+        // Use time interval trigger for more reliable delivery
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        
+        let request = UNNotificationRequest(
+            identifier: "match_notification_\(Date().timeIntervalSince1970)",
+            content: content,
+            trigger: trigger
+        )
+        
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("❌ Failed to schedule notification from FocusNumberManager: \(error.localizedDescription)")
+            } else {
+                print("✅ Rich notification with insight scheduled successfully from FocusNumberManager")
+                print("📱 Notification will appear with title: \(content.title)")
+                print("📱 And body: \(content.body)")
+            }
             
-            // Create notification content with match details
-            notificationManager.scheduleLocalNotification(
-                title: insight.title,
-                body: insight.summary,
-                userInfo: [
-                    "type": "number_match",
-                    "matchNumber": "\(number)",
-                    "insight": insight.detailedInsight
-                ]
-            )
-            
-            print("📲 Notification scheduled")
-        } else {
-            print("⚠️ No insight found for number \(number) - notification skipped")
+            // Complete the background task if we're done
+            if backgroundTaskID != .invalid {
+                UIApplication.shared.endBackgroundTask(backgroundTaskID)
+                backgroundTaskID = .invalid
+                print("✅ Background task for notification in FocusNumberManager completed")
+            }
         }
     }
     
@@ -618,6 +644,44 @@ class FocusNumberManager: NSObject, ObservableObject {
         
         // Combine latitude and longitude factors
         return reduceToSingleDigit(latSum + longSum)
+    }
+    
+    /**
+     * Check if a match with the given realm number was recorded recently
+     * to prevent duplicate notifications
+     *
+     * - Parameter realmNumber: The realm number to check
+     * - Returns: true if a recent match exists, false otherwise
+     */
+    private func isRecentMatch(realmNumber: Int) -> Bool {
+        // Ensure we check on the main thread for Core Data access
+        if Thread.isMainThread {
+            return checkForRecentMatch()
+        } else {
+            // If called from background thread, dispatch to main thread and wait
+            var result = false
+            let semaphore = DispatchSemaphore(value: 0)
+            
+            DispatchQueue.main.async {
+                result = self.checkForRecentMatch()
+                semaphore.signal()
+            }
+            
+            // Wait for main thread execution to complete (with timeout)
+            _ = semaphore.wait(timeout: .now() + 3.0)
+            return result
+        }
+    }
+    
+    // MARK: - Helper Methods
+    
+    /**
+     * Retrieves the current heart rate from HealthKit if available
+     *
+     * - Returns: The current heart rate or 0 if not available
+     */
+    private func getCurrentHeartRate() -> Double {
+        return HealthKitManager.shared.getCurrentHeartRate()
     }
 }
 

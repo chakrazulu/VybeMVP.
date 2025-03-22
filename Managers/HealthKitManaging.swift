@@ -27,10 +27,12 @@ public protocol HealthKitManaging: ObservableObject {
     func startHeartRateMonitoring()
     
     /// Forces an update of heart rate data
-    func forceHeartRateUpdate() async
+    /// Returns: A Boolean indicating whether the heart rate update was successful
+    func forceHeartRateUpdate() async -> Bool
     
     /// Fetches the initial heart rate data
-    func fetchInitialHeartRate() async
+    /// Returns: A Boolean indicating whether the initial heart rate retrieval was successful
+    func fetchInitialHeartRate() async -> Bool
     
     /// Stops monitoring heart rate data
     func stopHeartRateMonitoring()

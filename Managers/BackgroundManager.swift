@@ -21,6 +21,7 @@ import Foundation
 import BackgroundTasks
 import UserNotifications
 import UIKit
+import CoreData  // For CoreData operations if needed
 
 /**
  * Manager responsible for background operations and notifications.
@@ -177,6 +178,42 @@ class BackgroundManager: NSObject, ObservableObject {
     }
     
     /**
+     * Comprehensive method to start all monitoring systems in the app.
+     *
+     * This method:
+     * 1. Ensures notification permissions are properly requested
+     * 2. Starts active background updates
+     * 3. Schedules background tasks
+     * 4. Ensures all managers are in an active state
+     *
+     * This is the main entry point for initializing the app's
+     * background monitoring capabilities.
+     */
+    func startMonitoring() {
+        print("\n🔄 Starting comprehensive monitoring...")
+        
+        // Request notification permissions if needed
+        registerForNotifications()
+        
+        // Start active updates
+        startActiveUpdates()
+        
+        // Schedule background task
+        scheduleBackgroundTask()
+        
+        // Ensure realm and focus managers are active
+        if let realmManager = realmNumberManager, realmManager.currentState == .stopped {
+            realmManager.startUpdates()
+        }
+        
+        if let focusManager = focusNumberManager {
+            focusManager.startUpdates()
+        }
+        
+        print("✅ Comprehensive monitoring started successfully")
+    }
+    
+    /**
      * Begins frequent updates when the app is in the foreground.
      *
      * This method:
@@ -217,24 +254,72 @@ class BackgroundManager: NSObject, ObservableObject {
         }
     }
     
-    // Common update logic with proper error handling
+    /**
+     * Performs a combined update of realm number and checks for matches.
+     *
+     * This method is called:
+     * 1. On a timer when app is active
+     * 2. During background task execution
+     * 3. When manually triggered through the UI
+     *
+     * It coordinates updates across multiple managers to ensure consistent state.
+     */
     private func performUpdate() {
-        print("\n🔄 Performing update...")
+        print("\n⚡️ Performing comprehensive update...")
         
-        guard let realmManager = realmNumberManager else {
-            print("⚠️ RealmNumberManager not available")
+        // Ensure the insight manager is loaded for background notifications
+        let _ = NumberMatchInsightManager.shared.getAllInsights()
+        
+        // Get managers safely
+        guard let realmManager = realmNumberManager,
+              let focusManager = focusNumberManager else {
+            print("❌ Cannot perform update - managers not set")
             return
         }
         
+        // Check manager states
         if realmManager.currentState == .stopped {
-            print("⚠️ RealmManager is stopped - restarting...")
+            print("🔄 Starting RealmNumberManager from stopped state")
             realmManager.startUpdates()
         }
         
-        realmManager.calculateRealmNumber()
-        checkForMatches()
+        if !focusManager.isAutoUpdateEnabled {
+            print("🔄 Starting FocusNumberManager updates")
+            focusManager.startUpdates()
+        }
         
-        print("✅ Update completed successfully")
+        // Force a realm number recalculation for consistency
+        realmManager.calculateRealmNumber()
+        
+        // Check for matches
+        print("🔍 Checking for focus/realm number match...")
+        print("   Current realm number: \(realmManager.currentRealmNumber)")
+        print("   Selected focus number: \(focusManager.selectedFocusNumber)")
+        
+        // Use realmNumber directly since it's a non-optional Int
+        let realmNumber = realmManager.currentRealmNumber
+        // Update realm number in focus manager (which will check for match)
+        focusManager.verifyAndSaveMatch(realmNumber: realmNumber) { matchVerified in
+            if matchVerified {
+                print("🎯 Match verified! Creating notification...")
+                
+                // Check notification settings before creating
+                UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
+                    guard settings.authorizationStatus == .authorized else {
+                        print("❌ Cannot send notification - not authorized")
+                        return
+                    }
+                    
+                    // Create and schedule notification for match with detailed context info
+                    self?.optimizedMatchNotification(
+                        focusNumber: focusManager.selectedFocusNumber,
+                        realmNumber: realmNumber
+                    )
+                }
+            } else {
+                print("❌ Match verification failed or no match found")
+            }
+        }
     }
     
     func handleBackgroundTask(_ task: BGAppRefreshTask) {
@@ -258,10 +343,19 @@ class BackgroundManager: NSObject, ObservableObject {
             }
         }
         
+        // Pre-initialize important managers for background operation
+        // This ensures all required data is loaded before checking matches
+        let _ = NumberMatchInsightManager.shared.getAllInsights()
+        
         // Make sure managers are running before attempting operations
         if let realmManager = realmNumberManager, realmManager.currentState == .stopped {
             print("🔄 Starting RealmNumberManager for background processing")
             realmManager.startUpdates()
+        }
+        
+        if let focusManager = focusNumberManager, !focusManager.isAutoUpdateEnabled {
+            print("🔄 Starting FocusNumberManager for background processing")
+            focusManager.startUpdates()
         }
         
         // Perform extended background update
@@ -273,6 +367,23 @@ class BackgroundManager: NSObject, ObservableObject {
             
             // Allow some time for calculation to complete
             Thread.sleep(forTimeInterval: 2.0)
+            
+            // Explicitly check for matches with enhanced notification support
+            if let realmManager = self.realmNumberManager, 
+               let focusManager = self.focusNumberManager {
+                
+                let realmNumber = realmManager.currentRealmNumber
+                print("🔍 Explicit background match check for realm number: \(realmNumber)")
+                
+                // Check if current focus number matches realm number
+                if focusManager.selectedFocusNumber == realmNumber {
+                    print("🎯 Background match found! Creating rich notification...")
+                    self.optimizedMatchNotification(
+                        focusNumber: focusManager.selectedFocusNumber,
+                        realmNumber: realmNumber
+                    )
+                }
+            }
             
             // Perform standard update
             self.performUpdate()
@@ -348,50 +459,57 @@ class BackgroundManager: NSObject, ObservableObject {
         print("   Realm Manager State: \(realmManager.currentState.rawValue)")
         
         // Additional validation checks
-        guard realmManager.currentState == .active,
-              focusManager.selectedFocusNumber > 0,
-              realmManager.currentRealmNumber > 0,
-              focusManager.selectedFocusNumber == realmManager.currentRealmNumber else {
-            if realmManager.currentState != .active {
-                print("   ⚠️ No match - Realm Manager not active")
+        let realmNumber = realmManager.currentRealmNumber
+        if focusManager.isAutoUpdateEnabled &&
+           realmManager.currentState == .active &&
+           focusManager.selectedFocusNumber > 0 &&
+           realmNumber > 0 &&
+           focusManager.selectedFocusNumber == realmNumber {
+            
+            // Verify the match with FocusNumberManager
+            focusManager.verifyAndSaveMatch(realmNumber: realmNumber) { matchVerified in
+                if matchVerified {
+                    print("🎯 Match verified! Creating notification...")
+                    
+                    // Check notification settings before creating
+                    UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
+                        guard settings.authorizationStatus == .authorized else {
+                            print("❌ Cannot send notification - not authorized")
+                            return
+                        }
+                        
+                        // Create and schedule notification for match
+                        self?.optimizedMatchNotification(
+                            focusNumber: focusManager.selectedFocusNumber,
+                            realmNumber: realmNumber
+                        )
+                    }
+                } else {
+                    print("❌ Match verification failed")
+                }
+            }
+        } else {
+            if !focusManager.isAutoUpdateEnabled {
+                print("   ⚠️ No match - Focus Manager not active")
             }
             if focusManager.selectedFocusNumber == 0 {
                 print("   ⚠️ No match - Invalid Focus Number (0)")
             }
-            if realmManager.currentRealmNumber == 0 {
+            if realmManager.currentState != .active {
+                print("   ⚠️ No match - Realm Manager not active")
+            }
+            
+            if realmNumber == 0 {
                 print("   ⚠️ No match - Invalid Realm Number (0)")
             }
-            if focusManager.selectedFocusNumber != realmManager.currentRealmNumber {
+            if focusManager.selectedFocusNumber != realmNumber {
                 print("   ⚠️ No match - Numbers don't match")
-            }
-            return
-        }
-        
-        // Verify the match with FocusNumberManager
-        focusManager.verifyAndSaveMatch(realmNumber: realmManager.currentRealmNumber) { matchVerified in
-            if matchVerified {
-                print("🎯 Match verified! Creating notification...")
-                
-                // Check notification settings before creating
-                UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
-                    guard settings.authorizationStatus == .authorized else {
-                        print("❌ Cannot send notification - not authorized")
-                        return
-                    }
-                    
-                    // Create and schedule notification for match
-                    self?.optimizedMatchNotification(
-                        focusNumber: focusManager.selectedFocusNumber,
-                        realmNumber: realmManager.currentRealmNumber
-                    )
-                }
-            } else {
-                print("❌ Match verification failed")
             }
         }
     }
     
     private func optimizedMatchNotification(focusNumber: Int, realmNumber: Int) {
+        // Use a batch update to handle notification operations
         batchNotificationUpdates { batch in
             // Clear existing notifications
             batch.add { [weak self] in
@@ -410,18 +528,48 @@ class BackgroundManager: NSObject, ObservableObject {
     }
     
     private func prepareMatchNotification(focusNumber: Int, realmNumber: Int) {
+        // Create a strong reference to the insight manager to ensure it's loaded in background context
+        let insightManager = NumberMatchInsightManager.shared
+        
+        // Force initialization of all insights early to prevent potential background loading issues
+        let insights = insightManager.getAllInsights()
+        print("🌟 Preparing match notification for number \(realmNumber) in background (loaded \(insights.count) insights)")
+        
+        // Get insight for this match number - the enhanced manager guarantees an insight will be returned
+        let insight = insightManager.getInsight(for: realmNumber)
+        print("📲 Preparing match notification with insight: \(insight.title)")
+        print("📲 Insight summary: \(insight.summary)")
+        print("📲 Insight detailed: \(insight.detailedInsight.prefix(50))...")
+        
+        // Create a background task identifier to ensure completion
+        var backgroundTaskID: UIBackgroundTaskIdentifier = .invalid
+        backgroundTaskID = UIApplication.shared.beginBackgroundTask {
+            // End the task if we run out of time
+            if backgroundTaskID != .invalid {
+                UIApplication.shared.endBackgroundTask(backgroundTaskID)
+                backgroundTaskID = .invalid
+                print("⚠️ Background task for notification timed out")
+            }
+        }
+        
         let content = UNMutableNotificationContent()
-        content.title = "Number Match! 🎯"
-        content.body = "Your Focus Number (\(focusNumber)) matches the Realm Number!"
+        content.title = insight.title
+        content.body = insight.summary
         content.sound = .default
         content.badge = 1
         content.categoryIdentifier = "MATCH_NOTIFICATION"
         
-        // Use calendar-based trigger for better system optimization
-        var components = Calendar.current.dateComponents([.hour, .minute], from: Date())
-        components.second = 0 // Align to minute boundary
+        // Include additional information for when notification is tapped
+        content.userInfo = [
+            "type": "number_match",
+            "matchNumber": "\(realmNumber)",
+            "insight": insight.detailedInsight,
+            "sent_from": "background_manager",
+            "timestamp": Date().timeIntervalSince1970
+        ]
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+        // Use time interval trigger for more reliable background delivery
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         
         let request = UNNotificationRequest(
             identifier: "match_notification_\(Date().timeIntervalSince1970)",
@@ -433,7 +581,16 @@ class BackgroundManager: NSObject, ObservableObject {
             if let error = error {
                 print("❌ Failed to schedule notification: \(error.localizedDescription)")
             } else {
-                print("✅ Notification scheduled successfully")
+                print("✅ Rich notification with insight scheduled successfully")
+                print("📱 Notification will appear with title: \(content.title)")
+                print("📱 And body: \(content.body)")
+            }
+            
+            // Complete the background task if we're done
+            if backgroundTaskID != .invalid {
+                UIApplication.shared.endBackgroundTask(backgroundTaskID)
+                backgroundTaskID = .invalid
+                print("✅ Background task for notification completed")
             }
         }
     }

@@ -392,7 +392,7 @@ struct MatchAnalyticsView: View {
                 .font(.headline)
                 .padding(.horizontal)
             
-            HStack {
+            HStack(spacing: 12) {
                 // Total matches
                 let totalCount = String(focusNumberManager.matchLogs.count)
                 StatCard(
@@ -400,6 +400,7 @@ struct MatchAnalyticsView: View {
                     title: "Total Matches", 
                     value: totalCount
                 )
+                .layoutPriority(1)
                 
                 // Today's matches
                 let todayCount = viewModel.getTodayMatchCount()
@@ -408,8 +409,10 @@ struct MatchAnalyticsView: View {
                     title: "Today's Matches",
                     value: todayCount
                 )
+                .layoutPriority(1)
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 12)
+            .padding(.bottom, 8)
         }
         .padding(.vertical)
         .background(Color(.systemBackground))
@@ -454,13 +457,15 @@ struct MatchAnalyticsView: View {
                 .font(.headline)
                 .padding(.horizontal)
             
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 16) {
                 // Most common focus number
                 let commonNumber = viewModel.getMostCommonFocusNumber()
                 PatternRow(
                     title: "Most Common Focus Number",
                     value: commonNumber
                 )
+                
+                Divider()
                 
                 // Peak match time
                 let peakTime = viewModel.getPeakMatchTime()
@@ -469,6 +474,8 @@ struct MatchAnalyticsView: View {
                     value: peakTime
                 )
                 
+                Divider()
+                
                 // Match frequency
                 let frequency = viewModel.getMatchFrequency()
                 PatternRow(
@@ -476,7 +483,8 @@ struct MatchAnalyticsView: View {
                     value: frequency
                 )
             }
-            .padding()
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
         }
         .padding(.vertical)
         .background(Color(.systemBackground))
@@ -507,19 +515,25 @@ struct StatCard: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack {
+            HStack(spacing: 5) {
                 Image(systemName: icon)
                     .foregroundColor(.blue)
+                    .accessibility(hidden: true)
                 Text(title)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
             }
             Text(value)
                 .font(.title2)
                 .fontWeight(.bold)
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
+        .padding(.vertical, 12)
+        .padding(.horizontal, 10)
         .background(Color(.secondarySystemBackground))
         .cornerRadius(10)
     }
@@ -541,13 +555,23 @@ struct PatternRow: View {
     var value: String
     
     var body: some View {
-        HStack {
+        VStack(alignment: .leading, spacing: 4) {
+            // Put each part in its own row for better adaptation to large text sizes
             Text(title)
                 .foregroundColor(.secondary)
-            Spacer()
+                .font(.subheadline)
+                .lineLimit(2)
+                .minimumScaleFactor(0.75)
+                .fixedSize(horizontal: false, vertical: true)
+            
             Text(value)
                 .fontWeight(.medium)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+                .padding(.leading, 8)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .padding(.vertical, 6)
     }
 }
 

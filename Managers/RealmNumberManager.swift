@@ -138,6 +138,9 @@ class RealmNumberManager: NSObject, ObservableObject {
     /// Reference to the shared HealthKit manager for heart rate data
     private let healthKitManager = HealthKitManager.shared
     
+    /// Subscription for heart rate updates
+    private var heartRateSubscription: AnyCancellable?
+    
     /// Current heart rate in beats per minute
     @Published private var currentBPM: Int = 0
     
@@ -194,6 +197,16 @@ class RealmNumberManager: NSObject, ObservableObject {
     
     /// Most recent valid heart rate value (non-zero)
     private var lastValidBPM: Int = 0
+    
+    // Set these additional properties at class level
+    /// Flag to track if current heart rate data is from simulation
+    private var isUsingSimulatedHeartRate: Bool = true
+    
+    /// Last heart rate we received from a real device (not simulated)
+    private var lastRealHeartRate: Int = 0
+    
+    // Add timestamp property to track the last heart rate update time
+    private var lastHeartRateUpdateTime: Date?
     
     // MARK: - Initialization
     /**
@@ -259,22 +272,64 @@ class RealmNumberManager: NSObject, ObservableObject {
     private func setupHealthKitObserver() {
         // Observe changes in heart rate through Combine
         healthKitManager.$currentHeartRate
+            .throttle(for: .seconds(30), scheduler: DispatchQueue.main, latest: true)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] heartRate in
-                print("💓 Received heart rate update via Combine: \(heartRate) BPM")
-                self?.currentBPM = heartRate
-                self?.calculateRealmNumber()
+                guard let self = self else { return }
+                
+                // Only log significant changes
+                let shouldLog = self.currentBPM != heartRate
+                if shouldLog {
+                    print("💓 Received heart rate update via Combine: \(heartRate) BPM")
+                }
+                
+                self.currentBPM = heartRate
+                
+                // Only calculate if we have a valid heart rate and sufficient time has passed
+                if heartRate > 0 {
+                    // Check if we need to recalculate based on time since last update
+                    let shouldUpdate = self.shouldPerformHeartRateUpdate()
+                    if shouldUpdate {
+                        self.calculateRealmNumber()
+                        if shouldLog {
+                            print("🔄 Triggered realm calculation from heart rate update")
+                        }
+                    } else if shouldLog {
+                        print("⏱ Skipping calculation - heart rate changed but within throttle period")
+                    }
+                }
             }
             .store(in: &cancellables)
             
         // Also observe heart rate updates through NotificationCenter as backup
         NotificationCenter.default.publisher(for: HealthKitManager.heartRateUpdated)
+            .throttle(for: .seconds(30), scheduler: DispatchQueue.main, latest: true)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] notification in
+                guard let self = self else { return }
+                
                 if let heartRate = notification.userInfo?["heartRate"] as? Int {
-                    print("💓 Received heart rate update via Notification: \(heartRate) BPM")
-                    self?.currentBPM = heartRate
-                    self?.calculateRealmNumber()
+                    // Only log significant changes
+                    let shouldLog = self.currentBPM != heartRate
+                    if shouldLog {
+                        print("💓 Received heart rate update via Notification: \(heartRate) BPM")
+                    }
+                    
+                    self.currentBPM = heartRate
+                    
+                    // Only calculate if we have a valid heart rate and sufficient time has passed
+                    if heartRate > 0 {
+                        // Check if we need to recalculate based on time since last update
+                        let shouldUpdate = self.shouldPerformHeartRateUpdate()
+                        if shouldUpdate {
+                            self.calculateRealmNumber()
+                            if shouldLog {
+                                print("🔄 Triggered realm calculation from notification")
+                            }
+                        } else if shouldLog {
+                            print("⏱ Skipping calculation - heart rate changed but within throttle period")
+                        }
+                    }
                 }
             }
             .store(in: &cancellables)
@@ -283,7 +338,40 @@ class RealmNumberManager: NSObject, ObservableObject {
         let currentHeartRate = healthKitManager.currentHeartRate
         print("💓 Initial heart rate value: \(currentHeartRate) BPM")
         currentBPM = currentHeartRate
-        calculateRealmNumber()
+        
+        // Only calculate if we have a valid heart rate
+        if currentHeartRate > 0 {
+            calculateRealmNumber()
+        } else {
+            // Use last valid BPM if available
+            let lastValid = healthKitManager.lastValidBPM
+            if lastValid > 0 {
+                print("💓 Using last valid heart rate: \(lastValid) BPM")
+                currentBPM = lastValid
+                calculateRealmNumber()
+            }
+        }
+        
+        // Set initial update time
+        lastHeartRateUpdateTime = Date()
+    }
+    
+    // Helper method to determine if we should perform an update based on time
+    private func shouldPerformHeartRateUpdate() -> Bool {
+        guard let lastUpdate = lastHeartRateUpdateTime else {
+            lastHeartRateUpdateTime = Date()
+            return true
+        }
+        
+        // Only perform updates once per minute at most
+        let timeSinceLastUpdate = Date().timeIntervalSince(lastUpdate)
+        let shouldUpdate = timeSinceLastUpdate >= Constants.timerUpdateInterval
+        
+        if shouldUpdate {
+            lastHeartRateUpdateTime = Date()
+        }
+        
+        return shouldUpdate
     }
     
     // MARK: - Core Calculation Logic
@@ -299,6 +387,13 @@ class RealmNumberManager: NSObject, ObservableObject {
      * called externally to force an immediate update.
      */
     func calculateRealmNumber() {
+        // Ensure we're not calculating too frequently
+        if let lastTime = lastCalculationTime,
+           Date().timeIntervalSince(lastTime) < Constants.calculationThrottle {
+            print("🛑 Throttling calculation request - too soon since last calculation")
+            return
+        }
+        
         // If this is a real calculation (not a prediction), validate previous prediction
         if let predicted = nextPredictedNumber {
             // Ensure we're on main thread for UI updates
@@ -342,7 +437,7 @@ class RealmNumberManager: NSObject, ObservableObject {
         // Throttle calculations
         if forcedBPM == nil {  // Only throttle normal calculations, not forced ones
             if let lastTime = lastCalculationTime,
-               Date().timeIntervalSince(lastTime) < Constants.calculationThrottle {
+                Date().timeIntervalSince(lastTime) < Constants.calculationThrottle {
                 return
             }
         }
@@ -356,6 +451,41 @@ class RealmNumberManager: NSObject, ObservableObject {
             return
         }
         
+        // Determine which heart rate to use - forced, real, last real, or simulated
+        var bpmValue: Int
+        
+        if let forced = forcedBPM {
+            // Use forced BPM if provided (for testing)
+            bpmValue = forced
+            print("💓 Using forced heart rate: \(bpmValue) BPM")
+        } else if currentBPM > 0 && !isUsingSimulatedHeartRate {
+            // Use current BPM if it's from a real source
+            bpmValue = currentBPM
+            lastRealHeartRate = currentBPM  // Store this for future use
+            print("💓 Using real heart rate: \(bpmValue) BPM")
+        } else if lastRealHeartRate > 0 {
+            // Use last real heart rate if we have one, even if current is simulated
+            bpmValue = lastRealHeartRate
+            print("💓 Using last real heart rate: \(bpmValue) BPM (simulated data ignored)")
+        } else if currentBPM > 0 {
+            // Use simulated heart rate if that's all we have
+            bpmValue = currentBPM
+            print("💓 Using simulated heart rate: \(bpmValue) BPM")
+        } else if lastValidBPM > 0 {
+            // Fall back to last valid reading (could be simulated or real)
+            bpmValue = lastValidBPM
+            print("ℹ️ Using last valid heart rate: \(bpmValue) BPM")
+        } else {
+            // Default heart rate if nothing else available
+            bpmValue = 72 // Average resting heart rate
+            print("⚠️ No heart rate history available - using default value: \(bpmValue) BPM")
+        }
+        
+        // Store this as the last valid reading
+        if bpmValue > 0 {
+            lastValidBPM = bpmValue
+        }
+
         // Get UTC date components
         let utcNow = getCurrentUTCDate()
         var calendar = Calendar(identifier: .gregorian)
@@ -386,24 +516,8 @@ class RealmNumberManager: NSObject, ObservableObject {
             locationSum = reduceToSingleDigit(latSum + lonSum)
         }
         
-        // Use real BPM from HealthKit, falling back to last valid reading
-        let actualBPM = forcedBPM ?? currentBPM
-        let bpmValue: Int
-        let bpmSum: Int
-        
-        if actualBPM > 0 {
-            print("💓 Using actual heart rate: \(actualBPM) BPM")
-            bpmValue = actualBPM
-            lastValidBPM = actualBPM  // Store this valid reading
-        } else if lastValidBPM > 0 {
-            print("ℹ️ Using last valid heart rate: \(lastValidBPM) BPM")
-            bpmValue = lastValidBPM
-        } else {
-            print("⚠️ No heart rate history available yet")
-            bpmValue = actualBPM
-        }
-        
-        bpmSum = reduceToSingleDigit(bpmValue)
+        // Calculate BPM sum
+        let bpmSum = reduceToSingleDigit(bpmValue)
         
         // Add a small dynamic factor based on actual BPM variability
         let dynamicFactor = reduceToSingleDigit(bpmValue % 3)
@@ -411,10 +525,10 @@ class RealmNumberManager: NSObject, ObservableObject {
         // Check cache for identical components
         if forcedBPM == nil {  // Skip cache for forced BPM calculations
             if let cached = lastCalculationResult,
-               cached.components.time == timeSum &&
-               cached.components.date == dateSum &&
-               cached.components.location == locationSum &&
-               cached.components.bpm == bpmSum {
+                cached.components.time == timeSum &&
+                cached.components.date == dateSum &&
+                cached.components.location == locationSum &&
+                cached.components.bpm == bpmSum {
                 currentRealmNumber = cached.result
                 return
             }
@@ -560,7 +674,52 @@ class RealmNumberManager: NSObject, ObservableObject {
         return calendar.date(from: components) ?? current
     }
     
-    func startUpdates() {
+    /// Starts the update cycle for realm numbers
+    public func startUpdates() {
+        print("🚀 Starting RealmNumberManager updates...")
+        
+        // Set up heart rate update subscription using Combine
+        heartRateSubscription = HealthKitManager.shared.$currentHeartRate
+            .sink { [weak self] heartRate in
+                guard let self = self else { return }
+                
+                // Check if the data is simulated
+                let isSimulated = HealthKitManager.shared.isHeartRateSimulated
+                
+                // Track simulation status
+                self.isUsingSimulatedHeartRate = isSimulated
+                
+                // If this is real data, save it
+                if !isSimulated && heartRate > 0 {
+                    self.lastRealHeartRate = heartRate
+                    print("💓 Received REAL heart rate update via Combine: \(heartRate) BPM")
+                } else if isSimulated {
+                    print("💓 Received SIMULATED heart rate update via Combine: \(heartRate) BPM")
+                }
+                
+                // Update current BPM
+                self.currentBPM = heartRate
+                
+                // Trigger calculation if we have a valid heart rate
+                if heartRate > 0 {
+                    print("🔄 Triggered realm calculation from heart rate update")
+                    self.performCalculation()
+                }
+            }
+        
+        // Register for heart rate update notifications
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleHeartRateUpdated),
+            name: HealthKitManager.heartRateUpdated,
+            object: nil
+        )
+        
+        // Start the update timer
+        startTimer()
+    }
+    
+    private func startTimer() {
         guard !isActive else { return }
         
         DispatchQueue.main.async {
@@ -606,13 +765,21 @@ class RealmNumberManager: NSObject, ObservableObject {
         }
     }
     
-    func stopUpdates() {
+    public func stopUpdates() {
         print("\n⏹ Stopping RealmNumberManager updates...")
         isActive = false
         currentState = .stopped
         print(currentState.description)
         stopTimer()
         locationManager?.stopUpdatingLocation()
+        
+        // Cancel heart rate subscription
+        heartRateSubscription?.cancel()
+        heartRateSubscription = nil
+        
+        // Remove notification observer
+        NotificationCenter.default.removeObserver(self, name: HealthKitManager.heartRateUpdated, object: nil)
+        
         print("✅ RealmNumberManager stopped successfully")
     }
     
@@ -779,6 +946,63 @@ class RealmNumberManager: NSObject, ObservableObject {
     private func cleanupCache() {
         let oldDate = Date().addingTimeInterval(-60) // Remove entries older than 1 minute
         calculationCache = calculationCache.filter { $0.value.timestamp > oldDate }
+    }
+    
+    // Update the handleHeartRateUpdated method to check if the data is simulated
+    @objc private func handleHeartRateUpdated(notification: Notification) {
+        let userInfo = notification.userInfo
+        let isSimulated = userInfo?["isSimulated"] as? Bool ?? true
+        
+        // Extract heart rate from notification
+        if let heartRate = userInfo?["heartRate"] as? Int {
+            // Track the source of heart rate data
+            isUsingSimulatedHeartRate = isSimulated
+            
+            // If this is real data, save it
+            if !isSimulated && heartRate > 0 {
+                lastRealHeartRate = heartRate
+                print("💓 Received REAL heart rate update via Notification: \(heartRate) BPM")
+            } else if isSimulated {
+                print("💓 Received SIMULATED heart rate update via Notification: \(heartRate) BPM")
+            }
+            
+            // Update current BPM
+            currentBPM = heartRate
+            
+            // Only trigger calculation if sufficient time has passed
+            if shouldPerformHeartRateUpdate() {
+                print("🔄 Triggered realm calculation from notification")
+                performCalculation()
+            } else {
+                print("⏱ Skipping calculation - heart rate changed but within throttle period")
+            }
+        }
+    }
+    
+    // Look for this method in RealmNumberManager that handles heart rate data
+    private func getHeartRateForCalculation() -> Int {
+        // Use the heart rate manager's last valid BPM if available
+        if healthKitManager.lastValidBPM > 0 {
+            if healthKitManager.isHeartRateSimulated {
+                print("🔄 Using simulated heart rate: \(healthKitManager.lastValidBPM) BPM")
+            } else {
+                print("💓 Using real heart rate: \(healthKitManager.lastValidBPM) BPM")
+            }
+            return healthKitManager.lastValidBPM
+        }
+        
+        // Force one final attempt to get real heart rate data if available
+        Task {
+            print("❤️ Making one final attempt to get real heart rate before using fallback...")
+            _ = await healthKitManager.forceHeartRateUpdate()
+            // Note: This will be available for the next calculation
+        }
+        
+        // Fallback: If no heart rate is available, use a reasonable resting heart rate
+        // as a placeholder until real data is available
+        print("⚠️ No heart rate history available - using default value: 72 BPM")
+        print("   (This is temporary - will use real data when available)")
+        return 72
     }
 }
 

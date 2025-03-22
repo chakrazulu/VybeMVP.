@@ -31,7 +31,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         // Perform heart rate update
         Task {
-            await HealthKitManager.shared.fetchInitialHeartRate()
+            _ = await HealthKitManager.shared.fetchInitialHeartRate()
             task.setTaskCompleted(success: true)
         }
     }

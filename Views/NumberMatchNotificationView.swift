@@ -39,84 +39,66 @@ struct NumberMatchNotificationView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 // Header with match number and title
-                if let insight = insightManager.getInsight(for: matchNumber) {
-                    MatchHeaderView(insight: insight)
+                let insight = insightManager.getInsight(for: matchNumber)
+                MatchHeaderView(insight: insight)
+                
+                // Divider with quote style
+                HStack {
+                    Rectangle()
+                        .frame(height: 1)
+                        .foregroundColor(.secondary.opacity(0.3))
                     
-                    // Divider with quote style
-                    HStack {
-                        Rectangle()
-                            .frame(height: 1)
-                            .foregroundColor(.secondary.opacity(0.3))
-                        
-                        Image(systemName: "quote.opening")
-                            .foregroundColor(.secondary)
-                        
-                        Rectangle()
-                            .frame(height: 1)
-                            .foregroundColor(.secondary.opacity(0.3))
-                    }
-                    .padding(.vertical)
+                    Image(systemName: "quote.opening")
+                        .foregroundColor(.secondary)
                     
-                    // Detailed insight text
-                    Text(insight.detailedInsight)
-                        .font(.body)
-                        .lineSpacing(5)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .padding(.horizontal)
-                    
-                    // Number meaning section
-                    if let meaning = meaningManager.getMeaning(for: matchNumber) {
-                        VStack(alignment: .leading, spacing: 16) {
-                            Text("About Number \(matchNumber)")
-                                .font(.headline)
-                                .padding(.top)
-                            
-                            HStack(alignment: .top) {
-                                Text("\(matchNumber)")
-                                    .font(.system(size: 42, weight: .bold))
-                                    .foregroundColor(.primary.opacity(0.8))
-                                    .frame(width: 60)
-                                
-                                VStack(alignment: .leading, spacing: 8) {
-                                    Text(meaning.title)
-                                        .font(.title3)
-                                        .bold()
-                                    
-                                    Text(meaning.essence)
-                                        .font(.subheadline)
-                                        .fixedSize(horizontal: false, vertical: true)
-                                }
-                            }
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .fill(Color.secondary.opacity(0.1))
-                            )
-                        }
-                        .padding(.horizontal)
-                    }
-                    
-                    // Action buttons
-                    MatchActionButtons(matchNumber: matchNumber)
-                        .padding(.top)
-                } else {
-                    // Fallback if insight not found
-                    VStack(spacing: 20) {
-                        Image(systemName: "exclamationmark.triangle")
-                            .font(.largeTitle)
-                            .foregroundColor(.orange)
-                        
-                        Text("Could not find details for match number \(matchNumber)")
-                            .font(.headline)
-                        
-                        Button("Dismiss") {
-                            onDismiss?()
-                        }
-                        .buttonStyle(.bordered)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
+                    Rectangle()
+                        .frame(height: 1)
+                        .foregroundColor(.secondary.opacity(0.3))
                 }
+                .padding(.vertical)
+                
+                // Detailed insight text
+                Text(insight.detailedInsight)
+                    .font(.body)
+                    .lineSpacing(5)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.horizontal)
+                
+                // Number meaning section
+                if let meaning = meaningManager.getMeaning(for: matchNumber) {
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text("About Number \(matchNumber)")
+                            .font(.headline)
+                            .padding(.top)
+                        
+                        HStack(alignment: .top) {
+                            Text("\(matchNumber)")
+                                .font(.system(size: 42, weight: .bold))
+                                .foregroundColor(.primary.opacity(0.8))
+                                .frame(width: 60)
+                            
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(meaning.title)
+                                    .font(.title3)
+                                    .bold()
+                                
+                                Text(meaning.essence)
+                                    .font(.subheadline)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
+                        }
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.secondary.opacity(0.1))
+                        )
+                    }
+                    .padding(.horizontal)
+                }
+                
+                // Action buttons
+                MatchActionButtons(matchNumber: matchNumber)
+                    .padding(.top)
             }
             .padding()
         }

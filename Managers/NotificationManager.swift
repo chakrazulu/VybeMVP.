@@ -108,9 +108,10 @@ class NotificationManager: NSObject, ObservableObject {
         }
     }
     
-    /// Create a silent background update notification for testing
-    /// This simulates what would come from Firebase
-    func scheduleSilentBackgroundUpdate() {
+    /// Schedule a silent background update notification
+    /// This is used to wake the app in the background to perform realm calculations
+    /// - Parameter delaySeconds: The delay in seconds before the notification is triggered (default: 5 seconds)
+    func scheduleSilentBackgroundUpdate(delaySeconds: TimeInterval = 5) {
         let content = UNMutableNotificationContent()
         content.title = "" // Empty title for silent notification
         content.body = ""  // Empty body for silent notification
@@ -126,8 +127,8 @@ class NotificationManager: NSObject, ObservableObject {
         // Prevent device from alerting the user
         content.categoryIdentifier = "SILENT_UPDATE"
         
-        // Trigger after 5 seconds (for testing)
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        // Use the specified delay
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: delaySeconds, repeats: false)
         let request = UNNotificationRequest(
             identifier: "com.infinitiesinn.vybe.silentupdate-\(UUID().uuidString)",
             content: content,
@@ -138,7 +139,7 @@ class NotificationManager: NSObject, ObservableObject {
             if let error = error {
                 print("⚠️ Error scheduling silent update: \(error.localizedDescription)")
             } else {
-                print("✅ Silent background update scheduled")
+                print("✅ Silent background update scheduled for \(Int(delaySeconds)) seconds from now")
             }
         }
     }

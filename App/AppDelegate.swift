@@ -17,6 +17,11 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         // Firebase is now initialized in VybeMVPApp.swift at file scope
         // No need to initialize here
         
+        // Pre-initialize insights for notifications
+        print("🧠 Pre-initializing number match insights at app startup...")
+        let insights = NumberMatchInsightManager.shared.getAllInsights()
+        print("✅ Loaded \(insights.count) insights for notifications")
+        
         // Set up Firebase Messaging
         Messaging.messaging().delegate = self
         
@@ -58,7 +63,28 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             // Start updates
             realmNumberManager.startUpdates()
             focusNumberManager.startUpdates()
-            backgroundManager.startActiveUpdates()
+            
+            // Explicitly start heart rate monitoring
+            HealthKitManager.shared.startHeartRateMonitoring()
+            
+            // Always start with a simulated heart rate for development
+            HealthKitManager.shared.simulateHeartRateForDevelopment()
+            
+            // Check for authorization and start updates
+            if HealthKitManager.shared.authorizationStatus == .sharingAuthorized {
+                // Explicitly force a heart rate update if we have permission
+                await HealthKitManager.shared.forceHeartRateUpdate()
+            } else {
+                // Try to request authorization if needed
+                do {
+                    try await HealthKitManager.shared.requestAuthorization()
+                } catch {
+                    print("❌ Health authorization error: \(error)")
+                }
+            }
+            
+            // Start background updates
+            backgroundManager.startMonitoring()
             
             print("✅ All managers initialized and started")
         }
@@ -128,15 +154,100 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         print("📲 Received remote notification: \(userInfo)")
         
+        // Create a background task identifier to ensure completion
+        var backgroundTaskID: UIBackgroundTaskIdentifier = .invalid
+        backgroundTaskID = UIApplication.shared.beginBackgroundTask {
+            // End the task if we run out of time
+            if backgroundTaskID != .invalid {
+                UIApplication.shared.endBackgroundTask(backgroundTaskID)
+                backgroundTaskID = .invalid
+                completionHandler(.failed)
+                print("⚠️ Background task for remote notification timed out")
+            }
+        }
+        
+        // Ensure insight manager is loaded early for background operation (preload for any notification path)
+        let _ = NumberMatchInsightManager.shared.getAllInsights()
+        
         // Check if this is a silent background update notification
         if let isSilent = userInfo["silent_update"] as? Bool, isSilent {
+            print("🔄 Processing silent background update...")
             handleSilentUpdateNotification(userInfo: userInfo)
+            
+            // Complete background task
+            if backgroundTaskID != .invalid {
+                UIApplication.shared.endBackgroundTask(backgroundTaskID)
+                backgroundTaskID = .invalid
+            }
+            
             completionHandler(.newData)
             return
         }
         
-        // Handle the notification
+        // Handle match notifications directly (prioritize rich notifications)
+        if let type = userInfo["type"] as? String, type == "number_match" {
+            print("🎯 Processing match notification directly in AppDelegate...")
+            
+            if let matchNumberStr = userInfo["matchNumber"] as? String, 
+               let matchNumber = Int(matchNumberStr) {
+                // Get the number insight 
+                let insightManager = NumberMatchInsightManager.shared
+                let insight = insightManager.getInsight(for: matchNumber)
+                
+                // Create a rich notification
+                let content = UNMutableNotificationContent()
+                content.title = insight.title
+                content.body = insight.summary
+                content.sound = .default
+                content.badge = 1
+                content.categoryIdentifier = "MATCH_NOTIFICATION"
+                
+                // Include all the rich data
+                content.userInfo = [
+                    "type": "number_match",
+                    "matchNumber": "\(matchNumber)",
+                    "insight": insight.detailedInsight,
+                    "sent_from": "app_delegate",
+                    "timestamp": Date().timeIntervalSince1970
+                ]
+                
+                // Schedule immediately
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+                let request = UNNotificationRequest(
+                    identifier: "match_notification_\(Date().timeIntervalSince1970)",
+                    content: content, 
+                    trigger: trigger
+                )
+                
+                UNUserNotificationCenter.current().add(request) { error in
+                    if let error = error {
+                        print("❌ Failed to schedule rich notification from AppDelegate: \(error.localizedDescription)")
+                    } else {
+                        print("✅ Rich notification scheduled successfully from AppDelegate")
+                        print("📱 Title: \(content.title)")
+                        print("📱 Body: \(content.body)")
+                    }
+                    
+                    // Complete background task
+                    if backgroundTaskID != .invalid {
+                        UIApplication.shared.endBackgroundTask(backgroundTaskID)
+                        backgroundTaskID = .invalid
+                    }
+                    
+                    completionHandler(.newData)
+                }
+                return
+            }
+        }
+        
+        // Fall back to normal notification handling
         notificationManager.handlePushNotification(userInfo: userInfo)
+        
+        // Complete background task
+        if backgroundTaskID != .invalid {
+            UIApplication.shared.endBackgroundTask(backgroundTaskID)
+            backgroundTaskID = .invalid
+        }
         
         // Notify system of completion
         completionHandler(.newData)
@@ -181,11 +292,42 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         print("\n📱 Application entered background")
-        // Schedule background task
+        
+        // Force re-initialization of insights to ensure they're fresh and available in background
+        print("🧠 Force re-initializing insights for background notifications...")
+        let insightManager = NumberMatchInsightManager.shared
+        insightManager.reinitializeInsights()
+        let insights = insightManager.getAllInsights()
+        print("✅ Loaded \(insights.count) fresh insights for background use")
+        
+        // Register notification categories to support rich notifications
+        let matchCategory = UNNotificationCategory(
+            identifier: "MATCH_NOTIFICATION", 
+            actions: [], 
+            intentIdentifiers: [], 
+            options: [.customDismissAction]
+        )
+        UNUserNotificationCenter.current().setNotificationCategories([matchCategory])
+        
+        // Check for notification authorization
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            print("📱 Notification settings when entering background:")
+            print("   Authorization Status: \(settings.authorizationStatus.rawValue)")
+            print("   Alert Setting: \(settings.alertSetting.rawValue)")
+            print("   Sound Setting: \(settings.soundSetting.rawValue)")
+            print("   Badge Setting: \(settings.badgeSetting.rawValue)")
+        }
+        
+        // Force a final realm calculation before going to background
+        realmNumberManager.calculateRealmNumber()
+        
+        // Schedule background task for periodic updates
         backgroundManager.scheduleBackgroundTask()
         
-        // Don't stop the realm manager when going to background
-        // This allows it to continue running during background execution
+        // Schedule a silent notification for 15 minutes later to wake the app if needed
+        notificationManager.scheduleSilentBackgroundUpdate(delaySeconds: 15 * 60)
+        
+        print("✅ Background tasks and silent notifications scheduled")
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

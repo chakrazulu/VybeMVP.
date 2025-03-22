@@ -39,6 +39,10 @@ struct HeartRateView: View {
     /// Controls visibility of the alert shown when no heart rate data is available
     @State private var showingNoDataAlert = false
     
+    /// Add a new state variable at the top of the struct with other @State variables
+    @State private var showingHeartRateInfoAlert = false
+    @State private var heartRateInfoMessage = ""
+    
     /**
      * The HealthKit manager responsible for all heart rate data operations.
      * Uses dependency injection to support testing with mock implementations.
@@ -108,6 +112,13 @@ struct HeartRateView: View {
             timer?.invalidate()
             timer = nil
         }
+        .alert(isPresented: $showingHeartRateInfoAlert) {
+            Alert(
+                title: Text("Heart Rate Information"),
+                message: Text(heartRateInfoMessage),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
     
     // MARK: - UI Components
@@ -130,6 +141,32 @@ struct HeartRateView: View {
             Text("BPM")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
+                
+            // Add data freshness indicator
+            if hasValidHeartRate {
+                VStack(spacing: 2) {
+                    HStack(spacing: 5) {
+                        Image(systemName: healthKitManager.isHeartRateSimulated ? 
+                              "exclamationmark.triangle" : "checkmark.circle")
+                            .foregroundColor(healthKitManager.isHeartRateSimulated ? .orange : .green)
+                        
+                        Text(healthKitManager.isHeartRateSimulated ? 
+                             "Simulated Data" : "Real Data")
+                            .font(.caption)
+                            .foregroundColor(healthKitManager.isHeartRateSimulated ? .orange : .green)
+                    }
+                    
+                    // Add a refresh timestamp if using real data
+                    if !healthKitManager.isHeartRateSimulated {
+                        Button(action: { showHeartRateInfo() }) {
+                            Text("Tap for data info")
+                                .font(.caption2)
+                                .foregroundColor(.blue)
+                        }
+                    }
+                }
+                .padding(.top, 5)
+            }
         }
         .padding()
         .frame(maxWidth: .infinity)
@@ -242,15 +279,39 @@ struct HeartRateView: View {
      * Always visible to allow users to retry fetching data.
      */
     private var refreshButton: some View {
-        Button(action: refreshHeartRate) {
-            HStack(spacing: 8) {
-                Image(systemName: "arrow.clockwise")
-                Text("Refresh")
+        VStack {
+            Button(action: refreshHeartRate) {
+                HStack(spacing: 8) {
+                    Image(systemName: "arrow.clockwise")
+                    Text("Force Heart Rate Update")
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .background(Color(UIColor.tertiarySystemBackground))
+                .cornerRadius(8)
             }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 10)
-            .background(Color(UIColor.tertiarySystemBackground))
-            .cornerRadius(8)
+            
+            // Add simulation mode toggle
+            Button(action: {
+                let newSimulationState = !healthKitManager.isHeartRateSimulated
+                healthKitManager.setSimulationMode(enabled: newSimulationState)
+                
+                // Force a heart rate update after toggling
+                Task {
+                    _ = await healthKitManager.forceHeartRateUpdate()
+                }
+            }) {
+                HStack(spacing: 8) {
+                    Image(systemName: healthKitManager.isHeartRateSimulated ? "xmark.circle" : "checkmark.circle")
+                    Text(healthKitManager.isHeartRateSimulated ? "Turn OFF Simulation" : "Turn ON Simulation")
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .background(Color(UIColor.tertiarySystemBackground))
+                .cornerRadius(8)
+                .foregroundColor(healthKitManager.isHeartRateSimulated ? .red : .green)
+            }
+            .padding(.top, 8)
         }
     }
     
@@ -298,7 +359,7 @@ struct HeartRateView: View {
                     }
                     
                     // Force an immediate heart rate update
-                    await healthKitManager.forceHeartRateUpdate()
+                    _ = await healthKitManager.forceHeartRateUpdate()
                     
                     // If we still don't have data after max retries, show alert with troubleshooting help
                     if retryCount >= maxRetryCount && !hasValidHeartRate {
@@ -314,6 +375,22 @@ struct HeartRateView: View {
                 }
             }
         }
+    }
+    
+    /**
+     * Shows detailed information about the heart rate data being used.
+     */
+    private func showHeartRateInfo() {
+        // Build the information message
+        heartRateInfoMessage = """
+        Current heart rate: \(healthKitManager.lastValidBPM) BPM
+        Data type: \(healthKitManager.isHeartRateSimulated ? "Simulated" : "Real from Apple Watch")
+        Data source: HealthKit
+        
+        This heart rate data is used for realm number calculations.
+        """
+        
+        showingHeartRateInfoAlert = true
     }
 }
 
