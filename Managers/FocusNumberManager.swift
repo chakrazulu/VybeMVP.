@@ -53,15 +53,7 @@ class FocusNumberManager: NSObject, ObservableObject {
     @Published var isAutoUpdateEnabled: Bool = false
     
     /// The current realm number value, tracked for match detection
-    @Published var realmNumber: Int = 0 {
-        didSet {
-            // Check for matches whenever the realm number changes
-            checkForMatches()
-        }
-    }
-    
-    /// Timer for automatic checking of matches
-    private var timer: Timer?
+    @Published var realmNumber: Int = 0
     
     /// Cached location coordinates for calculations
     private var _currentLocation: CLLocationCoordinate2D?
@@ -88,6 +80,16 @@ class FocusNumberManager: NSObject, ObservableObject {
     /// Access to insights manager for notification content
     private let insightManager = NumberMatchInsightManager.shared
     
+    /// Combine cancellables storage
+    private var cancellables = Set<AnyCancellable>()
+    
+    /// Cache to track the last notification time for each number to prevent rapid duplicates
+    private var lastNotificationTimestamps: [Int: Date] = [:]
+    private let notificationDebounceInterval: TimeInterval = 90 // 90 seconds
+    
+    /// Flag to ensure configuration and subscription happens only once
+    private var isConfigured = false
+    
     // MARK: - Initialization
     
     /**
@@ -109,6 +111,7 @@ class FocusNumberManager: NSObject, ObservableObject {
      * - Parameter persistenceController: The CoreData controller to use for data persistence
      *
      * Sets up the manager with saved preferences and loads match history from CoreData.
+     * Subscribes to RealmNumberManager updates.
      */
     private init(persistenceController: PersistenceController = .shared) {
         self.viewContext = persistenceController.container.viewContext
@@ -117,6 +120,33 @@ class FocusNumberManager: NSObject, ObservableObject {
         loadPreferences()
         loadMatchLogs()
         Logger.debug("📱 FocusNumberManager initialized with number: \(selectedFocusNumber)", category: Logger.focus)
+    }
+    
+    /// Configures the manager with necessary dependencies after initialization.
+    /// This should be called once, typically after the RealmNumberManager instance is available.
+    func configure(realmManager: RealmNumberManager) {
+        // Ensure configuration happens only once
+        guard !isConfigured else {
+            // print("ℹ️ FocusNumberManager already configured. Skipping.") // Optional log
+            return
+        }
+        print("🔧 Configuring FocusNumberManager with RealmNumberManager...")
+        setupRealmNumberSubscription(realmManager: realmManager)
+        isConfigured = true // Mark as configured
+    }
+
+    /// Sets up the Combine subscription to the provided RealmNumberManager's realm number.
+    private func setupRealmNumberSubscription(realmManager: RealmNumberManager) { // Accept instance
+        // print("➡️ [Combine Trace] Setting up realm number subscription...") // REMOVED TRACE LOG
+        realmManager.$currentRealmNumber // Use the passed instance
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] newRealmNumber in
+                // Log *every* value received by the sink
+                // print("➡️ [Combine Trace] Sink received newRealmNumber: \(newRealmNumber)") // REMOVED TRACE LOG 
+                self?.updateRealmNumber(newRealmNumber)
+            }
+            .store(in: &cancellables)
+        print("🔗 FocusNumberManager subscribed to RealmNumberManager updates.")
     }
     
     // MARK: - Number Processing Methods
@@ -168,112 +198,6 @@ class FocusNumberManager: NSObject, ObservableObject {
         max(1, min(selectedFocusNumber, 9))  // Ensure valid range
     }
     
-    // MARK: - Timer Management
-    
-    /**
-     * Starts periodic updates to check for matches between focus and realm numbers.
-     *
-     * This method:
-     * 1. Stops any existing timers
-     * 2. Creates a new timer that fires every 60 seconds
-     * 3. Updates preferences to reflect auto-update is enabled
-     */
-    func startUpdates() {
-        stopUpdates() // Clear any existing timer
-        
-        timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
-            self?.checkForMatches()
-        }
-        
-        isAutoUpdateEnabled = true
-        saveAutoUpdatePreference(true)
-        Logger.debug("▶️ Started focus number updates", category: Logger.focus)
-    }
-    
-    /**
-     * Stops periodic update checks for matches.
-     *
-     * This method:
-     * 1. Invalidates and removes any existing timer
-     * 2. Updates preferences to reflect auto-update is disabled
-     */
-    func stopUpdates() {
-        timer?.invalidate()
-        timer = nil
-        isAutoUpdateEnabled = false
-        saveAutoUpdatePreference(false)
-        Logger.debug("⏹ Stopped focus number updates", category: Logger.focus)
-    }
-    
-    /**
-     * Loads user preferences from Core Data.
-     *
-     * This method:
-     * 1. Fetches the user's last selected focus number
-     * 2. Loads the auto-update preference
-     * 3. Sets a default number (1) if no previous preference exists
-     */
-    private func loadPreferences() {
-        let preferences = UserPreferences.fetch(in: viewContext)
-        selectedFocusNumber = Int(preferences.lastSelectedNumber)
-        
-        // Ensure we never have 0 as a focus number
-        if selectedFocusNumber == 0 {
-            selectedFocusNumber = Self.defaultFocusNumber
-            UserPreferences.save(
-                in: viewContext,
-                lastSelectedNumber: Int16(Self.defaultFocusNumber),
-                isAutoUpdateEnabled: false
-            )
-        }
-        
-        isAutoUpdateEnabled = preferences.isAutoUpdateEnabled
-        Logger.debug("Loaded preferences - Number: \(selectedFocusNumber), Auto Update: \(isAutoUpdateEnabled)", category: Logger.focus)
-    }
-    
-    /**
-     * Saves the auto-update preference to Core Data.
-     * 
-     * - Parameter enabled: Whether auto-update should be enabled
-     *
-     * This method persists both the current focus number and auto-update preference
-     * to ensure they remain in sync.
-     */
-    private func saveAutoUpdatePreference(_ enabled: Bool) {
-        UserPreferences.save(
-            in: viewContext,
-            lastSelectedNumber: Int16(selectedFocusNumber),
-            isAutoUpdateEnabled: enabled
-        )
-    }
-    
-    /**
-     * Loads the history of matches from Core Data.
-     *
-     * This method:
-     * 1. Creates a fetch request for FocusMatch entities
-     * 2. Sorts matches by timestamp (most recent first)
-     * 3. Updates the matchLogs published property with results
-     *
-     * Called during initialization and after creating new matches.
-     */
-    func loadMatchLogs() {
-        // Create a fetch request for FocusMatch entity
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "FocusMatch")
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \FocusMatch.timestamp, ascending: false)]
-        
-        do {
-            // Execute the fetch request and safely cast the results
-            let results = try viewContext.fetch(request)
-            
-            // Cast the results to FocusMatch objects
-            matchLogs = results.compactMap { $0 as? FocusMatch }
-            print("📱 Loaded \(matchLogs.count) matches from storage")
-        } catch {
-            print("❌ Failed to fetch matches: \(error)")
-        }
-    }
-    
     // MARK: - Match Detection and Saving
     
     /**
@@ -290,6 +214,7 @@ class FocusNumberManager: NSObject, ObservableObject {
      *   - completion: Closure called with whether a match was verified and saved
      */
     func verifyAndSaveMatch(realmNumber: Int?, completion: @escaping (Bool) -> Void = { _ in }) {
+        // print("➡️ [Match Trace] verifyAndSaveMatch called with realmNumber: \(realmNumber ?? -1)") // REMOVED TRACE LOG
         print("\n🔍 Verifying potential match...")
         
         // Pre-load insight manager for background operations
@@ -312,7 +237,7 @@ class FocusNumberManager: NSObject, ObservableObject {
         
         // Check if we already recorded this match recently
         print("🔍 Match found! Checking if it's a new match...")
-        if isRecentMatch(realmNumber: matchedRealmNumber) {
+        if checkForRecentMatchOrNotification(for: matchedRealmNumber) {
             print("ℹ️ Match already recorded recently - skipping")
             completion(false)
             return
@@ -326,22 +251,61 @@ class FocusNumberManager: NSObject, ObservableObject {
     }
     
     /**
-     * Checks if there's a recently recorded match to prevent duplicates.
+     * Checks if there's a recently recorded match *for the specific number* to prevent duplicates.
+     * Also checks the timestamp cache for recently *sent notifications*.
      *
-     * - Returns: Boolean indicating if a recent match exists (true) or not (false)
+     * - Parameter realmNumber: The specific realm number to check for recent matches/notifications.
+     * - Returns: Boolean indicating if a recent match exists or notification was sent recently (true) or not (false).
      *
-     * Prevents duplicate match records by checking if any matches have been
-     * recorded in the last 60 seconds.
+     * Prevents duplicate match records and notifications by checking:
+     * 1. If a FocusMatch for this number exists in CoreData within the last `notificationDebounceInterval`.
+     * 2. If a notification for this number was sent recently (tracked in `lastNotificationTimestamps`).
      */
-    private func checkForRecentMatch() -> Bool {
-        // Get current time
+    private func checkForRecentMatchOrNotification(for realmNumber: Int) -> Bool {
         let now = Date()
-        
-        // Check if there's a match in the last minute
-        return matchLogs.contains { match in
-            let timeDifference = now.timeIntervalSince(match.timestamp)
-            return timeDifference < 60 // Less than 1 minute
+        // print("➡️ [Debounce Check] Checking for recent match/notification for number: \(realmNumber) at time: \(now.timeIntervalSince1970)") // REMOVED TRACE LOG
+
+        // 1. Check timestamp cache first (faster)
+        if let lastSent = lastNotificationTimestamps[realmNumber] {
+            let interval = now.timeIntervalSince(lastSent)
+            // print("  [Debounce Check] Found cached timestamp: \(lastSent.timeIntervalSince1970) (Interval: \(interval)s)") // REMOVED TRACE LOG
+            if interval < notificationDebounceInterval {
+                // print("  [Debounce Check] Result: TRUE (Cached timestamp within \(notificationDebounceInterval)s interval)") // REMOVED TRACE LOG
+                print("ℹ️ Notification for \(realmNumber) already sent recently (cached) - skipping")
+                return true
+            }
+             // print("  [Debounce Check] Cached timestamp is older than interval.") // REMOVED TRACE LOG
+        } else {
+            // print("  [Debounce Check] No cached timestamp found for \(realmNumber).") // REMOVED TRACE LOG
         }
+
+        // 2. Check Core Data for recent *saved* matches for this specific number
+        // Create fetch request within this function scope
+        let request = NSFetchRequest<FocusMatch>(entityName: "FocusMatch")
+        request.predicate = NSPredicate(format: "matchedNumber == %d", realmNumber)
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \FocusMatch.timestamp, ascending: false)]
+        request.fetchLimit = 1 // Only need the most recent one
+
+        do {
+            let recentMatches = try viewContext.fetch(request)
+            if let mostRecentMatch = recentMatches.first {
+                let interval = now.timeIntervalSince(mostRecentMatch.timestamp)
+                // print("  [Debounce Check] Found most recent saved match timestamp: \(mostRecentMatch.timestamp.timeIntervalSince1970) (Interval: \(interval)s)") // REMOVED TRACE LOG
+                 if interval < notificationDebounceInterval {
+                    // print("  [Debounce Check] Result: TRUE (Saved match timestamp within \(notificationDebounceInterval)s interval)") // REMOVED TRACE LOG
+                    print("ℹ️ Match for \(realmNumber) already recorded recently in CoreData - skipping")
+                    return true
+                }
+                 // print("  [Debounce Check] Saved match timestamp is older than interval.") // REMOVED TRACE LOG
+            } else {
+                 // print("  [Debounce Check] No saved matches found in Core Data for \(realmNumber).") // REMOVED TRACE LOG
+            }
+        } catch {
+             // print("  [Debounce Check] Error fetching recent matches: \(error)") // REMOVED TRACE LOG
+        }
+        
+        // print("⬅️ [Debounce Check] Result: FALSE (No recent match/notification found)") // REMOVED TRACE LOG
+        return false
     }
     
     /**
@@ -388,7 +352,7 @@ class FocusNumberManager: NSObject, ObservableObject {
             print("   ✅ Match saved successfully")
             
             // Force immediate reload of matches
-            loadMatchLogs() 
+            loadMatchLogs()
             print("   📱 New Match Count: \(matchLogs.count)")
             
             // Additional check for tests to verify the save was successful
@@ -414,79 +378,64 @@ class FocusNumberManager: NSObject, ObservableObject {
     }
     
     /**
-     * Sends a local notification for a number match
+     * Sends a local notification for a number match *after checking debounce cache*.
      *
      * - Parameter number: The number that matched
      *
-     * Creates and schedules a local notification using the NotificationManager.
-     * The notification includes detailed information about the match significance.
+     * Creates and schedules a local notification using UNUserNotificationCenter.
+     * Updates the `lastNotificationTimestamps` cache.
      */
     private func sendMatchNotification(for number: Int) {
-        // Create a background task identifier to ensure completion in background
-        var backgroundTaskID: UIBackgroundTaskIdentifier = .invalid
-        backgroundTaskID = UIApplication.shared.beginBackgroundTask {
-            // End the task if we run out of time
-            if backgroundTaskID != .invalid {
-                UIApplication.shared.endBackgroundTask(backgroundTaskID)
-                backgroundTaskID = .invalid
-                print("⚠️ Background task for notification in FocusNumberManager timed out")
-            }
-        }
-        
-        // Ensure insight manager is loaded early for background operation
-        let insightManager = NumberMatchInsightManager.shared
-        let insights = insightManager.getAllInsights()
-        print("📲 Preparing to send match notification (loaded \(insights.count) insights)")
-        
-        // Get insight for this number match - always returns a valid insight
-        let insight = insightManager.getInsight(for: number)
-        print("📲 Sending match notification for number \(number) with insight: \(insight.title)")
-        print("📲 Insight summary: \(insight.summary)")
-        print("📲 Insight detailed: \(insight.detailedInsight.prefix(50))...")
-        
-        // Create our own notification content directly instead of using NotificationManager
-        // This ensures consistent behavior in all app states
+        print("➡️ [Notification Debug] Entered sendMatchNotification for focus number: \(number)") // DEBUG LOG
+
+        // Use the dedicated NumberMatchInsightManager to get the insight.
+        // This manager guarantees returning a valid insight.
+        let insight = NumberMatchInsightManager.shared.getInsight(for: number)
+        print("✅ [Notification Debug] Found insight using NumberMatchInsightManager for number \(number): \(insight.title)") // DEBUG LOG
+
+        // Prepare rich notification content using the guaranteed insight
         let content = UNMutableNotificationContent()
         content.title = insight.title
-        content.body = insight.summary
+        content.subtitle = "Insight: \(insight.summary)"
+        content.body = insight.detailedInsight // Using detailedInsight property as per original code
         content.sound = .default
-        content.badge = 1
+        content.badge = 1 // Increment badge count
         content.categoryIdentifier = "MATCH_NOTIFICATION"
-        
-        // Include additional information for when notification is tapped
-        content.userInfo = [
-            "type": "number_match",
-            "matchNumber": "\(number)",
-            "insight": insight.detailedInsight,
-            "sent_from": "focus_manager",
-            "timestamp": Date().timeIntervalSince1970
-        ]
-        
-        // Use time interval trigger for more reliable delivery
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-        
-        let request = UNNotificationRequest(
-            identifier: "match_notification_\(Date().timeIntervalSince1970)",
-            content: content,
-            trigger: trigger
-        )
-        
+
+        // Add insight details to userInfo dictionary
+        var userInfo = [String: Any]()
+        userInfo["focusNumber"] = number
+        userInfo["insightTitle"] = insight.title
+        userInfo["insightSummary"] = insight.summary
+        userInfo["insightDetailed"] = insight.detailedInsight
+        // Add timestamp (using current time as insight object might not have one readily available)
+        userInfo["insightTimestamp"] = Date().timeIntervalSince1970
+        content.userInfo = userInfo
+        print("ℹ️ [Notification Debug] Notification content prepared: Title=\'\(content.title)\', Subtitle=\'\(content.subtitle)\'") // DEBUG LOG
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false) // Send immediately (1 second delay)
+        // Use a unique identifier including the number and timestamp to avoid conflicts
+        let request = UNNotificationRequest(identifier: "match-\(number)-\(Date().timeIntervalSince1970)", content: content, trigger: trigger)
+
+        print("📦 [Notification Debug] Preparing rich notification request: \(request.identifier)") // DEBUG LOG
+        // Schedule the notification
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
-                print("❌ Failed to schedule notification from FocusNumberManager: \(error.localizedDescription)")
+                // Log detailed error information
+                let nsError = error as NSError
+                print("❌ [Notification Debug] Error scheduling rich notification: \(error.localizedDescription) | Code: \(nsError.code) | Domain: \(nsError.domain) | UserInfo: \(nsError.userInfo)") // DEBUG LOG
+                Logger.error("Failed to schedule rich notification: \(error.localizedDescription)", category: Logger.focus as OSLog) // Explicitly cast to OSLog
             } else {
-                print("✅ Rich notification with insight scheduled successfully from FocusNumberManager")
-                print("📱 Notification will appear with title: \(content.title)")
-                print("📱 And body: \(content.body)")
-            }
-            
-            // Complete the background task if we're done
-            if backgroundTaskID != .invalid {
-                UIApplication.shared.endBackgroundTask(backgroundTaskID)
-                backgroundTaskID = .invalid
-                print("✅ Background task for notification in FocusNumberManager completed")
+                print("✅ [Notification Debug] Rich notification with insight scheduled successfully for number \(number)") // DEBUG LOG
+                // Update the timestamp cache *after* successful scheduling
+                 DispatchQueue.main.async { [weak self] in // Ensure cache update is on main thread
+                    self?.lastNotificationTimestamps[number] = Date()
+                    print("ℹ️ [Notification Debug] Updated lastNotificationTimestamp for number \(number)")
+                 }
+                Logger.info("Rich notification scheduled for match number \(number)", category: Logger.focus as OSLog) // Explicitly cast to OSLog
             }
         }
+        // Removed the wrapping Task {} as getInsight is synchronous
     }
     
     /**
@@ -501,18 +450,24 @@ class FocusNumberManager: NSObject, ObservableObject {
      * new match records based on the current state of the focus and realm numbers.
      */
     private func checkForMatches() {
+        // print("➡️ [Match Trace] checkForMatches called. Current selectedFocusNumber: \(selectedFocusNumber), realmNumber: \(realmNumber)") // REMOVED TRACE LOG
         // Only create a match if the numbers are equal and valid
         if selectedFocusNumber == realmNumber && Self.validFocusNumbers.contains(selectedFocusNumber) {
             print("🔍 Match found! Focus number \(selectedFocusNumber) matches realm number \(realmNumber)")
             // Using DispatchQueue.main to ensure Core Data operations run on the main thread
             DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
+                // print("➡️ [Match Trace] DispatchQueue.main.async block in checkForMatches entered.") // REMOVED TRACE LOG
+                guard let self = self else { 
+                    // print("⚠️ [Match Trace] self is nil in checkForMatches async block.") // REMOVED TRACE LOG
+                    return
+                 }
                 self.verifyAndSaveMatch(realmNumber: self.realmNumber) { success in
                     if success {
                         print("✅ Match successfully saved")
                     } else {
-                        print("⚠️ Match verification failed")
+                        print("⚠️ Match verification failed or skipped") // Updated log message
                     }
+                    // print("⬅️ [Match Trace] verifyAndSaveMatch completion block finished.") // REMOVED TRACE LOG
                 }
             }
         } else {
@@ -523,6 +478,7 @@ class FocusNumberManager: NSObject, ObservableObject {
                 print("🔍 No match: Focus number \(selectedFocusNumber) is not valid")
             }
         }
+        // print("⬅️ [Match Trace] checkForMatches finished.") // REMOVED TRACE LOG
     }
     
     /**
@@ -536,11 +492,15 @@ class FocusNumberManager: NSObject, ObservableObject {
      * matches the current focus number.
      */
     func updateRealmNumber(_ newValue: Int) {
+        // print("➡️ [Match Trace] updateRealmNumber called with newValue: \(newValue). Current realmNumber: \(realmNumber)") // REMOVED TRACE LOG
         if realmNumber != newValue {
-            print("\n🔄 Realm number changed: \(realmNumber) → \(newValue)")
+            print("\n🔄 FocusNumberManager received realm number update: \(realmNumber) → \(newValue)")
             realmNumber = newValue
-            checkForMatches()
+            checkForMatches() // Call match checking
+        } else {
+             print("\nℹ️ FocusNumberManager received realm number update: \(newValue) (unchanged)")
         }
+        // print("⬅️ [Match Trace] updateRealmNumber finished for newValue: \(newValue)") // REMOVED TRACE LOG
     }
     
     /**
@@ -647,41 +607,82 @@ class FocusNumberManager: NSObject, ObservableObject {
     }
     
     /**
-     * Check if a match with the given realm number was recorded recently
-     * to prevent duplicate notifications
-     *
-     * - Parameter realmNumber: The realm number to check
-     * - Returns: true if a recent match exists, false otherwise
-     */
-    private func isRecentMatch(realmNumber: Int) -> Bool {
-        // Ensure we check on the main thread for Core Data access
-        if Thread.isMainThread {
-            return checkForRecentMatch()
-        } else {
-            // If called from background thread, dispatch to main thread and wait
-            var result = false
-            let semaphore = DispatchSemaphore(value: 0)
-            
-            DispatchQueue.main.async {
-                result = self.checkForRecentMatch()
-                semaphore.signal()
-            }
-            
-            // Wait for main thread execution to complete (with timeout)
-            _ = semaphore.wait(timeout: .now() + 3.0)
-            return result
-        }
-    }
-    
-    // MARK: - Helper Methods
-    
-    /**
      * Retrieves the current heart rate from HealthKit if available
      *
      * - Returns: The current heart rate or 0 if not available
      */
     private func getCurrentHeartRate() -> Double {
         return HealthKitManager.shared.getCurrentHeartRate()
+    }
+    
+    // Restore the methods accidentally removed
+    /**
+     * Loads user preferences from Core Data.
+     *
+     * This method:
+     * 1. Fetches the user's last selected focus number
+     * 2. Loads the auto-update preference
+     * 3. Sets a default number (1) if no previous preference exists
+     */
+    private func loadPreferences() {
+        let preferences = UserPreferences.fetch(in: viewContext)
+        selectedFocusNumber = Int(preferences.lastSelectedNumber)
+        
+        // Ensure we never have 0 as a focus number
+        if selectedFocusNumber == 0 {
+            selectedFocusNumber = Self.defaultFocusNumber
+            UserPreferences.save(
+                in: viewContext,
+                lastSelectedNumber: Int16(Self.defaultFocusNumber),
+                isAutoUpdateEnabled: false
+            )
+        }
+        
+        isAutoUpdateEnabled = preferences.isAutoUpdateEnabled
+        Logger.debug("Loaded preferences - Number: \(selectedFocusNumber), Auto Update: \(isAutoUpdateEnabled)", category: Logger.focus)
+    }
+    
+    /**
+     * Saves the auto-update preference to Core Data.
+     * 
+     * - Parameter enabled: Whether auto-update should be enabled
+     *
+     * This method persists both the current focus number and auto-update preference
+     * to ensure they remain in sync.
+     */
+    private func saveAutoUpdatePreference(_ enabled: Bool) {
+        UserPreferences.save(
+            in: viewContext,
+            lastSelectedNumber: Int16(selectedFocusNumber),
+            isAutoUpdateEnabled: enabled
+        )
+    }
+    
+    /**
+     * Loads the history of matches from Core Data.
+     *
+     * This method:
+     * 1. Creates a fetch request for FocusMatch entities
+     * 2. Sorts matches by timestamp (most recent first)
+     * 3. Updates the matchLogs published property with results
+     *
+     * Called during initialization and after creating new matches.
+     */
+    func loadMatchLogs() {
+        // Create a fetch request for FocusMatch entity
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "FocusMatch")
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \FocusMatch.timestamp, ascending: false)]
+        
+        do {
+            // Execute the fetch request and safely cast the results
+            let results = try viewContext.fetch(request)
+            
+            // Cast the results to FocusMatch objects
+            matchLogs = results.compactMap { $0 as? FocusMatch }
+            print("📱 Loaded \(matchLogs.count) matches from storage")
+        } catch {
+            print("❌ Failed to fetch matches: \(error)")
+        }
     }
 }
 

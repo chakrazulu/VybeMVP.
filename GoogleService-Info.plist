@@ -15,15 +15,17 @@
 	<key>STORAGE_BUCKET</key>
 	<string>vybemvp.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:78218936591:ios:1fd7f96b108d7e1c30fe7a</string>
 </dict>

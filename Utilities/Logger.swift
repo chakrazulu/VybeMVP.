@@ -31,4 +31,9 @@ struct Logger {
     static func error(_ message: String, category: OSLog = .default) {
         log(message, type: .error, log: category)
     }
+    
+    // Add info method for consistency
+    static func info(_ message: String, category: OSLog = .default) {
+        log(message, type: .info, log: category)
+    }
 } 

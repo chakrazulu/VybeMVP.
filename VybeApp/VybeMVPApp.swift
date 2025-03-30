@@ -1,8 +1,11 @@
 import SwiftUI
 import os.log
 import BackgroundTasks
+import FirebaseCore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+    var realmNumberManager: RealmNumberManager?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Register background task handler early in app lifecycle
         BGTaskScheduler.shared.register(
@@ -63,6 +66,10 @@ struct VybeMVPApp: App {
     init() {
         print("🚀 App starting initialization...")
         
+        // Configure Firebase first
+        FirebaseApp.configure()
+        print("🔥 Firebase configured")
+        
         // Configure logging for development
         #if DEBUG
         // Reduce system noise
@@ -74,6 +81,11 @@ struct VybeMVPApp: App {
         #endif
         
         configureAppearance()
+        
+        // Configure FocusNumberManager to subscribe to RealmNumberManager updates
+        // MOVED to ContentView.onAppear to avoid StateObject warning
+        // FocusNumberManager.shared.configure(realmManager: self.realmNumberManager)
+        
         print("🚀 App initialized with RealmNumberManager...")
     }
     
@@ -95,12 +107,21 @@ struct VybeMVPApp: App {
                 .environmentObject(healthKitManager)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onAppear {
-                    // Set up manager references
+                    // --- Instance Sharing Setup --- (Moved to onAppear)
+                    // Ensure this runs only once
+                    if appDelegate.realmNumberManager == nil {
+                        appDelegate.realmNumberManager = self.realmNumberManager
+                        print("🔗 Linked AppDelegate to shared RealmNumberManager instance (onAppear).")
+                        
+                        // Start the shared RealmNumberManager instance
+                        print("▶️ Starting RealmNumberManager from onAppear...")
+                        realmNumberManager.startUpdates()
+                    }
+                    // --- End Instance Sharing Setup ---
+
+                    // Existing onAppear logic:
                     backgroundManager.setManagers(realm: realmNumberManager, focus: focusNumberManager)
-                    // Schedule initial background task when app launches
                     backgroundManager.scheduleBackgroundTask()
-                    
-                    // Start HealthKit monitoring if authorized
                     if healthKitManager.authorizationStatus == .sharingAuthorized {
                         healthKitManager.startHeartRateMonitoring()
                     }

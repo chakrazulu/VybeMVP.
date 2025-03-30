@@ -250,12 +250,9 @@ class RealmNumberManager: NSObject, ObservableObject {
             
             self.currentState = .waitingForLocation
             print(self.currentState.description)
-            
+
             // Initial calculation
             self.calculateRealmNumber()
-            
-            // Start updates after setup
-            self.startUpdates()
         }
     }
     
@@ -676,7 +673,7 @@ class RealmNumberManager: NSObject, ObservableObject {
     
     /// Starts the update cycle for realm numbers
     public func startUpdates() {
-        print("🚀 Starting RealmNumberManager updates...")
+        print("➡️ Entering startUpdates() from external call...")
         
         // Set up heart rate update subscription using Combine
         heartRateSubscription = HealthKitManager.shared.$currentHeartRate

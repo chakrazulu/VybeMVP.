@@ -9,11 +9,14 @@ struct MainView: View {
                 .font(.largeTitle)
                 .padding()
 
+            // REMOVE: Button is no longer needed as FocusNumberManager updates reactively.
+            /*
             Button("Restart Timer") {
                 focusManager.startUpdates()
                 print("🟢 Timer restarted")
             }
             .padding()
+            */
         }
     }
 }

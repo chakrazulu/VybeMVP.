@@ -7,7 +7,8 @@ import FirebaseMessaging
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
     private let backgroundManager = BackgroundManager.shared
-    private let realmNumberManager = RealmNumberManager()
+    // private let realmNumberManager = RealmNumberManager() // REMOVED: Instance created in VybeMVPApp
+    var realmNumberManager: RealmNumberManager! // ADDED: Property to hold shared instance
     private let focusNumberManager = FocusNumberManager.shared
     private let notificationManager = NotificationManager.shared
     
@@ -58,30 +59,15 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         // Initialize managers
         Task {
             // Set up managers
-            backgroundManager.setManagers(realm: realmNumberManager, focus: focusNumberManager)
+            // backgroundManager.setManagers(realm: realmNumberManager, focus: focusNumberManager) // MOVED to ContentView.onAppear
             
             // Start updates
-            realmNumberManager.startUpdates()
-            focusNumberManager.startUpdates()
+            // realmNumberManager.startUpdates() // REMOVED: Started in VybeMVPApp.init
             
             // Explicitly start heart rate monitoring
-            HealthKitManager.shared.startHeartRateMonitoring()
+            // HealthKitManager.shared.startHeartRateMonitoring() // MOVED to ContentView.onAppear
             
-            // Always start with a simulated heart rate for development
-            HealthKitManager.shared.simulateHeartRateForDevelopment()
-            
-            // Check for authorization and start updates
-            if HealthKitManager.shared.authorizationStatus == .sharingAuthorized {
-                // Explicitly force a heart rate update if we have permission
-                await HealthKitManager.shared.forceHeartRateUpdate()
-            } else {
-                // Try to request authorization if needed
-                do {
-                    try await HealthKitManager.shared.requestAuthorization()
-                } catch {
-                    print("❌ Health authorization error: \(error)")
-                }
-            }
+            // Always start with a simulated heart rate for development -- REMOVED: Let's rely on real data or lack thereof
             
             // Start background updates
             backgroundManager.startMonitoring()
@@ -257,16 +243,22 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     private func handleSilentUpdateNotification(userInfo: [AnyHashable: Any]) {
         print("🔄 Received silent background update notification")
         
-        // Start the realm and focus managers if needed
-        if realmNumberManager.currentState == .stopped {
-            realmNumberManager.startUpdates()
+        // Ensure the shared instance is available
+        guard let realmManager = realmNumberManager else { 
+            print("❌ RealmNumberManager instance not available in AppDelegate for silent update")
+            return
+        }
+
+        // Start the realm manager if needed (Use shared instance)
+        if realmManager.currentState == .stopped {
+            realmManager.startUpdates()
         }
         
-        // Force an immediate realm number calculation
-        realmNumberManager.calculateRealmNumber()
+        // Force an immediate realm number calculation (Use shared instance)
+        realmManager.calculateRealmNumber()
         
-        // Check for matches
-        if let realmNumber = realmNumberManager.currentRealmNumber {
+        // Check for matches (Use shared instance)
+        if let realmNumber = realmManager.currentRealmNumber {
             focusNumberManager.updateRealmNumber(realmNumber)
             print("🔍 Performing background match check for realm number: \(realmNumber)")
         }
@@ -277,8 +269,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         Task {
             // Ensure updates are running
             backgroundManager.startActiveUpdates()
-            realmNumberManager.startUpdates()
-            focusNumberManager.startUpdates()
         }
         
         // Clear app badge when app becomes active
@@ -293,6 +283,12 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func applicationDidEnterBackground(_ application: UIApplication) {
         print("\n📱 Application entered background")
         
+        // Ensure the shared instance is available
+        guard let realmManager = realmNumberManager else { 
+            print("❌ RealmNumberManager instance not available in AppDelegate for background entry")
+            return
+        }
+
         // Force re-initialization of insights to ensure they're fresh and available in background
         print("🧠 Force re-initializing insights for background notifications...")
         let insightManager = NumberMatchInsightManager.shared
@@ -318,8 +314,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             print("   Badge Setting: \(settings.badgeSetting.rawValue)")
         }
         
-        // Force a final realm calculation before going to background
-        realmNumberManager.calculateRealmNumber()
+        // Force a final realm calculation before going to background (Use shared instance)
+        realmManager.calculateRealmNumber()
         
         // Schedule background task for periodic updates
         backgroundManager.scheduleBackgroundTask()

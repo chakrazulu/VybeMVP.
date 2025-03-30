@@ -135,7 +135,7 @@ import BackgroundTasks
                 
                 // If we have authorization, immediately start monitoring and force an update
                 if authorizationStatus == .sharingAuthorized {
-                    startHeartRateMonitoring()
+                    // startHeartRateMonitoring() // REMOVED: Call moved to AppDelegate Task
                     let success = await forceHeartRateUpdate()
                     
                     // Only enable simulation if we couldn't get real data and simulation is enabled in preferences
@@ -394,12 +394,14 @@ import BackgroundTasks
      * or when the app becomes active again after being in the background.
      */
     public func startHeartRateMonitoring() {
-        print("Starting heart rate monitoring")
+        // print("➡️ HealthKitManager: Entering startHeartRateMonitoring()") // REMOVED Debug log
+        
+        let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate)!
         
         // Only proceed with real HealthKit queries if available and authorized
         guard HKHealthStore.isHealthDataAvailable(),
-              authorizationStatus == .sharingAuthorized else {
-            print("Cannot start real heart rate monitoring: Health data not available or not authorized")
+              healthStore.authorizationStatus(for: heartRateType) == .sharingAuthorized else {
+            // print("❌ HealthKitManager: Exiting startHeartRateMonitoring early. Reason: Health data available=\(HKHealthStore.isHealthDataAvailable()), Authorized=\(healthStore.authorizationStatus(for: heartRateType) == .sharingAuthorized)") // REMOVED Debug log
             print("Using simulated heart rate data instead")
             enableSimulationMode(true)
             simulateHeartRateForTesting()
@@ -419,18 +421,10 @@ import BackgroundTasks
             print("❤️ Attempting to get initial real heart rate data...")
             let success = await forceHeartRateUpdate()
             
-            if !success {
-                print("⚠️ Initial attempt to get real heart rate data unsuccessful")
-                print("❤️ Will continue trying to get real data during normal operation")
-                
-                // Only enable simulation as a last resort if explicitly set in preferences
-                if UserDefaults.standard.bool(forKey: "HeartRateSimulationEnabled") {
-                    print("🔄 Simulation enabled in preferences - activating simulation mode")
-                    enableSimulationMode(true)
-                    simulateHeartRateForTesting()
-                }
-            } else {
+            if success {
                 print("✅ Successfully retrieved initial real heart rate data")
+            } else {
+                print("⚠️ Initial attempt to get real heart rate data unsuccessful. Will rely on observer query.")
             }
         }
     }
@@ -587,7 +581,7 @@ import BackgroundTasks
      */
     private func fetchMostRecentHeartRate(timeWindowSeconds: Double) async throws -> Bool {
         guard HKHealthStore.isHealthDataAvailable(),
-              authorizationStatus == .sharingAuthorized else {
+              healthStore.authorizationStatus(for: HKQuantityType.quantityType(forIdentifier: .heartRate)!) == .sharingAuthorized else {
             print("Cannot fetch heart rate: Health data not available or not authorized")
             return false
         }
@@ -704,8 +698,11 @@ import BackgroundTasks
             return true // Return success without fetching to avoid redundant queries
         }
         
+        // Update the time of the last fetch attempt *after* the throttle check
+        lastUpdateTime = Date()
+        
         guard HKHealthStore.isHealthDataAvailable(),
-              authorizationStatus == .sharingAuthorized else {
+              healthStore.authorizationStatus(for: HKQuantityType.quantityType(forIdentifier: .heartRate)!) == .sharingAuthorized else {
             print("Cannot fetch heart rate: Health data not available or not authorized")
             return false
         }
@@ -723,9 +720,6 @@ import BackgroundTasks
             end: Date(),
             options: .strictEndDate
         )
-        
-        // Update the time of the last fetch attempt
-        lastUpdateTime = Date()
         
         // Create a task and continuation to handle the async query
         return try await withCheckedThrowingContinuation { continuation in

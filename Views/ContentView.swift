@@ -92,6 +92,19 @@ struct ContentView: View {
             }
         }
         .onAppear {
+            // --- Configuration moved here to avoid StateObject init warning ---
+            // Ensure configuration happens only once.
+            // We can check if the cancellables set is empty, implying the subscription
+            // hasn't been set up yet by the FocusNumberManager.shared singleton.
+            // NOTE: This relies on FocusNumberManager not setting up subscriptions elsewhere.
+            // A more robust method might involve a dedicated flag in FocusNumberManager.
+            // if FocusNumberManager.shared.cancellables.isEmpty { // <-- Potential check, but relies on implementation detail
+            // Alternative: Use a static flag or check a specific known cancellable if possible.
+            // For simplicity now, let's assume onAppear might run multiple times but configure is idempotent 
+            // or handles multiple calls safely (which our current configure does).
+            FocusNumberManager.shared.configure(realmManager: realmNumberManager) 
+            // --- End Configuration ---
+            
             // Set the tab bar appearance
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
@@ -99,10 +112,17 @@ struct ContentView: View {
             
             print("🔍 ContentView appeared")
             print("📊 Current Realm Number: \(realmNumberManager.currentRealmNumber)")
+            
+            // Start heart rate monitoring when the main view appears
+            HealthKitManager.shared.startHeartRateMonitoring()
         }
-        .onChange(of: realmNumberManager.currentRealmNumber) { oldValue, newValue in
-            focusNumberManager.updateRealmNumber(newValue)
-            print("🔄 Updated FocusNumberManager with realm number: \(oldValue) → \(newValue)")
+        .onReceive(realmNumberManager.$currentRealmNumber) { newValue in
+            let oldValue = focusNumberManager.realmNumber
+            if oldValue != newValue {
+                // REMOVE: This is now handled automatically by the Combine subscription inside FocusNumberManager
+                // focusNumberManager.realmNumber = newValue 
+                // print("🔄 Updated FocusNumberManager with realm number: \(oldValue) → \(newValue)")
+            }
         }
     }
 }

@@ -25,11 +25,8 @@ struct FocusNumberContent: View {
                 Toggle("Auto Update", isOn: $focusNumberManager.isAutoUpdateEnabled)
                     .padding()
                     .onChange(of: focusNumberManager.isAutoUpdateEnabled) { _, newValue in
-                        if newValue {
-                            focusNumberManager.startUpdates()
-                        } else {
-                            focusNumberManager.stopUpdates()
-                        }
+                        // Log the change or handle persistence if needed
+                        print("Auto Update Toggled: \(newValue)")
                     }
                 
                 // Match Logs Section

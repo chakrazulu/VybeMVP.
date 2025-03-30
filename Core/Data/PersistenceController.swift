@@ -35,6 +35,17 @@ class PersistenceController {
     /// Shared singleton instance for app-wide access
     static let shared = PersistenceController()
     
+    /// Explicitly load the Managed Object Model once to avoid conflicts, especially in tests.
+    static let model: NSManagedObjectModel = {
+        guard let modelURL = Bundle.main.url(forResource: "VybeMVP", withExtension: "momd") else {
+            fatalError("Failed to find Core Data model file (VybeMVP.momd)")
+        }
+        guard let managedObjectModel = NSManagedObjectModel(contentsOf: modelURL) else {
+            fatalError("Failed to load Core Data model from file: \\(modelURL)")
+        }
+        return managedObjectModel
+    }()
+    
     /// Core Data persistent container managing the object model
     let container: NSPersistentContainer
     
@@ -67,7 +78,7 @@ class PersistenceController {
         UserDefaults.standard.set(false, forKey: "com.apple.CoreData.Logging.stderr")
         UserDefaults.standard.set(false, forKey: "com.apple.CoreData.CloudKitDebug")
         
-        container = NSPersistentContainer(name: "VybeMVP")
+        container = NSPersistentContainer(name: "VybeMVP", managedObjectModel: Self.model)
         
         if let description = container.persistentStoreDescriptions.first {
             description.setOption(true as NSNumber, 
@@ -91,9 +102,13 @@ class PersistenceController {
         }
         
         container.loadPersistentStores { description, error in
-            if let error = error {
-                fatalError("Error: \(error.localizedDescription)")
+            // Check if an error occurred during loading
+            if error != nil {
+                // Use the original 'error' parameter, force-unwrapped as we know it's non-nil
+                fatalError("Failed to load Core Data store: \\(error!.localizedDescription)")
             }
+            // Re-inline the expression to silence the potentially spurious 'unused variable' warning
+            print("✅ Core Data store loaded successfully: \\(description.url?.absoluteString ?? \"In-Memory\")")
         }
         
         container.viewContext.automaticallyMergesChangesFromParent = true
