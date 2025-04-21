@@ -70,6 +70,10 @@ struct VybeMVPApp: App {
         FirebaseApp.configure()
         print("🔥 Firebase configured")
         
+        // Initialize and preload Numerology Messages
+        let messageManager = NumerologyMessageManager.shared
+        messageManager.preloadMessages()
+        
         // Configure logging for development
         #if DEBUG
         // Reduce system noise

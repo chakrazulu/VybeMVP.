@@ -77,9 +77,6 @@ class FocusNumberManager: NSObject, ObservableObject {
     /// Access to notification manager for sending notifications
     private let notificationManager = NotificationManager.shared
     
-    /// Access to insights manager for notification content
-    private let insightManager = NumberMatchInsightManager.shared
-    
     /// Combine cancellables storage
     private var cancellables = Set<AnyCancellable>()
     
@@ -216,10 +213,6 @@ class FocusNumberManager: NSObject, ObservableObject {
     func verifyAndSaveMatch(realmNumber: Int?, completion: @escaping (Bool) -> Void = { _ in }) {
         // print("➡️ [Match Trace] verifyAndSaveMatch called with realmNumber: \(realmNumber ?? -1)") // REMOVED TRACE LOG
         print("\n🔍 Verifying potential match...")
-        
-        // Pre-load insight manager for background operations
-        let insightManager = NumberMatchInsightManager.shared
-        let _ = insightManager.getAllInsights()
         
         // Must have a valid realm number
         guard let matchedRealmNumber = realmNumber else {
@@ -386,56 +379,11 @@ class FocusNumberManager: NSObject, ObservableObject {
      * Updates the `lastNotificationTimestamps` cache.
      */
     private func sendMatchNotification(for number: Int) {
-        print("➡️ [Notification Debug] Entered sendMatchNotification for focus number: \(number)") // DEBUG LOG
+        print("➡️ [Notification Debug] Scheduling NEW numerology notification for focus number: \(number)")
 
-        // Use the dedicated NumberMatchInsightManager to get the insight.
-        // This manager guarantees returning a valid insight.
-        let insight = NumberMatchInsightManager.shared.getInsight(for: number)
-        print("✅ [Notification Debug] Found insight using NumberMatchInsightManager for number \(number): \(insight.title)") // DEBUG LOG
-
-        // Prepare rich notification content using the guaranteed insight
-        let content = UNMutableNotificationContent()
-        content.title = insight.title
-        content.subtitle = "Insight: \(insight.summary)"
-        content.body = insight.detailedInsight // Using detailedInsight property as per original code
-        content.sound = .default
-        content.badge = 1 // Increment badge count
-        content.categoryIdentifier = "MATCH_NOTIFICATION"
-
-        // Add insight details to userInfo dictionary
-        var userInfo = [String: Any]()
-        userInfo["focusNumber"] = number
-        userInfo["insightTitle"] = insight.title
-        userInfo["insightSummary"] = insight.summary
-        userInfo["insightDetailed"] = insight.detailedInsight
-        // Add timestamp (using current time as insight object might not have one readily available)
-        userInfo["insightTimestamp"] = Date().timeIntervalSince1970
-        content.userInfo = userInfo
-        print("ℹ️ [Notification Debug] Notification content prepared: Title=\'\(content.title)\', Subtitle=\'\(content.subtitle)\'") // DEBUG LOG
-
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false) // Send immediately (1 second delay)
-        // Use a unique identifier including the number and timestamp to avoid conflicts
-        let request = UNNotificationRequest(identifier: "match-\(number)-\(Date().timeIntervalSince1970)", content: content, trigger: trigger)
-
-        print("📦 [Notification Debug] Preparing rich notification request: \(request.identifier)") // DEBUG LOG
-        // Schedule the notification
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                // Log detailed error information
-                let nsError = error as NSError
-                print("❌ [Notification Debug] Error scheduling rich notification: \(error.localizedDescription) | Code: \(nsError.code) | Domain: \(nsError.domain) | UserInfo: \(nsError.userInfo)") // DEBUG LOG
-                Logger.error("Failed to schedule rich notification: \(error.localizedDescription)", category: Logger.focus as OSLog) // Explicitly cast to OSLog
-            } else {
-                print("✅ [Notification Debug] Rich notification with insight scheduled successfully for number \(number)") // DEBUG LOG
-                // Update the timestamp cache *after* successful scheduling
-                 DispatchQueue.main.async { [weak self] in // Ensure cache update is on main thread
-                    self?.lastNotificationTimestamps[number] = Date()
-                    print("ℹ️ [Notification Debug] Updated lastNotificationTimestamp for number \(number)")
-                 }
-                Logger.info("Rich notification scheduled for match number \(number)", category: Logger.focus as OSLog) // Explicitly cast to OSLog
-            }
-        }
-        // Removed the wrapping Task {} as getInsight is synchronous
+        // Directly schedule the new numerology notification
+        // Use a short delay (e.g., 1 second) to allow the UI to potentially update first if needed
+        NotificationManager.shared.scheduleRandomNumerologyNotification(forNumber: number, delaySeconds: 1)
     }
     
     /**
@@ -682,6 +630,63 @@ class FocusNumberManager: NSObject, ObservableObject {
             print("📱 Loaded \(matchLogs.count) matches from storage")
         } catch {
             print("❌ Failed to fetch matches: \(error)")
+        }
+    }
+    
+    /**
+     * Schedules a daily numerology notification for the user's current focus number
+     *
+     * This method sends a notification with a random message from the numerology
+     * data for the current focus number, providing daily guidance to the user.
+     */
+    func scheduleDailyNumerologyMessage() {
+        // Get the current focus number
+        let focusNumber = selectedFocusNumber
+        
+        // Schedule the notification
+        NotificationManager.shared.scheduleDailyNumerologyMessage(forFocusNumber: focusNumber)
+        
+        print("📆 Scheduled daily numerology message for focus number \(focusNumber)")
+    }
+    
+    /**
+     * Updates the selected focus number and saves the change to persistent storage.
+     *
+     * This method:
+     * 1. Validates the new focus number is within range
+     * 2. Updates the published property for SwiftUI binding
+     * 3. Saves the change to Core Data for persistence
+     * 4. Optionally sends a notification with numerology insight for the new number
+     *
+     * - Parameter number: The new focus number to set (validated to be within 1-9)
+     * - Parameter sendNotification: Whether to send a notification about the new focus number
+     */
+    func setFocusNumber(_ number: Int, sendNotification: Bool = false) {
+        // Validate the number is within range
+        let validNumber = max(1, min(number, 9))
+        print("🔄 Setting focus number to \(validNumber)")
+        
+        // Update the stored value and notify observers
+        let previousNumber = selectedFocusNumber
+        selectedFocusNumber = validNumber
+        
+        // Save to UserDefaults for persistence
+        UserPreferences.save(
+            in: viewContext,
+            lastSelectedNumber: Int16(validNumber),
+            isAutoUpdateEnabled: isAutoUpdateEnabled
+        )
+        
+        print("✅ Focus number updated to \(validNumber)")
+        
+        // Optionally send a notification with numerology insight
+        if sendNotification && validNumber != previousNumber {
+            // Send an immediate notification with a relevant insight
+            NotificationManager.shared.scheduleNumerologyNotification(
+                forNumber: validNumber,
+                category: .insight,
+                delaySeconds: 1
+            )
         }
     }
 }

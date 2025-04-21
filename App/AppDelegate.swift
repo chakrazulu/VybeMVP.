@@ -18,11 +18,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         // Firebase is now initialized in VybeMVPApp.swift at file scope
         // No need to initialize here
         
-        // Pre-initialize insights for notifications
-        print("🧠 Pre-initializing number match insights at app startup...")
-        let insights = NumberMatchInsightManager.shared.getAllInsights()
-        print("✅ Loaded \(insights.count) insights for notifications")
-        
         // Set up Firebase Messaging
         Messaging.messaging().delegate = self
         

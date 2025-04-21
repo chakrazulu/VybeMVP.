@@ -96,6 +96,19 @@ struct SettingsView: View {
             
             // Background Updates Testing Section
             backgroundTestingSection
+            
+            // Developer options section (only available in DEBUG builds)
+            #if DEBUG
+            Section(header: Text("Developer Tools")) {
+                NavigationLink(destination: NumerologyNotificationTestView()) {
+                    HStack {
+                        Image(systemName: "bell.badge")
+                            .foregroundColor(.blue)
+                        Text("Numerology Notification Tester")
+                    }
+                }
+            }
+            #endif
         }
         .navigationTitle("Settings")
         .alert("HealthKit Error", isPresented: $showHealthKitError) {

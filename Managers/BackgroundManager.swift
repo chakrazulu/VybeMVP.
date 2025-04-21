@@ -263,9 +263,6 @@ class BackgroundManager: NSObject, ObservableObject {
     private func performUpdate() {
         print("\n⚡️ Performing comprehensive update via BackgroundManager...")
 
-        // Ensure the insight manager is pre-loaded for potential background notifications triggered by FocusNumberManager
-        let _ = NumberMatchInsightManager.shared.getAllInsights()
-
         // Get managers safely
         guard let realmManager = realmNumberManager,
               let focusManager = focusNumberManager else {
@@ -320,9 +317,6 @@ class BackgroundManager: NSObject, ObservableObject {
                 task.setTaskCompleted(success: false)
             }
         }
-        
-        // Pre-initialize important managers for background operation
-        let _ = NumberMatchInsightManager.shared.getAllInsights()
         
         // Make sure managers are running before attempting operations
         if let realmManager = realmNumberManager, realmManager.currentState == .stopped {

@@ -30,6 +30,10 @@ struct ContentView: View {
     /// Manages realm numbers (numerical representation of universal states)
     @EnvironmentObject var realmNumberManager: RealmNumberManager
     
+    // NEW State for handling notification taps
+    @State private var showNotificationSheet = false
+    @State private var notificationData: (number: Int, category: String, message: String)? = nil
+    
     /// Tracks the currently selected tab
     @State private var selectedTab = 0
     
@@ -90,6 +94,25 @@ struct ContentView: View {
                     }
                     .tag(6)
             }
+        }
+        .sheet(isPresented: $showNotificationSheet) {
+            // Present the NumberMatchNotificationView when showNotificationSheet is true
+            if let data = notificationData {
+                // Embed in NavigationView for title and close button
+                NavigationView {
+                    NumberMatchNotificationView(
+                        matchNumber: data.number, 
+                        categoryName: data.category, 
+                        messageContent: data.message,
+                        onDismiss: { showNotificationSheet = false } // Add dismiss callback
+                    )
+                }
+            }
+        }
+        .onReceive(NotificationManager.shared.notificationTapSubject) { data in
+            // When a notification tap is published, store the data and trigger the sheet
+            self.notificationData = data
+            self.showNotificationSheet = true
         }
         .onAppear {
             // --- Configuration moved here to avoid StateObject init warning ---

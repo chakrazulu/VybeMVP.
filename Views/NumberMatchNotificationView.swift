@@ -23,48 +23,37 @@ import SwiftUI
  * of the significance of the match and offers actions the user can take.
  */
 struct NumberMatchNotificationView: View {
-    /// The number that matched (focus = realm)
+    // Data passed from the tapped notification
     let matchNumber: Int
+    let categoryName: String
+    let messageContent: String
     
     /// Optional callback when user dismisses the view
     var onDismiss: (() -> Void)?
     
-    /// Access to insights via the manager
-    private let insightManager = NumberMatchInsightManager.shared
-    
-    /// Access to number meanings via the manager
-    private let meaningManager = NumberMeaningManager.shared
-    
+    // Keep meaning manager if we still want the "About Number" section
+    private let meaningManager = NumberMeaningManager.shared 
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                // Header with match number and title
-                let insight = insightManager.getInsight(for: matchNumber)
-                MatchHeaderView(insight: insight)
+                // Display the number and category from the notification
+                Text("Number \(matchNumber): \(categoryName)")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.top)
                 
-                // Divider with quote style
-                HStack {
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundColor(.secondary.opacity(0.3))
-                    
-                    Image(systemName: "quote.opening")
-                        .foregroundColor(.secondary)
-                    
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundColor(.secondary.opacity(0.3))
-                }
-                .padding(.vertical)
+                // Divider
+                Divider().padding(.vertical)
                 
-                // Detailed insight text
-                Text(insight.detailedInsight)
+                // Display the specific message content from the notification
+                Text(messageContent)
                     .font(.body)
                     .lineSpacing(5)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal)
                 
-                // Number meaning section
+                // Optional: Keep the "About Number" section using meaningManager
                 if let meaning = meaningManager.getMeaning(for: matchNumber) {
                     VStack(alignment: .leading, spacing: 16) {
                         Text("About Number \(matchNumber)")
@@ -96,13 +85,13 @@ struct NumberMatchNotificationView: View {
                     .padding(.horizontal)
                 }
                 
-                // Action buttons
+                // Action buttons (These might need context later)
                 MatchActionButtons(matchNumber: matchNumber)
                     .padding(.top)
             }
             .padding()
         }
-        .navigationTitle("Number Match")
+        .navigationTitle("Numerology Insight") // Updated title
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -114,52 +103,6 @@ struct NumberMatchNotificationView: View {
                 }
             }
         }
-    }
-}
-
-/**
- * Header component for the match notification view
- *
- * Displays the match number and insight title prominently at the top of the view.
- */
-struct MatchHeaderView: View {
-    let insight: NumberMatchInsight
-    
-    var body: some View {
-        VStack(spacing: 16) {
-            // Match number display
-            ZStack {
-                Circle()
-                    .fill(
-                        LinearGradient(
-                            colors: [.blue.opacity(0.7), .purple.opacity(0.7)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .frame(width: 100, height: 100)
-                
-                Text("\(insight.matchNumber)")
-                    .font(.system(size: 48, weight: .bold))
-                    .foregroundColor(.white)
-            }
-            .padding(.bottom, 8)
-            
-            // Match title
-            Text(insight.title)
-                .font(.title2)
-                .bold()
-                .multilineTextAlignment(.center)
-            
-            // Match summary
-            Text(insight.summary)
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-        }
-        .frame(maxWidth: .infinity)
-        .padding()
     }
 }
 
@@ -261,6 +204,11 @@ struct ActionButton: View {
 
 #Preview {
     NavigationView {
-        NumberMatchNotificationView(matchNumber: 7)
+        // Provide sample data for the preview
+        NumberMatchNotificationView(
+            matchNumber: 7,
+            categoryName: "Insight",
+            messageContent: "This is a sample insight message for number 7. Embrace introspection and seek deeper truths today. Solitude can be a powerful teacher."
+        )
     }
 } 
