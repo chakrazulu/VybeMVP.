@@ -27,6 +27,7 @@
 		4D3055FC2D3D8F8A009A7BBD /* JournalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055FB2D3D8F8A009A7BBD /* JournalListView.swift */; };
 		4D3055FE2D3D903B009A7BBD /* JournalEntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055FD2D3D903B009A7BBD /* JournalEntryRow.swift */; };
 		4D3056002D3D9245009A7BBD /* JournalEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055FF2D3D9245009A7BBD /* JournalEntryView.swift */; };
+		4D32D2812DD809B9005AC779 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D32D27F2DD809B9005AC779 /* AuthService.swift */; };
 		4D80E0FD2D3F1B0B0020F7BB /* NumberMeaningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E0FC2D3F1B0B0020F7BB /* NumberMeaningView.swift */; };
 		4D80E1012D3F1DD80020F7BB /* NumberMeaning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E1002D3F1DD80020F7BB /* NumberMeaning.swift */; };
 		4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */; };
@@ -93,6 +94,7 @@
 		4D3055FB2D3D8F8A009A7BBD /* JournalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalListView.swift; sourceTree = "<group>"; };
 		4D3055FD2D3D903B009A7BBD /* JournalEntryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryRow.swift; sourceTree = "<group>"; };
 		4D3055FF2D3D9245009A7BBD /* JournalEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryView.swift; sourceTree = "<group>"; };
+		4D32D27F2DD809B9005AC779 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		4D80E0FC2D3F1B0B0020F7BB /* NumberMeaningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMeaningView.swift; sourceTree = "<group>"; };
 		4D80E1002D3F1DD80020F7BB /* NumberMeaning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMeaning.swift; sourceTree = "<group>"; };
 		4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchAnalyticsView.swift; sourceTree = "<group>"; };
@@ -241,9 +243,18 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		4D32D2802DD809B9005AC779 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				4D32D27F2DD809B9005AC779 /* AuthService.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
+				4D32D2802DD809B9005AC779 /* Auth */,
 				4DE4C3A22DB5C85D00BB7572 /* NumerologyData */,
 				4DA01CB32D8537FB0070309D /* GoogleService-Info.plist */,
 				4D3055B62D3C9C3B009A7BBD /* VybeMVP.xcodeproj */,
@@ -507,6 +518,7 @@
 				4D92F4BD2D4DE1E80001A16E /* BackgroundManager.swift in Sources */,
 				4D3055E32D3CEADA009A7BBD /* JournalEntry+CoreDataHelpers.swift in Sources */,
 				4D3055E12D3CE90C009A7BBD /* FocusNumberContent.swift in Sources */,
+				4D32D2812DD809B9005AC779 /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -39,4 +39,19 @@ class KeychainHelper {
 
         return nil
     }
+
+    func delete(for key: String) {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: key
+        ]
+        let status = SecItemDelete(query as CFDictionary)
+        if status == errSecSuccess {
+            print("Keychain item deleted successfully for key: \(key)")
+        } else if status == errSecItemNotFound {
+            print("Keychain item not found for key: \(key), no need to delete.")
+        } else {
+            print("Error deleting keychain item for key: \(key), status: \(status)")
+        }
+    }
 }

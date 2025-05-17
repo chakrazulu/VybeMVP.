@@ -11,6 +11,7 @@ import SafariServices
 struct SettingsView: View {
     @EnvironmentObject private var healthKitManager: HealthKitManager
     @EnvironmentObject private var realmNumberManager: RealmNumberManager
+    @EnvironmentObject private var signInViewModel: SignInViewModel
     @State private var showHealthKitError = false
     @State private var errorMessage = ""
     @Environment(\.openURL) var openURL
@@ -109,6 +110,17 @@ struct SettingsView: View {
                 }
             }
             #endif
+
+            // Account Section - Added
+            Section(header: Text("ACCOUNT")) {
+                Button(role: .destructive) {
+                    AuthService.shared.logout(signInViewModel: signInViewModel)
+                } label: {
+                    Text("Logout")
+                        .foregroundColor(.red) // Make it stand out
+                        .frame(maxWidth: .infinity, alignment: .center) // Center the text
+                }
+            }
         }
         .navigationTitle("Settings")
         .alert("HealthKit Error", isPresented: $showHealthKitError) {
@@ -287,6 +299,7 @@ struct SafariView: UIViewControllerRepresentable {
             .environmentObject(HealthKitManager.shared)
             .environmentObject(FocusNumberManager.shared)
             .environmentObject(RealmNumberManager())
+            .environmentObject(SignInViewModel())
     }
 }
 

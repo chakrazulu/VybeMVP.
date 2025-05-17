@@ -9,23 +9,25 @@ import AuthenticationServices
 
 struct SignInView: View {
     @Binding var isSignedIn: Bool
+    @EnvironmentObject var signInViewModel: SignInViewModel
     
     var body: some View {
         VStack {
+            Spacer()
+            
             SignInWithAppleButton(.signIn, onRequest: { request in
                 request.requestedScopes = [.fullName, .email]
             }, onCompletion: { result in
-                switch result {
-                case .success:
-                    isSignedIn = true
-                case .failure(let error):
-                    print("Sign in with Apple failed: \(error)")
-                }
+                signInViewModel.handleSignIn(result: result)
             })
             .signInWithAppleButtonStyle(.black)
+            .frame(maxWidth: 350)
             .frame(height: 50)
-            .padding()
+            .padding(.horizontal, 20)
+            
+            Spacer()
         }
+        .frame(maxWidth: .infinity)
     }
 }
 

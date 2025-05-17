@@ -2,6 +2,8 @@ import SwiftUI
 import os.log
 import BackgroundTasks
 import FirebaseCore
+import FirebaseMessaging
+import UserNotifications
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     var realmNumberManager: RealmNumberManager?
@@ -19,7 +21,40 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             self.handleHeartRateUpdate(task: task as! BGAppRefreshTask)
         }
         
+        // Set delegate for notification handling
+        UNUserNotificationCenter.current().delegate = self
+        
+        // Request notification permissions
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: { granted, error in
+                if let error = error {
+                    print("❌ Error requesting notification permissions: \(error.localizedDescription)")
+                } else if granted {
+                    print("✅ Notification permissions granted.")
+                    DispatchQueue.main.async {
+                        application.registerForRemoteNotifications() // Register for remote notifications
+                    }
+                } else {
+                    print("🟠 Notification permissions denied.")
+                }
+            }
+        )
+        
         return true
+    }
+    
+    // MARK: - APNS Token Handling
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        let tokenString = tokenParts.joined()
+        print("ℹ️ APNS device token received: \(tokenString)") // Log the token string
+        Messaging.messaging().apnsToken = deviceToken // Pass token to Firebase
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("❌ Failed to register for remote notifications: \(error.localizedDescription)")
     }
     
     private func handleHeartRateUpdate(task: BGAppRefreshTask) {
@@ -52,6 +87,42 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 }
 
+// MARK: - UNUserNotificationCenterDelegate
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    // Handle incoming notification messages while the app is in the foreground.
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let userInfo = notification.request.content.userInfo
+        // Customize this print statement for better debugging if needed
+        print("🔔 Foreground Notification Received: \(userInfo)")
+        
+        // Let the system handle the notification (display alert, play sound, update badge)
+        // You can customize this based on your app's needs, e.g., show only a badge or a custom in-app alert.
+        if #available(iOS 14.0, *) {
+            completionHandler([.banner, .list, .sound, .badge]) // Modern way
+        } else {
+            // Fallback on earlier versions
+            completionHandler([.alert, .sound, .badge])
+        }
+    }
+
+    // Handle user tapping on a notification
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        print("🔔 Notification Tapped: UserInfo - \(userInfo)")
+        
+        // Here you would typically process the notification payload.
+        // For example, extract data from userInfo and navigate to a specific view
+        // or trigger some action.
+        // e.g., NotificationManager.shared.handleNotificationTap(userInfo: userInfo)
+
+        completionHandler()
+    }
+}
+
 @main
 struct VybeMVPApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -62,6 +133,8 @@ struct VybeMVPApp: App {
     @StateObject private var healthKitManager = HealthKitManager.shared
     @Environment(\.scenePhase) private var scenePhase
     let persistenceController = PersistenceController.shared
+    
+    @StateObject private var signInViewModel = SignInViewModel()
     
     init() {
         print("🚀 App starting initialization...")
@@ -103,54 +176,65 @@ struct VybeMVPApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(realmNumberManager)
-                .environmentObject(journalManager)
-                .environmentObject(focusNumberManager)
-                .environmentObject(backgroundManager)
-                .environmentObject(healthKitManager)
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .onAppear {
-                    // --- Instance Sharing Setup --- (Moved to onAppear)
-                    // Ensure this runs only once
-                    if appDelegate.realmNumberManager == nil {
-                        appDelegate.realmNumberManager = self.realmNumberManager
-                        print("🔗 Linked AppDelegate to shared RealmNumberManager instance (onAppear).")
-                        
-                        // Start the shared RealmNumberManager instance
-                        print("▶️ Starting RealmNumberManager from onAppear...")
-                        realmNumberManager.startUpdates()
-                    }
-                    // --- End Instance Sharing Setup ---
+            Group {
+                if signInViewModel.isSignedIn {
+                    ContentView()
+                        .environmentObject(realmNumberManager)
+                        .environmentObject(journalManager)
+                        .environmentObject(focusNumberManager)
+                        .environmentObject(backgroundManager)
+                        .environmentObject(healthKitManager)
+                        .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                        .environmentObject(signInViewModel)
+                        .onAppear {
+                            // --- Instance Sharing Setup --- (Moved to onAppear)
+                            // Ensure this runs only once
+                            if appDelegate.realmNumberManager == nil {
+                                appDelegate.realmNumberManager = self.realmNumberManager
+                                print("🔗 Linked AppDelegate to shared RealmNumberManager instance (onAppear).")
+                                
+                                // Start the shared RealmNumberManager instance
+                                print("▶️ Starting RealmNumberManager from onAppear...")
+                                realmNumberManager.startUpdates()
+                            }
+                            // --- End Instance Sharing Setup ---
 
-                    // Existing onAppear logic:
-                    backgroundManager.setManagers(realm: realmNumberManager, focus: focusNumberManager)
-                    backgroundManager.scheduleBackgroundTask()
-                    if healthKitManager.authorizationStatus == .sharingAuthorized {
-                        healthKitManager.startHeartRateMonitoring()
-                    }
+                            // Existing onAppear logic:
+                            backgroundManager.setManagers(realm: realmNumberManager, focus: focusNumberManager)
+                            backgroundManager.scheduleBackgroundTask()
+                            if healthKitManager.authorizationStatus == .sharingAuthorized {
+                                healthKitManager.startHeartRateMonitoring()
+                            }
+                        }
+                        .onChange(of: scenePhase) { oldPhase, newPhase in
+                            switch newPhase {
+                            case .active:
+                                // App became active - start frequent updates
+                                print("📱 App became active")
+                                backgroundManager.startActiveUpdates()
+                            case .inactive:
+                                // App became inactive - stop frequent updates
+                                print("📱 App became inactive")
+                                backgroundManager.stopActiveUpdates()
+                                persistenceController.save()
+                            case .background:
+                                // App moved to background - stop frequent updates and schedule background task
+                                print("📱 App moved to background")
+                                backgroundManager.stopActiveUpdates()
+                                persistenceController.save()
+                                backgroundManager.scheduleBackgroundTask()
+                            @unknown default:
+                                break
+                            }
+                        }
+                } else {
+                    SignInView(isSignedIn: $signInViewModel.isSignedIn)
+                        .environmentObject(signInViewModel)
                 }
-                .onChange(of: scenePhase) { oldPhase, newPhase in
-                    switch newPhase {
-                    case .active:
-                        // App became active - start frequent updates
-                        print("📱 App became active")
-                        backgroundManager.startActiveUpdates()
-                    case .inactive:
-                        // App became inactive - stop frequent updates
-                        print("📱 App became inactive")
-                        backgroundManager.stopActiveUpdates()
-                        persistenceController.save()
-                    case .background:
-                        // App moved to background - stop frequent updates and schedule background task
-                        print("📱 App moved to background")
-                        backgroundManager.stopActiveUpdates()
-                        persistenceController.save()
-                        backgroundManager.scheduleBackgroundTask()
-                    @unknown default:
-                        break
-                    }
-                }
+            }
+            .onAppear {
+                signInViewModel.checkSignInStatus()
+            }
         }
     }
     
