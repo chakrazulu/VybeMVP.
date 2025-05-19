@@ -44,28 +44,33 @@ class UserProfileService {
         // Align with UserProfile.swift properties
         var profileData: [String: Any] = [
             "id": profile.id, // This should match userID
-            // Core Numerology Inputs
-            "fullNameAtBirth": profile.fullNameAtBirth ?? NSNull(), // Handle optionals with NSNull or omit if nil
-            "birthDate": profile.birthDate != nil ? Timestamp(date: profile.birthDate!) : NSNull(),
-            "birthTime": profile.birthTime != nil ? Timestamp(date: profile.birthTime!) : NSNull(), // Assuming birthTime is Date
-            "birthLocation": profile.birthLocation ?? NSNull(),
-            
-            // Calculated Numerology Numbers
-            "lifePathNumber": profile.lifePathNumber ?? NSNull(),
-            "isMasterLifePath": profile.isMasterLifePath,
-            "soulUrgeNumber": profile.soulUrgeNumber ?? NSNull(),
-            "isMasterSoulUrge": profile.isMasterSoulUrge,
-            "expressionNumber": profile.expressionNumber ?? NSNull(),
-            "isMasterExpression": profile.isMasterExpression,
+            // Step 1: Core Identity
+            "birthdate": Timestamp(date: profile.birthdate),
+            "lifePathNumber": profile.lifePathNumber,
+            "isMasterNumber": profile.isMasterNumber,
 
-            // User Preferences & Personalization
-            "spiritualMode": profile.spiritualMode ?? NSNull(),
-            "tonePreference": profile.tonePreference ?? NSNull(),
-            "focusTags": profile.focusTags ?? [], // Save empty array if nil
-            "openToCosmicGuidance": profile.openToCosmicGuidance,
-            "preferredCosmicRhythms": profile.preferredCosmicRhythms ?? [], // Save empty array if nil
-            "appCommunicationStyle": profile.appCommunicationStyle ?? NSNull(),
-            "allowDailyEmotionalCheckIn": profile.allowDailyEmotionalCheckIn
+            // Step 2 & 3: Reflection Type & AI Modulation
+            "spiritualMode": profile.spiritualMode,
+            "insightTone": profile.insightTone,
+
+            // Step 4: Insight Filtering
+            "focusTags": profile.focusTags,
+
+            // Step 5 & 6: Cosmic Alignment
+            "cosmicPreference": profile.cosmicPreference,
+            "cosmicRhythms": profile.cosmicRhythms,
+
+            // Step 7: Notification System
+            "preferredHour": profile.preferredHour,
+            "wantsWhispers": profile.wantsWhispers,
+
+            // Step 8: Soul Map (Optional Numerology Deep Dive)
+            "birthName": profile.birthName ?? NSNull(),
+            "soulUrgeNumber": profile.soulUrgeNumber ?? NSNull(),
+            "expressionNumber": profile.expressionNumber ?? NSNull(),
+
+            // Step 9: UX Personalization
+            "wantsReflectionMode": profile.wantsReflectionMode
         ]
         
         // Remove NSNull fields if you prefer not to store them
@@ -112,51 +117,76 @@ class UserProfileService {
             // Align with UserProfile.swift properties and its initializer
             let id = data["id"] as? String ?? userID // Use userID as fallback for id
             
-            // Core Numerology Inputs
-            let fullNameAtBirth = data["fullNameAtBirth"] as? String
-            let birthDateTimestamp = data["birthDate"] as? Timestamp
-            let birthDate = birthDateTimestamp?.dateValue()
-            let birthTimeTimestamp = data["birthTime"] as? Timestamp // Assuming birthTime is stored as Timestamp
-            let birthTime = birthTimeTimestamp?.dateValue()
-            let birthLocation = data["birthLocation"] as? String
+            // Step 1: Core Identity
+            guard let birthdateTimestamp = data["birthdate"] as? Timestamp,
+                  let lifePathNumber = data["lifePathNumber"] as? Int,
+                  let isMasterNumber = data["isMasterNumber"] as? Bool else {
+                print("⚠️ UserProfileService: Missing core identity fields (birthdate, lifePathNumber, isMasterNumber) for userID: \(userID)")
+                completion(nil, NSError(domain: "UserProfileService", code: 1, userInfo: [NSLocalizedDescriptionKey: "Missing core identity fields"]))
+                return
+            }
+            let birthdate = birthdateTimestamp.dateValue()
+
+            // Step 2 & 3: Reflection Type & AI Modulation
+            guard let spiritualMode = data["spiritualMode"] as? String,
+                  let insightTone = data["insightTone"] as? String else {
+                print("⚠️ UserProfileService: Missing reflection/AI modulation fields (spiritualMode, insightTone) for userID: \(userID)")
+                completion(nil, NSError(domain: "UserProfileService", code: 2, userInfo: [NSLocalizedDescriptionKey: "Missing reflection/AI modulation fields"]))
+                return
+            }
+
+            // Step 4: Insight Filtering
+            guard let focusTags = data["focusTags"] as? [String] else {
+                print("⚠️ UserProfileService: Missing insight filtering field (focusTags) for userID: \(userID)")
+                completion(nil, NSError(domain: "UserProfileService", code: 3, userInfo: [NSLocalizedDescriptionKey: "Missing insight filtering field"]))
+                return
+            }
             
-            // Calculated Numerology Numbers
-            let lifePathNumber = data["lifePathNumber"] as? Int
-            let isMasterLifePath = data["isMasterLifePath"] as? Bool ?? false
-            let soulUrgeNumber = data["soulUrgeNumber"] as? Int
-            let isMasterSoulUrge = data["isMasterSoulUrge"] as? Bool ?? false
-            let expressionNumber = data["expressionNumber"] as? Int
-            let isMasterExpression = data["isMasterExpression"] as? Bool ?? false
+            // Step 5 & 6: Cosmic Alignment
+            guard let cosmicPreference = data["cosmicPreference"] as? String,
+                  let cosmicRhythms = data["cosmicRhythms"] as? [String] else {
+                print("⚠️ UserProfileService: Missing cosmic alignment fields (cosmicPreference, cosmicRhythms) for userID: \(userID)")
+                completion(nil, NSError(domain: "UserProfileService", code: 4, userInfo: [NSLocalizedDescriptionKey: "Missing cosmic alignment fields"]))
+                return
+            }
+
+            // Step 7: Notification System
+            guard let preferredHour = data["preferredHour"] as? Int,
+                  let wantsWhispers = data["wantsWhispers"] as? Bool else {
+                print("⚠️ UserProfileService: Missing notification system fields (preferredHour, wantsWhispers) for userID: \(userID)")
+                completion(nil, NSError(domain: "UserProfileService", code: 5, userInfo: [NSLocalizedDescriptionKey: "Missing notification system fields"]))
+                return
+            }
+
+            // Step 8: Soul Map (Optional Numerology Deep Dive)
+            let birthName = data["birthName"] as? String // Optional
+            let soulUrgeNumber = data["soulUrgeNumber"] as? Int // Optional
+            let expressionNumber = data["expressionNumber"] as? Int // Optional
             
-            // User Preferences & Personalization
-            let spiritualMode = data["spiritualMode"] as? String
-            let tonePreference = data["tonePreference"] as? String
-            let focusTags = data["focusTags"] as? [String]
-            let openToCosmicGuidance = data["openToCosmicGuidance"] as? Bool ?? true // Default from your model
-            let preferredCosmicRhythms = data["preferredCosmicRhythms"] as? [String]
-            let appCommunicationStyle = data["appCommunicationStyle"] as? String
-            let allowDailyEmotionalCheckIn = data["allowDailyEmotionalCheckIn"] as? Bool ?? false // Default from your model
+            // Step 9: UX Personalization
+            guard let wantsReflectionMode = data["wantsReflectionMode"] as? Bool else {
+                print("⚠️ UserProfileService: Missing UX personalization field (wantsReflectionMode) for userID: \(userID)")
+                completion(nil, NSError(domain: "UserProfileService", code: 6, userInfo: [NSLocalizedDescriptionKey: "Missing UX personalization field"]))
+                return
+            }
 
             // Use the initializer from UserProfile.swift
             let profile = UserProfile(
                 id: id,
-                fullNameAtBirth: fullNameAtBirth,
-                birthDate: birthDate,
-                birthTime: birthTime,
-                birthLocation: birthLocation,
+                birthdate: birthdate,
                 lifePathNumber: lifePathNumber,
-                isMasterLifePath: isMasterLifePath,
-                soulUrgeNumber: soulUrgeNumber,
-                isMasterSoulUrge: isMasterSoulUrge,
-                expressionNumber: expressionNumber,
-                isMasterExpression: isMasterExpression,
+                isMasterNumber: isMasterNumber,
                 spiritualMode: spiritualMode,
-                tonePreference: tonePreference,
+                insightTone: insightTone,
                 focusTags: focusTags,
-                openToCosmicGuidance: openToCosmicGuidance,
-                preferredCosmicRhythms: preferredCosmicRhythms,
-                appCommunicationStyle: appCommunicationStyle,
-                allowDailyEmotionalCheckIn: allowDailyEmotionalCheckIn
+                cosmicPreference: cosmicPreference,
+                cosmicRhythms: cosmicRhythms,
+                preferredHour: preferredHour,
+                wantsWhispers: wantsWhispers,
+                birthName: birthName,
+                soulUrgeNumber: soulUrgeNumber,
+                expressionNumber: expressionNumber,
+                wantsReflectionMode: wantsReflectionMode
             )
             print("✅ UserProfileService: User profile fetched and parsed successfully for userID: \(userID)")
             completion(profile, nil)

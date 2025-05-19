@@ -3,72 +3,105 @@ import Foundation
 import Combine
 
 class OnboardingViewModel: ObservableObject {
-    @Published var fullNameAtBirth: String = ""
+    // MARK: - Step 1: Core Identity (Numerology Base)
+    @Published var fullNameAtBirth: String = "" // User provides this for optional Soul Urge/Expression
     @Published var birthDate: Date = Calendar.current.date(byAdding: .year, value: -25, to: Date()) ?? Date() // Default to 25 years ago
+
+    // MARK: - Step 2 & 3: Reflection Type & AI Modulation
+    @Published var spiritualModeSelection: String = "Reflection" // Default value
+    @Published var insightToneSelection: String = "Gentle"   // Default value
+
+    // MARK: - Step 4: Insight Filtering
+    @Published var selectedFocusTags: [String] = []
+
+    // MARK: - Step 5 & 6: Cosmic Alignment
+    @Published var cosmicPreferenceSelection: String = "Numerology Only"
+    @Published var selectedCosmicRhythms: [String] = []
+
+    // MARK: - Step 7: Notification System
+    @Published var selectedPreferredHour: Int = 7 // Default to 7 AM
+    @Published var doesWantWhispers: Bool = true
+
+    // MARK: - Step 9: UX Personalization (Step 8 is optional birthName, covered by fullNameAtBirth)
+    @Published var doesWantReflectionMode: Bool = true
+    
+    // MARK: - Onboarding State
     @Published var onboardingComplete: Bool = false
     @Published var userProfile: UserProfile?
 
-    // Assuming you have a way to get the current user's ID after sign-in
-    // This should be set from your authentication flow.
-    var currentUserID: String? // Example: "someUserID"
+    var currentUserID: String? // Set from authentication flow
 
     private var cancellables = Set<AnyCancellable>()
     private let numerologyService = NumerologyService.shared
 
+    // --- Potential options for selections ---
+    let spiritualModeOptions = ["Manifestation", "Reflection", "Healing", "Growth", "Guidance"]
+    let insightToneOptions = ["Poetic", "Direct", "Gentle", "Motivational", "Philosophical"]
+    let focusTagOptions = ["Purpose", "Love", "Creativity", "Well-being", "Career", "Relationships", "Spiritual Growth", "Abundance"]
+    let cosmicPreferenceOptions = ["Numerology Only", "Numerology + Moon Phases", "Full Cosmic Integration"]
+    let cosmicRhythmOptions = ["Moon Phases", "Zodiac Seasons", "Planetary Transits", "Solar Events"]
+    // --- End Options ---
+
     func processOnboardingInfo() {
         guard let userID = currentUserID else {
             print("Error: User ID is not set. Cannot process onboarding.")
-            // Handle this error appropriately, perhaps show an alert to the user.
             return
         }
 
-        guard !fullNameAtBirth.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            print("Error: Full name at birth is required.")
-            // Handle this error, e.g., show an alert.
-            return
-        }
+        // FullNameAtBirth is optional for the UserProfile (birthName field), but we might still want it for calculations.
+        // The UserProfile.birthName will be nil if fullNameAtBirth is empty.
+        let birthNameForProfile = fullNameAtBirth.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : fullNameAtBirth.trimmingCharacters(in: .whitespacesAndNewlines)
 
         // Calculate Numerology Data
         let lifePathResult = numerologyService.calculateLifePathNumber(from: birthDate)
-        let soulUrgeResult = numerologyService.calculateSoulUrgeNumber(from: fullNameAtBirth)
-        let expressionResult = numerologyService.calculateExpressionNumber(from: fullNameAtBirth)
+        // Soul Urge and Expression are calculated based on birthNameForProfile if provided
+        let soulUrgeResult = birthNameForProfile != nil ? numerologyService.calculateSoulUrgeNumber(from: birthNameForProfile!) : nil
+        let expressionResult = birthNameForProfile != nil ? numerologyService.calculateExpressionNumber(from: birthNameForProfile!) : nil
 
-        // Create UserProfile
+        // Create UserProfile using the collected and default values
         let profile = UserProfile(
-            id: userID, // Use the actual authenticated user ID
-            fullNameAtBirth: fullNameAtBirth,
-            birthDate: birthDate,
+            id: userID, 
+            birthdate: birthDate,
             lifePathNumber: lifePathResult.number,
-            isMasterLifePath: lifePathResult.isMaster,
+            isMasterNumber: lifePathResult.isMaster,
+            spiritualMode: spiritualModeSelection,
+            insightTone: insightToneSelection,
+            focusTags: selectedFocusTags,
+            cosmicPreference: cosmicPreferenceSelection,
+            cosmicRhythms: selectedCosmicRhythms,
+            preferredHour: selectedPreferredHour,
+            wantsWhispers: doesWantWhispers,
+            birthName: birthNameForProfile, // Use the potentially nil birthName
             soulUrgeNumber: soulUrgeResult?.number,
-            isMasterSoulUrge: soulUrgeResult?.isMaster ?? false,
             expressionNumber: expressionResult?.number,
-            isMasterExpression: expressionResult?.isMaster ?? false
-            // We can add other fields from UserProfile here if we collect them during this initial onboarding
+            wantsReflectionMode: doesWantReflectionMode
         )
         
         self.userProfile = profile
-        print("👤 Onboarding Complete. UserProfile Created:")
+        print("👤 Onboarding ViewModel: UserProfile Prepared for Saving:")
         print("   User ID: \(profile.id)")
-        print("   Full Name: \(profile.fullNameAtBirth ?? "N/A")")
-        print("   Birth Date: \(profile.birthDate?.description ?? "N/A")")
-        print("   Life Path: \(profile.lifePathNumber ?? 0) \(profile.isMasterLifePath ? "(Master)" : "")")
-        print("   Soul Urge: \(profile.soulUrgeNumber ?? 0) \(profile.isMasterSoulUrge ? "(Master)" : "")")
-        print("   Expression: \(profile.expressionNumber ?? 0) \(profile.isMasterExpression ? "(Master)" : "")")
+        print("   Birth Date: \(profile.birthdate.description)")
+        print("   Life Path: \(profile.lifePathNumber) \(profile.isMasterNumber ? "(Master)" : "")")
+        print("   Spiritual Mode: \(profile.spiritualMode)")
+        print("   Insight Tone: \(profile.insightTone)")
+        print("   Focus Tags: \(profile.focusTags.joined(separator: ", "))")
+        print("   Cosmic Preference: \(profile.cosmicPreference)")
+        print("   Cosmic Rhythms: \(profile.cosmicRhythms.joined(separator: ", "))")
+        print("   Preferred Hour: \(profile.preferredHour)")
+        print("   Wants Whispers: \(profile.wantsWhispers)")
+        print("   Birth Name (Optional): \(profile.birthName ?? "N/A")")
+        print("   Soul Urge (Optional): \(profile.soulUrgeNumber != nil ? String(describing: profile.soulUrgeNumber!) : "N/A") \(soulUrgeResult?.isMaster == true ? "(Master)" : "")")
+        print("   Expression (Optional): \(profile.expressionNumber != nil ? String(describing: profile.expressionNumber!) : "N/A") \(expressionResult?.isMaster == true ? "(Master)" : "")")
+        print("   Wants Reflection Mode: \(profile.wantsReflectionMode)")
 
-        // TODO: Save the userProfile to Firestore or CoreData
-        // For now, we'll just mark onboarding as complete for UI transition
-        saveUserProfileToStorage(profile) // Placeholder for actual saving
+        saveUserProfileToStorage(profile)
     }
 
     private func saveUserProfileToStorage(_ profile: UserProfile) {
-        // This is where you would implement saving to Firestore or Core Data
-        // For example, using a UserProfileService:
         UserProfileService.shared.saveUserProfile(profile, for: profile.id) { error in
             if let error = error {
                 print("❌ OnboardingViewModel: Error saving user profile to Firestore: \(error.localizedDescription)")
-                // Handle error (e.g., show alert to the user, allow retry)
-                // For now, we are not setting onboardingComplete to true on error.
+                // Handle error appropriately in UI if necessary
             } else {
                 print("✅ OnboardingViewModel: UserProfile saved successfully to Firestore!")
                 DispatchQueue.main.async {
@@ -76,15 +109,8 @@ class OnboardingViewModel: ObservableObject {
                 }
             }
         }
-        
-        // TEMPORARY: Simulate successful save for UI flow
-        // print("🚧 (Temporary) Profile saving step. Marking onboarding as complete.")
-        // DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // Simulate async save
-        //     self.onboardingComplete = true
-        // }
     }
     
-    // Call this method from your sign-in flow to set the user ID
     func setUserID(_ id: String) {
         self.currentUserID = id
     }

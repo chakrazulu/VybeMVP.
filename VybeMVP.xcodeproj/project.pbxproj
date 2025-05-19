@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D083BD42DDAFFD90041E9DC /* OnboardingSpiritualModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BD32DDAFFD90041E9DC /* OnboardingSpiritualModeView.swift */; };
+		4D083BD62DDB01520041E9DC /* OnboardingInsightToneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BD52DDB01520041E9DC /* OnboardingInsightToneView.swift */; };
+		4D083BD82DDB027D0041E9DC /* OnboardingFocusTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BD72DDB027D0041E9DC /* OnboardingFocusTagsView.swift */; };
+		4D083BDA2DDB035E0041E9DC /* OnboardingCosmicPreferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BD92DDB035E0041E9DC /* OnboardingCosmicPreferenceView.swift */; };
+		4D083BDC2DDB040A0041E9DC /* OnboardingCosmicRhythmsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BDB2DDB040A0041E9DC /* OnboardingCosmicRhythmsView.swift */; };
+		4D083BE02DDB055E0041E9DC /* OnboardingNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BDF2DDB055E0041E9DC /* OnboardingNotificationsView.swift */; };
+		4D083BE42DDB060D0041E9DC /* OnboardingReflectionModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BE32DDB060D0041E9DC /* OnboardingReflectionModeView.swift */; };
+		4D083BE62DDB092A0041E9DC /* OnboardingCompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BE52DDB092A0041E9DC /* OnboardingCompletionView.swift */; };
 		4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */; };
 		4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */; };
 		4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BF2D3CA97C009A7BBD /* VybeMVP.xcdatamodeld */; };
@@ -79,6 +87,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D083BD32DDAFFD90041E9DC /* OnboardingSpiritualModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSpiritualModeView.swift; sourceTree = "<group>"; };
+		4D083BD52DDB01520041E9DC /* OnboardingInsightToneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInsightToneView.swift; sourceTree = "<group>"; };
+		4D083BD72DDB027D0041E9DC /* OnboardingFocusTagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFocusTagsView.swift; sourceTree = "<group>"; };
+		4D083BD92DDB035E0041E9DC /* OnboardingCosmicPreferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCosmicPreferenceView.swift; sourceTree = "<group>"; };
+		4D083BDB2DDB040A0041E9DC /* OnboardingCosmicRhythmsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCosmicRhythmsView.swift; sourceTree = "<group>"; };
+		4D083BDF2DDB055E0041E9DC /* OnboardingNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNotificationsView.swift; sourceTree = "<group>"; };
+		4D083BE32DDB060D0041E9DC /* OnboardingReflectionModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingReflectionModeView.swift; sourceTree = "<group>"; };
+		4D083BE52DDB092A0041E9DC /* OnboardingCompletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionView.swift; sourceTree = "<group>"; };
 		4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberHelper.swift; sourceTree = "<group>"; };
 		4D3055B62D3C9C3B009A7BBD /* VybeMVP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VybeMVP.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberView.swift; sourceTree = "<group>"; };
@@ -269,6 +285,14 @@
 		4D32D2882DD83E20005AC779 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				4D083BE52DDB092A0041E9DC /* OnboardingCompletionView.swift */,
+				4D083BE32DDB060D0041E9DC /* OnboardingReflectionModeView.swift */,
+				4D083BDF2DDB055E0041E9DC /* OnboardingNotificationsView.swift */,
+				4D083BDB2DDB040A0041E9DC /* OnboardingCosmicRhythmsView.swift */,
+				4D083BD92DDB035E0041E9DC /* OnboardingCosmicPreferenceView.swift */,
+				4D083BD72DDB027D0041E9DC /* OnboardingFocusTagsView.swift */,
+				4D083BD52DDB01520041E9DC /* OnboardingInsightToneView.swift */,
+				4D083BD32DDAFFD90041E9DC /* OnboardingSpiritualModeView.swift */,
 				4D32D2862DD83E20005AC779 /* OnboardingView.swift */,
 				4D32D2872DD83E20005AC779 /* OnboardingViewModel.swift */,
 			);
@@ -497,9 +521,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D083BD62DDB01520041E9DC /* OnboardingInsightToneView.swift in Sources */,
 				4D3055FC2D3D8F8A009A7BBD /* JournalListView.swift in Sources */,
 				4DC602402D34651C00B5E4A9 /* SettingsView.swift in Sources */,
 				4D80E1012D3F1DD80020F7BB /* NumberMeaning.swift in Sources */,
+				4D083BE62DDB092A0041E9DC /* OnboardingCompletionView.swift in Sources */,
 				4DC6023E2D34650400B5E4A9 /* HomeView.swift in Sources */,
 				4D3055FA2D3D899A009A7BBD /* JournalMood.swift in Sources */,
 				4D92F48C2D49E9C90001A16E /* TestingView.swift in Sources */,
@@ -520,6 +546,7 @@
 				4D32D2852DD83D2B005AC779 /* NumerologyService.swift in Sources */,
 				4D3055E72D3CEEC9009A7BBD /* JournalEntryDetailView.swift in Sources */,
 				4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */,
+				4D083BE42DDB060D0041E9DC /* OnboardingReflectionModeView.swift in Sources */,
 				4DA01CAE2D8533F50070309D /* NotificationManager.swift in Sources */,
 				4DA6425D2D8113D80047287B /* HeartRateView.swift in Sources */,
 				4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */,
@@ -530,7 +557,10 @@
 				4D3055FE2D3D903B009A7BBD /* JournalEntryRow.swift in Sources */,
 				4DC6023C2D345E2000B5E4A9 /* MainView.swift in Sources */,
 				4D3055E92D3CEF45009A7BBD /* EditJournalEntryView.swift in Sources */,
+				4D083BDA2DDB035E0041E9DC /* OnboardingCosmicPreferenceView.swift in Sources */,
 				4DA01CB22D8534BF0070309D /* NumberMatchNotificationView.swift in Sources */,
+				4D083BDC2DDB040A0041E9DC /* OnboardingCosmicRhythmsView.swift in Sources */,
+				4D083BE02DDB055E0041E9DC /* OnboardingNotificationsView.swift in Sources */,
 				4D3055E52D3CEDA5009A7BBD /* NewJournalEntryView.swift in Sources */,
 				4D3055C32D3CB018009A7BBD /* PersistenceController.swift in Sources */,
 				4D3055CA2D3CB981009A7BBD /* FocusMatch+Helper.swift in Sources */,
@@ -538,6 +568,7 @@
 				4D3056002D3D9245009A7BBD /* JournalEntryView.swift in Sources */,
 				4DC602392D345A3500B5E4A9 /* SignInView.swift in Sources */,
 				4DC6023A2D345C9E00B5E4A9 /* KeychainHelper.swift in Sources */,
+				4D083BD82DDB027D0041E9DC /* OnboardingFocusTagsView.swift in Sources */,
 				4D8AB7652D3B7A7900009BC9 /* ContentView.swift in Sources */,
 				4DE4C3802DB392E900BB7572 /* NumerologyNotificationTestView.swift in Sources */,
 				4DC602382D345A1B00B5E4A9 /* SignInViewModel.swift in Sources */,
@@ -547,6 +578,7 @@
 				4D92F4BC2D4DE1E80001A16E /* RealmNumberManager.swift in Sources */,
 				4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */,
 				4D92F4BD2D4DE1E80001A16E /* BackgroundManager.swift in Sources */,
+				4D083BD42DDAFFD90041E9DC /* OnboardingSpiritualModeView.swift in Sources */,
 				4D3055E32D3CEADA009A7BBD /* JournalEntry+CoreDataHelpers.swift in Sources */,
 				4D3055E12D3CE90C009A7BBD /* FocusNumberContent.swift in Sources */,
 				4D32D2812DD809B9005AC779 /* AuthService.swift in Sources */,
