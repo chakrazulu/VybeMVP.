@@ -257,6 +257,10 @@ struct VybeMVPApp: App {
                     if self.hasCompletedOnboarding != fallbackStatus {
                         self.hasCompletedOnboarding = fallbackStatus
                     }
+                    // If fallback says onboarding is complete, attempt to load profile for AIInsightManager
+                    if fallbackStatus {
+                        fetchProfileAndConfigureInsightManager(for: userID, source: "fallback_UserDefaults")
+                    }
                     return
                 }
 
@@ -265,11 +269,41 @@ struct VybeMVPApp: App {
                     if self.hasCompletedOnboarding != true {
                         self.hasCompletedOnboarding = true
                     }
+                    // ✨ New: Fetch the full profile and configure AIInsightManager
+                    fetchProfileAndConfigureInsightManager(for: userID, source: "firestore_profileExists")
                 } else {
                     os_log(.info, log: VybeMVPApp.appLoggerObject, "FIRESTORE_CHECK (Callback for \(userID)): Profile DOES NOT EXIST in Firestore. Onboarding FALSE.")
                     if self.hasCompletedOnboarding != false {
                         self.hasCompletedOnboarding = false
                     }
+                    // Ensure insight is cleared if onboarding is false
+                    AIInsightManager.shared.clearInsight()
+                }
+            }
+        }
+    }
+
+    // ✨ New helper function to fetch profile and configure AIInsightManager
+    private func fetchProfileAndConfigureInsightManager(for userID: String, source: String) {
+        os_log(.debug, log: VybeMVPApp.appLoggerObject, "FETCH_PROFILE_FOR_AI (Called by \(source)): Fetching profile for userID: \(userID) to configure AIInsightManager.")
+        UserProfileService.shared.fetchUserProfile(for: userID) { profile, fetchError in 
+            DispatchQueue.main.async {
+                if let fetchError = fetchError {
+                    os_log(.error, log: VybeMVPApp.appLoggerObject, "FETCH_PROFILE_FOR_AI (Callback for \(userID)): Failed to fetch UserProfile: \(fetchError.localizedDescription). AIInsightManager will not be configured with fresh data.")
+                    // Optionally, clear insight if profile fetch fails critically
+                    // AIInsightManager.shared.clearInsight()
+                    return
+                }
+                
+                if let fetchedProfile = profile {
+                    os_log(.info, log: VybeMVPApp.appLoggerObject, "FETCH_PROFILE_FOR_AI (Callback for \(userID)): UserProfile fetched successfully. Configuring AIInsightManager.")
+                    AIInsightManager.shared.configureAndRefreshInsight(for: fetchedProfile)
+                    // ✨ New: Cache the fetched profile to UserDefaults
+                    UserProfileService.shared.cacheUserProfileToUserDefaults(fetchedProfile)
+                } else {
+                    os_log(.error, log: VybeMVPApp.appLoggerObject, "FETCH_PROFILE_FOR_AI (Callback for \(userID)): UserProfile fetch returned nil but no error. AIInsightManager will not be configured.")
+                    // Optionally, clear insight
+                    // AIInsightManager.shared.clearInsight()
                 }
             }
         }

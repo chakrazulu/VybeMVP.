@@ -26,6 +26,53 @@ class UserProfileService {
         print("👤 UserProfileService initialized.")
     }
 
+    // MARK: - UserDefaults Cache Keys
+    private func userProfileDefaultsKey(for userID: String) -> String {
+        return "cachedUserProfile_\(userID)"
+    }
+
+    // MARK: - UserDefaults Caching
+    /**
+     * Caches the user's profile to UserDefaults.
+     * Assumes UserProfile is Codable.
+     *
+     * - Parameter profile: The UserProfile object to cache.
+     */
+    func cacheUserProfileToUserDefaults(_ profile: UserProfile) {
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(profile) {
+            UserDefaults.standard.set(encoded, forKey: userProfileDefaultsKey(for: profile.id))
+            print("💾 UserProfileService: Profile for userID \(profile.id) cached to UserDefaults.")
+        } else {
+            print("⚠️ UserProfileService: Failed to encode profile for userID \(profile.id) for UserDefaults caching.")
+        }
+    }
+
+    /**
+     * Retrieves the cached user's profile from UserDefaults.
+     * Assumes UserProfile is Codable.
+     *
+     * - Parameter userID: The unique ID of the user.
+     * - Returns: An optional UserProfile object from the cache.
+     */
+    func getCurrentUserProfileFromUserDefaults(for userID: String) -> UserProfile? {
+        guard let savedProfileData = UserDefaults.standard.data(forKey: userProfileDefaultsKey(for: userID)) else {
+            print("ℹ️ UserProfileService: No cached profile found in UserDefaults for userID \(userID).")
+            return nil
+        }
+
+        let decoder = JSONDecoder()
+        if let loadedProfile = try? decoder.decode(UserProfile.self, from: savedProfileData) {
+            print("✅ UserProfileService: Profile for userID \(userID) loaded from UserDefaults cache.")
+            return loadedProfile
+        } else {
+            print("⚠️ UserProfileService: Failed to decode cached profile for userID \(userID) from UserDefaults.")
+            // Optionally, remove the corrupted data
+            // UserDefaults.standard.removeObject(forKey: userProfileDefaultsKey(for: userID))
+            return nil
+        }
+    }
+
     // MARK: - Public Methods
 
     /**

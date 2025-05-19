@@ -104,6 +104,13 @@ class OnboardingViewModel: ObservableObject {
                 // Handle error appropriately in UI if necessary
             } else {
                 print("✅ OnboardingViewModel: UserProfile saved successfully to Firestore!")
+                
+                // ✨ New: Configure AIInsightManager with the newly saved profile
+                AIInsightManager.shared.configureAndRefreshInsight(for: profile)
+                
+                // ✨ Cache the newly created profile to UserDefaults so HomeView can access it immediately
+                UserProfileService.shared.cacheUserProfileToUserDefaults(profile)
+                
                 DispatchQueue.main.async {
                     self.onboardingComplete = true
                 }

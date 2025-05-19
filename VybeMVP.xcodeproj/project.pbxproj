@@ -15,6 +15,10 @@
 		4D083BE02DDB055E0041E9DC /* OnboardingNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BDF2DDB055E0041E9DC /* OnboardingNotificationsView.swift */; };
 		4D083BE42DDB060D0041E9DC /* OnboardingReflectionModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BE32DDB060D0041E9DC /* OnboardingReflectionModeView.swift */; };
 		4D083BE62DDB092A0041E9DC /* OnboardingCompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BE52DDB092A0041E9DC /* OnboardingCompletionView.swift */; };
+		4D083BE82DDB241C0041E9DC /* InsightTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BE72DDB241C0041E9DC /* InsightTemplate.swift */; };
+		4D083BEA2DDB244A0041E9DC /* PreparedInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BE92DDB244A0041E9DC /* PreparedInsight.swift */; };
+		4D083BF12DDB2AB60041E9DC /* AIInsightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BF02DDB2AB60041E9DC /* AIInsightManager.swift */; };
+		4D083BF32DDB2EEA0041E9DC /* InsightFilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BF22DDB2EEA0041E9DC /* InsightFilterService.swift */; };
 		4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */; };
 		4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */; };
 		4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BF2D3CA97C009A7BBD /* VybeMVP.xcdatamodeld */; };
@@ -95,6 +99,10 @@
 		4D083BDF2DDB055E0041E9DC /* OnboardingNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNotificationsView.swift; sourceTree = "<group>"; };
 		4D083BE32DDB060D0041E9DC /* OnboardingReflectionModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingReflectionModeView.swift; sourceTree = "<group>"; };
 		4D083BE52DDB092A0041E9DC /* OnboardingCompletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionView.swift; sourceTree = "<group>"; };
+		4D083BE72DDB241C0041E9DC /* InsightTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightTemplate.swift; sourceTree = "<group>"; };
+		4D083BE92DDB244A0041E9DC /* PreparedInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparedInsight.swift; sourceTree = "<group>"; };
+		4D083BF02DDB2AB60041E9DC /* AIInsightManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIInsightManager.swift; sourceTree = "<group>"; };
+		4D083BF22DDB2EEA0041E9DC /* InsightFilterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightFilterService.swift; sourceTree = "<group>"; };
 		4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberHelper.swift; sourceTree = "<group>"; };
 		4D3055B62D3C9C3B009A7BBD /* VybeMVP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VybeMVP.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberView.swift; sourceTree = "<group>"; };
@@ -212,6 +220,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		4D083BEC2DDB24840041E9DC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4D083BF22DDB2EEA0041E9DC /* InsightFilterService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		4D3055972D3C941B009A7BBD /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -230,6 +246,8 @@
 		4D3055982D3C9462009A7BBD /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				4D083BF02DDB2AB60041E9DC /* AIInsightManager.swift */,
+				4D083BEC2DDB24840041E9DC /* Services */,
 				4D32D28D2DD84A85005AC779 /* UserProfileService.swift */,
 				4D32D2842DD83D2B005AC779 /* NumerologyService.swift */,
 				4DA01CAD2D8533F50070309D /* NotificationManager.swift */,
@@ -266,6 +284,8 @@
 		4D3055F92D3D899A009A7BBD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4D083BE92DDB244A0041E9DC /* PreparedInsight.swift */,
+				4D083BE72DDB241C0041E9DC /* InsightTemplate.swift */,
 				4D32D2822DD83CCD005AC779 /* UserProfile.swift */,
 				4DE4C37D2DB3918E00BB7572 /* NumerologyMessage.swift */,
 				4D3055F82D3D899A009A7BBD /* JournalMood.swift */,
@@ -523,8 +543,10 @@
 			files = (
 				4D083BD62DDB01520041E9DC /* OnboardingInsightToneView.swift in Sources */,
 				4D3055FC2D3D8F8A009A7BBD /* JournalListView.swift in Sources */,
+				4D083BF12DDB2AB60041E9DC /* AIInsightManager.swift in Sources */,
 				4DC602402D34651C00B5E4A9 /* SettingsView.swift in Sources */,
 				4D80E1012D3F1DD80020F7BB /* NumberMeaning.swift in Sources */,
+				4D083BE82DDB241C0041E9DC /* InsightTemplate.swift in Sources */,
 				4D083BE62DDB092A0041E9DC /* OnboardingCompletionView.swift in Sources */,
 				4DC6023E2D34650400B5E4A9 /* HomeView.swift in Sources */,
 				4D3055FA2D3D899A009A7BBD /* JournalMood.swift in Sources */,
@@ -533,6 +555,7 @@
 				4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */,
 				4D3055C62D3CB201009A7BBD /* UserPreferences+Helper.swift in Sources */,
 				4DA642642D8122590047287B /* HealthKitManaging.swift in Sources */,
+				4D083BEA2DDB244A0041E9DC /* PreparedInsight.swift in Sources */,
 				4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */,
 				4DE4C37E2DB3918E00BB7572 /* NumerologyMessage.swift in Sources */,
 				4D32D2892DD83E20005AC779 /* OnboardingView.swift in Sources */,
@@ -540,6 +563,7 @@
 				4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */,
 				4D3055CE2D3CC9CA009A7BBD /* FocusNumberPicker.swift in Sources */,
 				4D32D2832DD83CCD005AC779 /* UserProfile.swift in Sources */,
+				4D083BF32DDB2EEA0041E9DC /* InsightFilterService.swift in Sources */,
 				4D3055EB2D3CF492009A7BBD /* NumberCell.swift in Sources */,
 				4D3055DF2D3CE8AE009A7BBD /* JournalView.swift in Sources */,
 				4D80E0FD2D3F1B0B0020F7BB /* NumberMeaningView.swift in Sources */,

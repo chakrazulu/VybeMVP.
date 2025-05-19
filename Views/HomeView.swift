@@ -25,6 +25,9 @@ import SwiftUI
 struct HomeView: View {
     /// Access to the focus number manager for displaying the selected number and match history
     @EnvironmentObject var focusNumberManager: FocusNumberManager
+    @EnvironmentObject var realmNumberManager: RealmNumberManager
+    @EnvironmentObject var signInViewModel: SignInViewModel
+    @ObservedObject var aiInsightManager = AIInsightManager.shared
     
     /// Controls visibility of the focus number picker sheet
     @State private var showingPicker = false
@@ -34,6 +37,48 @@ struct HomeView: View {
             VStack(spacing: 30) {
                 Text("Vybe")
                     .font(.system(size: 40, weight: .bold))
+                
+                // New: Personalized Insight Section
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Today's Vybe")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .padding(.bottom, 4)
+                    
+                    if aiInsightManager.isInsightReady {
+                        if let insight = aiInsightManager.personalizedDailyInsight {
+                            Text(insight.text)
+                                .font(.body)
+                                .fixedSize(horizontal: false, vertical: true)
+                            
+                            // Displaying source or alignment context
+                            if let userID = signInViewModel.userID,
+                               let userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID) {
+                                Text("Aligned to your Life Path \(userProfile.lifePathNumber) & \(userProfile.spiritualMode) Mode.")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                                    .padding(.top, 2)
+                            }
+                        } else {
+                            Text("Your personalized Vybe is being cultivated. Check back soon!")
+                                .font(.body)
+                                .foregroundColor(.secondary)
+                        }
+                    } else {
+                        HStack {
+                            ProgressView()
+                                .padding(.trailing, 4)
+                            Text("Loading your personalized Vybe...")
+                                .font(.body)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                }
+                .padding()
+                .background(Color(.secondarySystemBackground))
+                .cornerRadius(12)
+                .padding(.horizontal)
+                // End of New Section
                 
                 Text("Your Focus Number")
                     .font(.title)
