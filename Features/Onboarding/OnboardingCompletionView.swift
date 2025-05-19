@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftUI
 
 struct OnboardingCompletionView: View {
     @ObservedObject var viewModel: OnboardingViewModel
