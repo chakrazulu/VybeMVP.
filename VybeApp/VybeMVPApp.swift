@@ -9,6 +9,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     var realmNumberManager: RealmNumberManager?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        // CONFIGURE FIREBASE HERE - This is the most reliable place
+        FirebaseApp.configure()
+        // Log after configuration to confirm
+        print("🔥 Firebase configured in AppDelegate didFinishLaunchingWithOptions")
+
         // Register background task handler early in app lifecycle
         BGTaskScheduler.shared.register(
             forTaskWithIdentifier: "com.infinitiesinn.vybe.backgroundUpdate",
@@ -126,9 +131,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 @main
 struct VybeMVPApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @StateObject private var notificationManager = NotificationManager.shared
+    @StateObject private var realmNumberManager = RealmNumberManager()
     @StateObject private var focusNumberManager = FocusNumberManager.shared
     @StateObject private var journalManager = JournalManager()
-    @StateObject private var realmNumberManager = RealmNumberManager()
     @StateObject private var backgroundManager = BackgroundManager.shared
     @StateObject private var healthKitManager = HealthKitManager.shared
     @Environment(\.scenePhase) private var scenePhase
@@ -136,115 +142,142 @@ struct VybeMVPApp: App {
     
     @StateObject private var signInViewModel = SignInViewModel()
     
+    @State private var hasCompletedOnboarding: Bool = false
+    private let onboardingCompletedKey = "hasCompletedOnboarding"
+
+    private static let appLoggerObject = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "VybeMVPAppLogic")
+    
     init() {
-        print("🚀 App starting initialization...")
-        
-        // Configure Firebase first
-        FirebaseApp.configure()
-        print("🔥 Firebase configured")
-        
-        // Initialize and preload Numerology Messages
+        os_log(.info, log: VybeMVPApp.appLoggerObject, "🚀 VybeMVPApp: INIT CALLED - VERSION_WITH_OS_LOGS_NOV_19_D")
+        // Firebase is now configured in AppDelegate
+        // print("🔥 Firebase configured") // This print might now be misleading here, better in AppDelegate
         let messageManager = NumerologyMessageManager.shared
         messageManager.preloadMessages()
-        
-        // Configure logging for development
         #if DEBUG
-        // Reduce system noise
         UserDefaults.standard.set(false, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
-        UserDefaults.standard.setValue(false, forKey: "UIViewLayoutConstraintEnableLog")
-        
-        // Set up custom logging categories
-        configureLogging()
         #endif
-        
         configureAppearance()
-        
-        // Configure FocusNumberManager to subscribe to RealmNumberManager updates
-        // MOVED to ContentView.onAppear to avoid StateObject warning
-        // FocusNumberManager.shared.configure(realmManager: self.realmNumberManager)
-        
-        print("🚀 App initialized with RealmNumberManager...")
-    }
-    
-    private func configureLogging() {
-        // Only log important subsystems
-        setenv("OS_ACTIVITY_MODE", "disable", 1)
-        
-        // Keep your emoji-tagged logs which are much more useful
-        Logger.debug("📱 App initialized", category: Logger.lifecycle)
+        os_log(.info, log: VybeMVPApp.appLoggerObject, "🚀 VybeMVPApp: INIT COMPLETED - VERSION_WITH_OS_LOGS_NOV_19_D")
     }
     
     var body: some Scene {
         WindowGroup {
             Group {
                 if signInViewModel.isSignedIn {
-                    ContentView()
-                        .environmentObject(realmNumberManager)
-                        .environmentObject(journalManager)
-                        .environmentObject(focusNumberManager)
-                        .environmentObject(backgroundManager)
-                        .environmentObject(healthKitManager)
-                        .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                        .environmentObject(signInViewModel)
-                        .onAppear {
-                            // --- Instance Sharing Setup --- (Moved to onAppear)
-                            // Ensure this runs only once
-                            if appDelegate.realmNumberManager == nil {
-                                appDelegate.realmNumberManager = self.realmNumberManager
-                                print("🔗 Linked AppDelegate to shared RealmNumberManager instance (onAppear).")
-                                
-                                // Start the shared RealmNumberManager instance
-                                print("▶️ Starting RealmNumberManager from onAppear...")
-                                realmNumberManager.startUpdates()
-                            }
-                            // --- End Instance Sharing Setup ---
-
-                            // Existing onAppear logic:
-                            backgroundManager.setManagers(realm: realmNumberManager, focus: focusNumberManager)
-                            backgroundManager.scheduleBackgroundTask()
-                            if healthKitManager.authorizationStatus == .sharingAuthorized {
-                                healthKitManager.startHeartRateMonitoring()
-                            }
-                        }
-                        .onChange(of: scenePhase) { oldPhase, newPhase in
-                            switch newPhase {
-                            case .active:
-                                // App became active - start frequent updates
-                                print("📱 App became active")
-                                backgroundManager.startActiveUpdates()
-                            case .inactive:
-                                // App became inactive - stop frequent updates
-                                print("📱 App became inactive")
-                                backgroundManager.stopActiveUpdates()
-                                persistenceController.save()
-                            case .background:
-                                // App moved to background - stop frequent updates and schedule background task
-                                print("📱 App moved to background")
-                                backgroundManager.stopActiveUpdates()
-                                persistenceController.save()
+                    if hasCompletedOnboarding {
+                        ContentView()
+                            .environmentObject(realmNumberManager)
+                            .environmentObject(journalManager)
+                            .environmentObject(focusNumberManager)
+                            .environmentObject(backgroundManager)
+                            .environmentObject(healthKitManager)
+                            .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                            .environmentObject(signInViewModel)
+                            .environmentObject(notificationManager)
+                            .onAppear {
+                                os_log(.debug, log: VybeMVPApp.appLoggerObject, "CONTENT_VIEW: .onAppear - VERSION_WITH_OS_LOGS_NOV_19_D")
+                                if appDelegate.realmNumberManager == nil {
+                                    appDelegate.realmNumberManager = self.realmNumberManager
+                                    os_log(.info, log: VybeMVPApp.appLoggerObject, "🔗 AppDelegate linked to RealmNumberManager.")
+                                    os_log(.info, log: VybeMVPApp.appLoggerObject, "▶️ Starting RealmNumberManager...")
+                                    realmNumberManager.startUpdates()
+                                }
+                                backgroundManager.setManagers(realm: realmNumberManager, focus: focusNumberManager)
                                 backgroundManager.scheduleBackgroundTask()
-                            @unknown default:
-                                break
+                                if healthKitManager.authorizationStatus == .sharingAuthorized {
+                                    healthKitManager.startHeartRateMonitoring()
+                                }
                             }
-                        }
+                    } else {
+                        OnboardingView(hasCompletedOnboarding: $hasCompletedOnboarding)
+                            .environmentObject(signInViewModel)
+                            .environmentObject(journalManager)
+                            .environmentObject(focusNumberManager)
+                    }
                 } else {
                     SignInView(isSignedIn: $signInViewModel.isSignedIn)
                         .environmentObject(signInViewModel)
                 }
             }
-            .onAppear {
+            .onAppear { 
+                os_log(.debug, log: VybeMVPApp.appLoggerObject, "ROOT_GROUP: .onAppear CALLED - VERSION_WITH_OS_LOGS_NOV_19_D")
                 signInViewModel.checkSignInStatus()
+                
+                if signInViewModel.isSignedIn, let userID = signInViewModel.userID {
+                    os_log(.info, log: VybeMVPApp.appLoggerObject, "ROOT_GROUP.onAppear: User WAS ALREADY SIGNED IN (userID: \(userID)), Onboarding: \(self.hasCompletedOnboarding). Kicking off Firestore check.")
+                    checkOnboardingStatusInFirestore(for: userID, source: "onAppear_V.OSL_NOV_19_D")
+                } else {
+                    os_log(.info, log: VybeMVPApp.appLoggerObject, "ROOT_GROUP.onAppear: User was NOT signed in. Onboarding false.")
+                    if self.hasCompletedOnboarding != false {
+                         self.hasCompletedOnboarding = false
+                    }
+                }
+            }
+            .onChange(of: signInViewModel.isSignedIn) { oldValue, newValue in
+                os_log(.debug, log: VybeMVPApp.appLoggerObject, "SIGN_IN_STATUS_CHANGED: Old=\(oldValue), New=\(newValue) - V.OSL_NOV_19_D")
+                if newValue {
+                    if let userID = signInViewModel.userID {
+                        os_log(.info, log: VybeMVPApp.appLoggerObject, "SIGN_IN_STATUS_CHANGED: User JUST signed IN (userID: \(userID)), Onboarding: \(self.hasCompletedOnboarding). Kicking off Firestore check.")
+                        checkOnboardingStatusInFirestore(for: userID, source: "onChangeSignIn_V.OSL_NOV_19_D")
+                    } else {
+                        os_log(.error, log: VybeMVPApp.appLoggerObject, "SIGN_IN_STATUS_CHANGED: User signed in, but userID nil! Onboarding false.")
+                        if self.hasCompletedOnboarding != false {
+                             self.hasCompletedOnboarding = false
+                        }
+                    }
+                } else {
+                    os_log(.info, log: VybeMVPApp.appLoggerObject, "SIGN_IN_STATUS_CHANGED: User JUST signed OUT. Resetting UI onboarding state false.")
+                    if self.hasCompletedOnboarding != false {
+                        self.hasCompletedOnboarding = false
+                    }
+                }
+            }
+            .onChange(of: hasCompletedOnboarding) { oldValue, newValue in 
+                os_log(.debug, log: VybeMVPApp.appLoggerObject, "ONBOARDING_STATE_CHANGED: Old=\(oldValue), New=\(newValue) - V.OSL_NOV_19_D")
+                if signInViewModel.isSignedIn, let userID = signInViewModel.userID {
+                    let key = onboardingCompletedKey + userID
+                    UserDefaults.standard.set(newValue, forKey: key)
+                    os_log(.info, log: VybeMVPApp.appLoggerObject, "ONBOARDING_STATE_CHANGED: Cached to UserDefaults for user \(userID): \(newValue)")
+                } else {
+                    os_log(.info, log: VybeMVPApp.appLoggerObject, "ONBOARDING_STATE_CHANGED: User not signed in or userID nil. Not caching. (isSignedIn: \(self.signInViewModel.isSignedIn))")
+                }
             }
         }
     }
     
+    private func checkOnboardingStatusInFirestore(for userID: String, source: String) {
+        os_log(.debug, log: VybeMVPApp.appLoggerObject, "FIRESTORE_CHECK (Called by \(source)): Checking profile for userID: \(userID) - V.OSL_NOV_19_D")
+        UserProfileService.shared.profileExists(for: userID) { [self] existsInFirestore, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    os_log(.error, log: VybeMVPApp.appLoggerObject, "FIRESTORE_CHECK (Callback for \(userID)): Firestore .profileExists FAILED! Error: \(error.localizedDescription). Fallback to UserDefaults.")
+                    let key = self.onboardingCompletedKey + userID
+                    let fallbackStatus = UserDefaults.standard.bool(forKey: key)
+                    os_log(.default, log: VybeMVPApp.appLoggerObject, "FIRESTORE_CHECK (Callback for \(userID)): Using UserDefaults fallback status: \(fallbackStatus)")
+                    if self.hasCompletedOnboarding != fallbackStatus {
+                        self.hasCompletedOnboarding = fallbackStatus
+                    }
+                    return
+                }
+
+                if existsInFirestore {
+                    os_log(.info, log: VybeMVPApp.appLoggerObject, "FIRESTORE_CHECK (Callback for \(userID)): Profile DOES EXIST in Firestore. Onboarding TRUE.")
+                    if self.hasCompletedOnboarding != true {
+                        self.hasCompletedOnboarding = true
+                    }
+                } else {
+                    os_log(.info, log: VybeMVPApp.appLoggerObject, "FIRESTORE_CHECK (Callback for \(userID)): Profile DOES NOT EXIST in Firestore. Onboarding FALSE.")
+                    if self.hasCompletedOnboarding != false {
+                        self.hasCompletedOnboarding = false
+                    }
+                }
+            }
+        }
+    }
+
     private func configureAppearance() {
-        // Configure global appearance
-        UINavigationBar.appearance().largeTitleTextAttributes = [
-            .foregroundColor: UIColor.label
-        ]
-        
-        // Set the tab bar appearance
+        os_log(.info, log: VybeMVPApp.appLoggerObject, "🎨 VybeMVPApp: configureAppearance called - V.OSL_NOV_19_D")
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.label]
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
         UITabBar.appearance().scrollEdgeAppearance = appearance

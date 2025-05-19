@@ -7,8 +7,14 @@ class AuthService {
     static let shared = AuthService()
     private init() {}
 
+    // Pass the UserDefaults key for consistency
+    private let onboardingCompletedKey = "hasCompletedOnboarding"
+
     func logout(signInViewModel: SignInViewModel) {
         print("➡️ Initiating logout process...")
+
+        // Get the userID *before* it's cleared by logout process
+        let userIDToClearOnboardingFor = signInViewModel.userID
 
         // Attempt to fetch the token first to ensure Firebase Messaging is active
         Messaging.messaging().token { token, error in
@@ -36,10 +42,21 @@ class AuthService {
         }
         print("🔑 Keychain data cleared for keys: \(keychainKeys.joined(separator: ", ")).")
 
-        // 3. Update the app's state via SignInViewModel
+        // 3. Clear User-Specific Onboarding Flag from UserDefaults
+        if let userID = userIDToClearOnboardingFor {
+            UserDefaults.standard.removeObject(forKey: onboardingCompletedKey + userID)
+            print("🧹 Cleared onboarding status from UserDefaults for userID: \(userID)")
+        } else {
+            print("⚠️ Could not clear onboarding status from UserDefaults: userID was nil before logout.")
+        }
+
+        // 4. Update the app's state via SignInViewModel
+        signInViewModel.handleLogout()
+        
+        // This print statement can remain for clarity, confirming the intended navigation.
+        // It's good practice to ensure UI-related logging or state checks are main-thread if they could be.
         DispatchQueue.main.async {
-            signInViewModel.isSignedIn = false
-            print("🔄 App state updated: isSignedIn is now false. Navigating to SignInView.")
+            print("🔄 App state updated by handleLogout. Expecting navigation to SignInView.")
         }
         
         print("✅ Logout process complete. (Note: FCM operations are asynchronous)")
