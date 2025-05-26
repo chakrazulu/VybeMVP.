@@ -19,6 +19,7 @@
 		4D083BEA2DDB244A0041E9DC /* PreparedInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BE92DDB244A0041E9DC /* PreparedInsight.swift */; };
 		4D083BF12DDB2AB60041E9DC /* AIInsightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BF02DDB2AB60041E9DC /* AIInsightManager.swift */; };
 		4D083BF32DDB2EEA0041E9DC /* InsightFilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BF22DDB2EEA0041E9DC /* InsightFilterService.swift */; };
+		4D083BF52DDBFBCF0041E9DC /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D083BF42DDBFBCF0041E9DC /* Logger+Extensions.swift */; };
 		4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */; };
 		4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */; };
 		4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BF2D3CA97C009A7BBD /* VybeMVP.xcdatamodeld */; };
@@ -34,7 +35,7 @@
 		4D3055E72D3CEEC9009A7BBD /* JournalEntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055E62D3CEEC9009A7BBD /* JournalEntryDetailView.swift */; };
 		4D3055E92D3CEF45009A7BBD /* EditJournalEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055E82D3CEF45009A7BBD /* EditJournalEntryView.swift */; };
 		4D3055EB2D3CF492009A7BBD /* NumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055EA2D3CF492009A7BBD /* NumberCell.swift */; };
-		4D3055EE2D3CF838009A7BBD /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055EC2D3CF838009A7BBD /* Logger.swift */; };
+		4D3055EE2D3CF838009A7BBD /* OldLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055EC2D3CF838009A7BBD /* OldLogger.swift */; };
 		4D3055FA2D3D899A009A7BBD /* JournalMood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055F82D3D899A009A7BBD /* JournalMood.swift */; };
 		4D3055FC2D3D8F8A009A7BBD /* JournalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055FB2D3D8F8A009A7BBD /* JournalListView.swift */; };
 		4D3055FE2D3D903B009A7BBD /* JournalEntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055FD2D3D903B009A7BBD /* JournalEntryRow.swift */; };
@@ -103,6 +104,7 @@
 		4D083BE92DDB244A0041E9DC /* PreparedInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparedInsight.swift; sourceTree = "<group>"; };
 		4D083BF02DDB2AB60041E9DC /* AIInsightManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIInsightManager.swift; sourceTree = "<group>"; };
 		4D083BF22DDB2EEA0041E9DC /* InsightFilterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightFilterService.swift; sourceTree = "<group>"; };
+		4D083BF42DDBFBCF0041E9DC /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 		4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberHelper.swift; sourceTree = "<group>"; };
 		4D3055B62D3C9C3B009A7BBD /* VybeMVP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VybeMVP.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberView.swift; sourceTree = "<group>"; };
@@ -119,7 +121,7 @@
 		4D3055E62D3CEEC9009A7BBD /* JournalEntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryDetailView.swift; sourceTree = "<group>"; };
 		4D3055E82D3CEF45009A7BBD /* EditJournalEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditJournalEntryView.swift; sourceTree = "<group>"; };
 		4D3055EA2D3CF492009A7BBD /* NumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberCell.swift; sourceTree = "<group>"; };
-		4D3055EC2D3CF838009A7BBD /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		4D3055EC2D3CF838009A7BBD /* OldLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldLogger.swift; sourceTree = "<group>"; };
 		4D3055F82D3D899A009A7BBD /* JournalMood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalMood.swift; sourceTree = "<group>"; };
 		4D3055FB2D3D8F8A009A7BBD /* JournalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalListView.swift; sourceTree = "<group>"; };
 		4D3055FD2D3D903B009A7BBD /* JournalEntryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryRow.swift; sourceTree = "<group>"; };
@@ -275,8 +277,9 @@
 		4D3055ED2D3CF838009A7BBD /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				4D083BF42DDBFBCF0041E9DC /* Logger+Extensions.swift */,
 				4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */,
-				4D3055EC2D3CF838009A7BBD /* Logger.swift */,
+				4D3055EC2D3CF838009A7BBD /* OldLogger.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -571,10 +574,11 @@
 				4D3055E72D3CEEC9009A7BBD /* JournalEntryDetailView.swift in Sources */,
 				4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */,
 				4D083BE42DDB060D0041E9DC /* OnboardingReflectionModeView.swift in Sources */,
+				4D083BF52DDBFBCF0041E9DC /* Logger+Extensions.swift in Sources */,
 				4DA01CAE2D8533F50070309D /* NotificationManager.swift in Sources */,
 				4DA6425D2D8113D80047287B /* HeartRateView.swift in Sources */,
 				4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */,
-				4D3055EE2D3CF838009A7BBD /* Logger.swift in Sources */,
+				4D3055EE2D3CF838009A7BBD /* OldLogger.swift in Sources */,
 				4D32D28E2DD84A85005AC779 /* UserProfileService.swift in Sources */,
 				4D92F4BF2D4DE6050001A16E /* HealthKitManager.swift in Sources */,
 				4D3055CC2D3CBB36009A7BBD /* UserPreferences.swift in Sources */,

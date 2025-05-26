@@ -16,6 +16,7 @@
  */
 
 import CoreData
+import os.log
 
 /**
  * Controller responsible for Core Data persistence operations.
@@ -142,7 +143,7 @@ class PersistenceController {
                 }
             } catch {
                 let nsError = error as NSError
-                Logger.error("Error saving context: \(nsError.localizedDescription)", category: Logger.coreData)
+                Logger.data.error("Error saving context: \(nsError.localizedDescription)")
                 
                 #if DEBUG
                 DispatchQueue.main.async {

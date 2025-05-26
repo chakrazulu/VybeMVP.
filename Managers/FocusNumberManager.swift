@@ -116,7 +116,7 @@ class FocusNumberManager: NSObject, ObservableObject {
         
         loadPreferences()
         loadMatchLogs()
-        Logger.debug("📱 FocusNumberManager initialized with number: \(selectedFocusNumber)", category: Logger.focus)
+        Logger.focus.debug("📱 FocusNumberManager initialized with number: \(self.selectedFocusNumber)")
     }
     
     /// Configures the manager with necessary dependencies after initialization.
@@ -587,7 +587,7 @@ class FocusNumberManager: NSObject, ObservableObject {
         }
         
         isAutoUpdateEnabled = preferences.isAutoUpdateEnabled
-        Logger.debug("Loaded preferences - Number: \(selectedFocusNumber), Auto Update: \(isAutoUpdateEnabled)", category: Logger.focus)
+        Logger.focus.debug("Loaded preferences - Number: \(self.selectedFocusNumber), Auto Update: \(self.isAutoUpdateEnabled)")
     }
     
     /**
@@ -689,6 +689,27 @@ class FocusNumberManager: NSObject, ObservableObject {
             )
         }
     }
+
+    private func handleLocationUpdate(_ location: CLLocation) {
+        Logger.location.debug("📍 Location update received: \(location.coordinate.latitude), \(location.coordinate.longitude)")
+        currentLocation = location
+        // ... rest of the method ...
+    }
+
+    private func handleLocationError(_ error: Error) {
+        Logger.location.error("❌ Location error: \(error.localizedDescription)")
+        // ... rest of the method ...
+    }
+
+    private func handleLocationAuthorizationChange(_ status: CLAuthorizationStatus) {
+        Logger.location.debug("🔐 Location authorization changed to: \(status.rawValue)")
+        // ... rest of the method ...
+    }
+
+    private func handleLocationAuthorizationError(_ error: Error) {
+        Logger.location.error("❌ Location authorization error: \(error.localizedDescription)")
+        // ... rest of the method ...
+    }
 }
 
 // MARK: - CLLocationManagerDelegate
@@ -712,7 +733,7 @@ extension FocusNumberManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last?.coordinate else { return }
         _currentLocation = location
-        Logger.debug("📍 Location updated: \(location.latitude), \(location.longitude)", category: Logger.location)
+        Logger.location.debug("📍 Location updated: \(location.latitude), \(location.longitude)")
     }
     
     /**
@@ -731,11 +752,11 @@ extension FocusNumberManager: CLLocationManagerDelegate {
         if let error = error as? CLError {
             switch error.code {
             case .denied:
-                Logger.error("❌ Location access denied", category: Logger.location)
+                Logger.location.error("❌ Location access denied")
             case .locationUnknown:
-                Logger.debug("⚠️ Location temporarily unavailable", category: Logger.location)
+                Logger.location.debug("⚠️ Location temporarily unavailable")
             default:
-                Logger.error("❌ Location error: \(error.localizedDescription)", category: Logger.location)
+                Logger.location.error("❌ Location error: \(error.localizedDescription)")
             }
         }
     }

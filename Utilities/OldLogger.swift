@@ -1,7 +1,7 @@
 import Foundation
 import os.log
 
-struct Logger {
+struct OldLogger {
     private static let subsystem = Bundle.main.bundleIdentifier ?? "com.vybe.app"
     
     static let coreData = OSLog(subsystem: subsystem, category: "coredata")
