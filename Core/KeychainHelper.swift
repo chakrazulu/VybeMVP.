@@ -45,6 +45,7 @@ class KeychainHelper {
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key
         ]
+        
         let status = SecItemDelete(query as CFDictionary)
         if status == errSecSuccess {
             print("Keychain item deleted successfully for key: \(key)")

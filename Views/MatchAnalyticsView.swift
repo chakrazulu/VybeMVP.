@@ -294,6 +294,9 @@ struct MatchAnalyticsView: View {
     /// Core Data context for database operations
     @Environment(\.managedObjectContext) private var viewContext
     
+    /// Dynamic Type size for accessibility support
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    
     /// Access to heart rate data for analytics
     @StateObject private var healthKitManager = HealthKitManager.shared
     
@@ -365,22 +368,44 @@ struct MatchAnalyticsView: View {
     
     /// Heart rate statistics (BPM values)
     private var heartRateStats: some View {
-        HStack {
-            // Current BPM
-            let currentRate = String(healthKitManager.currentHeartRate)
-            StatCard(
-                icon: "heart.fill",
-                title: "Current BPM",
-                value: currentRate
-            )
-            
-            // Last valid BPM
-            let lastRate = String(healthKitManager.lastValidBPM)
-            StatCard(
-                icon: "heart.circle.fill",
-                title: "Last Valid BPM",
-                value: lastRate
-            )
+        Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                VStack(spacing: 12) {
+                    // Current BPM - validate to prevent NaN
+                    let currentRate = healthKitManager.currentHeartRate > 0 ? String(healthKitManager.currentHeartRate) : "0"
+                    StatCard(
+                        icon: "heart.fill",
+                        title: "Current BPM",
+                        value: currentRate
+                    )
+                    
+                    // Last valid BPM - validate to prevent NaN
+                    let lastRate = healthKitManager.lastValidBPM > 0 ? String(healthKitManager.lastValidBPM) : "0"
+                    StatCard(
+                        icon: "heart.circle.fill",
+                        title: "Last Valid BPM",
+                        value: lastRate
+                    )
+                }
+            } else {
+                HStack(spacing: 12) {
+                    // Current BPM - validate to prevent NaN
+                    let currentRate = healthKitManager.currentHeartRate > 0 ? String(healthKitManager.currentHeartRate) : "0"
+                    StatCard(
+                        icon: "heart.fill",
+                        title: "Current BPM",
+                        value: currentRate
+                    )
+                    
+                    // Last valid BPM - validate to prevent NaN
+                    let lastRate = healthKitManager.lastValidBPM > 0 ? String(healthKitManager.lastValidBPM) : "0"
+                    StatCard(
+                        icon: "heart.circle.fill",
+                        title: "Last Valid BPM",
+                        value: lastRate
+                    )
+                }
+            }
         }
         .padding(.horizontal)
     }
@@ -392,24 +417,46 @@ struct MatchAnalyticsView: View {
                 .font(.headline)
                 .padding(.horizontal)
             
-            HStack(spacing: 12) {
-                // Total matches
-                let totalCount = String(focusNumberManager.matchLogs.count)
-                StatCard(
-                    icon: "checkmark.circle.fill",
-                    title: "Total Matches", 
-                    value: totalCount
-                )
-                .layoutPriority(1)
-                
-                // Today's matches
-                let todayCount = viewModel.getTodayMatchCount()
-                StatCard(
-                    icon: "clock.fill",
-                    title: "Today's Matches",
-                    value: todayCount
-                )
-                .layoutPriority(1)
+            Group {
+                if dynamicTypeSize.isAccessibilitySize {
+                    VStack(spacing: 12) {
+                        // Total matches
+                        let totalCount = String(focusNumberManager.matchLogs.count)
+                        StatCard(
+                            icon: "checkmark.circle.fill",
+                            title: "Total Matches", 
+                            value: totalCount
+                        )
+                        
+                        // Today's matches
+                        let todayCount = viewModel.getTodayMatchCount()
+                        StatCard(
+                            icon: "clock.fill",
+                            title: "Today's Matches",
+                            value: todayCount
+                        )
+                    }
+                } else {
+                    HStack(spacing: 12) {
+                        // Total matches
+                        let totalCount = String(focusNumberManager.matchLogs.count)
+                        StatCard(
+                            icon: "checkmark.circle.fill",
+                            title: "Total Matches", 
+                            value: totalCount
+                        )
+                        .layoutPriority(1)
+                        
+                        // Today's matches
+                        let todayCount = viewModel.getTodayMatchCount()
+                        StatCard(
+                            icon: "clock.fill",
+                            title: "Today's Matches",
+                            value: todayCount
+                        )
+                        .layoutPriority(1)
+                    }
+                }
             }
             .padding(.horizontal, 12)
             .padding(.bottom, 8)
@@ -513,27 +560,34 @@ struct StatCard: View {
     /// The actual statistic value to display
     var value: String
     
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 5) {
                 Image(systemName: icon)
                     .foregroundColor(.blue)
                     .accessibility(hidden: true)
+                    .font(.system(size: dynamicTypeSize.isAccessibilitySize ? 20 : 16))
+                
                 Text(title)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.7)
+                    .lineLimit(dynamicTypeSize.isAccessibilitySize ? 3 : 2)
+                    .minimumScaleFactor(0.8)
+                    .fixedSize(horizontal: false, vertical: true)
             }
+            
             Text(value)
-                .font(.title2)
+                .font(dynamicTypeSize.isAccessibilitySize ? .title3 : .title2)
                 .fontWeight(.bold)
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
+                .lineLimit(2)
+                .minimumScaleFactor(0.7)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.vertical, 12)
-        .padding(.horizontal, 10)
+        .padding(.vertical, dynamicTypeSize.isAccessibilitySize ? 16 : 12)
+        .padding(.horizontal, dynamicTypeSize.isAccessibilitySize ? 14 : 10)
         .background(Color(.secondarySystemBackground))
         .cornerRadius(10)
     }
@@ -554,24 +608,24 @@ struct PatternRow: View {
     /// The pattern value or result to display
     var value: String
     
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            // Put each part in its own row for better adaptation to large text sizes
+        VStack(alignment: .leading, spacing: dynamicTypeSize.isAccessibilitySize ? 8 : 4) {
             Text(title)
                 .foregroundColor(.secondary)
                 .font(.subheadline)
-                .lineLimit(2)
-                .minimumScaleFactor(0.75)
+                .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 2)
                 .fixedSize(horizontal: false, vertical: true)
             
             Text(value)
                 .fontWeight(.medium)
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
-                .padding(.leading, 8)
+                .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 2)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.leading, dynamicTypeSize.isAccessibilitySize ? 12 : 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding(.vertical, 6)
+        .padding(.vertical, dynamicTypeSize.isAccessibilitySize ? 12 : 6)
     }
 }
 

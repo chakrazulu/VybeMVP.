@@ -1004,8 +1004,12 @@ import BackgroundTasks
      * - Parameter bpm: The new heart rate value in beats per minute
      */
     private func updateHeartRate(_ bpm: Double) {
-        currentHeartRate = Int(bpm)
-        lastValidBPM = Int(bpm)
+        // Ensure all @Published properties are updated on main thread
+        DispatchQueue.main.async {
+            self.currentHeartRate = Int(bpm)
+            self.lastValidBPM = Int(bpm)
+        }
+        
         updateHeartRateTrend(bpm)  // Add trend analysis
         
         // Post notification for other components
@@ -1048,17 +1052,20 @@ import BackgroundTasks
         print("🔄 Simulating heart rate: \(simulatedHeartRate) BPM (based on " + 
               (lastRealHeartRate > 0 ? "last real reading" : "random value") + ")")
         
-        // Directly set the published properties for immediate access
-        updateCurrentHeartRate(simulatedHeartRate, fromSimulation: true)
-        lastValidBPM = Int(simulatedHeartRate)
-        isHeartRateSimulated = true
-        
-        // Post notification as if it came from HealthKit
-        NotificationCenter.default.post(
-            name: Self.heartRateUpdated,
-            object: self,
-            userInfo: ["heartRate": Int(simulatedHeartRate), "isSimulated": true]
-        )
+        // Ensure all updates happen on main thread
+        DispatchQueue.main.async {
+            // Directly set the published properties for immediate access
+            self.updateCurrentHeartRate(simulatedHeartRate, fromSimulation: true)
+            self.lastValidBPM = Int(simulatedHeartRate)
+            self.isHeartRateSimulated = true
+            
+            // Post notification as if it came from HealthKit
+            NotificationCenter.default.post(
+                name: Self.heartRateUpdated,
+                object: self,
+                userInfo: ["heartRate": Int(simulatedHeartRate), "isSimulated": true]
+            )
+        }
         
         // Set up a timer to periodically update the simulated heart rate (every 15 seconds)
         simulationTimer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { [weak self] _ in
@@ -1075,17 +1082,20 @@ import BackgroundTasks
             
             print("🔄 Updating simulated heart rate: \(newRate) BPM")
             
-            // Directly update the published properties
-            self.updateCurrentHeartRate(newRate, fromSimulation: true)
-            self.lastValidBPM = Int(newRate)
-            self.isHeartRateSimulated = true
-            
-            // Post notification with the object as self for proper receipt
-            NotificationCenter.default.post(
-                name: Self.heartRateUpdated,
-                object: self,
-                userInfo: ["heartRate": Int(newRate), "isSimulated": true]
-            )
+            // Ensure all updates happen on main thread
+            DispatchQueue.main.async {
+                // Directly update the published properties
+                self.updateCurrentHeartRate(newRate, fromSimulation: true)
+                self.lastValidBPM = Int(newRate)
+                self.isHeartRateSimulated = true
+                
+                // Post notification with the object as self for proper receipt
+                NotificationCenter.default.post(
+                    name: Self.heartRateUpdated,
+                    object: self,
+                    userInfo: ["heartRate": Int(newRate), "isSimulated": true]
+                )
+            }
         }
     }
     
@@ -1121,23 +1131,30 @@ import BackgroundTasks
         print("📢 Manual heart rate simulation triggered: \(heartRate) BPM" +
               (lastRealHeartRate > 0 ? " (based on last real reading of \(lastRealHeartRate) BPM)" : ""))
         
-        // Set the values directly
-        updateCurrentHeartRate(Double(heartRate), fromSimulation: true)
-        lastValidBPM = heartRate
-        isHeartRateSimulated = true
-        
-        // Post notification to trigger realm calculations
-        NotificationCenter.default.post(
-            name: Self.heartRateUpdated,
-            object: self,
-            userInfo: ["heartRate": heartRate, "isSimulated": true]
-        )
+        // Ensure all updates happen on main thread
+        DispatchQueue.main.async {
+            // Set the values directly
+            self.updateCurrentHeartRate(Double(heartRate), fromSimulation: true)
+            self.lastValidBPM = heartRate
+            self.isHeartRateSimulated = true
+            
+            // Post notification to trigger realm calculations
+            NotificationCenter.default.post(
+                name: Self.heartRateUpdated,
+                object: self,
+                userInfo: ["heartRate": heartRate, "isSimulated": true]
+            )
+        }
     }
     
     // Add this method to control simulation mode
     private func enableSimulationMode(_ enabled: Bool) {
         simulationEnabled = enabled
-        isHeartRateSimulated = enabled
+        
+        // Ensure @Published property is updated on main thread
+        DispatchQueue.main.async {
+            self.isHeartRateSimulated = enabled
+        }
         
         if enabled {
             print("🔄 Heart rate simulation mode ENABLED")

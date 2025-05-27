@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 /**
  * `InsightFilterService` is responsible for selecting the most relevant insight for a user
@@ -13,16 +14,148 @@ import Foundation
  * It loads insight templates from a JSON file, then filters and scores them
  * against the user's numerology, spiritual preferences, and focus areas.
  */
-struct InsightFilterService {
+class InsightFilterService: ObservableObject {
     
     private static let insightTemplatesFilename = "personalized_insight_templates.json"
+    
+    @Published var templates: [InsightTemplate] = []
+    @Published var isLoaded = false
+    
+    init() {
+        Task {
+            await loadInsightTemplates()
+        }
+    }
+    
+    /**
+     * Loads `InsightTemplate` objects from the `personalized_insight_templates.json` file in the main bundle.
+     */
+    func loadInsightTemplates() async {
+        guard let url = Bundle.main.url(forResource: Self.insightTemplatesFilename.replacingOccurrences(of: ".json", with: ""), withExtension: "json") else {
+            print("Error: \(Self.insightTemplatesFilename) not found in bundle.")
+            await MainActor.run {
+                self.isLoaded = true
+            }
+            return
+        }
+        
+        do {
+            let data = try Data(contentsOf: url)
+            let loadedTemplates = try JSONDecoder().decode([InsightTemplate].self, from: data)
+            await MainActor.run {
+                self.templates = loadedTemplates
+                self.isLoaded = true
+            }
+        } catch {
+            print("Error decoding \(Self.insightTemplatesFilename): \(error)")
+            await MainActor.run {
+                self.templates = []
+                self.isLoaded = true
+            }
+        }
+    }
+    
+    /**
+     * Generates today's personalized insight for the given user profile.
+     */
+    func generateTodaysInsight(for profile: UserProfile?) -> PersonalizedInsight? {
+        return generateInsightForDate(Date(), userProfile: profile)
+    }
+    
+    /**
+     * Generates a personalized insight for a specific date.
+     */
+    func generateInsightForDate(_ date: Date, userProfile: UserProfile?) -> PersonalizedInsight? {
+        guard let profile = userProfile else { return nil }
+        
+        if let preparedInsight = Self.getPersonalizedInsight(for: profile) {
+            // Convert PreparedInsight to PersonalizedInsight
+            let tags = generateTags(for: profile, source: preparedInsight.source ?? InsightSource(
+                templateID: "fallback",
+                matchedLifePath: profile.lifePathNumber,
+                matchedSpiritualMode: profile.spiritualMode,
+                matchedTone: profile.insightTone,
+                matchedFocusTags: [],
+                score: 0,
+                isFallback: true
+            ))
+            let title = generateTitle(for: profile, date: date)
+            let preview = String(preparedInsight.text.prefix(120)) + "..."
+            
+            // Get archetype information from UserArchetypeManager
+            let archetype = UserArchetypeManager.shared.storedArchetype
+            let archetypeContext = SimpleArchetypeContext(
+                zodiacSign: archetype?.zodiacSign.rawValue ?? "Unknown",
+                element: archetype?.element.rawValue ?? "Unknown", 
+                primaryPlanet: archetype?.primaryPlanet.rawValue ?? "Unknown",
+                lifePathNumber: profile.lifePathNumber
+            )
+            
+            return PersonalizedInsight(
+                title: title,
+                content: preparedInsight.text,
+                preview: preview,
+                timestamp: date,
+                tags: tags,
+                focusNumber: profile.lifePathNumber,
+                archetypeContext: archetypeContext
+            )
+        }
+        
+        return nil
+    }
+    
+    /**
+     * Generates appropriate tags for the insight based on the user profile and source.
+     */
+    private func generateTags(for profile: UserProfile, source: InsightSource) -> [String] {
+        var tags: [String] = []
+        
+        // Add life path number tag
+        tags.append("Life Path \(profile.lifePathNumber)")
+        
+        // Add spiritual mode
+        tags.append(profile.spiritualMode)
+        
+        // Add insight tone
+        tags.append(profile.insightTone)
+        
+        // Add zodiac if available from archetype
+        if let archetype = UserArchetypeManager.shared.storedArchetype {
+            tags.append(archetype.zodiacSign.rawValue.capitalized)
+        }
+        
+        // Add matched focus tags from source
+        tags.append(contentsOf: source.matchedFocusTags)
+        
+        return Array(Set(tags)).prefix(4).map { $0 } // Remove duplicates and limit to 4
+    }
+    
+    /**
+     * Generates an appropriate title for the insight based on the user profile and date.
+     */
+    private func generateTitle(for profile: UserProfile, date: Date) -> String {
+        let dayFormatter = DateFormatter()
+        dayFormatter.dateFormat = "EEEE"
+        let dayName = dayFormatter.string(from: date)
+        
+        let isToday = Calendar.current.isDate(date, inSameDayAs: Date())
+        
+        if isToday {
+            return "Today's Spiritual Guidance"
+        } else {
+            return "\(dayName)'s Insight"
+        }
+    }
+
+    // MARK: - Static Methods (Legacy Support)
     
     /**
      * Loads `InsightTemplate` objects from the `personalized_insight_templates.json` file in the main bundle.
      *
      * - Returns: An array of `InsightTemplate` objects, or `nil` if the file cannot be found or parsed.
      */
-    private static func loadInsightTemplates() -> [InsightTemplate]? {
+    private static func loadInsightTemplatesStatic() -> [InsightTemplate]? {
         guard let url = Bundle.main.url(forResource: insightTemplatesFilename.replacingOccurrences(of: ".json", with: ""), withExtension: "json") else {
             print("Error: \(insightTemplatesFilename) not found in bundle.")
             return nil
@@ -92,7 +225,7 @@ struct InsightFilterService {
      * - Returns: An optional `PreparedInsight`. Returns `nil` if no templates are loaded or no suitable insight can be found even with fallbacks.
      */
     static func getPersonalizedInsight(for profile: UserProfile) -> PreparedInsight? {
-        guard let templates = loadInsightTemplates(), !templates.isEmpty else {
+        guard let templates = loadInsightTemplatesStatic(), !templates.isEmpty else {
             print("Error: Insight templates could not be loaded or are empty.")
             return nil
         }

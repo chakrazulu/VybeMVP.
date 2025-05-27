@@ -54,19 +54,26 @@ struct ContentView: View {
                     }
                     .tag(1)
                 
+                UserProfileTabView()
+                    .tabItem {
+                        Image(systemName: "person.circle.fill")
+                        Text("My Sanctum")
+                    }
+                    .tag(2)
+                
                 RealmNumberView()
                     .tabItem {
                         Image(systemName: "sparkles")
                         Text("Realm")
                     }
-                    .tag(2)
+                    .tag(3)
                 
                 MatchAnalyticsView()
                     .tabItem {
                         Image(systemName: "chart.bar.fill")
                         Text("Analytics")
                     }
-                    .tag(3)
+                    .tag(4)
                 
                 NavigationView {
                     NumberMeaningView()
@@ -75,7 +82,7 @@ struct ContentView: View {
                     Image(systemName: "number.circle.fill")
                     Text("Meanings")
                 }
-                .tag(4)
+                .tag(5)
                 
                 NavigationView {
                     SettingsView()
@@ -85,14 +92,14 @@ struct ContentView: View {
                     Image(systemName: "gear")
                     Text("Settings")
                 }
-                .tag(5)
+                .tag(6)
                 
                 AboutView()
                     .tabItem {
                         Image(systemName: "info.circle.fill")
                         Text("About")
                     }
-                    .tag(6)
+                    .tag(7)
             }
         }
         .sheet(isPresented: $showNotificationSheet) {

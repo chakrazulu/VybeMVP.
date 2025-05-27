@@ -8,8 +8,8 @@ class OnboardingViewModel: ObservableObject {
     @Published var birthDate: Date = Calendar.current.date(byAdding: .year, value: -25, to: Date()) ?? Date() // Default to 25 years ago
 
     // MARK: - Step 2 & 3: Reflection Type & AI Modulation
-    @Published var spiritualModeSelection: String = "Reflection" // Default value
-    @Published var insightToneSelection: String = "Gentle"   // Default value
+    @Published var selectedSpiritualModes: [String] = ["Reflection"] // Changed to support multiple selections
+    @Published var selectedInsightTones: [String] = ["Gentle"] // Changed to support multiple selections (max 3)
 
     // MARK: - Step 4: Insight Filtering
     @Published var selectedFocusTags: [String] = []
@@ -58,14 +58,22 @@ class OnboardingViewModel: ObservableObject {
         let soulUrgeResult = birthNameForProfile != nil ? numerologyService.calculateSoulUrgeNumber(from: birthNameForProfile!) : nil
         let expressionResult = birthNameForProfile != nil ? numerologyService.calculateExpressionNumber(from: birthNameForProfile!) : nil
 
+        // CRITICAL FIX: Calculate and store the full spiritual archetype
+        let userArchetype = UserArchetypeManager.shared.calculateArchetype(from: birthDate)
+        print("✨ Calculated full archetype during onboarding:")
+        print("   Zodiac Sign: \(userArchetype.zodiacSign.rawValue)")
+        print("   Element: \(userArchetype.element.rawValue)")
+        print("   Primary Planet: \(userArchetype.primaryPlanet.rawValue)")
+        print("   Shadow Planet: \(userArchetype.subconsciousPlanet.rawValue)")
+
         // Create UserProfile using the collected and default values
         let profile = UserProfile(
             id: userID, 
             birthdate: birthDate,
             lifePathNumber: lifePathResult.number,
             isMasterNumber: lifePathResult.isMaster,
-            spiritualMode: spiritualModeSelection,
-            insightTone: insightToneSelection,
+            spiritualMode: selectedSpiritualModes.joined(separator: ", "),
+            insightTone: selectedInsightTones.joined(separator: ", "), // Join multiple tones
             focusTags: selectedFocusTags,
             cosmicPreference: cosmicPreferenceSelection,
             cosmicRhythms: selectedCosmicRhythms,

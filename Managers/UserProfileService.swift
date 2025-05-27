@@ -1,5 +1,7 @@
 import Foundation
 import FirebaseFirestore
+// TODO: Add FirebaseFirestore package to Xcode project, then uncomment this line
+// import FirebaseFirestore
 // If FirebaseFirestoreSwift was available, we'd import it here too.
 // import FirebaseFirestoreSwift
 
@@ -23,7 +25,7 @@ class UserProfileService {
     // MARK: - Initialization
     private init() {
         // Private constructor to ensure singleton usage
-        print("👤 UserProfileService initialized.")
+        print("👤 UserProfileService initialized with Firestore.")
     }
 
     // MARK: - UserDefaults Cache Keys
@@ -67,8 +69,6 @@ class UserProfileService {
             return loadedProfile
         } else {
             print("⚠️ UserProfileService: Failed to decode cached profile for userID \(userID) from UserDefaults.")
-            // Optionally, remove the corrupted data
-            // UserDefaults.standard.removeObject(forKey: userProfileDefaultsKey(for: userID))
             return nil
         }
     }
@@ -84,8 +84,6 @@ class UserProfileService {
      *   - completion: A closure that is called with an optional error.
      */
     func saveUserProfile(_ profile: UserProfile, for userID: String, completion: @escaping (Error?) -> Void) {
-        // Since FirebaseFirestoreSwift is not confirmed to be available,
-        // we'll prepare for manual data conversion.
         print("UserProfileService: Attempting to save profile for userID: \(userID)")
 
         // Align with UserProfile.swift properties
@@ -142,100 +140,40 @@ class UserProfileService {
      */
     func fetchUserProfile(for userID: String, completion: @escaping (UserProfile?, Error?) -> Void) {
         print("UserProfileService: Attempting to fetch profile for userID: \(userID)")
-        usersCollection.document(userID).getDocument { documentSnapshot, error in
+
+        usersCollection.document(userID).getDocument { document, error in
             if let error = error {
                 print("❌ UserProfileService: Error fetching user profile: \(error.localizedDescription)")
                 completion(nil, error)
                 return
             }
 
-            guard let document = documentSnapshot, document.exists else {
-                print("ℹ️ UserProfileService: No profile document found for userID: \(userID)")
-                completion(nil, nil) 
+            guard let document = document, document.exists, let data = document.data() else {
+                print("ℹ️ UserProfileService: No profile found for userID: \(userID)")
+                completion(nil, nil)
                 return
             }
 
-            guard let data = document.data() else {
-                print("⚠️ UserProfileService: Document data is nil for userID: \(userID)")
-                completion(nil, nil) 
-                return
-            }
-
-            // Align with UserProfile.swift properties and its initializer
-            let id = data["id"] as? String ?? userID // Use userID as fallback for id
-            
-            // Step 1: Core Identity
-            guard let birthdateTimestamp = data["birthdate"] as? Timestamp,
-                  let lifePathNumber = data["lifePathNumber"] as? Int,
-                  let isMasterNumber = data["isMasterNumber"] as? Bool else {
-                print("⚠️ UserProfileService: Missing core identity fields (birthdate, lifePathNumber, isMasterNumber) for userID: \(userID)")
-                completion(nil, NSError(domain: "UserProfileService", code: 1, userInfo: [NSLocalizedDescriptionKey: "Missing core identity fields"]))
-                return
-            }
-            let birthdate = birthdateTimestamp.dateValue()
-
-            // Step 2 & 3: Reflection Type & AI Modulation
-            guard let spiritualMode = data["spiritualMode"] as? String,
-                  let insightTone = data["insightTone"] as? String else {
-                print("⚠️ UserProfileService: Missing reflection/AI modulation fields (spiritualMode, insightTone) for userID: \(userID)")
-                completion(nil, NSError(domain: "UserProfileService", code: 2, userInfo: [NSLocalizedDescriptionKey: "Missing reflection/AI modulation fields"]))
-                return
-            }
-
-            // Step 4: Insight Filtering
-            guard let focusTags = data["focusTags"] as? [String] else {
-                print("⚠️ UserProfileService: Missing insight filtering field (focusTags) for userID: \(userID)")
-                completion(nil, NSError(domain: "UserProfileService", code: 3, userInfo: [NSLocalizedDescriptionKey: "Missing insight filtering field"]))
-                return
-            }
-            
-            // Step 5 & 6: Cosmic Alignment
-            guard let cosmicPreference = data["cosmicPreference"] as? String,
-                  let cosmicRhythms = data["cosmicRhythms"] as? [String] else {
-                print("⚠️ UserProfileService: Missing cosmic alignment fields (cosmicPreference, cosmicRhythms) for userID: \(userID)")
-                completion(nil, NSError(domain: "UserProfileService", code: 4, userInfo: [NSLocalizedDescriptionKey: "Missing cosmic alignment fields"]))
-                return
-            }
-
-            // Step 7: Notification System
-            guard let preferredHour = data["preferredHour"] as? Int,
-                  let wantsWhispers = data["wantsWhispers"] as? Bool else {
-                print("⚠️ UserProfileService: Missing notification system fields (preferredHour, wantsWhispers) for userID: \(userID)")
-                completion(nil, NSError(domain: "UserProfileService", code: 5, userInfo: [NSLocalizedDescriptionKey: "Missing notification system fields"]))
-                return
-            }
-
-            // Step 8: Soul Map (Optional Numerology Deep Dive)
-            let birthName = data["birthName"] as? String // Optional
-            let soulUrgeNumber = data["soulUrgeNumber"] as? Int // Optional
-            let expressionNumber = data["expressionNumber"] as? Int // Optional
-            
-            // Step 9: UX Personalization
-            guard let wantsReflectionMode = data["wantsReflectionMode"] as? Bool else {
-                print("⚠️ UserProfileService: Missing UX personalization field (wantsReflectionMode) for userID: \(userID)")
-                completion(nil, NSError(domain: "UserProfileService", code: 6, userInfo: [NSLocalizedDescriptionKey: "Missing UX personalization field"]))
-                return
-            }
-
-            // Use the initializer from UserProfile.swift
+            // Parse the Firestore data into a UserProfile object
             let profile = UserProfile(
-                id: id,
-                birthdate: birthdate,
-                lifePathNumber: lifePathNumber,
-                isMasterNumber: isMasterNumber,
-                spiritualMode: spiritualMode,
-                insightTone: insightTone,
-                focusTags: focusTags,
-                cosmicPreference: cosmicPreference,
-                cosmicRhythms: cosmicRhythms,
-                preferredHour: preferredHour,
-                wantsWhispers: wantsWhispers,
-                birthName: birthName,
-                soulUrgeNumber: soulUrgeNumber,
-                expressionNumber: expressionNumber,
-                wantsReflectionMode: wantsReflectionMode
+                id: data["id"] as? String ?? userID,
+                birthdate: (data["birthdate"] as? Timestamp)?.dateValue() ?? Date(),
+                lifePathNumber: data["lifePathNumber"] as? Int ?? 1,
+                isMasterNumber: data["isMasterNumber"] as? Bool ?? false,
+                spiritualMode: data["spiritualMode"] as? String ?? "Balanced",
+                insightTone: data["insightTone"] as? String ?? "Gentle",
+                focusTags: data["focusTags"] as? [String] ?? [],
+                cosmicPreference: data["cosmicPreference"] as? String ?? "Balanced",
+                cosmicRhythms: data["cosmicRhythms"] as? [String] ?? [],
+                preferredHour: data["preferredHour"] as? Int ?? 9,
+                wantsWhispers: data["wantsWhispers"] as? Bool ?? true,
+                birthName: data["birthName"] as? String,
+                soulUrgeNumber: data["soulUrgeNumber"] as? Int,
+                expressionNumber: data["expressionNumber"] as? Int,
+                wantsReflectionMode: data["wantsReflectionMode"] as? Bool ?? false
             )
-            print("✅ UserProfileService: User profile fetched and parsed successfully for userID: \(userID)")
+
+            print("✅ UserProfileService: Profile fetched successfully for userID: \(userID)")
             completion(profile, nil)
         }
     }
@@ -249,15 +187,17 @@ class UserProfileService {
      */
     func profileExists(for userID: String, completion: @escaping (Bool, Error?) -> Void) {
         print("UserProfileService: Checking if profile exists for userID: \(userID)")
-        usersCollection.document(userID).getDocument { documentSnapshot, error in
+
+        usersCollection.document(userID).getDocument { document, error in
             if let error = error {
                 print("❌ UserProfileService: Error checking profile existence: \(error.localizedDescription)")
                 completion(false, error)
-            } else {
-                let exists = documentSnapshot?.exists ?? false
-                print("ℹ️ UserProfileService: Profile exists for userID \(userID): \(exists)")
-                completion(exists, nil)
+                return
             }
+
+            let exists = document?.exists ?? false
+            print("ℹ️ UserProfileService: Profile exists for userID \(userID): \(exists)")
+            completion(exists, nil)
         }
     }
 }

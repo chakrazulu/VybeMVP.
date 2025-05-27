@@ -1,0 +1,25 @@
+UserArchetype Struct Definition
+
+This model captures the user's core spiritual numerology attributes.
+
+Attributes:
+- lifePath: Int
+- zodiacSign: String
+- element: Element (enum)
+- primaryPlanet: Planet (enum)
+- subconsciousPlanet: Planet (enum)
+
+Derived From:
+- lifePath from full birthdate
+- zodiacSign from calendar date
+- element from zodiacSign
+- planets from lifePath mapping (Divine Triangle logic)
+
+Stored In:
+- Firestore UserProfile
+- Local Cache (UserDefaults or CoreData)
+
+Purpose:
+- Drives insight logic
+- Triggers resonance matches
+- Used in sigil generation

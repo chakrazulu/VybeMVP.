@@ -4,9 +4,14 @@ import BackgroundTasks
 import FirebaseCore
 import FirebaseMessaging
 import UserNotifications
+import CoreData
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     var realmNumberManager: RealmNumberManager?
+    var journalManager: JournalManager?
+    var focusNumberManager: FocusNumberManager?
+    var backgroundManager: BackgroundManager?
+    var healthKitManager: HealthKitManager?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // CONFIGURE FIREBASE HERE - This is the most reliable place
@@ -150,86 +155,65 @@ struct VybeMVPApp: App {
     
     var body: some Scene {
         WindowGroup {
-            Group {
-                if signInViewModel.isSignedIn {
-                    if hasCompletedOnboarding {
-                        ContentView()
-                            .environmentObject(realmNumberManager)
-                            .environmentObject(journalManager)
-                            .environmentObject(focusNumberManager)
-                            .environmentObject(backgroundManager)
-                            .environmentObject(healthKitManager)
-                            .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                            .environmentObject(signInViewModel)
-                            .environmentObject(notificationManager)
-                            .onAppear {
-                                Logger.ui.debug("CONTENT_VIEW: .onAppear - VERSION_WITH_OS_LOGS_NOV_19_D")
-                                if appDelegate.realmNumberManager == nil {
-                                    appDelegate.realmNumberManager = self.realmNumberManager
-                                    Logger.app.info("🔗 AppDelegate linked to RealmNumberManager.")
-                                    Logger.app.info("▶️ Starting RealmNumberManager...")
-                                    realmNumberManager.startUpdates()
-                                }
-                                backgroundManager.setManagers(realm: realmNumberManager, focus: focusNumberManager)
-                                backgroundManager.scheduleBackgroundTask()
-                                if healthKitManager.authorizationStatus == .sharingAuthorized {
-                                    healthKitManager.startHeartRateMonitoring()
-                                }
+            AuthenticationWrapperView()
+                .environmentObject(realmNumberManager)
+                .environmentObject(journalManager)
+                .environmentObject(focusNumberManager)
+                .environmentObject(backgroundManager)
+                .environmentObject(healthKitManager)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onAppear {
+                    // --- Instance Sharing Setup --- (Moved to onAppear)
+                    // Ensure this runs only once
+                    if appDelegate.realmNumberManager == nil {
+                        appDelegate.realmNumberManager = self.realmNumberManager
+                        appDelegate.journalManager = self.journalManager
+                        appDelegate.focusNumberManager = self.focusNumberManager
+                        appDelegate.backgroundManager = self.backgroundManager
+                        appDelegate.healthKitManager = self.healthKitManager
+                        print("🔗 Linked AppDelegate to shared managers (onAppear).")
+                    }
+                    
+                    // Start RealmNumberManager and configure background manager
+                    self.realmNumberManager.startUpdates()
+                    print("▶️ Starting RealmNumberManager from onAppear...")
+                    
+                    // Existing onAppear logic:
+                    backgroundManager.setManagers(realm: realmNumberManager, focus: focusNumberManager)
+                    backgroundManager.scheduleBackgroundTask()
+                    if healthKitManager.authorizationStatus == .sharingAuthorized {
+                        healthKitManager.startHeartRateMonitoring()
+                    }
+                }
+                .onChange(of: signInViewModel.isSignedIn) { oldValue, newValue in
+                    Logger.app.debug("SIGN_IN_STATUS_CHANGED: Old=\(oldValue), New=\(newValue) - V.OSL_NOV_19_D")
+                    if newValue {
+                        if let userID = signInViewModel.userID {
+                            Logger.app.info("SIGN_IN_STATUS_CHANGED: User JUST signed IN (userID: \(userID)), Onboarding: \(self.hasCompletedOnboarding). Kicking off Firestore check.")
+                            checkOnboardingStatusInFirestore(for: userID, source: "onChangeSignIn_V.OSL_NOV_19_D")
+                        } else {
+                            Logger.app.error("SIGN_IN_STATUS_CHANGED: User signed in, but userID nil! Onboarding false.")
+                            if self.hasCompletedOnboarding != false {
+                                 self.hasCompletedOnboarding = false
                             }
+                        }
                     } else {
-                        OnboardingView(hasCompletedOnboarding: $hasCompletedOnboarding)
-                            .environmentObject(signInViewModel)
-                            .environmentObject(journalManager)
-                            .environmentObject(focusNumberManager)
-                    }
-                } else {
-                    SignInView(isSignedIn: $signInViewModel.isSignedIn)
-                        .environmentObject(signInViewModel)
-                }
-            }
-            .onAppear { 
-                Logger.ui.debug("ROOT_GROUP: .onAppear CALLED - VERSION_WITH_OS_LOGS_NOV_19_D")
-                signInViewModel.checkSignInStatus()
-                
-                if signInViewModel.isSignedIn, let userID = signInViewModel.userID {
-                    Logger.app.info("ROOT_GROUP.onAppear: User WAS ALREADY SIGNED IN (userID: \(userID)), Onboarding: \(self.hasCompletedOnboarding). Kicking off Firestore check.")
-                    checkOnboardingStatusInFirestore(for: userID, source: "onAppear_V.OSL_NOV_19_D")
-                } else {
-                    Logger.app.info("ROOT_GROUP.onAppear: User was NOT signed in. Onboarding false.")
-                    if self.hasCompletedOnboarding != false {
-                         self.hasCompletedOnboarding = false
-                    }
-                }
-            }
-            .onChange(of: signInViewModel.isSignedIn) { oldValue, newValue in
-                Logger.app.debug("SIGN_IN_STATUS_CHANGED: Old=\(oldValue), New=\(newValue) - V.OSL_NOV_19_D")
-                if newValue {
-                    if let userID = signInViewModel.userID {
-                        Logger.app.info("SIGN_IN_STATUS_CHANGED: User JUST signed IN (userID: \(userID)), Onboarding: \(self.hasCompletedOnboarding). Kicking off Firestore check.")
-                        checkOnboardingStatusInFirestore(for: userID, source: "onChangeSignIn_V.OSL_NOV_19_D")
-                    } else {
-                        Logger.app.error("SIGN_IN_STATUS_CHANGED: User signed in, but userID nil! Onboarding false.")
+                        Logger.app.info("SIGN_IN_STATUS_CHANGED: User JUST signed OUT. Resetting UI onboarding state false.")
                         if self.hasCompletedOnboarding != false {
-                             self.hasCompletedOnboarding = false
+                            self.hasCompletedOnboarding = false
                         }
                     }
-                } else {
-                    Logger.app.info("SIGN_IN_STATUS_CHANGED: User JUST signed OUT. Resetting UI onboarding state false.")
-                    if self.hasCompletedOnboarding != false {
-                        self.hasCompletedOnboarding = false
+                }
+                .onChange(of: hasCompletedOnboarding) { oldValue, newValue in 
+                    Logger.app.debug("ONBOARDING_STATE_CHANGED: Old=\(oldValue), New=\(newValue) - V.OSL_NOV_19_D")
+                    if signInViewModel.isSignedIn, let userID = signInViewModel.userID {
+                        let key = onboardingCompletedKey + userID
+                        UserDefaults.standard.set(newValue, forKey: key)
+                        Logger.data.info("ONBOARDING_STATE_CHANGED: Cached to UserDefaults for user \(userID): \(newValue)")
+                    } else {
+                        Logger.app.info("ONBOARDING_STATE_CHANGED: User not signed in or userID nil. Not caching. (isSignedIn: \(self.signInViewModel.isSignedIn))")
                     }
                 }
-            }
-            .onChange(of: hasCompletedOnboarding) { oldValue, newValue in 
-                Logger.app.debug("ONBOARDING_STATE_CHANGED: Old=\(oldValue), New=\(newValue) - V.OSL_NOV_19_D")
-                if signInViewModel.isSignedIn, let userID = signInViewModel.userID {
-                    let key = onboardingCompletedKey + userID
-                    UserDefaults.standard.set(newValue, forKey: key)
-                    Logger.data.info("ONBOARDING_STATE_CHANGED: Cached to UserDefaults for user \(userID): \(newValue)")
-                } else {
-                    Logger.app.info("ONBOARDING_STATE_CHANGED: User not signed in or userID nil. Not caching. (isSignedIn: \(self.signInViewModel.isSignedIn))")
-                }
-            }
         }
     }
     

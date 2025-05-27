@@ -134,7 +134,7 @@ struct HeartRateView: View {
                 .foregroundColor(.secondary)
             
             // Show BPM value or placeholder based on data availability
-            Text("\(hasValidHeartRate ? "\(healthKitManager.lastValidBPM)" : "--")")
+            Text("\(hasValidHeartRate && healthKitManager.lastValidBPM > 0 ? "\(healthKitManager.lastValidBPM)" : "--")")
                 .font(.system(size: 70, weight: .bold))
                 .foregroundColor(hasValidHeartRate ? .primary : .secondary)
             

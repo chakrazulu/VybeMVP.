@@ -11,7 +11,7 @@ import SafariServices
 struct SettingsView: View {
     @EnvironmentObject private var healthKitManager: HealthKitManager
     @EnvironmentObject private var realmNumberManager: RealmNumberManager
-    @EnvironmentObject private var signInViewModel: SignInViewModel
+    @StateObject private var authManager = AuthenticationManager.shared
     @State private var showHealthKitError = false
     @State private var errorMessage = ""
     @Environment(\.openURL) var openURL
@@ -20,6 +20,13 @@ struct SettingsView: View {
     @State private var showSilentUpdateConfirmation = false
     @State private var showManualCalculationConfirmation = false
     @State private var lastRealmNumber = 0
+    
+    // Add logout confirmation state
+    @State private var showLogoutConfirmation = false
+    
+    // TEMPORARY: Test state
+    @State private var testArchetype: UserArchetype?
+    @State private var showTestResult = false
     
     var body: some View {
         List {
@@ -85,6 +92,53 @@ struct SettingsView: View {
                 }
             }
             
+            // Account Section
+            Section(header: Text("ACCOUNT")) {
+                Button(action: {
+                    showLogoutConfirmation = true
+                }) {
+                    HStack {
+                        Image(systemName: "rectangle.portrait.and.arrow.right")
+                            .foregroundColor(.red)
+                        Text("Sign Out")
+                            .foregroundColor(.red)
+                    }
+                }
+            }
+            
+            // TEMPORARY: Test Archetype Onboarding
+            Section(header: Text("🧪 Test Archetype System")) {
+                NavigationLink("Test Birthdate Input") {
+                    BirthdateInputView(isCompleted: .constant(false))
+                }
+                
+                Button("Test Archetype Calculation") {
+                    testArchetypeCalculation()
+                }
+                .foregroundColor(.blue)
+                
+                Button("Show Currently Stored Archetype") {
+                    showStoredArchetype()
+                }
+                .foregroundColor(.green)
+                
+                Button("Clear Stored Archetype") {
+                    UserArchetypeManager.shared.clearArchetype()
+                }
+                .foregroundColor(.red)
+                
+                // Show if archetype exists
+                if UserArchetypeManager.shared.hasStoredArchetype() {
+                    Text("✅ Archetype data is stored")
+                        .foregroundColor(.green)
+                        .font(.caption)
+                } else {
+                    Text("❌ No archetype data stored")
+                        .foregroundColor(.red)
+                        .font(.caption)
+                }
+            }
+            
             // App Info Section
             Section(header: Text("APP INFO")) {
                 HStack {
@@ -110,17 +164,6 @@ struct SettingsView: View {
                 }
             }
             #endif
-
-            // Account Section - Added
-            Section(header: Text("ACCOUNT")) {
-                Button(role: .destructive) {
-                    AuthService.shared.logout(signInViewModel: signInViewModel)
-                } label: {
-                    Text("Logout")
-                        .foregroundColor(.red) // Make it stand out
-                        .frame(maxWidth: .infinity, alignment: .center) // Center the text
-                }
-            }
         }
         .navigationTitle("Settings")
         .alert("HealthKit Error", isPresented: $showHealthKitError) {
@@ -132,6 +175,21 @@ struct SettingsView: View {
             Button("OK", role: .cancel) { }
         } message: {
             Text(errorMessage)
+        }
+        .alert("Sign Out", isPresented: $showLogoutConfirmation) {
+            Button("Cancel", role: .cancel) { }
+            Button("Sign Out", role: .destructive) {
+                authManager.signOut()
+            }
+        } message: {
+            Text("Are you sure you want to sign out? This will clear all your local data and you'll need to sign in again.")
+        }
+        .alert("Archetype Test Result", isPresented: $showTestResult) {
+            Button("OK") { }
+        } message: {
+            if let archetype = testArchetype {
+                Text("Life Path: \(archetype.lifePath)\nZodiac: \(archetype.zodiacSign.rawValue)\nElement: \(archetype.element.rawValue)\nPrimary Planet: \(archetype.primaryPlanet.rawValue)")
+            }
         }
     }
     
@@ -280,6 +338,32 @@ struct SettingsView: View {
             return Text(message)
         }
     }
+    
+    // TEMPORARY: Test method
+    private func testArchetypeCalculation() {
+        // Use the currently stored archetype if available, otherwise use today's date
+        if let storedArchetype = UserArchetypeManager.shared.storedArchetype {
+            testArchetype = storedArchetype
+            print("🔍 Using stored archetype from user's selected date")
+        } else {
+            // Fallback to current date if no archetype is stored
+            let archetype = UserArchetypeManager.shared.calculateArchetype(from: Date())
+            testArchetype = archetype
+            print("⚠️ No stored archetype found, calculating from current date")
+        }
+        showTestResult = true
+    }
+    
+    private func showStoredArchetype() {
+        if let archetype = UserArchetypeManager.shared.storedArchetype {
+            testArchetype = archetype
+            showTestResult = true
+        } else {
+            // Show alert for no stored archetype
+            errorMessage = "No archetype data is currently stored. Use 'Test Birthdate Input' to calculate and store an archetype first."
+            showHealthKitError = true
+        }
+    }
 }
 
 // Helper view for opening URLs in a sheet
@@ -299,7 +383,6 @@ struct SafariView: UIViewControllerRepresentable {
             .environmentObject(HealthKitManager.shared)
             .environmentObject(FocusNumberManager.shared)
             .environmentObject(RealmNumberManager())
-            .environmentObject(SignInViewModel())
     }
 }
 

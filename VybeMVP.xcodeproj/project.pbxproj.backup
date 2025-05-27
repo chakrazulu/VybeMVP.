@@ -27,11 +27,6 @@
 		4D3055FC2D3D8F8A009A7BBD /* JournalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055FB2D3D8F8A009A7BBD /* JournalListView.swift */; };
 		4D3055FE2D3D903B009A7BBD /* JournalEntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055FD2D3D903B009A7BBD /* JournalEntryRow.swift */; };
 		4D3056002D3D9245009A7BBD /* JournalEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055FF2D3D9245009A7BBD /* JournalEntryView.swift */; };
-		4D3727082DE48D7100B5A02B /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3727072DE48D7100B5A02B /* NotificationNames.swift */; };
-		4D37270A2DE50FEC00B5A02B /* OnboardingCompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3727092DE50FEC00B5A02B /* OnboardingCompletionView.swift */; };
-		4D37270D2DE5404500B5A02B /* UserProfileTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D37270B2DE5404500B5A02B /* UserProfileTabView.swift */; };
-		4D3727102DE5407100B5A02B /* InsightHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D37270E2DE5407100B5A02B /* InsightHistoryView.swift */; };
-		4D3727122DE540AE00B5A02B /* PersonalizedInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3727112DE540AE00B5A02B /* PersonalizedInsight.swift */; };
 		4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */; };
 		4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */; };
 		4D6C7B552DE45441001036E5 /* ArchetypeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */; };
@@ -45,6 +40,7 @@
 		4D6C7BA02DE47E99001036E5 /* OnboardingCosmicRhythmsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B942DE47E99001036E5 /* OnboardingCosmicRhythmsView.swift */; };
 		4D6C7BA12DE47E99001036E5 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B9A2DE47E99001036E5 /* OnboardingView.swift */; };
 		4D6C7BA22DE47E99001036E5 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B9B2DE47E99001036E5 /* OnboardingViewModel.swift */; };
+		4D6C7BA32DE47E99001036E5 /* OnboardingCompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B922DE47E99001036E5 /* OnboardingCompletionView.swift */; };
 		4D6C7BA42DE47E99001036E5 /* OnboardingCosmicPreferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B932DE47E99001036E5 /* OnboardingCosmicPreferenceView.swift */; };
 		4D6C7BA52DE47E99001036E5 /* OnboardingSpiritualModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B992DE47E99001036E5 /* OnboardingSpiritualModeView.swift */; };
 		4D6C7BA62DE47E99001036E5 /* OnboardingFocusTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B952DE47E99001036E5 /* OnboardingFocusTagsView.swift */; };
@@ -125,11 +121,6 @@
 		4D3055FB2D3D8F8A009A7BBD /* JournalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalListView.swift; sourceTree = "<group>"; };
 		4D3055FD2D3D903B009A7BBD /* JournalEntryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryRow.swift; sourceTree = "<group>"; };
 		4D3055FF2D3D9245009A7BBD /* JournalEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryView.swift; sourceTree = "<group>"; };
-		4D3727072DE48D7100B5A02B /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
-		4D3727092DE50FEC00B5A02B /* OnboardingCompletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionView.swift; sourceTree = "<group>"; };
-		4D37270B2DE5404500B5A02B /* UserProfileTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTabView.swift; sourceTree = "<group>"; };
-		4D37270E2DE5407100B5A02B /* InsightHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightHistoryView.swift; sourceTree = "<group>"; };
-		4D3727112DE540AE00B5A02B /* PersonalizedInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedInsight.swift; sourceTree = "<group>"; };
 		4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetype.swift; sourceTree = "<group>"; };
 		4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetypeManager.swift; sourceTree = "<group>"; };
 		4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchetypeDisplayView.swift; sourceTree = "<group>"; };
@@ -138,6 +129,7 @@
 		4D6C7B5C2DE458A4001036E5 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		4D6C7B5E2DE45C07001036E5 /* AuthenticationWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationWrapperView.swift; sourceTree = "<group>"; };
 		4D6C7B622DE46A33001036E5 /* BirthdateInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdateInputView.swift; sourceTree = "<group>"; };
+		4D6C7B922DE47E99001036E5 /* OnboardingCompletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionView.swift; sourceTree = "<group>"; };
 		4D6C7B932DE47E99001036E5 /* OnboardingCosmicPreferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCosmicPreferenceView.swift; sourceTree = "<group>"; };
 		4D6C7B942DE47E99001036E5 /* OnboardingCosmicRhythmsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCosmicRhythmsView.swift; sourceTree = "<group>"; };
 		4D6C7B952DE47E99001036E5 /* OnboardingFocusTagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFocusTagsView.swift; sourceTree = "<group>"; };
@@ -296,7 +288,6 @@
 		4D3055ED2D3CF838009A7BBD /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				4D3727072DE48D7100B5A02B /* NotificationNames.swift */,
 				4D6C7BBA2DE48126001036E5 /* Logger+Extensions.swift */,
 				4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */,
 				4D3055EC2D3CF838009A7BBD /* OldLogger.swift */,
@@ -307,7 +298,6 @@
 		4D3055F92D3D899A009A7BBD /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4D3727112DE540AE00B5A02B /* PersonalizedInsight.swift */,
 				4D6C7BB82DE480E4001036E5 /* PreparedInsight.swift */,
 				4D6C7BB62DE480B6001036E5 /* UserProfile.swift */,
 				4D6C7BAE2DE47FC2001036E5 /* InsightTemplate.swift */,
@@ -320,26 +310,10 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		4D37270C2DE5404500B5A02B /* UserProfile */ = {
-			isa = PBXGroup;
-			children = (
-				4D37270B2DE5404500B5A02B /* UserProfileTabView.swift */,
-			);
-			path = UserProfile;
-			sourceTree = "<group>";
-		};
-		4D37270F2DE5407100B5A02B /* Insights */ = {
-			isa = PBXGroup;
-			children = (
-				4D37270E2DE5407100B5A02B /* InsightHistoryView.swift */,
-			);
-			path = Insights;
-			sourceTree = "<group>";
-		};
 		4D6C7B9C2DE47E99001036E5 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				4D3727092DE50FEC00B5A02B /* OnboardingCompletionView.swift */,
+				4D6C7B922DE47E99001036E5 /* OnboardingCompletionView.swift */,
 				4D6C7B932DE47E99001036E5 /* OnboardingCosmicPreferenceView.swift */,
 				4D6C7B942DE47E99001036E5 /* OnboardingCosmicRhythmsView.swift */,
 				4D6C7B952DE47E99001036E5 /* OnboardingFocusTagsView.swift */,
@@ -413,8 +387,6 @@
 		4DC6022E2D34440900B5E4A9 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				4D37270F2DE5407100B5A02B /* Insights */,
-				4D37270C2DE5404500B5A02B /* UserProfile */,
 				4D6C7B9C2DE47E99001036E5 /* Onboarding */,
 				4D74C21A2D3B3FF400DBE623 /* FocusNumber */,
 				4DC602332D3456B700B5E4A9 /* SignIn */,
@@ -605,7 +577,6 @@
 				4D6C7B592DE45517001036E5 /* ResonanceEngine.swift in Sources */,
 				4D3055FA2D3D899A009A7BBD /* JournalMood.swift in Sources */,
 				4D92F48C2D49E9C90001A16E /* TestingView.swift in Sources */,
-				4D3727082DE48D7100B5A02B /* NotificationNames.swift in Sources */,
 				4DA2EE2D2D502D1D001F8E9D /* HealthKitPermissionView.swift in Sources */,
 				4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */,
 				4D3055C62D3CB201009A7BBD /* UserPreferences+Helper.swift in Sources */,
@@ -618,7 +589,6 @@
 				4D3055CE2D3CC9CA009A7BBD /* FocusNumberPicker.swift in Sources */,
 				4D3055EB2D3CF492009A7BBD /* NumberCell.swift in Sources */,
 				4D3055DF2D3CE8AE009A7BBD /* JournalView.swift in Sources */,
-				4D3727102DE5407100B5A02B /* InsightHistoryView.swift in Sources */,
 				4D80E0FD2D3F1B0B0020F7BB /* NumberMeaningView.swift in Sources */,
 				4D3055E72D3CEEC9009A7BBD /* JournalEntryDetailView.swift in Sources */,
 				4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */,
@@ -647,6 +617,7 @@
 				4D6C7BA02DE47E99001036E5 /* OnboardingCosmicRhythmsView.swift in Sources */,
 				4D6C7BA12DE47E99001036E5 /* OnboardingView.swift in Sources */,
 				4D6C7BA22DE47E99001036E5 /* OnboardingViewModel.swift in Sources */,
+				4D6C7BA32DE47E99001036E5 /* OnboardingCompletionView.swift in Sources */,
 				4D6C7BB52DE48089001036E5 /* UserProfileService.swift in Sources */,
 				4D6C7BA42DE47E99001036E5 /* OnboardingCosmicPreferenceView.swift in Sources */,
 				4D6C7BA52DE47E99001036E5 /* OnboardingSpiritualModeView.swift in Sources */,
@@ -658,7 +629,6 @@
 				4D8AB7652D3B7A7900009BC9 /* ContentView.swift in Sources */,
 				4DE4C3802DB392E900BB7572 /* NumerologyNotificationTestView.swift in Sources */,
 				4D6C7B5D2DE458A4001036E5 /* AuthenticationManager.swift in Sources */,
-				4D3727122DE540AE00B5A02B /* PersonalizedInsight.swift in Sources */,
 				4DC602382D345A1B00B5E4A9 /* SignInViewModel.swift in Sources */,
 				4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */,
 				4D92F4BA2D4DE1E80001A16E /* FocusNumberManager.swift in Sources */,
@@ -668,12 +638,10 @@
 				4D6C7B632DE46A33001036E5 /* BirthdateInputView.swift in Sources */,
 				4D92F4BC2D4DE1E80001A16E /* RealmNumberManager.swift in Sources */,
 				4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */,
-				4D37270D2DE5404500B5A02B /* UserProfileTabView.swift in Sources */,
 				4D92F4BD2D4DE1E80001A16E /* BackgroundManager.swift in Sources */,
 				4D3055E32D3CEADA009A7BBD /* JournalEntry+CoreDataHelpers.swift in Sources */,
 				4D3055E12D3CE90C009A7BBD /* FocusNumberContent.swift in Sources */,
 				4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */,
-				4D37270A2DE50FEC00B5A02B /* OnboardingCompletionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
