@@ -19,14 +19,13 @@ struct UserProfileTabView: View {
     @State private var selectedArchetypeDetail: ArchetypeDetailType?
     
     // Animation states
-    @State private var sparkleAnimationPhase: CGFloat = 0
     @State private var lifePathPulse: Bool = false
     
     var body: some View {
         NavigationView {
             ZStack {
                 // Cosmic Background
-                cosmicBackground
+                CosmicBackgroundView()
                 
                 ScrollView {
                     VStack(spacing: 30) {
@@ -65,7 +64,9 @@ struct UserProfileTabView: View {
             }
             .onAppear {
                 loadUserProfile()
-                startAnimations()
+                withAnimation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true)) {
+                    lifePathPulse = true
+                }
             }
             .sheet(isPresented: $showingEditProfile) {
                 ProfileEditView(userProfile: $userProfile)
@@ -75,37 +76,6 @@ struct UserProfileTabView: View {
             }
             .sheet(item: $selectedArchetypeDetail) { detail in
                 ArchetypeDetailView(detailType: detail, archetype: archetypeManager.storedArchetype)
-            }
-        }
-    }
-    
-    // MARK: - Background
-    
-    private var cosmicBackground: some View {
-        ZStack {
-            // Base gradient
-            LinearGradient(
-                gradient: Gradient(colors: [
-                    Color.black,
-                    Color.purple.opacity(0.3),
-                    Color.indigo.opacity(0.2),
-                    Color.black
-                ]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
-            
-            // Animated sparkles
-            ForEach(0..<30, id: \.self) { i in
-                Circle()
-                    .fill(Color.white.opacity(0.6))
-                    .frame(width: CGFloat.random(in: 1...3))
-                    .position(
-                        x: CGFloat.random(in: 0...UIScreen.main.bounds.width),
-                        y: CGFloat.random(in: 0...UIScreen.main.bounds.height * 2)
-                    )
-                    .opacity(sin(Double(sparkleAnimationPhase) + Double(i)) * 0.5 + 0.5)
             }
         }
     }
@@ -501,16 +471,6 @@ struct UserProfileTabView: View {
                     }
                 }
             }
-        }
-    }
-    
-    private func startAnimations() {
-        withAnimation(.linear(duration: 10.0).repeatForever(autoreverses: false)) {
-            sparkleAnimationPhase = .pi * 2
-        }
-        
-        withAnimation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true)) {
-            lifePathPulse = true
         }
     }
     

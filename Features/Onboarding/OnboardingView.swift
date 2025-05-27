@@ -23,78 +23,81 @@ struct OnboardingView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                // Progress Indicator - Only show for non-completion steps
-                if currentStep != .complete {
-                    Text("Step \(currentStep.rawValue + 1) of \(OnboardingStep.allCases.count - 1)")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .padding(.top)
-                }
-
-                // Page Content based on currentStep
-                switch currentStep {
-                case .initialInfo:
-                    OnboardingInitialInfoView(viewModel: viewModel)
-                case .spiritualMode:
-                    OnboardingSpiritualModeView(viewModel: viewModel)
-                case .insightTone:
-                    OnboardingInsightToneView(viewModel: viewModel)
-                case .focusTags:
-                    OnboardingFocusTagsView(viewModel: viewModel)
-                case .cosmicPreference:
-                    OnboardingCosmicPreferenceView(viewModel: viewModel)
-                case .cosmicRhythms:
-                    OnboardingCosmicRhythmsView(viewModel: viewModel)
-                case .notifications:
-                    OnboardingNotificationsView(viewModel: viewModel)
-                case .reflectionMode:
-                    OnboardingReflectionModeView(viewModel: viewModel)
-                // Add case for .complete
-                case .complete:
-                    OnboardingCompletionView(viewModel: viewModel, hasCompletedOnboarding: $hasCompletedOnboarding)
-                }
-
-                Spacer() // Pushes navigation to bottom
-
-                // Navigation Buttons
-                HStack {
-                    if currentStep.rawValue > 0 {
-                        Button("Back") {
-                            if let previousStep = OnboardingStep(rawValue: currentStep.rawValue - 1) {
-                                currentStep = previousStep
-                            }
-                        }
-                        .padding()
-                        .foregroundColor(.purple)
+            ZStack { // Add ZStack to layer the background
+                CosmicBackgroundView() // Add the cosmic background here
+                
+                VStack {
+                    // Progress Indicator - Only show for non-completion steps
+                    if currentStep != .complete {
+                        Text("Step \(currentStep.rawValue + 1) of \(OnboardingStep.allCases.count - 1)")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .padding(.top)
                     }
 
-                    Spacer()
-
-                    if currentStep.rawValue < OnboardingStep.allCases.count - 2 { // -2 to not show Next on the second to last if last is .complete
-                        Button("Next") {
-                            if let nextStep = OnboardingStep(rawValue: currentStep.rawValue + 1) {
-                                currentStep = nextStep
-                            }
-                        }
-                        .padding()
-                        .foregroundColor(.purple)
-                        .fontWeight(.semibold)
-                    } else if currentStep == .reflectionMode { // Assuming reflectionMode is the last data collection step
-                        Button("Finish") {
-                            viewModel.processOnboardingInfo()
-                            // Navigate to the completion view after processing
-                            currentStep = .complete
-                        }
-                        .padding()
-                        .foregroundColor(.purple)
-                        .fontWeight(.semibold)
+                    // Page Content based on currentStep
+                    switch currentStep {
+                    case .initialInfo:
+                        OnboardingInitialInfoView(viewModel: viewModel)
+                    case .spiritualMode:
+                        OnboardingSpiritualModeView(viewModel: viewModel)
+                    case .insightTone:
+                        OnboardingInsightToneView(viewModel: viewModel)
+                    case .focusTags:
+                        OnboardingFocusTagsView(viewModel: viewModel)
+                    case .cosmicPreference:
+                        OnboardingCosmicPreferenceView(viewModel: viewModel)
+                    case .cosmicRhythms:
+                        OnboardingCosmicRhythmsView(viewModel: viewModel)
+                    case .notifications:
+                        OnboardingNotificationsView(viewModel: viewModel)
+                    case .reflectionMode:
+                        OnboardingReflectionModeView(viewModel: viewModel)
+                    // Add case for .complete
+                    case .complete:
+                        OnboardingCompletionView(viewModel: viewModel, hasCompletedOnboarding: $hasCompletedOnboarding)
                     }
+
+                    Spacer() // Pushes navigation to bottom
+
+                    // Navigation Buttons
+                    HStack {
+                        if currentStep.rawValue > 0 {
+                            Button("Back") {
+                                if let previousStep = OnboardingStep(rawValue: currentStep.rawValue - 1) {
+                                    currentStep = previousStep
+                                }
+                            }
+                            .padding()
+                            .foregroundColor(.purple)
+                        }
+
+                        Spacer()
+
+                        if currentStep.rawValue < OnboardingStep.allCases.count - 2 { // -2 to not show Next on the second to last if last is .complete
+                            Button("Next") {
+                                if let nextStep = OnboardingStep(rawValue: currentStep.rawValue + 1) {
+                                    currentStep = nextStep
+                                }
+                            }
+                            .padding()
+                            .foregroundColor(.purple)
+                            .fontWeight(.semibold)
+                        } else if currentStep == .reflectionMode { // Assuming reflectionMode is the last data collection step
+                            Button("Finish") {
+                                viewModel.processOnboardingInfo()
+                                // Navigate to the completion view after processing
+                                currentStep = .complete
+                            }
+                            .padding()
+                            .foregroundColor(.purple)
+                            .fontWeight(.semibold)
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom, 20)
                 }
-                .padding(.horizontal)
-                .padding(.bottom, 20)
             }
-            .background(Color(.systemGroupedBackground).edgesIgnoringSafeArea(.all))
             .navigationBarHidden(true) // Keep it clean, rely on custom progress/nav
             .onAppear {
                 if let userID = signInViewModel.userID {
@@ -144,18 +147,6 @@ struct OnboardingInitialInfoView: View {
             .padding(.top, 20)
             .padding(.bottom, 40)
         }
-        .background(
-            LinearGradient(
-                gradient: Gradient(colors: [
-                    Color.purple.opacity(0.15),
-                    Color.blue.opacity(0.1),
-                    Color.indigo.opacity(0.05),
-                    Color.clear
-                ]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        )
         .onAppear {
             // Sync any existing data
             if !viewModel.fullNameAtBirth.isEmpty {

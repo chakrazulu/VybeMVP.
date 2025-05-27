@@ -24,6 +24,15 @@ import HealthKit
 import UserNotifications
 import UIKit
 
+// Struct to hold matched insight data
+struct MatchedInsightData: Identifiable {
+    let id = UUID()
+    let number: Int
+    let category: String
+    let text: String
+    let timestamp: Date
+}
+
 /**
  * Core manager class for focus number operations and match detection.
  *
@@ -54,6 +63,9 @@ class FocusNumberManager: NSObject, ObservableObject {
     
     /// The current realm number value, tracked for match detection
     @Published var realmNumber: Int = 0
+    
+    /// Publishes the latest insight when a new match occurs
+    @Published var latestMatchedInsight: MatchedInsightData? = nil
     
     /// Cached location coordinates for calculations
     private var _currentLocation: CLLocationCoordinate2D?
@@ -237,6 +249,28 @@ class FocusNumberManager: NSObject, ObservableObject {
         }
         
         print("✨ New match confirmed! Recording match between Focus Number \(selectedFocusNumber) and Realm Number \(matchedRealmNumber)")
+        
+        // Fetch and store the insight for this new match
+        if let insightText = NumerologyInsightService.shared.fetchInsight(forNumber: matchedRealmNumber, category: InsightCategory.insight) {
+            self.latestMatchedInsight = MatchedInsightData(
+                number: matchedRealmNumber,
+                category: InsightCategory.insight, // Or dynamically determine if needed
+                text: insightText,
+                timestamp: Date() // Record when this insight was fetched/matched
+            )
+            print("💡 Fetched insight for matched number \(matchedRealmNumber): \(insightText.prefix(50))...")
+
+            // NEW: Save this insight to PersistedInsightLog
+            savePersistedInsight(
+                number: matchedRealmNumber,
+                category: InsightCategory.insight, // Or determine dynamically if needed
+                text: insightText,
+                tags: "FocusMatch, RealmTouch" // Example tags
+            )
+
+        } else {
+            print("⚠️ Could not fetch insight for matched number \(matchedRealmNumber).")
+        }
         
         // Continue with the rest of the existing method
         saveMatch(matchedRealmNumber: matchedRealmNumber)
@@ -563,6 +597,34 @@ class FocusNumberManager: NSObject, ObservableObject {
         return HealthKitManager.shared.getCurrentHeartRate()
     }
     
+    // New private helper function in FocusNumberManager.swift
+    private func savePersistedInsight(number: Int, category: String, text: String, tags: String?) {
+        let context = self.viewContext // Assuming viewContext is your NSManagedObjectContext
+
+        // Ensure Core Data operations are on the main thread
+        if !Thread.isMainThread {
+            DispatchQueue.main.async { [weak self] in
+                self?.savePersistedInsight(number: number, category: category, text: text, tags: tags)
+            }
+            return
+        }
+
+        let newPersistedInsight = PersistedInsightLog(context: context)
+        newPersistedInsight.id = UUID()
+        newPersistedInsight.timestamp = Date()
+        newPersistedInsight.number = Int16(number)
+        newPersistedInsight.category = category
+        newPersistedInsight.text = text
+        newPersistedInsight.tags = tags // e.g., "FocusMatch, RealmTouch"
+
+        do {
+            try context.save()
+            print("💾 Successfully saved PersistedInsightLog for number \(number), category \(category).")
+        } catch {
+            print("❌ Error saving PersistedInsightLog: \(error.localizedDescription)")
+        }
+    }
+
     // Restore the methods accidentally removed
     /**
      * Loads user preferences from Core Data.

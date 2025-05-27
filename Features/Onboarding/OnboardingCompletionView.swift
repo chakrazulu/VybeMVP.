@@ -45,47 +45,11 @@ struct OnboardingCompletionView: View {
             .padding(.top, 40)
             .padding(.bottom, 40)
         }
-        .background(cosmicBackground)
         .onAppear {
             startAnimations()
             // Haptic feedback for completion
             let impactFeedback = UIImpactFeedbackGenerator(style: .heavy)
             impactFeedback.impactOccurred()
-        }
-    }
-    
-    private var cosmicBackground: some View {
-        ZStack {
-            // Enhanced cosmic gradient background
-            LinearGradient(
-                gradient: Gradient(colors: [
-                    Color.purple.opacity(0.4),
-                    Color.blue.opacity(0.3),
-                    Color.indigo.opacity(0.2),
-                    Color.black.opacity(0.1)
-                ]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            
-            // Enhanced animated sparkles
-            ForEach(0..<30, id: \.self) { index in
-                Image(systemName: "sparkle")
-                    .foregroundColor(.white.opacity(0.8))
-                    .font(.system(size: CGFloat.random(in: 8...20)))
-                    .position(
-                        x: CGFloat.random(in: 50...350),
-                        y: CGFloat.random(in: 100...1000)
-                    )
-                    .opacity(sparkleAnimation ? 1.0 : 0.2)
-                    .scaleEffect(sparkleAnimation ? 1.3 : 0.7)
-                    .animation(
-                        .easeInOut(duration: Double.random(in: 1.0...3.5))
-                        .repeatForever(autoreverses: true)
-                        .delay(Double.random(in: 0...3)),
-                        value: sparkleAnimation
-                    )
-            }
         }
     }
     

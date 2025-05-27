@@ -37,17 +37,6 @@ struct OnboardingNotificationsView: View {
             .padding(.top, 20)
             .padding(.bottom, 40)
         }
-        .background(
-            LinearGradient(
-                gradient: Gradient(colors: [
-                    Color.purple.opacity(0.1),
-                    Color.blue.opacity(0.05),
-                    Color.clear
-                ]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        )
     }
     
     private var headerSection: some View {

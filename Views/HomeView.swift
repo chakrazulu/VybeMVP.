@@ -29,6 +29,7 @@ struct HomeView: View {
     @EnvironmentObject var realmNumberManager: RealmNumberManager
     @EnvironmentObject var signInViewModel: SignInViewModel
     @ObservedObject var aiInsightManager = AIInsightManager.shared
+    @StateObject private var activityNavigationManager = ActivityNavigationManager.shared
     
     /// Controls visibility of the focus number picker sheet
     @State private var showingPicker = false
@@ -46,16 +47,59 @@ struct HomeView: View {
                 // Focus Number Display
                 ZStack {
                     Circle()
-                        .fill(Color.purple.opacity(0.2))
-                        .frame(width: 120, height: 120)
+                        .fill(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.purple.opacity(0.6), Color.blue.opacity(0.4), Color.indigo.opacity(0.3)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 180, height: 180)
+                        .shadow(color: .purple.opacity(0.5), radius: 20, x: 0, y: 10)
                     
                     Text("\(focusNumberManager.selectedFocusNumber)")
-                        .font(.system(size: 60, weight: .bold))
-                        .foregroundColor(.purple)
+                        .font(.system(size: 90, weight: .bold, design: .rounded))
+                        .foregroundStyle(
+                            LinearGradient(
+                                gradient: Gradient(colors: [.white, .purple.opacity(0.8)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .shadow(color: .white.opacity(0.3), radius: 5, x: 0, y: 2)
                 }
+                
+                // TickTockRealm Button
+                Button(action: {
+                    activityNavigationManager.requestRealmNavigation()
+                    print("TickTockRealm button tapped - navigation requested")
+                }) {
+                    Text("TickTockRealm")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .padding(.horizontal, 30)
+                        .padding(.vertical, 15)
+                        .foregroundColor(.white)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.orange, Color.red]),
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .cornerRadius(20)
+                        .shadow(color: .red.opacity(0.5), radius: 10, x: 0, y: 5)
+                }
+                .padding(.top, 10) // Add some space above the insight section
                 
                 // Enhanced Today's Insight Section
                 todaysInsightSection
+                
+                // NEW: Latest Matched Number Insight Section
+                if let matchedInsight = focusNumberManager.latestMatchedInsight,
+                   isInsightRecent(matchedInsight.timestamp) { // Only show if recent
+                    matchedInsightSection(insightData: matchedInsight)
+                }
                 
                 // Recent Matches Section
                 VStack(alignment: .leading, spacing: 10) {
@@ -109,7 +153,13 @@ struct HomeView: View {
         }
         .onAppear {
             focusNumberManager.loadMatchLogs()
+            // Potentially fetch initial AI insight here if not already handled by AIInsightManager
         }
+    }
+    
+    // Helper to check if an insight is recent (e.g., within last 24 hours)
+    private func isInsightRecent(_ date: Date, within interval: TimeInterval = 24 * 60 * 60) -> Bool {
+        return Date().timeIntervalSince(date) < interval
     }
     
     // MARK: - Today's Insight Section
@@ -234,6 +284,75 @@ struct HomeView: View {
         )
         .cornerRadius(16)
         .shadow(color: .purple.opacity(0.3), radius: 15, x: 0, y: 8)
+        .padding(.horizontal)
+    }
+    
+    // MARK: - Latest Matched Insight Section
+    
+    private func matchedInsightSection(insightData: MatchedInsightData) -> some View {
+        VStack(spacing: 20) {
+            // Header
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Cosmic Resonance Alert!")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.yellow) // Distinguish from Today's Insight
+                    
+                    Text("Focus Number \(insightData.number) Aligned - \(insightData.timestamp, style: .relative) ago")
+                        .font(.subheadline)
+                        .foregroundColor(.white.opacity(0.8))
+                }
+                Spacer()
+                // Optional: Add a button to navigate to the full Activity page later
+            }
+            
+            // Insight Content
+            Text(insightData.text)
+                .font(.body)
+                .foregroundColor(.white.opacity(0.9))
+                .multilineTextAlignment(.leading)
+                .lineSpacing(4)
+                .lineLimit(5) // Show a preview, full text on Activity page
+                .fixedSize(horizontal: false, vertical: true)
+            
+            // TODO: Add a "View Full Insight" button or make the section tappable
+            // to navigate to the new Activity Page
+            Button(action: {
+                activityNavigationManager.requestNavigation(to: insightData)
+            }) {
+                Text("Read Full Resonance Message")
+                    .font(.headline)
+                    .foregroundColor(.yellow)
+                    .padding(.top, 10)
+            }
+
+        }
+        .padding(20)
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color.orange.opacity(0.7), // Different color scheme
+                    Color.red.opacity(0.5),
+                    Color.purple.opacity(0.4)
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(
+                    LinearGradient(
+                        gradient: Gradient(colors: [.yellow.opacity(0.4), .orange.opacity(0.3)]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1
+                )
+        )
+        .cornerRadius(16)
+        .shadow(color: .orange.opacity(0.3), radius: 15, x: 0, y: 8)
         .padding(.horizontal)
     }
     

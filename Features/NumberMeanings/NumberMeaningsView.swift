@@ -3,42 +3,53 @@ import SwiftUI
 struct NumberMeaningsView: View {
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack(spacing: 30) {
-                    // Focus Numbers Section
-                    VStack(alignment: .leading, spacing: 15) {
-                        Text("Focus Numbers")
-                            .font(.title2)
-                            .fontWeight(.bold)
+            ZStack {
+                CosmicBackgroundView().ignoresSafeArea()
+
+                ScrollView {
+                    VStack(spacing: 30) {
+                        // Focus Numbers Section
+                        VStack(alignment: .leading, spacing: 15) {
+                            Text("Focus Numbers")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                            
+                            Text("Your Focus Number is a personal number you choose to align with. Each number carries unique energetic properties and meanings.")
+                                .foregroundColor(.secondary)
+                            
+                            NumberMeaningsList(type: .focus)
+                        }
+                        .padding()
+                        .background(Color.black.opacity(0.3))
+                        .cornerRadius(12)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.purple.opacity(0.5), lineWidth: 1)
+                        )
                         
-                        Text("Your Focus Number is a personal number you choose to align with. Each number carries unique energetic properties and meanings.")
-                            .foregroundColor(.secondary)
-                        
-                        NumberMeaningsList(type: .focus)
+                        // Realm Numbers Section
+                        VStack(alignment: .leading, spacing: 15) {
+                            Text("Realm Numbers")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                            
+                            Text("The Realm Number represents the current vibrational frequency of your environment. It is calculated using time, location, and biometric data.")
+                                .foregroundColor(.secondary)
+                            
+                            NumberMeaningsList(type: .realm)
+                        }
+                        .padding()
+                        .background(Color.black.opacity(0.3))
+                        .cornerRadius(12)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.blue.opacity(0.5), lineWidth: 1)
+                        )
                     }
                     .padding()
-                    .background(Color(.secondarySystemBackground))
-                    .cornerRadius(12)
-                    
-                    // Realm Numbers Section
-                    VStack(alignment: .leading, spacing: 15) {
-                        Text("Realm Numbers")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                        
-                        Text("The Realm Number represents the current vibrational frequency of your environment. It is calculated using time, location, and biometric data.")
-                            .foregroundColor(.secondary)
-                        
-                        NumberMeaningsList(type: .realm)
-                    }
-                    .padding()
-                    .background(Color(.secondarySystemBackground))
-                    .cornerRadius(12)
                 }
-                .padding()
+                .navigationTitle("Number Meanings")
             }
-            .navigationTitle("Number Meanings")
-            .background(Color(.systemGroupedBackground))
         }
     }
 }

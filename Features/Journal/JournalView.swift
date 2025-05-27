@@ -33,43 +33,50 @@ struct JournalView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(filteredEntries, id: \.id) { entry in
-                    NavigationLink(destination: JournalEntryDetailView(entry: entry)) {
-                        VStack(alignment: .leading) {
-                            Text(entry.title ?? "Untitled")
-                                .font(.headline)
-                            Text("Focus Number: \(entry.focusNumber)")
-                                .font(.subheadline)
-                            if let timestamp = entry.timestamp {
-                                Text(timestamp, style: .date)
-                                    .font(.caption)
-                                    .foregroundColor(.gray)
+            ZStack {
+                CosmicBackgroundView().ignoresSafeArea()
+
+                List {
+                    ForEach(filteredEntries, id: \.id) { entry in
+                        NavigationLink(destination: JournalEntryDetailView(entry: entry)) {
+                            VStack(alignment: .leading) {
+                                Text(entry.title ?? "Untitled")
+                                    .font(.headline)
+                                Text("Focus Number: \(entry.focusNumber)")
+                                    .font(.subheadline)
+                                if let timestamp = entry.timestamp {
+                                    Text(timestamp, style: .date)
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                }
                             }
                         }
                     }
-                }
-                .onDelete { indexSet in
-                    for index in indexSet {
-                        journalManager.deleteEntry(filteredEntries[index])
+                    .listRowBackground(Color.clear)
+                    .onDelete { indexSet in
+                        for index in indexSet {
+                            journalManager.deleteEntry(filteredEntries[index])
+                        }
                     }
                 }
-            }
-            .searchable(text: $searchText, prompt: "Search journals...")
-            .navigationTitle("Journal")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("New Entry") {
-                        showingNewEntrySheet = true
+                .searchable(text: $searchText, prompt: "Search journals...")
+                .navigationTitle("Journal")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("New Entry") {
+                            showingNewEntrySheet = true
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        filterMenu
                     }
                 }
-                
-                ToolbarItem(placement: .navigationBarLeading) {
-                    filterMenu
+                .sheet(isPresented: $showingNewEntrySheet) {
+                    NewJournalEntryView()
                 }
-            }
-            .sheet(isPresented: $showingNewEntrySheet) {
-                NewJournalEntryView()
+                .background(Color.clear)
+                .scrollContentBackground(.hidden)
             }
         }
     }
