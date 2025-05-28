@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D0CA8D12DE69F4600D4A6D6 /* NumerologyRainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CA8D02DE69F4600D4A6D6 /* NumerologyRainView.swift */; };
 		4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */; };
 		4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */; };
 		4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BF2D3CA97C009A7BBD /* VybeMVP.xcdatamodeld */; };
@@ -108,6 +109,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D0CA8D02DE69F4600D4A6D6 /* NumerologyRainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyRainView.swift; sourceTree = "<group>"; };
 		4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberHelper.swift; sourceTree = "<group>"; };
 		4D3055B62D3C9C3B009A7BBD /* VybeMVP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VybeMVP.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberView.swift; sourceTree = "<group>"; };
@@ -200,11 +202,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		4D74C21A2D3B3FF400DBE623 /* FocusNumber */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = FocusNumber;
-			sourceTree = "<group>";
-		};
 		4D80E10D2D41E17A0020F7BB /* VybeMVPTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = VybeMVPTests;
@@ -348,6 +345,7 @@
 		4D3727142DE550ED00B5A02B /* ReusableComponents */ = {
 			isa = PBXGroup;
 			children = (
+				4D0CA8D02DE69F4600D4A6D6 /* NumerologyRainView.swift */,
 				4D3727132DE550ED00B5A02B /* CosmicBackgroundView.swift */,
 			);
 			path = ReusableComponents;
@@ -443,7 +441,6 @@
 				4D37270F2DE5407100B5A02B /* Insights */,
 				4D37270C2DE5404500B5A02B /* UserProfile */,
 				4D6C7B9C2DE47E99001036E5 /* Onboarding */,
-				4D74C21A2D3B3FF400DBE623 /* FocusNumber */,
 				4DC602332D3456B700B5E4A9 /* SignIn */,
 				4D3055DE2D3CE8AE009A7BBD /* Journal */,
 			);
@@ -529,7 +526,6 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				4D74C21A2D3B3FF400DBE623 /* FocusNumber */,
 				4D8AB7702D3C746200009BC9 /* Preview Content */,
 				4DC6021D2D343E8D00B5E4A9 /* VybeApp */,
 				4DE4C3A22DB5C85D00BB7572 /* NumerologyData */,
@@ -673,6 +669,7 @@
 				4D3056002D3D9245009A7BBD /* JournalEntryView.swift in Sources */,
 				4D3727152DE550ED00B5A02B /* CosmicBackgroundView.swift in Sources */,
 				4D6C7B9D2DE47E99001036E5 /* OnboardingReflectionModeView.swift in Sources */,
+				4D0CA8D12DE69F4600D4A6D6 /* NumerologyRainView.swift in Sources */,
 				4D6C7B9E2DE47E99001036E5 /* OnboardingInsightToneView.swift in Sources */,
 				4D6C7BA02DE47E99001036E5 /* OnboardingCosmicRhythmsView.swift in Sources */,
 				4D6C7BA12DE47E99001036E5 /* OnboardingView.swift in Sources */,

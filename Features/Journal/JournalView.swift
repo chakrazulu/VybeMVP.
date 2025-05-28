@@ -34,49 +34,62 @@ struct JournalView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                CosmicBackgroundView().ignoresSafeArea()
-
-                List {
-                    ForEach(filteredEntries, id: \.id) { entry in
-                        NavigationLink(destination: JournalEntryDetailView(entry: entry)) {
-                            VStack(alignment: .leading) {
-                                Text(entry.title ?? "Untitled")
-                                    .font(.headline)
-                                Text("Focus Number: \(entry.focusNumber)")
-                                    .font(.subheadline)
-                                if let timestamp = entry.timestamp {
-                                    Text(timestamp, style: .date)
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
-                                }
-                            }
-                        }
-                    }
-                    .listRowBackground(Color.clear)
-                    .onDelete { indexSet in
-                        for index in indexSet {
-                            journalManager.deleteEntry(filteredEntries[index])
-                        }
-                    }
+                CosmicBackgroundView()
+                    .ignoresSafeArea()
+                
+                journalListView
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var journalListView: some View {
+        List {
+            ForEach(filteredEntries, id: \.id) { entry in
+                journalEntryRow(for: entry)
+            }
+            .onDelete { indexSet in
+                for index in indexSet {
+                    journalManager.deleteEntry(filteredEntries[index])
                 }
-                .searchable(text: $searchText, prompt: "Search journals...")
-                .navigationTitle("Journal")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("New Entry") {
-                            showingNewEntrySheet = true
-                        }
-                    }
-                    
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        filterMenu
-                    }
+            }
+            .listRowBackground(Color.clear)
+        }
+        .searchable(text: $searchText, prompt: "Search journals...")
+        .navigationTitle("Journal")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("New Entry") {
+                    showingNewEntrySheet = true
                 }
-                .sheet(isPresented: $showingNewEntrySheet) {
-                    NewJournalEntryView()
+            }
+            
+            ToolbarItem(placement: .navigationBarLeading) {
+                filterMenu
+            }
+        }
+        .sheet(isPresented: $showingNewEntrySheet) {
+            NewJournalEntryView()
+        }
+        .background(Color.clear)
+        .scrollContentBackground(.hidden)
+    }
+    
+    @ViewBuilder
+    private func journalEntryRow(for entry: JournalEntry) -> some View {
+        NavigationLink(destination: JournalEntryDetailView(entry: entry)) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(entry.title ?? "Untitled")
+                    .font(.headline)
+                
+                Text("Focus Number: \(entry.focusNumber)")
+                    .font(.subheadline)
+                
+                if let timestamp = entry.timestamp {
+                    Text(timestamp, style: .date)
+                        .font(.caption)
+                        .foregroundColor(.gray)
                 }
-                .background(Color.clear)
-                .scrollContentBackground(.hidden)
             }
         }
     }
@@ -88,41 +101,51 @@ struct JournalView: View {
                 selectedMood = nil
             }
             
-            Menu("By Focus Number") {
-                ForEach(FocusNumberManager.validFocusNumbers, id: \.self) { number in
-                    Button(action: {
-                        selectedFocusNumber = number
-                        selectedMood = nil
-                    }) {
-                        HStack {
-                            Text("\(number)")
-                            if selectedFocusNumber == number {
-                                Image(systemName: "checkmark")
-                            }
-                        }
-                    }
-                }
-            }
+            focusNumberMenu
             
-            Menu("By Mood") {
-                ForEach(JournalMood.allCases, id: \.self) { mood in
-                    Button(action: {
-                        selectedMood = mood
-                        selectedFocusNumber = nil
-                    }) {
-                        HStack {
-                            Text(mood.rawValue)
-                            Text(mood.description)
-                                .foregroundColor(.secondary)
-                            if selectedMood == mood {
-                                Image(systemName: "checkmark")
-                            }
-                        }
-                    }
-                }
-            }
+            moodMenu
         } label: {
             Label("Filter", systemImage: "line.3.horizontal.decrease.circle")
+        }
+    }
+    
+    @ViewBuilder
+    private var focusNumberMenu: some View {
+        Menu("By Focus Number") {
+            ForEach(FocusNumberManager.validFocusNumbers, id: \.self) { number in
+                Button(action: {
+                    selectedFocusNumber = number
+                    selectedMood = nil
+                }) {
+                    HStack {
+                        Text("\(number)")
+                        if selectedFocusNumber == number {
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var moodMenu: some View {
+        Menu("By Mood") {
+            ForEach(JournalMood.allCases, id: \.self) { mood in
+                Button(action: {
+                    selectedMood = mood
+                    selectedFocusNumber = nil
+                }) {
+                    HStack {
+                        Text(mood.rawValue)
+                        Text(mood.description)
+                            .foregroundColor(.secondary)
+                        if selectedMood == mood {
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+            }
         }
     }
 } 

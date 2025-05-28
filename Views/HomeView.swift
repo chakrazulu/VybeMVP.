@@ -34,116 +34,162 @@ struct HomeView: View {
     /// Controls visibility of the focus number picker sheet
     @State private var showingPicker = false
     @State private var showingInsightHistory = false
+    /// New state for cosmic number picker overlay
+    @State private var showingCosmicPicker = false
+    @State private var pickerScale: CGFloat = 0.1
+    @State private var pickerOpacity: Double = 0.0
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 30) {
-                Text("Vybe")
-                    .font(.system(size: 40, weight: .bold))
-                
-                Text("Your Focus Number")
-                    .font(.title)
-                
-                // Focus Number Display
-                ZStack {
-                    Circle()
-                        .fill(
-                            LinearGradient(
-                                gradient: Gradient(colors: [Color.purple.opacity(0.6), Color.blue.opacity(0.4), Color.indigo.opacity(0.3)]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .frame(width: 180, height: 180)
-                        .shadow(color: .purple.opacity(0.5), radius: 20, x: 0, y: 10)
+        ZStack {
+            CosmicBackgroundView()
+                .ignoresSafeArea()
+            
+            ScrollView {
+                VStack(spacing: 30) {
+                    Text("Vybe")
+                        .font(.system(size: 40, weight: .bold))
                     
-                    Text("\(focusNumberManager.selectedFocusNumber)")
-                        .font(.system(size: 90, weight: .bold, design: .rounded))
-                        .foregroundStyle(
-                            LinearGradient(
-                                gradient: Gradient(colors: [.white, .purple.opacity(0.8)]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .shadow(color: .white.opacity(0.3), radius: 5, x: 0, y: 2)
-                }
-                
-                // TickTockRealm Button
-                Button(action: {
-                    activityNavigationManager.requestRealmNavigation()
-                    print("TickTockRealm button tapped - navigation requested")
-                }) {
-                    Text("TickTockRealm")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .padding(.horizontal, 30)
-                        .padding(.vertical, 15)
-                        .foregroundColor(.white)
-                        .background(
-                            LinearGradient(
-                                gradient: Gradient(colors: [Color.orange, Color.red]),
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .cornerRadius(20)
-                        .shadow(color: .red.opacity(0.5), radius: 10, x: 0, y: 5)
-                }
-                .padding(.top, 10) // Add some space above the insight section
-                
-                // Enhanced Today's Insight Section
-                todaysInsightSection
-                
-                // NEW: Latest Matched Number Insight Section
-                if let matchedInsight = focusNumberManager.latestMatchedInsight,
-                   isInsightRecent(matchedInsight.timestamp) { // Only show if recent
-                    matchedInsightSection(insightData: matchedInsight)
-                }
-                
-                // Recent Matches Section
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Recent Matches")
-                        .font(.headline)
-                        .padding(.horizontal)
+                    Text("Your Focus Number")
+                        .font(.title)
                     
-                    if focusNumberManager.matchLogs.isEmpty {
-                        Text("No matches yet")
-                            .foregroundColor(.secondary)
-                            .padding()
-                    } else {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 15) {
-                                ForEach(Array(focusNumberManager.matchLogs.prefix(5).enumerated()), id: \.offset) { index, match in
-                                    VStack {
-                                        Text("#\(match.matchedNumber)")
-                                            .font(.title2)
-                                            .bold()
-                                        Text(match.timestamp, style: .time)
-                                            .font(.caption)
-                                            .foregroundColor(.secondary)
-                                    }
-                                    .padding()
-                                    .background(Color.purple.opacity(0.1))
-                                    .cornerRadius(10)
-                                }
-                            }
-                            .padding(.horizontal)
+                    // Focus Number Display
+                    ZStack {
+                        Circle()
+                            .fill(
+                                RadialGradient(
+                                    gradient: Gradient(colors: [
+                                        getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.8),
+                                        getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.4),
+                                        Color.black.opacity(0.2)
+                                    ]),
+                                    center: .center,
+                                    startRadius: 20,
+                                    endRadius: 90
+                                )
+                            )
+                            .frame(width: 180, height: 180)
+                            .shadow(color: getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.6), radius: 20, x: 0, y: 10)
+                            .overlay(
+                                Circle()
+                                    .stroke(getSacredColor(for: focusNumberManager.selectedFocusNumber), lineWidth: 2)
+                            )
+                        
+                        Text("\(focusNumberManager.selectedFocusNumber)")
+                            .font(.system(size: 90, weight: .bold, design: .rounded))
+                            .foregroundStyle(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [.white, getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.8)]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .shadow(color: .white.opacity(0.8), radius: 5, x: 0, y: 2)
+                            .shadow(color: getSacredColor(for: focusNumberManager.selectedFocusNumber), radius: 15, x: 0, y: 0)
+                        
+                        // Subtle hold instruction
+                        VStack {
+                            Spacer()
+                            Text("✦ Hold to Change ✦")
+                                .font(.system(size: 12, weight: .medium, design: .rounded))
+                                .foregroundColor(.white.opacity(0.6))
+                                .shadow(color: getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.3), radius: 2)
+                                .padding(.top, 140)
                         }
                     }
+                    .onLongPressGesture(minimumDuration: 0.6) {
+                        // Haptic feedback
+                        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                        impactFeedback.impactOccurred()
+                        
+                        // Show cosmic picker with animation
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            showingCosmicPicker = true
+                            pickerScale = 1.0
+                            pickerOpacity = 1.0
+                        }
+                    }
+                    
+                    // TickTockRealm Button
+                    Button(action: {
+                        activityNavigationManager.requestRealmNavigation()
+                        print("TickTockRealm button tapped - navigation requested")
+                    }) {
+                        Text("TickTockRealm")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .padding(.horizontal, 30)
+                            .padding(.vertical, 15)
+                            .foregroundColor(.white)
+                            .background(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [Color.orange, Color.red]),
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                            .cornerRadius(20)
+                            .shadow(color: .red.opacity(0.5), radius: 10, x: 0, y: 5)
+                    }
+                    .padding(.top, 10) // Add some space above the insight section
+                    
+                    // Enhanced Today's Insight Section
+                    todaysInsightSection
+                    
+                    // NEW: Latest Matched Number Insight Section
+                    if let matchedInsight = focusNumberManager.latestMatchedInsight,
+                       isInsightRecent(matchedInsight.timestamp) { // Only show if recent
+                        matchedInsightSection(insightData: matchedInsight)
+                    }
+                    
+                    // Recent Matches Section
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Recent Matches")
+                            .font(.headline)
+                            .padding(.horizontal)
+                        
+                        if focusNumberManager.matchLogs.isEmpty {
+                            Text("No matches yet")
+                                .foregroundColor(.secondary)
+                                .padding()
+                        } else {
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 15) {
+                                    ForEach(Array(focusNumberManager.matchLogs.prefix(5).enumerated()), id: \.offset) { index, match in
+                                        VStack {
+                                            Text("#\(match.matchedNumber)")
+                                                .font(.title2)
+                                                .bold()
+                                            Text(match.timestamp, style: .time)
+                                                .font(.caption)
+                                                .foregroundColor(.secondary)
+                                        }
+                                        .padding()
+                                        .background(Color.purple.opacity(0.1))
+                                        .cornerRadius(10)
+                                    }
+                                }
+                                .padding(.horizontal)
+                            }
+                        }
+                    }
+                    
+                    Spacer()
+                    
+                    // Change Number Button
+                    Button("Change Number") {
+                        showingPicker = true
+                    }
+                    .font(.headline)
+                    .foregroundColor(.blue)
+                    .padding(.bottom, 20)
                 }
-                
-                Spacer()
-                
-                // Change Number Button
-                Button("Change Number") {
-                    showingPicker = true
-                }
-                .font(.headline)
-                .foregroundColor(.blue)
-                .padding(.bottom, 20)
+                .padding(.top, 50)
             }
-            .padding(.top, 50)
+            
+            // Cosmic Number Picker Overlay
+            if showingCosmicPicker {
+                cosmicNumberPickerOverlay
+            }
         }
         .sheet(isPresented: $showingPicker) {
             FocusNumberPicker()
@@ -361,6 +407,135 @@ struct HomeView: View {
         formatter.timeStyle = .short
         return formatter
     }()
+    
+    private var cosmicNumberPickerOverlay: some View {
+        ZStack {
+            // Backdrop
+            Color.black.opacity(0.7)
+                .ignoresSafeArea()
+                .onTapGesture {
+                    dismissCosmicPicker()
+                }
+            
+            VStack(spacing: 20) {
+                Text("✦ Choose Your Sacred Focus Number ✦")
+                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                    .foregroundStyle(
+                        LinearGradient(
+                            gradient: Gradient(colors: [.white, .purple.opacity(0.8), .cyan.opacity(0.6)]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .shadow(color: .white.opacity(0.3), radius: 5, x: 0, y: 2)
+                
+                // Sacred number grid
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 15), count: 3), spacing: 15) {
+                    ForEach(1...9, id: \.self) { number in
+                        Button(action: {
+                            selectFocusNumber(number)
+                        }) {
+                            ZStack {
+                                Circle()
+                                    .fill(
+                                        RadialGradient(
+                                            gradient: Gradient(colors: [
+                                                getSacredColor(for: number).opacity(0.8),
+                                                getSacredColor(for: number).opacity(0.4),
+                                                Color.black.opacity(0.3)
+                                            ]),
+                                            center: .center,
+                                            startRadius: 10,
+                                            endRadius: 35
+                                        )
+                                    )
+                                    .frame(width: 70, height: 70)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(getSacredColor(for: number), lineWidth: 2)
+                                    )
+                                    .shadow(color: getSacredColor(for: number).opacity(0.6), radius: 10, x: 0, y: 0)
+                                
+                                Text("\(number)")
+                                    .font(.system(size: 30, weight: .bold, design: .rounded))
+                                    .foregroundColor(.white)
+                                    .shadow(color: .black.opacity(0.8), radius: 2, x: 1, y: 1)
+                            }
+                        }
+                        .scaleEffect(focusNumberManager.selectedFocusNumber == number ? 1.1 : 1.0)
+                        .animation(.easeInOut(duration: 0.2), value: focusNumberManager.selectedFocusNumber)
+                    }
+                }
+                .padding(.horizontal, 30)
+                
+                Button("✦ Close ✦") {
+                    dismissCosmicPicker()
+                }
+                .font(.system(size: 18, weight: .medium, design: .rounded))
+                .foregroundColor(.white.opacity(0.8))
+                .padding(.top, 10)
+            }
+            .padding(30)
+            .background(
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(Color.black.opacity(0.8))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [.purple.opacity(0.6), .blue.opacity(0.4)]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
+                                lineWidth: 2
+                            )
+                    )
+            )
+            .shadow(color: .purple.opacity(0.3), radius: 20, x: 0, y: 10)
+        }
+        .scaleEffect(pickerScale)
+        .opacity(pickerOpacity)
+    }
+    
+    private func selectFocusNumber(_ number: Int) {
+        // Haptic feedback for selection
+        let selectionFeedback = UISelectionFeedbackGenerator()
+        selectionFeedback.selectionChanged()
+        
+        // Update focus number
+        focusNumberManager.userDidPickFocusNumber(number)
+        
+        // Dismiss picker with animation
+        dismissCosmicPicker()
+    }
+    
+    private func dismissCosmicPicker() {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            pickerScale = 0.1
+            pickerOpacity = 0.0
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            showingCosmicPicker = false
+        }
+    }
+    
+    // MARK: - Sacred Color System
+    
+    private func getSacredColor(for number: Int) -> Color {
+        switch number {
+        case 1: return .red
+        case 2: return .orange
+        case 3: return .yellow
+        case 4: return .green
+        case 5: return .blue
+        case 6: return .indigo
+        case 7: return .purple
+        case 8: return Color(red: 1.0, green: 0.8, blue: 0.0) // gold
+        case 9: return .white
+        default: return .white
+        }
+    }
 }
 
 struct HomeView_Previews: PreviewProvider {
