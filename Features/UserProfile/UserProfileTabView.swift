@@ -674,11 +674,10 @@ struct InteractiveArchetypeCard: View {
                 .font(.caption)
                 .foregroundColor(.white.opacity(0.8))
                 .multilineTextAlignment(.center)
-                .lineLimit(3)
                 .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity)
-        .frame(minHeight: 120)
+        .frame(minHeight: 140)
         .padding(16)
         .background(
             RoundedRectangle(cornerRadius: 16)
