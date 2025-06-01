@@ -73,6 +73,10 @@ struct JournalView: View {
         }
         .background(Color.clear)
         .scrollContentBackground(.hidden)
+        .onAppear {
+            // Refresh entries when the view appears
+            journalManager.loadEntries()
+        }
     }
     
     @ViewBuilder

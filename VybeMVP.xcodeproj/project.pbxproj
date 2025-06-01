@@ -37,6 +37,7 @@
 		4D3727172DE551E100B5A02B /* ActivityNavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3727162DE551E100B5A02B /* ActivityNavigationManager.swift */; };
 		4D3727192DE5538A00B5A02B /* NumerologyInsightService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3727182DE5538A00B5A02B /* NumerologyInsightService.swift */; };
 		4D37271C2DE554B700B5A02B /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D37271A2DE554B700B5A02B /* ActivityView.swift */; };
+		4D53BE252DEC151900BAE6AE /* VoiceRecordingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */; };
 		4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */; };
 		4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */; };
 		4D6C7B552DE45441001036E5 /* ArchetypeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */; };
@@ -140,6 +141,7 @@
 		4D3727162DE551E100B5A02B /* ActivityNavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityNavigationManager.swift; sourceTree = "<group>"; };
 		4D3727182DE5538A00B5A02B /* NumerologyInsightService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyInsightService.swift; sourceTree = "<group>"; };
 		4D37271A2DE554B700B5A02B /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordingManager.swift; sourceTree = "<group>"; };
 		4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetype.swift; sourceTree = "<group>"; };
 		4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetypeManager.swift; sourceTree = "<group>"; };
 		4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchetypeDisplayView.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 		4D3055982D3C9462009A7BBD /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */,
 				4D3727162DE551E100B5A02B /* ActivityNavigationManager.swift */,
 				4D6C7BB42DE48089001036E5 /* UserProfileService.swift */,
 				4D6C7BB22DE48067001036E5 /* NumerologyService.swift */,
@@ -674,6 +677,7 @@
 				4D6C7BA02DE47E99001036E5 /* OnboardingCosmicRhythmsView.swift in Sources */,
 				4D6C7BA12DE47E99001036E5 /* OnboardingView.swift in Sources */,
 				4D6C7BA22DE47E99001036E5 /* OnboardingViewModel.swift in Sources */,
+				4D53BE252DEC151900BAE6AE /* VoiceRecordingManager.swift in Sources */,
 				4D6C7BB52DE48089001036E5 /* UserProfileService.swift in Sources */,
 				4D6C7BA42DE47E99001036E5 /* OnboardingCosmicPreferenceView.swift in Sources */,
 				4D6C7BA52DE47E99001036E5 /* OnboardingSpiritualModeView.swift in Sources */,

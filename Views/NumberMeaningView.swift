@@ -32,8 +32,8 @@ struct NumberMeaningView: View {
                     
                     // Enhanced cosmic number selector
                     enhancedCosmicNumberSelector
-                    
-                    if let meaning = manager.getMeaning(for: selectedNumber) {
+                
+                if let meaning = manager.getMeaning(for: selectedNumber) {
                         // Enhanced number display with cosmic styling
                         enhancedCosmicNumberDisplay(meaning: meaning)
                         
@@ -68,7 +68,7 @@ struct NumberMeaningView: View {
                     }
                     
                     Spacer(minLength: 80)
-                }
+            }
                 .padding(.horizontal, 20)
             }
         }

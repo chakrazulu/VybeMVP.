@@ -41,8 +41,8 @@ struct CosmicBackgroundView: View {
     private func generateInitialStars() {
         stars = []
         
-        // Generate initial stars at various distances
-        for _ in 0..<120 {
+        // Generate initial stars at various distances - reduced for better performance
+        for _ in 0..<35 {
             let star = Star(
                 x: CGFloat.random(in: 0...UIScreen.main.bounds.width),
                 y: CGFloat.random(in: 0...UIScreen.main.bounds.height),

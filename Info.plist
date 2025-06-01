@@ -25,6 +25,8 @@
 	<string>VybeMVP needs access to your heart rate data to provide real-time monitoring and insights for your focus and well-being.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>VybeMVP needs access to update your health data to ensure accurate heart rate tracking and analysis.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Vybe needs access to your microphone to record sacred voice reflections in your spiritual journal. Your recordings are private and stored only on your device.</string>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
 	<key>UIRequiresPersistentWiFi</key>

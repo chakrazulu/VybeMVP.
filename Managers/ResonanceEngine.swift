@@ -208,7 +208,7 @@ class ResonanceEngine: ObservableObject {
         // Check for complementary numbers (add to 10)
         if focus + realm == 10 {
             harmonies.append("perfect complement (adds to 10)")
-            intensity += 0.4
+            intensity += 0.6
         }
         
         // Check for sequential numbers

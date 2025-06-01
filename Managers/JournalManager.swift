@@ -77,17 +77,30 @@ class JournalManager: ObservableObject {
      *   - title: The title of the journal entry
      *   - content: The main text content of the entry
      *   - focusNumber: The focus number (1-9) associated with the entry
+     *   - realmNumber: The realm number at the time of entry creation
      *   - moodEmoji: Optional emoji representing the user's mood
+     *   - voiceRecordingFilename: Optional filename for voice recording
      *
      * - Returns: The newly created journal entry
      */
-    func createEntry(title: String, content: String, focusNumber: Int, moodEmoji: String?) -> JournalEntry {
+    func createEntry(
+        title: String,
+        content: String,
+        focusNumber: Int,
+        realmNumber: Int? = nil,
+        moodEmoji: String? = nil,
+        voiceRecordingFilename: String? = nil
+    ) -> JournalEntry {
+        print("📝 Creating journal entry: \(title)")
+        
         let entry = JournalEntry(context: viewContext)
         entry.id = UUID()
         entry.title = title
         entry.content = content
-        entry.focusNumber = Int16(focusNumber)
+        entry.focusNumber = Int16(validateFocusNumber(focusNumber))
+        entry.realmNumber = Int16(realmNumber ?? 0)
         entry.moodEmoji = moodEmoji
+        entry.voiceRecordingFilename = voiceRecordingFilename
         entry.timestamp = Date()
         
         saveContext()
