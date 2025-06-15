@@ -28,6 +28,8 @@ class ChakraManager: ObservableObject {
     private var toneGenerators: [ChakraType: AVAudioPlayerNode] = [:]
     private var audioBuffers: [ChakraType: AVAudioPCMBuffer] = [:]
     private var mixerNode: AVAudioMixerNode?
+    private var reverbNode: AVAudioUnitReverb?
+    private var eqNode: AVAudioUnitEQ?
     private let audioFormat = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
     
     // MARK: - Haptic Properties
@@ -84,7 +86,32 @@ class ChakraManager: ObservableObject {
         mixerNode = AVAudioMixerNode()
         if let mixer = mixerNode {
             audioEngine.attach(mixer)
-            audioEngine.connect(mixer, to: audioEngine.mainMixerNode, format: audioFormat)
+        }
+        
+        // Create reverb node (but don't connect yet)
+        reverbNode = AVAudioUnitReverb()
+        if let reverb = reverbNode {
+            reverb.loadFactoryPreset(.mediumHall)
+            reverb.wetDryMix = 25 // Subtle reverb
+            audioEngine.attach(reverb)
+        }
+        
+        // Create EQ node (but don't connect yet)
+        eqNode = AVAudioUnitEQ(numberOfBands: 2)
+        if let eq = eqNode {
+            // Low shelf boost for warmth
+            eq.bands[0].filterType = .lowShelf
+            eq.bands[0].frequency = 200
+            eq.bands[0].gain = 3
+            eq.bands[0].bypass = false
+            
+            // High cut for lofi character
+            eq.bands[1].filterType = .highShelf
+            eq.bands[1].frequency = 4000
+            eq.bands[1].gain = -12
+            eq.bands[1].bypass = false
+            
+            audioEngine.attach(eq)
         }
         
         // Create player nodes and buffers
@@ -92,14 +119,6 @@ class ChakraManager: ObservableObject {
             // Create player node
             let playerNode = AVAudioPlayerNode()
             audioEngine.attach(playerNode)
-            
-            // Connect to mixer
-            if let mixer = mixerNode {
-                audioEngine.connect(playerNode, to: mixer, format: audioFormat)
-            } else {
-                audioEngine.connect(playerNode, to: audioEngine.mainMixerNode, format: audioFormat)
-            }
-            
             toneGenerators[chakraType] = playerNode
             
             // Generate tone buffer
@@ -114,11 +133,53 @@ class ChakraManager: ObservableObject {
         print("✅ Audio engine setup complete")
     }
     
+    /// Connect audio effects chain after engine is running
+    private func connectAudioEffects() {
+        guard let audioEngine = audioEngine,
+              audioEngine.isRunning else { return }
+        
+        // Connect effects chain if available
+        if let mixer = mixerNode, let reverb = reverbNode, let eq = eqNode {
+            // Connect: Players → Mixer → Reverb → EQ → Main
+            audioEngine.connect(mixer, to: reverb, format: audioFormat)
+            audioEngine.connect(reverb, to: eq, format: audioFormat)
+            audioEngine.connect(eq, to: audioEngine.mainMixerNode, format: audioFormat)
+            
+            // Connect all player nodes to mixer
+            for (_, playerNode) in toneGenerators {
+                audioEngine.connect(playerNode, to: mixer, format: audioFormat)
+            }
+            
+            print("✅ Lofi audio effects connected")
+        } else {
+            // Fallback: Connect directly to main mixer
+            if let mixer = mixerNode {
+                audioEngine.connect(mixer, to: audioEngine.mainMixerNode, format: audioFormat)
+                for (_, playerNode) in toneGenerators {
+                    audioEngine.connect(playerNode, to: mixer, format: audioFormat)
+                }
+            } else {
+                // Direct connection as last resort
+                for (_, playerNode) in toneGenerators {
+                    audioEngine.connect(playerNode, to: audioEngine.mainMixerNode, format: audioFormat)
+                }
+            }
+        }
+    }
+    
     /// Start the audio engine
     private func startAudioEngine() {
         guard let audioEngine = audioEngine else { return }
         
         do {
+            // First connect basic routing
+            if let mixer = mixerNode {
+                audioEngine.connect(mixer, to: audioEngine.mainMixerNode, format: audioFormat)
+                for (_, playerNode) in toneGenerators {
+                    audioEngine.connect(playerNode, to: mixer, format: audioFormat)
+                }
+            }
+            
             // Prepare the engine
             audioEngine.prepare()
             
@@ -127,6 +188,11 @@ class ChakraManager: ObservableObject {
             isAudioEngineRunning = true
             
             print("✅ Audio engine started successfully")
+            
+            // Connect effects after a small delay to ensure stability
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+                self?.connectAudioEffects()
+            }
         } catch {
             print("❌ Failed to start audio engine: \(error)")
             isAudioEngineRunning = false

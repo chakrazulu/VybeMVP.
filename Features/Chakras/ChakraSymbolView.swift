@@ -20,6 +20,7 @@ struct ChakraSymbolView: View {
     @State private var rippleScale: CGFloat = 1.0
     @State private var rippleOpacity: Double = 0.0
     @State private var showVolumeSlider = false
+    @State private var showFrequencyInfo = false
     
     var body: some View {
         VStack(spacing: 10) {
@@ -37,8 +38,13 @@ struct ChakraSymbolView: View {
                 
                 // Ripple effect
                 rippleEffect
+                
+                // Frequency info overlay
+                if showFrequencyInfo {
+                    frequencyInfoOverlay
+                }
             }
-            .frame(width: 80, height: 80)
+            .frame(width: 110, height: 110)
             .scaleEffect(isPressed ? 0.95 : 1.0)
             .animation(.easeInOut(duration: 0.1), value: isPressed)
             .onTapGesture {
@@ -49,6 +55,13 @@ struct ChakraSymbolView: View {
                 isPressed = pressing
                 if pressing {
                     triggerLongPressAnimation()
+                    withAnimation(.easeIn(duration: 0.3)) {
+                        showFrequencyInfo = true
+                    }
+                } else {
+                    withAnimation(.easeOut(duration: 0.2)) {
+                        showFrequencyInfo = false
+                    }
                 }
             }) {
                 onLongPress()
@@ -83,12 +96,12 @@ struct ChakraSymbolView: View {
                             chakraState.type.color.opacity(0)
                         ]),
                         center: .center,
-                        startRadius: 20,
-                        endRadius: 60
+                        startRadius: 30,
+                        endRadius: 80
                     )
                 )
-                .frame(width: 140, height: 140)
-                .blur(radius: 10)
+                .frame(width: 180, height: 180)
+                .blur(radius: 15)
                 .scaleEffect(glowAnimation ? 1.2 : 1.0)
                 .animation(
                     Animation.easeInOut(duration: 2.0 / chakraState.pulseRate)
@@ -105,12 +118,36 @@ struct ChakraSymbolView: View {
                             chakraState.type.color.opacity(0)
                         ]),
                         center: .center,
-                        startRadius: 10,
-                        endRadius: 40
+                        startRadius: 15,
+                        endRadius: 55
                     )
                 )
-                .frame(width: 100, height: 100)
-                .blur(radius: 5)
+                .frame(width: 130, height: 130)
+                .blur(radius: 8)
+            
+            // Active pulse glow animation
+            if chakraState.isActive || chakraState.isHarmonizing {
+                Circle()
+                    .stroke(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                chakraState.type.color,
+                                chakraState.type.color.opacity(0.3)
+                            ]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        ),
+                        lineWidth: 3
+                    )
+                    .frame(width: 100, height: 100)
+                    .scaleEffect(glowAnimation ? 1.3 : 1.0)
+                    .opacity(glowAnimation ? 0.3 : 0.8)
+                    .animation(
+                        Animation.easeInOut(duration: 0.8)
+                            .repeatForever(autoreverses: true),
+                        value: glowAnimation
+                    )
+            }
         }
     }
     
@@ -128,11 +165,11 @@ struct ChakraSymbolView: View {
                         endPoint: .bottomTrailing
                     )
                 )
-                .frame(width: 70, height: 70)
+                .frame(width: 95, height: 95)
             
             // Chakra symbol
             Image(systemName: chakraState.type.symbolName)
-                .font(.system(size: 30, weight: .light))
+                .font(.system(size: 42, weight: .light))
                 .foregroundColor(.white)
                 .rotationEffect(.degrees(animationPhase))
                 .animation(
@@ -144,9 +181,9 @@ struct ChakraSymbolView: View {
             
             // Sanskrit name overlay
             Text(chakraState.type.sanskritName)
-                .font(.system(size: 8, weight: .medium))
+                .font(.system(size: 10, weight: .medium))
                 .foregroundColor(.white.opacity(0.8))
-                .offset(y: 25)
+                .offset(y: 35)
         }
     }
     
@@ -163,9 +200,9 @@ struct ChakraSymbolView: View {
                         startPoint: .top,
                         endPoint: .bottom
                     ),
-                    lineWidth: 2
+                    lineWidth: 3
                 )
-                .frame(width: 75, height: 75)
+                .frame(width: 100, height: 100)
                 .scaleEffect(glowAnimation ? 1.1 : 1.0)
                 .opacity(glowAnimation ? 0.6 : 1.0)
                 .animation(
@@ -178,8 +215,8 @@ struct ChakraSymbolView: View {
             ForEach(0..<6) { index in
                 Circle()
                     .fill(chakraState.type.color)
-                    .frame(width: 4, height: 4)
-                    .offset(x: 35)
+                    .frame(width: 6, height: 6)
+                    .offset(x: 45)
                     .rotationEffect(.degrees(Double(index) * 60 + animationPhase * 2))
                     .opacity(0.8)
             }
@@ -189,9 +226,33 @@ struct ChakraSymbolView: View {
     private var rippleEffect: some View {
         Circle()
             .stroke(chakraState.type.color, lineWidth: 2)
-            .frame(width: 70, height: 70)
+            .frame(width: 95, height: 95)
             .scaleEffect(rippleScale)
             .opacity(rippleOpacity)
+    }
+    
+    private var frequencyInfoOverlay: some View {
+        VStack(spacing: 4) {
+            Text("\(Int(chakraState.type.frequency)) Hz")
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundColor(.white)
+            
+            Text(chakraState.type.sanskritName)
+                .font(.system(size: 14, weight: .medium))
+                .foregroundColor(.white.opacity(0.9))
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(
+            Capsule()
+                .fill(Color.black.opacity(0.7))
+                .overlay(
+                    Capsule()
+                        .stroke(chakraState.type.color.opacity(0.8), lineWidth: 1)
+                )
+        )
+        .offset(y: -70)
+        .transition(.scale.combined(with: .opacity))
     }
     
     // MARK: - Animation Methods
@@ -481,6 +542,7 @@ struct VolumeSlider: View {
     let onVolumeChange: (Float) -> Void
     
     @State private var currentVolume: Float
+    @State private var isDragging = false
     
     init(volume: Float, color: Color, onVolumeChange: @escaping (Float) -> Void) {
         self.volume = volume
@@ -490,31 +552,80 @@ struct VolumeSlider: View {
     }
     
     var body: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 10) {
             Image(systemName: "speaker.fill")
-                .font(.system(size: 10))
-                .foregroundColor(color.opacity(0.7))
+                .font(.system(size: 12))
+                .foregroundColor(color.opacity(0.8))
             
-            Slider(value: $currentVolume, in: 0...1) { _ in
-                onVolumeChange(currentVolume)
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    // Track background
+                    Capsule()
+                        .fill(Color.black.opacity(0.3))
+                        .frame(height: 6)
+                    
+                    // Gradient fill
+                    Capsule()
+                        .fill(
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    color.opacity(0.3),
+                                    color.opacity(0.8),
+                                    color
+                                ]),
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .frame(width: geometry.size.width * CGFloat(currentVolume), height: 6)
+                    
+                    // Circular handle with glow
+                    Circle()
+                        .fill(color)
+                        .frame(width: 20, height: 20)
+                        .overlay(
+                            Circle()
+                                .stroke(Color.white.opacity(0.8), lineWidth: 2)
+                        )
+                        .shadow(color: color.opacity(0.6), radius: isDragging ? 8 : 4)
+                        .scaleEffect(isDragging ? 1.2 : 1.0)
+                        .offset(x: geometry.size.width * CGFloat(currentVolume) - 10)
+                        .animation(.easeInOut(duration: 0.1), value: isDragging)
+                }
+                .gesture(
+                    DragGesture()
+                        .onChanged { value in
+                            isDragging = true
+                            let newValue = Float(value.location.x / geometry.size.width)
+                            currentVolume = max(0, min(1, newValue))
+                            onVolumeChange(currentVolume)
+                            
+                            // Haptic feedback
+                            let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                            impactFeedback.impactOccurred()
+                        }
+                        .onEnded { _ in
+                            isDragging = false
+                        }
+                )
             }
-            .accentColor(color)
-            .frame(width: 60)
+            .frame(width: 80, height: 20)
             
             Image(systemName: "speaker.wave.3.fill")
-                .font(.system(size: 10))
-                .foregroundColor(color.opacity(0.7))
+                .font(.system(size: 12))
+                .foregroundColor(color.opacity(0.8))
         }
-        .frame(width: 100)
-        .padding(.horizontal, 10)
-        .padding(.vertical, 4)
+        .frame(width: 130)
+        .padding(.horizontal, 15)
+        .padding(.vertical, 8)
         .background(
-            Capsule()
-                .fill(Color.black.opacity(0.3))
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.black.opacity(0.2))
                 .overlay(
-                    Capsule()
+                    RoundedRectangle(cornerRadius: 20)
                         .stroke(color.opacity(0.3), lineWidth: 1)
                 )
+                .shadow(color: color.opacity(0.2), radius: 4, x: 0, y: 2)
         )
     }
 } 

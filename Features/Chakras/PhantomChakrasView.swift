@@ -31,7 +31,7 @@ struct PhantomChakrasView: View {
                 
                 // Chakra stack
                 ScrollView(showsIndicators: false) {
-                    VStack(spacing: 25) {
+                    VStack(spacing: 35) {
                         ForEach(chakraManager.chakraStates.reversed()) { chakraState in
                             ChakraSymbolView(
                                 chakraState: chakraState,
@@ -59,8 +59,9 @@ struct PhantomChakrasView: View {
                             )
                         }
                     }
-                    .padding(.vertical, 20)
+                    .padding(.vertical, 30)
                 }
+                .padding(.horizontal, 10)
                 
                 // Audio status indicator (temporary for debugging)
                 if !chakraManager.isAudioEngineRunning {
