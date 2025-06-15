@@ -81,12 +81,19 @@ struct ContentView: View {
                         }
                         .tag(4) // Adjusted tag
                     
+                    PhantomChakrasView()
+                        .tabItem {
+                            Image(systemName: "circle.grid.3x3.circle.fill")
+                            Text("Chakras")
+                        }
+                        .tag(5)
+                    
                     MatchAnalyticsView()
                         .tabItem {
                             Image(systemName: "chart.bar.fill")
                             Text("Analytics")
                         }
-                        .tag(5) // Adjusted tag
+                        .tag(6) // Adjusted tag
                     
                     NavigationView {
                         NumberMeaningView()
@@ -95,7 +102,7 @@ struct ContentView: View {
                         Image(systemName: "number.circle.fill")
                         Text("Meanings")
                     }
-                    .tag(6) // Adjusted tag
+                    .tag(7) // Adjusted tag
                     
                     NavigationView {
                         SettingsView()
@@ -105,14 +112,14 @@ struct ContentView: View {
                         Image(systemName: "gear")
                         Text("Settings")
                     }
-                    .tag(7) // Adjusted tag
+                    .tag(8) // Adjusted tag
                     
                     AboutView()
                         .tabItem {
                             Image(systemName: "info.circle.fill")
                             Text("About")
                         }
-                        .tag(8) // Adjusted tag
+                        .tag(9) // Adjusted tag
                 }
             }
         }
