@@ -63,7 +63,26 @@ class ChakraManager: ObservableObject {
         
         guard let audioEngine = audioEngine else { return }
         
-        // Configure audio session
+        // Configure audio session first
+        configureAudioSession()
+        
+        // Create and attach all nodes first
+        setupAudioNodes(audioEngine)
+        
+        // Connect all nodes
+        connectAudioNodes(audioEngine)
+        
+        // Generate tone buffers
+        generateToneBuffers()
+        
+        // Prepare the engine
+        audioEngine.prepare()
+        
+        // Subscribe to heart rate updates if available
+        subscribeToHeartRate()
+    }
+    
+    private func configureAudioSession() {
         do {
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setCategory(.playback, mode: .default, options: [.mixWithOthers])
@@ -71,7 +90,9 @@ class ChakraManager: ObservableObject {
         } catch {
             print("❌ Failed to configure audio session: \(error)")
         }
-        
+    }
+    
+    private func setupAudioNodes(_ audioEngine: AVAudioEngine) {
         // Add reverb for spaciousness
         reverbNode = AVAudioUnitReverb()
         if let reverb = reverbNode {
@@ -98,34 +119,39 @@ class ChakraManager: ObservableObject {
             audioEngine.attach(eq)
         }
         
+        // Create and attach tone generators for each chakra
+        for chakraType in ChakraType.allCases {
+            let playerNode = AVAudioPlayerNode()
+            audioEngine.attach(playerNode)
+            toneGenerators[chakraType] = playerNode
+        }
+    }
+    
+    private func connectAudioNodes(_ audioEngine: AVAudioEngine) {
         // Connect effects chain
         if let reverb = reverbNode, let eq = eqNode {
             audioEngine.connect(reverb, to: eq, format: nil)
             audioEngine.connect(eq, to: audioEngine.mainMixerNode, format: nil)
         }
         
-        // Create tone generators for each chakra
-        for chakraType in ChakraType.allCases {
-            let playerNode = AVAudioPlayerNode()
-            audioEngine.attach(playerNode)
-            
+        // Connect player nodes
+        for (chakraType, playerNode) in toneGenerators {
             // Connect to reverb for spacious sound
             if let reverb = reverbNode {
                 audioEngine.connect(playerNode, to: reverb, format: nil)
             } else {
                 audioEngine.connect(playerNode, to: audioEngine.mainMixerNode, format: nil)
             }
-            
-            toneGenerators[chakraType] = playerNode
-            
-            // Generate tone buffer
+        }
+    }
+    
+    private func generateToneBuffers() {
+        // Generate tone buffer for each chakra
+        for chakraType in ChakraType.allCases {
             if let buffer = createToneBuffer(frequency: chakraType.frequency) {
                 audioBuffers[chakraType] = buffer
             }
         }
-        
-        // Subscribe to heart rate updates if available
-        subscribeToHeartRate()
     }
     
     /// Create a tone buffer for a specific frequency with improved sound quality
@@ -355,25 +381,39 @@ class ChakraManager: ObservableObject {
               let buffer = audioBuffers[type],
               let audioEngine = audioEngine else { return }
         
+        // Ensure we're on the main thread for audio operations
+        guard Thread.isMainThread else {
+            DispatchQueue.main.async { [weak self] in
+                self?.playTone(for: type, continuous: continuous)
+            }
+            return
+        }
+        
+        // Stop any existing playback first
+        if playerNode.isPlaying {
+            playerNode.stop()
+        }
+        
         // Start engine if needed
         if !audioEngine.isRunning {
             do {
+                // Prepare the engine first
+                audioEngine.prepare()
                 try audioEngine.start()
                 isAudioEngineRunning = true
+                
+                // Small delay to ensure engine is ready
+                Thread.sleep(forTimeInterval: 0.1)
             } catch {
                 print("❌ Failed to start audio engine: \(error)")
                 return
             }
         }
         
-        // Stop any existing playback
-        playerNode.stop()
-        
-        // Schedule buffer
-        if continuous {
-            playerNode.scheduleBuffer(buffer, at: nil, options: .loops, completionHandler: nil)
-        } else {
-            playerNode.scheduleBuffer(buffer, at: nil, options: .interrupts, completionHandler: nil)
+        // Check if the player node is properly attached and connected
+        guard audioEngine.attachedNodes.contains(playerNode) else {
+            print("❌ Player node not attached to engine")
+            return
         }
         
         // Set volume from chakra state
@@ -383,12 +423,43 @@ class ChakraManager: ObservableObject {
             playerNode.volume = configuration.volumeLevel
         }
         
-        // Play
-        playerNode.play()
+        // Reset the player before scheduling
+        playerNode.reset()
+        
+        // Schedule buffer
+        if continuous {
+            playerNode.scheduleBuffer(buffer, at: nil, options: .loops, completionHandler: nil)
+        } else {
+            playerNode.scheduleBuffer(buffer, at: nil, options: .interrupts, completionHandler: nil)
+        }
+        
+        // Play with error handling
+        do {
+            playerNode.play()
+        } catch {
+            print("❌ Failed to play audio: \(error)")
+        }
     }
     
     private func stopTone(for type: ChakraType) {
+        // Ensure we're on the main thread
+        guard Thread.isMainThread else {
+            DispatchQueue.main.async { [weak self] in
+                self?.stopTone(for: type)
+            }
+            return
+        }
+        
         toneGenerators[type]?.stop()
+        
+        // Check if any nodes are still playing
+        let anyPlaying = toneGenerators.values.contains { $0.isPlaying }
+        
+        // Stop the engine if no nodes are playing
+        if !anyPlaying && audioEngine?.isRunning == true {
+            audioEngine?.stop()
+            isAudioEngineRunning = false
+        }
     }
     
     // MARK: - Haptic Methods
