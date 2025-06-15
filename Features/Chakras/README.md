@@ -151,7 +151,27 @@ To test the feature:
 
 ## Version History
 
-### Version 1.1 (Current)
+### Version 1.2 (Current)
+- **Lofi Meditation Sound Design**
+  - Much softer attack (200ms) for gentle onset
+  - Added medium hall reverb for spaciousness
+  - EQ with low shelf boost and high frequency cut for warmth
+  - Reduced overall volume and harmonics
+  - Added subtle analog noise for vintage character
+  - Soft limiting to prevent harshness
+  
+- **Heart Rate Synchronized Haptics**
+  - Haptics now pulse at your actual heart rate BPM
+  - Creates a meditative heartbeat rhythm
+  - Lub-dub pattern for more natural feel
+  - Gentler haptic intensity for relaxation
+  
+- **Audio Effects Chain**
+  - Player → Reverb → EQ → Output
+  - Creates warm, spacious meditation atmosphere
+  - Professional audio processing for comfort
+
+### Version 1.1
 - **Improved Sound Quality**
   - Added harmonic overtones for richer tones
   - Implemented smooth attack/decay envelope
