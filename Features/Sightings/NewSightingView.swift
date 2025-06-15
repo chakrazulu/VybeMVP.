@@ -16,7 +16,7 @@ struct NewSightingView: View {
     @EnvironmentObject var focusNumberManager: FocusNumberManager
     
     // Form state
-    @State private var selectedNumber: Int = 1
+    @State private var numberText: String = ""
     @State private var title = ""
     @State private var note = ""
     @State private var significance = ""
@@ -34,7 +34,7 @@ struct NewSightingView: View {
     // Initialize with focus number if available
     init() {
         let focusNumber = FocusNumberManager.shared.selectedFocusNumber
-        _selectedNumber = State(initialValue: focusNumber > 0 ? focusNumber : 1)
+        _numberText = State(initialValue: focusNumber > 0 ? String(focusNumber) : "")
     }
     
     var body: some View {
@@ -97,23 +97,21 @@ struct NewSightingView: View {
     
     private var numberSelectorSection: some View {
         VStack(spacing: 15) {
-            Text("Which number did you spot?")
+            Text("What number did you spot?")
                 .font(.headline)
                 .foregroundColor(.white)
             
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 15), count: 3), spacing: 15) {
-                ForEach(1...9, id: \.self) { number in
-                    NumberButton(
-                        number: number,
-                        isSelected: selectedNumber == number,
-                        action: {
-                            selectedNumber = number
-                            let impactFeedback = UIImpactFeedbackGenerator(style: .light)
-                            impactFeedback.impactOccurred()
-                        }
-                    )
-                }
-            }
+            Text("Enter any number sequence you saw")
+                .font(.subheadline)
+                .foregroundColor(.white.opacity(0.7))
+                .multilineTextAlignment(.center)
+            
+            TextField("e.g., 11:11, 222, 1139, 7", text: $numberText)
+                .textFieldStyle(CosmicTextFieldStyle())
+                .keyboardType(.numberPad)
+                .multilineTextAlignment(.center)
+                .font(.title)
+                .fontWeight(.semibold)
         }
         .padding()
         .background(
@@ -213,13 +211,14 @@ struct NewSightingView: View {
                 TextEditor(text: $note)
                     .frame(height: 80)
                     .padding(10)
-                    .background(Color.white.opacity(0.1))
+                    .background(Color.black.opacity(0.3))
                     .cornerRadius(12)
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
                             .stroke(Color.white.opacity(0.3), lineWidth: 1)
                     )
                     .foregroundColor(.white)
+                    .scrollContentBackground(.hidden)
             }
             
             // Significance field
@@ -246,27 +245,38 @@ struct NewSightingView: View {
             if !useCurrentLocation {
                 TextField("Location name", text: $locationName)
                     .textFieldStyle(CosmicTextFieldStyle())
-            } else if let location = locationManager.currentLocation {
+            } else if locationManager.currentLocation != nil {
                 HStack {
                     Image(systemName: "location.fill")
                         .foregroundColor(.green)
-                    Text("Location captured")
+                    Text("Current location will be saved")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.8))
                     Spacer()
                 }
-                .padding(.horizontal)
+            } else {
+                HStack {
+                    Image(systemName: "location.slash")
+                        .foregroundColor(.red)
+                    Text("Location not available")
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.8))
+                    Spacer()
+                }
             }
         }
         .padding()
         .background(
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: 15)
                 .fill(Color.white.opacity(0.1))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 20)
+                    RoundedRectangle(cornerRadius: 15)
                         .stroke(Color.white.opacity(0.2), lineWidth: 1)
                 )
         )
+        .onAppear {
+            locationManager.requestLocationPermission()
+        }
     }
     
     private var saveButton: some View {
@@ -312,9 +322,12 @@ struct NewSightingView: View {
         let location = useCurrentLocation ? locationManager.currentLocation : nil
         let finalLocationName = useCurrentLocation ? nil : (locationName.isEmpty ? nil : locationName)
         
+        // Process number: store raw text but derive a numeric value for analysis
+        let processedNumber = extractSingleDigit(from: numberText)
+        
         // Create sighting
         sightingsManager.createSighting(
-            number: selectedNumber,
+            number: processedNumber,
             title: title.isEmpty ? nil : title,
             note: note.isEmpty ? nil : note,
             significance: significance.isEmpty ? nil : significance,
@@ -330,61 +343,29 @@ struct NewSightingView: View {
             dismiss()
         }
     }
+    
+    /// Extracts a single digit from a complex number string using numerological reduction
+    private func extractSingleDigit(from text: String) -> Int {
+        // Remove all non-numeric characters
+        let digits = text.compactMap { $0.wholeNumberValue }
+        
+        if digits.isEmpty {
+            return 0
+        }
+        
+        // Sum all digits
+        var sum = digits.reduce(0, +)
+        
+        // Reduce to single digit (except master numbers 11, 22, 33)
+        while sum > 9 && sum != 11 && sum != 22 && sum != 33 {
+            sum = String(sum).compactMap { $0.wholeNumberValue }.reduce(0, +)
+        }
+        
+        return sum
+    }
 }
 
 // MARK: - Supporting Views
-
-struct NumberButton: View {
-    let number: Int
-    let isSelected: Bool
-    let action: () -> Void
-    
-    private var sacredColor: Color {
-        switch number {
-        case 1: return .red
-        case 2: return .orange
-        case 3: return .yellow
-        case 4: return .green
-        case 5: return .blue
-        case 6: return .indigo
-        case 7: return .purple
-        case 8: return Color(red: 1.0, green: 0.8, blue: 0.0)
-        case 9: return .white
-        default: return .gray
-        }
-    }
-    
-    var body: some View {
-        Button(action: action) {
-            ZStack {
-                Circle()
-                    .fill(
-                        RadialGradient(
-                            gradient: Gradient(colors: [
-                                isSelected ? sacredColor.opacity(0.8) : Color.white.opacity(0.2),
-                                isSelected ? sacredColor.opacity(0.4) : Color.white.opacity(0.1)
-                            ]),
-                            center: .center,
-                            startRadius: 10,
-                            endRadius: 35
-                        )
-                    )
-                    .overlay(
-                        Circle()
-                            .stroke(isSelected ? sacredColor : Color.white.opacity(0.3), lineWidth: 2)
-                    )
-                
-                Text("\(number)")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-            }
-            .frame(width: 80, height: 80)
-            .scaleEffect(isSelected ? 1.1 : 1.0)
-            .animation(.easeInOut(duration: 0.2), value: isSelected)
-        }
-    }
-}
 
 struct PhotoCaptureButton: View {
     let title: String
@@ -413,20 +394,6 @@ struct PhotoCaptureButton: View {
                     )
             )
         }
-    }
-}
-
-struct CosmicTextFieldStyle: TextFieldStyle {
-    func _body(configuration: TextField<Self._Label>) -> some View {
-        configuration
-            .padding()
-            .background(Color.white.opacity(0.1))
-            .cornerRadius(12)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.white.opacity(0.3), lineWidth: 1)
-            )
-            .foregroundColor(.white)
     }
 }
 

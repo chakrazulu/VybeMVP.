@@ -18,6 +18,8 @@
 		4D2DB48A2DFF6ABA0003353E /* SightingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB4882DFF6ABA0003353E /* SightingsView.swift */; };
 		4D2DB48B2DFF6ABA0003353E /* NewSightingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB4872DFF6ABA0003353E /* NewSightingView.swift */; };
 		4D2DB48D2DFF6AF90003353E /* SightingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB48C2DFF6AF90003353E /* SightingDetailView.swift */; };
+		4D2DB48F2DFF70490003353E /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB48E2DFF70490003353E /* LocationManager.swift */; };
+		4D2DB4912DFF70E00003353E /* SharedUIComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB4902DFF70E00003353E /* SharedUIComponents.swift */; };
 		4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */; };
 		4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */; };
 		4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BF2D3CA97C009A7BBD /* VybeMVP.xcdatamodeld */; };
@@ -131,6 +133,8 @@
 		4D2DB4872DFF6ABA0003353E /* NewSightingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSightingView.swift; sourceTree = "<group>"; };
 		4D2DB4882DFF6ABA0003353E /* SightingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightingsView.swift; sourceTree = "<group>"; };
 		4D2DB48C2DFF6AF90003353E /* SightingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightingDetailView.swift; sourceTree = "<group>"; };
+		4D2DB48E2DFF70490003353E /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		4D2DB4902DFF70E00003353E /* SharedUIComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedUIComponents.swift; sourceTree = "<group>"; };
 		4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberHelper.swift; sourceTree = "<group>"; };
 		4D3055B62D3C9C3B009A7BBD /* VybeMVP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VybeMVP.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberView.swift; sourceTree = "<group>"; };
@@ -313,6 +317,7 @@
 		4D3055982D3C9462009A7BBD /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				4D2DB48E2DFF70490003353E /* LocationManager.swift */,
 				4D2DB4852DFF6A450003353E /* SightingsManager.swift */,
 				4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */,
 				4D3727162DE551E100B5A02B /* ActivityNavigationManager.swift */,
@@ -391,6 +396,7 @@
 		4D3727142DE550ED00B5A02B /* ReusableComponents */ = {
 			isa = PBXGroup;
 			children = (
+				4D2DB4902DFF70E00003353E /* SharedUIComponents.swift */,
 				4D0CA8D02DE69F4600D4A6D6 /* NumerologyRainView.swift */,
 				4D3727132DE550ED00B5A02B /* CosmicBackgroundView.swift */,
 			);
@@ -704,6 +710,7 @@
 				4DA01CAE2D8533F50070309D /* NotificationManager.swift in Sources */,
 				4DA6425D2D8113D80047287B /* HeartRateView.swift in Sources */,
 				4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */,
+				4D2DB4912DFF70E00003353E /* SharedUIComponents.swift in Sources */,
 				4D3055EE2D3CF838009A7BBD /* OldLogger.swift in Sources */,
 				4D37271C2DE554B700B5A02B /* ActivityView.swift in Sources */,
 				4D6C7BAD2DE47F55001036E5 /* AuthService.swift in Sources */,
@@ -748,6 +755,7 @@
 				4DC602382D345A1B00B5E4A9 /* SignInViewModel.swift in Sources */,
 				4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */,
 				4D92F4BA2D4DE1E80001A16E /* FocusNumberManager.swift in Sources */,
+				4D2DB48F2DFF70490003353E /* LocationManager.swift in Sources */,
 				4D6C7BAF2DE47FC2001036E5 /* InsightTemplate.swift in Sources */,
 				4D3727172DE551E100B5A02B /* ActivityNavigationManager.swift in Sources */,
 				4D3727192DE5538A00B5A02B /* NumerologyInsightService.swift in Sources */,

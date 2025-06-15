@@ -248,7 +248,7 @@ class MatchAnalyticsViewModel: ObservableObject {
      * Adds a specified number of hours to a date.
      *
      * - Parameters:
-     *   - hours: Number of hours to add (negative for past times)
+     *   - hours: Number of hours to add
      *   - date: Base date to add hours to
      * - Returns: New date with hours added
      */
@@ -258,107 +258,79 @@ class MatchAnalyticsViewModel: ObservableObject {
 }
 
 /**
- * Data model for match distribution chart entries.
+ * Data structure for representing time-based match counts.
  *
- * This struct represents a single data point for charts, containing:
- * - A time label (varies based on the selected time frame)
- * - A count of matches in that time period
+ * This struct encapsulates a time period (as a string) and the number of matches
+ * that occurred during that period. Used for chart data generation.
  */
 struct MatchData: Identifiable {
-    /// Unique identifier for SwiftUI List/ForEach
-    var id = UUID()
+    /// Unique identifier for this data point
+    let id = UUID()
     
-    /// Time label (e.g., "12 PM", "Mon", "Week 2")
-    var time: String
+    /// String representation of the time period (e.g., "12 AM", "Monday", "Week 1")
+    let time: String
     
-    /// Number of matches in this time slot
-    var count: Int
+    /// Number of matches that occurred during this time period
+    let count: Int
 }
 
 /**
- * View that displays analytics for focus number matches.
+ * Main analytics view displaying match data insights.
  *
- * This view displays several visualizations and statistics:
- * 1. Heart rate data and analytics
- * 2. Match count statistics
- * 3. Match distribution charts
- * 4. Pattern analysis
+ * This view presents a comprehensive dashboard of analytics including:
+ * - Summary statistics (total matches, today's matches)
+ * - Time-based distribution charts
+ * - Pattern analysis (most common numbers, peak times, frequency)
  *
- * It allows filtering data by different time frames (day, week, month)
- * and automatically updates when new match data is available.
+ * The view uses cards to organize information and provides time frame selection
+ * to adjust the scope of the analytics display.
  */
 struct MatchAnalyticsView: View {
     /// Access to the focus number manager for match data
     @EnvironmentObject var focusNumberManager: FocusNumberManager
     
-    /// Core Data context for database operations
-    @Environment(\.managedObjectContext) private var viewContext
-    
-    /// Dynamic Type size for accessibility support
-    @Environment(\.dynamicTypeSize) var dynamicTypeSize
-    
-    /// Access to heart rate data for analytics
-    @StateObject private var healthKitManager = HealthKitManager.shared
-    
-    /// View model containing analytics calculation logic
+    /// View model containing analytics logic
     @StateObject private var viewModel = MatchAnalyticsViewModel()
     
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(spacing: 20) {
-                    // Heart Rate Analytics Card
-                    cardHeart
+                LazyVStack(spacing: 20) {
+                    // Time frame selector
+                    timeFrameSelector
                     
-                    // Time Frame Selector
-                    Picker("Time Frame", selection: $viewModel.selectedTimeFrame) {
-                        ForEach(MatchAnalyticsViewModel.TimeFrame.allCases, id: \.self) { timeFrame in
-                            Text(timeFrame.rawValue).tag(timeFrame)
-                        }
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .padding()
+                    // Summary statistics
+                    cardSummary
                     
-                    // Match Statistics Card
-                    cardMatchStats
-                    
-                    // Match Distribution Chart
+                    // Match distribution chart
                     cardDistribution
                     
-                    // Pattern Analysis Card
+                    // Pattern analysis
                     cardPatterns
                 }
                 .padding()
             }
-            .navigationTitle("Match Analytics")
-            .background(Color(.systemGroupedBackground))
+            .navigationTitle("Analytics")
             .onAppear {
-                // Update the view model with the data from FocusNumberManager when the view appears
                 viewModel.matchLogs = focusNumberManager.matchLogs
-                viewModel.managedObjectContext = viewContext
-            }
-            .onChange(of: focusNumberManager.matchLogs) { oldValue, newValue in
-                viewModel.matchLogs = newValue
             }
         }
     }
     
-    // MARK: - Card Components
-    
-    /// Heart rate analytics component
-    private var cardHeart: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Heart Rate Analytics")
+    /// Segmented control for selecting the analytics time frame
+    private var timeFrameSelector: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Time Frame")
                 .font(.headline)
                 .padding(.horizontal)
             
-            HeartRateView()
-                .frame(height: 200)
-                .padding(.horizontal)
-            
-            if healthKitManager.authorizationStatus == .sharingAuthorized {
-                heartRateStats
+            Picker(selection: $viewModel.selectedTimeFrame, label: Text("Time Frame")) {
+                ForEach(MatchAnalyticsViewModel.TimeFrame.allCases, id: \.self) { timeFrame in
+                    Text(timeFrame.rawValue).tag(timeFrame)
+                }
             }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding(.horizontal)
         }
         .padding(.vertical)
         .background(Color(.systemBackground))
@@ -366,93 +338,33 @@ struct MatchAnalyticsView: View {
         .shadow(radius: 2)
     }
     
-    /// Heart rate statistics (BPM values)
-    private var heartRateStats: some View {
-        Group {
-            if dynamicTypeSize.isAccessibilitySize {
-                VStack(spacing: 12) {
-                    // Current BPM - validate to prevent NaN
-                    let currentRate = healthKitManager.currentHeartRate > 0 ? String(healthKitManager.currentHeartRate) : "0"
-                    StatCard(
-                        icon: "heart.fill",
-                        title: "Current BPM",
-                        value: currentRate
-                    )
-                    
-                    // Last valid BPM - validate to prevent NaN
-                    let lastRate = healthKitManager.lastValidBPM > 0 ? String(healthKitManager.lastValidBPM) : "0"
-                    StatCard(
-                        icon: "heart.circle.fill",
-                        title: "Last Valid BPM",
-                        value: lastRate
-                    )
-                }
-            } else {
-                HStack(spacing: 12) {
-                    // Current BPM - validate to prevent NaN
-                    let currentRate = healthKitManager.currentHeartRate > 0 ? String(healthKitManager.currentHeartRate) : "0"
-                    StatCard(
-                        icon: "heart.fill",
-                        title: "Current BPM",
-                        value: currentRate
-                    )
-                    
-                    // Last valid BPM - validate to prevent NaN
-                    let lastRate = healthKitManager.lastValidBPM > 0 ? String(healthKitManager.lastValidBPM) : "0"
-                    StatCard(
-                        icon: "heart.circle.fill",
-                        title: "Last Valid BPM",
-                        value: lastRate
-                    )
-                }
-            }
-        }
-        .padding(.horizontal)
-    }
-    
-    /// Match statistics card
-    private var cardMatchStats: some View {
+    /// Summary statistics card
+    private var cardSummary: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Match Statistics")
+            Text("Summary")
                 .font(.headline)
                 .padding(.horizontal)
             
-            Group {
-                if dynamicTypeSize.isAccessibilitySize {
-                    VStack(spacing: 12) {
-                        // Total matches
-                        let totalCount = String(focusNumberManager.matchLogs.count)
-                        StatCard(
-                            icon: "checkmark.circle.fill",
-                            title: "Total Matches", 
-                            value: totalCount
-                        )
-                        
-                        // Today's matches
-                        let todayCount = viewModel.getTodayMatchCount()
-                        StatCard(
-                            icon: "clock.fill",
-                            title: "Today's Matches",
-                            value: todayCount
-                        )
-                    }
-                } else {
+            LazyHGrid(rows: [GridItem(.flexible())], spacing: 16) {
+                Group {
                     HStack(spacing: 12) {
                         // Total matches
                         let totalCount = String(focusNumberManager.matchLogs.count)
                         StatCard(
+                            title: "Total Matches",
+                            value: totalCount,
                             icon: "checkmark.circle.fill",
-                            title: "Total Matches", 
-                            value: totalCount
+                            color: .blue
                         )
                         .layoutPriority(1)
                         
                         // Today's matches
                         let todayCount = viewModel.getTodayMatchCount()
                         StatCard(
-                            icon: "clock.fill",
                             title: "Today's Matches",
-                            value: todayCount
+                            value: todayCount,
+                            icon: "clock.fill",
+                            color: .green
                         )
                         .layoutPriority(1)
                     }
@@ -537,59 +449,6 @@ struct MatchAnalyticsView: View {
         .background(Color(.systemBackground))
         .cornerRadius(12)
         .shadow(radius: 2)
-    }
-}
-
-/**
- * Component for displaying a statistical metric with title and icon.
- *
- * This reusable card component displays:
- * - An icon representing the statistic
- * - A title describing what the statistic measures
- * - The value of the statistic
- * 
- * Used throughout the analytics view to present various metrics consistently.
- */
-struct StatCard: View {
-    /// The Font Awesome icon name to display
-    var icon: String
-    
-    /// Title describing what this statistic represents
-    var title: String
-    
-    /// The actual statistic value to display
-    var value: String
-    
-    @Environment(\.dynamicTypeSize) var dynamicTypeSize
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 5) {
-                Image(systemName: icon)
-                    .foregroundColor(.blue)
-                    .accessibility(hidden: true)
-                    .font(.system(size: dynamicTypeSize.isAccessibilitySize ? 20 : 16))
-                
-                Text(title)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .lineLimit(dynamicTypeSize.isAccessibilitySize ? 3 : 2)
-                    .minimumScaleFactor(0.8)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            
-            Text(value)
-                .font(dynamicTypeSize.isAccessibilitySize ? .title3 : .title2)
-                .fontWeight(.bold)
-                .lineLimit(2)
-                .minimumScaleFactor(0.7)
-                .fixedSize(horizontal: false, vertical: true)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.vertical, dynamicTypeSize.isAccessibilitySize ? 16 : 12)
-        .padding(.horizontal, dynamicTypeSize.isAccessibilitySize ? 14 : 10)
-        .background(Color(.secondarySystemBackground))
-        .cornerRadius(10)
     }
 }
 

@@ -2,25 +2,46 @@
 //  SightingsView.swift
 //  VybeMVP
 //
-//  Main view for displaying and managing number sightings
+//  Main view for displaying number sightings with filtering and statistics
 //
 
 import SwiftUI
-import CoreLocation
+import CoreData
 
 struct SightingsView: View {
     @StateObject private var sightingsManager = SightingsManager.shared
-    @EnvironmentObject var focusNumberManager: FocusNumberManager
     @State private var showingNewSighting = false
-    @State private var selectedSighting: Sighting?
-    @State private var filterNumber: Int?
+    @State private var selectedFilter: SightingFilter = .all
     @State private var animateIn = false
     
-    var filteredSightings: [Sighting] {
-        if let filter = filterNumber {
-            return sightingsManager.sightings.filter { $0.numberSpotted == filter }
+    private enum SightingFilter: String, CaseIterable {
+        case all = "All"
+        case recent = "Recent"
+        case favorites = "Favorites"
+        
+        var filterDescription: String {
+            switch self {
+            case .all: return "All sightings"
+            case .recent: return "Past 7 days"
+            case .favorites: return "With photos"
+            }
         }
-        return sightingsManager.sightings
+    }
+    
+    private var filteredSightings: [Sighting] {
+        let allSightings = sightingsManager.sightings
+        
+        switch selectedFilter {
+        case .all:
+            return allSightings
+        case .recent:
+            let weekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
+            return allSightings.filter { sighting in
+                sighting.timestamp ?? Date() >= weekAgo
+            }
+        case .favorites:
+            return allSightings.filter { $0.imageData != nil }
+        }
     }
     
     var body: some View {
@@ -30,22 +51,18 @@ struct SightingsView: View {
                 CosmicBackgroundView()
                     .ignoresSafeArea()
                 
-                if sightingsManager.sightings.isEmpty {
-                    emptyStateView
-                } else {
-                    ScrollView {
-                        VStack(spacing: 20) {
-                            // Stats header
-                            statsHeaderView
-                            
-                            // Filter chips
-                            filterChipsView
-                            
-                            // Sightings list
-                            sightingsListView
-                        }
-                        .padding()
+                ScrollView {
+                    LazyVStack(spacing: 25) {
+                        // Statistics section
+                        statisticsSection
+                        
+                        // Filter section
+                        filterSection
+                        
+                        // Sightings list
+                        sightingsSection
                     }
+                    .padding()
                 }
                 
                 // Floating action button
@@ -53,52 +70,144 @@ struct SightingsView: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        floatingActionButton
-                            .padding(.trailing, 20)
-                            .padding(.bottom, 30)
+                        newSightingButton
+                            .padding(.trailing, 25)
+                            .padding(.bottom, 100)
                     }
                 }
             }
             .navigationTitle("Sightings Portal")
             .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        sightingsManager.loadSightings()
-                    }) {
-                        Image(systemName: "arrow.clockwise")
-                            .foregroundColor(.white)
-                    }
+            .onAppear {
+                sightingsManager.loadSightings()
+                withAnimation(.easeOut(duration: 0.8)) {
+                    animateIn = true
                 }
             }
         }
         .sheet(isPresented: $showingNewSighting) {
             NewSightingView()
         }
-        .sheet(item: $selectedSighting) { sighting in
-            SightingDetailView(sighting: sighting)
-        }
-        .onAppear {
-            withAnimation(.easeOut(duration: 0.5)) {
-                animateIn = true
-            }
-        }
     }
     
-    // MARK: - View Components
+    // MARK: - View Sections
+    
+    private var statisticsSection: some View {
+        VStack(spacing: 20) {
+            HStack {
+                Text("Your Journey")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                Spacer()
+            }
+            
+            LazyVGrid(columns: [
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ], spacing: 15) {
+                StatCard(
+                    title: "Total Sightings",
+                    value: "\(sightingsManager.sightings.count)",
+                    icon: "eye.fill",
+                    color: .blue
+                )
+                
+                StatCard(
+                    title: "This Week",
+                    value: "\(getWeeklyCount())",
+                    icon: "calendar.circle.fill",
+                    color: .green
+                )
+                
+                StatCard(
+                    title: "With Photos",
+                    value: "\(getPhotoCount())",
+                    icon: "camera.fill",
+                    color: .purple
+                )
+            }
+        }
+        .scaleEffect(animateIn ? 1.0 : 0.8)
+        .opacity(animateIn ? 1.0 : 0.0)
+        .animation(.easeOut(duration: 0.6).delay(0.2), value: animateIn)
+    }
+    
+    private var filterSection: some View {
+        VStack(spacing: 15) {
+            HStack {
+                Text("Filter Sightings")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                Spacer()
+            }
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 12) {
+                    ForEach(SightingFilter.allCases, id: \.self) { filter in
+                        FilterChip(
+                            title: filter.rawValue,
+                            isSelected: selectedFilter == filter,
+                            color: .purple,
+                            action: {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    selectedFilter = filter
+                                }
+                            }
+                        )
+                    }
+                }
+                .padding(.horizontal, 5)
+            }
+        }
+        .scaleEffect(animateIn ? 1.0 : 0.8)
+        .opacity(animateIn ? 1.0 : 0.0)
+        .animation(.easeOut(duration: 0.6).delay(0.4), value: animateIn)
+    }
+    
+    private var sightingsSection: some View {
+        VStack(spacing: 20) {
+            HStack {
+                Text(selectedFilter.filterDescription)
+                    .font(.headline)
+                    .foregroundColor(.white)
+                Spacer()
+                Text("\(filteredSightings.count) sightings")
+                    .font(.subheadline)
+                    .foregroundColor(.white.opacity(0.8))
+            }
+            
+            if filteredSightings.isEmpty {
+                emptyStateView
+            } else {
+                LazyVStack(spacing: 15) {
+                    ForEach(filteredSightings, id: \.id) { sighting in
+                        NavigationLink(destination: SightingDetailView(sighting: sighting)) {
+                            SightingCard(sighting: sighting)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                }
+            }
+        }
+        .scaleEffect(animateIn ? 1.0 : 0.8)
+        .opacity(animateIn ? 1.0 : 0.0)
+        .animation(.easeOut(duration: 0.6).delay(0.6), value: animateIn)
+    }
     
     private var emptyStateView: some View {
         VStack(spacing: 20) {
-            Image(systemName: "sparkle.magnifyingglass")
+            Image(systemName: "eye.slash")
                 .font(.system(size: 60))
-                .foregroundColor(.white.opacity(0.6))
+                .foregroundColor(.white.opacity(0.4))
             
-            Text("No Sightings Yet")
+            Text("No sightings yet")
                 .font(.title2)
-                .fontWeight(.bold)
+                .fontWeight(.semibold)
                 .foregroundColor(.white)
             
-            Text("Start capturing the magic!\nSpot your focus numbers in the wild.")
+            Text("Start capturing the synchronicities around you")
                 .font(.body)
                 .foregroundColor(.white.opacity(0.8))
                 .multilineTextAlignment(.center)
@@ -106,10 +215,11 @@ struct SightingsView: View {
             Button(action: {
                 showingNewSighting = true
             }) {
-                Text("Record First Sighting")
+                Text("Record Your First Sighting")
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
+                    .frame(maxWidth: .infinity)
                     .background(
                         LinearGradient(
                             gradient: Gradient(colors: [.purple, .blue]),
@@ -117,114 +227,66 @@ struct SightingsView: View {
                             endPoint: .trailing
                         )
                     )
-                    .cornerRadius(25)
-            }
-            .padding(.top, 10)
-        }
-        .padding()
-    }
-    
-    private var statsHeaderView: some View {
-        HStack(spacing: 20) {
-            StatCard(
-                title: "Today",
-                value: "\(sightingsManager.todaysSightingsCount)",
-                icon: "sun.max.fill",
-                color: .orange
-            )
-            
-            StatCard(
-                title: "Total",
-                value: "\(sightingsManager.totalSightingsCount)",
-                icon: "star.fill",
-                color: .purple
-            )
-            
-            if let topNumber = sightingsManager.mostFrequentNumbers(limit: 1).first {
-                StatCard(
-                    title: "Top #",
-                    value: "\(topNumber.number)",
-                    icon: "crown.fill",
-                    color: .yellow
-                )
+                    .cornerRadius(15)
             }
         }
-        .scaleEffect(animateIn ? 1.0 : 0.8)
-        .opacity(animateIn ? 1.0 : 0.0)
+        .padding(40)
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.white.opacity(0.1))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                )
+        )
     }
     
-    private var filterChipsView: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 12) {
-                FilterChip(
-                    title: "All",
-                    isSelected: filterNumber == nil,
-                    action: {
-                        filterNumber = nil
-                    }
-                )
-                
-                ForEach(1...9, id: \.self) { number in
-                    FilterChip(
-                        title: "#\(number)",
-                        isSelected: filterNumber == number,
-                        color: getSacredColor(for: number),
-                        action: {
-                            filterNumber = filterNumber == number ? nil : number
-                        }
-                    )
+    private var newSightingButton: some View {
+        VStack(spacing: 8) {
+            Button(action: {
+                showingNewSighting = true
+            }) {
+                ZStack {
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                gradient: Gradient(colors: [.purple, .blue]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 66, height: 66)
+                        .shadow(color: .purple.opacity(0.5), radius: 15, x: 0, y: 8)
+                    
+                    Image(systemName: "plus")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
                 }
             }
-        }
-        .padding(.vertical, 5)
-    }
-    
-    private var sightingsListView: some View {
-        LazyVStack(spacing: 16) {
-            ForEach(Array(filteredSightings.enumerated()), id: \.element.id) { index, sighting in
-                SightingCard(sighting: sighting)
-                    .onTapGesture {
-                        selectedSighting = sighting
-                    }
-                    .scaleEffect(animateIn ? 1.0 : 0.8)
-                    .opacity(animateIn ? 1.0 : 0.0)
-                    .animation(
-                        .easeOut(duration: 0.5)
-                            .delay(Double(index) * 0.1),
-                        value: animateIn
-                    )
-            }
-        }
-    }
-    
-    private var floatingActionButton: some View {
-        Button(action: {
-            let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-            impactFeedback.impactOccurred()
-            showingNewSighting = true
-        }) {
-            ZStack {
-                Circle()
-                    .fill(
-                        LinearGradient(
-                            gradient: Gradient(colors: [.purple, .blue]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .frame(width: 60, height: 60)
-                    .shadow(color: .purple.opacity(0.5), radius: 10, x: 0, y: 5)
-                
-                Image(systemName: "camera.fill")
-                    .font(.title2)
-                    .foregroundColor(.white)
-            }
+            
+            Text("Add Sighting")
+                .font(.caption)
+                .fontWeight(.medium)
+                .foregroundColor(.white)
+                .shadow(color: .black.opacity(0.5), radius: 2, x: 0, y: 1)
         }
         .scaleEffect(animateIn ? 1.0 : 0.0)
         .animation(.spring(response: 0.5, dampingFraction: 0.6).delay(0.3), value: animateIn)
     }
     
     // MARK: - Helper Methods
+    
+    private func getWeeklyCount() -> Int {
+        let weekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
+        return sightingsManager.sightings.filter { sighting in
+            sighting.timestamp ?? Date() >= weekAgo
+        }.count
+    }
+    
+    private func getPhotoCount() -> Int {
+        return sightingsManager.sightings.filter { $0.imageData != nil }.count
+    }
     
     private func getSacredColor(for number: Int) -> Color {
         switch number {
@@ -243,40 +305,6 @@ struct SightingsView: View {
 }
 
 // MARK: - Supporting Views
-
-struct StatCard: View {
-    let title: String
-    let value: String
-    let icon: String
-    let color: Color
-    
-    var body: some View {
-        VStack(spacing: 8) {
-            Image(systemName: icon)
-                .font(.title2)
-                .foregroundColor(color)
-            
-            Text(value)
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-            
-            Text(title)
-                .font(.caption)
-                .foregroundColor(.white.opacity(0.8))
-        }
-        .frame(maxWidth: .infinity)
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.white.opacity(0.1))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(color.opacity(0.3), lineWidth: 1)
-                )
-        )
-    }
-}
 
 struct FilterChip: View {
     let title: String

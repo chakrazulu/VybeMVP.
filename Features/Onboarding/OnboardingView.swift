@@ -430,30 +430,6 @@ struct OnboardingInitialInfoView: View {
 
 // MARK: - Enhanced Cosmic Text Field Style
 
-struct CosmicTextFieldStyle: TextFieldStyle {
-    func _body(configuration: TextField<Self._Label>) -> some View {
-        configuration
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.black.opacity(0.4))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [.purple.opacity(0.6), .blue.opacity(0.4)]),
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                ),
-                                lineWidth: 1
-                            )
-                    )
-            )
-            .foregroundColor(.white)
-            .shadow(color: Color.purple.opacity(0.1), radius: 4, x: 0, y: 2)
-    }
-}
-
 // Preview needs a way to handle the binding.
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {

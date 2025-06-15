@@ -16,7 +16,7 @@ struct SightingDetailView: View {
     @State private var showingEditSheet = false
     @State private var showingDeleteAlert = false
     @State private var showingShareSheet = false
-    @State private var region = MKCoordinateRegion()
+    @State private var cameraPosition = MapCameraPosition.automatic
     @State private var animateIn = false
     
     private var sacredColor: Color {
@@ -32,6 +32,10 @@ struct SightingDetailView: View {
         case 9: return .white
         default: return .gray
         }
+    }
+    
+    private var hasLocation: Bool {
+        sighting.locationLatitude != 0 && sighting.locationLongitude != 0
     }
     
     var body: some View {
@@ -102,7 +106,7 @@ struct SightingDetailView: View {
             }
         }
         .onAppear {
-            setupMapRegion()
+            setupMapCamera()
             withAnimation(.easeOut(duration: 0.5)) {
                 animateIn = true
             }
@@ -225,17 +229,18 @@ struct SightingDetailView: View {
                     .padding(.bottom, 5)
             }
             
-            // Map view
-            Map(coordinateRegion: .constant(region), annotationItems: [sighting]) { item in
-                MapAnnotation(coordinate: CLLocationCoordinate2D(
-                    latitude: item.locationLatitude,
-                    longitude: item.locationLongitude
-                )) {
+            // Updated Map view for iOS 17+
+            Map(position: $cameraPosition) {
+                Annotation("Number \(sighting.numberSpotted)", 
+                          coordinate: CLLocationCoordinate2D(
+                            latitude: sighting.locationLatitude,
+                            longitude: sighting.locationLongitude
+                          )) {
                     ZStack {
                         Circle()
                             .fill(sacredColor)
                             .frame(width: 30, height: 30)
-                        Text("\(item.numberSpotted)")
+                        Text("\(sighting.numberSpotted)")
                             .font(.caption)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
@@ -259,80 +264,85 @@ struct SightingDetailView: View {
     
     private var metadataSection: some View {
         VStack(spacing: 15) {
-            if let timestamp = sighting.timestamp {
-                MetadataRow(
-                    icon: "calendar",
-                    label: "Date",
-                    value: DateFormatter.localizedString(from: timestamp, dateStyle: .long, timeStyle: .none)
-                )
-                
-                MetadataRow(
-                    icon: "clock",
-                    label: "Time",
-                    value: DateFormatter.localizedString(from: timestamp, dateStyle: .none, timeStyle: .short)
-                )
+            HStack {
+                Image(systemName: "clock")
+                    .foregroundColor(.white.opacity(0.6))
+                Text("Spotted on")
+                    .font(.subheadline)
+                    .foregroundColor(.white.opacity(0.8))
+                Spacer()
+                Text(formatDate(sighting.timestamp ?? Date()))
+                    .font(.subheadline)
+                    .foregroundColor(.white)
             }
             
-            if hasLocation {
-                MetadataRow(
-                    icon: "location",
-                    label: "Coordinates",
-                    value: String(format: "%.4f, %.4f", sighting.locationLatitude, sighting.locationLongitude)
-                )
+            if sighting.locationLatitude != 0 || sighting.locationLongitude != 0 {
+                HStack {
+                    Image(systemName: "location")
+                        .foregroundColor(.white.opacity(0.6))
+                    Text("Coordinates")
+                        .font(.subheadline)
+                        .foregroundColor(.white.opacity(0.8))
+                    Spacer()
+                    Text("\(String(format: "%.4f", sighting.locationLatitude)), \(String(format: "%.4f", sighting.locationLongitude))")
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.7))
+                }
             }
         }
         .padding()
         .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.white.opacity(0.1))
+            RoundedRectangle(cornerRadius: 15)
+                .fill(Color.white.opacity(0.05))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
                 )
         )
     }
     
     // MARK: - Helper Methods
     
-    private var hasLocation: Bool {
-        sighting.locationLatitude != 0 || sighting.locationLongitude != 0
-    }
-    
-    private func setupMapRegion() {
+    private func setupMapCamera() {
         if hasLocation {
-            region = MKCoordinateRegion(
-                center: CLLocationCoordinate2D(
-                    latitude: sighting.locationLatitude,
-                    longitude: sighting.locationLongitude
-                ),
-                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            let coordinate = CLLocationCoordinate2D(
+                latitude: sighting.locationLatitude,
+                longitude: sighting.locationLongitude
+            )
+            cameraPosition = MapCameraPosition.region(
+                MKCoordinateRegion(
+                    center: coordinate,
+                    span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                )
             )
         }
-    }
-    
-    private func generateShareText() -> String {
-        var text = "✨ I spotted the number \(sighting.numberSpotted)!\n\n"
-        
-        if let title = sighting.title {
-            text += "\(title)\n"
-        }
-        
-        if let note = sighting.note {
-            text += "\(note)\n"
-        }
-        
-        if let significance = sighting.significance {
-            text += "\nSignificance: \(significance)\n"
-        }
-        
-        text += "\n#VybeMVP #NumberSighting #Synchronicity"
-        
-        return text
     }
     
     private func deleteSighting() {
         sightingsManager.deleteSighting(sighting)
         dismiss()
+    }
+    
+    private func generateShareText() -> String {
+        var shareText = "I spotted the number \(sighting.numberSpotted)"
+        
+        if let title = sighting.title, !title.isEmpty {
+            shareText += " - \(title)"
+        }
+        
+        if let note = sighting.note, !note.isEmpty {
+            shareText += "\n\n\(note)"
+        }
+        
+        shareText += "\n\nShared from VybeMVP ✨"
+        return shareText
+    }
+    
+    private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
     }
 }
 
@@ -372,32 +382,6 @@ struct DetailCard: View {
     }
 }
 
-struct MetadataRow: View {
-    let icon: String
-    let label: String
-    let value: String
-    
-    var body: some View {
-        HStack {
-            Image(systemName: icon)
-                .font(.subheadline)
-                .foregroundColor(.white.opacity(0.6))
-                .frame(width: 20)
-            
-            Text(label)
-                .font(.subheadline)
-                .foregroundColor(.white.opacity(0.6))
-            
-            Spacer()
-            
-            Text(value)
-                .font(.subheadline)
-                .fontWeight(.medium)
-                .foregroundColor(.white)
-        }
-    }
-}
-
 // MARK: - Share Sheet
 
 struct ShareSheet: UIViewControllerRepresentable {
@@ -410,19 +394,24 @@ struct ShareSheet: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
-#Preview {
-    // Create a sample sighting for preview
-    let context = PersistenceController.preview.container.viewContext
-    let sighting = Sighting(context: context)
-    sighting.id = UUID()
-    sighting.numberSpotted = 7
-    sighting.title = "Lucky Seven at the Coffee Shop"
-    sighting.note = "Saw this on my receipt right after thinking about my goals"
-    sighting.significance = "It felt like a sign to trust my intuition"
-    sighting.timestamp = Date()
-    sighting.locationLatitude = 37.7749
-    sighting.locationLongitude = -122.4194
-    sighting.locationName = "Blue Bottle Coffee"
-    
-    return SightingDetailView(sighting: sighting)
+// MARK: - Preview
+
+struct SightingDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        // Create a sample sighting for preview
+        let context = PersistenceController.preview.container.viewContext
+        let sighting = Sighting(context: context)
+        sighting.id = UUID()
+        sighting.numberSpotted = 7
+        sighting.title = "Lucky Number Seven"
+        sighting.note = "Saw this on a license plate right when I was thinking about my career goals!"
+        sighting.significance = "This felt like a sign about my upcoming job interview"
+        sighting.timestamp = Date()
+        sighting.locationLatitude = 37.7749
+        sighting.locationLongitude = -122.4194
+        sighting.locationName = "San Francisco, CA"
+        
+        return SightingDetailView(sighting: sighting)
+            .environment(\.managedObjectContext, context)
+    }
 } 

@@ -68,59 +68,7 @@ struct FocusNumberPicker: View {
     }
 }
 
-/**
- * A reusable button component for displaying selectable focus numbers.
- *
- * This component is responsible for:
- * 1. Rendering an individual number in the picker grid
- * 2. Indicating the selected state through visual styling
- * 3. Triggering the provided action when tapped
- * 4. Maintaining accessibility support
- */
-private struct NumberButton: View {
-    /// The number value to display
-    let number: Int
-    
-    /// Whether this number is currently selected
-    let isSelected: Bool
-    
-    /// Closure to execute when the button is tapped
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            VStack {
-                Spacer(minLength: 0)
-                ZStack {
-                    Circle()
-                        .fill(isSelected ? Color.accentColor : Color.secondary.opacity(0.2))
-                    
-                    Text("\(number)")
-                        .font(.title2.bold())
-                        .foregroundColor(isSelected ? .white : .primary)
-                        .minimumScaleFactor(0.5)
-                }
-                Spacer(minLength: 0)
-            }
-            .frame(idealWidth: 80, idealHeight: 80)
-            .frame(minWidth: 44, minHeight: 44)
-        }
-        .accessibilityLabel("Focus number \(number)")
-    }
-}
-
 // Preview provider for testing
-struct NumberButton_Previews: PreviewProvider {
-    static var previews: some View {
-        HStack {
-            NumberButton(number: 1, isSelected: true) {}
-            NumberButton(number: 2, isSelected: false) {}
-        }
-        .padding()
-        .previewLayout(.sizeThatFits)
-    }
-}
-
 struct FocusNumberPicker_Previews: PreviewProvider {
     static var previews: some View {
         FocusNumberPicker()
