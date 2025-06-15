@@ -6,6 +6,7 @@
 
 import Foundation
 import Combine
+import CoreData
 
 /**
  * `AIInsightManager` is an ObservableObject responsible for orchestrating the generation
@@ -28,6 +29,7 @@ class AIInsightManager: ObservableObject {
     @Published var isInsightReady: Bool = false
     
     private var cancellables = Set<AnyCancellable>()
+    private let viewContext = PersistenceController.shared.container.viewContext
     
     /// Private initializer to enforce singleton pattern.
     private init() {
@@ -45,6 +47,15 @@ class AIInsightManager: ObservableObject {
     func configureAndRefreshInsight(for profile: UserProfile) {
         print("AIInsightManager: Configuring and refreshing insight for user ID \(profile.id)...")
         
+        // Check if we already have today's insight in Core Data
+        if let existingInsight = fetchTodaysInsightFromCoreData(lifePathNumber: profile.lifePathNumber) {
+            print("✨ Found existing insight for today in Core Data")
+            self.personalizedDailyInsight = existingInsight
+            self.isInsightReady = true
+            return
+        }
+        
+        // Generate new insight
         if let insight = InsightFilterService.getPersonalizedInsight(for: profile) {
             self.personalizedDailyInsight = insight
             self.isInsightReady = true
@@ -52,11 +63,89 @@ class AIInsightManager: ObservableObject {
             if let source = insight.source {
                 print("   Source Details - Template ID: '\(source.templateID)', Score: \(source.score), Matched Tags: \(source.matchedFocusTags.joined(separator: ", ")), Fallback: \(source.isFallback)")
             }
+            
+            // Save to Core Data for ActivityView
+            saveInsightToCoreData(insight: insight, profile: profile)
         } else {
             self.personalizedDailyInsight = nil // Clear any old insight
             self.isInsightReady = false
             print("😔 AIInsightManager: Could not prepare a personalized insight for the current profile.")
         }
+    }
+    
+    /**
+     * Refreshes the insight for the current user if they have a profile.
+     * This should be called on app launch or when switching tabs.
+     */
+    func refreshInsightIfNeeded() {
+        guard let userID = UserDefaults.standard.string(forKey: "userID"),
+              let userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID) else {
+            print("⚠️ AIInsightManager: Cannot refresh insight - no user profile found")
+            return
+        }
+        
+        configureAndRefreshInsight(for: userProfile)
+    }
+    
+    /**
+     * Saves the personalized insight to Core Data as a PersistedInsightLog entry.
+     */
+    private func saveInsightToCoreData(insight: PreparedInsight, profile: UserProfile) {
+        let newInsightLog = PersistedInsightLog(context: viewContext)
+        newInsightLog.id = UUID()
+        newInsightLog.timestamp = Date()
+        newInsightLog.number = Int16(profile.lifePathNumber)
+        newInsightLog.category = "daily_insight"
+        newInsightLog.text = insight.text
+        
+        // Create tags based on profile
+        var tags = ["Daily Insight", "Life Path \(profile.lifePathNumber)"]
+        if let source = insight.source {
+            tags.append(contentsOf: source.matchedFocusTags)
+        }
+        newInsightLog.tags = tags.joined(separator: ", ")
+        
+        do {
+            try viewContext.save()
+            print("💾 Successfully saved daily insight to Core Data")
+        } catch {
+            print("❌ Error saving daily insight to Core Data: \(error.localizedDescription)")
+        }
+    }
+    
+    /**
+     * Fetches today's insight from Core Data if it exists.
+     */
+    private func fetchTodaysInsightFromCoreData(lifePathNumber: Int) -> PreparedInsight? {
+        let request: NSFetchRequest<PersistedInsightLog> = PersistedInsightLog.fetchRequest()
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: Date())
+        let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
+        
+        request.predicate = NSPredicate(
+            format: "timestamp >= %@ AND timestamp < %@ AND category == %@ AND number == %d",
+            startOfDay as NSDate,
+            endOfDay as NSDate,
+            "daily_insight",
+            lifePathNumber
+        )
+        request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+        request.fetchLimit = 1
+        
+        do {
+            let results = try viewContext.fetch(request)
+            if let insightLog = results.first {
+                return PreparedInsight(
+                    date: insightLog.timestamp ?? Date(),
+                    lifePathNumber: Int(insightLog.number),
+                    text: insightLog.text ?? ""
+                )
+            }
+        } catch {
+            print("❌ Error fetching today's insight from Core Data: \(error.localizedDescription)")
+        }
+        
+        return nil
     }
     
     /**

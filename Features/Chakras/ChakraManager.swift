@@ -22,6 +22,7 @@ class ChakraManager: ObservableObject {
     @Published var isAudioEngineRunning = false
     @Published var currentMeditationTime: TimeInterval = 0
     @Published var isMeditating = false
+    @Published var globalAnimationPhase: Double = 0.0 // For synchronized pulsing
     
     // MARK: - Audio Properties
     private var audioEngine: AVAudioEngine?
@@ -39,6 +40,7 @@ class ChakraManager: ObservableObject {
     
     // MARK: - Timer Properties
     private var meditationTimer: Timer?
+    private var animationTimer: Timer?
     
     // MARK: - Cancellables
     private var cancellables = Set<AnyCancellable>()
@@ -52,6 +54,9 @@ class ChakraManager: ObservableObject {
         
         // Start the audio engine immediately
         startAudioEngine()
+        
+        // Start global animation timer
+        startAnimationTimer()
     }
     
     // MARK: - Setup Methods
@@ -292,6 +297,19 @@ class ChakraManager: ObservableObject {
             try hapticEngine?.start()
         } catch {
             print("❌ Failed to start haptic engine: \(error)")
+        }
+    }
+    
+    // MARK: - Animation Timer
+    
+    /// Start the global animation timer for synchronized pulsing
+    private func startAnimationTimer() {
+        animationTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            self.globalAnimationPhase += 2.0 // Adjust speed as needed
+            if self.globalAnimationPhase >= 360.0 {
+                self.globalAnimationPhase = 0.0
+            }
         }
     }
     
@@ -548,6 +566,7 @@ class ChakraManager: ObservableObject {
         audioEngine?.stop()
         hapticEngine?.stop()
         meditationTimer?.invalidate()
+        animationTimer?.invalidate()
     }
     
     // Add tanh function for soft limiting

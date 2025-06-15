@@ -60,13 +60,13 @@ enum ChakraType: Int, CaseIterable {
     /// Healing frequency in Hz (Solfeggio frequencies)
     var frequency: Double {
         switch self {
-        case .root: return 396.0 // Liberation from fear
-        case .sacral: return 417.0 // Facilitating change
-        case .solarPlexus: return 528.0 // Love & DNA repair
-        case .heart: return 639.0 // Harmonious relationships
-        case .throat: return 741.0 // Awakening intuition
-        case .thirdEye: return 852.0 // Returning to spiritual order
-        case .crown: return 963.0 // Divine consciousness
+        case .root:       return 261.63  // C4 - fundamental
+        case .sacral:     return 293.66  // D4 - major second
+        case .solarPlexus: return 329.63  // E4 - major third
+        case .heart:      return 392.00  // G4 - perfect fifth
+        case .throat:     return 440.00  // A4 - major sixth
+        case .thirdEye:   return 523.25  // C5 - octave
+        case .crown:      return 659.25  // E5 - major tenth (octave + third)
         }
     }
     

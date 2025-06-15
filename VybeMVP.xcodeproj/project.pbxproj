@@ -14,6 +14,10 @@
 		4D2DB4812DFF43390003353E /* PhantomChakrasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB47B2DFF43390003353E /* PhantomChakrasView.swift */; };
 		4D2DB4822DFF43390003353E /* ChakraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB4782DFF43390003353E /* ChakraManager.swift */; };
 		4D2DB4842DFF43B10003353E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB4832DFF43B10003353E /* ContentView.swift */; };
+		4D2DB4862DFF6A450003353E /* SightingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB4852DFF6A450003353E /* SightingsManager.swift */; };
+		4D2DB48A2DFF6ABA0003353E /* SightingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB4882DFF6ABA0003353E /* SightingsView.swift */; };
+		4D2DB48B2DFF6ABA0003353E /* NewSightingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB4872DFF6ABA0003353E /* NewSightingView.swift */; };
+		4D2DB48D2DFF6AF90003353E /* SightingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB48C2DFF6AF90003353E /* SightingDetailView.swift */; };
 		4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */; };
 		4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */; };
 		4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BF2D3CA97C009A7BBD /* VybeMVP.xcdatamodeld */; };
@@ -123,6 +127,10 @@
 		4D2DB47B2DFF43390003353E /* PhantomChakrasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhantomChakrasView.swift; sourceTree = "<group>"; };
 		4D2DB47C2DFF43390003353E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4D2DB4832DFF43B10003353E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4D2DB4852DFF6A450003353E /* SightingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightingsManager.swift; sourceTree = "<group>"; };
+		4D2DB4872DFF6ABA0003353E /* NewSightingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSightingView.swift; sourceTree = "<group>"; };
+		4D2DB4882DFF6ABA0003353E /* SightingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightingsView.swift; sourceTree = "<group>"; };
+		4D2DB48C2DFF6AF90003353E /* SightingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightingDetailView.swift; sourceTree = "<group>"; };
 		4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberHelper.swift; sourceTree = "<group>"; };
 		4D3055B62D3C9C3B009A7BBD /* VybeMVP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VybeMVP.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberView.swift; sourceTree = "<group>"; };
@@ -277,6 +285,16 @@
 			path = Chakras;
 			sourceTree = "<group>";
 		};
+		4D2DB4892DFF6ABA0003353E /* Sightings */ = {
+			isa = PBXGroup;
+			children = (
+				4D2DB48C2DFF6AF90003353E /* SightingDetailView.swift */,
+				4D2DB4872DFF6ABA0003353E /* NewSightingView.swift */,
+				4D2DB4882DFF6ABA0003353E /* SightingsView.swift */,
+			);
+			path = Sightings;
+			sourceTree = "<group>";
+		};
 		4D3055972D3C941B009A7BBD /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -295,6 +313,7 @@
 		4D3055982D3C9462009A7BBD /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				4D2DB4852DFF6A450003353E /* SightingsManager.swift */,
 				4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */,
 				4D3727162DE551E100B5A02B /* ActivityNavigationManager.swift */,
 				4D6C7BB42DE48089001036E5 /* UserProfileService.swift */,
@@ -464,6 +483,7 @@
 		4DC6022E2D34440900B5E4A9 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4D2DB4892DFF6ABA0003353E /* Sightings */,
 				4D2DB47D2DFF43390003353E /* Chakras */,
 				4D37271B2DE554B700B5A02B /* Activity */,
 				4D37270F2DE5407100B5A02B /* Insights */,
@@ -689,6 +709,8 @@
 				4D6C7BAD2DE47F55001036E5 /* AuthService.swift in Sources */,
 				4D6C7BB12DE4803E001036E5 /* AIInsightManager.swift in Sources */,
 				4D92F4BF2D4DE6050001A16E /* HealthKitManager.swift in Sources */,
+				4D2DB48A2DFF6ABA0003353E /* SightingsView.swift in Sources */,
+				4D2DB48B2DFF6ABA0003353E /* NewSightingView.swift in Sources */,
 				4D3055CC2D3CBB36009A7BBD /* UserPreferences.swift in Sources */,
 				4D3055FE2D3D903B009A7BBD /* JournalEntryRow.swift in Sources */,
 				4DC6023C2D345E2000B5E4A9 /* MainView.swift in Sources */,
@@ -708,6 +730,7 @@
 				4D6C7B9E2DE47E99001036E5 /* OnboardingInsightToneView.swift in Sources */,
 				4D6C7BA02DE47E99001036E5 /* OnboardingCosmicRhythmsView.swift in Sources */,
 				4D6C7BA12DE47E99001036E5 /* OnboardingView.swift in Sources */,
+				4D2DB48D2DFF6AF90003353E /* SightingDetailView.swift in Sources */,
 				4D6C7BA22DE47E99001036E5 /* OnboardingViewModel.swift in Sources */,
 				4D53BE252DEC151900BAE6AE /* VoiceRecordingManager.swift in Sources */,
 				4D6C7BB52DE48089001036E5 /* UserProfileService.swift in Sources */,
@@ -733,6 +756,7 @@
 				4D6C7B632DE46A33001036E5 /* BirthdateInputView.swift in Sources */,
 				4D92F4BC2D4DE1E80001A16E /* RealmNumberManager.swift in Sources */,
 				4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */,
+				4D2DB4862DFF6A450003353E /* SightingsManager.swift in Sources */,
 				4D37270D2DE5404500B5A02B /* UserProfileTabView.swift in Sources */,
 				4D92F4BD2D4DE1E80001A16E /* BackgroundManager.swift in Sources */,
 				4D3055E32D3CEADA009A7BBD /* JournalEntry+CoreDataHelpers.swift in Sources */,

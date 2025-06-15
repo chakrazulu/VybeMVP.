@@ -33,6 +33,9 @@ struct ContentView: View {
     /// Manages activity navigation
     @StateObject private var activityNavigationManager = ActivityNavigationManager.shared
     
+    /// Manages AI insights
+    @StateObject private var aiInsightManager = AIInsightManager.shared
+    
     // NEW State for handling notification taps
     @State private var showNotificationSheet = false
     @State private var notificationData: (number: Int, category: String, message: String)? = nil
@@ -74,26 +77,33 @@ struct ContentView: View {
                         }
                         .tag(3)
                     
+                    SightingsView() // Sightings Portal Tab
+                        .tabItem {
+                            Image(systemName: "sparkle.magnifyingglass")
+                            Text("Sightings")
+                        }
+                        .tag(4)
+                    
                     RealmNumberView()
                         .tabItem {
                             Image(systemName: "sparkles")
                             Text("Realm")
                         }
-                        .tag(4) // Adjusted tag
+                        .tag(5) // Adjusted tag
                     
                     PhantomChakrasView()
                         .tabItem {
                             Image(systemName: "circle.grid.3x3.circle.fill")
                             Text("Chakras")
                         }
-                        .tag(5)
+                        .tag(6) // Adjusted tag
                     
                     MatchAnalyticsView()
                         .tabItem {
                             Image(systemName: "chart.bar.fill")
                             Text("Analytics")
                         }
-                        .tag(6) // Adjusted tag
+                        .tag(7) // Adjusted tag
                     
                     NavigationView {
                         NumberMeaningView()
@@ -102,7 +112,7 @@ struct ContentView: View {
                         Image(systemName: "number.circle.fill")
                         Text("Meanings")
                     }
-                    .tag(7) // Adjusted tag
+                    .tag(8) // Adjusted tag
                     
                     NavigationView {
                         SettingsView()
@@ -112,14 +122,14 @@ struct ContentView: View {
                         Image(systemName: "gear")
                         Text("Settings")
                     }
-                    .tag(8) // Adjusted tag
+                    .tag(9) // Adjusted tag
                     
                     AboutView()
                         .tabItem {
                             Image(systemName: "info.circle.fill")
                             Text("About")
                         }
-                        .tag(9) // Adjusted tag
+                        .tag(10) // Adjusted tag
                 }
             }
         }
@@ -150,7 +160,7 @@ struct ContentView: View {
         }
         .onReceive(activityNavigationManager.$navigateToRealmTab) { shouldNavigate in // NEW
             if shouldNavigate {
-                selectedTab = 4 // Realm tab is tag 4
+                selectedTab = 5 // Realm tab is now tag 5
                 activityNavigationManager.didNavigateToRealmTab() // Reset the flag
             }
         }
@@ -161,8 +171,6 @@ struct ContentView: View {
             // hasn't been set up yet by the FocusNumberManager.shared singleton.
             // NOTE: This relies on FocusNumberManager not setting up subscriptions elsewhere.
             // A more robust method might involve a dedicated flag in FocusNumberManager.
-            // if FocusNumberManager.shared.cancellables.isEmpty { // <-- Potential check, but relies on implementation detail
-            // Alternative: Use a static flag or check a specific known cancellable if possible.
             // For simplicity now, let's assume onAppear might run multiple times but configure is idempotent 
             // or handles multiple calls safely (which our current configure does).
             FocusNumberManager.shared.configure(realmManager: realmNumberManager) 
@@ -172,6 +180,9 @@ struct ContentView: View {
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
             UITabBar.appearance().scrollEdgeAppearance = appearance
+            
+            // Refresh insights when app appears
+            aiInsightManager.refreshInsightIfNeeded()
             
             print("🔍 ContentView appeared")
             print("📊 Current Realm Number: \(realmNumberManager.currentRealmNumber)")
@@ -186,6 +197,10 @@ struct ContentView: View {
                 // focusNumberManager.realmNumber = newValue 
                 // print("🔄 Updated FocusNumberManager with realm number: \(oldValue) → \(newValue)")
             }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            // Refresh insights when app comes to foreground
+            aiInsightManager.refreshInsightIfNeeded()
         }
     }
 }

@@ -14,6 +14,7 @@ struct ChakraSymbolView: View {
     let onLongPress: () -> Void
     let onVolumeChange: (Float) -> Void
     
+    @StateObject private var chakraManager = ChakraManager.shared
     @State private var isPressed = false
     @State private var animationPhase = 0.0
     @State private var glowAnimation = false
@@ -102,12 +103,7 @@ struct ChakraSymbolView: View {
                 )
                 .frame(width: 180, height: 180)
                 .blur(radius: 15)
-                .scaleEffect(glowAnimation ? 1.2 : 1.0)
-                .animation(
-                    Animation.easeInOut(duration: 2.0 / chakraState.pulseRate)
-                        .repeatForever(autoreverses: true),
-                    value: glowAnimation
-                )
+                .scaleEffect(chakraState.isActive || chakraState.isHarmonizing ? (1.0 + sin(chakraManager.globalAnimationPhase * .pi / 180) * 0.1) : 1.0)
             
             // Inner glow
             Circle()
@@ -140,13 +136,8 @@ struct ChakraSymbolView: View {
                         lineWidth: 3
                     )
                     .frame(width: 100, height: 100)
-                    .scaleEffect(glowAnimation ? 1.3 : 1.0)
-                    .opacity(glowAnimation ? 0.3 : 0.8)
-                    .animation(
-                        Animation.easeInOut(duration: 0.8)
-                            .repeatForever(autoreverses: true),
-                        value: glowAnimation
-                    )
+                    .scaleEffect(1.0 + sin(chakraManager.globalAnimationPhase * .pi / 180) * 0.15)
+                    .opacity(0.3 + sin(chakraManager.globalAnimationPhase * .pi / 180) * 0.5)
             }
         }
     }
@@ -203,13 +194,8 @@ struct ChakraSymbolView: View {
                     lineWidth: 3
                 )
                 .frame(width: 100, height: 100)
-                .scaleEffect(glowAnimation ? 1.1 : 1.0)
-                .opacity(glowAnimation ? 0.6 : 1.0)
-                .animation(
-                    Animation.easeInOut(duration: 1.0)
-                        .repeatForever(autoreverses: true),
-                    value: glowAnimation
-                )
+                .scaleEffect(1.0 + sin(chakraManager.globalAnimationPhase * .pi / 180) * 0.05)
+                .opacity(0.6 + sin(chakraManager.globalAnimationPhase * .pi / 180) * 0.4)
             
             // Energy particles (simplified)
             ForEach(0..<6) { index in
@@ -217,7 +203,7 @@ struct ChakraSymbolView: View {
                     .fill(chakraState.type.color)
                     .frame(width: 6, height: 6)
                     .offset(x: 45)
-                    .rotationEffect(.degrees(Double(index) * 60 + animationPhase * 2))
+                    .rotationEffect(.degrees(Double(index) * 60 + chakraManager.globalAnimationPhase))
                     .opacity(0.8)
             }
         }
@@ -258,7 +244,7 @@ struct ChakraSymbolView: View {
     // MARK: - Animation Methods
     
     private func startContinuousAnimation() {
-        glowAnimation = true
+        // No longer needed - using global animation
         if chakraState.isHarmonizing {
             withAnimation {
                 animationPhase = 360
@@ -545,10 +531,10 @@ struct VolumeSlider: View {
     @State private var isDragging = false
     
     init(volume: Float, color: Color, onVolumeChange: @escaping (Float) -> Void) {
-        self.volume = volume
+        self.volume = max(0, min(1, volume)) // Ensure valid range
         self.color = color
         self.onVolumeChange = onVolumeChange
-        self._currentVolume = State(initialValue: volume)
+        self._currentVolume = State(initialValue: max(0, min(1, volume)))
     }
     
     var body: some View {
@@ -577,7 +563,7 @@ struct VolumeSlider: View {
                                 endPoint: .trailing
                             )
                         )
-                        .frame(width: geometry.size.width * CGFloat(currentVolume), height: 6)
+                        .frame(width: max(0, geometry.size.width * CGFloat(currentVolume)), height: 6)
                     
                     // Circular handle with glow
                     Circle()
@@ -589,14 +575,14 @@ struct VolumeSlider: View {
                         )
                         .shadow(color: color.opacity(0.6), radius: isDragging ? 8 : 4)
                         .scaleEffect(isDragging ? 1.2 : 1.0)
-                        .offset(x: geometry.size.width * CGFloat(currentVolume) - 10)
+                        .offset(x: max(0, min(geometry.size.width - 20, geometry.size.width * CGFloat(currentVolume) - 10)))
                         .animation(.easeInOut(duration: 0.1), value: isDragging)
                 }
                 .gesture(
                     DragGesture()
                         .onChanged { value in
                             isDragging = true
-                            let newValue = Float(value.location.x / geometry.size.width)
+                            let newValue = Float(max(0, min(geometry.size.width, value.location.x)) / geometry.size.width)
                             currentVolume = max(0, min(1, newValue))
                             onVolumeChange(currentVolume)
                             

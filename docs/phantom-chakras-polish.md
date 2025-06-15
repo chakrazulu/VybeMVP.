@@ -7,6 +7,17 @@ This update focuses on improving the audio quality and visual experience of the 
 
 ### 🎵 Audio Improvements
 
+#### Harmonic Frequency System
+- **Musical Scale**: Changed from Solfeggio frequencies to C major pentatonic scale
+  - Root: C4 (261.63 Hz) - fundamental
+  - Sacral: D4 (293.66 Hz) - major second  
+  - Solar Plexus: E4 (329.63 Hz) - major third
+  - Heart: G4 (392.00 Hz) - perfect fifth
+  - Throat: A4 (440.00 Hz) - major sixth
+  - Third Eye: C5 (523.25 Hz) - octave
+  - Crown: E5 (659.25 Hz) - major tenth
+- **Result**: All chakras now create pleasant harmony when played together
+
 #### Safe Lofi Effects Re-introduction
 - **Reverb**: Medium hall preset with 25% wet mix for spaciousness
 - **EQ**: 
@@ -23,6 +34,12 @@ This update focuses on improving the audio quality and visual experience of the 
 ```
 
 ### 🎨 Visual Enhancements
+
+#### Synchronized Pulsing Animation
+- **Global Animation Timer**: All active chakras now pulse in perfect synchronization
+- **Consistent Rate**: 2-degree phase increment at 20fps for smooth, unified pulsing
+- **Mathematical Sync**: Using sine wave calculations for organic breathing effect
+- **Performance**: Single timer manages all animations efficiently
 
 #### Larger Chakra Symbols (37.5% increase)
 - Symbol frame: 80×80 → 110×110
@@ -52,6 +69,18 @@ This update focuses on improving the audio quality and visual experience of the 
   - Rounded rectangle background
   - Subtle shadow effect
   - Increased size for easier interaction
+
+### 🐛 Bug Fixes
+
+#### CoreGraphics NaN Errors
+- **Issue**: Volume slider calculations producing NaN values
+- **Fix**: Added bounds checking and validation to all slider calculations
+- **Result**: No more console warnings about invalid numeric values
+
+#### Audio Synchronization
+- **Issue**: Multiple chakras pulsing at different rates
+- **Fix**: Implemented global animation phase shared across all chakra views
+- **Result**: Perfect visual synchronization of all active chakras
 
 ### 📐 Layout Adjustments
 - Increased vertical spacing between chakras: 25 → 35

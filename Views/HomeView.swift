@@ -199,7 +199,8 @@ struct HomeView: View {
         }
         .onAppear {
             focusNumberManager.loadMatchLogs()
-            // Potentially fetch initial AI insight here if not already handled by AIInsightManager
+            // Refresh AI insight when HomeView appears
+            aiInsightManager.refreshInsightIfNeeded()
         }
     }
     

@@ -4,6 +4,7 @@ import CoreData // Import CoreData
 struct ActivityView: View {
     @Environment(\.managedObjectContext) private var viewContext // Access managed object context
     @StateObject private var activityNavigationManager = ActivityNavigationManager.shared
+    @StateObject private var aiInsightManager = AIInsightManager.shared
 
     // FetchRequest to load PersistedInsightLog entries, sorted by timestamp descending
     @FetchRequest(
@@ -50,6 +51,9 @@ struct ActivityView: View {
             // unless we want to keep it highlighted.
             // For now, let's clear it so the list always shows fresh.
             // activityNavigationManager.insightToView = nil
+            
+            // Refresh insights to ensure latest data
+            aiInsightManager.refreshInsightIfNeeded()
         }
     }
 }
