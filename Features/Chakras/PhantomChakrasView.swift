@@ -36,12 +36,12 @@ struct PhantomChakrasView: View {
                             ChakraSymbolView(
                                 chakraState: chakraState,
                                 onTap: {
-                                    if isInitialized && !isTapProcessing {
+                                    if isInitialized && !isTapProcessing && chakraManager.isAudioEngineRunning {
                                         handleChakraTap(chakraState.type)
                                     }
                                 },
                                 onLongPress: {
-                                    if isInitialized && !isTapProcessing {
+                                    if isInitialized && !isTapProcessing && chakraManager.isAudioEngineRunning {
                                         handleChakraLongPress(chakraState.type)
                                     }
                                 },
@@ -49,7 +49,7 @@ struct PhantomChakrasView: View {
                                     chakraManager.updateVolume(for: chakraState.type, volume: volume)
                                 }
                             )
-                            .disabled(!isInitialized || isTapProcessing)
+                            .disabled(!isInitialized || isTapProcessing || !chakraManager.isAudioEngineRunning)
                             .scaleEffect(animateIn ? 1.0 : 0.8)
                             .opacity(animateIn ? 1.0 : 0.0)
                             .animation(
@@ -60,6 +60,14 @@ struct PhantomChakrasView: View {
                         }
                     }
                     .padding(.vertical, 20)
+                }
+                
+                // Audio status indicator (temporary for debugging)
+                if !chakraManager.isAudioEngineRunning {
+                    Text("Audio engine initializing...")
+                        .font(.caption)
+                        .foregroundColor(.yellow)
+                        .padding(.horizontal)
                 }
                 
                 // Bottom controls
@@ -341,6 +349,134 @@ struct MeditationView: View {
         let minutes = Int(chakraManager.currentMeditationTime) / 60
         let seconds = Int(chakraManager.currentMeditationTime) % 60
         return String(format: "%02d:%02d", minutes, seconds)
+    }
+}
+
+// MARK: - Chakra Detail View
+
+struct ChakraDetailView: View {
+    let chakraType: ChakraType
+    @Environment(\.dismiss) private var dismiss
+    
+    var body: some View {
+        NavigationView {
+            ScrollView {
+                VStack(spacing: 30) {
+                    // Chakra symbol
+                    ZStack {
+                        Circle()
+                            .fill(
+                                RadialGradient(
+                                    gradient: Gradient(colors: [
+                                        chakraType.color.opacity(0.8),
+                                        chakraType.color.opacity(0.2)
+                                    ]),
+                                    center: .center,
+                                    startRadius: 20,
+                                    endRadius: 80
+                                )
+                            )
+                            .frame(width: 160, height: 160)
+                        
+                        Text(chakraType.symbol)
+                            .font(.system(size: 60))
+                            .foregroundColor(.white)
+                    }
+                    .padding(.top, 20)
+                    
+                    // Name and Sanskrit
+                    VStack(spacing: 10) {
+                        Text(chakraType.name)
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                        
+                        Text(chakraType.sanskritName)
+                            .font(.title2)
+                            .fontWeight(.light)
+                            .foregroundColor(.white.opacity(0.8))
+                    }
+                    
+                    // Properties
+                    VStack(alignment: .leading, spacing: 20) {
+                        DetailRow(title: "Element", value: chakraType.element)
+                        DetailRow(title: "Frequency", value: "\(Int(chakraType.frequency)) Hz")
+                        DetailRow(title: "Mantra", value: chakraType.mantra)
+                        DetailRow(title: "Location", value: chakraType.location)
+                        
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Affirmation")
+                                .font(.headline)
+                                .foregroundColor(.white.opacity(0.7))
+                            
+                            Text(chakraType.affirmation)
+                                .font(.body)
+                                .foregroundColor(.white)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Numerological Resonance")
+                                .font(.headline)
+                                .foregroundColor(.white.opacity(0.7))
+                            
+                            HStack(spacing: 10) {
+                                ForEach(chakraType.numerologicalResonance, id: \.self) { number in
+                                    Text("\(number)")
+                                        .font(.title3)
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(.white)
+                                        .frame(width: 40, height: 40)
+                                        .background(
+                                            Circle()
+                                                .fill(chakraType.color.opacity(0.5))
+                                        )
+                                }
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 30)
+                    .padding(.bottom, 30)
+                }
+            }
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [
+                        Color.black,
+                        chakraType.color.opacity(0.3),
+                        Color.black
+                    ]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .edgesIgnoringSafeArea(.all)
+            )
+            .navigationBarItems(
+                trailing: Button("Done") {
+                    dismiss()
+                }
+                .foregroundColor(.white)
+            )
+        }
+    }
+}
+
+struct DetailRow: View {
+    let title: String
+    let value: String
+    
+    var body: some View {
+        HStack {
+            Text(title)
+                .font(.headline)
+                .foregroundColor(.white.opacity(0.7))
+            
+            Spacer()
+            
+            Text(value)
+                .font(.body)
+                .foregroundColor(.white)
+        }
     }
 }
 

@@ -27,8 +27,8 @@ class ChakraManager: ObservableObject {
     private var audioEngine: AVAudioEngine?
     private var toneGenerators: [ChakraType: AVAudioPlayerNode] = [:]
     private var audioBuffers: [ChakraType: AVAudioPCMBuffer] = [:]
-    private var reverbNode: AVAudioUnitReverb?
-    private var eqNode: AVAudioUnitEQ?
+    private var mixerNode: AVAudioMixerNode?
+    private let audioFormat = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
     
     // MARK: - Haptic Properties
     private var hapticEngine: CHHapticEngine?
@@ -44,8 +44,12 @@ class ChakraManager: ObservableObject {
     // MARK: - Initialization
     private init() {
         setupChakraStates()
+        setupAudioSession()
         setupAudioEngine()
         setupHapticEngine()
+        
+        // Start the audio engine immediately
+        startAudioEngine()
     }
     
     // MARK: - Setup Methods
@@ -57,100 +61,75 @@ class ChakraManager: ObservableObject {
         }
     }
     
-    /// Setup the audio engine and tone generators
-    private func setupAudioEngine() {
-        audioEngine = AVAudioEngine()
-        
-        guard let audioEngine = audioEngine else { return }
-        
-        // Configure audio session first
-        configureAudioSession()
-        
-        // Create and attach all nodes first
-        setupAudioNodes(audioEngine)
-        
-        // Connect all nodes
-        connectAudioNodes(audioEngine)
-        
-        // Generate tone buffers
-        generateToneBuffers()
-        
-        // Prepare the engine
-        audioEngine.prepare()
-        
-        // Subscribe to heart rate updates if available
-        subscribeToHeartRate()
-    }
-    
-    private func configureAudioSession() {
+    /// Configure audio session
+    private func setupAudioSession() {
         do {
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setCategory(.playback, mode: .default, options: [.mixWithOthers])
             try audioSession.setActive(true)
+            print("✅ Audio session configured successfully")
         } catch {
             print("❌ Failed to configure audio session: \(error)")
         }
     }
     
-    private func setupAudioNodes(_ audioEngine: AVAudioEngine) {
-        // Add reverb for spaciousness
-        reverbNode = AVAudioUnitReverb()
-        if let reverb = reverbNode {
-            reverb.loadFactoryPreset(.mediumHall)
-            reverb.wetDryMix = 25 // Subtle reverb
-            audioEngine.attach(reverb)
+    /// Setup the audio engine and tone generators
+    private func setupAudioEngine() {
+        // Create audio engine
+        audioEngine = AVAudioEngine()
+        
+        guard let audioEngine = audioEngine else { return }
+        
+        // Create a mixer node for better control
+        mixerNode = AVAudioMixerNode()
+        if let mixer = mixerNode {
+            audioEngine.attach(mixer)
+            audioEngine.connect(mixer, to: audioEngine.mainMixerNode, format: audioFormat)
         }
         
-        // Add EQ for lofi warmth
-        eqNode = AVAudioUnitEQ(numberOfBands: 2)
-        if let eq = eqNode {
-            // Low shelf boost for warmth
-            eq.bands[0].filterType = .lowShelf
-            eq.bands[0].frequency = 200
-            eq.bands[0].gain = 3
-            eq.bands[0].bypass = false
-            
-            // High cut for lofi character
-            eq.bands[1].filterType = .highShelf
-            eq.bands[1].frequency = 4000
-            eq.bands[1].gain = -12
-            eq.bands[1].bypass = false
-            
-            audioEngine.attach(eq)
-        }
-        
-        // Create and attach tone generators for each chakra
+        // Create player nodes and buffers
         for chakraType in ChakraType.allCases {
+            // Create player node
             let playerNode = AVAudioPlayerNode()
             audioEngine.attach(playerNode)
-            toneGenerators[chakraType] = playerNode
-        }
-    }
-    
-    private func connectAudioNodes(_ audioEngine: AVAudioEngine) {
-        // Connect effects chain
-        if let reverb = reverbNode, let eq = eqNode {
-            audioEngine.connect(reverb, to: eq, format: nil)
-            audioEngine.connect(eq, to: audioEngine.mainMixerNode, format: nil)
-        }
-        
-        // Connect player nodes
-        for (chakraType, playerNode) in toneGenerators {
-            // Connect to reverb for spacious sound
-            if let reverb = reverbNode {
-                audioEngine.connect(playerNode, to: reverb, format: nil)
+            
+            // Connect to mixer
+            if let mixer = mixerNode {
+                audioEngine.connect(playerNode, to: mixer, format: audioFormat)
             } else {
-                audioEngine.connect(playerNode, to: audioEngine.mainMixerNode, format: nil)
+                audioEngine.connect(playerNode, to: audioEngine.mainMixerNode, format: audioFormat)
             }
-        }
-    }
-    
-    private func generateToneBuffers() {
-        // Generate tone buffer for each chakra
-        for chakraType in ChakraType.allCases {
+            
+            toneGenerators[chakraType] = playerNode
+            
+            // Generate tone buffer
             if let buffer = createToneBuffer(frequency: chakraType.frequency) {
                 audioBuffers[chakraType] = buffer
             }
+        }
+        
+        // Subscribe to heart rate updates
+        subscribeToHeartRate()
+        
+        print("✅ Audio engine setup complete")
+    }
+    
+    /// Start the audio engine
+    private func startAudioEngine() {
+        guard let audioEngine = audioEngine else { return }
+        
+        do {
+            // Prepare the engine
+            audioEngine.prepare()
+            
+            // Start the engine
+            try audioEngine.start()
+            isAudioEngineRunning = true
+            
+            print("✅ Audio engine started successfully")
+        } catch {
+            print("❌ Failed to start audio engine: \(error)")
+            isAudioEngineRunning = false
         }
     }
     
@@ -160,7 +139,7 @@ class ChakraManager: ObservableObject {
         let frameCount = Int(sampleRate * duration)
         
         guard let buffer = AVAudioPCMBuffer(
-            pcmFormat: AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 2)!,
+            pcmFormat: audioFormat,
             frameCapacity: AVAudioFrameCount(frameCount)
         ) else { return nil }
         
@@ -379,41 +358,25 @@ class ChakraManager: ObservableObject {
     private func playTone(for type: ChakraType, continuous: Bool = false) {
         guard let playerNode = toneGenerators[type],
               let buffer = audioBuffers[type],
-              let audioEngine = audioEngine else { return }
-        
-        // Ensure we're on the main thread for audio operations
-        guard Thread.isMainThread else {
-            DispatchQueue.main.async { [weak self] in
-                self?.playTone(for: type, continuous: continuous)
-            }
-            return
+              let audioEngine = audioEngine else { 
+            print("❌ Missing required audio components for \(type)")
+            return 
         }
         
-        // Stop any existing playback first
-        if playerNode.isPlaying {
-            playerNode.stop()
-        }
-        
-        // Start engine if needed
+        // Ensure engine is running
         if !audioEngine.isRunning {
-            do {
-                // Prepare the engine first
-                audioEngine.prepare()
-                try audioEngine.start()
-                isAudioEngineRunning = true
-                
-                // Small delay to ensure engine is ready
-                Thread.sleep(forTimeInterval: 0.1)
-            } catch {
-                print("❌ Failed to start audio engine: \(error)")
+            startAudioEngine()
+            
+            // If still not running, abort
+            guard audioEngine.isRunning else {
+                print("❌ Audio engine failed to start")
                 return
             }
         }
         
-        // Check if the player node is properly attached and connected
-        guard audioEngine.attachedNodes.contains(playerNode) else {
-            print("❌ Player node not attached to engine")
-            return
+        // Stop any existing playback
+        if playerNode.isPlaying {
+            playerNode.stop()
         }
         
         // Set volume from chakra state
@@ -423,9 +386,6 @@ class ChakraManager: ObservableObject {
             playerNode.volume = configuration.volumeLevel
         }
         
-        // Reset the player before scheduling
-        playerNode.reset()
-        
         // Schedule buffer
         if continuous {
             playerNode.scheduleBuffer(buffer, at: nil, options: .loops, completionHandler: nil)
@@ -433,33 +393,12 @@ class ChakraManager: ObservableObject {
             playerNode.scheduleBuffer(buffer, at: nil, options: .interrupts, completionHandler: nil)
         }
         
-        // Play with error handling
-        do {
-            playerNode.play()
-        } catch {
-            print("❌ Failed to play audio: \(error)")
-        }
+        // Play
+        playerNode.play()
     }
     
     private func stopTone(for type: ChakraType) {
-        // Ensure we're on the main thread
-        guard Thread.isMainThread else {
-            DispatchQueue.main.async { [weak self] in
-                self?.stopTone(for: type)
-            }
-            return
-        }
-        
         toneGenerators[type]?.stop()
-        
-        // Check if any nodes are still playing
-        let anyPlaying = toneGenerators.values.contains { $0.isPlaying }
-        
-        // Stop the engine if no nodes are playing
-        if !anyPlaying && audioEngine?.isRunning == true {
-            audioEngine?.stop()
-            isAudioEngineRunning = false
-        }
     }
     
     // MARK: - Haptic Methods
