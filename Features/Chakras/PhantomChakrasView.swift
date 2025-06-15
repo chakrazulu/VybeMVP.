@@ -16,6 +16,8 @@ struct PhantomChakrasView: View {
     @State private var showingDetail = false
     @State private var showingMeditation = false
     @State private var animateIn = false
+    @State private var isTapProcessing = false
+    @State private var isInitialized = false
     
     var body: some View {
         ZStack {
@@ -34,15 +36,20 @@ struct PhantomChakrasView: View {
                             ChakraSymbolView(
                                 chakraState: chakraState,
                                 onTap: {
-                                    handleChakraTap(chakraState.type)
+                                    if isInitialized && !isTapProcessing {
+                                        handleChakraTap(chakraState.type)
+                                    }
                                 },
                                 onLongPress: {
-                                    handleChakraLongPress(chakraState.type)
+                                    if isInitialized && !isTapProcessing {
+                                        handleChakraLongPress(chakraState.type)
+                                    }
                                 },
                                 onVolumeChange: { volume in
                                     chakraManager.updateVolume(for: chakraState.type, volume: volume)
                                 }
                             )
+                            .disabled(!isInitialized || isTapProcessing)
                             .scaleEffect(animateIn ? 1.0 : 0.8)
                             .opacity(animateIn ? 1.0 : 0.0)
                             .animation(
@@ -69,6 +76,10 @@ struct PhantomChakrasView: View {
                 .environmentObject(chakraManager)
         }
         .onAppear {
+            // Delay initialization to ensure everything is ready
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                isInitialized = true
+            }
             startAnimations()
             updateChakraResonance()
         }
@@ -77,6 +88,12 @@ struct PhantomChakrasView: View {
         }
         .onReceive(realmNumberManager.$currentRealmNumber) { _ in
             updateChakraResonance()
+        }
+        .onDisappear {
+            // Clean up any active audio when leaving
+            for chakraType in ChakraType.allCases {
+                chakraManager.deactivateChakra(chakraType)
+            }
         }
     }
     
@@ -181,6 +198,9 @@ struct PhantomChakrasView: View {
     }
     
     private func handleChakraTap(_ type: ChakraType) {
+        guard !isTapProcessing else { return }
+        
+        isTapProcessing = true
         selectedChakra = type
         showingDetail = true
         
@@ -190,10 +210,15 @@ struct PhantomChakrasView: View {
         // Deactivate after a moment
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             chakraManager.deactivateChakra(type)
+            // Allow new taps after a brief delay
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                isTapProcessing = false
+            }
         }
     }
     
     private func handleChakraLongPress(_ type: ChakraType) {
+        guard !isTapProcessing else { return }
         chakraManager.toggleHarmonizing(type)
     }
 }
