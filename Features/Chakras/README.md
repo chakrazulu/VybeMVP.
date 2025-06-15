@@ -147,4 +147,34 @@ To test the feature:
 3. Navigate to the Chakras tab
 4. Test each interaction mode
 5. Verify audio plays through device speakers
-6. Check haptic feedback on supported devices 
+6. Check haptic feedback on supported devices
+
+## Version History
+
+### Version 1.1 (Current)
+- **Improved Sound Quality**
+  - Added harmonic overtones for richer tones
+  - Implemented smooth attack/decay envelope
+  - Added subtle vibrato for organic feel
+  - Reduced harshness when multiple chakras play together
+  
+- **Individual Volume Control**
+  - Volume slider appears when chakra is harmonizing
+  - Each chakra can have its own volume level
+  - Volume settings persist during session
+  
+- **Enhanced Meditation Mode**
+  - Active chakras continue playing during meditation
+  - Volumes automatically reduced by 50% for meditation
+  - Original volumes restored when meditation ends
+  
+- **Haptic Engine Improvements**
+  - Added automatic restart handlers
+  - Better error recovery
+  - More reliable vibration feedback
+
+### Version 1.0
+- Initial implementation
+- Basic chakra interface
+- Simple sine wave tones
+- Basic haptic feedback 

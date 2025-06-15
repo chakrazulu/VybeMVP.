@@ -83,7 +83,7 @@ class ChakraManager: ObservableObject {
         }
     }
     
-    /// Create a tone buffer for a specific frequency
+    /// Create a tone buffer for a specific frequency with improved sound quality
     private func createToneBuffer(frequency: Double, duration: Double = 1.0) -> AVAudioPCMBuffer? {
         let sampleRate = 44100.0
         let frameCount = Int(sampleRate * duration)
@@ -95,11 +95,27 @@ class ChakraManager: ObservableObject {
         
         buffer.frameLength = AVAudioFrameCount(frameCount)
         
-        // Generate sine wave
+        // Create a richer tone with harmonics and envelope
         for frame in 0..<frameCount {
-            let value = sin(2.0 * .pi * frequency * Double(frame) / sampleRate)
-            buffer.floatChannelData?[0][frame] = Float(value * 0.5) // Left channel
-            buffer.floatChannelData?[1][frame] = Float(value * 0.5) // Right channel
+            let time = Double(frame) / sampleRate
+            
+            // Envelope for smooth attack and release
+            let envelope = min(1.0, time * 20.0) * min(1.0, (duration - time) * 20.0)
+            
+            // Fundamental frequency with slight detuning for warmth
+            let detune = 1.0 + (sin(time * 0.5) * 0.002) // Subtle vibrato
+            let fundamental = sin(2.0 * .pi * frequency * detune * time)
+            
+            // Add subtle harmonics for richness
+            let harmonic2 = sin(2.0 * .pi * frequency * 2.0 * time) * 0.15
+            let harmonic3 = sin(2.0 * .pi * frequency * 3.0 * time) * 0.08
+            let harmonic4 = sin(2.0 * .pi * frequency * 4.0 * time) * 0.04
+            
+            // Combine harmonics
+            let value = (fundamental + harmonic2 + harmonic3 + harmonic4) * envelope * 0.3
+            
+            buffer.floatChannelData?[0][frame] = Float(value) // Left channel
+            buffer.floatChannelData?[1][frame] = Float(value) // Right channel
         }
         
         return buffer
@@ -111,6 +127,26 @@ class ChakraManager: ObservableObject {
         
         do {
             hapticEngine = try CHHapticEngine()
+            
+            // Set up handlers for engine lifecycle
+            hapticEngine?.resetHandler = { [weak self] in
+                print("🔄 Haptic engine reset")
+                do {
+                    try self?.hapticEngine?.start()
+                } catch {
+                    print("❌ Failed to restart haptic engine: \(error)")
+                }
+            }
+            
+            hapticEngine?.stoppedHandler = { [weak self] reason in
+                print("⏹ Haptic engine stopped: \(reason)")
+                do {
+                    try self?.hapticEngine?.start()
+                } catch {
+                    print("❌ Failed to restart haptic engine: \(error)")
+                }
+            }
+            
             try hapticEngine?.start()
         } catch {
             print("❌ Failed to start haptic engine: \(error)")
@@ -160,9 +196,11 @@ class ChakraManager: ObservableObject {
         chakraStates[index].isHarmonizing.toggle()
         
         if chakraStates[index].isHarmonizing {
+            chakraStates[index].isActive = true
             playTone(for: type, continuous: true)
             playHapticPattern(for: type, continuous: true)
         } else {
+            chakraStates[index].isActive = false
             stopTone(for: type)
             stopHapticPattern(for: type)
         }
@@ -184,12 +222,34 @@ class ChakraManager: ObservableObject {
         }
     }
     
+    /// Update volume for a specific chakra
+    func updateVolume(for type: ChakraType, volume: Float) {
+        guard let index = chakraStates.firstIndex(where: { $0.type == type }) else { return }
+        chakraStates[index].volume = volume
+        
+        // Update volume if currently playing
+        if let playerNode = toneGenerators[type], playerNode.isPlaying {
+            playerNode.volume = volume
+        }
+    }
+    
     /// Start meditation session
     func startMeditation() {
         isMeditating = true
         currentMeditationTime = 0
         
-        meditationTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+        // Start playing all harmonizing chakras at low volume for meditation
+        for (index, chakraState) in chakraStates.enumerated() {
+            if chakraState.isHarmonizing {
+                // Temporarily reduce volume for meditation
+                let meditationVolume = chakraState.volume * 0.5
+                chakraStates[index].volume = meditationVolume
+                updateVolume(for: chakraState.type, volume: meditationVolume)
+            }
+        }
+        
+        meditationTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
             self.currentMeditationTime += 1
             
             if self.currentMeditationTime >= self.configuration.meditationDuration {
@@ -204,9 +264,16 @@ class ChakraManager: ObservableObject {
         meditationTimer?.invalidate()
         meditationTimer = nil
         
+        // Restore original volumes
+        for chakraState in chakraStates {
+            updateVolume(for: chakraState.type, volume: 0.7) // Default volume
+        }
+        
         // Deactivate all chakras
         for chakraType in ChakraType.allCases {
-            deactivateChakra(chakraType)
+            if chakraStates.first(where: { $0.type == chakraType })?.isHarmonizing == true {
+                toggleHarmonizing(chakraType)
+            }
         }
     }
     
@@ -228,6 +295,9 @@ class ChakraManager: ObservableObject {
             }
         }
         
+        // Stop any existing playback
+        playerNode.stop()
+        
         // Schedule buffer
         if continuous {
             playerNode.scheduleBuffer(buffer, at: nil, options: .loops, completionHandler: nil)
@@ -235,8 +305,12 @@ class ChakraManager: ObservableObject {
             playerNode.scheduleBuffer(buffer, at: nil, options: .interrupts, completionHandler: nil)
         }
         
-        // Set volume
-        playerNode.volume = configuration.volumeLevel
+        // Set volume from chakra state
+        if let chakraState = chakraStates.first(where: { $0.type == type }) {
+            playerNode.volume = chakraState.volume * configuration.volumeLevel
+        } else {
+            playerNode.volume = configuration.volumeLevel
+        }
         
         // Play
         playerNode.play()
@@ -251,6 +325,16 @@ class ChakraManager: ObservableObject {
     private func playHapticPattern(for type: ChakraType, continuous: Bool = false) {
         guard configuration.enableHaptics,
               let hapticEngine = hapticEngine else { return }
+        
+        // Ensure engine is running
+        if hapticEngine.currentTime == 0 {
+            do {
+                try hapticEngine.start()
+            } catch {
+                print("❌ Failed to start haptic engine for playback: \(error)")
+                return
+            }
+        }
         
         // Create haptic pattern based on chakra frequency
         let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.6)

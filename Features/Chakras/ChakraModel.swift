@@ -170,6 +170,7 @@ struct ChakraState: Identifiable {
     var isHarmonizing: Bool = false
     var glowIntensity: Double = 0.3
     var pulseRate: Double = 1.0 // Multiplier for animation speed
+    var volume: Float = 0.7 // Individual volume level (0.0 - 1.0)
     
     /// Check if this chakra resonates with a given number
     func resonatesWith(number: Int) -> Bool {

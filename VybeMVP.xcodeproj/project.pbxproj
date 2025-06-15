@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		4D0CA8D12DE69F4600D4A6D6 /* NumerologyRainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CA8D02DE69F4600D4A6D6 /* NumerologyRainView.swift */; };
+		4D2DB47E2DFF43390003353E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D2DB47C2DFF43390003353E /* README.md */; };
+		4D2DB47F2DFF43390003353E /* ChakraSymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB47A2DFF43390003353E /* ChakraSymbolView.swift */; };
+		4D2DB4802DFF43390003353E /* ChakraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB4792DFF43390003353E /* ChakraModel.swift */; };
+		4D2DB4812DFF43390003353E /* PhantomChakrasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB47B2DFF43390003353E /* PhantomChakrasView.swift */; };
+		4D2DB4822DFF43390003353E /* ChakraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB4782DFF43390003353E /* ChakraManager.swift */; };
+		4D2DB4842DFF43B10003353E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB4832DFF43B10003353E /* ContentView.swift */; };
 		4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */; };
 		4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */; };
 		4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BF2D3CA97C009A7BBD /* VybeMVP.xcdatamodeld */; };
@@ -111,6 +117,12 @@
 
 /* Begin PBXFileReference section */
 		4D0CA8D02DE69F4600D4A6D6 /* NumerologyRainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyRainView.swift; sourceTree = "<group>"; };
+		4D2DB4782DFF43390003353E /* ChakraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChakraManager.swift; sourceTree = "<group>"; };
+		4D2DB4792DFF43390003353E /* ChakraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChakraModel.swift; sourceTree = "<group>"; };
+		4D2DB47A2DFF43390003353E /* ChakraSymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChakraSymbolView.swift; sourceTree = "<group>"; };
+		4D2DB47B2DFF43390003353E /* PhantomChakrasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhantomChakrasView.swift; sourceTree = "<group>"; };
+		4D2DB47C2DFF43390003353E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		4D2DB4832DFF43B10003353E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberHelper.swift; sourceTree = "<group>"; };
 		4D3055B62D3C9C3B009A7BBD /* VybeMVP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VybeMVP.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberView.swift; sourceTree = "<group>"; };
@@ -251,6 +263,18 @@
 		4D03651B2DB5C912004227CB /* Products */ = {
 			isa = PBXGroup;
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4D2DB47D2DFF43390003353E /* Chakras */ = {
+			isa = PBXGroup;
+			children = (
+				4D2DB4782DFF43390003353E /* ChakraManager.swift */,
+				4D2DB4792DFF43390003353E /* ChakraModel.swift */,
+				4D2DB47A2DFF43390003353E /* ChakraSymbolView.swift */,
+				4D2DB47B2DFF43390003353E /* PhantomChakrasView.swift */,
+				4D2DB47C2DFF43390003353E /* README.md */,
+			);
+			path = Chakras;
 			sourceTree = "<group>";
 		};
 		4D3055972D3C941B009A7BBD /* Data */ = {
@@ -440,6 +464,7 @@
 		4DC6022E2D34440900B5E4A9 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4D2DB47D2DFF43390003353E /* Chakras */,
 				4D37271B2DE554B700B5A02B /* Activity */,
 				4D37270F2DE5407100B5A02B /* Insights */,
 				4D37270C2DE5404500B5A02B /* UserProfile */,
@@ -453,6 +478,7 @@
 		4DC602302D34440900B5E4A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4D2DB4832DFF43B10003353E /* ContentView.swift */,
 				4D3727142DE550ED00B5A02B /* ReusableComponents */,
 				4D6C7B622DE46A33001036E5 /* BirthdateInputView.swift */,
 				4D6C7B5E2DE45C07001036E5 /* AuthenticationWrapperView.swift */,
@@ -605,6 +631,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DA01CB42D8537FB0070309D /* GoogleService-Info.plist in Resources */,
+				4D2DB47E2DFF43390003353E /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,6 +670,11 @@
 				4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */,
 				4D6C7BB92DE480E4001036E5 /* PreparedInsight.swift in Sources */,
 				4D3055CE2D3CC9CA009A7BBD /* FocusNumberPicker.swift in Sources */,
+				4D2DB47F2DFF43390003353E /* ChakraSymbolView.swift in Sources */,
+				4D2DB4802DFF43390003353E /* ChakraModel.swift in Sources */,
+				4D2DB4812DFF43390003353E /* PhantomChakrasView.swift in Sources */,
+				4D2DB4822DFF43390003353E /* ChakraManager.swift in Sources */,
+				4D2DB4842DFF43B10003353E /* ContentView.swift in Sources */,
 				4D3055EB2D3CF492009A7BBD /* NumberCell.swift in Sources */,
 				4D3055DF2D3CE8AE009A7BBD /* JournalView.swift in Sources */,
 				4D3727102DE5407100B5A02B /* InsightHistoryView.swift in Sources */,

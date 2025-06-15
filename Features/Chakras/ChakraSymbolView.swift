@@ -12,46 +12,61 @@ struct ChakraSymbolView: View {
     let chakraState: ChakraState
     let onTap: () -> Void
     let onLongPress: () -> Void
+    let onVolumeChange: (Float) -> Void
     
     @State private var isPressed = false
     @State private var animationPhase = 0.0
     @State private var glowAnimation = false
     @State private var rippleScale: CGFloat = 1.0
     @State private var rippleOpacity: Double = 0.0
+    @State private var showVolumeSlider = false
     
     var body: some View {
-        ZStack {
-            // Background glow layers
-            glowLayers
-            
-            // Main chakra symbol
-            chakraSymbol
-            
-            // Active state overlay
-            if chakraState.isActive || chakraState.isHarmonizing {
-                activeOverlay
+        VStack(spacing: 10) {
+            ZStack {
+                // Background glow layers
+                glowLayers
+                
+                // Main chakra symbol
+                chakraSymbol
+                
+                // Active state overlay
+                if chakraState.isActive || chakraState.isHarmonizing {
+                    activeOverlay
+                }
+                
+                // Ripple effect
+                rippleEffect
+            }
+            .frame(width: 80, height: 80)
+            .scaleEffect(isPressed ? 0.95 : 1.0)
+            .animation(.easeInOut(duration: 0.1), value: isPressed)
+            .onTapGesture {
+                triggerTapAnimation()
+                onTap()
+            }
+            .onLongPressGesture(minimumDuration: 0.5, pressing: { pressing in
+                isPressed = pressing
+                if pressing {
+                    triggerLongPressAnimation()
+                }
+            }) {
+                onLongPress()
+            }
+            .onAppear {
+                startContinuousAnimation()
             }
             
-            // Ripple effect
-            rippleEffect
-        }
-        .frame(width: 80, height: 80)
-        .scaleEffect(isPressed ? 0.95 : 1.0)
-        .animation(.easeInOut(duration: 0.1), value: isPressed)
-        .onTapGesture {
-            triggerTapAnimation()
-            onTap()
-        }
-        .onLongPressGesture(minimumDuration: 0.5, pressing: { pressing in
-            isPressed = pressing
-            if pressing {
-                triggerLongPressAnimation()
+            // Volume control (shows when harmonizing)
+            if chakraState.isHarmonizing {
+                VolumeSlider(
+                    volume: chakraState.volume,
+                    color: chakraState.type.color,
+                    onVolumeChange: onVolumeChange
+                )
+                .transition(.scale.combined(with: .opacity))
+                .animation(.easeInOut(duration: 0.3), value: chakraState.isHarmonizing)
             }
-        }) {
-            onLongPress()
-        }
-        .onAppear {
-            startContinuousAnimation()
         }
     }
     
@@ -455,5 +470,51 @@ struct FlowLayout: Layout {
             }
             height = y + maxHeight
         }
+    }
+}
+
+// MARK: - Volume Slider Component
+
+struct VolumeSlider: View {
+    let volume: Float
+    let color: Color
+    let onVolumeChange: (Float) -> Void
+    
+    @State private var currentVolume: Float
+    
+    init(volume: Float, color: Color, onVolumeChange: @escaping (Float) -> Void) {
+        self.volume = volume
+        self.color = color
+        self.onVolumeChange = onVolumeChange
+        self._currentVolume = State(initialValue: volume)
+    }
+    
+    var body: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "speaker.fill")
+                .font(.system(size: 10))
+                .foregroundColor(color.opacity(0.7))
+            
+            Slider(value: $currentVolume, in: 0...1) { _ in
+                onVolumeChange(currentVolume)
+            }
+            .accentColor(color)
+            .frame(width: 60)
+            
+            Image(systemName: "speaker.wave.3.fill")
+                .font(.system(size: 10))
+                .foregroundColor(color.opacity(0.7))
+        }
+        .frame(width: 100)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 4)
+        .background(
+            Capsule()
+                .fill(Color.black.opacity(0.3))
+                .overlay(
+                    Capsule()
+                        .stroke(color.opacity(0.3), lineWidth: 1)
+                )
+        )
     }
 } 

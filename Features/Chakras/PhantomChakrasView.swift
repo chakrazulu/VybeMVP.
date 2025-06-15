@@ -38,6 +38,9 @@ struct PhantomChakrasView: View {
                                 },
                                 onLongPress: {
                                     handleChakraLongPress(chakraState.type)
+                                },
+                                onVolumeChange: { volume in
+                                    chakraManager.updateVolume(for: chakraState.type, volume: volume)
                                 }
                             )
                             .scaleEffect(animateIn ? 1.0 : 0.8)
@@ -69,7 +72,7 @@ struct PhantomChakrasView: View {
             startAnimations()
             updateChakraResonance()
         }
-        .onReceive(focusNumberManager.$selectedNumber) { _ in
+        .onReceive(focusNumberManager.$selectedFocusNumber) { _ in
             updateChakraResonance()
         }
         .onReceive(realmNumberManager.$currentRealmNumber) { _ in
@@ -172,7 +175,7 @@ struct PhantomChakrasView: View {
     
     private func updateChakraResonance() {
         chakraManager.updateResonance(
-            focusNumber: focusNumberManager.selectedNumber,
+            focusNumber: focusNumberManager.selectedFocusNumber,
             realmNumber: realmNumberManager.currentRealmNumber
         )
     }
