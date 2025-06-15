@@ -27,10 +27,13 @@ class ChakraManager: ObservableObject {
     private var audioEngine: AVAudioEngine?
     private var toneGenerators: [ChakraType: AVAudioPlayerNode] = [:]
     private var audioBuffers: [ChakraType: AVAudioPCMBuffer] = [:]
+    private var reverbNode: AVAudioUnitReverb?
+    private var eqNode: AVAudioUnitEQ?
     
     // MARK: - Haptic Properties
     private var hapticEngine: CHHapticEngine?
     private var hapticPlayers: [ChakraType: CHHapticPatternPlayer] = [:]
+    private var currentHeartRate: Double = 72.0 // Default BPM
     
     // MARK: - Timer Properties
     private var meditationTimer: Timer?
@@ -69,11 +72,50 @@ class ChakraManager: ObservableObject {
             print("❌ Failed to configure audio session: \(error)")
         }
         
+        // Add reverb for spaciousness
+        reverbNode = AVAudioUnitReverb()
+        if let reverb = reverbNode {
+            reverb.loadFactoryPreset(.mediumHall)
+            reverb.wetDryMix = 25 // Subtle reverb
+            audioEngine.attach(reverb)
+        }
+        
+        // Add EQ for lofi warmth
+        eqNode = AVAudioUnitEQ(numberOfBands: 2)
+        if let eq = eqNode {
+            // Low shelf boost for warmth
+            eq.bands[0].filterType = .lowShelf
+            eq.bands[0].frequency = 200
+            eq.bands[0].gain = 3
+            eq.bands[0].bypass = false
+            
+            // High cut for lofi character
+            eq.bands[1].filterType = .highShelf
+            eq.bands[1].frequency = 4000
+            eq.bands[1].gain = -12
+            eq.bands[1].bypass = false
+            
+            audioEngine.attach(eq)
+        }
+        
+        // Connect effects chain
+        if let reverb = reverbNode, let eq = eqNode {
+            audioEngine.connect(reverb, to: eq, format: nil)
+            audioEngine.connect(eq, to: audioEngine.mainMixerNode, format: nil)
+        }
+        
         // Create tone generators for each chakra
         for chakraType in ChakraType.allCases {
             let playerNode = AVAudioPlayerNode()
             audioEngine.attach(playerNode)
-            audioEngine.connect(playerNode, to: audioEngine.mainMixerNode, format: nil)
+            
+            // Connect to reverb for spacious sound
+            if let reverb = reverbNode {
+                audioEngine.connect(playerNode, to: reverb, format: nil)
+            } else {
+                audioEngine.connect(playerNode, to: audioEngine.mainMixerNode, format: nil)
+            }
+            
             toneGenerators[chakraType] = playerNode
             
             // Generate tone buffer
@@ -81,6 +123,9 @@ class ChakraManager: ObservableObject {
                 audioBuffers[chakraType] = buffer
             }
         }
+        
+        // Subscribe to heart rate updates if available
+        subscribeToHeartRate()
     }
     
     /// Create a tone buffer for a specific frequency with improved sound quality
@@ -95,30 +140,56 @@ class ChakraManager: ObservableObject {
         
         buffer.frameLength = AVAudioFrameCount(frameCount)
         
-        // Create a richer tone with harmonics and envelope
+        // Create a warm, lofi tone
         for frame in 0..<frameCount {
             let time = Double(frame) / sampleRate
             
-            // Envelope for smooth attack and release
-            let envelope = min(1.0, time * 20.0) * min(1.0, (duration - time) * 20.0)
+            // Much softer attack for meditation (200ms attack time)
+            let attackTime = 0.2
+            let releaseTime = 0.2
+            let attack = min(1.0, time / attackTime)
+            let release = min(1.0, (duration - time) / releaseTime)
+            let envelope = attack * release
             
-            // Fundamental frequency with slight detuning for warmth
-            let detune = 1.0 + (sin(time * 0.5) * 0.002) // Subtle vibrato
-            let fundamental = sin(2.0 * .pi * frequency * detune * time)
+            // Fundamental frequency with very subtle vibrato
+            let vibrato = 1.0 + (sin(time * 0.3) * 0.001) // Very subtle
+            let fundamental = sin(2.0 * .pi * frequency * vibrato * time)
             
-            // Add subtle harmonics for richness
-            let harmonic2 = sin(2.0 * .pi * frequency * 2.0 * time) * 0.15
-            let harmonic3 = sin(2.0 * .pi * frequency * 3.0 * time) * 0.08
-            let harmonic4 = sin(2.0 * .pi * frequency * 4.0 * time) * 0.04
+            // Reduced harmonics for softer sound
+            let harmonic2 = sin(2.0 * .pi * frequency * 2.0 * time) * 0.05
+            let harmonic3 = sin(2.0 * .pi * frequency * 3.0 * time) * 0.02
             
-            // Combine harmonics
-            let value = (fundamental + harmonic2 + harmonic3 + harmonic4) * envelope * 0.3
+            // Add subtle noise for analog warmth
+            let noise = (Double.random(in: -1...1) * 0.002)
             
-            buffer.floatChannelData?[0][frame] = Float(value) // Left channel
-            buffer.floatChannelData?[1][frame] = Float(value) // Right channel
+            // Combine with reduced amplitude for gentleness
+            let value = (fundamental + harmonic2 + harmonic3 + noise) * envelope * 0.2
+            
+            // Soft limiting to prevent any harshness
+            let limited = tanh(value * 0.8)
+            
+            buffer.floatChannelData?[0][frame] = Float(limited) // Left channel
+            buffer.floatChannelData?[1][frame] = Float(limited) // Right channel
         }
         
         return buffer
+    }
+    
+    /// Subscribe to heart rate updates
+    private func subscribeToHeartRate() {
+        // Subscribe to heart rate from HealthKitManager
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(heartRateDidUpdate(_:)),
+            name: Notification.Name("HeartRateDidUpdate"),
+            object: nil
+        )
+    }
+    
+    @objc private func heartRateDidUpdate(_ notification: Notification) {
+        if let heartRate = notification.userInfo?["heartRate"] as? Double {
+            currentHeartRate = heartRate
+        }
     }
     
     /// Setup the haptic engine
@@ -336,27 +407,39 @@ class ChakraManager: ObservableObject {
             }
         }
         
-        // Create haptic pattern based on chakra frequency
-        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.6)
-        let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.4)
+        // Create haptic pattern based on heart rate BPM
+        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.4) // Gentler
+        let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.2) // Softer
         
-        // Calculate haptic pulse rate based on chakra frequency (scaled down)
-        let pulseInterval = 1.0 / (type.frequency / 1000.0)
+        // Calculate pulse interval based on heart rate (60 / BPM = seconds per beat)
+        let pulseInterval = 60.0 / currentHeartRate
         
         var events: [CHHapticEvent] = []
         
         if continuous {
-            // Create repeating pattern
-            for i in 0..<10 {
-                let event = CHHapticEvent(
+            // Create heartbeat-like pattern
+            for i in 0..<30 { // About 30 beats
+                // Main beat
+                let mainBeat = CHHapticEvent(
                     eventType: .hapticTransient,
                     parameters: [intensity, sharpness],
                     relativeTime: Double(i) * pulseInterval
                 )
-                events.append(event)
+                events.append(mainBeat)
+                
+                // Subtle second beat (like lub-dub)
+                let secondBeat = CHHapticEvent(
+                    eventType: .hapticTransient,
+                    parameters: [
+                        CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.2),
+                        CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.1)
+                    ],
+                    relativeTime: Double(i) * pulseInterval + 0.1
+                )
+                events.append(secondBeat)
             }
         } else {
-            // Single pulse
+            // Single gentle pulse
             let event = CHHapticEvent(
                 eventType: .hapticTransient,
                 parameters: [intensity, sharpness],
@@ -389,5 +472,10 @@ class ChakraManager: ObservableObject {
         audioEngine?.stop()
         hapticEngine?.stop()
         meditationTimer?.invalidate()
+    }
+    
+    // Add tanh function for soft limiting
+    private func tanh(_ x: Double) -> Double {
+        return (exp(x) - exp(-x)) / (exp(x) + exp(-x))
     }
 } 
