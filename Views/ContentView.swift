@@ -63,47 +63,54 @@ struct ContentView: View {
                         }
                         .tag(1)
                     
+                    SocialTimelineView() // Global Resonance Timeline
+                        .tabItem {
+                            Image(systemName: "globe.americas.fill")
+                            Text("Timeline")
+                        }
+                        .tag(2)
+                    
                     UserProfileTabView()
                         .tabItem {
                             Image(systemName: "person.circle.fill")
                             Text("My Sanctum")
                         }
-                        .tag(2)
+                        .tag(3)
                     
                     ActivityView() // New Activity Tab
                         .tabItem {
                             Image(systemName: "list.star") // Suggesting an icon
                             Text("Activity")
                         }
-                        .tag(3)
+                        .tag(4)
                     
                     SightingsView() // Sightings Portal Tab
                         .tabItem {
                             Image(systemName: "sparkle.magnifyingglass")
                             Text("Sightings")
                         }
-                        .tag(4)
+                        .tag(5)
                     
                     RealmNumberView()
                         .tabItem {
                             Image(systemName: "sparkles")
                             Text("Realm")
                         }
-                        .tag(5) // Adjusted tag
+                        .tag(6) // Adjusted tag
                     
                     PhantomChakrasView()
                         .tabItem {
                             Image(systemName: "circle.grid.3x3.circle.fill")
                             Text("Chakras")
                         }
-                        .tag(6) // Adjusted tag
+                        .tag(7) // Adjusted tag
                     
                     MatchAnalyticsView()
                         .tabItem {
                             Image(systemName: "chart.bar.fill")
                             Text("Analytics")
                         }
-                        .tag(7) // Adjusted tag
+                        .tag(8) // Adjusted tag
                     
                     NavigationView {
                         NumberMeaningView()
@@ -112,7 +119,7 @@ struct ContentView: View {
                         Image(systemName: "number.circle.fill")
                         Text("Meanings")
                     }
-                    .tag(8) // Adjusted tag
+                    .tag(9) // Adjusted tag
                     
                     NavigationView {
                         SettingsView()
@@ -122,14 +129,14 @@ struct ContentView: View {
                         Image(systemName: "gear")
                         Text("Settings")
                     }
-                    .tag(9) // Adjusted tag
+                    .tag(10) // Adjusted tag
                     
                     AboutView()
                         .tabItem {
                             Image(systemName: "info.circle.fill")
                             Text("About")
                         }
-                        .tag(10) // Adjusted tag
+                        .tag(11) // Adjusted tag
                 }
             }
         }
@@ -154,13 +161,13 @@ struct ContentView: View {
         }
         .onReceive(activityNavigationManager.$navigateToActivityTab) { shouldNavigate in
             if shouldNavigate {
-                selectedTab = 3 // Assuming Activity tab is tag 3
+                selectedTab = 4 // Assuming Activity tab is tag 4
                 activityNavigationManager.didNavigateToActivityTab() // Reset the flag
             }
         }
         .onReceive(activityNavigationManager.$navigateToRealmTab) { shouldNavigate in // NEW
             if shouldNavigate {
-                selectedTab = 5 // Realm tab is now tag 5
+                selectedTab = 6 // Realm tab is now tag 6
                 activityNavigationManager.didNavigateToRealmTab() // Reset the flag
             }
         }

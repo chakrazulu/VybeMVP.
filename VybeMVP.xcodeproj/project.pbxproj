@@ -50,6 +50,15 @@
 		4D3727192DE5538A00B5A02B /* NumerologyInsightService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3727182DE5538A00B5A02B /* NumerologyInsightService.swift */; };
 		4D37271C2DE554B700B5A02B /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D37271A2DE554B700B5A02B /* ActivityView.swift */; };
 		4D53BE252DEC151900BAE6AE /* VoiceRecordingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */; };
+		4D6308DA2DFFCB2C00FD32E9 /* ReactionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D62DFFCB2C00FD32E9 /* ReactionPickerView.swift */; };
+		4D6308DB2DFFCB2C00FD32E9 /* Reaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D12DFFCB2C00FD32E9 /* Reaction.swift */; };
+		4D6308DC2DFFCB2C00FD32E9 /* PostComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D52DFFCB2C00FD32E9 /* PostComposerView.swift */; };
+		4D6308DD2DFFCB2C00FD32E9 /* PostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308CE2DFFCB2C00FD32E9 /* PostManager.swift */; };
+		4D6308DE2DFFCB2C00FD32E9 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D02DFFCB2C00FD32E9 /* Post.swift */; };
+		4D6308DF2DFFCB2C00FD32E9 /* PostCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D42DFFCB2C00FD32E9 /* PostCardView.swift */; };
+		4D6308E02DFFCB2C00FD32E9 /* SocialTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D72DFFCB2C00FD32E9 /* SocialTimelineView.swift */; };
+		4D6308E12DFFCB2C00FD32E9 /* SocialUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D22DFFCB2C00FD32E9 /* SocialUser.swift */; };
+		4D6308E42DFFCB6F00FD32E9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4D6308E32DFFCB6F00FD32E9 /* FirebaseAuth */; };
 		4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */; };
 		4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */; };
 		4D6C7B552DE45441001036E5 /* ArchetypeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */; };
@@ -166,6 +175,14 @@
 		4D3727182DE5538A00B5A02B /* NumerologyInsightService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyInsightService.swift; sourceTree = "<group>"; };
 		4D37271A2DE554B700B5A02B /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordingManager.swift; sourceTree = "<group>"; };
+		4D6308CE2DFFCB2C00FD32E9 /* PostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostManager.swift; sourceTree = "<group>"; };
+		4D6308D02DFFCB2C00FD32E9 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		4D6308D12DFFCB2C00FD32E9 /* Reaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reaction.swift; sourceTree = "<group>"; };
+		4D6308D22DFFCB2C00FD32E9 /* SocialUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialUser.swift; sourceTree = "<group>"; };
+		4D6308D42DFFCB2C00FD32E9 /* PostCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardView.swift; sourceTree = "<group>"; };
+		4D6308D52DFFCB2C00FD32E9 /* PostComposerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComposerView.swift; sourceTree = "<group>"; };
+		4D6308D62DFFCB2C00FD32E9 /* ReactionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPickerView.swift; sourceTree = "<group>"; };
+		4D6308D72DFFCB2C00FD32E9 /* SocialTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTimelineView.swift; sourceTree = "<group>"; };
 		4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetype.swift; sourceTree = "<group>"; };
 		4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetypeManager.swift; sourceTree = "<group>"; };
 		4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchetypeDisplayView.swift; sourceTree = "<group>"; };
@@ -263,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DA01CBB2D853A640070309D /* FirebaseMessaging in Frameworks */,
+				4D6308E42DFFCB6F00FD32E9 /* FirebaseAuth in Frameworks */,
 				4D6C7BBD2DE4885F001036E5 /* FirebaseFirestore in Frameworks */,
 				4DA01CB92D853A640070309D /* FirebaseCore in Frameworks */,
 				4DA01CB72D853A640070309D /* FirebaseAnalytics in Frameworks */,
@@ -411,6 +429,52 @@
 			path = Activity;
 			sourceTree = "<group>";
 		};
+		4D6308CF2DFFCB2C00FD32E9 /* SocialManagers */ = {
+			isa = PBXGroup;
+			children = (
+				4D6308CE2DFFCB2C00FD32E9 /* PostManager.swift */,
+			);
+			path = SocialManagers;
+			sourceTree = "<group>";
+		};
+		4D6308D32DFFCB2C00FD32E9 /* SocialModels */ = {
+			isa = PBXGroup;
+			children = (
+				4D6308D02DFFCB2C00FD32E9 /* Post.swift */,
+				4D6308D12DFFCB2C00FD32E9 /* Reaction.swift */,
+				4D6308D22DFFCB2C00FD32E9 /* SocialUser.swift */,
+			);
+			path = SocialModels;
+			sourceTree = "<group>";
+		};
+		4D6308D82DFFCB2C00FD32E9 /* SocialViews */ = {
+			isa = PBXGroup;
+			children = (
+				4D6308D42DFFCB2C00FD32E9 /* PostCardView.swift */,
+				4D6308D52DFFCB2C00FD32E9 /* PostComposerView.swift */,
+				4D6308D62DFFCB2C00FD32E9 /* ReactionPickerView.swift */,
+				4D6308D72DFFCB2C00FD32E9 /* SocialTimelineView.swift */,
+			);
+			path = SocialViews;
+			sourceTree = "<group>";
+		};
+		4D6308D92DFFCB2C00FD32E9 /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				4D6308CF2DFFCB2C00FD32E9 /* SocialManagers */,
+				4D6308D32DFFCB2C00FD32E9 /* SocialModels */,
+				4D6308D82DFFCB2C00FD32E9 /* SocialViews */,
+			);
+			path = Social;
+			sourceTree = "<group>";
+		};
+		4D6308E22DFFCB6F00FD32E9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4D6C7B9C2DE47E99001036E5 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -464,6 +528,7 @@
 				4D80E10D2D41E17A0020F7BB /* VybeMVPTests */,
 				4DC6021C2D343E8D00B5E4A9 /* Products */,
 				4DC6021D2D343E8D00B5E4A9 /* VybeApp */,
+				4D6308E22DFFCB6F00FD32E9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -489,6 +554,7 @@
 		4DC6022E2D34440900B5E4A9 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4D6308D92DFFCB2C00FD32E9 /* Social */,
 				4D2DB4892DFF6ABA0003353E /* Sightings */,
 				4D2DB47D2DFF43390003353E /* Chakras */,
 				4D37271B2DE554B700B5A02B /* Activity */,
@@ -591,6 +657,7 @@
 				4DA01CB82D853A640070309D /* FirebaseCore */,
 				4DA01CBA2D853A640070309D /* FirebaseMessaging */,
 				4D6C7BBC2DE4885F001036E5 /* FirebaseFirestore */,
+				4D6308E32DFFCB6F00FD32E9 /* FirebaseAuth */,
 			);
 			productName = VybeMVP;
 			productReference = 4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */;
@@ -722,6 +789,14 @@
 				4D3055FE2D3D903B009A7BBD /* JournalEntryRow.swift in Sources */,
 				4DC6023C2D345E2000B5E4A9 /* MainView.swift in Sources */,
 				4D3055E92D3CEF45009A7BBD /* EditJournalEntryView.swift in Sources */,
+				4D6308DA2DFFCB2C00FD32E9 /* ReactionPickerView.swift in Sources */,
+				4D6308DB2DFFCB2C00FD32E9 /* Reaction.swift in Sources */,
+				4D6308DC2DFFCB2C00FD32E9 /* PostComposerView.swift in Sources */,
+				4D6308DD2DFFCB2C00FD32E9 /* PostManager.swift in Sources */,
+				4D6308DE2DFFCB2C00FD32E9 /* Post.swift in Sources */,
+				4D6308DF2DFFCB2C00FD32E9 /* PostCardView.swift in Sources */,
+				4D6308E02DFFCB2C00FD32E9 /* SocialTimelineView.swift in Sources */,
+				4D6308E12DFFCB2C00FD32E9 /* SocialUser.swift in Sources */,
 				4D6C7B5F2DE45C07001036E5 /* AuthenticationWrapperView.swift in Sources */,
 				4DA01CB22D8534BF0070309D /* NumberMatchNotificationView.swift in Sources */,
 				4D6C7B572DE4546C001036E5 /* ResonanceMatch.swift in Sources */,
@@ -1077,6 +1152,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4D6308E32DFFCB6F00FD32E9 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DA01CB52D853A640070309D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
 		4D6C7BBC2DE4885F001036E5 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4DA01CB52D853A640070309D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
