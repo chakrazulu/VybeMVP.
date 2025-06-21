@@ -42,11 +42,12 @@ class AuthenticationManager: ObservableObject {
     // MARK: - Private Properties
     private let keychainHelper = KeychainHelper.shared
     private var currentNonce: String?
+    private var authStateListener: AuthStateDidChangeListenerHandle?
     
     // MARK: - Initialization
     private init() {
         // Listen for Firebase Auth state changes
-        Auth.auth().addStateDidChangeListener { [weak self] _, user in
+        authStateListener = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             DispatchQueue.main.async {
                 self?.firebaseUser = user
                 self?.updateAuthenticationState()
@@ -54,6 +55,13 @@ class AuthenticationManager: ObservableObject {
         }
         
         checkAuthenticationStatus()
+    }
+    
+    deinit {
+        // Clean up auth state listener
+        if let listener = authStateListener {
+            Auth.auth().removeStateDidChangeListener(listener)
+        }
     }
     
     // MARK: - Authentication Status
@@ -158,9 +166,11 @@ class AuthenticationManager: ObservableObject {
                 }
                 
                 // Create Firebase credential
-                let credential = OAuthProvider.credential(withProviderID: "apple.com",
-                                                        idToken: identityTokenString,
-                                                        rawNonce: nonce)
+                let credential = OAuthProvider.credential(
+                    providerID: AuthProviderID.apple,
+                    idToken: identityTokenString,
+                    rawNonce: nonce
+                )
                 
                 // Sign in to Firebase
                 Auth.auth().signIn(with: credential) { [weak self] result, error in
