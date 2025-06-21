@@ -256,7 +256,6 @@ struct SocialTimelineView: View {
         postManager.addReaction(
             to: post,
             reactionType: type,
-            userId: currentUser.userId,
             userDisplayName: currentUser.displayName,
             cosmicSignature: currentUser.currentCosmicSignature
         )

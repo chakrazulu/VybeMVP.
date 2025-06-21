@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 import Combine
 import UIKit
 
@@ -35,6 +36,26 @@ class PostManager: ObservableObject {
     deinit {
         postsListener?.remove()
         reactionListeners.values.forEach { $0.remove() }
+    }
+    
+    // MARK: - Authentication Helper
+    
+    /**
+     * Gets the current Firebase UID for authenticated operations
+     */
+    private var currentFirebaseUID: String? {
+        return Auth.auth().currentUser?.uid
+    }
+    
+    /**
+     * Validates that the user is authenticated before performing operations
+     */
+    private func validateAuthentication() -> String? {
+        guard let uid = currentFirebaseUID else {
+            errorMessage = "You must be signed in to perform this action"
+            return nil
+        }
+        return uid
     }
     
     // MARK: - Real-time Listeners
@@ -184,7 +205,6 @@ class PostManager: ObservableObject {
      * Creates a new post in Firebase
      */
     func createPost(
-        authorId: String,
         authorName: String,
         content: String,
         type: PostType,
@@ -195,8 +215,13 @@ class PostManager: ObservableObject {
         journalExcerpt: String? = nil,
         cosmicSignature: CosmicSignature? = nil
     ) {
+        // Validate authentication first
+        guard let firebaseUID = validateAuthentication() else {
+            return
+        }
+        
         let post = Post(
-            authorId: authorId,
+            authorId: firebaseUID, // Use Firebase UID for security
             authorName: authorName,
             content: content,
             type: type,
@@ -231,8 +256,13 @@ class PostManager: ObservableObject {
     /**
      * Deletes a post (only if user is the author)
      */
-    func deletePost(_ post: Post, currentUserId: String) {
-        guard post.authorId == currentUserId else {
+    func deletePost(_ post: Post) {
+        // Validate authentication
+        guard let firebaseUID = validateAuthentication() else {
+            return
+        }
+        
+        guard post.authorId == firebaseUID else {
             errorMessage = "You can only delete your own posts"
             return
         }
@@ -261,10 +291,14 @@ class PostManager: ObservableObject {
     func addReaction(
         to post: Post,
         reactionType: ReactionType,
-        userId: String,
         userDisplayName: String,
         cosmicSignature: CosmicSignature
     ) {
+        // Validate authentication
+        guard let firebaseUID = validateAuthentication() else {
+            return
+        }
+        
         guard let postId = post.id else {
             errorMessage = "Invalid post ID"
             print("❌ Cannot add reaction: Post ID is nil")
@@ -279,7 +313,7 @@ class PostManager: ObservableObject {
         // STEP 2: Create reaction document in Firebase
         let reaction = Reaction(
             postId: postId,
-            userId: userId,
+            userId: firebaseUID, // Use Firebase UID for security
             userDisplayName: userDisplayName,
             reactionType: reactionType,
             cosmicSignature: cosmicSignature
@@ -324,15 +358,19 @@ class PostManager: ObservableObject {
      */
     func removeReaction(
         from post: Post,
-        reactionType: ReactionType,
-        userId: String
+        reactionType: ReactionType
     ) {
+        // Validate authentication
+        guard let firebaseUID = validateAuthentication() else {
+            return
+        }
+        
         guard let postId = post.id else {
             errorMessage = "Invalid post ID"
             return
         }
         
-        print("🔄 Removing reaction \(reactionType.rawValue) from post \(postId) by user \(userId)")
+        print("🔄 Removing reaction \(reactionType.rawValue) from post \(postId) by user \(firebaseUID)")
         
         // STEP 1: Apply optimistic update for immediate UI feedback
         applyOptimisticReaction(postId: postId, reactionType: reactionType, increment: false)
@@ -340,7 +378,7 @@ class PostManager: ObservableObject {
         // STEP 2: Find and delete the user's reaction from Firebase
         db.collection("reactions")
             .whereField("postId", isEqualTo: postId)
-            .whereField("userId", isEqualTo: userId)
+            .whereField("userId", isEqualTo: firebaseUID) // Use Firebase UID for security
             .whereField("reactionType", isEqualTo: reactionType.rawValue)
             .getDocuments { [weak self] snapshot, error in
                 if let error = error {

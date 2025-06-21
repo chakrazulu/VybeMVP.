@@ -266,7 +266,6 @@ struct PostComposerView: View {
         
         // Create the post
         postManager.createPost(
-            authorId: currentUser.userId,
             authorName: currentUser.displayName,
             content: content,
             type: selectedType,

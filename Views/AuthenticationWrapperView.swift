@@ -212,6 +212,9 @@ struct SignInWithAppleView: View {
     
     var body: some View {
         SignInWithAppleButton(.signIn, onRequest: { request in
+            // Generate nonce for Firebase Auth integration
+            let nonce = authManager.generateNonce()
+            request.nonce = nonce
             request.requestedScopes = [.fullName, .email]
         }, onCompletion: { result in
             authManager.handleSignIn(result: result)

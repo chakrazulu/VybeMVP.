@@ -110,6 +110,9 @@
 		4DA98F992E07230500FAE5FF /* CommentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98F982E07230500FAE5FF /* CommentManager.swift */; };
 		4DA98F9B2E07238000FAE5FF /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98F9A2E07238000FAE5FF /* CommentsView.swift */; };
 		4DA98F9D2E0723A000FAE5FF /* CommentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98F9C2E0723A000FAE5FF /* CommentCardView.swift */; };
+		4DA98FCA2E073CB100FAE5FF /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98FC92E073CB100FAE5FF /* Report.swift */; };
+		4DA98FCC2E073CDC00FAE5FF /* ReportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98FCB2E073CDC00FAE5FF /* ReportManager.swift */; };
+		4DA98FCE2E073D0000FAE5FF /* ReportContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98FCD2E073D0000FAE5FF /* ReportContentView.swift */; };
 		4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */; };
 		4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */; };
 		4DC602382D345A1B00B5E4A9 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602342D34570200B5E4A9 /* SignInViewModel.swift */; };
@@ -235,6 +238,9 @@
 		4DA98F982E07230500FAE5FF /* CommentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentManager.swift; sourceTree = "<group>"; };
 		4DA98F9A2E07238000FAE5FF /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
 		4DA98F9C2E0723A000FAE5FF /* CommentCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCardView.swift; sourceTree = "<group>"; };
+		4DA98FC92E073CB100FAE5FF /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
+		4DA98FCB2E073CDC00FAE5FF /* ReportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportManager.swift; sourceTree = "<group>"; };
+		4DA98FCD2E073D0000FAE5FF /* ReportContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportContentView.swift; sourceTree = "<group>"; };
 		4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusMatch.swift; sourceTree = "<group>"; };
 		4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberView.swift; sourceTree = "<group>"; };
 		4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VybeMVP.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -440,6 +446,7 @@
 		4D6308CF2DFFCB2C00FD32E9 /* SocialManagers */ = {
 			isa = PBXGroup;
 			children = (
+				4DA98FCB2E073CDC00FAE5FF /* ReportManager.swift */,
 				4DA98F982E07230500FAE5FF /* CommentManager.swift */,
 				4D6308CE2DFFCB2C00FD32E9 /* PostManager.swift */,
 			);
@@ -449,6 +456,7 @@
 		4D6308D32DFFCB2C00FD32E9 /* SocialModels */ = {
 			isa = PBXGroup;
 			children = (
+				4DA98FC92E073CB100FAE5FF /* Report.swift */,
 				4D6308D02DFFCB2C00FD32E9 /* Post.swift */,
 				4D6308D12DFFCB2C00FD32E9 /* Reaction.swift */,
 				4D6308D22DFFCB2C00FD32E9 /* SocialUser.swift */,
@@ -459,6 +467,7 @@
 		4D6308D82DFFCB2C00FD32E9 /* SocialViews */ = {
 			isa = PBXGroup;
 			children = (
+				4DA98FCD2E073D0000FAE5FF /* ReportContentView.swift */,
 				4DA98F9C2E0723A000FAE5FF /* CommentCardView.swift */,
 				4DA98F9A2E07238000FAE5FF /* CommentsView.swift */,
 				4DA98F962E0722E800FAE5FF /* Comment.swift */,
@@ -773,12 +782,14 @@
 				4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */,
 				4DE4C37E2DB3918E00BB7572 /* NumerologyMessage.swift in Sources */,
 				4D6C7BB72DE480B6001036E5 /* UserProfile.swift in Sources */,
+				4DA98FCE2E073D0000FAE5FF /* ReportContentView.swift in Sources */,
 				4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */,
 				4D6C7BB92DE480E4001036E5 /* PreparedInsight.swift in Sources */,
 				4D3055CE2D3CC9CA009A7BBD /* FocusNumberPicker.swift in Sources */,
 				4D2DB47F2DFF43390003353E /* ChakraSymbolView.swift in Sources */,
 				4D2DB4802DFF43390003353E /* ChakraModel.swift in Sources */,
 				4D2DB4812DFF43390003353E /* PhantomChakrasView.swift in Sources */,
+				4DA98FCA2E073CB100FAE5FF /* Report.swift in Sources */,
 				4D2DB4822DFF43390003353E /* ChakraManager.swift in Sources */,
 				4D2DB4842DFF43B10003353E /* ContentView.swift in Sources */,
 				4D3055EB2D3CF492009A7BBD /* NumberCell.swift in Sources */,
@@ -856,6 +867,7 @@
 				4D92F4BC2D4DE1E80001A16E /* RealmNumberManager.swift in Sources */,
 				4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */,
 				4D2DB4862DFF6A450003353E /* SightingsManager.swift in Sources */,
+				4DA98FCC2E073CDC00FAE5FF /* ReportManager.swift in Sources */,
 				4D37270D2DE5404500B5A02B /* UserProfileTabView.swift in Sources */,
 				4D92F4BD2D4DE1E80001A16E /* BackgroundManager.swift in Sources */,
 				4D3055E32D3CEADA009A7BBD /* JournalEntry+CoreDataHelpers.swift in Sources */,
