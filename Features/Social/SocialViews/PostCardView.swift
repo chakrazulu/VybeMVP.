@@ -15,6 +15,7 @@ struct PostCardView: View {
     @State private var showingReactionPicker = false
     @State private var showingCosmicDetails = false
     @State private var showingComments = false
+    @State private var showingReportSheet = false
     @State private var animateIn = false
     @State private var reactionCounts: [String: Int] = [:]
     @State private var lastReactionUpdate = Date()
@@ -36,6 +37,15 @@ struct PostCardView: View {
                 CommentsView(
                     post: post,
                     currentUser: currentUser
+                )
+            }
+            .sheet(isPresented: $showingReportSheet) {
+                ReportContentView(
+                    contentId: post.id ?? "",
+                    contentType: .post,
+                    reportedUserId: post.authorId,
+                    reportedUserName: post.authorName,
+                    reporterName: currentUser.displayName
                 )
             }
             .onAppear {
@@ -145,11 +155,36 @@ struct PostCardView: View {
             
             Spacer()
             
-            // Post type indicator
-            VStack {
-                Image(systemName: post.type.icon)
+            // More options menu
+            Menu {
+                if post.authorId != currentUser.userId {
+                    Button(action: {
+                        showingReportSheet = true
+                    }) {
+                        Label("Report Post", systemImage: "exclamationmark.shield")
+                    }
+                }
+                
+                Button(action: {
+                    // TODO: Implement sharing
+                }) {
+                    Label("Share Post", systemImage: "square.and.arrow.up")
+                }
+                
+                if post.authorId == currentUser.userId {
+                    Divider()
+                    
+                    Button(role: .destructive, action: {
+                        // TODO: Implement delete
+                    }) {
+                        Label("Delete Post", systemImage: "trash")
+                    }
+                }
+            } label: {
+                Image(systemName: "ellipsis")
                     .font(.title3)
-                    .foregroundColor(post.type.color)
+                    .foregroundColor(.white.opacity(0.6))
+                    .padding(8)
             }
         }
     }

@@ -217,6 +217,7 @@ struct SignInWithAppleView: View {
             request.nonce = nonce
             request.requestedScopes = [.fullName, .email]
         }, onCompletion: { result in
+            // Re-enable Firebase Auth integration
             authManager.handleSignIn(result: result)
         })
         .signInWithAppleButtonStyle(.black)
