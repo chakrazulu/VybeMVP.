@@ -22,7 +22,11 @@ class PostManager: ObservableObject {
     
     private let db = Firestore.firestore()
     private var postsListener: ListenerRegistration?
+    private var reactionListeners: [String: ListenerRegistration] = [:] // postId -> listener
     private var cancellables = Set<AnyCancellable>()
+    
+    // Track optimistic reaction updates
+    private var optimisticReactions: [String: [String: Int]] = [:] // postId -> [reactionType: count]
     
     private init() {
         setupRealtimeListener()
@@ -30,14 +34,17 @@ class PostManager: ObservableObject {
     
     deinit {
         postsListener?.remove()
+        reactionListeners.values.forEach { $0.remove() }
     }
     
-    // MARK: - Real-time Listener
+    // MARK: - Real-time Listeners
     
     /**
      * Sets up real-time listener for posts collection
      */
     private func setupRealtimeListener() {
+        isLoading = true
+        
         postsListener = db.collection("posts")
             .order(by: "timestamp", descending: true)
             .limit(to: 50) // Load latest 50 posts
@@ -45,6 +52,7 @@ class PostManager: ObservableObject {
                 guard let self = self else { return }
                 
                 if let error = error {
+                    print("❌ Failed to load posts: \(error.localizedDescription)")
                     DispatchQueue.main.async {
                         self.errorMessage = "Failed to load posts: \(error.localizedDescription)"
                         self.isLoading = false
@@ -64,6 +72,16 @@ class PostManager: ObservableObject {
                     do {
                         var post = try document.data(as: Post.self)
                         post.id = document.documentID
+                        
+                        // Apply optimistic reaction updates if they exist
+                        if let optimistic = self.optimisticReactions[document.documentID] {
+                            var updatedReactions = post.reactions
+                            for (reactionType, count) in optimistic {
+                                updatedReactions[reactionType] = count
+                            }
+                            post.reactions = updatedReactions
+                        }
+                        
                         return post
                     } catch {
                         print("Error decoding post: \(error)")
@@ -75,8 +93,89 @@ class PostManager: ObservableObject {
                     self.posts = loadedPosts
                     self.isLoading = false
                     self.errorMessage = nil
+                    
+                    // Set up reaction listeners for new posts
+                    self.setupReactionListeners(for: loadedPosts)
                 }
+                
+                print("✅ Loaded \(loadedPosts.count) posts from Firebase")
             }
+    }
+    
+    /**
+     * Sets up real-time listeners for post reactions
+     */
+    private func setupReactionListeners(for posts: [Post]) {
+        for post in posts {
+            guard let postId = post.id else { continue }
+            
+            // Skip if we already have a listener for this post
+            if reactionListeners[postId] != nil { continue }
+            
+            let listener = db.collection("reactions")
+                .whereField("postId", isEqualTo: postId)
+                .addSnapshotListener { [weak self] snapshot, error in
+                    guard let self = self else { return }
+                    
+                    if let error = error {
+                        print("❌ Failed to listen to reactions for post \(postId): \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    guard let documents = snapshot?.documents else { return }
+                    
+                    // Count reactions by type
+                    var reactionCounts: [String: Int] = [:]
+                    for document in documents {
+                        if let reactionType = document.data()["reactionType"] as? String {
+                            reactionCounts[reactionType, default: 0] += 1
+                        }
+                    }
+                    
+                    // Update the post's reaction counts in real-time
+                    DispatchQueue.main.async {
+                        if let postIndex = self.posts.firstIndex(where: { $0.id == postId }) {
+                            self.posts[postIndex].reactions = reactionCounts
+                            print("🔄 Real-time reaction update for post \(postId): \(reactionCounts)")
+                        }
+                        
+                        // Clear optimistic updates since we have real data
+                        self.optimisticReactions.removeValue(forKey: postId)
+                    }
+                }
+            
+            reactionListeners[postId] = listener
+        }
+    }
+    
+    /**
+     * Applies optimistic reaction update for immediate UI feedback
+     */
+    private func applyOptimisticReaction(postId: String, reactionType: ReactionType, increment: Bool) {
+        DispatchQueue.main.async {
+            // Find the post and update it optimistically
+            if let postIndex = self.posts.firstIndex(where: { $0.id == postId }) {
+                var updatedPost = self.posts[postIndex]
+                let currentCount = updatedPost.reactions[reactionType.rawValue] ?? 0
+                let newCount = increment ? currentCount + 1 : max(0, currentCount - 1)
+                
+                if newCount > 0 {
+                    updatedPost.reactions[reactionType.rawValue] = newCount
+                } else {
+                    updatedPost.reactions.removeValue(forKey: reactionType.rawValue)
+                }
+                
+                self.posts[postIndex] = updatedPost
+                
+                // Store optimistic update
+                if self.optimisticReactions[postId] == nil {
+                    self.optimisticReactions[postId] = [:]
+                }
+                self.optimisticReactions[postId]?[reactionType.rawValue] = newCount > 0 ? newCount : 0
+                
+                print("⚡ Optimistic reaction update: \(reactionType.rawValue) \(increment ? "+" : "-")1 for post \(postId)")
+            }
+        }
     }
     
     // MARK: - Post Operations
@@ -174,7 +273,10 @@ class PostManager: ObservableObject {
         
         print("🔄 Adding reaction \(reactionType.rawValue) to post \(postId) by user \(userDisplayName)")
         
-        // Create reaction document
+        // STEP 1: Apply optimistic update for immediate UI feedback
+        applyOptimisticReaction(postId: postId, reactionType: reactionType, increment: true)
+        
+        // STEP 2: Create reaction document in Firebase
         let reaction = Reaction(
             postId: postId,
             userId: userId,
@@ -187,22 +289,29 @@ class PostManager: ObservableObject {
         do {
             let reactionRef = try db.collection("reactions").addDocument(from: reaction) { [weak self] error in
                 if let error = error {
+                    // Revert optimistic update on failure
+                    self?.applyOptimisticReaction(postId: postId, reactionType: reactionType, increment: false)
+                    
                     DispatchQueue.main.async {
                         self?.errorMessage = "Failed to add reaction: \(error.localizedDescription)"
                     }
                     print("❌ Failed to save reaction to Firebase: \(error.localizedDescription)")
                 } else {
                     print("✅ Reaction saved successfully to reactions collection")
-                    // Update post's reaction count
-                    self?.updatePostReactionCount(postId: postId, reactionType: reactionType, increment: true)
                     
-                    // Haptic feedback for reaction
+                    // Haptic feedback for successful reaction
                     let impactFeedback = UIImpactFeedbackGenerator(style: .light)
                     impactFeedback.impactOccurred()
+                    
+                    // Note: We don't need to manually update post reaction count here
+                    // because the real-time listener will handle it automatically
                 }
             }
             print("📄 Created reaction document with ID: \(reactionRef.documentID)")
         } catch {
+            // Revert optimistic update on encoding failure
+            applyOptimisticReaction(postId: postId, reactionType: reactionType, increment: false)
+            
             DispatchQueue.main.async {
                 self.errorMessage = "Failed to encode reaction: \(error.localizedDescription)"
             }
@@ -223,20 +332,32 @@ class PostManager: ObservableObject {
             return
         }
         
-        // Find and delete the user's reaction
+        print("🔄 Removing reaction \(reactionType.rawValue) from post \(postId) by user \(userId)")
+        
+        // STEP 1: Apply optimistic update for immediate UI feedback
+        applyOptimisticReaction(postId: postId, reactionType: reactionType, increment: false)
+        
+        // STEP 2: Find and delete the user's reaction from Firebase
         db.collection("reactions")
             .whereField("postId", isEqualTo: postId)
             .whereField("userId", isEqualTo: userId)
             .whereField("reactionType", isEqualTo: reactionType.rawValue)
             .getDocuments { [weak self] snapshot, error in
                 if let error = error {
+                    // Revert optimistic update on failure
+                    self?.applyOptimisticReaction(postId: postId, reactionType: reactionType, increment: true)
+                    
                     DispatchQueue.main.async {
                         self?.errorMessage = "Failed to find reaction: \(error.localizedDescription)"
                     }
+                    print("❌ Failed to find reaction to remove: \(error.localizedDescription)")
                     return
                 }
                 
                 guard let documents = snapshot?.documents, !documents.isEmpty else {
+                    // Revert optimistic update if reaction doesn't exist
+                    self?.applyOptimisticReaction(postId: postId, reactionType: reactionType, increment: true)
+                    print("⚠️ No reaction found to remove")
                     return
                 }
                 
@@ -244,12 +365,21 @@ class PostManager: ObservableObject {
                 let reactionDoc = documents.first!
                 reactionDoc.reference.delete { [weak self] error in
                     if let error = error {
+                        // Revert optimistic update on failure
+                        self?.applyOptimisticReaction(postId: postId, reactionType: reactionType, increment: true)
+                        
                         DispatchQueue.main.async {
                             self?.errorMessage = "Failed to remove reaction: \(error.localizedDescription)"
                         }
+                        print("❌ Failed to delete reaction: \(error.localizedDescription)")
                     } else {
-                        // Update post's reaction count
-                        self?.updatePostReactionCount(postId: postId, reactionType: reactionType, increment: false)
+                        print("✅ Reaction removed successfully")
+                        
+                        // Haptic feedback for removal
+                        let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                        impactFeedback.impactOccurred()
+                        
+                        // Note: Real-time listener will handle the actual count update
                     }
                 }
             }
@@ -355,5 +485,65 @@ class PostManager: ObservableObject {
                 result[reactionType] = pair.value
             }
         }
+    }
+    
+    // MARK: - Reaction Queries
+    
+    /**
+     * Checks if a user has already reacted to a post with a specific reaction type
+     */
+    func hasUserReacted(to post: Post, with reactionType: ReactionType, userId: String, completion: @escaping (Bool) -> Void) {
+        guard let postId = post.id else {
+            completion(false)
+            return
+        }
+        
+        db.collection("reactions")
+            .whereField("postId", isEqualTo: postId)
+            .whereField("userId", isEqualTo: userId)
+            .whereField("reactionType", isEqualTo: reactionType.rawValue)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("❌ Failed to check user reaction: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+                
+                let hasReacted = !(snapshot?.documents.isEmpty ?? true)
+                completion(hasReacted)
+            }
+    }
+    
+    /**
+     * Gets all reaction types a user has used on a specific post
+     */
+    func getUserReactions(for post: Post, userId: String, completion: @escaping ([ReactionType]) -> Void) {
+        guard let postId = post.id else {
+            completion([])
+            return
+        }
+        
+        db.collection("reactions")
+            .whereField("postId", isEqualTo: postId)
+            .whereField("userId", isEqualTo: userId)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("❌ Failed to get user reactions: \(error.localizedDescription)")
+                    completion([])
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    completion([])
+                    return
+                }
+                
+                let reactionTypes = documents.compactMap { document -> ReactionType? in
+                    guard let reactionTypeString = document.data()["reactionType"] as? String else { return nil }
+                    return ReactionType(rawValue: reactionTypeString)
+                }
+                
+                completion(reactionTypes)
+            }
     }
 } 
