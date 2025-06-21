@@ -106,6 +106,10 @@
 		4DA6425D2D8113D80047287B /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA6425C2D8113D80047287B /* HeartRateView.swift */; };
 		4DA642642D8122590047287B /* HealthKitManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA642632D8122590047287B /* HealthKitManaging.swift */; };
 		4DA642652D8122C70047287B /* HealthKitManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA642632D8122590047287B /* HealthKitManaging.swift */; };
+		4DA98F972E0722E800FAE5FF /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98F962E0722E800FAE5FF /* Comment.swift */; };
+		4DA98F992E07230500FAE5FF /* CommentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98F982E07230500FAE5FF /* CommentManager.swift */; };
+		4DA98F9B2E07238000FAE5FF /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98F9A2E07238000FAE5FF /* CommentsView.swift */; };
+		4DA98F9D2E0723A000FAE5FF /* CommentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98F9C2E0723A000FAE5FF /* CommentCardView.swift */; };
 		4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */; };
 		4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */; };
 		4DC602382D345A1B00B5E4A9 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602342D34570200B5E4A9 /* SignInViewModel.swift */; };
@@ -227,6 +231,10 @@
 		4DA2EE2C2D502D1D001F8E9D /* HealthKitPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitPermissionView.swift; sourceTree = "<group>"; };
 		4DA6425C2D8113D80047287B /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
 		4DA642632D8122590047287B /* HealthKitManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManaging.swift; sourceTree = "<group>"; };
+		4DA98F962E0722E800FAE5FF /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		4DA98F982E07230500FAE5FF /* CommentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentManager.swift; sourceTree = "<group>"; };
+		4DA98F9A2E07238000FAE5FF /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
+		4DA98F9C2E0723A000FAE5FF /* CommentCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCardView.swift; sourceTree = "<group>"; };
 		4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusMatch.swift; sourceTree = "<group>"; };
 		4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberView.swift; sourceTree = "<group>"; };
 		4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VybeMVP.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -432,6 +440,7 @@
 		4D6308CF2DFFCB2C00FD32E9 /* SocialManagers */ = {
 			isa = PBXGroup;
 			children = (
+				4DA98F982E07230500FAE5FF /* CommentManager.swift */,
 				4D6308CE2DFFCB2C00FD32E9 /* PostManager.swift */,
 			);
 			path = SocialManagers;
@@ -450,6 +459,9 @@
 		4D6308D82DFFCB2C00FD32E9 /* SocialViews */ = {
 			isa = PBXGroup;
 			children = (
+				4DA98F9C2E0723A000FAE5FF /* CommentCardView.swift */,
+				4DA98F9A2E07238000FAE5FF /* CommentsView.swift */,
+				4DA98F962E0722E800FAE5FF /* Comment.swift */,
 				4D6308D42DFFCB2C00FD32E9 /* PostCardView.swift */,
 				4D6308D52DFFCB2C00FD32E9 /* PostComposerView.swift */,
 				4D6308D62DFFCB2C00FD32E9 /* ReactionPickerView.swift */,
@@ -753,6 +765,7 @@
 				4D3055FA2D3D899A009A7BBD /* JournalMood.swift in Sources */,
 				4D92F48C2D49E9C90001A16E /* TestingView.swift in Sources */,
 				4D3727082DE48D7100B5A02B /* NotificationNames.swift in Sources */,
+				4DA98F972E0722E800FAE5FF /* Comment.swift in Sources */,
 				4DA2EE2D2D502D1D001F8E9D /* HealthKitPermissionView.swift in Sources */,
 				4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */,
 				4D3055C62D3CB201009A7BBD /* UserPreferences+Helper.swift in Sources */,
@@ -786,11 +799,14 @@
 				4D2DB48A2DFF6ABA0003353E /* SightingsView.swift in Sources */,
 				4D2DB48B2DFF6ABA0003353E /* NewSightingView.swift in Sources */,
 				4D3055CC2D3CBB36009A7BBD /* UserPreferences.swift in Sources */,
+				4DA98F9D2E0723A000FAE5FF /* CommentCardView.swift in Sources */,
+				4DA98F9B2E07238000FAE5FF /* CommentsView.swift in Sources */,
 				4D3055FE2D3D903B009A7BBD /* JournalEntryRow.swift in Sources */,
 				4DC6023C2D345E2000B5E4A9 /* MainView.swift in Sources */,
 				4D3055E92D3CEF45009A7BBD /* EditJournalEntryView.swift in Sources */,
 				4D6308DA2DFFCB2C00FD32E9 /* ReactionPickerView.swift in Sources */,
 				4D6308DB2DFFCB2C00FD32E9 /* Reaction.swift in Sources */,
+				4DA98F992E07230500FAE5FF /* CommentManager.swift in Sources */,
 				4D6308DC2DFFCB2C00FD32E9 /* PostComposerView.swift in Sources */,
 				4D6308DD2DFFCB2C00FD32E9 /* PostManager.swift in Sources */,
 				4D6308DE2DFFCB2C00FD32E9 /* Post.swift in Sources */,

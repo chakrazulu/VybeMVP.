@@ -14,11 +14,48 @@ struct PostCardView: View {
     
     @State private var showingReactionPicker = false
     @State private var showingCosmicDetails = false
+    @State private var showingComments = false
     @State private var animateIn = false
     @State private var reactionCounts: [String: Int] = [:]
     @State private var lastReactionUpdate = Date()
     
     var body: some View {
+        mainContent
+            .padding(20)
+            .background(cardBackground)
+            .scaleEffect(animateIn ? 1.0 : 0.95)
+            .opacity(animateIn ? 1.0 : 0.0)
+            .sheet(isPresented: $showingReactionPicker) {
+                ReactionPickerView(
+                    post: post,
+                    currentUser: currentUser,
+                    onReaction: onReaction
+                )
+            }
+            .sheet(isPresented: $showingComments) {
+                CommentsView(
+                    post: post,
+                    currentUser: currentUser
+                )
+            }
+            .onAppear {
+                withAnimation(.easeOut(duration: 0.5)) {
+                    animateIn = true
+                }
+                // Initialize reaction counts and set a proper baseline timestamp
+                reactionCounts = post.reactions
+                lastReactionUpdate = Date().addingTimeInterval(-10) // Set to 10 seconds ago to avoid false triggers
+            }
+            .onChange(of: post.reactions) { oldValue, newValue in
+                // Animate reaction count changes
+                withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                    reactionCounts = newValue
+                    lastReactionUpdate = Date()
+                }
+            }
+    }
+    
+    private var mainContent: some View {
         VStack(alignment: .leading, spacing: 16) {
             // Header with author info
             headerSection
@@ -43,39 +80,15 @@ struct PostCardView: View {
             // Interactions (reactions, comments, share)
             interactionsSection
         }
-        .padding(20)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.white.opacity(0.05))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(post.sacredColor.opacity(0.3), lineWidth: 1)
-                )
-        )
-        .scaleEffect(animateIn ? 1.0 : 0.95)
-        .opacity(animateIn ? 1.0 : 0.0)
-        .sheet(isPresented: $showingReactionPicker) {
-            ReactionPickerView(
-                post: post,
-                currentUser: currentUser,
-                onReaction: onReaction
+    }
+    
+    private var cardBackground: some View {
+        RoundedRectangle(cornerRadius: 16)
+            .fill(Color.white.opacity(0.05))
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(post.sacredColor.opacity(0.3), lineWidth: 1)
             )
-        }
-        .onAppear {
-            withAnimation(.easeOut(duration: 0.5)) {
-                animateIn = true
-            }
-            // Initialize reaction counts and set a proper baseline timestamp
-            reactionCounts = post.reactions
-            lastReactionUpdate = Date().addingTimeInterval(-10) // Set to 10 seconds ago to avoid false triggers
-        }
-        .onChange(of: post.reactions) { oldValue, newValue in
-            // Animate reaction count changes
-            withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                reactionCounts = newValue
-                lastReactionUpdate = Date()
-            }
-        }
     }
     
     // MARK: - View Sections
@@ -264,16 +277,24 @@ struct PostCardView: View {
                 
                 Spacer()
                 
-                // Comment button (placeholder)
+                // Comment button
                 Button(action: {
-                    // TODO: Implement comments
+                    showingComments = true
                 }) {
                     HStack(spacing: 6) {
                         Image(systemName: "bubble.left")
                             .font(.title3)
-                        Text("Comment")
-                            .font(.subheadline)
-                            .fontWeight(.medium)
+                        
+                        if post.commentCount > 0 {
+                            Text("\(post.commentCount)")
+                                .font(.subheadline)
+                                .fontWeight(.medium)
+                                .contentTransition(.numericText())
+                        } else {
+                            Text("Comment")
+                                .font(.subheadline)
+                                .fontWeight(.medium)
+                        }
                     }
                     .foregroundColor(.white.opacity(0.8))
                 }

@@ -4,24 +4,27 @@ service cloud.firestore {
     // TEMPORARY: Allow unauthenticated access for testing
     // TODO: Integrate Firebase Auth with Sign in with Apple for production
     
-    // Users can read and write their own profile
-    match /users/{userId} {
-      allow read, write: if true; // Temporarily allow all access
-    }
-    
-    // Posts collection - allow all operations for testing
-    match /posts/{postId} {
-      allow read, write: if true; // Temporarily allow all access
-    }
-    
-    // Reactions collection - allow all operations for testing
-    match /reactions/{reactionId} {
-      allow read, write: if true; // Temporarily allow all access
-    }
-    
-    // Allow reading of public data
+    // Allow all access temporarily for development
+    // TODO: Implement proper authentication rules before production
     match /{document=**} {
-      allow read: if true; // Temporarily allow all access
+      allow read, write: if true;
+    }
+    
+    // Specific rules for collections (for future use)
+    match /users/{userId} {
+      allow read, write: if true;
+    }
+    
+    match /posts/{postId} {
+      allow read, write: if true;
+    }
+    
+    match /reactions/{reactionId} {
+      allow read, write: if true;
+    }
+    
+    match /comments/{commentId} {
+      allow read, write: if true;
     }
   }
 } 
