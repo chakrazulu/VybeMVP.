@@ -23,24 +23,22 @@ struct ReactionPickerView: View {
                 CosmicBackgroundView()
                     .ignoresSafeArea()
                 
-                VStack(spacing: 30) {
-                    // Header
-                    headerSection
-                    
-                    // Reaction options
-                    reactionGrid
-                    
-                    // Current cosmic signature
-                    cosmicSignatureSection
-                    
-                    Spacer()
-                    
-                    // Send reaction button
-                    if selectedReaction != nil {
-                        sendReactionButton
+                ScrollView {
+                    VStack(spacing: 30) {
+                        // Header
+                        headerSection
+                        
+                        // Reaction options
+                        reactionGrid
+                        
+                        // Current cosmic signature
+                        cosmicSignatureSection
+                        
+                        // Add some bottom padding for better scrolling
+                        Spacer(minLength: 50)
                     }
+                    .padding()
                 }
-                .padding()
             }
             .navigationTitle("React with Energy")
             .navigationBarTitleDisplayMode(.inline)
@@ -50,6 +48,29 @@ struct ReactionPickerView: View {
                         dismiss()
                     }
                     .foregroundColor(.white)
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if let selectedReaction = selectedReaction {
+                        Button(action: {
+                            sendReaction(selectedReaction)
+                        }) {
+                            HStack(spacing: 6) {
+                                Text(selectedReaction.emoji)
+                                    .font(.title3)
+                                Text("Send")
+                                    .font(.headline)
+                                    .fontWeight(.semibold)
+                            }
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
+                            .background(
+                                Capsule()
+                                    .fill(selectedReaction.color.opacity(0.8))
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -251,42 +272,10 @@ struct ReactionPickerView: View {
         .animation(.easeOut(duration: 0.6).delay(0.4), value: animateIn)
     }
     
-    private var sendReactionButton: some View {
-        Button(action: sendReaction) {
-            HStack(spacing: 12) {
-                if let reaction = selectedReaction {
-                    Text(reaction.emoji)
-                        .font(.title2)
-                    
-                    Text("Send \(reaction.displayName)")
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                }
-            }
-            .foregroundColor(.white)
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 16)
-            .background(
-                LinearGradient(
-                    gradient: Gradient(colors: [
-                        selectedReaction?.color.opacity(0.8) ?? .gray,
-                        selectedReaction?.color.opacity(0.6) ?? .gray
-                    ]),
-                    startPoint: .leading,
-                    endPoint: .trailing
-                )
-            )
-            .cornerRadius(16)
-        }
-        .scaleEffect(animateIn ? 1.0 : 0.8)
-        .opacity(animateIn ? 1.0 : 0.0)
-        .animation(.spring(response: 0.5, dampingFraction: 0.6).delay(0.6), value: animateIn)
-    }
-    
     // MARK: - Actions
     
-    private func sendReaction() {
-        guard let reaction = selectedReaction else { return }
+    private func sendReaction(_ reaction: ReactionType) {
+        print("🎯 Sending reaction: \(reaction.rawValue)")
         
         onReaction(reaction)
         
@@ -294,6 +283,7 @@ struct ReactionPickerView: View {
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
         impactFeedback.impactOccurred()
         
+        // Dismiss the sheet
         dismiss()
     }
 }

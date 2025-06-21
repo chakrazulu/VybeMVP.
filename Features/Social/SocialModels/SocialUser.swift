@@ -13,7 +13,7 @@ import SwiftUI
  * Contains numerological and spiritual information for cosmic matching
  */
 struct SocialUser: Identifiable, Codable {
-    let id = UUID()
+    let id: String
     let userId: String
     let displayName: String
     
@@ -44,6 +44,7 @@ struct SocialUser: Identifiable, Codable {
         cosmicPreferences: [String]? = nil,
         isPublic: Bool = true
     ) {
+        self.id = userId // Use userId as the id for consistency
         self.userId = userId
         self.displayName = displayName
         self.lifePathNumber = lifePathNumber

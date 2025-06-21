@@ -168,8 +168,11 @@ class PostManager: ObservableObject {
     ) {
         guard let postId = post.id else {
             errorMessage = "Invalid post ID"
+            print("❌ Cannot add reaction: Post ID is nil")
             return
         }
+        
+        print("🔄 Adding reaction \(reactionType.rawValue) to post \(postId) by user \(userDisplayName)")
         
         // Create reaction document
         let reaction = Reaction(
@@ -182,12 +185,14 @@ class PostManager: ObservableObject {
         
         // Add reaction to reactions collection
         do {
-            _ = try db.collection("reactions").addDocument(from: reaction) { [weak self] error in
+            let reactionRef = try db.collection("reactions").addDocument(from: reaction) { [weak self] error in
                 if let error = error {
                     DispatchQueue.main.async {
                         self?.errorMessage = "Failed to add reaction: \(error.localizedDescription)"
                     }
+                    print("❌ Failed to save reaction to Firebase: \(error.localizedDescription)")
                 } else {
+                    print("✅ Reaction saved successfully to reactions collection")
                     // Update post's reaction count
                     self?.updatePostReactionCount(postId: postId, reactionType: reactionType, increment: true)
                     
@@ -196,10 +201,12 @@ class PostManager: ObservableObject {
                     impactFeedback.impactOccurred()
                 }
             }
+            print("📄 Created reaction document with ID: \(reactionRef.documentID)")
         } catch {
             DispatchQueue.main.async {
                 self.errorMessage = "Failed to encode reaction: \(error.localizedDescription)"
             }
+            print("❌ Failed to encode reaction: \(error.localizedDescription)")
         }
     }
     
@@ -253,13 +260,40 @@ class PostManager: ObservableObject {
      */
     private func updatePostReactionCount(postId: String, reactionType: ReactionType, increment: Bool) {
         let postRef = db.collection("posts").document(postId)
-        let fieldPath = "reactions.\(reactionType.rawValue)"
         
-        postRef.updateData([
-            fieldPath: FieldValue.increment(increment ? Int64(1) : Int64(-1))
-        ]) { error in
+        // First, check if the reactions field exists, and create it if not
+        postRef.getDocument { document, error in
             if let error = error {
-                print("Failed to update reaction count: \(error.localizedDescription)")
+                print("Failed to fetch post for reaction update: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let document = document, document.exists else {
+                print("Post document does not exist")
+                return
+            }
+            
+            let data = document.data() ?? [:]
+            let currentReactions = data["reactions"] as? [String: Int] ?? [:]
+            let currentCount = currentReactions[reactionType.rawValue] ?? 0
+            let newCount = increment ? currentCount + 1 : max(0, currentCount - 1)
+            
+            // Update the specific reaction count
+            var updatedReactions = currentReactions
+            if newCount > 0 {
+                updatedReactions[reactionType.rawValue] = newCount
+            } else {
+                updatedReactions.removeValue(forKey: reactionType.rawValue)
+            }
+            
+            postRef.updateData([
+                "reactions": updatedReactions
+            ]) { error in
+                if let error = error {
+                    print("Failed to update reaction count: \(error.localizedDescription)")
+                } else {
+                    print("Successfully updated reaction count for \(reactionType.rawValue): \(increment ? "+" : "-")1")
+                }
             }
         }
     }

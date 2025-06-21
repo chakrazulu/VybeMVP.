@@ -44,6 +44,33 @@ struct Post: Identifiable, Codable {
     // Cosmic signature of the author at time of posting
     let cosmicSignature: CosmicSignature?
     
+    // Custom decoding to handle legacy posts
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.authorId = try container.decode(String.self, forKey: .authorId)
+        // Handle legacy posts that might not have authorName
+        self.authorName = try container.decodeIfPresent(String.self, forKey: .authorName) ?? "Anonymous User"
+        self.content = try container.decode(String.self, forKey: .content)
+        self.type = try container.decode(PostType.self, forKey: .type)
+        self.timestamp = try container.decode(Date.self, forKey: .timestamp)
+        self.isPublic = try container.decodeIfPresent(Bool.self, forKey: .isPublic) ?? true
+        self.tags = try container.decodeIfPresent([String].self, forKey: .tags) ?? []
+        self.reactions = try container.decodeIfPresent([String: Int].self, forKey: .reactions) ?? [:]
+        self.commentCount = try container.decodeIfPresent(Int.self, forKey: .commentCount) ?? 0
+        self.imageURL = try container.decodeIfPresent(String.self, forKey: .imageURL)
+        self.sightingNumber = try container.decodeIfPresent(Int.self, forKey: .sightingNumber)
+        self.chakraType = try container.decodeIfPresent(String.self, forKey: .chakraType)
+        self.journalExcerpt = try container.decodeIfPresent(String.self, forKey: .journalExcerpt)
+        self.cosmicSignature = try container.decodeIfPresent(CosmicSignature.self, forKey: .cosmicSignature)
+    }
+    
+    // Coding keys for decoding
+    private enum CodingKeys: String, CodingKey {
+        case authorId, authorName, content, type, timestamp, isPublic, tags, reactions, commentCount
+        case imageURL, sightingNumber, chakraType, journalExcerpt, cosmicSignature
+    }
+    
     init(
         authorId: String,
         authorName: String,
