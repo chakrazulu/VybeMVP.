@@ -96,6 +96,7 @@
 		4D92F4BC2D4DE1E80001A16E /* RealmNumberManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F4B92D4DE1E80001A16E /* RealmNumberManager.swift */; };
 		4D92F4BD2D4DE1E80001A16E /* BackgroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F4B62D4DE1E80001A16E /* BackgroundManager.swift */; };
 		4D92F4BF2D4DE6050001A16E /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F4BE2D4DE5EA0001A16E /* HealthKitManager.swift */; };
+		4D9396192E07578200955980 /* SacredGeometryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9396182E07578200955980 /* SacredGeometryView.swift */; };
 		4DA01CAE2D8533F50070309D /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA01CAD2D8533F50070309D /* NotificationManager.swift */; };
 		4DA01CB22D8534BF0070309D /* NumberMatchNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA01CB12D8534BF0070309D /* NumberMatchNotificationView.swift */; };
 		4DA01CB42D8537FB0070309D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4DA01CB32D8537FB0070309D /* GoogleService-Info.plist */; };
@@ -228,6 +229,7 @@
 		4D92F4B82D4DE1E80001A16E /* JournalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalManager.swift; sourceTree = "<group>"; };
 		4D92F4B92D4DE1E80001A16E /* RealmNumberManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberManager.swift; sourceTree = "<group>"; };
 		4D92F4BE2D4DE5EA0001A16E /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		4D9396182E07578200955980 /* SacredGeometryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SacredGeometryView.swift; sourceTree = "<group>"; };
 		4DA01CAD2D8533F50070309D /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		4DA01CB12D8534BF0070309D /* NumberMatchNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMatchNotificationView.swift; sourceTree = "<group>"; };
 		4DA01CB32D8537FB0070309D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -591,6 +593,7 @@
 		4DC602302D34440900B5E4A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4D9396182E07578200955980 /* SacredGeometryView.swift */,
 				4D2DB4832DFF43B10003353E /* ContentView.swift */,
 				4D3727142DE550ED00B5A02B /* ReusableComponents */,
 				4D6C7B622DE46A33001036E5 /* BirthdateInputView.swift */,
@@ -780,6 +783,7 @@
 				4D3055C62D3CB201009A7BBD /* UserPreferences+Helper.swift in Sources */,
 				4DA642642D8122590047287B /* HealthKitManaging.swift in Sources */,
 				4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */,
+				4D9396192E07578200955980 /* SacredGeometryView.swift in Sources */,
 				4DE4C37E2DB3918E00BB7572 /* NumerologyMessage.swift in Sources */,
 				4D6C7BB72DE480B6001036E5 /* UserProfile.swift in Sources */,
 				4DA98FCE2E073D0000FAE5FF /* ReportContentView.swift in Sources */,

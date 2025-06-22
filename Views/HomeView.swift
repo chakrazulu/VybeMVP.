@@ -52,62 +52,53 @@ struct HomeView: View {
                     Text("Your Focus Number")
                         .font(.title)
                     
-                    // Focus Number Display
-                    ZStack {
-                        Circle()
-                            .fill(
-                                RadialGradient(
-                                    gradient: Gradient(colors: [
-                                        getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.8),
-                                        getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.4),
-                                        Color.black.opacity(0.2)
-                                    ]),
-                                    center: .center,
-                                    startRadius: 20,
-                                    endRadius: 90
+                    // MARK: ––– SACRED GEOMETRY SECTION START –––
+                    // Enhanced Sacred Geometry Display - Focus Number Only
+                    VStack(spacing: 20) {
+                        // Focus Number Sacred Geometry
+                        VStack(spacing: 12) {
+                            Text("Focus")
+                                .font(.title2)
+                                .foregroundColor(.white.opacity(0.9))
+                                .fontWeight(.semibold)
+                            
+                            ZStack {
+                                // Large Focus Number behind the sacred geometry
+                                Text("\(focusNumberManager.selectedFocusNumber)")
+                                    .font(.system(size: 120, weight: .bold, design: .rounded))
+                                    .foregroundColor(getSacredColor(for: focusNumberManager.selectedFocusNumber))
+                                    .shadow(color: getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.6), radius: 15)
+                                    .shadow(color: .black.opacity(0.8), radius: 8, x: 3, y: 3)
+                                
+                                // Sacred Geometry overlay
+                                SacredGeometryView<FocusNumberType>(
+                                    numberType: FocusNumberType(),
+                                    number: focusNumberManager.selectedFocusNumber,
+                                    bpm: Double(HealthKitManager.shared.currentHeartRate),
+                                    realm: realmNumberManager.currentRealmNumber
                                 )
-                            )
-                            .frame(width: 180, height: 180)
-                            .shadow(color: getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.6), radius: 20, x: 0, y: 10)
-                            .overlay(
-                                Circle()
-                                    .stroke(getSacredColor(for: focusNumberManager.selectedFocusNumber), lineWidth: 2)
-                            )
-                        
-                        Text("\(focusNumberManager.selectedFocusNumber)")
-                            .font(.system(size: 90, weight: .bold, design: .rounded))
-                            .foregroundStyle(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [.white, getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.8)]),
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                            .shadow(color: .white.opacity(0.8), radius: 5, x: 0, y: 2)
-                            .shadow(color: getSacredColor(for: focusNumberManager.selectedFocusNumber), radius: 15, x: 0, y: 0)
-                        
-                        // Subtle hold instruction
-                        VStack {
-                            Spacer()
+                                .frame(width: 400, height: 400)
+                            }
+                            .onLongPressGesture(minimumDuration: 0.6) {
+                                // Haptic feedback
+                                let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                                impactFeedback.impactOccurred()
+                                
+                                // Show cosmic picker with animation
+                                withAnimation(.easeInOut(duration: 0.4)) {
+                                    showingCosmicPicker = true
+                                    pickerScale = 1.0
+                                    pickerOpacity = 1.0
+                                }
+                            }
+                            
                             Text("✦ Hold to Change ✦")
                                 .font(.system(size: 12, weight: .medium, design: .rounded))
-                                .foregroundColor(.white.opacity(0.6))
-                                .shadow(color: getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.3), radius: 2)
-                                .padding(.top, 140)
+                                .foregroundColor(.white.opacity(0.7))
                         }
                     }
-                    .onLongPressGesture(minimumDuration: 0.6) {
-                        // Haptic feedback
-                        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-                        impactFeedback.impactOccurred()
-                        
-                        // Show cosmic picker with animation
-                        withAnimation(.easeInOut(duration: 0.4)) {
-                            showingCosmicPicker = true
-                            pickerScale = 1.0
-                            pickerOpacity = 1.0
-                        }
-                    }
+                    .padding(.vertical, 30)
+                    // MARK: ––– SACRED GEOMETRY SECTION END –––
                     
                     // TickTockRealm Button
                     Button(action: {

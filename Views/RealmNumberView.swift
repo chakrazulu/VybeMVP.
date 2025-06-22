@@ -2,12 +2,12 @@
  * Filename: RealmNumberView.swift
  * 
  * Purpose: Displays the current realm number in a mystical, transcendent experience.
- * Features cosmic background with numerology rain and enhanced glowing effects.
+ * Features cosmic background with numerology rain, enhanced glowing effects, and sacred geometry.
  * The realm number is a cosmic/universal numerical value that changes based on time, date,
  * location, and heart rate factors.
  *
  * Design pattern: Declarative SwiftUI view with mystical enhancements
- * Dependencies: RealmNumberManager for data access, CosmicBackgroundView, NumerologyRainView
+ * Dependencies: RealmNumberManager for data access, CosmicBackgroundView, NumerologyRainView, SacredGeometryView
  */
 
 import SwiftUI
@@ -17,12 +17,12 @@ import SwiftUI
  *
  * The realm number is a central concept in the application, representing a
  * universal numerical value that users can match with their focus number.
- * This enhanced view creates a mystical, Matrix-style visualization.
+ * This enhanced view creates a mystical, Matrix-style visualization with sacred geometry.
  *
  * Key features:
  * 1. Cosmic starfield background
  * 2. Cascading numerology rain effect
- * 3. Prominently glowing central realm number
+ * 3. Sacred geometry visualization of the realm number
  * 4. Mystical realm description
  * 5. Sacred calculation factors display
  */
@@ -30,18 +30,12 @@ struct RealmNumberView: View {
     /// Access to the realm number manager for the current realm number value
     @EnvironmentObject var realmNumberManager: RealmNumberManager
     
-    @State private var pulseScale: CGFloat = 1.0
     @State private var glowIntensity: Double = 0.5
     
     var body: some View {
         ZStack {
             // Cosmic background with stars
             CosmicBackgroundView()
-                .ignoresSafeArea()
-            
-            // Mystical numerology rain
-            NumerologyRainView()
-                .opacity(0.25)
                 .ignoresSafeArea()
             
             // Main content
@@ -84,65 +78,63 @@ struct RealmNumberView: View {
     private var mysticalRealmNumberDisplay: some View {
         NavigationLink(destination: NumberMeaningView(initialSelectedNumber: realmNumberManager.currentRealmNumber)) {
             ZStack {
-                // Outer cosmic ring
+                // Outer cosmic ring with enhanced glow
                 Circle()
                     .stroke(
                         LinearGradient(
                             gradient: Gradient(colors: [
-                                .purple.opacity(0.6),
-                                .blue.opacity(0.4),
-                                .indigo.opacity(0.3)
+                                getRealmNumberColor().opacity(0.8),
+                                getRealmNumberColor().opacity(0.4),
+                                .white.opacity(0.2)
                             ]),
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         ),
-                        lineWidth: 3
+                        lineWidth: 4
                     )
-                    .frame(width: 220, height: 220)
+                    .frame(width: 280, height: 280)
                     .opacity(glowIntensity)
+                    .shadow(color: getRealmNumberColor().opacity(0.6), radius: 20)
                 
-                // Main cosmic circle
+                // Sacred Geometry Background Glow
                 Circle()
                     .fill(
                         RadialGradient(
                             gradient: Gradient(colors: [
-                                getRealmNumberColor().opacity(0.8),
-                                getRealmNumberColor().opacity(0.4),
-                                Color.black.opacity(0.2)
+                                getRealmNumberColor().opacity(0.3),
+                                getRealmNumberColor().opacity(0.1),
+                                Color.clear
                             ]),
                             center: .center,
-                            startRadius: 20,
-                            endRadius: 100
+                            startRadius: 50,
+                            endRadius: 150
                         )
                     )
-                    .frame(width: 200, height: 200)
-                    .shadow(color: getRealmNumberColor().opacity(0.6), radius: 20, x: 0, y: 0)
-                    .shadow(color: getRealmNumberColor().opacity(0.8), radius: 40, x: 0, y: 0)
-                    .scaleEffect(pulseScale)
+                    .frame(width: 260, height: 260)
                 
-                // The sacred realm number
+                // Large Realm Number behind the sacred geometry
                 Text("\(realmNumberManager.currentRealmNumber)")
-                    .font(.system(size: 90, weight: .bold, design: .rounded))
-                    .foregroundStyle(
-                        LinearGradient(
-                            gradient: Gradient(colors: [.white, getRealmNumberColor().opacity(0.9)]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .shadow(color: .white.opacity(0.8), radius: 5, x: 0, y: 0)
-                    .shadow(color: getRealmNumberColor(), radius: 15, x: 0, y: 0)
-                    .shadow(color: getRealmNumberColor().opacity(0.6), radius: 25, x: 0, y: 0)
-                    .scaleEffect(pulseScale)
+                    .font(.system(size: 140, weight: .bold, design: .rounded))
+                    .foregroundColor(getRealmNumberColor())
+                    .shadow(color: getRealmNumberColor().opacity(0.8), radius: 20)
+                    .shadow(color: .black.opacity(0.8), radius: 10, x: 4, y: 4)
+                
+                // Static Sacred Geometry Pattern overlay (NO ANIMATIONS)
+                StaticSacredGeometryView(
+                    number: realmNumberManager.currentRealmNumber
+                )
+                .frame(width: 450, height: 450)
+                .shadow(color: getRealmNumberColor().opacity(0.8), radius: 15)
+                .shadow(color: getRealmNumberColor().opacity(0.4), radius: 30)
                 
                 // Subtle indication that this is tappable
                 VStack {
                     Spacer()
-                    Text("✦ Tap to Explore ✦")
+                    Text("✦ Tap to Explore Sacred Meanings ✦")
                         .font(.system(size: 12, weight: .medium, design: .rounded))
-                        .foregroundColor(.white.opacity(0.6))
-                        .shadow(color: getRealmNumberColor().opacity(0.3), radius: 2)
-                        .padding(.top, 160)
+                        .foregroundColor(.white.opacity(0.7))
+                        .shadow(color: getRealmNumberColor().opacity(0.5), radius: 3)
+                        .padding(.top, 200)
                 }
             }
         }
@@ -257,15 +249,9 @@ struct RealmNumberView: View {
     // MARK: - Helper Methods
     
     private func startMysticalAnimations() {
-        // Pulsing effect for the realm number
-        withAnimation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true)) {
-            pulseScale = 1.05
-        }
-        
-        // Glow intensity animation
-        withAnimation(.easeInOut(duration: 3.0).repeatForever(autoreverses: true)) {
-            glowIntensity = 1.0
-        }
+        // NO ANIMATIONS - keep the view completely stable
+        // Only set static glow intensity without animation
+        glowIntensity = 0.8
     }
     
     private func getRealmNumberColor() -> Color {
@@ -358,7 +344,91 @@ struct CosmicFactorCard: View {
     }
 }
 
+// MARK: - Static Sacred Geometry View (NO ANIMATIONS)
+
+struct StaticSacredGeometryView: View {
+    let number: Int
+    
+    var body: some View {
+        ZStack {
+            // Background energy field (static)
+            RadialGradient(
+                gradient: Gradient(colors: [
+                    getSacredColor(for: number).opacity(0.4),
+                    getSacredColor(for: number).opacity(0.2),
+                    Color.clear
+                ]),
+                center: .center,
+                startRadius: 30,
+                endRadius: 200
+            )
+            
+            // Static Sacred Geometry Pattern (NO ROTATION)
+            getSacredGeometryShape(for: number)
+                .stroke(
+                    LinearGradient(
+                        gradient: Gradient(colors: [
+                            getSacredColor(for: number),
+                            getSacredColor(for: number).opacity(0.8),
+                            Color.white.opacity(0.6)
+                        ]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round)
+                )
+                .shadow(color: getSacredColor(for: number).opacity(0.8), radius: 15)
+                .shadow(color: getSacredColor(for: number).opacity(0.4), radius: 30)
+                // NO ROTATION ANIMATION - completely static
+        }
+    }
+    
+    // MARK: - Sacred Geometry Shapes (Static)
+    
+    private func getSacredGeometryShape(for number: Int) -> some Shape {
+        switch number {
+        case 1:
+            return AnyShape(UnityCircleShape())
+        case 2:
+            return AnyShape(VesicaPiscisShape())
+        case 3:
+            return AnyShape(TriangleShape())
+        case 4:
+            return AnyShape(SquareShape())
+        case 5:
+            return AnyShape(PentagramShape())
+        case 6:
+            return AnyShape(MerkabaShape())
+        case 7:
+            return AnyShape(SeedOfLifeShape())
+        case 8:
+            return AnyShape(OctagonShape())
+        case 9:
+            return AnyShape(EnneagramShape())
+        default:
+            return AnyShape(UnityCircleShape())
+        }
+    }
+    
+    // MARK: - Sacred Color System
+    
+    private func getSacredColor(for number: Int) -> Color {
+        switch number {
+        case 1: return .red
+        case 2: return .orange
+        case 3: return .yellow
+        case 4: return .green
+        case 5: return .blue
+        case 6: return .indigo
+        case 7: return .purple
+        case 8: return Color(red: 1.0, green: 0.8, blue: 0.0) // gold
+        case 9: return .white
+        default: return .white
+        }
+    }
+}
+
 #Preview {
     RealmNumberView()
         .environmentObject(RealmNumberManager())
-} 
+}
