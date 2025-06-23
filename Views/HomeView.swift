@@ -54,31 +54,33 @@ struct HomeView: View {
                     
                     // MARK: ––– SACRED GEOMETRY SECTION START –––
                     // Enhanced Sacred Geometry Display - Focus Number Only
-                    VStack(spacing: 20) {
+                    VStack(spacing: 30) {
                         // Focus Number Sacred Geometry
-                        VStack(spacing: 12) {
-                            Text("Focus")
-                                .font(.title2)
-                                .foregroundColor(.white.opacity(0.9))
-                                .fontWeight(.semibold)
-                            
+                        VStack(spacing: 20) {
                             ZStack {
-                                // Large Focus Number behind the sacred geometry
-                                Text("\(focusNumberManager.selectedFocusNumber)")
-                                    .font(.system(size: 120, weight: .bold, design: .rounded))
-                                    .foregroundColor(getSacredColor(for: focusNumberManager.selectedFocusNumber))
-                                    .shadow(color: getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.6), radius: 15)
-                                    .shadow(color: .black.opacity(0.8), radius: 8, x: 3, y: 3)
-                                
-                                // Sacred Geometry overlay
-                                SacredGeometryView<FocusNumberType>(
-                                    numberType: FocusNumberType(),
+                                // Enhanced Sacred Geometry with Focus + Realm Numbers
+                                // This implements ChatGPT's aesthetic-first vision:
+                                // - Data-driven selection (focus + realm numbers)
+                                // - Session-based variation (fresh each time)
+                                // - Hidden mystical significance
+                                // - Pure visual beauty for the user
+                                StaticAssetMandalaView(
                                     number: focusNumberManager.selectedFocusNumber,
-                                    bpm: Double(HealthKitManager.shared.currentHeartRate),
-                                    realm: realmNumberManager.currentRealmNumber
+                                    size: 350
                                 )
-                                .frame(width: 400, height: 400)
+                                
+                                // Large Focus Number with Enhanced Glow
+                                Text("\(focusNumberManager.selectedFocusNumber)")
+                                    .font(.system(size: 140, weight: .bold, design: .rounded))
+                                    .foregroundColor(getSacredColor(for: focusNumberManager.selectedFocusNumber))
+                                    // Multiple glow layers for rich effect
+                                    .shadow(color: getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.8), radius: 20)
+                                    .shadow(color: getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.6), radius: 15)
+                                    .shadow(color: getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.4), radius: 10)
+                                    .shadow(color: .white.opacity(0.3), radius: 5)
+                                    .shadow(color: .black.opacity(0.8), radius: 8, x: 3, y: 3)
                             }
+                            .frame(width: 350, height: 350)
                             .onLongPressGesture(minimumDuration: 0.6) {
                                 // Haptic feedback
                                 let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
@@ -97,7 +99,7 @@ struct HomeView: View {
                                 .foregroundColor(.white.opacity(0.7))
                         }
                     }
-                    .padding(.vertical, 30)
+                    .padding(.vertical, 40)  // Increased padding for more space
                     // MARK: ––– SACRED GEOMETRY SECTION END –––
                     
                     // TickTockRealm Button

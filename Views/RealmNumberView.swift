@@ -112,6 +112,9 @@ struct RealmNumberView: View {
                     )
                     .frame(width: 260, height: 260)
                 
+                // Mandala background layers
+                StaticAssetMandalaView(number: realmNumberManager.currentRealmNumber, size: 280)
+                
                 // Large Realm Number behind the sacred geometry
                 Text("\(realmNumberManager.currentRealmNumber)")
                     .font(.system(size: 140, weight: .bold, design: .rounded))
@@ -119,13 +122,8 @@ struct RealmNumberView: View {
                     .shadow(color: getRealmNumberColor().opacity(0.8), radius: 20)
                     .shadow(color: .black.opacity(0.8), radius: 10, x: 4, y: 4)
                 
-                // Static Sacred Geometry Pattern overlay (NO ANIMATIONS)
-                StaticSacredGeometryView(
-                    number: realmNumberManager.currentRealmNumber
-                )
-                .frame(width: 450, height: 450)
-                .shadow(color: getRealmNumberColor().opacity(0.8), radius: 15)
-                .shadow(color: getRealmNumberColor().opacity(0.4), radius: 30)
+                // TODO: Add SVG mandala backgrounds here
+                // This will be replaced with dynamic mandala layers
                 
                 // Subtle indication that this is tappable
                 VStack {

@@ -174,6 +174,9 @@ struct VybeMVPApp: App {
                         print("🔗 Linked AppDelegate to shared managers (onAppear).")
                     }
                     
+                    // Load and categorize mandala assets
+                    MandalaAssetManager.shared.loadAndCategorizeMandalaAssets()
+                    
                     // Start RealmNumberManager and configure background manager
                     self.realmNumberManager.startUpdates()
                     print("▶️ Starting RealmNumberManager from onAppear...")

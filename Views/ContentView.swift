@@ -137,6 +137,14 @@ struct ContentView: View {
                             Text("About")
                         }
                         .tag(11) // Adjusted tag
+                    
+                    // TEMPORARY: Sacred Geometry Test Tab
+                    TestAdvancedSacredGeometry()
+                        .tabItem {
+                            Image(systemName: "sparkle")
+                            Text("🔮 Test")
+                        }
+                        .tag(12)
                 }
             }
         }

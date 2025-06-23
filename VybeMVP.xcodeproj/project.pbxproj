@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		4D0CA8D12DE69F4600D4A6D6 /* NumerologyRainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CA8D02DE69F4600D4A6D6 /* NumerologyRainView.swift */; };
+		4D2CC6F02E079B6D00BDF100 /* SacredGeometry3DView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC6EF2E079B6D00BDF100 /* SacredGeometry3DView.swift */; };
+		4D2CC6F22E08680400BDF100 /* MandalaBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC6F12E08680400BDF100 /* MandalaBackgroundView.swift */; };
+		4D2CC6F42E08688000BDF100 /* MandalaAssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC6F32E08688000BDF100 /* MandalaAssetManager.swift */; };
+		4D2CC6FB2E08BE3700BDF100 /* SacredGeometryAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC6FA2E08BE3700BDF100 /* SacredGeometryAssets.swift */; };
+		4D2CC7032E08C78C00BDF100 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC7022E08C78C00BDF100 /* UserProfile.swift */; };
+		4D2CC7062E08C96E00BDF100 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D2CC7042E08C96E00BDF100 /* Preview Assets.xcassets */; };
+		4D2CC7082E08C9ED00BDF100 /* TestSacredGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC7072E08C9ED00BDF100 /* TestSacredGeometry.swift */; };
+		4D2CC70A2E08CA0C00BDF100 /* TestAdvancedSacredGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC7092E08CA0C00BDF100 /* TestAdvancedSacredGeometry.swift */; };
+		4D2CC70C2E08EAD200BDF100 /* StaticAssetMandalaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC70B2E08EAD200BDF100 /* StaticAssetMandalaView.swift */; };
 		4D2DB47E2DFF43390003353E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D2DB47C2DFF43390003353E /* README.md */; };
 		4D2DB47F2DFF43390003353E /* ChakraSymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB47A2DFF43390003353E /* ChakraSymbolView.swift */; };
 		4D2DB4802DFF43390003353E /* ChakraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB4792DFF43390003353E /* ChakraModel.swift */; };
@@ -82,7 +91,6 @@
 		4D6C7BB12DE4803E001036E5 /* AIInsightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7BB02DE4803E001036E5 /* AIInsightManager.swift */; };
 		4D6C7BB32DE48067001036E5 /* NumerologyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7BB22DE48067001036E5 /* NumerologyService.swift */; };
 		4D6C7BB52DE48089001036E5 /* UserProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7BB42DE48089001036E5 /* UserProfileService.swift */; };
-		4D6C7BB72DE480B6001036E5 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7BB62DE480B6001036E5 /* UserProfile.swift */; };
 		4D6C7BB92DE480E4001036E5 /* PreparedInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7BB82DE480E4001036E5 /* PreparedInsight.swift */; };
 		4D6C7BBB2DE48126001036E5 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7BBA2DE48126001036E5 /* Logger+Extensions.swift */; };
 		4D6C7BBD2DE4885F001036E5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4D6C7BBC2DE4885F001036E5 /* FirebaseFirestore */; };
@@ -140,6 +148,15 @@
 
 /* Begin PBXFileReference section */
 		4D0CA8D02DE69F4600D4A6D6 /* NumerologyRainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyRainView.swift; sourceTree = "<group>"; };
+		4D2CC6EF2E079B6D00BDF100 /* SacredGeometry3DView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SacredGeometry3DView.swift; sourceTree = "<group>"; };
+		4D2CC6F12E08680400BDF100 /* MandalaBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalaBackgroundView.swift; sourceTree = "<group>"; };
+		4D2CC6F32E08688000BDF100 /* MandalaAssetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalaAssetManager.swift; sourceTree = "<group>"; };
+		4D2CC6FA2E08BE3700BDF100 /* SacredGeometryAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SacredGeometryAssets.swift; sourceTree = "<group>"; };
+		4D2CC7022E08C78C00BDF100 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		4D2CC7042E08C96E00BDF100 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4D2CC7072E08C9ED00BDF100 /* TestSacredGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSacredGeometry.swift; sourceTree = "<group>"; };
+		4D2CC7092E08CA0C00BDF100 /* TestAdvancedSacredGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAdvancedSacredGeometry.swift; sourceTree = "<group>"; };
+		4D2CC70B2E08EAD200BDF100 /* StaticAssetMandalaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticAssetMandalaView.swift; sourceTree = "<group>"; };
 		4D2DB4782DFF43390003353E /* ChakraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChakraManager.swift; sourceTree = "<group>"; };
 		4D2DB4792DFF43390003353E /* ChakraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChakraModel.swift; sourceTree = "<group>"; };
 		4D2DB47A2DFF43390003353E /* ChakraSymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChakraSymbolView.swift; sourceTree = "<group>"; };
@@ -214,7 +231,6 @@
 		4D6C7BB02DE4803E001036E5 /* AIInsightManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIInsightManager.swift; sourceTree = "<group>"; };
 		4D6C7BB22DE48067001036E5 /* NumerologyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyService.swift; sourceTree = "<group>"; };
 		4D6C7BB42DE48089001036E5 /* UserProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileService.swift; sourceTree = "<group>"; };
-		4D6C7BB62DE480B6001036E5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		4D6C7BB82DE480E4001036E5 /* PreparedInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparedInsight.swift; sourceTree = "<group>"; };
 		4D6C7BBA2DE48126001036E5 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 		4D80E0FC2D3F1B0B0020F7BB /* NumberMeaningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMeaningView.swift; sourceTree = "<group>"; };
@@ -266,11 +282,6 @@
 			path = VybeMVPTests;
 			sourceTree = "<group>";
 		};
-		4D8AB7702D3C746200009BC9 /* Preview Content */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
 		4DC6021D2D343E8D00B5E4A9 /* VybeApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = VybeApp;
@@ -309,6 +320,14 @@
 		4D03651B2DB5C912004227CB /* Products */ = {
 			isa = PBXGroup;
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4D2CC7052E08C96E00BDF100 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				4D2CC7042E08C96E00BDF100 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		4D2DB47D2DFF43390003353E /* Chakras */ = {
@@ -351,6 +370,7 @@
 		4D3055982D3C9462009A7BBD /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				4D2CC6F32E08688000BDF100 /* MandalaAssetManager.swift */,
 				4D2DB48E2DFF70490003353E /* LocationManager.swift */,
 				4D2DB4852DFF6A450003353E /* SightingsManager.swift */,
 				4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */,
@@ -398,9 +418,10 @@
 		4D3055F92D3D899A009A7BBD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4D2CC7022E08C78C00BDF100 /* UserProfile.swift */,
+				4D2CC6FA2E08BE3700BDF100 /* SacredGeometryAssets.swift */,
 				4D3727112DE540AE00B5A02B /* PersonalizedInsight.swift */,
 				4D6C7BB82DE480E4001036E5 /* PreparedInsight.swift */,
-				4D6C7BB62DE480B6001036E5 /* UserProfile.swift */,
 				4D6C7BAE2DE47FC2001036E5 /* InsightTemplate.swift */,
 				4D6C7B562DE4546C001036E5 /* ResonanceMatch.swift */,
 				4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */,
@@ -535,6 +556,7 @@
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
+				4D2CC7052E08C96E00BDF100 /* Preview Content */,
 				4D6C7BAC2DE47F55001036E5 /* Auth */,
 				4DE4C3A22DB5C85D00BB7572 /* NumerologyData */,
 				4DA01CB32D8537FB0070309D /* GoogleService-Info.plist */,
@@ -547,10 +569,8 @@
 				4D3055982D3C9462009A7BBD /* Managers */,
 				4DC6022E2D34440900B5E4A9 /* Features */,
 				4DC602302D34440900B5E4A9 /* Views */,
-				4D8AB7702D3C746200009BC9 /* Preview Content */,
 				4D80E10D2D41E17A0020F7BB /* VybeMVPTests */,
 				4DC6021C2D343E8D00B5E4A9 /* Products */,
-				4DC6021D2D343E8D00B5E4A9 /* VybeApp */,
 				4D6308E22DFFCB6F00FD32E9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -560,6 +580,7 @@
 			children = (
 				4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */,
 				4D80E10C2D41E17A0020F7BB /* VybeMVPTests.xctest */,
+				4DC6021D2D343E8D00B5E4A9 /* VybeApp */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -593,6 +614,11 @@
 		4DC602302D34440900B5E4A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4D2CC70B2E08EAD200BDF100 /* StaticAssetMandalaView.swift */,
+				4D2CC7092E08CA0C00BDF100 /* TestAdvancedSacredGeometry.swift */,
+				4D2CC7072E08C9ED00BDF100 /* TestSacredGeometry.swift */,
+				4D2CC6F12E08680400BDF100 /* MandalaBackgroundView.swift */,
+				4D2CC6EF2E079B6D00BDF100 /* SacredGeometry3DView.swift */,
 				4D9396182E07578200955980 /* SacredGeometryView.swift */,
 				4D2DB4832DFF43B10003353E /* ContentView.swift */,
 				4D3727142DE550ED00B5A02B /* ReusableComponents */,
@@ -671,7 +697,6 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				4D8AB7702D3C746200009BC9 /* Preview Content */,
 				4DC6021D2D343E8D00B5E4A9 /* VybeApp */,
 				4DE4C3A22DB5C85D00BB7572 /* NumerologyData */,
 			);
@@ -749,6 +774,7 @@
 			files = (
 				4DA01CB42D8537FB0070309D /* GoogleService-Info.plist in Resources */,
 				4D2DB47E2DFF43390003353E /* README.md in Resources */,
+				4D2CC7062E08C96E00BDF100 /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -785,10 +811,10 @@
 				4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */,
 				4D9396192E07578200955980 /* SacredGeometryView.swift in Sources */,
 				4DE4C37E2DB3918E00BB7572 /* NumerologyMessage.swift in Sources */,
-				4D6C7BB72DE480B6001036E5 /* UserProfile.swift in Sources */,
 				4DA98FCE2E073D0000FAE5FF /* ReportContentView.swift in Sources */,
 				4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */,
 				4D6C7BB92DE480E4001036E5 /* PreparedInsight.swift in Sources */,
+				4D2CC7082E08C9ED00BDF100 /* TestSacredGeometry.swift in Sources */,
 				4D3055CE2D3CC9CA009A7BBD /* FocusNumberPicker.swift in Sources */,
 				4D2DB47F2DFF43390003353E /* ChakraSymbolView.swift in Sources */,
 				4D2DB4802DFF43390003353E /* ChakraModel.swift in Sources */,
@@ -796,6 +822,8 @@
 				4DA98FCA2E073CB100FAE5FF /* Report.swift in Sources */,
 				4D2DB4822DFF43390003353E /* ChakraManager.swift in Sources */,
 				4D2DB4842DFF43B10003353E /* ContentView.swift in Sources */,
+				4D2CC6F42E08688000BDF100 /* MandalaAssetManager.swift in Sources */,
+				4D2CC6F22E08680400BDF100 /* MandalaBackgroundView.swift in Sources */,
 				4D3055EB2D3CF492009A7BBD /* NumberCell.swift in Sources */,
 				4D3055DF2D3CE8AE009A7BBD /* JournalView.swift in Sources */,
 				4D3727102DE5407100B5A02B /* InsightHistoryView.swift in Sources */,
@@ -821,11 +849,14 @@
 				4D3055E92D3CEF45009A7BBD /* EditJournalEntryView.swift in Sources */,
 				4D6308DA2DFFCB2C00FD32E9 /* ReactionPickerView.swift in Sources */,
 				4D6308DB2DFFCB2C00FD32E9 /* Reaction.swift in Sources */,
+				4D2CC70A2E08CA0C00BDF100 /* TestAdvancedSacredGeometry.swift in Sources */,
 				4DA98F992E07230500FAE5FF /* CommentManager.swift in Sources */,
+				4D2CC7032E08C78C00BDF100 /* UserProfile.swift in Sources */,
 				4D6308DC2DFFCB2C00FD32E9 /* PostComposerView.swift in Sources */,
 				4D6308DD2DFFCB2C00FD32E9 /* PostManager.swift in Sources */,
 				4D6308DE2DFFCB2C00FD32E9 /* Post.swift in Sources */,
 				4D6308DF2DFFCB2C00FD32E9 /* PostCardView.swift in Sources */,
+				4D2CC6FB2E08BE3700BDF100 /* SacredGeometryAssets.swift in Sources */,
 				4D6308E02DFFCB2C00FD32E9 /* SocialTimelineView.swift in Sources */,
 				4D6308E12DFFCB2C00FD32E9 /* SocialUser.swift in Sources */,
 				4D6C7B5F2DE45C07001036E5 /* AuthenticationWrapperView.swift in Sources */,
@@ -876,6 +907,8 @@
 				4D92F4BD2D4DE1E80001A16E /* BackgroundManager.swift in Sources */,
 				4D3055E32D3CEADA009A7BBD /* JournalEntry+CoreDataHelpers.swift in Sources */,
 				4D3055E12D3CE90C009A7BBD /* FocusNumberContent.swift in Sources */,
+				4D2CC70C2E08EAD200BDF100 /* StaticAssetMandalaView.swift in Sources */,
+				4D2CC6F02E079B6D00BDF100 /* SacredGeometry3DView.swift in Sources */,
 				4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */,
 				4D37270A2DE50FEC00B5A02B /* OnboardingCompletionView.swift in Sources */,
 			);
