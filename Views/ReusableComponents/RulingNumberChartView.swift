@@ -21,6 +21,7 @@ struct RulingNumberChartView: View {
     @State private var barAnimations: [Bool] = Array(repeating: false, count: 9)
     @State private var rulingBarPulse = false
     @State private var isViewReady = false  // Add initialization state
+    @State private var showingDetailView = false  // For full-screen detail view
     
     var body: some View {
         VStack(spacing: 20) {
@@ -81,6 +82,11 @@ struct RulingNumberChartView: View {
         } message: {
             Text("Your Focus Number (\(focusNumberManager.selectedFocusNumber)) ruled the day! You've earned 1 XP.")
         }
+        .fullScreenCover(isPresented: $showingDetailView) {
+            RulingNumberChartDetailView(isPresented: $showingDetailView)
+                .environmentObject(focusNumberManager)
+                .environmentObject(realmNumberManager)
+        }
     }
     
     // MARK: - Header Section
@@ -113,17 +119,48 @@ struct RulingNumberChartView: View {
                 }
                 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("✧ TODAY'S RULING NUMBER ✧")
-                        .font(.system(size: 16, weight: .bold, design: .rounded))
-                        .foregroundColor(.white.opacity(0.9))
+                    HStack {
+                        Text("✧ TODAY'S RULING NUMBER ✧")
+                            .font(.system(size: 16, weight: .bold, design: .rounded))
+                            .foregroundColor(.white.opacity(0.9))
+                        
+                        Spacer()
+                        
+                        // Expand button
+                        Button(action: {
+                            let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                            impactFeedback.impactOccurred()
+                            showingDetailView = true
+                        }) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(
+                                        LinearGradient(
+                                            colors: [.purple.opacity(0.3), .blue.opacity(0.2)],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
+                                    )
+                                    .frame(width: 36, height: 28)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                                    )
+                                
+                                Image(systemName: "chart.line.uptrend.xyaxis")
+                                    .font(.system(size: 12, weight: .medium))
+                                    .foregroundColor(.white.opacity(0.9))
+                            }
+                        }
+                        .scaleEffect(rulingBarPulse ? 1.05 : 1.0)
+                        .shadow(color: .purple.opacity(0.3), radius: 4)
+                    }
                     
                     Text(getRulingDescription())
                         .font(.system(size: 12, weight: .medium, design: .rounded))
                         .foregroundColor(.white.opacity(0.7))
                         .lineLimit(2)
                 }
-                
-                Spacer()
                 
                 // Trophy if it's the ruling number
                 if sampleManager.getCount(for: sampleManager.rulingNumber) > 0 {
@@ -132,6 +169,43 @@ struct RulingNumberChartView: View {
                         .foregroundColor(.yellow)
                         .shadow(color: .yellow.opacity(0.6), radius: 5)
                         .scaleEffect(rulingBarPulse ? 1.1 : 1.0)
+                }
+            }
+            
+            // Quick stats row
+            HStack(spacing: 16) {
+                // Sample count
+                HStack(spacing: 4) {
+                    Image(systemName: "clock")
+                        .font(.caption)
+                        .foregroundColor(.blue.opacity(0.8))
+                    Text("\(sampleManager.todaySamples.count) samples")
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.6))
+                }
+                
+                Spacer()
+                
+                // Sacred pattern indicator
+                if sampleManager.getSevenDayPattern() > 0.5 {
+                    HStack(spacing: 4) {
+                        Image(systemName: "sparkles")
+                            .font(.caption)
+                            .foregroundColor(.purple.opacity(0.8))
+                        Text("Sacred pattern")
+                            .font(.caption)
+                            .foregroundColor(.purple.opacity(0.8))
+                    }
+                }
+                
+                // Expand hint
+                HStack(spacing: 4) {
+                    Image(systemName: "arrow.up.right")
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.4))
+                    Text("Tap chart for details")
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.4))
                 }
             }
         }
@@ -287,10 +361,59 @@ struct RulingNumberChartView: View {
                 Spacer()
             }
             
-            // Sample count
-            Text("Based on \(sampleManager.todaySamples.count) cosmic observations today")
-                .font(.caption)
-                .foregroundColor(.white.opacity(0.5))
+            // Enhanced footer with detail view hint
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Based on \(sampleManager.todaySamples.count) cosmic observations today")
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.5))
+                    
+                    HStack(spacing: 4) {
+                        Image(systemName: "chart.line.uptrend.xyaxis")
+                            .font(.caption)
+                            .foregroundColor(.purple.opacity(0.6))
+                        Text("View 30-day trends and sacred patterns")
+                            .font(.caption)
+                            .foregroundColor(.purple.opacity(0.6))
+                    }
+                }
+                
+                Spacer()
+                
+                Button(action: {
+                    let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                    impactFeedback.impactOccurred()
+                    showingDetailView = true
+                }) {
+                    HStack(spacing: 6) {
+                        Text("Analyze")
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundColor(.white)
+                        
+                        Image(systemName: "arrow.up.right")
+                            .font(.system(size: 10, weight: .medium))
+                            .foregroundColor(.white.opacity(0.8))
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(
+                                LinearGradient(
+                                    colors: [.purple.opacity(0.4), .blue.opacity(0.3)],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                            )
+                    )
+                    .shadow(color: .purple.opacity(0.3), radius: 5)
+                }
+                .scaleEffect(rulingBarPulse ? 1.02 : 1.0)
+            }
         }
     }
     
@@ -339,10 +462,8 @@ struct RulingNumberChartView: View {
         // Navigate to number meaning (you can implement navigation here)
         print("🔍 User tapped bar for number \(number)")
         
-        // For now, just provide visual feedback
-        withAnimation(.easeInOut(duration: 0.2)) {
-            // Add visual feedback animation here if needed
-        }
+        // For now, open the detail view
+        showingDetailView = true
     }
     
     private func canEarnXPReward() -> Bool {
