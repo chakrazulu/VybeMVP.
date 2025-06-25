@@ -14,7 +14,6 @@ enum SacredGeometryAsset: String, CaseIterable {
     case voidCrystal = "void_crystal"
     
     // MARK: - 1 - UNITY & DIVINE SPARK
-    case unityMerkaba = "unity_merkaba"
     case unitySolar = "unity_solar"
     case unityCrown = "unity_crown"
     case unityMonad = "unity_monad"
@@ -104,7 +103,6 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .voidCrystal: return "Primordial Crystal"
             
         // 1 - UNITY & DIVINE SPARK
-        case .unityMerkaba: return "Merkaba of Unity"
         case .unitySolar: return "Solar Genesis"
         case .unityCrown: return "Crown of Creation"
         case .unityMonad: return "Monadic Seed"
@@ -186,7 +184,7 @@ enum SacredGeometryAsset: String, CaseIterable {
         switch self {
         case .voidTriquetra, .voidCosmicWomb, .voidZeroPoint, .voidEternalReturn, .voidStarMatrix, .voidAkashicGrid, .voidCrystal:
             return 0
-        case .unityMerkaba, .unitySolar, .unityCrown, .unityMonad, .unityAlpha, .unityConsciousness, .unitySpark:
+        case .unitySolar, .unityCrown, .unityMonad, .unityAlpha, .unityConsciousness, .unitySpark:
             return 1
         case .dualityVesica, .dualityLunar, .dualityYinYang, .dualityPillars, .dualityDivine, .dualityTwins, .dualityMirror:
             return 2
@@ -235,7 +233,6 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .voidAkashicGrid: return "Cosmic memory patterns"
         case .voidCrystal: return "First light crystallization"
             
-        case .unityMerkaba: return "Divine masculine/feminine union"
         case .unitySolar: return "Birth of consciousness"
         case .unityCrown: return "Divine authority manifest"
         case .unityMonad: return "Individual soul essence"

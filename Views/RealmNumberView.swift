@@ -24,11 +24,12 @@ import SwiftUI
  * 2. Cascading numerology rain effect
  * 3. Sacred geometry visualization of the realm number
  * 4. Mystical realm description
- * 5. Sacred calculation factors display
+ * 5. Interactive ruling number chart (replaces cosmic factors)
  */
 struct RealmNumberView: View {
     /// Access to the realm number manager for the current realm number value
     @EnvironmentObject var realmNumberManager: RealmNumberManager
+    @EnvironmentObject var focusNumberManager: FocusNumberManager
     
     @State private var glowIntensity: Double = 0.5
     
@@ -54,14 +55,16 @@ struct RealmNumberView: View {
                         .shadow(color: .white.opacity(0.3), radius: 5, x: 0, y: 2)
                         .padding(.top, 50)
                     
-                    // Enhanced glowing realm number display
+                    // Enhanced glowing realm number display (FIXED - removed outer circle)
                     mysticalRealmNumberDisplay
                     
                     // Sacred realm description
                     mysticalRealmDescription
                     
-                    // Cosmic calculation factors
-                    cosmicFactorsDisplay
+                    // REPLACED: Ruling Number Chart (replaces cosmic factors)
+                    RulingNumberChartView()
+                        .environmentObject(focusNumberManager)
+                        .environmentObject(realmNumberManager)
                     
                     Spacer(minLength: 100)
                 }
@@ -73,57 +76,30 @@ struct RealmNumberView: View {
         }
     }
     
-    // MARK: - Mystical Realm Number Display
+    // MARK: - Mystical Realm Number Display (FIXED)
     
     private var mysticalRealmNumberDisplay: some View {
         NavigationLink(destination: NumberMeaningView(initialSelectedNumber: realmNumberManager.currentRealmNumber)) {
             ZStack {
-                // Outer cosmic ring with enhanced glow
-                Circle()
-                    .stroke(
-                        LinearGradient(
-                            gradient: Gradient(colors: [
-                                getRealmNumberColor().opacity(0.8),
-                                getRealmNumberColor().opacity(0.4),
-                                .white.opacity(0.2)
-                            ]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: 4
-                    )
-                    .frame(width: 280, height: 280)
-                    .opacity(glowIntensity)
-                    .shadow(color: getRealmNumberColor().opacity(0.6), radius: 20)
+                // REMOVED: Outer cosmic ring that conflicted with sacred geometry
+                // Using only the sacred geometry background now
                 
-                // Sacred Geometry Background Glow
-                Circle()
-                    .fill(
-                        RadialGradient(
-                            gradient: Gradient(colors: [
-                                getRealmNumberColor().opacity(0.3),
-                                getRealmNumberColor().opacity(0.1),
-                                Color.clear
-                            ]),
-                            center: .center,
-                            startRadius: 50,
-                            endRadius: 150
-                        )
-                    )
-                    .frame(width: 260, height: 260)
+                // Enhanced Dynamic Sacred Geometry Background
+                DynamicAssetMandalaView(
+                    number: realmNumberManager.currentRealmNumber,
+                    size: 350
+                )
                 
-                // Mandala background layers
-                StaticAssetMandalaView(number: realmNumberManager.currentRealmNumber, size: 280)
-                
-                // Large Realm Number behind the sacred geometry
+                // Large Realm Number - FONT SIZE MATCHED TO HOME TAB
                 Text("\(realmNumberManager.currentRealmNumber)")
-                    .font(.system(size: 140, weight: .bold, design: .rounded))
+                    .font(.system(size: 140, weight: .bold, design: .rounded)) // Matches HomeView exactly
                     .foregroundColor(getRealmNumberColor())
+                    // Multiple glow layers for rich effect (matches HomeView)
                     .shadow(color: getRealmNumberColor().opacity(0.8), radius: 20)
-                    .shadow(color: .black.opacity(0.8), radius: 10, x: 4, y: 4)
-                
-                // TODO: Add SVG mandala backgrounds here
-                // This will be replaced with dynamic mandala layers
+                    .shadow(color: getRealmNumberColor().opacity(0.6), radius: 15)
+                    .shadow(color: getRealmNumberColor().opacity(0.4), radius: 10)
+                    .shadow(color: .white.opacity(0.3), radius: 5)
+                    .shadow(color: .black.opacity(0.8), radius: 8, x: 3, y: 3)
                 
                 // Subtle indication that this is tappable
                 VStack {
@@ -135,6 +111,7 @@ struct RealmNumberView: View {
                         .padding(.top, 200)
                 }
             }
+            .frame(width: 350, height: 350) // Consistent with HomeView
         }
         .buttonStyle(PlainButtonStyle()) // Prevents default button styling
     }
@@ -188,60 +165,6 @@ struct RealmNumberView: View {
                 )
         )
         .shadow(color: getRealmNumberColor().opacity(0.3), radius: 15, x: 0, y: 8)
-    }
-    
-    // MARK: - Cosmic Factors Display
-    
-    private var cosmicFactorsDisplay: some View {
-        VStack(spacing: 20) {
-            Text("✧ COSMIC ALIGNMENT FACTORS ✧")
-                .font(.system(size: 18, weight: .bold, design: .rounded))
-                .foregroundColor(.white.opacity(0.9))
-                .shadow(color: .white.opacity(0.3), radius: 3)
-            
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 16) {
-                CosmicFactorCard(
-                    icon: "clock.circle.fill",
-                    title: "Temporal\nResonance",
-                    color: .blue
-                )
-                
-                CosmicFactorCard(
-                    icon: "calendar.circle.fill",
-                    title: "Celestial\nAlignment",
-                    color: .purple
-                )
-                
-                CosmicFactorCard(
-                    icon: "location.circle.fill",
-                    title: "Earthly\nCoordinates",
-                    color: .green
-                )
-                
-                CosmicFactorCard(
-                    icon: "heart.circle.fill",
-                    title: "Life Force\nRhythm",
-                    color: .red
-                )
-            }
-        }
-        .padding(20)
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.black.opacity(0.3))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(
-                            LinearGradient(
-                                gradient: Gradient(colors: [.white.opacity(0.2), .purple.opacity(0.3)]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            ),
-                            lineWidth: 1
-                        )
-                )
-        )
-        .shadow(color: .black.opacity(0.4), radius: 10, x: 0, y: 5)
     }
     
     // MARK: - Helper Methods
@@ -308,41 +231,8 @@ struct RealmNumberView: View {
     }
 }
 
-// MARK: - Cosmic Factor Card Component
-
-struct CosmicFactorCard: View {
-    let icon: String
-    let title: String
-    let color: Color
-    
-    var body: some View {
-        VStack(spacing: 12) {
-            Image(systemName: icon)
-                .font(.system(size: 28))
-                .foregroundColor(color)
-                .shadow(color: color.opacity(0.6), radius: 5)
-            
-            Text(title)
-                .font(.system(size: 14, weight: .semibold, design: .rounded))
-                .foregroundColor(.white.opacity(0.9))
-                .multilineTextAlignment(.center)
-                .lineLimit(2)
-        }
-        .frame(maxWidth: .infinity)
-        .frame(height: 100)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(color.opacity(0.15))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(color.opacity(0.4), lineWidth: 1)
-                )
-        )
-        .shadow(color: color.opacity(0.2), radius: 8, x: 0, y: 4)
-    }
-}
-
-// MARK: - Static Sacred Geometry View (NO ANIMATIONS)
+// MARK: - Static Sacred Geometry View (NO ANIMATIONS) - DEPRECATED
+// This is kept for compatibility but should be replaced with DynamicAssetMandalaView
 
 struct StaticSacredGeometryView: View {
     let number: Int
@@ -429,4 +319,5 @@ struct StaticSacredGeometryView: View {
 #Preview {
     RealmNumberView()
         .environmentObject(RealmNumberManager())
+        .environmentObject(FocusNumberManager.shared)
 }

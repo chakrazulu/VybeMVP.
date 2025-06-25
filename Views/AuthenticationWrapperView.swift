@@ -27,8 +27,18 @@ struct AuthenticationWrapperView: View {
     var body: some View {
         Group {
             if authManager.isCheckingAuthStatus {
-                // Show loading screen while checking authentication status
-                LoadingView()
+                // Show enhanced loading screen with timeout to prevent hanging
+                EnhancedLoadingView.authentication(
+                    onTimeout: {
+                        print("⚠️ Authentication check timed out")
+                        // Force refresh auth status
+                        authManager.checkAuthenticationStatus()
+                    },
+                    onRetry: {
+                        print("🔄 Retrying authentication check")
+                        authManager.checkAuthenticationStatus()
+                    }
+                )
             } else if authManager.isSignedIn {
                 // User is authenticated - check if they've completed onboarding
                 if hasCompletedOnboarding {

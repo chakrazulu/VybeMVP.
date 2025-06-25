@@ -50,6 +50,9 @@ struct ContentView: View {
                 
                 TabView(selection: $selectedTab) {
                     HomeView()
+                        .environmentObject(focusNumberManager)
+                        .environmentObject(activityNavigationManager) 
+                        .environmentObject(aiInsightManager)
                         .tabItem {
                             Image(systemName: "house.fill")
                             Text("Home")
@@ -57,6 +60,7 @@ struct ContentView: View {
                         .tag(0)
                     
                     JournalView()
+                        .environmentObject(focusNumberManager)
                         .tabItem {
                             Image(systemName: "book.fill")
                             Text("Journal")
@@ -64,6 +68,7 @@ struct ContentView: View {
                         .tag(1)
                     
                     SocialTimelineView() // Global Resonance Timeline
+                        .environmentObject(focusNumberManager)
                         .tabItem {
                             Image(systemName: "globe.americas.fill")
                             Text("Timeline")
@@ -71,6 +76,7 @@ struct ContentView: View {
                         .tag(2)
                     
                     UserProfileTabView()
+                        .environmentObject(focusNumberManager)
                         .tabItem {
                             Image(systemName: "person.circle.fill")
                             Text("My Sanctum")
@@ -78,6 +84,9 @@ struct ContentView: View {
                         .tag(3)
                     
                     ActivityView() // New Activity Tab
+                        .environmentObject(focusNumberManager)
+                        .environmentObject(activityNavigationManager)
+                        .environmentObject(aiInsightManager)
                         .tabItem {
                             Image(systemName: "list.star") // Suggesting an icon
                             Text("Activity")
@@ -85,6 +94,7 @@ struct ContentView: View {
                         .tag(4)
                     
                     SightingsView() // Sightings Portal Tab
+                        .environmentObject(focusNumberManager)
                         .tabItem {
                             Image(systemName: "sparkle.magnifyingglass")
                             Text("Sightings")
@@ -92,6 +102,9 @@ struct ContentView: View {
                         .tag(5)
                     
                     RealmNumberView()
+                        .environmentObject(focusNumberManager)
+                        .environmentObject(activityNavigationManager)
+                        .environmentObject(aiInsightManager)
                         .tabItem {
                             Image(systemName: "sparkles")
                             Text("Realm")
@@ -99,6 +112,7 @@ struct ContentView: View {
                         .tag(6) // Adjusted tag
                     
                     PhantomChakrasView()
+                        .environmentObject(focusNumberManager)
                         .tabItem {
                             Image(systemName: "circle.grid.3x3.circle.fill")
                             Text("Chakras")
@@ -106,6 +120,7 @@ struct ContentView: View {
                         .tag(7) // Adjusted tag
                     
                     MatchAnalyticsView()
+                        .environmentObject(focusNumberManager)
                         .tabItem {
                             Image(systemName: "chart.bar.fill")
                             Text("Analytics")

@@ -28,8 +28,8 @@ struct HomeView: View {
     @EnvironmentObject var focusNumberManager: FocusNumberManager
     @EnvironmentObject var realmNumberManager: RealmNumberManager
     @EnvironmentObject var signInViewModel: SignInViewModel
-    @ObservedObject var aiInsightManager = AIInsightManager.shared
-    @StateObject private var activityNavigationManager = ActivityNavigationManager.shared
+    @EnvironmentObject var activityNavigationManager: ActivityNavigationManager
+    @EnvironmentObject var aiInsightManager: AIInsightManager
     
     /// Controls visibility of the focus number picker sheet
     @State private var showingPicker = false
@@ -64,7 +64,7 @@ struct HomeView: View {
                                 // - Session-based variation (fresh each time)
                                 // - Hidden mystical significance
                                 // - Pure visual beauty for the user
-                                StaticAssetMandalaView(
+                                DynamicAssetMandalaView(
                                     number: focusNumberManager.selectedFocusNumber,
                                     size: 350
                                 )
@@ -102,27 +102,63 @@ struct HomeView: View {
                     .padding(.vertical, 40)  // Increased padding for more space
                     // MARK: ––– SACRED GEOMETRY SECTION END –––
                     
-                    // TickTockRealm Button
+                    // Realm-Time Button (Enhanced with Dynamic Colors)
                     Button(action: {
                         activityNavigationManager.requestRealmNavigation()
-                        print("TickTockRealm button tapped - navigation requested")
+                        print("Realm-Time button tapped - navigation requested")
                     }) {
-                        Text("TickTockRealm")
+                        Text("Realm-Time")
                             .font(.title2)
                             .fontWeight(.bold)
                             .padding(.horizontal, 30)
                             .padding(.vertical, 15)
                             .foregroundColor(.white)
                             .background(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [Color.orange, Color.red]),
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                )
+                                ZStack {
+                                    // Base gradient
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [
+                                            getRealmButtonColor().opacity(0.9),
+                                            getRealmButtonColor().opacity(0.7),
+                                            getRealmButtonColor().opacity(0.5)
+                                        ]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                    
+                                    // Overlay gradient for depth
+                                    LinearGradient(
+                                        gradient: Gradient(stops: [
+                                            .init(color: Color.white.opacity(0.3), location: 0.0),
+                                            .init(color: Color.clear, location: 0.3),
+                                            .init(color: Color.clear, location: 0.7),
+                                            .init(color: Color.black.opacity(0.2), location: 1.0)
+                                        ]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                }
                             )
                             .cornerRadius(20)
-                            .shadow(color: .red.opacity(0.5), radius: 10, x: 0, y: 5)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(
+                                        LinearGradient(
+                                            gradient: Gradient(colors: [
+                                                getRealmButtonColor().opacity(0.8),
+                                                getRealmButtonColor().opacity(0.4)
+                                            ]),
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        ),
+                                        lineWidth: 1
+                                    )
+                            )
+                            .shadow(color: getRealmButtonColor().opacity(0.5), radius: 15, x: 0, y: 8)
+                            .shadow(color: getRealmButtonColor().opacity(0.3), radius: 25, x: 0, y: 12)
                     }
+                    .id("realmButton_\(focusNumberManager.selectedFocusNumber)") // Force update when focus changes
+                    .animation(.easeInOut(duration: 0.6), value: focusNumberManager.selectedFocusNumber)
                     .padding(.top, 10) // Add some space above the insight section
                     
                     // Enhanced Today's Insight Section
@@ -525,9 +561,25 @@ struct HomeView: View {
         case 5: return .blue
         case 6: return .indigo
         case 7: return .purple
-        case 8: return Color(red: 1.0, green: 0.8, blue: 0.0) // gold
+        case 8: return Color(red: 1.0, green: 0.8, blue: 0.0) // Consistent gold
         case 9: return .white
         default: return .white
+        }
+    }
+    
+    private func getRealmButtonColor() -> Color {
+        // Dynamic color based on FOCUS number - matches the focus number display
+        switch focusNumberManager.selectedFocusNumber {
+        case 1: return .red
+        case 2: return .orange  
+        case 3: return .yellow
+        case 4: return .green
+        case 5: return .blue
+        case 6: return .indigo
+        case 7: return .purple
+        case 8: return Color(red: 1.0, green: 0.8, blue: 0.0) // EXACT match with focus number
+        case 9: return .white
+        default: return .blue // fallback
         }
     }
 }

@@ -70,7 +70,7 @@ class AuthenticationManager: ObservableObject {
      * Checks if the user is currently authenticated by looking for stored credentials
      * and validating Firebase Auth state.
      */
-    private func checkAuthenticationStatus() {
+    func checkAuthenticationStatus() {
         DispatchQueue.main.async { [weak self] in
             self?.isCheckingAuthStatus = true
         }
