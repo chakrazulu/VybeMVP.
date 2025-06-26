@@ -22,6 +22,7 @@
 		4D2CC7122E0B9EDF00BDF100 /* DynamicAssetMandalaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC7112E0B9EDF00BDF100 /* DynamicAssetMandalaView.swift */; };
 		4D2CC7142E0B9EFA00BDF100 /* EnhancedLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC7132E0B9EFA00BDF100 /* EnhancedLoadingView.swift */; };
 		4D2CC7162E0C37F200BDF100 /* RulingNumberChartDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC7152E0C37F200BDF100 /* RulingNumberChartDetailView.swift */; };
+		4D2CC7182E0C70F600BDF100 /* TwinklingDigitsBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC7172E0C70F600BDF100 /* TwinklingDigitsBackground.swift */; };
 		4D2DB47E2DFF43390003353E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D2DB47C2DFF43390003353E /* README.md */; };
 		4D2DB47F2DFF43390003353E /* ChakraSymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB47A2DFF43390003353E /* ChakraSymbolView.swift */; };
 		4D2DB4802DFF43390003353E /* ChakraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB4792DFF43390003353E /* ChakraModel.swift */; };
@@ -167,6 +168,7 @@
 		4D2CC7112E0B9EDF00BDF100 /* DynamicAssetMandalaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicAssetMandalaView.swift; sourceTree = "<group>"; };
 		4D2CC7132E0B9EFA00BDF100 /* EnhancedLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnhancedLoadingView.swift; sourceTree = "<group>"; };
 		4D2CC7152E0C37F200BDF100 /* RulingNumberChartDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulingNumberChartDetailView.swift; sourceTree = "<group>"; };
+		4D2CC7172E0C70F600BDF100 /* TwinklingDigitsBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwinklingDigitsBackground.swift; sourceTree = "<group>"; };
 		4D2DB4782DFF43390003353E /* ChakraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChakraManager.swift; sourceTree = "<group>"; };
 		4D2DB4792DFF43390003353E /* ChakraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChakraModel.swift; sourceTree = "<group>"; };
 		4D2DB47A2DFF43390003353E /* ChakraSymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChakraSymbolView.swift; sourceTree = "<group>"; };
@@ -462,6 +464,7 @@
 		4D3727142DE550ED00B5A02B /* ReusableComponents */ = {
 			isa = PBXGroup;
 			children = (
+				4D2CC7172E0C70F600BDF100 /* TwinklingDigitsBackground.swift */,
 				4D2CC7152E0C37F200BDF100 /* RulingNumberChartDetailView.swift */,
 				4D2CC7132E0B9EFA00BDF100 /* EnhancedLoadingView.swift */,
 				4D2CC7112E0B9EDF00BDF100 /* DynamicAssetMandalaView.swift */,
@@ -886,6 +889,7 @@
 				4D3055CA2D3CB981009A7BBD /* FocusMatch+Helper.swift in Sources */,
 				4DC602422D34652600B5E4A9 /* AboutView.swift in Sources */,
 				4D3056002D3D9245009A7BBD /* JournalEntryView.swift in Sources */,
+				4D2CC7182E0C70F600BDF100 /* TwinklingDigitsBackground.swift in Sources */,
 				4D2CC7142E0B9EFA00BDF100 /* EnhancedLoadingView.swift in Sources */,
 				4D3727152DE550ED00B5A02B /* CosmicBackgroundView.swift in Sources */,
 				4D2CC7102E0B9EB700BDF100 /* RulingNumberChartView.swift in Sources */,

@@ -41,7 +41,10 @@ struct HomeView: View {
     
     var body: some View {
         ZStack {
-            CosmicBackgroundView()
+            TwinklingDigitsBackground()
+                .environmentObject(focusNumberManager)
+                .environmentObject(realmNumberManager)
+                .environmentObject(activityNavigationManager)
                 .ignoresSafeArea()
             
             ScrollView {
@@ -127,7 +130,7 @@ struct HomeView: View {
                                     )
                                     
                                     // Overlay gradient for depth
-                                    LinearGradient(
+                                LinearGradient(
                                         gradient: Gradient(stops: [
                                             .init(color: Color.white.opacity(0.3), location: 0.0),
                                             .init(color: Color.clear, location: 0.3),
@@ -136,7 +139,7 @@ struct HomeView: View {
                                         ]),
                                         startPoint: .topLeading,
                                         endPoint: .bottomTrailing
-                                    )
+                                )
                                 }
                             )
                             .cornerRadius(20)

@@ -594,7 +594,7 @@ struct RulingNumberChartDetailView: View {
                                         .stroke(patternType.color.opacity(0.6), lineWidth: 1)
                                 )
                                 .shadow(color: patternType.color.opacity(0.4), radius: 4)
-                                .animation(.easeOut(duration: 1.0).delay(0.5), value: chartAnimationPhase)
+                                .animation(.easeOut(duration: 2.5).delay(0.5), value: chartAnimationPhase)
                         }
                     }
                     .frame(height: 8)
@@ -805,6 +805,8 @@ struct SacredPatternDetailView: View {
     @Binding var isPresented: Bool
     
     @State private var animationPhase = 0.0
+    @State private var isDataLoaded = false
+    @State private var patternValue: Double = 0.0
     
     var body: some View {
         NavigationView {
@@ -821,6 +823,7 @@ struct SacredPatternDetailView: View {
                 )
                 .ignoresSafeArea()
                 
+                // Always show content - no loading state needed
                 ScrollView {
                     VStack(spacing: 24) {
                         // Pattern Header
@@ -851,12 +854,21 @@ struct SacredPatternDetailView: View {
             }
         }
         .onAppear {
-            withAnimation(.easeInOut(duration: 2.0)) {
-                animationPhase = 1.0
+            // Load pattern data immediately on appear
+            patternValue = pattern.getValue(from: sampleManager)
+            isDataLoaded = true
+            
+            // Start very subtle animation after a short delay
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                withAnimation(.easeInOut(duration: 4.0).repeatForever(autoreverses: true)) {
+                    animationPhase = 0.6
+                }
             }
         }
         .preferredColorScheme(.dark)
     }
+    
+
     
     private var patternHeader: some View {
         VStack(spacing: 16) {
@@ -885,7 +897,7 @@ struct SacredPatternDetailView: View {
             }
             
             // Pattern percentage
-            let percentage = Int(pattern.getValue(from: sampleManager) * 100)
+            let percentage = Int(patternValue * 100)
             Text("\(percentage)%")
                 .font(.system(size: 48, weight: .bold, design: .rounded))
                 .foregroundColor(pattern.color)
@@ -906,8 +918,7 @@ struct SacredPatternDetailView: View {
                 .fontWeight(.bold)
                 .foregroundColor(.white)
             
-            let value = pattern.getValue(from: sampleManager)
-            let analysisText = getAnalysisText(for: value)
+            let analysisText = getAnalysisText(for: patternValue)
             
             Text(analysisText)
                 .font(.body)
@@ -915,7 +926,7 @@ struct SacredPatternDetailView: View {
                 .lineSpacing(4)
             
             // Strength indicator
-            strengthIndicator(value: value)
+            strengthIndicator(value: patternValue)
         }
         .padding(20)
         .background(
@@ -985,6 +996,7 @@ struct SacredPatternDetailView: View {
                         )
                         .frame(width: geometry.size.width * value * animationPhase, height: 12)
                         .shadow(color: pattern.color.opacity(0.4), radius: 4)
+                        .animation(.easeOut(duration: 2.5), value: animationPhase)
                 }
             }
             .frame(height: 12)
