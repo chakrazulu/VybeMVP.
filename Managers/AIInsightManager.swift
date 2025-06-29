@@ -10,6 +10,87 @@ import CoreData
 // RACE CONDITION FIX: Import AuthenticationManager for fallback userID
 // (Note: This creates a dependency, but it's necessary for the fallback)
 
+/*
+ * ========================================
+ * 🧠 AI INSIGHT MANAGER - PERSONALIZED WISDOM ENGINE
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Sophisticated AI insight orchestration system generating personalized daily wisdom
+ * based on user's spiritual profile, life path number, and cosmic preferences. Manages
+ * Core Data persistence, intelligent caching, and seamless insight delivery.
+ * 
+ * INSIGHT GENERATION SYSTEM:
+ * - Profile Analysis: Uses UserProfile for personalized insight selection
+ * - Filter Service Integration: InsightFilterService provides matching algorithms
+ * - Template Scoring: Advanced scoring system for optimal insight selection
+ * - Fallback Mechanisms: Ensures insights always available even with limited data
+ * - Tag Matching: Aligns insights with user's focus tags and preferences
+ * 
+ * CORE DATA INTEGRATION:
+ * - Daily Persistence: Saves insights as PersistedInsightLog entries
+ * - Duplicate Prevention: Checks for existing today's insight before generation
+ * - Activity Feed: Provides data for ActivityView insight display
+ * - Timestamp Management: Proper date handling for daily insight cycles
+ * - Query Optimization: Efficient fetch requests with date range filtering
+ * 
+ * STATE MANAGEMENT:
+ * - @Published personalizedDailyInsight: Current insight for UI binding
+ * - @Published isInsightReady: Boolean flag for loading states
+ * - Singleton Pattern: Shared instance for app-wide access
+ * - ObservableObject: SwiftUI reactive updates for insight changes
+ * - Combine Integration: Reactive programming with cancellable subscriptions
+ * 
+ * PERFORMANCE OPTIMIZATIONS:
+ * - Throttling System: 10-second minimum between refresh calls
+ * - Cache-First Strategy: Checks Core Data before generating new insights
+ * - Race Condition Prevention: Multiple userID sources with fallback logic
+ * - Memory Management: Proper Combine cancellable cleanup
+ * - Efficient Queries: Optimized Core Data fetch requests with limits
+ * 
+ * INTEGRATION POINTS:
+ * - UserProfileService: Profile data source for personalization
+ * - InsightFilterService: Core insight selection and scoring algorithms
+ * - ActivityView: Displays generated insights in activity feed
+ * - AuthenticationManager: Fallback userID source for robustness
+ * - PersistenceController: Core Data context for insight storage
+ * 
+ * INSIGHT LIFECYCLE:
+ * 1. Configuration: configureAndRefreshInsight() with user profile
+ * 2. Cache Check: fetchTodaysInsightFromCoreData() for existing insights
+ * 3. Generation: InsightFilterService.getPersonalizedInsight() for new content
+ * 4. Persistence: saveInsightToCoreData() for future reference
+ * 5. Publication: @Published properties update UI automatically
+ * 
+ * ERROR HANDLING & RESILIENCE:
+ * - Profile Fallbacks: Multiple sources for user profile data
+ * - Throttling Protection: Prevents rapid successive refresh calls
+ * - Core Data Errors: Graceful handling of persistence failures
+ * - Missing Data: Comprehensive null checking and default values
+ * - Network Independence: Works offline with cached data
+ * 
+ * PERSONALIZATION FEATURES:
+ * - Life Path Integration: Insights tailored to numerological profile
+ * - Focus Tag Matching: Aligns with user's selected spiritual interests
+ * - Spiritual Mode: Respects user's preferred spiritual approach
+ * - Cosmic Preferences: Incorporates cosmic alignment settings
+ * - Tone Adaptation: Matches user's preferred insight tone
+ * 
+ * TECHNICAL ARCHITECTURE:
+ * - Singleton Design: Single source of truth for insight state
+ * - Reactive Updates: Combine-based state propagation
+ * - Core Data ORM: Efficient data persistence and retrieval
+ * - Service Composition: Clean separation with InsightFilterService
+ * - Thread Safety: Proper main queue execution for UI updates
+ * 
+ * DEBUGGING & MONITORING:
+ * - Comprehensive Logging: Detailed insight generation tracking
+ * - Source Attribution: Template ID, score, and tag matching details
+ * - Performance Metrics: Throttling and cache hit rate monitoring
+ * - Error Tracking: Detailed error messages for troubleshooting
+ * - State Visibility: Clear insight ready/loading state management
+ */
+
 /**
  * `AIInsightManager` is an ObservableObject responsible for orchestrating the generation
  * and provision of personalized insights for the user.

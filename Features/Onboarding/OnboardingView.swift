@@ -1,4 +1,74 @@
 // Features/Onboarding/OnboardingView.swift
+//
+// 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
+//
+// === ONBOARDING FLOW STRUCTURE ===
+// • Total steps: 9 (8 data collection + 1 completion)
+// • Navigation: Back/Next buttons, 20pt bottom padding
+// • Background: Full screen CosmicBackgroundView
+// • Progress indicator: "Step X of 8" caption font
+//
+// === SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points) ===
+// • NavigationView: Hidden navigation bar
+// • Main VStack: Full height with progress, content, navigation
+// • Content padding: 20pt horizontal
+// • Bottom navigation: HStack with Back/Next/Finish buttons
+//
+// === NAVIGATION BUTTONS ===
+// • Back button: Purple color, standard padding
+// • Next/Finish button: Purple color, semibold weight
+// • Button padding: System default (~16pt)
+// • Bottom margin: 20pts from safe area
+//
+// === INITIAL INFO VIEW (Step 0) ===
+// • Header icon: 120×120pt circle with gradient
+// • Icon animation: Scale 1.0→1.1, 2s duration, repeat
+// • Title: Large Title font (~34pt), gradient text
+// • Subtitle: Title3 font (~20pt), 80% white opacity
+// • Section spacing: 30pts between major sections
+//
+// === INPUT FIELDS SECTION ===
+// • Container: RoundedRectangle, 20pt corner radius
+// • Background: Black 30% opacity
+// • Border: Purple→Blue gradient, 1pt width
+// • Shadow: Purple 30%, 15pt blur, 8pt Y offset
+// • Field spacing: 25pts between sections, 12pts between fields
+// • Text fields: CosmicTextFieldStyle (see SharedUIComponents)
+//
+// === NAME INPUT FIELDS ===
+// • Section icon: person.circle.fill, Title2 size
+// • Label font: Caption, uppercase, 0.5 tracking
+// • Label color: White 70% opacity
+// • Field height: ~44pts (standard iOS)
+// • Autocapitalization: Words
+//
+// === DATE PICKER ===
+// • Style: Compact
+// • Background: Black 30% opacity, 12pt radius
+// • Border: Blue 40% opacity, 1pt width
+// • Date range: 1900-01-01 to current date
+// • Time picker: Optional, shows when toggle enabled
+//
+// === EXPLANATION SECTION ===
+// • Container: 16pt corner radius
+// • Background: Blue 20% opacity
+// • Border: Blue 40% opacity, 1pt width
+// • Icon size: Title3 font (~20pt)
+// • Row spacing: 12pts between elements
+// • Text hierarchy: Subheadline title, Caption description
+//
+// === ANIMATION TIMINGS ===
+// • Header pulse: 2.0s ease-in-out, repeat forever
+// • Icon rotation: 8.0s linear, 360°, repeat forever
+// • Field animations: None (static for input stability)
+//
+// === STATE MANAGEMENT ===
+// • currentStep: Tracks active onboarding step
+// • Individual name fields: firstName, middleName, lastName
+// • birthTime: Optional Date for time selection
+// • includeBirthTime: Toggle state
+// • isCalculating: Animation trigger
+//
 import SwiftUI
 
 enum OnboardingStep: Int, CaseIterable {

@@ -32,6 +32,16 @@ struct CosmicTextFieldStyle: TextFieldStyle {
 /**
  * NumberButton provides a reusable selectable number button for various features.
  * Used in focus number selection, sightings creation, and other numeric inputs.
+ * 
+ * 🎯 PIXEL-PERFECT SPECIFICATIONS:
+ * • Button size: 80×80pt circle
+ * • Selected scale: 1.1x (88×88pt)
+ * • Number font: Title2 (~22pt), bold, white
+ * • Shadow: Black 30% opacity, 3pt blur, 1pt Y offset
+ * • Selection animation: 0.2s ease-in-out
+ * • Selected border: 2pt width, sacred color
+ * • Unselected border: 1pt width, white 30% opacity
+ * • Selected shadow: Sacred color 40%, 10pt blur, 5pt Y offset
  */
 struct NumberButton: View {
     let number: Int

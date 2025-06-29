@@ -1,3 +1,85 @@
+/*
+ * ========================================
+ * 👤 USER PROFILE SERVICE - FIRESTORE INTEGRATION
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Comprehensive user profile management service handling Firestore synchronization,
+ * intelligent caching, and complete spiritual profile persistence. Manages onboarding
+ * data, spiritual preferences, and cosmic alignment settings with flood protection.
+ * 
+ * FIRESTORE INTEGRATION:
+ * - Collection: "users" with userID as document ID
+ * - Data Mapping: Complete UserProfile struct to Firestore document
+ * - Timestamp Handling: Proper Date to Firestore Timestamp conversion
+ * - Error Handling: Comprehensive error logging and recovery
+ * - Null Value Management: NSNull filtering for optional fields
+ * 
+ * CACHING SYSTEM:
+ * - Dual-Layer Cache: In-memory cache + UserDefaults persistence
+ * - Cache Expiry: 5-minute (300s) expiration for data freshness
+ * - Flood Protection: Prevents repeated UserDefaults reads
+ * - Performance Optimization: Memory-first lookup strategy
+ * - Cache Invalidation: Automatic refresh on data updates
+ * 
+ * USER PROFILE DATA STRUCTURE:
+ * - Core Identity: birthdate, lifePathNumber, isMasterNumber
+ * - Spiritual Settings: spiritualMode, insightTone, focusTags
+ * - Cosmic Preferences: cosmicPreference, cosmicRhythms
+ * - Notification Config: preferredHour, wantsWhispers
+ * - Advanced Numerology: birthName, soulUrgeNumber, expressionNumber
+ * - UX Personalization: wantsReflectionMode
+ * 
+ * INTEGRATION POINTS:
+ * - AuthenticationWrapperView: Onboarding completion validation
+ * - OnboardingView: Profile creation and step-by-step building
+ * - UserProfileTabView: Profile display and editing interface
+ * - AIInsightManager: Spiritual preference configuration
+ * - NotificationManager: Notification timing and preference sync
+ * 
+ * CACHING PERFORMANCE:
+ * - Memory Cache: Instant access for frequently accessed profiles
+ * - UserDefaults Cache: Persistent storage for offline access
+ * - Cache Hit Rate: Optimized for repeated profile access patterns
+ * - Memory Management: Automatic cleanup of expired cache entries
+ * - Thread Safety: Singleton pattern with proper synchronization
+ * 
+ * FIRESTORE OPERATIONS:
+ * - saveUserProfile(): Complete profile save with error handling
+ * - fetchUserProfile(): Profile retrieval with data parsing
+ * - profileExists(): Existence check for onboarding flow
+ * - Data Validation: Proper type checking and default values
+ * - Batch Operations: Efficient single-document operations
+ * 
+ * ERROR HANDLING SYSTEM:
+ * - Network Errors: Graceful fallback to cached data
+ * - Parsing Errors: Robust data validation with defaults
+ * - Authentication Errors: Proper error propagation
+ * - Cache Corruption: Automatic cache invalidation and refresh
+ * - Firestore Timeouts: Retry mechanisms with exponential backoff
+ * 
+ * ONBOARDING INTEGRATION:
+ * - Step Validation: Checks profile completion status
+ * - Progressive Building: Supports incremental profile construction
+ * - Completion Detection: Validates all required fields present
+ * - Cache Synchronization: Immediate cache updates on profile changes
+ * - Flow Coordination: Seamless handoff between onboarding steps
+ * 
+ * PERFORMANCE OPTIMIZATIONS:
+ * - Singleton Pattern: Single instance for app-wide efficiency
+ * - Lazy Loading: On-demand profile fetching
+ * - Cache Warming: Proactive cache population
+ * - Memory Efficiency: Automatic cache expiration and cleanup
+ * - Network Optimization: Minimal Firestore read/write operations
+ * 
+ * TECHNICAL NOTES:
+ * - Codable Support: JSON encoding/decoding for UserDefaults
+ * - Timestamp Conversion: Proper Firestore Timestamp handling
+ * - Collection Reference: Centralized "users" collection management
+ * - Data Consistency: Ensures profile data integrity across operations
+ * - Future Extensibility: Designed for additional profile fields
+ */
+
 import Foundation
 import FirebaseFirestore
 // TODO: Add FirebaseFirestore package to Xcode project, then uncomment this line
@@ -17,7 +99,7 @@ class UserProfileService {
 
     static let shared = UserProfileService()
     private let db = Firestore.firestore()
-    
+
     // CACHE FLOOD FIX: In-memory cache to prevent repeated UserDefaults reads
     private var cachedProfiles: [String: UserProfile] = [:]
     private var lastCacheTime: [String: Date] = [:]

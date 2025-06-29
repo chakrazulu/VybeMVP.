@@ -4,10 +4,114 @@
 //
 //  Created by Corey Davis on 1/12/25.
 //
+
 import SwiftUI
 import HealthKit
 import SafariServices
 
+/**
+ * SettingsView: Comprehensive app settings and developer tools interface
+ * 
+ * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
+ * 
+ * === CORE PURPOSE ===
+ * Central hub for app configuration, health data management, and developer tools.
+ * Provides user control over permissions, testing capabilities, and account management.
+ * 
+ * === SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points) ===
+ * • NavigationView: Standard iOS navigation
+ * • Title: "Settings" - navigation title style
+ * • List: Grouped sections with system styling
+ * • Sections: Health Data, Testing, Account, App Info, Developer Tools
+ * 
+ * === HEALTH DATA SECTION ===
+ * • Heart Rate Access: Status indicator with colored labels
+ * • Detailed Status: Authorization breakdown per data type
+ * • Request Access: Button when not authorized
+ * • Open Settings: Button when denied (opens Health app)
+ * • Current Heart Rate: Live BPM display
+ * 
+ * === STATUS INDICATORS ===
+ * • Authorized: Green checkmark.circle.fill
+ * • Denied: Red xmark.circle.fill
+ * • Not Determined: Orange exclamationmark.circle.fill
+ * • Unknown: Gray questionmark.circle.fill
+ * 
+ * === TESTING SECTION ===
+ * • Match Testing: NavigationLink to TestingView
+ * • Blue checkmark.circle.fill icon
+ * • Standard list row styling
+ * 
+ * === ACCOUNT SECTION ===
+ * • Sign Out: Red destructive button
+ * • Confirmation alert with data warning
+ * • rectangle.portrait.and.arrow.right icon
+ * 
+ * === BACKGROUND TESTING SECTION ===
+ * • Heart Rate Simulation: Toggle control
+ * • Silent Update: Button to trigger background
+ * • Manual Calculation: Force realm number update
+ * • Force Heart Rate: Trigger HealthKit query
+ * • Generate Simulated: Create test heart rate
+ * • Live status displays for current values
+ * 
+ * === STATUS DISPLAYS ===
+ * • Current Realm Number: Green semibold text
+ * • Current Heart Rate: Blue semibold text
+ * • Simulation indicator: Orange "(Simulated)" caption
+ * • Real data indicator: Green "(Real from HealthKit)" caption
+ * 
+ * === DEVELOPER TOOLS (DEBUG ONLY) ===
+ * • Numerology Notification Tester: Link to test view
+ * • bell.badge icon with blue color
+ * • Only visible in DEBUG builds
+ * 
+ * === ARCHETYPE TESTING (TEMPORARY) ===
+ * • Test Birthdate Input: NavigationLink
+ * • Test Calculation: Button to calculate archetype
+ * • Show Stored: Display current archetype
+ * • Clear Stored: Remove archetype data
+ * • Status indicators for data presence
+ * 
+ * === APP INFO SECTION ===
+ * • Version: CFBundleShortVersionString display
+ * • Secondary text color for version number
+ * • Standard HStack layout
+ * 
+ * === ALERT SYSTEM ===
+ * • HealthKit Error: Permission and error handling
+ * • Sign Out Confirmation: Data loss warning
+ * • Test Results: Archetype calculation display
+ * • Background Update: Confirmation messages
+ * 
+ * === STATE MANAGEMENT ===
+ * • healthKitManager: EnvironmentObject for health data
+ * • realmNumberManager: EnvironmentObject for calculations
+ * • authManager: StateObject for authentication
+ * • Multiple @State variables for UI state
+ * 
+ * === NAVIGATION INTEGRATION ===
+ * • TestingView: Match testing interface
+ * • BirthdateInputView: Archetype input testing
+ * • NumerologyNotificationTestView: Notification testing
+ * 
+ * === EXTERNAL APP INTEGRATION ===
+ * • Health app: x-apple-health:// URL scheme
+ * • Settings app: UIApplication.openSettingsURLString
+ * • Graceful fallback between apps
+ * 
+ * === BUTTON ACTIONS ===
+ * • Request HealthKit: Async authorization flow
+ * • Open Settings: External app navigation
+ * • Sign Out: AuthenticationManager.signOut()
+ * • Background Tests: Various manager method calls
+ * 
+ * === CRITICAL NOTES ===
+ * • Environment objects ensure live data updates
+ * • Async/await for HealthKit operations
+ * • Error handling with user-friendly messages
+ * • Developer tools conditionally compiled
+ */
 struct SettingsView: View {
     @EnvironmentObject private var healthKitManager: HealthKitManager
     @EnvironmentObject private var realmNumberManager: RealmNumberManager

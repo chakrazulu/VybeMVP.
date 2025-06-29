@@ -1,3 +1,61 @@
+/*
+ * ========================================
+ * 🌌 SACRED NUMEROLOGY ENCYCLOPEDIA VIEW
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Interactive cosmic encyclopedia displaying deep meanings, symbolism, and spiritual applications
+ * for numbers 0-9. Features dynamic sacred color theming, rotating cosmic animations, and
+ * comprehensive mystical content presentation.
+ * 
+ * UI SPECIFICATIONS:
+ * - Screen: Full-screen cosmic experience with CosmicBackgroundView
+ * - Number Selector: 5-column LazyVGrid, 40×40pt circles with sacred color theming
+ * - Main Display: 120×120pt cosmic number circle with rotating outer ring (130×130pt)
+ * - Content Cards: 20pt radius, sacred gradient backgrounds with 2-3pt borders
+ * - Floating Symbols: 6 procedural cosmic symbols with randomized positions
+ * 
+ * SACRED COLOR SYSTEM:
+ * 0=White(Infinite Void), 1=Red(Prime Spark), 2=Orange(Sacred Union), 3=Yellow(Creative Trinity)
+ * 4=Green(Foundation), 5=Blue(Freedom), 6=Indigo(Harmony), 7=Purple(Mystic Eye)
+ * 8=Gold(Power Crown), 9=White(Universal Circle)
+ * 
+ * ANIMATION TIMINGS:
+ * - Title Pulse: 2.0s ease-in-out cycle
+ * - Cosmic Rotation: 20.0s linear continuous
+ * - Floating Effect: 3.0s ease-in-out ±8pt offset
+ * - Sparkle Phase: 4.0s linear continuous
+ * - Number Pulse: 1.5s ease-in-out ±3% scale
+ * - Section Glow: 2.5s ease-in-out glow cycle
+ * 
+ * CONTENT STRUCTURE:
+ * 1. Enhanced Mystical Title (28pt bold, sacred gradient text)
+ * 2. Cosmic Number Selector (0-9 grid with selection animations)
+ * 3. Enhanced Number Display (large cosmic circle + metadata)
+ * 4. Three Meaning Sections: Essence, Symbolism, Application
+ * 5. Universal Integration Notes (expandable spiritual guidance)
+ * 
+ * INTEGRATION POINTS:
+ * - NumberMeaningManager: Content provider for all numerology data
+ * - RealmNumberView: Navigation source with initialSelectedNumber parameter
+ * - CosmicBackgroundView: Shared cosmic aesthetic layer
+ * - Sacred color system: Unified throughout app
+ * 
+ * PERFORMANCE NOTES:
+ * - 6 floating symbols with staggered animation phases
+ * - TimelineView recommended for scroll-safe cosmic animations
+ * - Lazy loading of meaning content via NumberMeaningManager
+ * - Optimized shadow rendering with multiple color layers
+ * 
+ * MYSTICAL FEATURES:
+ * - Dynamic sacred color theming based on selected number
+ * - Procedural floating cosmic symbols with sine wave motion
+ * - Multi-layer shadow effects for depth and cosmic glow
+ * - Sacred gradient text with multiple color stops
+ * - Rotating cosmic rings with angular gradients
+ * - Responsive scaling effects on selection
+ */
+
 import SwiftUI
 
 struct NumberMeaningView: View {

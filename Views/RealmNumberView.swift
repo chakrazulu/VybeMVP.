@@ -1,6 +1,66 @@
 /**
  * Filename: RealmNumberView.swift
  * 
+ * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
+ *
+ * === SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points) ===
+ * • Background: Full screen cosmic effect with stars
+ * • ScrollView: Full width, vertical scrolling
+ * • Content VStack: 40pt spacing between sections
+ * • Horizontal padding: 20pts on all content
+ * • Top padding: 50pts from safe area
+ * • Bottom spacer: 100pts minimum
+ *
+ * === MYSTICAL TITLE ===
+ * • Text: "✦ THE REALM NUMBER ✦"
+ * • Font: 28pt bold rounded
+ * • Gradient: White→Purple(80%)→Blue(60%)
+ * • Shadow: White 30% opacity, 5pt blur, 2pt Y offset
+ *
+ * === REALM NUMBER DISPLAY (350×350pt) ===
+ * • Container: NavigationLink wrapper
+ * • Sacred geometry: DynamicAssetMandalaView full size
+ * • Realm number: 140pt bold rounded (matches HomeView)
+ * • Shadow layers: 5 total (20pt, 15pt, 10pt, 5pt, 8pt)
+ * • Tap hint: 12pt medium rounded, 70% white opacity
+ * • Hint position: 200pt from top of container
+ *
+ * === REALM DESCRIPTION CARD ===
+ * • Container padding: 24pts all sides
+ * • Corner radius: 20pts
+ * • Title font: 24pt semibold rounded
+ * • Description font: 16pt medium rounded, 80% opacity
+ * • Line spacing: 4pts
+ * • Background gradient: Color(20%)→Black(40%)
+ * • Border: 1pt stroke, Color 40% opacity
+ * • Shadow: 15pt blur, 8pt Y offset, 30% opacity
+ *
+ * === RULING NUMBER CHART ===
+ * • See RulingNumberChartView.swift for specifications
+ * • Full width component
+ * • Dynamic height based on content
+ *
+ * === COLOR SYSTEM (1-9) ===
+ * 1. Red (#FF0000)
+ * 2. Orange (#FFA500)
+ * 3. Yellow (#FFFF00)
+ * 4. Green (#00FF00)
+ * 5. Blue (#0000FF)
+ * 6. Indigo (#4B0082)
+ * 7. Purple (#800080)
+ * 8. Gold (#FFD700)
+ * 9. White (#FFFFFF)
+ *
+ * === ANIMATIONS ===
+ * • Sacred geometry: Static (no rotation)
+ * • Glow intensity: Fixed at 0.8 (no animation)
+ * • All effects: Performance optimized, no continuous animations
+ *
+ * === INTERACTION ZONES ===
+ * • Realm number display: Full 350×350pt tappable
+ * • Navigation: Opens NumberMeaningView
+ * • Ruling chart: Interactive components within
+ *
  * Purpose: Displays the current realm number in a mystical, transcendent experience.
  * Features cosmic background with numerology rain, enhanced glowing effects, and sacred geometry.
  * The realm number is a cosmic/universal numerical value that changes based on time, date,

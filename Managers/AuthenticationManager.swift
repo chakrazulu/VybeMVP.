@@ -1,3 +1,114 @@
+/*
+ * ========================================
+ * 🔐 AUTHENTICATION MANAGER - SECURE IDENTITY SYSTEM
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Comprehensive authentication orchestration managing Apple Sign-In, Firebase Auth
+ * integration, secure keychain storage, and app-wide authentication state. Serves
+ * as single source of truth for user identity with automatic state persistence
+ * and secure credential management.
+ * 
+ * AUTHENTICATION ARCHITECTURE:
+ * - Apple Sign-In Integration: Native ASAuthorizationAppleIDCredential handling
+ * - Firebase Auth Bridge: Seamless Apple ID to Firebase Auth conversion
+ * - Keychain Security: Secure credential storage via KeychainHelper
+ * - State Persistence: Automatic authentication state restoration
+ * - Singleton Pattern: App-wide access via AuthenticationManager.shared
+ * 
+ * CREDENTIAL FLOW SYSTEM:
+ * 1. Apple Sign-In: User authenticates with Apple ID
+ * 2. Token Extraction: Identity token and nonce validation
+ * 3. Firebase Integration: OAuthProvider credential creation
+ * 4. Keychain Storage: Secure Apple ID, email, fullName persistence
+ * 5. State Updates: @Published properties for SwiftUI binding
+ * 
+ * SECURITY FEATURES:
+ * - Cryptographic Nonce: SHA256-hashed random nonce for Apple Sign-In
+ * - Secure Random Generation: SecRandomCopyBytes for cryptographic security
+ * - Keychain Integration: iOS Keychain Services for credential protection
+ * - Firebase Auth: Server-side authentication validation
+ * - Identity Consistency: Apple ID as primary userID (never Firebase UID)
+ * 
+ * STATE MANAGEMENT:
+ * - @Published isSignedIn: Authentication status for UI binding
+ * - @Published isCheckingAuthStatus: Loading state during auth checks
+ * - @Published userID: Apple ID for consistent user identification
+ * - @Published userEmail: User email from Apple or Firebase
+ * - @Published userFullName: User display name from Apple
+ * - @Published firebaseUser: Firebase User object for Firestore operations
+ * 
+ * INTEGRATION POINTS:
+ * - AuthenticationWrapperView: Root navigation controller for auth flow
+ * - SignInView: Apple Sign-In button component
+ * - UserProfileService: Profile data association via userID
+ * - KeychainHelper: Secure credential storage and retrieval
+ * - UserArchetypeManager: Onboarding completion validation
+ * 
+ * FIREBASE INTEGRATION:
+ * - Auth State Listener: Automatic Firebase auth state monitoring
+ * - OAuthProvider: Apple ID to Firebase credential conversion
+ * - Identity Token: Secure token exchange for authentication
+ * - Firestore UID: Firebase UID for database operations
+ * - Auth State Synchronization: Real-time auth state updates
+ * 
+ * NONCE GENERATION SYSTEM:
+ * - Random String: 32-character cryptographically secure nonce
+ * - Character Set: Alphanumeric + special characters for entropy
+ * - SHA256 Hashing: Secure hash for Apple Sign-In validation
+ * - Security Validation: SecRandomCopyBytes for true randomness
+ * - State Tracking: currentNonce for request/response matching
+ * 
+ * LOGOUT & DATA CLEANUP:
+ * - Firebase Signout: Proper Firebase Auth.signOut() handling
+ * - Keychain Clearing: Complete removal of stored credentials
+ * - UserDefaults Cleanup: Archetype and app-specific data removal
+ * - Manager Reset: UserArchetypeManager and ResonanceEngine clearing
+ * - State Reset: All @Published properties reset to default values
+ * 
+ * ERROR HANDLING & RESILIENCE:
+ * - Token Validation: Comprehensive identity token verification
+ * - Nonce Validation: Secure nonce matching for request integrity
+ * - Firebase Errors: Graceful handling of authentication failures
+ * - Keychain Errors: Robust credential storage error handling
+ * - State Recovery: Automatic authentication state restoration
+ * 
+ * AUTHENTICATION LIFECYCLE:
+ * 1. App Launch: checkAuthenticationStatus() validates existing auth
+ * 2. Sign-In Flow: handleSignIn() processes Apple authentication
+ * 3. State Monitoring: Firebase auth listener tracks changes
+ * 4. Session Persistence: Keychain maintains credentials across launches
+ * 5. Sign-Out: Complete data cleanup and state reset
+ * 
+ * UTILITY FEATURES:
+ * - Display Name: Intelligent fallback (fullName → email → userID)
+ * - Firebase UID: Direct access for Firestore operations
+ * - Onboarding Status: Integration with UserArchetypeManager
+ * - Auth Validation: Comprehensive authentication state checking
+ * - Credential Management: Secure storage and retrieval patterns
+ * 
+ * PERFORMANCE OPTIMIZATIONS:
+ * - Singleton Pattern: Single instance for memory efficiency
+ * - Main Queue Updates: UI updates on main thread for responsiveness
+ * - Lazy Loading: Authentication checks only when needed
+ * - Memory Management: Proper auth listener cleanup in deinit
+ * - State Caching: Efficient credential retrieval from keychain
+ * 
+ * TECHNICAL SPECIFICATIONS:
+ * - Nonce Length: 32 characters for cryptographic security
+ * - Character Set: 62 characters (0-9, A-Z, a-z, -, ., _)
+ * - Hash Algorithm: SHA256 for secure nonce validation
+ * - Auth Provider: AuthProviderID.apple for Firebase integration
+ * - Keychain Keys: "userID", "email", "fullName" for credential storage
+ * 
+ * DEBUGGING & MONITORING:
+ * - Comprehensive Logging: Detailed authentication flow tracking
+ * - State Validation: Authentication status verification
+ * - Error Tracking: Detailed error messages for troubleshooting
+ * - Credential Monitoring: Keychain storage success/failure tracking
+ * - Firebase Integration: Auth state change monitoring and logging
+ */
+
 //
 //  AuthenticationManager.swift
 //  VybeMVP

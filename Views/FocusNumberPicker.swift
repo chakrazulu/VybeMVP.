@@ -1,6 +1,46 @@
 /**
  * Filename: FocusNumberPicker.swift
  * 
+ * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
+ *
+ * === MODAL PRESENTATION ===
+ * • Sheet style: Standard iOS modal (full screen on compact devices)
+ * • Navigation bar: Inline title display mode
+ * • Title: "Choose Focus Number" - standard navigation font
+ * • Done button: Navigation bar trailing, system blue
+ *
+ * === GRID LAYOUT ===
+ * • Grid type: LazyVGrid with adaptive columns
+ * • Column minimum: 80pt width
+ * • Grid spacing: 16pts between items (horizontal and vertical)
+ * • Container padding: Standard system padding (~20pts)
+ * • Scroll behavior: Vertical ScrollView
+ *
+ * === NUMBER BUTTONS (via NumberButton component) ===
+ * • Button size: Minimum 80×80pt (adaptive to screen)
+ * • Number font: See NumberButton.swift for specifications
+ * • Selected state: Visual indicator (color/border change)
+ * • Tap target: Full button area (80×80pt minimum)
+ * • Animation: Selection state change animation
+ *
+ * === INTERACTION FLOW ===
+ * 1. User taps number → Immediate selection
+ * 2. FocusNumberManager updated
+ * 3. Sheet auto-dismisses
+ * 4. Alternative: "Done" button dismisses without change
+ *
+ * === RESPONSIVE BEHAVIOR ===
+ * • iPhone SE: 3 columns (106pt each)
+ * • iPhone 14: 4 columns (90pt each)
+ * • iPhone 14 Pro Max: 4 columns (95pt each)
+ * • iPad: 6+ columns based on width
+ *
+ * === COLOR SYSTEM ===
+ * • Background: System background (adaptive)
+ * • Selected number: Accent color or custom highlight
+ * • Unselected: Secondary system color
+ * • Done button: System blue (default)
+ *
  * Purpose: Provides a grid-based interface for users to select their focus number.
  * This view is typically presented as a modal sheet when the user wants to change
  * their currently selected focus number.
@@ -30,21 +70,21 @@ struct FocusNumberPicker: View {
     /// Environment property to dismiss the sheet when selection is complete
     @Environment(\.dismiss) var dismiss
     
-    /// Spacing between grid items
+    /// 🎯 GRID SPACING: 16pts between all items (horizontal and vertical)
     private let spacing: CGFloat = 16
     
-    /// Grid layout configuration
+    /// 📐 GRID CONFIGURATION: Adaptive columns with 80pt minimum width
     private let columns = [
-        GridItem(.adaptive(minimum: 80), spacing: 16)
+        GridItem(.adaptive(minimum: 80), spacing: 16) // Creates 3-4 columns on iPhone
     ]
     
-    /// Valid focus numbers (1-9) retrieved from the FocusNumberManager
+    /// 🔢 NUMBER SET: Always 1-9 from FocusNumberManager
     private let numbers = FocusNumberManager.validFocusNumbers
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: spacing) {
+        NavigationView { // 📱 MODAL WRAPPER: Required for navigation bar
+            ScrollView { // 📜 SCROLLABLE CONTAINER: Vertical scrolling if needed
+                LazyVGrid(columns: columns, spacing: spacing) { // 🎯 RESPONSIVE GRID: 80pt min cells
                     ForEach(numbers, id: \.self) { number in
                         NumberButton(
                             number: number,

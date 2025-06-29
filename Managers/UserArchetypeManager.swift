@@ -1,3 +1,113 @@
+/*
+ * ========================================
+ * 🌟 USER ARCHETYPE MANAGER - SPIRITUAL IDENTITY CALCULATOR
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Advanced spiritual archetype calculation engine combining numerology, astrology,
+ * and planetary mappings to create comprehensive spiritual identity profiles.
+ * Generates Life Path numbers, zodiac alignments, elemental associations, and
+ * planetary archetypal influences from user birthdates.
+ * 
+ * SPIRITUAL CALCULATION SYSTEMS:
+ * - Life Path Numerology: Birthdate digit reduction with master number preservation
+ * - Zodiac Astrology: Date-based zodiac sign determination with precise boundaries
+ * - Elemental Mapping: Four-element system (Fire, Earth, Air, Water) from zodiac
+ * - Planetary Archetypes: Sacred planetary mappings for conscious/subconscious influences
+ * - Master Numbers: Special preservation of 11, 22, 33 in numerological calculations
+ * 
+ * NUMEROLOGY ALGORITHM:
+ * 1. Extract year, month, day components from birthdate
+ * 2. Sum all digits in each component using sumDigits() function
+ * 3. Add component sums together for total sum
+ * 4. Reduce using reduceToLifePath() preserving master numbers (11, 22, 33)
+ * 5. Return final Life Path number (1-9, 11, 22, 33)
+ * 
+ * ZODIAC DETERMINATION:
+ * - Aries: March 21 - April 19 (Fire)
+ * - Taurus: April 20 - May 20 (Earth)
+ * - Gemini: May 21 - June 20 (Air)
+ * - Cancer: June 21 - July 22 (Water)
+ * - Leo: July 23 - August 22 (Fire)
+ * - Virgo: August 23 - September 22 (Earth)
+ * - Libra: September 23 - October 22 (Air)
+ * - Scorpio: October 23 - November 21 (Water)
+ * - Sagittarius: November 22 - December 21 (Fire)
+ * - Capricorn: December 22 - January 19 (Earth)
+ * - Aquarius: January 20 - February 18 (Air)
+ * - Pisces: February 19 - March 20 (Water)
+ * 
+ * PLANETARY MAPPING TABLE:
+ * - 1: Sun/Saturn (Leadership/Structure)
+ * - 2: Moon/Mars (Intuition/Action)
+ * - 3: Jupiter/Mercury (Expansion/Communication)
+ * - 4: Uranus/Moon (Innovation/Emotion)
+ * - 5: Mercury/Neptune (Communication/Spirituality)
+ * - 6: Venus/Pluto (Love/Transformation)
+ * - 7: Neptune/Jupiter (Mysticism/Wisdom)
+ * - 8: Saturn/Sun (Authority/Power)
+ * - 9: Mars/Venus (Action/Harmony)
+ * - 11: Moon/Uranus (Master Intuition/Innovation)
+ * - 22: Earth/Mercury (Master Builder/Messenger)
+ * - 33: Venus/Mars (Master Teacher/Warrior)
+ * 
+ * STATE MANAGEMENT:
+ * - @Published currentArchetype: Currently loaded archetype for UI binding
+ * - @Published isCalculating: Boolean flag for calculation loading states
+ * - Singleton Pattern: UserArchetypeManager.shared for app-wide access
+ * - UserDefaults Persistence: Cached archetype data with JSON encoding
+ * - ObservableObject: SwiftUI reactive updates for archetype changes
+ * 
+ * INTEGRATION POINTS:
+ * - BirthdateInputView: Primary calculation trigger during onboarding
+ * - ArchetypeDisplayView: Displays calculated archetype with detailed breakdown
+ * - OnboardingView: Archetype completion validation for flow progression
+ * - UserProfileService: Profile integration for spiritual preference alignment
+ * - NotificationCenter: Posts .archetypeCalculated for flow coordination
+ * 
+ * CACHING & PERSISTENCE:
+ * - UserDefaults Storage: JSON-encoded archetype data for offline access
+ * - Cache Key: "user_archetype" for consistent data retrieval
+ * - Automatic Caching: All calculated archetypes automatically persisted
+ * - Cache Validation: hasStoredArchetype() for onboarding completion checks
+ * - Data Cleanup: clearArchetype() for logout and user data removal
+ * 
+ * CALCULATION PERFORMANCE:
+ * - Efficient Algorithms: Optimized digit summing and reduction operations
+ * - Master Number Logic: Proper preservation without unnecessary reduction
+ * - Date Component Extraction: Calendar-based component parsing
+ * - Error Handling: Comprehensive guards for invalid date components
+ * - Debugging Support: Detailed calculation logging for verification
+ * 
+ * ARCHETYPE COMPOSITION:
+ * - UserArchetype Struct: Complete spiritual profile data structure
+ * - Life Path Integration: Primary numerological identity number
+ * - Zodiac Properties: Sign, element, and date range information
+ * - Planetary Influences: Primary and subconscious planetary archetypes
+ * - Calculation Timestamp: Date tracking for archetype generation
+ * 
+ * ERROR HANDLING & VALIDATION:
+ * - Date Component Guards: Ensures valid year, month, day extraction
+ * - Planetary Mapping Validation: Fatal error for missing life path mappings
+ * - JSON Encoding/Decoding: Graceful handling of persistence failures
+ * - Fallback Mechanisms: Default zodiac sign (Capricorn) for edge cases
+ * - Master Number Validation: Proper identification and preservation
+ * 
+ * DEBUGGING & DEVELOPMENT:
+ * - Comprehensive Logging: Detailed calculation step tracking
+ * - Test Archetype Creation: createTestArchetype() for development
+ * - Debug Analysis: debugArchetype() for detailed profile inspection
+ * - Stored Archetype Access: storedArchetype property for testing
+ * - Calculation Tracing: Step-by-step numerology calculation logging
+ * 
+ * TECHNICAL NOTES:
+ * - Thread Safety: Main queue updates for @Published properties
+ * - Memory Efficiency: Minimal state storage with UserDefaults persistence
+ * - Algorithm Accuracy: Mathematically precise numerological calculations
+ * - Zodiac Precision: Exact date boundaries for accurate sign determination
+ * - Master Number Integrity: Proper preservation of sacred numerological values
+ */
+
 //
 //  UserArchetypeManager.swift
 //  VybeMVP

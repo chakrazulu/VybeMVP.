@@ -3,6 +3,101 @@ import SwiftUI
 /**
  * UserProfileTabView - The Sacred Digital Altar
  * 
+ * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
+ * 
+ * === CORE PURPOSE ===
+ * User's permanent spiritual sanctuary displaying their complete cosmic profile.
+ * This is the most complex view in the app with multiple interactive components.
+ * 
+ * === SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points) ===
+ * • NavigationView: Large title "My Sanctum"
+ * • Background: Full screen CosmicBackgroundView
+ * • ScrollView: Vertical, 16pt horizontal padding
+ * • Edit button: Top-right toolbar, purple color
+ * 
+ * === MAIN SECTIONS ===
+ * 1. Divine Triangle (Numerology Trinity)
+ * 2. Complete Archetype Codex (4 cards)
+ * 3. Action Buttons (3 buttons)
+ * 4. Profile Summary (personal info)
+ * 
+ * === DIVINE TRIANGLE SECTION ===
+ * • Container: Black 40% opacity, 20pt corner radius
+ * • Border: 1.5pt gradient stroke (purple→blue→indigo)
+ * • Shadow: Purple 50%, 20pt blur, 8pt Y offset
+ * • Title: "✦ The Divine Triangle ✦" - Title2 bold
+ * • Subtitle: Caption font, 80% white
+ * 
+ * === LIFE PATH CARD (Primary) ===
+ * • Size: Full width, ~140pt height
+ * • Background: Gradient (primary color→black)
+ * • Number display: 60pt bold, white
+ * • Title: Title3 bold, gradient text
+ * • Description: Body font, 95% white
+ * • Tap action: Opens LifePathDetailView
+ * 
+ * === SOUL URGE & EXPRESSION CARDS ===
+ * • Layout: Side by side, equal width
+ * • Spacing: 16pt between cards
+ * • Height: ~120pt each
+ * • Number: 36pt medium
+ * • Similar styling to Life Path
+ * 
+ * === ARCHETYPE CODEX SECTION ===
+ * • Container: Same as Divine Triangle
+ * • 4 full-width cards, 16pt spacing
+ * • Each card is tappable
+ * 
+ * === ARCHETYPE CARD SPECS ===
+ * • Height: ~100pt
+ * • Layout: HStack with icon left, content right
+ * • Icon: 40pt font size, colored shadow
+ * • Title: Headline font, gradient
+ * • Description: 3 lines max, footnote
+ * • Tap feedback: UIImpactFeedbackGenerator.medium
+ * 
+ * === ACTION BUTTONS ===
+ * • Layout: 3 buttons in HStack
+ * • Spacing: 12pt between buttons
+ * • Height: 50pt each
+ * • Style: Gradient background, 12pt radius
+ * • Icons: SF Symbols, 20pt size
+ * 
+ * === PROFILE SUMMARY ===
+ * • Container: Same styling as other sections
+ * • Content: Name, birthdate, birth time, location
+ * • Font: Body for labels, headline for values
+ * • Layout: VStack with 12pt spacing
+ * 
+ * === ANIMATIONS ===
+ * • Life Path pulse: 2s duration, forever
+ * • Archetype glow: 3s duration, forever
+ * • Card hover: Scale 1.02, shadow increase
+ * • Tap: Scale 0.98, then back
+ * 
+ * === LOADING SEQUENCE ===
+ * • 0.2s: Cache check
+ * • 1.0s: Full profile load
+ * • 2.0s: Archetype generation
+ * • Prevents tab switching lag
+ * 
+ * === COLOR SYSTEM ===
+ * • Zodiac: Blue/Cyan
+ * • Elements: Fire(Red), Earth(Brown), Air(Yellow), Water(Cyan)
+ * • Planets: Orange/Yellow (primary), Indigo/Purple (shadow)
+ * • Numbers: Sacred color system (1-9)
+ * 
+ * === SHEET PRESENTATIONS ===
+ * • Edit Profile: Full screen sheet
+ * • Archetype Detail: Modal with close button
+ * • Sigil View: Placeholder for future
+ * 
+ * === STATE MANAGEMENT ===
+ * • userProfile: Current user data
+ * • archetypeManager: Singleton for archetype
+ * • selectedArchetypeDetail: Sheet navigation
+ * • Animation states: Pulse and glow booleans
+ * 
  * This is the user's permanent spiritual sanctuary where they can:
  * - View their complete spiritual archetype
  * - Interact with archetypal components for deeper understanding
@@ -1189,8 +1284,8 @@ struct UserProfileTabView: View {
             
             DispatchQueue.global(qos: .userInitiated).async {
                 let calculatedArchetype = self.archetypeManager.calculateArchetype(from: profile.birthdate)
-                print("✨ Calculated new archetype: \(calculatedArchetype.zodiacSign.rawValue) \(calculatedArchetype.element.rawValue)")
-                
+            print("✨ Calculated new archetype: \(calculatedArchetype.zodiacSign.rawValue) \(calculatedArchetype.element.rawValue)")
+            
                 DispatchQueue.main.async {
                     self.archetypeRetryCount = 0 // Reset retry count on success
                 }
@@ -1206,7 +1301,7 @@ struct UserProfileTabView: View {
                 // Retry once profile is available
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                     if self.userProfile != nil {
-                        self.loadArchetype()
+                    self.loadArchetype()
                     } else {
                         print("❌ Profile still not available after 3s, archetype calculation failed")
                     }

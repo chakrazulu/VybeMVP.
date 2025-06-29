@@ -1,6 +1,78 @@
 /**
  * Filename: RealmNumberManager.swift
  * 
+ * 🎯 COMPREHENSIVE MANAGER REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
+ * 
+ * === CORE PURPOSE ===
+ * Generates cosmic realm numbers (1-9) based on environmental factors.
+ * This is the mystical heart of the app - creating dynamic numbers for matching.
+ * 
+ * === CALCULATION ALGORITHM ===
+ * Realm Number = reduceToSingleDigit(Time + Date + Location + BPM + Dynamic)
+ * • Time: Hour + Minute (UTC)
+ * • Date: Day + Month
+ * • Location: 0 (no location) or 1 (has location)
+ * • BPM: Heart rate reduced to single digit
+ * • Dynamic: 0 (reserved for future use)
+ * 
+ * === KEY FEATURES ===
+ * • Real-time updates every 5 minutes
+ * • Heart rate integration from HealthKit
+ * • Location-aware calculations
+ * • Performance caching system
+ * • Prediction algorithm for next number
+ * • Test mode support with mock data
+ * 
+ * === PUBLISHED PROPERTIES ===
+ * • currentRealmNumber: The active realm number (1-9)
+ * • currentState: Manager operational state
+ * • currentBPM: Current heart rate (real or simulated)
+ * 
+ * === UPDATE TRIGGERS ===
+ * 1. Timer: Every 5 minutes (300 seconds)
+ * 2. Heart rate change: Throttled to once per minute
+ * 3. Location change: 500+ meter movement
+ * 4. Manual: calculateRealmNumber() call
+ * 
+ * === HEART RATE HANDLING ===
+ * Priority order:
+ * 1. Forced BPM (testing)
+ * 2. Real device heart rate
+ * 3. Last real heart rate
+ * 4. Simulated heart rate
+ * 5. Last valid BPM
+ * 6. Default: 72 BPM
+ * 
+ * === PERFORMANCE OPTIMIZATIONS ===
+ * • Calculation throttling: 1 second minimum
+ * • Result caching with component matching
+ * • Heart rate throttling: 30 second intervals
+ * • Location updates: 500m minimum distance
+ * 
+ * === MANAGER STATES ===
+ * • 🚀 Initializing: Starting up
+ * • ✅ Active: Generating numbers
+ * • 📍 Waiting for Location: Need GPS
+ * • ⏹ Stopped: Not running
+ * 
+ * === INTEGRATION POINTS ===
+ * • HealthKitManager: Heart rate data
+ * • CLLocationManager: GPS coordinates
+ * • FocusNumberManager: Match detection
+ * • NotificationCenter: Heart rate updates
+ * 
+ * === TESTING FEATURES ===
+ * • Mock BPM array: [62, 75, 85, 95, 115, 135]
+ * • Test date override capability
+ * • Isolated test environment detection
+ * • Forced BPM parameter support
+ * 
+ * === CRITICAL NOTES ===
+ * • All calculations use UTC time
+ * • Single digit reduction is recursive
+ * • Location is binary (0 or 1)
+ * • Cache prevents redundant calculations
+ * 
  * Purpose: Manages the generation and calculation of realm numbers based on 
  * multiple environmental factors including time, location, and heart rate.
  *
@@ -542,6 +614,14 @@ class RealmNumberManager: NSObject, ObservableObject {
         if finalNumber != oldNumber || testDate != nil {
             currentRealmNumber = finalNumber
             print("🔄 Realm Number changed from \(oldNumber) to \(finalNumber)")
+            
+            // 🌟 Publish realm number change for VybeMatchManager
+            NotificationCenter.default.post(
+                name: NSNotification.Name.realmNumberChanged,
+                object: nil,
+                userInfo: ["realmNumber": finalNumber]
+            )
+            
             print("\n🔢 Component Breakdown:")
             print("Time: \(hour)h:\(minute)m → \(timeSum)")
             print("Date: \(month)/\(day) → \(dateSum)")

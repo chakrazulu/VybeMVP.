@@ -686,7 +686,7 @@ struct OnboardingCompletionView: View {
                 Image(systemName: "arrow.right.circle.fill")
                     .font(.body)
             }
-            .frame(maxWidth: .infinity)
+                    .frame(maxWidth: .infinity)
             .padding(.horizontal, 8)
             .frame(height: 64)
             .background(

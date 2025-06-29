@@ -1,3 +1,120 @@
+/*
+ * ========================================
+ * 🌐 SOCIAL TIMELINE VIEW - GLOBAL RESONANCE FEED
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Comprehensive spiritual social networking timeline displaying global cosmic community
+ * posts with advanced filtering, resonance matching, and mystical content curation.
+ * Creates sacred space for spiritual sharing with numerological alignment and
+ * archetypal resonance discovery across the cosmic community.
+ * 
+ * UI SPECIFICATIONS:
+ * - Background: CosmicBackgroundView with space travel star field
+ * - Filter Tabs: Horizontal scroll with capsule buttons (16pt padding)
+ * - Post Cards: LazyVStack with 20pt spacing and staggered animations
+ * - Compose Button: 66×66pt gradient circle with purple-blue gradient
+ * - Empty State: 60pt sparkles icon with cosmic messaging
+ * 
+ * SOCIAL FILTERING SYSTEM:
+ * - All: Complete spiritual community feed
+ * - Resonant: Posts aligned with user's numerological frequency
+ * - Recent: Last 24 hours of cosmic activity
+ * - Sightings: Number synchronicity experiences
+ * - Chakras: Chakra-based spiritual experiences
+ * 
+ * COSMIC RESONANCE MATCHING:
+ * - Life Path Alignment: Posts from users with compatible life paths
+ * - Focus Number Sync: Content matching current focus number
+ * - Archetypal Resonance: Posts aligned with spiritual archetype
+ * - Numerological Harmony: Advanced compatibility algorithms
+ * - Cosmic Signature: Spiritual frequency matching system
+ * 
+ * STATE MANAGEMENT:
+ * - @StateObject postManager: PostManager.shared for social data
+ * - @State showingComposer: Post creation modal presentation
+ * - @State selectedFilter: Current timeline filter selection
+ * - @State animateIn: Staggered animation state for post cards
+ * - Mock Current User: Development user with numerological profile
+ * 
+ * ANIMATION SYSTEM:
+ * - Staggered Entry: Posts animate in with 0.1s delay per card
+ * - Scale & Opacity: 0.8→1.0 scale with 0.0→1.0 opacity transition
+ * - Compose Button: Spring animation with 0.3s delay
+ * - Filter Selection: 1.05x scale on selected state
+ * - Empty State: 0.8s ease-out animation with 0.2s delay
+ * 
+ * INTEGRATION POINTS:
+ * - PostManager: Social data management and CRUD operations
+ * - PostCardView: Individual post display with interaction support
+ * - PostComposerView: Post creation interface with spiritual metadata
+ * - CosmicBackgroundView: Consistent cosmic aesthetic layer
+ * - SocialUser: User profile with numerological identity
+ * 
+ * SPIRITUAL CONTENT FEATURES:
+ * - Numerological Context: Posts include life path and focus numbers
+ * - Cosmic Signatures: Spiritual frequency identification
+ * - Synchronicity Sharing: Number sighting experiences
+ * - Chakra Experiences: Energy center alignment stories
+ * - Mystical Reactions: Spiritual response system with cosmic emojis
+ * 
+ * TIMELINE FILTER SPECIFICATIONS:
+ * - All (infinity): Complete community feed
+ * - Resonant (waveform.path): Numerologically aligned content
+ * - Recent (clock): 24-hour activity window
+ * - Sightings (eye.fill): Number synchronicity posts
+ * - Chakras (circle.hexagongrid.fill): Energy center experiences
+ * 
+ * PERFORMANCE OPTIMIZATIONS:
+ * - LazyVStack: Efficient rendering for large post collections
+ * - Filter Caching: Optimized post filtering with computed properties
+ * - Animation Batching: Staggered animations prevent performance issues
+ * - Memory Management: Proper state cleanup and resource management
+ * - Sheet Presentation: Modal composer for memory efficiency
+ * 
+ * SOCIAL INTERACTION SYSTEM:
+ * - Reaction System: Cosmic emoji reactions with spiritual context
+ * - Post Composition: Rich post creation with mystical metadata
+ * - User Profiles: Numerological identity with cosmic signatures
+ * - Community Discovery: Resonance-based content recommendation
+ * - Spiritual Networking: Connection through archetypal alignment
+ * 
+ * EMPTY STATE DESIGN:
+ * - Sacred Messaging: "The Timeline Awaits" with encouraging copy
+ * - Call to Action: "Share Your Vybe" button with gradient styling
+ * - Cosmic Iconography: Sparkles icon with mystical presentation
+ * - Community Building: Encourages first post creation
+ * - Spiritual Invitation: Welcoming tone for cosmic community
+ * 
+ * COMPOSE BUTTON DESIGN:
+ * - Floating Position: Bottom-right with 20pt trailing, 100pt bottom margin
+ * - Gradient Circle: Purple-to-blue with 15pt shadow radius
+ * - Icon: Plus symbol with title weight and white color
+ * - Label: "Share Vybe" caption with shadow effect
+ * - Spring Animation: Responsive interaction with dampened spring
+ * 
+ * LOADING STATE HANDLING:
+ * - Progress Indicator: 1.5x scaled circular progress view
+ * - Cosmic Messaging: "Loading the cosmic timeline..." with mystical tone
+ * - White Tinting: Consistent with cosmic theme color scheme
+ * - Centered Layout: Full-screen loading with proper spacing
+ * - User Feedback: Clear indication of data loading state
+ * 
+ * TECHNICAL SPECIFICATIONS:
+ * - Navigation: Large title display mode with "Global Resonance"
+ * - Filter Layout: Horizontal scroll with 16pt spacing between tabs
+ * - Post Spacing: 20pt between cards with 100pt bottom padding
+ * - Animation Timing: 0.6s duration with index-based delay calculation
+ * - Sheet Presentation: Full-screen modal for post composition
+ * 
+ * DEBUGGING & MONITORING:
+ * - Mock User Data: Development user with complete numerological profile
+ * - Filter Validation: Ensures proper content filtering by type
+ * - Animation Tracking: Monitors staggered animation performance
+ * - Post Management: Tracks social interaction and content creation
+ * - Resonance Algorithms: Validates cosmic alignment calculations
+ */
+
 //
 //  SocialTimelineView.swift
 //  VybeMVP

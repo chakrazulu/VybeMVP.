@@ -2,6 +2,75 @@
 //  PhantomChakrasView.swift
 //  VybeMVP
 //
+//  🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
+//
+//  === SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points) ===
+//  • Background: Full screen CosmicBackgroundView
+//  • Main VStack: Full height with header, content, controls
+//  • Header section: ~100pt height with title and subtitle
+//  • ScrollView: Flexible height, 10pt horizontal padding
+//  • Bottom controls: ~150pt height with indicators and button
+//
+//  === HEADER SECTION ===
+//  • Title: "Phantom of the Chakras" - Large Title font (~34pt)
+//  • Title gradient: White→Purple(80%)
+//  • Subtitle: Subheadline font (~15pt), 70% white opacity
+//  • Top padding: 20pts from safe area
+//  • Animation: Scale 0.8→1.0, opacity 0→1
+//
+//  === CHAKRA STACK ===
+//  • Vertical spacing: 35pts between chakras
+//  • Chakra order: Reversed (Crown at top, Root at bottom)
+//  • Vertical padding: 30pts top and bottom
+//  • Animation: Staggered entrance, 0.1s delay per chakra
+//  • Scale animation: 0.8→1.0 with 0.5s ease-out
+//
+//  === CHAKRA SYMBOLS (via ChakraSymbolView) ===
+//  • See ChakraSymbolView.swift for detailed specifications
+//  • Tap handling: Single tap for detail, long press for harmonize
+//  • Disabled state: During initialization or processing
+//
+//  === ACTIVE CHAKRAS INDICATOR ===
+//  • Dot size: 8×8pt circles
+//  • Spacing: 15pts between dots
+//  • Container: Capsule with 10pt vertical, 20pt horizontal padding
+//  • Background: 10% white opacity
+//  • Only visible when chakras are active
+//
+//  === MEDITATION BUTTON ===
+//  • Width: Full width minus 80pts (40pt margins)
+//  • Height: 56pts
+//  • Corner radius: 28pts (pill shape)
+//  • Gradient: Purple→Blue horizontal
+//  • Shadow: Purple 30% opacity, 8pt blur, 4pt Y offset
+//  • Icon: "sparkles" system image
+//  • Text: Semibold font weight
+//  • Bottom padding: 30pts from safe area
+//
+//  === MEDITATION VIEW MODAL ===
+//  • Presentation: Full screen sheet
+//  • Background gradient: Purple(30%)→Blue(20%)→Black
+//  • Om symbol: 80pt font size
+//  • Pulsing circle: 300×300pt, 1.0→1.2 scale animation
+//  • Animation duration: 4.0s ease-in-out, repeat forever
+//  • Control buttons: 60pt system icons
+//  • Button spacing: 40pts horizontal
+//
+//  === ANIMATION TIMINGS ===
+//  • Initial delay: 1.0s for UI initialization
+//  • Chakra entrance: 0.5s duration, 0.1s stagger
+//  • Audio timeout: 3.0s fallback
+//  • Tap processing: 0.5s activation + 0.2s cooldown
+//  • Meditation pulse: 4.0s cycle
+//
+//  === STATE MANAGEMENT ===
+//  • selectedChakra: Currently selected for detail view
+//  • showingDetail: Sheet presentation state
+//  • showingMeditation: Meditation sheet state
+//  • animateIn: Entrance animation trigger
+//  • isTapProcessing: Prevents multiple simultaneous taps
+//  • isInitialized: UI ready state (independent of audio)
+//
 //  Main view for the Phantom of the Chakras feature
 //
 
@@ -29,9 +98,9 @@ struct PhantomChakrasView: View {
                 // Header
                 headerSection
                 
-                // Chakra stack
+                // 🎯 CHAKRA STACK: 35pt spacing, reversed order (Crown→Root)
                 ScrollView(showsIndicators: false) {
-                    VStack(spacing: 35) {
+                    VStack(spacing: 35) { // 35pt vertical spacing between chakras
                         ForEach(chakraManager.chakraStates.reversed()) { chakraState in
                             ChakraSymbolView(
                                 chakraState: chakraState,
@@ -99,7 +168,7 @@ struct PhantomChakrasView: View {
             
             // Step 3: Update resonance after animations start
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                updateChakraResonance()
+            updateChakraResonance()
             }
             
             // Step 4: Audio engine timeout fallback

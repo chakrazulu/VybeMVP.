@@ -1,3 +1,91 @@
+/*
+ * ========================================
+ * 🔄 BACKGROUND MANAGER - LIFECYCLE COORDINATOR
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Comprehensive background task orchestration managing app lifecycle transitions,
+ * background refresh scheduling, notification delivery, and coordinated updates
+ * between realm and focus number managers for continuous cosmic monitoring.
+ * 
+ * BACKGROUND TASK SYSTEM:
+ * - BGAppRefreshTask Integration: iOS background app refresh for realm calculations
+ * - Task Scheduling: 15-minute intervals with proper iOS background limits
+ * - Expiration Handling: 25-second timeout with graceful task completion
+ * - Battery Optimization: Timer tolerance (30s) for efficient power usage
+ * - State Persistence: Maintains manager states across app lifecycle changes
+ * 
+ * NOTIFICATION MANAGEMENT:
+ * - UNUserNotificationCenter Integration: Local notification delivery system
+ * - Permission Handling: Authorization request flow with status monitoring
+ * - Badge Management: Automatic badge clearing on app activation
+ * - Category System: "MATCH_NOTIFICATION" category for cosmic matches
+ * - Delegate Pattern: UNUserNotificationCenterDelegate for notification responses
+ * 
+ * APP LIFECYCLE COORDINATION:
+ * - Foreground Updates: 5-minute active timer with tolerance optimization
+ * - Background Updates: 15-minute background refresh scheduling
+ * - State Transitions: Seamless manager coordination during app state changes
+ * - Memory Management: Proper timer cleanup and weak reference patterns
+ * - Notification Cleanup: Badge and delivered notification clearing
+ * 
+ * MANAGER INTEGRATION:
+ * - RealmNumberManager: Weak reference for realm calculation coordination
+ * - FocusNumberManager: Weak reference for match detection integration
+ * - Combine Integration: Reactive updates via manager subscriptions
+ * - State Synchronization: Ensures managers are active during updates
+ * - Dependency Injection: Clean manager reference setup via setManagers()
+ * 
+ * PERFORMANCE OPTIMIZATIONS:
+ * - Reduced Update Frequency: 5-minute foreground (down from 1-minute)
+ * - Timer Tolerance: 30-second tolerance for battery efficiency
+ * - Weak References: Prevents retain cycles with manager dependencies
+ * - Batch Operations: NotificationBatch for efficient notification updates
+ * - Background Queue: Non-blocking background task execution
+ * 
+ * UPDATE COORDINATION FLOW:
+ * 1. performUpdate() triggers RealmNumberManager calculation
+ * 2. Combine subscription in FocusNumberManager detects realm changes
+ * 3. Automatic match detection via reactive programming
+ * 4. Notification delivery handled by FocusNumberManager
+ * 5. Background task completion with success status
+ * 
+ * NOTIFICATION SYSTEM:
+ * - Authorization Flow: Proper permission request with status checking
+ * - Settings Monitoring: Tracks alert, sound, and badge permissions
+ * - Foreground Presentation: Shows notifications even when app is active
+ * - Response Handling: Processes user notification interactions
+ * - Badge Synchronization: Automatic badge count management
+ * 
+ * ERROR HANDLING & RESILIENCE:
+ * - Task Expiration: Graceful handling of iOS background time limits
+ * - Manager Validation: Guards against nil manager references
+ * - Permission Failures: Robust handling of notification denials
+ * - Timer Failures: Proper cleanup and restart mechanisms
+ * - Background Failures: Fallback strategies for background task issues
+ * 
+ * SINGLETON ARCHITECTURE:
+ * - Shared Instance: App-wide access via BackgroundManager.shared
+ * - Thread Safety: Main queue operations for UI-related updates
+ * - Lifecycle Management: Proper initialization and cleanup
+ * - Observer Pattern: UIApplication lifecycle notification handling
+ * - Memory Safety: Automatic cleanup in deinit with observer removal
+ * 
+ * TECHNICAL SPECIFICATIONS:
+ * - Active Update Interval: 300 seconds (5 minutes) with 30s tolerance
+ * - Background Update Interval: 900 seconds (15 minutes)
+ * - Task Timeout: 25 seconds for background operations
+ * - Task Identifier: "com.infinitiesinn.vybe.backgroundUpdate"
+ * - Notification Categories: MATCH_NOTIFICATION with custom actions
+ * 
+ * DEBUGGING & MONITORING:
+ * - Comprehensive Logging: Detailed status updates for all operations
+ * - Timer Status: Active/stopped state tracking with success confirmation
+ * - Permission Tracking: Authorization status monitoring and reporting
+ * - Task Lifecycle: Background task scheduling and completion logging
+ * - Update Coordination: Manager state synchronization tracking
+ */
+
 /**
  * Filename: BackgroundManager.swift
  * 

@@ -1,6 +1,59 @@
 /**
  * Filename: ContentView.swift
  * 
+ * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
+ *
+ * === ROOT CONTAINER STRUCTURE ===
+ * • ZStack: Full screen (430×932pt on iPhone 14 Pro Max)
+ * • NavigationView: Contains TabView
+ * • TabView: 12 tabs total, standard iOS tab bar (49pt height)
+ * • VybeMatchOverlay: Floating above all content when active
+ *
+ * === TAB BAR SPECIFICATIONS ===
+ * • Height: 49pt standard iOS tab bar
+ * • Tab items: Icon (25×25pt) + Text (10pt font)
+ * • Selected color: System accent color
+ * • Unselected color: System gray
+ * • Background: Opaque with scrollEdgeAppearance
+ *
+ * === TAB LAYOUT (12 tabs) ===
+ * 0. Home - house.fill icon
+ * 1. Journal - book.fill icon
+ * 2. Timeline - globe.americas.fill icon
+ * 3. My Sanctum - person.circle.fill icon
+ * 4. Activity - list.star icon
+ * 5. Sightings - sparkle.magnifyingglass icon
+ * 6. Realm - sparkles icon
+ * 7. Chakras - circle.grid.3x3.circle.fill icon
+ * 8. Analytics - chart.bar.fill icon
+ * 9. Meanings - number.circle.fill icon
+ * 10. Settings - gear icon
+ * 11. About - info.circle.fill icon
+ * 12. Test - sparkle icon (temporary)
+ *
+ * === OVERLAY SYSTEM ===
+ * • VybeMatchOverlay: Full screen overlay, see VybeMatchOverlay.swift
+ * • Sheet presentations: Standard iOS modal (full screen)
+ * • Notification sheet: NavigationView wrapped content
+ *
+ * === STARTUP SEQUENCE (Performance Optimized) ===
+ * • 0.0s: Tab bar appearance configuration
+ * • 0.2s: FocusNumberManager configuration
+ * • 0.8s: Heart rate monitoring start
+ * • 2.0s: AI insights refresh + VybeMatch sync
+ * • 15.0s: Match detection system enabled
+ *
+ * === STATE MANAGEMENT ===
+ * • @StateObject: 5 managers (Focus, Activity, AI, Health, SignIn, VybeMatch)
+ * • @EnvironmentObject: RealmNumberManager (passed from app)
+ * • @State: selectedTab (Int), sheet states
+ *
+ * === NAVIGATION FLOW ===
+ * • Tab selection: Direct via selectedTab binding
+ * • Activity navigation: Via ActivityNavigationManager
+ * • Realm navigation: Via ActivityNavigationManager
+ * • Sheet presentation: Via @State bindings
+ *
  * Purpose: Main container view that manages navigation between the app's primary sections.
  * This serves as the app's root view, providing tab-based navigation to all major features.
  *
@@ -42,6 +95,9 @@ struct ContentView: View {
     /// Manages sign in state
     @StateObject private var signInViewModel = SignInViewModel()
     
+    /// 🌟 Manages cosmic match detection and visual effects
+    @StateObject private var vybeMatchManager = VybeMatchManager()
+    
     // NEW State for handling notification taps
     @State private var showNotificationSheet = false
     @State private var notificationData: (number: Int, category: String, message: String)? = nil
@@ -50,9 +106,10 @@ struct ContentView: View {
     @State private var selectedTab = 0
     
     var body: some View {
-        NavigationView {
-            TabView(selection: $selectedTab) {
-                    // HOME TAB - Loads immediately
+        ZStack { // 🎯 ROOT CONTAINER: Full screen ZStack for layered content
+            NavigationView { // 📱 NAVIGATION WRAPPER: Required for tab-based navigation
+                TabView(selection: $selectedTab) { // 🎨 TAB BAR: 12 tabs, 49pt height
+                    // 🏠 HOME TAB (Tag 0) - Primary landing screen
                     HomeView()
                         .environmentObject(focusNumberManager)
                         .environmentObject(activityNavigationManager) 
@@ -168,6 +225,16 @@ struct ContentView: View {
                         }
                         .tag(12)
                 }
+            }
+            
+            // 🌟 COSMIC MATCH OVERLAY: Floating celebration layer (380×300pt bubble)
+            // Appears above all content when Focus Number == Realm Number
+            // See VybeMatchOverlay.swift for detailed pixel specifications
+            VybeMatchOverlay(
+                isVisible: $vybeMatchManager.isMatchActive,
+                matchedNumber: vybeMatchManager.currentMatchedNumber,
+                heartRate: vybeMatchManager.currentHeartRate
+            )
         }
         .sheet(isPresented: $showNotificationSheet) {
             // Present the NumberMatchNotificationView when showNotificationSheet is true
@@ -227,6 +294,12 @@ struct ContentView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 aiInsightManager.refreshInsightIfNeeded()
                 print("🧠 AI insights refresh initiated...")
+                
+                // 🌟 Sync VybeMatchManager with current manager states
+                vybeMatchManager.syncCurrentState(
+                    focusNumber: focusNumberManager.selectedFocusNumber,
+                    realmNumber: realmNumberManager.currentRealmNumber
+                )
             }
             
             // Step 4: CRITICAL - Defer match detection system to prevent freeze (15.0s delay)

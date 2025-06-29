@@ -1,3 +1,61 @@
+/*
+ * ========================================
+ * 🌌 COSMIC BACKGROUND VIEW - SPACE TRAVEL EFFECT
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Foundational animated background creating immersive space travel experience with stars
+ * accelerating toward viewer. Used throughout app for consistent cosmic aesthetic.
+ * Provides parallax depth effect and dynamic star field generation.
+ * 
+ * UI SPECIFICATIONS:
+ * - Screen: Full-screen ignoresSafeArea() coverage
+ * - Base Gradient: Black → Purple(30%) → Indigo(20%) → Black
+ * - Star Field: 35 active stars (performance optimized from higher counts)
+ * - Star Sizes: 0.5-3.0pt initial, growing to 15pt maximum
+ * - Star Colors: White, Cyan, Purple, Indigo, Blue with opacity variations
+ * 
+ * ANIMATION SYSTEM:
+ * - Timer Interval: 0.05s (20fps) for smooth motion without performance hit
+ * - Star Speed: 1-4pt/frame initial, accelerating with depth factor
+ * - Parallax Effect: Stars move outward from screen center (centerX, centerY)
+ * - Depth Factor: 0.1-1.0 controls acceleration and movement speed
+ * - Size Growth: 0.1 * speed * depth per frame
+ * - Opacity Fade: Increases as stars approach (0.01 * depth per frame)
+ * 
+ * STAR LIFECYCLE:
+ * 1. Birth: Generated in center area (centerX±100, centerY±100)
+ * 2. Travel: Accelerate outward with increasing size and opacity
+ * 3. Death: Removed when size>15pt or position off-screen (±50pt buffer)
+ * 4. Rebirth: Immediately replaced with new star in center area
+ * 
+ * PERFORMANCE OPTIMIZATIONS:
+ * - Limited to 35 stars (down from higher counts for smooth performance)
+ * - Timer-based animation instead of SwiftUI animation for better control
+ * - Efficient star recycling system prevents memory growth
+ * - Shadow rendering optimized with size-based radius calculation
+ * - Color array for efficient random selection
+ * 
+ * INTEGRATION POINTS:
+ * - HomeView: Primary cosmic background layer
+ * - NumberMeaningView: Full-screen cosmic experience
+ * - RealmNumberView: Mystical number display backdrop
+ * - All major views requiring cosmic aesthetic
+ * 
+ * VISUAL EFFECTS:
+ * - Parallax depth illusion with multiple speed layers
+ * - Dynamic star generation creates infinite travel effect
+ * - Gradient shadows provide cosmic glow around each star
+ * - Multi-color star field with weighted white stars for realism
+ * - Smooth acceleration curve simulates approaching light speed
+ * 
+ * TECHNICAL NOTES:
+ * - Uses UIScreen.main.bounds for screen dimension calculations
+ * - Timer invalidation on view disappear prevents memory leaks
+ * - Star struct with Identifiable for efficient SwiftUI updates
+ * - Depth-based calculations create realistic 3D motion illusion
+ */
+
 import SwiftUI
 
 struct CosmicBackgroundView: View {

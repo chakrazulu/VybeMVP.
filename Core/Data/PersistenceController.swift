@@ -1,3 +1,86 @@
+/*
+ * ========================================
+ * 💾 PERSISTENCE CONTROLLER - CORE DATA INFRASTRUCTURE
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Central Core Data stack manager providing persistent storage for all app data
+ * including journal entries, focus matches, user preferences, and spiritual insights.
+ * Handles automatic migration, performance optimization, and testing support with
+ * in-memory stores for SwiftUI previews and unit tests.
+ * 
+ * CORE DATA STACK ARCHITECTURE:
+ * 
+ * === MANAGED OBJECT MODEL ===
+ * • Model File: VybeMVP.xcdatamodeld
+ * • Entities: JournalEntry, FocusMatch, UserPreferences, PersistedInsightLog, Sighting
+ * • Static Loading: Model loaded once to prevent conflicts during testing
+ * • Bundle Location: Main bundle resource with .momd extension
+ * 
+ * === PERSISTENT CONTAINER CONFIGURATION ===
+ * • Container Name: "VybeMVP"
+ * • Store Type: SQLite (default) or In-Memory (testing/previews)
+ * • Migration: Automatic lightweight migration enabled
+ * • Remote Changes: Background notification enabled for CloudKit sync
+ * • History Tracking: Enabled for multi-context coordination
+ * 
+ * === PERFORMANCE OPTIMIZATIONS ===
+ * • Automatic Merging: Changes from parent context merged automatically
+ * • Merge Policy: NSMergeByPropertyObjectTrumpMergePolicy (property-level)
+ * • Fault Deletion: Inaccessible faults deleted automatically
+ * • Undo Management: Disabled for better performance
+ * • Context Name: "MainContext" for debugging
+ * • Background Saving: Save operations on background queue
+ * 
+ * === DEBUG CONFIGURATION ===
+ * • SQL Debug: Disabled to reduce console noise
+ * • CloudKit Debug: Disabled for cleaner logs
+ * • Logging: Minimal logging for production performance
+ * • Store URLs: Logged for debugging and verification
+ * 
+ * === THREADING MODEL ===
+ * • View Context: Main thread only (UI updates)
+ * • Save Operations: Background thread (userInitiated QoS)
+ * • Context Isolation: Each test gets isolated in-memory store
+ * • Thread Safety: performAndWait used for background saves
+ * 
+ * === TESTING SUPPORT ===
+ * • In-Memory Stores: /dev/null URL for isolated testing
+ * • Preview Instance: Static preview property for SwiftUI
+ * • Dependency Injection: Custom init for test isolation
+ * • Clean State: Each test gets fresh, empty store
+ * 
+ * === MIGRATION STRATEGY ===
+ * • Automatic Migration: shouldMigrateStoreAutomatically = true
+ * • Model Inference: shouldInferMappingModelAutomatically = true
+ * • Lightweight Only: Complex migrations require manual model versions
+ * • Version Compatibility: Handles schema changes transparently
+ * 
+ * === INTEGRATION POINTS ===
+ * • JournalManager: Journal entry persistence
+ * • FocusNumberManager: Focus match history storage
+ * • AIInsightManager: Spiritual insight logging
+ * • SightingsManager: Number sighting records
+ * • UserPreferences: App configuration persistence
+ * • All SwiftUI Views: Environment injection via .managedObjectContext
+ * 
+ * === ERROR HANDLING ===
+ * • Store Loading: Fatal error on persistent store failure
+ * • Save Operations: Logged errors with DEBUG crash for development
+ * • Model Loading: Fatal error if VybeMVP.momd not found
+ * • Context Validation: Graceful handling of save conflicts
+ * 
+ * === MEMORY MANAGEMENT ===
+ * • Singleton Pattern: Single shared instance for app lifecycle
+ * • Context Reuse: View context reused across app
+ * • Fault Management: Automatic cleanup of unused objects
+ * • Background Cleanup: Save operations don't block UI
+ * 
+ * This controller is the foundation of all data persistence in VybeMVP, ensuring
+ * spiritual insights, journal entries, and user preferences are safely stored
+ * and efficiently accessed throughout the app's mystical journey.
+ */
+
 /**
  * Filename: PersistenceController.swift
  * 

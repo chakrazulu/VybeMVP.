@@ -2,6 +2,71 @@ import SwiftUI
 
 /**
  * TwinklingDigitsBackground: Simple cosmic background with twinkling numbers
+ * 
+ * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
+ * 
+ * === OVERALL STRUCTURE ===
+ * • Full screen ZStack with gradient + animated numbers
+ * • Numbers spawn randomly except in center exclusion zone
+ * • Performance optimized: Max 200 active numbers
+ * • Lifecycle: 10 seconds per number
+ * 
+ * === COSMIC GRADIENT BACKGROUND ===
+ * • Type: LinearGradient, full screen
+ * • Colors: Black → Purple(30%) → Indigo(20%) → Black
+ * • Direction: Top-left to bottom-right diagonal
+ * • Behavior: Static (no animation)
+ * 
+ * === TWINKLING NUMBER SPECS ===
+ * • Font: System monospaced, medium weight
+ * • Size range: 20-30pt (random per number)
+ * • Opacity range: 0.3-0.6 (random per number)
+ * • Initial state: 0 opacity, 0.5 scale
+ * • Animation: Fade in to max opacity, scale to 1.0
+ * • Animation duration: 1.0s ease-in-out
+ * • Lifetime: 10 seconds from creation
+ * 
+ * === SPAWN POSITIONING ===
+ * • X range: 50pt to (screenWidth - 50pt)
+ * • Y range: 100pt to (screenHeight - 100pt)
+ * • Center exclusion: 200pt radius from screen center
+ * • Fade zone: 40pt gradient near exclusion boundary
+ * • Numbers in fade zone: Reduced opacity and size
+ * 
+ * === COLOR SYSTEM (1-9) ===
+ * 1. Red (#FF0000)
+ * 2. Orange (#FFA500)
+ * 3. Yellow (#FFFF00)
+ * 4. Green (#00FF00)
+ * 5. Blue (#0000FF)
+ * 6. Indigo (#4B0082)
+ * 7. Purple (#800080)
+ * 8. Gold (#FFD700)
+ * 9. White (#FFFFFF)
+ * 
+ * === GENERATION TIMING ===
+ * • Initial spawn: 30 numbers immediately
+ * • New number: Every 2.0 seconds
+ * • Cleanup check: Every 3.0 seconds
+ * • Max active: 200 numbers (older removed if exceeded)
+ * 
+ * === PERFORMANCE OPTIMIZATIONS ===
+ * • GeometryReader: Single instance for all numbers
+ * • Timer-based generation (not frame-based)
+ * • Automatic cleanup of expired numbers
+ * • Limited max count prevents memory issues
+ * 
+ * === CENTER EXCLUSION ALGORITHM ===
+ * • Exclusion radius: 200pt from center
+ * • Retry logic: Keep generating until valid position
+ * • Fade calculation: Linear 0→1 over 40pt zone
+ * • Size reduction: 70% at boundary, 100% outside
+ * 
+ * === STATE MANAGEMENT ===
+ * • activeNumbers: Array of TwinklingNumber structs
+ * • generationTimer: 2.0s interval timer
+ * • cleanupTimer: 3.0s interval timer
+ * • Cleanup on disappear: All timers invalidated
  */
 struct TwinklingDigitsBackground: View {
     @EnvironmentObject var focusNumberManager: FocusNumberManager
@@ -73,7 +138,7 @@ struct TwinklingDigitsBackground: View {
         // Start generation timer
         generationTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
             generateNewNumber()
-        }
+            }
         
         // Start cleanup timer
         cleanupTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
@@ -85,7 +150,7 @@ struct TwinklingDigitsBackground: View {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
         
-        // REVERT TO STEP 4: Generate 30 initial numbers (was 35) 
+        // 🎯 INITIAL SPAWN: 30 numbers for immediate visual impact
         for _ in 0..<30 {
             let number = TwinklingNumber(
                 screenWidth: screenWidth,
@@ -156,7 +221,7 @@ struct TwinklingNumber {
     var currentScale: CGFloat
     
     init(screenWidth: CGFloat, screenHeight: CGFloat) {
-        self.digit = Int.random(in: 1...9)
+            self.digit = Int.random(in: 1...9)
         
         // Center exclusion zone - keep center clear for sacred geometry
         let centerX = screenWidth / 2

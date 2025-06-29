@@ -1,3 +1,65 @@
+/*
+ * ========================================
+ * 🌌 SACRED GEOMETRY 3D VIEW - MYSTICAL POLYHEDRA RENDERER
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Advanced 3D sacred geometry renderer using SceneKit to display mathematically precise
+ * mystical forms. Each number (1-9) maps to specific sacred polyhedra with procedural
+ * generation, wireframe rendering, and cosmic animations.
+ * 
+ * UI SPECIFICATIONS:
+ * - Rendering: SceneKit-based 3D with UIViewRepresentable wrapper
+ * - Viewport: Flexible sizing, typically 200×200pt in HomeView sacred geometry section
+ * - Background: Transparent (UIColor.clear) for overlay on cosmic backgrounds
+ * - Anti-aliasing: 4X multisampling for smooth wireframe edges
+ * - Lighting: Omni light (intensity 300) + ambient light (intensity 100)
+ * 
+ * SACRED GEOMETRY MAPPINGS:
+ * 1=Unity Circle(Sphere r=1.0), 2=Vesica Piscis(Torus), 3=Tetrahedron(4 triangular faces)
+ * 4=Cube(1.5×1.5×1.5), 5=Dodecahedron(Pentagonal prism), 6=Merkaba(Dual tetrahedra)
+ * 7=Seed of Life(Torus r=1.2), 8=Octahedron(8 triangular faces), 9=Enneagram(9-pointed star)
+ * 
+ * ANIMATION SYSTEM:
+ * - Primary Rotation: Y-axis, 8.0s/animationSpeed duration, infinite repeat
+ * - Floating Motion: ±0.1pt Y-axis, 3.0s duration, autoreverses
+ * - Dynamic Speed: updateAnimationSpeed() adjusts rotation based on animationSpeed parameter
+ * - Smooth Transitions: CABasicAnimation for fluid movement
+ * 
+ * 3D RENDERING SPECIFICATIONS:
+ * - Material Mode: .lines (wireframe) for transparency with background numbers
+ * - Color System: Sacred colors (Red, Orange, Yellow, Green, Blue, Indigo, Purple, Gold, White)
+ * - Emission: 50% alpha sacred color for inner glow effect
+ * - Specular: 30% alpha sacred color for highlight reflections
+ * - Geometry Precision: Custom vertex arrays for mathematical accuracy
+ * 
+ * PERFORMANCE OPTIMIZATIONS:
+ * - Segment Counts: Optimized for visual quality vs performance (Sphere=32, Torus=24×12)
+ * - Node Recycling: updateUIView removes old geometry before adding new
+ * - Animation Caching: Reuses animation keys for efficient updates
+ * - Memory Management: Proper node cleanup prevents SceneKit memory leaks
+ * 
+ * INTEGRATION POINTS:
+ * - HomeView: Primary display in 350×350pt sacred geometry section
+ * - RealmNumberView: Dynamic geometry updates based on realm number changes
+ * - NumberMeaningView: Educational display of sacred form meanings
+ * - Sacred color system: Unified with app-wide color theming
+ * 
+ * MATHEMATICAL FOUNDATIONS:
+ * - Tetrahedron: 4 vertices with precise triangular face calculations
+ * - Octahedron: 6 vertices forming 8 triangular faces (dual of cube)
+ * - Merkaba: Dual interlocking tetrahedra representing spiritual transformation
+ * - Enneagram: 9-pointed star with outer/inner radius calculations
+ * - Platonic Solids: Mathematically perfect forms with sacred proportions
+ * 
+ * TECHNICAL NOTES:
+ * - SceneKit integration requires UIViewRepresentable pattern
+ * - Vertex arrays use SCNVector3 for 3D coordinate precision
+ * - Face indices use UInt16 arrays for triangle primitive assembly
+ * - Animation duration calculations prevent division by zero
+ * - Wireframe mode ensures background visibility while maintaining form
+ */
+
 /**
  * Filename: SacredGeometry3DView.swift
  * 

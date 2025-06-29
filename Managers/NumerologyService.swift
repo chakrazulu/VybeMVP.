@@ -1,3 +1,110 @@
+/*
+ * ========================================
+ * 🔢 NUMEROLOGY SERVICE - SACRED CALCULATION ENGINE
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Master numerological calculation engine implementing authentic Pythagorean numerology
+ * algorithms with precise digit reduction, master number preservation, and sacred
+ * letter-to-number mappings. Powers all spiritual calculations throughout VybeMVP
+ * including Life Path, Soul Urge, and Expression number derivations.
+ * 
+ * SPIRITUAL CALCULATION ALGORITHMS:
+ * 
+ * === LIFE PATH NUMBER CALCULATION ===
+ * Algorithm: Three-stage reduction with master number preservation
+ * 1. Extract birthdate components (year, month, day)
+ * 2. Reduce each component individually using reduceToSingleDigitOrMaster()
+ * 3. Sum all reduced components
+ * 4. Final reduction preserving master numbers (11, 22, 33)
+ * 5. Return tuple: (finalNumber: Int, isMaster: Bool)
+ * 
+ * Example: Born December 29, 1985
+ * - Year: 1985 → 1+9+8+5 = 23 → 2+3 = 5
+ * - Month: 12 → 1+2 = 3  
+ * - Day: 29 → 2+9 = 11 (Master Number - preserved)
+ * - Sum: 5 + 3 + 11 = 19 → 1+9 = 10 → 1+0 = 1
+ * - Result: (1, false)
+ * 
+ * === SOUL URGE NUMBER CALCULATION ===
+ * Algorithm: Vowel-only extraction with Pythagorean mapping
+ * 1. Extract vowels only: A, E, I, O, U (case insensitive)
+ * 2. Filter non-alphabetic characters
+ * 3. Map each vowel using letterToNumberPythagorean()
+ * 4. Sum all vowel values
+ * 5. Reduce with master number preservation
+ * 6. Return tuple: (finalNumber: Int, isMaster: Bool) or nil if no vowels
+ * 
+ * Example: "Sarah Ellen Vaughn"
+ * - Vowels: a, a, E, e, a, u
+ * - Values: 1+1+5+5+1+3 = 16 → 1+6 = 7
+ * - Result: (7, false)
+ * 
+ * === EXPRESSION NUMBER CALCULATION ===
+ * Algorithm: Full name letter mapping with complete reduction
+ * 1. Extract all alphabetic characters (consonants + vowels)
+ * 2. Convert to uppercase for consistent mapping
+ * 3. Map each letter using Pythagorean system
+ * 4. Sum all letter values
+ * 5. Reduce with master number preservation
+ * 6. Return tuple: (finalNumber: Int, isMaster: Bool) or nil if no letters
+ * 
+ * === PYTHAGOREAN LETTER-TO-NUMBER MAPPING ===
+ * Sacred correspondence system used throughout all calculations:
+ * 
+ * 1: A, J, S - Leadership, Independence, New Beginnings
+ * 2: B, K, T - Cooperation, Balance, Partnerships  
+ * 3: C, L, U - Creativity, Expression, Communication
+ * 4: D, M, V - Foundation, Stability, Hard Work
+ * 5: E, N, W - Freedom, Adventure, Change
+ * 6: F, O, X - Love, Harmony, Responsibility
+ * 7: G, P, Y - Spirituality, Mystery, Introspection
+ * 8: H, Q, Z - Material Success, Power, Achievement
+ * 9: I, R - Universal Love, Completion, Wisdom
+ * 
+ * === MASTER NUMBER PRESERVATION SYSTEM ===
+ * Sacred Numbers: 11, 22, 33 (Master Numbers)
+ * - Never reduced to single digits during calculations
+ * - Preserved at intermediate and final stages
+ * - Carry special spiritual significance and power
+ * - 11: Master Intuition, Spiritual Messenger
+ * - 22: Master Builder, Practical Visionary  
+ * - 33: Master Teacher, Spiritual Healer
+ * 
+ * === DIGIT REDUCTION ALGORITHM ===
+ * Function: reduceToSingleDigitOrMaster(_ number: Int) -> Int
+ * 1. Convert to absolute value (positive)
+ * 2. Check if already single digit (1-9) or master number → return
+ * 3. While number > 9 and not master number:
+ *    a. Convert to string
+ *    b. Split into individual digits  
+ *    c. Sum all digits
+ *    d. Check if result is master number → break if true
+ * 4. Handle edge case: if final result is 0 → return 9
+ * 5. Return reduced number
+ * 
+ * === INTEGRATION POINTS ===
+ * • UserArchetypeManager: Life Path calculations for spiritual profiles
+ * • OnboardingViewModel: Full numerological profile creation
+ * • AIInsightManager: Number-based insight generation
+ * • ResonanceEngine: Numerological harmony detection
+ * • VybeMatchManager: Cosmic synchronicity calculations
+ * 
+ * === PERFORMANCE CHARACTERISTICS ===
+ * • Singleton pattern: NumerologyService.shared
+ * • Thread-safe: Pure calculation functions
+ * • Memory efficient: No retained state between calculations
+ * • Fast execution: O(log n) digit reduction complexity
+ * • Error handling: Graceful nil returns for invalid inputs
+ * 
+ * === SPIRITUAL SIGNIFICANCE ===
+ * This service implements authentic numerological principles from the Pythagorean
+ * tradition, maintaining the sacred mathematical relationships that reveal spiritual
+ * insights about personality, life purpose, and soul evolution through numbers.
+ * Each calculation preserves the mystical integrity of the ancient system while
+ * providing modern computational efficiency.
+ */
+
 // Managers/NumerologyService.swift
 import Foundation
 

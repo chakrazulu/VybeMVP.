@@ -1,6 +1,94 @@
 /**
  * Filename: NotificationManager.swift
  * 
+ * 🎯 COMPREHENSIVE MANAGER REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
+ * 
+ * === CORE PURPOSE ===
+ * Central notification hub managing local and push notifications for VybeMVP.
+ * Handles cosmic match celebrations and mystical insights delivery.
+ * 
+ * === KEY RESPONSIBILITIES ===
+ * • Request and manage notification permissions
+ * • Schedule local notifications for number matches
+ * • Handle Firebase Cloud Messaging (FCM) integration
+ * • Deliver numerology insights at optimal times
+ * • Badge count management and clearing
+ * • Notification tap handling and deep linking
+ * 
+ * === PUBLISHED PROPERTIES ===
+ * • notificationsAuthorized: Bool - Permission status
+ * • unreadCount: Int - Badge count for app icon
+ * • notificationTapSubject: PassthroughSubject - Tap events
+ * 
+ * === NOTIFICATION TYPES ===
+ * 1. Match Celebrations: Focus == Realm number alignment
+ * 2. Numerology Insights: Daily wisdom and guidance
+ * 3. Energy Checks: Periodic spiritual reminders
+ * 4. Cosmic Rhythms: Astrological timing notifications
+ * 
+ * === FCM INTEGRATION ===
+ * • Token generation and storage
+ * • Remote notification handling
+ * • Background delivery support
+ * • Token refresh management
+ * • Server communication for push delivery
+ * 
+ * === PERMISSION FLOW ===
+ * 1. Check current authorization status
+ * 2. Request user permission via system dialog
+ * 3. Handle approval/denial gracefully
+ * 4. Update UI state based on permissions
+ * 5. Enable/disable notification features
+ * 
+ * === LOCAL NOTIFICATION SYSTEM ===
+ * • UNUserNotificationCenter integration
+ * • Category-based content selection
+ * • Delayed delivery (1-60 seconds)
+ * • Custom sound and badge support
+ * • Rich content with number-specific messages
+ * 
+ * === CONTENT GENERATION ===
+ * • NumerologyInsightService integration
+ * • Category-based message selection
+ * • Fallback content for missing data
+ * • Personalized based on user's numbers
+ * 
+ * === BADGE MANAGEMENT ===
+ * • Automatic clearing on app foreground
+ * • Manual clearing methods
+ * • Count tracking for unread items
+ * • iOS badge integration
+ * 
+ * === DEEP LINKING ===
+ * • Notification tap detection
+ * • Number-specific navigation
+ * • Category-based routing
+ * • ActivityNavigationManager integration
+ * 
+ * === TIMING STRATEGIES ===
+ * • Immediate: Match celebrations (0-1s delay)
+ * • Short: Energy checks (5-30s delay)
+ * • Deferred: Daily insights (minutes/hours)
+ * • Cosmic: Astrological timing based
+ * 
+ * === ERROR HANDLING ===
+ * • Permission denial graceful handling
+ * • FCM token failure recovery
+ * • Content generation fallbacks
+ * • Network connectivity awareness
+ * 
+ * === TESTING SUPPORT ===
+ * • Manual notification triggers
+ * • Content preview capabilities
+ * • Permission simulation
+ * • Debug logging for delivery
+ * 
+ * === CRITICAL PERFORMANCE NOTES ===
+ * • Notifications scheduled on background queue
+ * • UI updates always on main thread
+ * • Memory efficient content generation
+ * • Automatic cleanup of old notifications
+ * 
  * Purpose: Manages push notifications, user permissions, and Firebase Cloud Messaging integration.
  * Handles the delivery and presentation of number match notifications and insights.
  *

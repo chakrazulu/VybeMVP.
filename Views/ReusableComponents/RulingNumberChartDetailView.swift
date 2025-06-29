@@ -1,3 +1,137 @@
+/*
+ * ========================================
+ * 📊 RULING NUMBER CHART DETAIL VIEW - SACRED PATTERN ANALYTICS
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Advanced sacred pattern visualization system providing comprehensive ruling number
+ * analytics with time-range controls, mystical percentage calculations, and deep
+ * spiritual insights through interactive charts and cosmic pattern recognition.
+ * Core component for understanding numerical synchronicities and sacred cycles.
+ * 
+ * UI SPECIFICATIONS:
+ * - Background: Multi-layer cosmic gradient with animated particles
+ * - Header: 80×80pt ruling number circle with radial gradient and crown icon
+ * - Time Range Picker: 4-button segmented control (1D, 7D, 14D, 30D)
+ * - Chart Area: 320pt height with rounded 16pt corners and gradient borders
+ * - Sacred Pattern Cards: 20pt padding with percentage bars and cosmic icons
+ * 
+ * CHART VISUALIZATION SYSTEM:
+ * - Daily Histogram: Horizontal scrolling bars for numbers 1-9
+ * - Time Series: Multi-day ruling number progression charts
+ * - Progress Bars: Animated height-based visualization with sacred colors
+ * - Interactive Selection: Tap-to-select with haptic feedback and detail overlays
+ * - Animation System: 1.0s ease-in-out with staggered chart animations
+ * 
+ * SACRED PATTERN ANALYSIS:
+ * - Seven-Day Harmony: Spiritual completion cycle tracking (7-day patterns)
+ * - Golden Flow: Divine proportion (1.618) alignment analysis
+ * - Fibonacci Spiral: Sacred sequence emergence in numerical patterns
+ * - Trinity Flow: Tesla's 3-6-9 universal energy key detection
+ * - Lunar Sync: 28-day mystical rhythm synchronization (30-day view only)
+ * 
+ * PERCENTAGE CALCULATION SYSTEM:
+ * - Pattern Values: Pre-calculated sacred pattern percentages (0-100%)
+ * - Intensity Scoring: 0.0-1.0 range with 0.5 minimum threshold
+ * - Strength Labels: "COSMIC MASTERY" (80%+), "STRONG ALIGNMENT" (60-80%), etc.
+ * - Progress Visualization: Geometric width-based percentage bars
+ * - Real-time Updates: Dynamic recalculation based on time range selection
+ * 
+ * STATE MANAGEMENT:
+ * - @StateObject sampleManager: RealmSampleManager.shared for data access
+ * - @State patternValues: Pre-calculated sacred pattern percentages cache
+ * - @State patternsCalculated: Boolean flag for calculation completion
+ * - @State selectedTimeRange: Current chart time range (1D/7D/14D/30D)
+ * - @State selectedSacredPattern: Current pattern for detail overlay
+ * 
+ * PERFORMANCE OPTIMIZATIONS:
+ * - Pattern Pre-calculation: Background calculation prevents UI blocking
+ * - Animation Phases: chartAnimationPhase controls staggered animations
+ * - Cached Values: patternValues dictionary prevents repeated calculations
+ * - Lazy Loading: Patterns calculated only when needed
+ * - Memory Management: Proper cleanup and resource management
+ * 
+ * INTEGRATION POINTS:
+ * - RealmSampleManager: Core data source for ruling number calculations
+ * - FocusNumberManager: Focus number highlighting and interaction
+ * - RealmNumberManager: Real-time realm number integration
+ * - NumberDetailOverlay: Full-screen number analysis with statistics
+ * - UltraMinimalPatternOverlay: Sacred pattern detail exploration
+ * 
+ * CHART INTERACTION SYSTEM:
+ * - Number Selection: Tap individual bars for detailed analysis
+ * - Pattern Exploration: Tap sacred pattern cards for full-screen details
+ * - Time Range Control: Segmented picker for temporal analysis
+ * - Haptic Feedback: Medium impact feedback on interactions
+ * - Visual Feedback: Scale effects and color changes on selection
+ * 
+ * SACRED COLOR MAPPING:
+ * - Number 1: Red (Creation/Fire)
+ * - Number 2: Orange (Partnership/Balance)
+ * - Number 3: Yellow (Expression/Joy)
+ * - Number 4: Green (Foundation/Earth)
+ * - Number 5: Blue (Freedom/Sky)
+ * - Number 6: Indigo (Harmony/Love)
+ * - Number 7: Purple (Spirituality/Wisdom)
+ * - Number 8: Gold (#FFD700) (Abundance/Prosperity)
+ * - Number 9: White (Completion/Universal)
+ * 
+ * CHART TYPES:
+ * - Daily Histogram: Vertical bars showing number frequency distribution
+ * - Time Series: Multi-day ruling number progression over time
+ * - Progress Bars: Height-animated bars with sacred color gradients
+ * - Interactive Elements: Crown icons for ruling numbers, target for focus
+ * - Statistics Summary: Total count, ruling number, and frequency display
+ * 
+ * SACRED PATTERN CARD DESIGN:
+ * - Left Section: 60×60pt pattern icon circle with sacred color
+ * - Percentage Display: Large percentage text with pattern color
+ * - Right Section: Pattern title, description, and progress bar
+ * - Progress Bar: Geometric width calculation based on pattern value
+ * - Gradient Borders: Pattern-specific color gradients with opacity
+ * 
+ * ANIMATION SPECIFICATIONS:
+ * - Chart Animation: 1.0s ease-in-out for initial load
+ * - Sacred Cycle Highlight: 3.0s repeat forever with auto-reverse
+ * - Ruling Bar Pulse: 2.5s repeat forever for crown highlighting
+ * - Selection Animation: 0.4s spring response with 0.8 damping
+ * - Pattern Animation: 2.5s ease-out with 0.5s delay
+ * 
+ * TIME RANGE ANALYSIS:
+ * - One Day: Detailed hourly distribution histogram
+ * - Seven Days: Weekly spiritual completion cycle analysis
+ * - Fourteen Days: Bi-weekly trend analysis with spiritual/material balance
+ * - Thirty Days: Monthly cosmic pattern recognition with lunar sync
+ * 
+ * PATTERN DETAIL OVERLAY SYSTEM:
+ * - Ultra-Minimal Design: Zero-delay fullscreen presentation
+ * - Pre-calculated Data: Uses cached values for instant display
+ * - Scrollable Content: Full pattern descriptions with sacred wisdom
+ * - Strength Indicators: Visual dot indicators for pattern intensity
+ * - Educational Content: Complete spiritual meaning and guidance
+ * 
+ * ERROR HANDLING & RESILIENCE:
+ * - Empty Data Handling: Graceful fallbacks for missing chart data
+ * - Calculation Guards: Prevents division by zero and invalid ranges
+ * - Animation Safety: Proper cleanup prevents memory leaks
+ * - State Validation: Ensures consistent UI state across interactions
+ * - Background Calculation: Non-blocking pattern analysis
+ * 
+ * TECHNICAL SPECIFICATIONS:
+ * - Chart Height: 320pt for all chart types
+ * - Bar Width: 20pt for progress bars, 40pt for histogram bars
+ * - Animation Duration: 1.0s for charts, 2.5s for patterns
+ * - Percentage Range: 0-100% display with 0.0-1.0 internal calculation
+ * - Color Opacity: 0.9 primary, 0.6 secondary for gradient effects
+ * 
+ * DEBUGGING & MONITORING:
+ * - Pattern Calculation Logging: Detailed background calculation tracking
+ * - Selection Feedback: Console logging for user interaction validation
+ * - Performance Metrics: Animation phase and calculation timing
+ * - State Validation: Pattern calculation completion monitoring
+ * - User Interaction: Tap gesture and selection state tracking
+ */
+
 /**
  * Filename: RulingNumberChartDetailView.swift
  * 
@@ -282,7 +416,7 @@ struct RulingNumberChartDetailView: View {
             // Enhanced horizontal scrolling histogram - clean and focused
             ScrollView(.horizontal, showsIndicators: true) {
                 HStack(spacing: 6) {
-                    ForEach(1...9, id: \.self) { number in
+                ForEach(1...9, id: \.self) { number in
                         individualNumberBar(for: number)
                     }
                 }
@@ -358,99 +492,98 @@ struct RulingNumberChartDetailView: View {
     
     // Individual number bar component with enhanced interactivity
     private func individualNumberBar(for number: Int) -> some View {
-        let count = sampleManager.getCount(for: number)
+                    let count = sampleManager.getCount(for: number)
         let maxCount = max(todaySamples.isEmpty ? 1 : sampleManager.histogram.max() ?? 1, 1)
-        let barProgress = count > 0 ? CGFloat(count) / CGFloat(maxCount) : 0
-        let isRuling = number == sampleManager.rulingNumber && count > 0
-        let isFocus = number == focusNumberManager.selectedFocusNumber
+                    let barProgress = count > 0 ? CGFloat(count) / CGFloat(maxCount) : 0
+                    let isRuling = number == sampleManager.rulingNumber && count > 0
+                    let isFocus = number == focusNumberManager.selectedFocusNumber
         let isSelected = selectedNumber == number
-        
+                    
         return VStack(spacing: 6) {
             // Number circle with enhanced visual feedback
-            ZStack {
-                Circle()
+                        ZStack {
+                            Circle()
                     .fill(getSacredColor(for: number).opacity(isSelected ? 1.0 : 0.8))
                     .frame(width: isSelected ? 42 : 38, height: isSelected ? 42 : 38)
-                    .overlay(
-                        Circle()
-                            .stroke(
-                                isRuling ? Color.yellow :
+                                .overlay(
+                                    Circle()
+                                        .stroke(
+                                            isRuling ? Color.yellow : 
                                 isFocus ? Color.cyan :
                                 isSelected ? Color.white : Color.clear,
                                 lineWidth: isRuling || isFocus || isSelected ? 3 : 0
-                            )
-                    )
+                                        )
+                                )
                     .shadow(
                         color: getSacredColor(for: number).opacity(isSelected ? 0.8 : 0.5),
                         radius: isSelected ? 10 : 6
                     )
-                
-                Text("\(number)")
+                            
+                            Text("\(number)")
                     .font(.system(size: isSelected ? 18 : 16, weight: .bold))
-                    .foregroundColor(.white)
-            }
+                                .foregroundColor(.white)
+                        }
             .scaleEffect(isSelected ? 1.1 : (isRuling && sacredCycleHighlight ? 1.05 : 1.0))
-            
+                        
             // Vertical progress bar
             VStack(spacing: 0) {
                 ZStack(alignment: .bottom) {
-                                        // Background track
+                                // Background track
                      RoundedRectangle(cornerRadius: 6)
                          .fill(Color.white.opacity(0.2))
                          .frame(width: 20, height: 80)
-                    
-                    // Progress bar
+                                
+                                // Progress bar
                     RoundedRectangle(cornerRadius: 6)
-                        .fill(
-                            LinearGradient(
-                                colors: isRuling ? [
+                                    .fill(
+                                        LinearGradient(
+                                            colors: isRuling ? [
                                     .yellow.opacity(0.9),
                                     getSacredColor(for: number).opacity(0.8)
-                                ] : [
+                                            ] : [
                                     getSacredColor(for: number).opacity(0.9),
                                     getSacredColor(for: number).opacity(0.6)
-                                ],
+                                            ],
                                 startPoint: .top,
                                 endPoint: .bottom
-                            )
-                        )
-                                                 .frame(
+                                        )
+                                    )
+                                    .frame(
                              width: 20,
                              height: max((80 * barProgress) * chartAnimationPhase, count > 0 ? 8 : 0)
-                         )
-                        .overlay(
+                                    )
+                                    .overlay(
                             RoundedRectangle(cornerRadius: 6)
-                                .stroke(
-                                    isRuling ? Color.yellow.opacity(0.8) : Color.clear,
-                                    lineWidth: isRuling ? 2 : 0
-                                )
-                        )
-                        .shadow(
-                            color: isRuling ? .yellow.opacity(0.4) : getSacredColor(for: number).opacity(0.3),
+                                            .stroke(isRuling ? Color.yellow.opacity(0.8) : Color.clear,
+                                                lineWidth: isRuling ? 2 : 0
+                                            )
+                                    )
+                                    .shadow(
+                                        color: isRuling ? .yellow.opacity(0.4) : getSacredColor(for: number).opacity(0.3),
                             radius: isRuling ? 6 : 3
-                        )
+                                    )
                 }
-            }
-            
+                            }
+                            
             // Count label
-            Text("\(count)")
+                                Text("\(count)")
                 .font(.system(size: 14, weight: isRuling ? .bold : .medium))
-                .foregroundColor(isRuling ? .yellow : .white)
+                                    .foregroundColor(isRuling ? .yellow : .white)
                 .frame(minWidth: 22)
-            
+                                
             // Status indicators
             HStack(spacing: 2) {
-                if isRuling {
-                    Image(systemName: "crown.fill")
+                                    if isRuling {
+                                        Image(systemName: "crown.fill")
                         .font(.caption2)
-                        .foregroundColor(.yellow)
-                }
-                if isFocus {
-                    Image(systemName: "target")
+                                            .foregroundColor(.yellow)
+                                    }
+                                    if isFocus {
+                                        Image(systemName: "target")
                         .font(.caption2)
-                        .foregroundColor(.cyan)
-                }
-            }
+                                            .foregroundColor(.cyan)
+                                    }
+                                }
             .frame(height: 12)
         }
         .frame(width: 50)
@@ -466,9 +599,9 @@ struct RulingNumberChartDetailView: View {
                         )
                 )
         )
-        .onTapGesture {
+                    .onTapGesture {
             handleEnhancedNumberTap(number)
-        }
+            }
         .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isSelected)
         .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isRuling)
     }
@@ -545,22 +678,22 @@ struct RulingNumberChartDetailView: View {
                     
                     // Ruling number circle
                     ZStack {
-                        Circle()
+                            Circle()
                             .fill(getSacredColor(for: rulingNumber).opacity(0.8))
                             .frame(width: 24, height: 24)
                         
                         Text("\(rulingNumber)")
-                            .font(.caption)
+                                .font(.caption)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
-                    }
+                        }
                 }
                 .frame(width: 60)
+                    }
+                }
+                .padding(.horizontal, 20)
             }
-        }
-        .padding(.horizontal, 20)
-    }
-    
+            
     private func chartBarsView(dates: [Date], maxValue: Int) -> some View {
         HStack(alignment: .bottom, spacing: 0) {
             ForEach(dates.indices, id: \.self) { dateIndex in
@@ -588,7 +721,7 @@ struct RulingNumberChartDetailView: View {
                 RoundedRectangle(cornerRadius: 6)
                     .fill(Color.white.opacity(0.1))
                     .frame(width: 40, height: 140)
-                
+                    
                 // Data bar
                 RoundedRectangle(cornerRadius: 6)
                     .fill(
@@ -608,10 +741,10 @@ struct RulingNumberChartDetailView: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 6)
                             .stroke(getSacredColor(for: rulingNumber).opacity(0.8), lineWidth: 1)
-                    )
+                            )
                     .shadow(color: getSacredColor(for: rulingNumber).opacity(0.4), radius: 4)
-            }
-            
+                    }
+                    
             // Value label
             Text("\(maxDayValue)")
                 .font(.caption2)
@@ -632,9 +765,9 @@ struct RulingNumberChartDetailView: View {
             HStack(spacing: 8) {
                 ForEach(1...9, id: \.self) { number in
                     HStack(spacing: 4) {
-                        Circle()
+                            Circle()
                             .fill(getSacredColor(for: number))
-                            .frame(width: 6, height: 6)
+                                .frame(width: 6, height: 6)
                         Text("\(number)")
                             .font(.caption2)
                             .foregroundColor(.white.opacity(0.7))
@@ -670,21 +803,21 @@ struct RulingNumberChartDetailView: View {
             
             VStack(spacing: 12) {
                 if patternsCalculated {
-                    // Seven-day harmony
-                    enhancedSacredPatternCard(.sevenDay)
-                    
-                    // Golden flow (divine proportion)
-                    enhancedSacredPatternCard(.goldenFlow)
-                    
-                    // Fibonacci spiral (always show for multi-day views)
-                    enhancedSacredPatternCard(.fibonacciSpiral)
-                    
-                    // Trinity flow (3-6-9 pattern)
-                    enhancedSacredPatternCard(.trinityFlow)
-                    
-                    // Lunar sync (only for 30-day view)
-                    if selectedTimeRange == .thirtyDays {
-                        enhancedSacredPatternCard(.lunarSync)
+                // Seven-day harmony
+                enhancedSacredPatternCard(.sevenDay)
+                
+                // Golden flow (divine proportion)
+                enhancedSacredPatternCard(.goldenFlow)
+                
+                // Fibonacci spiral (always show for multi-day views)
+                enhancedSacredPatternCard(.fibonacciSpiral)
+                
+                // Trinity flow (3-6-9 pattern)
+                enhancedSacredPatternCard(.trinityFlow)
+                
+                // Lunar sync (only for 30-day view)
+                if selectedTimeRange == .thirtyDays {
+                    enhancedSacredPatternCard(.lunarSync)
                     }
                 } else {
                     // Loading state for pattern calculations
@@ -1034,7 +1167,7 @@ struct UltraMinimalPatternOverlay: View {
     
     var body: some View {
         // PERFORMANCE: Ultra-minimal fullscreen overlay with ScrollView for text
-        ZStack {
+            ZStack {
             // Instant black background
             Color.black.ignoresSafeArea()
             
@@ -1059,29 +1192,29 @@ struct UltraMinimalPatternOverlay: View {
                         // Core content - minimal but complete
                         VStack(spacing: 20) {
                             // Pattern icon
-                            Image(systemName: pattern.icon)
+                Image(systemName: pattern.icon)
                                 .font(.system(size: 60, weight: .bold))
-                                .foregroundColor(pattern.color)
-                            
+                    .foregroundColor(pattern.color)
+            
                             // PERFORMANCE: Use pre-calculated value - instant display
                             let percentage = Int(precalculatedValue * 100)
-                            Text("\(percentage)%")
+            Text("\(percentage)%")
                                 .font(.system(size: 50, weight: .bold, design: .rounded))
-                                .foregroundColor(pattern.color)
-                            
+                .foregroundColor(pattern.color)
+            
                             Text(pattern.title)
                                 .font(.title)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                            
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+            
                             // Essential content in minimal layout
                             VStack(spacing: 16) {
                                 Text(pattern.shortDescription)
-                                    .font(.body)
-                                    .foregroundColor(.white.opacity(0.9))
+                .font(.body)
+                .foregroundColor(.white.opacity(0.9))
                                     .multilineTextAlignment(.center)
                                     .padding(.horizontal, 30)
-                                
+            
                                 // Minimal progress indicator
                                 HStack(spacing: 3) {
                                     ForEach(0..<10, id: \.self) { index in
@@ -1096,19 +1229,19 @@ struct UltraMinimalPatternOverlay: View {
                                     .fontWeight(.bold)
                                     .foregroundColor(pattern.color)
                                     .padding(.top, 8)
-                            }
+    }
                         }
                         
                         // Sacred wisdom section - now properly scrollable
                         VStack(spacing: 12) {
-                            Text("✧ Sacred Wisdom ✧")
+            Text("✧ Sacred Wisdom ✧")
                                 .font(.headline)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
                                 .padding(.top, 20)
-                            
-                            Text(pattern.fullDescription)
-                                .font(.body)
+            
+            Text(pattern.fullDescription)
+                .font(.body)
                                 .foregroundColor(.white.opacity(0.8))
                                 .lineSpacing(4)
                                 .padding(.horizontal, 20)

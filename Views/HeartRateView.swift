@@ -1,3 +1,78 @@
+/*
+ * ========================================
+ * ❤️ HEART RATE VIEW - HEALTHKIT INTEGRATION
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Advanced HealthKit integration view displaying real-time heart rate data for realm
+ * number calculations. Manages authorization states, data validation, simulation modes,
+ * and provides comprehensive error handling with user guidance.
+ * 
+ * UI SPECIFICATIONS:
+ * - Heart Rate Display: 70pt bold BPM number with secondary background card
+ * - Loading State: 1.5x scaled progress indicator with descriptive text
+ * - Authorization UI: 30pt heart.text.square icon with blue accent
+ * - Refresh Button: Tertiary background, 8pt corner radius, arrow.clockwise icon
+ * - Simulation Toggle: Color-coded (red/green) with checkmark/xmark icons
+ * 
+ * HEALTHKIT INTEGRATION:
+ * - Authorization Management: Handles .sharingAuthorized status and Settings access
+ * - Real-time Monitoring: 30-second automatic refresh cycle with retry logic
+ * - Data Validation: Validates BPM > 0 for hasValidHeartRate computation
+ * - Simulation Mode: Toggle between real HealthKit data and simulated values
+ * - Error Recovery: 3-attempt retry system with user guidance alerts
+ * 
+ * REALM NUMBER INTEGRATION:
+ * - BPM Source: Provides heart rate data for RealmNumberManager calculations
+ * - Data Freshness: Real-time updates ensure accurate realm number computation
+ * - Fallback System: Simulation mode ensures app functionality without Apple Watch
+ * - Priority System: Real data preferred over simulated for calculation accuracy
+ * 
+ * STATE MANAGEMENT:
+ * - retryCount: Tracks automatic refresh attempts (max 3)
+ * - showingNoDataAlert: Controls troubleshooting alert presentation
+ * - showingHeartRateInfoAlert: Manages detailed data information display
+ * - timer: 30-second periodic refresh cycle management
+ * - hasValidHeartRate: Computed property for BPM > 0 validation
+ * 
+ * AUTHORIZATION FLOW:
+ * 1. Check authorizationStatus for .sharingAuthorized
+ * 2. If unauthorized, show in-app permission request
+ * 3. If needsSettingsAccess, redirect to Settings app
+ * 4. Handle authorization errors with user-friendly messaging
+ * 5. Automatic retry after successful authorization
+ * 
+ * DATA DISPLAY MODES:
+ * - Valid Data: Shows BPM with real/simulated indicator and data info button
+ * - Loading: Progress indicator with "Measuring heart rate..." message
+ * - No Data: heart.slash icon with Apple Watch troubleshooting guidance
+ * - Unauthorized: heart.text.square icon with permission request UI
+ * 
+ * PERFORMANCE OPTIMIZATIONS:
+ * - Timer Management: Proper invalidation on view disappear
+ * - Retry Logic: Stops automatic refresh after max attempts
+ * - Memory Efficiency: Clean resource management with proper lifecycle
+ * - Background Processing: Async/await for non-blocking HealthKit operations
+ * 
+ * ERROR HANDLING SYSTEM:
+ * - Authorization Errors: Graceful fallback with user guidance
+ * - No Data Scenarios: Comprehensive troubleshooting with Apple Watch tips
+ * - Network Issues: Retry mechanism with exponential backoff
+ * - Settings Access: Direct link to iOS Settings for permission management
+ * 
+ * SIMULATION FEATURES:
+ * - Toggle Control: Real-time switching between real and simulated data
+ * - Visual Indicators: Orange warning for simulated, green checkmark for real
+ * - Debug Information: Detailed data source and type information
+ * - Testing Support: Enables development without physical Apple Watch
+ * 
+ * TECHNICAL NOTES:
+ * - Dependency Injection: Supports mock HealthKitManager for testing
+ * - Timer Lifecycle: Automatic cleanup prevents memory leaks
+ * - Async Operations: All HealthKit calls use async/await pattern
+ * - State Synchronization: Proper @ObservedObject usage for real-time updates
+ */
+
 /**
  * Filename: HeartRateView.swift
  * 

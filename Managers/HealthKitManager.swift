@@ -1,6 +1,82 @@
 /**
  * Filename: HealthKitManager.swift
  * 
+ * 🎯 COMPREHENSIVE MANAGER REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
+ * 
+ * === CORE PURPOSE ===
+ * Central hub for all HealthKit interactions, primarily heart rate monitoring.
+ * This manager bridges Apple HealthKit with VybeMVP's mystical calculations.
+ * 
+ * === KEY RESPONSIBILITIES ===
+ * • Request and manage HealthKit authorization
+ * • Monitor real-time heart rate data from Apple Watch/iPhone
+ * • Provide fallback simulation when HealthKit unavailable
+ * • Background delivery of health updates
+ * • Thread-safe publishing of heart rate values
+ * • Integration with RealmNumberManager calculations
+ * 
+ * === PUBLISHED PROPERTIES ===
+ * • currentHeartRate: Int - Current BPM (real or simulated)
+ * • lastValidBPM: Int - Most recent non-zero reading
+ * • authorizationStatus: HKAuthorizationStatus - Permission state
+ * • needsSettingsAccess: Bool - User needs manual Settings enable
+ * • isHeartRateSimulated: Bool - Data source indicator
+ * 
+ * === HEART RATE PRIORITY SYSTEM ===
+ * 1. Real HealthKit data (Apple Watch/iPhone sensors)
+ * 2. Cached real data (when temporarily unavailable)
+ * 3. Simulated data (testing/fallback mode)
+ * 4. Default: 72 BPM (average resting rate)
+ * 
+ * === AUTHORIZATION FLOW ===
+ * 1. Check if HealthKit available on device
+ * 2. Verify app entitlements and permissions
+ * 3. Request user authorization via system dialog
+ * 4. Handle approval/denial gracefully
+ * 5. Enable background delivery if authorized
+ * 6. Start observer queries for live updates
+ * 
+ * === BACKGROUND MONITORING ===
+ * • HKObserverQuery: Detects new heart rate samples
+ * • Background delivery: Updates even when app closed
+ * • Immediate frequency: Real-time responsiveness
+ * • Automatic fallback: Simulation if unavailable
+ * 
+ * === SIMULATION SYSTEM ===
+ * • Enabled when: No HealthKit, no authorization, testing
+ * • Range: 60-120 BPM realistic variations
+ * • Timer: Updates every 10-30 seconds
+ * • UserDefaults: Remembers simulation preference
+ * 
+ * === THREAD SAFETY ===
+ * • All published property updates on main thread
+ * • HealthKit queries on background threads
+ * • @unchecked Sendable for cross-thread safety
+ * • DispatchQueue.main.async for UI updates
+ * 
+ * === NOTIFICATION INTEGRATION ===
+ * • Sends: HealthKitManager.heartRateUpdated
+ * • UserInfo: ["heartRate": Int] for subscribers
+ * • Used by: RealmNumberManager, VybeMatchManager
+ * 
+ * === ERROR HANDLING ===
+ * • HealthKitError enum for specific failures
+ * • Graceful fallback to simulation
+ * • Detailed logging for debugging
+ * • User-friendly error messages
+ * 
+ * === TESTING SUPPORT ===
+ * • HealthKitManaging protocol for mocking
+ * • Simulation mode toggle
+ * • Force update methods
+ * • Isolated test instances
+ * 
+ * === CRITICAL PERFORMANCE NOTES ===
+ * • Background delivery requires proper entitlements
+ * • Observer queries auto-resume on app activation
+ * • Simulation timer invalidated on real data
+ * • Memory efficient with weak self references
+ * 
  * Purpose: Manages all interactions with HealthKit to retrieve health data,
  * particularly heart rate information for use in the app's calculations.
  *

@@ -1,3 +1,113 @@
+/*
+ * ========================================
+ * 🔮 INSIGHT HISTORY VIEW - SACRED TIMELINE
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Comprehensive spiritual insight timeline displaying chronological personalized
+ * wisdom based on user's archetypal profile, focus numbers, and cosmic alignment.
+ * Creates sacred space for reflection tracking with deep spiritual context and
+ * interactive insight exploration with detailed view capabilities.
+ * 
+ * UI SPECIFICATIONS:
+ * - Background: Black → Purple(80%) → Blue(60%) → Black cosmic gradient
+ * - Header: 40pt sparkles icon in purple/blue gradient circle
+ * - Timeline Cards: 16pt radius with white 10% background, 20% border
+ * - Timeline Indicator: 12pt circles (yellow for today, white 60% for past)
+ * - Loading State: 1.5x scaled progress view with cosmic messaging
+ * 
+ * INSIGHT TIMELINE SYSTEM:
+ * - Chronological Display: Newest insights first with temporal organization
+ * - Today Highlighting: Special "TODAY" badge with yellow accent
+ * - Timeline Visual: Connected dots with vertical lines for continuity
+ * - Card Layout: Preview text (3 lines), tags, and navigation chevron
+ * - Interactive Navigation: Tap cards to open detailed insight views
+ * 
+ * SPIRITUAL DATA INTEGRATION:
+ * - UserProfileService: Profile-based insight personalization
+ * - InsightFilterService: Advanced insight matching and generation
+ * - UserArchetypeManager: Archetypal profile integration for relevance
+ * - Personalized Generation: Custom insights based on spiritual preferences
+ * - Focus Number Alignment: Insights aligned with user's current focus
+ * 
+ * STATE MANAGEMENT:
+ * - @StateObject insightService: InsightFilterService for data operations
+ * - @StateObject archetypeManager: User archetype integration
+ * - @State insights: PersonalizedInsight collection for timeline display
+ * - @State isLoading: Loading state for data fetching operations
+ * - @State selectedInsight: Current insight for detail view presentation
+ * 
+ * INSIGHT GENERATION SYSTEM:
+ * - Today's Insight: generateTodaysInsight() for current spiritual guidance
+ * - Historical Insights: 7-day retrospective with generateInsightForDate()
+ * - Profile-Based Filtering: Insights tailored to user's spiritual preferences
+ * - Temporal Sorting: Chronological organization with timestamp comparison
+ * - Dynamic Content: Real-time insight generation based on current profile
+ * 
+ * INTEGRATION POINTS:
+ * - AIInsightManager: Core insight generation and personalization engine
+ * - UserProfileService: Profile data for personalized content creation
+ * - InsightFilterService: Advanced filtering and matching algorithms
+ * - ActivityView: Insight integration in spiritual activity feed
+ * - NavigationView: Modal presentation with toolbar navigation
+ * 
+ * VISUAL DESIGN ELEMENTS:
+ * - Cosmic Background: Multi-layer gradient for mystical atmosphere
+ * - Timeline Design: Connected dots with visual flow indicators
+ * - Card Styling: Glass morphism with subtle borders and backgrounds
+ * - Tag System: Purple-accented tags for insight categorization
+ * - Sacred Symbols: Sparkles, moon.stars for spiritual iconography
+ * 
+ * INSIGHT CARD COMPONENTS:
+ * - Timeline Indicator: Visual connection between chronological entries
+ * - Date Display: Formatted date with "TODAY" special highlighting
+ * - Title/Preview: Headline and 3-line content preview
+ * - Tag Collection: Spiritual categories and focus areas
+ * - Navigation Cue: Chevron right for interaction affordance
+ * 
+ * EMPTY STATE HANDLING:
+ * - Spiritual Messaging: "Your Journey Begins" with moon.stars icon
+ * - Guidance Text: Instructions for receiving personalized insights
+ * - Encouraging Design: Mystical empty state with cosmic styling
+ * - User Education: Explains how to unlock spiritual insights
+ * - Progressive Disclosure: Guides users toward insight generation
+ * 
+ * DETAIL VIEW SYSTEM:
+ * - Sheet Presentation: Full-screen insight detail with navigation
+ * - Complete Content: Full insight text with enhanced formatting
+ * - Tag Display: Grid layout for spiritual categories and themes
+ * - Cosmic Styling: Consistent background and typography theming
+ * - Navigation Control: Done button for modal dismissal
+ * 
+ * PERFORMANCE OPTIMIZATIONS:
+ * - LazyVStack: Efficient rendering for large insight collections
+ * - Task-based Loading: Async insight generation with proper threading
+ * - MainActor Updates: UI-safe property updates for state changes
+ * - Efficient Filtering: Optimized insight matching algorithms
+ * - Memory Management: Proper state cleanup and resource management
+ * 
+ * SPIRITUAL PERSONALIZATION:
+ * - Archetypal Alignment: Insights matched to user's spiritual archetype
+ * - Focus Number Integration: Content aligned with selected focus numbers
+ * - Temporal Context: Date-specific insights for spiritual timing
+ * - Profile Adaptation: Dynamic content based on spiritual preferences
+ * - Growth Tracking: Timeline reveals spiritual development patterns
+ * 
+ * TECHNICAL SPECIFICATIONS:
+ * - Card Spacing: 16pt between timeline cards for visual separation
+ * - Timeline Width: 2pt connector lines with 12pt circle indicators
+ * - Content Limits: 3-line preview text with multiline support
+ * - Tag Layout: 2-column grid for efficient tag presentation
+ * - Navigation: Sheet-based detail view with toolbar controls
+ * 
+ * DEBUGGING & MONITORING:
+ * - Profile Validation: Checks for valid user profile before generation
+ * - Insight Tracking: Monitors successful insight generation
+ * - Loading States: Clear feedback during data operations
+ * - Error Handling: Graceful fallbacks for missing data
+ * - Development Support: Console logging for insight generation flow
+ */
+
 import SwiftUI
 
 /**

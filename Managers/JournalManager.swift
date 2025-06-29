@@ -1,3 +1,106 @@
+/*
+ * ========================================
+ * 📝 JOURNAL MANAGER - SPIRITUAL JOURNALING SYSTEM
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Comprehensive spiritual journaling management system providing Core Data persistence,
+ * CRUD operations, and filtering capabilities for mystical reflection entries. Integrates
+ * focus numbers, realm numbers, mood tracking, and voice recordings for complete
+ * spiritual journaling experience with robust data management.
+ * 
+ * CORE DATA INTEGRATION:
+ * - Entity Management: Complete JournalEntry entity lifecycle management
+ * - Persistence Layer: NSManagedObjectContext operations with error handling
+ * - Query Optimization: Efficient fetch requests with sort descriptors
+ * - Data Validation: Focus number validation (1-9 range enforcement)
+ * - Context Safety: Main thread operations for UI consistency
+ * 
+ * SPIRITUAL JOURNALING FEATURES:
+ * - Focus Number Integration: Links entries to selected focus numbers (1-9)
+ * - Realm Number Tracking: Captures realm number at time of entry creation
+ * - Mood Emoji Support: Emotional state tracking with emoji representation
+ * - Voice Recording: Audio journal entry support with filename persistence
+ * - Timestamp Management: Automatic entry creation and modification tracking
+ * 
+ * CRUD OPERATIONS:
+ * - Create: createEntry() with comprehensive parameter support
+ * - Read: loadEntries() with timestamp-based sorting (newest first)
+ * - Update: updateEntry() for title, content, and mood modifications
+ * - Delete: deleteEntry() with proper Core Data cleanup
+ * - Validation: Focus number range validation and data integrity checks
+ * 
+ * STATE MANAGEMENT:
+ * - @Published entries: Reactive journal entry collection for UI binding
+ * - ObservableObject: SwiftUI reactive updates for journal changes
+ * - Repository Pattern: Clean abstraction over Core Data complexity
+ * - Main Thread Safety: UI-safe property updates and context operations
+ * - Automatic Refresh: loadEntries() after all modification operations
+ * 
+ * FILTERING & SEARCH:
+ * - Focus Number Filter: entriesForFocusNumber() for number-specific entries
+ * - Date Filter: entriesForDate() for calendar-based entry retrieval
+ * - Chronological Sorting: Newest entries first with timestamp ordering
+ * - Calendar Integration: Same-day entry filtering with Calendar.current
+ * - Query Flexibility: Extensible filtering system for future enhancements
+ * 
+ * INTEGRATION POINTS:
+ * - JournalView: Primary UI for journal entry creation and management
+ * - FocusNumberManager: Focus number association for spiritual alignment
+ * - RealmNumberManager: Realm number capture for cosmic context
+ * - VoiceRecordingManager: Audio journal entry integration
+ * - ActivityView: Journal entries in spiritual activity feed
+ * 
+ * DATA STRUCTURE:
+ * - JournalEntry Entity: Core Data entity with complete spiritual metadata
+ * - UUID Identification: Unique entry identification for reliable operations
+ * - Timestamp Tracking: Creation and modification time management
+ * - Focus/Realm Numbers: Spiritual number associations (Int16 storage)
+ * - Rich Content: Title, content, mood emoji, voice recording support
+ * 
+ * ERROR HANDLING & RESILIENCE:
+ * - Core Data Errors: Comprehensive error logging with os.Logger
+ * - Context Validation: hasChanges check before save operations
+ * - Fetch Failures: Graceful handling of data retrieval errors
+ * - Data Integrity: Validation ensures consistent spiritual number ranges
+ * - Recovery Mechanisms: Robust error handling with user feedback
+ * 
+ * PERFORMANCE OPTIMIZATIONS:
+ * - Lazy Loading: Entries loaded on-demand via loadEntries()
+ * - Efficient Queries: Optimized fetch requests with proper sort descriptors
+ * - Context Management: Single viewContext for consistent operations
+ * - Memory Efficiency: Published property updates only when needed
+ * - Batch Operations: Efficient Core Data save operations
+ * 
+ * SPIRITUAL METADATA:
+ * - Focus Number Validation: Ensures 1-9 range for spiritual consistency
+ * - Realm Number Context: Captures cosmic state at entry creation
+ * - Mood Tracking: Emotional state association with journal entries
+ * - Voice Integration: Audio spiritual reflections with file management
+ * - Temporal Context: Timestamp-based spiritual journey tracking
+ * 
+ * TESTING & DEVELOPMENT:
+ * - Test Entry Creation: testCreateEntry() for development validation
+ * - Entry Listing: testListEntries() for debugging and verification
+ * - Debug Logging: Comprehensive console output for development
+ * - Data Validation: Focus number range testing and validation
+ * - Entry Count Tracking: Real-time entry count monitoring
+ * 
+ * TECHNICAL SPECIFICATIONS:
+ * - Entity Name: "JournalEntry" for Core Data operations
+ * - Sort Order: Timestamp descending (newest first)
+ * - Focus Range: 1-9 with validateFocusNumber() enforcement
+ * - Storage Types: Int16 for numbers, String for text, UUID for IDs
+ * - Logger Category: "journal" for debugging and error tracking
+ * 
+ * DEBUGGING & MONITORING:
+ * - os.Logger Integration: Structured logging for journal operations
+ * - Operation Tracking: Create, update, delete operation logging
+ * - Entry Count Monitoring: Real-time count updates after operations
+ * - Error Propagation: Detailed error messages for troubleshooting
+ * - Development Tools: Test methods for entry creation and listing
+ */
+
 /**
  * Filename: JournalManager.swift
  * 

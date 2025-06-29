@@ -1,3 +1,70 @@
+/*
+ * ========================================
+ * 🔐 AUTHENTICATION WRAPPER VIEW - APP ENTRY POINT
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Root navigation controller managing entire app authentication flow. Determines user
+ * journey based on authentication state: loading → sign-in → onboarding → main app.
+ * Integrates Apple Sign-In with Firebase Auth and UserProfile management.
+ * 
+ * UI SPECIFICATIONS:
+ * - Loading Screen: 60pt sparkles icon, purple accent, circular progress indicator
+ * - Sign-In Screen: 80pt sparkles icon, gradient background, 50pt Apple Sign-In button
+ * - Animations: 0.3s ease-in-out transitions between all states
+ * - Background: Purple-to-blue gradient (10% opacity) for sign-in screen
+ * - Button: Apple Sign-In with black style, 8pt corner radius, 20pt horizontal padding
+ * 
+ * AUTHENTICATION FLOW STATES:
+ * 1. isCheckingAuthStatus=true → EnhancedLoadingView with timeout/retry
+ * 2. isSignedIn=false → SignInWrapperView with Apple Sign-In
+ * 3. isSignedIn=true + hasCompletedOnboarding=false → OnboardingView
+ * 4. isSignedIn=true + hasCompletedOnboarding=true → ContentView (main app)
+ * 
+ * STATE MANAGEMENT:
+ * - AuthenticationManager.shared: Global auth state observer
+ * - SignInViewModel: User ID and auth data management
+ * - hasCompletedOnboarding: Local state for onboarding completion
+ * - UserProfileService: Profile persistence and Firestore sync
+ * 
+ * INTEGRATION POINTS:
+ * - AuthenticationManager: Authentication state and Apple Sign-In handling
+ * - UserProfileService: Profile validation and Firestore synchronization
+ * - AIInsightManager: AI insights configuration after profile validation
+ * - OnboardingView: Full onboarding flow with profile creation
+ * - ContentView: Main app with 12-tab navigation structure
+ * 
+ * APPLE SIGN-IN SPECIFICATIONS:
+ * - Nonce Generation: Security nonce for Firebase Auth integration
+ * - Requested Scopes: .fullName and .email for user identification
+ * - Button Style: .black with system styling
+ * - Firebase Integration: Seamless Apple ID to Firebase Auth conversion
+ * 
+ * ONBOARDING VALIDATION:
+ * - Profile Check: UserProfileService.getCurrentUserProfileFromUserDefaults()
+ * - Completion Criteria: Complete UserProfile with all required fields
+ * - Auto-Sync: Profiles automatically saved to Firestore after validation
+ * - AI Configuration: AIInsightManager configured with validated profile
+ * 
+ * ERROR HANDLING & RECOVERY:
+ * - Authentication Timeout: EnhancedLoadingView with retry mechanism
+ * - Failed Auth Check: Force refresh with authManager.checkAuthenticationStatus()
+ * - Profile Sync Errors: Graceful fallback with error logging
+ * - State Reset: Clean state reset on sign-out
+ * 
+ * PERFORMANCE NOTES:
+ * - State Observers: Efficient @StateObject and @State management
+ * - Animation Optimization: Single 0.3s duration for all transitions
+ * - Memory Management: Proper cleanup on state changes
+ * - Background Processing: Non-blocking profile validation and sync
+ * 
+ * SECURITY FEATURES:
+ * - Secure Nonce: Cryptographically secure nonce generation for Apple Sign-In
+ * - Privacy Protection: Minimal data collection, secure storage only
+ * - Keychain Integration: Secure credential storage via AuthenticationManager
+ * - Firebase Security: Encrypted communication with Firebase Auth
+ */
+
 //
 //  AuthenticationWrapperView.swift
 //  VybeMVP

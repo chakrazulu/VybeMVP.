@@ -1,6 +1,92 @@
 import SwiftUI
 import CoreData // Import CoreData
 
+/**
+ * ActivityView: Cosmic activity feed showing persisted insight logs
+ * 
+ * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
+ * 
+ * === SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points) ===
+ * • NavigationView: Standard iOS navigation
+ * • Title: "Cosmic Activity" - navigation title style
+ * • Background: Full screen CosmicBackgroundView
+ * • ScrollView: Vertical, full width
+ * • Content padding: 20pts all sides
+ * 
+ * === EMPTY STATE ===
+ * • Text: "No activity or insights recorded yet."
+ * • Font: Headline (~17pt)
+ * • Color: Secondary (system gray)
+ * • Alignment: Center horizontally and vertically
+ * • Padding: Standard system padding
+ * 
+ * === INSIGHT LIST ===
+ * • Container: LazyVStack for performance
+ * • Spacing: 20pts between cards
+ * • Sort order: Newest first (by timestamp)
+ * • Animation: Default Core Data animation
+ * 
+ * === FULL INSIGHT CARD ===
+ * • Container padding: 20pts all sides
+ * • Corner radius: 16pts
+ * • Border: 2pt gradient stroke
+ * • Shadow 1: Sacred color 30%, 15pt blur, 8pt Y offset
+ * • Shadow 2: Black 20%, 5pt blur, 2pt Y offset
+ * 
+ * === CARD HEADER ===
+ * • Title font: Title2 (~22pt), bold
+ * • Title gradient: White→Sacred color(90%)
+ * • Title shadow: Sacred color 40%, 3pt blur
+ * • Date/time: Caption font (~12pt), 80% white
+ * • Number badge: 50×50pt circle
+ * • Badge gradient: Radial, sacred color 80%→40%
+ * • Badge number: 24pt bold rounded, white
+ * 
+ * === CARD CONTENT ===
+ * • Divider: 2pt height, gradient sacred color
+ * • Body text: Body font (~17pt), 95% white
+ * • Line spacing: 6pts
+ * • Text alignment: Leading (left)
+ * 
+ * === TAGS SECTION ===
+ * • Icon: tag.fill, caption size
+ * • Tag text: Caption2 font (~11pt)
+ * • Tag padding: 8pt horizontal, 4pt vertical
+ * • Tag background: Capsule, sacred color 20%
+ * • Tag border: 1pt, sacred color 40%
+ * • Section margin: 8pt top
+ * 
+ * === SACRED COLOR SYSTEM ===
+ * 1. Red - Creation/Fire 🔥
+ * 2. Orange - Partnership/Balance ⚖️
+ * 3. Yellow - Expression/Joy ☀️
+ * 4. Green - Foundation/Earth 🌍
+ * 5. Blue - Freedom/Sky 🌌
+ * 6. Indigo - Harmony/Love 💜
+ * 7. Purple - Spirituality/Wisdom 🔮
+ * 8. Gold (#FFD700) - Abundance/Prosperity 💰
+ * 9. White - Completion/Universal ⚪
+ * 
+ * === GRADIENT SYSTEM ===
+ * • Card background: 4 stops
+ *   - Sacred color 80%
+ *   - Sacred color 50%
+ *   - Sacred color 30%
+ *   - Black 40%
+ * • Direction: Top-left to bottom-right
+ * 
+ * === PERFORMANCE OPTIMIZATIONS ===
+ * • LazyVStack: Only renders visible cards
+ * • Core Data fetch: Automatic batching
+ * • AI refresh: Deferred by 1.0s on appear
+ * • Navigation highlight: Efficient filtering
+ * 
+ * === STATE MANAGEMENT ===
+ * • managedObjectContext: Core Data context
+ * • insightLogs: FetchedResults from Core Data
+ * • activityNavigationManager: For deep linking
+ * • aiInsightManager: For refresh triggers
+ */
 struct ActivityView: View {
     @Environment(\.managedObjectContext) private var viewContext // Access managed object context
     @StateObject private var activityNavigationManager = ActivityNavigationManager.shared
@@ -54,7 +140,7 @@ struct ActivityView: View {
             
             // Defer AI insights refresh by 1 second to prevent blocking
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                aiInsightManager.refreshInsightIfNeeded()
+            aiInsightManager.refreshInsightIfNeeded()
                 print("⚡ ActivityView: AI insights refresh deferred for performance")
             }
         }

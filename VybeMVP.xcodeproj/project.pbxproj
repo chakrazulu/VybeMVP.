@@ -130,6 +130,8 @@
 		4DA98FCE2E073D0000FAE5FF /* ReportContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98FCD2E073D0000FAE5FF /* ReportContentView.swift */; };
 		4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */; };
 		4DB233F42E114580004EC2BC /* NeonTracerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F32E114580004EC2BC /* NeonTracerView.swift */; };
+		4DB233F62E1169CD004EC2BC /* VybeMatchOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F52E1169CD004EC2BC /* VybeMatchOverlay.swift */; };
+		4DB233F82E116AF5004EC2BC /* VybeMatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F72E116AF5004EC2BC /* VybeMatchManager.swift */; };
 		4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */; };
 		4DC602382D345A1B00B5E4A9 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602342D34570200B5E4A9 /* SignInViewModel.swift */; };
 		4DC602392D345A3500B5E4A9 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602352D34577E00B5E4A9 /* SignInView.swift */; };
@@ -274,6 +276,8 @@
 		4DA98FCD2E073D0000FAE5FF /* ReportContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportContentView.swift; sourceTree = "<group>"; };
 		4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusMatch.swift; sourceTree = "<group>"; };
 		4DB233F32E114580004EC2BC /* NeonTracerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeonTracerView.swift; sourceTree = "<group>"; };
+		4DB233F52E1169CD004EC2BC /* VybeMatchOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeMatchOverlay.swift; sourceTree = "<group>"; };
+		4DB233F72E116AF5004EC2BC /* VybeMatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeMatchManager.swift; sourceTree = "<group>"; };
 		4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberView.swift; sourceTree = "<group>"; };
 		4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VybeMVP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DC602322D34552200B5E4A9 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -384,6 +388,7 @@
 		4D3055982D3C9462009A7BBD /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				4DB233F72E116AF5004EC2BC /* VybeMatchManager.swift */,
 				4D2CC6F32E08688000BDF100 /* MandalaAssetManager.swift */,
 				4D2DB48E2DFF70490003353E /* LocationManager.swift */,
 				4D2DB4852DFF6A450003353E /* SightingsManager.swift */,
@@ -466,6 +471,7 @@
 		4D3727142DE550ED00B5A02B /* ReusableComponents */ = {
 			isa = PBXGroup;
 			children = (
+				4DB233F52E1169CD004EC2BC /* VybeMatchOverlay.swift */,
 				4DB233F32E114580004EC2BC /* NeonTracerView.swift */,
 				4D2CC7172E0C70F600BDF100 /* TwinklingDigitsBackground.swift */,
 				4D2CC7152E0C37F200BDF100 /* RulingNumberChartDetailView.swift */,
@@ -817,6 +823,7 @@
 				4D6C7BB32DE48067001036E5 /* NumerologyService.swift in Sources */,
 				4D6C7BBB2DE48126001036E5 /* Logger+Extensions.swift in Sources */,
 				4D3055FC2D3D8F8A009A7BBD /* JournalListView.swift in Sources */,
+				4DB233F82E116AF5004EC2BC /* VybeMatchManager.swift in Sources */,
 				4DC602402D34651C00B5E4A9 /* SettingsView.swift in Sources */,
 				4D80E1012D3F1DD80020F7BB /* NumberMeaning.swift in Sources */,
 				4DC6023E2D34650400B5E4A9 /* HomeView.swift in Sources */,
@@ -877,6 +884,7 @@
 				4DA98F992E07230500FAE5FF /* CommentManager.swift in Sources */,
 				4D2CC7032E08C78C00BDF100 /* UserProfile.swift in Sources */,
 				4D6308DC2DFFCB2C00FD32E9 /* PostComposerView.swift in Sources */,
+				4DB233F62E1169CD004EC2BC /* VybeMatchOverlay.swift in Sources */,
 				4D6308DD2DFFCB2C00FD32E9 /* PostManager.swift in Sources */,
 				4D6308DE2DFFCB2C00FD32E9 /* Post.swift in Sources */,
 				4D6308DF2DFFCB2C00FD32E9 /* PostCardView.swift in Sources */,

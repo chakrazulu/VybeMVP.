@@ -1,3 +1,67 @@
+/*
+ * ========================================
+ * 🎂 BIRTHDATE INPUT VIEW - SPIRITUAL ARCHETYPE CALCULATOR
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Critical onboarding component collecting user birthdate to calculate complete spiritual
+ * archetype including Life Path Number, Zodiac Sign, Element, and Planetary Influences.
+ * Integrates with UserArchetypeManager for mystical profile generation.
+ * 
+ * UI SPECIFICATIONS:
+ * - Header: 50pt sparkles icon, title2 semibold text, purple accent color
+ * - Date Display: Selected date in capsule with purple 10% background, 30% border
+ * - Date Picker: Compact style with rounded 12pt background, subtle shadow
+ * - Button: 56pt height, purple-to-blue gradient, 12pt corner radius, shadow
+ * - Info Card: Blue 10% background with archetype calculation breakdown
+ * 
+ * ARCHETYPE CALCULATION SYSTEM:
+ * - Life Path Number: Core numerological identity from birthdate
+ * - Zodiac Sign: Astrological archetype based on birth month/day
+ * - Element: Fire, Earth, Air, Water alignment from zodiac
+ * - Planetary Influences: Conscious and subconscious planetary guides
+ * - Date Range: 1900-present (reasonable birth year constraints)
+ * 
+ * INTEGRATION POINTS:
+ * - UserArchetypeManager.shared: Archetype calculation and storage
+ * - ArchetypeDisplayView: Presents calculated archetype results
+ * - OnboardingView: Part of multi-step onboarding flow
+ * - NotificationCenter: Posts .archetypeCalculated for flow coordination
+ * 
+ * STATE MANAGEMENT:
+ * - selectedDate: Current date picker value with onChange haptic feedback
+ * - isProcessing: Loading state during 0.5s calculation delay
+ * - showingArchetype: Sheet presentation for ArchetypeDisplayView
+ * - calculatedArchetype: Computed archetype data for display
+ * - isCompleted: Binding for onboarding progression control
+ * 
+ * USER EXPERIENCE FEATURES:
+ * - Real-time Date Display: Shows selected date in readable format above picker
+ * - Haptic Feedback: Light impact on date change, medium on calculation completion
+ * - Processing Animation: Button transforms with progress indicator and scale effect
+ * - Informational Guide: Explains what will be calculated before user commits
+ * - Calculation Delay: 0.5s artificial delay for better perceived performance
+ * 
+ * VISUAL DESIGN ELEMENTS:
+ * - Purple Theme: Consistent with mystical app aesthetic
+ * - Gradient Button: Purple-to-blue linear gradient with shadow depth
+ * - Card Layout: Rounded rectangles with subtle backgrounds and borders
+ * - Icon System: SF Symbols for sparkles, info, and archetype elements
+ * - Typography: Hierarchical text sizing with proper color contrast
+ * 
+ * PERFORMANCE NOTES:
+ * - Efficient Date Calculation: UserArchetypeManager handles complex calculations
+ * - Memory Management: Proper @StateObject and @State usage
+ * - Animation Optimization: Simple scale and opacity transitions
+ * - Background Processing: Non-blocking archetype calculation
+ * 
+ * DEBUG LOGGING:
+ * - Date Selection: Logs formatted date string on user selection
+ * - Previous Archetype: Shows any existing stored archetype data
+ * - Calculation Results: Detailed logging of computed archetype properties
+ * - Flow Coordination: Tracks notification posting and onboarding progression
+ */
+
 //
 //  BirthdateInputView.swift
 //  VybeMVP

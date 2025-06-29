@@ -8,6 +8,73 @@
 /**
  * HomeView: The primary landing screen of the application.
  *
+ * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
+ *
+ * === SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points) ===
+ * • Top padding: 50pts from safe area
+ * • Main VStack spacing: 30pts between major sections
+ * • Horizontal padding: 20pts for content cards
+ * • Bottom padding: 20pts before safe area
+ *
+ * === SACRED GEOMETRY SECTION (350×350pt) ===
+ * • Container: 350×350pt frame centered horizontally
+ * • Mandala image: Full 350×350pt
+ * • Neon tracer overlay: 320×320pt (91% of container)
+ * • Focus number text: 140pt font, bold rounded
+ * • "Hold to Change" hint: 12pt font, 70% white opacity
+ * • Vertical padding: 40pts above and below section
+ *
+ * === REALM-TIME BUTTON ===
+ * • Text: Title2 font (22pt), bold
+ * • Padding: 30pt horizontal, 15pt vertical
+ * • Corner radius: 20pts
+ * • Shadow 1: 15pt blur, 8pt Y offset, 50% opacity
+ * • Shadow 2: 25pt blur, 12pt Y offset, 30% opacity
+ * • Top margin: 10pts from sacred geometry
+ *
+ * === TODAY'S INSIGHT CARD ===
+ * • Container padding: 20pts all sides
+ * • Corner radius: 16pts
+ * • Title: Title2 font (22pt), bold
+ * • Date: Subheadline font (15pt), 80% opacity
+ * • Body text: Body font (17pt), 90% opacity, 4pt line spacing
+ * • Shadow: 15pt blur, 8pt Y offset, 30% purple
+ * • Gradient: Purple→Indigo→Blue (80%→60%→40% opacity)
+ *
+ * === RECENT MATCHES SECTION ===
+ * • Section title: Headline font (17pt), 10pt bottom spacing
+ * • Match cards: 15pt spacing between cards
+ * • Card number: Title2 font (22pt), bold
+ * • Card timestamp: Caption font (12pt), secondary color
+ * • Horizontal scroll padding: 15pts between cards
+ *
+ * === COSMIC NUMBER PICKER OVERLAY ===
+ * • Backdrop: 70% black opacity, full screen
+ * • Container: 350×400pt centered
+ * • Title: 20pt bold rounded, gradient text
+ * • Number grid: 3×3, 15pt spacing
+ * • Number circles: 80×80pt
+ * • Number text: 32pt bold rounded
+ * • Animation: Scale 0.1→1.0, opacity 0→1 over 0.4s
+ *
+ * === ANIMATION TIMINGS ===
+ * • Picker entrance: 0.4s ease-in-out
+ * • Number selection: 0.3s spring animation
+ * • Realm button color: 0.6s ease-in-out
+ * • Insight loading: 1.2s circular progress
+ *
+ * === COLOR SYSTEM ===
+ * • Sacred colors: Dynamic per number (1-9)
+ * • Insight gradient: Purple→Indigo→Blue
+ * • Match alert gradient: Orange→Red→Purple
+ * • Glass effects: 10-30% white overlays
+ *
+ * === INTERACTION ZONES ===
+ * • Sacred geometry: Long press 0.6s for picker
+ * • Realm button: Standard tap target (44pt min)
+ * • Insight history: Clock icon button (44×44pt)
+ * • Number picker: Each number is 80×80pt target
+ *
  * Purpose: 
  * Provides a visual dashboard that displays the user's selected focus number and recent matches.
  * Serves as the central hub that users return to after navigating through other sections.
@@ -52,19 +119,19 @@ struct HomeView: View {
                 .ignoresSafeArea()
             
             ScrollView {
-                VStack(spacing: 30) {
+                VStack(spacing: 30) { // 🎯 MAIN STACK: 30pt spacing between sections
                     Text("Vybe")
-                        .font(.system(size: 40, weight: .bold))
+                        .font(.system(size: 40, weight: .bold)) // 🎨 APP TITLE: 40pt bold
                     
                     Text("Your Focus Number")
-                        .font(.title)
+                        .font(.title) // 📝 SECTION LABEL: ~28pt title font
                     
                     // MARK: ––– SACRED GEOMETRY SECTION START –––
-                    // Enhanced Sacred Geometry Display - Focus Number Only
+                    // 🌟 SACRED GEOMETRY CONTAINER: 350×350pt with 40pt vertical padding
                     VStack(spacing: 30) {
                         // Focus Number Sacred Geometry
-                        VStack(spacing: 20) {
-                            ZStack {
+                        VStack(spacing: 20) { // 20pt gap between geometry and hint text
+                            ZStack { // 🎯 LAYERED SACRED DISPLAY: Mandala → Tracer → Number
                                 // Enhanced Sacred Geometry with Focus + Realm Numbers
                                 // This implements ChatGPT's aesthetic-first vision:
                                 // - Data-driven selection (focus + realm numbers)
@@ -254,7 +321,7 @@ struct HomeView: View {
             
             // Step 3: AI insights (can be heavy, after larger delay)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                aiInsightManager.refreshInsightIfNeeded()
+            aiInsightManager.refreshInsightIfNeeded()
             }
         }
     }

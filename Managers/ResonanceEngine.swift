@@ -1,3 +1,119 @@
+/*
+ * ========================================
+ * 🌊 RESONANCE ENGINE - COSMIC PATTERN DETECTOR
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Advanced spiritual pattern recognition engine analyzing user's personal numerical
+ * patterns, archetypal alignments, and cosmic synchronicities to surface meaningful
+ * resonance within their spiritual experience. Detects internal harmony patterns
+ * before introducing user-to-user cosmic matching capabilities.
+ * 
+ * RESONANCE DETECTION SYSTEM:
+ * - Focus-Realm Alignment: Perfect numerical match detection (intensity 1.0)
+ * - Numerical Harmony: Root numbers, complements, sequences (threshold 0.5)
+ * - Archetype Activation: Life path resonance with elemental alignment
+ * - Sequential Magic: Ascending sequences and mirror patterns
+ * - Spiritual Momentum: Streak-based consistency tracking
+ * 
+ * PATTERN ANALYSIS ALGORITHMS:
+ * - Same Root Reduction: Multi-digit numbers reduced to single digit comparison
+ * - Perfect Complement: Number pairs adding to 10 for cosmic balance
+ * - Sequential Detection: Ascending numerical progression patterns
+ * - Master Number Activation: 11, 22, 33 special resonance calculations
+ * - Elemental Day Alignment: Weekday-element correspondence system
+ * 
+ * STATE MANAGEMENT:
+ * - @Published currentMatches: Complete resonance match collection
+ * - @Published todaysMatches: Current day's detected patterns
+ * - @Published isAnalyzing: Analysis state for UI loading indicators
+ * - @Published resonanceStreak: Consecutive days of spiritual activity
+ * - Singleton Pattern: ResonanceEngine.shared for app-wide access
+ * 
+ * MATCH INTENSITY SCORING:
+ * - Perfect Alignment: 1.0 intensity for exact focus-realm matches
+ * - Numerical Harmony: 0.2-0.6 based on pattern complexity
+ * - Archetype Activation: 0.3-0.6 for elemental and life path resonance
+ * - Sequential Magic: 0.7-0.8 for meaningful progression patterns
+ * - Spiritual Momentum: Streak-based scoring (days/10, max 1.0)
+ * 
+ * INTEGRATION POINTS:
+ * - UserArchetypeManager: Spiritual archetype data for activation analysis
+ * - FocusNumberManager: Current focus number for alignment detection
+ * - RealmNumberManager: Real-time realm number for pattern matching
+ * - ActivityView: Resonance match display in spiritual activity feed
+ * - UserDefaults: Persistent storage for match history and streaks
+ * 
+ * TEMPORAL PATTERN TRACKING:
+ * - Today's Matches: Current day resonance for immediate awareness
+ * - Recent Matches: 7-day retrospective for pattern recognition
+ * - Streak Calculation: Consecutive days of spiritual activity
+ * - 30-Day Storage: Rolling window for memory optimization
+ * - Periodic Analysis: 5-minute intervals for ambient detection
+ * 
+ * CACHING & PERSISTENCE:
+ * - UserDefaults Storage: JSON-encoded match history persistence
+ * - Match Limit: 100 stored matches for memory efficiency
+ * - Cache Keys: "resonance_matches", "resonance_streak", analysis timestamps
+ * - Data Cleanup: 30-day rolling window for storage optimization
+ * - Streak Persistence: Maintains momentum across app sessions
+ * 
+ * RESONANCE MATCH TYPES:
+ * - Focus-Realm Alignment: Perfect numerical synchronicity
+ * - Numerical Harmony: Complex mathematical relationships
+ * - Archetype Activation: Spiritual identity resonance
+ * - Sequential Magic: Progressive numerical patterns
+ * - Spiritual Momentum: Consistency-based recognition
+ * 
+ * ANALYSIS CONFIGURATION:
+ * - Max Stored Matches: 100 for memory management
+ * - Analysis Interval: 300 seconds (5 minutes) for ambient detection
+ * - Match Threshold: 0.5 minimum intensity for surfacing
+ * - Streak Requirement: 3 days for momentum recognition
+ * - Storage Window: 30 days for historical analysis
+ * 
+ * ELEMENTAL DAY MAPPING:
+ * - Fire: Sunday(1), Tuesday(3) - Active energy days
+ * - Earth: Thursday(5), Saturday(7) - Grounding energy days
+ * - Air: Monday(2), Wednesday(4) - Mental energy days
+ * - Water: Friday(6) - Emotional energy day
+ * 
+ * NUMERICAL HARMONY PATTERNS:
+ * - Same Root: Multi-digit numbers with identical single-digit reduction
+ * - Perfect Complement: Number pairs summing to 10 (cosmic balance)
+ * - Sequential: Adjacent numbers indicating spiritual progression
+ * - Double Power: Matching multi-digit numbers for amplified energy
+ * - Master Activation: Sum equals master number (11, 22, 33)
+ * 
+ * PERFORMANCE OPTIMIZATIONS:
+ * - Singleton Pattern: Single instance for memory efficiency
+ * - Lazy Analysis: On-demand pattern detection to conserve resources
+ * - Rolling Storage: 30-day window prevents memory bloat
+ * - Efficient Sorting: Timestamp-based organization for quick access
+ * - Timer Management: Proper cleanup and resource management
+ * 
+ * ERROR HANDLING & RESILIENCE:
+ * - JSON Encoding/Decoding: Graceful handling of persistence failures
+ * - Analysis Guards: Prevents concurrent analysis operations
+ * - Data Validation: Ensures match threshold and intensity bounds
+ * - Timer Safety: Proper cleanup in deinit to prevent memory leaks
+ * - Storage Fallbacks: Handles missing or corrupted cache data
+ * 
+ * DEBUGGING & DEVELOPMENT:
+ * - Test Match Creation: createTestMatches() for development validation
+ * - Debug State Display: debugResonanceState() for analysis verification
+ * - Comprehensive Logging: Detailed analysis step tracking
+ * - Match Visualization: Intensity percentages and pattern descriptions
+ * - Development Tools: Console output for resonance pattern verification
+ * 
+ * TECHNICAL SPECIFICATIONS:
+ * - Analysis Frequency: 5-minute intervals for background pattern detection
+ * - Storage Format: JSON-encoded ResonanceMatch arrays
+ * - Intensity Range: 0.0-1.0 with 0.5 minimum threshold
+ * - Date Calculations: Calendar-based day comparisons for accuracy
+ * - Pattern Complexity: Multi-layered analysis with weighted scoring
+ */
+
 //
 //  ResonanceEngine.swift
 //  VybeMVP

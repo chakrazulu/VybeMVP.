@@ -1,6 +1,78 @@
 /**
  * Filename: FocusNumberManager.swift
  * 
+ * 🎯 COMPREHENSIVE MANAGER REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
+ * 
+ * === CORE PURPOSE ===
+ * Central manager for all focus number operations and cosmic match detection.
+ * This is THE brain of the matching system - when Focus Number == Realm Number.
+ * 
+ * === KEY RESPONSIBILITIES ===
+ * • Store user's selected focus number (1-9)
+ * • Detect matches between focus and realm numbers
+ * • Save match history to Core Data
+ * • Trigger notifications and UI celebrations
+ * • Manage match debouncing (prevent duplicates)
+ * • Coordinate with VybeMatchManager for visual effects
+ * 
+ * === ARCHITECTURE PATTERN ===
+ * • Design: Singleton with dependency injection support
+ * • Threading: Main thread for Core Data operations
+ * • Storage: Core Data (matches) + UserDefaults (preferences)
+ * • Communication: Combine publishers for reactive updates
+ * 
+ * === PUBLISHED PROPERTIES ===
+ * • selectedFocusNumber: Current focus number (1-9)
+ * • matchLogs: Array of FocusMatch Core Data entities
+ * • isAutoUpdateEnabled: Toggle for automatic updates
+ * • realmNumber: Current realm number (synced from RealmNumberManager)
+ * • latestMatchedInsight: Most recent match insight data
+ * 
+ * === MATCH DETECTION FLOW ===
+ * 1. RealmNumberManager updates currentRealmNumber
+ * 2. FocusNumberManager receives update via Combine
+ * 3. checkForMatches() compares focus vs realm
+ * 4. If match: verifyAndSaveMatch() checks debouncing
+ * 5. If new: Save to Core Data + send notification
+ * 6. VybeMatchManager triggers visual celebration
+ * 
+ * === DEBOUNCING SYSTEM ===
+ * • Interval: 90 seconds between same-number matches
+ * • Checks: In-memory cache + Core Data query
+ * • Purpose: Prevent notification spam
+ * • Cache: lastNotificationTimestamps dictionary
+ * 
+ * === STARTUP SEQUENCE ===
+ * • 0.0s: Initialize with saved preferences
+ * • 0.2s: Configure with RealmNumberManager
+ * • 15.0s: Enable match detection (prevents app freeze)
+ * • Deferred to prevent blocking UI during launch
+ * 
+ * === CORE DATA SCHEMA ===
+ * Entity: FocusMatch
+ * • timestamp: Date of match
+ * • chosenNumber: Int16 (focus number)
+ * • matchedNumber: Int16 (realm number)
+ * • locationLatitude: Double
+ * • locationLongitude: Double
+ * 
+ * === NOTIFICATION INTEGRATION ===
+ * • Uses NotificationManager.shared
+ * • Schedules numerology notifications
+ * • 1 second delay for UI updates
+ * • Category-based content selection
+ * 
+ * === TESTING SUPPORT ===
+ * • createForTesting(): Isolated instance
+ * • Custom persistence controller
+ * • Mock-friendly dependency injection
+ * 
+ * === CRITICAL PERFORMANCE NOTES ===
+ * • Match detection DISABLED for first 15 seconds
+ * • Core Data saves on main thread only
+ * • Combine subscriptions use receive(on: main)
+ * • Prevents app freeze during launch
+ * 
  * Purpose: Core manager that handles all focus number operations, matching logic,
  * and synchronization with the realm number system.
  *
@@ -530,6 +602,14 @@ class FocusNumberManager: NSObject, ObservableObject {
         )
         
         print("\n📝 Focus Number set to: \(validNumber)")
+        
+        // 🌟 Publish focus number change for VybeMatchManager
+        NotificationCenter.default.post(
+            name: NSNotification.Name.focusNumberChanged,
+            object: nil,
+            userInfo: ["focusNumber": validNumber]
+        )
+        
         // Check for immediate match with current realm number
         checkForMatches()
     }
