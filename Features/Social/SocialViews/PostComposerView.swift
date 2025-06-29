@@ -42,14 +42,14 @@ struct PostComposerView: View {
                 
                 ScrollView {
                     VStack(spacing: 24) {
+                        // Content input (moved to top)
+                        contentSection
+                        
                         // User cosmic signature
                         cosmicSignatureSection
                         
                         // Post type selector
                         postTypeSection
-                        
-                        // Content input
-                        contentSection
                         
                         // Tags section
                         tagsSection

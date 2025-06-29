@@ -53,14 +53,14 @@ class BackgroundManager: NSObject, ObservableObject {
     /// Timer for scheduling updates when app is active
     private var activeTimer: Timer?
     
-    /// Update frequency when app is in the foreground (1 minute)
-    private let activeUpdateInterval: TimeInterval = 60
+    /// Update frequency when app is in the foreground (REDUCED from 1 minute to 5 minutes for performance)
+    private let activeUpdateInterval: TimeInterval = 300  // 5 minutes
     
     /// Update frequency when app is in the background (15 minutes)
     private let backgroundUpdateInterval: TimeInterval = 15 * 60
     
-    /// Tolerance for timer scheduling to optimize battery life (10% of a minute)
-    private let timerTolerance: TimeInterval = 0.1 * 60
+    /// Tolerance for timer scheduling to optimize battery life (10% of 5 minutes)
+    private let timerTolerance: TimeInterval = 0.1 * 300  // 30 seconds
     
     /// Currently executing background task
     private var backgroundTask: BGAppRefreshTask?

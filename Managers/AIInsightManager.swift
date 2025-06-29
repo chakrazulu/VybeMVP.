@@ -7,6 +7,8 @@
 import Foundation
 import Combine
 import CoreData
+// RACE CONDITION FIX: Import AuthenticationManager for fallback userID
+// (Note: This creates a dependency, but it's necessary for the fallback)
 
 /**
  * `AIInsightManager` is an ObservableObject responsible for orchestrating the generation
@@ -30,6 +32,10 @@ class AIInsightManager: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     private let viewContext = PersistenceController.shared.container.viewContext
+    
+    // THROTTLING: Prevent rapid successive refresh calls
+    private var lastRefreshTime: Date?
+    private let refreshThrottleSeconds: TimeInterval = 10 // 10 seconds minimum between refreshes
     
     /// Private initializer to enforce singleton pattern.
     private init() {
@@ -78,13 +84,35 @@ class AIInsightManager: ObservableObject {
      * This should be called on app launch or when switching tabs.
      */
     func refreshInsightIfNeeded() {
-        guard let userID = UserDefaults.standard.string(forKey: "userID"),
-              let userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID) else {
-            print("⚠️ AIInsightManager: Cannot refresh insight - no user profile found")
+        // THROTTLING: Prevent rapid successive calls
+        if let lastRefresh = lastRefreshTime,
+           Date().timeIntervalSince(lastRefresh) < refreshThrottleSeconds {
+            print("🛑 AIInsightManager: Throttling refresh request - too soon since last refresh")
             return
         }
         
-        configureAndRefreshInsight(for: userProfile)
+        // RACE CONDITION FIX: Try multiple sources for userProfile
+        var userProfile: UserProfile?
+        
+        // Try UserDefaults first
+        if let id = UserDefaults.standard.string(forKey: "userID") {
+            userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: id)
+        }
+        
+        // FALLBACK: Try AuthenticationManager if UserDefaults fails
+        if userProfile == nil, let authID = AuthenticationManager.shared.userID {
+            userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: authID)
+        }
+        
+        guard let profile = userProfile else {
+            print("⚠️ AIInsightManager: Cannot refresh insight - no user profile found (tried UserDefaults and AuthManager)")
+            return
+        }
+        
+        // Update throttle time
+        lastRefreshTime = Date()
+        
+        configureAndRefreshInsight(for: profile)
     }
     
     /**

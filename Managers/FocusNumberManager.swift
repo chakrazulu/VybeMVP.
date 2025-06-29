@@ -99,6 +99,9 @@ class FocusNumberManager: NSObject, ObservableObject {
     /// Flag to ensure configuration and subscription happens only once
     private var isConfigured = false
     
+    /// Flag to disable match detection during startup to prevent freeze
+    private var isMatchDetectionEnabled = false
+    
     // MARK: - Initialization
     
     /**
@@ -421,6 +424,18 @@ class FocusNumberManager: NSObject, ObservableObject {
     }
     
     /**
+     * Enables match detection after startup stabilization period.
+     * This prevents heavy match detection operations from running during app launch.
+     */
+    func enableMatchDetection() {
+        isMatchDetectionEnabled = true
+        print("🎯 Match detection enabled - will now check for matches")
+        
+        // Perform an immediate check now that detection is enabled
+        checkForMatches()
+    }
+    
+    /**
      * Checks if the current focus number matches the realm number and handles match creation.
      *
      * This method is called:
@@ -432,6 +447,11 @@ class FocusNumberManager: NSObject, ObservableObject {
      * new match records based on the current state of the focus and realm numbers.
      */
     private func checkForMatches() {
+        // CRITICAL: Skip match detection during startup to prevent freeze
+        guard isMatchDetectionEnabled else {
+            print("⏸️ Match detection disabled during startup - skipping check")
+            return
+        }
         // print("➡️ [Match Trace] checkForMatches called. Current selectedFocusNumber: \(selectedFocusNumber), realmNumber: \(realmNumber)") // REMOVED TRACE LOG
         // Only create a match if the numbers are equal and valid
         if selectedFocusNumber == realmNumber && Self.validFocusNumbers.contains(selectedFocusNumber) {

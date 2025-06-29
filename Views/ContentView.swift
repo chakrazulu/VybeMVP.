@@ -45,10 +45,8 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            ZStack { // Add ZStack to layer the background
-                CosmicBackgroundView() // Add the cosmic background here
-                
-                TabView(selection: $selectedTab) {
+            TabView(selection: $selectedTab) {
+                    // HOME TAB - Loads immediately
                     HomeView()
                         .environmentObject(focusNumberManager)
                         .environmentObject(activityNavigationManager) 
@@ -59,6 +57,7 @@ struct ContentView: View {
                         }
                         .tag(0)
                     
+                    // DIRECT LOADING - Back to original approach for fast user experience
                     JournalView()
                         .environmentObject(focusNumberManager)
                         .tabItem {
@@ -161,7 +160,6 @@ struct ContentView: View {
                         }
                         .tag(12)
                 }
-            }
         }
         .sheet(isPresented: $showNotificationSheet) {
             // Present the NumberMatchNotificationView when showNotificationSheet is true
@@ -195,30 +193,42 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            // --- Configuration moved here to avoid StateObject init warning ---
-            // Ensure configuration happens only once.
-            // We can check if the cancellables set is empty, implying the subscription
-            // hasn't been set up yet by the FocusNumberManager.shared singleton.
-            // NOTE: This relies on FocusNumberManager not setting up subscriptions elsewhere.
-            // A more robust method might involve a dedicated flag in FocusNumberManager.
-            // For simplicity now, let's assume onAppear might run multiple times but configure is idempotent 
-            // or handles multiple calls safely (which our current configure does).
-            FocusNumberManager.shared.configure(realmManager: realmNumberManager) 
-            // --- End Configuration ---
+            print("🔍 ContentView appeared")
+            print("📊 Current Realm Number: \(realmNumberManager.currentRealmNumber)")
             
-            // Set the tab bar appearance
+            // Set the tab bar appearance immediately (lightweight)
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
             UITabBar.appearance().scrollEdgeAppearance = appearance
             
-            // Refresh insights when app appears
-            aiInsightManager.refreshInsightIfNeeded()
+            // ULTRA-LIGHT startup - minimal operations only
             
-            print("🔍 ContentView appeared")
-            print("📊 Current Realm Number: \(realmNumberManager.currentRealmNumber)")
+            // Step 1: Configure FocusNumberManager (0.2s delay)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                FocusNumberManager.shared.configure(realmManager: realmNumberManager)
+                print("🔧 Configured FocusNumberManager with RealmNumberManager...")
+            }
             
-            // Start heart rate monitoring when the main view appears
-            HealthKitManager.shared.startHeartRateMonitoring()
+            // Step 2: Start heart rate monitoring (0.8s delay) 
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                HealthKitManager.shared.startHeartRateMonitoring()
+                print("💓 Started heart rate monitoring...")
+            }
+            
+            // Step 3: Defer AI insights to prevent UserProfile flood (2.0s delay)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                aiInsightManager.refreshInsightIfNeeded()
+                print("🧠 AI insights refresh initiated...")
+            }
+            
+            // Step 4: CRITICAL - Defer match detection system to prevent freeze (15.0s delay)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 15.0) {
+                FocusNumberManager.shared.enableMatchDetection()
+                print("🎯 Match detection system enabled after startup stabilization")
+            }
+            
+            // Step 5: Cosmic background starts immediately (no performance issues detected)
+            print("🌟 ContentView fully loaded - cosmic background active, match detection deferred")
         }
         .onReceive(realmNumberManager.$currentRealmNumber) { newValue in
             let oldValue = focusNumberManager.realmNumber

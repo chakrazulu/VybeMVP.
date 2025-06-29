@@ -283,7 +283,7 @@ struct UserProfileTabView: View {
                     .allowsHitTesting(false)
                 
                 ScrollView {
-                    VStack(spacing: 30) {
+                    VStack(spacing: 16) {
                         // Show content based on profile state
                         if let profile = userProfile {
                             // The Divine Triangle - Complete Numerological Trinity
@@ -307,9 +307,9 @@ struct UserProfileTabView: View {
                             profileSetupNeededView
                         }
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 20)
-                    .padding(.bottom, 100)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 16)
+                    .padding(.bottom, 20)
                 }
             }
             .navigationTitle("My Sanctum")
@@ -323,13 +323,29 @@ struct UserProfileTabView: View {
                 }
             }
             .onAppear {
-                loadUserProfile()
-                loadArchetype()
+                // PERFORMANCE FIX: Defer heavy operations to prevent tab loading delays
+                
+                // Immediate: Start animations (lightweight)
                 withAnimation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true)) {
                     lifePathPulse = true
                 }
                 withAnimation(.easeInOut(duration: 3.0).repeatForever(autoreverses: true)) {
                     archetypeGlow = true
+                }
+                
+                // Step 1: Quick cache check (0.2s delay)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    loadUserProfileFromCache()
+                }
+                
+                // Step 2: Full profile loading (1.0s delay)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    loadUserProfile()
+                }
+                
+                // Step 3: Archetype loading (2.0s delay) 
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    loadArchetype()
                 }
             }
             .onReceive(archetypeManager.$currentArchetype) { archetype in
@@ -1087,6 +1103,21 @@ struct UserProfileTabView: View {
     
     // MARK: - Helper Functions
     
+    /**
+     * PERFORMANCE FIX: Quick cache check to load profile immediately if available
+     */
+    private func loadUserProfileFromCache() {
+        if let userID = UserDefaults.standard.string(forKey: "userID") ?? AuthenticationManager.shared.userID {
+            // Try cache first for instant loading
+            if let cachedProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID) {
+                self.userProfile = cachedProfile
+                print("⚡ Quick cache hit: Loaded profile for \(userID)")
+                return
+            }
+        }
+        print("⚡ No cached profile available, will need to fetch from network")
+    }
+    
     private func loadUserProfile() {
         // First check if we have a userID in UserDefaults
         if let userID = UserDefaults.standard.string(forKey: "userID") {
@@ -1137,7 +1168,7 @@ struct UserProfileTabView: View {
     private func loadArchetype() {
         print("🔍 loadArchetype() called - checking archetype status... (retry: \(archetypeRetryCount))")
         
-        // First try to load cached archetype
+        // PERFORMANCE FIX: Always try cached first (main thread, fast)
         let cachedArchetype = archetypeManager.loadCachedArchetype()
         if let cachedArchetype = cachedArchetype {
             print("✅ Loaded cached archetype: \(cachedArchetype.zodiacSign.rawValue) \(cachedArchetype.element.rawValue)")
@@ -1145,24 +1176,40 @@ struct UserProfileTabView: View {
             return
         }
         
-        // If no cached archetype, check if we have a user profile with birthdate to calculate from
+        // PERFORMANCE FIX: Check storage (main thread, fast)
+        if UserArchetypeManager.shared.hasStoredArchetype() {
+            print("✅ Archetype exists in storage, using loadCachedArchetype()")
+            let _ = archetypeManager.loadCachedArchetype()
+            return
+        }
+        
+        // PERFORMANCE FIX: Defer expensive calculation to background queue
         if let profile = userProfile {
             print("📅 No cached archetype found, calculating from user profile birthdate: \(profile.birthdate)")
             
-            // Calculate archetype
-            let calculatedArchetype = archetypeManager.calculateArchetype(from: profile.birthdate)
-            print("✨ Calculated new archetype: \(calculatedArchetype.zodiacSign.rawValue) \(calculatedArchetype.element.rawValue)")
-            
-            archetypeRetryCount = 0 // Reset retry count on success
+            DispatchQueue.global(qos: .userInitiated).async {
+                let calculatedArchetype = self.archetypeManager.calculateArchetype(from: profile.birthdate)
+                print("✨ Calculated new archetype: \(calculatedArchetype.zodiacSign.rawValue) \(calculatedArchetype.element.rawValue)")
+                
+                DispatchQueue.main.async {
+                    self.archetypeRetryCount = 0 // Reset retry count on success
+                }
+            }
         } else {
-            print("❌ No cached archetype and no user profile available - user may need to complete onboarding")
+            print("❌ No cached archetype and no user profile available - will retry when profile loads")
             
-            // Auto-retry if we haven't tried too many times and we have a user profile loading
-            if archetypeRetryCount < 3 {
+            // PERFORMANCE FIX: Only retry if profile is still loading, not indefinitely
+            if archetypeRetryCount < 2 && userProfile == nil {
                 archetypeRetryCount += 1
-                print("🔄 Auto-retry \(archetypeRetryCount)/3 in 2 seconds...")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    self.loadArchetype()
+                print("🔄 Will retry archetype when profile loads (attempt \(archetypeRetryCount)/2)")
+                
+                // Retry once profile is available
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                    if self.userProfile != nil {
+                        self.loadArchetype()
+                    } else {
+                        print("❌ Profile still not available after 3s, archetype calculation failed")
+                    }
                 }
             }
         }

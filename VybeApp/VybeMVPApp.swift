@@ -174,8 +174,8 @@ struct VybeMVPApp: App {
                         print("🔗 Linked AppDelegate to shared managers (onAppear).")
                     }
                     
-                    // Load and categorize mandala assets
-                    MandalaAssetManager.shared.loadAndCategorizeMandalaAssets()
+                    // DISABLED: Load and categorize mandala assets (causing freeze issues)
+                    // MandalaAssetManager.shared.loadAndCategorizeMandalaAssets()
                     
                     // Start RealmNumberManager and configure background manager
                     self.realmNumberManager.startUpdates()
@@ -222,20 +222,24 @@ struct VybeMVPApp: App {
     
     private func checkOnboardingStatusInFirestore(for userID: String, source: String) {
         Logger.network.debug("FIRESTORE_CHECK (Called by \(source)): Checking profile for userID: \(userID) - V.OSL_NOV_19_D")
-        UserProfileService.shared.profileExists(for: userID) { [self] existsInFirestore, _ in
-            DispatchQueue.main.async {
-                if existsInFirestore {
-                    Logger.network.info("FIRESTORE_CHECK (Callback for \(userID)): Profile DOES EXIST in Firestore. Onboarding TRUE.")
-                    if self.hasCompletedOnboarding != true {
-                        self.hasCompletedOnboarding = true
+        
+        // PERFORMANCE FIX: Defer Firestore calls to prevent blocking UI during startup
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            UserProfileService.shared.profileExists(for: userID) { [self] existsInFirestore, _ in
+                DispatchQueue.main.async {
+                    if existsInFirestore {
+                        Logger.network.info("FIRESTORE_CHECK (Callback for \(userID)): Profile DOES EXIST in Firestore. Onboarding TRUE.")
+                        if self.hasCompletedOnboarding != true {
+                            self.hasCompletedOnboarding = true
+                        }
+                        fetchProfileAndConfigureInsightManager(for: userID, source: "firestore_profileExists")
+                    } else {
+                        Logger.network.info("FIRESTORE_CHECK (Callback for \(userID)): Profile DOES NOT EXIST in Firestore. Onboarding FALSE.")
+                        if self.hasCompletedOnboarding != false {
+                            self.hasCompletedOnboarding = false
+                        }
+                        AIInsightManager.shared.clearInsight()
                     }
-                    fetchProfileAndConfigureInsightManager(for: userID, source: "firestore_profileExists")
-                } else {
-                    Logger.network.info("FIRESTORE_CHECK (Callback for \(userID)): Profile DOES NOT EXIST in Firestore. Onboarding FALSE.")
-                    if self.hasCompletedOnboarding != false {
-                        self.hasCompletedOnboarding = false
-                    }
-                    AIInsightManager.shared.clearInsight()
                 }
             }
         }
@@ -244,14 +248,18 @@ struct VybeMVPApp: App {
     // ✨ New helper function to fetch profile and configure AIInsightManager
     private func fetchProfileAndConfigureInsightManager(for userID: String, source: String) {
         Logger.network.debug("FETCH_PROFILE_FOR_AI (Called by \(source)): Fetching profile for userID: \(userID) to configure AIInsightManager.")
-        UserProfileService.shared.fetchUserProfile(for: userID) { profile, _ in
-            DispatchQueue.main.async {
-                if let fetchedProfile = profile {
-                    Logger.ai.info("FETCH_PROFILE_FOR_AI (Callback for \(userID)): UserProfile fetched successfully. Configuring AIInsightManager.")
-                    AIInsightManager.shared.configureAndRefreshInsight(for: fetchedProfile)
-                    UserProfileService.shared.cacheUserProfileToUserDefaults(fetchedProfile)
-                } else {
-                    Logger.network.error("FETCH_PROFILE_FOR_AI (Callback for \(userID)): UserProfile fetch returned nil but no error. AIInsightManager will not be configured.")
+        
+        // PERFORMANCE FIX: Additional delay for profile fetching to prevent UI blocking
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            UserProfileService.shared.fetchUserProfile(for: userID) { profile, _ in
+                DispatchQueue.main.async {
+                    if let fetchedProfile = profile {
+                        Logger.ai.info("FETCH_PROFILE_FOR_AI (Callback for \(userID)): UserProfile fetched successfully. Configuring AIInsightManager.")
+                        AIInsightManager.shared.configureAndRefreshInsight(for: fetchedProfile)
+                        UserProfileService.shared.cacheUserProfileToUserDefaults(fetchedProfile)
+                    } else {
+                        Logger.network.error("FETCH_PROFILE_FOR_AI (Callback for \(userID)): UserProfile fetch returned nil but no error. AIInsightManager will not be configured.")
+                    }
                 }
             }
         }

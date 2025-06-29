@@ -236,7 +236,10 @@ class RealmSampleManager: ObservableObject {
         var chartData: [ChartDataPoint] = []
         
         var currentDate = startDate
-        while currentDate <= endDate {
+        var loopCount = 0
+        let maxLoops = 31 // Safety limit for maximum days to prevent infinite loops
+        
+        while currentDate <= endDate && loopCount < maxLoops {
             let dayStart = calendar.startOfDay(for: currentDate)
             let dayEnd = calendar.date(byAdding: .day, value: 1, to: dayStart) ?? dayStart
             
@@ -269,7 +272,12 @@ class RealmSampleManager: ObservableObject {
                 }
             }
             
-            currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate) ?? currentDate
+            // Safety check for date advancement
+            guard let nextDate = calendar.date(byAdding: .day, value: 1, to: currentDate) else {
+                break
+            }
+            currentDate = nextDate
+            loopCount += 1
         }
         
         return chartData.sorted { $0.date < $1.date }
@@ -374,6 +382,10 @@ class RealmSampleManager: ObservableObject {
         
         // Check for sequential appearance patterns
         var sequentialCount = 0
+        guard trinitySamples.count >= 3 else { 
+            return Double(trinityNumbers) / Double(trinitySamples.count) 
+        }
+        
         for i in 0..<(trinitySamples.count - 2) {
             let sequence = [
                 trinitySamples[i].realmDigit,

@@ -39,6 +39,9 @@ struct HomeView: View {
     @State private var pickerScale: CGFloat = 0.1
     @State private var pickerOpacity: Double = 0.0
     
+    // CACHE FLOOD FIX: Cache UserProfile in HomeView to prevent repeated lookups
+    @State private var cachedUserProfile: UserProfile?
+    
     var body: some View {
         ZStack {
             TwinklingDigitsBackground()
@@ -67,7 +70,7 @@ struct HomeView: View {
                                 // - Session-based variation (fresh each time)
                                 // - Hidden mystical significance
                                 // - Pure visual beauty for the user
-                                DynamicAssetMandalaView(
+                                StaticAssetMandalaView(
                                     number: focusNumberManager.selectedFocusNumber,
                                     size: 350
                                 )
@@ -76,12 +79,9 @@ struct HomeView: View {
                                 Text("\(focusNumberManager.selectedFocusNumber)")
                                     .font(.system(size: 140, weight: .bold, design: .rounded))
                                     .foregroundColor(getSacredColor(for: focusNumberManager.selectedFocusNumber))
-                                    // Multiple glow layers for rich effect
-                                    .shadow(color: getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.8), radius: 20)
+                                    // Reduced shadows for better performance
                                     .shadow(color: getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.6), radius: 15)
-                                    .shadow(color: getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.4), radius: 10)
-                                    .shadow(color: .white.opacity(0.3), radius: 5)
-                                    .shadow(color: .black.opacity(0.8), radius: 8, x: 3, y: 3)
+                                    .shadow(color: .black.opacity(0.4), radius: 5, x: 2, y: 2)
                             }
                             .frame(width: 350, height: 350)
                             .onLongPressGesture(minimumDuration: 0.6) {
@@ -230,9 +230,22 @@ struct HomeView: View {
             InsightHistoryView()
         }
         .onAppear {
+            // FREEZE FIX: Stagger HomeView operations to prevent simultaneous heavy lifting
+            
+            // Step 1: Load match logs (lightweight)
             focusNumberManager.loadMatchLogs()
-            // Refresh AI insight when HomeView appears
-            aiInsightManager.refreshInsightIfNeeded()
+            
+            // Step 2: Cache user profile (lightweight, after small delay)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                if cachedUserProfile == nil, let userID = signInViewModel.userID {
+                    cachedUserProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID)
+                }
+            }
+            
+            // Step 3: AI insights (can be heavy, after larger delay)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                aiInsightManager.refreshInsightIfNeeded()
+            }
         }
     }
     
@@ -280,9 +293,8 @@ struct HomeView: View {
                             .lineSpacing(4)
                             .fixedSize(horizontal: false, vertical: true)
                         
-                        // Alignment context with beautiful styling
-                        if let userID = signInViewModel.userID,
-                           let userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID) {
+                        // Alignment context with beautiful styling (cache optimized)
+                        if let userProfile = cachedUserProfile {
                             HStack(spacing: 8) {
                                 Image(systemName: "sparkles")
                                     .font(.caption)

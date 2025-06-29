@@ -36,12 +36,12 @@ struct PhantomChakrasView: View {
                             ChakraSymbolView(
                                 chakraState: chakraState,
                                 onTap: {
-                                    if isInitialized && !isTapProcessing && chakraManager.isAudioEngineRunning {
+                                    if isInitialized && !isTapProcessing {
                                         handleChakraTap(chakraState.type)
                                     }
                                 },
                                 onLongPress: {
-                                    if isInitialized && !isTapProcessing && chakraManager.isAudioEngineRunning {
+                                    if isInitialized && !isTapProcessing {
                                         handleChakraLongPress(chakraState.type)
                                     }
                                 },
@@ -49,7 +49,7 @@ struct PhantomChakrasView: View {
                                     chakraManager.updateVolume(for: chakraState.type, volume: volume)
                                 }
                             )
-                            .disabled(!isInitialized || isTapProcessing || !chakraManager.isAudioEngineRunning)
+                            .disabled(!isInitialized || isTapProcessing)
                             .scaleEffect(animateIn ? 1.0 : 0.8)
                             .opacity(animateIn ? 1.0 : 0.0)
                             .animation(
@@ -85,12 +85,29 @@ struct PhantomChakrasView: View {
                 .environmentObject(chakraManager)
         }
         .onAppear {
-            // Delay initialization to ensure everything is ready
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                isInitialized = true
-            }
+            // PERFORMANCE FIX: Defer heavy operations to prevent tab loading delays
+            
+            // Step 1: Start lightweight animations immediately
             startAnimations()
-            updateChakraResonance()
+            
+            // Step 2: Initialize audio engine after delay to prevent blocking
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                // Enable UI first, even without audio
+                isInitialized = true
+                print("⚡ Chakras UI initialized (audio loading in background)")
+            }
+            
+            // Step 3: Update resonance after animations start
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                updateChakraResonance()
+            }
+            
+            // Step 4: Audio engine timeout fallback
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                if !chakraManager.isAudioEngineRunning {
+                    print("⚠️ Audio engine timeout - UI enabled anyway for performance")
+                }
+            }
         }
         .onReceive(focusNumberManager.$selectedFocusNumber) { _ in
             updateChakraResonance()

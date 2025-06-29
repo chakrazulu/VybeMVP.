@@ -662,21 +662,32 @@ struct OnboardingCompletionView: View {
                 secondFeedback.impactOccurred()
             }
             
-                // This action will set the state that dismisses the onboarding flow
+                // IMMEDIATE onboarding completion to prevent state loss during crashes
                 hasCompletedOnboarding = true
+                
+                // Also immediately save to UserDefaults as backup
+                if let userID = viewModel.currentUserID {
+                    UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding" + userID)
+                    UserDefaults.standard.synchronize() // Force immediate save
+                    print("🔒 IMMEDIATE onboarding state saved for user \(userID)")
+                }
             }) {
-            HStack(spacing: 12) {
+            HStack(spacing: 4) {
                 Image(systemName: "sparkles")
-                    .font(.title2)
+                    .font(.body)
                 
                 Text("Begin Your Sacred Journey")
                     .fontWeight(.bold)
-                    .font(.title3)
+                    .font(.callout)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
+                    .allowsTightening(true)
                 
                 Image(systemName: "arrow.right.circle.fill")
-                    .font(.title2)
+                    .font(.body)
             }
-                    .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, 8)
             .frame(height: 64)
             .background(
                 LinearGradient(

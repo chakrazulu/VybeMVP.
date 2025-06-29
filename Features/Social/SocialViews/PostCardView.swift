@@ -292,63 +292,62 @@ struct PostCardView: View {
             }
             
             // Action buttons
-            HStack(spacing: 20) {
+            HStack(spacing: 0) {
                 // React button with pulse animation
                 Button(action: {
                     showingReactionPicker = true
                 }) {
-                    HStack(spacing: 6) {
+                    HStack(spacing: 4) {
                         Image(systemName: "heart.circle")
-                            .font(.title3)
+                            .font(.system(size: 18))
                             .scaleEffect(hasRecentReactionUpdate ? 1.1 : 1.0)
                             .animation(.spring(response: 0.3, dampingFraction: 0.6), value: hasRecentReactionUpdate)
                         Text("React")
-                            .font(.subheadline)
+                            .font(.caption)
                             .fontWeight(.medium)
                     }
                     .foregroundColor(hasRecentReactionUpdate ? .pink : .white.opacity(0.8))
                     .animation(.easeInOut(duration: 0.3), value: hasRecentReactionUpdate)
                 }
-                
-                Spacer()
+                .frame(maxWidth: .infinity)
                 
                 // Comment button
                 Button(action: {
                     showingComments = true
                 }) {
-                    HStack(spacing: 6) {
+                    HStack(spacing: 4) {
                         Image(systemName: "bubble.left")
-                            .font(.title3)
+                            .font(.system(size: 18))
                         
                         if post.commentCount > 0 {
                             Text("\(post.commentCount)")
-                                .font(.subheadline)
+                                .font(.caption)
                                 .fontWeight(.medium)
                                 .contentTransition(.numericText())
                         } else {
                             Text("Comment")
-                                .font(.subheadline)
+                                .font(.caption)
                                 .fontWeight(.medium)
                         }
                     }
                     .foregroundColor(.white.opacity(0.8))
                 }
-                
-                Spacer()
+                .frame(maxWidth: .infinity)
                 
                 // Share button (placeholder)
                 Button(action: {
                     // TODO: Implement sharing
                 }) {
-                    HStack(spacing: 6) {
+                    HStack(spacing: 4) {
                         Image(systemName: "square.and.arrow.up")
-                            .font(.title3)
+                            .font(.system(size: 18))
                         Text("Share")
-                            .font(.subheadline)
+                            .font(.caption)
                             .fontWeight(.medium)
                     }
                     .foregroundColor(.white.opacity(0.8))
                 }
+                .frame(maxWidth: .infinity)
             }
         }
     }

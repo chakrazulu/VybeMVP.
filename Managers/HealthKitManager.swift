@@ -1067,8 +1067,15 @@ import BackgroundTasks
             )
         }
         
-        // Set up a timer to periodically update the simulated heart rate (every 15 seconds)
-        simulationTimer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { [weak self] _ in
+        // FREEZE FIX: DISABLED recurring timer to prevent frequent realm calculations
+        // This was causing performance issues and freezes
+        
+        print("✅ Static heart rate simulation set - NO RECURRING TIMER for performance")
+        
+        // DISABLED: This timer was causing frequent updates that led to freezes
+        /*
+        // Set up a timer to periodically update the simulated heart rate (every 5 minutes for performance)
+        simulationTimer = Timer.scheduledTimer(withTimeInterval: 300, repeats: true) { [weak self] _ in
             guard let self = self, self.simulationEnabled else { return }
             
             // Use last real heart rate as base if available
@@ -1097,6 +1104,7 @@ import BackgroundTasks
                 )
             }
         }
+        */
     }
     
     /**

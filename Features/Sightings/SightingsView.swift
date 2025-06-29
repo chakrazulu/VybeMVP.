@@ -79,9 +79,17 @@ struct SightingsView: View {
             .navigationTitle("Sightings Portal")
             .navigationBarTitleDisplayMode(.large)
             .onAppear {
-                sightingsManager.loadSightings()
+                // PERFORMANCE FIX: Defer heavy operations to prevent tab loading delays
+                
+                // Start animations immediately (lightweight)
                 withAnimation(.easeOut(duration: 0.8)) {
                     animateIn = true
+                }
+                
+                // Defer sightings loading by 0.8 seconds to prevent blocking
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    sightingsManager.loadSightings()
+                    print("⚡ SightingsView: Sightings loading deferred for performance")
                 }
             }
         }

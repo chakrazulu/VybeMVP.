@@ -86,13 +86,15 @@ class AuthenticationManager: ObservableObject {
             
             DispatchQueue.main.async { [weak self] in
                 self?.firebaseUser = firebaseUser
-                self?.userID = userID ?? firebaseUser.uid
+                // CONSISTENCY FIX: Always use Apple ID as primary userID (never fallback to Firebase UID)
+                self?.userID = userID  // Don't fallback to firebaseUser.uid
                 self?.userEmail = email ?? firebaseUser.email
                 self?.userFullName = fullName
                 self?.isSignedIn = true
                 self?.isCheckingAuthStatus = false
                 
                 print("✅ User is authenticated: \(firebaseUser.uid)")
+                print("🔍 Using Apple ID as userID: \(userID ?? "nil")")
             }
         } else {
             print("❌ No Firebase user found")
@@ -113,16 +115,18 @@ class AuthenticationManager: ObservableObject {
     private func updateAuthenticationState() {
         if let firebaseUser = firebaseUser {
             // User is signed in to Firebase
-            let userID = keychainHelper.get(for: "userID") ?? firebaseUser.uid
+            // CONSISTENCY FIX: Only use Apple ID from keychain (no Firebase UID fallback)
+            let userID = keychainHelper.get(for: "userID")
             let email = keychainHelper.get(for: "email") ?? firebaseUser.email
             let fullName = keychainHelper.get(for: "fullName")
             
-            self.userID = userID
+            self.userID = userID  // This will be nil if Apple ID not in keychain
             self.userEmail = email
             self.userFullName = fullName
-            self.isSignedIn = true
+            self.isSignedIn = userID != nil  // Only consider signed in if we have Apple ID
             
             print("✅ Firebase auth state updated: \(firebaseUser.uid)")
+            print("🔍 Apple ID from keychain: \(userID ?? "nil")")
         } else {
             // User is signed out of Firebase
             self.userID = nil

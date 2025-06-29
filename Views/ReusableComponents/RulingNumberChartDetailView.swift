@@ -257,11 +257,12 @@ struct RulingNumberChartDetailView: View {
             let availableWidth = geometry.size.width - 48 // Increased padding for right-side content
             let barTrackWidth = availableWidth * 0.58 // Reduced to leave more space for badges
             
-            VStack(spacing: 12) {
-                // Enhanced version of existing histogram
-                ForEach(1...9, id: \.self) { number in
+            ScrollView(.vertical, showsIndicators: true) {
+                VStack(spacing: 12) {
+                    // Enhanced version of existing histogram
+                    ForEach(1...9, id: \.self) { number in
                     let count = sampleManager.getCount(for: number)
-                    let maxCount = max(chartData.map { $0.value }.max() ?? 1, 1)
+                    let maxCount = chartData.isEmpty ? 1 : max(chartData.map { $0.value }.max() ?? 1, 1)
                     let barProgress = count > 0 ? CGFloat(count) / CGFloat(maxCount) : 0
                     let barWidth = barProgress * barTrackWidth
                     let isRuling = number == sampleManager.rulingNumber && count > 0
@@ -367,6 +368,7 @@ struct RulingNumberChartDetailView: View {
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 12)
+            }
         }
     }
     
@@ -420,7 +422,7 @@ struct RulingNumberChartDetailView: View {
                         if !numberData.isEmpty {
                             Path { path in
                                 for (index, dataPoint) in numberData.enumerated() {
-                                    let x = 20 + (chartWidth / CGFloat(max(chartData.count - 1, 1))) * CGFloat(index)
+                                    let x = 20 + (chartWidth / CGFloat(max(numberData.count - 1, 1))) * CGFloat(index)
                                     let y = 20 + chartHeight - (chartHeight * CGFloat(dataPoint.value) / 10.0)
                                     
                                     if index == 0 {
@@ -442,7 +444,7 @@ struct RulingNumberChartDetailView: View {
                     // Data points
                     ForEach(Array(chartData.enumerated()), id: \.offset) { index, dataPoint in
                         if chartData.count > 1 {
-                            let x = 20 + (chartWidth / CGFloat(chartData.count - 1)) * CGFloat(index)
+                            let x = 20 + (chartWidth / CGFloat(max(chartData.count - 1, 1))) * CGFloat(index)
                             let y = 20 + chartHeight - (chartHeight * CGFloat(dataPoint.value) / 10.0)
                             
                             Circle()
@@ -804,7 +806,7 @@ struct SacredPatternDetailView: View {
     let sampleManager: RealmSampleManager
     @Binding var isPresented: Bool
     
-    @State private var animationPhase = 0.0
+    @State private var animationPhase = 1.0  // START AT 1.0 for immediate visibility
     @State private var isDataLoaded = false
     @State private var patternValue: Double = 0.0
     
@@ -823,7 +825,7 @@ struct SacredPatternDetailView: View {
                 )
                 .ignoresSafeArea()
                 
-                // Always show content - no loading state needed
+                // Content - immediately visible
                 ScrollView {
                     VStack(spacing: 24) {
                         // Pattern Header
@@ -858,17 +860,15 @@ struct SacredPatternDetailView: View {
             patternValue = pattern.getValue(from: sampleManager)
             isDataLoaded = true
             
-            // Start very subtle animation after a short delay
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            // Start subtle pulsing animation after content is visible
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 withAnimation(.easeInOut(duration: 4.0).repeatForever(autoreverses: true)) {
-                    animationPhase = 0.6
+                    animationPhase = animationPhase == 1.0 ? 1.05 : 1.0  // Subtle pulse, not opacity change
                 }
             }
         }
         .preferredColorScheme(.dark)
     }
-    
-
     
     private var patternHeader: some View {
         VStack(spacing: 16) {
@@ -888,7 +888,7 @@ struct SacredPatternDetailView: View {
                         )
                     )
                     .frame(width: 120, height: 120)
-                    .scaleEffect(animationPhase)
+                    .scaleEffect(animationPhase) // Subtle pulse effect
                 
                 Image(systemName: pattern.icon)
                     .font(.system(size: 40, weight: .bold))
@@ -896,13 +896,13 @@ struct SacredPatternDetailView: View {
                     .shadow(color: pattern.color.opacity(0.6), radius: 10)
             }
             
-            // Pattern percentage
+            // Pattern percentage - ALWAYS VISIBLE
             let percentage = Int(patternValue * 100)
             Text("\(percentage)%")
                 .font(.system(size: 48, weight: .bold, design: .rounded))
                 .foregroundColor(pattern.color)
                 .shadow(color: pattern.color.opacity(0.4), radius: 5)
-                .opacity(animationPhase)
+                .scaleEffect(animationPhase) // Subtle pulse instead of opacity
             
             Text("Pattern Strength")
                 .font(.title3)
@@ -994,9 +994,9 @@ struct SacredPatternDetailView: View {
                                 endPoint: .trailing
                             )
                         )
-                        .frame(width: geometry.size.width * value * animationPhase, height: 12)
+                        .frame(width: geometry.size.width * value, height: 12)
                         .shadow(color: pattern.color.opacity(0.4), radius: 4)
-                        .animation(.easeOut(duration: 2.5), value: animationPhase)
+                        .animation(.easeOut(duration: 1.5), value: value)
                 }
             }
             .frame(height: 12)

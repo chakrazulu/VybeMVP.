@@ -47,13 +47,16 @@ struct ActivityView: View {
             .background(CosmicBackgroundView())
         }
         .onAppear {
-            // Clear any previously set insightToView when the tab appears,
-            // unless we want to keep it highlighted.
-            // For now, let's clear it so the list always shows fresh.
+            // PERFORMANCE FIX: Defer heavy AI insights refresh to prevent tab loading delays
+            
+            // Clear any previously set insightToView when the tab appears
             // activityNavigationManager.insightToView = nil
             
-            // Refresh insights to ensure latest data
-            aiInsightManager.refreshInsightIfNeeded()
+            // Defer AI insights refresh by 1 second to prevent blocking
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                aiInsightManager.refreshInsightIfNeeded()
+                print("⚡ ActivityView: AI insights refresh deferred for performance")
+            }
         }
     }
 }

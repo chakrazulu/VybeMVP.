@@ -17,6 +17,11 @@ class UserProfileService {
 
     static let shared = UserProfileService()
     private let db = Firestore.firestore()
+    
+    // CACHE FLOOD FIX: In-memory cache to prevent repeated UserDefaults reads
+    private var cachedProfiles: [String: UserProfile] = [:]
+    private var lastCacheTime: [String: Date] = [:]
+    private let cacheExpirySeconds: TimeInterval = 300 // 5 minutes
 
     private var usersCollection: CollectionReference {
         return db.collection("users")
@@ -44,6 +49,11 @@ class UserProfileService {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(profile) {
             UserDefaults.standard.set(encoded, forKey: userProfileDefaultsKey(for: profile.id))
+            
+            // CACHE FLOOD FIX: Also update in-memory cache
+            cachedProfiles[profile.id] = profile
+            lastCacheTime[profile.id] = Date()
+            
             print("💾 UserProfileService: Profile for userID \(profile.id) cached to UserDefaults.")
         } else {
             print("⚠️ UserProfileService: Failed to encode profile for userID \(profile.id) for UserDefaults caching.")
@@ -51,13 +61,22 @@ class UserProfileService {
     }
 
     /**
-     * Retrieves the cached user's profile from UserDefaults.
-     * Assumes UserProfile is Codable.
+     * Retrieves the cached user's profile with flood protection.
+     * Uses in-memory cache first, then UserDefaults only if needed.
      *
      * - Parameter userID: The unique ID of the user.
      * - Returns: An optional UserProfile object from the cache.
      */
     func getCurrentUserProfileFromUserDefaults(for userID: String) -> UserProfile? {
+        // CACHE FLOOD FIX: Check in-memory cache first
+        if let cachedProfile = cachedProfiles[userID],
+           let cacheTime = lastCacheTime[userID],
+           Date().timeIntervalSince(cacheTime) < cacheExpirySeconds {
+            // Cache hit - return without logging to prevent flood
+            return cachedProfile
+        }
+        
+        // Cache miss or expired - load from UserDefaults
         guard let savedProfileData = UserDefaults.standard.data(forKey: userProfileDefaultsKey(for: userID)) else {
             print("ℹ️ UserProfileService: No cached profile found in UserDefaults for userID \(userID).")
             return nil
@@ -65,6 +84,10 @@ class UserProfileService {
 
         let decoder = JSONDecoder()
         if let loadedProfile = try? decoder.decode(UserProfile.self, from: savedProfileData) {
+            // Store in memory cache to prevent future UserDefaults hits
+            cachedProfiles[userID] = loadedProfile
+            lastCacheTime[userID] = Date()
+            
             print("✅ UserProfileService: Profile for userID \(userID) loaded from UserDefaults cache.")
             return loadedProfile
         } else {

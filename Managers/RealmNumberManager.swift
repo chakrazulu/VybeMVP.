@@ -46,8 +46,8 @@ class RealmNumberManager: NSObject, ObservableObject {
      * used in the calculation of realm numbers.
      */
     private enum Constants {
-        /// Interval between timer-based realm number updates (in seconds)
-        static let timerUpdateInterval: TimeInterval = 60    // seconds
+        /// Interval between timer-based realm number updates (in seconds) - REDUCED for performance
+        static let timerUpdateInterval: TimeInterval = 300   // 5 minutes (reduced from 1 minute)
         
         /// Minimum time between realm number calculations (in seconds)
         static let calculationThrottle: TimeInterval = 1.0   // minimum time between calculations
