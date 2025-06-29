@@ -112,187 +112,193 @@ struct HomeView: View {
     
     var body: some View {
         ZStack {
-            TwinklingDigitsBackground()
-                .environmentObject(focusNumberManager)
-                .environmentObject(realmNumberManager)
-                .environmentObject(activityNavigationManager)
-                .ignoresSafeArea()
-            
-            ScrollView {
-                VStack(spacing: 30) { // 🎯 MAIN STACK: 30pt spacing between sections
-                    Text("Vybe")
-                        .font(.system(size: 40, weight: .bold)) // 🎨 APP TITLE: 40pt bold
+            // 🌌 COSMIC ANIMATION LAYER: Scroll-safe background animations
+            ScrollSafeCosmicView {
+                // Original HomeView content wrapped in cosmic animations
+                ZStack {
+                    TwinklingDigitsBackground()
+                        .environmentObject(focusNumberManager)
+                        .environmentObject(realmNumberManager)
+                        .environmentObject(activityNavigationManager)
+                        .ignoresSafeArea()
                     
-                    Text("Your Focus Number")
-                        .font(.title) // 📝 SECTION LABEL: ~28pt title font
-                    
-                    // MARK: ––– SACRED GEOMETRY SECTION START –––
-                    // 🌟 SACRED GEOMETRY CONTAINER: 350×350pt with 40pt vertical padding
-                    VStack(spacing: 30) {
-                        // Focus Number Sacred Geometry
-                        VStack(spacing: 20) { // 20pt gap between geometry and hint text
-                            ZStack { // 🎯 LAYERED SACRED DISPLAY: Mandala → Tracer → Number
-                                // Enhanced Sacred Geometry with Focus + Realm Numbers
-                                // This implements ChatGPT's aesthetic-first vision:
-                                // - Data-driven selection (focus + realm numbers)
-                                // - Session-based variation (fresh each time)
-                                // - Hidden mystical significance
-                                // - Pure visual beauty for the user
-                                StaticAssetMandalaView(
-                                    number: focusNumberManager.selectedFocusNumber,
-                                    size: 350
-                                )
-                                
-                                // NEON TRACER: Add mystical glow around sacred geometry
-                                // For now using a simple geometric shape - will need to extract actual mandala paths
-                                NeonTracerView(
-                                    path: createSacredPath(for: focusNumberManager.selectedFocusNumber),
-                                    bpm: Double(healthKitManager.currentHeartRate),
-                                    color: getSacredColor(for: focusNumberManager.selectedFocusNumber)
-                                )
-                                .frame(width: 320, height: 320)
-                                
-                                // Large Focus Number with Enhanced Glow
-                                Text("\(focusNumberManager.selectedFocusNumber)")
-                                    .font(.system(size: 140, weight: .bold, design: .rounded))
-                                    .foregroundColor(getSacredColor(for: focusNumberManager.selectedFocusNumber))
-                                    // Reduced shadows for better performance
-                                    .shadow(color: getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.6), radius: 15)
-                                    .shadow(color: .black.opacity(0.4), radius: 5, x: 2, y: 2)
+                    ScrollView {
+                        VStack(spacing: 30) { // 🎯 MAIN STACK: 30pt spacing between sections
+                            Text("Vybe")
+                                .font(.system(size: 40, weight: .bold)) // 🎨 APP TITLE: 40pt bold
+                            
+                            Text("Your Focus Number")
+                                .font(.title) // 📝 SECTION LABEL: ~28pt title font
+                            
+                            // MARK: ––– SACRED GEOMETRY SECTION START –––
+                            // 🌟 SACRED GEOMETRY CONTAINER: 350×350pt with 40pt vertical padding
+                            VStack(spacing: 30) {
+                                // Focus Number Sacred Geometry
+                                VStack(spacing: 20) { // 20pt gap between geometry and hint text
+                                    ZStack { // 🎯 LAYERED SACRED DISPLAY: Mandala → Tracer → Number
+                                        // Enhanced Sacred Geometry with Focus + Realm Numbers
+                                        // This implements ChatGPT's aesthetic-first vision:
+                                        // - Data-driven selection (focus + realm numbers)
+                                        // - Session-based variation (fresh each time)
+                                        // - Hidden mystical significance
+                                        // - Pure visual beauty for the user
+                                        StaticAssetMandalaView(
+                                            number: focusNumberManager.selectedFocusNumber,
+                                            size: 350
+                                        )
+                                        
+                                        // NEON TRACER: Add mystical glow around sacred geometry
+                                        // For now using a simple geometric shape - will need to extract actual mandala paths
+                                        NeonTracerView(
+                                            path: createSacredPath(for: focusNumberManager.selectedFocusNumber),
+                                            bpm: Double(healthKitManager.currentHeartRate),
+                                            color: getSacredColor(for: focusNumberManager.selectedFocusNumber)
+                                        )
+                                        .frame(width: 320, height: 320)
+                                        
+                                        // Large Focus Number with Enhanced Glow
+                                        Text("\(focusNumberManager.selectedFocusNumber)")
+                                            .font(.system(size: 140, weight: .bold, design: .rounded))
+                                            .foregroundColor(getSacredColor(for: focusNumberManager.selectedFocusNumber))
+                                            // Reduced shadows for better performance
+                                            .shadow(color: getSacredColor(for: focusNumberManager.selectedFocusNumber).opacity(0.6), radius: 15)
+                                            .shadow(color: .black.opacity(0.4), radius: 5, x: 2, y: 2)
+                                    }
+                                    .frame(width: 350, height: 350)
+                                    .onLongPressGesture(minimumDuration: 0.6) {
+                                        // Haptic feedback
+                                        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                                        impactFeedback.impactOccurred()
+                                        
+                                        // Show cosmic picker with animation
+                                        withAnimation(.easeInOut(duration: 0.4)) {
+                                            showingCosmicPicker = true
+                                            pickerScale = 1.0
+                                            pickerOpacity = 1.0
+                                        }
+                                    }
+                                    
+                                    Text("✦ Hold to Change ✦")
+                                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                                        .foregroundColor(.white.opacity(0.7))
+                                }
                             }
-                            .frame(width: 350, height: 350)
-                            .onLongPressGesture(minimumDuration: 0.6) {
-                                // Haptic feedback
-                                let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-                                impactFeedback.impactOccurred()
+                            .padding(.vertical, 40)  // Increased padding for more space
+                            // MARK: ––– SACRED GEOMETRY SECTION END –––
+                            
+                            // Realm-Time Button (Enhanced with Dynamic Colors)
+                            Button(action: {
+                                activityNavigationManager.requestRealmNavigation()
+                                print("Realm-Time button tapped - navigation requested")
+                            }) {
+                                Text("Realm-Time")
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                    .padding(.horizontal, 30)
+                                    .padding(.vertical, 15)
+                                    .foregroundColor(.white)
+                                    .background(
+                                        ZStack {
+                                            // Base gradient
+                                            LinearGradient(
+                                                gradient: Gradient(colors: [
+                                                    getRealmButtonColor().opacity(0.9),
+                                                    getRealmButtonColor().opacity(0.7),
+                                                    getRealmButtonColor().opacity(0.5)
+                                                ]),
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                            )
+                                            
+                                            // Overlay gradient for depth
+                                        LinearGradient(
+                                                gradient: Gradient(stops: [
+                                                    .init(color: Color.white.opacity(0.3), location: 0.0),
+                                                    .init(color: Color.clear, location: 0.3),
+                                                    .init(color: Color.clear, location: 0.7),
+                                                    .init(color: Color.black.opacity(0.2), location: 1.0)
+                                                ]),
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                        )
+                                        }
+                                    )
+                                    .cornerRadius(20)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(
+                                                LinearGradient(
+                                                    gradient: Gradient(colors: [
+                                                        getRealmButtonColor().opacity(0.8),
+                                                        getRealmButtonColor().opacity(0.4)
+                                                    ]),
+                                                    startPoint: .topLeading,
+                                                    endPoint: .bottomTrailing
+                                                ),
+                                                lineWidth: 1
+                                            )
+                                    )
+                                    .shadow(color: getRealmButtonColor().opacity(0.5), radius: 15, x: 0, y: 8)
+                                    .shadow(color: getRealmButtonColor().opacity(0.3), radius: 25, x: 0, y: 12)
+                            }
+                            .id("realmButton_\(focusNumberManager.selectedFocusNumber)") // Force update when focus changes
+                            .animation(.easeInOut(duration: 0.6), value: focusNumberManager.selectedFocusNumber)
+                            .padding(.top, 10) // Add some space above the insight section
+                            
+                            // Enhanced Today's Insight Section
+                            todaysInsightSection
+                            
+                            // NEW: Latest Matched Number Insight Section
+                            if let matchedInsight = focusNumberManager.latestMatchedInsight,
+                               isInsightRecent(matchedInsight.timestamp) { // Only show if recent
+                                matchedInsightSection(insightData: matchedInsight)
+                            }
+                            
+                            // Recent Matches Section
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text("Recent Matches")
+                                    .font(.headline)
+                                    .padding(.horizontal)
                                 
-                                // Show cosmic picker with animation
-                                withAnimation(.easeInOut(duration: 0.4)) {
-                                    showingCosmicPicker = true
-                                    pickerScale = 1.0
-                                    pickerOpacity = 1.0
+                                if focusNumberManager.matchLogs.isEmpty {
+                                    Text("No matches yet")
+                                        .foregroundColor(.secondary)
+                                        .padding()
+                                } else {
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(spacing: 15) {
+                                            ForEach(Array(focusNumberManager.matchLogs.prefix(5).enumerated()), id: \.offset) { index, match in
+                                                VStack {
+                                                    Text("#\(match.matchedNumber)")
+                                                        .font(.title2)
+                                                        .bold()
+                                                    Text(match.timestamp, style: .time)
+                                                        .font(.caption)
+                                                        .foregroundColor(.secondary)
+                                                }
+                                                .padding()
+                                                .background(Color.purple.opacity(0.1))
+                                                .cornerRadius(10)
+                                            }
+                                        }
+                                        .padding(.horizontal)
+                                    }
                                 }
                             }
                             
-                            Text("✦ Hold to Change ✦")
-                                .font(.system(size: 12, weight: .medium, design: .rounded))
-                                .foregroundColor(.white.opacity(0.7))
-                        }
-                    }
-                    .padding(.vertical, 40)  // Increased padding for more space
-                    // MARK: ––– SACRED GEOMETRY SECTION END –––
-                    
-                    // Realm-Time Button (Enhanced with Dynamic Colors)
-                    Button(action: {
-                        activityNavigationManager.requestRealmNavigation()
-                        print("Realm-Time button tapped - navigation requested")
-                    }) {
-                        Text("Realm-Time")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .padding(.horizontal, 30)
-                            .padding(.vertical, 15)
-                            .foregroundColor(.white)
-                            .background(
-                                ZStack {
-                                    // Base gradient
-                                    LinearGradient(
-                                        gradient: Gradient(colors: [
-                                            getRealmButtonColor().opacity(0.9),
-                                            getRealmButtonColor().opacity(0.7),
-                                            getRealmButtonColor().opacity(0.5)
-                                        ]),
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                    
-                                    // Overlay gradient for depth
-                                LinearGradient(
-                                        gradient: Gradient(stops: [
-                                            .init(color: Color.white.opacity(0.3), location: 0.0),
-                                            .init(color: Color.clear, location: 0.3),
-                                            .init(color: Color.clear, location: 0.7),
-                                            .init(color: Color.black.opacity(0.2), location: 1.0)
-                                        ]),
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                )
-                                }
-                            )
-                            .cornerRadius(20)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .stroke(
-                                        LinearGradient(
-                                            gradient: Gradient(colors: [
-                                                getRealmButtonColor().opacity(0.8),
-                                                getRealmButtonColor().opacity(0.4)
-                                            ]),
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        ),
-                                        lineWidth: 1
-                                    )
-                            )
-                            .shadow(color: getRealmButtonColor().opacity(0.5), radius: 15, x: 0, y: 8)
-                            .shadow(color: getRealmButtonColor().opacity(0.3), radius: 25, x: 0, y: 12)
-                    }
-                    .id("realmButton_\(focusNumberManager.selectedFocusNumber)") // Force update when focus changes
-                    .animation(.easeInOut(duration: 0.6), value: focusNumberManager.selectedFocusNumber)
-                    .padding(.top, 10) // Add some space above the insight section
-                    
-                    // Enhanced Today's Insight Section
-                    todaysInsightSection
-                    
-                    // NEW: Latest Matched Number Insight Section
-                    if let matchedInsight = focusNumberManager.latestMatchedInsight,
-                       isInsightRecent(matchedInsight.timestamp) { // Only show if recent
-                        matchedInsightSection(insightData: matchedInsight)
-                    }
-                    
-                    // Recent Matches Section
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Recent Matches")
-                            .font(.headline)
-                            .padding(.horizontal)
-                        
-                        if focusNumberManager.matchLogs.isEmpty {
-                            Text("No matches yet")
-                                .foregroundColor(.secondary)
-                                .padding()
-                        } else {
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 15) {
-                                    ForEach(Array(focusNumberManager.matchLogs.prefix(5).enumerated()), id: \.offset) { index, match in
-                                        VStack {
-                                            Text("#\(match.matchedNumber)")
-                                                .font(.title2)
-                                                .bold()
-                                            Text(match.timestamp, style: .time)
-                                                .font(.caption)
-                                                .foregroundColor(.secondary)
-                                        }
-                                        .padding()
-                                        .background(Color.purple.opacity(0.1))
-                                        .cornerRadius(10)
-                                    }
-                                }
-                                .padding(.horizontal)
+                            Spacer()
+                            
+                            // Change Number Button
+                            Button("Change Number") {
+                                showingPicker = true
                             }
+                            .font(.headline)
+                            .foregroundColor(.blue)
+                            .padding(.bottom, 20)
                         }
+                        .padding(.top, 50)
                     }
-                    
-                    Spacer()
-                    
-                    // Change Number Button
-                    Button("Change Number") {
-                        showingPicker = true
-                    }
-                    .font(.headline)
-                    .foregroundColor(.blue)
-                    .padding(.bottom, 20)
                 }
-                .padding(.top, 50)
             }
             
             // Cosmic Number Picker Overlay
