@@ -30,8 +30,17 @@ struct RulingNumberChartDetailView: View {
     
     @Binding var isPresented: Bool
     
+    // State for number selection and detail view
+    @State private var selectedNumber: Int? = nil
+    @State private var showingNumberDetail = false
+    
     var chartData: [ChartDataPoint] {
         sampleManager.getChartData(for: selectedTimeRange)
+    }
+    
+    // Access to today's samples for enhanced functionality
+    private var todaySamples: [RealmSample] {
+        sampleManager.todaySamples
     }
     
     var body: some View {
@@ -243,7 +252,7 @@ struct RulingNumberChartDetailView: View {
                     timeSeriesChart
                 }
             }
-            .frame(height: selectedTimeRange == .oneDay ? 480 : 340)
+            .frame(height: 320)
             .background(
                 RoundedRectangle(cornerRadius: 16)
                     .fill(Color.black.opacity(0.4))
@@ -266,218 +275,387 @@ struct RulingNumberChartDetailView: View {
         .padding(.bottom, 16)
     }
     
-    // MARK: - Daily Histogram (1D view)
+    // MARK: - Daily Histogram (1D view) - ENHANCED with horizontal scrolling and interaction
     
     private var dailyHistogramChart: some View {
-        GeometryReader { geometry in
-            let availableWidth = geometry.size.width - 48 // Increased padding for right-side content
-            let barTrackWidth = availableWidth * 0.58 // Reduced to leave more space for badges
-            
-            ScrollView(.vertical, showsIndicators: true) {
-                VStack(spacing: 12) {
-                    // Enhanced version of existing histogram
+        VStack(spacing: 16) {
+            // Enhanced horizontal scrolling histogram - clean and focused
+            ScrollView(.horizontal, showsIndicators: true) {
+                HStack(spacing: 6) {
                     ForEach(1...9, id: \.self) { number in
-                    let count = sampleManager.getCount(for: number)
-                    let maxCount = chartData.isEmpty ? 1 : max(chartData.map { $0.value }.max() ?? 1, 1)
-                    let barProgress = count > 0 ? CGFloat(count) / CGFloat(maxCount) : 0
-                    let barWidth = barProgress * barTrackWidth
-                    let isRuling = number == sampleManager.rulingNumber && count > 0
-                    let isFocus = number == focusNumberManager.selectedFocusNumber
-                    
-                    HStack(alignment: .center, spacing: 14) {
-                        // Number circle - fixed position, no scaling
-                        ZStack {
-                            Circle()
-                                .fill(getSacredColor(for: number).opacity(0.8))
-                                .frame(width: 36, height: 36)
-                                .overlay(
-                                    Circle()
-                                        .stroke(
-                                            isRuling ? Color.yellow : 
-                                            isFocus ? Color.cyan : Color.clear,
-                                            lineWidth: isRuling || isFocus ? 2 : 0
-                                        )
-                                )
-                                .shadow(color: getSacredColor(for: number).opacity(0.5), radius: 6)
-                                .opacity(isRuling && sacredCycleHighlight ? 0.9 : 0.8) // Opacity pulse instead of scale
-                            
-                            Text("\(number)")
-                                .font(.system(size: 14, weight: .bold))
-                                .foregroundColor(.white)
-                        }
-                        
-                        // Progress bar container - fixed alignment
-                        HStack(spacing: 0) {
-                            ZStack(alignment: .leading) {
-                                // Background track
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color.white.opacity(0.1))
-                                    .frame(width: barTrackWidth, height: 16)
-                                
-                                // Progress bar
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(
-                                        LinearGradient(
-                                            colors: isRuling ? [
-                                                getSacredColor(for: number).opacity(0.9),
-                                                getSacredColor(for: number).opacity(0.6),
-                                                .yellow.opacity(0.3)
-                                            ] : [
-                                                getSacredColor(for: number).opacity(0.7),
-                                                getSacredColor(for: number).opacity(0.4)
-                                            ],
-                                            startPoint: .leading,
-                                            endPoint: .trailing
-                                        )
-                                    )
-                                    .frame(
-                                        width: max(barWidth * chartAnimationPhase, count > 0 ? 20 : 0),
-                                        height: 16
-                                    )
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .stroke(
-                                                isRuling ? Color.yellow.opacity(0.8) : Color.clear,
-                                                lineWidth: isRuling ? 2 : 0
-                                            )
-                                    )
-                                    .shadow(
-                                        color: isRuling ? .yellow.opacity(0.4) : getSacredColor(for: number).opacity(0.3),
-                                        radius: isRuling ? 8 : 4
-                                    )
-                                    .scaleEffect(
-                                        isRuling && rulingBarPulse ? 1.02 : 1.0
-                                    )
-                            }
-                            
-                            Spacer(minLength: 16)
-                            
-                            // Count and badges - fixed width area
-                            HStack(spacing: 8) {
-                                Text("\(count)")
-                                    .font(.system(size: 14, weight: .bold))
-                                    .foregroundColor(isRuling ? .yellow : .white)
-                                    .frame(minWidth: 20, alignment: .trailing)
-                                
-                                HStack(spacing: 4) {
-                                    if isRuling {
-                                        Image(systemName: "crown.fill")
-                                            .font(.caption)
-                                            .foregroundColor(.yellow)
-                                            .opacity(sacredCycleHighlight ? 1.0 : 0.8) // Opacity pulse
-                                    }
-                                    
-                                    if isFocus {
-                                        Image(systemName: "target")
-                                            .font(.caption)
-                                            .foregroundColor(.cyan)
-                                    }
-                                }
-                                .frame(minWidth: 28, alignment: .leading)
-                            }
-                        }
-                    }
-                    .onTapGesture {
-                        handleNumberTap(number)
+                        individualNumberBar(for: number)
                     }
                 }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 16)
             }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 12)
+            .frame(height: 220)
+            .clipped()
+            
+            // Compact stats summary
+            HStack(spacing: 16) {
+                VStack(spacing: 1) {
+                    Text("\(todaySamples.count)")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                    Text("Total")
+                        .font(.caption2)
+                        .foregroundColor(.white.opacity(0.7))
+                }
+                
+                Divider()
+                    .frame(height: 20)
+                    .background(Color.white.opacity(0.3))
+                
+                VStack(spacing: 1) {
+                    Text("\(sampleManager.rulingNumber)")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.yellow)
+                    Text("Ruling")
+                        .font(.caption2)
+                        .foregroundColor(.white.opacity(0.7))
+                }
+                
+                Divider()
+                    .frame(height: 20)
+                    .background(Color.white.opacity(0.3))
+                
+                VStack(spacing: 1) {
+                    Text("\(sampleManager.getCount(for: sampleManager.rulingNumber))")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.yellow)
+                    Text("Count")
+                        .font(.caption2)
+                        .foregroundColor(.white.opacity(0.7))
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 20)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.black.opacity(0.3))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                    )
+            )
+            .padding(.bottom, 8)
+        }
+        .fullScreenCover(isPresented: $showingNumberDetail) {
+            if let selectedNum = selectedNumber {
+                NumberDetailOverlay(
+                    number: selectedNum,
+                    sampleManager: sampleManager,
+                    focusNumberManager: focusNumberManager,
+                    isPresented: $showingNumberDetail
+                )
             }
         }
+        }
+    
+    // Individual number bar component with enhanced interactivity
+    private func individualNumberBar(for number: Int) -> some View {
+        let count = sampleManager.getCount(for: number)
+        let maxCount = max(todaySamples.isEmpty ? 1 : sampleManager.histogram.max() ?? 1, 1)
+        let barProgress = count > 0 ? CGFloat(count) / CGFloat(maxCount) : 0
+        let isRuling = number == sampleManager.rulingNumber && count > 0
+        let isFocus = number == focusNumberManager.selectedFocusNumber
+        let isSelected = selectedNumber == number
+        
+        return VStack(spacing: 6) {
+            // Number circle with enhanced visual feedback
+            ZStack {
+                Circle()
+                    .fill(getSacredColor(for: number).opacity(isSelected ? 1.0 : 0.8))
+                    .frame(width: isSelected ? 42 : 38, height: isSelected ? 42 : 38)
+                    .overlay(
+                        Circle()
+                            .stroke(
+                                isRuling ? Color.yellow :
+                                isFocus ? Color.cyan :
+                                isSelected ? Color.white : Color.clear,
+                                lineWidth: isRuling || isFocus || isSelected ? 3 : 0
+                            )
+                    )
+                    .shadow(
+                        color: getSacredColor(for: number).opacity(isSelected ? 0.8 : 0.5),
+                        radius: isSelected ? 10 : 6
+                    )
+                
+                Text("\(number)")
+                    .font(.system(size: isSelected ? 18 : 16, weight: .bold))
+                    .foregroundColor(.white)
+            }
+            .scaleEffect(isSelected ? 1.1 : (isRuling && sacredCycleHighlight ? 1.05 : 1.0))
+            
+            // Vertical progress bar
+            VStack(spacing: 0) {
+                ZStack(alignment: .bottom) {
+                                        // Background track
+                     RoundedRectangle(cornerRadius: 6)
+                         .fill(Color.white.opacity(0.2))
+                         .frame(width: 20, height: 80)
+                    
+                    // Progress bar
+                    RoundedRectangle(cornerRadius: 6)
+                        .fill(
+                            LinearGradient(
+                                colors: isRuling ? [
+                                    .yellow.opacity(0.9),
+                                    getSacredColor(for: number).opacity(0.8)
+                                ] : [
+                                    getSacredColor(for: number).opacity(0.9),
+                                    getSacredColor(for: number).opacity(0.6)
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                                                 .frame(
+                             width: 20,
+                             height: max((80 * barProgress) * chartAnimationPhase, count > 0 ? 8 : 0)
+                         )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 6)
+                                .stroke(
+                                    isRuling ? Color.yellow.opacity(0.8) : Color.clear,
+                                    lineWidth: isRuling ? 2 : 0
+                                )
+                        )
+                        .shadow(
+                            color: isRuling ? .yellow.opacity(0.4) : getSacredColor(for: number).opacity(0.3),
+                            radius: isRuling ? 6 : 3
+                        )
+                }
+            }
+            
+            // Count label
+            Text("\(count)")
+                .font(.system(size: 14, weight: isRuling ? .bold : .medium))
+                .foregroundColor(isRuling ? .yellow : .white)
+                .frame(minWidth: 22)
+            
+            // Status indicators
+            HStack(spacing: 2) {
+                if isRuling {
+                    Image(systemName: "crown.fill")
+                        .font(.caption2)
+                        .foregroundColor(.yellow)
+                }
+                if isFocus {
+                    Image(systemName: "target")
+                        .font(.caption2)
+                        .foregroundColor(.cyan)
+                }
+            }
+            .frame(height: 12)
+        }
+        .frame(width: 50)
+        .padding(.vertical, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(isSelected ? Color.white.opacity(0.1) : Color.clear)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(
+                            isSelected ? getSacredColor(for: number).opacity(0.5) : Color.clear,
+                            lineWidth: 1
+                        )
+                )
+        )
+        .onTapGesture {
+            handleEnhancedNumberTap(number)
+        }
+        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isSelected)
+        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isRuling)
+    }
+    
+    // Enhanced number tap handler with detailed information
+    private func handleEnhancedNumberTap(_ number: Int) {
+        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+        impactFeedback.impactOccurred()
+        
+        // Set selection and show detail
+        selectedNumber = number
+        showingNumberDetail = true
+        
+        print("📊 Enhanced: User selected number \(number) for detailed analysis")
     }
     
     // MARK: - Time Series Chart (7D, 14D, 30D views)
     
+    // Extract complex calculations to avoid compiler issues
+    private var processedChartData: (dates: [Date], maxValue: Int) {
+        let sortedData = chartData.sorted { $0.date < $1.date }
+        let uniqueDates = Array(Set(sortedData.map { Calendar.current.startOfDay(for: $0.date) })).sorted()
+        let maxValue = max(chartData.map { $0.value }.max() ?? 1, 1)
+        return (uniqueDates, maxValue)
+    }
+    
+    private func getDayData(for date: Date) -> [ChartDataPoint] {
+        let sortedData = chartData.sorted { $0.date < $1.date }
+        return sortedData.filter { Calendar.current.isDate($0.date, inSameDayAs: date) }
+    }
+    
+    private func getRulingNumber(for dayData: [ChartDataPoint]) -> Int {
+        return dayData.max(by: { $0.value < $1.value })?.number ?? 1
+    }
+    
+    private func getMaxDayValue(for dayData: [ChartDataPoint]) -> Int {
+        return dayData.map { $0.value }.max() ?? 0
+    }
+    
     private var timeSeriesChart: some View {
-        VStack(spacing: 16) {
-            // Chart legend
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
-                    ForEach(1...9, id: \.self) { number in
-                        HStack(spacing: 6) {
-                            Circle()
-                                .fill(getSacredColor(for: number))
-                                .frame(width: 8, height: 8)
-                            Text("\(number)")
-                                .font(.caption)
-                                .foregroundColor(.white.opacity(0.8))
-                        }
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 6)
-                        .background(
-                            RoundedRectangle(cornerRadius: 6)
-                                .fill(Color.white.opacity(0.1))
-                        )
-                    }
+        let processedData = processedChartData
+        
+        return VStack(spacing: 16) {
+            // Synchronized scrollable bar chart
+            ScrollView(.horizontal, showsIndicators: true) {
+                VStack(spacing: 12) {
+                    // Number labels that scroll with the data
+                    chartHeaderView(dates: processedData.dates)
+                    
+                    // Vertical bar chart
+                    chartBarsView(dates: processedData.dates, maxValue: processedData.maxValue)
                 }
-                .padding(.horizontal, 20)
+                .padding(.vertical, 16)
             }
+            .frame(height: 220)
             
-            // Line chart visualization
-            GeometryReader { geometry in
-                let chartWidth = geometry.size.width - 40
-                let chartHeight = geometry.size.height - 40
+            // Legend for number colors
+            chartLegendView
+        }
+    }
+    
+    private func chartHeaderView(dates: [Date]) -> some View {
+        HStack(alignment: .bottom, spacing: 0) {
+            ForEach(dates.indices, id: \.self) { dateIndex in
+                let date = dates[dateIndex]
+                let dayData = getDayData(for: date)
+                let rulingNumber = getRulingNumber(for: dayData)
                 
-                ZStack {
-                    // Grid lines
-                    Path { path in
-                        for i in 0...5 {
-                            let y = 20 + (chartHeight / 5) * CGFloat(i)
-                            path.move(to: CGPoint(x: 20, y: y))
-                            path.addLine(to: CGPoint(x: 20 + chartWidth, y: y))
-                        }
-                    }
-                    .stroke(Color.white.opacity(0.1), lineWidth: 0.5)
+                VStack(spacing: 8) {
+                    // Date label
+                    Text(formatDateLabel(date))
+                        .font(.caption2)
+                        .foregroundColor(.white.opacity(0.6))
                     
-                    // Data lines for each number
-                    ForEach(1...9, id: \.self) { number in
-                        let numberData = chartData.filter { $0.number == number }
+                    // Ruling number circle
+                    ZStack {
+                        Circle()
+                            .fill(getSacredColor(for: rulingNumber).opacity(0.8))
+                            .frame(width: 24, height: 24)
                         
-                        if !numberData.isEmpty {
-                            Path { path in
-                                for (index, dataPoint) in numberData.enumerated() {
-                                    let x = 20 + (chartWidth / CGFloat(max(numberData.count - 1, 1))) * CGFloat(index)
-                                    let y = 20 + chartHeight - (chartHeight * CGFloat(dataPoint.value) / 10.0)
-                                    
-                                    if index == 0 {
-                                        path.move(to: CGPoint(x: x, y: y))
-                                    } else {
-                                        path.addLine(to: CGPoint(x: x, y: y))
-                                    }
-                                }
-                            }
-                            .trim(from: 0, to: chartAnimationPhase)
-                            .stroke(
-                                getSacredColor(for: number).opacity(0.8),
-                                style: StrokeStyle(lineWidth: 2, lineCap: .round)
-                            )
-                            .shadow(color: getSacredColor(for: number).opacity(0.3), radius: 2)
-                        }
-                    }
-                    
-                    // Data points
-                    ForEach(Array(chartData.enumerated()), id: \.offset) { index, dataPoint in
-                        if chartData.count > 1 {
-                            let x = 20 + (chartWidth / CGFloat(max(chartData.count - 1, 1))) * CGFloat(index)
-                            let y = 20 + chartHeight - (chartHeight * CGFloat(dataPoint.value) / 10.0)
-                            
-                            Circle()
-                                .fill(getSacredColor(for: dataPoint.number))
-                                .frame(width: 6, height: 6)
-                                .position(x: x, y: y)
-                                .scaleEffect(chartAnimationPhase)
-                                .onTapGesture {
-                                    selectedDataPoint = dataPoint
-                                    showingTooltip = true
-                                }
-                        }
+                        Text("\(rulingNumber)")
+                            .font(.caption)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
                     }
                 }
+                .frame(width: 60)
             }
         }
-        .padding(20)
+        .padding(.horizontal, 20)
+    }
+    
+    private func chartBarsView(dates: [Date], maxValue: Int) -> some View {
+        HStack(alignment: .bottom, spacing: 0) {
+            ForEach(dates.indices, id: \.self) { dateIndex in
+                let date = dates[dateIndex]
+                let dayData = getDayData(for: date)
+                let rulingNumber = getRulingNumber(for: dayData)
+                let maxDayValue = getMaxDayValue(for: dayData)
+                
+                individualBarView(
+                    rulingNumber: rulingNumber,
+                    maxDayValue: maxDayValue,
+                    maxValue: maxValue,
+                    dayData: dayData
+                )
+            }
+        }
+        .padding(.horizontal, 20)
+    }
+    
+    private func individualBarView(rulingNumber: Int, maxDayValue: Int, maxValue: Int, dayData: [ChartDataPoint]) -> some View {
+        VStack(spacing: 4) {
+            // Bar
+            ZStack(alignment: .bottom) {
+                // Background bar
+                RoundedRectangle(cornerRadius: 6)
+                    .fill(Color.white.opacity(0.1))
+                    .frame(width: 40, height: 140)
+                
+                // Data bar
+                RoundedRectangle(cornerRadius: 6)
+                    .fill(
+                        LinearGradient(
+                            colors: [
+                                getSacredColor(for: rulingNumber).opacity(0.9),
+                                getSacredColor(for: rulingNumber).opacity(0.6)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .frame(
+                        width: 40,
+                        height: max(((CGFloat(maxDayValue) / CGFloat(maxValue)) * CGFloat(140)) * CGFloat(chartAnimationPhase), CGFloat(4))
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke(getSacredColor(for: rulingNumber).opacity(0.8), lineWidth: 1)
+                    )
+                    .shadow(color: getSacredColor(for: rulingNumber).opacity(0.4), radius: 4)
+            }
+            
+            // Value label
+            Text("\(maxDayValue)")
+                .font(.caption2)
+                .fontWeight(.bold)
+                .foregroundColor(.white.opacity(0.8))
+        }
+        .frame(width: 60)
+        .onTapGesture {
+            if let selectedData = dayData.max(by: { $0.value < $1.value }) {
+                selectedDataPoint = selectedData
+                showingTooltip = true
+            }
+        }
+    }
+    
+    private var chartLegendView: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                ForEach(1...9, id: \.self) { number in
+                    HStack(spacing: 4) {
+                        Circle()
+                            .fill(getSacredColor(for: number))
+                            .frame(width: 6, height: 6)
+                        Text("\(number)")
+                            .font(.caption2)
+                            .foregroundColor(.white.opacity(0.7))
+                    }
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 3)
+                    .background(
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(Color.white.opacity(0.05))
+                    )
+                }
+            }
+            .padding(.horizontal, 16)
+        }
+    }
+    
+    // Helper function to format date labels
+    private func formatDateLabel(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd"
+        return formatter.string(from: date)
     }
     
     // MARK: - Sacred Cycles Section
@@ -778,13 +956,7 @@ struct RulingNumberChartDetailView: View {
         }
     }
     
-    private func handleNumberTap(_ number: Int) {
-        let impactFeedback = UIImpactFeedbackGenerator(style: .light)
-        impactFeedback.impactOccurred()
-        
-        // Navigation to number meaning can be implemented here
-        print("🔍 Detailed view: User tapped number \(number)")
-    }
+    // MARK: - Legacy method - replaced by handleEnhancedNumberTap
     
     private func getRulingDescription(_ number: Int) -> String {
         let descriptions = [
@@ -1083,5 +1255,473 @@ struct RulingNumberChartDetailView_Previews: PreviewProvider {
         RulingNumberChartDetailView(isPresented: .constant(true))
             .environmentObject(FocusNumberManager.shared)
             .environmentObject(RealmNumberManager())
+    }
+}
+
+// MARK: - Number Detail Overlay
+
+struct NumberDetailOverlay: View {
+    let number: Int
+    let sampleManager: RealmSampleManager
+    let focusNumberManager: FocusNumberManager
+    @Binding var isPresented: Bool
+    
+    private var todayCount: Int {
+        sampleManager.getCount(for: number)
+    }
+    
+    private var weeklyCount: Int {
+        let weeklyData = sampleManager.getChartData(for: .sevenDays)
+        return weeklyData.filter { $0.number == number }.map { $0.value }.reduce(0, +)
+    }
+    
+    private var monthlyCount: Int {
+        let monthlyData = sampleManager.getChartData(for: .thirtyDays)
+        return monthlyData.filter { $0.number == number }.map { $0.value }.reduce(0, +)
+    }
+    
+    private var isRuling: Bool {
+        number == sampleManager.rulingNumber && todayCount > 0
+    }
+    
+    private var isFocus: Bool {
+        number == focusNumberManager.selectedFocusNumber
+    }
+    
+    var body: some View {
+        ZStack {
+            // Cosmic background
+            Color.black.ignoresSafeArea()
+            
+            VStack(spacing: 0) {
+                // Header with close button
+                HStack {
+                    Spacer()
+                    Button("✕") {
+                        isPresented = false
+                    }
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .padding()
+                }
+                
+                // Scrollable content
+                ScrollView {
+                    VStack(spacing: 24) {
+                        // Top spacing
+                        Spacer(minLength: 20)
+                        
+                        // Number header
+                        VStack(spacing: 16) {
+                            ZStack {
+                                Circle()
+                                    .fill(
+                                        RadialGradient(
+                                            colors: [
+                                                getSacredColor(for: number).opacity(0.8),
+                                                getSacredColor(for: number).opacity(0.4)
+                                            ],
+                                            center: .center,
+                                            startRadius: 20,
+                                            endRadius: 60
+                                        )
+                                    )
+                                    .frame(width: 120, height: 120)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(
+                                                isRuling ? Color.yellow :
+                                                isFocus ? Color.cyan : Color.white.opacity(0.3),
+                                                lineWidth: isRuling || isFocus ? 4 : 2
+                                            )
+                                    )
+                                    .shadow(color: getSacredColor(for: number).opacity(0.6), radius: 20)
+                                
+                                Text("\(number)")
+                                    .font(.system(size: 48, weight: .bold, design: .rounded))
+                                    .foregroundColor(.white)
+                            }
+                            
+                            // Status badges
+                                                         HStack(spacing: 12) {
+                                 if isRuling {
+                                     NumberStatusBadge(
+                                         icon: "crown.fill",
+                                         text: "Today's Ruler",
+                                         color: .yellow
+                                     )
+                                 }
+                                 if isFocus {
+                                     NumberStatusBadge(
+                                         icon: "target",
+                                         text: "Focus Number",
+                                         color: .cyan
+                                     )
+                                 }
+                             }
+                        }
+                        
+                        // Statistics section
+                        VStack(spacing: 16) {
+                            Text("✧ Statistics ✧")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                            
+                                                         HStack(spacing: 16) {
+                                 NumberStatCard(
+                                     title: "Today",
+                                     value: "\(todayCount)",
+                                     subtitle: todayCount == 1 ? "occurrence" : "occurrences",
+                                     color: getSacredColor(for: number)
+                                 )
+                                 
+                                 NumberStatCard(
+                                     title: "This Week",
+                                     value: "\(weeklyCount)",
+                                     subtitle: "total appearances",
+                                     color: getSacredColor(for: number).opacity(0.8)
+                                 )
+                                 
+                                 NumberStatCard(
+                                     title: "This Month",
+                                     value: "\(monthlyCount)",
+                                     subtitle: "cosmic manifestations",
+                                     color: getSacredColor(for: number).opacity(0.6)
+                                 )
+                             }
+                        }
+                        
+                        // Sacred insights
+                        VStack(spacing: 16) {
+                            Text("✧ Sacred Wisdom ✧")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                            
+                                                         VStack(spacing: 12) {
+                                 NumberInsightCard(
+                                     title: "Numerical Essence",
+                                     content: getNumericalEssence(for: number),
+                                     icon: "sparkles",
+                                     color: getSacredColor(for: number)
+                                 )
+                                 
+                                 NumberInsightCard(
+                                     title: "Spiritual Meaning",
+                                     content: getSpiritualMeaning(for: number),
+                                     icon: "star.circle",
+                                     color: getSacredColor(for: number)
+                                 )
+                                 
+                                 NumberInsightCard(
+                                     title: "Life Guidance",
+                                     content: getLifeGuidance(for: number),
+                                     icon: "heart.circle",
+                                     color: getSacredColor(for: number)
+                                 )
+                             }
+                        }
+                        
+                        // Frequency analysis
+                        if todayCount > 0 {
+                            VStack(spacing: 16) {
+                                Text("✧ Today's Pattern ✧")
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                
+                                                                 NumberFrequencyCard(
+                                     number: number,
+                                     count: todayCount,
+                                     totalSamples: sampleManager.todaySamples.count,
+                                     isRuling: isRuling
+                                 )
+                            }
+                        }
+                        
+                        // Bottom spacing
+                        Spacer(minLength: 60)
+                    }
+                    .padding(.horizontal, 20)
+                }
+            }
+        }
+        .onAppear {
+            print("📊 Number Detail: Showing analysis for number \(number)")
+            print("   Today: \(todayCount) | Week: \(weeklyCount) | Month: \(monthlyCount)")
+        }
+    }
+    
+    // Helper function to get sacred color (if not defined in main view)
+    private func getSacredColor(for number: Int) -> Color {
+        switch number {
+        case 1: return .red
+        case 2: return .orange
+        case 3: return .yellow
+        case 4: return .green
+        case 5: return .blue
+        case 6: return .indigo
+        case 7: return .purple
+        case 8: return Color(red: 1.0, green: 0.8, blue: 0.0) // gold
+        case 9: return .white
+        default: return .white
+        }
+    }
+    
+    // Sacred wisdom content
+    private func getNumericalEssence(for number: Int) -> String {
+        switch number {
+        case 1: return "The number of new beginnings, independence, and leadership. You are the alpha point of creation, the spark that ignites infinite potential."
+        case 2: return "The number of balance, cooperation, and harmony. Sacred duality teaches us that opposites create wholeness and partnerships manifest dreams."
+        case 3: return "The number of creativity, expression, and divine trinity. Mind, body, and spirit unite in perfect creative flow and joyful manifestation."
+        case 4: return "The number of stability, foundation, and sacred geometry. Four elements, four directions, and solid structure anchor dreams into reality."
+        case 5: return "The number of freedom, adventure, and change. The pentagram's protection guides your journey through transformation and discovery."
+        case 6: return "The number of love, nurturing, and harmony. The hexagon's perfect geometry reflects the flower of life's infinite beauty and compassion."
+        case 7: return "The number of mystery, spirituality, and wisdom. Seven chakras, seven heavens - the mystical gateway to higher consciousness and inner knowing."
+        case 8: return "The number of abundance, power, and infinite cycles. The ouroboros symbol of eternal renewal and material mastery in perfect balance."
+        case 9: return "The number of completion, wisdom, and universal love. The enneagram's nine points encompass all human experience and divine understanding."
+        default: return "Each number carries sacred frequency and divine purpose in the cosmic symphony of existence."
+        }
+    }
+    
+    private func getSpiritualMeaning(for number: Int) -> String {
+        switch number {
+        case 1: return "Divine unity consciousness. You are both the creator and the created, holding the power to manifest reality through focused intention and will."
+        case 2: return "Sacred partnership with the divine feminine. Balance your inner masculine and feminine energies to achieve harmonious co-creation."
+        case 3: return "Trinity activation and creative expression. Your thoughts, words, and actions align to bring forth divine inspiration into the material world."
+        case 4: return "Earth element mastery and foundation building. You are anchoring celestial wisdom into practical form through disciplined, methodical action."
+        case 5: return "Freedom through spiritual transformation. Release limiting beliefs and embrace the adventure of conscious evolution and soul expansion."
+        case 6: return "Heart chakra opening and unconditional love. You are called to be a healer, teacher, and beacon of compassion in the world."
+        case 7: return "Crown chakra illumination and mystical wisdom. Deep meditation, spiritual study, and inner knowing guide your path to enlightenment."
+        case 8: return "Material and spiritual abundance integration. You master the art of manifesting prosperity while maintaining spiritual integrity and service."
+        case 9: return "Christ consciousness and universal service. Your soul's mission involves healing, teaching, and uplifting humanity through divine love."
+        default: return "Every number contains sacred frequencies that guide us toward our highest spiritual potential and divine purpose."
+        }
+    }
+    
+    private func getLifeGuidance(for number: Int) -> String {
+        switch number {
+        case 1: return "Trust your instincts and take initiative. Leadership opportunities are presenting themselves. Your original ideas and pioneering spirit are needed now."
+        case 2: return "Seek collaboration and practice patience. Diplomatic solutions and emotional intelligence will serve you. Focus on building supportive relationships."
+        case 3: return "Express your creativity and communicate openly. Your artistic talents and joyful energy inspire others. Share your gifts with confidence and enthusiasm."
+        case 4: return "Build solid foundations and work methodically. Organization and practical planning lead to lasting success. Stay committed to your long-term goals."
+        case 5: return "Embrace change and seek new experiences. Your adventurous spirit and adaptability are assets. Freedom comes through embracing diversity and growth."
+        case 6: return "Focus on family, community, and service. Your nurturing abilities and aesthetic sense create harmony. Take care of others while honoring your own needs."
+        case 7: return "Deepen your spiritual practice and seek inner wisdom. Research, meditation, and solitude provide answers. Trust your intuitive insights over external noise."
+        case 8: return "Pursue material goals with ethical integrity. Your business acumen and organizational skills create abundance. Balance ambition with generosity and fairness."
+        case 9: return "Serve the greater good and practice forgiveness. Your wisdom and compassion heal others. Release what no longer serves and embrace your humanitarian calling."
+        default: return "Each moment offers guidance when we align with the sacred numerical frequencies that surround us in divine perfect timing."
+        }
+    }
+}
+
+// Supporting UI Components
+
+struct NumberStatusBadge: View {
+    let icon: String
+    let text: String
+    let color: Color
+    
+    var body: some View {
+        HStack(spacing: 6) {
+            Image(systemName: icon)
+                .font(.caption)
+                .foregroundColor(color)
+            Text(text)
+                .font(.caption)
+                .fontWeight(.medium)
+                .foregroundColor(color)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 6)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(color.opacity(0.2))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(color.opacity(0.5), lineWidth: 1)
+                )
+        )
+    }
+}
+
+struct NumberStatCard: View {
+    let title: String
+    let value: String
+    let subtitle: String
+    let color: Color
+    
+    var body: some View {
+        VStack(spacing: 6) {
+            Text(title)
+                .font(.caption)
+                .fontWeight(.medium)
+                .foregroundColor(.white.opacity(0.8))
+            
+            Text(value)
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(color)
+            
+            Text(subtitle)
+                .font(.caption2)
+                .foregroundColor(.white.opacity(0.6))
+                .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 16)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.black.opacity(0.4))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(color.opacity(0.3), lineWidth: 1)
+                )
+        )
+    }
+}
+
+struct NumberInsightCard: View {
+    let title: String
+    let content: String
+    let icon: String
+    let color: Color
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 8) {
+                Image(systemName: icon)
+                    .font(.title3)
+                    .foregroundColor(color)
+                
+                Text(title)
+                    .font(.headline)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                
+                Spacer()
+            }
+            
+            Text(content)
+                .font(.body)
+                .foregroundColor(.white.opacity(0.85))
+                .lineSpacing(4)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.black.opacity(0.3))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(color.opacity(0.3), lineWidth: 1)
+                )
+        )
+    }
+}
+
+struct NumberFrequencyCard: View {
+    let number: Int
+    let count: Int
+    let totalSamples: Int
+    let isRuling: Bool
+    
+    private var percentage: Double {
+        guard totalSamples > 0 else { return 0 }
+        return Double(count) / Double(totalSamples) * 100
+    }
+    
+    private var frequencyDescription: String {
+        switch percentage {
+        case 30...: return "Dominant cosmic influence - exceptionally strong presence"
+        case 20..<30: return "Strong manifestation - significant spiritual energy"
+        case 15..<20: return "Balanced presence - harmonious cosmic flow"
+        case 10..<15: return "Gentle influence - subtle but meaningful"
+        case 5..<10: return "Emerging pattern - building cosmic momentum"
+        default: return "Rare appearance - precious spiritual moment"
+        }
+    }
+    
+    var body: some View {
+        VStack(spacing: 12) {
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Frequency Today")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                    
+                    Text("\(String(format: "%.1f", percentage))% of all manifestations")
+                        .font(.subheadline)
+                        .foregroundColor(.white.opacity(0.8))
+                }
+                
+                Spacer()
+                
+                VStack(spacing: 4) {
+                    Text("\(count)")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(isRuling ? .yellow : .white)
+                    Text("of \(totalSamples)")
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.6))
+                }
+            }
+            
+            // Progress bar
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    RoundedRectangle(cornerRadius: 6)
+                        .fill(Color.white.opacity(0.2))
+                        .frame(height: 8)
+                    
+                    RoundedRectangle(cornerRadius: 6)
+                        .fill(
+                            LinearGradient(
+                                colors: [
+                                    getSacredColor(for: number).opacity(0.9),
+                                    getSacredColor(for: number).opacity(0.6)
+                                ],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .frame(width: geometry.size.width * (percentage / 100), height: 8)
+                }
+            }
+            .frame(height: 8)
+            
+            Text(frequencyDescription)
+                .font(.subheadline)
+                .foregroundColor(.white.opacity(0.7))
+                .italic()
+                .multilineTextAlignment(.center)
+        }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.black.opacity(0.4))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(getSacredColor(for: number).opacity(0.4), lineWidth: 1)
+                )
+        )
+    }
+    
+    private func getSacredColor(for number: Int) -> Color {
+        switch number {
+        case 1: return .red
+        case 2: return .orange
+        case 3: return .yellow
+        case 4: return .green
+        case 5: return .blue
+        case 6: return .indigo
+        case 7: return .purple
+        case 8: return Color(red: 1.0, green: 0.8, blue: 0.0)
+        case 9: return .white
+        default: return .white
+        }
     }
 } 
