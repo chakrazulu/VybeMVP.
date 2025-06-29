@@ -36,6 +36,12 @@ struct ContentView: View {
     /// Manages AI insights
     @StateObject private var aiInsightManager = AIInsightManager.shared
     
+    /// Manages health data including heart rate
+    @StateObject private var healthKitManager = HealthKitManager.shared
+    
+    /// Manages sign in state
+    @StateObject private var signInViewModel = SignInViewModel()
+    
     // NEW State for handling notification taps
     @State private var showNotificationSheet = false
     @State private var notificationData: (number: Int, category: String, message: String)? = nil
@@ -51,6 +57,8 @@ struct ContentView: View {
                         .environmentObject(focusNumberManager)
                         .environmentObject(activityNavigationManager) 
                         .environmentObject(aiInsightManager)
+                        .environmentObject(healthKitManager)
+                        .environmentObject(signInViewModel)
                         .tabItem {
                             Image(systemName: "house.fill")
                             Text("Home")

@@ -121,8 +121,8 @@ class NumerologyMessageManager {
         // REMOVE Bundle Path and Contents Diagnostics
         // if let resourcePath = Bundle.main.resourcePath { ... }
         
-        // Keep this info log
-        logger.info("Loading numerology messages from JSON files")
+        // Simplified startup log
+        print("📚 Loading numerology insights...")
         
         // Initialize storage for all numbers (0-9)
         for number in 0...9 {
@@ -139,12 +139,11 @@ class NumerologyMessageManager {
             loadMessagesForNumber(number)
         }
         
-        // Log summary of loaded messages
+        // Log summary of loaded messages (simplified)
         var totalMessages = 0
-        for (number, categories) in messagesByNumberAndCategory {
-            for (category, messages) in categories {
+        for (_, categories) in messagesByNumberAndCategory {
+            for (_, messages) in categories {
                 totalMessages += messages.count
-                print("Loaded \(messages.count) messages for number \(number), category \(category.rawValue)")
             }
         }
         
@@ -194,7 +193,7 @@ class NumerologyMessageManager {
                 messagesByNumberAndCategory[number]?[category] = numerologyMessages
             }
             
-            print("✅ Successfully loaded messages for number \(number)")
+            // Removed individual number logging to reduce console spam
         } catch {
             print("❌ Error loading messages for number \(number): \(error.localizedDescription)")
         }

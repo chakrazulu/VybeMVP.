@@ -30,6 +30,7 @@ struct HomeView: View {
     @EnvironmentObject var signInViewModel: SignInViewModel
     @EnvironmentObject var activityNavigationManager: ActivityNavigationManager
     @EnvironmentObject var aiInsightManager: AIInsightManager
+    @EnvironmentObject var healthKitManager: HealthKitManager
     
     /// Controls visibility of the focus number picker sheet
     @State private var showingPicker = false
@@ -74,6 +75,15 @@ struct HomeView: View {
                                     number: focusNumberManager.selectedFocusNumber,
                                     size: 350
                                 )
+                                
+                                // NEON TRACER: Add mystical glow around sacred geometry
+                                // For now using a simple geometric shape - will need to extract actual mandala paths
+                                NeonTracerView(
+                                    path: createSacredPath(for: focusNumberManager.selectedFocusNumber),
+                                    bpm: Double(healthKitManager.currentHeartRate),
+                                    color: getSacredColor(for: focusNumberManager.selectedFocusNumber)
+                                )
+                                .frame(width: 320, height: 320)
                                 
                                 // Large Focus Number with Enhanced Glow
                                 Text("\(focusNumberManager.selectedFocusNumber)")
@@ -596,6 +606,140 @@ struct HomeView: View {
         case 9: return .white
         default: return .blue // fallback
         }
+    }
+    
+    // MARK: - Sacred Path Creation
+    // Creates paths that match the actual sacred geometry mandala patterns
+    private func createSacredPath(for number: Int) -> CGPath {
+        let path = CGMutablePath()
+        let centerX: CGFloat = 160
+        let centerY: CGFloat = 160
+        
+        switch number {
+        case 1: // Simple circle for unity
+            let radius: CGFloat = 120
+            path.addEllipse(in: CGRect(x: centerX - radius, y: centerY - radius, width: radius * 2, height: radius * 2))
+            
+        case 2: // Star of David pattern (what's shown in your screenshot)
+            // Create the outer star pattern that matches the sacred geometry
+            let outerRadius: CGFloat = 140
+            let innerRadius: CGFloat = 70
+            
+            // Create a 12-pointed star path that traces the outer edges of the mandala
+            for i in 0..<12 {
+                let angle = (CGFloat(i) * 2.0 * .pi) / 12.0 - .pi / 2
+                let radius = i % 2 == 0 ? outerRadius : innerRadius
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                
+                if i == 0 {
+                    path.move(to: CGPoint(x: x, y: y))
+                } else {
+                    path.addLine(to: CGPoint(x: x, y: y))
+                }
+            }
+            path.closeSubpath()
+            
+        case 3: // Triangle
+            let radius: CGFloat = 130
+            for i in 0..<3 {
+                let angle = (CGFloat(i) * 2.0 * .pi) / 3.0 - .pi / 2
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                
+                if i == 0 {
+                    path.move(to: CGPoint(x: x, y: y))
+                } else {
+                    path.addLine(to: CGPoint(x: x, y: y))
+                }
+            }
+            path.closeSubpath()
+            
+        case 4: // Square
+            let radius: CGFloat = 120
+            for i in 0..<4 {
+                let angle = (CGFloat(i) * 2.0 * .pi) / 4.0 - .pi / 4
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                
+                if i == 0 {
+                    path.move(to: CGPoint(x: x, y: y))
+                } else {
+                    path.addLine(to: CGPoint(x: x, y: y))
+                }
+            }
+            path.closeSubpath()
+            
+        case 5: // Pentagon
+            let radius: CGFloat = 125
+            for i in 0..<5 {
+                let angle = (CGFloat(i) * 2.0 * .pi) / 5.0 - .pi / 2
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                
+                if i == 0 {
+                    path.move(to: CGPoint(x: x, y: y))
+                } else {
+                    path.addLine(to: CGPoint(x: x, y: y))
+                }
+            }
+            path.closeSubpath()
+            
+        case 6: // Hexagon/Star of David
+            let radius: CGFloat = 130
+            for i in 0..<6 {
+                let angle = (CGFloat(i) * 2.0 * .pi) / 6.0 - .pi / 2
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                
+                if i == 0 {
+                    path.move(to: CGPoint(x: x, y: y))
+                } else {
+                    path.addLine(to: CGPoint(x: x, y: y))
+                }
+            }
+            path.closeSubpath()
+            
+        case 7: // Heptagon
+            let radius: CGFloat = 125
+            for i in 0..<7 {
+                let angle = (CGFloat(i) * 2.0 * .pi) / 7.0 - .pi / 2
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                
+                if i == 0 {
+                    path.move(to: CGPoint(x: x, y: y))
+                } else {
+                    path.addLine(to: CGPoint(x: x, y: y))
+                }
+            }
+            path.closeSubpath()
+            
+        case 8: // Octagon
+            let radius: CGFloat = 130
+            for i in 0..<8 {
+                let angle = (CGFloat(i) * 2.0 * .pi) / 8.0 - .pi / 4
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                
+                if i == 0 {
+                    path.move(to: CGPoint(x: x, y: y))
+                } else {
+                    path.addLine(to: CGPoint(x: x, y: y))
+                }
+            }
+            path.closeSubpath()
+            
+        case 9: // Circle for completion
+            let radius: CGFloat = 135
+            path.addEllipse(in: CGRect(x: centerX - radius, y: centerY - radius, width: radius * 2, height: radius * 2))
+            
+        default: // Default circle
+            let radius: CGFloat = 120
+            path.addEllipse(in: CGRect(x: centerX - radius, y: centerY - radius, width: radius * 2, height: radius * 2))
+        }
+        
+        return path
     }
 }
 

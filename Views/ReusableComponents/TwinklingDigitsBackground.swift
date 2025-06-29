@@ -158,12 +158,45 @@ struct TwinklingNumber {
     init(screenWidth: CGFloat, screenHeight: CGFloat) {
         self.digit = Int.random(in: 1...9)
         
-        // Simple random positioning
-        self.x = CGFloat.random(in: 50...(screenWidth - 50))
-        self.y = CGFloat.random(in: 100...(screenHeight - 100))
+        // Center exclusion zone - keep center clear for sacred geometry
+        let centerX = screenWidth / 2
+        let centerY = screenHeight / 2
+        let exclusionRadius: CGFloat = 200 // Radius of the sacred center area
         
-        self.size = CGFloat.random(in: 20...30)
-        self.maxOpacity = Double.random(in: 0.3...0.6)
+        // Generate position with center exclusion
+        var validPosition = false
+        var attemptX: CGFloat = 0
+        var attemptY: CGFloat = 0
+        
+        while !validPosition {
+            attemptX = CGFloat.random(in: 50...(screenWidth - 50))
+            attemptY = CGFloat.random(in: 100...(screenHeight - 100))
+            
+            // Check distance from center
+            let distance = hypot(attemptX - centerX, attemptY - centerY)
+            if distance > exclusionRadius {
+                validPosition = true
+            }
+        }
+        
+        self.x = attemptX
+        self.y = attemptY
+        
+        // Subtle fade effect for numbers near the exclusion boundary
+        let distance = hypot(attemptX - centerX, attemptY - centerY)
+        let fadeZone: CGFloat = 40 // Fade zone width
+        let fadeStart = exclusionRadius
+        let fadeEnd = exclusionRadius + fadeZone
+        
+        if distance < fadeEnd {
+            let fadeProgress = (distance - fadeStart) / fadeZone
+            self.maxOpacity = Double.random(in: 0.3...0.6) * Double(fadeProgress)
+            self.size = CGFloat.random(in: 20...30) * (0.7 + 0.3 * fadeProgress)
+        } else {
+            self.size = CGFloat.random(in: 20...30)
+            self.maxOpacity = Double.random(in: 0.3...0.6)
+        }
+        
         self.birthTime = Date()
         
         // Start invisible

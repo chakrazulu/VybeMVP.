@@ -129,6 +129,7 @@
 		4DA98FCC2E073CDC00FAE5FF /* ReportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98FCB2E073CDC00FAE5FF /* ReportManager.swift */; };
 		4DA98FCE2E073D0000FAE5FF /* ReportContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98FCD2E073D0000FAE5FF /* ReportContentView.swift */; };
 		4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */; };
+		4DB233F42E114580004EC2BC /* NeonTracerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F32E114580004EC2BC /* NeonTracerView.swift */; };
 		4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */; };
 		4DC602382D345A1B00B5E4A9 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602342D34570200B5E4A9 /* SignInViewModel.swift */; };
 		4DC602392D345A3500B5E4A9 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602352D34577E00B5E4A9 /* SignInView.swift */; };
@@ -272,6 +273,7 @@
 		4DA98FCB2E073CDC00FAE5FF /* ReportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportManager.swift; sourceTree = "<group>"; };
 		4DA98FCD2E073D0000FAE5FF /* ReportContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportContentView.swift; sourceTree = "<group>"; };
 		4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusMatch.swift; sourceTree = "<group>"; };
+		4DB233F32E114580004EC2BC /* NeonTracerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeonTracerView.swift; sourceTree = "<group>"; };
 		4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberView.swift; sourceTree = "<group>"; };
 		4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VybeMVP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DC602322D34552200B5E4A9 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 		4D3727142DE550ED00B5A02B /* ReusableComponents */ = {
 			isa = PBXGroup;
 			children = (
+				4DB233F32E114580004EC2BC /* NeonTracerView.swift */,
 				4D2CC7172E0C70F600BDF100 /* TwinklingDigitsBackground.swift */,
 				4D2CC7152E0C37F200BDF100 /* RulingNumberChartDetailView.swift */,
 				4D2CC7132E0B9EFA00BDF100 /* EnhancedLoadingView.swift */,
@@ -891,6 +894,7 @@
 				4D3056002D3D9245009A7BBD /* JournalEntryView.swift in Sources */,
 				4D2CC7182E0C70F600BDF100 /* TwinklingDigitsBackground.swift in Sources */,
 				4D2CC7142E0B9EFA00BDF100 /* EnhancedLoadingView.swift in Sources */,
+				4DB233F42E114580004EC2BC /* NeonTracerView.swift in Sources */,
 				4D3727152DE550ED00B5A02B /* CosmicBackgroundView.swift in Sources */,
 				4D2CC7102E0B9EB700BDF100 /* RulingNumberChartView.swift in Sources */,
 				4D6C7B9D2DE47E99001036E5 /* OnboardingReflectionModeView.swift in Sources */,
