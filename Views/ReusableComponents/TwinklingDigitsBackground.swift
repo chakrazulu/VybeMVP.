@@ -85,7 +85,7 @@ struct TwinklingDigitsBackground: View {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
         
-        // STEP 4: Generate 30 initial numbers (was 25)
+        // REVERT TO STEP 4: Generate 30 initial numbers (was 35) 
         for _ in 0..<30 {
             let number = TwinklingNumber(
                 screenWidth: screenWidth,
@@ -104,13 +104,15 @@ struct TwinklingDigitsBackground: View {
             screenHeight: screenHeight
         )
         
-        withAnimation(.easeIn(duration: 0.5)) {
+        withAnimation(.easeInOut(duration: 0.8)) {
             activeNumbers.append(number)
         }
         
-        // STEP 4: Limit total numbers to 200 (was 160)
+        // REVERT TO STEP 4: Limit to 200 active numbers (was 240)
         if activeNumbers.count > 200 {
-            activeNumbers.removeFirst()
+            // Remove oldest numbers to maintain performance
+            let numbersToRemove = activeNumbers.count - 200
+            activeNumbers.removeFirst(numbersToRemove)
         }
     }
     

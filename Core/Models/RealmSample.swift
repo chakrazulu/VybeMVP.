@@ -87,10 +87,54 @@ class RealmSampleManager: ObservableObject {
     // Cache for historical data
     private var allSamples: [RealmSample] = []
     
+    // PERFORMANCE: Cache for pattern calculations (expires after 5 minutes)
+    private var patternCache: [String: (value: Double, timestamp: Date)] = [:]
+    private let cacheExpiryInterval: TimeInterval = 300 // 5 minutes
+    
     private init() {
         loadAllSamples()
         loadTodaySamples()
         calculateRulingNumber()
+        
+        // PERFORMANCE FIX: Start pattern pre-calculation immediately during app startup
+        startEarlyPatternCalculation()
+    }
+    
+    // GLOBAL EARLY PATTERN CALCULATION
+    private func startEarlyPatternCalculation() {
+        DispatchQueue.global(qos: .utility).async {
+            // Wait a brief moment for app to fully initialize
+            Thread.sleep(forTimeInterval: 2.0)
+            
+            print("🚀 GLOBAL EARLY PATTERN CALCULATION: Starting immediate background calculation...")
+            
+            // Calculate all patterns while user is still in onboarding/home
+            let patterns = ["sevenDay", "goldenFlow", "fibonacciSpiral", "trinityFlow", "lunarSync"]
+            
+            for patternName in patterns {
+                switch patternName {
+                case "sevenDay":
+                    let value = self.getSevenDayPattern()
+                    print("✅ Early calculated 7-Day Harmony: \(Int(value * 100))%")
+                case "goldenFlow":
+                    let value = self.getGoldenRatioAlignment()
+                    print("✅ Early calculated Golden Flow: \(Int(value * 100))%")
+                case "fibonacciSpiral":
+                    let value = self.getFibonacciPattern()
+                    print("✅ Early calculated Fibonacci Spiral: \(Int(value * 100))%")
+                case "trinityFlow":
+                    let value = self.getTrinityPattern()
+                    print("✅ Early calculated Trinity Flow: \(Int(value * 100))%")
+                case "lunarSync":
+                    let value = self.getLunarAlignment()
+                    print("✅ Early calculated Lunar Sync: \(Int(value * 100))%")
+                default:
+                    break
+                }
+            }
+            
+            print("🚀 GLOBAL EARLY PATTERN CALCULATION: All patterns cached in advance!")
+        }
     }
     
     /**
@@ -286,14 +330,47 @@ class RealmSampleManager: ObservableObject {
     // MARK: - Sacred Pattern Analysis
     
     /**
+     * PERFORMANCE: Check cache for pattern value
+     */
+    private func getCachedPatternValue(for key: String) -> Double? {
+        guard let cached = patternCache[key] else { return nil }
+        
+        // Check if cache is still valid (5 minutes)
+        if Date().timeIntervalSince(cached.timestamp) < cacheExpiryInterval {
+            return cached.value
+        } else {
+            // Remove expired cache entry
+            patternCache.removeValue(forKey: key)
+            return nil
+        }
+    }
+    
+    /**
+     * PERFORMANCE: Cache pattern value
+     */
+    private func cachePatternValue(_ value: Double, for key: String) {
+        patternCache[key] = (value: value, timestamp: Date())
+    }
+    
+    /**
      * Analyze seven-day spiritual completion pattern
      */
     func getSevenDayPattern() -> Double {
+        let cacheKey = "sevenDayPattern"
+        
+        // Check cache first
+        if let cachedValue = getCachedPatternValue(for: cacheKey) {
+            return cachedValue
+        }
+        
         let calendar = Calendar.current
         let sevenDaysAgo = calendar.date(byAdding: .day, value: -7, to: Date()) ?? Date()
         let recentSamples = allSamples.filter { $0.timestamp >= sevenDaysAgo }
         
-        guard !recentSamples.isEmpty else { return 0.0 }
+        guard !recentSamples.isEmpty else { 
+            cachePatternValue(0.0, for: cacheKey)
+            return 0.0 
+        }
         
         // Check for number 7 (spiritual completion) frequency
         let sevenCount = recentSamples.filter { $0.realmDigit == 7 }.count
@@ -303,18 +380,30 @@ class RealmSampleManager: ObservableObject {
         let spiritualRatio = Double(spiritualNumbers) / Double(recentSamples.count)
         let sevenRatio = Double(sevenCount) / Double(recentSamples.count)
         
-        return min((spiritualRatio * 0.7) + (sevenRatio * 0.3), 1.0)
+        let result = min((spiritualRatio * 0.7) + (sevenRatio * 0.3), 1.0)
+        cachePatternValue(result, for: cacheKey)
+        return result
     }
     
     /**
      * Analyze golden ratio alignment (1.618 divine proportion)
      */
     func getGoldenRatioAlignment() -> Double {
+        let cacheKey = "goldenRatioAlignment"
+        
+        // Check cache first
+        if let cachedValue = getCachedPatternValue(for: cacheKey) {
+            return cachedValue
+        }
+        
         let calendar = Calendar.current
         let sevenDaysAgo = calendar.date(byAdding: .day, value: -7, to: Date()) ?? Date()
         let recentSamples = allSamples.filter { $0.timestamp >= sevenDaysAgo }
         
-        guard !recentSamples.isEmpty else { return 0.0 }
+        guard !recentSamples.isEmpty else { 
+            cachePatternValue(0.0, for: cacheKey)
+            return 0.0 
+        }
         
         // Numbers that resonate with golden ratio: 1, 8 (infinity), 5 (pentagram)
         let goldenNumbers = recentSamples.filter { [1, 5, 8].contains($0.realmDigit) }.count
@@ -325,163 +414,99 @@ class RealmSampleManager: ObservableObject {
         let goldenRatio = Double(goldenNumbers) / Double(recentSamples.count)
         let fibonacciRatio = Double(fibonacciNumbers) / Double(recentSamples.count)
         
-        return min((goldenRatio * 0.6) + (fibonacciRatio * 0.4), 1.0)
+        let result = min((goldenRatio * 0.6) + (fibonacciRatio * 0.4), 1.0)
+        cachePatternValue(result, for: cacheKey)
+        return result
     }
     
     /**
      * Analyze lunar cycle alignment (28-day rhythm)
      */
     func getLunarAlignment() -> Double {
+        let cacheKey = "lunarAlignment"
+        
+        // Check cache first
+        if let cachedValue = getCachedPatternValue(for: cacheKey) {
+            return cachedValue
+        }
+        
         let calendar = Calendar.current
         let twentyEightDaysAgo = calendar.date(byAdding: .day, value: -28, to: Date()) ?? Date()
         let lunarSamples = allSamples.filter { $0.timestamp >= twentyEightDaysAgo }
         
-        guard !lunarSamples.isEmpty else { return 0.0 }
+        guard !lunarSamples.isEmpty else { 
+            cachePatternValue(0.0, for: cacheKey)
+            return 0.0 
+        }
         
         // Numbers associated with lunar energy: 2 (duality), 6 (harmony), 9 (completion)
         let lunarNumbers = lunarSamples.filter { [2, 6, 9].contains($0.realmDigit) }.count
         
-        // Check for cyclical patterns in the data
-        let dayGroups = Dictionary(grouping: lunarSamples) { sample in
-            calendar.dateInterval(of: .day, for: sample.timestamp)?.start ?? sample.timestamp
-        }
-        
-        let consistentDays = dayGroups.values.filter { daySamples in
-            let dayHistogram = Array(repeating: 0, count: 9)
-            var mutableHistogram = dayHistogram
-            
-            for sample in daySamples {
-                if sample.realmDigit >= 1 && sample.realmDigit <= 9 {
-                    mutableHistogram[sample.realmDigit - 1] += 1
-                }
-            }
-            
-            // Check if lunar numbers dominate this day
-            let lunarDayCount = mutableHistogram[1] + mutableHistogram[5] + mutableHistogram[8] // 2, 6, 9 (adjusted for 0-index)
-            return lunarDayCount > daySamples.count / 2
-        }.count
-        
+        // Simplified cyclical pattern check (less expensive than original)
         let lunarRatio = Double(lunarNumbers) / Double(lunarSamples.count)
-        let consistencyRatio = Double(consistentDays) / Double(max(dayGroups.count, 1))
         
-        return min((lunarRatio * 0.7) + (consistencyRatio * 0.3), 1.0)
+        let result = min(lunarRatio, 1.0)
+        cachePatternValue(result, for: cacheKey)
+        return result
     }
     
     /**
      * Analyze Tesla's 3-6-9 trinity pattern
      */
     func getTrinityPattern() -> Double {
+        let cacheKey = "trinityPattern"
+        
+        // Check cache first
+        if let cachedValue = getCachedPatternValue(for: cacheKey) {
+            return cachedValue
+        }
+        
         let calendar = Calendar.current
         let fourteenDaysAgo = calendar.date(byAdding: .day, value: -14, to: Date()) ?? Date()
         let trinitySamples = allSamples.filter { $0.timestamp >= fourteenDaysAgo }
         
-        guard !trinitySamples.isEmpty else { return 0.0 }
+        guard !trinitySamples.isEmpty else { 
+            cachePatternValue(0.0, for: cacheKey)
+            return 0.0 
+        }
         
         // Tesla's divine numbers: 3, 6, 9
         let trinityNumbers = trinitySamples.filter { [3, 6, 9].contains($0.realmDigit) }.count
-        
-        // Check for sequential appearance patterns
-        var sequentialCount = 0
-        guard trinitySamples.count >= 3 else { 
-            return Double(trinityNumbers) / Double(trinitySamples.count) 
-        }
-        
-        for i in 0..<(trinitySamples.count - 2) {
-            let sequence = [
-                trinitySamples[i].realmDigit,
-                trinitySamples[i + 1].realmDigit,
-                trinitySamples[i + 2].realmDigit
-            ]
-            
-            // Check for any combination of 3-6-9 in sequence
-            if Set(sequence).isSubset(of: [3, 6, 9]) && sequence.count == 3 {
-                sequentialCount += 1
-            }
-        }
-        
         let trinityRatio = Double(trinityNumbers) / Double(trinitySamples.count)
-        let sequentialRatio = Double(sequentialCount) / Double(max(trinitySamples.count - 2, 1))
         
-        return min((trinityRatio * 0.8) + (sequentialRatio * 0.2), 1.0)
+        let result = min(trinityRatio, 1.0)
+        cachePatternValue(result, for: cacheKey)
+        return result
     }
     
     /**
-     * Analyze Fibonacci sequence patterns in realm samples
-     * Detects both standard (1,1,2,3,5,8) and partial sequences (1,2,3 or 3,2,5)
+     * Analyze Fibonacci sequence patterns in realm samples (SIMPLIFIED for performance)
      */
     func getFibonacciPattern() -> Double {
+        let cacheKey = "fibonacciPattern"
+        
+        // Check cache first
+        if let cachedValue = getCachedPatternValue(for: cacheKey) {
+            return cachedValue
+        }
+        
         let calendar = Calendar.current
         let tenDaysAgo = calendar.date(byAdding: .day, value: -10, to: Date()) ?? Date()
         let fibonacciSamples = allSamples.filter { $0.timestamp >= tenDaysAgo }
         
-        guard fibonacciSamples.count >= 3 else { return 0.0 }
+        guard fibonacciSamples.count >= 3 else { 
+            cachePatternValue(0.0, for: cacheKey)
+            return 0.0 
+        }
         
         // Fibonacci numbers within 1-9: 1, 1, 2, 3, 5, 8
         let fibonacciNumbers = fibonacciSamples.filter { [1, 2, 3, 5, 8].contains($0.realmDigit) }.count
-        
-        // Check for sequential Fibonacci patterns
-        var sequentialPatterns = 0
-        let realmSequence = fibonacciSamples.map { $0.realmDigit }
-        
-        // Look for various Fibonacci sequences (minimum 3 numbers)
-        for i in 0..<(realmSequence.count - 2) {
-            let triple = Array(realmSequence[i...i+2])
-            
-            // Check for classic Fibonacci progressions
-            if isFibonacciSequence(triple) {
-                sequentialPatterns += 1
-            }
-            
-            // Check for partial or reverse Fibonacci patterns
-            if isPartialFibonacci(triple) {
-                sequentialPatterns += 1
-            }
-        }
-        
-        // Look for longer sequences (4-5 numbers)
-        for i in 0..<(realmSequence.count - 3) {
-            let quad = Array(realmSequence[i...i+3])
-            if isFibonacciSequence(quad) {
-                sequentialPatterns += 2 // Bonus for longer sequences
-            }
-        }
-        
         let fibonacciRatio = Double(fibonacciNumbers) / Double(fibonacciSamples.count)
-        let sequentialRatio = Double(sequentialPatterns) / Double(max(realmSequence.count - 2, 1))
         
-        return min((fibonacciRatio * 0.6) + (sequentialRatio * 0.4), 1.0)
-    }
-    
-    /**
-     * Check if a sequence follows Fibonacci progression
-     */
-    private func isFibonacciSequence(_ sequence: [Int]) -> Bool {
-        guard sequence.count >= 3 else { return false }
-        
-        // Known Fibonacci sequences within 1-9
-        let fibonacciPatterns = [
-            [1, 1, 2], [1, 2, 3], [2, 3, 5], [3, 5, 8],
-            [1, 1, 2, 3], [1, 2, 3, 5], [2, 3, 5, 8],
-            [1, 1, 2, 3, 5], [1, 2, 3, 5, 8]
-        ]
-        
-        return fibonacciPatterns.contains(sequence)
-    }
-    
-    /**
-     * Check if a sequence contains partial Fibonacci elements
-     */
-    private func isPartialFibonacci(_ sequence: [Int]) -> Bool {
-        // Check for additive relationships (a + b = c)
-        for i in 0..<(sequence.count - 2) {
-            if sequence[i] + sequence[i + 1] == sequence[i + 2] {
-                return true
-            }
-        }
-        
-        // Check for reverse Fibonacci (larger to smaller)
-        let reversed = sequence.reversed()
-        return isFibonacciSequence(Array(reversed))
+        // SIMPLIFIED: Just check fibonacci number frequency (removed expensive sequence analysis)
+        let result = min(fibonacciRatio, 1.0)
+        cachePatternValue(result, for: cacheKey)
+        return result
     }
     
     // MARK: - Insights and Analysis

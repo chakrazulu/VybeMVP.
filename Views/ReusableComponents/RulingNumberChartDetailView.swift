@@ -22,7 +22,11 @@ struct RulingNumberChartDetailView: View {
     @State private var sacredCycleHighlight = false
     @State private var rulingBarPulse = false
     @State private var showingSacredPatternDetail = false
-    @State private var selectedSacredPattern: SacredPatternType? = nil
+    @State private var selectedSacredPattern: SacredPatternType?
+    
+    // PERFORMANCE FIX: Pre-calculate all pattern values once to prevent simultaneous expensive calculations
+    @State private var patternValues: [SacredPatternType: Double] = [:]
+    @State private var patternsCalculated = false
     
     @Binding var isPresented: Bool
     
@@ -74,6 +78,18 @@ struct RulingNumberChartDetailView: View {
         .onAppear {
             startChartAnimations()
             configureNavigationAppearance()
+            
+            // Check if patterns are already pre-calculated from app startup
+            if !patternsCalculated {
+                // If not calculated yet, start calculation immediately
+                calculatePatternsInBackground()
+            }
+        }
+        .task {
+            // PERFORMANCE FIX: Start pattern calculation immediately when view is created (even before onAppear)
+            if !patternsCalculated {
+                calculatePatternsInBackground()
+            }
         }
         .preferredColorScheme(.dark)
     }
@@ -475,38 +491,64 @@ struct RulingNumberChartDetailView: View {
                 .padding(.horizontal, 8)
             
             VStack(spacing: 12) {
-                // Seven-day harmony
-                enhancedSacredPatternCard(.sevenDay)
-                
-                // Golden flow (divine proportion)
-                enhancedSacredPatternCard(.goldenFlow)
-                
-                // Fibonacci spiral (always show for multi-day views)
-                enhancedSacredPatternCard(.fibonacciSpiral)
-                
-                // Trinity flow (3-6-9 pattern)
-                enhancedSacredPatternCard(.trinityFlow)
-                
-                // Lunar sync (only for 30-day view)
-                if selectedTimeRange == .thirtyDays {
-                    enhancedSacredPatternCard(.lunarSync)
+                if patternsCalculated {
+                    // Seven-day harmony
+                    enhancedSacredPatternCard(.sevenDay)
+                    
+                    // Golden flow (divine proportion)
+                    enhancedSacredPatternCard(.goldenFlow)
+                    
+                    // Fibonacci spiral (always show for multi-day views)
+                    enhancedSacredPatternCard(.fibonacciSpiral)
+                    
+                    // Trinity flow (3-6-9 pattern)
+                    enhancedSacredPatternCard(.trinityFlow)
+                    
+                    // Lunar sync (only for 30-day view)
+                    if selectedTimeRange == .thirtyDays {
+                        enhancedSacredPatternCard(.lunarSync)
+                    }
+                } else {
+                    // Loading state for pattern calculations
+                    VStack(spacing: 16) {
+                        HStack {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                .scaleEffect(0.8)
+                            Text("⚡ Calculating sacred patterns...")
+                                .font(.subheadline)
+                                .foregroundColor(.white.opacity(0.8))
+                        }
+                        .padding(20)
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(Color.black.opacity(0.4))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(Color.purple.opacity(0.3), lineWidth: 1)
+                                )
+                        )
+                    }
                 }
             }
             .padding(.horizontal, 8)
         }
-        .sheet(isPresented: $showingSacredPatternDetail) {
-            if let pattern = selectedSacredPattern {
-                SacredPatternDetailView(
-                    pattern: pattern,
+        .fullScreenCover(isPresented: $showingSacredPatternDetail) {
+            // PERFORMANCE FIX: Ultra-minimal fullscreen overlay - zero UI delays!
+            if let selectedPattern = selectedSacredPattern {
+                UltraMinimalPatternOverlay(
+                    pattern: selectedPattern,
                     sampleManager: sampleManager,
-                    isPresented: $showingSacredPatternDetail
+                    isPresented: $showingSacredPatternDetail,
+                    precalculatedValue: patternValues[selectedPattern] ?? 0.0
                 )
             }
         }
     }
     
     private func enhancedSacredPatternCard(_ patternType: SacredPatternType) -> some View {
-        let value = patternType.getValue(from: sampleManager)
+        // PERFORMANCE FIX: Use pre-calculated values instead of calculating individually
+        let value = patternValues[patternType] ?? 0.0  // Use cached value or default to 0
         let percentage = Int(value * 100)
         
         return HStack(spacing: 16) {
@@ -514,19 +556,9 @@ struct RulingNumberChartDetailView: View {
             VStack(spacing: 8) {
                 ZStack {
                     Circle()
-                        .fill(
-                            RadialGradient(
-                                colors: [
-                                    patternType.color.opacity(0.3),
-                                    patternType.color.opacity(0.1)
-                                ],
-                                center: .center,
-                                startRadius: 20,
-                                endRadius: 40
-                            )
-                        )
+                        .fill(patternType.color.opacity(0.3))
                         .frame(width: 60, height: 60)
-                        .scaleEffect(sacredCycleHighlight ? 1.05 : 1.0)
+                        .scaleEffect(showingSacredPatternDetail ? 1.0 : (sacredCycleHighlight ? 1.05 : 1.0))
                     
                     Image(systemName: patternType.icon)
                         .font(.title2)
@@ -579,24 +611,17 @@ struct RulingNumberChartDetailView: View {
                                 .frame(height: 8)
                             
                             RoundedRectangle(cornerRadius: 6)
-                                .fill(
-                                    LinearGradient(
-                                        colors: [
-                                            patternType.color.opacity(0.9),
-                                            patternType.color.opacity(0.6),
-                                            patternType.color.opacity(0.3)
-                                        ],
-                                        startPoint: .leading,
-                                        endPoint: .trailing
-                                    )
-                                )
+                                .fill(patternType.color.opacity(0.7))
                                 .frame(width: geometry.size.width * value, height: 8)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 6)
                                         .stroke(patternType.color.opacity(0.6), lineWidth: 1)
                                 )
                                 .shadow(color: patternType.color.opacity(0.4), radius: 4)
-                                .animation(.easeOut(duration: 2.5).delay(0.5), value: chartAnimationPhase)
+                                .animation(
+                                    showingSacredPatternDetail ? .none : .easeOut(duration: 2.5).delay(0.5),
+                                    value: chartAnimationPhase
+                                )
                         }
                     }
                     .frame(height: 8)
@@ -636,6 +661,11 @@ struct RulingNumberChartDetailView: View {
         .shadow(color: patternType.color.opacity(0.2), radius: 8)
         .scaleEffect(sacredCycleHighlight ? 1.02 : 1.0)
         .onTapGesture {
+            // PERFORMANCE FIX: Pause expensive animations before showing overlay
+            chartAnimationPhase = 1.0  // Complete any pending animations
+            
+            print("⚡ Sacred Pattern Tapped: \(patternType.title) - Requesting overlay...")
+            
             selectedSacredPattern = patternType
             showingSacredPatternDetail = true
             
@@ -733,15 +763,17 @@ struct RulingNumberChartDetailView: View {
     // MARK: - Helper Methods
     
     private func startChartAnimations() {
-        withAnimation(.easeInOut(duration: 2.0)) {
+        // PERFORMANCE FIX: Reduce animation complexity to prevent UI blocking
+        withAnimation(.easeInOut(duration: 1.0)) {
             chartAnimationPhase = 1.0
         }
         
-        withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
+        // Gentler animations that won't block Sacred Pattern overlays
+        withAnimation(.easeInOut(duration: 3.0).repeatForever(autoreverses: true)) {
             sacredCycleHighlight = true
         }
         
-        withAnimation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true)) {
+        withAnimation(.easeInOut(duration: 2.5).repeatForever(autoreverses: true)) {
             rulingBarPulse = true
         }
     }
@@ -797,209 +829,131 @@ struct RulingNumberChartDetailView: View {
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
+    
+    // PERFORMANCE: Extract pattern calculation into reusable function
+    private func calculatePatternsInBackground() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let allPatterns: [SacredPatternType] = [.sevenDay, .goldenFlow, .fibonacciSpiral, .trinityFlow, .lunarSync]
+            var calculatedValues: [SacredPatternType: Double] = [:]
+            
+            print("🚀 EARLY PATTERN CALCULATION: Starting background calculation...")
+            
+            for pattern in allPatterns {
+                calculatedValues[pattern] = pattern.getValue(from: sampleManager)
+                print("✅ Calculated \(pattern.title): \(Int(calculatedValues[pattern]! * 100))%")
+            }
+            
+            DispatchQueue.main.async {
+                self.patternValues = calculatedValues
+                self.patternsCalculated = true
+                print("🚀 Sacred Patterns: All values pre-calculated and cached EARLY!")
+            }
+        }
+    }
 }
 
-// MARK: - Sacred Pattern Detail View
+// MARK: - Ultra-Minimal Sacred Pattern Overlay (Zero Delays)
 
-struct SacredPatternDetailView: View {
+struct UltraMinimalPatternOverlay: View {
     let pattern: SacredPatternType
     let sampleManager: RealmSampleManager
     @Binding var isPresented: Bool
-    
-    @State private var animationPhase = 1.0  // START AT 1.0 for immediate visibility
-    @State private var isDataLoaded = false
-    @State private var patternValue: Double = 0.0
+    let precalculatedValue: Double // PERFORMANCE: Pre-calculated data - no delays!
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                // Cosmic background
-                LinearGradient(
-                    colors: [
-                        Color.black,
-                        pattern.color.opacity(0.2),
-                        Color.black
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
-                
-                // Content - immediately visible
-                ScrollView {
-                    VStack(spacing: 24) {
-                        // Pattern Header
-                        patternHeader
-                        
-                        // Pattern Analysis
-                        patternAnalysis
-                        
-                        // Full Description
-                        patternDescription
-                        
-                        Spacer(minLength: 40)
-                    }
-                    .padding(.horizontal, 24)
-                    .padding(.top, 20)
-                }
-            }
-            .navigationTitle(pattern.title)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
+        // PERFORMANCE: Ultra-minimal fullscreen overlay with ScrollView for text
+        ZStack {
+            // Instant black background
+            Color.black.ignoresSafeArea()
+            
+            VStack(spacing: 0) {
+                // Fixed header - instant load
+                HStack {
+                    Spacer()
+                    Button("✕") {
                         isPresented = false
                     }
+                    .font(.title)
                     .foregroundColor(.white)
-                    .font(.headline)
+                    .padding()
+                }
+                
+                // SCROLLABLE CONTENT - Fixed scrolling issue
+                ScrollView {
+                    VStack(spacing: 20) {
+                        // Top spacing
+                        Spacer(minLength: 40)
+                        
+                        // Core content - minimal but complete
+                        VStack(spacing: 20) {
+                            // Pattern icon
+                            Image(systemName: pattern.icon)
+                                .font(.system(size: 60, weight: .bold))
+                                .foregroundColor(pattern.color)
+                            
+                            // PERFORMANCE: Use pre-calculated value - instant display
+                            let percentage = Int(precalculatedValue * 100)
+                            Text("\(percentage)%")
+                                .font(.system(size: 50, weight: .bold, design: .rounded))
+                                .foregroundColor(pattern.color)
+                            
+                            Text(pattern.title)
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                            
+                            // Essential content in minimal layout
+                            VStack(spacing: 16) {
+                                Text(pattern.shortDescription)
+                                    .font(.body)
+                                    .foregroundColor(.white.opacity(0.9))
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal, 30)
+                                
+                                // Minimal progress indicator
+                                HStack(spacing: 3) {
+                                    ForEach(0..<10, id: \.self) { index in
+                                        Circle()
+                                            .fill(index < Int(precalculatedValue * 10) ? pattern.color : Color.white.opacity(0.3))
+                                            .frame(width: 8, height: 8)
+                                    }
+                                }
+                                
+                                Text(getStrengthLabel(for: precalculatedValue))
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(pattern.color)
+                                    .padding(.top, 8)
+                            }
+                        }
+                        
+                        // Sacred wisdom section - now properly scrollable
+                        VStack(spacing: 12) {
+                            Text("✧ Sacred Wisdom ✧")
+                                .font(.headline)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding(.top, 20)
+                            
+                            Text(pattern.fullDescription)
+                                .font(.body)
+                                .foregroundColor(.white.opacity(0.8))
+                                .lineSpacing(4)
+                                .padding(.horizontal, 20)
+                                .multilineTextAlignment(.leading)
+                        }
+                        
+                        // Bottom spacing
+                        Spacer(minLength: 60)
+                    }
                 }
             }
         }
         .onAppear {
-            // Load pattern data immediately on appear
-            patternValue = pattern.getValue(from: sampleManager)
-            isDataLoaded = true
-            
-            // Start subtle pulsing animation after content is visible
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                withAnimation(.easeInOut(duration: 4.0).repeatForever(autoreverses: true)) {
-                    animationPhase = animationPhase == 1.0 ? 1.05 : 1.0  // Subtle pulse, not opacity change
-                }
-            }
-        }
-        .preferredColorScheme(.dark)
-    }
-    
-    private var patternHeader: some View {
-        VStack(spacing: 16) {
-            // Large icon with glow
-            ZStack {
-                Circle()
-                    .fill(
-                        RadialGradient(
-                            colors: [
-                                pattern.color.opacity(0.3),
-                                pattern.color.opacity(0.1),
-                                Color.clear
-                            ],
-                            center: .center,
-                            startRadius: 30,
-                            endRadius: 80
-                        )
-                    )
-                    .frame(width: 120, height: 120)
-                    .scaleEffect(animationPhase) // Subtle pulse effect
-                
-                Image(systemName: pattern.icon)
-                    .font(.system(size: 40, weight: .bold))
-                    .foregroundColor(pattern.color)
-                    .shadow(color: pattern.color.opacity(0.6), radius: 10)
-            }
-            
-            // Pattern percentage - ALWAYS VISIBLE
-            let percentage = Int(patternValue * 100)
-            Text("\(percentage)%")
-                .font(.system(size: 48, weight: .bold, design: .rounded))
-                .foregroundColor(pattern.color)
-                .shadow(color: pattern.color.opacity(0.4), radius: 5)
-                .scaleEffect(animationPhase) // Subtle pulse instead of opacity
-            
-            Text("Pattern Strength")
-                .font(.title3)
-                .fontWeight(.medium)
-                .foregroundColor(.white.opacity(0.8))
-        }
-    }
-    
-    private var patternAnalysis: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("✧ Current Analysis ✧")
-                .font(.title2)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-            
-            let analysisText = getAnalysisText(for: patternValue)
-            
-            Text(analysisText)
-                .font(.body)
-                .foregroundColor(.white.opacity(0.9))
-                .lineSpacing(4)
-            
-            // Strength indicator
-            strengthIndicator(value: patternValue)
-        }
-        .padding(20)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.black.opacity(0.4))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(pattern.color.opacity(0.3), lineWidth: 1)
-                )
-        )
-        .shadow(color: pattern.color.opacity(0.2), radius: 8)
-    }
-    
-    private var patternDescription: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("✧ Sacred Wisdom ✧")
-                .font(.title2)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-            
-            Text(pattern.fullDescription)
-                .font(.body)
-                .foregroundColor(.white.opacity(0.9))
-                .lineSpacing(6)
-        }
-        .padding(20)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.black.opacity(0.4))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(pattern.color.opacity(0.3), lineWidth: 1)
-                )
-        )
-        .shadow(color: pattern.color.opacity(0.2), radius: 8)
-    }
-    
-    private func strengthIndicator(value: Double) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Text("Strength Level")
-                    .font(.caption)
-                    .foregroundColor(.white.opacity(0.7))
-                Spacer()
-                Text(getStrengthLabel(for: value))
-                    .font(.caption)
-                    .fontWeight(.bold)
-                    .foregroundColor(pattern.color)
-            }
-            
-            GeometryReader { geometry in
-                ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(Color.white.opacity(0.1))
-                        .frame(height: 12)
-                    
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(
-                            LinearGradient(
-                                colors: [
-                                    pattern.color.opacity(0.9),
-                                    pattern.color.opacity(0.5)
-                                ],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .frame(width: geometry.size.width * value, height: 12)
-                        .shadow(color: pattern.color.opacity(0.4), radius: 4)
-                        .animation(.easeOut(duration: 1.5), value: value)
-                }
-            }
-            .frame(height: 12)
+            print("🔍 Sacred Pattern Debug:")
+            print("   Pattern: \(pattern.title)")
+            print("   Percentage: \(Int(precalculatedValue * 100))%")
+            print("   SCROLLABLE OVERLAY - PERFORMANCE OPTIMIZED!")
         }
     }
     
@@ -1010,27 +964,6 @@ struct SacredPatternDetailView: View {
         case 0.4..<0.6: return "EMERGING PATTERN"
         case 0.2..<0.4: return "SUBTLE INFLUENCE"
         default: return "DORMANT POTENTIAL"
-        }
-    }
-    
-    private func getAnalysisText(for value: Double) -> String {
-        let baseText = pattern.shortDescription
-        
-        switch value {
-        case 0.8...:
-            return "\(baseText)\n\nYou have achieved profound mastery of this sacred pattern. This is a time of peak spiritual alignment and manifestation power."
-            
-        case 0.6..<0.8:
-            return "\(baseText)\n\nThis pattern is strongly active in your cosmic field. You're in harmony with these sacred frequencies and can leverage their power."
-            
-        case 0.4..<0.6:
-            return "\(baseText)\n\nThis pattern is emerging and gaining strength. Pay attention to its influence and nurture its development through conscious alignment."
-            
-        case 0.2..<0.4:
-            return "\(baseText)\n\nSubtle influences of this pattern are present. With focused intention, you can strengthen this sacred connection."
-            
-        default:
-            return "\(baseText)\n\nThis pattern holds dormant potential in your field. Consider meditation and conscious practice to awaken its sacred frequencies."
         }
     }
 }
