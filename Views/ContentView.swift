@@ -217,11 +217,11 @@ struct ContentView: View {
                         }
                         .tag(11) // Adjusted tag
                     
-                    // TEMPORARY: Sacred Geometry Test Tab
-                    TestAdvancedSacredGeometry()
+                    // TEMPORARY: Cosmic Animation Test Tab  
+                    TestCosmicAnimationView()
                         .tabItem {
                             Image(systemName: "sparkle")
-                            Text("🔮 Test")
+                            Text("🌌 Test")
                         }
                         .tag(12)
                 }

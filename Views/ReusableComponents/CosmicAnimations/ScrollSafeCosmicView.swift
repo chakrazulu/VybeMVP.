@@ -89,82 +89,71 @@ struct ScrollSafeCosmicView<Content: View>: View {
     }
 }
 
-// MARK: - Cosmic Background Layer Component
+// MARK: - Cosmic Background Layer Component (LIGHTWEIGHT VERSION)
 struct CosmicBackgroundLayer: View {
     let date: Date
     let intensity: Double
     let isEnabled: Bool
     
-    // MARK: - Animation State
+    // MARK: - Animation State (Simplified)
     @State private var rotationAngle: Double = 0
-    @State private var pulseScale: Double = 1.0
     
     var body: some View {
         if isEnabled {
             ZStack {
-                // MARK: - Base Cosmic Background
+                // MARK: - Simple Cosmic Background (Lightweight)
                 RadialGradient(
                     gradient: Gradient(colors: [
-                        Color.purple.opacity(0.1 * intensity),
-                        Color.blue.opacity(0.05 * intensity),
+                        Color.purple.opacity(0.2 * intensity),
+                        Color.blue.opacity(0.1 * intensity),
                         Color.clear
                     ]),
                     center: .center,
                     startRadius: 0,
-                    endRadius: 400
-                )
-                .scaleEffect(pulseScale)
-                .animation(
-                    .easeInOut(duration: 3.0).repeatForever(autoreverses: true),
-                    value: pulseScale
+                    endRadius: 300
                 )
                 
-                // MARK: - Sacred Geometry Layer
+                // MARK: - Single Sacred Geometry Element (Lightweight)
                 Circle()
                     .stroke(
-                        LinearGradient(
-                            gradient: Gradient(colors: [
-                                Color.gold.opacity(0.2 * intensity),
-                                Color.clear,
-                                Color.gold.opacity(0.1 * intensity)
-                            ]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: 1
+                        Color.gold.opacity(0.4 * intensity),
+                        lineWidth: 2
                     )
-                    .frame(width: 200, height: 200)
+                    .frame(width: 150, height: 150)
                     .rotationEffect(.degrees(rotationAngle))
-                    .animation(
-                        .linear(duration: 20.0).repeatForever(autoreverses: false),
-                        value: rotationAngle
-                    )
+                
+                // MARK: - Minimal Floating Elements (Reduced from 5 to 2)
+                ForEach(0..<2, id: \.self) { index in
+                    Circle()
+                        .fill(Color.cyan.opacity(0.2))
+                        .frame(width: 6, height: 6)
+                        .offset(
+                            x: cos(Double(index) * 2.0 + rotationAngle * 0.005) * 100,
+                            y: sin(Double(index) * 2.0 + rotationAngle * 0.005) * 100
+                        )
+                }
             }
             .onAppear {
-                startCosmicAnimations()
+                startLightweightAnimations()
             }
         } else {
             // Fallback: Static cosmic background
-            Color.black.opacity(0.1)
+            Color.black.opacity(0.05)
         }
     }
     
-    // MARK: - Animation Initialization
-    private func startCosmicAnimations() {
-        // Start rotation animation
-        rotationAngle = 360
+    // MARK: - Lightweight Animation Initialization
+    private func startLightweightAnimations() {
+        // Start simple rotation animation (slower and less intensive)
+        withAnimation(.linear(duration: 30.0).repeatForever(autoreverses: false)) {
+            rotationAngle = 360
+        }
         
-        // Start pulse animation
-        pulseScale = 1.2
-        
-        print("🌟 CosmicBackgroundLayer: Cosmic animations started")
+        print("🌟 CosmicBackgroundLayer: Lightweight cosmic animations started")
     }
 }
 
-// MARK: - Color Extensions for Cosmic Theme
-extension Color {
-    static let gold = Color(red: 1.0, green: 0.84, blue: 0.0)
-}
+// MARK: - Color Extensions removed (already defined in project)
 
 // MARK: - Preview
 struct ScrollSafeCosmicView_Previews: PreviewProvider {

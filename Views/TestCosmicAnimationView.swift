@@ -92,10 +92,7 @@ struct TestCosmicAnimationView: View {
     }
 }
 
-// MARK: - Color Extensions (if not already defined)
-extension Color {
-    static let gold = Color(red: 1.0, green: 0.84, blue: 0.0)
-}
+// MARK: - Color Extensions removed (already defined in project)
 
 // MARK: - Preview
 struct TestCosmicAnimationView_Previews: PreviewProvider {

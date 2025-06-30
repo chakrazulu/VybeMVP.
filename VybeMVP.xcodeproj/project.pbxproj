@@ -132,6 +132,8 @@
 		4DB233F42E114580004EC2BC /* NeonTracerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F32E114580004EC2BC /* NeonTracerView.swift */; };
 		4DB233F62E1169CD004EC2BC /* VybeMatchOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F52E1169CD004EC2BC /* VybeMatchOverlay.swift */; };
 		4DB233F82E116AF5004EC2BC /* VybeMatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F72E116AF5004EC2BC /* VybeMatchManager.swift */; };
+		4DB233FB2E11F400004EC2BC /* ScrollSafeCosmicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233FA2E11F400004EC2BC /* ScrollSafeCosmicView.swift */; };
+		4DB233FD2E11F4CC004EC2BC /* TestCosmicAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233FC2E11F4CC004EC2BC /* TestCosmicAnimationView.swift */; };
 		4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */; };
 		4DC602382D345A1B00B5E4A9 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602342D34570200B5E4A9 /* SignInViewModel.swift */; };
 		4DC602392D345A3500B5E4A9 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602352D34577E00B5E4A9 /* SignInView.swift */; };
@@ -278,6 +280,8 @@
 		4DB233F32E114580004EC2BC /* NeonTracerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeonTracerView.swift; sourceTree = "<group>"; };
 		4DB233F52E1169CD004EC2BC /* VybeMatchOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeMatchOverlay.swift; sourceTree = "<group>"; };
 		4DB233F72E116AF5004EC2BC /* VybeMatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeMatchManager.swift; sourceTree = "<group>"; };
+		4DB233FA2E11F400004EC2BC /* ScrollSafeCosmicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollSafeCosmicView.swift; sourceTree = "<group>"; };
+		4DB233FC2E11F4CC004EC2BC /* TestCosmicAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCosmicAnimationView.swift; sourceTree = "<group>"; };
 		4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberView.swift; sourceTree = "<group>"; };
 		4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VybeMVP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DC602322D34552200B5E4A9 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -471,6 +475,7 @@
 		4D3727142DE550ED00B5A02B /* ReusableComponents */ = {
 			isa = PBXGroup;
 			children = (
+				4DB233F92E11F0E7004EC2BC /* CosmicAnimations */,
 				4DB233F52E1169CD004EC2BC /* VybeMatchOverlay.swift */,
 				4DB233F32E114580004EC2BC /* NeonTracerView.swift */,
 				4D2CC7172E0C70F600BDF100 /* TwinklingDigitsBackground.swift */,
@@ -580,6 +585,14 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		4DB233F92E11F0E7004EC2BC /* CosmicAnimations */ = {
+			isa = PBXGroup;
+			children = (
+				4DB233FA2E11F400004EC2BC /* ScrollSafeCosmicView.swift */,
+			);
+			path = CosmicAnimations;
+			sourceTree = "<group>";
+		};
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
@@ -641,6 +654,7 @@
 		4DC602302D34440900B5E4A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4DB233FC2E11F4CC004EC2BC /* TestCosmicAnimationView.swift */,
 				4D2CC70B2E08EAD200BDF100 /* StaticAssetMandalaView.swift */,
 				4D2CC7092E08CA0C00BDF100 /* TestAdvancedSacredGeometry.swift */,
 				4D2CC7072E08C9ED00BDF100 /* TestSacredGeometry.swift */,
@@ -918,6 +932,7 @@
 				4D6C7BA52DE47E99001036E5 /* OnboardingSpiritualModeView.swift in Sources */,
 				4D6C7BA62DE47E99001036E5 /* OnboardingFocusTagsView.swift in Sources */,
 				4D6C7BA72DE47E99001036E5 /* OnboardingNotificationsView.swift in Sources */,
+				4DB233FD2E11F4CC004EC2BC /* TestCosmicAnimationView.swift in Sources */,
 				4D6C7BAA2DE47F1B001036E5 /* InsightFilterService.swift in Sources */,
 				4DC602392D345A3500B5E4A9 /* SignInView.swift in Sources */,
 				4DC6023A2D345C9E00B5E4A9 /* KeychainHelper.swift in Sources */,
@@ -928,6 +943,7 @@
 				4DC602382D345A1B00B5E4A9 /* SignInViewModel.swift in Sources */,
 				4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */,
 				4D92F4BA2D4DE1E80001A16E /* FocusNumberManager.swift in Sources */,
+				4DB233FB2E11F400004EC2BC /* ScrollSafeCosmicView.swift in Sources */,
 				4D2DB48F2DFF70490003353E /* LocationManager.swift in Sources */,
 				4D6C7BAF2DE47FC2001036E5 /* InsightTemplate.swift in Sources */,
 				4D3727172DE551E100B5A02B /* ActivityNavigationManager.swift in Sources */,

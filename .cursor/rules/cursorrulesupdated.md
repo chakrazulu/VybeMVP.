@@ -1,8 +1,17 @@
 ### **Development Workflow & Milestone Process**
 
+**🚨 GOLDEN RULE: TEST FIRST, COMMIT NEVER UNTIL VALIDATED 🚨**
+Never perform git operations (add, commit, push) until the user has personally tested changes on device and confirmed success. Always provide specific testing instructions and wait for user validation.
+
 At each milestone or major checkpoint in development, follow this structured process to ensure quality and completeness:
 
 1. **MANDATORY TESTING BEFORE ANY COMMIT/PUSH:** Before considering any code change complete, you MUST test the implementation thoroughly. This is non-negotiable and applies to every change, no matter how small.
+
+   **CRITICAL RULE: NO GIT OPERATIONS UNTIL PERSONAL DEVICE TESTING COMPLETE**
+   - Never run `git add`, `git commit`, or `git push` until user confirms successful testing
+   - Always provide clear, specific testing instructions for each change
+   - Wait for user validation before any repository operations
+   - If user requests git operations before testing, remind them of this rule
 
    **Testing Protocol:**
    - **Build Test:** Ensure the project builds without errors (Cmd+R in Xcode)
@@ -11,6 +20,12 @@ At each milestone or major checkpoint in development, follow this structured pro
    - **Regression Test:** Verify existing functionality still works after changes
    - **Console Log Review:** Check for error messages, warnings, or unexpected behavior
    - **User Flow Test:** Test the complete user journey through modified features
+
+   **AI Assistant Responsibilities:**
+   - Always provide specific testing instructions immediately after making code changes
+   - Clearly explain what to look for, what should happen, and what success looks like
+   - Never suggest git operations until user confirms testing success
+   - Update task logs and documentation only after successful testing
 
    **Never commit or push code that:**
    - Doesn't build successfully

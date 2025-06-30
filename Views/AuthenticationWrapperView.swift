@@ -91,21 +91,91 @@ struct AuthenticationWrapperView: View {
     @StateObject private var signInViewModel = SignInViewModel()
     @State private var hasCompletedOnboarding = false
     
+    // 🧪 TEMPORARY: Debug flag to bypass authentication for testing
+    private let bypassAuthForTesting = true
+    
     var body: some View {
         Group {
-            if authManager.isCheckingAuthStatus {
-                // Show enhanced loading screen with timeout to prevent hanging
-                EnhancedLoadingView.authentication(
-                    onTimeout: {
-                        print("⚠️ Authentication check timed out")
-                        // Force refresh auth status
-                        authManager.checkAuthenticationStatus()
-                    },
-                    onRetry: {
-                        print("🔄 Retrying authentication check")
-                        authManager.checkAuthenticationStatus()
+            // 🧪 TEMPORARY: Bypass authentication for cosmic animation testing
+            if bypassAuthForTesting {
+                // Navigation wrapper for cosmic animation testing
+                NavigationView {
+                    ZStack {
+                        Color.purple.opacity(0.3)
+                            .edgesIgnoringSafeArea(.all)
+                        
+                        VStack(spacing: 20) {
+                            Text("🧪 BYPASS ACTIVE")
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                            
+                            Text("Authentication bypassed for testing")
+                                .font(.title2)
+                                .foregroundColor(.white.opacity(0.8))
+                            
+                            NavigationLink("Test Cosmic Animations") {
+                                TestCosmicAnimationView()
+                            }
+                            .font(.title3)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.blue.opacity(0.6))
+                            .cornerRadius(12)
+                            
+                            NavigationLink("🌌 Main App (HomeView with Cosmic Animations)") {
+                                // MINIMAL TEST - No cosmic animations, just basic content
+                                NavigationView {
+                                    VStack(spacing: 30) {
+                                        Text("🌌 MINIMAL TEST")
+                                            .font(.largeTitle)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.purple)
+                                        
+                                        Text("Realm Number: 6")
+                                            .font(.title)
+                                            .foregroundColor(.purple)
+                                        
+                                        Text("Focus Number: 1")
+                                            .font(.title)
+                                            .foregroundColor(.blue)
+                                        
+                                        ScrollView {
+                                            VStack(spacing: 20) {
+                                                ForEach(1...10, id: \.self) { i in
+                                                    Text("Test Content Item \(i)")
+                                                        .font(.title2)
+                                                        .foregroundColor(.primary)
+                                                        .padding()
+                                                        .background(Color.gray.opacity(0.2))
+                                                        .cornerRadius(12)
+                                                }
+                                            }
+                                            .padding()
+                                        }
+                                        
+                                        Text("🧪 Minimal test - no cosmic animations")
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    .padding()
+                                    .navigationTitle("Minimal Test")
+                                }
+                            }
+                            .font(.title3)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.purple.opacity(0.6))
+                            .cornerRadius(12)
+                        }
                     }
-                )
+                }
+                .onAppear {
+                    print("🧪 DEBUG: AuthenticationWrapperView bypass test view appeared!")
+                }
+            } else if authManager.isCheckingAuthStatus {
+                // Show loading screen while checking authentication
+                LoadingView()
             } else if authManager.isSignedIn {
                 // User is authenticated - check if they've completed onboarding
                 if hasCompletedOnboarding {
@@ -122,9 +192,6 @@ struct AuthenticationWrapperView: View {
                 SignInWrapperView()
             }
         }
-        .animation(.easeInOut(duration: 0.3), value: authManager.isSignedIn)
-        .animation(.easeInOut(duration: 0.3), value: authManager.isCheckingAuthStatus)
-        .animation(.easeInOut(duration: 0.3), value: hasCompletedOnboarding)
         .onAppear {
             checkOnboardingStatus()
             // Set the userID in signInViewModel when auth manager has it
@@ -304,6 +371,9 @@ struct SignInWithAppleView: View {
     }
 }
 
-#Preview {
-    AuthenticationWrapperView()
-} 
+// MARK: - Preview
+struct AuthenticationWrapperView_Previews: PreviewProvider {
+    static var previews: some View {
+        AuthenticationWrapperView()
+    }
+}
