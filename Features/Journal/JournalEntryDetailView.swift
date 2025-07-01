@@ -1,42 +1,117 @@
+/*
+ * ========================================
+ * 📖 JOURNAL ENTRY DETAIL VIEW - SACRED REFLECTION DISPLAY
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Comprehensive display interface for viewing journal entries with voice playback,
+ * numerology integration, and mystical aesthetics. Provides a sacred space for
+ * reflecting on past spiritual insights and experiences.
+ * 
+ * SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points):
+ * • NavigationView: "Sacred Reflection" title with inline display
+ * • CosmicBackgroundView: Full-screen space travel animation
+ * • Cosmic Number Overlay: Animated focus number display
+ * • ScrollView: Main content with 24pt spacing
+ * • Multiple Sections: Header, badges, voice, content, metadata
+ * 
+ * UI COMPONENTS:
+ * • Sacred Header: Entry title with gradient styling and timestamp
+ * • Numerology Badges: Focus and Realm number displays
+ * • Voice Playback: Audio playback interface with controls
+ * • Content Display: Journal entry text content
+ * • Metadata Section: Entry details and mood information
+ * • Action Menu: Edit and delete options
+ * 
+ * FEATURES:
+ * • Voice Playback: Audio recording playback with VoiceRecordingManager
+ * • Numerology Display: Focus and Realm number badges
+ * • Cosmic Aesthetics: Space background with floating numbers
+ * • Entry Management: Edit and delete capabilities
+ * • Timestamp Display: Creation date and time information
+ * • Mood Tracking: Emotional state display
+ * 
+ * STATE MANAGEMENT:
+ * • Environment Objects: JournalManager for data access
+ * • State Objects: VoiceRecordingManager, UI state
+ * • Entry Data: JournalEntry model with all entry information
+ * • Animation State: Pulse animations for mystical effects
+ * 
+ * INTEGRATION POINTS:
+ * • JournalManager: Entry data access and deletion
+ * • VoiceRecordingManager: Audio playback functionality
+ * • EditJournalEntryView: Modal editing interface
+ * • CosmicBackgroundView: Space travel animation
+ * • Navigation system: Standard iOS navigation patterns
+ * 
+ * USER EXPERIENCE:
+ * • Immersive cosmic environment for reflection
+ * • Voice and text content display
+ * • Numerology integration for spiritual context
+ * • Smooth animations and transitions
+ * • Comprehensive entry management options
+ */
+
 import SwiftUI
 import AVFoundation
 
+/**
+ * JournalEntryDetailView: Sacred journal entry display interface
+ * 
+ * Provides a comprehensive, mystical interface for viewing
+ * journal entries with voice playback, numerology integration,
+ * and cosmic aesthetics for spiritual reflection.
+ */
 struct JournalEntryDetailView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var journalManager: JournalManager
     @StateObject private var voiceManager = VoiceRecordingManager.shared
     
+    // MARK: - Properties
+    
+    /// Journal entry to display
     let entry: JournalEntry
+    
+    // MARK: - State Properties
+    
+    /// Controls delete confirmation alert visibility
     @State private var showingDeleteAlert = false
+    
+    /// Controls edit sheet modal visibility
     @State private var showingEditSheet = false
+    
+    /// Controls pulse animation for mystical effects
     @State private var pulseAnimation = false
+    
+    // MARK: - Body
     
     var body: some View {
         ZStack {
-            // Cosmic Background
+            // MARK: - Cosmic Background Layer
             CosmicBackgroundView()
                 .ignoresSafeArea()
             
-            // Sacred floating number
+            // MARK: - Sacred Floating Number Overlay
             cosmicNumberOverlay
             
+            // MARK: - Main Content ScrollView
             ScrollView {
                 VStack(spacing: 24) {
-                    // Sacred Header
+                    // MARK: - Sacred Header Section
                     sacredHeaderSection
                     
-                    // Numerology Badges
+                    // MARK: - Numerology Badges Section
                     numerologyBadgesSection
                     
-                    // Voice Recording Section (if exists)
+                    // MARK: - Voice Recording Section (if exists)
                     if let voiceFilename = entry.voiceRecordingFilename {
                         voicePlaybackSection(filename: voiceFilename)
                     }
                     
-                    // Content Section
+                    // MARK: - Content Section
                     contentSection
                     
-                    // Metadata Section
+                    // MARK: - Metadata Section
                     metadataSection
                 }
                 .padding(.horizontal, 20)
@@ -47,6 +122,7 @@ struct JournalEntryDetailView: View {
         .navigationTitle("Sacred Reflection")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            // MARK: - Action Menu
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
                     Button(action: {
@@ -69,11 +145,13 @@ struct JournalEntryDetailView: View {
                 }
             }
         }
+        // MARK: - Edit Sheet Modal
         .sheet(isPresented: $showingEditSheet) {
             NavigationView {
                 EditJournalEntryView(entry: entry)
             }
         }
+        // MARK: - Delete Confirmation Alert
         .alert("Delete Sacred Entry?", isPresented: $showingDeleteAlert) {
             Button("Delete", role: .destructive) {
                 deleteEntry()
@@ -83,6 +161,7 @@ struct JournalEntryDetailView: View {
             Text("This sacred reflection will be permanently removed.")
         }
         .onAppear {
+            // MARK: - Initialize Pulse Animation
             withAnimation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true)) {
                 pulseAnimation = true
             }
