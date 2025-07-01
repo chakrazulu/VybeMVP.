@@ -1,14 +1,80 @@
+/*
+ * ========================================
+ * ✏️ EDIT JOURNAL ENTRY VIEW - SACRED REFLECTION EDITOR
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Modal interface for editing existing journal entries with mystical aesthetics
+ * and spiritual context preservation. Provides a sacred space for refining
+ * spiritual reflections while maintaining the original entry's cosmic context.
+ * 
+ * SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points):
+ * • NavigationView: "Edit Sacred Reflection" title with inline display
+ * • Subtle Cosmic Background: Non-interactive gradient for mystical atmosphere
+ * • ScrollView: Main content with 24pt spacing
+ * • Multiple Sections: Header, edit form, metadata display
+ * 
+ * UI COMPONENTS:
+ * • Sacred Header: Edit title with original creation timestamp
+ * • Edit Form: Title, content, and mood input fields
+ * • Sacred Numbers: Display of original focus and realm numbers
+ * • Navigation: Cancel and Save buttons with purple styling
+ * 
+ * FEATURES:
+ * • Text Editing: Title and content modification with validation
+ * • Mood Tracking: Emoji-based emotional state editing
+ * • Metadata Preservation: Original focus/realm numbers display
+ * • Cosmic Aesthetics: Subtle background with mystical styling
+ * • Form Validation: Ensures content integrity before saving
+ * 
+ * STATE MANAGEMENT:
+ * • ObservedObject: JournalEntry for reactive updates
+ * • State Properties: Form field values for editing
+ * • Environment Objects: Managed object context and dismiss
+ * • Initialization: Pre-populates form with existing entry data
+ * 
+ * INTEGRATION POINTS:
+ * • JournalEntryDetailView: Source of entry data
+ * • Core Data: Entry persistence and updates
+ * • JournalManager: Entry management and validation
+ * • Navigation system: Modal presentation and dismissal
+ * 
+ * USER EXPERIENCE:
+ * • Sacred editing environment for spiritual content
+ * • Preserved cosmic context and numerology
+ * • Smooth form interaction with validation
+ * • Clear visual hierarchy and mystical aesthetics
+ */
+
 import SwiftUI
 
+/**
+ * EditJournalEntryView: Sacred journal entry editing interface
+ * 
+ * Provides a mystical environment for editing existing journal
+ * entries while preserving their spiritual context and cosmic
+ * numerology associations.
+ */
 struct EditJournalEntryView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var entry: JournalEntry
     
+    // MARK: - State Properties
+    
+    /// Journal entry title for editing
     @State private var title: String
+    
+    /// Journal entry content for editing
     @State private var content: String
+    
+    /// Selected mood emoji for emotional tracking
     @State private var selectedMoodEmoji: String
     
+    // MARK: - Initialization
+    
+    /// Initializes the view with existing journal entry data
+    /// Pre-populates all form fields with current entry values
     init(entry: JournalEntry) {
         self.entry = entry
         _title = State(initialValue: entry.title ?? "")
@@ -16,9 +82,11 @@ struct EditJournalEntryView: View {
         _selectedMoodEmoji = State(initialValue: entry.moodEmoji ?? "")
     }
     
+    // MARK: - Body
+    
     var body: some View {
         ZStack {
-            // Subtle Cosmic Background (non-interactive)
+            // MARK: - Subtle Cosmic Background (non-interactive)
             LinearGradient(
                 gradient: Gradient(colors: [
                     Color.black,
@@ -32,15 +100,16 @@ struct EditJournalEntryView: View {
             .ignoresSafeArea()
             .allowsHitTesting(false)
             
+            // MARK: - Main Content ScrollView
             ScrollView {
                 VStack(spacing: 24) {
-                    // Sacred Header
+                    // MARK: - Sacred Header Section
                     sacredHeaderSection
                     
-                    // Edit Form
+                    // MARK: - Edit Form Section
                     editFormSection
                     
-                    // Sacred Numbers Section
+                    // MARK: - Sacred Numbers Section
                     metadataSection
                 }
                 .padding(.horizontal, 20)
@@ -51,12 +120,14 @@ struct EditJournalEntryView: View {
         .navigationTitle("Edit Sacred Reflection")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            // MARK: - Cancel Button
             ToolbarItem(placement: .navigationBarLeading) {
                 Button("Cancel") { 
                     dismiss() 
                 }
                 .foregroundColor(.purple)
             }
+            // MARK: - Save Button
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Save") {
                     saveChanges()
@@ -275,6 +346,15 @@ struct EditJournalEntryView: View {
     
     // MARK: - Helper Methods
     
+    /**
+     * Returns the sacred color for a given numerology number
+     * 
+     * Maps numbers 1-9 to their corresponding sacred colors
+     * used throughout the app for spiritual consistency.
+     * 
+     * @param number The numerology number (1-9)
+     * @return The sacred color for the number
+     */
     private func sacredNumberColor(for number: Int) -> Color {
         switch number {
         case 1: return .red
@@ -290,6 +370,13 @@ struct EditJournalEntryView: View {
         }
     }
     
+    /**
+     * Saves the edited journal entry changes to Core Data
+     * 
+     * Updates the entry with new title, content, and mood values,
+     * then persists the changes to the managed object context.
+     * Dismisses the view upon successful save.
+     */
     private func saveChanges() {
         entry.title = title
         entry.content = content
