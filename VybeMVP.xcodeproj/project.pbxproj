@@ -134,6 +134,7 @@
 		4DB233F82E116AF5004EC2BC /* VybeMatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F72E116AF5004EC2BC /* VybeMatchManager.swift */; };
 		4DB233FB2E11F400004EC2BC /* ScrollSafeCosmicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233FA2E11F400004EC2BC /* ScrollSafeCosmicView.swift */; };
 		4DB233FD2E11F4CC004EC2BC /* TestCosmicAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233FC2E11F4CC004EC2BC /* TestCosmicAnimationView.swift */; };
+		4DB233FF2E121BF7004EC2BC /* PerformanceMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233FE2E121BF7004EC2BC /* PerformanceMonitor.swift */; };
 		4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */; };
 		4DC602382D345A1B00B5E4A9 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602342D34570200B5E4A9 /* SignInViewModel.swift */; };
 		4DC602392D345A3500B5E4A9 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602352D34577E00B5E4A9 /* SignInView.swift */; };
@@ -282,6 +283,7 @@
 		4DB233F72E116AF5004EC2BC /* VybeMatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeMatchManager.swift; sourceTree = "<group>"; };
 		4DB233FA2E11F400004EC2BC /* ScrollSafeCosmicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollSafeCosmicView.swift; sourceTree = "<group>"; };
 		4DB233FC2E11F4CC004EC2BC /* TestCosmicAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCosmicAnimationView.swift; sourceTree = "<group>"; };
+		4DB233FE2E121BF7004EC2BC /* PerformanceMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceMonitor.swift; sourceTree = "<group>"; };
 		4DBD0A8E2D3DBF8B00AD51D6 /* RealmNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberView.swift; sourceTree = "<group>"; };
 		4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VybeMVP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DC602322D34552200B5E4A9 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 		4D3055ED2D3CF838009A7BBD /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				4DB233FE2E121BF7004EC2BC /* PerformanceMonitor.swift */,
 				4D3727072DE48D7100B5A02B /* NotificationNames.swift */,
 				4D6C7BBA2DE48126001036E5 /* Logger+Extensions.swift */,
 				4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */,
@@ -850,6 +853,7 @@
 				4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */,
 				4D3055C62D3CB201009A7BBD /* UserPreferences+Helper.swift in Sources */,
 				4DA642642D8122590047287B /* HealthKitManaging.swift in Sources */,
+				4DB233FF2E121BF7004EC2BC /* PerformanceMonitor.swift in Sources */,
 				4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */,
 				4D9396192E07578200955980 /* SacredGeometryView.swift in Sources */,
 				4DE4C37E2DB3918E00BB7572 /* NumerologyMessage.swift in Sources */,

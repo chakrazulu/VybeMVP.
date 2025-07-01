@@ -16,11 +16,6 @@ struct NeonTracerView: View {
     let bpm: Double   // Changed from @Binding to regular parameter
     var color: Color = .cyan
     
-    // Animation progress for the tracer position
-    @State private var progress: CGFloat = 0
-    @State private var animationId = UUID() // Force animation restart when BPM changes
-    @State private var animationTimer: Timer?
-    
     // Tail configuration
     private let tailCount = 10
     private let tailSpacing: CGFloat = 0.015  // Distance between tail particles
@@ -31,66 +26,38 @@ struct NeonTracerView: View {
     }
     
     var body: some View {
-        ZStack {
-            // Create the tail effect with multiple particles
-                         ForEach(0..<tailCount, id: \.self) { index in
-                 let indexDouble = Double(index)
-                 let tailCountDouble = Double(tailCount)
-                 let particleProgress = progress - (CGFloat(index) * tailSpacing)
-                 let particleOpacity = 1.0 - (indexDouble / (tailCountDouble * 1.2))
-                 let particleSize = 16 - CGFloat(index) * 1.2
-                 let particleGlow = index == 0 ? 1.0 : 0.5
-                 
-                 TracerParticle(
-                     path: path,
-                     progress: particleProgress,
-                     color: color,
-                     opacity: particleOpacity,
-                     size: particleSize,
-                     glowIntensity: particleGlow
-                 )
-             }
-        }
-        .onAppear {
-            startTimerAnimation()
-        }
-        .onDisappear {
-            stopTimerAnimation()
-        }
-        .onChange(of: bpm) {
-            // Restart animation with new BPM
-            animationId = UUID()
-            stopTimerAnimation()
-            startTimerAnimation()
-        }
-        .id(animationId) // Force view recreation when BPM changes
-    }
-    
-    private func startTimerAnimation() {
-        // Reset progress to ensure animation starts fresh
-        progress = 0
-        
-        // Only log BPM changes, not every restart
-        if bpm > 0 {
-            print("🌟 NeonTracer: Syncing to \(Int(bpm)) BPM")
-        }
-        
-        // Calculate how often to update (60 FPS)
-        let updateInterval = 1.0 / 60.0
-        let progressIncrement = updateInterval / animationDuration
-        
-        animationTimer = Timer.scheduledTimer(withTimeInterval: updateInterval, repeats: true) { _ in
-            progress += progressIncrement
-            if progress >= 1.0 {
-                progress = 0.0 // Loop back to start
+        // 🌌 SCROLL-SAFE ANIMATION: Use TimelineView instead of Timer
+        TimelineView(.animation) { timeline in
+            let elapsed = timeline.date.timeIntervalSince1970
+            let progress = CGFloat((elapsed.truncatingRemainder(dividingBy: animationDuration)) / animationDuration)
+            
+            ZStack {
+                // Create the tail effect with multiple particles
+                ForEach(0..<tailCount, id: \.self) { index in
+                    let indexDouble = Double(index)
+                    let tailCountDouble = Double(tailCount)
+                    let particleProgress = progress - (CGFloat(index) * tailSpacing)
+                    let particleOpacity = 1.0 - (indexDouble / (tailCountDouble * 1.2))
+                    let particleSize = 16 - CGFloat(index) * 1.2
+                    let particleGlow = index == 0 ? 1.0 : 0.5
+                    
+                    TracerParticle(
+                        path: path,
+                        progress: particleProgress,
+                        color: color,
+                        opacity: particleOpacity,
+                        size: particleSize,
+                        glowIntensity: particleGlow
+                    )
+                }
             }
         }
-    }
-    
-    private func stopTimerAnimation() {
-        animationTimer?.invalidate()
-        animationTimer = nil
-        // Removed stop logging to reduce console spam
+        .onAppear {
+            // Only log BPM changes, not every restart
+            if bpm > 0 {
+                print("🌟 NeonTracer: Syncing to \(Int(bpm)) BPM (scroll-safe)")
+            }
+        }
     }
 }
 

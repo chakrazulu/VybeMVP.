@@ -89,52 +89,97 @@ struct ScrollSafeCosmicView<Content: View>: View {
     }
 }
 
-// MARK: - Cosmic Background Layer Component (LIGHTWEIGHT VERSION)
+// MARK: - Cosmic Background Layer Component (ENHANCED VERSION)
 struct CosmicBackgroundLayer: View {
     let date: Date
     let intensity: Double
     let isEnabled: Bool
     
-    // MARK: - Animation State (Simplified)
+    // MARK: - Animation State (Enhanced)
     @State private var rotationAngle: Double = 0
+    @State private var pulseScale: Double = 1.0
+    @State private var floatingOffset: Double = 0
     
     var body: some View {
         if isEnabled {
             ZStack {
-                // MARK: - Simple Cosmic Background (Lightweight)
+                // MARK: - Enhanced Cosmic Background (More Visible)
                 RadialGradient(
                     gradient: Gradient(colors: [
-                        Color.purple.opacity(0.2 * intensity),
-                        Color.blue.opacity(0.1 * intensity),
+                        Color.purple.opacity(0.4 * intensity),
+                        Color.blue.opacity(0.3 * intensity),
+                        Color.indigo.opacity(0.2 * intensity),
                         Color.clear
                     ]),
                     center: .center,
                     startRadius: 0,
-                    endRadius: 300
+                    endRadius: 400
                 )
                 
-                // MARK: - Single Sacred Geometry Element (Lightweight)
-                Circle()
-                    .stroke(
-                        Color.gold.opacity(0.4 * intensity),
-                        lineWidth: 2
-                    )
-                    .frame(width: 150, height: 150)
-                    .rotationEffect(.degrees(rotationAngle))
-                
-                // MARK: - Minimal Floating Elements (Reduced from 5 to 2)
-                ForEach(0..<2, id: \.self) { index in
+                // MARK: - Multiple Sacred Geometry Elements (Enhanced)
+                ZStack {
+                    // Outer ring
                     Circle()
-                        .fill(Color.cyan.opacity(0.2))
-                        .frame(width: 6, height: 6)
-                        .offset(
-                            x: cos(Double(index) * 2.0 + rotationAngle * 0.005) * 100,
-                            y: sin(Double(index) * 2.0 + rotationAngle * 0.005) * 100
+                        .stroke(
+                            Color.gold.opacity(0.6 * intensity),
+                            lineWidth: 3
                         )
+                        .frame(width: 200, height: 200)
+                        .rotationEffect(.degrees(rotationAngle))
+                        .scaleEffect(pulseScale)
+                    
+                    // Inner ring (counter-rotating)
+                    Circle()
+                        .stroke(
+                            Color.cyan.opacity(0.5 * intensity),
+                            lineWidth: 2
+                        )
+                        .frame(width: 120, height: 120)
+                        .rotationEffect(.degrees(-rotationAngle * 0.7))
+                        .scaleEffect(pulseScale * 0.8)
+                    
+                    // Center sacred symbol
+                    Circle()
+                        .fill(Color.white.opacity(0.3 * intensity))
+                        .frame(width: 8, height: 8)
+                        .scaleEffect(pulseScale * 1.5)
+                }
+                
+                // MARK: - Enhanced Floating Elements (More Visible)
+                ForEach(0..<5, id: \.self) { index in
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [
+                                    Color.cyan.opacity(0.6),
+                                    Color.purple.opacity(0.4)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 8, height: 8)
+                        .offset(
+                            x: cos(Double(index) * 1.26 + floatingOffset) * 150,
+                            y: sin(Double(index) * 1.26 + floatingOffset) * 150
+                        )
+                        .scaleEffect(0.5 + 0.5 * sin(Double(index) + floatingOffset * 2))
+                }
+                
+                // MARK: - Cosmic Dust Effect
+                ForEach(0..<8, id: \.self) { index in
+                    Circle()
+                        .fill(Color.white.opacity(0.4))
+                        .frame(width: 2, height: 2)
+                        .offset(
+                            x: cos(Double(index) * 0.785 + floatingOffset * 0.5) * 250,
+                            y: sin(Double(index) * 0.785 + floatingOffset * 0.5) * 250
+                        )
+                        .opacity(0.3 + 0.3 * sin(Double(index) + floatingOffset))
                 }
             }
             .onAppear {
-                startLightweightAnimations()
+                startEnhancedAnimations()
             }
         } else {
             // Fallback: Static cosmic background
@@ -142,14 +187,24 @@ struct CosmicBackgroundLayer: View {
         }
     }
     
-    // MARK: - Lightweight Animation Initialization
-    private func startLightweightAnimations() {
-        // Start simple rotation animation (slower and less intensive)
-        withAnimation(.linear(duration: 30.0).repeatForever(autoreverses: false)) {
+    // MARK: - Enhanced Animation Initialization
+    private func startEnhancedAnimations() {
+        // Main rotation animation (smooth and continuous)
+        withAnimation(.linear(duration: 40.0).repeatForever(autoreverses: false)) {
             rotationAngle = 360
         }
         
-        print("🌟 CosmicBackgroundLayer: Lightweight cosmic animations started")
+        // Pulsing animation (breathing effect)
+        withAnimation(.easeInOut(duration: 3.0).repeatForever(autoreverses: true)) {
+            pulseScale = 1.2
+        }
+        
+        // Floating elements animation
+        withAnimation(.linear(duration: 25.0).repeatForever(autoreverses: false)) {
+            floatingOffset = .pi * 2
+        }
+        
+        print("🌟 CosmicBackgroundLayer: Enhanced cosmic animations started")
     }
 }
 

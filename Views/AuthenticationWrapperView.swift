@@ -123,44 +123,9 @@ struct AuthenticationWrapperView: View {
                             .background(Color.blue.opacity(0.6))
                             .cornerRadius(12)
                             
-                            NavigationLink("🌌 Main App (HomeView with Cosmic Animations)") {
-                                // MINIMAL TEST - No cosmic animations, just basic content
-                                NavigationView {
-                                    VStack(spacing: 30) {
-                                        Text("🌌 MINIMAL TEST")
-                                            .font(.largeTitle)
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.purple)
-                                        
-                                        Text("Realm Number: 6")
-                                            .font(.title)
-                                            .foregroundColor(.purple)
-                                        
-                                        Text("Focus Number: 1")
-                                            .font(.title)
-                                            .foregroundColor(.blue)
-                                        
-                                        ScrollView {
-                                            VStack(spacing: 20) {
-                                                ForEach(1...10, id: \.self) { i in
-                                                    Text("Test Content Item \(i)")
-                                                        .font(.title2)
-                                                        .foregroundColor(.primary)
-                                                        .padding()
-                                                        .background(Color.gray.opacity(0.2))
-                                                        .cornerRadius(12)
-                                                }
-                                            }
-                                            .padding()
-                                        }
-                                        
-                                        Text("🧪 Minimal test - no cosmic animations")
-                                            .font(.caption)
-                                            .foregroundColor(.secondary)
-                                    }
-                                    .padding()
-                                    .navigationTitle("Minimal Test")
-                                }
+                            NavigationLink("🌌 Main App (HomeView with cosmic animations)") {
+                                // Show the real ContentView (full app)
+                                ContentView()
                             }
                             .font(.title3)
                             .foregroundColor(.white)

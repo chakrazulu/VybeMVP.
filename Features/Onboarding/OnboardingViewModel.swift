@@ -114,7 +114,9 @@ class OnboardingViewModel: ObservableObject {
                 print("✅ OnboardingViewModel: UserProfile saved successfully to Firestore!")
                 
                 // ✨ New: Configure AIInsightManager with the newly saved profile
-                AIInsightManager.shared.configureAndRefreshInsight(for: profile)
+                Task {
+                    await AIInsightManager.shared.configureAndRefreshInsight(for: profile)
+                }
                 
                 // ✨ Cache the newly created profile to UserDefaults so HomeView can access it immediately
                 UserProfileService.shared.cacheUserProfileToUserDefaults(profile)

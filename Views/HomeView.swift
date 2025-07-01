@@ -112,15 +112,29 @@ struct HomeView: View {
     
     var body: some View {
         ZStack {
-            // 🌌 COSMIC ANIMATION LAYER: Scroll-safe background animations
+            // 🌌 COSMIC ANIMATION LAYER: Re-enabled with lightweight cosmic background
             ScrollSafeCosmicView {
                 // Original HomeView content wrapped in cosmic animations
                 ZStack {
-                    TwinklingDigitsBackground()
-                        .environmentObject(focusNumberManager)
-                        .environmentObject(realmNumberManager)
-                        .environmentObject(activityNavigationManager)
-                        .ignoresSafeArea()
+                    // 🌌 SIMPLE COSMIC BACKGROUND: Replaces TwinklingDigitsBackground for now
+                    LinearGradient(
+                        gradient: Gradient(colors: [
+                            Color.black,
+                            Color.purple.opacity(0.3),
+                            Color.indigo.opacity(0.2),
+                            Color.black
+                        ]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                    .ignoresSafeArea()
+                    
+                    // 🌌 TEMPORARILY DISABLED: TwinklingDigitsBackground to debug freeze
+                    // TwinklingDigitsBackground()
+                    //     .environmentObject(focusNumberManager)
+                    //     .environmentObject(realmNumberManager)
+                    //     .environmentObject(activityNavigationManager)
+                    //     .ignoresSafeArea()
                     
                     ScrollView {
                         VStack(spacing: 30) { // 🎯 MAIN STACK: 30pt spacing between sections

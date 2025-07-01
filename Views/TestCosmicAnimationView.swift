@@ -15,6 +15,8 @@
 import SwiftUI
 
 struct TestCosmicAnimationView: View {
+    @ObservedObject private var performanceMonitor = PerformanceMonitor.shared
+    
     var body: some View {
         NavigationView {
             ScrollSafeCosmicView {
@@ -32,6 +34,28 @@ struct TestCosmicAnimationView: View {
                             .foregroundColor(.gray)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal)
+                        
+                        // Performance Monitor Display
+                        VStack(spacing: 8) {
+                            Text(performanceMonitor.performanceStatus)
+                                .font(.caption)
+                                .foregroundColor(.cyan)
+                            
+                            if performanceMonitor.isMonitoring {
+                                HStack {
+                                    Text("FPS: \(String(format: "%.1f", performanceMonitor.currentFPS))")
+                                        .font(.caption)
+                                        .foregroundColor(performanceMonitor.currentFPS >= 55 ? .green : .orange)
+                                    
+                                    Text("Memory: \(String(format: "%.1f", performanceMonitor.memoryUsageMB))MB")
+                                        .font(.caption)
+                                        .foregroundColor(performanceMonitor.memoryUsageMB < 100 ? .green : .orange)
+                                }
+                            }
+                        }
+                        .padding()
+                        .background(Color.black.opacity(0.3))
+                        .cornerRadius(8)
                         
                         // Test Content Cards
                         ForEach(0..<10) { index in
@@ -57,6 +81,7 @@ struct TestCosmicAnimationView: View {
                                 HStack {
                                     Button("Test Button") {
                                         print("🧪 Test button tapped - animations should continue")
+                                        performanceMonitor.logMetrics("Button Tap Test")
                                     }
                                     .padding(.horizontal, 16)
                                     .padding(.vertical, 8)
@@ -88,6 +113,14 @@ struct TestCosmicAnimationView: View {
             .navigationTitle("Cosmic Test")
             .navigationBarTitleDisplayMode(.inline)
             .preferredColorScheme(.dark)
+            .onAppear {
+                performanceMonitor.startMonitoring()
+                print("🧪 TestCosmicAnimationView: Performance monitoring started")
+            }
+            .onDisappear {
+                performanceMonitor.stopMonitoring()
+                print("🧪 TestCosmicAnimationView: Performance monitoring stopped")
+            }
         }
     }
 }
