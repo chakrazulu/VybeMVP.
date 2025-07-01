@@ -204,7 +204,9 @@ struct ScrollSafeCosmicView<Content: View>: View {
         }
     }
     
-    // MARK: - Color Helper
+    // MARK: - Color Helper (Legacy - Now using enhanced sacred colors)
+    /// Legacy color mapping - replaced by enhanced sacred color system
+    /// Kept for backward compatibility and fallback scenarios
     private func colorForNumber(_ number: Int) -> Color {
         switch number {
         case 1: return .red
