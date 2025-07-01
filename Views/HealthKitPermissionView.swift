@@ -1,6 +1,58 @@
+/*
+ * ========================================
+ * ❤️ HEALTHKIT PERMISSION VIEW - HEALTH DATA ACCESS
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Manages HealthKit permission requests and provides user guidance for
+ * enabling heart rate access. Handles both initial permission requests
+ * and settings access when permissions are denied.
+ * 
+ * SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points):
+ * • VStack: Main content container with 20pt spacing
+ * • Conditional Views: SettingsAccessView or RequestPermissionView
+ * • Alert System: Error handling and settings navigation
+ * • Task-based Authorization: Automatic permission requests
+ * 
+ * UI COMPONENTS:
+ * • SettingsAccessView: Detailed instructions for Health app access
+ * • RequestPermissionView: Initial permission request interface
+ * • Alert System: Error handling with multiple action options
+ * • System Icons: Heart rate related SF Symbols
+ * 
+ * PERMISSION FLOW:
+ * 1. Initial Request: Attempts automatic HealthKit authorization
+ * 2. Success: Proceeds to main app functionality
+ * 3. Failure: Shows settings access view with detailed instructions
+ * 4. Error Handling: Alert with options to open Health app or Settings
+ * 
+ * INTEGRATION POINTS:
+ * • HealthKitManager: Primary HealthKit interaction and authorization
+ * • Health app: External app for permission management
+ * • Settings app: System settings for app permissions
+ * • Main app flow: Blocks progression until permissions granted
+ * 
+ * ERROR HANDLING:
+ * • HealthKitError: Specific error types and descriptions
+ * • Settings Alert: Multiple action options for resolution
+ * • Graceful Degradation: Clear instructions for manual setup
+ * 
+ * PRIVACY & SECURITY:
+ * • Clear explanation of data usage
+ * • Privacy assurance messaging
+ * • Secure HealthKit integration
+ * • User control over data access
+ */
+
 import SwiftUI
 import HealthKit
 
+/**
+ * HealthKitPermissionView: Manages HealthKit permission requests and user guidance
+ * 
+ * Provides a comprehensive interface for requesting and managing HealthKit
+ * permissions, with detailed instructions for manual setup when needed.
+ */
 struct HealthKitPermissionView: View {
     @StateObject private var healthKitManager = HealthKitManager.shared
     @State private var showingSettingsAlert = false
@@ -38,6 +90,13 @@ struct HealthKitPermissionView: View {
     }
 }
 
+/**
+ * SettingsAccessView: Detailed instructions for manual Health app access
+ * 
+ * Displays comprehensive step-by-step instructions for enabling
+ * heart rate access through the Health app when automatic
+ * permission requests fail.
+ */
 struct SettingsAccessView: View {
     var body: some View {
         VStack(spacing: 16) {
@@ -88,6 +147,12 @@ struct SettingsAccessView: View {
     }
 }
 
+/**
+ * RequestPermissionView: Initial HealthKit permission request interface
+ * 
+ * Displays the initial permission request with explanation of
+ * data usage and privacy assurances for heart rate access.
+ */
 struct RequestPermissionView: View {
     var body: some View {
         VStack(spacing: 16) {
