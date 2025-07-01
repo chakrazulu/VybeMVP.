@@ -51,6 +51,7 @@ struct ScrollSafeCosmicView<Content: View>: View {
     
     @State private var numbers: [ScrollSafeTwinklingNumber] = []
     @State private var date = Date()
+    @State private var fibonacciStartTime: TimeInterval = 0
     
     // Track the sacred geometry center position dynamically
     @State private var sacredGeometryCenter: CGPoint = CGPoint(x: 215, y: 466) // iPhone 14 Pro Max center
@@ -66,16 +67,18 @@ struct ScrollSafeCosmicView<Content: View>: View {
             TimelineView(.animation) { timeline in
                 GeometryReader { geometry in
                     ZStack {
-                        // Twinkling numbers with sacred numerology colors
+                        // Twinkling numbers - CLEAN FORMATION FOCUS
                         ForEach(numbers, id: \.id) { number in
                             let position = number.currentPosition(at: timeline.date, sacredCenter: sacredGeometryCenter)
+                            let opacity = number.currentOpacity(at: timeline.date, centerX: geometry.size.width / 2, centerY: geometry.size.height / 2, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
+                            
                             Text("\(number.digit)")
-                                .font(.system(size: number.size, weight: .medium, design: .rounded))
-                                .foregroundColor(colorForNumber(number.digit))
-                                .opacity(number.currentOpacity(at: timeline.date))
+                                .font(.system(size: number.size, weight: .bold, design: .monospaced)) // TYPEWRITER FONT
+                                .foregroundColor(number.sacredColor)
+                                .opacity(opacity)
                                 .position(x: position.x, y: position.y)
-                                .animation(.easeOut(duration: 0.5), value: position.x)
-                                .animation(.easeOut(duration: 0.5), value: position.y)
+                                .animation(.easeOut(duration: 0.8), value: position.x)
+                                .animation(.easeOut(duration: 0.8), value: position.y)
                         }
                     }
                     .onAppear {
@@ -84,6 +87,8 @@ struct ScrollSafeCosmicView<Content: View>: View {
                             x: geometry.size.width / 2,
                             y: geometry.size.height / 2
                         )
+                        // Initialize fibonacci start time
+                        fibonacciStartTime = Date().timeIntervalSince1970
                         generateInitialNumbers()
                     }
                     .onChange(of: timeline.date) { oldValue, newValue in
@@ -121,30 +126,54 @@ struct ScrollSafeCosmicView<Content: View>: View {
     
     // MARK: - Number Generation
     private func generateInitialNumbers() {
-        // Generate more initial numbers (25 instead of 15) for better visibility on iPhone 14 Pro Max
-        for i in 0..<25 {
+        // IMMEDIATE STARTUP: Add some numbers right away for instant impact
+        numbers = []
+        
+        // Add fewer numbers immediately for better performance
+        for _ in 0..<3 {
             let number = ScrollSafeTwinklingNumber(
                 sacredCenter: sacredGeometryCenter,
-                birthTime: date.addingTimeInterval(-Double(i) * 0.3), // Closer stagger for more density
+                birthTime: Date(),
                 bloomingFromCenter: true
             )
             numbers.append(number)
         }
-        print("🌟 Generated \(numbers.count) initial twinkling numbers")
+        
+        print("🌟 Started with \(numbers.count) immediate numbers - more will appear rapidly")
     }
     
     private func updateNumbers() {
-        // Remove expired numbers (older than 10 seconds)
+        // Remove expired numbers with staggered disappearance
+        let currentTime = date.timeIntervalSince1970
+        
+        // FIBONACCI-INSPIRED STAGGERED REMOVAL
+        // Remove numbers that are older than their individual lifetime (varies per number)
         numbers.removeAll { number in
-            date.timeIntervalSince(number.birthTime) > 10.0
+            let age = date.timeIntervalSince(number.birthTime)
+            let individualLifetime = number.staggeredLifetime
+            return age > individualLifetime
         }
         
-        // More consistent number generation - add a new number every 1.5 seconds
-        let currentTime = date.timeIntervalSince1970
-        let timeSinceLastGeneration = currentTime - (numbers.last?.birthTime.timeIntervalSince1970 ?? 0)
+        // FIBONACCI-INSPIRED GRADUAL APPEARANCE
+        // Use the persistent start time (initialized on view appear)
+        let timeSinceStart = fibonacciStartTime > 0 ? currentTime - fibonacciStartTime : 0
         
-        // Always maintain at least 20 numbers, add new ones every 1.5 seconds
-        if numbers.count < 20 || timeSinceLastGeneration > 1.5 {
+        // BLOOM DENSITY: More numbers needed due to shorter lifespans (~2s each)
+        let fibonacciPattern = [10, 20, 35, 55, 80, 120, 170, 230, 300, 350] // Target ~300-350 active
+        
+        // Calculate how many numbers should exist based on time elapsed
+        var targetCount = 0
+        let generationSpeed = 0.5 // RAPID generation for bloom effect
+        let fibIndex = min(Int(timeSinceStart / generationSpeed), fibonacciPattern.count - 1)
+        
+        if fibIndex >= 0 {
+            targetCount = fibonacciPattern[fibIndex]
+        }
+        
+        // Add numbers in bursts for bloom effect
+        let numbersToAdd = max(0, min(8, targetCount - numbers.count)) // More at once for bloom density
+        
+        for _ in 0..<numbersToAdd {
             let number = ScrollSafeTwinklingNumber(
                 sacredCenter: sacredGeometryCenter,
                 birthTime: date,
@@ -153,15 +182,13 @@ struct ScrollSafeCosmicView<Content: View>: View {
             numbers.append(number)
         }
         
-        // Limit to 80 active numbers for better performance and spacing
-        if numbers.count > 80 {
-            let numbersToRemove = numbers.count - 80
-            numbers.removeFirst(numbersToRemove)
+        if numbersToAdd > 0 {
+            print("🌟 Added \(numbersToAdd) numbers - now \(numbers.count)/\(targetCount) (Step \(fibIndex + 1))")
         }
         
-        // Debug: Print number count to console
-        if numbers.count > 0 {
-            print("🌟 Active twinkling numbers: \(numbers.count)")
+        // Debug: Print number count occasionally
+        if Int(currentTime) % 5 == 0 && numbers.count > 0 {
+            print("🌟 Active numbers: \(numbers.count), Target: \(targetCount)")
         }
     }
     
@@ -191,6 +218,7 @@ struct CosmicBackgroundLayer: View {
     // MARK: - Twinkling Numbers State
     @State private var numbers: [ScrollSafeTwinklingNumber] = []
     @State private var sacredGeometryCenter: CGPoint = CGPoint(x: 215, y: 466) // iPhone 14 Pro Max center
+    @State private var fibonacciStartTime: TimeInterval = 0
     
     var body: some View {
         if isEnabled {
@@ -211,16 +239,18 @@ struct CosmicBackgroundLayer: View {
                 // MARK: - Scroll-Safe Twinkling Numbers
                 GeometryReader { geometry in
                     ZStack {
-                        // Twinkling numbers with sacred numerology colors
+                        // Twinkling numbers - CLEAN FORMATION FOCUS
                         ForEach(numbers, id: \.id) { number in
                             let position = number.currentPosition(at: date, sacredCenter: sacredGeometryCenter)
+                            let opacity = number.currentOpacity(at: date, centerX: geometry.size.width / 2, centerY: geometry.size.height / 2, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
+                            
                             Text("\(number.digit)")
-                                .font(.system(size: number.size, weight: .medium, design: .rounded))
-                                .foregroundColor(colorForNumber(number.digit))
-                                .opacity(number.currentOpacity(at: date))
+                                .font(.system(size: number.size, weight: .bold, design: .monospaced)) // TYPEWRITER FONT
+                                .foregroundColor(number.sacredColor)
+                                .opacity(opacity)
                                 .position(x: position.x, y: position.y)
-                                .animation(.easeOut(duration: 0.5), value: position.x)
-                                .animation(.easeOut(duration: 0.5), value: position.y)
+                                .animation(.easeOut(duration: 0.8), value: position.x)
+                                .animation(.easeOut(duration: 0.8), value: position.y)
                         }
                     }
                     .onAppear {
@@ -229,6 +259,8 @@ struct CosmicBackgroundLayer: View {
                             x: geometry.size.width / 2,
                             y: geometry.size.height / 2
                         )
+                        // Initialize fibonacci start time
+                        fibonacciStartTime = date.timeIntervalSince1970
                         generateInitialNumbers()
                     }
                     .onChange(of: date) { oldValue, newValue in
@@ -241,41 +273,48 @@ struct CosmicBackgroundLayer: View {
     
     // MARK: - Number Generation
     private func generateInitialNumbers() {
-        // Generate more initial numbers (30 instead of 20) for better visibility
-        for i in 0..<30 {
-            let number = ScrollSafeTwinklingNumber(
-                sacredCenter: sacredGeometryCenter,
-                birthTime: date.addingTimeInterval(-Double(i) * 0.3), // Closer stagger for more density
-                bloomingFromCenter: true
-            )
-            numbers.append(number)
-        }
-        print("🌟 CosmicBackgroundLayer: Generated \(numbers.count) initial twinkling numbers")
+        // FIBONACCI-INSPIRED GRADUAL APPEARANCE: Start empty, let them appear naturally
+        // No initial numbers - they will appear gradually through updateNumbers()
+        numbers = []
+        print("🌟 CosmicBackgroundLayer: Initialized empty - numbers will appear in Fibonacci-like sequence")
     }
     
     private func updateNumbers() {
-        // Remove expired numbers (older than 12 seconds for longer life)
+        // Remove expired numbers with staggered disappearance
+        let currentTime = date.timeIntervalSince1970
+        
+        // FIBONACCI-INSPIRED STAGGERED REMOVAL
         numbers.removeAll { number in
-            date.timeIntervalSince(number.birthTime) > 12.0
+            let age = date.timeIntervalSince(number.birthTime)
+            let individualLifetime = number.staggeredLifetime
+            return age > individualLifetime
         }
         
-        // Add new number every 1.5 seconds (faster emission)
-        let timeSinceStart = date.timeIntervalSince1970
-        let expectedNumbers = Int(timeSinceStart * 0.67) // Every 1.5 seconds
+        // FIBONACCI-INSPIRED GRADUAL APPEARANCE (Background layer - slightly different)
+        // Use the persistent start time (initialized on view appear)
+        let timeSinceStart = fibonacciStartTime > 0 ? currentTime - fibonacciStartTime : 0
         
-        if expectedNumbers > (numbers.count / 2) {
+        // BACKGROUND LAYER: PERFORMANCE OPTIMIZED
+        let fibonacciPattern = [0, 2, 5, 8, 12, 18, 25, 35, 45] // Fewer background numbers
+        
+        // Calculate how many numbers should exist based on time elapsed
+        var targetCount = 0
+        let generationSpeed = 1.5 // RAPID background generation
+        let fibIndex = min(Int(timeSinceStart / generationSpeed), fibonacciPattern.count - 1)
+        
+        if fibIndex >= 0 {
+            targetCount = fibonacciPattern[fibIndex]
+        }
+        
+        // Add numbers gradually to reach target
+        if numbers.count < targetCount {
             let number = ScrollSafeTwinklingNumber(
                 sacredCenter: sacredGeometryCenter,
                 birthTime: date,
                 bloomingFromCenter: true
             )
             numbers.append(number)
-        }
-        
-        // Limit to 150 active numbers for better performance and spacing
-        if numbers.count > 150 {
-            let numbersToRemove = numbers.count - 150
-            numbers.removeFirst(numbersToRemove)
+            print("🌟 Background: Added number \(numbers.count)/\(targetCount) (Fibonacci step \(fibIndex + 1))")
         }
     }
     
@@ -313,7 +352,13 @@ struct ScrollSafeTwinklingNumber: Identifiable {
     let endY: CGFloat
     let animationDuration: Double
     
-
+    // Staggered lifetime for organic disappearance
+    let staggeredLifetime: Double
+    
+    // Enhanced visual properties
+    let glowIntensity: Double
+    let pulseSpeed: Double
+    let sacredColor: Color
     
     init(sacredCenter: CGPoint, birthTime: Date, bloomingFromCenter: Bool) {
         self.digit = Int.random(in: 1...9)
@@ -323,47 +368,89 @@ struct ScrollSafeTwinklingNumber: Identifiable {
         let centerY = sacredCenter.y
         let exclusionRadius: CGFloat = 200 // Sacred geometry radius
         
+        // Enhanced visual properties
+        self.glowIntensity = Double.random(in: 0.3...0.8)
+        self.pulseSpeed = Double.random(in: 1.5...3.0)
+        self.sacredColor = sacredColorForNumber(digit)
+        
+        // BLOOM LIFECYCLE: ~2 seconds total per ChatGPT consultation
+        self.staggeredLifetime = Double.random(in: 1.8...2.2) // Short lifecycle for bloom effect
+        
         if bloomingFromCenter {
-            // BLOOMING EFFECT: Spawn from edge of sacred center and move outward
-            let angle = Double.random(in: 0...(2 * .pi))
-            let startRadius = exclusionRadius + 20 // Start a bit further from sacred geometry
-            let endRadius = min(centerX, centerY) * 1.2 // Move further toward screen edges
+            // CHAOTIC FRACTAL EMANATION: Less neat, more organic placement
+            let baseAngle = Double.random(in: 0...(2 * .pi))
+            let angleVariation = Double.random(in: -0.5...0.5) // Add chaos to angle
+            let angle = baseAngle + angleVariation
             
-            // Start position (edge of sacred center)
-            let startX = centerX + cos(angle) * startRadius
-            let startY = centerY + sin(angle) * startRadius
+            // Start near the edge of sacred geometry with more variation
+            let radiusVariation = CGFloat.random(in: 10...60) // More chaotic start positions
+            let startRadius = exclusionRadius + radiusVariation
             
-            // End position (further out)
-            let endX = centerX + cos(angle) * endRadius
-            let endY = centerY + sin(angle) * endRadius
+            // RADIAL BLOOM DISTRIBUTION: Biased toward center but covering full screen
+            let screenDiagonal = sqrt(pow(centerX * 2, 2) + pow(centerY * 2, 2)) // Full screen coverage
             
-            // Store positions for animation
+            // Bias toward center: more numbers near center, fewer at edges
+            let radiusBias = pow(Double.random(in: 0...1), 1.5) // Power curve biases toward 0 (center)
+            let finalRadius = startRadius + (screenDiagonal * 0.6 * CGFloat(radiusBias)) // 60% of screen diagonal
+            
+            // BLOOM POSITION: Use finalRadius for actual spawn position (biased distribution)
+            let bloomX = centerX + cos(angle) * finalRadius + CGFloat.random(in: -30...30)
+            let bloomY = centerY + sin(angle) * finalRadius + CGFloat.random(in: -30...30)
+            
+            // Use bloom position as both start and end (no movement)
+            let startX = bloomX
+            let startY = bloomY
+            
+            // Since we're not moving, we don't need end positions - just use start position
+            
+            // SPAWN-AND-FADE: No movement, just bloom in place
             self.startX = startX
             self.startY = startY
-            self.endX = endX
-            self.endY = endY
+            self.endX = startX // Stay in same position
+            self.endY = startY // Stay in same position
             self.x = startX
             self.y = startY
-            self.animationDuration = Double.random(in: 8...12) // Slower bloom for better visibility
             
-            // Much larger size and higher opacity for iPhone 14 Pro Max visibility
-            self.size = CGFloat.random(in: 28...40) // Much larger for better visibility
-            self.maxOpacity = Double.random(in: 0.7...0.95) // Much higher opacity for visibility
+            // No movement animation - just lifecycle
+            self.animationDuration = 0
+            
+            // BIGGER NUMBERS: Size varies with distance - MUCH LARGER
+            let distanceFromCenter = finalRadius
+            let screenBounds = UIScreen.main.bounds
+            let maxRadius = sqrt(pow(screenBounds.width / 2, 2) + pow(screenBounds.height / 2, 2)) // Screen diagonal
+            let sizeMultiplier = max(0.6, 1.0 - (distanceFromCenter / max(1.0, maxRadius))) // Prevent division by zero
+            let baseSize = CGFloat.random(in: 48...72) // MUCH BIGGER numbers
+            self.size = max(24.0, baseSize * sizeMultiplier) // Larger minimum size
+            
+            // Base opacity for fractal calculation - BOOSTED
+            self.maxOpacity = Double.random(in: 0.9...1.0) // Much higher base opacity
         } else {
-            // Original random positioning (fallback)
+            // Original random positioning (fallback) - SAFE RANGES
             let screenBounds = UIScreen.main.bounds
             var validPosition = false
             var attemptX: CGFloat = 0
             var attemptY: CGFloat = 0
+            let maxAttempts = 10 // Prevent infinite loops
+            var attempts = 0
             
-            while !validPosition {
-                attemptX = CGFloat.random(in: 50...(screenBounds.width - 50))
-                attemptY = CGFloat.random(in: 100...(screenBounds.height - 100))
+            while !validPosition && attempts < maxAttempts {
+                let safeWidth = max(100, screenBounds.width - 100)
+                let safeHeight = max(200, screenBounds.height - 200)
+                
+                attemptX = CGFloat.random(in: 50...safeWidth)
+                attemptY = CGFloat.random(in: 100...safeHeight)
                 
                 let distance = hypot(attemptX - centerX, attemptY - centerY)
                 if distance > exclusionRadius {
                     validPosition = true
                 }
+                attempts += 1
+            }
+            
+            // Fallback to safe position if no valid position found
+            if !validPosition {
+                attemptX = centerX + exclusionRadius + 50
+                attemptY = centerY + exclusionRadius + 50
             }
             
             self.x = attemptX
@@ -373,57 +460,47 @@ struct ScrollSafeTwinklingNumber: Identifiable {
             self.endX = attemptX
             self.endY = attemptY
             self.animationDuration = 0 // No movement for fallback
-            self.size = CGFloat.random(in: 28...40) // Match the blooming size
-            self.maxOpacity = Double.random(in: 0.7...0.95) // Match the blooming opacity
+            self.size = CGFloat.random(in: 32...48) // Match the visibility size
+            self.maxOpacity = Double.random(in: 0.8...1.0) // Match the visibility opacity
         }
     }
     
+    // Enhanced sacred color mapping with better visual appeal
     var color: Color {
-        switch digit {
-        case 1: return .red
-        case 2: return .orange
-        case 3: return .yellow
-        case 4: return .green
-        case 5: return .blue
-        case 6: return .indigo
-        case 7: return .purple
-        case 8: return Color(red: 1.0, green: 0.8, blue: 0.0) // Gold
-        case 9: return .white
-        default: return .white
-        }
+        return sacredColor
     }
     
     // MARK: - Time-Based Animation
     func opacity(at currentTime: Date) -> Double {
         let age = currentTime.timeIntervalSince(birthTime)
         
-        // Fade in over first 1 second
-        if age < 1.0 {
-            return maxOpacity * age
+        // Fade in over first 0.8 seconds (faster fade in)
+        if age < 0.8 {
+            return maxOpacity * (age / 0.8)
         }
         
         // Stay at max opacity for 8 seconds
-        if age < 9.0 {
+        if age < 8.8 {
             return maxOpacity
         }
         
-        // Fade out over last 1 second
-        let fadeOut = (10.0 - age) / 1.0
+        // Fade out over last 1.2 seconds
+        let fadeOut = (10.0 - age) / 1.2
         return maxOpacity * max(0, fadeOut)
     }
     
     func scale(at currentTime: Date) -> CGFloat {
         let age = currentTime.timeIntervalSince(birthTime)
         
-        // Scale up from 0.5 to 1.0 over first 1 second
-        if age < 1.0 {
-            return 0.5 + 0.5 * CGFloat(age)
+        // Scale up from 0.6 to 1.0 over first 0.8 seconds
+        if age < 0.8 {
+            return 0.6 + 0.4 * CGFloat(age / 0.8)
         }
         
         return 1.0
     }
     
-    // Calculate current position based on time elapsed
+    // Calculate current position based on time elapsed with improved easing
     func currentPosition(at currentTime: Date, sacredCenter: CGPoint) -> (x: CGFloat, y: CGFloat) {
         guard animationDuration > 0 else {
             return (x: x, y: y) // No animation
@@ -432,61 +509,83 @@ struct ScrollSafeTwinklingNumber: Identifiable {
         let elapsed = currentTime.timeIntervalSince(birthTime)
         let progress = min(elapsed / animationDuration, 1.0)
         
-        // Smooth easing function (ease-out)
-        let easedProgress = 1 - pow(1 - progress, 3)
+        // Improved easing function (smooth ease-out with slight bounce)
+        let easedProgress = 1 - pow(1 - progress, 2.5)
         
         let currentX = startX + (endX - startX) * easedProgress
         let currentY = startY + (endY - startY) * easedProgress
         
-        // Adjust position based on sacred geometry center
-        let adjustedX = currentX + (currentX - sacredCenter.x) * 0.01
-        let adjustedY = currentY + (currentY - sacredCenter.y) * 0.01
+        // Subtle position adjustment for more organic movement
+        let adjustedX = currentX + (currentX - sacredCenter.x) * 0.005
+        let adjustedY = currentY + (currentY - sacredCenter.y) * 0.005
         
         return (x: adjustedX, y: adjustedY)
     }
     
-    // Calculate current opacity based on time elapsed (pulsing effect)
-    func currentOpacity(at currentTime: Date) -> Double {
+    // BLOOM FADE OPACITY: ChatGPT consultation implementation
+    func currentOpacity(at currentTime: Date, centerX: CGFloat, centerY: CGFloat, screenWidth: CGFloat, screenHeight: CGFloat) -> Double {
         let elapsed = currentTime.timeIntervalSince(birthTime)
-        let lifetime: Double = 12.0 // Match the removal time
+        let lifetime = staggeredLifetime
         
-        // Fade in quickly, then pulse, then fade out
-        let fadeInDuration: Double = 1.0
-        let fadeOutStart: Double = lifetime - 2.0
+        // BLOOM LIFECYCLE: ~0.2s fade-in, ~1.2s visible, ~0.6s fade-out (total ~2s)
+        let fadeInDuration: Double = 0.2
+        let fadeOutStart: Double = lifetime - 0.6
         
-        var baseOpacity: Double
+        var lifecycleOpacity: Double
         if elapsed < fadeInDuration {
-            // Fade in
-            baseOpacity = maxOpacity * (elapsed / fadeInDuration)
+            // Quick fade in
+            lifecycleOpacity = elapsed / fadeInDuration
         } else if elapsed > fadeOutStart {
             // Fade out
             let fadeOutProgress = (elapsed - fadeOutStart) / (lifetime - fadeOutStart)
-            baseOpacity = maxOpacity * (1.0 - fadeOutProgress)
+            lifecycleOpacity = 1.0 - fadeOutProgress
         } else {
-            // Full opacity
-            baseOpacity = maxOpacity
+            // Fully visible
+            lifecycleOpacity = 1.0
         }
         
-        // Add pulsing effect
-        let pulseSpeed = 2.0 + Double(digit) * 0.3 // Different pulse rates per number
-        let pulse = 1.0 + 0.3 * sin(elapsed * pulseSpeed)
+        // EDGE-FADE GRADIENT: Full opacity at center, diminishing toward edges
+        let distanceFromCenter = sqrt(pow(x - centerX, 2) + pow(y - centerY, 2))
+        let maxRadius = sqrt(pow(screenWidth / 2, 2) + pow(screenHeight / 2, 2)) // Screen diagonal
+        let distanceRatio = distanceFromCenter / maxRadius
+        let edgeFadeMultiplier = max(0.1, 1.0 - distanceRatio) // Smooth gradient to edges
         
-        return max(0, baseOpacity * pulse)
+        // Combine lifecycle and distance-based opacity
+        let finalOpacity = maxOpacity * lifecycleOpacity * edgeFadeMultiplier
+        
+        return max(0.05, min(1.0, finalOpacity)) // Subtle minimum for distant numbers
+    }
+    
+    // New: Calculate glow effect intensity
+    func glowIntensity(at currentTime: Date) -> Double {
+        let elapsed = currentTime.timeIntervalSince(birthTime)
+        let lifetime: Double = 10.0
+        
+        // Glow fades with opacity but has its own timing
+        let glowFadeStart = lifetime - 1.5
+        let baseGlow = glowIntensity
+        
+        if elapsed > glowFadeStart {
+            let glowFadeProgress = (elapsed - glowFadeStart) / (lifetime - glowFadeStart)
+            return baseGlow * (1.0 - glowFadeProgress)
+        }
+        
+        return baseGlow
     }
 }
 
-// MARK: - Sacred Color Mapping
-private func colorForNumber(_ number: Int) -> Color {
+// MARK: - Enhanced Sacred Color Mapping
+private func sacredColorForNumber(_ number: Int) -> Color {
     switch number {
-    case 1: return Color(red: 1.0, green: 0.2, blue: 0.2) // Red - Leadership, independence
-    case 2: return Color(red: 1.0, green: 0.6, blue: 0.0) // Orange - Cooperation, harmony
-    case 3: return Color(red: 1.0, green: 1.0, blue: 0.0) // Yellow - Creativity, expression
-    case 4: return Color(red: 0.0, green: 0.8, blue: 0.0) // Green - Stability, hard work
-    case 5: return Color(red: 0.0, green: 0.6, blue: 1.0) // Blue - Freedom, adventure
-    case 6: return Color(red: 0.4, green: 0.0, blue: 0.8) // Indigo - Nurturing, responsibility
-    case 7: return Color(red: 0.8, green: 0.0, blue: 1.0) // Violet - Spirituality, introspection
-    case 8: return Color(red: 1.0, green: 0.0, blue: 0.5) // Magenta - Material mastery, power
-    case 9: return Color(red: 0.9, green: 0.9, blue: 0.9) // White - Universal love, completion
+    case 1: return Color(red: 1.0, green: 0.3, blue: 0.3) // Vibrant red - Leadership
+    case 2: return Color(red: 1.0, green: 0.7, blue: 0.2) // Warm orange - Harmony
+    case 3: return Color(red: 1.0, green: 1.0, blue: 0.4) // Bright yellow - Creativity
+    case 4: return Color(red: 0.2, green: 0.9, blue: 0.4) // Fresh green - Stability
+    case 5: return Color(red: 0.3, green: 0.7, blue: 1.0) // Sky blue - Freedom
+    case 6: return Color(red: 0.6, green: 0.3, blue: 1.0) // Rich indigo - Nurturing
+    case 7: return Color(red: 0.9, green: 0.3, blue: 1.0) // Deep violet - Spirituality
+    case 8: return Color(red: 1.0, green: 0.8, blue: 0.2) // Golden - Power
+    case 9: return Color(red: 0.95, green: 0.95, blue: 1.0) // Pure white - Completion
     default: return Color.white
     }
 }
