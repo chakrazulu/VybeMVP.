@@ -1,6 +1,68 @@
+/*
+ * ========================================
+ * ✨ NEW JOURNAL ENTRY VIEW - SACRED REFLECTION CREATION
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Comprehensive journal entry creation interface with voice recording,
+ * text input, mood selection, and sacred numerology integration.
+ * Provides a mystical, immersive experience for spiritual reflection.
+ * 
+ * SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points):
+ * • NavigationView: "Sacred Reflection" title with inline display
+ * • CosmicBackgroundView: Full-screen space travel animation
+ * • Floating Sacred Numbers: Subtle animated numerology overlay
+ * • ScrollView: Main content with 24pt spacing
+ * • Multiple Sections: Header, badges, voice, text, mood, privacy
+ * 
+ * UI COMPONENTS:
+ * • Sacred Header: Gradient title with mystical styling
+ * • Numerology Badges: Focus and Realm number displays
+ * • Voice Recording: Audio capture with visual feedback
+ * • Text Entry: Title and content input fields
+ * • Mood Selection: Emoji-based mood tracking
+ * • Privacy Notice: Data security assurance
+ * 
+ * FEATURES:
+ * • Voice Recording: Audio capture with VoiceRecordingManager
+ * • Text Input: Title and content with focus management
+ * • Mood Tracking: Emoji selection for emotional state
+ * • Numerology Integration: Real-time focus and realm numbers
+ * • Cosmic Aesthetics: Space background with floating numbers
+ * • Privacy Focus: Clear data security messaging
+ * 
+ * STATE MANAGEMENT:
+ * • Environment Objects: JournalManager, FocusNumberManager, RealmNumberManager
+ * • State Objects: VoiceRecordingManager, form fields, UI state
+ * • Focus State: Field focus management for keyboard handling
+ * • Animation State: Pulse animations for mystical effects
+ * 
+ * INTEGRATION POINTS:
+ * • JournalManager: Entry creation and persistence
+ * • VoiceRecordingManager: Audio capture and playback
+ * • FocusNumberManager: Current focus number display
+ * • RealmNumberManager: Current realm number display
+ * • CosmicBackgroundView: Space travel animation
+ * • Core Data: Entry persistence via managed object context
+ * 
+ * USER EXPERIENCE:
+ * • Immersive cosmic environment for reflection
+ * • Voice and text input options for different preferences
+ * • Real-time numerology integration
+ * • Smooth animations and transitions
+ * • Clear privacy and security messaging
+ */
+
 import SwiftUI
 import AVFoundation
 
+/**
+ * NewJournalEntryView: Sacred journal entry creation interface
+ * 
+ * Provides a comprehensive, mystical interface for creating
+ * journal entries with voice recording, text input, and
+ * numerology integration in a cosmic environment.
+ */
 struct NewJournalEntryView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
@@ -9,55 +71,79 @@ struct NewJournalEntryView: View {
     @EnvironmentObject var realmNumberManager: RealmNumberManager
     @StateObject private var voiceManager = VoiceRecordingManager.shared
     
+    // MARK: - State Properties
+    
+    /// Journal entry title input
     @State private var title = ""
+    
+    /// Journal entry content input
     @State private var content = ""
+    
+    /// Selected mood emoji for emotional tracking
     @State private var selectedMoodEmoji = ""
+    
+    /// Filename of recorded voice memo
     @State private var voiceRecordingFilename: String?
+    
+    /// Controls voice recording interface visibility
     @State private var showingVoiceInterface = false
+    
+    /// Controls pulse animation for mystical effects
     @State private var pulseAnimation = false
     
+    // MARK: - Focus Management
+    
+    /// Manages keyboard focus for text input fields
     @FocusState private var focusedField: Field?
     
+    /// Text field focus enumeration
     enum Field {
         case title, content, mood
     }
     
+    // MARK: - Computed Properties
+    
+    /// Current effective focus number for numerology display
     private var focusNumber: Int {
         focusNumberManager.effectiveFocusNumber
     }
     
+    /// Current realm number for numerology display
     private var realmNumber: Int {
         realmNumberManager.currentRealmNumber
     }
     
+    // MARK: - Body
+    
     var body: some View {
         NavigationView {
             ZStack {
-                // Cosmic Background
+                // MARK: - Cosmic Background Layer
                 CosmicBackgroundView()
                     .ignoresSafeArea()
                 
-                // Floating Sacred Numbers (subtle)
+                // MARK: - Floating Sacred Numbers Overlay
                 cosmicNumbersOverlay
                 
+                // MARK: - Main Content ScrollView
                 ScrollView {
                     VStack(spacing: 24) {
-                        // Sacred Header
+                        // MARK: - Sacred Header Section
                         sacredHeaderSection
                         
-                        // Sacred Numbers Display
+                        // MARK: - Sacred Numbers Display
                         numerologyBadgesSection
                         
-                        // Voice Recording Section
+                        // MARK: - Voice Recording Section
                         voiceRecordingSection
                         
-                        // Text Entry Section
+                        // MARK: - Text Entry Section
                         textEntrySection
                         
-                        // Mood Selection Section
+                        // MARK: - Mood Selection Section
                         moodSelectionSection
                         
-                        // Privacy Notice
+                        // MARK: - Privacy Notice Section
                         privacyNoticeSection
                     }
                     .padding(.horizontal, 20)
@@ -68,12 +154,14 @@ struct NewJournalEntryView: View {
             .navigationTitle("Sacred Reflection")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                // MARK: - Cancel Button
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") { 
                         cleanupAndDismiss()
                     }
                     .foregroundColor(.purple)
                 }
+                // MARK: - Save Button
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save") { 
                         saveEntry() 
@@ -84,10 +172,11 @@ struct NewJournalEntryView: View {
                 }
             }
             .onAppear {
+                // MARK: - Initialize Pulse Animation
                 withAnimation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true)) {
                     pulseAnimation = true
                 }
-                // Set initial focus to title field
+                // MARK: - Set Initial Focus to Title Field
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     focusedField = .title
                 }
