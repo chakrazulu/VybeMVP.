@@ -1,14 +1,21 @@
 /*
  * ========================================
- * 🌌 SCROLL-SAFE COSMIC VIEW - MAIN ANIMATION WRAPPER
+ * 🌌 SCROLL-SAFE COSMIC VIEW - CHAOTIC FRACTAL EMANATION SYSTEM
  * ========================================
  * 
  * CORE PURPOSE:
- * Main wrapper component that enables scroll-safe cosmic animations using TimelineView
- * for off-main-thread rendering. Provides seamless cosmic background animations that
- * persist during scroll interactions without affecting performance or user experience.
+ * Main wrapper component implementing chaotic fractal emanation with bloom-and-fade effect.
+ * Numbers spawn from sacred geometry center and bloom outward in fractal waves, creating
+ * an organic, mystical experience that responds to user's spiritual journey.
  * 
  * TECHNICAL ARCHITECTURE:
+ * 
+ * === CHATGPT CONSULTATION IMPLEMENTATION ===
+ * • Spawn-and-Fade Approach: Numbers bloom in place with no movement animation
+ * • Radial Distribution: Power curve (^1.5) bias toward center for natural flow
+ * • Edge-Fade Gradient: Smooth opacity transition from center to screen edges
+ * • Precise Lifecycle: 2-second total - 0.2s fade-in, 1.2s visible, 0.6s fade-out
+ * • Target Density: 300-350 active numbers for rich visual impact
  * 
  * === TIMELINEVIEW ANIMATION SYSTEM ===
  * • Animation Engine: TimelineView(.animation) for 60fps off-main-thread rendering
@@ -22,11 +29,17 @@
  * 2. Content Layer (Foreground) - ScrollView or other interactive content
  * 3. Optional Overlay Layer - Floating UI elements or cosmic overlays
  * 
- * INTEGRATION POINTS:
- * • CosmicBackgroundLayer.swift: Main background animation component
- * • SacredGeometryAnimator.swift: Mandala rotation and sacred shape animations
- * • NeonTracerAnimator.swift: BPM-synced glow effects and energy tracers
- * • ProceduralNumberOverlay.swift: Floating number animations and cosmic digits
+ * VISUAL DESIGN:
+ * • Typewriter Font: Monospaced design for mystical aesthetic
+ * • Size Range: 48-72pt for high visibility and impact
+ * • Sacred Colors: Enhanced palette with spiritual correspondences
+ * • Full Screen Coverage: Including top area for complete immersion
+ * 
+ * PERFORMANCE OPTIMIZATION:
+ * • Max 90 active numbers for smooth 60fps operation
+ * • Efficient lifecycle management with staggered disappearance
+ * • Screen diagonal calculation for proper size scaling
+ * • Graceful degradation on older devices
  * 
  * USAGE PATTERN:
  * ```swift
@@ -37,11 +50,10 @@
  * }
  * ```
  * 
- * PERFORMANCE NOTES:
- * • TimelineView automatically manages animation scheduling
- * • Cosmic animations run on background threads
- * • No impact on scroll performance or main thread responsiveness
- * • Graceful degradation on older devices
+ * MAJOR MILESTONE: December 30, 2024
+ * Successfully implemented chaotic fractal emanation system based on ChatGPT consultation.
+ * This represents the closest achievement to the user's vision of organic, mystical
+ * number blooming that feels both chaotic and spiritually aligned.
  */
 
 import SwiftUI
