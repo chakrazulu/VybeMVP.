@@ -164,6 +164,17 @@ Prevent AI session continuity issues by documenting every development decision, 
 - **Visible twinkling numbers** blooming from sacred geometry center
 - **No UI regression** in existing HomeView functionality
 
+### **TODO / Future Improvement: Dynamic Developer Test Harness**
+- **What:** Refactor the current test view (used for FPS, animation, and sacred geometry debugging) into a dynamic, parameterized developer test harness.
+- **Why:** To allow rapid creation and switching of test scenarios without needing to create a new SwiftUI view for each test. This will streamline development, debugging, and AI-assisted troubleshooting.
+- **Motivation:** Previous issues with AI restoring the wrong view and the need for rapid debugging highlighted the value of a flexible, always-accessible test harness. This will also prevent confusion for future AI/devs about why the bypass/dev screen exists.
+- **How:**
+    - Use an enum and Picker/SegmentedControl to select between test cases (e.g., Cosmic Animations, Sacred Geometry, etc.)
+    - Parameterize the test harness so new test cases can be added with minimal code changes
+    - Add controls for live parameter tweaking (e.g., FPS overlay, animation speed, number of objects)
+    - Document the harness and its toggles clearly in code
+- **Next:** Add a TODO comment in the test view code and keep this improvement in mind for future sprints.
+
 ---
 
 ## 🚨 **BUG LOG & ISSUE TRACKING**

@@ -12,6 +12,17 @@
  * - Proper layering and visual effects
  */
 
+// TODO: FUTURE IMPROVEMENT - DYNAMIC DEVELOPER TEST HARNESS
+// ----------------------------------------------------------
+// This test view is currently used for FPS, animation, and sacred geometry debugging.
+// In the future, refactor this into a dynamic, parameterized developer test harness.
+// - Motivation: Avoid creating a new SwiftUI view for every test scenario. Streamline development, debugging, and AI troubleshooting.
+// - Benefits: Rapidly switch between test cases (e.g., Cosmic Animations, Sacred Geometry, etc.) using a Picker/SegmentedControl.
+// - Approach: Use an enum for test types, parameterize the harness, and add controls for live tweaking (FPS overlay, animation speed, etc.).
+// - Context: Previous issues with AI restoring the wrong view and the need for rapid debugging highlighted the value of a flexible, always-accessible test harness.
+// - Action: Keep this improvement in mind for future sprints. See VYBE_MASTER_TASKFLOW_LOG.md for full details.
+// ----------------------------------------------------------
+
 import SwiftUI
 
 struct TestCosmicAnimationView: View {
