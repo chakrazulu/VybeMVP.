@@ -115,7 +115,7 @@ class OnboardingViewModel: ObservableObject {
                 
                 // ✨ New: Configure AIInsightManager with the newly saved profile
                 Task {
-                    await AIInsightManager.shared.configureAndRefreshInsight(for: profile)
+                    AIInsightManager.shared.configureAndRefreshInsight(for: profile)
                 }
                 
                 // ✨ Cache the newly created profile to UserDefaults so HomeView can access it immediately
