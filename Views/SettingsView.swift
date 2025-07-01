@@ -266,6 +266,30 @@ struct SettingsView: View {
                         Text("Numerology Notification Tester")
                     }
                 }
+                
+                NavigationLink(destination: TestSacredGeometry()) {
+                    HStack {
+                        Image(systemName: "sparkles")
+                            .foregroundColor(.purple)
+                        Text("Sacred Geometry Asset Viewer")
+                    }
+                }
+                
+                NavigationLink(destination: TestAdvancedSacredGeometry()) {
+                    HStack {
+                        Image(systemName: "gearshape.2")
+                            .foregroundColor(.orange)
+                        Text("Advanced Sacred Geometry Test")
+                    }
+                }
+                
+                NavigationLink(destination: AssetDebugView(number: 6)) {
+                    HStack {
+                        Image(systemName: "list.bullet")
+                            .foregroundColor(.green)
+                        Text("Asset Debug Viewer (Number 6)")
+                    }
+                }
             }
             #endif
         }
