@@ -1,3 +1,44 @@
+/*
+ * ========================================
+ * 🚀 VYBE MVP APP - MAIN APPLICATION ENTRY POINT
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Main SwiftUI app entry point with comprehensive Firebase integration, background task
+ * management, and notification handling. Manages app lifecycle, authentication flow,
+ * and cosmic animation system initialization.
+ * 
+ * TECHNICAL ARCHITECTURE:
+ * - AppDelegate: Firebase configuration, background tasks, notifications
+ * - VybeMVPApp: SwiftUI app structure with environment objects
+ * - AuthenticationWrapperView: Root navigation and auth flow
+ * - Cosmic Animation System: Scroll-safe animations with TimelineView
+ * 
+ * FIREBASE INTEGRATION:
+ * - Configuration: FirebaseApp.configure() in AppDelegate
+ * - Messaging: APNS token handling for push notifications
+ * - Background Tasks: Heart rate updates and realm number calculations
+ * - Authentication: Apple Sign-In with Firebase Auth
+ * 
+ * BACKGROUND TASK SYSTEM:
+ * - Heart Rate Updates: Periodic HealthKit data fetching
+ * - Realm Number Calculations: Cosmic number updates
+ * - Notification Scheduling: Numerology-based insights
+ * - Performance Monitoring: Cosmic animation metrics
+ * 
+ * NOTIFICATION SYSTEM:
+ * - APNS Integration: Device token registration
+ * - Foreground Handling: Banner, list, sound, badge options
+ * - Background Processing: Numerology message delivery
+ * - User Interaction: Tap handling and deep linking
+ * 
+ * PERFORMANCE OPTIMIZATION:
+ * - Lazy Loading: Mandala assets loaded on demand
+ * - Memory Management: Proper cleanup of background tasks
+ * - Animation Performance: 60fps cosmic animation system
+ * - Background Efficiency: Minimal resource usage
+ */
+
 import SwiftUI
 import os.log
 import BackgroundTasks
@@ -6,6 +47,15 @@ import FirebaseMessaging
 import UserNotifications
 import CoreData
 
+/**
+ * AppDelegate: iOS application delegate managing Firebase, background tasks, and notifications
+ * 
+ * Handles:
+ * - Firebase configuration and initialization
+ * - Background task registration and scheduling
+ * - Push notification setup and token management
+ * - App lifecycle events and state management
+ */
 class AppDelegate: NSObject, UIApplicationDelegate {
     var realmNumberManager: RealmNumberManager?
     var journalManager: JournalManager?
@@ -122,6 +172,20 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
 }
 
+/**
+ * VybeMVPApp: Main SwiftUI application structure with cosmic animation system
+ * 
+ * Provides:
+ * - Environment objects for all major managers and services
+ * - Authentication flow management via AuthenticationWrapperView
+ * - Background task coordination and performance monitoring
+ * - Cosmic animation system initialization and optimization
+ * 
+ * State Management:
+ * - @StateObject: All major managers (realm, focus, health, etc.)
+ * - @EnvironmentObject: Shared across all views
+ * - @State: Local app state (onboarding, scene phase)
+ */
 @main
 struct VybeMVPApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate

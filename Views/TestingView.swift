@@ -1,3 +1,52 @@
+/*
+ * ========================================
+ * 🧪 TESTING VIEW - MATCH DETECTION VALIDATION
+ * ========================================
+ * 
+ * CORE PURPOSE:
+ * Development and testing interface for validating cosmic match detection system.
+ * Provides manual controls for testing focus number changes, realm number updates,
+ * and match history tracking. Essential for debugging and validating match logic.
+ * 
+ * TESTING FEATURES:
+ * - Focus Number Display: Shows current selected focus number
+ * - Realm Number Display: Shows current calculated realm number
+ * - Manual Controls: Force focus number changes and realm number updates
+ * - Match History: Displays all recorded cosmic matches with timestamps
+ * - Match Simulation: Force matches for testing celebration effects
+ * 
+ * INTEGRATION POINTS:
+ * - FocusNumberManager: Source of truth for focus number state and match logs
+ * - RealmNumberManager: Current realm number calculations and updates
+ * - VybeMatchManager: Match detection and celebration system
+ * - SettingsView: Accessible via Settings → Testing → Match Testing
+ * 
+ * TESTING CONTROLS:
+ * - Change Focus Number: Cycles through numbers 1-9 for testing
+ * - Force Realm Number Match: Sets realm to match focus for instant match
+ * - Set Random Realm Number: Generates random realm number 1-9
+ * - Match History: Shows all recorded matches with timestamps
+ * 
+ * USAGE SCENARIOS:
+ * - Development: Testing match detection algorithms
+ * - Debugging: Validating cosmic match celebration effects
+ * - QA Testing: Manual validation of number synchronization
+ * - User Testing: Demonstrating cosmic match system functionality
+ * 
+ * TECHNICAL ARCHITECTURE:
+ * - @EnvironmentObject: Reactive binding to managers
+ * - List Layout: Organized sections for different testing features
+ * - Date Formatting: Custom formatter for match timestamps
+ * - Navigation: Embedded in SettingsView navigation structure
+ * 
+ * MATCH LOGGING:
+ * - Timestamp: Precise time of match occurrence
+ * - Focus Number: User's selected focus number
+ * - Realm Number: Calculated realm number at match time
+ * - Persistence: Match logs stored in FocusNumberManager
+ * - Display: Chronological list with formatted timestamps
+ */
+
 //
 //  TestingView.swift
 //  VybeMVP
@@ -7,6 +56,19 @@
 
 import SwiftUI
 
+/**
+ * TestingView: Cosmic match detection testing and validation interface
+ * 
+ * Provides comprehensive testing tools for the cosmic match detection system,
+ * including manual controls, match history, and real-time number display.
+ * Essential for development, debugging, and user testing of match functionality.
+ * 
+ * Features:
+ * - Real-time number display and updates
+ * - Manual testing controls for match simulation
+ * - Complete match history with timestamps
+ * - Integration with cosmic match celebration system
+ */
 struct TestingView: View {
     @EnvironmentObject var focusNumberManager: FocusNumberManager
     @EnvironmentObject var realmNumberManager: RealmNumberManager
