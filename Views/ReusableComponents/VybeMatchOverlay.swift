@@ -16,7 +16,7 @@
 //  • VYBE + subtitle spacing: 12pts vertical gap
 //  • Subtitle text: 18pt font, medium weight
 //  • Sacred number display: 80pt font, centered
-//  • Bottom spacer: 40pts (RESERVED for future action buttons)
+//  • Action buttons: 60×50pt each, 2 rows (Phase 2.2 enhancement)
 //
 //  === ANIMATION SPECIFICATIONS ===
 //  • Entrance scale: 0.1 → 1.2 → 1.0 (dramatic growth effect)
@@ -43,10 +43,11 @@
 //  • Content tap: 380×300pt bubble area (prevents background dismiss)
 //  • Close button: ~44×44pt touch target (top-right corner)
 //
-//  === FUTURE EXPANSION AREAS ===
-//  • Bottom 40pts reserved for action buttons (share, save, etc.)
-//  • Bubble can expand vertically to 350pts if needed
-//  • Particle system can accommodate 8-12 objects without performance impact
+//  === PHASE 2.2 ENHANCEMENTS ===
+//  • Action buttons: View Insight, Start Meditation, Journal Entry, Log Sighting, Close
+//  • Delayed reveal: 1.5s after entrance animation for better UX flow
+//  • Haptic feedback: Light feedback on button press, medium on action selection
+//  • Future expansion: Bubble can expand vertically to 350pts if needed
 //
 //  Created for cosmic match celebration when Focus Number == Realm Number
 //  This overlay appears with mystical animations synchronized to user's heart rate
@@ -65,6 +66,7 @@ import Combine
  * - Synchronizes animations with user's heart rate for personalized experience
  * - Uses TimelineView to prevent interruption during scrolling
  * - Enhanced with sacred number display and multi-modal celebrations
+ * - Phase 2.2: Interactive action buttons for spiritual engagement
  * 
  * Design Philosophy:
  * - Celebrates the sacred moment of numerical alignment
@@ -108,6 +110,12 @@ struct VybeMatchOverlay: View {
     
     /// Particle animation phase for enhanced effects
     @State private var particlePhase: Double = 0
+    
+    /// Whether action buttons should be visible (delayed appearance for better UX)
+    @State private var showActionButtons: Bool = false
+    
+    /// Which action button is currently highlighted
+    @State private var highlightedAction: ActionType? = nil
     
     // MARK: - Configuration
     
@@ -179,7 +187,12 @@ struct VybeMatchOverlay: View {
                     // 🌟 SACRED NUMBER DISPLAY: Enhanced number celebration
                     sacredNumberDisplay
                     
-                    Spacer(minLength: 40) // 40pt bottom spacer: RESERVED for future action buttons
+                    // 🎯 PHASE 2.2: ACTION BUTTONS - Enhanced cosmic match interactions
+                    if showActionButtons {
+                        cosmicActionButtons
+                    } else {
+                        Spacer(minLength: 40) // 40pt bottom spacer during entrance animation
+                    }
                 }
                 .frame(width: 380, height: 300) // 🎯 CRITICAL: Bubble dimensions optimized for iPhone 14 Pro Max
                 .background(
@@ -364,6 +377,89 @@ struct VybeMatchOverlay: View {
         .opacity(backgroundGlow) // Sync with main breathing animation
     }
     
+    /// 🎯 PHASE 2.2: COSMIC ACTION BUTTONS - Enhanced interaction options for spiritual engagement
+    private var cosmicActionButtons: some View {
+        VStack(spacing: 12) {
+            // First row: Primary spiritual actions
+            HStack(spacing: 15) {
+                actionButton(for: .viewInsight)
+                actionButton(for: .startMeditation)
+                actionButton(for: .journalEntry)
+            }
+            
+            // Second row: Secondary actions
+            HStack(spacing: 15) {
+                actionButton(for: .logSighting)
+                Spacer()
+                actionButton(for: .close)
+            }
+        }
+        .padding(.horizontal, 20) // 20pt horizontal padding within bubble
+        .padding(.bottom, 15) // 15pt from bottom of bubble
+        .opacity(showActionButtons ? 1.0 : 0.0)
+        .scaleEffect(showActionButtons ? 1.0 : 0.8)
+        .animation(.spring(response: 0.6, dampingFraction: 0.8), value: showActionButtons)
+    }
+    
+    /// Individual action button with cosmic styling
+    private func actionButton(for action: ActionType) -> some View {
+        Button(action: {
+            handleAction(action)
+        }) {
+            VStack(spacing: 4) {
+                // Icon
+                Image(systemName: action.icon)
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.white)
+                
+                // Label
+                Text(action.rawValue)
+                    .font(.system(size: 10, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.9))
+                    .multilineTextAlignment(.center)
+            }
+            .frame(width: 60, height: 50) // Compact button size
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                action.color.opacity(0.3),
+                                action.color.opacity(0.1)
+                            ]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(action.color.opacity(0.5), lineWidth: 1)
+                    )
+            )
+            .scaleEffect(highlightedAction == action ? 1.1 : 1.0)
+            .shadow(
+                color: action.color.opacity(0.3),
+                radius: highlightedAction == action ? 8 : 4
+            )
+        }
+        .onLongPressGesture(minimumDuration: 0.1) {
+            // Haptic feedback on press
+            let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+            impactFeedback.impactOccurred()
+            
+            // Highlight effect
+            withAnimation(.easeInOut(duration: 0.1)) {
+                highlightedAction = action
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    highlightedAction = nil
+                }
+            }
+        }
+    }
+    
     /// ✨ ENHANCED COSMIC PARTICLES: Sacred geometry-inspired particles with number-specific patterns
     private var enhancedCosmicParticles: some View {
         ZStack {
@@ -440,6 +536,47 @@ struct VybeMatchOverlay: View {
         }
     }
     
+    // MARK: - Action Handling
+    
+    /// Handles action button taps with appropriate navigation and logging
+    private func handleAction(_ action: ActionType) {
+        print("🎯 Phase 2.2: User selected action: \(action.rawValue)")
+        
+        // Haptic feedback for action selection
+        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+        impactFeedback.impactOccurred()
+        
+        switch action {
+        case .viewInsight:
+            print("🌟 Opening insight view for matched number \(matchedNumber)")
+            // TODO: Navigate to insight detail view
+            // For now, just dismiss the overlay
+            isVisible = false
+            
+        case .startMeditation:
+            print("🧘 Starting meditation session for number \(matchedNumber)")
+            // TODO: Navigate to meditation view
+            // For now, just dismiss the overlay
+            isVisible = false
+            
+        case .journalEntry:
+            print("📖 Opening journal entry for cosmic match")
+            // TODO: Navigate to journal view with pre-filled match data
+            // For now, just dismiss the overlay
+            isVisible = false
+            
+        case .logSighting:
+            print("👁️ Logging cosmic match sighting")
+            // TODO: Show sighting log interface
+            // For now, just dismiss the overlay
+            isVisible = false
+            
+        case .close:
+            print("❌ User closed cosmic match overlay")
+            isVisible = false
+        }
+    }
+    
     // MARK: - Animation Logic
     
     /**
@@ -469,6 +606,8 @@ struct VybeMatchOverlay: View {
             visibilityDuration = 0
             pulsePhase = 0
             particlePhase = 0
+            showActionButtons = false
+            highlightedAction = nil
             
             // Start entrance animations
             startEntranceAnimations()
@@ -478,6 +617,8 @@ struct VybeMatchOverlay: View {
             
             // Reset all animation states
             resetAnimationStates()
+            showActionButtons = false
+            highlightedAction = nil
         }
     }
     
@@ -522,6 +663,16 @@ struct VybeMatchOverlay: View {
             }
             withAnimation(.linear(duration: 15).repeatForever(autoreverses: false)) {
                 self.particlePhase = 360
+            }
+        }
+        
+        // 🎯 PHASE 2.2: Show action buttons after entrance animation completes (1.5s delay)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            if self.isVisible { // Only show if overlay is still visible
+                withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                    self.showActionButtons = true
+                }
+                print("🎯 Phase 2.2: Action buttons revealed")
             }
         }
     }
@@ -572,6 +723,8 @@ struct VybeMatchOverlay: View {
         particlePhase = 0
         pulsePhase = 0
         visibilityDuration = 0
+        showActionButtons = false
+        highlightedAction = nil
     }
 }
 
@@ -713,5 +866,38 @@ struct VybeMatchOverlay_Previews: PreviewProvider {
         }
         .previewLayout(.sizeThatFits)
         .frame(width: 400, height: 600)
+    }
+}
+
+// MARK: - Supporting Types
+
+/// Action types available in the enhanced cosmic match overlay
+enum ActionType: String, CaseIterable {
+    case viewInsight = "View Insight"
+    case startMeditation = "Start Meditation"
+    case journalEntry = "Journal Entry"
+    case logSighting = "Log Sighting"
+    case close = "Close"
+    
+    /// Icon for each action type
+    var icon: String {
+        switch self {
+        case .viewInsight: return "sparkles"
+        case .startMeditation: return "leaf"
+        case .journalEntry: return "book"
+        case .logSighting: return "eye"
+        case .close: return "xmark"
+        }
+    }
+    
+    /// Color theme for each action type
+    var color: Color {
+        switch self {
+        case .viewInsight: return .cyan
+        case .startMeditation: return .green
+        case .journalEntry: return .orange
+        case .logSighting: return .purple
+        case .close: return .red
+        }
     }
 } 
