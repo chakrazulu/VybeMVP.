@@ -105,6 +105,10 @@ struct ContentView: View {
     /// Tracks the currently selected tab
     @State private var selectedTab = 0
     
+    /// 🧪 TEMPORARY: Test button state for Phase 2 testing
+    @State private var currentTestNumber = 1
+    @State private var showTestButton = true
+    
     var body: some View {
         ZStack { // 🎯 ROOT CONTAINER: Full screen ZStack for layered content
             NavigationView { // 📱 NAVIGATION WRAPPER: Required for tab-based navigation
@@ -235,6 +239,69 @@ struct ContentView: View {
                 matchedNumber: vybeMatchManager.currentMatchedNumber,
                 heartRate: vybeMatchManager.currentHeartRate
             )
+            
+            // 🧪 TEMPORARY: Phase 2 Test Button (REMOVE AFTER TESTING)
+            if showTestButton {
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        VStack(spacing: 8) {
+                            // Test all numbers button
+                            Button(action: {
+                                testAllNumbers()
+                            }) {
+                                VStack(spacing: 4) {
+                                    Image(systemName: "sparkles")
+                                        .font(.title2)
+                                    Text("Test All")
+                                        .font(.caption)
+                                        .fontWeight(.semibold)
+                                }
+                                .foregroundColor(.white)
+                                .frame(width: 70, height: 60)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color.purple.opacity(0.8))
+                                        .shadow(radius: 4)
+                                )
+                            }
+                            
+                            // Single number test button
+                            Button(action: {
+                                testSingleNumber()
+                            }) {
+                                VStack(spacing: 4) {
+                                    Text("\(currentTestNumber)")
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                    Text("Test")
+                                        .font(.caption)
+                                        .fontWeight(.semibold)
+                                }
+                                .foregroundColor(.white)
+                                .frame(width: 70, height: 60)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color.blue.opacity(0.8))
+                                        .shadow(radius: 4)
+                                )
+                            }
+                            
+                            // Hide button
+                            Button(action: {
+                                showTestButton = false
+                            }) {
+                                Image(systemName: "xmark.circle.fill")
+                                    .font(.title3)
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                        .padding(.trailing, 20)
+                    }
+                    .padding(.bottom, 100) // Above tab bar
+                }
+            }
         }
         .sheet(isPresented: $showNotificationSheet) {
             // Present the NumberMatchNotificationView when showNotificationSheet is true
@@ -323,6 +390,27 @@ struct ContentView: View {
             // Refresh insights when app comes to foreground
             aiInsightManager.refreshInsightIfNeeded()
         }
+    }
+    
+    // 🧪 TEMPORARY: Phase 2 Testing Functions (REMOVE AFTER TESTING)
+    
+    /// Tests all 9 sacred numbers with 3-second delays
+    private func testAllNumbers() {
+        print("🧪 Testing all 9 sacred numbers...")
+        for i in 1...9 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 3.0) {
+                vybeMatchManager.simulateMatch(for: i)
+            }
+        }
+    }
+    
+    /// Tests a single number and cycles to the next
+    private func testSingleNumber() {
+        print("🧪 Testing sacred number \(currentTestNumber)...")
+        vybeMatchManager.simulateMatch(for: currentTestNumber)
+        
+        // Cycle to next number (1-9)
+        currentTestNumber = currentTestNumber == 9 ? 1 : currentTestNumber + 1
     }
 }
 

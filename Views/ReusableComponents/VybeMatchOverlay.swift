@@ -15,6 +15,7 @@
 //  • VYBE text: 64pt font, centered horizontally
 //  • VYBE + subtitle spacing: 12pts vertical gap
 //  • Subtitle text: 18pt font, medium weight
+//  • Sacred number display: 80pt font, centered
 //  • Bottom spacer: 40pts (RESERVED for future action buttons)
 //
 //  === ANIMATION SPECIFICATIONS ===
@@ -23,6 +24,7 @@
 //  • Glow breathing: 75% to 95% opacity variation
 //  • Animation timing: 1.5π frequency (slower, ethereal feel)
 //  • Particle rotation: 360° over 20 seconds, linear
+//  • Sacred number pulse: Synchronized with haptic feedback
 //
 //  === GLASS-MORPHISM STYLING ===
 //  • Background: 15% to 5% white gradient (top-left to bottom-right)
@@ -33,7 +35,8 @@
 //  === TYPOGRAPHY HIERARCHY ===
 //  • VYBE text: 64pt, black weight, rounded design, rainbow gradient
 //  • Subtitle: 18pt, medium weight, rounded design, 90% white opacity
-//  • Both scale with main animation (85% for subtitle)
+//  • Sacred number: 80pt, black weight, rounded design, chakra colors
+//  • All scale with main animation (85% for subtitle, 90% for number)
 //
 //  === INTERACTION ZONES ===
 //  • Background tap: Full screen area (dismisses overlay)
@@ -47,6 +50,7 @@
 //
 //  Created for cosmic match celebration when Focus Number == Realm Number
 //  This overlay appears with mystical animations synchronized to user's heart rate
+//  Enhanced with multi-modal celebrations (haptics, audio, particles)
 //
 
 @preconcurrency import SwiftUI
@@ -60,11 +64,13 @@ import Combine
  * - Creates immersive cosmic celebration with pulsing "Vybe" symbol
  * - Synchronizes animations with user's heart rate for personalized experience
  * - Uses TimelineView to prevent interruption during scrolling
+ * - Enhanced with sacred number display and multi-modal celebrations
  * 
  * Design Philosophy:
  * - Celebrates the sacred moment of numerical alignment
  * - Enhances the mystical experience without being intrusive
  * - Provides visual feedback for the core app mechanic
+ * - Creates deep emotional connection through multi-sensory experience
  */
 struct VybeMatchOverlay: View {
     
@@ -94,6 +100,15 @@ struct VybeMatchOverlay: View {
     /// Rotation angle for the cosmic elements
     @State private var cosmicRotation: Double = 0
     
+    /// Scale factor for the sacred number display
+    @State private var numberScale: Double = 1.0
+    
+    /// Opacity for the sacred number glow
+    @State private var numberGlow: Double = 0.0
+    
+    /// Particle animation phase for enhanced effects
+    @State private var particlePhase: Double = 0
+    
     // MARK: - Configuration
     
     /// How long the overlay stays visible (in seconds) - extended for better experience
@@ -108,6 +123,21 @@ struct VybeMatchOverlay: View {
     /// Maximum heart rate for animation timing
     private let maxHeartRate: Double = 120.0
     
+    // MARK: - Sacred Number Properties
+    
+    /// Sacred number meanings and colors for enhanced display
+    private let sacredNumberData: [Int: SacredNumberInfo] = [
+        1: SacredNumberInfo(name: "Leadership", color: .red, chakra: "Root"),
+        2: SacredNumberInfo(name: "Harmony", color: .orange, chakra: "Sacral"),
+        3: SacredNumberInfo(name: "Creativity", color: .yellow, chakra: "Solar Plexus"),
+        4: SacredNumberInfo(name: "Stability", color: .green, chakra: "Heart"),
+        5: SacredNumberInfo(name: "Freedom", color: .blue, chakra: "Throat"),
+        6: SacredNumberInfo(name: "Nurturing", color: .indigo, chakra: "Third Eye"),
+        7: SacredNumberInfo(name: "Spirituality", color: .purple, chakra: "Crown"),
+        8: SacredNumberInfo(name: "Power", color: .pink, chakra: "Universal"),
+        9: SacredNumberInfo(name: "Completion", color: .white, chakra: "Source")
+    ]
+    
     // MARK: - Computed Properties
     
     /// Animation duration based on heart rate (faster heart rate = faster animation)
@@ -121,6 +151,11 @@ struct VybeMatchOverlay: View {
         
         // Duration ranges from 1.5s (slow heart) to 0.6s (fast heart)
         return 1.5 - (normalizedBPM * 0.9)
+    }
+    
+    /// Sacred number information for the matched number
+    private var currentSacredNumber: SacredNumberInfo? {
+        return sacredNumberData[matchedNumber]
     }
     
     var body: some View {
@@ -140,6 +175,9 @@ struct VybeMatchOverlay: View {
                     
                     // 🌟 VYBE SYMBOL: Primary cosmic celebration text
                     vybeSymbol
+                    
+                    // 🌟 SACRED NUMBER DISPLAY: Enhanced number celebration
+                    sacredNumberDisplay
                     
                     Spacer(minLength: 40) // 40pt bottom spacer: RESERVED for future action buttons
                 }
@@ -179,8 +217,8 @@ struct VybeMatchOverlay: View {
                     // Prevent background tap when tapping content
                 }
                 
-                // Particle effects around the symbol
-                cosmicParticles
+                // Enhanced particle effects around the symbol
+                enhancedCosmicParticles
                 
                 // Close button in top-right corner
                 VStack {
@@ -287,39 +325,52 @@ struct VybeMatchOverlay: View {
         }
     }
     
-    /// Display of the matched number with enhanced cosmic styling
-    private var matchedNumberDisplay: some View {
-        VStack(spacing: 12) {
-            Text("Sacred Number")
-                .font(.system(size: 18, weight: .semibold)) // Increased from 14 to 18
-                .foregroundColor(.white.opacity(0.9))
-            
-            Text("\(matchedNumber)")
-                .font(.system(size: 80, weight: .black, design: .rounded)) // Reduced from 96 to 80 for better fit
-                .foregroundStyle(
-                    LinearGradient(
-                        gradient: Gradient(colors: [
-                            Color.yellow,
-                            Color.orange,
-                            Color.red
-                        ]),
-                        startPoint: .top,
-                        endPoint: .bottom
+    /// 🌟 SACRED NUMBER DISPLAY: Enhanced number celebration with chakra colors and spiritual meaning
+    private var sacredNumberDisplay: some View {
+        VStack(spacing: 8) {
+            if let sacredInfo = currentSacredNumber {
+                // Sacred number with chakra color
+                Text("\(matchedNumber)")
+                    .font(.system(size: 80, weight: .black, design: .rounded)) // 80pt: Perfect for 380pt bubble
+                    .foregroundStyle(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                sacredInfo.color,
+                                sacredInfo.color.opacity(0.7),
+                                sacredInfo.color.opacity(0.4)
+                            ]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
                     )
-                )
-                .shadow(color: .yellow, radius: 20)
-                .shadow(color: .orange, radius: 30)
-                .scaleEffect(symbolScale * 0.85)
+                    .scaleEffect(numberScale) // Responds to haptic feedback
+                    .shadow(color: sacredInfo.color, radius: 20) // Inner glow
+                    .shadow(color: sacredInfo.color.opacity(0.5), radius: 30) // Outer glow
+                    .opacity(numberGlow) // Pulsing opacity synchronized with haptics
+                
+                // Sacred number meaning
+                Text(sacredInfo.name)
+                    .font(.system(size: 16, weight: .semibold, design: .rounded))
+                    .foregroundColor(.white.opacity(0.8))
+                    .scaleEffect(numberScale * 0.9) // 90% of number scale
+                
+                // Chakra information
+                Text(sacredInfo.chakra + " Chakra")
+                    .font(.system(size: 14, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.6))
+                    .scaleEffect(numberScale * 0.8) // 80% of number scale
+            }
         }
-        .opacity(backgroundGlow)
+        .opacity(backgroundGlow) // Sync with main breathing animation
     }
     
-    /// ✨ COSMIC PARTICLES: 8 orbiting white dots around the bubble (145pt radius)
-    private var cosmicParticles: some View {
+    /// ✨ ENHANCED COSMIC PARTICLES: Sacred geometry-inspired particles with number-specific patterns
+    private var enhancedCosmicParticles: some View {
         ZStack {
+            // Base particle ring (8 particles)
             ForEach(0..<8, id: \.self) { particleIndex in
                 let angle = Double(particleIndex) * .pi / 4 + cosmicRotation * .pi / 180 // 45° spacing + rotation
-                let radius: Double = 145 // 145pt orbit radius: Perfect for 380pt bubble (38% larger than bubble)
+                let radius: Double = 145 // 145pt orbit radius: Perfect for 380pt bubble
                 
                 Circle()
                     .fill(Color.white.opacity(0.9)) // 90% white opacity for cosmic shimmer
@@ -328,11 +379,65 @@ struct VybeMatchOverlay: View {
                         x: cos(angle) * radius, // X position on orbit
                         y: sin(angle) * radius  // Y position on orbit
                     )
-                    .opacity(backgroundGlow * 0.9) // Sync with breathing animation (67% to 85% final opacity)
+                    .opacity(backgroundGlow * 0.9) // Sync with breathing animation
                     .scaleEffect(symbolScale * 0.6) // 60% of main scale for subtle size variation
+            }
+            
+            // Sacred geometry particles (number-specific)
+            if let sacredInfo = currentSacredNumber {
+                ForEach(0..<getSacredGeometryCount(for: matchedNumber), id: \.self) { geometryIndex in
+                    let angle = Double(geometryIndex) * (2 * .pi / Double(getSacredGeometryCount(for: matchedNumber))) + particlePhase
+                    let radius: Double = 120 + Double(geometryIndex % 2) * 20 // Alternating radii for depth
+                    
+                    // Sacred geometry shape based on number
+                    sacredGeometryShape(for: matchedNumber)
+                        .fill(sacredInfo.color.opacity(0.8))
+                        .frame(width: 8, height: 8)
+                        .offset(
+                            x: cos(angle) * radius,
+                            y: sin(angle) * radius
+                        )
+                        .opacity(backgroundGlow * 0.7)
+                        .scaleEffect(symbolScale * 0.5)
+                        .rotationEffect(.degrees(particlePhase * 30)) // Individual rotation
+                }
             }
         }
         .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height * 0.42) // 🎯 EXACT MATCH: Same center as bubble
+    }
+    
+    // MARK: - Helper Methods
+    
+    /// Returns the number of sacred geometry particles for a given number
+    private func getSacredGeometryCount(for number: Int) -> Int {
+        switch number {
+        case 1: return 1  // Unity - single point
+        case 2: return 2  // Duality - two points
+        case 3: return 3  // Trinity - three points
+        case 4: return 4  // Foundation - four points
+        case 5: return 5  // Freedom - five points
+        case 6: return 6  // Nurturing - six points
+        case 7: return 7  // Spirituality - seven points
+        case 8: return 8  // Power - eight points
+        case 9: return 9  // Completion - nine points
+        default: return 8
+        }
+    }
+    
+    /// Returns the appropriate sacred geometry shape for a given number
+    private func sacredGeometryShape(for number: Int) -> some Shape {
+        switch number {
+        case 1: return AnyShape(Circle()) // Point/Unity
+        case 2: return AnyShape(Rectangle()) // Line/Duality
+        case 3: return AnyShape(Triangle()) // Triangle/Trinity
+        case 4: return AnyShape(Rectangle()) // Square/Foundation
+        case 5: return AnyShape(Pentagon()) // Pentagon/Freedom
+        case 6: return AnyShape(Hexagon()) // Hexagon/Nurturing
+        case 7: return AnyShape(Heptagon()) // Heptagon/Spirituality
+        case 8: return AnyShape(Octagon()) // Octagon/Power
+        case 9: return AnyShape(Circle()) // Circle/Completion
+        default: return AnyShape(Circle())
+        }
     }
     
     // MARK: - Animation Logic
@@ -353,6 +458,9 @@ struct VybeMatchOverlay: View {
         if newValue {
             print("🌟 ===== VYBE MATCH OVERLAY ACTIVATED =====")
             print("🌟 Matched Number: \(matchedNumber)")
+            if let sacredInfo = currentSacredNumber {
+                print("🌟 Sacred Number: \(sacredInfo.name) (\(sacredInfo.chakra) Chakra)")
+            }
             print("🌟 Heart Rate: \(heartRate) BPM")
             print("🌟 Animation Duration: \(String(format: "%.2f", heartRateAnimationDuration))s")
             print("🌟 Display Duration: \(displayDuration)s (tap to dismiss early)")
@@ -360,6 +468,7 @@ struct VybeMatchOverlay: View {
             // Reset animation state
             visibilityDuration = 0
             pulsePhase = 0
+            particlePhase = 0
             
             // Start entrance animations
             startEntranceAnimations()
@@ -379,7 +488,9 @@ struct VybeMatchOverlay: View {
     private func startEntranceAnimations() {
         // Start with tiny scale for dramatic growth effect
         symbolScale = 0.1
+        numberScale = 0.1
         backgroundGlow = 0.0
+        numberGlow = 0.0
         
         // Phase 1: Background fades in quickly (0.3s)
         withAnimation(.easeOut(duration: 0.3)) {
@@ -389,15 +500,18 @@ struct VybeMatchOverlay: View {
         // Phase 2: Dramatic scale growth with powerful spring effect (0.8s)
         withAnimation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.2)) {
             symbolScale = 1.2 // Slightly larger than final for dramatic effect
+            numberScale = 1.1 // Sacred number grows slightly after VYBE
         }
         
         // Phase 3: Settle to final size and full glow (0.4s delay)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
             withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                 self.symbolScale = 1.0 // Final size
+                self.numberScale = 1.0 // Final size
             }
             withAnimation(.easeInOut(duration: 0.6)) {
                 self.backgroundGlow = 1.0 // Full cosmic glow
+                self.numberGlow = 1.0 // Full number glow
             }
         }
         
@@ -405,6 +519,9 @@ struct VybeMatchOverlay: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             withAnimation(.linear(duration: 20).repeatForever(autoreverses: false)) {
                 self.cosmicRotation = 360
+            }
+            withAnimation(.linear(duration: 15).repeatForever(autoreverses: false)) {
+                self.particlePhase = 360
             }
         }
     }
@@ -435,6 +552,11 @@ struct VybeMatchOverlay: View {
         
         // ✨ ETHEREAL GLOW BREATHING: Subtle opacity pulse synchronized with floating
         backgroundGlow = 0.85 + (floatValue * 0.1) // 10% variation: Gentle pulse (75% to 95% opacity)
+        
+        // 🌟 SACRED NUMBER PULSE: Synchronized with haptic feedback pattern
+        let numberPulse = sin(pulsePhase * 2.0 * .pi) // 2π frequency: More pronounced for number
+        numberScale = 1.0 + (numberPulse * 0.05) // ±5% scale variation for number emphasis
+        numberGlow = 0.9 + (numberPulse * 0.1) // 10% opacity variation for number glow
     }
     
     /**
@@ -443,12 +565,138 @@ struct VybeMatchOverlay: View {
      */
     private func resetAnimationStates() {
         symbolScale = 1.0
+        numberScale = 1.0
         backgroundGlow = 0.0
+        numberGlow = 0.0
         cosmicRotation = 0
+        particlePhase = 0
         pulsePhase = 0
         visibilityDuration = 0
     }
 }
+
+// MARK: - Sacred Number Information Model
+
+/**
+ * Represents sacred number information for enhanced display
+ */
+struct SacredNumberInfo {
+    let name: String
+    let color: Color
+    let chakra: String
+}
+
+// MARK: - Sacred Geometry Shapes
+
+/// Triangle shape for sacred geometry particles
+struct Triangle: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.closeSubpath()
+        return path
+    }
+}
+
+/// Pentagon shape for sacred geometry particles
+struct Pentagon: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let center = CGPoint(x: rect.midX, y: rect.midY)
+        let radius = min(rect.width, rect.height) / 2
+        
+        for i in 0..<5 {
+            let angle = Double(i) * 2 * .pi / 5 - .pi / 2
+            let point = CGPoint(
+                x: center.x + radius * Foundation.cos(angle),
+                y: center.y + radius * Foundation.sin(angle)
+            )
+            if i == 0 {
+                path.move(to: point)
+            } else {
+                path.addLine(to: point)
+            }
+        }
+        path.closeSubpath()
+        return path
+    }
+}
+
+/// Hexagon shape for sacred geometry particles
+struct Hexagon: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let center = CGPoint(x: rect.midX, y: rect.midY)
+        let radius = min(rect.width, rect.height) / 2
+        
+        for i in 0..<6 {
+            let angle = Double(i) * 2 * .pi / 6
+            let point = CGPoint(
+                x: center.x + radius * Foundation.cos(angle),
+                y: center.y + radius * Foundation.sin(angle)
+            )
+            if i == 0 {
+                path.move(to: point)
+            } else {
+                path.addLine(to: point)
+            }
+        }
+        path.closeSubpath()
+        return path
+    }
+}
+
+/// Heptagon shape for sacred geometry particles
+struct Heptagon: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let center = CGPoint(x: rect.midX, y: rect.midY)
+        let radius = min(rect.width, rect.height) / 2
+        
+        for i in 0..<7 {
+            let angle = Double(i) * 2 * .pi / 7 - .pi / 2
+            let point = CGPoint(
+                x: center.x + radius * Foundation.cos(angle),
+                y: center.y + radius * Foundation.sin(angle)
+            )
+            if i == 0 {
+                path.move(to: point)
+            } else {
+                path.addLine(to: point)
+            }
+        }
+        path.closeSubpath()
+        return path
+    }
+}
+
+/// Octagon shape for sacred geometry particles
+struct Octagon: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let center = CGPoint(x: rect.midX, y: rect.midY)
+        let radius = min(rect.width, rect.height) / 2
+        
+        for i in 0..<8 {
+            let angle = Double(i) * 2 * .pi / 8
+            let point = CGPoint(
+                x: center.x + radius * Foundation.cos(angle),
+                y: center.y + radius * Foundation.sin(angle)
+            )
+            if i == 0 {
+                path.move(to: point)
+            } else {
+                path.addLine(to: point)
+            }
+        }
+        path.closeSubpath()
+        return path
+    }
+}
+
+// Note: AnyShape is defined in SacredGeometryView.swift to avoid duplication
 
 // MARK: - Preview
 

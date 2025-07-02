@@ -55,7 +55,8 @@ struct NeonTracerView: View {
         .onAppear {
             // Only log BPM changes, not every restart
             if bpm > 0 {
-                print("🌟 NeonTracer: Syncing to \(Int(bpm)) BPM (scroll-safe)")
+                // Reduced BPM sync logging to avoid spam
+        // print("🌟 NeonTracer: Syncing to \(Int(bpm)) BPM (scroll-safe)")
             }
         }
     }

@@ -166,8 +166,9 @@ struct ScrollSafeCosmicView<Content: View>: View {
             
             lastSpawnTime = currentTime
             
-            if numbersToSpawn > 0 {
-                print("🌟 Spawned \(numbersToSpawn) numbers - Active: \(numbers.count)/\(maxActiveNumbers)")
+            // Simplified logging: only log every 50 spawns to reduce console spam
+            if numbersToSpawn > 0 && numbers.count % 50 == 0 {
+                print("🌟 Twinkling numbers active: \(numbers.count)/\(maxActiveNumbers)")
             }
         }
     }

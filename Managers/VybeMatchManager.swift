@@ -9,6 +9,7 @@
 import SwiftUI
 import Combine
 import Foundation
+import AudioToolbox
 
 /**
  * VybeMatchManager: Detects and manages cosmic alignment events
@@ -26,6 +27,7 @@ import Foundation
  * • Track match history (last 10 matches)
  * • Sync heart rate for animation timing
  * • Auto-dismiss overlays after 6 seconds
+ * • Multi-modal celebrations (haptics, audio, particles)
  * 
  * === PUBLISHED PROPERTIES ===
  * • isMatchActive: Boolean - Is overlay currently showing?
@@ -39,7 +41,8 @@ import Foundation
  * 3. checkForCosmicMatch() compares values
  * 4. If match && not recent: triggerCosmicMatch()
  * 5. VybeMatchOverlay appears via isMatchActive
- * 6. Auto-dismiss after 6 seconds or manual tap
+ * 6. Multi-modal celebrations triggered (haptics, audio, particles)
+ * 7. Auto-dismiss after 6 seconds or manual tap
  * 
  * === NOTIFICATION INTEGRATION ===
  * Listens for:
@@ -65,6 +68,12 @@ import Foundation
  * • Default: 72 BPM if unavailable
  * • Logging threshold: 5 BPM change
  * 
+ * === MULTI-MODAL CELEBRATIONS ===
+ * • Haptic feedback patterns for each sacred number (1-9)
+ * • Sacred frequency audio enhancement (396Hz, 528Hz, etc.)
+ * • Particle effects with number-specific sacred geometry
+ * • Duration scaling for rarer number matches
+ * 
  * === INITIALIZATION SEQUENCE ===
  * 1. Init with current heart rate
  * 2. Setup notification subscriptions
@@ -88,11 +97,13 @@ import Foundation
  * - Triggers VybeMatchOverlay when cosmic alignment occurs
  * - Manages match history and prevents duplicate celebrations
  * - Provides debug logging for match detection events
+ * - Delivers multi-modal celebrations (haptics, audio, particles)
  * 
  * Integration:
  * - Observes FocusNumberManager and RealmNumberManager
  * - Publishes match state to UI components
  * - Coordinates with HealthKitManager for heart rate data
+ * - Triggers haptic feedback and audio for immersive experience
  */
 @MainActor
 class VybeMatchManager: ObservableObject {
@@ -131,16 +142,37 @@ class VybeMatchManager: ObservableObject {
     /// Timer to auto-dismiss matches after display duration
     private var matchDismissTimer: Timer?
     
-    /// How long to display each match (in seconds)
+    /// How long the overlay stays visible (in seconds) - extended for better experience
     private let matchDisplayDuration: TimeInterval = 6.0
     
     /// Minimum time between duplicate match celebrations (in seconds)
     private let duplicateMatchCooldown: TimeInterval = 300.0 // 5 minutes
     
+    // MARK: - Haptic Feedback System
+    
+    /// Haptic feedback engine for cosmic celebrations
+    private let hapticEngine = UIImpactFeedbackGenerator(style: .heavy)
+    
+    /// Sacred number haptic patterns (each number has unique vibrational signature)
+    private let sacredHapticPatterns: [Int: SacredHapticPattern] = [
+        1: SacredHapticPattern(name: "Leadership", pattern: [0.0, 0.3, 0.6, 0.9], intensity: 0.9),
+        2: SacredHapticPattern(name: "Harmony", pattern: [0.0, 0.2, 0.4, 0.6, 0.8], intensity: 0.7),
+        3: SacredHapticPattern(name: "Creativity", pattern: [0.0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9], intensity: 0.8),
+        4: SacredHapticPattern(name: "Stability", pattern: [0.0, 0.25, 0.5, 0.75], intensity: 0.6),
+        5: SacredHapticPattern(name: "Freedom", pattern: [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9], intensity: 0.5),
+        6: SacredHapticPattern(name: "Nurturing", pattern: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0], intensity: 0.8),
+        7: SacredHapticPattern(name: "Spirituality", pattern: [0.0, 0.33, 0.66, 0.99], intensity: 1.0),
+        8: SacredHapticPattern(name: "Power", pattern: [0.0, 0.5, 1.0], intensity: 0.9),
+        9: SacredHapticPattern(name: "Completion", pattern: [0.0, 0.25, 0.5, 0.75, 1.0], intensity: 0.7)
+    ]
+    
     // MARK: - Initialization
     
     init() {
-        print("🌟 VybeMatchManager: Initializing cosmic match detection system")
+        print("🌟 VybeMatchManager: Initializing cosmic match detection system with multi-modal celebrations")
+        
+        // Prepare haptic engine
+        hapticEngine.prepare()
         
         // Initialize with current values from existing managers
         initializeCurrentValues()
@@ -262,7 +294,7 @@ class VybeMatchManager: ObservableObject {
      */
     private func updateHeartRate(_ heartRate: Double) {
         // Only log significant heart rate changes to avoid console spam
-        if abs(heartRate - currentHeartRate) > 5.0 {
+        if abs(heartRate - currentHeartRate) > 10.0 {
             print("🌟 VybeMatchManager: Heart Rate updated to \(Int(heartRate)) BPM")
         }
         currentHeartRate = heartRate
@@ -286,7 +318,8 @@ class VybeMatchManager: ObservableObject {
             return
         }
         
-        print("🌟 VybeMatchManager: Checking match - Focus: \(currentFocusNumber), Realm: \(currentRealmNumber)")
+        // Reduced logging: only log when there's actually a match or mismatch change
+        // print("🌟 VybeMatchManager: Checking match - Focus: \(currentFocusNumber), Realm: \(currentRealmNumber)")
         
         // Check for cosmic alignment
         if currentFocusNumber == currentRealmNumber {
@@ -300,7 +333,7 @@ class VybeMatchManager: ObservableObject {
                 print("🌟 Matched Number: \(matchedNumber)")
                 print("🌟 Heart Rate: \(Int(currentHeartRate)) BPM")
                 
-                // Trigger the cosmic celebration
+                // Trigger the cosmic celebration with multi-modal effects
                 triggerCosmicMatch(matchedNumber)
                 
             } else {
@@ -317,7 +350,7 @@ class VybeMatchManager: ObservableObject {
     }
     
     /**
-     * Triggers the cosmic match celebration
+     * Triggers the cosmic match celebration with multi-modal effects
      * 
      * - Parameter matchedNumber: The number that achieved cosmic alignment
      */
@@ -346,11 +379,127 @@ class VybeMatchManager: ObservableObject {
         
         print("🌟 Cosmic match celebration activated!")
         
+        // Trigger multi-modal celebrations
+        triggerMultiModalCelebrations(for: matchedNumber)
+        
         // Set timer to auto-dismiss after display duration
         matchDismissTimer = Timer.scheduledTimer(withTimeInterval: matchDisplayDuration, repeats: false) { [weak self] _ in
             Task { @MainActor in
                 self?.dismissCurrentMatch()
             }
+        }
+    }
+    
+    /**
+     * Triggers multi-modal celebrations for the matched number
+     * 
+     * - Parameter number: The sacred number that achieved cosmic alignment
+     */
+    private func triggerMultiModalCelebrations(for number: Int) {
+        print("🌟 Triggering multi-modal celebrations for sacred number \(number)")
+        
+        // Trigger haptic feedback pattern
+        triggerSacredHapticPattern(for: number)
+        
+        // Trigger sacred frequency audio (placeholder for future implementation)
+        triggerSacredFrequencyAudio(for: number)
+        
+        // Trigger enhanced particle effects (placeholder for future implementation)
+        triggerEnhancedParticleEffects(for: number)
+    }
+    
+    /**
+     * Triggers the sacred haptic pattern for the given number
+     * 
+     * - Parameter number: The sacred number (1-9)
+     */
+    private func triggerSacredHapticPattern(for number: Int) {
+        guard let pattern = sacredHapticPatterns[number] else {
+            print("🌟 No haptic pattern found for number \(number)")
+            return
+        }
+        
+        print("🌟 Triggering \(pattern.name) haptic pattern for number \(number)")
+        
+        // Execute the haptic pattern
+        let totalDuration: TimeInterval = 2.0 // 2-second celebration
+        let patternDuration = totalDuration / Double(pattern.pattern.count)
+        
+        for (index, intensity) in pattern.pattern.enumerated() {
+            let delay = TimeInterval(index) * patternDuration
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                // Scale intensity by the pattern's base intensity
+                let finalIntensity = intensity * pattern.intensity
+                
+                // Trigger haptic feedback with appropriate intensity
+                if finalIntensity > 0.7 {
+                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred(intensity: CGFloat(finalIntensity))
+                } else if finalIntensity > 0.4 {
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred(intensity: CGFloat(finalIntensity))
+                } else {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred(intensity: CGFloat(finalIntensity))
+                }
+                
+                // Reduced haptic logging to avoid spam
+                // print("🌟 Haptic pulse \(index + 1): \(String(format: "%.2f", finalIntensity)) intensity")
+            }
+        }
+    }
+    
+    /**
+     * Triggers sacred frequency audio for the given number
+     * 
+     * - Parameter number: The sacred number (1-9)
+     * 
+     * Note: This is a placeholder for future audio implementation
+     */
+    private func triggerSacredFrequencyAudio(for number: Int) {
+        // Sacred frequencies for each number (in Hz)
+        let sacredFrequencies: [Int: Double] = [
+            1: 396.0, // Root chakra - Liberation from fear
+            2: 417.0, // Sacral chakra - Facilitating change
+            3: 528.0, // Solar plexus - Transformation and miracles
+            4: 639.0, // Heart chakra - Connecting relationships
+            5: 741.0, // Throat chakra - Awakening intuition
+            6: 852.0, // Third eye - Returning to spiritual order
+            7: 963.0, // Crown chakra - Connection to source
+            8: 432.0, // Universal harmony
+            9: 999.0  // Completion and fulfillment
+        ]
+        
+        if let frequency = sacredFrequencies[number] {
+            print("🌟 Sacred frequency \(frequency)Hz triggered for number \(number)")
+            // TODO: Implement audio playback with sacred frequencies
+            // This will be implemented in a future update with AVFoundation
+        }
+    }
+    
+    /**
+     * Triggers enhanced particle effects for the given number
+     * 
+     * - Parameter number: The sacred number (1-9)
+     * 
+     * Note: This is a placeholder for future particle system implementation
+     */
+    private func triggerEnhancedParticleEffects(for number: Int) {
+        // Sacred geometry patterns for each number
+        let sacredGeometry: [Int: String] = [
+            1: "Point",      // Unity and leadership
+            2: "Line",       // Duality and harmony
+            3: "Triangle",   // Creativity and expression
+            4: "Square",     // Stability and foundation
+            5: "Pentagon",   // Freedom and adventure
+            6: "Hexagon",    // Nurturing and balance
+            7: "Heptagon",   // Spirituality and wisdom
+            8: "Octagon",    // Power and abundance
+            9: "Circle"      // Completion and wholeness
+        ]
+        
+        if let geometry = sacredGeometry[number] {
+            print("🌟 Sacred geometry '\(geometry)' particle effect triggered for number \(number)")
+            // TODO: Implement particle system with sacred geometry patterns
+            // This will be implemented in a future update with SpriteKit or Metal
         }
     }
     
@@ -420,6 +569,30 @@ class VybeMatchManager: ObservableObject {
         realmNumberCancellable?.cancel()
         heartRateCancellable?.cancel()
         matchDismissTimer?.invalidate()
+    }
+}
+
+// MARK: - Sacred Haptic Pattern Model
+
+/**
+ * Represents a sacred haptic pattern for cosmic celebrations
+ */
+struct SacredHapticPattern {
+    let name: String
+    let pattern: [Double] // Array of intensity values (0.0 to 1.0) over time
+    let intensity: Double // Base intensity multiplier (0.0 to 1.0)
+    
+    /**
+     * Creates a sacred haptic pattern
+     * 
+     * - Parameter name: The spiritual meaning of the pattern
+     * - Parameter pattern: Array of intensity values over time
+     * - Parameter intensity: Base intensity multiplier
+     */
+    init(name: String, pattern: [Double], intensity: Double) {
+        self.name = name
+        self.pattern = pattern
+        self.intensity = max(0.0, min(1.0, intensity)) // Clamp to valid range
     }
 }
 
