@@ -299,8 +299,9 @@ struct ContentView: View {
                         }
                         .padding(.trailing, 20)
                     }
-                    .padding(.bottom, 100) // Above tab bar
+                    .padding(.bottom, 40) // Closer to tab bar, below cosmic match overlay
                 }
+                .zIndex(1000) // Ensure test buttons stay above cosmic overlay
             }
         }
         .sheet(isPresented: $showNotificationSheet) {

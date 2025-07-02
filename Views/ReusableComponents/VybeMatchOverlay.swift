@@ -5,18 +5,18 @@
 //  🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
 //
 //  === SCREEN POSITIONING (iPhone 14 Pro Max: 430×932 points) ===
-//  • Main bubble center: x=215pts (50% width), y=391pts (42% height)
-//  • Bubble dimensions: 380×300 points (optimal for content + future actions)
+//  • Main bubble center: x=215pts (50% width), y=419pts (45% height)
+//  • Bubble dimensions: 380×380 points (optimized for perfect action button fit)
 //  • Particles orbit radius: 145pts from bubble center
 //  • Close button: top-right corner, 50pts from top, 20pts from right
 //
 //  === INTERNAL BUBBLE LAYOUT (380×300pt container) ===
-//  • Top spacer: 25pts (pushes content down from bubble top)
+//  • Top spacer: 30pts (pushes content down from bubble top)
 //  • VYBE text: 64pt font, centered horizontally
 //  • VYBE + subtitle spacing: 12pts vertical gap
 //  • Subtitle text: 18pt font, medium weight
 //  • Sacred number display: 80pt font, centered
-//  • Action buttons: 60×50pt each, 2 rows (Phase 2.2 enhancement)
+//  • Action buttons: 70×50pt each, 2 rows, contained within bubble (Phase 2.2)
 //
 //  === ANIMATION SPECIFICATIONS ===
 //  • Entrance scale: 0.1 → 1.2 → 1.0 (dramatic growth effect)
@@ -178,23 +178,30 @@ struct VybeMatchOverlay: View {
                 
                 // 🎯 MAIN CONTENT CONTAINER: 380×300pt glass-morphism bubble
                 // Positioned at screen center (50% width, 42% height)
-                VStack(spacing: 15) { // 15pt spacing between elements for optimal flow
-                    Spacer(minLength: 25) // 25pt top spacer: pushes VYBE text down from bubble edge
-                    
-                    // 🌟 VYBE SYMBOL: Primary cosmic celebration text
-                    vybeSymbol
-                    
-                    // 🌟 SACRED NUMBER DISPLAY: Enhanced number celebration
-                    sacredNumberDisplay
+                VStack(spacing: 0) { // No spacing - we'll control layout precisely
+                    // Top content area
+                    VStack(spacing: 15) { // 15pt spacing between elements for optimal flow
+                        Spacer(minLength: 30) // 30pt top spacer: pushes VYBE text down from bubble edge
+                        
+                        // 🌟 VYBE SYMBOL: Primary cosmic celebration text
+                        vybeSymbol
+                        
+                        // 🌟 SACRED NUMBER DISPLAY: Enhanced number celebration
+                        sacredNumberDisplay
+                        
+                        Spacer() // Push action buttons to bottom
+                    }
                     
                     // 🎯 PHASE 2.2: ACTION BUTTONS - Enhanced cosmic match interactions
+                    // Fixed at bottom of bubble
                     if showActionButtons {
                         cosmicActionButtons
                     } else {
-                        Spacer(minLength: 40) // 40pt bottom spacer during entrance animation
+                        Spacer()
+                            .frame(height: 130) // Reserve space for buttons (50+12+50+25+padding)
                     }
                 }
-                .frame(width: 380, height: 300) // 🎯 CRITICAL: Bubble dimensions optimized for iPhone 14 Pro Max
+                .frame(width: 380, height: 380) // 🎯 CRITICAL: Further expanded bubble dimensions for perfect action button fit
                 .background(
                     // 🎨 GLASS-MORPHISM BUBBLE: Modern iOS design with ethereal transparency
                     RoundedRectangle(cornerRadius: 25) // 25pt radius for modern rounded appearance
@@ -225,7 +232,7 @@ struct VybeMatchOverlay: View {
                         .shadow(color: .black.opacity(0.3), radius: 20, x: 0, y: 10) // Depth shadow: 20pt blur, 10pt Y offset
                         .scaleEffect(symbolScale * 0.95) // Gentle floating: 95% of main scale animation
                 )
-                .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height * 0.42) // 🎯 EXACT CENTER: 50% width, 42% height
+                .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height * 0.45) // 🎯 ADJUSTED CENTER: 50% width, 45% height (lower for expanded bubble)
                 .onTapGesture {
                     // Prevent background tap when tapping content
                 }
@@ -379,23 +386,24 @@ struct VybeMatchOverlay: View {
     
     /// 🎯 PHASE 2.2: COSMIC ACTION BUTTONS - Enhanced interaction options for spiritual engagement
     private var cosmicActionButtons: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 12) { // 12pt spacing between rows
             // First row: Primary spiritual actions
-            HStack(spacing: 15) {
+            HStack(spacing: 15) { // 15pt spacing between buttons
                 actionButton(for: .viewInsight)
                 actionButton(for: .startMeditation)
                 actionButton(for: .journalEntry)
             }
             
             // Second row: Secondary actions
-            HStack(spacing: 15) {
+            HStack(spacing: 15) { // 15pt spacing between buttons
                 actionButton(for: .logSighting)
                 Spacer()
                 actionButton(for: .close)
             }
         }
-        .padding(.horizontal, 20) // 20pt horizontal padding within bubble
-        .padding(.bottom, 15) // 15pt from bottom of bubble
+        .frame(maxWidth: .infinity) // Take full width of container
+        .padding(.horizontal, 25) // 25pt horizontal padding within bubble
+        .padding(.bottom, 25) // 25pt from bottom of bubble for better spacing
         .opacity(showActionButtons ? 1.0 : 0.0)
         .scaleEffect(showActionButtons ? 1.0 : 0.8)
         .animation(.spring(response: 0.6, dampingFraction: 0.8), value: showActionButtons)
@@ -406,21 +414,22 @@ struct VybeMatchOverlay: View {
         Button(action: {
             handleAction(action)
         }) {
-            VStack(spacing: 4) {
+            VStack(spacing: 4) { // Good spacing for readability
                 // Icon
                 Image(systemName: action.icon)
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.system(size: 16, weight: .semibold)) // Clear, visible icon
                     .foregroundColor(.white)
                 
                 // Label
                 Text(action.rawValue)
-                    .font(.system(size: 10, weight: .medium, design: .rounded))
+                    .font(.system(size: 10, weight: .medium, design: .rounded)) // Readable text
                     .foregroundColor(.white.opacity(0.9))
                     .multilineTextAlignment(.center)
+                    .lineLimit(2) // Allow text wrapping for longer labels
             }
-            .frame(width: 60, height: 50) // Compact button size
+            .frame(width: 70, height: 50) // Larger, more tappable button size
             .background(
-                RoundedRectangle(cornerRadius: 12)
+                RoundedRectangle(cornerRadius: 10)
                     .fill(
                         LinearGradient(
                             gradient: Gradient(colors: [
@@ -432,14 +441,14 @@ struct VybeMatchOverlay: View {
                         )
                     )
                     .overlay(
-                        RoundedRectangle(cornerRadius: 12)
+                        RoundedRectangle(cornerRadius: 10)
                             .stroke(action.color.opacity(0.5), lineWidth: 1)
                     )
             )
             .scaleEffect(highlightedAction == action ? 1.1 : 1.0)
             .shadow(
                 color: action.color.opacity(0.3),
-                radius: highlightedAction == action ? 8 : 4
+                radius: highlightedAction == action ? 6 : 3
             )
         }
         .onLongPressGesture(minimumDuration: 0.1) {
@@ -499,7 +508,7 @@ struct VybeMatchOverlay: View {
                 }
             }
         }
-        .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height * 0.42) // 🎯 EXACT MATCH: Same center as bubble
+        .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height * 0.45) // 🎯 EXACT MATCH: Same center as bubble
     }
     
     // MARK: - Helper Methods
