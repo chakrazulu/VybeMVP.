@@ -391,6 +391,22 @@ struct ContentView: View {
             // Refresh insights when app comes to foreground
             aiInsightManager.refreshInsightIfNeeded()
         }
+        // 🌟 VybeMatch Navigation Handlers - Handle action button navigation from cosmic match overlay
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NavigateToInsight"))) { notification in
+            handleInsightNavigation(notification)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NavigateToMeditation"))) { notification in
+            handleMeditationNavigation(notification)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NavigateToJournal"))) { notification in
+            handleJournalNavigation(notification)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NavigateToSighting"))) { notification in
+            handleSightingNavigation(notification)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NavigateToStatusPost"))) { notification in
+            handleStatusPostNavigation(notification)
+        }
     }
     
     // 🧪 TEMPORARY: Phase 2 Testing Functions (REMOVE AFTER TESTING)
@@ -412,6 +428,117 @@ struct ContentView: View {
         
         // Cycle to next number (1-9)
         currentTestNumber = currentTestNumber == 9 ? 1 : currentTestNumber + 1
+    }
+    
+    // MARK: - VybeMatch Navigation Handlers
+    
+    /// Handle navigation to insight view from cosmic match overlay
+    private func handleInsightNavigation(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let number = userInfo["number"] as? Int else { return }
+        
+        print("🌟 Navigating to Activity view to show cosmic match insight for number \(number)")
+        
+        // Navigate to Activity tab (which shows insights and cosmic matches in timeline)
+        selectedTab = 4
+        
+        // Generate insight for the specific matched number and filter to show it
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            aiInsightManager.refreshInsightIfNeeded()
+            // TODO: Add filtering in ActivityView to highlight insights for number \(number)
+            print("🎯 Activity view should focus on insights for cosmic match number \(number)")
+        }
+    }
+    
+    /// Handle navigation to meditation/chakra view from cosmic match overlay
+    private func handleMeditationNavigation(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let number = userInfo["number"] as? Int,
+              let chakra = userInfo["chakra"] as? String else { return }
+        
+        print("🧘 Starting \(chakra) chakra meditation for cosmic match number \(number)")
+        
+        // Navigate to Chakras tab and start specific meditation
+        selectedTab = 7
+        
+        // TODO: Trigger specific chakra meditation for the matched number
+        // This would require updating PhantomChakrasView to accept a specific chakra focus
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            print("🎯 PhantomChakrasView should focus on \(chakra) chakra meditation")
+        }
+    }
+    
+    /// Handle navigation to journal entry from cosmic match overlay
+    private func handleJournalNavigation(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let _ = userInfo["cosmic_match"] as? Bool,
+              let focusNumber = userInfo["focus_number"] as? Int,
+              let realmNumber = userInfo["realm_number"] as? Int,
+              let title = userInfo["title"] as? String else { return }
+        
+        print("📖 Creating Sacred Reflection for cosmic match: \(title)")
+        
+        // Navigate to Journal tab
+        selectedTab = 1
+        
+        // TODO: Trigger immediate Sacred Reflection creation with pre-filled cosmic match data
+        // This would require updating JournalView to open NewJournalEntryView with:
+        // - Pre-filled title: "Sacred Reflection - Cosmic Alignment"
+        // - Pre-set focus and realm numbers
+        // - Cosmic match context in description
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            print("🎯 Journal should open Sacred Reflection with Focus \(focusNumber), Realm \(realmNumber)")
+            print("📝 Pre-filled title: '\(title)'")
+        }
+    }
+    
+    /// Handle navigation to sighting log from cosmic match overlay
+    private func handleSightingNavigation(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let number = userInfo["number"] as? Int,
+              let title = userInfo["title"] as? String,
+              let significance = userInfo["significance"] as? String else { return }
+        
+        print("👁️ Creating cosmic sighting log for number \(number): \(title)")
+        
+        // Navigate to Sightings tab
+        selectedTab = 5
+        
+        // TODO: Trigger immediate sighting creation with cosmic match pre-filled
+        // This would require updating SightingsView to open sighting creation with:
+        // - Pre-filled number: \(number)
+        // - Pre-filled title: "\(title)"
+        // - Pre-filled significance: "\(significance)"
+        // - Auto-set location and timestamp
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            print("🎯 Sightings should open creation form with cosmic match data")
+            print("📍 Pre-filled: Number \(number), Title: '\(title)', Significance: '\(significance)'")
+        }
+    }
+    
+    /// Handle navigation to status posting from cosmic match overlay
+    private func handleStatusPostNavigation(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let _ = userInfo["cosmic_match"] as? Bool,
+              let number = userInfo["number"] as? Int,
+              let message = userInfo["message"] as? String,
+              let sacredMeaning = userInfo["sacred_meaning"] as? String else { return }
+        
+        print("📢 Creating cosmic status post for number \(number): \(sacredMeaning)")
+        
+        // Navigate to Social Timeline tab (tag 2)
+        selectedTab = 2
+        
+        // TODO: Trigger immediate status creation with cosmic match pre-filled
+        // This would require updating SocialView to open status composer with:
+        // - Pre-filled message: "\(message)"
+        // - Cosmic match context and number
+        // - Sacred meaning and spiritual significance
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            print("🎯 Social timeline should open status composer with cosmic match")
+            print("📱 Pre-filled message: '\(message)'")
+            print("🔮 Sacred meaning: '\(sacredMeaning)'")
+        }
     }
 }
 

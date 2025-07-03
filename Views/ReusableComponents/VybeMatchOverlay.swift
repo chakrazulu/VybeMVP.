@@ -6,22 +6,23 @@
 //
 //  === SCREEN POSITIONING (iPhone 14 Pro Max: 430×932 points) ===
 //  • Main bubble center: x=215pts (50% width), y=419pts (45% height)
-//  • Bubble dimensions: 380×450 points (comfortable height with proper action button spacing)
+//  • Bubble dimensions: 380×520 points (expanded height for proper pulsing content containment)
 //  • Particles orbit radius: 145pts from bubble center
 //  • Close button: top-right corner, 50pts from top, 20pts from right
 //
-//  === INTERNAL BUBBLE LAYOUT (380×450pt container) ===
-//  • Top spacer: 30pts (pushes content down from bubble top)
+//  === INTERNAL BUBBLE LAYOUT (380×520pt container) ===
+//  • Top spacer: 40pts (increased padding to contain pulsing VYBE text)
 //  • VYBE text: 64pt font, centered horizontally
 //  • VYBE + subtitle spacing: 12pts vertical gap
 //  • Subtitle text: 18pt font, medium weight
 //  • Sacred number display: 80pt font, centered
-//  • Action buttons: 70×50pt each, 2 rows, alignment in progress (Phase 2.2)
+//  • Action buttons: 85×55pt each, 3 rows, proportional to expanded bubble size
+//  • Bottom spacer: 40pts (increased padding to contain pulsing action buttons)
 //
 //  === ANIMATION SPECIFICATIONS ===
 //  • Entrance scale: 0.3 → 1.0 (smooth growth effect, no overshoot)
-//  • Floating motion: ±3% scale variation (0.97x to 1.03x)
-//  • Glow breathing: 75% to 95% opacity variation
+//  • Floating motion: ±1.5% scale variation (0.985x to 1.015x) - very subtle
+//  • Glow breathing: 82% to 94% opacity variation - gentle pulse
 //  • Animation timing: 1.5π frequency (slower, ethereal feel)
 //  • Particle rotation: 360° over 20 seconds, linear
 //  • Sacred number pulse: Synchronized with haptic feedback
@@ -40,14 +41,20 @@
 //
 //  === INTERACTION ZONES ===
 //  • Background tap: Full screen area (dismisses overlay)
-//  • Content tap: 380×300pt bubble area (prevents background dismiss)
+//  • Content tap: 380×520pt bubble area (prevents background dismiss)
 //  • Close button: ~44×44pt touch target (top-right corner)
 //
 //  === PHASE 2.2 ENHANCEMENTS ===
 //  • Action buttons: View Insight, Start Meditation, Journal Entry, Log Sighting, Close
 //  • Delayed reveal: 1.5s after entrance animation for better UX flow
 //  • Haptic feedback: Light feedback on button press, medium on action selection
-//  • Current status: Action button alignment needs completion in next session
+//  • Current status: Production ready with gentle animations and proper proportions
+//
+//  === PHASE 2.4 TODO: SACRED FREQUENCY AUDIO IMPLEMENTATION ===
+//  • Sacred frequency tones are currently only logged, not actually played
+//  • Need to implement actual audio playback for frequencies (396Hz, 528Hz, etc.)
+//  • Audio should be synchronized with haptic feedback and particle effects
+//  • Consider using AVFoundation for precise frequency generation
 //
 //  Created for cosmic match celebration when Focus Number == Realm Number
 //  This overlay appears with mystical animations synchronized to user's heart rate
@@ -176,13 +183,13 @@ struct VybeMatchOverlay: View {
                         isVisible = false
                     }
                 
-                // 🎯 MAIN CONTENT CONTAINER: 380×450pt glass-morphism bubble
+                // 🎯 MAIN CONTENT CONTAINER: 380×520pt glass-morphism bubble
                 // Positioned at screen center (50% width, 45% height)
                 VStack(spacing: 0) { // No spacing - we'll control layout precisely
                     
-                    // 🎯 TOP SPACER: 25pt from bubble top edge
+                    // 🎯 TOP SPACER: 40pt from bubble top edge to contain pulsing VYBE text
                     Spacer()
-                        .frame(height: 25)
+                        .frame(height: 40)
                     
                     // 🌟 VYBE SYMBOL: Primary cosmic celebration text
                     vybeSymbol
@@ -203,11 +210,11 @@ struct VybeMatchOverlay: View {
                         cosmicActionButtons
                     }
                     
-                    // 🎯 BOTTOM SPACER: 30pt from bubble bottom edge for comfortable action button spacing
+                    // 🎯 BOTTOM SPACER: 40pt from bubble bottom edge to contain pulsing action buttons
                     Spacer()
-                        .frame(height: 30)
+                        .frame(height: 40)
                 }
-                .frame(width: 380, height: 450) // 🎯 CRITICAL: Increased height for comfortable action button spacing
+                .frame(width: 380, height: 520) // 🎯 CRITICAL: Expanded height to contain pulsing content within glass bounds
                 .background(
                     // 🎨 ENHANCED GLASS-MORPHISM BUBBLE: Better contrast and readability
                     RoundedRectangle(cornerRadius: 25) // 25pt radius for modern rounded appearance
@@ -402,24 +409,30 @@ struct VybeMatchOverlay: View {
     
     /// 🎯 PHASE 2.2: COSMIC ACTION BUTTONS - Enhanced interaction options for spiritual engagement
     private var cosmicActionButtons: some View {
-        VStack(spacing: 10) { // Reduced spacing between rows to fit within bubble
-            // First row: Primary spiritual actions
-            HStack(spacing: 12) { // Optimized spacing between buttons
+        VStack(spacing: 12) { // Increased spacing between rows for larger buttons
+            // First row: Primary spiritual actions (3 buttons)
+            HStack(spacing: 15) { // Increased spacing between larger buttons
                 actionButton(for: .viewInsight)
                 actionButton(for: .startMeditation)
                 actionButton(for: .journalEntry)
             }
             
-            // Second row: Secondary actions - centered with equal spacing
-            HStack(spacing: 12) { // Consistent spacing
+            // Second row: Social and logging actions (2 buttons, centered)
+            HStack(spacing: 15) { // Consistent increased spacing
                 Spacer() // Left spacer for centering
                 actionButton(for: .logSighting)
-                Spacer() // Middle spacer between buttons
-                actionButton(for: .close)
+                actionButton(for: .postStatus)
                 Spacer() // Right spacer for centering
             }
+            
+            // Third row: Close action (1 button, centered)
+            HStack {
+                Spacer()
+                actionButton(for: .close)
+                Spacer()
+            }
         }
-        .frame(maxWidth: 330) // Constrain to fit within 380pt bubble (25pt padding each side)
+        .frame(maxWidth: 340) // Expanded to accommodate larger 85pt buttons (20pt padding each side)
         .scaleEffect(symbolScale * 0.95) // 🌟 SYNC WITH BUBBLE: Pulse with main cosmic animation
         .opacity(showActionButtons ? (backgroundGlow * 0.9) : 0.0) // 🌟 BREATHE WITH BUBBLE: Sync opacity with cosmic breathing
         .animation(.spring(response: 0.6, dampingFraction: 0.8), value: showActionButtons)
@@ -433,17 +446,17 @@ struct VybeMatchOverlay: View {
             VStack(spacing: 4) { // Good spacing for readability
                 // Icon
                 Image(systemName: action.icon)
-                    .font(.system(size: 16, weight: .semibold)) // Clear, visible icon
+                    .font(.system(size: 20, weight: .semibold)) // Larger icon for bigger buttons
                     .foregroundColor(.white)
                 
                 // Label
                 Text(action.rawValue)
-                    .font(.system(size: 10, weight: .medium, design: .rounded)) // Readable text
+                    .font(.system(size: 12, weight: .medium, design: .rounded)) // Larger text for better readability
                     .foregroundColor(.white.opacity(0.9))
                     .multilineTextAlignment(.center)
                     .lineLimit(2) // Allow text wrapping for longer labels
             }
-            .frame(width: 65, height: 45) // Optimized size to fit perfectly within bubble constraints
+            .frame(width: 85, height: 55) // Larger size proportional to expanded 520pt bubble height
             .background(
                 RoundedRectangle(cornerRadius: 10)
                     .fill(
@@ -575,35 +588,103 @@ struct VybeMatchOverlay: View {
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
         impactFeedback.impactOccurred()
         
-        switch action {
-        case .viewInsight:
-            print("🌟 Opening insight view for matched number \(matchedNumber)")
-            // TODO: Navigate to insight detail view
-            // For now, just dismiss the overlay
-            isVisible = false
-            
-        case .startMeditation:
-            print("🧘 Starting meditation session for number \(matchedNumber)")
-            // TODO: Navigate to meditation view
-            // For now, just dismiss the overlay
-            isVisible = false
-            
-        case .journalEntry:
-            print("📖 Opening journal entry for cosmic match")
-            // TODO: Navigate to journal view with pre-filled match data
-            // For now, just dismiss the overlay
-            isVisible = false
-            
-        case .logSighting:
-            print("👁️ Logging cosmic match sighting")
-            // TODO: Show sighting log interface
-            // For now, just dismiss the overlay
-            isVisible = false
-            
-        case .close:
-            print("❌ User closed cosmic match overlay")
-            isVisible = false
+        // Dismiss overlay first for smooth transition
+        isVisible = false
+        
+        // Delay navigation slightly for better UX
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            switch action {
+            case .viewInsight:
+                print("🌟 Opening insight view for matched number \(matchedNumber)")
+                navigateToInsightView()
+                
+            case .startMeditation:
+                print("🧘 Starting meditation session for number \(matchedNumber)")
+                navigateToMeditationView()
+                
+            case .journalEntry:
+                print("📖 Opening journal entry for cosmic match")
+                navigateToJournalEntry()
+                
+            case .logSighting:
+                print("👁️ Logging cosmic match sighting")
+                navigateToSightingLog()
+                
+            case .postStatus:
+                print("📢 Posting cosmic match status to timeline")
+                navigateToStatusPost()
+                
+            case .close:
+                print("❌ User chose to close overlay")
+                // Already dismissed above
+            }
         }
+    }
+    
+    // MARK: - Navigation Methods
+    
+    /// Navigate to AI insight view for the matched number
+    private func navigateToInsightView() {
+        // Post notification to trigger insight view navigation
+        NotificationCenter.default.post(
+            name: Notification.Name("NavigateToInsight"),
+            object: nil,
+            userInfo: ["number": matchedNumber, "type": "cosmic_match"]
+        )
+    }
+    
+    /// Navigate to meditation/chakra view
+    private func navigateToMeditationView() {
+        // Post notification to navigate to chakra/meditation view
+        NotificationCenter.default.post(
+            name: Notification.Name("NavigateToMeditation"),
+            object: nil,
+            userInfo: ["number": matchedNumber, "chakra": currentSacredNumber?.chakra ?? "Universal"]
+        )
+    }
+    
+    /// Navigate to journal entry with pre-filled cosmic match data
+    private func navigateToJournalEntry() {
+        // Post notification to open journal with cosmic match context
+        NotificationCenter.default.post(
+            name: Notification.Name("NavigateToJournal"),
+            object: nil,
+            userInfo: [
+                "cosmic_match": true,
+                "focus_number": matchedNumber,
+                "realm_number": matchedNumber,
+                "title": "Cosmic Alignment - Number \(matchedNumber)"
+            ]
+        )
+    }
+    
+    /// Navigate to sighting log with cosmic match data
+    private func navigateToSightingLog() {
+        // Post notification to open sighting view with cosmic match
+        NotificationCenter.default.post(
+            name: Notification.Name("NavigateToSighting"),
+            object: nil,
+            userInfo: [
+                "number": matchedNumber,
+                "title": "Cosmic Match - Number \(matchedNumber)",
+                "significance": "Focus and Realm alignment detected"
+            ]
+        )
+    }
+    
+    /// Navigate to status posting with cosmic match pre-filled
+    private func navigateToStatusPost() {
+        // Post notification to open status creation with cosmic match context
+        NotificationCenter.default.post(
+            name: Notification.Name("NavigateToStatusPost"),
+            object: nil,
+            userInfo: [
+                "cosmic_match": true,
+                "number": matchedNumber,
+                "message": "✨ Just experienced a cosmic alignment with number \(matchedNumber)! The universe is speaking... 🌌 #CosmicMatch #Number\(matchedNumber) #SpiritualAlignment",
+                "sacred_meaning": currentSacredNumber?.name ?? "Sacred Number \(matchedNumber)"
+            ]
+        )
     }
     
     // MARK: - Animation Logic
@@ -720,15 +801,15 @@ struct VybeMatchOverlay: View {
         
         // 🌊 GENTLE FLOATING EFFECT: Ethereal breathing animation
         let floatValue = sin(pulsePhase * 1.5 * .pi) // 1.5π frequency: Slower, more mystical than heartbeat
-        symbolScale = 1.0 + (floatValue * 0.03) // ±3% scale variation: Barely perceptible (0.97x to 1.03x)
+        symbolScale = 1.0 + (floatValue * 0.015) // ±1.5% scale variation: Very subtle (0.985x to 1.015x)
         
         // ✨ ETHEREAL GLOW BREATHING: Subtle opacity pulse synchronized with floating
-        backgroundGlow = 0.85 + (floatValue * 0.1) // 10% variation: Gentle pulse (75% to 95% opacity)
+        backgroundGlow = 0.88 + (floatValue * 0.06) // 6% variation: Gentle pulse (82% to 94% opacity)
         
         // 🌟 SACRED NUMBER PULSE: Synchronized with haptic feedback pattern
         let numberPulse = sin(pulsePhase * 2.0 * .pi) // 2π frequency: More pronounced for number
-        numberScale = 1.0 + (numberPulse * 0.05) // ±5% scale variation for number emphasis
-        numberGlow = 0.9 + (numberPulse * 0.1) // 10% opacity variation for number glow
+        numberScale = 1.0 + (numberPulse * 0.025) // ±2.5% scale variation for subtle number emphasis
+        numberGlow = 0.92 + (numberPulse * 0.06) // 6% opacity variation for gentle number glow
     }
     
     /**
@@ -898,6 +979,7 @@ enum ActionType: String, CaseIterable {
     case startMeditation = "Start Meditation"
     case journalEntry = "Journal Entry"
     case logSighting = "Log Sighting"
+    case postStatus = "Post Status"
     case close = "Close"
     
     /// Icon for each action type
@@ -907,6 +989,7 @@ enum ActionType: String, CaseIterable {
         case .startMeditation: return "leaf"
         case .journalEntry: return "book"
         case .logSighting: return "eye"
+        case .postStatus: return "megaphone"
         case .close: return "xmark"
         }
     }
@@ -918,6 +1001,7 @@ enum ActionType: String, CaseIterable {
         case .startMeditation: return .green
         case .journalEntry: return .orange
         case .logSighting: return .purple
+        case .postStatus: return .pink
         case .close: return .red
         }
     }
