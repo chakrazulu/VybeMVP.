@@ -155,15 +155,15 @@ struct ScrollSafeCosmicView<Content: View>: View {
             let numbersToSpawn = min(3, maxActiveNumbers - numbers.count) // Spawn 3 at a time
             
                          for _ in 0..<numbersToSpawn {
-                 let number = ScrollSafeTwinklingNumber(
-                     sacredCenter: sacredGeometryCenter,
-                     birthTime: date,
+            let number = ScrollSafeTwinklingNumber(
+                sacredCenter: sacredGeometryCenter,
+                birthTime: date,
                      screenSize: screenSize,
                      existingNumbers: numbers
-                 )
-                 numbers.append(number)
-             }
-            
+            )
+            numbers.append(number)
+        }
+        
             lastSpawnTime = currentTime
             
             // Simplified logging: only log every 50 spawns to reduce console spam
@@ -250,18 +250,18 @@ struct CosmicBackgroundLayer: View {
         // Spawn background numbers at slower rate
         let timeSinceLastSpawn = currentTime - lastSpawnTime
         if timeSinceLastSpawn >= spawnInterval && numbers.count < maxActiveNumbers {
-                         let number = ScrollSafeTwinklingNumber(
-                 sacredCenter: sacredGeometryCenter,
-                 birthTime: date,
+            let number = ScrollSafeTwinklingNumber(
+                sacredCenter: sacredGeometryCenter,
+                birthTime: date,
                  screenSize: screenSize,
                  existingNumbers: numbers
-             )
+            )
             numbers.append(number)
             lastSpawnTime = currentTime
         }
+        }
     }
-}
-
+    
 // MARK: - Refined Scroll-Safe Twinkling Number
 struct ScrollSafeTwinklingNumber: Identifiable {
     let id = UUID()
@@ -286,7 +286,7 @@ struct ScrollSafeTwinklingNumber: Identifiable {
                  if topBottomRandom < 0.5 {
                      // Top area (wider range for more coverage)
                      return Double.random(in: -(.pi/2.5)...(.pi/2.5)) + (topBottomRandom < 0.25 ? 0 : 2 * .pi)
-                 } else {
+        } else {
                      // Bottom area (wider range for more below-mandala coverage)
                      return Double.random(in: (.pi/2)...(3 * .pi/2))
                  }

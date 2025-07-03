@@ -142,8 +142,8 @@ class VybeMatchManager: ObservableObject {
     /// Timer to auto-dismiss matches after display duration
     private var matchDismissTimer: Timer?
     
-    /// How long the overlay stays visible (in seconds) - extended for better experience
-    private let matchDisplayDuration: TimeInterval = 6.0
+    /// How long the overlay stays visible (in seconds) - disabled for manual dismiss only
+    private let matchDisplayDuration: TimeInterval = .infinity // Never auto-dismiss
     
     /// Minimum time between duplicate match celebrations (in seconds)
     private let duplicateMatchCooldown: TimeInterval = 300.0 // 5 minutes
@@ -382,12 +382,8 @@ class VybeMatchManager: ObservableObject {
         // Trigger multi-modal celebrations
         triggerMultiModalCelebrations(for: matchedNumber)
         
-        // Set timer to auto-dismiss after display duration
-        matchDismissTimer = Timer.scheduledTimer(withTimeInterval: matchDisplayDuration, repeats: false) { [weak self] _ in
-            Task { @MainActor in
-                self?.dismissCurrentMatch()
-            }
-        }
+        // Auto-dismiss timer disabled - user must manually close overlay
+        // (matchDisplayDuration is set to .infinity for manual dismiss only)
     }
     
     /**

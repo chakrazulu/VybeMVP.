@@ -6,11 +6,11 @@
 //
 //  === SCREEN POSITIONING (iPhone 14 Pro Max: 430×932 points) ===
 //  • Main bubble center: x=215pts (50% width), y=419pts (45% height)
-//  • Bubble dimensions: 380×380 points (optimized for perfect action button fit)
+//  • Bubble dimensions: 380×450 points (comfortable height with proper action button spacing)
 //  • Particles orbit radius: 145pts from bubble center
 //  • Close button: top-right corner, 50pts from top, 20pts from right
 //
-//  === INTERNAL BUBBLE LAYOUT (380×300pt container) ===
+//  === INTERNAL BUBBLE LAYOUT (380×450pt container) ===
 //  • Top spacer: 30pts (pushes content down from bubble top)
 //  • VYBE text: 64pt font, centered horizontally
 //  • VYBE + subtitle spacing: 12pts vertical gap
@@ -19,7 +19,7 @@
 //  • Action buttons: 70×50pt each, 2 rows, alignment in progress (Phase 2.2)
 //
 //  === ANIMATION SPECIFICATIONS ===
-//  • Entrance scale: 0.1 → 1.2 → 1.0 (dramatic growth effect)
+//  • Entrance scale: 0.3 → 1.0 (smooth growth effect, no overshoot)
 //  • Floating motion: ±3% scale variation (0.97x to 1.03x)
 //  • Glow breathing: 75% to 95% opacity variation
 //  • Animation timing: 1.5π frequency (slower, ethereal feel)
@@ -119,8 +119,8 @@ struct VybeMatchOverlay: View {
     
     // MARK: - Configuration
     
-    /// How long the overlay stays visible (in seconds) - extended for better experience
-    private let displayDuration: TimeInterval = 6.0
+    /// How long the overlay stays visible (in seconds) - disabled for manual dismiss only
+    private let displayDuration: TimeInterval = .infinity // Never auto-dismiss
     
     /// Base animation duration (modified by heart rate)
     private let baseAnimationDuration: Double = 1.0
@@ -176,60 +176,67 @@ struct VybeMatchOverlay: View {
                         isVisible = false
                     }
                 
-                // 🎯 MAIN CONTENT CONTAINER: 380×300pt glass-morphism bubble
-                // Positioned at screen center (50% width, 42% height)
+                // 🎯 MAIN CONTENT CONTAINER: 380×450pt glass-morphism bubble
+                // Positioned at screen center (50% width, 45% height)
                 VStack(spacing: 0) { // No spacing - we'll control layout precisely
-                    // Top content area
-                    VStack(spacing: 15) { // 15pt spacing between elements for optimal flow
-                        Spacer(minLength: 30) // 30pt top spacer: pushes VYBE text down from bubble edge
-                        
-                        // 🌟 VYBE SYMBOL: Primary cosmic celebration text
-                        vybeSymbol
-                        
-                        // 🌟 SACRED NUMBER DISPLAY: Enhanced number celebration
-                        sacredNumberDisplay
-                        
-                        Spacer() // Push action buttons to bottom
-                    }
+                    
+                    // 🎯 TOP SPACER: 25pt from bubble top edge
+                    Spacer()
+                        .frame(height: 25)
+                    
+                    // 🌟 VYBE SYMBOL: Primary cosmic celebration text
+                    vybeSymbol
+                    
+                    // 🎯 CONTENT SPACER: 15pt between VYBE and sacred number
+                    Spacer()
+                        .frame(height: 15)
+                    
+                    // 🌟 SACRED NUMBER DISPLAY: Enhanced number celebration
+                    sacredNumberDisplay
+                    
+                    // 🎯 FLEXIBLE SPACER: Push action buttons to bottom with minimum space
+                    Spacer(minLength: 20)
                     
                     // 🎯 PHASE 2.2: ACTION BUTTONS - Enhanced cosmic match interactions
-                    // Fixed at bottom of bubble
+                    // Positioned at bottom of bubble with precise spacing
                     if showActionButtons {
                         cosmicActionButtons
-                    } else {
-                        Spacer()
-                            .frame(height: 130) // Reserve space for buttons (50+12+50+25+padding)
                     }
+                    
+                    // 🎯 BOTTOM SPACER: 30pt from bubble bottom edge for comfortable action button spacing
+                    Spacer()
+                        .frame(height: 30)
                 }
-                .frame(width: 380, height: 380) // 🎯 CRITICAL: Further expanded bubble dimensions for perfect action button fit
+                .frame(width: 380, height: 450) // 🎯 CRITICAL: Increased height for comfortable action button spacing
                 .background(
-                    // 🎨 GLASS-MORPHISM BUBBLE: Modern iOS design with ethereal transparency
+                    // 🎨 ENHANCED GLASS-MORPHISM BUBBLE: Better contrast and readability
                     RoundedRectangle(cornerRadius: 25) // 25pt radius for modern rounded appearance
                         .fill(
                             LinearGradient(
                                 gradient: Gradient(colors: [
-                                    Color.white.opacity(0.15), // 15% white at top-left
-                                    Color.white.opacity(0.05)  // 5% white at bottom-right
+                                    Color.white.opacity(0.25), // Increased opacity for better contrast
+                                    Color.white.opacity(0.15)  // Higher base opacity
                                 ]),
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
                         )
+                        .background(.ultraThinMaterial) // iOS blur effect for better text readability
                         .overlay(
                             RoundedRectangle(cornerRadius: 25)
                                 .stroke(
                                     LinearGradient(
                                         gradient: Gradient(colors: [
-                                            Color.white.opacity(0.3), // 30% white border at top-left
-                                            Color.white.opacity(0.1)  // 10% white border at bottom-right
+                                            Color.white.opacity(0.5), // Stronger border for definition
+                                            Color.white.opacity(0.2)  // Enhanced border visibility
                                         ]),
                                         startPoint: .topLeading,
                                         endPoint: .bottomTrailing
                                     ),
-                                    lineWidth: 1.5 // 1.5pt stroke width for subtle definition
+                                    lineWidth: 2.0 // Slightly thicker border for better visibility
                                 )
                         )
-                        .shadow(color: .black.opacity(0.3), radius: 20, x: 0, y: 10) // Depth shadow: 20pt blur, 10pt Y offset
+                        .shadow(color: .black.opacity(0.5), radius: 25, x: 0, y: 15) // Stronger shadow for depth
                         .scaleEffect(symbolScale * 0.95) // Gentle floating: 95% of main scale animation
                 )
                 .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height * 0.45) // 🎯 ADJUSTED CENTER: 50% width, 45% height (lower for expanded bubble)
@@ -272,17 +279,23 @@ struct VybeMatchOverlay: View {
     
     // MARK: - View Components
     
-    /// Cosmic background with animated glow effect
+    /// Cosmic background with animated glow effect and backdrop blur for visibility
     private var cosmicBackground: some View {
         ZStack {
+            // 🎯 BACKDROP BLUR: Ensures overlay is visible from anywhere in the app
+            Rectangle()
+                .fill(Color.black.opacity(0.4)) // Semi-transparent backdrop
+                .background(.ultraThinMaterial) // iOS blur effect
+                .ignoresSafeArea()
+            
             // Deep space background
             Rectangle()
                 .fill(
                     RadialGradient(
                         gradient: Gradient(colors: [
-                            Color.purple.opacity(0.3),
-                            Color.indigo.opacity(0.2),
-                            Color.black.opacity(0.7)
+                            Color.purple.opacity(0.4),
+                            Color.indigo.opacity(0.3),
+                            Color.black.opacity(0.6)
                         ]),
                         center: .center,
                         startRadius: 50,
@@ -339,7 +352,8 @@ struct VybeMatchOverlay: View {
             // 📝 COSMIC SUBTITLE: 18pt medium weight, positioned 12pts below VYBE
             Text("Cosmic Alignment Achieved")
                 .font(.system(size: 18, weight: .medium, design: .rounded)) // 18pt: Proportional to 64pt VYBE
-                .foregroundColor(.white.opacity(0.9)) // 90% white opacity for subtle elegance
+                .foregroundColor(.white) // Full white for better readability
+                .shadow(color: .black.opacity(0.8), radius: 2, x: 0, y: 1) // Text shadow for readability
                 .opacity(backgroundGlow) // Responds to breathing animation (75% to 95%)
                 .scaleEffect(symbolScale * 0.85) // 85% of main scale for hierarchy
         }
@@ -371,13 +385,15 @@ struct VybeMatchOverlay: View {
                 // Sacred number meaning
                 Text(sacredInfo.name)
                     .font(.system(size: 16, weight: .semibold, design: .rounded))
-                    .foregroundColor(.white.opacity(0.8))
+                    .foregroundColor(.white)
+                    .shadow(color: .black.opacity(0.7), radius: 1, x: 0, y: 1) // Text shadow for readability
                     .scaleEffect(numberScale * 0.9) // 90% of number scale
                 
                 // Chakra information
                 Text(sacredInfo.chakra + " Chakra")
                     .font(.system(size: 14, weight: .medium, design: .rounded))
-                    .foregroundColor(.white.opacity(0.6))
+                    .foregroundColor(.white.opacity(0.9))
+                    .shadow(color: .black.opacity(0.7), radius: 1, x: 0, y: 1) // Text shadow for readability
                     .scaleEffect(numberScale * 0.8) // 80% of number scale
             }
         }
@@ -386,26 +402,26 @@ struct VybeMatchOverlay: View {
     
     /// 🎯 PHASE 2.2: COSMIC ACTION BUTTONS - Enhanced interaction options for spiritual engagement
     private var cosmicActionButtons: some View {
-        VStack(spacing: 12) { // 12pt spacing between rows
+        VStack(spacing: 10) { // Reduced spacing between rows to fit within bubble
             // First row: Primary spiritual actions
-            HStack(spacing: 15) { // 15pt spacing between buttons
+            HStack(spacing: 12) { // Optimized spacing between buttons
                 actionButton(for: .viewInsight)
                 actionButton(for: .startMeditation)
                 actionButton(for: .journalEntry)
             }
             
-            // Second row: Secondary actions
-            HStack(spacing: 15) { // 15pt spacing between buttons
+            // Second row: Secondary actions - centered with equal spacing
+            HStack(spacing: 12) { // Consistent spacing
+                Spacer() // Left spacer for centering
                 actionButton(for: .logSighting)
-                Spacer()
+                Spacer() // Middle spacer between buttons
                 actionButton(for: .close)
+                Spacer() // Right spacer for centering
             }
         }
-        .frame(maxWidth: .infinity) // Take full width of container
-        .padding(.horizontal, 25) // 25pt horizontal padding within bubble
-        .padding(.bottom, 25) // 25pt from bottom of bubble for better spacing
-        .opacity(showActionButtons ? 1.0 : 0.0)
-        .scaleEffect(showActionButtons ? 1.0 : 0.8)
+        .frame(maxWidth: 330) // Constrain to fit within 380pt bubble (25pt padding each side)
+        .scaleEffect(symbolScale * 0.95) // 🌟 SYNC WITH BUBBLE: Pulse with main cosmic animation
+        .opacity(showActionButtons ? (backgroundGlow * 0.9) : 0.0) // 🌟 BREATHE WITH BUBBLE: Sync opacity with cosmic breathing
         .animation(.spring(response: 0.6, dampingFraction: 0.8), value: showActionButtons)
     }
     
@@ -427,7 +443,7 @@ struct VybeMatchOverlay: View {
                     .multilineTextAlignment(.center)
                     .lineLimit(2) // Allow text wrapping for longer labels
             }
-            .frame(width: 70, height: 50) // Larger, more tappable button size
+            .frame(width: 65, height: 45) // Optimized size to fit perfectly within bubble constraints
             .background(
                 RoundedRectangle(cornerRadius: 10)
                     .fill(
@@ -449,6 +465,10 @@ struct VybeMatchOverlay: View {
             .shadow(
                 color: action.color.opacity(0.3),
                 radius: highlightedAction == action ? 6 : 3
+            )
+            .shadow(
+                color: action.color.opacity(backgroundGlow * 0.2), // 🌟 COSMIC GLOW: Sync with bubble breathing
+                radius: 8
             )
         }
         .onLongPressGesture(minimumDuration: 0.1) {
@@ -609,7 +629,7 @@ struct VybeMatchOverlay: View {
             }
             print("🌟 Heart Rate: \(heartRate) BPM")
             print("🌟 Animation Duration: \(String(format: "%.2f", heartRateAnimationDuration))s")
-            print("🌟 Display Duration: \(displayDuration)s (tap to dismiss early)")
+            print("🌟 Display Duration: Manual dismiss only (tap background, close button, or action button)")
             
             // Reset animation state
             visibilityDuration = 0
@@ -632,34 +652,30 @@ struct VybeMatchOverlay: View {
     }
     
     /**
-     * Starts the dramatic entrance animation sequence
-     * Creates a growing effect from tiny to massive with cosmic elements
+     * Starts the smooth entrance animation sequence
+     * Creates an elegant growing effect with gentle cosmic elements
      */
     private func startEntranceAnimations() {
-        // Start with tiny scale for dramatic growth effect
-        symbolScale = 0.1
-        numberScale = 0.1
+        // Start with smaller scale for smooth growth effect
+        symbolScale = 0.3
+        numberScale = 0.3
         backgroundGlow = 0.0
         numberGlow = 0.0
         
-        // Phase 1: Background fades in quickly (0.3s)
-        withAnimation(.easeOut(duration: 0.3)) {
-            backgroundGlow = 0.4
+        // Phase 1: Background fades in gently (0.4s)
+        withAnimation(.easeOut(duration: 0.4)) {
+            backgroundGlow = 0.6
         }
         
-        // Phase 2: Dramatic scale growth with powerful spring effect (0.8s)
-        withAnimation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.2)) {
-            symbolScale = 1.2 // Slightly larger than final for dramatic effect
-            numberScale = 1.1 // Sacred number grows slightly after VYBE
+        // Phase 2: Smooth scale growth directly to final size (0.7s)
+        withAnimation(.spring(response: 0.7, dampingFraction: 0.8, blendDuration: 0.1)) {
+            symbolScale = 1.0 // Direct to final size - no overshoot
+            numberScale = 1.0 // Sacred number grows smoothly with VYBE
         }
         
-        // Phase 3: Settle to final size and full glow (0.4s delay)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-            withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                self.symbolScale = 1.0 // Final size
-                self.numberScale = 1.0 // Final size
-            }
-            withAnimation(.easeInOut(duration: 0.6)) {
+        // Phase 3: Complete glow fade-in (0.5s delay)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation(.easeInOut(duration: 0.5)) {
                 self.backgroundGlow = 1.0 // Full cosmic glow
                 self.numberGlow = 1.0 // Full number glow
             }
@@ -675,8 +691,8 @@ struct VybeMatchOverlay: View {
             }
         }
         
-        // 🎯 PHASE 2.2: Show action buttons after entrance animation completes (1.5s delay)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        // 🎯 PHASE 2.2: Show action buttons immediately with bubble for unified cosmic experience
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             if self.isVisible { // Only show if overlay is still visible
                 withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
                     self.showActionButtons = true
@@ -696,12 +712,8 @@ struct VybeMatchOverlay: View {
         // Update visibility duration
         visibilityDuration += 0.1
         
-        // Auto-dismiss after display duration
-        if visibilityDuration >= displayDuration {
-            print("🌟 Auto-dismissing Vybe Match Overlay after \(displayDuration)s")
-            isVisible = false
-            return
-        }
+        // Auto-dismiss disabled - user must manually close overlay
+        // (displayDuration is set to .infinity for manual dismiss only)
         
         // Update heart rate synchronized pulse
         pulsePhase += 0.1 / heartRateAnimationDuration
