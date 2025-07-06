@@ -4,8 +4,9 @@
  * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
  *
  * === SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points) ===
- * • Background: Full screen cosmic effect with stars
- * • ScrollView: Full width, vertical scrolling
+ * • Background: Purple gradient cosmic background (matches HomeView)
+ * • ScrollSafeCosmicView: Twinkling numbers blooming from sacred geometry center
+ * • ScrollView: Full width, vertical scrolling with 60fps cosmic animations
  * • Content VStack: 40pt spacing between sections
  * • Horizontal padding: 20pts on all content
  * • Top padding: 50pts from safe area
@@ -19,7 +20,8 @@
  *
  * === REALM NUMBER DISPLAY (350×350pt) ===
  * • Container: NavigationLink wrapper
- * • Sacred geometry: DynamicAssetMandalaView full size
+ * • Sacred geometry: DynamicAssetMandalaView with 60-second clockwise rotation
+ * • Neon tracer: Heart rate-synced glow around sacred geometry (320×320pt)
  * • Realm number: 140pt bold rounded (matches HomeView)
  * • Shadow layers: 5 total (20pt, 15pt, 10pt, 5pt, 8pt)
  * • Tap hint: 12pt medium rounded, 70% white opacity
@@ -52,22 +54,23 @@
  * 9. White (#FFFFFF)
  *
  * === ANIMATIONS ===
- * • Sacred geometry: Static (no rotation)
- * • Glow intensity: Fixed at 0.8 (no animation)
- * • All effects: Performance optimized, no continuous animations
+ * • Sacred geometry: 60-second clockwise rotation (mystical, meditative cycle)
+ * • Cosmic numbers: ScrollSafeCosmicView twinkling bloom-and-fade from geometry center
+ * • Neon tracer: Heart rate-synced BPM pulsing around sacred geometry paths
+ * • All effects: 60fps performance optimized, scroll-safe continuous animations
  *
  * === INTERACTION ZONES ===
  * • Realm number display: Full 350×350pt tappable
  * • Navigation: Opens NumberMeaningView
  * • Ruling chart: Interactive components within
  *
- * Purpose: Displays the current realm number in a mystical, transcendent experience.
- * Features cosmic background with numerology rain, enhanced glowing effects, and sacred geometry.
- * The realm number is a cosmic/universal numerical value that changes based on time, date,
- * location, and heart rate factors.
+ * Purpose: Displays the current realm number in a mystical, transcendent cosmic experience.
+ * Features complete cosmic animation system with rotating sacred geometry, heart rate-synced
+ * neon tracers, and twinkling numbers. The realm number is a cosmic/universal numerical value
+ * that changes based on time, date, location, and heart rate factors.
  *
- * Design pattern: Declarative SwiftUI view with mystical enhancements
- * Dependencies: RealmNumberManager for data access, CosmicBackgroundView, NumerologyRainView, SacredGeometryView
+ * Design pattern: Declarative SwiftUI view with full cosmic animation integration
+ * Dependencies: RealmNumberManager, HealthKitManager, ScrollSafeCosmicView, NeonTracerView, DynamicAssetMandalaView
  */
 
 import SwiftUI
@@ -80,27 +83,42 @@ import SwiftUI
  * This enhanced view creates a mystical, Matrix-style visualization with sacred geometry.
  *
  * Key features:
- * 1. Cosmic starfield background
- * 2. Cascading numerology rain effect
- * 3. Sacred geometry visualization of the realm number
- * 4. Mystical realm description
- * 5. Interactive ruling number chart (replaces cosmic factors)
+ * 1. Purple gradient cosmic background (matches HomeView aesthetic)
+ * 2. ScrollSafeCosmicView twinkling numbers blooming from sacred geometry center
+ * 3. Rotating sacred geometry visualization with 60-second clockwise cycle
+ * 4. Heart rate-synced neon tracer around the sacred geometry paths
+ * 5. Mystical realm description with enhanced cosmic theming
+ * 6. Interactive ruling number chart with comprehensive numerology data
  */
 struct RealmNumberView: View {
     /// Access to the realm number manager for the current realm number value
     @EnvironmentObject var realmNumberManager: RealmNumberManager
     @EnvironmentObject var focusNumberManager: FocusNumberManager
+    @EnvironmentObject var healthKitManager: HealthKitManager
     
     @State private var glowIntensity: Double = 0.5
+    @State private var rotationAngle: Double = 0
+    @State private var isRotationStarted: Bool = false
     
     var body: some View {
         ZStack {
-            // Cosmic background with stars
-            CosmicBackgroundView()
-                .ignoresSafeArea()
+            // Purple gradient cosmic background (matches HomeView)
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color.black,
+                    Color.purple.opacity(0.3),
+                    Color.indigo.opacity(0.2),
+                    Color.black
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
             
-            // Main content
-            ScrollView {
+            // Wrap the content with scroll-safe cosmic animations
+            ScrollSafeCosmicView {
+                // Main content
+                ScrollView {
                 VStack(spacing: 40) {
                     // Mystical title
                     Text("✦ THE REALM NUMBER ✦")
@@ -131,8 +149,10 @@ struct RealmNumberView: View {
                 .padding(.horizontal, 20)
             }
         }
+        }
         .onAppear {
             startMysticalAnimations()
+            startMandalaRotation()
         }
     }
     
@@ -144,11 +164,20 @@ struct RealmNumberView: View {
                 // REMOVED: Outer cosmic ring that conflicted with sacred geometry
                 // Using only the sacred geometry background now
                 
-                // Enhanced Dynamic Sacred Geometry Background
+                // Enhanced Dynamic Sacred Geometry Background with Rotation
                 DynamicAssetMandalaView(
                     number: realmNumberManager.currentRealmNumber,
                     size: 350
                 )
+                .rotationEffect(.degrees(rotationAngle))
+                
+                // NEON TRACER: Add mystical glow around sacred geometry (matches HomeView)
+                NeonTracerView(
+                    path: createSacredPath(for: realmNumberManager.currentRealmNumber),
+                    bpm: Double(healthKitManager.currentHeartRate),
+                    color: getRealmNumberColor()
+                )
+                .frame(width: 320, height: 320)
                 
                 // Large Realm Number - FONT SIZE MATCHED TO HOME TAB
                 Text("\(realmNumberManager.currentRealmNumber)")
@@ -230,9 +259,26 @@ struct RealmNumberView: View {
     // MARK: - Helper Methods
     
     private func startMysticalAnimations() {
-        // NO ANIMATIONS - keep the view completely stable
-        // Only set static glow intensity without animation
+        // Set static glow intensity
         glowIntensity = 0.8
+    }
+    
+    private func startMandalaRotation() {
+        // Prevent multiple rotation animations from starting
+        guard !isRotationStarted else { return }
+        isRotationStarted = true
+        
+        print("🔄 Starting mandala rotation (60-second cycle)")
+        
+        // Reset to 0 and start continuous rotation
+        rotationAngle = 0
+        
+        // Start continuous rotation after a brief delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            withAnimation(.linear(duration: 60).repeatForever(autoreverses: false)) {
+                self.rotationAngle = 360
+            }
+        }
     }
     
     private func getRealmNumberColor() -> Color {
@@ -288,6 +334,139 @@ struct RealmNumberView: View {
         
         let index = max(0, min(realmNumberManager.currentRealmNumber - 1, descriptions.count - 1))
         return descriptions[index]
+    }
+    
+    // MARK: - Sacred Path Creation for NeonTracerView
+    
+    private func createSacredPath(for number: Int) -> CGPath {
+        let path = CGMutablePath()
+        let centerX: CGFloat = 160
+        let centerY: CGFloat = 160
+        
+        switch number {
+        case 1: // Simple circle for unity
+            let radius: CGFloat = 120
+            path.addEllipse(in: CGRect(x: centerX - radius, y: centerY - radius, width: radius * 2, height: radius * 2))
+            
+        case 2: // Star of David pattern
+            let outerRadius: CGFloat = 140
+            let innerRadius: CGFloat = 70
+            
+            // Create a 12-pointed star path that traces the outer edges of the mandala
+            for i in 0..<12 {
+                let angle = (CGFloat(i) * 2.0 * .pi) / 12.0 - .pi / 2
+                let radius = i % 2 == 0 ? outerRadius : innerRadius
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                
+                if i == 0 {
+                    path.move(to: CGPoint(x: x, y: y))
+                } else {
+                    path.addLine(to: CGPoint(x: x, y: y))
+                }
+            }
+            path.closeSubpath()
+            
+        case 3: // Triangle
+            let radius: CGFloat = 130
+            for i in 0..<3 {
+                let angle = (CGFloat(i) * 2.0 * .pi) / 3.0 - .pi / 2
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                
+                if i == 0 {
+                    path.move(to: CGPoint(x: x, y: y))
+                } else {
+                    path.addLine(to: CGPoint(x: x, y: y))
+                }
+            }
+            path.closeSubpath()
+            
+        case 4: // Square
+            let radius: CGFloat = 120
+            for i in 0..<4 {
+                let angle = (CGFloat(i) * 2.0 * .pi) / 4.0 - .pi / 4
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                
+                if i == 0 {
+                    path.move(to: CGPoint(x: x, y: y))
+                } else {
+                    path.addLine(to: CGPoint(x: x, y: y))
+                }
+            }
+            path.closeSubpath()
+            
+        case 5: // Pentagon
+            let radius: CGFloat = 125
+            for i in 0..<5 {
+                let angle = (CGFloat(i) * 2.0 * .pi) / 5.0 - .pi / 2
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                
+                if i == 0 {
+                    path.move(to: CGPoint(x: x, y: y))
+                } else {
+                    path.addLine(to: CGPoint(x: x, y: y))
+                }
+            }
+            path.closeSubpath()
+            
+        case 6: // Hexagon/Star of David
+            let radius: CGFloat = 130
+            for i in 0..<6 {
+                let angle = (CGFloat(i) * 2.0 * .pi) / 6.0 - .pi / 2
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                
+                if i == 0 {
+                    path.move(to: CGPoint(x: x, y: y))
+                } else {
+                    path.addLine(to: CGPoint(x: x, y: y))
+                }
+            }
+            path.closeSubpath()
+            
+        case 7: // Heptagon
+            let radius: CGFloat = 125
+            for i in 0..<7 {
+                let angle = (CGFloat(i) * 2.0 * .pi) / 7.0 - .pi / 2
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                
+                if i == 0 {
+                    path.move(to: CGPoint(x: x, y: y))
+                } else {
+                    path.addLine(to: CGPoint(x: x, y: y))
+                }
+            }
+            path.closeSubpath()
+            
+        case 8: // Octagon
+            let radius: CGFloat = 130
+            for i in 0..<8 {
+                let angle = (CGFloat(i) * 2.0 * .pi) / 8.0 - .pi / 4
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                
+                if i == 0 {
+                    path.move(to: CGPoint(x: x, y: y))
+                } else {
+                    path.addLine(to: CGPoint(x: x, y: y))
+                }
+            }
+            path.closeSubpath()
+            
+        case 9: // Circle for completion
+            let radius: CGFloat = 135
+            path.addEllipse(in: CGRect(x: centerX - radius, y: centerY - radius, width: radius * 2, height: radius * 2))
+            
+        default: // Default circle
+            let radius: CGFloat = 120
+            path.addEllipse(in: CGRect(x: centerX - radius, y: centerY - radius, width: radius * 2, height: radius * 2))
+        }
+        
+        return path
     }
 }
 
