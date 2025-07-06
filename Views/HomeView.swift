@@ -110,6 +110,10 @@ struct HomeView: View {
     // CACHE FLOOD FIX: Cache UserProfile in HomeView to prevent repeated lookups
     @State private var cachedUserProfile: UserProfile?
     
+    // PHASE 3C-2: Recent Match Popup state
+    @State private var showingMatchPopup = false
+    @State private var selectedMatch: FocusMatch?
+    
     var body: some View {
         ZStack {
             // 🌌 COSMIC ANIMATION LAYER: Re-enabled with lightweight cosmic background
@@ -293,6 +297,15 @@ struct HomeView: View {
                                                 .padding()
                                                 .background(Color.purple.opacity(0.1))
                                                 .cornerRadius(10)
+                                                .onLongPressGesture(minimumDuration: 0.8) {
+                                                    // PHASE 3C-2: Show match details popup on hold
+                                                    selectedMatch = match
+                                                    showingMatchPopup = true
+                                                    
+                                                    // Haptic feedback
+                                                    let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                                                    impactFeedback.impactOccurred()
+                                                }
                                             }
                                         }
                                         .padding(.horizontal)
@@ -318,6 +331,17 @@ struct HomeView: View {
             // Cosmic Number Picker Overlay
             if showingCosmicPicker {
                 cosmicNumberPickerOverlay
+            }
+            
+            // PHASE 3C-2: Recent Match Popup Overlay
+            if showingMatchPopup, let match = selectedMatch {
+                RecentMatchPopupView(
+                    matchData: match,
+                    onDismiss: {
+                        showingMatchPopup = false
+                        selectedMatch = nil
+                    }
+                )
             }
         }
         .sheet(isPresented: $showingPicker) {
