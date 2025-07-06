@@ -143,6 +143,11 @@ struct PhantomChakrasView: View {
                 // Bottom controls
                 bottomControls
             }
+            
+            // Affirmation overlay
+            if chakraManager.isShowingAffirmation {
+                affirmationOverlay
+            }
         }
         .sheet(isPresented: $showingDetail) {
             if let chakra = selectedChakra {
@@ -209,7 +214,7 @@ struct PhantomChakrasView: View {
                 .scaleEffect(animateIn ? 1.0 : 0.8)
                 .opacity(animateIn ? 1.0 : 0.0)
             
-            Text("Tap to explore • Hold to harmonize")
+            Text("Tap to explore • Hold to harmonize • Double-tap for affirmation")
                 .font(.subheadline)
                 .foregroundColor(.white.opacity(0.7))
                 .opacity(animateIn ? 1.0 : 0.0)
@@ -263,6 +268,57 @@ struct PhantomChakrasView: View {
             .opacity(animateIn ? 1.0 : 0.0)
         }
         .padding(.bottom, 30)
+    }
+    
+    private var affirmationOverlay: some View {
+        VStack {
+            Spacer()
+            
+            VStack(spacing: 16) {
+                // Affirmation text
+                if let affirmationText = chakraManager.currentAffirmationText {
+                    Text(affirmationText)
+                        .font(.title2)
+                        .fontWeight(.medium)
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 30)
+                        .padding(.vertical, 20)
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.black.opacity(0.8))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(
+                                            LinearGradient(
+                                                gradient: Gradient(colors: [
+                                                    Color.purple.opacity(0.8),
+                                                    Color.blue.opacity(0.8)
+                                                ]),
+                                                startPoint: .leading,
+                                                endPoint: .trailing
+                                            ),
+                                            lineWidth: 2
+                                        )
+                                )
+                        )
+                        .shadow(color: Color.purple.opacity(0.3), radius: 20, x: 0, y: 10)
+                        .accessibilityLabel("Chakra Affirmation")
+                        .accessibilityValue(affirmationText)
+                }
+                
+                // Meditation instruction
+                Text("Double-tap any chakra to hear its affirmation")
+                    .font(.subheadline)
+                    .foregroundColor(.white.opacity(0.6))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+            }
+            
+            Spacer()
+        }
+        .transition(.opacity.combined(with: .scale(scale: 0.9)))
+        .zIndex(1)
     }
     
     // MARK: - Computed Properties

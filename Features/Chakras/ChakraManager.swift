@@ -23,6 +23,8 @@ class ChakraManager: ObservableObject {
     @Published var currentMeditationTime: TimeInterval = 0
     @Published var isMeditating = false
     @Published var globalAnimationPhase: Double = 0.0 // For synchronized pulsing
+    @Published var currentAffirmationText: String?
+    @Published var isShowingAffirmation = false
     
     // MARK: - Audio Properties
     private var audioEngine: AVAudioEngine?
@@ -38,6 +40,10 @@ class ChakraManager: ObservableObject {
     private var hapticPlayers: [ChakraType: CHHapticPatternPlayer] = [:]
     private var currentHeartRate: Double = 72.0 // Default BPM
     
+    // MARK: - Speech Properties
+    private var speechSynthesizer: AVSpeechSynthesizer?
+    private var affirmationTimer: Timer?
+    
     // MARK: - Timer Properties
     private var meditationTimer: Timer?
     private var animationTimer: Timer?
@@ -51,6 +57,7 @@ class ChakraManager: ObservableObject {
         setupAudioSession()
         setupAudioEngine()
         setupHapticEngine()
+        setupSpeechSynthesizer()
         
         // Start the audio engine immediately
         startAudioEngine()
@@ -300,6 +307,12 @@ class ChakraManager: ObservableObject {
         }
     }
     
+    /// Setup speech synthesizer for affirmations
+    private func setupSpeechSynthesizer() {
+        speechSynthesizer = AVSpeechSynthesizer()
+        print("✅ Speech synthesizer setup complete")
+    }
+    
     // MARK: - Animation Timer
     
     /// Start the global animation timer for synchronized pulsing
@@ -390,6 +403,45 @@ class ChakraManager: ObservableObject {
         // Update volume if currently playing
         if let playerNode = toneGenerators[type], playerNode.isPlaying {
             playerNode.volume = volume
+        }
+    }
+    
+    /// Speak affirmation for a specific chakra
+    func speakAffirmation(for type: ChakraType) {
+        guard let speechSynthesizer = speechSynthesizer,
+              configuration.enableAffirmations else { return }
+        
+        // Stop any current speech
+        speechSynthesizer.stopSpeaking(at: .immediate)
+        
+        // Show affirmation text
+        currentAffirmationText = type.affirmation
+        withAnimation(.easeInOut(duration: 0.5)) {
+            isShowingAffirmation = true
+        }
+        
+        // Create speech utterance
+        let utterance = AVSpeechUtterance(string: type.affirmation)
+        utterance.rate = configuration.speechRate
+        utterance.pitchMultiplier = 0.9 // Slightly lower pitch for calm delivery
+        utterance.volume = configuration.speechVolume
+        
+        // Use a calming voice - prefer female voice for spiritual content
+        if let voice = AVSpeechSynthesisVoice(language: "en-US") {
+            utterance.voice = voice
+        }
+        
+        // Start speaking
+        speechSynthesizer.speak(utterance)
+        
+        // Hide affirmation text after speech duration + 1 second
+        let displayDuration = Double(type.affirmation.count) * 0.08 + 2.0 // Approximate reading time
+        affirmationTimer?.invalidate()
+        affirmationTimer = Timer.scheduledTimer(withTimeInterval: displayDuration, repeats: false) { [weak self] _ in
+            withAnimation(.easeInOut(duration: 0.5)) {
+                self?.isShowingAffirmation = false
+            }
+            self?.currentAffirmationText = nil
         }
     }
     
@@ -565,8 +617,10 @@ class ChakraManager: ObservableObject {
     deinit {
         audioEngine?.stop()
         hapticEngine?.stop()
+        speechSynthesizer?.stopSpeaking(at: .immediate)
         meditationTimer?.invalidate()
         animationTimer?.invalidate()
+        affirmationTimer?.invalidate()
     }
     
     // Add tanh function for soft limiting

@@ -52,6 +52,9 @@ struct ChakraSymbolView: View {
                 triggerTapAnimation()
                 onTap()
             }
+            .onTapGesture(count: 2) {
+                triggerAffirmationTap()
+            }
             .onLongPressGesture(minimumDuration: 0.5, pressing: { pressing in
                 isPressed = pressing
                 if pressing {
@@ -70,6 +73,9 @@ struct ChakraSymbolView: View {
             .onAppear {
                 startContinuousAnimation()
             }
+            .accessibilityLabel("\(chakraState.type.name) Chakra")
+            .accessibilityHint("Tap to explore chakra details, hold to harmonize, double-tap to hear affirmation")
+            .accessibilityValue(chakraState.isHarmonizing ? "Harmonizing" : (chakraState.isActive ? "Active" : "Inactive"))
             
             // Volume control (shows when harmonizing)
             if chakraState.isHarmonizing {
@@ -275,6 +281,20 @@ struct ChakraSymbolView: View {
         // Visual feedback
         withAnimation(.easeInOut(duration: 0.3)) {
             // Animation handled by state change
+        }
+    }
+    
+    private func triggerAffirmationTap() {
+        // Enhanced haptic feedback for affirmation
+        let impactFeedback = UIImpactFeedbackGenerator(style: .heavy)
+        impactFeedback.impactOccurred()
+        
+        // Trigger affirmation speech
+        chakraManager.speakAffirmation(for: chakraState.type)
+        
+        // Brief visual feedback
+        withAnimation(.easeInOut(duration: 0.2)) {
+            // Animation handled by ripple effect
         }
     }
 }

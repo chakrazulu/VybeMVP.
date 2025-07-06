@@ -183,6 +183,9 @@ struct ChakraConfiguration {
     var enableSound: Bool = true
     var enableHaptics: Bool = true
     var enableVisualEffects: Bool = true
+    var enableAffirmations: Bool = true
     var volumeLevel: Float = 0.7
     var meditationDuration: TimeInterval = 300 // 5 minutes default
+    var speechRate: Float = 0.5 // Slow and meditative
+    var speechVolume: Float = 0.8
 } 
