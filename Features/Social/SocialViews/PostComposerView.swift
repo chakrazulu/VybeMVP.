@@ -17,15 +17,45 @@ struct PostComposerView: View {
     @State private var showingImagePicker = false
     @State private var selectedImage: UIImage?
     
+    // User data - can be passed from UserProfileView or default to mock
+    let authorName: String
+    let authorDisplayName: String
+    
     // Mock user data - in real app, this would come from user session
-    private let currentUser = SocialUser(
-        userId: "000536.fe41c9f51a0543059da7d6fe0dc44b7f.1946",
-        displayName: "Corey Jermaine Davis",
-        lifePathNumber: 3,
-        soulUrgeNumber: 5,
-        expressionNumber: 7,
-        currentFocusNumber: 3
-    )
+    private let currentUser: SocialUser
+    
+    /**
+     * Initialize PostComposerView with user information
+     * 
+     * PHASE 3C-1 FIX: Enhanced initialization to resolve username vs birth name issue
+     * 
+     * PARAMETERS:
+     * @param authorName: Username for post attribution (e.g., "@cosmic_wanderer")
+     * @param authorDisplayName: Display name for cosmic signature (e.g., "Cosmic Seeker")
+     * 
+     * IMPLEMENTATION STRATEGY:
+     * - Accepts user data from SocialTimelineView via NotificationCenter
+     * - Creates SocialUser with passed display name for cosmic signature
+     * - Uses authorName for post creation to show username not birth name
+     * - Maintains compatibility with existing mock data structure
+     * 
+     * DATA FLOW:
+     * UserProfileView → NotificationCenter → SocialTimelineView → PostComposerView
+     */
+    init(authorName: String = "@cosmic_wanderer", authorDisplayName: String = "Cosmic Seeker") {
+        self.authorName = authorName
+        self.authorDisplayName = authorDisplayName
+        
+        // Create SocialUser with passed parameters for cosmic signature display
+        self.currentUser = SocialUser(
+            userId: "000536.fe41c9f51a0543059da7d6fe0dc44b7f.1946",
+            displayName: authorDisplayName,  // Used for cosmic signature in UI
+            lifePathNumber: 3,
+            soulUrgeNumber: 5,
+            expressionNumber: 7,
+            currentFocusNumber: 3
+        )
+    }
     
     private let availableTags = [
         "manifestation", "healing", "spiritual-growth", "synchronicity",
@@ -264,9 +294,11 @@ struct PostComposerView: View {
         // Create cosmic signature
         let cosmicSignature = currentUser.currentCosmicSignature
         
-        // Create the post
+        // PHASE 3C-1 FIX: Create post with username instead of birth name
+        // Critical fix: Use authorName (username) not currentUser.displayName (birth name)
+        // This ensures posts display "@cosmic_wanderer" not "Corey Jermaine Davis"
         postManager.createPost(
-            authorName: currentUser.displayName,
+            authorName: authorName, // FIXED: Use passed username parameter
             content: content,
             type: selectedType,
             tags: selectedTags,

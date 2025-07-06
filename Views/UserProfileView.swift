@@ -150,19 +150,51 @@ struct UserProfileView: View {
                 checkForExistingPosts()
             }
             .onReceive(NotificationCenter.default.publisher(for: Notification.Name("PostCreated"))) { _ in
-                // Update state when a post is created
+                // PHASE 3C-1 FIX: Update post button state when user creates first post
+                // Triggered by PostComposerView after successful post creation
                 hasCreatedFirstPost = true
-                print("📝 User created first post - updating button text")
+                
+                // PERSISTENCE: Save state to UserDefaults for app restart persistence
+                // This ensures button text persists between app launches
+                UserDefaults.standard.set(true, forKey: "hasCreatedFirstPost")
+                
+                print("📝 User created first post - updating button text and persisting state")
+                
+                // HAPTIC FEEDBACK: Provide tactile confirmation of state change
+                let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                impactFeedback.impactOccurred()
             }
         }
     }
     
     // MARK: - Helper Functions
     
+    /**
+     * Check if user has created posts before
+     * 
+     * IMPLEMENTATION DETAILS:
+     * - Uses UserDefaults for persistent state across app launches
+     * - Key: "hasCreatedFirstPost" stores boolean value
+     * - Called on view appearance to restore previous state
+     * - Future enhancement: Integrate with PostManager for real-time data
+     * 
+     * PERSISTENCE STRATEGY:
+     * - UserDefaults provides immediate local storage
+     * - State survives app restarts and view reloads
+     * - Compatible with future Firebase/CoreData integration
+     * 
+     * @see UserDefaults.standard.set() in NotificationCenter listener
+     * @see PostManager.shared.posts for future real-time checking
+     */
     private func checkForExistingPosts() {
-        // TODO: Check PostManager or Core Data for existing posts
-        // For now, assume no posts exist
-        hasCreatedFirstPost = false
+        // Check UserDefaults for persistent state
+        hasCreatedFirstPost = UserDefaults.standard.bool(forKey: "hasCreatedFirstPost")
+        
+        // Future: Could also check PostManager.shared.posts for current user
+        // let userPosts = PostManager.shared.posts.filter { $0.authorName == displayName }
+        // hasCreatedFirstPost = !userPosts.isEmpty
+        
+        print("🔍 UserProfileView: Checked existing posts - hasCreatedFirstPost: \(hasCreatedFirstPost)")
     }
     
     // MARK: - Profile Header Section
@@ -492,11 +524,23 @@ struct UserProfileView: View {
                 .multilineTextAlignment(.center)
             
             Button(action: {
-                // Navigate to Timeline tab and trigger Share Your Vybe (PostComposerView)
+                // PHASE 3C-1 FIX: Navigate to Timeline and trigger post creation
+                // Navigate to Timeline tab (tag 2) for post composition
                 selectedTab = 2
-                // TODO: Trigger PostComposerView sheet in SocialTimelineView
-                NotificationCenter.default.post(name: Notification.Name("TriggerPostComposer"), object: nil)
-                print("📝 Navigating to Timeline tab and triggering Share Your Vybe composer")
+                
+                // PHASE 3C-1 FIX: Pass user information to fix username vs birth name issue
+                // Send username and display name to PostComposer via NotificationCenter
+                // This ensures posts show username (@cosmic_wanderer) not birth name
+                let userInfo = [
+                    "authorName": username,      // e.g., "@cosmic_wanderer"
+                    "authorDisplayName": displayName  // e.g., "Cosmic Seeker"
+                ]
+                NotificationCenter.default.post(
+                    name: Notification.Name("TriggerPostComposer"), 
+                    object: nil, 
+                    userInfo: userInfo
+                )
+                print("📝 Navigating to Timeline tab and triggering Share Your Vybe composer with user: \(username)")
                 let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
                 impactFeedback.impactOccurred()
             }) {

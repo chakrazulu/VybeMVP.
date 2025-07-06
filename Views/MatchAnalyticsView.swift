@@ -382,10 +382,15 @@ struct MatchAnalyticsView: View {
         )
     }
     
-    /// Summary statistics card with cosmic theming
+    /// Summary statistics card with cosmic neon glow effects
+    /// 
+    /// PHASE 3C-1 ENHANCEMENT: Added neon glow effects for floating space appearance
+    /// - Multi-layer shadow system (cyan, purple, blue)
+    /// - Gradient stroke borders for cosmic aesthetic
+    /// - Enhanced visual hierarchy with "Cosmic Insights" title
     private var cardSummary: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Summary")
+            Text("Cosmic Insights")
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding(.horizontal)
@@ -424,15 +429,36 @@ struct MatchAnalyticsView: View {
                 .fill(Color.black.opacity(0.3))
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                        .stroke(
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    Color.cyan.opacity(0.8),
+                                    Color.purple.opacity(0.6),
+                                    Color.blue.opacity(0.4)
+                                ]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 2
+                        )
                 )
+                // PHASE 3C-1 ENHANCEMENT: Multi-layer shadow system for neon glow effect
+                // Creates "floating in space" appearance with cosmic energy
+                .shadow(color: .cyan.opacity(0.5), radius: 10, x: 0, y: 0)    // Inner glow
+                .shadow(color: .purple.opacity(0.3), radius: 18, x: 0, y: 0)  // Outer glow
         )
     }
     
-    /// Match distribution chart card with enhanced data
+    /// Match distribution chart card with enhanced cosmic neon glow effects
+    /// 
+    /// PHASE 3C-1 ENHANCEMENT: "Today's Pattern" with neon glow effects
+    /// - Triple-layer shadow system (purple, blue, cyan) for floating appearance
+    /// - Gradient stroke borders with cosmic color progression
+    /// - Enhanced container theming for "floating in space" effect
+    /// - Renamed to "Today's Pattern" for better user comprehension
     private var cardDistribution: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Match Distribution")
+            Text("Today's Pattern")
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding(.horizontal)
@@ -479,15 +505,37 @@ struct MatchAnalyticsView: View {
                 .fill(Color.black.opacity(0.3))
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                        .stroke(
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    Color.purple.opacity(0.8),
+                                    Color.blue.opacity(0.6),
+                                    Color.cyan.opacity(0.4)
+                                ]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 2
+                        )
                 )
+                // PHASE 3C-1 ENHANCEMENT: Triple-layer shadow system for maximum neon glow
+                // Creates most prominent "floating in space" effect for primary chart
+                .shadow(color: .purple.opacity(0.6), radius: 12, x: 0, y: 0)  // Inner glow
+                .shadow(color: .blue.opacity(0.4), radius: 20, x: 0, y: 0)    // Mid glow  
+                .shadow(color: .cyan.opacity(0.3), radius: 28, x: 0, y: 0)    // Outer glow
         )
     }
     
-    /// Pattern analysis card with cosmic theming
+    /// Pattern analysis card with cosmic neon glow effects
+    /// 
+    /// PHASE 3C-1 ENHANCEMENT: "Sacred Patterns" with neon glow effects
+    /// - Dual-layer shadow system (yellow, orange) for warm cosmic glow
+    /// - Gradient stroke borders with sacred color progression
+    /// - Enhanced spiritual terminology with "Sacred Patterns" title
+    /// - Consistent floating space aesthetic across all analytics cards
     private var cardPatterns: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Pattern Analysis")
+            Text("Sacred Patterns")
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding(.horizontal)
@@ -535,8 +583,23 @@ struct MatchAnalyticsView: View {
                 .fill(Color.black.opacity(0.3))
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                        .stroke(
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    Color.yellow.opacity(0.8),
+                                    Color.orange.opacity(0.6),
+                                    Color.purple.opacity(0.4)
+                                ]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 2
+                        )
                 )
+                // PHASE 3C-1 ENHANCEMENT: Dual-layer shadow system for warm cosmic glow
+                // Creates sacred energy appearance with warm color palette
+                .shadow(color: .yellow.opacity(0.4), radius: 10, x: 0, y: 0)   // Inner warm glow
+                .shadow(color: .orange.opacity(0.3), radius: 16, x: 0, y: 0)   // Outer warm glow
         )
     }
 }

@@ -130,6 +130,11 @@ struct SocialTimelineView: View {
     @State private var selectedFilter: TimelineFilter = .all
     @State private var animateIn = false
     
+    // PHASE 3C-1 FIX: User information for post composition
+    // Tracks current user data for passing to PostComposerView
+    @State private var currentAuthorName = "@cosmic_wanderer"
+    @State private var currentAuthorDisplayName = "Cosmic Seeker"
+    
     enum TimelineFilter: String, CaseIterable {
         case all = "All"
         case resonant = "Resonant"
@@ -207,13 +212,29 @@ struct SocialTimelineView: View {
                     animateIn = true
                 }
             }
-            .onReceive(NotificationCenter.default.publisher(for: Notification.Name("TriggerPostComposer"))) { _ in
-                // Trigger composer when navigated from Profile "Create First Post"
+            .onReceive(NotificationCenter.default.publisher(for: Notification.Name("TriggerPostComposer"))) { notification in
+                // PHASE 3C-1 FIX: Handle post composer trigger with user information
+                // Triggered from UserProfileView "Create First Post" button
+                
+                // EXTRACT USER INFORMATION: Get username and display name from notification
+                // This fixes the username vs birth name issue by passing real user data
+                if let userInfo = notification.userInfo {
+                    currentAuthorName = userInfo["authorName"] as? String ?? "@cosmic_wanderer"
+                    currentAuthorDisplayName = userInfo["authorDisplayName"] as? String ?? "Cosmic Seeker"
+                    print("📝 SocialTimelineView: Received user info - \(currentAuthorName), \(currentAuthorDisplayName)")
+                }
+                
+                // SHOW COMPOSER: Present PostComposerView with updated user information
                 showingComposer = true
             }
         }
         .sheet(isPresented: $showingComposer) {
-            PostComposerView()
+            // PHASE 3C-1 FIX: Pass user information to PostComposerView
+            // Ensures posts display username (@cosmic_wanderer) not birth name
+            PostComposerView(
+                authorName: currentAuthorName,        // Username for post attribution
+                authorDisplayName: currentAuthorDisplayName  // Display name for cosmic signature
+            )
         }
     }
     
