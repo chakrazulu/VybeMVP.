@@ -144,8 +144,8 @@ struct ContentView: View {
                         }
                         .tag(2)
                     
-                    // 🎭 PHASE 3A: Twitter-Style Social Profile - Complete implementation
-                    UserProfileView()
+                    // 🎭 PHASE 3A: Twitter-Style Social Profile - Complete implementation with navigation
+                    UserProfileView(selectedTab: $selectedTab)
                         .environmentObject(focusNumberManager)
                         .tabItem {
                             Image(systemName: "person.circle.fill")

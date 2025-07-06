@@ -54,6 +54,11 @@ import SwiftUI
  */
 struct UserProfileView: View {
     
+    // MARK: - Navigation Properties
+    
+    /// Tab selection binding for navigation to other tabs
+    @Binding var selectedTab: Int
+    
     // MARK: - State Properties
     
     /// User's profile data (future integration with UserProfileService)
@@ -280,8 +285,10 @@ struct UserProfileView: View {
         HStack(spacing: 0) {
             // Friends Stat
             Button(action: {
-                // TODO: Navigate to friends list
+                // TODO: Navigate to friends list (future social features)
                 print("📱 Navigate to friends list")
+                let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                impactFeedback.impactOccurred()
             }) {
                 statCard(
                     number: friendsCount,
@@ -295,10 +302,13 @@ struct UserProfileView: View {
                 .background(Color.white.opacity(0.2))
                 .frame(height: 40)
             
-            // Matches Stat
+            // Matches Stat  
             Button(action: {
-                // TODO: Navigate to matches view
-                print("🌟 Navigate to cosmic matches")
+                // Navigate to Analytics tab (cosmic matches view)
+                selectedTab = 8
+                print("🌟 Navigating to Analytics tab for cosmic matches")
+                let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                impactFeedback.impactOccurred()
             }) {
                 statCard(
                     number: matchesCount,
@@ -314,8 +324,10 @@ struct UserProfileView: View {
             
             // XP Level Stat
             Button(action: {
-                // TODO: Navigate to XP/achievements
+                // TODO: Navigate to XP/achievements (future feature)
                 print("⭐ Navigate to achievements")
+                let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                impactFeedback.impactOccurred()
             }) {
                 statCard(
                     number: xpLevel,
@@ -331,8 +343,11 @@ struct UserProfileView: View {
             
             // Insights Stat
             Button(action: {
-                // TODO: Navigate to insights view
-                print("🧠 Navigate to insights")
+                // Navigate to Activity tab (insights view)
+                selectedTab = 4
+                print("🧠 Navigating to Activity tab for insights")
+                let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                impactFeedback.impactOccurred()
             }) {
                 statCard(
                     number: insightsCount,
@@ -456,8 +471,11 @@ struct UserProfileView: View {
                 .multilineTextAlignment(.center)
             
             Button(action: {
-                // TODO: Navigate to create post
-                print("📝 Navigate to create post")
+                // Navigate to Timeline tab for post creation
+                selectedTab = 2
+                print("📝 Navigating to Timeline tab for post creation")
+                let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                impactFeedback.impactOccurred()
             }) {
                 HStack {
                     Image(systemName: "plus.circle.fill")
@@ -492,8 +510,11 @@ struct UserProfileView: View {
                 .multilineTextAlignment(.center)
             
             Button(action: {
-                // TODO: Navigate to insights
-                print("🧠 Navigate to AI insights")
+                // Navigate to Activity tab for AI insights
+                selectedTab = 4
+                print("🧠 Navigating to Activity tab for AI insights")
+                let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                impactFeedback.impactOccurred()
             }) {
                 HStack {
                     Image(systemName: "brain.head.profile")
@@ -528,8 +549,11 @@ struct UserProfileView: View {
                 .multilineTextAlignment(.center)
             
             Button(action: {
-                // TODO: Navigate to activity view
-                print("📊 Navigate to activity timeline")
+                // Navigate to Activity tab for timeline
+                selectedTab = 4
+                print("📊 Navigating to Activity tab for timeline")
+                let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                impactFeedback.impactOccurred()
             }) {
                 HStack {
                     Image(systemName: "list.star")
@@ -729,7 +753,7 @@ struct SettingsSheet: View {
 
 struct UserProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        UserProfileView()
+        UserProfileView(selectedTab: .constant(3))
             .preferredColorScheme(.dark)
     }
 }
