@@ -9,6 +9,7 @@ import Foundation
 import AVFoundation
 import CoreHaptics
 import Combine
+import SwiftUI
 
 /// Manages all chakra-related functionality including audio, haptics, and state
 class ChakraManager: ObservableObject {
