@@ -277,6 +277,10 @@ struct PostComposerView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             let successFeedback = UINotificationFeedbackGenerator()
             successFeedback.notificationOccurred(.success)
+            
+            // Notify that a post was created (for UserProfileView button update)
+            NotificationCenter.default.post(name: Notification.Name("PostCreated"), object: nil)
+            
             dismiss()
         }
     }

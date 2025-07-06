@@ -78,6 +78,9 @@ struct UserProfileView: View {
     @State private var showingEditProfile = false
     @State private var showingSettings = false
     
+    /// Track if user has created their first post
+    @State private var hasCreatedFirstPost = false
+    
     // MARK: - Content Tab Types
     
     enum ContentTab: String, CaseIterable {
@@ -139,9 +142,27 @@ struct UserProfileView: View {
                 )
             }
             .sheet(isPresented: $showingSettings) {
-                SettingsSheet()
+                SettingsSheet(username: $username)
+            }
+            .onAppear {
+                print("🎭 UserProfileView appeared")
+                // Check if user has posted before (TODO: integrate with PostManager)
+                checkForExistingPosts()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: Notification.Name("PostCreated"))) { _ in
+                // Update state when a post is created
+                hasCreatedFirstPost = true
+                print("📝 User created first post - updating button text")
             }
         }
+    }
+    
+    // MARK: - Helper Functions
+    
+    private func checkForExistingPosts() {
+        // TODO: Check PostManager or Core Data for existing posts
+        // For now, assume no posts exist
+        hasCreatedFirstPost = false
     }
     
     // MARK: - Profile Header Section
@@ -208,7 +229,7 @@ struct UserProfileView: View {
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                 
-                // Username
+                // Username display (creation moved to settings)
                 Text(username)
                     .font(.subheadline)
                     .foregroundColor(.purple)
@@ -304,7 +325,7 @@ struct UserProfileView: View {
             
             // Matches Stat  
             Button(action: {
-                // Navigate to Analytics tab (cosmic matches view)
+                // Navigate to Analytics tab for nested analytics view (cosmic matches)
                 selectedTab = 8
                 print("🌟 Navigating to Analytics tab for cosmic matches")
                 let impactFeedback = UIImpactFeedbackGenerator(style: .light)
@@ -471,15 +492,17 @@ struct UserProfileView: View {
                 .multilineTextAlignment(.center)
             
             Button(action: {
-                // Navigate to Timeline tab for post creation
+                // Navigate to Timeline tab and trigger Share Your Vybe (PostComposerView)
                 selectedTab = 2
-                print("📝 Navigating to Timeline tab for post creation")
+                // TODO: Trigger PostComposerView sheet in SocialTimelineView
+                NotificationCenter.default.post(name: Notification.Name("TriggerPostComposer"), object: nil)
+                print("📝 Navigating to Timeline tab and triggering Share Your Vybe composer")
                 let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
                 impactFeedback.impactOccurred()
             }) {
                 HStack {
                     Image(systemName: "plus.circle.fill")
-                    Text("Create First Post")
+                    Text(hasCreatedFirstPost ? "Post" : "Create First Post")
                 }
                 .font(.subheadline)
                 .fontWeight(.semibold)
@@ -549,9 +572,9 @@ struct UserProfileView: View {
                 .multilineTextAlignment(.center)
             
             Button(action: {
-                // Navigate to Activity tab for timeline
-                selectedTab = 4
-                print("📊 Navigating to Activity tab for timeline")
+                // Navigate to Timeline tab for Global Resonance (public timeline)
+                selectedTab = 2
+                print("📊 Navigating to Timeline tab for Global Resonance")
                 let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
                 impactFeedback.impactOccurred()
             }) {
@@ -707,31 +730,81 @@ struct EditProfileSheet: View {
 }
 
 struct SettingsSheet: View {
+    @Binding var username: String
     @Environment(\.dismiss) private var dismiss
+    @State private var showingUsernameCreation = false
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 30) {
-                Image(systemName: "gear")
-                    .font(.system(size: 60))
-                    .foregroundColor(.gray)
-                
+            VStack(spacing: 24) {
+                // Header
                 VStack(spacing: 16) {
-                    Text("Settings")
+                    Image(systemName: "gear")
+                        .font(.system(size: 60))
+                        .foregroundColor(.gray)
+                    
+                    Text("Profile Settings")
                         .font(.title2)
                         .fontWeight(.bold)
-                    
-                    Text("Coming Soon")
+                }
+                
+                // Username Section
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Username")
                         .font(.headline)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.primary)
                     
-                    Text("Comprehensive settings will be available here including privacy controls, notifications, and spiritual preferences.")
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Current: \(username)")
+                                .font(.body)
+                                .foregroundColor(.secondary)
+                            
+                            if username == "@cosmic_wanderer" {
+                                Text("Default username - tap to customize")
+                                    .font(.caption)
+                                    .foregroundColor(.orange)
+                            }
+                        }
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            showingUsernameCreation = true
+                        }) {
+                            Text(username == "@cosmic_wanderer" ? "Create" : "Change")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 8)
+                                .background(Color.purple)
+                                .cornerRadius(8)
+                        }
+                    }
+                }
+                .padding()
+                .background(Color(.systemGray6))
+                .cornerRadius(12)
+                
+                // Coming Soon Section
+                VStack(spacing: 12) {
+                    Text("Additional Settings")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                    
+                    Text("Privacy controls, notifications, and spiritual preferences coming soon...")
                         .font(.body)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
-                        .padding(.horizontal)
                 }
+                .padding()
+                .background(Color(.systemGray6))
+                .cornerRadius(12)
+                
+                Spacer()
             }
+            .padding()
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -742,12 +815,208 @@ struct SettingsSheet: View {
                     .fontWeight(.semibold)
                 }
             }
+            .sheet(isPresented: $showingUsernameCreation) {
+                UsernameCreationSheet(username: $username)
+            }
         }
     }
 }
 
 // MARK: - Image Picker
 // Note: Uses shared ImagePicker from NewSightingView.swift
+
+// MARK: - Username Creation Sheet
+
+struct UsernameCreationSheet: View {
+    @Binding var username: String
+    
+    @Environment(\.dismiss) private var dismiss
+    @State private var newUsername: String = ""
+    @State private var isCheckingAvailability = false
+    @State private var isAvailable = true
+    @State private var errorMessage = ""
+    
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 24) {
+                // Header
+                VStack(spacing: 12) {
+                    Image(systemName: "at.circle.fill")
+                        .font(.system(size: 60))
+                        .foregroundColor(.purple)
+                    
+                    Text("Choose Your Username")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
+                    
+                    Text("This will be your public identity in the Vybe community")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                }
+                
+                // Username Input
+                VStack(spacing: 8) {
+                    HStack {
+                        Text("@")
+                            .font(.title2)
+                            .foregroundColor(.secondary)
+                            .fontWeight(.medium)
+                        
+                        TextField("username", text: $newUsername)
+                            .font(.title2)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
+                            .onChange(of: newUsername) {
+                                validateUsername()
+                            }
+                    }
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color(.systemGray6))
+                    )
+                    
+                    // Validation Status
+                    if !newUsername.isEmpty {
+                        HStack {
+                            Image(systemName: isAvailable ? "checkmark.circle.fill" : "xmark.circle.fill")
+                                .foregroundColor(isAvailable ? .green : .red)
+                            
+                            Text(isAvailable ? "Username available" : errorMessage)
+                                .font(.caption)
+                                .foregroundColor(isAvailable ? .green : .red)
+                            
+                            Spacer()
+                        }
+                        .padding(.horizontal)
+                    }
+                }
+                
+                // Username Guidelines
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Username Guidelines:")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        guidelineRow("4-15 characters long")
+                        guidelineRow("Letters, numbers, and underscores only")
+                        guidelineRow("Must start with a letter")
+                        guidelineRow("No spaces or special characters")
+                    }
+                }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color(.systemGray6))
+                )
+                
+                Spacer()
+                
+                // Action Buttons
+                VStack(spacing: 12) {
+                    Button(action: {
+                        saveUsername()
+                        dismiss()
+                    }) {
+                        Text("Set Username")
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 50)
+                            .background(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .fill(isValidUsername ? Color.purple : Color.gray)
+                            )
+                    }
+                    .disabled(!isValidUsername)
+                    
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Text("Cancel")
+                            .font(.body)
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
+            .padding()
+            .navigationTitle("Create Username")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        if isValidUsername {
+                            saveUsername()
+                        }
+                        dismiss()
+                    }
+                    .fontWeight(.semibold)
+                    .disabled(!isValidUsername)
+                }
+            }
+            .onAppear {
+                newUsername = username.replacingOccurrences(of: "@", with: "")
+            }
+        }
+    }
+    
+    private var isValidUsername: Bool {
+        let usernameRegex = "^[a-zA-Z][a-zA-Z0-9_]{3,14}$"
+        return newUsername.range(of: usernameRegex, options: .regularExpression) != nil && isAvailable
+    }
+    
+    private func validateUsername() {
+        // Remove any invalid characters
+        newUsername = newUsername.replacingOccurrences(of: "[^a-zA-Z0-9_]",
+                                                      with: "",
+                                                      options: .regularExpression)
+        
+        // Check length
+        if newUsername.count > 15 {
+            newUsername = String(newUsername.prefix(15))
+        }
+        
+        // Validate format
+        if newUsername.isEmpty {
+            isAvailable = true
+            errorMessage = ""
+        } else if newUsername.count < 4 {
+            isAvailable = false
+            errorMessage = "Username must be at least 4 characters"
+        } else if !newUsername.first!.isLetter {
+            isAvailable = false
+            errorMessage = "Username must start with a letter"
+        } else {
+            // TODO: Check availability against Firebase
+            isAvailable = true
+            errorMessage = ""
+        }
+    }
+    
+    private func guidelineRow(_ text: String) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: "checkmark.circle.fill")
+                .font(.caption)
+                .foregroundColor(.green)
+            
+            Text(text)
+                .font(.caption)
+                .foregroundColor(.secondary)
+        }
+    }
+    
+    private func saveUsername() {
+        username = "@\(newUsername)"
+        // TODO: Save to UserProfileService and sync with Firebase
+        print("💾 Username saved: \(username)")
+    }
+}
 
 // MARK: - Preview
 

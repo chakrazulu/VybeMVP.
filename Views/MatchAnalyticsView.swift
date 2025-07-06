@@ -275,6 +275,28 @@ struct MatchData: Identifiable {
 }
 
 /**
+ * Enhanced data structure for representing time-based match counts with realm and focus numbers.
+ *
+ * This struct extends MatchData to include realm and focus number tracking for better analytics.
+ */
+struct EnhancedMatchData: Identifiable {
+    /// Unique identifier for this data point
+    let id = UUID()
+    
+    /// String representation of the time period
+    let time: String
+    
+    /// Number of matches that occurred during this time period
+    let count: Int
+    
+    /// Current realm number at this time
+    let realmNumber: Int
+    
+    /// Current focus number at this time
+    let focusNumber: Int
+}
+
+/**
  * Main analytics view displaying match data insights.
  *
  * This view presents a comprehensive dashboard of analytics including:
@@ -289,28 +311,44 @@ struct MatchAnalyticsView: View {
     /// Access to the focus number manager for match data
     @EnvironmentObject var focusNumberManager: FocusNumberManager
     
+    /// Access to realm number manager for current realm number
+    @EnvironmentObject var realmNumberManager: RealmNumberManager
+    
     /// View model containing analytics logic
     @StateObject private var viewModel = MatchAnalyticsViewModel()
     
+    /// UI state for chart series toggles
+    @State private var showRealmNumbers = true
+    @State private var showFocusNumbers = true
+    
     var body: some View {
         NavigationView {
-            ScrollView {
-                LazyVStack(spacing: 20) {
-                    // Time frame selector
-                    timeFrameSelector
-                    
-                    // Summary statistics
-                    cardSummary
-                    
-                    // Match distribution chart
-                    cardDistribution
-                    
-                    // Pattern analysis
-                    cardPatterns
+            ZStack {
+                // Cosmic Background
+                ScrollSafeCosmicView {
+                    ScrollView {
+                        LazyVStack(spacing: 20) {
+                            // Time frame selector
+                            timeFrameSelector
+                            
+                            // Summary statistics
+                            cardSummary
+                            
+                            // Chart controls
+                            chartControls
+                            
+                            // Match distribution chart
+                            cardDistribution
+                            
+                            // Pattern analysis
+                            cardPatterns
+                        }
+                        .padding()
+                    }
                 }
-                .padding()
             }
             .navigationTitle("Analytics")
+            .navigationBarTitleDisplayMode(.large)
             .onAppear {
                 viewModel.matchLogs = focusNumberManager.matchLogs
             }
@@ -322,6 +360,7 @@ struct MatchAnalyticsView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Time Frame")
                 .font(.headline)
+                .foregroundColor(.white)
                 .padding(.horizontal)
             
             Picker(selection: $viewModel.selectedTimeFrame, label: Text("Time Frame")) {
@@ -333,16 +372,22 @@ struct MatchAnalyticsView: View {
             .padding(.horizontal)
         }
         .padding(.vertical)
-        .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(radius: 2)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color.black.opacity(0.3))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                )
+        )
     }
     
-    /// Summary statistics card
+    /// Summary statistics card with cosmic theming
     private var cardSummary: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Summary")
                 .font(.headline)
+                .foregroundColor(.white)
                 .padding(.horizontal)
             
             LazyHGrid(rows: [GridItem(.flexible())], spacing: 16) {
@@ -350,21 +395,21 @@ struct MatchAnalyticsView: View {
                     HStack(spacing: 12) {
                         // Total matches
                         let totalCount = String(focusNumberManager.matchLogs.count)
-                        StatCard(
+                        CosmicStatCard(
                             title: "Total Matches",
                             value: totalCount,
                             icon: "checkmark.circle.fill",
-                            color: .blue
+                            color: .purple
                         )
                         .layoutPriority(1)
                         
                         // Today's matches
                         let todayCount = viewModel.getTodayMatchCount()
-                        StatCard(
+                        CosmicStatCard(
                             title: "Today's Matches",
                             value: todayCount,
                             icon: "clock.fill",
-                            color: .green
+                            color: .cyan
                         )
                         .layoutPriority(1)
                     }
@@ -374,81 +419,125 @@ struct MatchAnalyticsView: View {
             .padding(.bottom, 8)
         }
         .padding(.vertical)
-        .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(radius: 2)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color.black.opacity(0.3))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                )
+        )
     }
     
-    /// Match distribution chart card
+    /// Match distribution chart card with enhanced data
     private var cardDistribution: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Match Distribution")
                 .font(.headline)
+                .foregroundColor(.white)
                 .padding(.horizontal)
             
             if #available(iOS 16.0, *) {
                 let matchData = viewModel.getMatchData()
-                Chart(matchData) { matchData in
-                    BarMark(
-                        x: .value("Time", matchData.time),
-                        y: .value("Matches", matchData.count)
-                    )
-                    .foregroundStyle(Color.blue.gradient)
+                let enhancedData = enhanceMatchData(matchData)
+                
+                Chart(enhancedData) { data in
+                    // Realm Numbers Line
+                    if showRealmNumbers {
+                        createRealmLineMark(data: data)
+                    }
+                    
+                    // Focus Numbers Line  
+                    if showFocusNumbers {
+                        createFocusLineMark(data: data)
+                    }
                 }
                 .frame(height: 200)
                 .padding()
+                .chartYScale(domain: 1...9) // Realm/Focus numbers are 1-9
+                .chartXAxis {
+                    AxisMarks { _ in
+                        AxisValueLabel()
+                            .foregroundStyle(.white.opacity(0.7))
+                    }
+                }
+                .chartYAxis {
+                    AxisMarks { _ in
+                        AxisValueLabel()
+                            .foregroundStyle(.white.opacity(0.7))
+                    }
+                }
             } else {
                 Text("Charts require iOS 16.0 or later")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.white.opacity(0.7))
                     .padding()
             }
         }
         .padding(.vertical)
-        .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(radius: 2)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color.black.opacity(0.3))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                )
+        )
     }
     
-    /// Pattern analysis card
+    /// Pattern analysis card with cosmic theming
     private var cardPatterns: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Pattern Analysis")
                 .font(.headline)
+                .foregroundColor(.white)
                 .padding(.horizontal)
             
             VStack(alignment: .leading, spacing: 16) {
                 // Most common focus number
                 let commonNumber = viewModel.getMostCommonFocusNumber()
-                PatternRow(
+                CosmicPatternRow(
                     title: "Most Common Focus Number",
-                    value: commonNumber
+                    value: commonNumber,
+                    icon: "number.circle.fill",
+                    color: .cyan
                 )
                 
                 Divider()
+                    .background(Color.white.opacity(0.2))
                 
                 // Peak match time
                 let peakTime = viewModel.getPeakMatchTime()
-                PatternRow(
+                CosmicPatternRow(
                     title: "Peak Match Time",
-                    value: peakTime
+                    value: peakTime,
+                    icon: "clock.circle.fill",
+                    color: .yellow
                 )
                 
                 Divider()
+                    .background(Color.white.opacity(0.2))
                 
                 // Match frequency
                 let frequency = viewModel.getMatchFrequency()
-                PatternRow(
+                CosmicPatternRow(
                     title: "Match Frequency",
-                    value: frequency
+                    value: frequency,
+                    icon: "chart.line.uptrend.xyaxis.circle.fill",
+                    color: .purple
                 )
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
         }
         .padding(.vertical)
-        .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(radius: 2)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color.black.opacity(0.3))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                )
+        )
     }
 }
 
@@ -485,6 +574,204 @@ struct PatternRow: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(.vertical, dynamicTypeSize.isAccessibilitySize ? 12 : 6)
+    }
+}
+
+// MARK: - Cosmic-Themed Components
+
+/**
+ * Cosmic-themed stat card for analytics display.
+ *
+ * This component displays statistics with Vybe's cosmic aesthetic,
+ * featuring purple/blue gradients and cosmic styling.
+ */
+struct CosmicStatCard: View {
+    let title: String
+    let value: String
+    let icon: String
+    let color: Color
+    
+    var body: some View {
+        VStack(spacing: 8) {
+            Image(systemName: icon)
+                .font(.title2)
+                .foregroundColor(color)
+            
+            Text(value)
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+            
+            Text(title)
+                .font(.caption)
+                .foregroundColor(.white.opacity(0.7))
+                .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity)
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.black.opacity(0.2))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(color.opacity(0.3), lineWidth: 1)
+                )
+        )
+    }
+}
+
+/**
+ * Cosmic-themed pattern row for analytics display.
+ *
+ * This component displays pattern analysis with cosmic styling and icons.
+ */
+struct CosmicPatternRow: View {
+    let title: String
+    let value: String
+    let icon: String
+    let color: Color
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon)
+                .font(.title3)
+                .foregroundColor(color)
+                .frame(width: 24)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.subheadline)
+                    .foregroundColor(.white.opacity(0.7))
+                
+                Text(value)
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+            }
+            
+            Spacer()
+        }
+        .padding(.vertical, 8)
+    }
+}
+
+// MARK: - Chart Controls Extension
+
+extension MatchAnalyticsView {
+    /// Realm number button background
+    var realmNumberButtonBackground: some View {
+        RoundedRectangle(cornerRadius: 20)
+            .fill(showRealmNumbers ? Color.purple.opacity(0.2) : Color.clear)
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(showRealmNumbers ? Color.purple.opacity(0.5) : Color.white.opacity(0.2), lineWidth: 1)
+            )
+    }
+    
+    /// Focus number button background
+    var focusNumberButtonBackground: some View {
+        RoundedRectangle(cornerRadius: 20)
+            .fill(showFocusNumbers ? Color.cyan.opacity(0.2) : Color.clear)
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(showFocusNumbers ? Color.cyan.opacity(0.5) : Color.white.opacity(0.2), lineWidth: 1)
+            )
+    }
+    
+    /// Chart controls for toggling series
+    var chartControls: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Chart Series")
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding(.horizontal)
+            
+            HStack(spacing: 16) {
+                // Realm Numbers Toggle
+                Button(action: {
+                    showRealmNumbers.toggle()
+                    let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                    impactFeedback.impactOccurred()
+                }) {
+                    HStack(spacing: 8) {
+                        Circle()
+                            .fill(showRealmNumbers ? Color.purple : Color.gray)
+                            .frame(width: 12, height: 12)
+                        
+                        Text("Realm Numbers")
+                            .font(.subheadline)
+                            .foregroundColor(showRealmNumbers ? .white : .white.opacity(0.6))
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(realmNumberButtonBackground)
+                }
+                
+                // Focus Numbers Toggle
+                Button(action: {
+                    showFocusNumbers.toggle()
+                    let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                    impactFeedback.impactOccurred()
+                }) {
+                    HStack(spacing: 8) {
+                        Circle()
+                            .fill(showFocusNumbers ? Color.cyan : Color.gray)
+                            .frame(width: 12, height: 12)
+                        
+                        Text("Focus Numbers")
+                            .font(.subheadline)
+                            .foregroundColor(showFocusNumbers ? .white : .white.opacity(0.6))
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(focusNumberButtonBackground)
+                }
+                
+                Spacer()
+            }
+            .padding(.horizontal)
+        }
+        .padding(.vertical)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color.black.opacity(0.3))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                )
+        )
+    }
+    
+    /// Enhance match data with realm and focus numbers
+    func enhanceMatchData(_ matchData: [MatchData]) -> [EnhancedMatchData] {
+        return matchData.map { data in
+            EnhancedMatchData(
+                time: data.time,
+                count: data.count,
+                realmNumber: realmNumberManager.currentRealmNumber,
+                focusNumber: focusNumberManager.selectedFocusNumber
+            )
+        }
+    }
+    
+    /// Create realm number line mark for chart
+    @available(iOS 16.0, *)
+    func createRealmLineMark(data: EnhancedMatchData) -> some ChartContent {
+        LineMark(
+            x: .value("Time", data.time),
+            y: .value("Realm Number", data.realmNumber)
+        )
+        .foregroundStyle(Color.purple)
+    }
+    
+    /// Create focus number line mark for chart
+    @available(iOS 16.0, *)
+    func createFocusLineMark(data: EnhancedMatchData) -> some ChartContent {
+        LineMark(
+            x: .value("Time", data.time),
+            y: .value("Focus Number", data.focusNumber)
+        )
+        .foregroundStyle(Color.cyan)
     }
 }
 

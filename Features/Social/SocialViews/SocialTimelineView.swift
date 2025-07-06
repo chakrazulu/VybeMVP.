@@ -207,6 +207,10 @@ struct SocialTimelineView: View {
                     animateIn = true
                 }
             }
+            .onReceive(NotificationCenter.default.publisher(for: Notification.Name("TriggerPostComposer"))) { _ in
+                // Trigger composer when navigated from Profile "Create First Post"
+                showingComposer = true
+            }
         }
         .sheet(isPresented: $showingComposer) {
             PostComposerView()
