@@ -143,6 +143,7 @@
 		4DC6023E2D34650400B5E4A9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC6023D2D3464FA00B5E4A9 /* HomeView.swift */; };
 		4DC602402D34651C00B5E4A9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC6023F2D34650C00B5E4A9 /* SettingsView.swift */; };
 		4DC602422D34652600B5E4A9 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC602412D34652300B5E4A9 /* AboutView.swift */; };
+		4DCB386C2E1AAF1C00311D51 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB386B2E1AAF1C00311D51 /* UserProfileView.swift */; };
 		4DE4C37E2DB3918E00BB7572 /* NumerologyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C37D2DB3918E00BB7572 /* NumerologyMessage.swift */; };
 		4DE4C3802DB392E900BB7572 /* NumerologyNotificationTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C37F2DB392E900BB7572 /* NumerologyNotificationTestView.swift */; };
 		4DE4C3822DB393DA00BB7572 /* NumerologyNotificationTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */; };
@@ -293,6 +294,7 @@
 		4DC6023D2D3464FA00B5E4A9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		4DC6023F2D34650C00B5E4A9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		4DC602412D34652300B5E4A9 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		4DCB386B2E1AAF1C00311D51 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		4DCE3BCF2D3C75E80022F283 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DE4C37D2DB3918E00BB7572 /* NumerologyMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyMessage.swift; sourceTree = "<group>"; };
 		4DE4C37F2DB392E900BB7572 /* NumerologyNotificationTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyNotificationTestView.swift; sourceTree = "<group>"; };
@@ -657,6 +659,7 @@
 		4DC602302D34440900B5E4A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4DCB386B2E1AAF1C00311D51 /* UserProfileView.swift */,
 				4DB233FC2E11F4CC004EC2BC /* TestCosmicAnimationView.swift */,
 				4D2CC70B2E08EAD200BDF100 /* StaticAssetMandalaView.swift */,
 				4D2CC7092E08CA0C00BDF100 /* TestAdvancedSacredGeometry.swift */,
@@ -963,6 +966,7 @@
 				4D92F4BD2D4DE1E80001A16E /* BackgroundManager.swift in Sources */,
 				4D3055E32D3CEADA009A7BBD /* JournalEntry+CoreDataHelpers.swift in Sources */,
 				4D3055E12D3CE90C009A7BBD /* FocusNumberContent.swift in Sources */,
+				4DCB386C2E1AAF1C00311D51 /* UserProfileView.swift in Sources */,
 				4D2CC70C2E08EAD200BDF100 /* StaticAssetMandalaView.swift in Sources */,
 				4D2CC6F02E079B6D00BDF100 /* SacredGeometry3DView.swift in Sources */,
 				4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */,
