@@ -55,6 +55,86 @@ Prevent AI session continuity issues by documenting every development decision, 
 
 ---
 
+## 🚀 **PHASE 3-6 STRATEGIC ROADMAP - FUTURE DEVELOPMENT**
+
+### **🎭 PHASE 3: SOCIAL FOUNDATION & UI RESTRUCTURE**
+**Priority:** HIGH | **Timeline:** 2-3 weeks | **Complexity:** Medium
+
+#### **Part A: Profile System Implementation**
+- **Transform "My Sanctum" → "Settings"** with gear icon, relocate to tab 10
+- **Create new "Profile" tab** in tab 3 slot (replacing My Sanctum)
+- **Profile Features:**
+  - Header with rotating mandala background (30s clockwise rotation)
+  - Avatar upload system with Firebase Storage integration
+  - Username validation system (@handle, 4-15 chars, real-time availability)
+  - Bio editing with 160 character limit and multi-line support
+  - Stats row (Friends, Matches, XP Level, Insights Given)
+  - Content tabs (Posts, Insights, Activity) for user-generated content
+  - Edit Profile button (for own page) or Follow/Message (for others)
+
+#### **Part B: Chakra Affirmation Enhancement**
+- **Add "I Am" affirmations** to chakra tap interactions
+- **Synchronized experience:** Tap chakra → Play sound + Show affirmation text
+- **Affirmation mappings:** Root("I am safe and grounded"), Sacral("I am creative"), etc.
+- **Visual enhancement:** Fade-in text overlay with cosmic styling and haptic feedback
+- **Accessibility support:** VoiceOver integration for affirmations
+
+### **🔗 PHASE 4: PROXIMITY-BASED VYBE CONNECTIONS**
+**Priority:** MEDIUM | **Timeline:** 2-3 weeks | **Complexity:** High
+
+#### **Core Implementation:**
+- **Branch:** `feature/proximity-vybe-connections`
+- **New Files:**
+  - `Managers/ProximityManager.swift` (MultipeerConnectivity framework)
+  - `Views/ProximityListView.swift` (Nearby users interface)
+  - `Models/NearbyVybe.swift` (Peer data model with Focus/Realm numbers)
+
+#### **Key Features:**
+- **Real-time peer discovery** via Bluetooth/WiFi Direct
+- **Smart filtering:** Only show users with matching Focus/Realm numbers or angel numbers
+- **Friend request integration** with existing Firestore social system
+- **Privacy controls:** User opt-in/opt-out for proximity discovery
+- **Testing strategy:** Simulator pairing + fake event injection for development
+
+### **🌙 PHASE 5: MOON PHASE & ASTROLOGY ENGINE**
+**Priority:** MEDIUM | **Timeline:** 1-2 weeks | **Complexity:** Low-Medium
+
+#### **Core Implementation:**
+- **Branch:** `feature/astrology-engine`
+- **New Files:**
+  - `Managers/AstrologyManager.swift` (API integration with caching)
+  - `Models/MoonPhase.swift` & `Models/Transit.swift` (Celestial data models)
+  - `Views/AstrologyBadgeView.swift` (Small overlay for Realm screen)
+
+#### **Key Features:**
+- **Moon phase tracking** with emoji indicators and illumination percentage
+- **Planetary transit alerts** for major celestial events (conjunctions, eclipses)
+- **24-hour intelligent caching** to prevent API rate limits
+- **Integration point:** Small badge under Realm number with tap-to-expand details
+- **Data sources:** Free APIs (Open-Meteo, USNO) with offline fallback
+
+### **✨ PHASE 6: ENHANCED COSMIC FEATURES**
+**Priority:** LOW-MEDIUM | **Timeline:** 3-4 weeks | **Complexity:** High
+
+#### **Advanced Features (User Choice):**
+- **AR Mandala Visualization:** ARKit integration for placing sacred geometry in real space
+- **Live Group Meditation Rooms:** Firebase Realtime Database for synchronized sessions
+- **Biometric Flow Detection:** Apple Watch integration for meditation state detection
+- **Sacred Frequency Audio:** Complete Phase 2.4 TODO with actual frequency playback
+- **Gamified Cosmic Challenges:** Badge/XP system with daily/weekly quests
+- **Location-based Sacred Sites:** CoreLocation triggers for spiritual landmarks
+- **Mood Sentiment Analysis:** NLP integration with journal entries for insights
+- **Cosmic Weather Alerts:** Solar/lunar eclipses, meteor showers, planetary ingresses
+
+#### **Implementation Priority Order:**
+1. **Phase 3A:** Profile system (immediate user value, foundation for social features)
+2. **Phase 3B:** Chakra affirmations (quick spiritual enhancement)
+3. **Phase 5:** Astrology engine (easier to test/validate than Bluetooth proximity)
+4. **Phase 4:** Proximity connections (requires multi-device testing complexity)
+5. **Phase 6:** Advanced features (stretch goals based on user engagement metrics)
+
+---
+
 ## 📊 **FOUNDATION ACCOMPLISHED (PRE-PHASE 1)**
 
 ### ✅ **MONUMENTAL DOCUMENTATION PROJECT (COMPLETED)**
@@ -534,6 +614,22 @@ Prevent AI session continuity issues by documenting every development decision, 
 - **Status:** ✅ COMPLETE - Ready for Phase 4 app-wide cosmic animation migration
 - **Next:** Proceed with Phase 4 or other enhancements as directed
 
+### **July 6, 2025 - STRATEGIC ROADMAP: Phase 3-6 Planning Complete** 🗺️📋
+- **Achievement:** Comprehensive strategic planning for VybeMVP's next evolution phases
+- **User Collaboration:** ChatGPT consultation provided excellent feature suggestions aligned with cosmic vision
+- **Phase Planning Complete:**
+  - **Phase 3:** Social Foundation & UI Restructure (Profile system + Chakra affirmations)
+  - **Phase 4:** Proximity-Based Vybe Connections (MultipeerConnectivity + friend matching)
+  - **Phase 5:** Moon Phase & Astrology Engine (Celestial data integration)
+  - **Phase 6:** Enhanced Cosmic Features (AR, Group Meditation, Biometric Flow)
+- **Implementation Strategy:**
+  - **Priority Order:** Phase 3A → 3B → 5 → 4 → 6 (based on complexity and user value)
+  - **Testing Approach:** Simulator pairing + device validation for proximity features
+  - **Technical Foundation:** Build on existing manager pattern for consistency
+- **Next Steps:** Begin Phase 3A - Transform My Sanctum to Settings, create Profile tab
+- **Status:** ✅ STRATEGIC PLANNING COMPLETE - Ready for Phase 3 implementation
+- **Branch:** `main` - planning documentation updated
+
 ### **July 6, 2025 - PHASE 2.2 COMPLETE: Enhanced Cosmic Match Experience & Part C Documentation** 🎉✨📝
 - **Achievement:** Successfully completed Phase 2.2 - Enhanced Cosmic Match Experience with comprehensive documentation
 - **Key Completions:**
@@ -561,7 +657,7 @@ Prevent AI session continuity issues by documenting every development decision, 
   - **Practical Focus:** Merge MatchAnalyticsView functionality into ActivityView for unified experience
   - **Badge Navigation:** Fix all badge components to properly navigate to relevant views
 - **Status:** Phase 2.2 ✅ COMPLETE with comprehensive documentation, Phase 2.3 Part A ✅ COMPLETE (confirmed by user), Part B ⏭️ SKIPPED, Part C ✅ COMPLETE
-- **Next:** Phase 2.4 or move to next major phase as directed by user
+- **Next:** Phase 3 - Social Foundation & UI Restructure implementation
 - **Branch:** `feature/enhanced-vybe-match-experience` - production-ready code with complete documentation
 
 ### **July 2, 2025 - Phase 2.2 Complete & Phase 2.3 Scope Revision** 🎉📝

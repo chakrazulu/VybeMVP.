@@ -20,14 +20,14 @@
  * 0. Home - house.fill icon
  * 1. Journal - book.fill icon
  * 2. Timeline - globe.americas.fill icon
- * 3. My Sanctum - person.circle.fill icon
+ * 3. Profile - person.circle.fill icon (NEW - replacing My Sanctum)
  * 4. Activity - list.star icon
  * 5. Sightings - sparkle.magnifyingglass icon
  * 6. Realm - sparkles icon
  * 7. Chakras - circle.grid.3x3.circle.fill icon
  * 8. Analytics - chart.bar.fill icon
  * 9. Meanings - number.circle.fill icon
- * 10. Settings - gear icon
+ * 10. Settings - gear icon (MOVED from tab 10, enhanced from My Sanctum)
  * 11. About - info.circle.fill icon
  * 12. Test - sparkle icon (temporary)
  *
@@ -143,11 +143,11 @@ struct ContentView: View {
                         }
                         .tag(2)
                     
-                    UserProfileTabView()
+                    UserProfileView()
                         .environmentObject(focusNumberManager)
                         .tabItem {
                             Image(systemName: "person.circle.fill")
-                            Text("My Sanctum")
+                            Text("Profile")
                         }
                         .tag(3)
                     
