@@ -249,10 +249,10 @@ struct ActivityView: View {
                 filterBar
                 
                 // MARK: - Timeline Content
-                ScrollView {
+            ScrollView {
                     if filteredTimelineItems.isEmpty {
                         emptyStateView
-                    } else {
+                } else {
                         LazyVStack(alignment: .leading, spacing: 20) {
                             ForEach(filteredTimelineItems, id: \.timelineId) { item in
                                 timelineItemView(for: item)

@@ -147,6 +147,9 @@ struct ContentView: View {
                     // 🎭 PHASE 3A: Twitter-Style Social Profile - Complete implementation with navigation
                     UserProfileView(selectedTab: $selectedTab)
                         .environmentObject(focusNumberManager)
+                        .environmentObject(PostManager.shared)
+                        .environmentObject(aiInsightManager)
+                        .environmentObject(signInViewModel)
                         .tabItem {
                             Image(systemName: "person.circle.fill")
                             Text("Profile")
@@ -417,6 +420,14 @@ struct ContentView: View {
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NavigateToStatusPost"))) { notification in
             handleStatusPostNavigation(notification)
         }
+        /// **ANALYTICS NAVIGATION RECEIVER - RECENT MATCH POPUP INTEGRATION**
+        /// 
+        /// **Purpose:** Listen for analytics navigation requests from RecentMatchPopupView
+        /// **Integration:** Part of comprehensive action button navigation system
+        /// **Added:** Phase 3C-3 Action Button Navigation Implementation
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NavigateToAnalytics"))) { notification in
+            handleAnalyticsNavigation(notification)
+        }
     }
     
     // 🧪 TEMPORARY: Phase 2 Testing Functions (REMOVE AFTER TESTING)
@@ -548,6 +559,46 @@ struct ContentView: View {
             print("🎯 Social timeline should open status composer with cosmic match")
             print("📱 Pre-filled message: '\(message)'")
             print("🔮 Sacred meaning: '\(sacredMeaning)'")
+        }
+    }
+    
+    /// **ANALYTICS NAVIGATION HANDLER - RECENT MATCH POPUP INTEGRATION**
+    /// 
+    /// **Purpose:** Handle navigation to Analytics tab from RecentMatchPopupView action buttons
+    /// **Trigger:** "NavigateToAnalytics" NotificationCenter notification from popup
+    /// **Target:** Analytics tab (tag 8) - MatchAnalyticsView
+    /// 
+    /// **Data Flow:**
+    /// 1. RecentMatchPopupView posts notification with match number and focus area
+    /// 2. ContentView receives notification and extracts userInfo data
+    /// 3. Tab switches to Analytics with 0.5s delay for smooth transition
+    /// 4. Future enhancement: Analytics view could highlight specific number patterns
+    /// 
+    /// **Navigation Pattern:**
+    /// Follows same structure as other VybeMatch navigation handlers:
+    /// - Guard userInfo extraction with early return
+    /// - Immediate tab switch for responsive UX
+    /// - Delayed processing for target view context
+    /// - Console logging for development debugging
+    /// 
+    /// **Future Enhancement Opportunity:**
+    /// MatchAnalyticsView could be enhanced to accept navigation context and
+    /// automatically filter or highlight patterns for the specific matched number.
+    private func handleAnalyticsNavigation(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let number = userInfo["number"] as? Int else { return }
+        
+        print("📊 Navigating to Analytics view for match number \(number)")
+        
+        // Navigate to Analytics tab (tag 8)
+        selectedTab = 8
+        
+        // TODO: Analytics view could be enhanced to highlight patterns for specific numbers
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            print("🎯 Analytics view should focus on patterns for number \(number)")
+            if let focus = userInfo["focus"] as? String {
+                print("📈 Focus area: \(focus)")
+            }
         }
     }
 }

@@ -278,48 +278,163 @@ struct RecentMatchPopupView: View {
     
     // MARK: - Square Action Buttons
     
+    /// **INTERACTIVE ACTION BUTTON GRID - COMPLETE NAVIGATION SYSTEM**
+    /// 
+    /// **Action Button Navigation Implementation:** Each button now provides full navigation
+    /// functionality using NotificationCenter to communicate with ContentView for tab switching.
+    /// 
+    /// **Navigation Architecture:**
+    /// - Journal: NotificationCenter "NavigateToJournal" → Journal tab (tag 1)
+    /// - Share: NotificationCenter "NavigateToStatusPost" → Timeline tab (tag 2)
+    /// - Log Sighting: NotificationCenter "NavigateToSighting" → Sightings tab (tag 5)
+    /// - Analytics: NotificationCenter "NavigateToAnalytics" → Analytics tab (tag 8)
+    /// 
+    /// **Data Passing Strategy:**
+    /// Each navigation includes comprehensive userInfo dictionary with match context,
+    /// cosmic significance, and pre-filled data ready for target view consumption.
+    /// 
+    /// **User Experience Flow:**
+    /// 1. User taps action button → Haptic feedback
+    /// 2. NotificationCenter posts navigation with data
+    /// 3. Popup dismisses with animation
+    /// 4. ContentView receives notification and switches tabs
+    /// 5. Target view can access pre-filled cosmic match data
     private var squareActionButtons: some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 2), spacing: 12) {
-            // Journal button
+            /// **JOURNAL BUTTON - SACRED REFLECTION CREATION**
+            /// 
+            /// **Purpose:** Navigate to Journal tab for cosmic match reflection creation
+            /// **Navigation Target:** Journal tab (tag 1)
+            /// **Pre-filled Data:** Focus number, realm number, sacred title, timestamp
+            /// **User Story:** "I want to journal about this cosmic match experience"
+            /// 
+            /// **Technical Implementation:**
+            /// - Posts "NavigateToJournal" notification with match context
+            /// - Provides title: "Sacred Reflection - Number X Match"
+            /// - Includes both chosen and matched numbers for spiritual analysis
+            /// - Future Enhancement: JournalView could auto-open Sacred Reflection form
             SquareActionButton(
                 icon: "book.fill",
                 title: "Journal",
                 color: getSacredColor(for: Int(matchData.matchedNumber)),
                 action: {
                     print("📝 Journal match: \(Int(matchData.matchedNumber)) at \(matchData.timestamp)")
+                    
+                    // Navigate to Journal tab with pre-filled cosmic match data
+                    NotificationCenter.default.post(
+                        name: Notification.Name("NavigateToJournal"),
+                        object: nil,
+                        userInfo: [
+                            "cosmic_match": true,
+                            "focus_number": Int(matchData.chosenNumber),
+                            "realm_number": Int(matchData.matchedNumber),
+                            "title": "Sacred Reflection - Number \(Int(matchData.matchedNumber)) Match",
+                            "timestamp": matchData.timestamp
+                        ]
+                    )
+                    
                     dismissPopup()
                 }
             )
             
-            // Share button
+            /// **SHARE BUTTON - COSMIC ALIGNMENT SOCIAL POST**
+            /// 
+            /// **Purpose:** Navigate to Timeline tab for social sharing of cosmic match
+            /// **Navigation Target:** Timeline tab (tag 2)
+            /// **Pre-filled Data:** Cosmic message, number significance, sacred meaning
+            /// **User Story:** "I want to share this magical synchronicity with my community"
+            /// 
+            /// **Technical Implementation:**
+            /// - Posts "NavigateToStatusPost" notification with rich match context
+            /// - Pre-fills post with cosmic alignment message and spiritual significance
+            /// - Truncates cosmic significance to 100 chars for social media format
+            /// - Future Enhancement: SocialTimelineView could auto-open post composer
             SquareActionButton(
                 icon: "sparkles",
                 title: "Share",
                 color: .cyan,
                 action: {
                     print("📤 Share match insight: \(Int(matchData.matchedNumber))")
+                    
+                    // Navigate to Timeline tab with pre-filled post about the match
+                    NotificationCenter.default.post(
+                        name: Notification.Name("NavigateToStatusPost"),
+                        object: nil,
+                        userInfo: [
+                            "cosmic_match": true,
+                            "number": Int(matchData.matchedNumber),
+                            "message": "✨ Just experienced a cosmic alignment with number \(Int(matchData.matchedNumber))! \(getCosmicSignificance(for: Int(matchData.matchedNumber)).prefix(100))...",
+                            "sacred_meaning": getCosmicSignificance(for: Int(matchData.matchedNumber))
+                        ]
+                    )
+                    
                     dismissPopup()
                 }
             )
             
-            // Log Sighting button
+            /// **LOG SIGHTING BUTTON - SYNCHRONICITY DOCUMENTATION**
+            /// 
+            /// **Purpose:** Navigate to Sightings tab for cosmic match documentation
+            /// **Navigation Target:** Sightings tab (tag 5)
+            /// **Pre-filled Data:** Match number, cosmic title, spiritual significance
+            /// **User Story:** "I want to log this synchronicity in my spiritual database"
+            /// 
+            /// **Technical Implementation:**
+            /// - Posts "NavigateToSighting" notification with match documentation
+            /// - Provides structured title: "Cosmic Match - Number X"
+            /// - Includes full cosmic significance for detailed spiritual record
+            /// - Future Enhancement: SightingsView could auto-open creation form
             SquareActionButton(
                 icon: "eye.fill",
                 title: "Log Sighting",
                 color: .orange,
                 action: {
                     print("👁️ Log sighting for match: \(Int(matchData.matchedNumber))")
+                    
+                    // Navigate to Sightings tab with pre-filled data
+                    NotificationCenter.default.post(
+                        name: Notification.Name("NavigateToSighting"),
+                        object: nil,
+                        userInfo: [
+                            "number": Int(matchData.matchedNumber),
+                            "title": "Cosmic Match - Number \(Int(matchData.matchedNumber))",
+                            "significance": getCosmicSignificance(for: Int(matchData.matchedNumber))
+                        ]
+                    )
+                    
                     dismissPopup()
                 }
             )
             
-            // Analytics button
+            /// **ANALYTICS BUTTON - PATTERN ANALYSIS & INSIGHTS**
+            /// 
+            /// **Purpose:** Navigate to Analytics tab for cosmic match pattern analysis
+            /// **Navigation Target:** Analytics tab (tag 8)
+            /// **Pre-filled Data:** Match number, focus area for pattern analysis
+            /// **User Story:** "I want to see patterns and trends for this number"
+            /// 
+            /// **Technical Implementation:**
+            /// - Posts "NavigateToAnalytics" notification with analysis focus
+            /// - Specifies "match_patterns" focus for targeted analytics view
+            /// - Provides specific number for pattern filtering and highlighting
+            /// - Future Enhancement: MatchAnalyticsView could filter/highlight specific numbers
             SquareActionButton(
                 icon: "chart.line.uptrend.xyaxis",
                 title: "Analytics",
                 color: .purple,
                 action: {
                     print("📊 View analytics for match: \(Int(matchData.matchedNumber))")
+                    
+                    // Navigate to Analytics tab to view match patterns
+                    NotificationCenter.default.post(
+                        name: Notification.Name("NavigateToAnalytics"),
+                        object: nil,
+                        userInfo: [
+                            "number": Int(matchData.matchedNumber),
+                            "focus": "match_patterns"
+                        ]
+                    )
+                    
                     dismissPopup()
                 }
             )

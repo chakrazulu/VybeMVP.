@@ -3,10 +3,26 @@
  * 
  * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
  *
+ * === PHASE 3C-3 ENHANCEMENT: PROFILE DATA CONNECTION ===
+ * **MAJOR UPDATE:** Transformed static placeholders into dynamic content
+ * **Connected to Real Data:** Posts, AI insights, and user activity
+ * **Environment Objects:** PostManager, AIInsightManager, FocusNumberManager
+ * **Bug Fixes:** PreparedInsight.score and tags compilation errors resolved
+ * **Documentation:** Comprehensive comments for all data connections
+ *
  * === CORE PURPOSE ===
  * Modern Twitter-style social profile view for VybeMVP
  * Clean, functional social interface with cosmic theming
  * Part of Phase 3A Step 2.2: Twitter-Style Profile Implementation
+ * Enhanced in Phase 3C-3: Real data integration and comprehensive UX
+ *
+ * === REAL DATA INTEGRATION (Phase 3C-3) ===
+ * • Posts Tab: Connected to PostManager.posts with user filtering
+ * • Insights Tab: AIInsightManager.personalizedDailyInsight display
+ * • Activity Tab: FocusNumberManager.matchLogs + insight status
+ * • Environment Objects: postManager, aiInsightManager, signInViewModel
+ * • Memory Safe: Computed properties prevent memory leaks
+ * • Performance: Lazy loading and efficient data access
  *
  * === SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points) ===
  * • NavigationView: Large title "Profile"
@@ -31,8 +47,16 @@
  * • Color Scheme: Consistent with VybeMVP cosmic aesthetic
  * • Performance: 60fps smooth scrolling and animations
  *
+ * === PHASE 3C-3 TECHNICAL DETAILS ===
+ * • userPosts: Computed property filtering PostManager.posts by user ID
+ * • recentMatches: Array of FocusMatch entities from FocusNumberManager
+ * • recentInsights: AI insight availability from AIInsightManager
+ * • Share Functionality: Pre-populates post composer with insight content
+ * • Navigation: selectedTab binding for seamless tab switching
+ * • Error Handling: Proper null checks and fallback states
+ *
  * Created as part of Phase 3A Step 2.2 - Twitter-Style Profile Foundation
- * Replaces PlaceholderProfileView with functional social profile interface
+ * Enhanced in Phase 3C-3 - Real Data Connection and Comprehensive UX
  */
 
 import SwiftUI
@@ -58,6 +82,17 @@ struct UserProfileView: View {
     
     /// Tab selection binding for navigation to other tabs
     @Binding var selectedTab: Int
+    
+    // MARK: - Environment Objects for Data Access
+    
+    /// Access to focus number and match data
+    @EnvironmentObject var focusNumberManager: FocusNumberManager
+    /// Access to social posts and timeline
+    @EnvironmentObject var postManager: PostManager
+    /// Access to AI insights and personalized content
+    @EnvironmentObject var aiInsightManager: AIInsightManager
+    /// Access to user authentication and profile data
+    @EnvironmentObject var signInViewModel: SignInViewModel
     
     // MARK: - State Properties
     
@@ -508,7 +543,52 @@ struct UserProfileView: View {
     
     // MARK: - Content Views
     
+    /// **POSTS TAB CONTENT - SOCIAL MEDIA INTEGRATION**
+    /// 
+    /// **Phase 3C-3 Enhancement:** Connected to real social posts from PostManager
+    /// instead of static placeholder content. Displays user's posts with full
+    /// reaction system support and dynamic empty state transitions.
+    /// 
+    /// **Data Flow:**
+    /// - PostManager.posts: All social posts in the system
+    /// - signInViewModel.userID: Current user authentication ID
+    /// - userPosts computed property: Filtered posts by current user
+    /// 
+    /// **User Experience:**
+    /// - Empty state with "Create First Post" call-to-action
+    /// - Post list with engagement features (reactions, comments)
+    /// - Header showing post count and quick create button
+    /// - Navigation to Timeline tab for post composition
     private var postsContentView: some View {
+        VStack(spacing: 16) {
+            if userPosts.isEmpty {
+                // Empty state for users with no posts yet
+                emptyPostsState
+            } else {
+                // Display user's posts with full social features
+                userPostsList
+            }
+        }
+    }
+    
+    // MARK: - User Posts Computed Property
+    
+    /// **USER POSTS DATA SOURCE**
+    /// 
+    /// **Phase 3C-3 Implementation:** Filters PostManager.posts to show only
+    /// posts authored by the current authenticated user. Uses signInViewModel.userID
+    /// for proper authentication-based filtering.
+    /// 
+    /// **Returns:** Array of Post objects authored by current user
+    /// **Memory Safe:** Uses computed property to prevent memory leaks
+    private var userPosts: [Post] {
+        guard let currentUserId = signInViewModel.userID else { return [] }
+        return postManager.posts.filter { $0.authorId == currentUserId }
+    }
+    
+    // MARK: - Posts Content Views
+    
+    private var emptyPostsState: some View {
         VStack(spacing: 16) {
             Image(systemName: "doc.text")
                 .font(.system(size: 40))
@@ -524,29 +604,11 @@ struct UserProfileView: View {
                 .multilineTextAlignment(.center)
             
             Button(action: {
-                // PHASE 3C-1 FIX: Navigate to Timeline and trigger post creation
-                // Navigate to Timeline tab (tag 2) for post composition
-                selectedTab = 2
-                
-                // PHASE 3C-1 FIX: Pass user information to fix username vs birth name issue
-                // Send username and display name to PostComposer via NotificationCenter
-                // This ensures posts show username (@cosmic_wanderer) not birth name
-                let userInfo = [
-                    "authorName": username,      // e.g., "@cosmic_wanderer"
-                    "authorDisplayName": displayName  // e.g., "Cosmic Seeker"
-                ]
-                NotificationCenter.default.post(
-                    name: Notification.Name("TriggerPostComposer"), 
-                    object: nil, 
-                    userInfo: userInfo
-                )
-                print("📝 Navigating to Timeline tab and triggering Share Your Vybe composer with user: \(username)")
-                let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-                impactFeedback.impactOccurred()
+                navigateToCreatePost()
             }) {
                 HStack {
                     Image(systemName: "plus.circle.fill")
-                    Text(hasCreatedFirstPost ? "Post" : "Create First Post")
+                    Text("Create First Post")
                 }
                 .font(.subheadline)
                 .fontWeight(.semibold)
@@ -561,31 +623,311 @@ struct UserProfileView: View {
         }
     }
     
+    private var userPostsList: some View {
+        VStack(spacing: 16) {
+            // Header with post count and create button
+            HStack {
+                Text("\(userPosts.count) Posts")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                
+                Spacer()
+                
+                Button(action: {
+                    navigateToCreatePost()
+                }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "plus")
+                        Text("Post")
+                    }
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(
+                        Capsule()
+                            .fill(Color.purple.opacity(0.6))
+                    )
+                }
+            }
+            
+            // Posts list
+            LazyVStack(spacing: 12) {
+                ForEach(userPosts) { post in
+                    PostCardView(
+                        post: post,
+                        currentUser: getCurrentSocialUser(),
+                        onReaction: { reactionType in
+                            // Handle reactions
+                            postManager.addReaction(
+                                to: post,
+                                reactionType: reactionType,
+                                userDisplayName: displayName,
+                                cosmicSignature: getCurrentCosmicSignature()
+                            )
+                        }
+                    )
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color.black.opacity(0.2))
+                    )
+                }
+            }
+        }
+    }
+    
+    // MARK: - Helper Methods
+    
+    private func navigateToCreatePost() {
+        // Navigate to Timeline tab (tag 2) for post composition
+        selectedTab = 2
+        
+        // Pass user information to fix username vs birth name issue
+        let userInfo = [
+            "authorName": username,
+            "authorDisplayName": displayName
+        ]
+        NotificationCenter.default.post(
+            name: Notification.Name("TriggerPostComposer"), 
+            object: nil, 
+            userInfo: userInfo
+        )
+        print("📝 Navigating to Timeline tab and triggering post composer")
+        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+        impactFeedback.impactOccurred()
+    }
+    
+    private func getCurrentSocialUser() -> SocialUser {
+        // Create a mock SocialUser for now - this should eventually use real user data
+        return SocialUser(
+            userId: signInViewModel.userID ?? "unknown",
+            displayName: displayName,
+            lifePathNumber: 3,
+            soulUrgeNumber: 5,
+            expressionNumber: 7,
+            currentFocusNumber: focusNumberManager.selectedFocusNumber
+        )
+    }
+    
+    private func getCurrentCosmicSignature() -> CosmicSignature {
+        return CosmicSignature(
+            focusNumber: focusNumberManager.selectedFocusNumber,
+            currentChakra: "heart", // This should come from user's current chakra state
+            lifePathNumber: 3, // This should come from user profile
+            realmNumber: 5 // This should come from realm calculation
+        )
+    }
+    
+    /// **INSIGHTS TAB CONTENT - AI INSIGHT INTEGRATION**
+    /// 
+    /// **Phase 3C-3 Enhancement:** Connected to real AI insights from AIInsightManager
+    /// instead of static placeholder content. Displays personalized daily insights
+    /// with score indicators, spiritual tags, and share functionality.
+    /// 
+    /// **Data Flow:**
+    /// - AIInsightManager.personalizedDailyInsight: Current insight content
+    /// - AIInsightManager.isInsightReady: Loading state management
+    /// - PreparedInsight.source.score: AI confidence percentage (0-10 scale)
+    /// - PreparedInsight.source.matchedFocusTags: Spiritual categorization tags
+    /// 
+    /// **User Experience:**
+    /// - Loading states with progress indicators
+    /// - Share to timeline pre-populating post composer
+    /// - Navigation to Activity tab for insight archive
+    /// - Real-time insight score and tag display
     private var insightsContentView: some View {
         VStack(spacing: 16) {
-            Image(systemName: "lightbulb")
-                .font(.system(size: 40))
-                .foregroundColor(.yellow.opacity(0.6))
+            if aiInsightManager.isInsightReady, let insight = aiInsightManager.personalizedDailyInsight {
+                // Display today's personalized AI insight with full metadata
+                todaysInsightDisplay(insight: insight)
+            } else {
+                // Loading state or no insight available
+                insightsLoadingState
+            }
+        }
+    }
+    
+    // MARK: - Insights Display Views
+    
+    /// **TODAY'S INSIGHT DISPLAY - COMPREHENSIVE AI INSIGHT PRESENTATION**
+    /// 
+    /// **Phase 3C-3 Implementation:** Complete insight display with AI metadata,
+    /// spiritual tags, and interactive action buttons for user engagement.
+    /// 
+    /// **Components:**
+    /// - Header: Date and AI confidence score indicator
+    /// - Content: Full insight text with proper line spacing
+    /// - Tags: Spiritual focus tags from AI matching algorithm
+    /// - Actions: View All (Activity tab) and Share (Timeline) buttons
+    /// 
+    /// **Technical Details:**
+    /// - Score calculation: (insight.source?.score ?? 0) * 10 for percentage display
+    /// - Tag source: insight.source?.matchedFocusTags for spiritual categorization
+    /// - Share functionality: Pre-populates post composer with insight content
+    /// - Navigation: Uses selectedTab binding for seamless tab switching
+    private func todaysInsightDisplay(insight: PreparedInsight) -> some View {
+        VStack(spacing: 20) {
+            // Header
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Today's Spiritual Insight")
+                        .font(.headline)
+                        .foregroundColor(.yellow)
+                    
+                    Text(Date(), style: .date)
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.7))
+                }
+                
+                Spacer()
+                
+                                  // Insight score indicator
+                  VStack(spacing: 2) {
+                      Text("Score")
+                          .font(.caption2)
+                          .foregroundColor(.white.opacity(0.6))
+                      
+                      Text("\(Int((insight.source?.score ?? 0) * 10))%")
+                          .font(.caption)
+                          .fontWeight(.bold)
+                          .foregroundColor(.yellow)
+                  }
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(
+                    Capsule()
+                        .fill(Color.yellow.opacity(0.2))
+                )
+            }
             
-            Text("Spiritual Insights")
-                .font(.headline)
-                .foregroundColor(.white)
+            // Insight content
+            VStack(spacing: 12) {
+                Text(insight.text)
+                    .font(.body)
+                    .foregroundColor(.white.opacity(0.9))
+                    .multilineTextAlignment(.leading)
+                    .lineSpacing(4)
+                    .fixedSize(horizontal: false, vertical: true)
+                
+                                  // Tags if available
+                  if let tags = insight.source?.matchedFocusTags, !tags.isEmpty {
+                      HStack {
+                          ForEach(tags.prefix(3), id: \.self) { tag in
+                              Text(tag)
+                                  .font(.caption)
+                                  .padding(.horizontal, 8)
+                                  .padding(.vertical, 4)
+                                  .background(
+                                      Capsule()
+                                          .fill(Color.yellow.opacity(0.2))
+                                  )
+                                  .foregroundColor(.white.opacity(0.8))
+                          }
+                          Spacer()
+                      }
+                  }
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.black.opacity(0.3))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.yellow.opacity(0.3), lineWidth: 1)
+                    )
+            )
             
-            Text("Your AI-generated insights and cosmic wisdom will appear here")
-                .font(.subheadline)
-                .foregroundColor(.white.opacity(0.7))
-                .multilineTextAlignment(.center)
+            // Action buttons
+            HStack(spacing: 12) {
+                Button(action: {
+                    // Navigate to Activity tab for more insights
+                    selectedTab = 4
+                    print("🧠 Navigating to Activity tab for more insights")
+                    let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                    impactFeedback.impactOccurred()
+                }) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "brain.head.profile")
+                        Text("View All")
+                    }
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(
+                        Capsule()
+                            .fill(Color.yellow.opacity(0.3))
+                    )
+                }
+                
+                Button(action: {
+                    // Share insight to timeline
+                    navigateToShareInsight(insight: insight)
+                }) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "sparkles")
+                        Text("Share")
+                    }
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(
+                        Capsule()
+                            .fill(Color.purple.opacity(0.4))
+                    )
+                }
+                
+                Spacer()
+            }
+        }
+    }
+    
+    private var insightsLoadingState: some View {
+        VStack(spacing: 16) {
+            if aiInsightManager.isInsightReady {
+                // No insight available
+                Image(systemName: "lightbulb")
+                    .font(.system(size: 40))
+                    .foregroundColor(.yellow.opacity(0.6))
+                
+                Text("No Insights Today")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                
+                Text("Your personalized insights are being prepared. Check back soon!")
+                    .font(.subheadline)
+                    .foregroundColor(.white.opacity(0.7))
+                    .multilineTextAlignment(.center)
+            } else {
+                // Loading state
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .yellow))
+                    .scaleEffect(1.2)
+                
+                Text("Preparing Your Insight...")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                
+                Text("Analyzing your cosmic profile for personalized wisdom")
+                    .font(.subheadline)
+                    .foregroundColor(.white.opacity(0.7))
+                    .multilineTextAlignment(.center)
+            }
             
             Button(action: {
-                // Navigate to Activity tab for AI insights
+                // Navigate to Activity tab for all insights
                 selectedTab = 4
-                print("🧠 Navigating to Activity tab for AI insights")
+                print("🧠 Navigating to Activity tab for insights")
                 let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
                 impactFeedback.impactOccurred()
             }) {
                 HStack {
                     Image(systemName: "brain.head.profile")
-                    Text("View All Insights")
+                    Text("View Insight Archive")
                 }
                 .font(.subheadline)
                 .fontWeight(.semibold)
@@ -600,31 +942,113 @@ struct UserProfileView: View {
         }
     }
     
+    private func navigateToShareInsight(insight: PreparedInsight) {
+        // Navigate to Timeline and pre-populate post with insight
+        selectedTab = 2
+        
+        // Create insight-based post content
+        let insightContent = "🌟 Today's Insight: \"\(insight.text.prefix(200))\"\n\n#CosmicWisdom #SpiritualGrowth"
+        
+        // Pass both user info and insight content
+        let userInfo = [
+            "authorName": username,
+            "authorDisplayName": displayName,
+            "prefilledContent": String(insightContent)
+        ]
+        
+        NotificationCenter.default.post(
+            name: Notification.Name("TriggerPostComposer"), 
+            object: nil, 
+            userInfo: userInfo
+        )
+        
+        print("✨ Sharing insight to timeline")
+        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+        impactFeedback.impactOccurred()
+    }
+    
+    /// **ACTIVITY TAB CONTENT - PERSONAL TIMELINE INTEGRATION**
+    /// 
+    /// **Phase 3C-3 Enhancement:** Connected to real user activity data including
+    /// cosmic matches, AI insights, and social posts. Displays comprehensive
+    /// personal timeline with color-coded sections and quick navigation.
+    /// 
+    /// **Data Sources:**
+    /// - FocusNumberManager.matchLogs: Recent cosmic number matches
+    /// - AIInsightManager: Personalized daily insights availability
+    /// - PostManager: User's social posts and engagement
+    /// 
+    /// **UI Components:**
+    /// - Empty state with call-to-action for new users
+    /// - Activity timeline with sectioned content display
+    /// - Quick navigation to full Activity tab for detailed view
     private var activityContentView: some View {
+        VStack(spacing: 16) {
+            if recentMatches.isEmpty && recentInsights.isEmpty {
+                // Empty state for users with no activity yet
+                activityEmptyState
+            } else {
+                // Comprehensive activity timeline with real data
+                activityTimelineView
+            }
+        }
+    }
+    
+    // MARK: - Activity Data
+    
+    /// **RECENT MATCHES DATA SOURCE**
+    /// 
+    /// **Phase 3C-3 Implementation:** Connects to FocusNumberManager.matchLogs
+    /// to display the user's latest 5 cosmic number matches with timestamps.
+    /// Used for Recent Matches section in activity timeline.
+    /// 
+    /// **Returns:** Array of FocusMatch Core Data entities
+    private var recentMatches: [FocusMatch] {
+        return Array(focusNumberManager.matchLogs.prefix(5))
+    }
+    
+    /// **RECENT INSIGHTS DATA SOURCE**
+    /// 
+    /// **Phase 3C-3 Implementation:** Simplified insight availability indicator
+    /// that checks if today's AI insight is ready for display. Future enhancement
+    /// could expand to show actual insight history from Core Data.
+    /// 
+    /// **Returns:** Array of insight status strings for timeline display
+    private var recentInsights: [String] {
+        // Future enhancement: Could show actual insight history from PersistedInsightLog
+        if aiInsightManager.isInsightReady, aiInsightManager.personalizedDailyInsight != nil {
+            return ["Today's Insight Available"]
+        }
+        return []
+    }
+    
+    // MARK: - Activity Views
+    
+    private var activityEmptyState: some View {
         VStack(spacing: 16) {
             Image(systemName: "chart.bar")
                 .font(.system(size: 40))
                 .foregroundColor(.cyan.opacity(0.6))
             
-            Text("Activity Timeline")
+            Text("No Activity Yet")
                 .font(.headline)
                 .foregroundColor(.white)
             
-            Text("Your cosmic matches, insights, and spiritual journey milestones")
+            Text("Start your spiritual journey to see cosmic matches and insights here")
                 .font(.subheadline)
                 .foregroundColor(.white.opacity(0.7))
                 .multilineTextAlignment(.center)
             
             Button(action: {
-                // Navigate to Timeline tab for Global Resonance (public timeline)
-                selectedTab = 2
-                print("📊 Navigating to Timeline tab for Global Resonance")
+                // Navigate to Home tab to start generating activity
+                selectedTab = 0
+                print("🏠 Navigating to Home tab to start activity")
                 let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
                 impactFeedback.impactOccurred()
             }) {
                 HStack {
-                    Image(systemName: "list.star")
-                    Text("View Activity")
+                    Image(systemName: "house.fill")
+                    Text("Start Journey")
                 }
                 .font(.subheadline)
                 .fontWeight(.semibold)
@@ -637,6 +1061,187 @@ struct UserProfileView: View {
                 )
             }
         }
+    }
+    
+    private var activityTimelineView: some View {
+        VStack(spacing: 20) {
+            // Header
+            HStack {
+                Text("Activity Timeline")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                
+                Spacer()
+                
+                Button(action: {
+                    // Navigate to full Activity tab
+                    selectedTab = 4
+                    print("📊 Navigating to full Activity tab")
+                    let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                    impactFeedback.impactOccurred()
+                }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "arrow.right")
+                        Text("View All")
+                    }
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(
+                        Capsule()
+                            .fill(Color.cyan.opacity(0.3))
+                    )
+                }
+            }
+            
+            VStack(spacing: 12) {
+                // Recent Matches Section
+                if !recentMatches.isEmpty {
+                    activitySection(
+                        title: "Recent Matches",
+                        icon: "checkmark.circle.fill",
+                        color: .purple,
+                        count: recentMatches.count
+                    ) {
+                        ForEach(Array(recentMatches.prefix(3).enumerated()), id: \.offset) { index, match in
+                            activityMatchRow(match: match)
+                        }
+                    }
+                }
+                
+                // Recent Insights Section
+                if !recentInsights.isEmpty {
+                    activitySection(
+                        title: "Spiritual Insights",
+                        icon: "lightbulb.fill",
+                        color: .yellow,
+                        count: recentInsights.count
+                    ) {
+                        ForEach(recentInsights, id: \.self) { insight in
+                            activityInsightRow(insight: insight)
+                        }
+                    }
+                }
+                
+                // Posts Activity if user has posts
+                if !userPosts.isEmpty {
+                    activitySection(
+                        title: "Recent Posts",
+                        icon: "doc.text.fill",
+                        color: .blue,
+                        count: userPosts.count
+                    ) {
+                        ForEach(Array(userPosts.prefix(2).enumerated()), id: \.offset) { index, post in
+                            activityPostRow(post: post)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func activitySection<Content: View>(
+        title: String,
+        icon: String,
+        color: Color,
+        count: Int,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        VStack(spacing: 8) {
+            HStack {
+                Image(systemName: icon)
+                    .foregroundColor(color)
+                
+                Text(title)
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .foregroundColor(.white)
+                
+                Spacer()
+                
+                Text("\(count)")
+                    .font(.caption)
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 2)
+                    .background(
+                        Capsule()
+                            .fill(color.opacity(0.3))
+                    )
+                    .foregroundColor(.white)
+            }
+            
+            content()
+        }
+        .padding(12)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.black.opacity(0.2))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(color.opacity(0.3), lineWidth: 1)
+                )
+        )
+    }
+    
+    private func activityMatchRow(match: FocusMatch) -> some View {
+        HStack {
+            Text("#\(Int(match.matchedNumber))")
+                .font(.caption)
+                .fontWeight(.bold)
+                .foregroundColor(.purple)
+                .frame(width: 30)
+            
+            Text(match.timestamp, style: .relative)
+                .font(.caption)
+                .foregroundColor(.white.opacity(0.8))
+            
+            Spacer()
+            
+            Text(match.timestamp, style: .time)
+                .font(.caption2)
+                .foregroundColor(.white.opacity(0.6))
+        }
+        .padding(.vertical, 4)
+    }
+    
+    private func activityInsightRow(insight: String) -> some View {
+        HStack {
+            Image(systemName: "sparkles")
+                .font(.caption)
+                .foregroundColor(.yellow)
+            
+            Text(insight)
+                .font(.caption)
+                .foregroundColor(.white.opacity(0.8))
+            
+            Spacer()
+            
+            Text("Today")
+                .font(.caption2)
+                .foregroundColor(.white.opacity(0.6))
+        }
+        .padding(.vertical, 4)
+    }
+    
+    private func activityPostRow(post: Post) -> some View {
+        HStack {
+            Image(systemName: post.type.icon)
+                .font(.caption)
+                .foregroundColor(.blue)
+            
+            Text(post.content.prefix(30) + (post.content.count > 30 ? "..." : ""))
+                .font(.caption)
+                .foregroundColor(.white.opacity(0.8))
+            
+            Spacer()
+            
+            Text(post.timestamp, style: .relative)
+                .font(.caption2)
+                .foregroundColor(.white.opacity(0.6))
+        }
+        .padding(.vertical, 4)
     }
 }
 

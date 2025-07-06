@@ -399,7 +399,7 @@ struct VybeMatchOverlay: View {
                 // Chakra information
                 Text(sacredInfo.chakra + " Chakra")
                     .font(.system(size: 14, weight: .medium, design: .rounded))
-                    .foregroundColor(.white.opacity(0.9))
+                .foregroundColor(.white.opacity(0.9))
                     .shadow(color: .black.opacity(0.7), radius: 1, x: 0, y: 1) // Text shadow for readability
                     .scaleEffect(numberScale * 0.8) // 80% of number scale
             }
@@ -460,15 +460,15 @@ struct VybeMatchOverlay: View {
             .background(
                 RoundedRectangle(cornerRadius: 10)
                     .fill(
-                        LinearGradient(
-                            gradient: Gradient(colors: [
+                    LinearGradient(
+                        gradient: Gradient(colors: [
                                 action.color.opacity(0.3),
                                 action.color.opacity(0.1)
-                            ]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
+                        ]),
+                        startPoint: .top,
+                        endPoint: .bottom
                     )
+                )
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(action.color.opacity(0.5), lineWidth: 1)
