@@ -8,11 +8,15 @@
 import SwiftUI
 
 /**
- * Simple static view that displays sacred geometry assets without animations
+ * Simple static view that displays sacred geometry assets with optional slow rotation
  */
 struct StaticAssetMandalaView: View {
     let number: Int
     let size: CGFloat
+    let enableRotation: Bool
+    
+    // Animation state
+    @State private var rotationAngle: Double = 0
     
     // Stable asset selection (no randomization)
     private var selectedAsset: SacredGeometryAsset {
@@ -30,6 +34,21 @@ struct StaticAssetMandalaView: View {
             .foregroundStyle(getSacredColor(for: number))
             .opacity(0.3)
             .frame(width: size, height: size)
+            .rotationEffect(.degrees(rotationAngle))
+            .onAppear {
+                if enableRotation {
+                    startSlowRotation()
+                }
+            }
+    }
+    
+    // MARK: - Animation Methods
+    
+    private func startSlowRotation() {
+        // Slow clockwise rotation - 60 seconds per full rotation for mystical effect
+        withAnimation(.linear(duration: 60).repeatForever(autoreverses: false)) {
+            rotationAngle = 360
+        }
     }
     
     // MARK: - Sacred Color System
@@ -48,6 +67,17 @@ struct StaticAssetMandalaView: View {
         case 9: return Color.white  // Completion/wisdom
         default: return Color.white
         }
+    }
+}
+
+// MARK: - Convenience Initializers
+
+extension StaticAssetMandalaView {
+    /// Initialize with rotation enabled by default
+    init(number: Int, size: CGFloat) {
+        self.number = number
+        self.size = size
+        self.enableRotation = true
     }
 }
 
