@@ -20,16 +20,17 @@
  * 0. Home - house.fill icon
  * 1. Journal - book.fill icon
  * 2. Timeline - globe.americas.fill icon
- * 3. Profile - person.circle.fill icon (NEW - replacing My Sanctum)
+ * 3. Profile - person.circle.fill icon (NEW - clean social profile)
  * 4. Activity - list.star icon
  * 5. Sightings - sparkle.magnifyingglass icon
  * 6. Realm - sparkles icon
  * 7. Chakras - circle.grid.3x3.circle.fill icon
  * 8. Analytics - chart.bar.fill icon
  * 9. Meanings - number.circle.fill icon
- * 10. Settings - gear icon (MOVED from tab 10, enhanced from My Sanctum)
- * 11. About - info.circle.fill icon
- * 12. Test - sparkle icon (temporary)
+ * 10. My Sanctum - star.circle.fill icon (MOVED - spiritual sanctuary)
+ * 11. Settings - gear icon (comprehensive app settings)
+ * 12. About - info.circle.fill icon
+ * 13. Test - sparkle icon (temporary)
  *
  * === OVERLAY SYSTEM ===
  * • VybeMatchOverlay: Full screen overlay, see VybeMatchOverlay.swift
@@ -143,7 +144,7 @@ struct ContentView: View {
                         }
                         .tag(2)
                     
-                    UserProfileView()
+                    PlaceholderProfileView()
                         .environmentObject(focusNumberManager)
                         .tabItem {
                             Image(systemName: "person.circle.fill")
@@ -204,6 +205,14 @@ struct ContentView: View {
                     }
                     .tag(9) // Adjusted tag
                     
+                    UserProfileTabView()
+                        .environmentObject(focusNumberManager)
+                        .tabItem {
+                            Image(systemName: "star.circle.fill")
+                            Text("My Sanctum")
+                        }
+                        .tag(10) // MOVED - Spiritual sanctuary preserved
+                    
                     NavigationView {
                         SettingsView()
                             .environmentObject(realmNumberManager)
@@ -212,14 +221,14 @@ struct ContentView: View {
                         Image(systemName: "gear")
                         Text("Settings")
                     }
-                    .tag(10) // Adjusted tag
+                    .tag(11) // Shifted down
                     
                     AboutView()
                         .tabItem {
                             Image(systemName: "info.circle.fill")
                             Text("About")
                         }
-                        .tag(11) // Adjusted tag
+                        .tag(12) // Shifted down
                     
                     // TEMPORARY: Cosmic Animation Test Tab  
                     TestCosmicAnimationView()
@@ -227,7 +236,7 @@ struct ContentView: View {
                             Image(systemName: "sparkle")
                             Text("🌌 Test")
                         }
-                        .tag(12)
+                        .tag(13) // Shifted down
                 }
             }
             
@@ -539,6 +548,68 @@ struct ContentView: View {
             print("📱 Pre-filled message: '\(message)'")
             print("🔮 Sacred meaning: '\(sacredMeaning)'")
         }
+    }
+}
+
+// MARK: - Temporary Placeholder View
+
+struct PlaceholderProfileView: View {
+    var body: some View {
+        ZStack {
+            // Cosmic Background
+            ScrollSafeCosmicView {
+                VStack(spacing: 30) {
+                    Spacer()
+                    
+                    // Cosmic construction indicator
+                    ZStack {
+                        Circle()
+                            .fill(
+                                RadialGradient(
+                                    gradient: Gradient(colors: [
+                                        Color.purple.opacity(0.4),
+                                        Color.blue.opacity(0.2),
+                                        Color.clear
+                                    ]),
+                                    center: .center,
+                                    startRadius: 40,
+                                    endRadius: 80
+                                )
+                            )
+                            .frame(width: 120, height: 120)
+                        
+                        Image(systemName: "person.crop.circle.badge.plus")
+                            .font(.system(size: 50))
+                            .foregroundColor(.purple)
+                    }
+                    
+                    VStack(spacing: 16) {
+                        Text("✨ Profile Under Construction ✨")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                        
+                        Text("Your modern social profile is being crafted with cosmic precision")
+                            .font(.subheadline)
+                            .foregroundColor(.white.opacity(0.8))
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 20)
+                        
+                        Text("Meanwhile, visit 'My Sanctum' in the More tab for your spiritual sanctuary")
+                            .font(.caption)
+                            .foregroundColor(.purple)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 20)
+                    }
+                    
+                    Spacer()
+                }
+                .padding()
+            }
+        }
+        .navigationTitle("Profile")
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 
