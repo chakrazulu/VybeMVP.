@@ -21,7 +21,7 @@ struct Post: Identifiable, Codable {
     let authorName: String
     
     // Content
-    let content: String
+    var content: String
     let type: PostType
     
     // Metadata

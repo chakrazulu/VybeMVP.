@@ -92,7 +92,7 @@ struct AuthenticationWrapperView: View {
     @State private var hasCompletedOnboarding = false
     
     // 🧪 TEMPORARY: Debug flag to bypass authentication for testing
-    private let bypassAuthForTesting = true
+    private let bypassAuthForTesting = false
     
     var body: some View {
         Group {
@@ -190,25 +190,21 @@ struct AuthenticationWrapperView: View {
             return
         }
         
-        // Check if user has a complete UserProfile (indicating full onboarding completion)
-        if let userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID) {
+        // Claude: Check UserDefaults first for onboarding completion flag (set by OnboardingCompletionView)
+        let onboardingKey = "hasCompletedOnboarding" + userID
+        let hasCompletedViaOnboarding = UserDefaults.standard.bool(forKey: onboardingKey)
+        
+        if hasCompletedViaOnboarding {
             hasCompletedOnboarding = true
-            print("🔍 Found complete UserProfile for user \(userID), onboarding completed")
+            print("🔍 Found onboarding completion flag for user \(userID), onboarding completed")
             
-            // Save profile to Firestore if not already saved
-            UserProfileService.shared.saveUserProfile(userProfile, for: userID) { error in
-                if let error = error {
-                    print("❌ Failed to save profile to Firestore: \(error.localizedDescription)")
-                } else {
-                    print("✅ Profile successfully saved to Firestore for user \(userID)")
-                }
+            // Configure AI insights if we have a profile
+            if let userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID) {
+                AIInsightManager.shared.configureAndRefreshInsight(for: userProfile)
             }
-            
-            // Configure AI insights with the existing profile
-            AIInsightManager.shared.configureAndRefreshInsight(for: userProfile)
         } else {
             hasCompletedOnboarding = false
-            print("🔍 No complete UserProfile found for user \(userID), onboarding needed")
+            print("🔍 No onboarding completion flag found for user \(userID), onboarding needed")
         }
     }
 }

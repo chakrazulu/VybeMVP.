@@ -121,6 +121,14 @@
  * • Cosmic Timing Respect: Lunar and planetary influences honored
  * • Sacred Correspondences: Color, chakra, and element mappings preserved
  * 
+ * === CONFIGURATION REQUIREMENTS ===
+ * IMPORTANT: KASPERManager requires configuration with RealmNumberManager dependency.
+ * Call configure(with:) method during app initialization with the RealmNumberManager
+ * instance from VybeMVPApp to ensure proper cosmic number integration.
+ * 
+ * Example:
+ * KASPERManager.shared.configure(with: realmNumberManager)
+ * 
  * === AI ASSISTANT INTEGRATION NOTES ===
  * This manager is designed for seamless AI assistant interaction. All methods
  * include comprehensive documentation, error handling, and validation to ensure
@@ -176,10 +184,8 @@ class KASPERManager: ObservableObject {
     
     // MARK: - Data Source References
     
-    /// Reference to RealmNumberManager for cosmic calculations
-    private var realmNumberManager: RealmNumberManager {
-        return RealmNumberManager.shared ?? RealmNumberManager()
-    }
+    /// Reference to RealmNumberManager for cosmic calculations (injected dependency)
+    private weak var realmNumberManager: RealmNumberManager?
     
     /// Reference to FocusNumberManager for intention tracking
     private var focusNumberManager: FocusNumberManager {
@@ -207,6 +213,24 @@ class KASPERManager: ObservableObject {
     deinit {
         payloadThrottleTimer?.invalidate()
         cancellables.removeAll()
+    }
+    
+    // MARK: - Configuration Methods
+    
+    /**
+     * Configure KASPERManager with required dependencies
+     * 
+     * This method must be called during app initialization to provide access
+     * to the RealmNumberManager instance created in the main app.
+     * 
+     * Parameter realmManager: The RealmNumberManager instance from VybeMVPApp
+     */
+    func configure(with realmManager: RealmNumberManager) {
+        logger.info("🔧 Configuring KASPERManager with RealmNumberManager")
+        self.realmNumberManager = realmManager
+        
+        // Re-setup subscriptions with the new manager
+        setupDataSourceSubscriptions()
     }
     
     // MARK: - Public Payload Generation Methods
@@ -287,7 +311,7 @@ class KASPERManager: ObservableObject {
         let chakraState = getChakraState() // Future implementation
         
         // Gather cosmic data
-        let realmNumber = realmNumberManager.currentRealmNumber
+        let realmNumber = realmNumberManager?.currentRealmNumber ?? 1 // Default to 1 if not configured
         let focusNumber = focusNumberManager.selectedFocusNumber
         let lunarPhase = getLunarPhase() // Future Phase 8 implementation
         let dominantPlanet = getDominantPlanet() // Future Phase 8 implementation
@@ -370,12 +394,17 @@ class KASPERManager: ObservableObject {
      * Setup reactive subscriptions to data sources
      */
     private func setupDataSourceSubscriptions() {
-        // Subscribe to realm number changes
-        realmNumberManager.$currentRealmNumber
-            .sink { [weak self] _ in
-                self?.schedulePayloadRefresh()
-            }
-            .store(in: &cancellables)
+        // Clear existing subscriptions
+        cancellables.removeAll()
+        
+        // Subscribe to realm number changes (if manager is available)
+        if let realmManager = realmNumberManager {
+            realmManager.$currentRealmNumber
+                .sink { [weak self] _ in
+                    self?.schedulePayloadRefresh()
+                }
+                .store(in: &cancellables)
+        }
         
         // Subscribe to focus number changes
         focusNumberManager.$selectedFocusNumber
@@ -408,9 +437,14 @@ class KASPERManager: ObservableObject {
      * Get current user ID from authentication system
      */
     private func getCurrentUserID() -> String? {
-        // Implementation depends on authentication system
-        // This would typically come from AuthenticationManager or SignInViewModel
-        return nil // Placeholder for Phase 6 implementation
+        // Get user ID from AuthenticationManager
+        if let userID = AuthenticationManager.shared.userID {
+            logger.info("🔍 Retrieved user ID from AuthenticationManager: \(userID)")
+            return userID
+        }
+        
+        logger.warning("⚠️ No user ID available from AuthenticationManager")
+        return nil
     }
     
     /**
@@ -487,7 +521,7 @@ class KASPERManager: ObservableObject {
             bpm: healthKitManager.currentHeartRate,
             lunarPhase: getLunarPhase(),
             dominantPlanet: getDominantPlanet(),
-            realmNumber: realmNumberManager.currentRealmNumber,
+            realmNumber: realmNumberManager?.currentRealmNumber ?? 1,
             focusNumber: focusNumberManager.selectedFocusNumber,
             proximityMatchScore: 0.0
         )

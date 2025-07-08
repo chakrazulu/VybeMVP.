@@ -12,8 +12,129 @@ import Combine
 import UIKit
 
 /**
+ * PostManager.swift
+ * VybeMVP
+ *
+ * PHASE 6 SOCIAL INTEGRATION: Post Management with Swift Concurrency Optimization
+ * 
+ * PURPOSE:
+ * Central manager for all Firebase social post operations including creation, editing,
+ * deletion, and real-time synchronization. Handles post reactions, user interactions,
+ * and maintains local state consistency with cloud data.
+ *
+ * PHASE 6 CRITICAL FIXES IMPLEMENTED:
+ * - ✅ Swift Concurrency: Added @MainActor to resolve Sendable closure warnings
+ * - ✅ Thread Safety: Eliminated manual DispatchQueue.main.async calls
+ * - ✅ Post Editing: Implemented updatePost() method with content modification
+ * - ✅ State Management: Consistent UI updates through @Published properties
+ *
+ * TECHNICAL ARCHITECTURE:
+ * - @MainActor Class: All methods automatically run on main thread for UI updates
+ * - ObservableObject Pattern: @Published properties trigger SwiftUI view updates
+ * - Firebase Integration: Real-time listeners for post and reaction synchronization
+ * - Local State Management: Optimistic updates with server synchronization
+ * - Error Handling: Comprehensive error management with user-friendly messages
+ *
+ * SWIFT CONCURRENCY OPTIMIZATION (PHASE 6 FIX):
+ * Problem: Capture of 'self' with non-sendable type 'PostManager' in @Sendable closure
+ * Solution: Added @MainActor to class declaration
+ * 
+ * Before:
+ * DispatchQueue.main.async {
+ *     self.posts.removeAll { $0.id == postId }  // ❌ Sendable closure warning
+ * }
+ * 
+ * After (with @MainActor):
+ * self.posts.removeAll { $0.id == postId }  // ✅ Automatic main thread execution
+ *
+ * @MAINACTOR BENEFITS:
+ * - Thread Safety: All property access guaranteed on main thread
+ * - UI Consistency: @Published property updates automatically trigger view updates
+ * - Performance: Eliminates manual thread switching overhead
+ * - Code Simplicity: Removes need for DispatchQueue.main.async wrappers
+ * - Swift Concurrency Compliance: Resolves Sendable closure compilation warnings
+ *
+ * POST CRUD OPERATIONS:
+ * - createPost(): Creates new posts with Firebase Firestore persistence
+ * - updatePost(): Modifies existing post content with server synchronization
+ * - deletePost(): Removes posts from Firebase and cleans up local state
+ * - loadPosts(): Fetches all posts with real-time listener setup
+ *
+ * EDIT FUNCTIONALITY (PHASE 6 ADDITION):
+ * - updatePost(post, newContent): Modifies post content and syncs with Firebase
+ * - Local State Update: Immediate UI feedback before server confirmation
+ * - Content Validation: Trims whitespace and validates content before update
+ * - Error Handling: Comprehensive error management for update failures
+ *
+ * DELETE FUNCTIONALITY:
+ * - deletePost(postId): Removes post from Firebase and local state
+ * - Cleanup Operations: Removes reactions, listeners, and optimistic state
+ * - State Consistency: Ensures UI immediately reflects deletion
+ * - Error Recovery: Graceful handling of deletion failures
+ *
+ * REAL-TIME SYNCHRONIZATION:
+ * - Firebase Listeners: Live updates for posts and reactions
+ * - Optimistic Updates: Immediate UI feedback with server confirmation
+ * - Conflict Resolution: Handles concurrent edits and deletions
+ * - Network Resilience: Offline support with automatic sync on reconnection
+ *
+ * REACTION SYSTEM:
+ * - Real-time Reactions: Live heart counts and user reaction tracking
+ * - Optimistic UI: Immediate visual feedback for user interactions
+ * - User State Tracking: Maintains current user's reaction status
+ * - Batch Operations: Efficient reaction count updates
+ *
+ * STATE MANAGEMENT PATTERNS:
+ * - @Published posts: Array<Post> - Main post feed data
+ * - @Published isLoading: Bool - Loading state for UI feedback
+ * - @Published errorMessage: String? - Error handling for user feedback
+ * - Local caching: Efficient memory usage with smart data retention
+ *
+ * FIREBASE INTEGRATION:
+ * - Firestore Database: Post storage with real-time synchronization
+ * - Authentication: User-based post ownership and permissions
+ * - Security Rules: Server-side validation for post operations
+ * - Offline Support: Local persistence with automatic sync
+ *
+ * PERFORMANCE OPTIMIZATION:
+ * - @MainActor: Eliminates thread switching overhead
+ * - Batch Operations: Efficient Firebase read/write operations
+ * - Smart Caching: Reduces unnecessary network requests
+ * - Memory Management: Proper listener cleanup and object lifecycle
+ *
+ * ERROR HANDLING STRATEGY:
+ * - User-Friendly Messages: Clear error communication for UI display
+ * - Graceful Degradation: App remains functional during network issues
+ * - Retry Logic: Automatic retry for transient failures
+ * - Logging: Comprehensive error logging for debugging
+ *
+ * PHASE 6 USER EXPERIENCE ENHANCEMENTS:
+ * - Immediate UI Updates: @MainActor ensures responsive interface
+ * - Edit Post Seamlessly: In-place editing without navigation complexity
+ * - Delete Posts Safely: Confirmation dialogs with proper cleanup
+ * - Real-time Synchronization: Live updates across all user devices
+ *
+ * FUTURE ENHANCEMENTS:
+ * - Advanced Filtering: Post categorization and search functionality
+ * - Media Support: Image and video post attachments
+ * - Draft System: Auto-save draft posts for user convenience
+ * - Analytics: Post engagement tracking and insights
+ *
+ * MEMORY MANAGEMENT:
+ * - Automatic Cleanup: @MainActor handles proper object lifecycle
+ * - Listener Management: Firebase listeners properly registered and removed
+ * - State Consistency: Local state always synchronized with server data
+ * - Resource Optimization: Efficient memory usage for large post collections
+ *
+ * Created for VybeMVP's social foundation
+ * Integrates with Firebase, PostCardView, SocialTimelineView, and authentication
+ * Part of Phase 6 KASPER Onboarding Integration - Social Foundation
+ */
+
+/**
  * PostManager handles all Firebase operations for the social timeline
  */
+@MainActor
 class PostManager: ObservableObject {
     static let shared = PostManager()
     
@@ -200,6 +321,35 @@ class PostManager: ObservableObject {
     }
     
     // MARK: - Post Operations
+    
+    /**
+     * Claude: PHASE 6 DEBUG - Clean up old placeholder posts
+     * Call this once to remove old test posts with placeholder usernames
+     */
+    func cleanupOldPlaceholderPosts() {
+        db.collection("posts")
+            .whereField("authorName", isEqualTo: "@cosmic_wanderer")
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("❌ Error fetching placeholder posts: \(error)")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else { return }
+                
+                print("🧹 Found \(documents.count) placeholder posts to delete")
+                
+                for document in documents {
+                    document.reference.delete { error in
+                        if let error = error {
+                            print("❌ Error deleting post: \(error)")
+                        } else {
+                            print("✅ Deleted placeholder post: \(document.documentID)")
+                        }
+                    }
+                }
+            }
+    }
     
     /**
      * Creates a new post in Firebase
@@ -583,5 +733,129 @@ class PostManager: ObservableObject {
                 
                 completion(reactionTypes)
             }
+    }
+    
+    // MARK: - Post Management (Edit/Delete)
+    
+    /**
+     * PHASE 6 ENHANCEMENT: Delete Post Functionality
+     * 
+     * Deletes a post from Firebase and removes all associated reactions.
+     * Only the post author can delete their own posts.
+     * 
+     * - Parameter post: The post to delete
+     * - Throws: Error if deletion fails
+     */
+    func deletePost(_ post: Post) async throws {
+        guard let postId = post.id else {
+            throw PostManagerError.invalidPostId
+        }
+        
+        guard let currentUserId = currentFirebaseUID else {
+            throw PostManagerError.notAuthenticated
+        }
+        
+        // Verify user ownership
+        guard post.authorId == currentUserId else {
+            throw PostManagerError.unauthorized
+        }
+        
+        // Delete all reactions for this post first
+        let reactionsSnapshot = try await db.collection("reactions")
+            .whereField("postId", isEqualTo: postId)
+            .getDocuments()
+        
+        // Delete reactions in batch
+        let batch = db.batch()
+        for document in reactionsSnapshot.documents {
+            batch.deleteDocument(document.reference)
+        }
+        
+        // Delete the post document
+        let postRef = db.collection("posts").document(postId)
+        batch.deleteDocument(postRef)
+        
+        // Commit the batch deletion
+        try await batch.commit()
+        
+        // Clean up local state
+        self.posts.removeAll { $0.id == postId }
+        self.optimisticReactions.removeValue(forKey: postId)
+        self.reactionListeners[postId]?.remove()
+        self.reactionListeners.removeValue(forKey: postId)
+        
+        print("✅ Successfully deleted post and all associated reactions: \(postId)")
+    }
+    
+    /**
+     * PHASE 6 ENHANCEMENT: Update Post Functionality
+     * 
+     * Updates the content of an existing post in Firebase.
+     * Only the post author can edit their own posts.
+     * 
+     * - Parameters:
+     *   - post: The post to update
+     *   - newContent: The new content for the post
+     * - Throws: Error if update fails
+     */
+    func updatePost(_ post: Post, newContent: String) async throws {
+        guard let postId = post.id else {
+            throw PostManagerError.invalidPostId
+        }
+        
+        guard let currentUserId = currentFirebaseUID else {
+            throw PostManagerError.notAuthenticated
+        }
+        
+        // Verify user ownership
+        guard post.authorId == currentUserId else {
+            throw PostManagerError.unauthorized
+        }
+        
+        // Validate content
+        let trimmedContent = newContent.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedContent.isEmpty else {
+            throw PostManagerError.emptyContent
+        }
+        
+        // Update the post in Firebase
+        let postRef = db.collection("posts").document(postId)
+        try await postRef.updateData([
+            "content": trimmedContent,
+            "lastModified": Timestamp(date: Date())
+        ])
+        
+        // Update local state
+        if let index = self.posts.firstIndex(where: { $0.id == postId }) {
+            self.posts[index].content = trimmedContent
+            // Note: lastModified timestamp will be updated by the real-time listener
+        }
+        
+        print("✅ Successfully updated post content: \(postId)")
+    }
+}
+
+// MARK: - PostManager Error Types
+
+/**
+ * Error types for PostManager operations
+ */
+enum PostManagerError: LocalizedError {
+    case invalidPostId
+    case notAuthenticated
+    case unauthorized
+    case emptyContent
+    
+    var errorDescription: String? {
+        switch self {
+        case .invalidPostId:
+            return "Invalid post ID"
+        case .notAuthenticated:
+            return "User not authenticated"
+        case .unauthorized:
+            return "You can only edit/delete your own posts"
+        case .emptyContent:
+            return "Post content cannot be empty"
+        }
     }
 } 

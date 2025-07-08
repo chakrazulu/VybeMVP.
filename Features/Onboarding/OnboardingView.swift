@@ -71,6 +71,85 @@
 //
 import SwiftUI
 
+/**
+ * MinimalCosmicBackground: Subtle cosmic background for onboarding focus
+ * 
+ * Provides a gentle cosmic aesthetic without the intense star field of the main
+ * CosmicBackgroundView, allowing users to focus on onboarding content.
+ */
+struct MinimalCosmicBackground: View {
+    @State private var sparkles: [SparklePoint] = []
+    @State private var timer: Timer?
+    
+    var body: some View {
+        ZStack {
+            // Subtle gradient background
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color.black,
+                    Color.purple.opacity(0.15),
+                    Color.indigo.opacity(0.1),
+                    Color.black
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+            
+            // Minimal sparkle field (only 8 gentle sparkles)
+            ForEach(sparkles, id: \.id) { sparkle in
+                Circle()
+                    .fill(sparkle.color.opacity(sparkle.opacity))
+                    .frame(width: sparkle.size, height: sparkle.size)
+                    .position(x: sparkle.x, y: sparkle.y)
+                    .shadow(color: sparkle.color.opacity(0.3), radius: sparkle.size * 0.5)
+            }
+        }
+        .onAppear {
+            initializeSparkles()
+            startGentleAnimation()
+        }
+        .onDisappear {
+            timer?.invalidate()
+        }
+    }
+    
+    private func initializeSparkles() {
+        sparkles = (0..<8).map { _ in
+            SparklePoint(
+                x: Double.random(in: 50...350),
+                y: Double.random(in: 100...700),
+                size: Double.random(in: 1.0...2.5),
+                opacity: Double.random(in: 0.2...0.5),
+                color: [Color.white, Color.cyan, Color.purple].randomElement() ?? Color.white
+            )
+        }
+    }
+    
+    private func startGentleAnimation() {
+        timer = Timer.scheduledTimer(withTimeInterval: 0.15, repeats: true) { _ in
+            for i in sparkles.indices {
+                // Gentle twinkle effect
+                sparkles[i].opacity += sparkles[i].twinkleDirection * 0.01
+                
+                if sparkles[i].opacity <= 0.1 || sparkles[i].opacity >= 0.6 {
+                    sparkles[i].twinkleDirection *= -1
+                }
+            }
+        }
+    }
+}
+
+struct SparklePoint {
+    let id = UUID()
+    var x: Double
+    var y: Double
+    var size: Double
+    var opacity: Double
+    var twinkleDirection: Double = 1.0
+    let color: Color
+}
+
 enum OnboardingStep: Int, CaseIterable {
     case initialInfo = 0
     case spiritualMode
@@ -94,7 +173,7 @@ struct OnboardingView: View {
     var body: some View {
         NavigationView {
             ZStack { // Add ZStack to layer the background
-                CosmicBackgroundView() // Add the cosmic background here
+                MinimalCosmicBackground() // Minimal cosmic background for onboarding focus
                 
                 VStack {
                     // Progress Indicator - Only show for non-completion steps

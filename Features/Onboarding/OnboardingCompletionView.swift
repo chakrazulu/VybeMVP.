@@ -3,53 +3,92 @@ import SwiftUI
 struct OnboardingCompletionView: View {
     @ObservedObject var viewModel: OnboardingViewModel
     @Binding var hasCompletedOnboarding: Bool // To dismiss onboarding flow
+    @EnvironmentObject var signInViewModel: SignInViewModel // Get directly as environment object
     @State private var sparkleAnimation = false
     @State private var profileAnimation = false
     @State private var archetypeRevealAnimation = false
     @State private var lifePathGlow = false
     @State private var pulsatingGlow = false
+    @State private var isCompletingJourney = false
+    @State private var showProfileSetup = false
     @StateObject private var archetypeManager = UserArchetypeManager.shared
 
     var body: some View {
-        ScrollView {
-        VStack(spacing: 30) {
-                // Animated Header
-                headerSection
-                
-                // HERO: Life Path Number - Bold, Glowing, Animated
-                if let profile = viewModel.userProfile {
-                    heroLifePathSection(profile)
+        // Claude: PHASE 6 FIX - Add debugging and ensure proper view rendering
+        ZStack {
+            // Background
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color.black,
+                    Color.purple.opacity(0.15),
+                    Color.indigo.opacity(0.1),
+                    Color.black
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+            
+            ScrollView(.vertical, showsIndicators: true) {
+                VStack(spacing: 30) {
+                    // Animated Header
+                    headerSection
+                    
+                    // HERO: Life Path Number - Bold, Glowing, Animated
+                    if let profile = viewModel.userProfile {
+                        heroLifePathSection(profile)
+                    } else {
+                        Text("⚠️ Profile data not available")
+                            .foregroundColor(.white)
+                            .padding()
+                    }
+                    
+                    // Complete Spiritual Codex
+                    if let userArchetype = archetypeManager.storedArchetype {
+                        completeArchetypeCodex(userArchetype)
+                    } else {
+                        Text("⚠️ Archetype data not available")
+                            .foregroundColor(.white)
+                            .padding()
+                    }
+                    
+                    // Comprehensive Spiritual Profile
+                    if let profile = viewModel.userProfile {
+                        comprehensiveProfileSection(profile)
+                    } else {
+                        loadingSection
+                    }
+                    
+                    // Completion Button
+                    completionButton
                 }
-                
-                // PRIMARY ARCHETYPAL INFORMATION - Right after Life Path
-                // if let userArchetype = archetypeManager.storedArchetype {
-                //     primaryArchetypeSection(userArchetype)
-                // }
-                
-                // Complete Spiritual Codex
-                if let userArchetype = archetypeManager.storedArchetype {
-                    completeArchetypeCodex(userArchetype)
-                }
-                
-                // Comprehensive Spiritual Profile
-                if let profile = viewModel.userProfile {
-                    comprehensiveProfileSection(profile)
-                } else {
-                    loadingSection
-                }
-                
-                // Completion Button
-                completionButton
+                .padding(.horizontal, 20)
+                .padding(.top, 40)
+                .padding(.bottom, 40)
             }
-            .padding(.horizontal, 20)
-            .padding(.top, 40)
-            .padding(.bottom, 40)
         }
         .onAppear {
+            // Claude: PHASE 6 DEBUG - Log data availability for troubleshooting
+            if let profile = viewModel.userProfile {
+                print("🎯 OnboardingCompletionView: Profile data available - Life Path \(profile.lifePathNumber)")
+            } else {
+                print("❌ OnboardingCompletionView: No profile data available")
+            }
+            
+            if let userArchetype = archetypeManager.storedArchetype {
+                print("🎯 OnboardingCompletionView: Archetype data available - \(userArchetype.zodiacSign.rawValue)")
+            } else {
+                print("❌ OnboardingCompletionView: No archetype data available")
+            }
+            
             startAnimations()
             // Haptic feedback for completion
             let impactFeedback = UIImpactFeedbackGenerator(style: .heavy)
             impactFeedback.impactOccurred()
+        }
+        .fullScreenCover(isPresented: $showProfileSetup) {
+            ProfileSetupView(isProfileSetupComplete: $hasCompletedOnboarding)
+                .environmentObject(signInViewModel)
         }
     }
     
@@ -662,29 +701,40 @@ struct OnboardingCompletionView: View {
                 secondFeedback.impactOccurred()
             }
             
-                // IMMEDIATE onboarding completion to prevent state loss during crashes
-                hasCompletedOnboarding = true
+                // Claude: Set loading state and add delay to allow user to appreciate completion screen
+                isCompletingJourney = true
                 
-                // Also immediately save to UserDefaults as backup
-                if let userID = viewModel.currentUserID {
-                    UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding" + userID)
-                    UserDefaults.standard.synchronize() // Force immediate save
-                    print("🔒 IMMEDIATE onboarding state saved for user \(userID)")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                    // Show profile setup instead of completing onboarding immediately
+                    showProfileSetup = true
                 }
             }) {
             HStack(spacing: 4) {
-                Image(systemName: "sparkles")
-                    .font(.body)
-                
-                Text("Begin Your Sacred Journey")
-                    .fontWeight(.bold)
-                    .font(.callout)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.6)
-                    .allowsTightening(true)
-                
-                Image(systemName: "arrow.right.circle.fill")
-                    .font(.body)
+                if isCompletingJourney {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .scaleEffect(0.8)
+                    
+                    Text("Preparing Your Sacred Journey...")
+                        .fontWeight(.bold)
+                        .font(.callout)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
+                        .allowsTightening(true)
+                } else {
+                    Image(systemName: "sparkles")
+                        .font(.body)
+                    
+                    Text("Begin Your Sacred Journey")
+                        .fontWeight(.bold)
+                        .font(.callout)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
+                        .allowsTightening(true)
+                    
+                    Image(systemName: "arrow.right.circle.fill")
+                        .font(.body)
+                }
             }
                     .frame(maxWidth: .infinity)
             .padding(.horizontal, 8)
@@ -705,6 +755,7 @@ struct OnboardingCompletionView: View {
         .opacity(profileAnimation ? 1.0 : 0.0)
         .padding(.horizontal, 20)
         .padding(.top, 20)
+        .disabled(isCompletingJourney)
     }
     
     // Helper functions for symbols

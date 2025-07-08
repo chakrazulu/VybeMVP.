@@ -96,10 +96,10 @@ struct UserProfileView: View {
     
     // MARK: - State Properties
     
-    /// User's profile data (future integration with UserProfileService)
-    @State private var displayName: String = "Cosmic Seeker"
-    @State private var username: String = "@cosmic_wanderer"
-    @State private var bio: String = "Exploring the sacred mysteries of numbers and cosmic alignment ✨ Living in sync with the universe's rhythm 🌌"
+    /// User's profile data (loaded from user's actual profile setup)
+    @State private var displayName: String = ""
+    @State private var username: String = ""
+    @State private var bio: String = ""
     @State private var avatarImage: UIImage?
     
     /// Social stats (future integration with social managers)
@@ -183,6 +183,8 @@ struct UserProfileView: View {
                 print("🎭 UserProfileView appeared")
                 // Check if user has posted before (TODO: integrate with PostManager)
                 checkForExistingPosts()
+                // Load user's profile data
+                loadUserProfileData()
             }
             .onReceive(NotificationCenter.default.publisher(for: Notification.Name("PostCreated"))) { _ in
                 // PHASE 3C-1 FIX: Update post button state when user creates first post
@@ -198,6 +200,13 @@ struct UserProfileView: View {
                 // HAPTIC FEEDBACK: Provide tactile confirmation of state change
                 let impactFeedback = UIImpactFeedbackGenerator(style: .light)
                 impactFeedback.impactOccurred()
+            }
+            .onChange(of: signInViewModel.userID) { _, newUserID in
+                // Reload profile data when userID becomes available
+                if newUserID != nil {
+                    print("🔄 UserID became available, reloading profile data")
+                    loadUserProfileData()
+                }
             }
         }
     }
@@ -230,6 +239,48 @@ struct UserProfileView: View {
         // hasCreatedFirstPost = !userPosts.isEmpty
         
         print("🔍 UserProfileView: Checked existing posts - hasCreatedFirstPost: \(hasCreatedFirstPost)")
+    }
+    
+    /**
+     * Load user's profile data from UserDefaults
+     * 
+     * Loads the profile data saved during ProfileSetupView completion.
+     * Falls back to default values if no profile data is found.
+     */
+    private func loadUserProfileData() {
+        // Try to get userID from signInViewModel first, then AuthenticationManager as fallback
+        let userID = signInViewModel.userID ?? AuthenticationManager.shared.userID
+        
+        guard let userID = userID else {
+            print("⚠️ No user ID available for profile data loading - will retry in 1 second")
+            // Retry after a delay to allow authentication to initialize
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.loadUserProfileData()
+            }
+            return
+        }
+        
+        print("🔍 Loading profile data for user: \(userID)")
+        
+        // Load profile data from UserDefaults
+        if let profileData = UserDefaults.standard.dictionary(forKey: "socialProfile_\(userID)") {
+            displayName = profileData["displayName"] as? String ?? ""
+            username = profileData["username"] as? String ?? ""
+            bio = profileData["bio"] as? String ?? ""
+            
+            print("✅ Loaded profile data for user \(userID):")
+            print("   Display Name: \(displayName)")
+            print("   Username: \(username)")
+            print("   Bio: \(bio)")
+        } else {
+            print("ℹ️ No profile data found for user \(userID) - using defaults")
+            // Set minimal defaults if no profile setup completed
+            displayName = "Cosmic Seeker"
+            username = "@seeker\(String(userID.suffix(4)))" // Use last 4 chars of userID
+            bio = ""
+        }
+        
+        // TODO: Load avatar image from Documents directory or Firebase Storage
     }
     
     // MARK: - Profile Header Section
@@ -1372,6 +1423,18 @@ struct EditProfileSheet: View {
         displayName = editingDisplayName
         username = "@\(editingUsername)"
         bio = editingBio
+        
+        // Save to UserDefaults for persistence
+        if let userID = AuthenticationManager.shared.userID {
+            let profileData = [
+                "displayName": displayName,
+                "username": username,
+                "bio": bio
+            ]
+            UserDefaults.standard.set(profileData, forKey: "socialProfile_\(userID)")
+            UserDefaults.standard.synchronize()
+            print("💾 Profile saved to UserDefaults for user: \(userID)")
+        }
         
         // TODO: Save to UserProfileService and sync with Firebase
         print("💾 Saving profile: \(displayName), \(username)")

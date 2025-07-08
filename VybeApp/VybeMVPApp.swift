@@ -245,6 +245,10 @@ struct VybeMVPApp: App {
                     self.realmNumberManager.startUpdates()
                     print("▶️ Starting RealmNumberManager from onAppear...")
                     
+                    // Configure KASPERManager with RealmNumberManager dependency
+                    KASPERManager.shared.configure(with: self.realmNumberManager)
+                    print("🔮 KASPERManager configured with RealmNumberManager")
+                    
                     // Existing onAppear logic:
                     backgroundManager.setManagers(realm: realmNumberManager, focus: focusNumberManager)
                     backgroundManager.scheduleBackgroundTask()

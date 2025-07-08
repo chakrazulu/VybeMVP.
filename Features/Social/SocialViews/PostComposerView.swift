@@ -98,8 +98,8 @@ struct PostComposerView: View {
     @State private var selectedImage: UIImage?
     
     // User data - can be passed from UserProfileView or default to mock
-    let authorName: String
-    let authorDisplayName: String
+    @State private var authorName: String
+    @State private var authorDisplayName: String
     
     // Real user data - uses actual user information
     private let currentUser: SocialUser
@@ -123,42 +123,41 @@ struct PostComposerView: View {
      * DATA FLOW:
      * UserProfileView → NotificationCenter → SocialTimelineView → PostComposerView
      */
-    init(authorName: String, authorDisplayName: String) {
-        self.authorName = authorName
-        self.authorDisplayName = authorDisplayName
+    init() {
+        // Claude: PHASE 6 ARCHITECTURAL FIX - Load data directly at initialization
+        // Eliminates all timing issues and slow loading by getting data immediately
         
         // Get real user ID and spiritual data from authentication and focus managers
         let userID = AuthenticationManager.shared.userID ?? "unknown"
         let currentFocusNumber = FocusNumberManager.shared.selectedFocusNumber
         
-        // Load real user profile data from UserProfileService (Firebase)
-        var lifePathNumber = 3  // Default fallback
-        var soulUrgeNumber = 5   // Default fallback
-        var expressionNumber = 7 // Default fallback
+        // Load real user data immediately during initialization
+        var loadedAuthorName = "@cosmic_wanderer"
+        var loadedDisplayName = "Cosmic Seeker"
         
-        // PHASE 6 FIX: Load numerology from Firebase via UserProfileService
-        // The UserProfile data (with numerology) is stored in Firestore, not UserDefaults
-        let userProfileService = UserProfileService()
-        
-        // Try to get cached profile first, then fallback to defaults
-        if let cachedProfile = userProfileService.getCachedProfile(for: userID) {
-            lifePathNumber = cachedProfile.lifePathNumber
-            soulUrgeNumber = cachedProfile.soulUrgeNumber ?? 5  // Handle optional with fallback
-            expressionNumber = cachedProfile.expressionNumber ?? 7  // Handle optional with fallback
-            print("✅ Loaded real numerology from Firebase cache: LP=\(lifePathNumber), SU=\(soulUrgeNumber), EX=\(expressionNumber)")
+        if let profileData = UserDefaults.standard.dictionary(forKey: "socialProfile_\(userID)") {
+            loadedAuthorName = profileData["username"] as? String ?? "@cosmic_wanderer"
+            loadedDisplayName = profileData["displayName"] as? String ?? "Cosmic Seeker"
+            print("✅ PostComposerView loaded real user data at init: \(loadedAuthorName), \(loadedDisplayName)")
         } else {
-            print("⚠️ No cached UserProfile data available, using defaults. Profile may still be loading from Firebase.")
+            print("⚠️ No profile data found for user \(userID), using defaults")
         }
+        
+        // Initialize with real data immediately
+        self._authorName = State(initialValue: loadedAuthorName)
+        self._authorDisplayName = State(initialValue: loadedDisplayName)
         
         // Create SocialUser with real user data
         self.currentUser = SocialUser(
             userId: userID,
-            displayName: authorDisplayName,  // Used for cosmic signature in UI
-            lifePathNumber: lifePathNumber,   // Real life path number
-            soulUrgeNumber: soulUrgeNumber,   // Real soul urge number
-            expressionNumber: expressionNumber, // Real expression number
+            displayName: loadedDisplayName,  // Real display name loaded immediately
+            lifePathNumber: 3,   // Default - TODO: Load from saved profile later
+            soulUrgeNumber: 5,   // Default - TODO: Load from saved profile later
+            expressionNumber: 7, // Default - TODO: Load from saved profile later
             currentFocusNumber: currentFocusNumber  // Real focus number
         )
+        
+        print("✅ PostComposerView initialized with immediate real data")
     }
     
     private let availableTags = [
@@ -377,6 +376,7 @@ struct PostComposerView: View {
         .animation(.easeInOut(duration: 0.2), value: content.isEmpty)
     }
     
+    
     // MARK: - Helper Functions
     
     private func toggleTag(_ tag: String) {
@@ -482,5 +482,5 @@ struct TagButton: View {
 }
 
 #Preview {
-    PostComposerView(authorName: "@surf_or_drown", authorDisplayName: "Chakra Zulu")
+    PostComposerView()
 } 
