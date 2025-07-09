@@ -270,6 +270,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct SocialTimelineView: View {
     @StateObject private var postManager = PostManager.shared
@@ -307,12 +308,15 @@ struct SocialTimelineView: View {
         }
     }
     
-    // Current user - uses real authenticated user ID for proper post ownership
+    // Current user - uses Firebase UID for proper post ownership matching
     private var currentUser: SocialUser {
-        let userId = AuthenticationManager.shared.userID ?? "000536.fe41c9f51a0543059da7d6fe0dc44b7f.1946"
-        print("👤 SocialTimelineView currentUser ID: \(userId)")
+        // Claude: PHASE 6 FIX - Use Firebase UID to match post authorId for edit/delete functionality
+        let firebaseUID = Auth.auth().currentUser?.uid ?? "unknown"
+        let appleSignInID = AuthenticationManager.shared.userID ?? "unknown"
+        print("👤 SocialTimelineView Firebase UID: \(firebaseUID)")
+        print("👤 SocialTimelineView Apple ID: \(appleSignInID)")
         return SocialUser(
-            userId: userId,
+            userId: firebaseUID, // Use Firebase UID to match post.authorId
             displayName: "Corey Jermaine Davis",
             lifePathNumber: 3,
             soulUrgeNumber: 5,
