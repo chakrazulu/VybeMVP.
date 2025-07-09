@@ -21,6 +21,13 @@
  * - Added proper fallback handling for missing profile data
  * - Enhanced initialization to accept real user parameters from calling views
  * 
+ * 🎯 **USER ID ARCHITECTURE REFACTOR (PHASE 6 FINAL):**
+ * - Implemented migration logic for Single Source of Truth user identification
+ * - Uses AuthenticationManager.userID (Firebase UID) as primary identifier
+ * - Falls back to legacyAppleSignInID for existing user data migration
+ * - Automatically migrates profile data from Apple ID keys to Firebase UID keys
+ * - Enables proper edit/delete functionality by ensuring consistent user identification
+ * 
  * 🎯 **USERNAME INTEGRATION COMPLETE:**
  * - Posts now display actual @username created during onboarding (e.g., "@surf_or_drown")
  * - Real display names used for cosmic signatures (e.g., "Chakra Zulu")
@@ -127,20 +134,38 @@ struct PostComposerView: View {
         // Claude: PHASE 6 ARCHITECTURAL FIX - Load data directly at initialization
         // Eliminates all timing issues and slow loading by getting data immediately
         
-        // Get real user ID and spiritual data from authentication and focus managers
-        let userID = AuthenticationManager.shared.userID ?? "unknown"
+        // Claude: PHASE 6 MIGRATION - Get user IDs for both new and legacy data lookup
+        let userID = AuthenticationManager.shared.userID ?? "unknown" // Firebase UID (new)
+        let legacyUserID = AuthenticationManager.shared.legacyAppleSignInID // Apple Sign-In ID (legacy)
         let currentFocusNumber = FocusNumberManager.shared.selectedFocusNumber
         
-        // Load real user data immediately during initialization
+        // Load real user data with migration logic
         var loadedAuthorName = "@cosmic_wanderer"
         var loadedDisplayName = "Cosmic Seeker"
+        var foundData = false
         
+        // STEP 1: Try to load with new Firebase UID key
         if let profileData = UserDefaults.standard.dictionary(forKey: "socialProfile_\(userID)") {
             loadedAuthorName = profileData["username"] as? String ?? "@cosmic_wanderer"
             loadedDisplayName = profileData["displayName"] as? String ?? "Cosmic Seeker"
-            print("✅ PostComposerView loaded real user data at init: \(loadedAuthorName), \(loadedDisplayName)")
-        } else {
-            print("⚠️ No profile data found for user \(userID), using defaults")
+            foundData = true
+            print("✅ PostComposerView loaded data with Firebase UID: \(userID)")
+        }
+        // STEP 2: Fallback to legacy Apple Sign-In ID key
+        else if let legacyUserID = legacyUserID,
+                let profileData = UserDefaults.standard.dictionary(forKey: "socialProfile_\(legacyUserID)") {
+            loadedAuthorName = profileData["username"] as? String ?? "@cosmic_wanderer"
+            loadedDisplayName = profileData["displayName"] as? String ?? "Cosmic Seeker"
+            foundData = true
+            print("✅ PostComposerView loaded data with legacy Apple ID: \(legacyUserID)")
+            
+            // MIGRATION: Copy data to new Firebase UID key
+            UserDefaults.standard.set(profileData, forKey: "socialProfile_\(userID)")
+            print("🔄 Migrated profile data from Apple ID to Firebase UID key")
+        }
+        
+        if !foundData {
+            print("⚠️ No profile data found for Firebase UID: \(userID) or legacy ID: \(legacyUserID ?? "nil")")
         }
         
         // Initialize with real data immediately

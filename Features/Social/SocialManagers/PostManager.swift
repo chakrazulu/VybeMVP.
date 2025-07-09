@@ -162,10 +162,13 @@ class PostManager: ObservableObject {
     // MARK: - Authentication Helper
     
     /**
-     * Gets the current Firebase UID for authenticated operations
+     * Claude: PHASE 6 REFACTOR - Gets the current Firebase UID for authenticated operations
+     * 
+     * Now uses AuthenticationManager for consistent user identification throughout the app.
+     * This ensures all user ID operations use the same source of truth.
      */
     private var currentFirebaseUID: String? {
-        return Auth.auth().currentUser?.uid
+        return AuthenticationManager.shared.userID
     }
     
     /**

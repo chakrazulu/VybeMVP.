@@ -23,12 +23,27 @@
  * 4. Keychain Storage: Secure Apple ID, email, fullName persistence
  * 5. State Updates: @Published properties for SwiftUI binding
  * 
+ * **PHASE 6 ARCHITECTURAL REFACTOR: SINGLE SOURCE OF TRUTH USER ID SYSTEM**
+ * 
+ * CRITICAL CHANGE: userID now returns Firebase UID consistently throughout the app.
+ * This eliminates the dual ID system that was causing edit/delete post ownership issues.
+ * 
+ * BEFORE PHASE 6:
+ * - userID = Apple Sign-In ID (for user identification)
+ * - firebaseUID = Firebase UID (for Firebase operations)
+ * - PROBLEM: Posts created with Firebase UID but ownership checked with Apple ID → MISMATCH
+ * 
+ * AFTER PHASE 6:
+ * - userID = Firebase UID (single source of truth)
+ * - legacyAppleSignInID = Apple Sign-In ID (for migration only)
+ * - SOLUTION: Posts created with Firebase UID and ownership checked with Firebase UID → MATCH
+ * 
  * SECURITY FEATURES:
  * - Cryptographic Nonce: SHA256-hashed random nonce for Apple Sign-In
  * - Secure Random Generation: SecRandomCopyBytes for cryptographic security
  * - Keychain Integration: iOS Keychain Services for credential protection
  * - Firebase Auth: Server-side authentication validation
- * - Identity Consistency: Apple ID as primary userID (never Firebase UID)
+ * - Identity Consistency: Firebase UID as primary userID for all operations
  * 
  * STATE MANAGEMENT:
  * - @Published isSignedIn: Authentication status for UI binding
@@ -145,10 +160,33 @@ class AuthenticationManager: ObservableObject {
     // MARK: - Published Properties
     @Published var isSignedIn = false
     @Published var isCheckingAuthStatus = true
-    @Published var userID: String?
+    
+    // Claude: PHASE 6 REFACTOR - userID now returns Firebase UID for consistency
+    @Published private var _userID: String? // Private storage for Apple Sign-In ID
     @Published var userEmail: String?
     @Published var userFullName: String?
     @Published var firebaseUser: User?
+    
+    /**
+     * PHASE 6 ARCHITECTURAL CHANGE: userID now returns Firebase UID
+     * 
+     * This computed property ensures userID always returns the Firebase UID,
+     * eliminating the dual ID system that caused edit/delete ownership issues.
+     * 
+     * MIGRATION STRATEGY:
+     * - Apple Sign-In ID stored privately as _userID for data migration
+     * - userID publicly returns Firebase UID for all app operations
+     * - Maintains backward compatibility for existing user data
+     */
+    var userID: String? {
+        get {
+            return firebaseUser?.uid
+        }
+        set {
+            // For compatibility during migration - stores Apple Sign-In ID privately
+            _userID = newValue
+        }
+    }
     
     // MARK: - Private Properties
     private let keychainHelper = KeychainHelper.shared
@@ -178,8 +216,10 @@ class AuthenticationManager: ObservableObject {
     // MARK: - Authentication Status
     
     /**
-     * Checks if the user is currently authenticated by looking for stored credentials
-     * and validating Firebase Auth state.
+     * PHASE 6 REFACTOR: Check authentication status with Firebase UID as primary ID
+     * 
+     * Checks if the user is currently authenticated by validating Firebase Auth state.
+     * Now uses Firebase UID as the primary userID for consistent identification.
      */
     func checkAuthenticationStatus() {
         DispatchQueue.main.async { [weak self] in
@@ -190,28 +230,29 @@ class AuthenticationManager: ObservableObject {
         if let firebaseUser = Auth.auth().currentUser {
             print("✅ Firebase user found: \(firebaseUser.uid)")
             
-            // Check for existing credentials in keychain
-            let userID = keychainHelper.get(for: "userID")
+            // Check for existing credentials in keychain (for migration and profile data)
+            let appleSignInID = keychainHelper.get(for: "userID") // Legacy Apple Sign-In ID
             let email = keychainHelper.get(for: "email")
             let fullName = keychainHelper.get(for: "fullName")
             
             DispatchQueue.main.async { [weak self] in
                 self?.firebaseUser = firebaseUser
-                // CONSISTENCY FIX: Always use Apple ID as primary userID (never fallback to Firebase UID)
-                self?.userID = userID  // Don't fallback to firebaseUser.uid
+                // Claude: PHASE 6 CHANGE - Store Apple ID privately but userID returns Firebase UID
+                self?._userID = appleSignInID  // Store for migration purposes
                 self?.userEmail = email ?? firebaseUser.email
                 self?.userFullName = fullName
                 self?.isSignedIn = true
                 self?.isCheckingAuthStatus = false
                 
-                print("✅ User is authenticated: \(firebaseUser.uid)")
-                print("🔍 Using Apple ID as userID: \(userID ?? "nil")")
+                print("✅ User is authenticated with Firebase UID: \(firebaseUser.uid)")
+                print("🔍 Legacy Apple ID stored: \(appleSignInID ?? "nil")")
+                print("🆔 Primary userID now returns: \(firebaseUser.uid)")
             }
         } else {
             print("❌ No Firebase user found")
             DispatchQueue.main.async { [weak self] in
                 self?.firebaseUser = nil
-                self?.userID = nil
+                self?._userID = nil
                 self?.userEmail = nil
                 self?.userFullName = nil
                 self?.isSignedIn = false
@@ -221,26 +262,30 @@ class AuthenticationManager: ObservableObject {
     }
     
     /**
-     * Updates authentication state based on Firebase Auth state
+     * PHASE 6 REFACTOR: Updates authentication state using Firebase UID as primary ID
+     * 
+     * Updates authentication state based on Firebase Auth state.
+     * Now uses Firebase UID as primary identifier for consistent user identification.
      */
     private func updateAuthenticationState() {
         if let firebaseUser = firebaseUser {
             // User is signed in to Firebase
-            // CONSISTENCY FIX: Only use Apple ID from keychain (no Firebase UID fallback)
-            let userID = keychainHelper.get(for: "userID")
+            // Claude: PHASE 6 CHANGE - Load legacy data but primary ID is Firebase UID
+            let appleSignInID = keychainHelper.get(for: "userID") // Legacy Apple Sign-In ID
             let email = keychainHelper.get(for: "email") ?? firebaseUser.email
             let fullName = keychainHelper.get(for: "fullName")
             
-            self.userID = userID  // This will be nil if Apple ID not in keychain
+            self._userID = appleSignInID  // Store legacy ID privately for migration
             self.userEmail = email
             self.userFullName = fullName
-            self.isSignedIn = userID != nil  // Only consider signed in if we have Apple ID
+            self.isSignedIn = true  // Consider signed in if Firebase user exists
             
             print("✅ Firebase auth state updated: \(firebaseUser.uid)")
-            print("🔍 Apple ID from keychain: \(userID ?? "nil")")
+            print("🔍 Legacy Apple ID from keychain: \(appleSignInID ?? "nil")")
+            print("🆔 Primary userID returns Firebase UID: \(firebaseUser.uid)")
         } else {
             // User is signed out of Firebase
-            self.userID = nil
+            self._userID = nil
             self.userEmail = nil
             self.userFullName = nil
             self.isSignedIn = false
@@ -304,21 +349,22 @@ class AuthenticationManager: ObservableObject {
                     
                     print("✅ Firebase sign in successful: \(firebaseUser.uid)")
                     
-                    // Save to keychain (use Apple ID as userID for consistency)
-                    self?.keychainHelper.save(userID, for: "userID")
+                    // Claude: PHASE 6 CHANGE - Save Apple ID to keychain but primary userID returns Firebase UID
+                    self?.keychainHelper.save(userID, for: "userID") // Save Apple ID for legacy/migration
                     self?.keychainHelper.save(email ?? firebaseUser.email ?? "", for: "email")
                     self?.keychainHelper.save(fullName ?? "", for: "fullName")
                     
                     // Update state on main thread
                     DispatchQueue.main.async {
                         self?.firebaseUser = firebaseUser
-                        self?.userID = userID
+                        self?._userID = userID  // Store Apple ID privately
                         self?.userEmail = email ?? firebaseUser.email
                         self?.userFullName = fullName
                         self?.isSignedIn = true
                     }
                     
                     print("✅ Sign in successful: Apple ID: \(userID), Firebase UID: \(firebaseUser.uid)")
+                    print("🆔 AuthenticationManager.userID now returns: \(firebaseUser.uid)")
                 }
             }
         case .failure(let error):
@@ -361,7 +407,7 @@ class AuthenticationManager: ObservableObject {
         // Update state on main thread
         DispatchQueue.main.async { [weak self] in
             self?.firebaseUser = nil
-            self?.userID = nil
+            self?._userID = nil  // Clear private Apple ID storage
             self?.userEmail = nil
             self?.userFullName = nil
             self?.isSignedIn = false
@@ -442,10 +488,38 @@ class AuthenticationManager: ObservableObject {
     }
     
     /**
-     * Returns the Firebase UID for Firestore operations
+     * PHASE 6 REFACTOR: Firebase UID as Primary User ID
+     * 
+     * Returns the Firebase UID which is now our single source of truth for user identification.
+     * This eliminates the dual ID system that was causing edit/delete post ownership issues.
+     * 
+     * ARCHITECTURAL CHANGE:
+     * - BEFORE: userID = Apple Sign-In ID, firebaseUID = Firebase UID (dual system)
+     * - AFTER: userID = Firebase UID (single source of truth)
+     * 
+     * BENEFITS:
+     * - Consistent user identification across all Firebase operations
+     * - Proper post ownership detection for edit/delete functionality
+     * - Eliminates code smells from dual ID management
+     * - Maintains security through Firebase Auth validation
      */
     var firebaseUID: String? {
         return firebaseUser?.uid
+    }
+    
+    /**
+     * PHASE 6 MIGRATION HELPER: Access to legacy Apple Sign-In ID
+     * 
+     * Returns the Apple Sign-In ID for data migration purposes.
+     * Used to look up existing user data stored with Apple ID keys.
+     * 
+     * USAGE:
+     * - Check both Firebase UID and legacy Apple ID when loading user data
+     * - Gradually migrate data from Apple ID keys to Firebase UID keys
+     * - Maintain backward compatibility during transition period
+     */
+    var legacyAppleSignInID: String? {
+        return _userID
     }
     
     /**

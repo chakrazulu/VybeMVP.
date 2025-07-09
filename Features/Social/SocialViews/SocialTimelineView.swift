@@ -11,6 +11,12 @@
  * - Integrated real user profile data loading from UserDefaults storage
  * - Enhanced NotificationCenter listener to receive and pass user information
  * 
+ * 🎯 **USER ID ARCHITECTURE REFACTOR (PHASE 6 FINAL):**
+ * - Updated currentUser to use AuthenticationManager.userID (Firebase UID) consistently
+ * - Removed temporary Firebase Auth import and direct Firebase UID access
+ * - Simplified architecture by using single source of truth for user identification
+ * - Enables proper edit/delete post ownership detection throughout the app
+ * 
  * 🎯 **USERNAME INTEGRATION COMPLETE:**
  * - All post composition now uses real @username created during onboarding
  * - Floating compose button loads real user data before showing composer
@@ -270,7 +276,6 @@
 //
 
 import SwiftUI
-import FirebaseAuth
 
 struct SocialTimelineView: View {
     @StateObject private var postManager = PostManager.shared
@@ -308,15 +313,13 @@ struct SocialTimelineView: View {
         }
     }
     
-    // Current user - uses Firebase UID for proper post ownership matching
+    // Current user - uses consistent Firebase UID from AuthenticationManager
     private var currentUser: SocialUser {
-        // Claude: PHASE 6 FIX - Use Firebase UID to match post authorId for edit/delete functionality
-        let firebaseUID = Auth.auth().currentUser?.uid ?? "unknown"
-        let appleSignInID = AuthenticationManager.shared.userID ?? "unknown"
-        print("👤 SocialTimelineView Firebase UID: \(firebaseUID)")
-        print("👤 SocialTimelineView Apple ID: \(appleSignInID)")
+        // Claude: PHASE 6 REFACTOR - Now AuthenticationManager.userID returns Firebase UID consistently
+        let userID = AuthenticationManager.shared.userID ?? "unknown"
+        print("👤 SocialTimelineView userID (Firebase UID): \(userID)")
         return SocialUser(
-            userId: firebaseUID, // Use Firebase UID to match post.authorId
+            userId: userID, // AuthenticationManager.userID now returns Firebase UID
             displayName: "Corey Jermaine Davis",
             lifePathNumber: 3,
             soulUrgeNumber: 5,

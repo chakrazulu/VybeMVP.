@@ -17,6 +17,12 @@
  * - Saves critical onboarding completion flag that AuthenticationWrapperView checks
  * - Resolves authentication bypass issues by ensuring proper onboarding flow completion
  * 
+ * 🎯 **USER ID ARCHITECTURE REFACTOR (PHASE 6 FINAL):**
+ * - Updated to use AuthenticationManager.userID (Firebase UID) for data storage
+ * - Maintains backward compatibility by saving completion flags for both Firebase UID and legacy Apple ID
+ * - Ensures consistent user identification throughout the app
+ * - Critical for enabling edit/delete post functionality in Global Resonance timeline
+ * 
  * 🎯 **USERNAME CREATION SYSTEM:**
  * - Real-time username validation with comprehensive rule checking
  * - Prevents Global Resonance posts from showing placeholder usernames
@@ -703,11 +709,10 @@ struct ProfileSetupView: View {
         // Set loading state for user feedback
         isCreatingProfile = true
         
+        // Claude: PHASE 6 REFACTOR - Use AuthenticationManager for consistent Firebase UID
         // CRITICAL: Validate user ID before proceeding
-        // Save profile data to UserDefaults for immediate access
-        // TODO: Integrate with UserProfileService for Firebase sync
-        guard let userID = signInViewModel.userID else {
-            print("❌ No user ID available for profile setup")
+        guard let userID = AuthenticationManager.shared.userID else {
+            print("❌ No Firebase UID available for profile setup")
             isCreatingProfile = false
             return
         }
@@ -720,12 +725,19 @@ struct ProfileSetupView: View {
             "bio": bio.trimmingCharacters(in: .whitespacesAndNewlines)
         ]
         
-        // Store social profile data with user-specific key
+        // Claude: PHASE 6 MIGRATION - Store with Firebase UID for consistency
+        // This ensures edit/delete functionality works by matching post.authorId
         UserDefaults.standard.set(profileData, forKey: "socialProfile_\(userID)")
         
+        // Claude: PHASE 6 MIGRATION - Save completion flag with Firebase UID
         // CRITICAL: Save the onboarding completion flag that AuthenticationWrapperView checks
-        // This resolves the authentication bypass issue by ensuring proper flow completion
         UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding\(userID)")
+        
+        // MIGRATION: Also save with legacy Apple Sign-In ID for backward compatibility
+        if let legacyUserID = AuthenticationManager.shared.legacyAppleSignInID {
+            UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding\(legacyUserID)")
+            print("🔄 Saved onboarding completion flag for legacy Apple ID: \(legacyUserID)")
+        }
         
         // Ensure immediate persistence across app launches
         UserDefaults.standard.synchronize()

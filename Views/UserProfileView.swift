@@ -248,11 +248,9 @@ struct UserProfileView: View {
      * Falls back to default values if no profile data is found.
      */
     private func loadUserProfileData() {
-        // Try to get userID from signInViewModel first, then AuthenticationManager as fallback
-        let userID = signInViewModel.userID ?? AuthenticationManager.shared.userID
-        
-        guard let userID = userID else {
-            print("⚠️ No user ID available for profile data loading - will retry in 1 second")
+        // Claude: PHASE 6 REFACTOR - Use AuthenticationManager for consistent Firebase UID
+        guard let userID = AuthenticationManager.shared.userID else {
+            print("⚠️ No Firebase UID available for profile data loading - will retry in 1 second")
             // Retry after a delay to allow authentication to initialize
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.loadUserProfileData()
@@ -260,24 +258,43 @@ struct UserProfileView: View {
             return
         }
         
-        print("🔍 Loading profile data for user: \(userID)")
+        print("🔍 Loading profile data for Firebase UID: \(userID)")
         
-        // Load profile data from UserDefaults
+        // Claude: PHASE 6 MIGRATION - Load with fallback to legacy Apple Sign-In ID
+        var foundData = false
+        
+        // STEP 1: Try to load with new Firebase UID key
         if let profileData = UserDefaults.standard.dictionary(forKey: "socialProfile_\(userID)") {
             displayName = profileData["displayName"] as? String ?? ""
             username = profileData["username"] as? String ?? ""
             bio = profileData["bio"] as? String ?? ""
+            foundData = true
+            print("✅ Loaded profile data with Firebase UID: \(userID)")
+        }
+        // STEP 2: Fallback to legacy Apple Sign-In ID key
+        else if let legacyUserID = AuthenticationManager.shared.legacyAppleSignInID,
+                let profileData = UserDefaults.standard.dictionary(forKey: "socialProfile_\(legacyUserID)") {
+            displayName = profileData["displayName"] as? String ?? ""
+            username = profileData["username"] as? String ?? ""
+            bio = profileData["bio"] as? String ?? ""
+            foundData = true
+            print("✅ Loaded profile data with legacy Apple ID: \(legacyUserID)")
             
-            print("✅ Loaded profile data for user \(userID):")
-            print("   Display Name: \(displayName)")
-            print("   Username: \(username)")
-            print("   Bio: \(bio)")
-        } else {
-            print("ℹ️ No profile data found for user \(userID) - using defaults")
+            // MIGRATION: Copy data to new Firebase UID key
+            UserDefaults.standard.set(profileData, forKey: "socialProfile_\(userID)")
+            print("🔄 Migrated profile data from Apple ID to Firebase UID key")
+        }
+        
+        if !foundData {
+            print("ℹ️ No profile data found for Firebase UID: \(userID) - using defaults")
             // Set minimal defaults if no profile setup completed
             displayName = "Cosmic Seeker"
             username = "@seeker\(String(userID.suffix(4)))" // Use last 4 chars of userID
             bio = ""
+        } else {
+            print("   Display Name: \(displayName)")
+            print("   Username: \(username)")
+            print("   Bio: \(bio)")
         }
         
         // TODO: Load avatar image from Documents directory or Firebase Storage
