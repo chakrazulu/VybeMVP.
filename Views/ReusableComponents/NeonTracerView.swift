@@ -1,16 +1,47 @@
-//
-//  NeonTracerView.swift
-//  VybeMVP
-//
-//  Created for mystical neon tracing effects around sacred geometry
-//
+/**
+ * Filename: NeonTracerView.swift
+ *
+ * 🎯 NEON TRACER ARCHITECTURE GUIDE FOR FUTURE AI ASSISTANTS 🎯
+ *
+ * === CORE PURPOSE ===
+ * Creates heart rate-synchronized neon particle trails that follow sacred geometry paths.
+ * Revolutionary Phase 8 target: Extract actual SVG paths from mandala assets for authentic tracing.
+ *
+ * === CURRENT IMPLEMENTATION (Phase 7) ===
+ * • Predefined geometric paths (circles, polygons) based on realm numbers
+ * • Heart rate synchronization via BPM parameter
+ * • Scroll-safe TimelineView animation system
+ * • Multi-particle tail effect with opacity gradient
+ * • 60fps performance optimization
+ *
+ * === PHASE 8 REVOLUTIONARY CONCEPT ===
+ * • SVG path extraction from DynamicAssetMandalaView assets
+ * • Real-time mandala geometry reading
+ * • Authentic sacred geometry tracing
+ * • Dynamic path adaptation per mandala rotation
+ *
+ * === ANIMATION ARCHITECTURE ===
+ * • TimelineView: Provides scroll-safe animation timing
+ * • PathTracer: Calculates position along CGPath geometry
+ * • Multi-particle system: 10 particles with staggered positions
+ * • BPM sync: 4-beat cycle duration (60/BPM*4 seconds)
+ *
+ * === PERFORMANCE OPTIMIZATIONS ===
+ * • CGPath caching for consistent geometry
+ * • Efficient path segment calculation
+ * • Opacity-based particle culling
+ * • Minimal state updates
+ *
+ * Claude: Added comprehensive Phase 7 documentation and Phase 8 roadmap
+ */
 
 @preconcurrency import SwiftUI
 @preconcurrency import CoreGraphics
 import Combine
 
-/// A mystical neon tracer that creates a moving particle effect along sacred geometry paths
-/// The tracer appears as a glowing point with a comet-like tail, synchronized with heart rate
+/// Claude: Mystical neon tracer with heart rate synchronization
+/// Creates moving particle effects along sacred geometry paths with comet-like trails
+/// Phase 8 enhancement: Will extract real SVG paths from mandala assets
 struct NeonTracerView: View {
     let path: CGPath  // Changed from @Binding since paths don't change
     let bpm: Double   // Changed from @Binding to regular parameter
@@ -21,7 +52,8 @@ struct NeonTracerView: View {
     private let tailSpacing: CGFloat = 0.015  // Distance between tail particles
     
     private var animationDuration: Double {
-        // Duration based on BPM - one full circuit per 4 beats
+        // Claude: BPM-synchronized duration - one full circuit per 4 heartbeats
+        // Ensures mystical alignment between heart rhythm and sacred geometry tracing
         60.0 / max(bpm, 40) * 4
     }
     
@@ -122,7 +154,8 @@ struct TracerParticle: View {
     }
 }
 
-/// Helper class to trace along a CGPath
+/// Claude: PathTracer - Converts CGPath geometry into traceable segments
+/// Phase 8 enhancement: Will read actual SVG mandala paths instead of predefined geometry
 private class PathTracer {
     let path: CGPath
     private var pathLength: CGFloat = 0

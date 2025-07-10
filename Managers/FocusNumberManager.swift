@@ -603,14 +603,25 @@ class FocusNumberManager: NSObject, ObservableObject {
         
         print("\n📝 Focus Number set to: \(validNumber)")
         
-        // 🌟 Publish focus number change for VybeMatchManager
+        // 🌟 ALWAYS publish focus number change for VybeMatchManager (UI updates should be immediate)
         NotificationCenter.default.post(
             name: NSNotification.Name.focusNumberChanged,
             object: nil,
             userInfo: ["focusNumber": validNumber]
         )
         
-        // Check for immediate match with current realm number
+        // 🔧 FIX: Always notify UI of change immediately, regardless of match detection status
+        // This ensures UI components update instantly when user picks a new focus number
+        DispatchQueue.main.async {
+            // Force an immediate UI update notification
+            NotificationCenter.default.post(
+                name: NSNotification.Name("FocusNumberUIUpdateRequired"),
+                object: nil,
+                userInfo: ["focusNumber": validNumber]
+            )
+        }
+        
+        // Check for immediate match with current realm number (only if match detection is enabled)
         checkForMatches()
     }
     

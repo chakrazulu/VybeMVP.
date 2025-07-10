@@ -1,14 +1,15 @@
 /**
  * Filename: StaticAssetMandalaView.swift
  * 
- * Purpose: Simple static sacred geometry background using assets (no animations)
- * Solves the "unity_merkaba not found" error and provides stable backgrounds
+ * Purpose: Simple static sacred geometry background using assets with optional rotation
+ * PHASE 7: Now uses weighted selection system for spiritual authenticity
  */
 
 import SwiftUI
 
 /**
  * Simple static view that displays sacred geometry assets with optional slow rotation
+ * PHASE 7: Uses weighted spiritual preference system instead of rigid first-asset selection
  */
 struct StaticAssetMandalaView: View {
     let number: Int
@@ -18,13 +19,12 @@ struct StaticAssetMandalaView: View {
     // Animation state
     @State private var rotationAngle: Double = 0
     
-    // Stable asset selection (no randomization)
-    private var selectedAsset: SacredGeometryAsset {
-        let assets = SacredGeometryAsset.assets(for: number)
-        guard !assets.isEmpty else { return .wisdomEnneagram }
-        
-        // Always use first asset for stability
-        return assets[0]
+    // PHASE 7: Weighted asset selection with session stability
+    @State private var selectedAsset: SacredGeometryAsset = .wisdomEnneagram
+    
+    // Initialize asset on appear to maintain session stability while using weighted selection
+    private func initializeAsset() {
+        selectedAsset = SacredGeometryAsset.selectSmartAsset(for: number)
     }
     
     var body: some View {
@@ -36,9 +36,15 @@ struct StaticAssetMandalaView: View {
             .frame(width: size, height: size)
             .rotationEffect(.degrees(rotationAngle))
             .onAppear {
+                // PHASE 7: Initialize with weighted selection
+                initializeAsset()
+                
                 if enableRotation {
                     startSlowRotation()
                 }
+                
+                print("🎯 PHASE 7: StaticAssetMandalaView initialized for number \(number): \(selectedAsset.displayName)")
+                print("🔮 Resonance: \(selectedAsset.getResonanceReason(for: number))")
             }
     }
     
@@ -81,13 +87,27 @@ extension StaticAssetMandalaView {
     }
 }
 
-// MARK: - Preview
+// MARK: - PHASE 7: Enhanced Preview with Weighted Selection
 
 struct StaticAssetMandalaView_Previews: PreviewProvider {
     static var previews: some View {
-        ZStack {
-            Color.black
-            StaticAssetMandalaView(number: 6, size: 300)
+        VStack(spacing: 20) {
+            Text("PHASE 7: Static Mandala with Weighted Selection")
+                .font(.headline)
+                .foregroundColor(.white)
+            
+            ZStack {
+                Color.black
+                StaticAssetMandalaView(number: 6, size: 300)
+            }
+            .frame(width: 320, height: 320)
+            .cornerRadius(20)
+            
+            Text("Now uses weighted spiritual preferences")
+                .font(.caption)
+                .foregroundColor(.gray)
         }
+        .padding()
+        .background(Color.black)
     }
 } 
