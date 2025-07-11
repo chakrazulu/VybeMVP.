@@ -149,6 +149,72 @@
 		4DCB38722E1B3CDD00311D51 /* KASPERManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB38712E1B3CDD00311D51 /* KASPERManager.swift */; };
 		4DCB38742E1B4CDB00311D51 /* ProfileSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB38732E1B4CDB00311D51 /* ProfileSetupView.swift */; };
 		4DCB38762E1B637400311D51 /* EditPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB38752E1B637400311D51 /* EditPostView.swift */; };
+		4DCB38782E1F647B00311D51 /* SVGPathExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB38772E1F647B00311D51 /* SVGPathExtractor.swift */; };
+		4DCB393B2E1F78AE00311D51 /* Sacred Geometry_One Line_1.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB391C2E1F78AE00311D51 /* Sacred Geometry_One Line_1.svg */; };
+		4DCB393C2E1F78AE00311D51 /* foundation_grid.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39032E1F78AE00311D51 /* foundation_grid.svg */; };
+		4DCB393D2E1F78AE00311D51 /* trinity_wisdom.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39232E1F78AE00311D51 /* trinity_wisdom.svg */; };
+		4DCB393E2E1F78AE00311D51 /* harmony_flower_life.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39092E1F78AE00311D51 /* harmony_flower_life.svg */; };
+		4DCB393F2E1F78AE00311D51 /* will_golden_spiral.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39322E1F78AE00311D51 /* will_golden_spiral.svg */; };
+		4DCB39402E1F78AE00311D51 /* renewal_karmic.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39172E1F78AE00311D51 /* renewal_karmic.svg */; };
+		4DCB39412E1F78AE00311D51 /* duality_divine.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB38F92E1F78AE00311D51 /* duality_divine.svg */; };
+		4DCB39422E1F78AE00311D51 /* void_eternal_return.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB392D2E1F78AE00311D51 /* void_eternal_return.svg */; };
+		4DCB39432E1F78AE00311D51 /* mystery_magic.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB390F2E1F78AE00311D51 /* mystery_magic.svg */; };
+		4DCB39442E1F78AE00311D51 /* trinity_logos.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39202E1F78AE00311D51 /* trinity_logos.svg */; };
+		4DCB39452E1F78AE00311D51 /* void_crystal.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB392C2E1F78AE00311D51 /* void_crystal.svg */; };
+		4DCB39462E1F78AE00311D51 /* duality_mirror.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB38FB2E1F78AE00311D51 /* duality_mirror.svg */; };
+		4DCB39472E1F78AE00311D51 /* foundation_stone.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39052E1F78AE00311D51 /* foundation_stone.svg */; };
+		4DCB39482E1F78AE00311D51 /* duality_yin_yang.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB38FF2E1F78AE00311D51 /* duality_yin_yang.svg */; };
+		4DCB39492E1F78AE00311D51 /* unity_consciousness.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39252E1F78AE00311D51 /* unity_consciousness.svg */; };
+		4DCB394A2E1F78AE00311D51 /* renewal_justice.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39162E1F78AE00311D51 /* renewal_justice.svg */; };
+		4DCB394B2E1F78AE00311D51 /* will_command.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39312E1F78AE00311D51 /* will_command.svg */; };
+		4DCB394C2E1F78AE00311D51 /* unity_alpha.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39242E1F78AE00311D51 /* unity_alpha.svg */; };
+		4DCB394D2E1F78AE00311D51 /* trinity_mandala.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39212E1F78AE00311D51 /* trinity_mandala.svg */; };
+		4DCB394E2E1F78AE00311D51 /* trinity_expression.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB391D2E1F78AE00311D51 /* trinity_expression.svg */; };
+		4DCB394F2E1F78AE00311D51 /* will_power.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39352E1F78AE00311D51 /* will_power.svg */; };
+		4DCB39502E1F78AE00311D51 /* foundation_blessing.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39002E1F78AE00311D51 /* foundation_blessing.svg */; };
+		4DCB39512E1F78AE00311D51 /* foundation_matrix.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39042E1F78AE00311D51 /* foundation_matrix.svg */; };
+		4DCB39522E1F78AE00311D51 /* mystery_rose.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39102E1F78AE00311D51 /* mystery_rose.svg */; };
+		4DCB39532E1F78AE00311D51 /* void_triquetra.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB392F2E1F78AE00311D51 /* void_triquetra.svg */; };
+		4DCB39542E1F78AE00311D51 /* will_star.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39372E1F78AE00311D51 /* will_star.svg */; };
+		4DCB39552E1F78AE00311D51 /* mystery_wisdom.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39142E1F78AE00311D51 /* mystery_wisdom.svg */; };
+		4DCB39562E1F78AE00311D51 /* mystery_seals.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39112E1F78AE00311D51 /* mystery_seals.svg */; };
+		4DCB39572E1F78AE00311D51 /* void_zero_point.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39302E1F78AE00311D51 /* void_zero_point.svg */; };
+		4DCB39582E1F78AE00311D51 /* foundation_cube.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39022E1F78AE00311D51 /* foundation_cube.svg */; };
+		4DCB39592E1F78AE00311D51 /* unity_spark.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39292E1F78AE00311D51 /* unity_spark.svg */; };
+		4DCB395A2E1F78AE00311D51 /* harmony_beauty.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39072E1F78AE00311D51 /* harmony_beauty.svg */; };
+		4DCB395B2E1F78AE00311D51 /* renewal_time.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB391B2E1F78AE00311D51 /* renewal_time.svg */; };
+		4DCB395C2E1F78AE00311D51 /* harmony_marriage.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB390B2E1F78AE00311D51 /* harmony_marriage.svg */; };
+		4DCB395D2E1F78AE00311D51 /* unity_solar.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39282E1F78AE00311D51 /* unity_solar.svg */; };
+		4DCB395E2E1F78AE00311D51 /* trinity_fire.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB391E2E1F78AE00311D51 /* trinity_fire.svg */; };
+		4DCB395F2E1F78AE00311D51 /* trinity_gate.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB391F2E1F78AE00311D51 /* trinity_gate.svg */; };
+		4DCB39602E1F78AE00311D51 /* duality_twins.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB38FD2E1F78AE00311D51 /* duality_twins.svg */; };
+		4DCB39612E1F78AE00311D51 /* harmony_christ.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39082E1F78AE00311D51 /* harmony_christ.svg */; };
+		4DCB39622E1F78AE00311D51 /* trinity_triangle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39222E1F78AE00311D51 /* trinity_triangle.svg */; };
+		4DCB39632E1F78AE00311D51 /* mystery_gnosis.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB390E2E1F78AE00311D51 /* mystery_gnosis.svg */; };
+		4DCB39642E1F78AE00311D51 /* renewal_matrix.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39182E1F78AE00311D51 /* renewal_matrix.svg */; };
+		4DCB39652E1F78AE00311D51 /* duality_pillars.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB38FC2E1F78AE00311D51 /* duality_pillars.svg */; };
+		4DCB39662E1F78AE00311D51 /* mystery_victory.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39132E1F78AE00311D51 /* mystery_victory.svg */; };
+		4DCB39672E1F78AE00311D51 /* harmony_heart.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB390A2E1F78AE00311D51 /* harmony_heart.svg */; };
+		4DCB39682E1F78AE00311D51 /* unity_crown.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39262E1F78AE00311D51 /* unity_crown.svg */; };
+		4DCB39692E1F78AE00311D51 /* unity_monad.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39272E1F78AE00311D51 /* unity_monad.svg */; };
+		4DCB396A2E1F78AE00311D51 /* harmony_star_david.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB390C2E1F78AE00311D51 /* harmony_star_david.svg */; };
+		4DCB396B2E1F78AE00311D51 /* will_pentagram.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39332E1F78AE00311D51 /* will_pentagram.svg */; };
+		4DCB396C2E1F78AE00311D51 /* duality_vesica.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB38FE2E1F78AE00311D51 /* duality_vesica.svg */; };
+		4DCB396D2E1F78AE00311D51 /* renewal_octagon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39192E1F78AE00311D51 /* renewal_octagon.svg */; };
+		4DCB396E2E1F78AE00311D51 /* foundation_temple.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39062E1F78AE00311D51 /* foundation_temple.svg */; };
+		4DCB396F2E1F78AE00311D51 /* void_star_matrix.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB392E2E1F78AE00311D51 /* void_star_matrix.svg */; };
+		4DCB39702E1F78AE00311D51 /* void_cosmic_womb.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB392B2E1F78AE00311D51 /* void_cosmic_womb.svg */; };
+		4DCB39712E1F78AE00311D51 /* duality_lunar.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB38FA2E1F78AE00311D51 /* duality_lunar.svg */; };
+		4DCB39722E1F78AE00311D51 /* foundation_cross.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39012E1F78AE00311D51 /* foundation_cross.svg */; };
+		4DCB39732E1F78AE00311D51 /* void_akashic_grid.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB392A2E1F78AE00311D51 /* void_akashic_grid.svg */; };
+		4DCB39742E1F78AE00311D51 /* will_shield.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39362E1F78AE00311D51 /* will_shield.svg */; };
+		4DCB39752E1F78AE00311D51 /* wisdom_enneagram.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39382E1F78AE00311D51 /* wisdom_enneagram.svg */; };
+		4DCB39762E1F78AE00311D51 /* renewal_scales.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB391A2E1F78AE00311D51 /* renewal_scales.svg */; };
+		4DCB39772E1F78AE00311D51 /* harmony_universal.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB390D2E1F78AE00311D51 /* harmony_universal.svg */; };
+		4DCB39782E1F78AE00311D51 /* renewal_infinity.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39152E1F78AE00311D51 /* renewal_infinity.svg */; };
+		4DCB39792E1F78AE00311D51 /* mystery_seed_life.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39122E1F78AE00311D51 /* mystery_seed_life.svg */; };
+		4DCB397A2E1F78AE00311D51 /* will_phoenix.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39342E1F78AE00311D51 /* will_phoenix.svg */; };
+		4DCB397C2E2094A500311D51 /* NumberPatternGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB397B2E2094A500311D51 /* NumberPatternGenerator.swift */; };
 		4DE4C37E2DB3918E00BB7572 /* NumerologyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C37D2DB3918E00BB7572 /* NumerologyMessage.swift */; };
 		4DE4C3802DB392E900BB7572 /* NumerologyNotificationTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C37F2DB392E900BB7572 /* NumerologyNotificationTestView.swift */; };
 		4DE4C3822DB393DA00BB7572 /* NumerologyNotificationTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */; };
@@ -305,6 +371,72 @@
 		4DCB38712E1B3CDD00311D51 /* KASPERManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERManager.swift; sourceTree = "<group>"; };
 		4DCB38732E1B4CDB00311D51 /* ProfileSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupView.swift; sourceTree = "<group>"; };
 		4DCB38752E1B637400311D51 /* EditPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostView.swift; sourceTree = "<group>"; };
+		4DCB38772E1F647B00311D51 /* SVGPathExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGPathExtractor.swift; sourceTree = "<group>"; };
+		4DCB38F92E1F78AE00311D51 /* duality_divine.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = duality_divine.svg; sourceTree = "<group>"; };
+		4DCB38FA2E1F78AE00311D51 /* duality_lunar.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = duality_lunar.svg; sourceTree = "<group>"; };
+		4DCB38FB2E1F78AE00311D51 /* duality_mirror.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = duality_mirror.svg; sourceTree = "<group>"; };
+		4DCB38FC2E1F78AE00311D51 /* duality_pillars.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = duality_pillars.svg; sourceTree = "<group>"; };
+		4DCB38FD2E1F78AE00311D51 /* duality_twins.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = duality_twins.svg; sourceTree = "<group>"; };
+		4DCB38FE2E1F78AE00311D51 /* duality_vesica.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = duality_vesica.svg; sourceTree = "<group>"; };
+		4DCB38FF2E1F78AE00311D51 /* duality_yin_yang.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = duality_yin_yang.svg; sourceTree = "<group>"; };
+		4DCB39002E1F78AE00311D51 /* foundation_blessing.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = foundation_blessing.svg; sourceTree = "<group>"; };
+		4DCB39012E1F78AE00311D51 /* foundation_cross.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = foundation_cross.svg; sourceTree = "<group>"; };
+		4DCB39022E1F78AE00311D51 /* foundation_cube.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = foundation_cube.svg; sourceTree = "<group>"; };
+		4DCB39032E1F78AE00311D51 /* foundation_grid.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = foundation_grid.svg; sourceTree = "<group>"; };
+		4DCB39042E1F78AE00311D51 /* foundation_matrix.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = foundation_matrix.svg; sourceTree = "<group>"; };
+		4DCB39052E1F78AE00311D51 /* foundation_stone.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = foundation_stone.svg; sourceTree = "<group>"; };
+		4DCB39062E1F78AE00311D51 /* foundation_temple.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = foundation_temple.svg; sourceTree = "<group>"; };
+		4DCB39072E1F78AE00311D51 /* harmony_beauty.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = harmony_beauty.svg; sourceTree = "<group>"; };
+		4DCB39082E1F78AE00311D51 /* harmony_christ.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = harmony_christ.svg; sourceTree = "<group>"; };
+		4DCB39092E1F78AE00311D51 /* harmony_flower_life.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = harmony_flower_life.svg; sourceTree = "<group>"; };
+		4DCB390A2E1F78AE00311D51 /* harmony_heart.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = harmony_heart.svg; sourceTree = "<group>"; };
+		4DCB390B2E1F78AE00311D51 /* harmony_marriage.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = harmony_marriage.svg; sourceTree = "<group>"; };
+		4DCB390C2E1F78AE00311D51 /* harmony_star_david.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = harmony_star_david.svg; sourceTree = "<group>"; };
+		4DCB390D2E1F78AE00311D51 /* harmony_universal.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = harmony_universal.svg; sourceTree = "<group>"; };
+		4DCB390E2E1F78AE00311D51 /* mystery_gnosis.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = mystery_gnosis.svg; sourceTree = "<group>"; };
+		4DCB390F2E1F78AE00311D51 /* mystery_magic.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = mystery_magic.svg; sourceTree = "<group>"; };
+		4DCB39102E1F78AE00311D51 /* mystery_rose.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = mystery_rose.svg; sourceTree = "<group>"; };
+		4DCB39112E1F78AE00311D51 /* mystery_seals.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = mystery_seals.svg; sourceTree = "<group>"; };
+		4DCB39122E1F78AE00311D51 /* mystery_seed_life.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = mystery_seed_life.svg; sourceTree = "<group>"; };
+		4DCB39132E1F78AE00311D51 /* mystery_victory.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = mystery_victory.svg; sourceTree = "<group>"; };
+		4DCB39142E1F78AE00311D51 /* mystery_wisdom.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = mystery_wisdom.svg; sourceTree = "<group>"; };
+		4DCB39152E1F78AE00311D51 /* renewal_infinity.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = renewal_infinity.svg; sourceTree = "<group>"; };
+		4DCB39162E1F78AE00311D51 /* renewal_justice.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = renewal_justice.svg; sourceTree = "<group>"; };
+		4DCB39172E1F78AE00311D51 /* renewal_karmic.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = renewal_karmic.svg; sourceTree = "<group>"; };
+		4DCB39182E1F78AE00311D51 /* renewal_matrix.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = renewal_matrix.svg; sourceTree = "<group>"; };
+		4DCB39192E1F78AE00311D51 /* renewal_octagon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = renewal_octagon.svg; sourceTree = "<group>"; };
+		4DCB391A2E1F78AE00311D51 /* renewal_scales.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = renewal_scales.svg; sourceTree = "<group>"; };
+		4DCB391B2E1F78AE00311D51 /* renewal_time.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = renewal_time.svg; sourceTree = "<group>"; };
+		4DCB391C2E1F78AE00311D51 /* Sacred Geometry_One Line_1.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Sacred Geometry_One Line_1.svg"; sourceTree = "<group>"; };
+		4DCB391D2E1F78AE00311D51 /* trinity_expression.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = trinity_expression.svg; sourceTree = "<group>"; };
+		4DCB391E2E1F78AE00311D51 /* trinity_fire.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = trinity_fire.svg; sourceTree = "<group>"; };
+		4DCB391F2E1F78AE00311D51 /* trinity_gate.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = trinity_gate.svg; sourceTree = "<group>"; };
+		4DCB39202E1F78AE00311D51 /* trinity_logos.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = trinity_logos.svg; sourceTree = "<group>"; };
+		4DCB39212E1F78AE00311D51 /* trinity_mandala.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = trinity_mandala.svg; sourceTree = "<group>"; };
+		4DCB39222E1F78AE00311D51 /* trinity_triangle.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = trinity_triangle.svg; sourceTree = "<group>"; };
+		4DCB39232E1F78AE00311D51 /* trinity_wisdom.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = trinity_wisdom.svg; sourceTree = "<group>"; };
+		4DCB39242E1F78AE00311D51 /* unity_alpha.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = unity_alpha.svg; sourceTree = "<group>"; };
+		4DCB39252E1F78AE00311D51 /* unity_consciousness.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = unity_consciousness.svg; sourceTree = "<group>"; };
+		4DCB39262E1F78AE00311D51 /* unity_crown.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = unity_crown.svg; sourceTree = "<group>"; };
+		4DCB39272E1F78AE00311D51 /* unity_monad.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = unity_monad.svg; sourceTree = "<group>"; };
+		4DCB39282E1F78AE00311D51 /* unity_solar.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = unity_solar.svg; sourceTree = "<group>"; };
+		4DCB39292E1F78AE00311D51 /* unity_spark.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = unity_spark.svg; sourceTree = "<group>"; };
+		4DCB392A2E1F78AE00311D51 /* void_akashic_grid.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = void_akashic_grid.svg; sourceTree = "<group>"; };
+		4DCB392B2E1F78AE00311D51 /* void_cosmic_womb.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = void_cosmic_womb.svg; sourceTree = "<group>"; };
+		4DCB392C2E1F78AE00311D51 /* void_crystal.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = void_crystal.svg; sourceTree = "<group>"; };
+		4DCB392D2E1F78AE00311D51 /* void_eternal_return.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = void_eternal_return.svg; sourceTree = "<group>"; };
+		4DCB392E2E1F78AE00311D51 /* void_star_matrix.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = void_star_matrix.svg; sourceTree = "<group>"; };
+		4DCB392F2E1F78AE00311D51 /* void_triquetra.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = void_triquetra.svg; sourceTree = "<group>"; };
+		4DCB39302E1F78AE00311D51 /* void_zero_point.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = void_zero_point.svg; sourceTree = "<group>"; };
+		4DCB39312E1F78AE00311D51 /* will_command.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = will_command.svg; sourceTree = "<group>"; };
+		4DCB39322E1F78AE00311D51 /* will_golden_spiral.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = will_golden_spiral.svg; sourceTree = "<group>"; };
+		4DCB39332E1F78AE00311D51 /* will_pentagram.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = will_pentagram.svg; sourceTree = "<group>"; };
+		4DCB39342E1F78AE00311D51 /* will_phoenix.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = will_phoenix.svg; sourceTree = "<group>"; };
+		4DCB39352E1F78AE00311D51 /* will_power.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = will_power.svg; sourceTree = "<group>"; };
+		4DCB39362E1F78AE00311D51 /* will_shield.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = will_shield.svg; sourceTree = "<group>"; };
+		4DCB39372E1F78AE00311D51 /* will_star.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = will_star.svg; sourceTree = "<group>"; };
+		4DCB39382E1F78AE00311D51 /* wisdom_enneagram.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = wisdom_enneagram.svg; sourceTree = "<group>"; };
+		4DCB397B2E2094A500311D51 /* NumberPatternGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPatternGenerator.swift; sourceTree = "<group>"; };
 		4DCE3BCF2D3C75E80022F283 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DE4C37D2DB3918E00BB7572 /* NumerologyMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyMessage.swift; sourceTree = "<group>"; };
 		4DE4C37F2DB392E900BB7572 /* NumerologyNotificationTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyNotificationTestView.swift; sourceTree = "<group>"; };
@@ -445,6 +577,8 @@
 		4D3055ED2D3CF838009A7BBD /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				4DCB397B2E2094A500311D51 /* NumberPatternGenerator.swift */,
+				4DCB38772E1F647B00311D51 /* SVGPathExtractor.swift */,
 				4DB233FE2E121BF7004EC2BC /* PerformanceMonitor.swift */,
 				4D3727072DE48D7100B5A02B /* NotificationNames.swift */,
 				4D6C7BBA2DE48126001036E5 /* Logger+Extensions.swift */,
@@ -615,6 +749,7 @@
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
+				4DCB393A2E1F78AE00311D51 /* Resources */,
 				4D2CC7052E08C96E00BDF100 /* Preview Content */,
 				4D6C7BAC2DE47F55001036E5 /* Auth */,
 				4DE4C3A22DB5C85D00BB7572 /* NumerologyData */,
@@ -718,6 +853,85 @@
 				4DC602342D34570200B5E4A9 /* SignInViewModel.swift */,
 			);
 			path = SignIn;
+			sourceTree = "<group>";
+		};
+		4DCB39392E1F78AE00311D51 /* SVG */ = {
+			isa = PBXGroup;
+			children = (
+				4DCB38F92E1F78AE00311D51 /* duality_divine.svg */,
+				4DCB38FA2E1F78AE00311D51 /* duality_lunar.svg */,
+				4DCB38FB2E1F78AE00311D51 /* duality_mirror.svg */,
+				4DCB38FC2E1F78AE00311D51 /* duality_pillars.svg */,
+				4DCB38FD2E1F78AE00311D51 /* duality_twins.svg */,
+				4DCB38FE2E1F78AE00311D51 /* duality_vesica.svg */,
+				4DCB38FF2E1F78AE00311D51 /* duality_yin_yang.svg */,
+				4DCB39002E1F78AE00311D51 /* foundation_blessing.svg */,
+				4DCB39012E1F78AE00311D51 /* foundation_cross.svg */,
+				4DCB39022E1F78AE00311D51 /* foundation_cube.svg */,
+				4DCB39032E1F78AE00311D51 /* foundation_grid.svg */,
+				4DCB39042E1F78AE00311D51 /* foundation_matrix.svg */,
+				4DCB39052E1F78AE00311D51 /* foundation_stone.svg */,
+				4DCB39062E1F78AE00311D51 /* foundation_temple.svg */,
+				4DCB39072E1F78AE00311D51 /* harmony_beauty.svg */,
+				4DCB39082E1F78AE00311D51 /* harmony_christ.svg */,
+				4DCB39092E1F78AE00311D51 /* harmony_flower_life.svg */,
+				4DCB390A2E1F78AE00311D51 /* harmony_heart.svg */,
+				4DCB390B2E1F78AE00311D51 /* harmony_marriage.svg */,
+				4DCB390C2E1F78AE00311D51 /* harmony_star_david.svg */,
+				4DCB390D2E1F78AE00311D51 /* harmony_universal.svg */,
+				4DCB390E2E1F78AE00311D51 /* mystery_gnosis.svg */,
+				4DCB390F2E1F78AE00311D51 /* mystery_magic.svg */,
+				4DCB39102E1F78AE00311D51 /* mystery_rose.svg */,
+				4DCB39112E1F78AE00311D51 /* mystery_seals.svg */,
+				4DCB39122E1F78AE00311D51 /* mystery_seed_life.svg */,
+				4DCB39132E1F78AE00311D51 /* mystery_victory.svg */,
+				4DCB39142E1F78AE00311D51 /* mystery_wisdom.svg */,
+				4DCB39152E1F78AE00311D51 /* renewal_infinity.svg */,
+				4DCB39162E1F78AE00311D51 /* renewal_justice.svg */,
+				4DCB39172E1F78AE00311D51 /* renewal_karmic.svg */,
+				4DCB39182E1F78AE00311D51 /* renewal_matrix.svg */,
+				4DCB39192E1F78AE00311D51 /* renewal_octagon.svg */,
+				4DCB391A2E1F78AE00311D51 /* renewal_scales.svg */,
+				4DCB391B2E1F78AE00311D51 /* renewal_time.svg */,
+				4DCB391C2E1F78AE00311D51 /* Sacred Geometry_One Line_1.svg */,
+				4DCB391D2E1F78AE00311D51 /* trinity_expression.svg */,
+				4DCB391E2E1F78AE00311D51 /* trinity_fire.svg */,
+				4DCB391F2E1F78AE00311D51 /* trinity_gate.svg */,
+				4DCB39202E1F78AE00311D51 /* trinity_logos.svg */,
+				4DCB39212E1F78AE00311D51 /* trinity_mandala.svg */,
+				4DCB39222E1F78AE00311D51 /* trinity_triangle.svg */,
+				4DCB39232E1F78AE00311D51 /* trinity_wisdom.svg */,
+				4DCB39242E1F78AE00311D51 /* unity_alpha.svg */,
+				4DCB39252E1F78AE00311D51 /* unity_consciousness.svg */,
+				4DCB39262E1F78AE00311D51 /* unity_crown.svg */,
+				4DCB39272E1F78AE00311D51 /* unity_monad.svg */,
+				4DCB39282E1F78AE00311D51 /* unity_solar.svg */,
+				4DCB39292E1F78AE00311D51 /* unity_spark.svg */,
+				4DCB392A2E1F78AE00311D51 /* void_akashic_grid.svg */,
+				4DCB392B2E1F78AE00311D51 /* void_cosmic_womb.svg */,
+				4DCB392C2E1F78AE00311D51 /* void_crystal.svg */,
+				4DCB392D2E1F78AE00311D51 /* void_eternal_return.svg */,
+				4DCB392E2E1F78AE00311D51 /* void_star_matrix.svg */,
+				4DCB392F2E1F78AE00311D51 /* void_triquetra.svg */,
+				4DCB39302E1F78AE00311D51 /* void_zero_point.svg */,
+				4DCB39312E1F78AE00311D51 /* will_command.svg */,
+				4DCB39322E1F78AE00311D51 /* will_golden_spiral.svg */,
+				4DCB39332E1F78AE00311D51 /* will_pentagram.svg */,
+				4DCB39342E1F78AE00311D51 /* will_phoenix.svg */,
+				4DCB39352E1F78AE00311D51 /* will_power.svg */,
+				4DCB39362E1F78AE00311D51 /* will_shield.svg */,
+				4DCB39372E1F78AE00311D51 /* will_star.svg */,
+				4DCB39382E1F78AE00311D51 /* wisdom_enneagram.svg */,
+			);
+			path = SVG;
+			sourceTree = "<group>";
+		};
+		4DCB393A2E1F78AE00311D51 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4DCB39392E1F78AE00311D51 /* SVG */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -835,6 +1049,70 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DA01CB42D8537FB0070309D /* GoogleService-Info.plist in Resources */,
+				4DCB393B2E1F78AE00311D51 /* Sacred Geometry_One Line_1.svg in Resources */,
+				4DCB393C2E1F78AE00311D51 /* foundation_grid.svg in Resources */,
+				4DCB393D2E1F78AE00311D51 /* trinity_wisdom.svg in Resources */,
+				4DCB393E2E1F78AE00311D51 /* harmony_flower_life.svg in Resources */,
+				4DCB393F2E1F78AE00311D51 /* will_golden_spiral.svg in Resources */,
+				4DCB39402E1F78AE00311D51 /* renewal_karmic.svg in Resources */,
+				4DCB39412E1F78AE00311D51 /* duality_divine.svg in Resources */,
+				4DCB39422E1F78AE00311D51 /* void_eternal_return.svg in Resources */,
+				4DCB39432E1F78AE00311D51 /* mystery_magic.svg in Resources */,
+				4DCB39442E1F78AE00311D51 /* trinity_logos.svg in Resources */,
+				4DCB39452E1F78AE00311D51 /* void_crystal.svg in Resources */,
+				4DCB39462E1F78AE00311D51 /* duality_mirror.svg in Resources */,
+				4DCB39472E1F78AE00311D51 /* foundation_stone.svg in Resources */,
+				4DCB39482E1F78AE00311D51 /* duality_yin_yang.svg in Resources */,
+				4DCB39492E1F78AE00311D51 /* unity_consciousness.svg in Resources */,
+				4DCB394A2E1F78AE00311D51 /* renewal_justice.svg in Resources */,
+				4DCB394B2E1F78AE00311D51 /* will_command.svg in Resources */,
+				4DCB394C2E1F78AE00311D51 /* unity_alpha.svg in Resources */,
+				4DCB394D2E1F78AE00311D51 /* trinity_mandala.svg in Resources */,
+				4DCB394E2E1F78AE00311D51 /* trinity_expression.svg in Resources */,
+				4DCB394F2E1F78AE00311D51 /* will_power.svg in Resources */,
+				4DCB39502E1F78AE00311D51 /* foundation_blessing.svg in Resources */,
+				4DCB39512E1F78AE00311D51 /* foundation_matrix.svg in Resources */,
+				4DCB39522E1F78AE00311D51 /* mystery_rose.svg in Resources */,
+				4DCB39532E1F78AE00311D51 /* void_triquetra.svg in Resources */,
+				4DCB39542E1F78AE00311D51 /* will_star.svg in Resources */,
+				4DCB39552E1F78AE00311D51 /* mystery_wisdom.svg in Resources */,
+				4DCB39562E1F78AE00311D51 /* mystery_seals.svg in Resources */,
+				4DCB39572E1F78AE00311D51 /* void_zero_point.svg in Resources */,
+				4DCB39582E1F78AE00311D51 /* foundation_cube.svg in Resources */,
+				4DCB39592E1F78AE00311D51 /* unity_spark.svg in Resources */,
+				4DCB395A2E1F78AE00311D51 /* harmony_beauty.svg in Resources */,
+				4DCB395B2E1F78AE00311D51 /* renewal_time.svg in Resources */,
+				4DCB395C2E1F78AE00311D51 /* harmony_marriage.svg in Resources */,
+				4DCB395D2E1F78AE00311D51 /* unity_solar.svg in Resources */,
+				4DCB395E2E1F78AE00311D51 /* trinity_fire.svg in Resources */,
+				4DCB395F2E1F78AE00311D51 /* trinity_gate.svg in Resources */,
+				4DCB39602E1F78AE00311D51 /* duality_twins.svg in Resources */,
+				4DCB39612E1F78AE00311D51 /* harmony_christ.svg in Resources */,
+				4DCB39622E1F78AE00311D51 /* trinity_triangle.svg in Resources */,
+				4DCB39632E1F78AE00311D51 /* mystery_gnosis.svg in Resources */,
+				4DCB39642E1F78AE00311D51 /* renewal_matrix.svg in Resources */,
+				4DCB39652E1F78AE00311D51 /* duality_pillars.svg in Resources */,
+				4DCB39662E1F78AE00311D51 /* mystery_victory.svg in Resources */,
+				4DCB39672E1F78AE00311D51 /* harmony_heart.svg in Resources */,
+				4DCB39682E1F78AE00311D51 /* unity_crown.svg in Resources */,
+				4DCB39692E1F78AE00311D51 /* unity_monad.svg in Resources */,
+				4DCB396A2E1F78AE00311D51 /* harmony_star_david.svg in Resources */,
+				4DCB396B2E1F78AE00311D51 /* will_pentagram.svg in Resources */,
+				4DCB396C2E1F78AE00311D51 /* duality_vesica.svg in Resources */,
+				4DCB396D2E1F78AE00311D51 /* renewal_octagon.svg in Resources */,
+				4DCB396E2E1F78AE00311D51 /* foundation_temple.svg in Resources */,
+				4DCB396F2E1F78AE00311D51 /* void_star_matrix.svg in Resources */,
+				4DCB39702E1F78AE00311D51 /* void_cosmic_womb.svg in Resources */,
+				4DCB39712E1F78AE00311D51 /* duality_lunar.svg in Resources */,
+				4DCB39722E1F78AE00311D51 /* foundation_cross.svg in Resources */,
+				4DCB39732E1F78AE00311D51 /* void_akashic_grid.svg in Resources */,
+				4DCB39742E1F78AE00311D51 /* will_shield.svg in Resources */,
+				4DCB39752E1F78AE00311D51 /* wisdom_enneagram.svg in Resources */,
+				4DCB39762E1F78AE00311D51 /* renewal_scales.svg in Resources */,
+				4DCB39772E1F78AE00311D51 /* harmony_universal.svg in Resources */,
+				4DCB39782E1F78AE00311D51 /* renewal_infinity.svg in Resources */,
+				4DCB39792E1F78AE00311D51 /* mystery_seed_life.svg in Resources */,
+				4DCB397A2E1F78AE00311D51 /* will_phoenix.svg in Resources */,
 				4D2DB47E2DFF43390003353E /* README.md in Resources */,
 				4D2CC7062E08C96E00BDF100 /* Preview Assets.xcassets in Resources */,
 			);
@@ -898,6 +1176,7 @@
 				4D80E0FD2D3F1B0B0020F7BB /* NumberMeaningView.swift in Sources */,
 				4D2CC70E2E0B9E5200BDF100 /* RealmSample.swift in Sources */,
 				4D3055E72D3CEEC9009A7BBD /* JournalEntryDetailView.swift in Sources */,
+				4DCB38782E1F647B00311D51 /* SVGPathExtractor.swift in Sources */,
 				4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */,
 				4DA01CAE2D8533F50070309D /* NotificationManager.swift in Sources */,
 				4DA6425D2D8113D80047287B /* HeartRateView.swift in Sources */,
@@ -943,6 +1222,7 @@
 				4D2CC7182E0C70F600BDF100 /* TwinklingDigitsBackground.swift in Sources */,
 				4D2CC7142E0B9EFA00BDF100 /* EnhancedLoadingView.swift in Sources */,
 				4DB233F42E114580004EC2BC /* NeonTracerView.swift in Sources */,
+				4DCB397C2E2094A500311D51 /* NumberPatternGenerator.swift in Sources */,
 				4D3727152DE550ED00B5A02B /* CosmicBackgroundView.swift in Sources */,
 				4D2CC7102E0B9EB700BDF100 /* RulingNumberChartView.swift in Sources */,
 				4D6C7B9D2DE47E99001036E5 /* OnboardingReflectionModeView.swift in Sources */,

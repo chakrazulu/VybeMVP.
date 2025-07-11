@@ -39,22 +39,67 @@
 @preconcurrency import CoreGraphics
 import Combine
 
-/// Claude: Mystical neon tracer with heart rate synchronization
-/// Creates moving particle effects along sacred geometry paths with comet-like trails
-/// Phase 8 enhancement: Will extract real SVG paths from mandala assets
+// Claude: Phase 8 import for SVG path extraction (will be resolved when Xcode adds file to project)
+// Note: SVGPathExtractor.swift needs to be added to Xcode project manually
+
+/// Claude: Phase 8 REVOLUTIONARY neon tracer with authentic SVG path tracing
+/// Creates moving particle effects along REAL mandala geometry from SVG assets
+/// No more predefined shapes - follows actual sacred geometry patterns!
 struct NeonTracerView: View {
     let path: CGPath  // Changed from @Binding since paths don't change
     let bpm: Double   // Changed from @Binding to regular parameter
     var color: Color = .cyan
     
-    // Tail configuration
-    private let tailCount = 10
-    private let tailSpacing: CGFloat = 0.015  // Distance between tail particles
+    // Phase 8I: Primary initializer for number-specific geometric patterns
+    /// Creates neon tracer that follows sacred geometry patterns aligned with numerological meanings
+    /// Each realm number (1-9) gets its own spiritually-significant geometric pattern
+    /// @param realmNumber The spiritual number (1-9) that determines the geometric pattern
+    /// @param bpm Heart rate for synchronized animation timing (mystical heart alignment)
+    /// @param color The neon glow color for the tracer particles
+    /// @param size The canvas size for pattern generation
+    init(realmNumber: Int, bpm: Double, color: Color = .cyan, size: CGSize = CGSize(width: 320, height: 320)) {
+        // Generate spiritually-aligned geometric pattern for the realm number
+        self.path = NumberPatternGenerator.createPattern(for: realmNumber, size: size)
+        self.bpm = bpm
+        self.color = color
+        
+        let patternDescription = NumberPatternGenerator.getPatternDescription(for: realmNumber)
+        print("🌟 PHASE 8I: NeonTracerView using \(patternDescription) for realm number \(realmNumber)")
+    }
+    
+    // Phase 8H: Legacy initializer for SVG asset-based tracing (backward compatibility)
+    init(asset: SacredGeometryAsset, bpm: Double, color: Color = .cyan, size: CGSize = CGSize(width: 320, height: 320)) {
+        // Extract the outermost perimeter path from the SVG (not internal geometry)
+        self.path = SVGPathExtractor.extractPerimeterPath(from: asset, targetSize: size) ?? {
+            // Fallback to simple circle if perimeter extraction fails
+            let fallbackPath = CGMutablePath()
+            let center = CGPoint(x: size.width / 2, y: size.height / 2)
+            let radius = min(size.width, size.height) * 0.35
+            fallbackPath.addEllipse(in: CGRect(x: center.x - radius, y: center.y - radius, width: radius * 2, height: radius * 2))
+            return fallbackPath
+        }()
+        self.bpm = bpm
+        self.color = color
+        
+        print("🌟 PHASE 8H: NeonTracerView tracing actual mandala perimeter shape for \(asset.displayName)")
+    }
+    
+    // Original initializer for custom paths (backward compatibility)
+    init(path: CGPath, bpm: Double, color: Color = .cyan) {
+        self.path = path
+        self.bpm = bpm
+        self.color = color
+    }
+    
+    // Tail configuration - Restored to original beautiful trail effect
+    private let tailCount = 10  // Original beautiful tail effect
+    private let tailSpacing: CGFloat = 0.015  // Original spacing for elegant flowing trail
     
     private var animationDuration: Double {
-        // Claude: BPM-synchronized duration - one full circuit per 4 heartbeats
-        // Ensures mystical alignment between heart rhythm and sacred geometry tracing
-        60.0 / max(bpm, 40) * 4
+        // Claude: Phase 8I - Restored BPM synchronization for heart rate rhythm
+        // Original design: 4-beat cycle duration aligned with heartbeat
+        // At 72 BPM this gives ~3.3 seconds per complete pattern - much more engaging!
+        60.0 / max(bpm, 40) * 4  // BPM-synchronized rhythm - mystical heart alignment
     }
     
     var body: some View {

@@ -100,6 +100,12 @@ struct RealmNumberView: View {
     @State private var rotationAngle: Double = 0
     @State private var isRotationStarted: Bool = false
     
+    // Claude: Phase 8 - Track current mandala asset for authentic SVG path tracing
+    @State private var currentMandalaAsset: SacredGeometryAsset = .wisdomEnneagram
+    
+    // Timer to sync with mandala rotation (every 30 seconds to match DynamicAssetMandalaView)
+    private let assetSyncTimer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
+    
     var body: some View {
         ZStack {
             // Purple gradient cosmic background (matches HomeView)
@@ -153,6 +159,16 @@ struct RealmNumberView: View {
         .onAppear {
             startMysticalAnimations()
             startMandalaRotation()
+            // Claude: Phase 8 - Initialize current mandala asset for SVG path tracing
+            updateCurrentMandalaAsset()
+        }
+        .onChange(of: realmNumberManager.currentRealmNumber) { oldValue, newValue in
+            // Claude: Phase 8 - Update mandala asset when realm number changes
+            updateCurrentMandalaAsset()
+        }
+        .onReceive(assetSyncTimer) { _ in
+            // Claude: Phase 8 - Sync neon tracer with mandala asset rotation every 30 seconds
+            updateCurrentMandalaAsset()
         }
     }
     
@@ -171,11 +187,12 @@ struct RealmNumberView: View {
                 )
                 .rotationEffect(.degrees(rotationAngle))
                 
-                // NEON TRACER: Add mystical glow around sacred geometry (matches HomeView)
+                // PHASE 8I REVOLUTIONARY: Number-specific geometric pattern neon tracer
                 NeonTracerView(
-                    path: createSacredPath(for: realmNumberManager.currentRealmNumber),
+                    realmNumber: realmNumberManager.currentRealmNumber,
                     bpm: Double(healthKitManager.currentHeartRate),
-                    color: getRealmNumberColor()
+                    color: getRealmNumberColor(),
+                    size: CGSize(width: 320, height: 320)
                 )
                 .frame(width: 320, height: 320)
                 
@@ -279,6 +296,13 @@ struct RealmNumberView: View {
                 self.rotationAngle = 360
             }
         }
+    }
+    
+    // Claude: Phase 8 - Update current mandala asset for authentic SVG path tracing
+    private func updateCurrentMandalaAsset() {
+        // Get the current asset that DynamicAssetMandalaView would select
+        currentMandalaAsset = SacredGeometryAsset.selectSmartAsset(for: realmNumberManager.currentRealmNumber)
+        print("🌟 PHASE 8: Updated mandala asset to \(currentMandalaAsset.displayName) for realm number \(realmNumberManager.currentRealmNumber)")
     }
     
     private func getRealmNumberColor() -> Color {

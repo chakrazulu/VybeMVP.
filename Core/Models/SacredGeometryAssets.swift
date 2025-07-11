@@ -778,4 +778,20 @@ extension SacredGeometryAsset {
         🎯 Significance: \(mysticalSignificance)
         """
     }
+}
+
+// MARK: - Phase 8: SVG Path Extraction Extensions
+
+extension SacredGeometryAsset {
+    
+    /// Claude: Phase 8 enhancement - Get authentic SVG path for neon tracing
+    /// Replaces predefined geometric shapes with real mandala geometry
+    var svgPath: CGPath? {
+        return SVGPathExtractor.extractPath(from: self)
+    }
+    
+    /// Get SVG path with custom size
+    func svgPath(size: CGSize) -> CGPath? {
+        return SVGPathExtractor.extractPath(from: self, targetSize: size)
+    }
 } 

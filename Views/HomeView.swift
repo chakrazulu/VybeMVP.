@@ -114,6 +114,9 @@ struct HomeView: View {
     @State private var showingMatchPopup = false
     @State private var selectedMatch: FocusMatch?
     
+    // Claude: Phase 8.5 - Track current mandala asset for authentic SVG path tracing
+    @State private var currentMandalaAsset: SacredGeometryAsset = .wisdomEnneagram
+    
     var body: some View {
         ZStack {
             // 🌌 COSMIC ANIMATION LAYER: Re-enabled with lightweight cosmic background
@@ -165,12 +168,12 @@ struct HomeView: View {
                                             size: 350
                                         )
                                         
-                                        // NEON TRACER: Add mystical glow around sacred geometry
-                                        // For now using a simple geometric shape - will need to extract actual mandala paths
+                                        // PHASE 8I: Number-specific geometric pattern neon tracer
                                         NeonTracerView(
-                                            path: createSacredPath(for: focusNumberManager.selectedFocusNumber),
+                                            realmNumber: focusNumberManager.selectedFocusNumber,
                                             bpm: Double(healthKitManager.currentHeartRate),
-                                            color: getSacredColor(for: focusNumberManager.selectedFocusNumber)
+                                            color: getSacredColor(for: focusNumberManager.selectedFocusNumber),
+                                            size: CGSize(width: 320, height: 320)
                                         )
                                         .frame(width: 320, height: 320)
                                         
@@ -367,9 +370,23 @@ struct HomeView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             aiInsightManager.refreshInsightIfNeeded()
             }
+            
+            // Claude: Phase 8.5 - Initialize current mandala asset for SVG path tracing
+            updateCurrentMandalaAsset()
+        }
+        .onChange(of: focusNumberManager.selectedFocusNumber) { oldValue, newValue in
+            // Claude: Phase 8.5 - Update mandala asset when focus number changes
+            updateCurrentMandalaAsset()
         }
     }
     
+    // Claude: Phase 8.5 - Update current mandala asset for authentic SVG path tracing
+    private func updateCurrentMandalaAsset() {
+        // Get the current asset that DynamicAssetMandalaView would select
+        currentMandalaAsset = SacredGeometryAsset.selectSmartAsset(for: focusNumberManager.selectedFocusNumber)
+        print("🌟 PHASE 8.5: Updated focus mandala asset to \(currentMandalaAsset.displayName) for focus number \(focusNumberManager.selectedFocusNumber)")
+    }
+
     // Helper to check if an insight is recent (e.g., within last 24 hours)
     private func isInsightRecent(_ date: Date, within interval: TimeInterval = 24 * 60 * 60) -> Bool {
         return Date().timeIntervalSince(date) < interval
