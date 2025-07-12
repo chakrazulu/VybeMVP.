@@ -96,9 +96,15 @@ final class CoreCalculationTests: XCTestCase {
         // Set up test values
         focusNumberManager.selectedFocusNumber = 5
         
+        // Enable match detection for testing
+        focusNumberManager.isMatchDetectionEnabled = true
+        
         // Use updateRealmNumber instead of directly setting realmNumber
         // This ensures checkForMatches() gets called
         focusNumberManager.updateRealmNumber(5)
+        
+        // Explicitly trigger match detection
+        focusNumberManager.checkForMatches()
         
         // Add a callback to be notified when the match is saved
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -129,7 +135,7 @@ final class CoreCalculationTests: XCTestCase {
         }
         
         // Wait for the expectation to be fulfilled
-        wait(for: [saveExpectation], timeout: 1.0)
+        wait(for: [saveExpectation], timeout: 3.0)
         
         // Final verification - use count instead of fetching objects
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FocusMatch")

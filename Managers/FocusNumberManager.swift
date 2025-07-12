@@ -172,7 +172,7 @@ class FocusNumberManager: NSObject, ObservableObject {
     private var isConfigured = false
     
     /// Flag to disable match detection during startup to prevent freeze
-    private var isMatchDetectionEnabled = false
+    var isMatchDetectionEnabled = false
     
     // MARK: - Initialization
     
@@ -518,7 +518,7 @@ class FocusNumberManager: NSObject, ObservableObject {
      * It performs the core matching logic of the app, determining when to create
      * new match records based on the current state of the focus and realm numbers.
      */
-    private func checkForMatches() {
+    func checkForMatches() {
         // CRITICAL: Skip match detection during startup to prevent freeze
         guard isMatchDetectionEnabled else {
             print("⏸️ Match detection disabled during startup - skipping check")

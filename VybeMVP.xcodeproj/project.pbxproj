@@ -23,7 +23,6 @@
 		4D2CC7142E0B9EFA00BDF100 /* EnhancedLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC7132E0B9EFA00BDF100 /* EnhancedLoadingView.swift */; };
 		4D2CC7162E0C37F200BDF100 /* RulingNumberChartDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC7152E0C37F200BDF100 /* RulingNumberChartDetailView.swift */; };
 		4D2CC7182E0C70F600BDF100 /* TwinklingDigitsBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC7172E0C70F600BDF100 /* TwinklingDigitsBackground.swift */; };
-		4D2DB47E2DFF43390003353E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D2DB47C2DFF43390003353E /* README.md */; };
 		4D2DB47F2DFF43390003353E /* ChakraSymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB47A2DFF43390003353E /* ChakraSymbolView.swift */; };
 		4D2DB4802DFF43390003353E /* ChakraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB4792DFF43390003353E /* ChakraModel.swift */; };
 		4D2DB4812DFF43390003353E /* PhantomChakrasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB47B2DFF43390003353E /* PhantomChakrasView.swift */; };
@@ -103,7 +102,6 @@
 		4D80E0FD2D3F1B0B0020F7BB /* NumberMeaningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E0FC2D3F1B0B0020F7BB /* NumberMeaningView.swift */; };
 		4D80E1012D3F1DD80020F7BB /* NumberMeaning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E1002D3F1DD80020F7BB /* NumberMeaning.swift */; };
 		4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */; };
-		4D8AB7652D3B7A7900009BC9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8AB7602D3B7A7900009BC9 /* ContentView.swift */; };
 		4D92F48C2D49E9C90001A16E /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F48B2D49E9BF0001A16E /* TestingView.swift */; };
 		4D92F4BA2D4DE1E80001A16E /* FocusNumberManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F4B72D4DE1E80001A16E /* FocusNumberManager.swift */; };
 		4D92F4BB2D4DE1E80001A16E /* JournalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F4B82D4DE1E80001A16E /* JournalManager.swift */; };
@@ -129,6 +127,11 @@
 		4DA98FCC2E073CDC00FAE5FF /* ReportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98FCB2E073CDC00FAE5FF /* ReportManager.swift */; };
 		4DA98FCE2E073D0000FAE5FF /* ReportContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98FCD2E073D0000FAE5FF /* ReportContentView.swift */; };
 		4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */; };
+		4DB1DE972E22A5C2001A9EA5 /* generate-screenshots.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE8F2E22A5C2001A9EA5 /* generate-screenshots.sh */; };
+		4DB1DE982E22A5C2001A9EA5 /* clean-project.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE922E22A5C2001A9EA5 /* clean-project.sh */; };
+		4DB1DE992E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE8C2E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh */; };
+		4DB1DE9A2E22A5C2001A9EA5 /* memory-check.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE902E22A5C2001A9EA5 /* memory-check.sh */; };
+		4DB1DE9C2E22A7A9001A9EA5 /* SCRIPTS_GUIDE.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE9B2E22A7A9001A9EA5 /* SCRIPTS_GUIDE.md */; };
 		4DB233F42E114580004EC2BC /* NeonTracerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F32E114580004EC2BC /* NeonTracerView.swift */; };
 		4DB233F62E1169CD004EC2BC /* VybeMatchOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F52E1169CD004EC2BC /* VybeMatchOverlay.swift */; };
 		4DB233F82E116AF5004EC2BC /* VybeMatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F72E116AF5004EC2BC /* VybeMatchManager.swift */; };
@@ -350,6 +353,11 @@
 		4DA98FCB2E073CDC00FAE5FF /* ReportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportManager.swift; sourceTree = "<group>"; };
 		4DA98FCD2E073D0000FAE5FF /* ReportContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportContentView.swift; sourceTree = "<group>"; };
 		4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusMatch.swift; sourceTree = "<group>"; };
+		4DB1DE8C2E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "sacred-geometry-optimizer.sh"; sourceTree = "<group>"; };
+		4DB1DE8F2E22A5C2001A9EA5 /* generate-screenshots.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "generate-screenshots.sh"; sourceTree = "<group>"; };
+		4DB1DE902E22A5C2001A9EA5 /* memory-check.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "memory-check.sh"; sourceTree = "<group>"; };
+		4DB1DE922E22A5C2001A9EA5 /* clean-project.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "clean-project.sh"; sourceTree = "<group>"; };
+		4DB1DE9B2E22A7A9001A9EA5 /* SCRIPTS_GUIDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SCRIPTS_GUIDE.md; sourceTree = "<group>"; };
 		4DB233F32E114580004EC2BC /* NeonTracerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeonTracerView.swift; sourceTree = "<group>"; };
 		4DB233F52E1169CD004EC2BC /* VybeMatchOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeMatchOverlay.swift; sourceTree = "<group>"; };
 		4DB233F72E116AF5004EC2BC /* VybeMatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeMatchManager.swift; sourceTree = "<group>"; };
@@ -738,6 +746,50 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		4DB1DE8D2E22A5C2001A9EA5 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				4DB1DE8C2E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		4DB1DE8E2E22A5C2001A9EA5 /* build */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = build;
+			sourceTree = "<group>";
+		};
+		4DB1DE912E22A5C2001A9EA5 /* profiling */ = {
+			isa = PBXGroup;
+			children = (
+				4DB1DE8F2E22A5C2001A9EA5 /* generate-screenshots.sh */,
+				4DB1DE902E22A5C2001A9EA5 /* memory-check.sh */,
+			);
+			path = profiling;
+			sourceTree = "<group>";
+		};
+		4DB1DE932E22A5C2001A9EA5 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				4DB1DE922E22A5C2001A9EA5 /* clean-project.sh */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		4DB1DE952E22A5C2001A9EA5 /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				4DB1DE9B2E22A7A9001A9EA5 /* SCRIPTS_GUIDE.md */,
+				4DB1DE8D2E22A5C2001A9EA5 /* assets */,
+				4DB1DE8E2E22A5C2001A9EA5 /* build */,
+				4DB1DE912E22A5C2001A9EA5 /* profiling */,
+				4DB1DE932E22A5C2001A9EA5 /* utils */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
 		4DB233F92E11F0E7004EC2BC /* CosmicAnimations */ = {
 			isa = PBXGroup;
 			children = (
@@ -749,6 +801,7 @@
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
+				4DB1DE952E22A5C2001A9EA5 /* scripts */,
 				4DCB393A2E1F78AE00311D51 /* Resources */,
 				4D2CC7052E08C96E00BDF100 /* Preview Content */,
 				4D6C7BAC2DE47F55001036E5 /* Auth */,
@@ -996,7 +1049,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1630;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					4D80E10B2D41E17A0020F7BB = {
 						CreatedOnToolsVersion = 16.2;
@@ -1059,6 +1112,10 @@
 				4DCB39422E1F78AE00311D51 /* void_eternal_return.svg in Resources */,
 				4DCB39432E1F78AE00311D51 /* mystery_magic.svg in Resources */,
 				4DCB39442E1F78AE00311D51 /* trinity_logos.svg in Resources */,
+				4DB1DE972E22A5C2001A9EA5 /* generate-screenshots.sh in Resources */,
+				4DB1DE982E22A5C2001A9EA5 /* clean-project.sh in Resources */,
+				4DB1DE992E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh in Resources */,
+				4DB1DE9A2E22A5C2001A9EA5 /* memory-check.sh in Resources */,
 				4DCB39452E1F78AE00311D51 /* void_crystal.svg in Resources */,
 				4DCB39462E1F78AE00311D51 /* duality_mirror.svg in Resources */,
 				4DCB39472E1F78AE00311D51 /* foundation_stone.svg in Resources */,
@@ -1076,6 +1133,7 @@
 				4DCB39532E1F78AE00311D51 /* void_triquetra.svg in Resources */,
 				4DCB39542E1F78AE00311D51 /* will_star.svg in Resources */,
 				4DCB39552E1F78AE00311D51 /* mystery_wisdom.svg in Resources */,
+				4DB1DE9C2E22A7A9001A9EA5 /* SCRIPTS_GUIDE.md in Resources */,
 				4DCB39562E1F78AE00311D51 /* mystery_seals.svg in Resources */,
 				4DCB39572E1F78AE00311D51 /* void_zero_point.svg in Resources */,
 				4DCB39582E1F78AE00311D51 /* foundation_cube.svg in Resources */,
@@ -1113,7 +1171,6 @@
 				4DCB39782E1F78AE00311D51 /* renewal_infinity.svg in Resources */,
 				4DCB39792E1F78AE00311D51 /* mystery_seed_life.svg in Resources */,
 				4DCB397A2E1F78AE00311D51 /* will_phoenix.svg in Resources */,
-				4D2DB47E2DFF43390003353E /* README.md in Resources */,
 				4D2CC7062E08C96E00BDF100 /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1242,7 +1299,6 @@
 				4D6C7BAA2DE47F1B001036E5 /* InsightFilterService.swift in Sources */,
 				4DC602392D345A3500B5E4A9 /* SignInView.swift in Sources */,
 				4DC6023A2D345C9E00B5E4A9 /* KeychainHelper.swift in Sources */,
-				4D8AB7652D3B7A7900009BC9 /* ContentView.swift in Sources */,
 				4DE4C3802DB392E900BB7572 /* NumerologyNotificationTestView.swift in Sources */,
 				4D6C7B5D2DE458A4001036E5 /* AuthenticationManager.swift in Sources */,
 				4D3727122DE540AE00B5A02B /* PersonalizedInsight.swift in Sources */,
