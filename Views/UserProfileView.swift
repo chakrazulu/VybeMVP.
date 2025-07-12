@@ -10,6 +10,13 @@
  * **Bug Fixes:** PreparedInsight.score and tags compilation errors resolved
  * **Documentation:** Comprehensive comments for all data connections
  *
+ * === CRITICAL BUG FIX: FIREBASE UID CONSISTENCY ===
+ * **Problem Fixed:** Posts not appearing in user profile due to user ID mismatch
+ * **Root Cause:** Posts created with Firebase UID but filtered by Apple Sign-In ID
+ * **Solution:** Updated all user identification to use AuthenticationManager.shared.userID
+ * **Impact:** Posts now correctly display in user profile Posts tab
+ * **Technical Details:** Consistent Firebase UID usage across post creation and filtering
+ *
  * === CORE PURPOSE ===
  * Modern Twitter-style social profile view for VybeMVP
  * Clean, functional social interface with cosmic theming
@@ -20,7 +27,7 @@
  * • Posts Tab: Connected to PostManager.posts with user filtering
  * • Insights Tab: AIInsightManager.personalizedDailyInsight display
  * • Activity Tab: FocusNumberManager.matchLogs + insight status
- * • Environment Objects: postManager, aiInsightManager, signInViewModel
+ * • Environment Objects: postManager, aiInsightManager, AuthenticationManager
  * • Memory Safe: Computed properties prevent memory leaks
  * • Performance: Lazy loading and efficient data access
  *
@@ -48,18 +55,20 @@
  * • Performance: 60fps smooth scrolling and animations
  *
  * === PHASE 3C-3 TECHNICAL DETAILS ===
- * • userPosts: Computed property filtering PostManager.posts by user ID
+ * • userPosts: Computed property filtering PostManager.posts by Firebase UID
  * • recentMatches: Array of FocusMatch entities from FocusNumberManager
  * • recentInsights: AI insight availability from AIInsightManager
  * • Share Functionality: Pre-populates post composer with insight content
  * • Navigation: selectedTab binding for seamless tab switching
  * • Error Handling: Proper null checks and fallback states
+ * • User ID Consistency: AuthenticationManager.shared.userID for all operations
  *
  * Created as part of Phase 3A Step 2.2 - Twitter-Style Profile Foundation
  * Enhanced in Phase 3C-3 - Real Data Connection and Comprehensive UX
  */
 
 import SwiftUI
+import Combine
 
 /**
  * UserProfileView: Modern Twitter-style social profile interface
@@ -201,7 +210,9 @@ struct UserProfileView: View {
                 let impactFeedback = UIImpactFeedbackGenerator(style: .light)
                 impactFeedback.impactOccurred()
             }
-            .onChange(of: signInViewModel.userID) { _, newUserID in
+            .onChange(of: AuthenticationManager.shared.userID) { _, newUserID in
+                // FIREBASE UID CONSISTENCY: Watch AuthenticationManager.shared.userID (not signInViewModel)
+                // This ensures consistent user identification across post creation and profile display
                 // Reload profile data when userID becomes available
                 if newUserID != nil {
                     print("🔄 UserID became available, reloading profile data")
@@ -619,7 +630,7 @@ struct UserProfileView: View {
     /// 
     /// **Data Flow:**
     /// - PostManager.posts: All social posts in the system
-    /// - signInViewModel.userID: Current user authentication ID
+    /// - AuthenticationManager.shared.userID: Current user authentication ID (Firebase UID)
     /// - userPosts computed property: Filtered posts by current user
     /// 
     /// **User Experience:**
@@ -644,13 +655,13 @@ struct UserProfileView: View {
     /// **USER POSTS DATA SOURCE**
     /// 
     /// **Phase 3C-3 Implementation:** Filters PostManager.posts to show only
-    /// posts authored by the current authenticated user. Uses signInViewModel.userID
-    /// for proper authentication-based filtering.
+    /// posts authored by the current authenticated user. Uses AuthenticationManager.shared.userID
+    /// for proper authentication-based filtering (Firebase UID consistency).
     /// 
     /// **Returns:** Array of Post objects authored by current user
     /// **Memory Safe:** Uses computed property to prevent memory leaks
     private var userPosts: [Post] {
-        guard let currentUserId = signInViewModel.userID else { return [] }
+        guard let currentUserId = AuthenticationManager.shared.userID else { return [] }
         return postManager.posts.filter { $0.authorId == currentUserId }
     }
     
@@ -767,9 +778,10 @@ struct UserProfileView: View {
     }
     
     private func getCurrentSocialUser() -> SocialUser {
+        // Claude: FIREBASE UID CONSISTENCY - Use AuthenticationManager for consistent user identification
         // Create a mock SocialUser for now - this should eventually use real user data
         return SocialUser(
-            userId: signInViewModel.userID ?? "unknown",
+            userId: AuthenticationManager.shared.userID ?? "unknown",
             displayName: displayName,
             lifePathNumber: 3,
             soulUrgeNumber: 5,
