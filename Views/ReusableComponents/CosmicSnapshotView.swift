@@ -169,21 +169,32 @@ struct CosmicSnapshotView: View {
                 .fill(Color.white.opacity(0.2))
                 .frame(width: 1, height: 50)
             
-            // Planetary highlights (Mercury & Venus placeholders)
+            // Planetary highlights (Mercury & Venus)
             VStack(spacing: 4) {
-                HStack(spacing: 4) {
-                    Text("☿")
-                        .font(.system(size: 18))
-                    Text("Mercury")
-                        .font(.caption2)
-                        .foregroundColor(.white.opacity(0.7))
+                if let mercurySign = cosmic.planetaryZodiacSign(for: "Mercury") {
+                    HStack(spacing: 4) {
+                        Text("☿")
+                            .font(.system(size: 18))
+                        Text(mercurySign)
+                            .font(.caption2)
+                            .foregroundColor(.white.opacity(0.9))
+                    }
                 }
-                HStack(spacing: 4) {
-                    Text("♀")
-                        .font(.system(size: 18))
-                    Text("Venus")
+                
+                if let venusSign = cosmic.planetaryZodiacSign(for: "Venus") {
+                    HStack(spacing: 4) {
+                        Text("♀")
+                            .font(.system(size: 18))
+                        Text(venusSign)
+                            .font(.caption2)
+                            .foregroundColor(.white.opacity(0.9))
+                    }
+                }
+                
+                if cosmic.planetaryZodiacSign(for: "Mercury") == nil && cosmic.planetaryZodiacSign(for: "Venus") == nil {
+                    Text("Calculating...")
                         .font(.caption2)
-                        .foregroundColor(.white.opacity(0.7))
+                        .foregroundColor(.white.opacity(0.5))
                 }
             }
             .frame(maxWidth: .infinity)

@@ -44,6 +44,7 @@ import Foundation
 import FirebaseFirestore
 import Combine
 import os.log
+import SwiftAA
 
 /// Cosmic service managing celestial data and calculations
 @MainActor
@@ -118,15 +119,18 @@ class CosmicService: ObservableObject {
     func fetchTodaysCosmicData() async {
         logger.info("🌌 Fetching today's cosmic data")
         
-        // Check cache first
-        if let cached = todaysCosmic, cached.isToday {
-            logger.info("🌌 Using cached cosmic data from today")
-            return
-        }
+        // TEMPORARY: Clear cache and force fresh calculations
+        clearCache()
         
         isLoading = true
         errorMessage = nil
         
+        // TEMPORARY: Skip Firebase entirely due to App Check issues
+        logger.info("🌌 Bypassing Firebase, using local calculations directly")
+        await useLocalCalculations()
+        
+        // TODO: Re-enable Firebase when App Check is fixed
+        /*
         do {
             // Try to fetch from Firestore
             let todayString = dateString(for: Date())
@@ -156,6 +160,7 @@ class CosmicService: ObservableObject {
             // Fallback to local calculations
             await useLocalCalculations()
         }
+        */
     }
     
     /**
@@ -198,6 +203,10 @@ class CosmicService: ObservableObject {
         logger.info("🌌 Generating cosmic data from local calculations")
         
         let localCosmic = CosmicData.fromLocalCalculations()
+        
+        // Debug: Log the generated data
+        logger.info("🌌 Generated cosmic data: Moon=\(localCosmic.moonPhase), Sun=\(localCosmic.sunSign)")
+        logger.info("🌌 Planetary positions: \(localCosmic.planetaryPositions)")
         
         await MainActor.run {
             self.todaysCosmic = localCosmic

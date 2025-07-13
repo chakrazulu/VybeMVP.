@@ -138,6 +138,8 @@
 		4DB1DF982E23549F001A9EA5 /* CosmicSnapshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1DF972E23549F001A9EA5 /* CosmicSnapshotView.swift */; };
 		4DB1E0592E23BD98001A9EA5 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 4DB1E0582E23BD98001A9EA5 /* FirebaseAppCheck */; };
 		4DB1E05B2E23D597001A9EA5 /* ZodiacSignCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1E05A2E23D597001A9EA5 /* ZodiacSignCalculator.swift */; };
+		4DB1E0622E23F6F0001A9EA5 /* SwiftAA in Frameworks */ = {isa = PBXBuildFile; productRef = 4DB1E0612E23F6F0001A9EA5 /* SwiftAA */; };
+		4DB1E0632E23FBE7001A9EA5 /* SwiftAA in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 4DB1E0612E23F6F0001A9EA5 /* SwiftAA */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4DB233F42E114580004EC2BC /* NeonTracerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F32E114580004EC2BC /* NeonTracerView.swift */; };
 		4DB233F62E1169CD004EC2BC /* VybeMatchOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F52E1169CD004EC2BC /* VybeMatchOverlay.swift */; };
 		4DB233F82E116AF5004EC2BC /* VybeMatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F72E116AF5004EC2BC /* VybeMatchManager.swift */; };
@@ -238,6 +240,20 @@
 			remoteInfo = VybeMVP;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4DB1E0642E23FBE7001A9EA5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4DB1E0632E23FBE7001A9EA5 /* SwiftAA in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4D0CA8D02DE69F4600D4A6D6 /* NumerologyRainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyRainView.swift; sourceTree = "<group>"; };
@@ -498,6 +514,7 @@
 				4D6C7BBD2DE4885F001036E5 /* FirebaseFirestore in Frameworks */,
 				4DA01CB92D853A640070309D /* FirebaseCore in Frameworks */,
 				4DB1E0592E23BD98001A9EA5 /* FirebaseAppCheck in Frameworks */,
+				4DB1E0622E23F6F0001A9EA5 /* SwiftAA in Frameworks */,
 				4DA01CB72D853A640070309D /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1037,6 +1054,7 @@
 				4DC602172D343E8D00B5E4A9 /* Sources */,
 				4DC602182D343E8D00B5E4A9 /* Frameworks */,
 				4DC602192D343E8D00B5E4A9 /* Resources */,
+				4DB1E0642E23FBE7001A9EA5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1054,6 +1072,7 @@
 				4D6C7BBC2DE4885F001036E5 /* FirebaseFirestore */,
 				4D6308E32DFFCB6F00FD32E9 /* FirebaseAuth */,
 				4DB1E0582E23BD98001A9EA5 /* FirebaseAppCheck */,
+				4DB1E0612E23F6F0001A9EA5 /* SwiftAA */,
 			);
 			productName = VybeMVP;
 			productReference = 4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */;
@@ -1089,6 +1108,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				4DA01CB52D853A640070309D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				4DB1E05C2E23F6F0001A9EA5 /* XCRemoteSwiftPackageReference "SwiftAA" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4DC6021C2D343E8D00B5E4A9 /* Products */;
@@ -1653,6 +1673,14 @@
 				minimumVersion = 11.9.0;
 			};
 		};
+		4DB1E05C2E23F6F0001A9EA5 /* XCRemoteSwiftPackageReference "SwiftAA" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onekiloparsec/SwiftAA";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1685,6 +1713,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4DA01CB52D853A640070309D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAppCheck;
+		};
+		4DB1E0612E23F6F0001A9EA5 /* SwiftAA */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DB1E05C2E23F6F0001A9EA5 /* XCRemoteSwiftPackageReference "SwiftAA" */;
+			productName = SwiftAA;
 		};
 /* End XCSwiftPackageProductDependency section */
 
