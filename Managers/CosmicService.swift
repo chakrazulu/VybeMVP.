@@ -38,12 +38,34 @@
  * - Firestore Fetch: < 500ms
  * - Cache Hit: 0ms
  * - Memory Overhead: < 1MB
+ * 
+ * CONFIGURATION REQUIRED:
+ * - Update functionsBaseURL with your Firebase project ID
+ * - Deploy Firebase Functions to your project
+ * - Ensure Firestore rules allow authenticated read access to cosmicData collection
+ * 
+ * SWISS EPHEMERIS ARCHITECTURE:
+ * - Local Fallback: Conway's lunar algorithm for offline functionality
+ * - Cloud Enhancement: astronomy-engine JavaScript library (Swiss Ephemeris derived)
+ * - Hybrid Approach: Avoids iOS binary bloat while providing professional accuracy
+ * - Data Source: astronomy-engine v2.1.19 via Firebase Functions HTTP endpoints
  */
 
 import Foundation
+import UIKit
 import FirebaseFirestore
 import Combine
 import os.log
+
+// MARK: - Firebase Functions Response Models
+
+/// Claude: Response wrapper from Firebase Functions
+struct CosmicFunctionResponse: Codable {
+    let success: Bool
+    let data: CosmicData?
+    let cached: Bool?
+    let error: String?
+}
 
 /// Cosmic service managing celestial data and calculations
 @MainActor
@@ -68,8 +90,36 @@ class CosmicService: ObservableObject {
     
     // MARK: - Private Properties
     
-    /// Firestore database reference
+    /// Firestore database reference (for legacy fallback)
     private let db = Firestore.firestore()
+    
+    /// Claude: Firebase Functions URL base (configured for vybemvp project)
+    /// 
+    /// PHASE 10B-B DEPLOYMENT CONFIGURATION:
+    /// - Functions deployed to Firebase Cloud Run (v2 architecture)
+    /// - API key authentication required for organization policy compliance
+    /// - Cloud Run URLs: https://generatedailycosmicdata-tghew3oq4a-uc.a.run.app
+    /// - Traditional URL: https://us-central1-vybemvp.cloudfunctions.net (fallback)
+    /// 
+    /// ORGANIZATION POLICY STATUS:
+    /// - Current: Domain restricted sharing policy blocks external access
+    /// - Solution: API key authentication implemented ('vybe-cosmic-2025')
+    /// - Future: Can switch to public access when organization policy allows
+    /// 
+    /// AUTHENTICATION STRATEGY:
+    /// - API key included in x-api-key header for all requests
+    /// - Compliant with Google Cloud domain restrictions
+    /// - Ready for immediate activation when policy permits
+    private let functionsBaseURL: String = {
+        // Claude: Using traditional Cloud Functions URL for consistency
+        // Note: Cloud Run URLs also available but traditional format preferred for routing
+        // For development/testing, you might want to use Firebase emulator:
+        // return "http://localhost:5001/vybemvp/us-central1"
+        return "https://us-central1-vybemvp.cloudfunctions.net"
+    }()
+    
+    /// URLSession for HTTP requests
+    private let urlSession = URLSession.shared
     
     /// Combine cancellables
     private var cancellables = Set<AnyCancellable>()
@@ -113,12 +163,22 @@ class CosmicService: ObservableObject {
     // MARK: - Public Methods
     
     /**
-     * Fetch today's cosmic data from Firestore or calculate locally
+     * Claude: Fetch today's cosmic data with intelligent fallback strategy
+     * 
+     * ARCHITECTURE: Triple-fallback system for maximum reliability
+     * 1. Firebase Functions (astronomy-engine/Swiss Ephemeris quality)
+     * 2. Firestore direct access (cached cloud data)
+     * 3. Local calculations (Conway's algorithm)
+     * 
+     * PERFORMANCE: 
+     * - Firebase Functions: 200-500ms with full planetary positions
+     * - Local calculations: <10ms with moon phase + basic data
+     * - Automatic caching: 24-hour TTL for optimal UX
      */
     func fetchTodaysCosmicData() async {
-        logger.info("🌌 Fetching today's cosmic data")
+        logger.info("🌌 Fetching today's cosmic data from Firebase Functions")
         
-        // Check cache first
+        // Claude: Check cache first
         if let cached = todaysCosmic, cached.isToday {
             logger.info("🌌 Using cached cosmic data from today")
             return
@@ -128,32 +188,42 @@ class CosmicService: ObservableObject {
         errorMessage = nil
         
         do {
-            // Try to fetch from Firestore
-            let todayString = dateString(for: Date())
-            let document = try await db.collection("cosmicData")
-                .document(todayString)
-                .getDocument()
+            // Claude: Try to fetch from Firebase Functions first
+            if let cosmicData = try await fetchFromFirebaseFunctions() {
+                logger.info("🌌 Successfully fetched cosmic data from Firebase Functions")
+                
+                await MainActor.run {
+                    self.todaysCosmic = cosmicData
+                    self.lastUpdated = Date()
+                    self.cacheCosmicData(cosmicData)
+                    self.isLoading = false
+                }
+                return
+            }
             
-            if document.exists {
-                let cosmic = try document.data(as: CosmicData.self)
+            // Claude: Fallback to Firestore direct access
+            logger.info("🌌 Firebase Functions unavailable, trying Firestore")
+            if let cosmicData = try await fetchFromFirestore() {
                 logger.info("🌌 Successfully fetched cosmic data from Firestore")
                 
                 await MainActor.run {
-                    self.todaysCosmic = cosmic
+                    self.todaysCosmic = cosmicData
                     self.lastUpdated = Date()
-                    self.cacheCosmicData(cosmic)
+                    self.cacheCosmicData(cosmicData)
                     self.isLoading = false
                 }
-            } else {
-                // Fallback to local calculations
-                logger.info("🌌 No Firestore data, using local calculations")
-                await useLocalCalculations()
+                return
             }
+            
+            // Claude: Final fallback to local calculations
+            logger.info("🌌 No cloud data available, using local calculations")
+            await useLocalCalculations()
+            
         } catch {
             logger.error("🌌 Error fetching cosmic data: \(error.localizedDescription)")
             errorMessage = "Unable to fetch cosmic data"
             
-            // Fallback to local calculations
+            // Claude: Fallback to local calculations
             await useLocalCalculations()
         }
     }
@@ -168,28 +238,111 @@ class CosmicService: ObservableObject {
     }
     
     /**
-     * Get cosmic data for a specific date (if available)
+     * Claude: Get cosmic data for a specific date (if available)
      */
     func cosmicData(for date: Date) async -> CosmicData? {
         let dateString = self.dateString(for: date)
+        logger.info("🌌 Fetching cosmic data for date: \(dateString)")
         
         do {
-            let document = try await db.collection("cosmicData")
-                .document(dateString)
-                .getDocument()
-            
-            if document.exists {
-                return try document.data(as: CosmicData.self)
+            // Claude: Try Firebase Functions first
+            if let cosmicData = try await fetchFromFirebaseFunctions(for: date) {
+                logger.info("🌌 Successfully fetched cosmic data for \(dateString) from Firebase Functions")
+                return cosmicData
             }
+            
+            // Claude: Fallback to Firestore
+            if let cosmicData = try await fetchFromFirestore(for: date) {
+                logger.info("🌌 Successfully fetched cosmic data for \(dateString) from Firestore")
+                return cosmicData
+            }
+            
         } catch {
             logger.error("🌌 Error fetching cosmic data for date \(dateString): \(error)")
         }
         
-        // Fallback to local calculation for the date
+        // Claude: Final fallback to local calculation for the date
+        logger.info("🌌 Using local calculations for date: \(dateString)")
         return CosmicData.fromLocalCalculations(for: date)
     }
     
     // MARK: - Private Methods
+    
+    /**
+     * Claude: Fetch cosmic data from Firebase Functions HTTP endpoint
+     */
+    private func fetchFromFirebaseFunctions(for date: Date = Date()) async throws -> CosmicData? {
+        // Claude: Construct the Firebase Functions URL
+        let dateString = dateString(for: date)
+        var urlComponents = URLComponents(string: "\(functionsBaseURL)/generateDailyCosmicData")!
+        urlComponents.queryItems = [
+            URLQueryItem(name: "date", value: dateString)
+        ]
+        
+        guard let url = urlComponents.url else {
+            logger.error("🌌 Invalid Firebase Functions URL")
+            return nil
+        }
+        
+        // Claude: Create the HTTP request
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // Claude: Add API key for organization policy compliance
+        // This API key enables access through Google Cloud domain restrictions
+        // Key: 'vybe-cosmic-2025' matches Firebase Functions authentication requirement
+        // Future: Can be removed when organization policy allows public access
+        request.setValue("vybe-cosmic-2025", forHTTPHeaderField: "x-api-key")
+        
+        // Claude: Add timeout for better UX
+        request.timeoutInterval = 10.0
+        
+        // Claude: Make the HTTP request
+        logger.info("🌌 Calling Firebase Functions at: \(url)")
+        let (data, response) = try await urlSession.data(for: request)
+        
+        // Claude: Check HTTP response
+        guard let httpResponse = response as? HTTPURLResponse else {
+            logger.error("🌌 Invalid HTTP response from Firebase Functions")
+            return nil
+        }
+        
+        guard httpResponse.statusCode == 200 else {
+            logger.error("🌌 Firebase Functions returned status code: \(httpResponse.statusCode)")
+            return nil
+        }
+        
+        // Claude: Parse the JSON response
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        
+        let functionResponse = try decoder.decode(CosmicFunctionResponse.self, from: data)
+        
+        if functionResponse.success, let cosmicData = functionResponse.data {
+            logger.info("🌌 Successfully parsed Firebase Functions response")
+            return cosmicData
+        } else {
+            logger.error("🌌 Firebase Functions returned error: \(functionResponse.error ?? "Unknown error")")
+            return nil
+        }
+    }
+    
+    /**
+     * Claude: Fetch cosmic data from Firestore (legacy fallback)
+     */
+    private func fetchFromFirestore(for date: Date = Date()) async throws -> CosmicData? {
+        let todayString = dateString(for: date)
+        let document = try await db.collection("cosmicData")
+            .document(todayString)
+            .getDocument()
+        
+        if document.exists {
+            return try document.data(as: CosmicData.self)
+        }
+        
+        return nil
+    }
     
     /**
      * Use local calculations as fallback
@@ -294,27 +447,32 @@ class CosmicService: ObservableObject {
     // MARK: - Cosmic Event Detection
     
     /**
-     * Check for notable cosmic events
+     * Claude: Check for notable cosmic events
      */
     func checkForCosmicEvents() -> [String] {
         guard let cosmic = todaysCosmic else { return [] }
         
         var events: [String] = []
         
-        // Full moon detection
-        if cosmic.moonPhase.lowercased().contains("full") {
+        // Claude: Full moon detection using new structure
+        if cosmic.moonPhase.phaseName.lowercased().contains("full") {
             events.append("🌕 Full Moon - Time for culmination and release")
         }
         
-        // New moon detection
-        if cosmic.moonPhase.lowercased().contains("new") {
+        // Claude: New moon detection using new structure
+        if cosmic.moonPhase.phaseName.lowercased().contains("new") {
             events.append("🌑 New Moon - Perfect for setting intentions")
         }
         
-        // Mercury retrograde (placeholder - needs historical data)
+        // Claude: Mercury retrograde (placeholder - needs historical data)
         if let _ = cosmic.position(for: "Mercury"),
            cosmic.isRetrograde("Mercury") {
             events.append("☿ Mercury Retrograde - Review and revise communications")
+        }
+        
+        // Claude: Add spiritual guidance from Firebase Functions
+        if !cosmic.spiritualGuidance.isEmpty {
+            events.append("✨ \(cosmic.spiritualGuidance)")
         }
         
         return events
@@ -334,18 +492,39 @@ class CosmicService: ObservableObject {
 // MARK: - Convenience Extensions
 
 extension CosmicService {
-    /// Quick access to current moon phase
+    /// Claude: Quick access to current moon phase name
     var currentMoonPhase: String? {
-        return todaysCosmic?.moonPhase
+        return todaysCosmic?.moonPhase.phaseName
     }
     
-    /// Quick access to current sun sign
+    /// Claude: Quick access to current sun sign
     var currentSunSign: String? {
         return todaysCosmic?.sunSign
     }
     
-    /// Check if cosmic data is available
+    /// Claude: Quick access to spiritual guidance
+    var currentSpiritualGuidance: String? {
+        return todaysCosmic?.spiritualGuidance
+    }
+    
+    /// Claude: Quick access to moon phase emoji
+    var currentMoonPhaseEmoji: String? {
+        return todaysCosmic?.moonPhase.emoji
+    }
+    
+    /// Claude: Quick access to sun sign emoji
+    var currentSunSignEmoji: String? {
+        return todaysCosmic?.sunSignEmoji
+    }
+    
+    /// Claude: Check if cosmic data is available
     var hasCosmicData: Bool {
         return todaysCosmic != nil
+    }
+    
+    /// Claude: Check if we're using full Firebase Functions data (vs local fallback)
+    var hasFullCosmicData: Bool {
+        guard let cosmic = todaysCosmic else { return false }
+        return cosmic.planets.count > 1 // More than just Sun means full data
     }
 } 

@@ -195,6 +195,7 @@ struct VybeMVPApp: App {
     @StateObject private var journalManager = JournalManager()
     @StateObject private var backgroundManager = BackgroundManager.shared
     @StateObject private var healthKitManager = HealthKitManager.shared
+    @StateObject private var cosmicService = CosmicService.shared
     @Environment(\.scenePhase) private var scenePhase
     let persistenceController = PersistenceController.shared
     
@@ -225,6 +226,7 @@ struct VybeMVPApp: App {
                 .environmentObject(focusNumberManager)
                 .environmentObject(backgroundManager)
                 .environmentObject(healthKitManager)
+                .environmentObject(cosmicService)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onAppear {
                     // --- Instance Sharing Setup --- (Moved to onAppear)

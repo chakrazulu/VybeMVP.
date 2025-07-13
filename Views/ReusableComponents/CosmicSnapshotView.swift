@@ -97,7 +97,7 @@ struct CosmicSnapshotView: View {
                     VStack(spacing: 4) {
                         Text(cosmic.moonPhaseEmoji)
                             .font(.system(size: 32))
-                        Text(cosmic.moonPhase)
+                        Text(cosmic.moonPhase.phaseName)
                             .font(.caption)
                             .foregroundColor(.white.opacity(0.9))
                         if let illumination = cosmic.moonIllumination {
@@ -241,7 +241,7 @@ struct CosmicSnapshotView: View {
         }
         
         var label = "Cosmic snapshot. "
-        label += "\(cosmic.moonPhase) moon"
+        label += "\(cosmic.moonPhase.phaseName) moon"
         
         if let illumination = cosmic.moonIllumination {
             label += " at \(Int(illumination))% illumination. "

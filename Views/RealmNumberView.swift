@@ -95,6 +95,7 @@ struct RealmNumberView: View {
     @EnvironmentObject var realmNumberManager: RealmNumberManager
     @EnvironmentObject var focusNumberManager: FocusNumberManager
     @EnvironmentObject var healthKitManager: HealthKitManager
+    @EnvironmentObject var cosmicService: CosmicService
     
     @State private var glowIntensity: Double = 0.5
     @State private var rotationAngle: Double = 0
@@ -149,6 +150,11 @@ struct RealmNumberView: View {
                     RulingNumberChartView()
                         .environmentObject(focusNumberManager)
                         .environmentObject(realmNumberManager)
+                    
+                    // Claude: Phase 10B - Cosmic Snapshot Integration
+                    CosmicSnapshotView(realmNumber: realmNumberManager.currentRealmNumber)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 16)
                     
                     Spacer(minLength: 100)
                 }

@@ -35,108 +35,151 @@
 import Foundation
 import FirebaseFirestore
 
+// MARK: - Supporting Structures
+
+/// Claude: Planetary position data from Firebase Functions
+struct PlanetaryPosition: Codable, Equatable {
+    /// Ecliptic longitude in degrees
+    let longitude: Double
+    /// Zodiac sign name (e.g., "Cancer")
+    let zodiacSign: String
+    /// Degree within the zodiac sign (0-30)
+    let zodiacDegree: Double
+    /// Element (Fire, Earth, Air, Water)
+    let element: String
+    /// Quality (Cardinal, Fixed, Mutable)
+    let quality: String?
+    /// Zodiac emoji (e.g., "♋")
+    let emoji: String
+}
+
+/// Claude: Enhanced moon phase information from Firebase Functions
+struct MoonPhaseInfo: Codable, Equatable {
+    /// Moon illumination percentage (0-100)
+    let illumination: Double
+    /// Phase angle in degrees
+    let phaseAngle: Double
+    /// Human-readable phase name (e.g., "Full Moon")
+    let phaseName: String
+    /// Phase emoji (e.g., "🌕")
+    let emoji: String
+    /// Moon's zodiac sign
+    let zodiacSign: String
+    /// Moon's degree within sign
+    let zodiacDegree: Double?
+    /// Moon's element
+    let element: String?
+    /// Spiritual meaning of the phase
+    let spiritualMeaning: String
+    /// Sacred number associated with phase
+    let sacredNumber: Int
+}
+
+/// Claude: Sacred numbers from cosmic calculations
+struct SacredNumbers: Codable, Equatable {
+    /// Cosmic number based on date
+    let cosmic: Int?
+    /// Moon phase sacred number
+    let moon: Int?
+    /// Harmony number (cosmic + moon)
+    let harmony: Int?
+    /// Date breakdown for numerological analysis
+    let date: DateNumbers?
+}
+
+/// Claude: Date number breakdown for numerology
+struct DateNumbers: Codable, Equatable {
+    let day: Int
+    let month: Int
+    let year: Int
+}
+
 /// Comprehensive cosmic data model for celestial information
 struct CosmicData: Codable, Equatable {
     
     // MARK: - Core Properties
     
-    /// Planetary positions in ecliptic longitude (degrees)
-    let planetaryPositions: [String: Double]
+    /// Date string in YYYY-MM-DD format
+    let date: String
     
-    /// Current moon age in days (0-29.5)
-    let moonAge: Double
+    /// Full timestamp from Firebase Functions
+    let timestamp: String
     
-    /// Human-readable moon phase name
-    let moonPhase: String
+    /// Planetary positions with zodiac details
+    let planets: [String: PlanetaryPosition]
     
-    /// Current sun sign based on date
-    let sunSign: String
+    /// Enhanced moon phase information
+    let moonPhase: MoonPhaseInfo
     
-    /// Moon illumination percentage (0-100)
-    let moonIllumination: Double?
+    /// Spiritual guidance message
+    let spiritualGuidance: String
     
-    /// Next full moon date
-    let nextFullMoon: Date?
+    /// Sacred numbers associated with cosmic data
+    let sacredNumbers: SacredNumbers
     
-    /// Next new moon date
-    let nextNewMoon: Date?
+    /// Creation timestamp from Firebase (when data was calculated)
+    let calculatedAt: Date?
     
-    /// Creation timestamp from Firebase
-    let createdAt: Date?
+    /// Version of the cosmic data format
+    let version: String?
     
     // MARK: - Computed Properties
     
-    /// Check if data is from today
+    /// Claude: Check if data is from today
     var isToday: Bool {
-        guard let created = createdAt else { return false }
-        return Calendar.current.isDateInToday(created)
+        let today = DateFormatter.cosmicDateFormatter.string(from: Date())
+        return date == today
     }
     
-    /// Get moon phase emoji for UI display
+    /// Claude: Get moon phase emoji for UI display
     var moonPhaseEmoji: String {
-        switch moonPhase.lowercased() {
-        case "new moon": return "🌑"
-        case "waxing crescent": return "🌒"
-        case "first quarter": return "🌓"
-        case "waxing gibbous": return "🌔"
-        case "full moon": return "🌕"
-        case "waning gibbous": return "🌖"
-        case "last quarter": return "🌗"
-        case "waning crescent": return "🌘"
-        default: return "🌙"
-        }
+        return moonPhase.emoji
     }
     
-    /// Get sun sign emoji for UI display
+    /// Claude: Get sun sign emoji for UI display (Sun planet)
     var sunSignEmoji: String {
-        switch sunSign.lowercased() {
-        case "aries": return "♈"
-        case "taurus": return "♉"
-        case "gemini": return "♊"
-        case "cancer": return "♋"
-        case "leo": return "♌"
-        case "virgo": return "♍"
-        case "libra": return "♎"
-        case "scorpio": return "♏"
-        case "sagittarius": return "♐"
-        case "capricorn": return "♑"
-        case "aquarius": return "♒"
-        case "pisces": return "♓"
-        default: return "⭐"
-        }
+        return planets["Sun"]?.emoji ?? "⭐"
+    }
+    
+    /// Claude: Get current sun sign name
+    var sunSign: String {
+        return planets["Sun"]?.zodiacSign ?? "Unknown"
+    }
+    
+    /// Claude: Get moon illumination percentage
+    var moonIllumination: Double? {
+        return moonPhase.illumination
     }
     
     // MARK: - Planetary Position Helpers
     
-    /// Get position for a specific planet
+    /// Claude: Get ecliptic longitude for a specific planet
     func position(for planet: String) -> Double? {
-        return planetaryPositions[planet]
+        return planets[planet]?.longitude
     }
     
-    /// Get zodiac sign for a planet based on its position
+    /// Claude: Get zodiac sign for a planet
     func zodiacSign(for planet: String) -> String? {
-        guard let position = planetaryPositions[planet] else { return nil }
-        
-        // Each sign is 30 degrees
-        let signIndex = Int(position / 30)
-        let signs = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
-                     "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"]
-        
-        return signs[safe: signIndex % 12]
+        return planets[planet]?.zodiacSign
     }
     
-    /// Check if any planet is in retrograde (simplified)
+    /// Claude: Get planetary element for a planet
+    func element(for planet: String) -> String? {
+        return planets[planet]?.element
+    }
+    
+    /// Claude: Check if any planet is in retrograde (future enhancement)
     func isRetrograde(_ planet: String) -> Bool {
-        // TODO: Implement retrograde detection based on position changes
-        // This requires historical data comparison
+        // Claude: TODO - Implement retrograde detection based on position changes
+        // This requires historical data comparison or additional Firebase Functions data
         return false
     }
     
     // MARK: - Spiritual Insights
     
-    /// Generate a brief cosmic summary for the day
+    /// Claude: Generate a brief cosmic summary for the day
     var dailyCosmicSummary: String {
-        var summary = "\(moonPhaseEmoji) \(moonPhase)"
+        var summary = "\(moonPhaseEmoji) \(moonPhase.phaseName)"
         
         if let illumination = moonIllumination {
             summary += " (\(Int(illumination))% illuminated)"
@@ -144,7 +187,7 @@ struct CosmicData: Codable, Equatable {
         
         summary += " • \(sunSignEmoji) Sun in \(sunSign)"
         
-        // Add notable planetary positions
+        // Claude: Add notable planetary positions
         if let mercurySign = zodiacSign(for: "Mercury") {
             summary += " • Mercury in \(mercurySign)"
         }
@@ -152,56 +195,91 @@ struct CosmicData: Codable, Equatable {
         return summary
     }
     
-    /// Spiritual meaning based on current cosmic configuration
-    var spiritualGuidance: String {
-        // Combine moon phase and sun sign for guidance
-        switch (moonPhase.lowercased(), sunSign.lowercased()) {
-        case (let phase, _) where phase.contains("new"):
-            return "Time for new beginnings. Set intentions aligned with \(sunSign) energy."
-        case (let phase, _) where phase.contains("full"):
-            return "Culmination period. Release what no longer serves your \(sunSign) nature."
-        case (let phase, _) where phase.contains("waxing"):
-            return "Growth phase. Build momentum with \(sunSign) determination."
-        case (let phase, _) where phase.contains("waning"):
-            return "Reflection time. Integrate lessons through \(sunSign) wisdom."
-        default:
-            return "Align with cosmic rhythms. Let \(sunSign) guide your spiritual journey."
-        }
+    /// Claude: Spiritual guidance comes directly from Firebase Functions
+    var cosmicGuidance: String {
+        return spiritualGuidance
     }
     
     // MARK: - Initialization
     
-    /// Initialize from local calculations (fallback mode)
+    /// Claude: Initialize from local calculations (fallback mode)
     static func fromLocalCalculations(for date: Date = Date()) -> CosmicData {
         let moonInfo = MoonPhaseCalculator.moonInfo(for: date)
         let zodiacInfo = ZodiacSignCalculator.zodiacInfo(for: date)
         
+        // Claude: Create basic local data structure
+        let formatter = DateFormatter.cosmicDateFormatter
+        let dateString = formatter.string(from: date)
+        
+        // Claude: Create mock planetary positions with Sun only (local fallback)
+        let sunPosition = PlanetaryPosition(
+            longitude: 0.0, // Claude: Simplified - would need actual calculation
+            zodiacSign: zodiacInfo.sign.rawValue,
+            zodiacDegree: 0.0,
+            element: zodiacInfo.element,
+            quality: zodiacInfo.quality,
+            emoji: zodiacInfo.sign.emoji
+        )
+        
+        // Claude: Create moon phase info from local calculations
+        let moonPhaseInfo = MoonPhaseInfo(
+            illumination: moonInfo.illumination,
+            phaseAngle: 0.0, // Claude: Not calculated locally
+            phaseName: moonInfo.phase.rawValue,
+            emoji: moonInfo.phase.emoji,
+            zodiacSign: "Unknown", // Claude: Not calculated locally
+            zodiacDegree: nil,
+            element: nil,
+            spiritualMeaning: moonInfo.phase.spiritualMeaning,
+            sacredNumber: 1 // Claude: Simplified for local fallback
+        )
+        
+        // Claude: Create basic sacred numbers
+        let sacredNumbers = SacredNumbers(
+            cosmic: nil,
+            moon: nil,
+            harmony: nil,
+            date: nil
+        )
+        
         return CosmicData(
-            planetaryPositions: [:], // No planetary data in local mode
-            moonAge: moonInfo.age,
-            moonPhase: moonInfo.phase.rawValue,
-            sunSign: zodiacInfo.sign.rawValue,
-            moonIllumination: moonInfo.illumination,
-            nextFullMoon: nil, // TODO: Calculate from moon age
-            nextNewMoon: nil,  // TODO: Calculate from moon age
-            createdAt: date
+            date: dateString,
+            timestamp: date.ISO8601Format(),
+            planets: ["Sun": sunPosition],
+            moonPhase: moonPhaseInfo,
+            spiritualGuidance: "Local calculations available. Connect to internet for full cosmic data.",
+            sacredNumbers: sacredNumbers,
+            calculatedAt: date,
+            version: "local-fallback"
         )
     }
+}
+
+// MARK: - DateFormatter Extension
+
+extension DateFormatter {
+    /// Claude: Shared date formatter for cosmic data consistency
+    static let cosmicDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        return formatter
+    }()
 }
 
 // MARK: - Firestore Integration
 
 extension CosmicData {
-    /// Custom keys for Firestore to match Firebase Function output
+    /// Claude: CodingKeys match Firebase Functions output exactly
     enum CodingKeys: String, CodingKey {
-        case planetaryPositions = "positions"
-        case moonAge
+        case date
+        case timestamp  
+        case planets
         case moonPhase
-        case sunSign
-        case moonIllumination
-        case nextFullMoon
-        case nextNewMoon
-        case createdAt
+        case spiritualGuidance
+        case sacredNumbers
+        case calculatedAt
+        case version
     }
 }
 
