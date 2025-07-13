@@ -259,7 +259,7 @@ class CosmicService: ObservableObject {
     /**
      * Schedule daily update at midnight
      */
-    private func scheduleDailyUpdate() {
+    func scheduleDailyUpdate() {
         // Cancel existing timer
         dailyUpdateTimer?.invalidate()
         
@@ -270,11 +270,11 @@ class CosmicService: ObservableObject {
         let timeInterval = midnight.timeIntervalSince(Date())
         
         // Schedule timer
-        dailyUpdateTimer = Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: false) { [weak self] _ in
-            Task {
-                await self?.fetchTodaysCosmicData()
+        dailyUpdateTimer = Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: false) { _ in
+            Task { @MainActor in
+                await CosmicService.shared.fetchTodaysCosmicData()
                 // Reschedule for next day
-                self?.scheduleDailyUpdate()
+                CosmicService.shared.scheduleDailyUpdate()
             }
         }
         
@@ -312,7 +312,7 @@ class CosmicService: ObservableObject {
         }
         
         // Mercury retrograde (placeholder - needs historical data)
-        if let mercuryPos = cosmic.position(for: "Mercury"),
+        if let _ = cosmic.position(for: "Mercury"),
            cosmic.isRetrograde("Mercury") {
             events.append("☿ Mercury Retrograde - Review and revise communications")
         }
