@@ -324,10 +324,18 @@ match /cosmicData/{date} {
 
 ### **📱 UI/UX INTEGRATION:**
 
-**HomeView Enhancements:**
-- Cosmic banner showing moon phase
-- Today's planetary highlights
-- Tap for expanded cosmic view
+**RealmNumberView Enhancements:**
+- **Primary Integration Point:** Cosmic data displays below "Today's Ruling Number" graph
+- Compact cosmic snapshot section showing:
+  - Current moon phase with icon
+  - Today's sun sign
+  - Key planetary positions
+- Tap to expand for full cosmic detail view
+- Seamless integration with existing realm number spiritual data
+
+**HomeView Additions:**
+- Quick moon phase indicator in header
+- Tap to navigate to RealmNumberView cosmic section
 
 **MySanctum Additions:**
 - Birth chart summary
