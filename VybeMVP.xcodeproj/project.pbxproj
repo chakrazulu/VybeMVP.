@@ -132,6 +132,11 @@
 		4DB1DE992E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE8C2E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh */; };
 		4DB1DE9A2E22A5C2001A9EA5 /* memory-check.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE902E22A5C2001A9EA5 /* memory-check.sh */; };
 		4DB1DE9C2E22A7A9001A9EA5 /* SCRIPTS_GUIDE.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE9B2E22A7A9001A9EA5 /* SCRIPTS_GUIDE.md */; };
+		4DB1DF902E235393001A9EA5 /* MoonPhaseCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1DF8F2E235393001A9EA5 /* MoonPhaseCalculator.swift */; };
+		4DB1DF922E2353A5001A9EA5 /* ZodiacSignCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1DF912E2353A5001A9EA5 /* ZodiacSignCalculator.swift */; };
+		4DB1DF942E23540B001A9EA5 /* CosmicData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1DF932E23540B001A9EA5 /* CosmicData.swift */; };
+		4DB1DF962E235450001A9EA5 /* CosmicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1DF952E235450001A9EA5 /* CosmicService.swift */; };
+		4DB1DF982E23549F001A9EA5 /* CosmicSnapshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1DF972E23549F001A9EA5 /* CosmicSnapshotView.swift */; };
 		4DB233F42E114580004EC2BC /* NeonTracerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F32E114580004EC2BC /* NeonTracerView.swift */; };
 		4DB233F62E1169CD004EC2BC /* VybeMatchOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F52E1169CD004EC2BC /* VybeMatchOverlay.swift */; };
 		4DB233F82E116AF5004EC2BC /* VybeMatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F72E116AF5004EC2BC /* VybeMatchManager.swift */; };
@@ -358,6 +363,11 @@
 		4DB1DE902E22A5C2001A9EA5 /* memory-check.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "memory-check.sh"; sourceTree = "<group>"; };
 		4DB1DE922E22A5C2001A9EA5 /* clean-project.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "clean-project.sh"; sourceTree = "<group>"; };
 		4DB1DE9B2E22A7A9001A9EA5 /* SCRIPTS_GUIDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SCRIPTS_GUIDE.md; sourceTree = "<group>"; };
+		4DB1DF8F2E235393001A9EA5 /* MoonPhaseCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonPhaseCalculator.swift; sourceTree = "<group>"; };
+		4DB1DF912E2353A5001A9EA5 /* ZodiacSignCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZodiacSignCalculator.swift; sourceTree = "<group>"; };
+		4DB1DF932E23540B001A9EA5 /* CosmicData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicData.swift; sourceTree = "<group>"; };
+		4DB1DF952E235450001A9EA5 /* CosmicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicService.swift; sourceTree = "<group>"; };
+		4DB1DF972E23549F001A9EA5 /* CosmicSnapshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicSnapshotView.swift; sourceTree = "<group>"; };
 		4DB233F32E114580004EC2BC /* NeonTracerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeonTracerView.swift; sourceTree = "<group>"; };
 		4DB233F52E1169CD004EC2BC /* VybeMatchOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeMatchOverlay.swift; sourceTree = "<group>"; };
 		4DB233F72E116AF5004EC2BC /* VybeMatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeMatchManager.swift; sourceTree = "<group>"; };
@@ -546,6 +556,7 @@
 		4D3055982D3C9462009A7BBD /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				4DB1DF952E235450001A9EA5 /* CosmicService.swift */,
 				4DCB38712E1B3CDD00311D51 /* KASPERManager.swift */,
 				4DB233F72E116AF5004EC2BC /* VybeMatchManager.swift */,
 				4D2CC6F32E08688000BDF100 /* MandalaAssetManager.swift */,
@@ -585,6 +596,8 @@
 		4D3055ED2D3CF838009A7BBD /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				4DB1DF912E2353A5001A9EA5 /* ZodiacSignCalculator.swift */,
+				4DB1DF8F2E235393001A9EA5 /* MoonPhaseCalculator.swift */,
 				4DCB397B2E2094A500311D51 /* NumberPatternGenerator.swift */,
 				4DCB38772E1F647B00311D51 /* SVGPathExtractor.swift */,
 				4DB233FE2E121BF7004EC2BC /* PerformanceMonitor.swift */,
@@ -599,6 +612,7 @@
 		4D3055F92D3D899A009A7BBD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4DB1DF932E23540B001A9EA5 /* CosmicData.swift */,
 				4DCB386F2E1B3C8F00311D51 /* KASPERPrimingPayload.swift */,
 				4D2CC70D2E0B9E5200BDF100 /* RealmSample.swift */,
 				4D2CC7022E08C78C00BDF100 /* UserProfile.swift */,
@@ -634,6 +648,7 @@
 		4D3727142DE550ED00B5A02B /* ReusableComponents */ = {
 			isa = PBXGroup;
 			children = (
+				4DB1DF972E23549F001A9EA5 /* CosmicSnapshotView.swift */,
 				4DB233F92E11F0E7004EC2BC /* CosmicAnimations */,
 				4DB233F52E1169CD004EC2BC /* VybeMatchOverlay.swift */,
 				4DB233F32E114580004EC2BC /* NeonTracerView.swift */,
@@ -1194,8 +1209,10 @@
 				4D6C7BBB2DE48126001036E5 /* Logger+Extensions.swift in Sources */,
 				4D3055FC2D3D8F8A009A7BBD /* JournalListView.swift in Sources */,
 				4DB233F82E116AF5004EC2BC /* VybeMatchManager.swift in Sources */,
+				4DB1DF942E23540B001A9EA5 /* CosmicData.swift in Sources */,
 				4DC602402D34651C00B5E4A9 /* SettingsView.swift in Sources */,
 				4D80E1012D3F1DD80020F7BB /* NumberMeaning.swift in Sources */,
+				4DB1DF962E235450001A9EA5 /* CosmicService.swift in Sources */,
 				4DC6023E2D34650400B5E4A9 /* HomeView.swift in Sources */,
 				4D6C7B592DE45517001036E5 /* ResonanceEngine.swift in Sources */,
 				4D3055FA2D3D899A009A7BBD /* JournalMood.swift in Sources */,
@@ -1228,6 +1245,7 @@
 				4D2CC6F42E08688000BDF100 /* MandalaAssetManager.swift in Sources */,
 				4D2CC6F22E08680400BDF100 /* MandalaBackgroundView.swift in Sources */,
 				4D3055EB2D3CF492009A7BBD /* NumberCell.swift in Sources */,
+				4DB1DF922E2353A5001A9EA5 /* ZodiacSignCalculator.swift in Sources */,
 				4D3055DF2D3CE8AE009A7BBD /* JournalView.swift in Sources */,
 				4D3727102DE5407100B5A02B /* InsightHistoryView.swift in Sources */,
 				4D80E0FD2D3F1B0B0020F7BB /* NumberMeaningView.swift in Sources */,
@@ -1236,6 +1254,7 @@
 				4DCB38782E1F647B00311D51 /* SVGPathExtractor.swift in Sources */,
 				4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */,
 				4DA01CAE2D8533F50070309D /* NotificationManager.swift in Sources */,
+				4DB1DF982E23549F001A9EA5 /* CosmicSnapshotView.swift in Sources */,
 				4DA6425D2D8113D80047287B /* HeartRateView.swift in Sources */,
 				4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */,
 				4D2DB4912DFF70E00003353E /* SharedUIComponents.swift in Sources */,
@@ -1288,6 +1307,7 @@
 				4D6C7BA02DE47E99001036E5 /* OnboardingCosmicRhythmsView.swift in Sources */,
 				4D6C7BA12DE47E99001036E5 /* OnboardingView.swift in Sources */,
 				4D2DB48D2DFF6AF90003353E /* SightingDetailView.swift in Sources */,
+				4DB1DF902E235393001A9EA5 /* MoonPhaseCalculator.swift in Sources */,
 				4D6C7BA22DE47E99001036E5 /* OnboardingViewModel.swift in Sources */,
 				4D53BE252DEC151900BAE6AE /* VoiceRecordingManager.swift in Sources */,
 				4D6C7BB52DE48089001036E5 /* UserProfileService.swift in Sources */,
