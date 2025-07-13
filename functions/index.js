@@ -92,7 +92,7 @@ exports.generateDailyCosmicData = functions.https.onRequest(async (req, res) => 
         // This allows the function to work within Google Cloud domain restrictions
         // while still being accessible to the iOS app with proper authentication
         const apiKey = req.query.key || req.headers['x-api-key'];
-        if (!apiKey || apiKey !== 'vybe-cosmic-2025') {
+        if (!apiKey || apiKey !== functions.config().vybe.api_key) {
             console.log('❌ Unauthorized request - missing or invalid API key');
             return res.status(401).json({
                 success: false,
@@ -544,7 +544,7 @@ exports.healthCheck = functions.https.onRequest((req, res) => {
     // Health check endpoint to verify Firebase Functions deployment and accessibility
     // Used by monitoring systems and iOS app to verify service availability
     const apiKey = req.query.key || req.headers['x-api-key'];
-    if (!apiKey || apiKey !== 'vybe-cosmic-2025') {
+    if (!apiKey || apiKey !== functions.config().vybe.api_key) {
         console.log('❌ Health check failed - unauthorized request');
         return res.status(401).json({
             status: 'unauthorized',

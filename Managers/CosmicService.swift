@@ -291,9 +291,11 @@ class CosmicService: ObservableObject {
         
         // Claude: Add API key for organization policy compliance
         // This API key enables access through Google Cloud domain restrictions
-        // Key: 'vybe-cosmic-2025' matches Firebase Functions authentication requirement
+        // Key stored securely in app configuration, not hardcoded
         // Future: Can be removed when organization policy allows public access
-        request.setValue("vybe-cosmic-2025", forHTTPHeaderField: "x-api-key")
+        if let apiKey = Bundle.main.object(forInfoDictionaryKey: "VYBE_API_KEY") as? String {
+            request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
+        }
         
         // Claude: Add timeout for better UX
         request.timeoutInterval = 10.0

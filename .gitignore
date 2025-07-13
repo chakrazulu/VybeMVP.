@@ -13,3 +13,24 @@ xcdebugger/
 *.tmp
 .DS_Store
 
+# 🚨 SECURITY - API Keys and Secrets (CRITICAL)
+functions/.env
+GoogleService-Info.plist
+.env
+*.env
+**/secrets/
+**/*-key.json
+**/*-service-account.json
+
+# Firebase
+firebase-debug.log
+.firebase/
+.firebaserc
+
+# Node.js (functions directory)
+functions/node_modules/
+functions/npm-debug.log
+
+# Test Results
+test_results.xcresult/
+
