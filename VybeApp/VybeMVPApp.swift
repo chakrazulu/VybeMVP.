@@ -44,6 +44,7 @@ import os.log
 import BackgroundTasks
 import FirebaseCore
 import FirebaseMessaging
+import FirebaseAppCheck
 import UserNotifications
 import CoreData
 
@@ -66,8 +67,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // CONFIGURE FIREBASE HERE - This is the most reliable place
         FirebaseApp.configure()
+        
+        // Claude: Phase 10C-A - Configure Firebase App Check for organization policy solution
+        AppCheckConfiguration.configure()
+        
         // Log after configuration to confirm
         Logger.app.info("🔥 Firebase configured in AppDelegate didFinishLaunchingWithOptions")
+        Logger.app.info("🔐 Firebase App Check configured for enterprise security")
 
         // Register background task handler early in app lifecycle
         BGTaskScheduler.shared.register(

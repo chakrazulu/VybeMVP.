@@ -55,6 +55,9 @@
 	<string>Focus Number Calculator</string>
 	<key>NSCameraUsageDescription</key>
 	<string>VybeMVP uses your camera to capture photos of number sightings for your synchronicity journal.</string>
+	<key>VYBE_API_KEY</key>
+	<string>ba552afd67c8d8a4ef826595cc20e196c106a23b995e283c7d827d2d8444cae8
+  c7d827d2d8444cae8</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>VybeMVP needs access to your photo library to save and select photos for your number sightings.</string>
 </dict>

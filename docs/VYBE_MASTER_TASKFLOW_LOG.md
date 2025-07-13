@@ -364,13 +364,219 @@ CosmicSnapshotView(realmNumber: realmNumberManager.currentRealmNumber)
 - **Solution Ready:** API key authentication (`vybe-cosmic-2025`) implemented and tested
 - **Impact:** App works perfectly with local data, ready for cloud upgrade when policy allows
 
-### **📋 NEXT STEPS (Phase 10C):**
-1. **Organization Policy:** Contact Google Cloud admin to adjust domain restrictions
-2. **Enhanced UI:** Expand cosmic data display with planetary position visualizations  
-3. **KASPER Integration:** Connect cosmic data to AI oracle for personalized insights
-4. **Notification System:** Cosmic event alerts (full moons, planetary transits)
-
 **PHASE 10B STATUS: 🎉 COMPLETE SUCCESS WITH ENTERPRISE SOLUTION 🎉**
+
+---
+
+## 🔮 **PHASE 10C: ORGANIZATION POLICY SOLUTION & UI ENRICHMENT** *(NEXT - IN PLANNING)*
+
+**Priority:** CRITICAL | **Timeline:** 1 week | **Complexity:** Medium-High  
+**Branch:** `feature/organization-policy-solution` (Active)  
+**ChatGPT Consultation:** ✅ COMPLETE - Strategic roadmap defined
+
+### **🎯 MISSION STATEMENT:**
+Resolve Google Cloud organization policy restrictions using Firebase App Check while enriching the cosmic UI experience and preparing for KASPER AI integration.
+
+### **🔐 PHASE 10C-A: Organization Policy Resolution**
+**Goal:** Enable Firebase Functions access through enterprise-compliant App Check authentication
+
+#### **🚀 Firebase App Check Implementation (RECOMMENDED):**
+1. **Enable App Check in Firebase Console:**
+   - Register iOS app with App Attest provider
+   - Configure debug provider for development builds
+   - Upload App Attest key from Apple Developer portal
+
+2. **iOS App Check Integration:**
+   ```swift
+   import FirebaseAppCheck
+   
+   private func configureAppCheck() {
+     let providerFactory = AppAttestProviderFactory()
+     AppCheck.setAppCheckProviderFactory(providerFactory)
+     
+     #if DEBUG
+     AppCheck.setAppCheckProviderFactory(DebugAppCheckProviderFactory())
+     #endif
+   }
+   ```
+
+3. **Firebase Functions App Check Enforcement:**
+   ```javascript
+   exports.generateDailyCosmicData = functions.https.onRequest((req, res) => {
+     const appCheckToken = req.header('X-Firebase-AppCheck');
+     admin.appCheck().verifyToken(appCheckToken)
+       .then(() => {
+         // Existing cosmic calculations
+       })
+       .catch(() => {
+         res.status(401).send('Unauthorized — invalid App Check token');
+       });
+   });
+   ```
+
+#### **✅ EXPECTED OUTCOMES:**
+- ✅ No organization policy conflicts (App Check bypasses domain restrictions)
+- ✅ Enterprise-grade security (app attestation prevents abuse)
+- ✅ Zero service account credential management
+- ✅ Mobile-first authentication designed for iOS apps
+
+### **🎨 PHASE 10C-B: Enhanced Cosmic UI Features**
+**Goal:** Transform basic CosmicSnapshotView into comprehensive cosmic dashboard
+
+#### **📱 Cosmic Dashboard Implementation:**
+1. **Full-Screen Cosmic Modal:**
+   - Circular chart of all 10 planetary positions (Mercury→Pluto)
+   - Element-based color coding (Fire, Earth, Air, Water)
+   - Interactive planet details with spiritual meanings
+
+2. **Timeline Slider Feature:**
+   - Date navigation for past/future cosmic configurations
+   - Visual planetary motion tracking
+   - Historical cosmic event highlights
+
+3. **Mandala Sync Enhancement:**
+   - Moon phase brightness affects mandala pulse intensity
+   - Planetary transit triggers (Mercury retrograde, conjunctions)
+   - Real-time cosmic resonance visual feedback
+
+#### **🗂️ New Files to Create:**
+- `Views/Cosmic/CosmicDashboardView.swift` - Full cosmic data visualization
+- `Views/Cosmic/PlanetaryChartView.swift` - Circular planetary position chart
+- `Views/Cosmic/CosmicTimelineView.swift` - Date navigation slider
+- `Managers/CosmicEventManager.swift` - Cosmic event detection and notifications
+
+### **🔮 PHASE 10C-C: KASPER Oracle Cosmic Integration**
+**Goal:** Feed cosmic data into AI insights for personalized spiritual guidance
+
+#### **🧠 AI Enhancement Implementation:**
+1. **Payload Extension for KASPER:**
+   ```swift
+   struct KASPERPrimingPayload {
+     // Existing fields...
+     let cosmic: CosmicData?  // NEW: Full cosmic context
+     let cosmicEvents: [CosmicEvent]?  // NEW: Active planetary events
+   }
+   ```
+
+2. **Enhanced Prompt Templates:**
+   ```
+   "With Mercury at {longitude}° in {sign}, your {lifePathNumber} energy suggests: {guidance}
+   Current {moonPhase} amplifies your {chakraState} chakra focus."
+   ```
+
+3. **Cosmic-Aware Insight Generation:**
+   - Moon phase-specific guidance templates
+   - Planetary transit interpretations
+   - Number + astrology synthesis for personalized insights
+
+### **📅 PHASE 10C-D: Cosmic Event Notification System**
+**Goal:** Keep users aligned with cosmic timing through intelligent alerts
+
+#### **🔔 Notification Architecture:**
+1. **Event Detection System:**
+   - Daily Cloud Function scanning for cosmic events
+   - Full moon, new moon, planetary retrograde detection
+   - Major conjunction and aspect calculations
+
+2. **Firestore Event Storage:**
+   ```javascript
+   cosmicEvents/YYYY-MM-DD: {
+     type: "full_moon" | "new_moon" | "mercury_retrograde" | "conjunction",
+     description: "Full Moon in Aquarius - Release and Transformation",
+     timestampUTC: Timestamp,
+     planets: ["Moon", "Sun"], // For conjunctions
+     spiritualMeaning: "Time for emotional release and manifestation"
+   }
+   ```
+
+3. **iOS Notification Integration:**
+   - Local notification scheduling (24hr, 1hr before events)
+   - User preference settings (which events to receive)
+   - Cosmic alert customization by spiritual focus
+
+---
+
+## 💰 **PHASE 10D: COST MANAGEMENT & OPTIMIZATION** *(PLANNING)*
+
+**Priority:** HIGH | **Timeline:** Ongoing | **Complexity:** Medium  
+**Goal:** Maintain VybeMVP backend costs under $20/month while scaling to thousands of users
+
+### **💳 Cost Management Strategy:**
+
+#### **🚨 Billing Protection (IMMEDIATE):**
+1. **Budget & Alert Setup:**
+   - Monthly budget: $20 with alerts at 50%, 75%, 90%
+   - Daily budget: $1 to catch usage spikes early
+   - Email/Slack notifications for proactive monitoring
+
+2. **BigQuery Usage Analytics:**
+   - Enable Firestore usage export to BigQuery
+   - Create Looker Studio dashboard for reads/writes tracking
+   - Monitor per-user and per-collection usage patterns
+
+#### **⚡ Performance Optimization:**
+1. **Firestore Read/Write Efficiency:**
+   ```swift
+   // Optimized reads with projection and pagination
+   .limit(20)
+   .select(["essential_field_only"])
+   .startAfter(lastDocument)
+   ```
+
+2. **Aggressive Client-Side Caching:**
+   - 24-hour UserDefaults cache for cosmic data
+   - Delta sync for HealthKit data (only changed samples)
+   - Batch writes every 5-10 minutes vs real-time
+
+3. **Data Lifecycle Management:**
+   - TTL policies for ephemeral data (social posts >30 days)
+   - Archive old data to Cloud Storage ($0.026/GB vs Firestore costs)
+   - Automatic cleanup of test/debug data
+
+#### **🔧 Infrastructure Right-Sizing:**
+1. **Firebase Functions Optimization:**
+   - Memory reduction: 256MB vs 512MB (50% cost savings)
+   - Max instances cap to prevent runaway autoscaling
+   - Regional deployment optimization
+
+2. **Rate Limiting & Abuse Protection:**
+   - App Check prevents fraudulent usage (already in 10C)
+   - API Gateway rate limits (100 requests/minute per user)
+   - Cloud Armor protection for Functions endpoints
+
+### **📊 Cost Projection ($20/month budget):**
+- **Firestore Reads:** ~1M reads/day = $1.80/month
+- **Firestore Writes:** ~200K writes/day = $0.65/month  
+- **Cloud Functions:** ~100K calls/day = $0.04/month
+- **Storage:** <5GB assets = Free tier
+- **Total Projected:** ~$2.50/month with optimization
+
+**Buffer for Growth:** $17.50/month allows 10x user growth with current optimization
+
+---
+
+## 🎯 **IMMEDIATE ACTION PLAN:**
+
+### **Week 1: App Check Implementation**
+1. ✅ Create `feature/organization-policy-solution` branch
+2. 🔄 Enable Firebase App Check in console  
+3. 🔄 Integrate App Check SDK in iOS app
+4. 🔄 Update Firebase Functions with App Check enforcement
+5. 🔄 Test complete authentication flow
+
+### **Week 2: Enhanced Cosmic UI**
+1. 🔄 Create CosmicDashboardView with planetary chart
+2. 🔄 Implement timeline slider for date navigation
+3. 🔄 Add mandala-cosmic data synchronization
+4. 🔄 Test full UI integration with real cosmic data
+
+### **Week 3: KASPER Integration & Cost Setup**
+1. 🔄 Extend KASPERPrimingPayload with cosmic data
+2. 🔄 Create cosmic-aware AI prompt templates
+3. 🔄 Set up billing budgets and monitoring
+4. 🔄 Implement basic notification system
+
+**END GOAL:** Complete cosmic astrology platform with enterprise security, AI integration, and cost-optimized infrastructure ready for production scaling. 🌌✨
    - Cosmic timing recommendations
 
 3. **Enhanced Prompt Engineering:**
