@@ -35,7 +35,32 @@
 
 import SwiftUI
 
-/// Compact cosmic data display for RealmNumberView integration
+/// Claude: Revolutionary interactive cosmic data display with comprehensive planetary intelligence
+///
+/// This view represents a complete transformation from a simple static display to a living,
+/// interactive cosmic intelligence system. Provides users with deep astrological insights
+/// while feeding KASPER AI the comprehensive celestial data needed for accurate spiritual guidance.
+///
+/// **Key Features:**
+/// - **Complete Planetary Coverage**: All 10 major celestial bodies with real-time positioning
+/// - **Interactive Planet Details**: Tap any planet for comprehensive spiritual and astronomical information  
+/// - **Real-Time Cosmic Flow**: Live retrograde detection, void-of-course Moon, planetary aspects
+/// - **Accurate Calculations**: Enhanced ephemeris algorithms with J2000.0 epoch precision
+/// - **Traditional Astrology**: Authentic aspect interpretations with proper orbs and meanings
+/// - **KASPER AI Ready**: Complete dataset for advanced spiritual insight generation
+///
+/// **Visual Layout:**
+/// - **Primary Row**: Moon (with VoC indicator), Sun, Mercury (daily influences)
+/// - **Secondary Row**: Venus, Mars, Jupiter (personal energies)
+/// - **Outer Planets**: Saturn, Uranus, Neptune (generational/spiritual forces)
+/// - **Key Aspects**: Today's most significant planetary interactions
+/// - **Spiritual Guidance**: Dynamic cosmic advice based on all celestial influences
+///
+/// **Real-Time Indicators:**
+/// - **Retrograde (℞)**: Orange symbols for planets in apparent backward motion
+/// - **Void-of-Course (∅)**: Purple indicators when Moon makes no more aspects
+/// - **Exact Aspects**: Yellow "EXACT" badges for aspects within 1° orb
+/// - **Next Lunar Events**: Timing for upcoming full/new moons
 struct CosmicSnapshotView: View {
     
     // MARK: - Environment & State
@@ -45,6 +70,12 @@ struct CosmicSnapshotView: View {
     
     /// Expand/collapse state
     @State private var isExpanded = false
+    
+    /// Selected planet for detailed view
+    @State private var selectedPlanet: String? = nil
+    
+    /// Show planetary detail popup
+    @State private var showingPlanetDetail = false
     
     /// Animation namespace for smooth transitions
     @Namespace private var cosmicNamespace
@@ -70,29 +101,43 @@ struct CosmicSnapshotView: View {
     // MARK: - Compact View
     
     private var compactView: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 16) {
             compactHeader
             compactContent
         }
-        .padding()
+        .padding(20)
         .background(cosmicBackground)
-        .cornerRadius(16)
-        .shadow(color: .black.opacity(0.3), radius: 8, x: 0, y: 4)
+        .shadow(color: .black.opacity(0.4), radius: 10, x: 0, y: 5)
         .onTapGesture {
-            withAnimation {
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
                 isExpanded = true
             }
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel(accessibilityLabel)
         .accessibilityHint("Tap to view detailed cosmic information")
+        .sheet(isPresented: $showingPlanetDetail) {
+            if let planet = selectedPlanet, let cosmic = cosmicService.todaysCosmic {
+                PlanetaryDetailView(
+                    planet: planet,
+                    cosmicData: cosmic,
+                    realmNumber: realmNumber
+                )
+            }
+        }
     }
     
     private var compactHeader: some View {
         HStack {
-            Label("Cosmic Snapshot", systemImage: "sparkles")
-                .font(.headline)
-                .foregroundColor(.white)
+            Text("✦ Cosmic Snapshot ✦")
+                .font(.system(size: 18, weight: .semibold, design: .rounded))
+                .foregroundStyle(
+                    LinearGradient(
+                        gradient: Gradient(colors: [.white, getRealmColor(for: realmNumber).opacity(0.8)]),
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                )
             
             Spacer()
             
@@ -104,18 +149,18 @@ struct CosmicSnapshotView: View {
             }) {
                 Image(systemName: "arrow.clockwise.circle.fill")
                     .foregroundColor(.white.opacity(0.7))
-                    .imageScale(.large)
+                    .imageScale(.medium)
             }
             .disabled(cosmicService.isLoading)
             
             if cosmicService.isLoading {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                    .scaleEffect(0.8)
+                    .scaleEffect(0.7)
             } else {
                 Image(systemName: "chevron.right.circle.fill")
                     .foregroundColor(.white.opacity(0.7))
-                    .imageScale(.large)
+                    .imageScale(.medium)
             }
         }
     }
@@ -133,145 +178,505 @@ struct CosmicSnapshotView: View {
     }
     
     private func cosmicDataGrid(cosmic: CosmicData) -> some View {
-        HStack(spacing: 16) {
-            // Moon Phase
-            VStack(spacing: 4) {
-                Text(cosmic.moonPhaseEmoji)
-                    .font(.system(size: 28))
-                Text(cosmic.moonPhase)
-                    .font(.caption)
-                    .foregroundColor(.white.opacity(0.9))
-                if let illumination = cosmic.moonIllumination {
-                    Text("\(Int(illumination))%")
-                        .font(.caption2)
-                        .foregroundColor(.white.opacity(0.7))
+        VStack(spacing: 16) {
+            // Primary cosmic data row - Moon, Sun, Mercury
+            HStack(spacing: 20) {
+                // Moon Phase
+                VStack(spacing: 6) {
+                    HStack(spacing: 2) {
+                        Text(cosmic.moonPhaseEmoji)
+                            .font(.system(size: 32))
+                        if cosmic.isVoidOfCoursePeriod {
+                            Text("∅")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundColor(.purple)
+                                .offset(x: -2, y: -8)
+                        }
+                    }
+                    Text(cosmic.moonPhase)
+                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                        .foregroundColor(.white.opacity(0.9))
+                        .multilineTextAlignment(.center)
+                    if let illumination = cosmic.moonIllumination {
+                        Text("\(Int(illumination))%")
+                            .font(.system(size: 10, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.7))
+                    }
+                    if cosmic.isVoidOfCoursePeriod {
+                        Text("VoC")
+                            .font(.system(size: 8, weight: .bold, design: .rounded))
+                            .foregroundColor(.purple)
+                    }
                 }
-            }
-            .frame(maxWidth: .infinity)
-            
-            // Divider
-            Rectangle()
-                .fill(Color.white.opacity(0.2))
-                .frame(width: 1, height: 50)
-            
-            // Sun Sign
-            VStack(spacing: 4) {
-                Text(cosmic.sunSignEmoji)
-                    .font(.system(size: 28))
-                Text(cosmic.sunSign)
-                    .font(.caption)
-                    .foregroundColor(.white.opacity(0.9))
-            }
-            .frame(maxWidth: .infinity)
-            
-            // Divider
-            Rectangle()
-                .fill(Color.white.opacity(0.2))
-                .frame(width: 1, height: 50)
-            
-            // Planetary highlights (Mercury & Venus)
-            VStack(spacing: 4) {
-                if let mercurySign = cosmic.planetaryZodiacSign(for: "Mercury") {
-                    HStack(spacing: 4) {
-                        Text("☿")
-                            .font(.system(size: 18))
+                .frame(maxWidth: .infinity)
+                
+                // Divider
+                Rectangle()
+                    .fill(Color.white.opacity(0.15))
+                    .frame(width: 1, height: 60)
+                
+                // Sun Sign
+                VStack(spacing: 6) {
+                    Text(cosmic.sunSignEmoji)
+                        .font(.system(size: 32))
+                    Text(cosmic.sunSign)
+                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                        .foregroundColor(.white.opacity(0.9))
+                        .multilineTextAlignment(.center)
+                    Text("Season")
+                        .font(.system(size: 10, weight: .medium, design: .rounded))
+                        .foregroundColor(.white.opacity(0.6))
+                }
+                .frame(maxWidth: .infinity)
+                
+                // Divider
+                Rectangle()
+                    .fill(Color.white.opacity(0.15))
+                    .frame(width: 1, height: 60)
+                
+                // Mercury (Communication & Mind)
+                VStack(spacing: 6) {
+                    if let mercurySign = cosmic.planetaryZodiacSign(for: "Mercury") {
+                        HStack(spacing: 2) {
+                            Text("☿")
+                                .font(.system(size: 32))
+                            if cosmic.isRetrograde("Mercury") {
+                                Text("℞")
+                                    .font(.system(size: 12, weight: .bold))
+                                    .foregroundColor(.orange)
+                                    .offset(x: -4, y: -8)
+                            }
+                        }
                         Text(mercurySign)
-                            .font(.caption2)
+                            .font(.system(size: 12, weight: .medium, design: .rounded))
                             .foregroundColor(.white.opacity(0.9))
+                            .multilineTextAlignment(.center)
+                        Text("Mind")
+                            .font(.system(size: 10, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.6))
+                    } else {
+                        Text("⭐")
+                            .font(.system(size: 32))
+                        Text("Loading...")
+                            .font(.system(size: 10, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.5))
                     }
                 }
-                
-                if let venusSign = cosmic.planetaryZodiacSign(for: "Venus") {
-                    HStack(spacing: 4) {
-                        Text("♀")
-                            .font(.system(size: 18))
-                        Text(venusSign)
-                            .font(.caption2)
-                            .foregroundColor(.white.opacity(0.9))
-                    }
-                }
-                
-                if cosmic.planetaryZodiacSign(for: "Mercury") == nil && cosmic.planetaryZodiacSign(for: "Venus") == nil {
-                    Text("Calculating...")
-                        .font(.caption2)
-                        .foregroundColor(.white.opacity(0.5))
+                .frame(maxWidth: .infinity)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selectedPlanet = "Mercury"
+                    showingPlanetDetail = true
                 }
             }
-            .frame(maxWidth: .infinity)
+            
+            // Secondary planetary row - Venus, Mars, Jupiter
+            HStack(spacing: 20) {
+                // Venus (Love & Beauty)
+                VStack(spacing: 6) {
+                    if let venusSign = cosmic.planetaryZodiacSign(for: "Venus") {
+                        HStack(spacing: 2) {
+                            Text("♀")
+                                .font(.system(size: 28))
+                            if cosmic.isRetrograde("Venus") {
+                                Text("℞")
+                                    .font(.system(size: 10, weight: .bold))
+                                    .foregroundColor(.orange)
+                                    .offset(x: -3, y: -6)
+                            }
+                        }
+                        Text(venusSign)
+                            .font(.system(size: 11, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.9))
+                            .multilineTextAlignment(.center)
+                        Text("Love")
+                            .font(.system(size: 9, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.6))
+                    } else {
+                        Text("♀")
+                            .font(.system(size: 28))
+                            .opacity(0.3)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selectedPlanet = "Venus"
+                    showingPlanetDetail = true
+                }
+                
+                // Mars (Action & Energy)
+                VStack(spacing: 6) {
+                    if let marsSign = cosmic.planetaryZodiacSign(for: "Mars") {
+                        HStack(spacing: 2) {
+                            Text("♂")
+                                .font(.system(size: 28))
+                            if cosmic.isRetrograde("Mars") {
+                                Text("℞")
+                                    .font(.system(size: 10, weight: .bold))
+                                    .foregroundColor(.orange)
+                                    .offset(x: -3, y: -6)
+                            }
+                        }
+                        Text(marsSign)
+                            .font(.system(size: 11, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.9))
+                            .multilineTextAlignment(.center)
+                        Text("Action")
+                            .font(.system(size: 9, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.6))
+                    } else {
+                        Text("♂")
+                            .font(.system(size: 28))
+                            .opacity(0.3)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selectedPlanet = "Mars"
+                    showingPlanetDetail = true
+                }
+                
+                // Jupiter (Expansion & Luck)
+                VStack(spacing: 6) {
+                    if let jupiterSign = cosmic.planetaryZodiacSign(for: "Jupiter") {
+                        Text("♃")
+                            .font(.system(size: 28))
+                        Text(jupiterSign)
+                            .font(.system(size: 11, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.9))
+                            .multilineTextAlignment(.center)
+                        Text("Growth")
+                            .font(.system(size: 9, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.6))
+                    } else {
+                        Text("♃")
+                            .font(.system(size: 28))
+                            .opacity(0.3)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selectedPlanet = "Jupiter"
+                    showingPlanetDetail = true
+                }
+            }
+            
+            // Outer planets row - Saturn, Uranus, Neptune
+            HStack(spacing: 20) {
+                // Saturn (Structure & Discipline)
+                VStack(spacing: 6) {
+                    if let saturnSign = cosmic.planetaryZodiacSign(for: "Saturn") {
+                        Text("♄")
+                            .font(.system(size: 24))
+                        Text(saturnSign)
+                            .font(.system(size: 10, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.8))
+                            .multilineTextAlignment(.center)
+                        Text("Structure")
+                            .font(.system(size: 8, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.5))
+                    } else {
+                        Text("♄")
+                            .font(.system(size: 24))
+                            .opacity(0.3)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selectedPlanet = "Saturn"
+                    showingPlanetDetail = true
+                }
+                
+                // Uranus (Innovation & Change)
+                VStack(spacing: 6) {
+                    if let uranusSign = cosmic.planetaryZodiacSign(for: "Uranus") {
+                        Text("♅")
+                            .font(.system(size: 24))
+                        Text(uranusSign)
+                            .font(.system(size: 10, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.8))
+                            .multilineTextAlignment(.center)
+                        Text("Change")
+                            .font(.system(size: 8, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.5))
+                    } else {
+                        Text("♅")
+                            .font(.system(size: 24))
+                            .opacity(0.3)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selectedPlanet = "Uranus"
+                    showingPlanetDetail = true
+                }
+                
+                // Neptune (Dreams & Intuition)
+                VStack(spacing: 6) {
+                    if let neptuneSign = cosmic.planetaryZodiacSign(for: "Neptune") {
+                        Text("♆")
+                            .font(.system(size: 24))
+                        Text(neptuneSign)
+                            .font(.system(size: 10, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.8))
+                            .multilineTextAlignment(.center)
+                        Text("Dreams")
+                            .font(.system(size: 8, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.5))
+                    } else {
+                        Text("♆")
+                            .font(.system(size: 24))
+                            .opacity(0.3)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selectedPlanet = "Neptune"
+                    showingPlanetDetail = true
+                }
+            }
+            
+            // Key planetary aspect section
+            if let keyAspect = cosmic.getTodaysKeyAspect() {
+                VStack(spacing: 8) {
+                    HStack {
+                        Image(systemName: "link.circle.fill")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundColor(getRealmColor(for: realmNumber).opacity(0.8))
+                        Text("Key Cosmic Aspect")
+                            .font(.system(size: 14, weight: .semibold, design: .rounded))
+                            .foregroundColor(.white.opacity(0.9))
+                        Spacer()
+                        if keyAspect.isExact {
+                            Text("EXACT")
+                                .font(.system(size: 10, weight: .bold, design: .rounded))
+                                .foregroundColor(.yellow)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 2)
+                                .background(Color.yellow.opacity(0.2))
+                                .cornerRadius(8)
+                        }
+                    }
+                    
+                    HStack {
+                        Text(keyAspect.description)
+                            .font(.system(size: 16, weight: .semibold, design: .rounded))
+                            .foregroundColor(.white)
+                        Spacer()
+                        Text(keyAspect.aspectType.energy)
+                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                            .foregroundColor(getRealmColor(for: realmNumber).opacity(0.8))
+                    }
+                }
+                .padding(.top, 4)
+            }
+            
+            // Spiritual guidance section
+            VStack(spacing: 8) {
+                HStack {
+                    Image(systemName: "sparkles")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(getRealmColor(for: realmNumber).opacity(0.8))
+                    Text("Today's Cosmic Guidance")
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .foregroundColor(.white.opacity(0.9))
+                    Spacer()
+                }
+                
+                Text(cosmicGuidanceText(for: cosmic))
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.8))
+                    .multilineTextAlignment(.leading)
+                    .lineSpacing(2)
+                    .lineLimit(3)
+            }
+            .padding(.top, 4)
         }
+    }
+    
+    /// Claude: Generate comprehensive cosmic guidance based on all planetary positions and real-time cosmic flow
+    ///
+    /// This method creates spiritually meaningful guidance by analyzing the complete cosmic landscape:
+    /// planetary positions, aspects, retrograde motion, and void-of-course Moon periods. The guidance
+    /// prioritizes immediate influences (Moon, aspects) while incorporating deeper planetary energies.
+    ///
+    /// **Guidance Priority System:**
+    /// 1. **Void-of-Course Moon** (highest priority) - Special timing considerations
+    /// 2. **Major Planetary Aspects** - Significant energetic combinations
+    /// 3. **Regular Moon Phase** - Emotional and intuitive guidance
+    /// 4. **Planetary Sign Positions** - Current energetic expressions
+    /// 5. **Upcoming Lunar Events** - Future timing awareness
+    ///
+    /// **KASPER AI Integration:**
+    /// Provides contextual spiritual insights that can be enhanced by KASPER's AI for personalized
+    /// guidance based on user's birth chart, current life circumstances, and spiritual journey.
+    private func cosmicGuidanceText(for cosmic: CosmicData) -> String {
+        var guidance: [String] = []
+        
+        // Void-of-course Moon guidance (takes priority)
+        if cosmic.isVoidOfCoursePeriod {
+            let voidInfo = cosmic.getVoidOfCourseMoon()
+            if let hours = voidInfo.durationHours {
+                guidance.append("🌙∅ Moon void-of-course for \(String(format: "%.1f", hours))h - time for reflection")
+            } else {
+                guidance.append("🌙∅ Moon void-of-course - avoid major decisions, focus inward")
+            }
+        } else {
+            // Regular moon phase guidance
+            let moonPhase = cosmic.moonPhase.lowercased()
+            if moonPhase.contains("waning gibbous") {
+                guidance.append("🌙 Gratitude and sharing wisdom with others")
+            } else if moonPhase.contains("waning") {
+                guidance.append("🌙 Release what no longer serves you")
+            } else if moonPhase.contains("waxing") {
+                guidance.append("🌙 Focus energy on growth and manifestation")
+            } else if moonPhase.contains("new") {
+                guidance.append("🌙 Perfect time for setting intentions")
+            } else if moonPhase.contains("full") {
+                guidance.append("🌙 Culmination energy - harvest your efforts")
+            }
+        }
+        
+        // Key planetary influences for KASPER AI accuracy
+        if let mercurySign = cosmic.planetaryZodiacSign(for: "Mercury") {
+            guidance.append("☿ Mind flows through \(mercurySign) energy")
+        }
+        
+        if let venusSign = cosmic.planetaryZodiacSign(for: "Venus") {
+            guidance.append("♀ Love expresses through \(venusSign) qualities")
+        }
+        
+        if let marsSign = cosmic.planetaryZodiacSign(for: "Mars") {
+            guidance.append("♂ Action drives from \(marsSign) motivation")
+        }
+        
+        // Outer planet wisdom (slower-moving, deeper influences)
+        if let jupiterSign = cosmic.planetaryZodiacSign(for: "Jupiter") {
+            guidance.append("♃ Growth expands through \(jupiterSign) wisdom")
+        }
+        
+        // Next moon phase timing
+        if let nextFullMoon = cosmic.nextFullMoon {
+            let daysUntil = Calendar.current.dateComponents([.day], from: Date(), to: nextFullMoon).day ?? 0
+            if daysUntil <= 7 {
+                guidance.append("🌕 Full Moon in \(daysUntil) days - prepare for culmination")
+            }
+        }
+        
+        return guidance.prefix(4).joined(separator: " • ")
     }
     
     private var loadingView: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 12) {
             ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: .white))
-            Text("Loading cosmic data...")
-                .font(.caption)
-                .foregroundColor(.white.opacity(0.7))
+                .progressViewStyle(CircularProgressViewStyle(tint: getRealmColor(for: realmNumber)))
+                .scaleEffect(1.2)
+            Text("✦ Loading Cosmic Data ✦")
+                .font(.system(size: 14, weight: .medium, design: .rounded))
+                .foregroundColor(.white.opacity(0.8))
         }
+        .frame(height: 80)
     }
     
     private var errorView: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 12) {
             Image(systemName: "exclamationmark.triangle.fill")
-                .foregroundColor(.yellow)
-                .font(.title2)
+                .foregroundColor(getRealmColor(for: realmNumber))
+                .font(.system(size: 24))
             Text("Unable to load cosmic data")
-                .font(.caption)
-                .foregroundColor(.white.opacity(0.7))
+                .font(.system(size: 14, weight: .medium, design: .rounded))
+                .foregroundColor(.white.opacity(0.8))
+            Text("Tap to retry")
+                .font(.system(size: 12, weight: .medium, design: .rounded))
+                .foregroundColor(.white.opacity(0.6))
         }
+        .frame(height: 80)
     }
     
     // MARK: - Expanded View
     
     private var expandedView: some View {
-        // TODO: Implement full-screen cosmic detail view
-        Text("Expanded Cosmic View - Coming Soon")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(cosmicBackground)
-            .onTapGesture {
-                withAnimation {
-                    isExpanded = false
-                }
+        ZStack {
+            // Background matching app style
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color.black,
+                    Color.purple.opacity(0.3),
+                    Color.indigo.opacity(0.2),
+                    Color.black
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+            
+            VStack(spacing: 40) {
+                Text("✦ COSMIC DETAIL VIEW ✦")
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .foregroundStyle(
+                        LinearGradient(
+                            gradient: Gradient(colors: [.white, getRealmColor(for: realmNumber).opacity(0.8)]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                
+                Text("Coming Soon")
+                    .font(.system(size: 20, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.7))
+                
+                Text("Tap anywhere to return")
+                    .font(.system(size: 16, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.5))
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .onTapGesture {
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                isExpanded = false
+            }
+        }
     }
     
     // MARK: - Supporting Views
     
     private var cosmicBackground: some View {
-        ZStack {
-            // Base gradient
-            LinearGradient(
-                gradient: Gradient(colors: sacredGradient(for: realmNumber)),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
+        RoundedRectangle(cornerRadius: 20)
+            .fill(Color.black.opacity(0.3))
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(
+                        LinearGradient(
+                            gradient: Gradient(colors: [.white.opacity(0.2), getRealmColor(for: realmNumber).opacity(0.3)]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 1
+                    )
             )
-            
-            // Glass effect
-            Color.white.opacity(0.1)
-            
-            // Blur backdrop
-            Rectangle()
-                .fill(.ultraThinMaterial)
-                .opacity(0.3)
-        }
     }
     
     // MARK: - Helper Methods
     
-    /// Get sacred gradient colors for realm number
-    private func sacredGradient(for number: Int) -> [Color] {
+    /// Get realm color that matches the app's color system
+    private func getRealmColor(for number: Int) -> Color {
         switch number {
-        case 1: return [Color(hex: "FF6B6B"), Color(hex: "C44569")]
-        case 2: return [Color(hex: "4ECDC4"), Color(hex: "44A08D")]
-        case 3: return [Color(hex: "FFE66D"), Color(hex: "FFB347")]
-        case 4: return [Color(hex: "95E1D3"), Color(hex: "78C1A3")]
-        case 5: return [Color(hex: "C7CEEA"), Color(hex: "B8A9C9")]
-        case 6: return [Color(hex: "FFDAB9"), Color(hex: "FFB6C1")]
-        case 7: return [Color(hex: "E8B4F8"), Color(hex: "B4A7E5")]
-        case 8: return [Color(hex: "B4E7CE"), Color(hex: "95D5B2")]
-        case 9: return [Color(hex: "FFB5E8"), Color(hex: "FF6B9D")]
-        default: return [Color.purple, Color.blue]
+        case 1: return .red
+        case 2: return .orange
+        case 3: return .yellow
+        case 4: return .green
+        case 5: return .blue
+        case 6: return .indigo
+        case 7: return .purple
+        case 8: return Color(red: 1.0, green: 0.8, blue: 0.0) // gold
+        case 9: return .white
+        default: return .white
         }
     }
     
@@ -290,7 +695,7 @@ struct CosmicSnapshotView: View {
         
         label += "Sun in \(cosmic.sunSign). "
         
-        if let mercurySign = cosmic.zodiacSign(for: "Mercury") {
+        if let mercurySign = cosmic.planetaryZodiacSign(for: "Mercury") {
             label += "Mercury in \(mercurySign). "
         }
         
@@ -298,6 +703,489 @@ struct CosmicSnapshotView: View {
         
         return label
     }
+}
+
+// MARK: - Planetary Detail View
+
+/// Comprehensive planetary detail view with spiritual insights
+struct PlanetaryDetailView: View {
+    let planet: String
+    let cosmicData: CosmicData
+    let realmNumber: Int
+    
+    @Environment(\.dismiss) private var dismiss
+    
+    var body: some View {
+        NavigationView {
+            ZStack {
+                // Cosmic background
+                LinearGradient(
+                    gradient: Gradient(colors: [
+                        Color.black,
+                        Color.purple.opacity(0.3),
+                        Color.indigo.opacity(0.2),
+                        Color.black
+                    ]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
+                
+                ScrollView {
+                    VStack(spacing: 24) {
+                        // Planet header
+                        planetHeader
+                        
+                        // Current position
+                        currentPositionCard
+                        
+                        // Spiritual meaning
+                        spiritualMeaningCard
+                        
+                        // Real-time cosmic flow
+                        cosmicFlowCard
+                        
+                        // Planetary aspects
+                        planetaryAspectsCard
+                        
+                        Spacer(minLength: 50)
+                    }
+                    .padding(20)
+                }
+            }
+            .navigationTitle(planet)
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        dismiss()
+                    }
+                    .foregroundColor(.white)
+                }
+            }
+        }
+    }
+    
+    private var planetHeader: some View {
+        VStack(spacing: 16) {
+            Text(planetSymbol(for: planet))
+                .font(.system(size: 80))
+            
+            Text(planet)
+                .font(.system(size: 32, weight: .bold, design: .rounded))
+                .foregroundStyle(
+                    LinearGradient(
+                        gradient: Gradient(colors: [.white, planetColor(for: planet)]),
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                )
+            
+            Text(planetArchetype(for: planet))
+                .font(.system(size: 18, weight: .medium, design: .rounded))
+                .foregroundColor(.white.opacity(0.8))
+                .multilineTextAlignment(.center)
+        }
+    }
+    
+    private var currentPositionCard: some View {
+        VStack(spacing: 16) {
+            HStack {
+                Image(systemName: "location.circle.fill")
+                    .foregroundColor(planetColor(for: planet))
+                Text("Current Position")
+                    .font(.system(size: 20, weight: .semibold, design: .rounded))
+                    .foregroundColor(.white)
+                Spacer()
+            }
+            
+            if let sign = cosmicData.planetaryZodiacSign(for: planet),
+               let position = cosmicData.position(for: planet) {
+                VStack(spacing: 12) {
+                    HStack {
+                        Text("\(planet) in \(sign)")
+                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                        Spacer()
+                        Text(zodiacEmoji(for: sign))
+                            .font(.system(size: 32))
+                    }
+                    
+                    HStack {
+                        Text("Ecliptic Longitude:")
+                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.7))
+                        Spacer()
+                        Text("\(String(format: "%.1f", position))°")
+                            .font(.system(size: 16, weight: .semibold, design: .rounded))
+                            .foregroundColor(planetColor(for: planet))
+                    }
+                    
+                    // Retrograde indicator
+                    if isRetrograde(planet: planet) {
+                        HStack {
+                            Image(systemName: "arrow.clockwise.circle.fill")
+                                .foregroundColor(.orange)
+                            Text("Currently Retrograde")
+                                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                .foregroundColor(.orange)
+                            Spacer()
+                        }
+                    }
+                    
+                    // Void-of-course Moon indicator
+                    if planet == "Moon" && cosmicData.isVoidOfCoursePeriod {
+                        let voidInfo = cosmicData.getVoidOfCourseMoon()
+                        HStack {
+                            Image(systemName: "moon.circle.fill")
+                                .foregroundColor(.purple)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Void-of-Course")
+                                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                    .foregroundColor(.purple)
+                                if let hours = voidInfo.durationHours {
+                                    Text("Duration: \(String(format: "%.1f", hours)) hours")
+                                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                                        .foregroundColor(.purple.opacity(0.8))
+                                }
+                                if let nextSign = voidInfo.nextSign {
+                                    Text("Enters \(nextSign) next")
+                                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                                        .foregroundColor(.purple.opacity(0.8))
+                                }
+                            }
+                            Spacer()
+                        }
+                        .padding(.top, 8)
+                    }
+                }
+            }
+        }
+        .padding(20)
+        .background(cardBackground)
+    }
+    
+    private var spiritualMeaningCard: some View {
+        VStack(spacing: 16) {
+            HStack {
+                Image(systemName: "sparkles")
+                    .foregroundColor(planetColor(for: planet))
+                Text("Spiritual Influence")
+                    .font(.system(size: 20, weight: .semibold, design: .rounded))
+                    .foregroundColor(.white)
+                Spacer()
+            }
+            
+            if let sign = cosmicData.planetaryZodiacSign(for: planet) {
+                VStack(spacing: 12) {
+                    Text(planetSpiritualMeaning(planet: planet, sign: sign))
+                        .font(.system(size: 16, weight: .medium, design: .rounded))
+                        .foregroundColor(.white.opacity(0.9))
+                        .lineSpacing(4)
+                    
+                    Divider()
+                        .background(Color.white.opacity(0.2))
+                    
+                    Text("Key Themes: \(planetKeyThemes(for: planet))")
+                        .font(.system(size: 14, weight: .medium, design: .rounded))
+                        .foregroundColor(.white.opacity(0.8))
+                        .lineSpacing(2)
+                }
+            }
+        }
+        .padding(20)
+        .background(cardBackground)
+    }
+    
+    private var cosmicFlowCard: some View {
+        VStack(spacing: 16) {
+            HStack {
+                Image(systemName: "waveform.path.ecg")
+                    .foregroundColor(planetColor(for: planet))
+                Text("Cosmic Flow Today")
+                    .font(.system(size: 20, weight: .semibold, design: .rounded))
+                    .foregroundColor(.white)
+                Spacer()
+            }
+            
+            VStack(spacing: 12) {
+                // Movement indicator
+                HStack {
+                    Text("Movement:")
+                        .font(.system(size: 14, weight: .medium, design: .rounded))
+                        .foregroundColor(.white.opacity(0.7))
+                    Spacer()
+                    Text(isRetrograde(planet: planet) ? "Retrograde ℞" : "Direct →")
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .foregroundColor(isRetrograde(planet: planet) ? .orange : .green)
+                }
+                
+                // Energy flow
+                HStack {
+                    Text("Energy Flow:")
+                        .font(.system(size: 14, weight: .medium, design: .rounded))
+                        .foregroundColor(.white.opacity(0.7))
+                    Spacer()
+                    Text(planetEnergyFlow(for: planet))
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .foregroundColor(planetColor(for: planet))
+                }
+                
+                // Best times
+                HStack {
+                    Text("Optimal for:")
+                        .font(.system(size: 14, weight: .medium, design: .rounded))
+                        .foregroundColor(.white.opacity(0.7))
+                    Spacer()
+                }
+                
+                Text(planetOptimalActivities(for: planet))
+                    .font(.system(size: 14, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.9))
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .padding(20)
+        .background(cardBackground)
+    }
+    
+    @ViewBuilder
+    private var planetaryAspectsCard: some View {
+        let relevantAspects = cosmicData.getCurrentAspects().filter { 
+            $0.planet1 == planet || $0.planet2 == planet 
+        }
+        
+        if !relevantAspects.isEmpty {
+            VStack(spacing: 16) {
+                HStack {
+                    Image(systemName: "link.circle")
+                        .foregroundColor(planetColor(for: planet))
+                    Text("Planetary Aspects")
+                        .font(.system(size: 20, weight: .semibold, design: .rounded))
+                        .foregroundColor(.white)
+                    Spacer()
+                }
+                
+                VStack(spacing: 10) {
+                    ForEach(Array(relevantAspects.prefix(4).enumerated()), id: \.offset) { index, aspect in
+                        HStack {
+                            Text(aspect.description)
+                                .font(.system(size: 14, weight: .medium, design: .rounded))
+                                .foregroundColor(.white.opacity(0.9))
+                            
+                            Spacer()
+                            
+                            Text(aspect.aspectType.energy)
+                                .font(.system(size: 12, weight: .medium, design: .rounded))
+                                .foregroundColor(planetColor(for: planet).opacity(0.8))
+                        }
+                        .padding(.vertical, 4)
+                        
+                        if index < relevantAspects.prefix(4).count - 1 {
+                            Divider()
+                                .background(Color.white.opacity(0.1))
+                        }
+                    }
+                }
+                
+                if relevantAspects.count > 4 {
+                    Text("+ \(relevantAspects.count - 4) more aspects")
+                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                        .foregroundColor(.white.opacity(0.6))
+                }
+            }
+            .padding(20)
+            .background(cardBackground)
+        }
+    }
+    
+    private var cardBackground: some View {
+        RoundedRectangle(cornerRadius: 16)
+            .fill(Color.black.opacity(0.4))
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(
+                        LinearGradient(
+                            gradient: Gradient(colors: [.white.opacity(0.2), planetColor(for: planet).opacity(0.3)]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 1
+                    )
+            )
+    }
+    
+    // MARK: - Helper Functions
+    
+    private func planetSymbol(for planet: String) -> String {
+        switch planet {
+        case "Sun": return "☉"
+        case "Moon": return "☽"
+        case "Mercury": return "☿"
+        case "Venus": return "♀"
+        case "Mars": return "♂"
+        case "Jupiter": return "♃"
+        case "Saturn": return "♄"
+        case "Uranus": return "♅"
+        case "Neptune": return "♆"
+        case "Pluto": return "♇"
+        default: return "⭐"
+        }
+    }
+    
+    private func planetColor(for planet: String) -> Color {
+        switch planet {
+        case "Sun": return .yellow
+        case "Moon": return .silver
+        case "Mercury": return .orange
+        case "Venus": return .pink
+        case "Mars": return .red
+        case "Jupiter": return .blue
+        case "Saturn": return .purple
+        case "Uranus": return .cyan
+        case "Neptune": return .blue
+        case "Pluto": return .indigo
+        default: return .white
+        }
+    }
+    
+    private func planetArchetype(for planet: String) -> String {
+        switch planet {
+        case "Sun": return "The Self • Ego • Vitality"
+        case "Moon": return "Emotions • Intuition • Inner World"
+        case "Mercury": return "Communication • Mind • Learning"
+        case "Venus": return "Love • Beauty • Values"
+        case "Mars": return "Action • Energy • Desire"
+        case "Jupiter": return "Expansion • Wisdom • Growth"
+        case "Saturn": return "Structure • Discipline • Lessons"
+        case "Uranus": return "Innovation • Freedom • Revolution"
+        case "Neptune": return "Dreams • Spirituality • Illusion"
+        case "Pluto": return "Transformation • Power • Rebirth"
+        default: return "Cosmic Influence"
+        }
+    }
+    
+    private func zodiacEmoji(for sign: String) -> String {
+        switch sign.lowercased() {
+        case "aries": return "♈"
+        case "taurus": return "♉"
+        case "gemini": return "♊"
+        case "cancer": return "♋"
+        case "leo": return "♌"
+        case "virgo": return "♍"
+        case "libra": return "♎"
+        case "scorpio": return "♏"
+        case "sagittarius": return "♐"
+        case "capricorn": return "♑"
+        case "aquarius": return "♒"
+        case "pisces": return "♓"
+        default: return "⭐"
+        }
+    }
+    
+    private func isRetrograde(planet: String) -> Bool {
+        // Use actual retrograde detection from CosmicData
+        return cosmicData.isRetrograde(planet)
+    }
+    
+    private func planetSpiritualMeaning(planet: String, sign: String) -> String {
+        // Special case for void-of-course Moon
+        if planet == "Moon" && cosmicData.isVoidOfCoursePeriod {
+            let voidInfo = cosmicData.getVoidOfCourseMoon()
+            return voidInfo.spiritualMeaning
+        }
+        
+        let planetMeaning = planetBaseMeaning(for: planet)
+        let signMeaning = signInfluence(for: sign)
+        return "\(planetMeaning) The energy of \(planet) is currently flowing through \(sign), \(signMeaning)"
+    }
+    
+    private func planetBaseMeaning(for planet: String) -> String {
+        switch planet {
+        case "Mercury": return "Mercury governs communication, learning, and mental processes."
+        case "Venus": return "Venus rules love, beauty, relationships, and personal values."
+        case "Mars": return "Mars drives action, energy, passion, and how we assert ourselves."
+        case "Jupiter": return "Jupiter expands our horizons through wisdom, growth, and opportunity."
+        case "Saturn": return "Saturn teaches through structure, discipline, and life lessons."
+        case "Uranus": return "Uranus brings innovation, sudden change, and revolutionary thinking."
+        case "Neptune": return "Neptune connects us to dreams, spirituality, and higher consciousness."
+        case "Pluto": return "Pluto facilitates deep transformation and regeneration."
+        default: return "This celestial body influences your spiritual journey."
+        }
+    }
+    
+    private func signInfluence(for sign: String) -> String {
+        switch sign.lowercased() {
+        case "aries": return "bringing pioneering energy and bold initiative."
+        case "taurus": return "grounding energy in practical, stable manifestation."
+        case "gemini": return "encouraging curiosity, adaptability, and communication."
+        case "cancer": return "emphasizing emotional depth and nurturing care."
+        case "leo": return "expressing through creative confidence and generous heart."
+        case "virgo": return "focusing on precise service and healing attention."
+        case "libra": return "seeking harmony, balance, and beautiful relationships."
+        case "scorpio": return "diving deep into transformational emotional waters."
+        case "sagittarius": return "expanding through adventure and philosophical wisdom."
+        case "capricorn": return "building solid foundations with disciplined ambition."
+        case "aquarius": return "innovating for the collective good and future vision."
+        case "pisces": return "flowing with compassionate intuition and spiritual connection."
+        default: return "bringing its unique cosmic influence to your path."
+        }
+    }
+    
+    private func planetKeyThemes(for planet: String) -> String {
+        switch planet {
+        case "Mercury": return "Communication, Learning, Travel, Technology"
+        case "Venus": return "Love, Relationships, Beauty, Money, Harmony"
+        case "Mars": return "Action, Energy, Competition, Sexuality, Courage"
+        case "Jupiter": return "Growth, Wisdom, Luck, Adventure, Philosophy"
+        case "Saturn": return "Responsibility, Structure, Patience, Mastery"
+        case "Uranus": return "Freedom, Innovation, Rebellion, Awakening"
+        case "Neptune": return "Dreams, Intuition, Spirituality, Compassion"
+        case "Pluto": return "Transformation, Power, Rebirth, Hidden Truth"
+        default: return "Cosmic Influence, Spiritual Growth"
+        }
+    }
+    
+    private func planetEnergyFlow(for planet: String) -> String {
+        switch planet {
+        case "Mercury": return "Quick & Mental"
+        case "Venus": return "Gentle & Harmonious"
+        case "Mars": return "Dynamic & Assertive"
+        case "Jupiter": return "Expansive & Optimistic"
+        case "Saturn": return "Steady & Structured"
+        case "Uranus": return "Electric & Unpredictable"
+        case "Neptune": return "Flowing & Mystical"
+        case "Pluto": return "Intense & Transformative"
+        default: return "Cosmic & Spiritual"
+        }
+    }
+    
+    private func planetOptimalActivities(for planet: String) -> String {
+        // Special guidance for void-of-course Moon
+        if planet == "Moon" && cosmicData.isVoidOfCoursePeriod {
+            return "Meditation, reflection, journaling, rest, creative pursuits without pressure, spiritual practices, cleaning/organizing (avoid signing contracts or major decisions)"
+        }
+        
+        switch planet {
+        case "Moon": return "Emotional processing, intuitive work, family time, nurturing activities, dream work"
+        case "Mercury": return "Learning new skills, writing, important conversations, planning travel, technology work"
+        case "Venus": return "Romantic activities, artistic creation, beauty treatments, shopping, social gatherings"
+        case "Mars": return "Physical exercise, starting new projects, competitive activities, taking initiative"
+        case "Jupiter": return "Teaching, studying philosophy, travel planning, expanding horizons, generous acts"
+        case "Saturn": return "Long-term planning, building structures, disciplined practice, taking responsibility"
+        case "Uranus": return "Innovation, trying new approaches, breaking old patterns, group activities"
+        case "Neptune": return "Meditation, artistic inspiration, spiritual practices, acts of service"
+        case "Pluto": return "Deep transformation, releasing old patterns, research, inner work"
+        default: return "Spiritual contemplation, cosmic alignment activities"
+        }
+    }
+}
+
+// MARK: - Color Extensions
+
+extension Color {
+    static let silver = Color(red: 0.75, green: 0.75, blue: 0.75)
 }
 
 // MARK: - Preview

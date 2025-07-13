@@ -74,7 +74,7 @@ struct ScrollSafeCosmicView<Content: View>: View {
     
     init(@ViewBuilder content: () -> Content) {
         self.content = content()
-        print("🌌 ScrollSafeCosmicView: Refined bloom-and-fade system initialized")
+        // Refined bloom-and-fade system initialized
     }
     
     var body: some View {
