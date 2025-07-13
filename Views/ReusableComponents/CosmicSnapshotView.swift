@@ -71,142 +71,13 @@ struct CosmicSnapshotView: View {
     
     private var compactView: some View {
         VStack(spacing: 12) {
-            // Header
-            HStack {
-                Label("Cosmic Snapshot", systemImage: "sparkles")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                
-                Spacer()
-                
-                // Force refresh button
-                Button(action: {
-                    Task {
-                        await cosmicService.forceFetchFromFirebase()
-                    }
-                }) {
-                    Image(systemName: "arrow.clockwise.circle.fill")
-                        .foregroundColor(.white.opacity(0.7))
-                        .imageScale(.large)
-                }
-                .disabled(cosmicService.isLoading)
-                
-                if cosmicService.isLoading {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                        .scaleEffect(0.8)
-                } else {
-                    Image(systemName: "chevron.right.circle.fill")
-                        .foregroundColor(.white.opacity(0.7))
-                        .imageScale(.large)
-                }
-            }
-            
-            if let cosmic = cosmicService.todaysCosmic {
-                // Cosmic Data Grid
-                HStack(spacing: 20) {
-                    // Moon Phase
-                    VStack(spacing: 4) {
-                        Text(cosmic.moonPhaseEmoji)
-                            .font(.system(size: 32))
-                        Text(cosmic.moonPhase.phaseName)
-                            .font(.caption)
-                            .foregroundColor(.white.opacity(0.9))
-                        if let illumination = cosmic.moonIllumination {
-                            Text("\(Int(illumination))%")
-                                .font(.caption2)
-                                .foregroundColor(.white.opacity(0.7))
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                    
-                    // Divider
-                    Rectangle()
-                        .fill(Color.white.opacity(0.2))
-                        .frame(width: 1, height: 50)
-                    
-                    // Sun Sign
-                    VStack(spacing: 4) {
-                        Text(cosmic.sunSignEmoji)
-                            .font(.system(size: 32))
-                        Text("Sun in")
-                            .font(.caption2)
-                            .foregroundColor(.white.opacity(0.7))
-                        Text(cosmic.sunSign)
-                            .font(.caption)
-                            .foregroundColor(.white.opacity(0.9))
-                    }
-                    .frame(maxWidth: .infinity)
-                    
-                    // Divider
-                    Rectangle()
-                        .fill(Color.white.opacity(0.2))
-                        .frame(width: 1, height: 50)
-                    
-                    // Planetary Highlights - Mercury and Venus
-                    VStack(spacing: 4) {
-                        if let mercurySign = cosmic.zodiacSign(for: "Mercury") {
-                            HStack(spacing: 8) {
-                                Text("☿")
-                                    .font(.system(size: 20))
-                                Text(mercurySign)
-                                    .font(.caption)
-                                    .foregroundColor(.white.opacity(0.9))
-                            }
-                        }
-                        
-                        if let venusSign = cosmic.zodiacSign(for: "Venus") {
-                            HStack(spacing: 8) {
-                                Text("♀")
-                                    .font(.system(size: 20))
-                                Text(venusSign)
-                                    .font(.caption)
-                                    .foregroundColor(.white.opacity(0.9))
-                            }
-                        }
-                        
-                        if cosmic.zodiacSign(for: "Mercury") == nil && cosmic.zodiacSign(for: "Venus") == nil {
-                            Text("Calculating...")
-                                .font(.caption2)
-                                .foregroundColor(.white.opacity(0.5))
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                }
-                
-                // Spiritual Guidance
-                VStack(spacing: 4) {
-                    Text(cosmic.spiritualGuidance)
-                        .font(.caption)
-                        .foregroundColor(.white.opacity(0.8))
-                        .multilineTextAlignment(.center)
-                        .lineLimit(2)
-                        .padding(.horizontal)
-                    
-                    // Debug info
-                    if let version = cosmic.version {
-                        Text("Data source: \(version)")
-                            .font(.caption2)
-                            .foregroundColor(.white.opacity(0.5))
-                    }
-                }
-            } else if cosmicService.errorMessage != nil {
-                // Error State
-                Label("Cosmic data temporarily unavailable", systemImage: "exclamationmark.triangle")
-                    .font(.caption)
-                    .foregroundColor(.white.opacity(0.7))
-            } else {
-                // Loading State
-                Text("Aligning with cosmic frequencies...")
-                    .font(.caption)
-                    .foregroundColor(.white.opacity(0.7))
-                    .italic()
-            }
+            compactHeader
+            compactContent
         }
         .padding()
         .background(cosmicBackground)
         .cornerRadius(16)
-        .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 5)
+        .shadow(color: .black.opacity(0.3), radius: 8, x: 0, y: 4)
         .onTapGesture {
             withAnimation {
                 isExpanded = true
@@ -215,6 +86,129 @@ struct CosmicSnapshotView: View {
         .accessibilityElement(children: .combine)
         .accessibilityLabel(accessibilityLabel)
         .accessibilityHint("Tap to view detailed cosmic information")
+    }
+    
+    private var compactHeader: some View {
+        HStack {
+            Label("Cosmic Snapshot", systemImage: "sparkles")
+                .font(.headline)
+                .foregroundColor(.white)
+            
+            Spacer()
+            
+            // Force refresh button
+            Button(action: {
+                Task {
+                    await cosmicService.fetchTodaysCosmicData()
+                }
+            }) {
+                Image(systemName: "arrow.clockwise.circle.fill")
+                    .foregroundColor(.white.opacity(0.7))
+                    .imageScale(.large)
+            }
+            .disabled(cosmicService.isLoading)
+            
+            if cosmicService.isLoading {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    .scaleEffect(0.8)
+            } else {
+                Image(systemName: "chevron.right.circle.fill")
+                    .foregroundColor(.white.opacity(0.7))
+                    .imageScale(.large)
+            }
+        }
+    }
+    
+    private var compactContent: some View {
+        Group {
+            if let cosmic = cosmicService.todaysCosmic {
+                cosmicDataGrid(cosmic: cosmic)
+            } else if cosmicService.isLoading {
+                loadingView
+            } else {
+                errorView
+            }
+        }
+    }
+    
+    private func cosmicDataGrid(cosmic: CosmicData) -> some View {
+        HStack(spacing: 16) {
+            // Moon Phase
+            VStack(spacing: 4) {
+                Text(cosmic.moonPhaseEmoji)
+                    .font(.system(size: 28))
+                Text(cosmic.moonPhase)
+                    .font(.caption)
+                    .foregroundColor(.white.opacity(0.9))
+                if let illumination = cosmic.moonIllumination {
+                    Text("\(Int(illumination))%")
+                        .font(.caption2)
+                        .foregroundColor(.white.opacity(0.7))
+                }
+            }
+            .frame(maxWidth: .infinity)
+            
+            // Divider
+            Rectangle()
+                .fill(Color.white.opacity(0.2))
+                .frame(width: 1, height: 50)
+            
+            // Sun Sign
+            VStack(spacing: 4) {
+                Text(cosmic.sunSignEmoji)
+                    .font(.system(size: 28))
+                Text(cosmic.sunSign)
+                    .font(.caption)
+                    .foregroundColor(.white.opacity(0.9))
+            }
+            .frame(maxWidth: .infinity)
+            
+            // Divider
+            Rectangle()
+                .fill(Color.white.opacity(0.2))
+                .frame(width: 1, height: 50)
+            
+            // Planetary highlights (Mercury & Venus placeholders)
+            VStack(spacing: 4) {
+                HStack(spacing: 4) {
+                    Text("☿")
+                        .font(.system(size: 18))
+                    Text("Mercury")
+                        .font(.caption2)
+                        .foregroundColor(.white.opacity(0.7))
+                }
+                HStack(spacing: 4) {
+                    Text("♀")
+                        .font(.system(size: 18))
+                    Text("Venus")
+                        .font(.caption2)
+                        .foregroundColor(.white.opacity(0.7))
+                }
+            }
+            .frame(maxWidth: .infinity)
+        }
+    }
+    
+    private var loadingView: some View {
+        VStack(spacing: 8) {
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+            Text("Loading cosmic data...")
+                .font(.caption)
+                .foregroundColor(.white.opacity(0.7))
+        }
+    }
+    
+    private var errorView: some View {
+        VStack(spacing: 8) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundColor(.yellow)
+                .font(.title2)
+            Text("Unable to load cosmic data")
+                .font(.caption)
+                .foregroundColor(.white.opacity(0.7))
+        }
     }
     
     // MARK: - Expanded View
@@ -277,7 +271,7 @@ struct CosmicSnapshotView: View {
         }
         
         var label = "Cosmic snapshot. "
-        label += "\(cosmic.moonPhase.phaseName) moon"
+        label += "\(cosmic.moonPhase) moon"
         
         if let illumination = cosmic.moonIllumination {
             label += " at \(Int(illumination))% illumination. "

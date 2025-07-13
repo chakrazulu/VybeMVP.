@@ -44,7 +44,7 @@ import os.log
 import BackgroundTasks
 import FirebaseCore
 import FirebaseMessaging
-import FirebaseAppCheck
+// import FirebaseAppCheck // Removed during Firebase cleanup
 import UserNotifications
 import CoreData
 
@@ -68,8 +68,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // CONFIGURE FIREBASE HERE - This is the most reliable place
         FirebaseApp.configure()
         
-        // Claude: Phase 10C-A - Configure Firebase App Check for organization policy solution
-        AppCheckConfiguration.configure()
+        // Claude: Firebase App Check configuration removed - using local SwiftAA calculations
+        // AppCheckConfiguration.configure() // Removed during Firebase cleanup
         
         // Log after configuration to confirm
         Logger.app.info("🔥 Firebase configured in AppDelegate didFinishLaunchingWithOptions")
