@@ -1,10 +1,10 @@
 # 🌌 VYBE MASTER TASKFLOW LOG - Living Grimoire of Cosmic Evolution
 
-**Last Updated:** July 12, 2025  
-**Current Phase:** NEXT DEVELOPMENT PHASE - Ready for Cosmic Evolution  
-**Previous Phases:** Phase 6 (COMPLETE) → Testing Foundation (COMPLETE) → Extreme Testing Phase 2 (COMPLETE)  
-**Branch:** `feature/next-development-phase` (Active: 79896e9)  
-**Vision Status:** From January Concept → KASPER Oracle Foundation → Revolutionary Number-Specific Sacred Geometry → **BULLETPROOF TESTING FOUNDATION ESTABLISHED**  
+**Last Updated:** July 13, 2025  
+**Current Phase:** Phase 10 - Moon Phase & Astrology Engine (ACTIVE)  
+**Previous Phases:** Phase 6 (COMPLETE) → Testing Foundation (COMPLETE) → Extreme Testing Phase 2 (COMPLETE) → Phase 9A Testing (COMPLETE)  
+**Branch:** `feature/phase10-moon-astrology-engine` (Active)  
+**Vision Status:** From January Concept → KASPER Oracle Foundation → Revolutionary Number-Specific Sacred Geometry → **BULLETPROOF TESTING FOUNDATION** → **COSMIC ASTROLOGY INTEGRATION**  
 
 ---
 
@@ -146,15 +146,235 @@ All existing onboarding flows, spiritual data capture, and sacred calculations a
 - **Spiritual Authenticity:** Perfect alignment between numerological meanings and visual patterns
 - **Technical Excellence:** 1569+ lines of clean, documented, production-ready code
 
-### **🌙 PHASE 8: MOON PHASE & ASTROLOGY ENGINE**
-**Priority:** MEDIUM | **Timeline:** 1-2 weeks | **Complexity:** Low-Medium
+---
 
-#### **Core Implementation:**
-- **Lunar API Integration:** NASA or ephemeris data for real-time moon phase tracking
-- **UI Integration:** Add moon phase indicators to HomeView and MySanctum
-- **Planetary Engine:** Sun, Moon, Mercury, Venus, Mars alignment tracking
-- **Zodiac Mapping:** Connect user birth data to daily planetary influences
-- **KASPER Preparation:** Cosmic timing data for interpretative overlays and forecasting
+## 🌙 **PHASE 10: MOON PHASE & ASTROLOGY ENGINE** *(ACTIVE DEVELOPMENT)*
+
+**Status:** 🚀 **IN PROGRESS** | **Branch:** `feature/phase10-moon-astrology-engine`  
+**Priority:** HIGH | **Timeline:** 2-3 weeks | **Complexity:** Medium  
+**Start Date:** July 13, 2025
+
+### **🎯 MISSION STATEMENT:**
+Transform VybeMVP from numerology-focused to a **complete cosmic consciousness platform** by integrating real-time moon phases, planetary positions, and astrological data. This creates a holistic spiritual experience where users understand not just their numbers, but their place in the cosmic dance.
+
+### **🏗️ ARCHITECTURAL APPROACH:**
+
+#### **Phase 10A: Local Ephemeris Core** *(Week 1)*
+**Pure Swift Implementation - No External Dependencies**
+
+**Files to Create:**
+1. **`Core/Utilities/MoonPhaseCalculator.swift`**
+   - Conway's Moon Phase Algorithm (0-29.5 day cycle)
+   - Maps lunar age to 8 traditional phases
+   - Zero network dependency - works offline
+   - Accuracy: ±1 day (sufficient for spiritual guidance)
+
+2. **`Core/Utilities/ZodiacSignCalculator.swift`**
+   - Static date range mapping for sun signs
+   - Handles cusp dates properly
+   - Birthday → Sun Sign calculation
+   - Today's Date → Current Sun Sign
+
+**Integration Points:**
+- `HomeView.swift` - Display today's moon phase
+- `MySanctumView.swift` - Show user's sun sign
+- `KASPERManager.swift` - Include in spiritual payload
+
+#### **Phase 10B: Serverless Ephemeris Endpoint** *(Week 1-2)*
+**Firebase Functions + Swiss Ephemeris**
+
+**Infrastructure Setup:**
+```bash
+# In project root
+mkdir functions && cd functions
+npm init -y
+npm install firebase-admin firebase-functions swisseph
+```
+
+**Cloud Function: `generateDailyCosmicData`**
+- Runs daily at midnight UTC
+- Calculates planetary positions (Mercury through Saturn)
+- Stores in Firestore `cosmicData/YYYY-MM-DD`
+- Includes moon age and phase name
+- Automatic cleanup of data older than 30 days
+
+**Firestore Schema:**
+```javascript
+{
+  "positions": {
+    "Mercury": 123.45,  // Ecliptic longitude in degrees
+    "Venus": 67.89,
+    "Mars": 234.56,
+    "Jupiter": 345.67,
+    "Saturn": 456.78
+  },
+  "moonAge": 14.23,     // Days since new moon
+  "moonPhase": "Full",   // Human-readable phase
+  "sunSign": "Cancer",   // Current sun sign
+  "createdAt": Timestamp
+}
+```
+
+**Security Rules Update:**
+```javascript
+match /cosmicData/{date} {
+  allow read: if request.auth != null;
+  allow write: if false;  // Only Cloud Function can write
+}
+```
+
+#### **Phase 10C: iOS App Integration** *(Week 2)*
+**Following VybeMVP Manager Pattern**
+
+**Files to Create:**
+
+1. **`Core/Models/CosmicData.swift`**
+   ```swift
+   struct CosmicData: Codable {
+     let positions: [String: Double]
+     let moonAge: Double
+     let moonPhase: String
+     let sunSign: String
+     var createdAt: Date?
+   }
+   ```
+
+2. **`Managers/CosmicService.swift`**
+   - Singleton pattern: `static let shared`
+   - `@Published var todaysCosmic: CosmicData?`
+   - Firestore integration with caching
+   - Automatic daily refresh
+   - Offline fallback to local calculations
+
+3. **`Views/ReusableComponents/CosmicSnapshotView.swift`**
+   - Beautiful cosmic data display
+   - Moon phase icon with current phase
+   - Planetary position indicators
+   - Animated transitions on data updates
+
+**App Integration:**
+```swift
+// In VybeMVPApp.swift
+@StateObject private var cosmicService = CosmicService.shared
+
+// Pass to environment
+.environmentObject(cosmicService)
+```
+
+#### **Phase 10D: KASPER Oracle Integration** *(Week 2-3)*
+**Enhancing Spiritual Intelligence**
+
+**KASPERManager.swift Enhancements:**
+1. **Expand Payload Structure:**
+   ```swift
+   struct KASPERPrimingPayload {
+     // Existing...
+     let cosmic: CosmicData?  // NEW
+   }
+   ```
+
+2. **New Insight Templates:**
+   - Moon phase-specific guidance
+   - Planetary transit interpretations
+   - Number + Astrology synthesis
+   - Cosmic timing recommendations
+
+3. **Enhanced Prompt Engineering:**
+   ```
+   "User is Life Path 7 with Moon in Waxing Gibbous.
+    Mars at 45° suggests action energy. 
+    Generate insight combining numerology with cosmic timing."
+   ```
+
+### **📊 TECHNICAL SPECIFICATIONS:**
+
+**Performance Requirements:**
+- Local calculations: < 10ms
+- Firestore fetch: < 500ms (cached: 0ms)
+- UI updates: 60fps maintained
+- Memory overhead: < 5MB
+
+**Accuracy Standards:**
+- Moon phase: ±1 day accuracy
+- Sun signs: Exact cusp handling
+- Planetary positions: ±1 degree (via Swiss Ephemeris)
+
+**Testing Requirements:**
+- Unit tests for all calculators
+- Integration tests for Firestore
+- UI tests for cosmic displays
+- Performance benchmarks
+
+### **🎯 SUCCESS METRICS:**
+
+1. **User Engagement:**
+   - Daily active users checking cosmic data
+   - Increased session duration
+   - Higher KASPER insight interaction
+
+2. **Technical Excellence:**
+   - 100% test coverage for cosmic features
+   - Zero crashes related to cosmic calculations
+   - < 500ms total load time for cosmic data
+
+3. **Spiritual Authenticity:**
+   - Accurate astronomical calculations
+   - Meaningful astrological interpretations
+   - Seamless numerology integration
+
+### **📱 UI/UX INTEGRATION:**
+
+**HomeView Enhancements:**
+- Cosmic banner showing moon phase
+- Today's planetary highlights
+- Tap for expanded cosmic view
+
+**MySanctum Additions:**
+- Birth chart summary
+- Personal cosmic calendar
+- Favorable timing indicators
+
+**Notification Integration:**
+- "Full Moon in your Focus Number!"
+- "Mercury enters your Life Path zone"
+- "Cosmic alignment detected"
+
+### **🔒 SECURITY & PRIVACY:**
+
+- No personal data sent to Cloud Functions
+- Cosmic data is read-only from client
+- Birth data stored locally only
+- Optional cosmic features (can disable)
+
+### **📚 DOCUMENTATION REQUIREMENTS:**
+
+1. **Technical Docs:**
+   - Algorithm explanations
+   - API documentation
+   - Integration guides
+
+2. **Spiritual Docs:**
+   - Moon phase meanings
+   - Planetary influences
+   - Synthesis with numerology
+
+### **🚀 FUTURE EXPANSIONS:**
+
+**Phase 10E: Advanced Astrology** *(Future)*
+- Rising signs and houses
+- Personal transit tracking
+- Aspect calculations
+- Synastry comparisons
+
+**Phase 10F: Cosmic Social** *(Future)*
+- Share cosmic moments
+- Group meditations by phase
+- Planetary discussion forums
+
+---
+
+### **LEGACY PHASE 8: MOON PHASE & ASTROLOGY ENGINE** *(Merged into Phase 10)*
+**Note:** Original Phase 8 scope has been expanded and implemented as Phase 10
 
 ### **🔗 PHASE 9: PROXIMITY-BASED MATCHING ENGINE**
 **Priority:** MEDIUM | **Timeline:** 2-3 weeks | **Complexity:** High
@@ -949,6 +1169,36 @@ After:  Post.authorId (Firebase UID) = currentUser.userId (Firebase UID) → Per
 ---
 
 ## 🔄 **UPDATE CHANGELOG**
+
+### **July 13, 2025 - PHASE 10 INITIATED: Moon Phase & Astrology Engine** 🌙🔮✨
+- **Achievement:** Comprehensive architectural planning and roadmap for cosmic astrology integration
+- **Strategic Decision:** Prioritized Moon Phase & Astrology Engine as next major feature after testing phase completion
+- **Architectural Planning:**
+  - **✅ Phase 10A:** Local ephemeris core with Conway's moon phase algorithm and zodiac calculator
+  - **✅ Phase 10B:** Firebase Functions with Swiss Ephemeris for planetary positions
+  - **✅ Phase 10C:** iOS integration following VybeMVP manager patterns
+  - **✅ Phase 10D:** KASPER Oracle Engine cosmic data integration
+- **Infrastructure Preparation:**
+  - **Branch Created:** `feature/phase10-moon-astrology-engine`
+  - **File Structure:** Aligned with existing VybeMVP architecture (Core/Utilities, Managers/, Views/ReusableComponents)
+  - **Firebase Ready:** Existing Firebase integration supports cosmic data collection
+  - **Testing Foundation:** 179 comprehensive tests ready for cosmic feature validation
+- **Technical Approach:**
+  - **Offline-First:** Local calculations work without network dependency
+  - **Performance:** < 10ms local calculations, < 500ms Firestore fetch
+  - **Accuracy:** ±1 day moon phase, exact sun sign cusps, ±1° planetary positions
+  - **Security:** Read-only cosmic data, no personal data in cloud functions
+- **Integration Points:**
+  - **HomeView:** Cosmic banner with moon phase display
+  - **MySanctum:** Birth chart summary and personal cosmic calendar
+  - **KASPERManager:** Enhanced payload with cosmic data for AI insights
+  - **Notifications:** Cosmic alignment alerts and favorable timing
+- **Success Metrics Defined:**
+  - User engagement tracking for cosmic features
+  - 100% test coverage requirement
+  - < 500ms total load time for cosmic data
+  - Spiritual authenticity in all calculations
+- **Next Steps:** Begin Phase 10A implementation with MoonPhaseCalculator.swift and ZodiacSignCalculator.swift
 
 ### **July 12, 2025 - COMPREHENSIVE TESTING PHASE: API Mismatch Resolution & Testing Infrastructure** 🧪🔧✅
 - **Achievement:** Successfully resolved critical API mismatches in test suite and established comprehensive testing infrastructure
