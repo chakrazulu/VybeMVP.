@@ -133,10 +133,11 @@
 		4DB1DE9A2E22A5C2001A9EA5 /* memory-check.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE902E22A5C2001A9EA5 /* memory-check.sh */; };
 		4DB1DE9C2E22A7A9001A9EA5 /* SCRIPTS_GUIDE.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE9B2E22A7A9001A9EA5 /* SCRIPTS_GUIDE.md */; };
 		4DB1DF902E235393001A9EA5 /* MoonPhaseCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1DF8F2E235393001A9EA5 /* MoonPhaseCalculator.swift */; };
-		4DB1DF922E2353A5001A9EA5 /* ZodiacSignCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1DF912E2353A5001A9EA5 /* ZodiacSignCalculator.swift */; };
 		4DB1DF942E23540B001A9EA5 /* CosmicData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1DF932E23540B001A9EA5 /* CosmicData.swift */; };
 		4DB1DF962E235450001A9EA5 /* CosmicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1DF952E235450001A9EA5 /* CosmicService.swift */; };
 		4DB1DF982E23549F001A9EA5 /* CosmicSnapshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1DF972E23549F001A9EA5 /* CosmicSnapshotView.swift */; };
+		4DB1E0592E23BD98001A9EA5 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 4DB1E0582E23BD98001A9EA5 /* FirebaseAppCheck */; };
+		4DB1E05B2E23D597001A9EA5 /* ZodiacSignCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1E05A2E23D597001A9EA5 /* ZodiacSignCalculator.swift */; };
 		4DB233F42E114580004EC2BC /* NeonTracerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F32E114580004EC2BC /* NeonTracerView.swift */; };
 		4DB233F62E1169CD004EC2BC /* VybeMatchOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F52E1169CD004EC2BC /* VybeMatchOverlay.swift */; };
 		4DB233F82E116AF5004EC2BC /* VybeMatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB233F72E116AF5004EC2BC /* VybeMatchManager.swift */; };
@@ -364,10 +365,10 @@
 		4DB1DE922E22A5C2001A9EA5 /* clean-project.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "clean-project.sh"; sourceTree = "<group>"; };
 		4DB1DE9B2E22A7A9001A9EA5 /* SCRIPTS_GUIDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SCRIPTS_GUIDE.md; sourceTree = "<group>"; };
 		4DB1DF8F2E235393001A9EA5 /* MoonPhaseCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonPhaseCalculator.swift; sourceTree = "<group>"; };
-		4DB1DF912E2353A5001A9EA5 /* ZodiacSignCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZodiacSignCalculator.swift; sourceTree = "<group>"; };
 		4DB1DF932E23540B001A9EA5 /* CosmicData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicData.swift; sourceTree = "<group>"; };
 		4DB1DF952E235450001A9EA5 /* CosmicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicService.swift; sourceTree = "<group>"; };
 		4DB1DF972E23549F001A9EA5 /* CosmicSnapshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicSnapshotView.swift; sourceTree = "<group>"; };
+		4DB1E05A2E23D597001A9EA5 /* ZodiacSignCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZodiacSignCalculator.swift; sourceTree = "<group>"; };
 		4DB233F32E114580004EC2BC /* NeonTracerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeonTracerView.swift; sourceTree = "<group>"; };
 		4DB233F52E1169CD004EC2BC /* VybeMatchOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeMatchOverlay.swift; sourceTree = "<group>"; };
 		4DB233F72E116AF5004EC2BC /* VybeMatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeMatchManager.swift; sourceTree = "<group>"; };
@@ -496,6 +497,7 @@
 				4D6308E42DFFCB6F00FD32E9 /* FirebaseAuth in Frameworks */,
 				4D6C7BBD2DE4885F001036E5 /* FirebaseFirestore in Frameworks */,
 				4DA01CB92D853A640070309D /* FirebaseCore in Frameworks */,
+				4DB1E0592E23BD98001A9EA5 /* FirebaseAppCheck in Frameworks */,
 				4DA01CB72D853A640070309D /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -596,7 +598,7 @@
 		4D3055ED2D3CF838009A7BBD /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				4DB1DF912E2353A5001A9EA5 /* ZodiacSignCalculator.swift */,
+				4DB1E05A2E23D597001A9EA5 /* ZodiacSignCalculator.swift */,
 				4DB1DF8F2E235393001A9EA5 /* MoonPhaseCalculator.swift */,
 				4DCB397B2E2094A500311D51 /* NumberPatternGenerator.swift */,
 				4DCB38772E1F647B00311D51 /* SVGPathExtractor.swift */,
@@ -1051,6 +1053,7 @@
 				4DA01CBA2D853A640070309D /* FirebaseMessaging */,
 				4D6C7BBC2DE4885F001036E5 /* FirebaseFirestore */,
 				4D6308E32DFFCB6F00FD32E9 /* FirebaseAuth */,
+				4DB1E0582E23BD98001A9EA5 /* FirebaseAppCheck */,
 			);
 			productName = VybeMVP;
 			productReference = 4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */;
@@ -1233,6 +1236,7 @@
 				4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */,
 				4D6C7BB92DE480E4001036E5 /* PreparedInsight.swift in Sources */,
 				4D2CC7082E08C9ED00BDF100 /* TestSacredGeometry.swift in Sources */,
+				4DB1E05B2E23D597001A9EA5 /* ZodiacSignCalculator.swift in Sources */,
 				4D3055CE2D3CC9CA009A7BBD /* FocusNumberPicker.swift in Sources */,
 				4D2DB47F2DFF43390003353E /* ChakraSymbolView.swift in Sources */,
 				4D2DB4802DFF43390003353E /* ChakraModel.swift in Sources */,
@@ -1245,7 +1249,6 @@
 				4D2CC6F42E08688000BDF100 /* MandalaAssetManager.swift in Sources */,
 				4D2CC6F22E08680400BDF100 /* MandalaBackgroundView.swift in Sources */,
 				4D3055EB2D3CF492009A7BBD /* NumberCell.swift in Sources */,
-				4DB1DF922E2353A5001A9EA5 /* ZodiacSignCalculator.swift in Sources */,
 				4D3055DF2D3CE8AE009A7BBD /* JournalView.swift in Sources */,
 				4D3727102DE5407100B5A02B /* InsightHistoryView.swift in Sources */,
 				4D80E0FD2D3F1B0B0020F7BB /* NumberMeaningView.swift in Sources */,
@@ -1677,6 +1680,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4DA01CB52D853A640070309D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		4DB1E0582E23BD98001A9EA5 /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DA01CB52D853A640070309D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
 		};
 /* End XCSwiftPackageProductDependency section */
 

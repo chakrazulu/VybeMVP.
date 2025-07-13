@@ -79,6 +79,18 @@ struct CosmicSnapshotView: View {
                 
                 Spacer()
                 
+                // Force refresh button
+                Button(action: {
+                    Task {
+                        await cosmicService.forceFetchFromFirebase()
+                    }
+                }) {
+                    Image(systemName: "arrow.clockwise.circle.fill")
+                        .foregroundColor(.white.opacity(0.7))
+                        .imageScale(.large)
+                }
+                .disabled(cosmicService.isLoading)
+                
                 if cosmicService.isLoading {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
@@ -131,29 +143,53 @@ struct CosmicSnapshotView: View {
                         .fill(Color.white.opacity(0.2))
                         .frame(width: 1, height: 50)
                     
-                    // Planetary Highlight
-                    if let mercurySign = cosmic.zodiacSign(for: "Mercury") {
-                        VStack(spacing: 4) {
-                            Text("☿")
-                                .font(.system(size: 28))
-                            Text("Mercury")
-                                .font(.caption2)
-                                .foregroundColor(.white.opacity(0.7))
-                            Text(mercurySign)
-                                .font(.caption)
-                                .foregroundColor(.white.opacity(0.9))
+                    // Planetary Highlights - Mercury and Venus
+                    VStack(spacing: 4) {
+                        if let mercurySign = cosmic.zodiacSign(for: "Mercury") {
+                            HStack(spacing: 8) {
+                                Text("☿")
+                                    .font(.system(size: 20))
+                                Text(mercurySign)
+                                    .font(.caption)
+                                    .foregroundColor(.white.opacity(0.9))
+                            }
                         }
-                        .frame(maxWidth: .infinity)
+                        
+                        if let venusSign = cosmic.zodiacSign(for: "Venus") {
+                            HStack(spacing: 8) {
+                                Text("♀")
+                                    .font(.system(size: 20))
+                                Text(venusSign)
+                                    .font(.caption)
+                                    .foregroundColor(.white.opacity(0.9))
+                            }
+                        }
+                        
+                        if cosmic.zodiacSign(for: "Mercury") == nil && cosmic.zodiacSign(for: "Venus") == nil {
+                            Text("Calculating...")
+                                .font(.caption2)
+                                .foregroundColor(.white.opacity(0.5))
+                        }
                     }
+                    .frame(maxWidth: .infinity)
                 }
                 
                 // Spiritual Guidance
-                Text(cosmic.spiritualGuidance)
-                    .font(.caption)
-                    .foregroundColor(.white.opacity(0.8))
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-                    .padding(.horizontal)
+                VStack(spacing: 4) {
+                    Text(cosmic.spiritualGuidance)
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.8))
+                        .multilineTextAlignment(.center)
+                        .lineLimit(2)
+                        .padding(.horizontal)
+                    
+                    // Debug info
+                    if let version = cosmic.version {
+                        Text("Data source: \(version)")
+                            .font(.caption2)
+                            .foregroundColor(.white.opacity(0.5))
+                    }
+                }
             } else if cosmicService.errorMessage != nil {
                 // Error State
                 Label("Cosmic data temporarily unavailable", systemImage: "exclamationmark.triangle")

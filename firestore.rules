@@ -164,18 +164,6 @@ service cloud.firestore {
     }
     
     // ============================================
-    // COSMIC DATA - Phase 10B Astrology Engine
-    // ============================================
-    match /cosmicData/{dateKey} {
-      // Anyone authenticated can read cosmic data (shared daily calculations)
-      allow read: if request.auth != null;
-      
-      // Only Cloud Functions can write cosmic data
-      // This prevents unauthorized modifications while allowing all users to access
-      allow write: if false; // Cloud Functions use admin SDK
-    }
-    
-    // ============================================
     // HELPER FUNCTIONS
     // ============================================
     

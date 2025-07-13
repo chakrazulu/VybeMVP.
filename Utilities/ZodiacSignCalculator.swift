@@ -231,6 +231,36 @@ struct ZodiacSignCalculator {
     }
     
     /**
+     * Calculate zodiac sign from ecliptic longitude
+     * - Parameter longitude: Ecliptic longitude in degrees (0-360)
+     * - Returns: Zodiac sign for the longitude
+     */
+    static func zodiacSign(forLongitude longitude: Double) -> ZodiacSign {
+        // Normalize longitude to 0-360 range
+        let normalizedLongitude = longitude.truncatingRemainder(dividingBy: 360)
+        let positiveLongitude = normalizedLongitude < 0 ? normalizedLongitude + 360 : normalizedLongitude
+        
+        // Each zodiac sign spans 30 degrees, starting from Aries at 0°
+        let signIndex = Int(positiveLongitude / 30)
+        
+        switch signIndex {
+        case 0: return .aries        // 0° - 30°
+        case 1: return .taurus       // 30° - 60°
+        case 2: return .gemini       // 60° - 90°
+        case 3: return .cancer       // 90° - 120°
+        case 4: return .leo          // 120° - 150°
+        case 5: return .virgo        // 150° - 180°
+        case 6: return .libra        // 180° - 210°
+        case 7: return .scorpio      // 210° - 240°
+        case 8: return .sagittarius  // 240° - 270°
+        case 9: return .capricorn    // 270° - 300°
+        case 10: return .aquarius    // 300° - 330°
+        case 11: return .pisces      // 330° - 360°
+        default: return .aries       // Fallback
+        }
+    }
+    
+    /**
      * Get zodiac sign with detailed information
      * - Parameter date: Date to analyze
      * - Returns: Tuple with sign and additional metadata
