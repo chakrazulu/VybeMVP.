@@ -204,9 +204,8 @@ class CosmicService: ObservableObject {
         
         let localCosmic = CosmicData.fromLocalCalculations()
         
-        // Debug: Log the generated data
-        logger.info("🌌 Generated cosmic data: Moon=\(localCosmic.moonPhase), Sun=\(localCosmic.sunSign)")
-        logger.info("🌌 Planetary positions: \(localCosmic.planetaryPositions)")
+        // Debug: Log key cosmic data for accuracy verification
+        logger.debug("🌌 Cosmic data: \(localCosmic.moonPhase) (\(Int(localCosmic.moonIllumination ?? 0))%), Sun in \(localCosmic.sunSign)")
         
         await MainActor.run {
             self.todaysCosmic = localCosmic

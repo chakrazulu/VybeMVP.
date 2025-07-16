@@ -209,6 +209,11 @@ struct CosmicSnapshotView: View {
                     }
                 }
                 .frame(maxWidth: .infinity)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selectedPlanet = "Moon"
+                    showingPlanetDetail = true
+                }
                 
                 // Divider
                 Rectangle()
@@ -228,6 +233,11 @@ struct CosmicSnapshotView: View {
                         .foregroundColor(.white.opacity(0.6))
                 }
                 .frame(maxWidth: .infinity)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selectedPlanet = "Sun"
+                    showingPlanetDetail = true
+                }
                 
                 // Divider
                 Rectangle()
@@ -494,7 +504,7 @@ struct CosmicSnapshotView: View {
                     .foregroundColor(.white.opacity(0.8))
                     .multilineTextAlignment(.leading)
                     .lineSpacing(2)
-                    .lineLimit(3)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .padding(.top, 4)
         }
@@ -616,26 +626,82 @@ struct CosmicSnapshotView: View {
             )
             .ignoresSafeArea()
             
-            VStack(spacing: 40) {
-                Text("✦ COSMIC DETAIL VIEW ✦")
-                    .font(.system(size: 28, weight: .bold, design: .rounded))
-                    .foregroundStyle(
-                        LinearGradient(
-                            gradient: Gradient(colors: [.white, getRealmColor(for: realmNumber).opacity(0.8)]),
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                    )
-                
-                Text("Coming Soon")
-                    .font(.system(size: 20, weight: .medium, design: .rounded))
-                    .foregroundColor(.white.opacity(0.7))
-                
-                Text("Tap anywhere to return")
-                    .font(.system(size: 16, weight: .medium, design: .rounded))
-                    .foregroundColor(.white.opacity(0.5))
+            ScrollView {
+                VStack(spacing: 24) {
+                    // Header
+                    VStack(spacing: 12) {
+                        Text("✦ COSMIC DETAIL VIEW ✦")
+                            .font(.system(size: 28, weight: .bold, design: .rounded))
+                            .foregroundStyle(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [.white, getRealmColor(for: realmNumber).opacity(0.8)]),
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                        
+                        if cosmicService.todaysCosmic != nil {
+                            Text("Today's Complete Cosmic Analysis")
+                                .font(.system(size: 16, weight: .medium, design: .rounded))
+                                .foregroundColor(.white.opacity(0.8))
+                        }
+                        
+                        Text("Tap anywhere to return")
+                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.5))
+                    }
+                    
+                    if let cosmic = cosmicService.todaysCosmic {
+                        // Detailed cosmic content
+                        VStack(spacing: 20) {
+                            // Moon Phase Detail
+                            cosmicDetailCard(
+                                title: "🌙 Lunar Influence",
+                                content: "\(cosmic.moonPhase) (\(Int(cosmic.moonIllumination ?? 0))% illuminated)\n\(cosmic.spiritualGuidance)"
+                            )
+                            
+                            // Major Aspects
+                            if !cosmic.getCurrentAspects().isEmpty {
+                                let aspects = cosmic.getMajorAspects()
+                                cosmicDetailCard(
+                                    title: "⭐ Planetary Aspects",
+                                    content: aspects.map { $0.description }.joined(separator: "\n")
+                                )
+                            }
+                            
+                            // Void of Course Moon
+                            let voidInfo = cosmic.getVoidOfCourseMoon()
+                            if voidInfo.isVoid {
+                                cosmicDetailCard(
+                                    title: "🌙∅ Void-of-Course Moon",
+                                    content: voidInfo.spiritualMeaning
+                                )
+                            }
+                            
+                            // Retrograde Planets
+                            let retrogradePlanets = ["Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"].filter { cosmic.isRetrograde($0) }
+                            if !retrogradePlanets.isEmpty {
+                                cosmicDetailCard(
+                                    title: "℞ Retrograde Influences",
+                                    content: retrogradePlanets.map { "\($0) ℞" }.joined(separator: ", ") + "\nTime for review and reflection in these areas."
+                                )
+                            }
+                            
+                            // All Planetary Positions
+                            cosmicDetailCard(
+                                title: "🌌 Planetary Positions",
+                                content: generatePlanetaryPositionsText(cosmic: cosmic)
+                            )
+                        }
+                    } else {
+                        Text("Loading cosmic data...")
+                            .font(.system(size: 18, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.7))
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 40)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .onTapGesture {
             withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
@@ -702,6 +768,45 @@ struct CosmicSnapshotView: View {
         label += cosmic.spiritualGuidance
         
         return label
+    }
+    
+    // MARK: - Expanded View Helper Methods
+    
+    private func cosmicDetailCard(title: String, content: String) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(title)
+                .font(.system(size: 18, weight: .semibold, design: .rounded))
+                .foregroundColor(.white)
+            
+            Text(content)
+                .font(.system(size: 14, weight: .medium, design: .rounded))
+                .foregroundColor(.white.opacity(0.9))
+                .lineSpacing(3)
+                .multilineTextAlignment(.leading)
+        }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.black.opacity(0.3))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                )
+        )
+    }
+    
+    private func generatePlanetaryPositionsText(cosmic: CosmicData) -> String {
+        let planets = ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
+        var positionsText: [String] = []
+        
+        for planet in planets {
+            if let sign = cosmic.zodiacSign(for: planet) {
+                let retrograde = cosmic.isRetrograde(planet) ? " ℞" : ""
+                positionsText.append("\(planet): \(sign)\(retrograde)")
+            }
+        }
+        
+        return positionsText.joined(separator: "\n")
     }
 }
 
@@ -1103,6 +1208,8 @@ struct PlanetaryDetailView: View {
     
     private func planetBaseMeaning(for planet: String) -> String {
         switch planet {
+        case "Sun": return "The Sun represents your core identity, ego, and life purpose. It's your conscious self and how you shine in the world."
+        case "Moon": return "The Moon governs your emotions, intuition, inner world, and subconscious patterns. It represents your emotional needs and instinctive responses."
         case "Mercury": return "Mercury governs communication, learning, and mental processes."
         case "Venus": return "Venus rules love, beauty, relationships, and personal values."
         case "Mars": return "Mars drives action, energy, passion, and how we assert ourselves."
@@ -1135,6 +1242,8 @@ struct PlanetaryDetailView: View {
     
     private func planetKeyThemes(for planet: String) -> String {
         switch planet {
+        case "Sun": return "Identity, Purpose, Confidence, Leadership, Vitality"
+        case "Moon": return "Emotions, Intuition, Memories, Nurturing, Cycles"
         case "Mercury": return "Communication, Learning, Travel, Technology"
         case "Venus": return "Love, Relationships, Beauty, Money, Harmony"
         case "Mars": return "Action, Energy, Competition, Sexuality, Courage"
@@ -1149,6 +1258,8 @@ struct PlanetaryDetailView: View {
     
     private func planetEnergyFlow(for planet: String) -> String {
         switch planet {
+        case "Sun": return "Radiant & Confident"
+        case "Moon": return "Fluid & Receptive"
         case "Mercury": return "Quick & Mental"
         case "Venus": return "Gentle & Harmonious"
         case "Mars": return "Dynamic & Assertive"
@@ -1168,6 +1279,7 @@ struct PlanetaryDetailView: View {
         }
         
         switch planet {
+        case "Sun": return "Leadership activities, creative self-expression, confidence building, taking center stage, pursuing personal goals"
         case "Moon": return "Emotional processing, intuitive work, family time, nurturing activities, dream work"
         case "Mercury": return "Learning new skills, writing, important conversations, planning travel, technology work"
         case "Venus": return "Romantic activities, artistic creation, beauty treatments, shopping, social gatherings"
