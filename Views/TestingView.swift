@@ -112,13 +112,39 @@ struct TestingView: View {
                 }
             }
             
+            /// Claude: Enhanced Cosmic Engine Testing Section
+            /// 
+            /// Provides comprehensive validation testing of the enhanced cosmic engine
+            /// against professional astronomy software. This section allows developers
+            /// and users to verify the accuracy of our astronomical calculations.
+            /// 
+            /// Testing Capabilities:
+            /// - Validates against Sky Guide Professional reference data
+            /// - Tests planetary position calculations with enhanced algorithms
+            /// - Verifies coordinate transformations (RA/Dec to Alt/Az)
+            /// - Reports accuracy percentages for moon phases and planetary data
+            /// 
+            /// Technical Implementation:
+            /// - Uses CosmicData.validateEnhancedCalculations() for comprehensive testing
+            /// - Compares SwiftAA + perturbations against professional standards
+            /// - Provides detailed reporting in monospaced sheet presentation
+            /// - Includes real-time cosmic state display for current conditions
             Section(header: Text("Cosmic Engine Testing")) {
+                /// Claude: Main validation test button
+                /// Triggers comprehensive Sky Guide comparison and accuracy reporting
+                /// Results display in a sheet with monospaced font for data alignment
                 Button("Test Enhanced Cosmic Engine") {
+                    /// Claude: Execute full validation suite against Sky Guide data
+                    /// This function compares our enhanced calculations against professional
+                    /// astronomy software to verify accuracy and system performance
                     cosmicValidationReport = CosmicData.validateEnhancedCalculations()
                     showingCosmicValidation = true
                 }
                 .foregroundColor(.blue)
                 
+                /// Claude: Descriptive text explaining validation process
+                /// Helps users understand what the test accomplishes and its significance
+                /// for ensuring professional-grade astronomical accuracy
                 Text("Validates planetary calculations against Sky Guide professional astronomy data")
                     .font(.caption)
                     .foregroundColor(.secondary)
@@ -141,9 +167,28 @@ struct TestingView: View {
             }
         }
         .navigationTitle("Match Testing")
+        /// Claude: Cosmic Engine Validation Results Sheet
+        /// 
+        /// Presents detailed validation results in a scrollable sheet format.
+        /// Uses monospaced font for proper alignment of tabular comparison data.
+        /// 
+        /// Features:
+        /// - Full-screen scrollable content for comprehensive reports
+        /// - Monospaced font ensures proper column alignment in data tables
+        /// - Navigation bar with inline title and Done button for dismissal
+        /// - Responsive to cosmicValidationReport updates from test functions
+        /// 
+        /// Data Display:
+        /// - Sky Guide vs Our Engine comparison tables
+        /// - Accuracy percentages and status indicators
+        /// - Current cosmic state information
+        /// - System operational status and deployment readiness
         .sheet(isPresented: $showingCosmicValidation) {
             NavigationView {
                 ScrollView {
+                    /// Claude: Validation report display
+                    /// Uses monospaced font for proper table formatting and data alignment
+                    /// Content updates dynamically based on test results
                     Text(cosmicValidationReport)
                         .font(.system(.caption, design: .monospaced))
                         .padding()
@@ -152,6 +197,8 @@ struct TestingView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
+                        /// Claude: Sheet dismissal button
+                        /// Provides clean exit from validation results view
                         Button("Done") {
                             showingCosmicValidation = false
                         }

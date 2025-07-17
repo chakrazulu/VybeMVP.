@@ -244,9 +244,29 @@ struct ContentView: View {
                 }
             }
             
-            // 🌟 COSMIC MATCH OVERLAY: Floating celebration layer (380×300pt bubble)
-            // Appears above all content when Focus Number == Realm Number
-            // See VybeMatchOverlay.swift for detailed pixel specifications
+            /// Claude: Cosmic Match Overlay - Sacred Number Celebration System
+            /// 
+            /// This floating overlay appears when Focus Number matches Realm Number,
+            /// creating a cosmic celebration experience for users. The overlay uses
+            /// the enhanced cosmic engine data for accurate spiritual correspondences.
+            /// 
+            /// Technical Integration:
+            /// - Uses VybeMatchManager for match detection and state management
+            /// - Integrates with enhanced cosmic engine for accurate planetary data
+            /// - Displays real-time heart rate from HealthKit integration
+            /// - Provides action buttons for navigation to related app sections
+            /// 
+            /// Cosmic Engine Integration:
+            /// - Match detection uses realm numbers calculated from enhanced algorithms
+            /// - Planetary correspondences use professional-grade astronomical data
+            /// - Sacred geometry and numerological meanings preserved with accuracy
+            /// - Celebration timing synchronized with actual cosmic conditions
+            /// 
+            /// Overlay Specifications:
+            /// - Size: 380×300pt celebration bubble
+            /// - Position: Floating above all tab content with proper z-indexing
+            /// - Animation: Sacred geometry patterns with cosmic timing
+            /// - Duration: Configurable celebration length based on match significance
             VybeMatchOverlay(
                 isVisible: $vybeMatchManager.isMatchActive,
                 matchedNumber: vybeMatchManager.currentMatchedNumber,
