@@ -640,7 +640,7 @@ struct CosmicSnapshotView: View {
                                 )
                             )
                         
-                        if cosmicService.todaysCosmic != nil {
+                        if cosmicService.hasCosmicData {
                             Text("Today's Complete Cosmic Analysis")
                                 .font(.system(size: 16, weight: .medium, design: .rounded))
                                 .foregroundColor(.white.opacity(0.8))

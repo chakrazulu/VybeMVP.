@@ -72,6 +72,8 @@ import SwiftUI
 struct TestingView: View {
     @EnvironmentObject var focusNumberManager: FocusNumberManager
     @EnvironmentObject var realmNumberManager: RealmNumberManager
+    @State private var showingCosmicValidation = false
+    @State private var cosmicValidationReport = ""
     
     var body: some View {
         List {
@@ -110,6 +112,18 @@ struct TestingView: View {
                 }
             }
             
+            Section(header: Text("Cosmic Engine Testing")) {
+                Button("Test Enhanced Cosmic Engine") {
+                    cosmicValidationReport = CosmicData.validateEnhancedCalculations()
+                    showingCosmicValidation = true
+                }
+                .foregroundColor(.blue)
+                
+                Text("Validates planetary calculations against Sky Guide professional astronomy data")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            
             Section(header: Text("Match History")) {
                 if focusNumberManager.matchLogs.isEmpty {
                     Text("No matches yet")
@@ -127,6 +141,24 @@ struct TestingView: View {
             }
         }
         .navigationTitle("Match Testing")
+        .sheet(isPresented: $showingCosmicValidation) {
+            NavigationView {
+                ScrollView {
+                    Text(cosmicValidationReport)
+                        .font(.system(.caption, design: .monospaced))
+                        .padding()
+                }
+                .navigationTitle("Cosmic Engine Validation")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Done") {
+                            showingCosmicValidation = false
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
