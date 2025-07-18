@@ -311,6 +311,20 @@ struct SettingsView: View {
                     Label("Test Cosmic Engine", systemImage: "globe.americas.fill")
                         .foregroundColor(.purple)
                 }
+                
+                /// Claude: SwiftAA API Discovery Button
+                /// This button will help us discover the actual SwiftAA v2.4.0 API
+                /// by showing what properties and methods are available on planetary objects
+                Button(action: {
+                    print("🔍 SwiftAA API Discovery Test Requested")
+                    
+                    cosmicValidationReport = CosmicData.discoverSwiftAAAPI()
+                    showingCosmicValidation = true
+                    
+                }) {
+                    Label("Discover SwiftAA API", systemImage: "magnifyingglass.circle")
+                        .foregroundColor(.blue)
+                }
             }
             
             // Account Section
