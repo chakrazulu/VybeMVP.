@@ -112,40 +112,44 @@ struct TestingView: View {
                 }
             }
             
-            /// Claude: Enhanced Cosmic Engine Testing Section
+            /// Claude: Swiss Ephemeris Planetary Validation Section
             /// 
-            /// Provides comprehensive validation testing of the enhanced cosmic engine
-            /// against professional astronomy software. This section allows developers
-            /// and users to verify the accuracy of our astronomical calculations.
+            /// Comprehensive testing suite for Swiss Ephemeris planetary calculations.
+            /// Shows professional-grade accuracy across multiple time periods and 
+            /// validates against known astronomical events.
             /// 
-            /// Testing Capabilities:
-            /// - Validates against Sky Guide Professional reference data
-            /// - Tests planetary position calculations with enhanced algorithms
-            /// - Verifies coordinate transformations (RA/Dec to Alt/Az)
-            /// - Reports accuracy percentages for moon phases and planetary data
-            /// 
-            /// Technical Implementation:
-            /// - Uses CosmicData.validateEnhancedCalculations() for comprehensive testing
-            /// - Compares SwiftAA + perturbations against professional standards
-            /// - Provides detailed reporting in monospaced sheet presentation
-            /// - Includes real-time cosmic state display for current conditions
-            Section(header: Text("Cosmic Engine Testing")) {
-                /// Claude: Main validation test button
-                /// Triggers comprehensive Sky Guide comparison and accuracy reporting
-                /// Results display in a sheet with monospaced font for data alignment
+            /// Testing Features:
+            /// - Real-time planetary positions for any date/time
+            /// - Historical event validation (conjunctions, solstices)
+            /// - Cross-time period consistency checking
+            /// - Professional astronomy software comparison guides
+            Section(header: Text("Swiss Ephemeris Validation")) {
+                /// Claude: Multi-time period planetary accuracy test
+                /// Shows planetary positions across different dates to demonstrate
+                /// consistent professional accuracy for any moment in time
+                Button("Test Planetary Accuracy") {
+                    cosmicValidationReport = CosmicData.validatePlanetaryAccuracy()
+                    showingCosmicValidation = true
+                }
+                .foregroundColor(.purple)
+                
+                /// Claude: Historical astronomical events validation
+                /// Tests Swiss Ephemeris against known events like the 2020 Great Conjunction
+                /// and solstices to prove professional-grade accuracy
+                Button("Validate Historical Events") {
+                    cosmicValidationReport = CosmicData.validateHistoricalEvents()
+                    showingCosmicValidation = true
+                }
+                .foregroundColor(.orange)
+                
+                /// Claude: Legacy cosmic engine test (for comparison)
                 Button("Test Enhanced Cosmic Engine") {
-                    /// Claude: Execute full validation suite against Sky Guide data
-                    /// This function compares our enhanced calculations against professional
-                    /// astronomy software to verify accuracy and system performance
                     cosmicValidationReport = CosmicData.validateEnhancedCalculations()
                     showingCosmicValidation = true
                 }
                 .foregroundColor(.blue)
                 
-                /// Claude: Descriptive text explaining validation process
-                /// Helps users understand what the test accomplishes and its significance
-                /// for ensuring professional-grade astronomical accuracy
-                Text("Validates planetary calculations against Sky Guide professional astronomy data")
+                Text("Swiss Ephemeris provides professional astronomy accuracy for any date/time. Test across multiple periods to verify consistency.")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }

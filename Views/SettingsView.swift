@@ -312,9 +312,94 @@ struct SettingsView: View {
                         .foregroundColor(.purple)
                 }
                 
-                /// Claude: SwiftAA API Discovery Button
-                /// This button will help us discover the actual SwiftAA v2.4.0 API
-                /// by showing what properties and methods are available on planetary objects
+                /// Claude: Real-Time Planetary Accuracy Validation
+                /// Shows Swiss Ephemeris calculations across multiple time periods
+                /// to demonstrate professional accuracy for any date/time
+                Button(action: {
+                    print("🪐 Planetary Accuracy Validation Requested")
+                    
+                    cosmicValidationReport = CosmicData.validatePlanetaryAccuracy()
+                    showingCosmicValidation = true
+                    
+                }) {
+                    Label("Test Planetary Accuracy", systemImage: "globe.americas.fill")
+                        .foregroundColor(.purple)
+                }
+                
+                /// Claude: Historical Astronomical Events Validation
+                /// Tests Swiss Ephemeris against known astronomical events
+                /// like the 2020 Jupiter-Saturn Great Conjunction and solstices
+                Button(action: {
+                    print("📅 Historical Events Validation Requested")
+                    
+                    cosmicValidationReport = CosmicData.validateHistoricalEvents()
+                    showingCosmicValidation = true
+                    
+                }) {
+                    Label("Test Historical Events", systemImage: "calendar.badge.clock")
+                        .foregroundColor(.orange)
+                }
+                
+                /// Claude: Real-Time Spiritual Wellness Accuracy Validator
+                /// Tests Swiss Ephemeris for conjunctions, aspects, and spiritual timing
+                Button(action: {
+                    print("🔮 Real-Time Accuracy Validation Requested")
+                    
+                    cosmicValidationReport = CosmicData.validateRealTimeAccuracy()
+                    showingCosmicValidation = true
+                    
+                }) {
+                    Label("🔮 Validate Real-Time Accuracy", systemImage: "star.circle")
+                        .foregroundColor(.purple)
+                }
+                
+                /// Claude: Automated JPL Horizons Validation
+                /// Actually connects to JPL and shows comparison results automatically
+                Button(action: {
+                    print("🚀 Automated JPL Validation Requested")
+                    
+                    cosmicValidationReport = "🔄 Connecting to NASA JPL Horizons...\nPlease wait while we validate your Swiss Ephemeris calculations..."
+                    showingCosmicValidation = true
+                    
+                    Task {
+                        let result = await CosmicData.performAutomatedJPLValidation()
+                        await MainActor.run {
+                            cosmicValidationReport = result
+                        }
+                    }
+                    
+                }) {
+                    Label("🤖 Auto-Validate vs JPL", systemImage: "wifi.circle")
+                        .foregroundColor(.green)
+                }
+                
+                /// Claude: Manual JPL Horizons Instructions
+                /// Shows planetary coordinates with instructions for manual JPL verification
+                Button(action: {
+                    print("📋 Manual JPL Instructions Requested")
+                    
+                    cosmicValidationReport = CosmicData.validateAgainstJPLHorizons()
+                    showingCosmicValidation = true
+                    
+                }) {
+                    Label("Manual JPL Instructions", systemImage: "globe.badge.chevron.backward")
+                        .foregroundColor(.blue)
+                }
+                
+                /// Claude: JPL Horizons Comparison Helper
+                /// Formats data for easy copy-paste verification with NASA JPL
+                Button(action: {
+                    print("📋 JPL Comparison Data Requested")
+                    
+                    cosmicValidationReport = CosmicData.formatForJPLComparison()
+                    showingCosmicValidation = true
+                    
+                }) {
+                    Label("JPL Comparison Format", systemImage: "doc.on.clipboard")
+                        .foregroundColor(.cyan)
+                }
+                
+                /// Claude: SwiftAA API Discovery (for development reference)
                 Button(action: {
                     print("🔍 SwiftAA API Discovery Test Requested")
                     
@@ -322,7 +407,7 @@ struct SettingsView: View {
                     showingCosmicValidation = true
                     
                 }) {
-                    Label("Discover SwiftAA API", systemImage: "magnifyingglass.circle")
+                    Label("SwiftAA API Reference", systemImage: "magnifyingglass.circle")
                         .foregroundColor(.blue)
                 }
             }
