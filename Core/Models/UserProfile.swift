@@ -79,6 +79,76 @@ struct UserProfile: Codable, Identifiable {
     /// Timezone identifier at birth location (e.g., "America/New_York")
     let birthTimezone: String?
     
+    // MARK: - Phase 11A: Birth Chart Foundation
+    /// Claude: Essential natal chart data for personalized spiritual insights
+    ///
+    /// **🌌 Birth Chart Foundation - Phase 11A Enhancement**
+    /// 
+    /// These properties store calculated astrological data from the user's birth moment,
+    /// providing the foundation for personalized cosmic insights and spiritual guidance.
+    /// All calculations use SwiftAA Swiss Ephemeris for professional-grade accuracy.
+    ///
+    /// **🏠 Astrological Houses (Life Areas):**
+    /// The 12 houses represent different life areas and are calculated based on 
+    /// birth time, date, and location using the Placidus house system.
+    ///
+    /// **🌟 Planetary Positions (Natal Placements):**
+    /// Exact zodiac positions of planets at birth moment, stored as ecliptic longitude
+    /// degrees (0-360°) for precise astrological interpretation.
+    ///
+    /// **⚡ Integration Points:**
+    /// - CosmicData.fromBirthChart(): Generate natal cosmic data
+    /// - KASPER Oracle: Enhanced insights using birth chart context
+    /// - Cosmic timing: Compare transits to natal positions
+    /// - Spiritual guidance: Birth chart-based personality insights
+    
+    /// Rising sign (Ascendant) - how others see you, your outer personality
+    let risingSign: String?
+    
+    /// Midheaven sign - career, reputation, life direction
+    let midheavenSign: String?
+    
+    /// Sun sign (already captured in birthdate, but stored for quick access)
+    let natalSunSign: String?
+    
+    /// Moon sign - emotions, inner world, subconscious needs
+    let natalMoonSign: String?
+    
+    /// Mercury sign - communication style, thinking patterns
+    let natalMercurySign: String?
+    
+    /// Venus sign - love style, aesthetic preferences, values
+    let natalVenusSign: String?
+    
+    /// Mars sign - action style, anger expression, drive
+    let natalMarsSign: String?
+    
+    /// Jupiter sign - growth areas, luck, expansion
+    let natalJupiterSign: String?
+    
+    /// Saturn sign - life lessons, discipline, challenges
+    let natalSaturnSign: String?
+    
+    /// Exact birth time for precise house calculations (if known)
+    /// Stored as hour (0-23) and minute (0-59) components
+    let birthTimeHour: Int?
+    let birthTimeMinute: Int?
+    
+    /// Whether birth time is known (affects house accuracy)
+    let hasBirthTime: Bool
+    
+    /// Dominant element in birth chart (Fire, Earth, Air, Water)
+    let dominantElement: String?
+    
+    /// Dominant modality in birth chart (Cardinal, Fixed, Mutable)
+    let dominantModality: String?
+    
+    /// North Node sign - life purpose, spiritual direction
+    let northNodeSign: String?
+    
+    /// Birth chart calculation timestamp
+    let birthChartCalculatedAt: Date?
+    
     // MARK: - Initializer
     init(
         id: String,
@@ -99,7 +169,24 @@ struct UserProfile: Codable, Identifiable {
         birthplaceLatitude: Double? = nil,
         birthplaceLongitude: Double? = nil,
         birthplaceName: String? = nil,
-        birthTimezone: String? = nil
+        birthTimezone: String? = nil,
+        // Phase 11A: Birth Chart Foundation Parameters
+        risingSign: String? = nil,
+        midheavenSign: String? = nil,
+        natalSunSign: String? = nil,
+        natalMoonSign: String? = nil,
+        natalMercurySign: String? = nil,
+        natalVenusSign: String? = nil,
+        natalMarsSign: String? = nil,
+        natalJupiterSign: String? = nil,
+        natalSaturnSign: String? = nil,
+        birthTimeHour: Int? = nil,
+        birthTimeMinute: Int? = nil,
+        hasBirthTime: Bool = false,
+        dominantElement: String? = nil,
+        dominantModality: String? = nil,
+        northNodeSign: String? = nil,
+        birthChartCalculatedAt: Date? = nil
     ) {
         self.id = id
         self.birthdate = birthdate
@@ -120,5 +207,23 @@ struct UserProfile: Codable, Identifiable {
         self.birthplaceLongitude = birthplaceLongitude
         self.birthplaceName = birthplaceName
         self.birthTimezone = birthTimezone
+        
+        // Claude: Phase 11A birth chart foundation assignments
+        self.risingSign = risingSign
+        self.midheavenSign = midheavenSign
+        self.natalSunSign = natalSunSign
+        self.natalMoonSign = natalMoonSign
+        self.natalMercurySign = natalMercurySign
+        self.natalVenusSign = natalVenusSign
+        self.natalMarsSign = natalMarsSign
+        self.natalJupiterSign = natalJupiterSign
+        self.natalSaturnSign = natalSaturnSign
+        self.birthTimeHour = birthTimeHour
+        self.birthTimeMinute = birthTimeMinute
+        self.hasBirthTime = hasBirthTime
+        self.dominantElement = dominantElement
+        self.dominantModality = dominantModality
+        self.northNodeSign = northNodeSign
+        self.birthChartCalculatedAt = birthChartCalculatedAt
     }
 } 

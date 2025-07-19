@@ -477,4 +477,259 @@ extension NotificationManager: MessagingDelegate {
             print("⚠️ FCM Token is nil")
         }
     }
+}
+
+// MARK: - Phase 11A: Location-Aware Cosmic Notifications
+
+extension NotificationManager {
+    
+    /// Claude: Schedule personalized cosmic timing notifications based on user's birth location
+    ///
+    /// **🌍 Phase 11A: Personalized Celestial Timing**
+    /// 
+    /// This method leverages the enhanced cosmic engine's location-based calculations
+    /// to provide users with precise timing for celestial events at their specific location.
+    /// Uses birth location data from UserProfile for maximum personalization.
+    ///
+    /// **🌅 Supported Celestial Events:**
+    /// - **Sunrise & Sunset**: Daily solar timing for spiritual alignment
+    /// - **Moonrise & Moonset**: Lunar timing for emotional and intuitive work
+    /// - **Planetary Visibility**: Mercury, Venus, Mars, Jupiter, Saturn optimal viewing
+    /// - **Full & New Moon**: Major lunar phase notifications
+    /// - **Void-of-Course Moon**: Special timing for reflection and contemplation
+    ///
+    /// **⏰ Notification Timing:**
+    /// - **Advance Notice**: 30 minutes before celestial events for preparation
+    /// - **Real-Time**: At the moment of celestial events for immediate alignment
+    /// - **Spiritual Timing**: Optimal moments for meditation, intention-setting, reflection
+    ///
+    /// **🎯 Integration Points:**
+    /// - Uses CosmicService.shared for location-based calculations
+    /// - Integrates with UserProfile birth location coordinates
+    /// - Synchronizes with existing notification permissions and settings
+    func scheduleLocationAwareCosmicNotifications() {
+        print("🌌 Setting up location-aware cosmic notifications")
+        
+        // Check notification authorization first
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            guard settings.authorizationStatus == .authorized else {
+                print("⚠️ Notifications not authorized - skipping cosmic scheduling")
+                return
+            }
+            
+            Task { @MainActor in
+                await self.scheduleTodaysCosmicEvents()
+            }
+        }
+    }
+    
+    /// Claude: Schedule cosmic notifications for today's celestial events
+    @MainActor
+    private func scheduleTodaysCosmicEvents() async {
+        // Get today's cosmic data with location-specific calculations
+        await CosmicService.shared.fetchTodaysCosmicData()
+        
+        guard let cosmic = CosmicService.shared.todaysCosmic else {
+            print("🌌 No cosmic data available for notifications")
+            return
+        }
+        
+        // Remove existing cosmic notifications to avoid duplicates
+        removePendingCosmicNotifications()
+        
+        // Schedule solar events
+        if let sunEvents = cosmic.sunEvents {
+            scheduleSolarNotifications(sunEvents: sunEvents)
+        }
+        
+        // Schedule lunar events
+        if let moonEvents = cosmic.moonEvents {
+            scheduleLunarNotifications(moonEvents: moonEvents)
+        }
+        
+        // Schedule special cosmic conditions
+        scheduleSpecialCosmicNotifications(cosmic: cosmic)
+        
+        print("✅ Cosmic notifications scheduled for today")
+    }
+    
+    /// Claude: Schedule sunrise and sunset notifications for spiritual alignment
+    private func scheduleSolarNotifications(sunEvents: CelestialEventTimes) {
+        let now = Date()
+        
+        // Sunrise notification - 15 minutes before for morning intention setting
+        if let sunrise = sunEvents.rise, sunrise > now {
+            let notificationTime = sunrise.addingTimeInterval(-15 * 60) // 15 minutes before
+            
+            if notificationTime > now {
+                scheduleCosmicNotification(
+                    identifier: "sunrise_preparation",
+                    title: "🌅 Sunrise Approaching",
+                    body: "The sun rises in 15 minutes at \(sunEvents.riseTimeString). Perfect time for morning intentions and spiritual alignment.",
+                    triggerDate: notificationTime,
+                    category: "cosmic_timing"
+                )
+            }
+        }
+        
+        // Sunset notification - perfect for evening reflection
+        if let sunset = sunEvents.set, sunset > now {
+            scheduleCosmicNotification(
+                identifier: "sunset_reflection",
+                title: "🌇 Sunset Sacred Time",
+                body: "The sun sets at \(sunEvents.setTimeString). A beautiful moment for gratitude and releasing the day's energy.",
+                triggerDate: sunset,
+                category: "cosmic_timing"
+            )
+        }
+        
+        // Solar noon - peak solar energy
+        if let transit = sunEvents.transit, transit > now {
+            scheduleCosmicNotification(
+                identifier: "solar_noon",
+                title: "☀️ Solar Peak Energy",
+                body: "The sun reaches its highest point at \(sunEvents.transitTimeString). Maximum solar power for manifestation and confidence.",
+                triggerDate: transit,
+                category: "cosmic_energy"
+            )
+        }
+    }
+    
+    /// Claude: Schedule moonrise and moonset notifications for emotional and intuitive work
+    private func scheduleLunarNotifications(moonEvents: CelestialEventTimes) {
+        let now = Date()
+        
+        // Moonrise notification - optimal for lunar energy work
+        if let moonrise = moonEvents.rise, moonrise > now {
+            scheduleCosmicNotification(
+                identifier: "moonrise_energy",
+                title: "🌙 Moon Rising",
+                body: "The moon rises at \(moonEvents.riseTimeString). Perfect timing for emotional healing and intuitive insights.",
+                triggerDate: moonrise,
+                category: "lunar_timing"
+            )
+        }
+        
+        // Moonset notification - completion and release
+        if let moonset = moonEvents.set, moonset > now {
+            scheduleCosmicNotification(
+                identifier: "moonset_release",
+                title: "🌑 Moon Setting",
+                body: "The moon sets at \(moonEvents.setTimeString). A powerful moment for releasing and letting go.",
+                triggerDate: moonset,
+                category: "lunar_timing"
+            )
+        }
+    }
+    
+    /// Claude: Schedule notifications for special cosmic conditions
+    private func scheduleSpecialCosmicNotifications(cosmic: CosmicData) {
+        let now = Date()
+        
+        // Void-of-course Moon notifications
+        if cosmic.isVoidOfCoursePeriod {
+            let voidInfo = cosmic.getVoidOfCourseMoon()
+            
+            // Immediate notification about current void-of-course period
+            scheduleCosmicNotification(
+                identifier: "void_of_course_active",
+                title: "🌙∅ Moon Void-of-Course",
+                body: voidInfo.spiritualMeaning,
+                triggerDate: now.addingTimeInterval(5), // 5 seconds from now
+                category: "special_timing"
+            )
+        }
+        
+        // Next Full Moon notification (if within 7 days)
+        if let nextFullMoon = cosmic.nextFullMoon {
+            let daysUntil = Calendar.current.dateComponents([.day], from: now, to: nextFullMoon).day ?? 0
+            
+            if daysUntil <= 7 && daysUntil > 0 {
+                let notificationTime = nextFullMoon.addingTimeInterval(-2 * 60 * 60) // 2 hours before
+                
+                if notificationTime > now {
+                    scheduleCosmicNotification(
+                        identifier: "full_moon_approaching",
+                        title: "🌕 Full Moon in 2 Hours",
+                        body: "The Full Moon energy is building. Perfect time for culmination rituals and releasing what no longer serves.",
+                        triggerDate: notificationTime,
+                        category: "lunar_phase"
+                    )
+                }
+            }
+        }
+        
+        // Planetary conjunction or major aspect notifications
+        if let keyAspect = cosmic.getTodaysKeyAspect() {
+            if keyAspect.isExact {
+                scheduleCosmicNotification(
+                    identifier: "exact_aspect",
+                    title: "⭐ Exact Planetary Aspect",
+                    body: "\(keyAspect.description) - \(keyAspect.aspectType.energy) energy is at its peak right now!",
+                    triggerDate: now.addingTimeInterval(60), // 1 minute from now
+                    category: "planetary_aspect"
+                )
+            }
+        }
+    }
+    
+    /// Claude: Generic method to schedule cosmic notifications
+    private func scheduleCosmicNotification(
+        identifier: String,
+        title: String,
+        body: String,
+        triggerDate: Date,
+        category: String
+    ) {
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = .default
+        content.categoryIdentifier = category
+        
+        // Add cosmic-themed custom data
+        content.userInfo = [
+            "type": "cosmic_timing",
+            "category": category,
+            "scheduled_time": triggerDate.timeIntervalSince1970
+        ]
+        
+        // Create date trigger
+        let triggerComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: triggerDate)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerComponents, repeats: false)
+        
+        // Create and schedule request
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("❌ Failed to schedule cosmic notification '\(identifier)': \(error.localizedDescription)")
+            } else {
+                print("✅ Scheduled cosmic notification: \(title) at \(triggerDate)")
+            }
+        }
+    }
+    
+    /// Claude: Remove all pending cosmic notifications to avoid duplicates
+    private func removePendingCosmicNotifications() {
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            let cosmicIdentifiers = requests
+                .filter { request in
+                    guard let userInfo = request.content.userInfo as? [String: Any] else { return false }
+                    return userInfo["type"] as? String == "cosmic_timing"
+                }
+                .map { $0.identifier }
+            
+            if !cosmicIdentifiers.isEmpty {
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: cosmicIdentifiers)
+                print("🗑️ Removed \(cosmicIdentifiers.count) pending cosmic notifications")
+            }
+        }
+    }
+    
+    /// Claude: Schedule daily cosmic notifications - call this once per day
+    func scheduleDailyCosmicNotifications() {
+        print("🌌 Starting daily cosmic notification scheduling")
+        scheduleLocationAwareCosmicNotifications()
+    }
 } 

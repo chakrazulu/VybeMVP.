@@ -268,6 +268,7 @@ struct OnboardingInitialInfoView: View {
     @State private var firstName: String = ""
     @State private var middleName: String = ""
     @State private var lastName: String = ""
+    @State private var birthLocation: String = ""
     @State private var birthTime: Date = Date()
     @State private var includeBirthTime: Bool = false
     @State private var isCalculating: Bool = false
@@ -477,6 +478,39 @@ struct OnboardingInitialInfoView: View {
                                 .italic()
                         }
                     }
+                }
+            }
+            
+            // Claude: Phase 11A - Birthplace Input Section
+            VStack(alignment: .leading, spacing: 15) {
+                HStack {
+                    Image(systemName: "location.circle.fill")
+                        .foregroundColor(.green)
+                        .font(.title2)
+                    Text("Your Sacred Birthplace")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                }
+                
+                VStack(spacing: 12) {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("Birth Location")
+                            .font(.caption)
+                            .foregroundColor(.white.opacity(0.7))
+                            .textCase(.uppercase)
+                            .tracking(0.5)
+                        
+                        TextField("City, State/Province, Country", text: $birthLocation)
+                            .textFieldStyle(CosmicTextFieldStyle())
+                            .autocapitalization(.words)
+                            .disableAutocorrection(false)
+                    }
+                    
+                    Text("Your birthplace enables precise astronomical calculations for personalized cosmic insights")
+                        .font(.caption2)
+                        .foregroundColor(.white.opacity(0.6))
+                        .italic()
+                        .multilineTextAlignment(.leading)
                 }
             }
         }
