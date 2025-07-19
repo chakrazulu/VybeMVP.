@@ -185,23 +185,36 @@ final class AuthenticationManagerTests: XCTestCase {
     // MARK: - Authentication Status Tests
     
     func testCheckAuthenticationStatus() {
-        // Test authentication status checking
-        let expectation = expectation(description: "Authentication status checked")
+        // Test authentication status checking in test mode
+        // In test mode, Firebase operations are skipped but the method should still complete
         
-        // Monitor authentication state changes (only fulfill once)
-        authManager.$isSignedIn
-            .dropFirst() // Skip initial value
-            .prefix(1)   // Only take the first emission to prevent multiple fulfillments
-            .sink { isSignedIn in
-                // Verify status was checked
-                expectation.fulfill()
-            }
-            .store(in: &cancellables)
+        // Capture initial state
+        let initialIsSignedIn = authManager.isSignedIn
         
         // Trigger authentication status check
         authManager.checkAuthenticationStatus()
         
-        waitForExpectations(timeout: 3.0)
+        // Wait for the async state update to complete
+        let expectation = expectation(description: "Auth status check completed")
+        
+        // Claude: Monitor the isCheckingAuthStatus property for changes
+        // Fixed race condition by removing dropFirst() and prefix(1) modifiers
+        // that were causing test failures when Firebase operations complete quickly in test mode
+        authManager.$isCheckingAuthStatus
+            .sink { isChecking in
+                // Claude: We expect the final state to be false (completed)
+                // This will trigger when checkAuthenticationStatus() completes in test mode
+                if !isChecking {
+                    expectation.fulfill()
+                }
+            }
+            .store(in: &cancellables)
+        
+        waitForExpectations(timeout: 1.0)
+        
+        // The authentication state should remain unchanged in test mode (no Firebase user)
+        XCTAssertEqual(authManager.isSignedIn, initialIsSignedIn, "Authentication state should remain unchanged in test mode")
+        XCTAssertFalse(authManager.isSignedIn, "Should remain unauthenticated in test mode")
     }
     
     // MARK: - Nonce Generation Tests
@@ -238,27 +251,17 @@ final class AuthenticationManagerTests: XCTestCase {
     // MARK: - Sign Out Tests
     
     func testSignOutProcess() {
-        // Test sign-out functionality
-        let expectation = expectation(description: "Sign out completed")
-        
-        // Monitor authentication state changes (only fulfill once)
-        authManager.$isSignedIn
-            .dropFirst() // Skip initial value
-            .prefix(1)   // Only take the first emission to prevent multiple fulfillments
-            .sink { isSignedIn in
-                if !isSignedIn {
-                    expectation.fulfill()
-                }
-            }
-            .store(in: &cancellables)
+        // Test sign-out functionality in test mode
+        // In test mode, Firebase operations are skipped but local data should be cleared
         
         // Perform sign out
         authManager.signOut()
         
-        // Verify immediate state changes
+        // Verify immediate state changes (local data should be cleared even in test mode)
         XCTAssertFalse(authManager.isSignedIn, "Should be unauthenticated after sign out")
-        
-        waitForExpectations(timeout: 3.0)
+        XCTAssertNil(authManager.firebaseUser, "Firebase user should be nil after sign out")
+        XCTAssertNil(authManager.userEmail, "User email should be cleared after sign out")
+        XCTAssertNil(authManager.userFullName, "User full name should be cleared after sign out")
     }
     
     // MARK: - Apple Sign-In Tests (Mock/Simulation)

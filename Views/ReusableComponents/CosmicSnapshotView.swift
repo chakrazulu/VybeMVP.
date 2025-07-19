@@ -34,7 +34,6 @@
  */
 
 import SwiftUI
-import CoreLocation
 
 /// Claude: Revolutionary interactive cosmic data display with enhanced cosmic engine integration
 ///
@@ -99,71 +98,39 @@ struct CosmicSnapshotView: View {
     /// Sacred gradient based on current realm number
     let realmNumber: Int
     
-    // MARK: - Helper Methods
-    
-    /// Safely select a planet only when cosmic data is available
-    private func selectPlanet(_ planet: String) {
-        // First, set the selected planet
-        selectedPlanet = planet
-        
-        // If cosmic data is available, show sheet immediately
-        if cosmicService.todaysCosmic != nil {
-            showingPlanetDetail = true
-        } else {
-            // If no cosmic data, load it first, then show sheet
-            Task { @MainActor in
-                await cosmicService.fetchTodaysCosmicData()
-                // Only show sheet if the same planet is still selected and data loaded
-                if selectedPlanet == planet && cosmicService.todaysCosmic != nil {
-                    showingPlanetDetail = true
-                }
-            }
-        }
-    }
-    
     // MARK: - Body
     
     var body: some View {
-        compactView
-            .fullScreenCover(isPresented: $isExpanded) {
+        Group {
+            if isExpanded {
                 expandedView
+            } else {
+                compactView
             }
+        }
+        .animation(.spring(response: 0.3, dampingFraction: 0.8), value: isExpanded)
     }
     
     // MARK: - Compact View
     
-    /// Claude: Main compact display showing essential cosmic information
-    /// 
-    /// This view displays the most important cosmic data in a compact format:
-    /// - Current moon phase with illumination percentage
-    /// - Sun sign and key planetary positions
-    /// - Spiritual guidance for the day
-    /// - Interactive elements for planet selection
-    /// 
-    /// **Design Features:**
-    /// - Matches ruler view width for visual consistency
-    /// - Uses realm number color theming in background
-    /// - Tap to expand for full cosmic details
-    /// - Sheet presentation for individual planet details
     private var compactView: some View {
         VStack(spacing: 16) {
             compactHeader
             compactContent
         }
-        .padding(20)
+        .padding(.horizontal, 16) // Match number ruler padding
+        .padding(.vertical, 20)
         .background(cosmicBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+        .shadow(color: .black.opacity(0.4), radius: 10, x: 0, y: 5)
         .onTapGesture {
             withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
                 isExpanded = true
             }
         }
         .accessibilityElement(children: .combine)
-        .accessibilityLabel(cosmicAccessibilityLabel)
+        .accessibilityLabel(accessibilityLabel)
         .accessibilityHint("Tap to view detailed cosmic information")
         .sheet(isPresented: $showingPlanetDetail) {
-            // Only show sheet when both planet and cosmic data are available
             if let planet = selectedPlanet, let cosmic = cosmicService.todaysCosmic {
                 PlanetaryDetailView(
                     planet: planet,
@@ -268,7 +235,8 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectPlanet("Moon")
+                    selectedPlanet = "Moon"
+                    showingPlanetDetail = true
                 }
                 
                 // Divider
@@ -291,7 +259,8 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectPlanet("Sun")
+                    selectedPlanet = "Sun"
+                    showingPlanetDetail = true
                 }
                 
                 // Divider
@@ -330,7 +299,8 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectPlanet("Mercury")
+                    selectedPlanet = "Mercury"
+                    showingPlanetDetail = true
                 }
             }
             
@@ -365,7 +335,8 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectPlanet("Venus")
+                    selectedPlanet = "Venus"
+                    showingPlanetDetail = true
                 }
                 
                 // Mars (Action & Energy)
@@ -397,7 +368,8 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectPlanet("Mars")
+                    selectedPlanet = "Mars"
+                    showingPlanetDetail = true
                 }
                 
                 // Jupiter (Expansion & Luck)
@@ -421,7 +393,8 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectPlanet("Jupiter")
+                    selectedPlanet = "Jupiter"
+                    showingPlanetDetail = true
                 }
             }
             
@@ -448,7 +421,8 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectPlanet("Saturn")
+                    selectedPlanet = "Saturn"
+                    showingPlanetDetail = true
                 }
                 
                 // Uranus (Innovation & Change)
@@ -472,7 +446,8 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectPlanet("Uranus")
+                    selectedPlanet = "Uranus"
+                    showingPlanetDetail = true
                 }
                 
                 // Neptune (Dreams & Intuition)
@@ -496,7 +471,8 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectPlanet("Neptune")
+                    selectedPlanet = "Neptune"
+                    showingPlanetDetail = true
                 }
             }
             
@@ -555,29 +531,6 @@ struct CosmicSnapshotView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             .padding(.top, 4)
-            
-            // Claude: Location-based celestial timing section
-            if hasLocationData(cosmic) {
-                VStack(spacing: 12) {
-                    HStack {
-                        Image(systemName: "sunrise.fill")
-                            .font(.system(size: 14, weight: .medium))
-                            .foregroundColor(.orange)
-                        Text("Celestial Timing")
-                            .font(.system(size: 14, weight: .semibold, design: .rounded))
-                            .foregroundColor(.white.opacity(0.9))
-                        Spacer()
-                        if let location = cosmic.observerLocation {
-                            Text(location.name)
-                                .font(.system(size: 10, weight: .medium, design: .rounded))
-                                .foregroundColor(.white.opacity(0.6))
-                        }
-                    }
-                    
-                    celestialTimingGrid(cosmic: cosmic)
-                }
-                .padding(.top, 8)
-            }
         }
     }
     
@@ -604,180 +557,6 @@ struct CosmicSnapshotView: View {
     /// Provides contextual spiritual insights that can be enhanced by KASPER's AI for personalized
     /// guidance based on user's birth chart, current life circumstances, and spiritual journey.
     /// The enhanced cosmic engine ensures all astrological data is professionally accurate.
-    
-    // MARK: - Celestial Timing Functions
-    
-    /// Claude: Check if cosmic data has location-based timing information
-    private func hasLocationData(_ cosmic: CosmicData) -> Bool {
-        return cosmic.observerLocation != nil && 
-               (cosmic.sunEvents != nil || cosmic.moonEvents != nil)
-    }
-    
-    /// Claude: Create compact celestial timing grid for cosmic snapshot
-    private func celestialTimingGrid(cosmic: CosmicData) -> some View {
-        HStack(spacing: 16) {
-            // Solar timing
-            if let sunEvents = cosmic.sunEvents {
-                celestialEventCard(
-                    icon: "☀️",
-                    title: "Sun",
-                    events: sunEvents,
-                    color: .orange
-                )
-            }
-            
-            // Lunar timing  
-            if let moonEvents = cosmic.moonEvents {
-                celestialEventCard(
-                    icon: cosmic.moonPhaseEmoji,
-                    title: "Moon", 
-                    events: moonEvents,
-                    color: .blue
-                )
-            }
-            
-            // Next event indicator
-            if let nextEvent = getNextCelestialEvent(cosmic: cosmic) {
-                nextEventCard(nextEvent)
-            }
-        }
-    }
-    
-    /// Claude: Individual celestial event card
-    private func celestialEventCard(
-        icon: String,
-        title: String,
-        events: CelestialEventTimes,
-        color: Color
-    ) -> some View {
-        VStack(spacing: 6) {
-            HStack(spacing: 3) {
-                Text(icon)
-                    .font(.system(size: 16))
-                if events.isVisible {
-                    Circle()
-                        .fill(color)
-                        .frame(width: 4, height: 4)
-                }
-            }
-            
-            Text(title)
-                .font(.system(size: 10, weight: .medium, design: .rounded))
-                .foregroundColor(.white.opacity(0.8))
-            
-            VStack(spacing: 2) {
-                if let rise = events.rise {
-                    timingRow(label: "↑", time: rise, color: color)
-                }
-                if let set = events.set {
-                    timingRow(label: "↓", time: set, color: color)
-                }
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .padding(10)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(.regularMaterial)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(color.opacity(0.4), lineWidth: 1)
-                )
-        )
-    }
-    
-    /// Claude: Next event highlight card
-    private func nextEventCard(_ event: CelestialEvent) -> some View {
-        VStack(spacing: 4) {
-            Text("Next")
-                .font(.system(size: 10, weight: .medium, design: .rounded))
-                .foregroundColor(.white.opacity(0.8))
-            
-            Text(event.icon)
-                .font(.system(size: 14))
-            
-            Text(formatEventTime(event.time))
-                .font(.system(size: 9, weight: .medium, design: .rounded))
-                .foregroundColor(.purple)
-            
-            Text(timeUntilEvent(event.time))
-                .font(.system(size: 8, weight: .medium, design: .rounded))
-                .foregroundColor(.white.opacity(0.6))
-        }
-        .frame(maxWidth: .infinity)
-        .padding(10)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(.regularMaterial)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.purple.opacity(0.5), lineWidth: 1)
-                )
-        )
-    }
-    
-    /// Claude: Timing row for rise/set times
-    private func timingRow(label: String, time: Date, color: Color) -> some View {
-        HStack(spacing: 4) {
-            Text(label)
-                .font(.system(size: 8, weight: .bold))
-                .foregroundColor(color)
-            Text(formatEventTime(time))
-                .font(.system(size: 8, weight: .medium, design: .rounded))
-                .foregroundColor(.white.opacity(0.9))
-        }
-    }
-    
-    /// Claude: Format time for display
-    private func formatEventTime(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        return formatter.string(from: date)
-    }
-    
-    /// Claude: Calculate time until event
-    private func timeUntilEvent(_ date: Date) -> String {
-        let interval = date.timeIntervalSinceNow
-        if interval < 0 { return "passed" }
-        
-        let hours = Int(interval) / 3600
-        let minutes = (Int(interval) % 3600) / 60
-        
-        if hours > 0 {
-            return "\(hours)h \(minutes)m"
-        } else {
-            return "\(minutes)m"
-        }
-    }
-    
-    /// Claude: Get next upcoming celestial event
-    private func getNextCelestialEvent(cosmic: CosmicData) -> CelestialEvent? {
-        var events: [CelestialEvent] = []
-        let now = Date()
-        
-        // Add solar events
-        if let sunEvents = cosmic.sunEvents {
-            if let rise = sunEvents.rise, rise > now {
-                events.append(CelestialEvent(description: "Sunrise", time: rise, icon: "🌅"))
-            }
-            if let set = sunEvents.set, set > now {
-                events.append(CelestialEvent(description: "Sunset", time: set, icon: "🌇"))
-            }
-        }
-        
-        // Add lunar events
-        if let moonEvents = cosmic.moonEvents {
-            if let rise = moonEvents.rise, rise > now {
-                events.append(CelestialEvent(description: "Moonrise", time: rise, icon: cosmic.moonPhaseEmoji))
-            }
-            if let set = moonEvents.set, set > now {
-                events.append(CelestialEvent(description: "Moonset", time: set, icon: cosmic.moonPhaseEmoji))
-            }
-        }
-        
-        return events.min(by: { $0.time < $1.time })
-    }
-    
     private func cosmicGuidanceText(for cosmic: CosmicData) -> String {
         var guidance: [String] = []
         
@@ -863,208 +642,126 @@ struct CosmicSnapshotView: View {
     
     // MARK: - Expanded View
     
-    /// Claude: Full-screen detailed cosmic analysis display
-    /// 
-    /// This comprehensive view provides deep cosmic insights including:
-    /// - Complete lunar influence analysis
-    /// - Major planetary aspects with exact indicators
-    /// - Void-of-Course Moon periods and meanings
-    /// - Retrograde planet influences
-    /// - Location-based celestial timing (sunrise/sunset, moonrise/moonset)
-    /// - All planetary positions with zodiac signs
-    /// - Spiritual guidance and recommendations
-    /// 
-    /// **Technical Implementation:**
-    /// - Full-screen cover presentation for immersive experience
-    /// - Manual close button for clear user control
-    /// - Organized card-based layout for easy reading
-    /// - Conditional location-based content display
-    /// - Smooth animations and proper safe area handling
     private var expandedView: some View {
-        NavigationStack {
-            ZStack {
-                // Background matching app style
-                LinearGradient(
-                    gradient: Gradient(colors: [
-                        Color.black,
-                        Color.purple.opacity(0.3),
-                        Color.indigo.opacity(0.2),
-                        Color.black
-                    ]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
-                
-                ScrollView {
-                    VStack(spacing: 24) {
-                        // Header with close button
-                        HStack {
+        ZStack {
+            // Background matching app style
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color.black,
+                    Color.purple.opacity(0.3),
+                    Color.indigo.opacity(0.2),
+                    Color.black
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+            
+            ScrollView {
+                VStack(spacing: 24) {
+                    // Header
+                    VStack(spacing: 12) {
+                        Text("✦ COSMIC DETAIL VIEW ✦")
+                            .font(.system(size: 28, weight: .bold, design: .rounded))
+                            .foregroundStyle(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [.white, getRealmColor(for: realmNumber).opacity(0.8)]),
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                        
+                        if cosmicService.hasCosmicData {
                             Text("Today's Complete Cosmic Analysis")
-                                .font(.system(size: 24, weight: .bold, design: .rounded))
-                                .foregroundColor(.white)
-                            
-                            Spacer()
-                            
-                            Button("✕") {
-                                withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                                    isExpanded = false
-                                }
-                            }
-                            .font(.system(size: 20, weight: .medium))
-                            .foregroundColor(.white.opacity(0.8))
-                            .frame(width: 32, height: 32)
-                            .background(Circle().fill(.ultraThinMaterial))
-                        }
-                        .padding(.top, 20)
-                        
-                        if let cosmic = cosmicService.todaysCosmic {
-                            // Detailed cosmic content
-                            VStack(spacing: 20) {
-                                // Moon Phase Detail
-                                cosmicDetailCard(
-                                    title: "🌙 Lunar Influence",
-                                    content: "\(cosmic.moonPhase) (\(Int(cosmic.moonIllumination ?? 0))% illuminated)\n\(cosmic.spiritualGuidance)"
-                                )
-                                
-                                // Major Aspects
-                                if !cosmic.getCurrentAspects().isEmpty {
-                                    let aspects = cosmic.getMajorAspects()
-                                    cosmicDetailCard(
-                                        title: "⭐ Planetary Aspects",
-                                        content: aspects.map { $0.description }.joined(separator: "\n")
-                                    )
-                                }
-                                
-                                // Void of Course Moon
-                                let voidInfo = cosmic.getVoidOfCourseMoon()
-                                if voidInfo.isVoid {
-                                    cosmicDetailCard(
-                                        title: "🌙∅ Void-of-Course Moon",
-                                        content: voidInfo.spiritualMeaning
-                                    )
-                                }
-                                
-                                // Retrograde Planets
-                                let retrogradePlanets = ["Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"].filter { cosmic.isRetrograde($0) }
-                                if !retrogradePlanets.isEmpty {
-                                    cosmicDetailCard(
-                                        title: "℞ Retrograde Influences",
-                                        content: retrogradePlanets.map { "\($0) ℞" }.joined(separator: ", ") + "\nTime for review and reflection in these areas."
-                                    )
-                                }
-                                
-                                // Celestial Timing (if location available)
-                                if cosmic.observerLocation != nil && (cosmic.sunEvents != nil || cosmic.moonEvents != nil) {
-                                    cosmicDetailCard(
-                                        title: "🌅 Celestial Timing",
-                                        content: generateCelestialTimingText(cosmic: cosmic)
-                                    )
-                                }
-                                
-                                // All Planetary Positions
-                                cosmicDetailCard(
-                                    title: "🌌 Planetary Positions",
-                                    content: generatePlanetaryPositionsText(cosmic: cosmic)
-                                )
-                                
-                                // Spiritual Guidance Summary
-                                cosmicDetailCard(
-                                    title: "✨ Today's Spiritual Guidance",
-                                    content: cosmic.spiritualGuidance
-                                )
-                            }
-                        } else {
-                            VStack(spacing: 16) {
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                    .scaleEffect(1.2)
-                                
-                                Text("Loading cosmic data...")
-                                    .font(.system(size: 18, weight: .medium, design: .rounded))
-                                    .foregroundColor(.white.opacity(0.7))
-                            }
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 60)
+                                .font(.system(size: 16, weight: .medium, design: .rounded))
+                                .foregroundColor(.white.opacity(0.8))
                         }
                         
-                        // Bottom spacer for safe scrolling
-                        Spacer(minLength: 40)
+                        Text("Tap anywhere to return")
+                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.5))
                     }
-                    .padding(.horizontal, 20)
+                    
+                    if let cosmic = cosmicService.todaysCosmic {
+                        // Detailed cosmic content
+                        VStack(spacing: 20) {
+                            // Moon Phase Detail
+                            cosmicDetailCard(
+                                title: "🌙 Lunar Influence",
+                                content: "\(cosmic.moonPhase) (\(Int(cosmic.moonIllumination ?? 0))% illuminated)\n\(cosmic.spiritualGuidance)"
+                            )
+                            
+                            // Major Aspects
+                            if !cosmic.getCurrentAspects().isEmpty {
+                                let aspects = cosmic.getMajorAspects()
+                                cosmicDetailCard(
+                                    title: "⭐ Planetary Aspects",
+                                    content: aspects.map { $0.description }.joined(separator: "\n")
+                                )
+                            }
+                            
+                            // Void of Course Moon
+                            let voidInfo = cosmic.getVoidOfCourseMoon()
+                            if voidInfo.isVoid {
+                                cosmicDetailCard(
+                                    title: "🌙∅ Void-of-Course Moon",
+                                    content: voidInfo.spiritualMeaning
+                                )
+                            }
+                            
+                            // Retrograde Planets
+                            let retrogradePlanets = ["Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"].filter { cosmic.isRetrograde($0) }
+                            if !retrogradePlanets.isEmpty {
+                                cosmicDetailCard(
+                                    title: "℞ Retrograde Influences",
+                                    content: retrogradePlanets.map { "\($0) ℞" }.joined(separator: ", ") + "\nTime for review and reflection in these areas."
+                                )
+                            }
+                            
+                            // All Planetary Positions
+                            cosmicDetailCard(
+                                title: "🌌 Planetary Positions",
+                                content: generatePlanetaryPositionsText(cosmic: cosmic)
+                            )
+                        }
+                    } else {
+                        Text("Loading cosmic data...")
+                            .font(.system(size: 18, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.7))
+                    }
                 }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 40)
             }
         }
-        .navigationBarHidden(true)
+        .onTapGesture {
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                isExpanded = false
+            }
+        }
     }
     
     // MARK: - Supporting Views
     
-    /// Claude: Realm-themed cosmic background with glassmorphic design
-    /// 
-    /// Creates a sophisticated background that:
-    /// - Uses `.ultraThinMaterial` for native iOS glassmorphic effect
-    /// - Incorporates current realm number color for visual consistency
-    /// - Applies elegant gradient with black base and realm color accent
-    /// - Includes subtle border with gradient stroke effect
-    /// 
-    /// **Color System Integration:**
-    /// - Automatically adapts to current realm number (1-9)
-    /// - Maintains visual harmony with other cosmic views
-    /// - Provides appropriate contrast for text readability
     private var cosmicBackground: some View {
-        RoundedRectangle(cornerRadius: 16)
-            .fill(.ultraThinMaterial)
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(
-                        LinearGradient(
-                            gradient: Gradient(colors: [
-                                Color.black.opacity(0.6),
-                                getRealmColor(for: realmNumber).opacity(0.2),
-                                Color.black.opacity(0.4)
-                            ]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-            )
+        RoundedRectangle(cornerRadius: 20)
+            .fill(Color.black.opacity(0.3))
             .overlay(
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: 20)
                     .stroke(
                         LinearGradient(
-                            gradient: Gradient(colors: [
-                                .white.opacity(0.3),
-                                getRealmColor(for: realmNumber).opacity(0.4),
-                                .white.opacity(0.1)
-                            ]),
+                            gradient: Gradient(colors: [.white.opacity(0.2), getRealmColor(for: realmNumber).opacity(0.3)]),
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         ),
-                        lineWidth: 1.5
+                        lineWidth: 1
                     )
             )
     }
     
     // MARK: - Helper Methods
     
-    /// Claude: Get realm color that matches the app's sacred color system
-    /// 
-    /// Maps realm numbers (1-9) to their corresponding sacred colors:
-    /// - 1: Red (Creation, Genesis energy)
-    /// - 2: Orange (Partnership, Duality) 
-    /// - 3: Yellow (Expression, Creativity)
-    /// - 4: Green (Foundation, Stability)
-    /// - 5: Blue (Freedom, Change)
-    /// - 6: Indigo (Harmony, Love)
-    /// - 7: Purple (Spirituality, Mystery)
-    /// - 8: Gold (Abundance, Cycles)
-    /// - 9: White (Completion, Unity)
-    /// 
-    /// **Design Integration:**
-    /// - Used for background gradients and accent colors
-    /// - Ensures visual consistency across all cosmic views
-    /// - Provides spiritual meaning through color symbolism
+    /// Get realm color that matches the app's color system
     private func getRealmColor(for number: Int) -> Color {
         switch number {
         case 1: return .red
@@ -1081,7 +778,7 @@ struct CosmicSnapshotView: View {
     }
     
     /// Accessibility label for VoiceOver
-    private var cosmicAccessibilityLabel: String {
+    private var accessibilityLabel: String {
         guard let cosmic = cosmicService.todaysCosmic else {
             return "Cosmic data loading"
         }
@@ -1118,13 +815,13 @@ struct CosmicSnapshotView: View {
                 .lineSpacing(3)
                 .multilineTextAlignment(.leading)
         }
-        .padding(20)
+        .padding(16)
         .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(.regularMaterial)
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.black.opacity(0.3))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(.white.opacity(0.3), lineWidth: 1)
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
                 )
         )
     }
@@ -1142,59 +839,12 @@ struct CosmicSnapshotView: View {
         
         return positionsText.joined(separator: "\n")
     }
-    
-    /// Claude: Generate celestial timing information for expanded view
-    private func generateCelestialTimingText(cosmic: CosmicData) -> String {
-        var timingText: [String] = []
-        
-        if let location = cosmic.observerLocation {
-            timingText.append("📍 \(location.name)")
-            timingText.append("")
-        }
-        
-        // Solar timing
-        if let sunEvents = cosmic.sunEvents {
-            timingText.append("☀️ Solar Events:")
-            if let rise = sunEvents.rise {
-                timingText.append("   Sunrise: \(formatTime(rise))")
-            }
-            if let transit = sunEvents.transit {
-                timingText.append("   Solar Noon: \(formatTime(transit))")
-            }
-            if let set = sunEvents.set {
-                timingText.append("   Sunset: \(formatTime(set))")
-            }
-            timingText.append("")
-        }
-        
-        // Lunar timing
-        if let moonEvents = cosmic.moonEvents {
-            timingText.append("\(cosmic.moonPhaseEmoji) Lunar Events:")
-            if let rise = moonEvents.rise {
-                timingText.append("   Moonrise: \(formatTime(rise))")
-            }
-            if let transit = moonEvents.transit {
-                timingText.append("   Lunar Transit: \(formatTime(transit))")
-            }
-            if let set = moonEvents.set {
-                timingText.append("   Moonset: \(formatTime(set))")
-            }
-        }
-        
-        return timingText.joined(separator: "\n")
-    }
-    
-    /// Claude: Format time for celestial timing display
-    private func formatTime(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        return formatter.string(from: date)
-    }
+}
 
-    // MARK: - Planetary Detail View
+// MARK: - Planetary Detail View
 
-    /// Comprehensive planetary detail view with spiritual insights
-    struct PlanetaryDetailView: View {
+/// Comprehensive planetary detail view with spiritual insights
+struct PlanetaryDetailView: View {
     let planet: String
     let cosmicData: CosmicData
     let realmNumber: Int
@@ -1202,7 +852,7 @@ struct CosmicSnapshotView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ZStack {
                 // Cosmic background
                 LinearGradient(
@@ -1224,11 +874,6 @@ struct CosmicSnapshotView: View {
                         
                         // Current position
                         currentPositionCard
-                        
-                        // Claude: Celestial timing only for Moon and Sun (not other planets)
-                        if (planet == "Moon" || planet == "Sun") && cosmicData.observerLocation != nil && (cosmicData.sunEvents != nil || cosmicData.moonEvents != nil) {
-                            celestialTimingCardForPlanet
-                        }
                         
                         // Spiritual meaning
                         spiritualMeaningCard
@@ -1388,99 +1033,6 @@ struct CosmicSnapshotView: View {
         .background(cardBackground)
     }
     
-    private var timeFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        return formatter
-    }
-    
-    private var celestialTimingCardForPlanet: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Text("🌅 Celestial Timing")
-                    .font(.system(size: 16, weight: .semibold, design: .rounded))
-                    .foregroundColor(.white)
-                Spacer()
-                if let location = cosmicData.observerLocation {
-                    Text("📍 \(location.name)")
-                        .font(.system(size: 12, weight: .medium, design: .rounded))
-                        .foregroundColor(.white.opacity(0.7))
-                }
-            }
-            
-            HStack(spacing: 20) {
-                // Solar timing
-                if let sunEvents = cosmicData.sunEvents {
-                    HStack(spacing: 8) {
-                        Text("☀️")
-                            .font(.system(size: 18))
-                        VStack(alignment: .leading, spacing: 2) {
-                            if let rise = sunEvents.rise {
-                                HStack(spacing: 4) {
-                                    Text("↑")
-                                        .font(.system(size: 10, weight: .bold))
-                                        .foregroundColor(.orange)
-                                    Text(timeFormatter.string(from: rise))
-                                        .font(.system(size: 12, weight: .medium, design: .rounded))
-                                        .foregroundColor(.white)
-                                }
-                            }
-                            if let set = sunEvents.set {
-                                HStack(spacing: 4) {
-                                    Text("↓")
-                                        .font(.system(size: 10, weight: .bold))
-                                        .foregroundColor(.red)
-                                    Text(timeFormatter.string(from: set))
-                                        .font(.system(size: 12, weight: .medium, design: .rounded))
-                                        .foregroundColor(.white)
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                // Lunar timing
-                if let moonEvents = cosmicData.moonEvents {
-                    HStack(spacing: 8) {
-                        Text(cosmicData.moonPhaseEmoji)
-                            .font(.system(size: 18))
-                        VStack(alignment: .leading, spacing: 2) {
-                            if let rise = moonEvents.rise {
-                                HStack(spacing: 4) {
-                                    Text("↑")
-                                        .font(.system(size: 10, weight: .bold))
-                                        .foregroundColor(.blue)
-                                    Text(timeFormatter.string(from: rise))
-                                        .font(.system(size: 12, weight: .medium, design: .rounded))
-                                        .foregroundColor(.white)
-                                }
-                            }
-                            if let set = moonEvents.set {
-                                HStack(spacing: 4) {
-                                    Text("↓")
-                                        .font(.system(size: 10, weight: .bold))
-                                        .foregroundColor(.blue)
-                                    Text(timeFormatter.string(from: set))
-                                        .font(.system(size: 12, weight: .medium, design: .rounded))
-                                        .foregroundColor(.white)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(.ultraThinMaterial)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(.white.opacity(0.2), lineWidth: 1)
-                )
-        )
-    }
-
     private var cosmicFlowCard: some View {
         VStack(spacing: 16) {
             HStack {
@@ -1771,14 +1323,30 @@ struct CosmicSnapshotView: View {
         default: return "Spiritual contemplation, cosmic alignment activities"
         }
     }
-    }
 }
 
 // MARK: - Color Extensions
 
 extension Color {
     static let silver = Color(red: 0.75, green: 0.75, blue: 0.75)
-    
+}
+
+// MARK: - Preview
+
+#Preview {
+    VStack(spacing: 20) {
+        ForEach([1, 5, 9], id: \.self) { realmNumber in
+            CosmicSnapshotView(realmNumber: realmNumber)
+                .environmentObject(CosmicService.shared)
+                .padding(.horizontal)
+        }
+    }
+    .background(Color.black)
+}
+
+// MARK: - Color Extension
+
+extension Color {
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int: UInt64 = 0
@@ -1803,27 +1371,4 @@ extension Color {
             opacity: Double(a) / 255
         )
     }
-}
-
-// MARK: - Preview
-
-#Preview {
-    VStack(spacing: 20) {
-        ForEach([1, 5, 9], id: \.self) { realmNumber in
-            CosmicSnapshotView(realmNumber: realmNumber)
-                .environmentObject(CosmicService.shared)
-                .padding(.horizontal)
-        }
-    }
-    .background(Color.black)
-}
-
-
-// MARK: - Supporting Types
-
-/// Claude: Celestial event data structure for timing display
-struct CelestialEvent {
-    let description: String
-    let time: Date
-    let icon: String
 } 

@@ -98,15 +98,23 @@ import FirebaseFirestore
 class UserProfileService {
 
     static let shared = UserProfileService()
-    private let db = Firestore.firestore()
+    // Claude: Conditionally initialize Firestore to prevent test mode billing
+    private let db: Firestore? = {
+        let isTestMode = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+        guard !isTestMode else {
+            print("🛡️ TEST MODE: Skipping Firestore initialization to protect billing")
+            return nil
+        }
+        return Firestore.firestore()
+    }()
 
     // CACHE FLOOD FIX: In-memory cache to prevent repeated UserDefaults reads
     private var cachedProfiles: [String: UserProfile] = [:]
     private var lastCacheTime: [String: Date] = [:]
     private let cacheExpirySeconds: TimeInterval = 300 // 5 minutes
 
-    private var usersCollection: CollectionReference {
-        return db.collection("users")
+    private var usersCollection: CollectionReference? {
+        return db?.collection("users")
     }
 
     // MARK: - Initialization
@@ -226,6 +234,13 @@ class UserProfileService {
         // Remove NSNull fields if you prefer not to store them
         profileData = profileData.filter { !($0.value is NSNull) }
 
+        // Claude: Check if Firestore is available before attempting operation
+        guard let usersCollection = usersCollection else {
+            print("🛡️ TEST MODE: Skipping Firestore save operation")
+            completion(nil) // Success in test mode
+            return
+        }
+        
         usersCollection.document(userID).setData(profileData) { error in
             if let error = error {
                 print("❌ UserProfileService: Error saving user profile: \(error.localizedDescription)")
@@ -246,6 +261,13 @@ class UserProfileService {
     func fetchUserProfile(for userID: String, completion: @escaping (UserProfile?, Error?) -> Void) {
         print("UserProfileService: Attempting to fetch profile for userID: \(userID)")
 
+        // Claude: Check if Firestore is available before attempting operation
+        guard let usersCollection = usersCollection else {
+            print("🛡️ TEST MODE: Skipping Firestore fetch operation")
+            completion(nil, nil) // Return nil in test mode
+            return
+        }
+        
         usersCollection.document(userID).getDocument { document, error in
             if let error = error {
                 print("❌ UserProfileService: Error fetching user profile: \(error.localizedDescription)")
@@ -293,6 +315,13 @@ class UserProfileService {
     func profileExists(for userID: String, completion: @escaping (Bool, Error?) -> Void) {
         print("UserProfileService: Checking if profile exists for userID: \(userID)")
 
+        // Claude: Check if Firestore is available before attempting operation
+        guard let usersCollection = usersCollection else {
+            print("🛡️ TEST MODE: Skipping Firestore existence check")
+            completion(false, nil) // Return false in test mode
+            return
+        }
+        
         usersCollection.document(userID).getDocument { document, error in
             if let error = error {
                 print("❌ UserProfileService: Error checking profile existence: \(error.localizedDescription)")

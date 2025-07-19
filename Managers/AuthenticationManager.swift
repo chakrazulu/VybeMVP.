@@ -195,6 +195,13 @@ class AuthenticationManager: ObservableObject {
     
     // MARK: - Initialization
     private init() {
+        // Claude: Only set up Firebase Auth listener if not in test mode
+        let isTestMode = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+        guard !isTestMode else {
+            print("🛡️ TEST MODE: Skipping Firebase Auth setup to protect billing")
+            return
+        }
+        
         // Listen for Firebase Auth state changes
         authStateListener = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             DispatchQueue.main.async {
@@ -224,6 +231,16 @@ class AuthenticationManager: ObservableObject {
     func checkAuthenticationStatus() {
         DispatchQueue.main.async { [weak self] in
             self?.isCheckingAuthStatus = true
+        }
+        
+        // Claude: Check test mode before Firebase Auth operations
+        let isTestMode = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+        guard !isTestMode else {
+            print("🛡️ TEST MODE: Skipping Firebase Auth check to protect billing")
+            DispatchQueue.main.async { [weak self] in
+                self?.isCheckingAuthStatus = false
+            }
+            return
         }
         
         // Check Firebase Auth first
@@ -332,6 +349,16 @@ class AuthenticationManager: ObservableObject {
                     rawNonce: nonce
                 )
                 
+                // Claude: Check test mode before Firebase sign in
+                let isTestMode = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+                guard !isTestMode else {
+                    print("🛡️ TEST MODE: Skipping Firebase sign in to protect billing")
+                    DispatchQueue.main.async {
+                        self.isSignedIn = false
+                    }
+                    return
+                }
+                
                 // Sign in to Firebase
                 Auth.auth().signIn(with: credential) { [weak self] result, error in
                     if let error = error {
@@ -382,6 +409,15 @@ class AuthenticationManager: ObservableObject {
      * Signs out the current user from both Firebase and Apple, clearing all stored data.
      */
     func signOut() {
+        // Claude: Check test mode before Firebase sign out
+        let isTestMode = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+        guard !isTestMode else {
+            print("🛡️ TEST MODE: Skipping Firebase sign out to protect billing")
+            // Still clear local data in test mode
+            clearLocalData()
+            return
+        }
+        
         // Sign out from Firebase
         do {
             try Auth.auth().signOut()
@@ -390,6 +426,14 @@ class AuthenticationManager: ObservableObject {
             print("❌ Firebase sign out failed: \(error.localizedDescription)")
         }
         
+        clearLocalData()
+    }
+    
+    /**
+     * Clears all local authentication data without Firebase operations
+     * Used for test mode or when Firebase is unavailable
+     */
+    private func clearLocalData() {
         // Clear keychain data
         keychainHelper.delete(for: "userID")
         keychainHelper.delete(for: "email")

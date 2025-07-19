@@ -69,8 +69,15 @@ class CosmicService: ObservableObject {
     
     // MARK: - Private Properties
     
-    /// Firestore database reference
-    private let db = Firestore.firestore()
+    /// Firestore database reference - conditionally initialized to prevent test mode billing
+    private let db: Firestore? = {
+        let isTestMode = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+        guard !isTestMode else {
+            print("🛡️ TEST MODE: Skipping CosmicService Firestore initialization to protect billing")
+            return nil
+        }
+        return Firestore.firestore()
+    }()
     
     /// Combine cancellables
     private var cancellables = Set<AnyCancellable>()
@@ -177,6 +184,13 @@ class CosmicService: ObservableObject {
      */
     func cosmicData(for date: Date) async -> CosmicData? {
         let dateString = self.dateString(for: date)
+        
+        // Claude: Check if Firestore is available before attempting operation
+        guard let db = db else {
+            print("🛡️ TEST MODE: Skipping Firestore fetch operation")
+            // Fallback to local calculation for the date
+            return CosmicData.fromLocalCalculations(for: date)
+        }
         
         do {
             let document = try await db.collection("cosmicData")

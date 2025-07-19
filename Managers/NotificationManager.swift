@@ -128,8 +128,14 @@ class NotificationManager: NSObject, ObservableObject {
         super.init()
         checkNotificationAuthorization()
         
-        // Set messaging delegate
-        Messaging.messaging().delegate = self
+        // Claude: Only set messaging delegate if not in test mode
+        let isTestMode = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+        if !isTestMode {
+            // Set messaging delegate
+            Messaging.messaging().delegate = self
+        } else {
+            print("🛡️ TEST MODE: Skipping Firebase Messaging setup to protect billing")
+        }
     }
     
     /// Request authorization for push notifications
@@ -196,6 +202,13 @@ class NotificationManager: NSObject, ObservableObject {
     
     /// Store the FCM token received from Firebase
     func setFCMToken(_ token: String) {
+        // Claude: Skip FCM token operations in test mode
+        let isTestMode = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+        guard !isTestMode else {
+            print("🛡️ TEST MODE: Skipping FCM token to protect billing")
+            return
+        }
+        
         self.fcmToken = token
         print("✅ FCM Token set: \(token)")
         
@@ -449,6 +462,13 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
 // MARK: - Firebase Messaging Extension
 extension NotificationManager: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        // Claude: Skip FCM token handling in test mode
+        let isTestMode = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+        guard !isTestMode else {
+            print("🛡️ TEST MODE: Skipping FCM token handling to protect billing")
+            return
+        }
+        
         print("🔥🔥🔥 FIREBASE FCM TOKEN RECEIVED 🔥🔥🔥")
         if let token = fcmToken {
             print("📱 FCM Token: \(token)")
