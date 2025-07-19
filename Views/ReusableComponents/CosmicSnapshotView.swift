@@ -743,9 +743,24 @@ struct CosmicSnapshotView: View {
     
     // MARK: - Supporting Views
     
+    // Claude: Fix background opacity to match "Today's Ruling Number" bubble consistency
     private var cosmicBackground: some View {
         RoundedRectangle(cornerRadius: 20)
-            .fill(Color.black.opacity(0.3))
+            .fill(.ultraThinMaterial)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                Color.black.opacity(0.6),
+                                getRealmColor(for: realmNumber).opacity(0.2),
+                                Color.black.opacity(0.4)
+                            ]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+            )
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
                     .stroke(
