@@ -147,14 +147,12 @@ struct RealmNumberView: View {
                     mysticalRealmDescription
                     
                     // REPLACED: Ruling Number Chart (replaces cosmic factors)
-                    RulingNumberChartView()
+                    RulingNumberChartView(realmNumber: realmNumberManager.currentRealmNumber)
                         .environmentObject(focusNumberManager)
                         .environmentObject(realmNumberManager)
                     
                     // Claude: Phase 10B - Cosmic Snapshot Integration
                     CosmicSnapshotView(realmNumber: realmNumberManager.currentRealmNumber)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 16)
                     
                     Spacer(minLength: 100)
                 }

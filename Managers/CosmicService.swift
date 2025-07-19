@@ -197,15 +197,28 @@ class CosmicService: ObservableObject {
     // MARK: - Private Methods
     
     /**
-     * Use local calculations as fallback
+     * Claude: Use location-aware calculations with fallback to basic calculations
+     * Now integrates Swiss Ephemeris precision with location-specific celestial timing
      */
     private func useLocalCalculations() async {
-        logger.info("🌌 Generating cosmic data from local calculations")
+        logger.info("🌌 Generating location-aware cosmic data with Swiss Ephemeris precision")
         
-        let localCosmic = CosmicData.fromLocalCalculations()
+        // Try location-based calculations first for complete celestial timing
+        let localCosmic = CosmicData.fromUserLocation()
         
         // Debug: Log key cosmic data for accuracy verification
-        logger.debug("🌌 Cosmic data: \(localCosmic.moonPhase) (\(Int(localCosmic.moonIllumination ?? 0))%), Sun in \(localCosmic.sunSign)")
+        if localCosmic.observerLocation != nil {
+            logger.debug("🌍 Location-based cosmic data: \(localCosmic.moonPhase) (\(Int(localCosmic.moonIllumination ?? 0))%), Sun in \(localCosmic.sunSign)")
+            logger.debug("📍 Observer location: \(localCosmic.observerLocation?.name ?? "Unknown")")
+            
+            // Log celestial timing availability
+            let hasSolar = localCosmic.sunEvents != nil
+            let hasLunar = localCosmic.moonEvents != nil
+            logger.debug("🌅 Celestial timing available - Solar: \(hasSolar), Lunar: \(hasLunar)")
+        } else {
+            logger.debug("🌌 Standard cosmic data (no location): \(localCosmic.moonPhase) (\(Int(localCosmic.moonIllumination ?? 0))%), Sun in \(localCosmic.sunSign)")
+            logger.info("📍 Location unavailable - using Swiss Ephemeris without rise/set times")
+        }
         
         await MainActor.run {
             self.todaysCosmic = localCosmic

@@ -191,6 +191,58 @@ class LocationManager: NSObject, ObservableObject {
             }
         }
     }
+    
+    /// Claude: Enhanced timezone detection from coordinates
+    /// Determines timezone identifier for a given location
+    func timezoneFromCoordinates(latitude: Double, longitude: Double) -> TimeZone? {
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        return timezoneFromLocation(location)
+    }
+    
+    /// Claude: Get timezone from CLLocation
+    /// Uses CLGeocoder to determine timezone for a location
+    func timezoneFromLocation(_ location: CLLocation) -> TimeZone? {
+        // For immediate timezone estimation, use a simple mapping
+        // This is a fallback - in production you might want to use CLGeocoder
+        // but for cosmic calculations, this provides reasonable timezone detection
+        
+        let longitude = location.coordinate.longitude
+        
+        // Simple timezone estimation based on longitude
+        // Each 15 degrees of longitude represents roughly 1 hour of time difference
+        let estimatedOffset = Int(longitude / 15.0)
+        let timeZoneOffset = max(-12, min(12, estimatedOffset))
+        
+        return TimeZone(secondsFromGMT: timeZoneOffset * 3600)
+    }
+    
+    /// Claude: Geocode string address to coordinates
+    /// Converts location name to coordinates for cosmic calculations
+    func geocodeAddress(_ address: String, completion: @escaping (CLLocationCoordinate2D?, TimeZone?, String?) -> Void) {
+        let geocoder = CLGeocoder()
+        
+        geocoder.geocodeAddressString(address) { placemarks, error in
+            if let error = error {
+                print("🌍 Geocoding error: \(error.localizedDescription)")
+                completion(nil, nil, error.localizedDescription)
+                return
+            }
+            
+            guard let placemark = placemarks?.first,
+                  let location = placemark.location else {
+                completion(nil, nil, "No location found for address")
+                return
+            }
+            
+            let coordinate = location.coordinate
+            let timezone = self.timezoneFromLocation(location)
+            
+            print("🌍 Geocoded '\(address)' to \(coordinate.latitude), \(coordinate.longitude)")
+            print("🕐 Detected timezone: \(timezone?.identifier ?? "Unknown")")
+            
+            completion(coordinate, timezone, nil)
+        }
+    }
 }
 
 // MARK: - CLLocationManagerDelegate

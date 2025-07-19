@@ -69,6 +69,16 @@ struct UserProfile: Codable, Identifiable {
     /// Enables future mood-aware insights or journaling rhythms.
     let wantsReflectionMode: Bool
     
+    // MARK: - Location & Timing Enhancement
+    /// Birthplace coordinates for accurate natal chart calculations
+    /// Stores latitude and longitude of birth location for precise astronomical calculations
+    let birthplaceLatitude: Double?
+    let birthplaceLongitude: Double?
+    /// Human-readable birthplace name (e.g., "Charlotte, NC, USA")
+    let birthplaceName: String?
+    /// Timezone identifier at birth location (e.g., "America/New_York")
+    let birthTimezone: String?
+    
     // MARK: - Initializer
     init(
         id: String,
@@ -85,7 +95,11 @@ struct UserProfile: Codable, Identifiable {
         birthName: String? = nil,
         soulUrgeNumber: Int? = nil,
         expressionNumber: Int? = nil,
-        wantsReflectionMode: Bool
+        wantsReflectionMode: Bool,
+        birthplaceLatitude: Double? = nil,
+        birthplaceLongitude: Double? = nil,
+        birthplaceName: String? = nil,
+        birthTimezone: String? = nil
     ) {
         self.id = id
         self.birthdate = birthdate
@@ -102,5 +116,9 @@ struct UserProfile: Codable, Identifiable {
         self.soulUrgeNumber = soulUrgeNumber
         self.expressionNumber = expressionNumber
         self.wantsReflectionMode = wantsReflectionMode
+        self.birthplaceLatitude = birthplaceLatitude
+        self.birthplaceLongitude = birthplaceLongitude
+        self.birthplaceName = birthplaceName
+        self.birthTimezone = birthTimezone
     }
 } 

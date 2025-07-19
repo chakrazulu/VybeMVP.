@@ -10,8 +10,13 @@ import SwiftUI
 /**
  * Interactive chart that displays today's realm number frequency distribution
  * Shows which number "ruled" the day and provides XP rewards for matches
+ * 
+ * Claude: Enhanced with realm number color theming to match other cosmic views
  */
 struct RulingNumberChartView: View {
+    /// Claude: Current realm number for color theming consistency
+    let realmNumber: Int
+    
     @StateObject private var sampleManager = RealmSampleManager.shared
     @EnvironmentObject var focusNumberManager: FocusNumberManager
     @EnvironmentObject var realmNumberManager: RealmNumberManager
@@ -49,21 +54,7 @@ struct RulingNumberChartView: View {
             footerSection
         }
         .padding(20)
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.black.opacity(0.3))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(
-                            LinearGradient(
-                                gradient: Gradient(colors: [.white.opacity(0.2), .purple.opacity(0.3)]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            ),
-                            lineWidth: 1
-                        )
-                )
-        )
+        .background(cosmicBackground)
         .shadow(color: .black.opacity(0.4), radius: 10, x: 0, y: 5)
         .onAppear {
             // Initialize view state first
@@ -91,6 +82,18 @@ struct RulingNumberChartView: View {
     
     // MARK: - Header Section
     
+    /// Claude: Header displaying today's ruling number with realm-themed styling
+    /// 
+    /// Shows the most frequently occurring realm number today with:
+    /// - Prominent ruling number badge with realm color theming
+    /// - Crown icon indicating dominance
+    /// - Descriptive text explaining the ruling energy
+    /// - Quick stats and navigation to detailed analysis
+    /// 
+    /// **Interactive Elements:**
+    /// - Tap chart icon to expand to detailed view
+    /// - Visual feedback with pulsing animations
+    /// - Sacred pattern indicators when applicable
     private var headerSection: some View {
         VStack(spacing: 8) {
             HStack {
@@ -213,6 +216,20 @@ struct RulingNumberChartView: View {
     
     // MARK: - Histogram Section
     
+    /// Claude: Interactive horizontal bar chart showing realm number frequency
+    /// 
+    /// Displays a beautiful horizontal histogram with:
+    /// - Color-coded bars using sacred number colors
+    /// - Animated bar growth on view appearance
+    /// - Special highlighting for the ruling number
+    /// - Crown icons and golden accents for dominance
+    /// - Tap interaction for number exploration
+    /// 
+    /// **Visual Features:**
+    /// - Consistent 28pt circles for number labels
+    /// - Normalized bar widths with minimum visibility
+    /// - Golden highlights and pulsing for ruling number
+    /// - Smooth animations with staggered timing
     private var histogramSection: some View {
         VStack(spacing: 12) {
             // Horizontal bars layout
@@ -510,6 +527,59 @@ struct RulingNumberChartView: View {
         return descriptions[index]
     }
     
+    // MARK: - Cosmic Background Style
+    
+    /// Claude: Cosmic background matching CosmicSnapshotView style with realm number color tint
+    private var cosmicBackground: some View {
+        RoundedRectangle(cornerRadius: 20)
+            .fill(.ultraThinMaterial)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                Color.black.opacity(0.6),
+                                getRealmColor(for: realmNumber).opacity(0.2),
+                                Color.black.opacity(0.4)
+                            ]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                .white.opacity(0.3),
+                                getRealmColor(for: realmNumber).opacity(0.4),
+                                .white.opacity(0.1)
+                            ]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 1.5
+                    )
+            )
+    }
+    
+    /// Claude: Get realm color matching the app's sacred color system
+    private func getRealmColor(for number: Int) -> Color {
+        switch number {
+        case 1: return .red
+        case 2: return .orange
+        case 3: return .yellow
+        case 4: return .green
+        case 5: return .blue
+        case 6: return .indigo
+        case 7: return .purple
+        case 8: return Color(red: 1.0, green: 0.8, blue: 0.0) // gold
+        case 9: return .white
+        default: return .white
+        }
+    }
+    
     private func getSacredColor(for number: Int) -> Color {
         switch number {
         case 1: return .red
@@ -532,7 +602,7 @@ struct RulingNumberChartView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.black
-            RulingNumberChartView()
+            RulingNumberChartView(realmNumber: 5)
                 .environmentObject(FocusNumberManager.shared)
                 .environmentObject(RealmNumberManager())
         }
