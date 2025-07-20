@@ -259,15 +259,20 @@ struct RealmNumberView: View {
         .padding(24)
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(
-                    LinearGradient(
-                        gradient: Gradient(colors: [
-                            getRealmNumberColor().opacity(0.2),
-                            Color.black.opacity(0.4)
-                        ]),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
+                .fill(.ultraThinMaterial)
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    Color.black.opacity(0.6),
+                                    getRealmNumberColor().opacity(0.2),
+                                    Color.black.opacity(0.4)
+                                ]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)

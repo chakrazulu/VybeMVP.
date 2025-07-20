@@ -35,6 +35,12 @@
 
 import SwiftUI
 
+/// Claude: Identifiable wrapper for planet names in sheets
+struct IdentifiablePlanet: Identifiable {
+    let id = UUID()
+    let name: String
+}
+
 /// Claude: Revolutionary interactive cosmic data display with enhanced cosmic engine integration
 ///
 /// This view represents a complete transformation from a simple static display to a living,
@@ -84,11 +90,8 @@ struct CosmicSnapshotView: View {
     /// Expand/collapse state
     @State private var isExpanded = false
     
-    /// Selected planet for detailed view
-    @State private var selectedPlanet: String? = nil
-    
-    /// Show planetary detail popup
-    @State private var showingPlanetDetail = false
+    /// Selected planet for detailed view (Fixed for immediate loading)
+    @State private var selectedPlanetForSheet: IdentifiablePlanet? = nil
     
     /// Animation namespace for smooth transitions
     @Namespace private var cosmicNamespace
@@ -130,10 +133,10 @@ struct CosmicSnapshotView: View {
         .accessibilityElement(children: .combine)
         .accessibilityLabel(accessibilityLabel)
         .accessibilityHint("Tap to view detailed cosmic information")
-        .sheet(isPresented: $showingPlanetDetail) {
-            if let planet = selectedPlanet, let cosmic = cosmicService.todaysCosmic {
+        .sheet(item: $selectedPlanetForSheet) { identifiablePlanet in
+            if let cosmic = cosmicService.todaysCosmic {
                 PlanetaryDetailView(
-                    planet: planet,
+                    planet: identifiablePlanet.name,
                     cosmicData: cosmic,
                     realmNumber: realmNumber
                 )
@@ -235,8 +238,7 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectedPlanet = "Moon"
-                    showingPlanetDetail = true
+                    selectedPlanetForSheet = IdentifiablePlanet(name: "Moon")
                 }
                 
                 // Divider
@@ -259,8 +261,7 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectedPlanet = "Sun"
-                    showingPlanetDetail = true
+                    selectedPlanetForSheet = IdentifiablePlanet(name: "Sun")
                 }
                 
                 // Divider
@@ -299,8 +300,7 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectedPlanet = "Mercury"
-                    showingPlanetDetail = true
+                    selectedPlanetForSheet = IdentifiablePlanet(name: "Mercury")
                 }
             }
             
@@ -335,8 +335,7 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectedPlanet = "Venus"
-                    showingPlanetDetail = true
+                    selectedPlanetForSheet = IdentifiablePlanet(name: "Venus")
                 }
                 
                 // Mars (Action & Energy)
@@ -368,8 +367,7 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectedPlanet = "Mars"
-                    showingPlanetDetail = true
+                    selectedPlanetForSheet = IdentifiablePlanet(name: "Mars")
                 }
                 
                 // Jupiter (Expansion & Luck)
@@ -393,8 +391,7 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectedPlanet = "Jupiter"
-                    showingPlanetDetail = true
+                    selectedPlanetForSheet = IdentifiablePlanet(name: "Jupiter")
                 }
             }
             
@@ -421,8 +418,7 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectedPlanet = "Saturn"
-                    showingPlanetDetail = true
+                    selectedPlanetForSheet = IdentifiablePlanet(name: "Saturn")
                 }
                 
                 // Uranus (Innovation & Change)
@@ -446,8 +442,7 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectedPlanet = "Uranus"
-                    showingPlanetDetail = true
+                    selectedPlanetForSheet = IdentifiablePlanet(name: "Uranus")
                 }
                 
                 // Neptune (Dreams & Intuition)
@@ -471,8 +466,7 @@ struct CosmicSnapshotView: View {
                 .frame(maxWidth: .infinity)
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectedPlanet = "Neptune"
-                    showingPlanetDetail = true
+                    selectedPlanetForSheet = IdentifiablePlanet(name: "Neptune")
                 }
             }
             

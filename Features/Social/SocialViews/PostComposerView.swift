@@ -90,6 +90,45 @@
  * - Minimal memory footprint with proper data structure usage
  * - Lazy loading of profile data only when needed
  * - Proper lifecycle management for SocialUser creation
+ *
+ * **🚀 PHASE 12A.1 ENHANCEMENT: @MENTION TAGGING SYSTEM**
+ * Added: July 19, 2025
+ * Purpose: Enable friend tagging in posts with intelligent auto-complete
+ *
+ * **NEW FEATURES IMPLEMENTED:**
+ * - Real-time @mention typing detection and auto-complete
+ * - Elegant mention picker with friend search and cosmic compatibility display
+ * - Visual mentioned friends management with remove functionality
+ * - Integration with FriendManager for real-time friend data
+ * - Smooth UI animations and responsive user experience
+ *
+ * **MENTION SYSTEM ARCHITECTURE:**
+ * - @StateObject friendManager: Real-time friend data and CRUD operations
+ * - showingMentionPicker: Controls mention picker sheet presentation
+ * - mentionQuery: Current search query for filtering friends
+ * - mentionedFriends: Array of usernames currently mentioned in post
+ * - filteredFriends: Real-time filtered list based on search query
+ *
+ * **USER INTERACTION FLOW:**
+ * 1. User types @ in content field → triggers mention detection
+ * 2. Auto-complete shows if friends match query → opens mention picker
+ * 3. User selects friend → adds @username to content and mentioned friends list
+ * 4. Visual mentioned friends section appears → allows removal with X button
+ * 5. Manual mention button → opens full friend picker for browsing all friends
+ *
+ * **TESTING NOTES FOR MENTION SYSTEM:**
+ * - Mention button disabled when no friends exist (expected for new users)
+ * - FriendManager.configure() called in onAppear for proper initialization
+ * - Sample data available via FriendManager.loadSampleData() for testing
+ * - Console logging shows friend data loading and mention system activity
+ * - Cosmic compatibility scores displayed in friend picker (87% format)
+ *
+ * **INTEGRATION WITH EXISTING SYSTEMS:**
+ * - Maintains all existing post creation functionality
+ * - Preserves cosmic signature and spiritual theming
+ * - Uses existing AuthenticationManager for user identification
+ * - Integrates with PostManager for actual post creation
+ * - Ready for Phase 12B.1 compatibility scoring enhancement
  */
 
 import SwiftUI
@@ -97,12 +136,19 @@ import SwiftUI
 struct PostComposerView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var postManager = PostManager.shared
+    @StateObject private var friendManager = FriendManager.shared
     @State private var content = ""
     @State private var selectedType: PostType = .text
     @State private var selectedTags: [String] = []
     @State private var isPosting = false
     @State private var showingImagePicker = false
     @State private var selectedImage: UIImage?
+    
+    // Claude: Phase 12A.1 - @mention tagging system
+    @State private var showingMentionPicker = false
+    @State private var mentionQuery = ""
+    @State private var mentionedFriends: [String] = [] // Array of friend usernames
+    @State private var filteredFriends: [Friendship] = []
     
     // User data - can be passed from UserProfileView or default to mock
     @State private var authorName: String
@@ -229,6 +275,12 @@ struct PostComposerView: View {
                 }
             }
         }
+        .onAppear {
+            // Claude: Phase 12A.1 - Configure friend manager for current user
+            if let userID = AuthenticationManager.shared.userID {
+                friendManager.configure(for: userID)
+            }
+        }
     }
     
     // MARK: - View Sections
@@ -307,10 +359,32 @@ struct PostComposerView: View {
     
     private var contentSection: some View {
         VStack(spacing: 12) {
-            Text("Share your spiritual insight")
-                .font(.subheadline)
-                .foregroundColor(.white.opacity(0.9))
-                .frame(maxWidth: .infinity, alignment: .leading)
+            HStack {
+                Text("Share your spiritual insight")
+                    .font(.subheadline)
+                    .foregroundColor(.white.opacity(0.9))
+                
+                Spacer()
+                
+                // Claude: Phase 12A.1 - @mention button
+                Button(action: {
+                    showingMentionPicker = true
+                    updateFilteredFriends()
+                }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "at")
+                            .font(.caption)
+                        Text("Mention")
+                            .font(.caption)
+                    }
+                    .foregroundColor(.blue)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.blue.opacity(0.2))
+                    .cornerRadius(6)
+                }
+                .disabled(friendManager.friendships.isEmpty)
+            }
             
             ZStack(alignment: .topLeading) {
                 RoundedRectangle(cornerRadius: 16)
@@ -334,7 +408,18 @@ struct PostComposerView: View {
                     .background(Color.clear)
                     .padding(12)
                     .scrollContentBackground(.hidden)
+                    .onChange(of: content) { _, newValue in
+                        handleMentionTyping(newValue)
+                    }
             }
+            
+            // Claude: Phase 12A.1 - Display mentioned friends
+            if !mentionedFriends.isEmpty {
+                mentionedFriendsSection
+            }
+        }
+        .sheet(isPresented: $showingMentionPicker) {
+            mentionPickerView
         }
     }
     
@@ -445,6 +530,192 @@ struct PostComposerView: View {
             dismiss()
         }
     }
+    
+    // MARK: - Claude: Phase 12A.1 - @Mention System Functions
+    
+    /// Handle @mention typing detection
+    private func handleMentionTyping(_ newValue: String) {
+        // Check if user typed @ followed by characters
+        let words = newValue.components(separatedBy: .whitespacesAndNewlines)
+        let lastWord = words.last ?? ""
+        
+        if lastWord.hasPrefix("@") && lastWord.count > 1 {
+            mentionQuery = String(lastWord.dropFirst()) // Remove @
+            updateFilteredFriends()
+            if !filteredFriends.isEmpty {
+                showingMentionPicker = true
+            }
+        }
+    }
+    
+    /// Update filtered friends based on mention query
+    private func updateFilteredFriends() {
+        if mentionQuery.isEmpty {
+            filteredFriends = Array(friendManager.friendships.prefix(10))
+        } else {
+            filteredFriends = friendManager.friendships.filter { friendship in
+                if let otherUserName = friendship.getOtherUserName(currentUserId: currentUser.userId) {
+                    return otherUserName.localizedCaseInsensitiveContains(mentionQuery)
+                }
+                return false
+            }
+        }
+    }
+    
+    /// Add a friend mention to the post content
+    private func addMention(friendship: Friendship) {
+        guard let friendName = friendship.getOtherUserName(currentUserId: currentUser.userId) else { return }
+        
+        // Replace the partial @mention with complete @mention
+        let words = content.components(separatedBy: .whitespacesAndNewlines)
+        var newWords = words
+        
+        // Find and replace the last @mention
+        for i in (0..<newWords.count).reversed() {
+            if newWords[i].hasPrefix("@") {
+                newWords[i] = "@\(friendName)"
+                break
+            }
+        }
+        
+        // If no partial mention found, just add to end
+        if !words.contains(where: { $0.hasPrefix("@") }) {
+            newWords.append("@\(friendName)")
+        }
+        
+        content = newWords.joined(separator: " ")
+        
+        // Track mentioned friends
+        if !mentionedFriends.contains(friendName) {
+            mentionedFriends.append(friendName)
+        }
+        
+        showingMentionPicker = false
+        mentionQuery = ""
+    }
+    
+    /// Remove a friend mention
+    private func removeMention(_ friendName: String) {
+        // Remove from content
+        content = content.replacingOccurrences(of: "@\(friendName)", with: "")
+        content = content.replacingOccurrences(of: "  ", with: " ") // Clean double spaces
+        content = content.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // Remove from mentioned friends
+        mentionedFriends.removeAll { $0 == friendName }
+    }
+    
+    // MARK: - Claude: Phase 12A.1 - @Mention Supporting Views
+    
+    /// Display mentioned friends with remove buttons
+    private var mentionedFriendsSection: some View {
+        VStack(spacing: 8) {
+            HStack {
+                Text("Mentioned Friends")
+                    .font(.caption)
+                    .foregroundColor(.white.opacity(0.7))
+                Spacer()
+            }
+            
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 8) {
+                ForEach(mentionedFriends, id: \.self) { friendName in
+                    HStack(spacing: 4) {
+                        Text("@\(friendName)")
+                            .font(.caption)
+                            .foregroundColor(.white)
+                        
+                        Button(action: {
+                            removeMention(friendName)
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.caption)
+                                .foregroundColor(.red.opacity(0.8))
+                        }
+                    }
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.blue.opacity(0.3))
+                    .cornerRadius(8)
+                }
+            }
+        }
+        .padding(.top, 8)
+    }
+    
+    /// Friend mention picker sheet
+    private var mentionPickerView: some View {
+        NavigationView {
+            ZStack {
+                Color.black.ignoresSafeArea()
+                
+                VStack(spacing: 20) {
+                    // Search bar
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.white.opacity(0.6))
+                        
+                        TextField("Search friends...", text: $mentionQuery)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .foregroundColor(.white)
+                            .onChange(of: mentionQuery) { _, _ in
+                                updateFilteredFriends()
+                            }
+                    }
+                    .padding()
+                    .background(Color.white.opacity(0.1))
+                    .cornerRadius(12)
+                    .padding(.horizontal)
+                    
+                    // Friends list
+                    ScrollView {
+                        LazyVStack(spacing: 12) {
+                            ForEach(filteredFriends, id: \.id) { friendship in
+                                if let friendName = friendship.getOtherUserName(currentUserId: currentUser.userId) {
+                                    MentionFriendRow(
+                                        friendName: friendName,
+                                        compatibilityScore: friendship.compatibilityScore,
+                                        isAlreadyMentioned: mentionedFriends.contains(friendName)
+                                    ) {
+                                        addMention(friendship: friendship)
+                                    }
+                                }
+                            }
+                        }
+                        .padding()
+                    }
+                    
+                    if filteredFriends.isEmpty {
+                        VStack(spacing: 12) {
+                            Image(systemName: "person.3")
+                                .font(.largeTitle)
+                                .foregroundColor(.white.opacity(0.4))
+                            
+                            Text(mentionQuery.isEmpty ? "No friends to mention" : "No friends found")
+                                .font(.headline)
+                                .foregroundColor(.white.opacity(0.7))
+                            
+                            if mentionQuery.isEmpty {
+                                Text("Add friends to mention them in posts")
+                                    .font(.caption)
+                                    .foregroundColor(.white.opacity(0.5))
+                            }
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
+                }
+            }
+            .navigationTitle("Mention Friends")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        showingMentionPicker = false
+                    }
+                    .foregroundColor(.white)
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Supporting Views
@@ -503,6 +774,70 @@ struct TagButton: View {
         }
         .scaleEffect(isSelected ? 1.05 : 1.0)
         .animation(.easeInOut(duration: 0.2), value: isSelected)
+    }
+}
+
+// MARK: - Claude: Phase 12A.1 - Mention Friend Row Component
+
+struct MentionFriendRow: View {
+    let friendName: String
+    let compatibilityScore: Double?
+    let isAlreadyMentioned: Bool
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 12) {
+                // Friend avatar placeholder
+                Circle()
+                    .fill(LinearGradient(
+                        gradient: Gradient(colors: [.blue, .purple]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ))
+                    .frame(width: 40, height: 40)
+                    .overlay(
+                        Text(String(friendName.prefix(1)).uppercased())
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                    )
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("@\(friendName)")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                    
+                    if let score = compatibilityScore {
+                        HStack(spacing: 4) {
+                            Image(systemName: "sparkles")
+                                .font(.caption)
+                                .foregroundColor(.yellow)
+                            Text("\(Int(score * 100))% cosmic compatibility")
+                                .font(.caption)
+                                .foregroundColor(.white.opacity(0.7))
+                        }
+                    }
+                }
+                
+                Spacer()
+                
+                if isAlreadyMentioned {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.title3)
+                        .foregroundColor(.green)
+                } else {
+                    Image(systemName: "plus.circle")
+                        .font(.title3)
+                        .foregroundColor(.blue)
+                }
+            }
+            .padding()
+            .background(Color.white.opacity(isAlreadyMentioned ? 0.05 : 0.1))
+            .cornerRadius(12)
+        }
+        .disabled(isAlreadyMentioned)
+        .opacity(isAlreadyMentioned ? 0.6 : 1.0)
     }
 }
 
