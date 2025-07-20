@@ -1229,7 +1229,7 @@ struct UserProfileTabView: View {
     }
     
     /// Claude: Individual planet row for list view
-    /// Claude: Individual planet row for list view (now tappable)
+    /// Claude: Individual planet row for list view with rich descriptions
     private func planetListRow(position: PlanetaryPosition) -> some View {
         Button(action: {
             print("🪐 Tapped planet: \(position.planet) in \(position.sign)")
@@ -1238,14 +1238,15 @@ struct UserProfileTabView: View {
             HStack(spacing: 12) {
                 // Planet glyph with color
                 Text(getPlanetGlyph(position.planet))
-                    .font(.title3)
+                    .font(.title2)
                     .foregroundColor(getPlanetColor(position.planet))
                 
-                VStack(alignment: .leading, spacing: 2) {
-                    HStack {
+                // Planet info with mini description
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 4) {
                         Text(position.planet)
                             .font(.subheadline)
-                            .fontWeight(.medium)
+                            .fontWeight(.semibold)
                             .foregroundColor(.white)
                         
                         Text("in")
@@ -1255,37 +1256,102 @@ struct UserProfileTabView: View {
                         Text(position.sign)
                             .font(.subheadline)
                             .fontWeight(.medium)
-                            .foregroundColor(.cyan)
+                            .foregroundColor(getSignColor(position.sign))
                     }
                     
-                    if position.degree > 0 {
-                        Text("\(position.degree)°")
-                            .font(.caption2)
-                            .foregroundColor(.white.opacity(0.5))
-                    }
+                    // Mini archetype description
+                    Text(getPlanetMiniDescription(position.planet))
+                        .font(.caption2)
+                        .foregroundColor(.white.opacity(0.7))
+                        .lineLimit(1)
                 }
                 
                 Spacer()
                 
-                // Tap indicator
-                Image(systemName: "info.circle")
-                    .font(.caption)
-                    .foregroundColor(.white.opacity(0.4))
+                // Degree and tap indicator
+                VStack(alignment: .trailing, spacing: 2) {
+                    if position.degree > 0 {
+                        Text("\(position.degree)°")
+                            .font(.caption)
+                            .foregroundColor(.white.opacity(0.6))
+                    }
+                    
+                    Image(systemName: "chevron.right")
+                        .font(.caption2)
+                        .foregroundColor(.white.opacity(0.4))
+                }
             }
             .padding(.horizontal, 12)
-            .padding(.vertical, 8)
+            .padding(.vertical, 10)
             .background(
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color.white.opacity(0.05))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.white.opacity(0.1), lineWidth: 0.5)
+                            .stroke(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [
+                                        getPlanetColor(position.planet).opacity(0.3),
+                                        Color.white.opacity(0.1)
+                                    ]),
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                ),
+                                lineWidth: 0.5
+                            )
                     )
             )
         }
         .buttonStyle(PlainButtonStyle())
     }
     
+    
+    /// Get mini planet description for list view
+    private func getPlanetMiniDescription(_ planet: String) -> String {
+        let cosmicData = loadMegaCorpusData()
+        
+        if let planets = cosmicData["planets"] as? [String: Any],
+           let planetData = planets[planet.lowercased()] as? [String: Any],
+           let archetype = planetData["archetype"] as? String {
+            return archetype
+        }
+        
+        // Fallback mini descriptions
+        switch planet.lowercased() {
+        case "sun": return "The Luminary"
+        case "moon": return "The Nurturer"
+        case "mercury": return "The Messenger"
+        case "venus": return "The Lover"
+        case "mars": return "The Warrior"
+        case "jupiter": return "The Sage"
+        case "saturn": return "The Teacher"
+        case "uranus": return "The Awakener"
+        case "neptune": return "The Mystic"
+        case "pluto": return "The Transformer"
+        case "ascendant": return "The Rising Self"
+        default: return "Celestial Body"
+        }
+    }
+    
+    /// Get sign color for visual distinction
+    private func getSignColor(_ sign: String) -> Color {
+        let cosmicData = loadMegaCorpusData()
+        
+        if let signs = cosmicData["signs"] as? [String: Any],
+           let signData = signs[sign.lowercased()] as? [String: Any],
+           let element = signData["element"] as? String {
+            
+            switch element.lowercased() {
+            case "fire": return .orange
+            case "earth": return .brown
+            case "air": return .cyan
+            case "water": return .blue
+            default: return .white
+            }
+        }
+        
+        return .white.opacity(0.8)
+    }
     
     // MARK: - Complete Archetype Codex
     
@@ -2953,6 +3019,27 @@ struct HouseDetailView: View {
                 .foregroundColor(.cyan)
             
             themesGrid
+            
+            // Add ritual prompt if available
+            if let ritualPrompt = getHouseRitualPrompt(houseNumber) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("✨ House Activation Ritual")
+                        .font(.subheadline)
+                        .foregroundColor(.yellow)
+                        .padding(.top, 12)
+                    
+                    Text(ritualPrompt)
+                        .font(.caption)
+                        .foregroundColor(.yellow.opacity(0.8))
+                        .italic()
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.yellow.opacity(0.1))
+                        )
+                }
+            }
         }
     }
     
@@ -3102,6 +3189,27 @@ struct HouseDetailView: View {
         case 12: return "Twelfth House"
         default: return "Unknown House"
         }
+    }
+    
+    /// Get house ritual prompt from MegaCorpus
+    private func getHouseRitualPrompt(_ houseNumber: Int) -> String? {
+        let cosmicData = loadMegaCorpusData()
+        
+        // Convert house number to word key
+        let houseKeys = ["", "first", "second", "third", "fourth", "fifth", "sixth", 
+                         "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth"]
+        
+        guard houseNumber >= 1 && houseNumber <= 12 else { return nil }
+        
+        let houseKey = houseKeys[houseNumber]
+        
+        if let houses = cosmicData["houses"] as? [String: Any],
+           let houseData = houses[houseKey] as? [String: Any],
+           let ritualPrompt = houseData["ritualPrompt"] as? String {
+            return ritualPrompt
+        }
+        
+        return nil
     }
     
     /// Claude: Get planets positioned in a specific house
@@ -3266,20 +3374,165 @@ struct PlanetDetailView: View {
     
     private var planetDescriptionSection: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Coming Soon")
-                .font(.title3)
-                .foregroundColor(.secondary)
+            // Planet archetype and description
+            planetArchetypeSection
             
-            Text("Detailed planetary interpretation will be available here, including meaning in your specific zodiac sign, house position, and aspects to other planets.")
-                .font(.body)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
+            // Planet in sign interpretation
+            planetInSignSection
+            
+            // Key themes and traits
+            planetTraitsSection
         }
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color.white.opacity(0.05))
         )
+    }
+    
+    private var planetArchetypeSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Planetary Archetype")
+                .font(.headline)
+                .foregroundColor(.cyan)
+            
+            let planetDescription = getPlanetDescription(for: position.planet)
+            Text(planetDescription)
+                .font(.body)
+                .foregroundColor(.white.opacity(0.9))
+                .lineSpacing(4)
+        }
+    }
+    
+    private var planetInSignSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("\(position.planet) in \(position.sign)")
+                .font(.headline)
+                .foregroundColor(.purple)
+            
+            let signInfluence = getPlanetInSignDescription(planet: position.planet, sign: position.sign)
+            Text(signInfluence)
+                .font(.body)
+                .foregroundColor(.white.opacity(0.8))
+                .lineSpacing(4)
+        }
+    }
+    
+    private var planetTraitsSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Key Influences")
+                .font(.headline)
+                .foregroundColor(.orange)
+            
+            let traits = getPlanetKeyTraits(for: position.planet)
+            ForEach(traits.prefix(4), id: \.self) { trait in
+                HStack(alignment: .top, spacing: 8) {
+                    Text("•")
+                        .foregroundColor(.orange)
+                    Text(trait)
+                        .font(.subheadline)
+                        .foregroundColor(.white.opacity(0.8))
+                }
+            }
+        }
+    }
+    
+    /// Get planet description from MegaCorpus data
+    private func getPlanetDescription(for planet: String) -> String {
+        let cosmicData = loadMegaCorpusData()
+        
+        if let planets = cosmicData["planets"] as? [String: Any],
+           let planetData = planets[planet.lowercased()] as? [String: Any] {
+            
+            if let archetype = planetData["archetype"] as? String,
+               let description = planetData["description"] as? String {
+                return "\(archetype) • \(description)"
+            }
+        }
+        
+        // Fallback descriptions
+        switch planet.lowercased() {
+        case "sun": return "The Luminary • Center of consciousness and vital force"
+        case "moon": return "The Nurturer • Emotional nature and unconscious patterns"
+        case "mercury": return "The Messenger • Communication and mental processes"
+        case "venus": return "The Lover • Values, relationships, and aesthetic sense"
+        case "mars": return "The Warrior • Drive, passion, and assertive energy"
+        case "jupiter": return "The Sage • Growth, expansion, and higher wisdom"
+        case "saturn": return "The Teacher • Structure, discipline, and life lessons"
+        case "uranus": return "The Awakener • Innovation, rebellion, and sudden change"
+        case "neptune": return "The Mystic • Dreams, intuition, and transcendence"
+        case "pluto": return "The Transformer • Deep change, power, and regeneration"
+        default: return "Celestial influence in your birth chart"
+        }
+    }
+    
+    /// Get planet's key traits from MegaCorpus
+    private func getPlanetKeyTraits(for planet: String) -> [String] {
+        let cosmicData = loadMegaCorpusData()
+        
+        if let planets = cosmicData["planets"] as? [String: Any],
+           let planetData = planets[planet.lowercased()] as? [String: Any],
+           let keyTraits = planetData["keyTraits"] as? [String] {
+            return keyTraits
+        }
+        
+        // Fallback traits
+        return ["Influences your chart", "Shapes your personality", "Guides your path"]
+    }
+    
+    /// Generate planet in sign interpretation
+    private func getPlanetInSignDescription(planet: String, sign: String) -> String {
+        let planetEnergy = getPlanetKeyword(planet)
+        let signQuality = getSignKeyQuality(sign)
+        
+        return "Your \(planetEnergy) expresses through the \(signQuality) qualities of \(sign). This combination creates a unique blend of energies that influences how you \(getPlanetAction(planet)) in life."
+    }
+    
+    private func getPlanetKeyword(_ planet: String) -> String {
+        switch planet.lowercased() {
+        case "sun": return "core identity"
+        case "moon": return "emotional nature"
+        case "mercury": return "communication style"
+        case "venus": return "way of loving"
+        case "mars": return "drive and passion"
+        case "jupiter": return "growth potential"
+        case "saturn": return "life lessons"
+        case "uranus": return "revolutionary spirit"
+        case "neptune": return "spiritual connection"
+        case "pluto": return "transformative power"
+        case "ascendant": return "outer personality"
+        default: return "cosmic influence"
+        }
+    }
+    
+    private func getSignKeyQuality(_ sign: String) -> String {
+        let cosmicData = loadMegaCorpusData()
+        
+        if let signs = cosmicData["signs"] as? [String: Any],
+           let signData = signs[sign.lowercased()] as? [String: Any],
+           let element = signData["element"] as? String,
+           let mode = signData["mode"] as? String {
+            return "\(element) \(mode)"
+        }
+        
+        // Fallback
+        return "unique"
+    }
+    
+    private func getPlanetAction(_ planet: String) -> String {
+        switch planet.lowercased() {
+        case "sun": return "express your identity"
+        case "moon": return "feel and nurture"
+        case "mercury": return "think and communicate"
+        case "venus": return "love and appreciate"
+        case "mars": return "act and assert"
+        case "jupiter": return "grow and expand"
+        case "saturn": return "structure your life"
+        case "uranus": return "innovate and rebel"
+        case "neptune": return "dream and transcend"
+        case "pluto": return "transform and empower"
+        default: return "express yourself"
+        }
     }
     
     /// Claude: Local planet color function for PlanetDetailView
@@ -3376,34 +3629,138 @@ struct AspectDetailView: View {
     
     private var aspectDescriptionSection: some View {
         VStack(alignment: .leading, spacing: 16) {
-            let aspectDescription = getAspectDescription(for: aspect.type)
+            // Aspect archetype and meaning
+            aspectArchetypeSection
             
-            Text("Aspect Meaning")
-                .font(.title3)
-                .fontWeight(.semibold)
-                .foregroundColor(.cyan)
+            // Planetary interaction details
+            planetaryInteractionSection
             
-            Text(aspectDescription)
-                .font(.body)
-                .foregroundColor(.white.opacity(0.9))
-                .multilineTextAlignment(.leading)
-            
-            Text("Planetary Interaction")
-                .font(.title3)
-                .fontWeight(.semibold)
-                .foregroundColor(.cyan)
-                .padding(.top, 8)
-            
-            Text("This \(aspect.type.rawValue.lowercased()) between \(aspect.planet1.capitalized) and \(aspect.planet2.capitalized) creates a dynamic interplay between your \(getPlanetKeywordFromString(aspect.planet1)) and your \(getPlanetKeywordFromString(aspect.planet2)). This aspect influences how these planetary forces work together in your personality.")
-                .font(.body)
-                .foregroundColor(.white.opacity(0.8))
-                .multilineTextAlignment(.leading)
+            // Aspect influence and guidance
+            aspectInfluenceSection
         }
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color.white.opacity(0.05))
         )
+    }
+    
+    private var aspectArchetypeSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Aspect Archetype")
+                .font(.headline)
+                .foregroundColor(.cyan)
+            
+            let aspectDescription = getAspectDescription(for: aspect.type)
+            Text(aspectDescription)
+                .font(.body)
+                .foregroundColor(.white.opacity(0.9))
+                .lineSpacing(4)
+        }
+    }
+    
+    private var planetaryInteractionSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Planetary Dialogue")
+                .font(.headline)
+                .foregroundColor(.purple)
+            
+            let interaction = generatePlanetaryInteraction()
+            Text(interaction)
+                .font(.body)
+                .foregroundColor(.white.opacity(0.8))
+                .lineSpacing(4)
+        }
+    }
+    
+    private var aspectInfluenceSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Your Personal Expression")
+                .font(.headline)
+                .foregroundColor(.orange)
+            
+            let influence = generatePersonalInfluence()
+            Text(influence)
+                .font(.body)
+                .foregroundColor(.white.opacity(0.8))
+                .lineSpacing(4)
+            
+            // Ritual prompt if available
+            if let ritualPrompt = getAspectRitualPrompt(for: aspect.type) {
+                Text("✨ Ritual Suggestion")
+                    .font(.subheadline)
+                    .foregroundColor(.yellow)
+                    .padding(.top, 8)
+                
+                Text(ritualPrompt)
+                    .font(.caption)
+                    .foregroundColor(.yellow.opacity(0.8))
+                    .italic()
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.yellow.opacity(0.1))
+                    )
+            }
+        }
+    }
+    
+    /// Generate detailed planetary interaction description
+    private func generatePlanetaryInteraction() -> String {
+        let planet1Energy = getPlanetKeywordFromString(aspect.planet1)
+        let planet2Energy = getPlanetKeywordFromString(aspect.planet2)
+        
+        switch aspect.type {
+        case .conjunction:
+            return "Your \(planet1Energy) and \(planet2Energy) are fused together, creating an intensified blend where both energies merge into one powerful force. This creates a concentrated area of focus in your personality where these planetary themes are inseparable."
+            
+        case .opposition:
+            return "Your \(planet1Energy) and \(planet2Energy) stand across from each other, creating a dynamic tension that requires balance. This aspect teaches you through the interplay of opposites, helping you integrate seemingly contradictory parts of yourself."
+            
+        case .trine:
+            return "Your \(planet1Energy) and \(planet2Energy) flow together harmoniously, supporting each other with natural ease. This blessed aspect allows these planetary energies to enhance each other effortlessly, creating areas of natural talent."
+            
+        case .square:
+            return "Your \(planet1Energy) and \(planet2Energy) create dynamic friction, challenging you to grow through tension. This aspect generates internal pressure that, when consciously worked with, becomes a source of strength and achievement."
+            
+        case .sextile:
+            return "Your \(planet1Energy) and \(planet2Energy) offer each other opportunities for growth and expression. This supportive aspect creates openings for positive development when you actively engage with its potential."
+        }
+    }
+    
+    /// Generate personalized influence description
+    private func generatePersonalInfluence() -> String {
+        let aspectType = aspect.type
+        let orbStrength = aspect.orb <= 3 ? "strongly" : aspect.orb <= 6 ? "moderately" : "subtly"
+        
+        return "This \(aspectType.rawValue.lowercased()) is \(orbStrength) active in your chart with an orb of \(String(format: "%.1f", aspect.orb))°. The closer the orb, the more powerfully you feel this aspect's influence in your daily life and personality expression."
+    }
+    
+    /// Get aspect energy description
+    private func getAspectEnergy(_ type: AspectType) -> String {
+        switch type {
+        case .conjunction: return "unified"
+        case .opposition: return "polarized"
+        case .trine: return "harmonious"
+        case .square: return "dynamic"
+        case .sextile: return "cooperative"
+        }
+    }
+    
+    /// Get ritual prompt from MegaCorpus if available
+    private func getAspectRitualPrompt(for aspectType: AspectType) -> String? {
+        let cosmicData = loadMegaCorpusData()
+        
+        let aspectKey = getAspectKey(aspectType)
+        
+        if let aspects = cosmicData["aspects"] as? [String: Any],
+           let aspectData = aspects[aspectKey] as? [String: Any],
+           let ritualPrompt = aspectData["ritualPrompt"] as? String {
+            return ritualPrompt
+        }
+        
+        return nil
     }
     
     /// Get rich aspect description from MegaCorpus data
