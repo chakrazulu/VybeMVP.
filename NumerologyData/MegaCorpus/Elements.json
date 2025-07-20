@@ -1,0 +1,86 @@
+{
+  "metadata": {
+    "title": "Astrological Elements Data",
+    "version": "1.0",
+    "description": "Sacred elemental energies and their spiritual correspondences",
+    "lastUpdated": "2025-07-20"
+  },
+  "elements": {
+    "fire": {
+      "name": "Fire",
+      "glyph": "🔥",
+      "polarity": "Masculine / Yang",
+      "jungianTypology": "Intuition",
+      "archetype": "The Pioneer's Spark",
+      "rulingPlanets": ["Mars", "Sun", "Jupiter"],
+      "signOrderNumbers": [1, 5, 9],
+      "resonantFocusNumbers": [1, 5, 9],
+      "color": "Crimson",
+      "keyTraits": [
+        "Energetic Drive: Always 'on,' forging ahead into new territory",
+        "Creative Will: Sparks ideas into being, loves bold gestures",
+        "Passionate Courage: Faces challenges with cheer and conviction"
+      ],
+      "signs": ["Aries", "Leo", "Sagittarius"],
+      "description": "Fire radiates outward energy—enthusiastic, excitable, and relentlessly optimistic. It seeks to illuminate the unknown, to kindle vision into reality. Fire signs are fiercely independent: honest to a fault, impatient for action, and freedom-loving. They thrive on grand ideals and bold expression, trusting intuition over caution.",
+      "ritualPrompt": "Write down one bold intention, then speak it aloud with conviction—let your inner blaze ignite the path before you."
+    },
+    "earth": {
+      "name": "Earth",
+      "glyph": "🌍",
+      "polarity": "Feminine / Yin",
+      "jungianTypology": "Sensation",
+      "archetype": "The Nurturing Builder",
+      "rulingPlanets": ["Venus", "Mercury", "Saturn"],
+      "signOrderNumbers": [2, 6, 10],
+      "resonantFocusNumbers": [2, 6, 1],
+      "color": "Emerald",
+      "keyTraits": [
+        "Practical Wisdom: Values process and craftsmanship",
+        "Steadfast Endurance: Weathering storms through sheer persistence",
+        "Material Alchemy: Turns vision into tangible abundance"
+      ],
+      "signs": ["Taurus", "Virgo", "Capricorn"],
+      "description": "Earth grounds spirit into form—steady, patient, and rooted in the here-and-now. It honors the body and the rhythms of nature, building structures that last. Earth people are practical nurturers: detail-oriented, reliable, and self-sufficient. They can be stubborn in their methods yet deeply generous in support.",
+      "ritualPrompt": "Choose one small, concrete step toward your goal—complete it mindfully, as you would tend a seed in rich soil."
+    },
+    "air": {
+      "name": "Air",
+      "glyph": "🌬️",
+      "polarity": "Masculine / Yang",
+      "jungianTypology": "Thinking",
+      "archetype": "The Cosmic Messenger",
+      "rulingPlanets": ["Mercury", "Venus", "Saturn", "Uranus"],
+      "signOrderNumbers": [3, 7, 11],
+      "resonantFocusNumbers": [3, 7, 2],
+      "color": "Azure",
+      "keyTraits": [
+        "Intellectual Agility: Masters of concept and communication",
+        "Social Bridge-Building: Unites disparate views into shared understanding",
+        "Future-Oriented Insight: Sees patterns before they crystallize"
+      ],
+      "signs": ["Gemini", "Libra", "Aquarius"],
+      "description": "Air carries the breath of ideas—adaptive, curious, and socially attuned. It links realms of thought, weaving conversation and connection. Air people live in the mind's currents: quick to learn, delighting in debate, yet sometimes detached from emotion. They dream collective futures into being with logic and vision.",
+      "ritualPrompt": "Draft a letter to your future self—outline at least three fresh ideas you feel drawn to explore."
+    },
+    "water": {
+      "name": "Water",
+      "glyph": "🌊",
+      "polarity": "Feminine / Yin",
+      "jungianTypology": "Feeling",
+      "archetype": "The Deep Empath",
+      "rulingPlanets": ["Moon", "Pluto", "Mars", "Jupiter", "Neptune"],
+      "signOrderNumbers": [4, 8, 12],
+      "resonantFocusNumbers": [4, 8, 3],
+      "color": "Sapphire",
+      "keyTraits": [
+        "Emotional Resonance: Feels collective moods with uncanny sensitivity",
+        "Healing Presence: Provides comfort and transformation through empathy",
+        "Creative Imagination: Channels inner visions through art, dream, ritual"
+      ],
+      "signs": ["Cancer", "Scorpio", "Pisces"],
+      "description": "Water flows through emotion—intuitive, receptive, and deeply attuned to subtle currents. It dissolves boundaries, inviting empathy and healing. Water people remember every nuance of feeling: compassionate, creative, yet prone to overwhelm if ungrounded. They offer a mirror to the soul's hidden depths.",
+      "ritualPrompt": "Journal five emotions you've felt today—allow each to speak its truth, then let them flow away like water."
+    }
+  }
+}

@@ -1,0 +1,346 @@
+{
+  "metadata": {
+    "title": "Zodiac Signs Data",
+    "version": "1.0",
+    "description": "Complete zodiac sign information with numerology, archetypal descriptions, and spiritual guidance",
+    "lastUpdated": "2025-07-20"
+  },
+  "signs": {
+    "aries": {
+      "name": "Aries",
+      "glyph": "♈︎",
+      "dateRange": "March 21 - April 19",
+      "numerology": {
+        "signOrderNumber": 1,
+        "rulerVibration": 9,
+        "elementNumber": 1,
+        "modeNumber": 1,
+        "resonantNumbers": [1, 9]
+      },
+      "symbol": "Ram",
+      "ruler": "Mars",
+      "house": "First",
+      "element": "Fire",
+      "mode": "Cardinal",
+      "keyword": "Assert",
+      "description": "Aries people are energetic, forceful and outgoing. They excel at getting things done—especially when it comes to beginnings—charging headlong into new ventures with a pioneering spirit. Their strong will can make them impatient or domineering, but with self-discipline they channel that energy into courageous action. Aries thrives on physical activity, directness, and the exhilaration of first steps.",
+      "keyTraits": [
+        "Bold Initiator: Seizes opportunity before it fully ripens",
+        "Tremendous Vitality: Boundless energy, loves movement",
+        "Self-Focused Courage: Honest, straightforward, sometimes self-centered",
+        "Growth Edge: Learning patience and strategic follow-through",
+        "Heart Need: Craves affection and positive feedback"
+      ],
+      "compatibility": ["Leo", "Sagittarius", "Gemini", "Aquarius"],
+      "ritualPrompt": "Stand tall, place your hand over your heart, and speak one bold intention aloud—let your inner warrior proclaim your path."
+    },
+    "taurus": {
+      "name": "Taurus",
+      "glyph": "♉︎",
+      "dateRange": "April 20 - May 20",
+      "numerology": {
+        "signOrderNumber": 2,
+        "rulerVibration": 6,
+        "elementNumber": 2,
+        "modeNumber": 2,
+        "resonantNumbers": [2, 6]
+      },
+      "symbol": "The Bull",
+      "ruler": "Venus",
+      "house": "Second",
+      "element": "Earth",
+      "mode": "Fixed",
+      "keyword": "Possess",
+      "description": "Taureans revel in life's pleasures. They crave security and comfort, delighting in sensory richness and the warmth of home. Though calm and steady on the surface, they harbor a powerful will—sometimes stubborn, always persistent. Taureans marry practical industriousness with a healer's kindness, creating stability for themselves and those they love.",
+      "keyTraits": [
+        "Sensual Appreciator: Savors textures, tastes, and beauty all around",
+        "Steadfast Provider: Builds lasting comfort and security",
+        "Stubborn Grounder: Unyielding in purpose, resistant to distraction",
+        "Nurturing Healer: Generous with support, kindness, and loyalty",
+        "Practical Stabilizer: Brings productive, enduring influence"
+      ],
+      "compatibility": ["Virgo", "Capricorn", "Cancer", "Pisces"],
+      "ritualPrompt": "Choose one object—a flower, a stone, a piece of music—and immerse your senses in it fully, grounding your intentions in its richness."
+    },
+    "gemini": {
+      "name": "Gemini",
+      "glyph": "♊︎",
+      "dateRange": "May 21 - June 20",
+      "numerology": {
+        "signOrderNumber": 3,
+        "rulerVibration": 5,
+        "elementNumber": 3,
+        "modeNumber": 3,
+        "resonantNumbers": [3, 5]
+      },
+      "symbol": "The Twins",
+      "ruler": "Mercury",
+      "house": "Third",
+      "element": "Air",
+      "mode": "Mutable",
+      "keyword": "Communicate",
+      "description": "Gemini is the archetype of duality and dialogue. Curious and quicksilver-minded, Geminis flit between ideas like butterflies—collecting insights through every conversation and experience. They excel at weaving connections, whether teaching, storytelling, or sparking lively debate. Though sometimes nervous or flighty, their adaptability and wit open doors to boundless intellectual and creative possibilities.",
+      "keyTraits": [
+        "Curious Connector: Delights in gathering and sharing information",
+        "Witty Conversationalist: Plays with language and ideas effortlessly",
+        "Dual Nature: Holds multiple perspectives, agile in thought",
+        "Restless Explorer: Easily bored, thrives on new stimuli",
+        "Adaptable Learner: Turns change into opportunity through flexibility"
+      ],
+      "compatibility": ["Libra", "Aquarius", "Aries", "Leo"],
+      "ritualPrompt": "Write five rapid-fire questions that intrigue you, then free-write answers for three minutes—let your mind dance across each curiosity."
+    },
+    "cancer": {
+      "name": "Cancer",
+      "glyph": "♋︎",
+      "dateRange": "June 21 - July 22",
+      "numerology": {
+        "signOrderNumber": 4,
+        "rulerVibration": 2,
+        "elementNumber": 4,
+        "modeNumber": 1,
+        "resonantNumbers": [4, 2]
+      },
+      "symbol": "The Crab",
+      "ruler": "Moon",
+      "house": "Fourth",
+      "element": "Water",
+      "mode": "Cardinal",
+      "keyword": "Feeling",
+      "description": "Cancerians are the caretakers of the zodiac—nurturing, protective, and deeply attuned to emotional currents. They prize security and home, often holding onto past experiences as a source of instinctual wisdom. Though their moods can shift like the tides, they flourish when they bring conscious awareness to old patterns and focus on heart-centered goals.",
+      "keyTraits": [
+        "Nurturing Protector: Shields loved ones with deep empathy",
+        "Emotional Sensitivity: Moody, instinctively attuned to others' feelings",
+        "Homebound Security: Values comfort, family, and a safe sanctuary",
+        "Memory Keeper: Carries the residue of past experience as guidance",
+        "Growth Edge: Learning to surface feelings into conscious intention"
+      ],
+      "compatibility": ["Scorpio", "Pisces", "Taurus", "Virgo"],
+      "ritualPrompt": "Light a candle in your sacred space. Invite a memory to surface, honor its lesson, then release it into the flame—trust your heart's guidance."
+    },
+    "leo": {
+      "name": "Leo",
+      "glyph": "♌︎",
+      "dateRange": "July 23 - August 22",
+      "numerology": {
+        "signOrderNumber": 5,
+        "rulerVibration": 1,
+        "elementNumber": 1,
+        "modeNumber": 2,
+        "resonantNumbers": [5, 1]
+      },
+      "symbol": "The Lion",
+      "ruler": "Sun",
+      "house": "Fifth",
+      "element": "Fire",
+      "mode": "Fixed",
+      "keyword": "Creating",
+      "description": "Leos shine in the spotlight—dramatic, creative, and full of heart. They embody the Sun's warmth, exuding confidence, courage, and honest integrity. Though they may sometimes lean into pride or self-indulgence, their true power lies in learning humility and generosity—so their radiant energy uplifts everyone around them.",
+      "keyTraits": [
+        "Regal Creativity: Expresses self with flair, passion, and warmth",
+        "Courageous Heart: Faces life with honesty, integrity, and bravery",
+        "Magnetic Presence: Naturally commands attention with confidence",
+        "Steadfast Will: Pursues goals with unwavering determination",
+        "Growth Edge: Balances pride with compassion and humility"
+      ],
+      "compatibility": ["Aries", "Sagittarius", "Gemini", "Libra"],
+      "ritualPrompt": "Stand in golden light—voice an affirmation that celebrates your unique spark, then carry that warmth into every moment."
+    },
+    "virgo": {
+      "name": "Virgo",
+      "glyph": "♍︎",
+      "dateRange": "August 23 - September 22",
+      "numerology": {
+        "signOrderNumber": 6,
+        "rulerVibration": 5,
+        "elementNumber": 2,
+        "modeNumber": 3,
+        "resonantNumbers": [6, 5]
+      },
+      "symbol": "The Maiden",
+      "ruler": "Mercury",
+      "house": "Sixth",
+      "element": "Earth",
+      "mode": "Mutable",
+      "keyword": "Analyze",
+      "description": "Virgos are the zodiac's analysts—meticulous, detail-driven, and devoted to improvement. They bring order to chaos, whether refining systems or tending to health routines. Their sharp minds and perfectionist streak can miss the forest for the trees, so their growth edge lies in balancing critical discernment with compassionate perspective. At their best, they purify activity into a pursuit of excellence, serving others through practical insight and conscientious care.",
+      "keyTraits": [
+        "Meticulous Analyzer: Excels at dissecting details and optimizing systems",
+        "Service-Oriented Helper: Finds purpose in supporting others and creating structure",
+        "Perfectionist Visionary: Strives for excellence in every endeavor",
+        "Conversational Scholar: Shares practical wisdom with clarity and precision",
+        "Growth Edge: Learns to temper critique with empathy and big-picture awareness"
+      ],
+      "compatibility": ["Taurus", "Capricorn", "Cancer", "Scorpio"],
+      "ritualPrompt": "Choose one small space—desk drawer, to-do list, or habit—and spend five focused minutes organizing it. Reflect on how outward clarity sparks inner peace."
+    },
+    "libra": {
+      "name": "Libra",
+      "glyph": "♎︎",
+      "dateRange": "September 23 - October 22",
+      "numerology": {
+        "signOrderNumber": 7,
+        "rulerVibration": 6,
+        "elementNumber": 3,
+        "modeNumber": 1,
+        "resonantNumbers": [7, 6]
+      },
+      "symbol": "The Scales",
+      "ruler": "Venus",
+      "house": "Seventh",
+      "element": "Air",
+      "mode": "Cardinal",
+      "keyword": "Relating",
+      "description": "Libras are the diplomats of the zodiac, ever seeking balance between polarities. Born at the Autumn Equinox, they embody harmony in partnership—whether social, romantic or collective. With refined taste and a deep sense of justice, they mediate conflicts and weave beauty into every relationship. Their challenge lies in decisive action: by strengthening their will to choose, they bring higher-purpose fairness into the world.",
+      "keyTraits": [
+        "Harmonious Mediator: Seeks balance in conflict and connection",
+        "Aesthetic Idealist: Draws beauty and elegance into life and art",
+        "Social Diplomat: Naturally charmed, skilled at seeing both sides",
+        "Indecisive Peacemaker: Weighs options deeply, can hesitate under pressure",
+        "Growth Edge: Cultivates inner assertiveness and clear choice"
+      ],
+      "compatibility": ["Gemini", "Aquarius", "Leo", "Sagittarius"],
+      "ritualPrompt": "Light two candles at opposite ends of your altar. Name one tension you're holding, then breathe slowly into the space between—invite equilibrium and speak your vow to honor both sides."
+    },
+    "scorpio": {
+      "name": "Scorpio",
+      "glyph": "♏︎",
+      "dateRange": "October 23 - November 21",
+      "numerology": {
+        "signOrderNumber": 8,
+        "rulerVibration": 9,
+        "elementNumber": 2,
+        "modeNumber": 2,
+        "resonantNumbers": [8, 9]
+      },
+      "symbol": "The Scorpion",
+      "ruler": "Pluto & Mars",
+      "house": "Eighth",
+      "element": "Water",
+      "mode": "Fixed",
+      "keyword": "Transform",
+      "description": "Scorpios are the alchemists of the zodiac, drawn to depths unseen and powers hidden. With magnetism and unflinching will, they master the cycles of death-and-rebirth within the psyche. Their courage to face inner shadows yields potent regeneration—for themselves and those they guide. At their highest, they transform pain into empowerment, revealing truths that others fear to touch.",
+      "keyTraits": [
+        "Magnetic Depth: Naturally draws others into their emotional intensity",
+        "Relentless Perseverance: Pursues goals with unwavering focus and grit",
+        "Emotional Alchemist: Transmutes challenge into personal power and insight",
+        "Investigative Intuition: Sees beneath the surface, uncovers hidden motives",
+        "Growth Edge: Learns to surrender control and trust the natural flow of transformation"
+      ],
+      "compatibility": ["Cancer", "Pisces", "Virgo", "Capricorn"],
+      "ritualPrompt": "Write down one fear or old pattern you're ready to release. Fold the paper and burn it safely with intention—invite the phoenix rise of your true self."
+    },
+    "sagittarius": {
+      "name": "Sagittarius",
+      "glyph": "♐︎",
+      "dateRange": "November 22 - December 21",
+      "numerology": {
+        "signOrderNumber": 9,
+        "rulerVibration": 3,
+        "elementNumber": 1,
+        "modeNumber": 3,
+        "resonantNumbers": [9, 3]
+      },
+      "symbol": "The Centaur",
+      "ruler": "Jupiter",
+      "house": "Ninth",
+      "element": "Fire",
+      "mode": "Mutable",
+      "keyword": "Idealize",
+      "description": "Sagittarians are the wanderers of the zodiac, propelled by restless curiosity and a passion for truth. They embrace life as a grand adventure of meaning—seeking out knowledge, freedom, and the wisdom of diverse perspectives. With an optimistic spirit and philosophical depth, they inspire others to expand their horizons and live with courage and conviction.",
+      "keyTraits": [
+        "Adventure Seeker: Thrives on exploration and new experiences",
+        "Truth Seeker: Driven by a quest for meaning and understanding",
+        "Optimistic Visionary: Maintains a positive, big-picture outlook on life",
+        "Philosophical Explorer: Engages deeply with ideas and philosophies",
+        "Freedom Advocate: Values independence and personal growth"
+      ],
+      "compatibility": ["Aries", "Leo", "Libra", "Aquarius"],
+      "ritualPrompt": "Plan a mini-adventure or learning experience that expands your horizons—journal about the insights you gain."
+    },
+    "capricorn": {
+      "name": "Capricorn",
+      "glyph": "♑",
+      "dateRange": "December 22 - January 19",
+      "numerology": {
+        "signOrderNumber": 10,
+        "rulerVibration": 8,
+        "elementNumber": 4,
+        "modeNumber": 1,
+        "resonantNumbers": [10, 8]
+      },
+      "symbol": "The Sea Goat",
+      "ruler": "Saturn",
+      "house": "Tenth",
+      "element": "Earth",
+      "mode": "Cardinal",
+      "keyword": "Achieve",
+      "description": "Capricorns are the mountain-goatherds of the zodiac, scaling heights of ambition with unwavering discipline. They build enduring legacies through prudent planning and a steadfast sense of duty. Grounded by the Earth's solidity and guided by Saturn's lessons, they master the alchemy of work and wisdom—achieving great things while learning when to release control and invite grace.",
+      "keyTraits": [
+        "Steadfast Ambition: Pursues goals with patient focus and strategic planning",
+        "Disciplined Responsibility: Embraces duty and accountability in every endeavor",
+        "Structural Vision: Sees the big picture and erects solid foundations",
+        "Resilience in Adversity: Transforms obstacles into stepping-stones",
+        "Growth Edge: Learns to balance industrious drive with moments of rest and receptivity"
+      ],
+      "compatibility": ["Virgo", "Taurus", "Scorpio", "Pisces"],
+      "ritualPrompt": "Identify a long-term goal you're committed to. Break it into three actionable steps and block time in your calendar to start them this week."
+    },
+    "aquarius": {
+      "name": "Aquarius",
+      "glyph": "♒︎",
+      "dateRange": "January 20 - February 18",
+      "numerology": {
+        "signOrderNumber": 11,
+        "rulerVibration": 8,
+        "elementNumber": 3,
+        "modeNumber": 2,
+        "resonantNumbers": [11, 8]
+      },
+      "symbol": "The Water Bearer",
+      "ruler": "Uranus & Saturn",
+      "house": "Eleventh",
+      "element": "Air",
+      "mode": "Fixed",
+      "keyword": "Network",
+      "description": "Aquarians are the visionaries of the zodiac—rebellious, inventive, and irresistibly drawn to social progress. Guided by detached logic and soaring ideals, they see patterns where others see chaos, and they champion causes that uplift the collective. Though they value their independence, their highest purpose is found in forging connections that expand human understanding and freedom.",
+      "keyTraits": [
+        "Visionary Rebellion: Courageously challenges norms to spark meaningful change",
+        "Intellectual Inventiveness: Generates original ideas with scientific curiosity",
+        "Humanitarian Idealist: Driven by empathy and the welfare of the community",
+        "Detached Objectivity: Maintains clear perspective, even in emotional situations",
+        "Growth Edge: Learns to balance personal freedom with deep social bonds"
+      ],
+      "compatibility": ["Libra", "Gemini", "Aries", "Sagittarius"],
+      "ritualPrompt": "Write down one community goal or innovative idea you feel called to share. Plant a seed—literally or metaphorically—by writing it on a card and placing it where you'll see it daily to ignite your network."
+    },
+    "pisces": {
+      "name": "Pisces",
+      "glyph": "♓︎",
+      "dateRange": "February 19 - March 20",
+      "numerology": {
+        "signOrderNumber": 12,
+        "rulerVibration": 3,
+        "elementNumber": 2,
+        "modeNumber": 4,
+        "resonantNumbers": [12, 3]
+      },
+      "symbol": "The Two Fish",
+      "ruler": "Neptune & Jupiter",
+      "house": "Twelfth",
+      "element": "Water",
+      "mode": "Mutable",
+      "keyword": "Intuition",
+      "description": "Pisceans are the mystics and healers of the zodiac, swimming between the conscious world and unseen realms. Endowed with profound empathy and rich imagination, they sense currents of emotion and inspiration that elude others. Their gift is to weave compassion into creativity, offering solace and vision. At their highest, Pisces transcends boundaries—merging with the flow of all life and channeling intuitive wisdom for collective upliftment.",
+      "keyTraits": [
+        "Compassionate Empathy: Feels and resonates with the emotions of others",
+        "Boundless Imagination: Dreams up expansive, poetic visions",
+        "Intuitive Insight: Receives subtle guidance from the unconscious",
+        "Sensitive Dreaminess: Finds refuge and inspiration in inner worlds",
+        "Growth Edge: Learns healthy boundaries and grounded discernment"
+      ],
+      "compatibility": ["Scorpio", "Cancer", "Capricorn", "Taurus"],
+      "ritualPrompt": "Find a bowl of water and a quiet space. Gaze into the liquid's surface and breathe deeply. Invite one intuitive insight or creative spark to arise, then journal it without judgment."
+    }
+  }
+}

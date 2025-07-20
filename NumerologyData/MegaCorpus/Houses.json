@@ -1,0 +1,344 @@
+{
+  "metadata": {
+    "title": "Astrological Houses Data",
+    "version": "1.0",
+    "description": "Complete 12-house system with detailed archetypal descriptions and spiritual guidance",
+    "lastUpdated": "2025-07-20"
+  },
+  "houses": {
+    "first": {
+      "name": "First House",
+      "numerology": {
+        "houseNumber": 1
+      },
+      "glyph": "I",
+      "symbol": "Gateway",
+      "naturalSign": "Aries",
+      "element": "Fire",
+      "mode": "Cardinal",
+      "keyword": "Self",
+      "description": "The First House symbolizes the Acting Self—your personality as it appears to others and the unfolding of your individual destiny. It begins at the Rising sign, one of the most significant points in the birth chart. Planets placed here act as keynote themes of how you express yourself to the world.",
+      "keyTraits": [
+        "Your outer personality & first impressions",
+        "The lens through which you initiate action",
+        "The unfolding of personal destiny",
+        "How planetary energies color your self-expression",
+        "The \"voice\" of your identity in the world"
+      ],
+      "ritualPrompt": "At sunrise, stand in front of a mirror and journal: 'Who am I becoming today?' Then choose one trait of your true Self to embody and move through your morning with that intention."
+    },
+    "second": {
+      "name": "Second House",
+      "numerology": {
+        "houseNumber": 2
+      },
+      "glyph": "II",
+      "symbol": "Treasure Chest",
+      "naturalSign": "Taurus",
+      "element": "Earth",
+      "mode": "Fixed",
+      "keyword": "Value",
+      "description": "The Second House embodies the Steward archetype—your relationship to material resources, self-worth, and the things you cherish. It governs how you earn, hold, and value possessions, income, and comforts. When you honor your Second House, you cultivate security, gratitude, and aligned prosperity; when it's out of balance, you may feel scarcity, overattachment, or undervalued.",
+      "keyTraits": [
+        "Material Resources & Income",
+        "Possessions & Wealth",
+        "Personal Values & Self-Worth",
+        "Security & Comfort",
+        "Desire & Satisfaction"
+      ],
+      "ritualPrompt": "At midday, list five things—material or intangible—you truly value. Journal on what each brings to your life and how you can cultivate deeper gratitude and abundance."
+    },
+    "third": {
+      "name": "Third House",
+      "numerology": {
+        "houseNumber": 3
+      },
+      "glyph": "III",
+      "symbol": "Quill & Scroll",
+      "naturalSign": "Gemini",
+      "element": "Air",
+      "mode": "Mutable",
+      "keyword": "Communicate",
+      "description": "The Third House embodies the Communicator archetype—your gateway to thinking, learning, and sharing ideas. It governs everyday conversations, local travels, siblings, and your analytical mind. When you honor your Third House, you foster curiosity, clear expression, and mental agility; when it's misaligned, you may feel scattered, misunderstood, or mentally blocked.",
+      "keyTraits": [
+        "Mental Agility & Curiosity",
+        "Communication & Expression",
+        "Sibling & Community Connections",
+        "Short Journeys & Local Awareness",
+        "Analysis & Discrimination"
+      ],
+      "ritualPrompt": "Take a fifteen-minute walk in your neighborhood. Notice three new things you observe and journal on what they teach you about your thinking patterns or communication style."
+    },
+    "fourth": {
+      "name": "Fourth House",
+      "numerology": {
+        "houseNumber": 4
+      },
+      "glyph": "IV",
+      "symbol": "Hearth",
+      "naturalSign": "Cancer",
+      "element": "Water",
+      "mode": "Cardinal",
+      "keyword": "Home",
+      "description": "The Fourth House embodies the Sanctuary archetype—your emotional roots, home environment, and familial foundation. It governs how you nurture yourself, where you find security, and the legacy of your ancestry. When you honor your Fourth House, you cultivate deep emotional stability and a sense of belonging; when it's misaligned, you may feel unmoored or disconnected from your inner sanctuary.",
+      "keyTraits": [
+        "Home & Family Bonds",
+        "Emotional Foundations & Security",
+        "Ancestry & Heritage",
+        "Privacy & Personal Sanctuary",
+        "Inner Stability & Roots"
+      ],
+      "ritualPrompt": "At dusk in your favorite corner of home, light a white or pale-blue candle. Journal: 'What nurtures my soul and gives me a true sense of home?' Then choose one small ritual to honor your roots and create deeper emotional security."
+    },
+    "fifth": {
+      "name": "Fifth House",
+      "numerology": {
+        "houseNumber": 5
+      },
+      "glyph": "V",
+      "symbol": "Stage & Paintbrush",
+      "naturalSign": "Leo",
+      "element": "Fire",
+      "mode": "Fixed",
+      "keyword": "Create",
+      "description": "The Fifth House embodies the Creator archetype—your spark of play, romance, and self-expression. It governs creativity, artistic pursuits, children, and the joy you bring into the world. When you honor your Fifth House, you celebrate your unique gifts, cultivate passion, and invite wonder; when it's misaligned, you may feel uninspired, performative, or disconnected from your inner child.",
+      "keyTraits": [
+        "Creativity & Play",
+        "Romance & Affection",
+        "Self-Expression & Performance",
+        "Joy & Fun",
+        "Children & Legacy"
+      ],
+      "ritualPrompt": "Spend ten minutes on a playful creative activity—draw, dance, or improvise a song. Journal: 'What sparks my joy and reveals my unique voice?' Then carry that playfulness into your next project."
+    },
+    "sixth": {
+      "name": "Sixth House",
+      "numerology": {
+        "houseNumber": 6
+      },
+      "glyph": "VI",
+      "symbol": "Caduceus & Gear",
+      "naturalSign": "Virgo",
+      "element": "Earth",
+      "mode": "Mutable",
+      "keyword": "Serve",
+      "description": "The Sixth House embodies the Healer archetype—your daily rituals, self-care practices, and acts of service. It governs health, mastery through discipline, and the work you do to support yourself and others. When you honor your Sixth House, you cultivate well-being, efficiency, and meaningful contribution; when it's misaligned, you may experience stress, burnout, or neglect of essential routines.",
+      "keyTraits": [
+        "Health & Healing",
+        "Service & Support",
+        "Daily Routines & Habits",
+        "Work Ethic & Vocation",
+        "Mastery & Discipline"
+      ],
+      "ritualPrompt": "Pause mid-morning for a two-minute mindful stretch or breath exercise. Journal: 'How does this act of care support my ability to serve others and myself?' Then carry that awareness into your next task."
+    },
+    "seventh": {
+      "name": "Seventh House",
+      "numerology": {
+        "houseNumber": 7
+      },
+      "glyph": "VII",
+      "symbol": "Interlocking Rings",
+      "naturalSign": "Libra",
+      "element": "Air",
+      "mode": "Cardinal",
+      "keyword": "Partner",
+      "description": "The Seventh House embodies the Diplomat archetype—your mirror in one-to-one connections, where you learn balance, harmony, and cooperation. It governs committed partnerships, contracts, and the dynamics you attract that teach you about projection and reciprocity. When you honor your Seventh House, you cultivate healthy alliances and mutual respect; when it's misaligned, you may encounter power struggles, projection, or boundary issues.",
+      "keyTraits": [
+        "Marriage & Committed Partnerships",
+        "Contracts & Negotiation",
+        "Projection & Attraction",
+        "Balance & Reciprocity",
+        "Conflict Resolution & Harmony"
+      ],
+      "ritualPrompt": "At dusk, light a pale-blue or pink candle and journal: 'What qualities do I seek in a true partnership?' Reflect on one pattern you've projected onto others, then set an intention to invite balanced give-and-take into your relationships."
+    },
+    "eighth": {
+      "name": "Eighth House",
+      "numerology": {
+        "houseNumber": 8
+      },
+      "glyph": "VIII",
+      "symbol": "Phoenix",
+      "naturalSign": "Scorpio",
+      "element": "Water",
+      "mode": "Fixed",
+      "keyword": "Transform",
+      "description": "The Eighth House embodies the Phoenix archetype—sovereign of death, rebirth, and the mysteries beneath the surface. It governs transformation, shared resources, sexuality, and the unconscious currents that bind us. When you honor your Eighth House, you dive into shadow work, reclaim buried power, and emerge renewed; when it's misaligned, you may resist change, fear intimacy, or get entangled in power struggles.",
+      "keyTraits": [
+        "Death & Rebirth",
+        "Transformation & Regeneration",
+        "Sexuality & Intimacy",
+        "Shared Resources & Inheritance",
+        "Shadow Work & Power Dynamics"
+      ],
+      "ritualPrompt": "During the waning moon, light a black or deep-red candle and journal: 'What must I release to evolve?' Identify one shadow pattern to face and one newfound strength to claim."
+    },
+    "ninth": {
+      "name": "Ninth House",
+      "numerology": {
+        "houseNumber": 9
+      },
+      "glyph": "IX",
+      "symbol": "Globe & Scroll",
+      "naturalSign": "Sagittarius",
+      "element": "Fire",
+      "mode": "Mutable",
+      "keyword": "Explore",
+      "description": "The Ninth House embodies the Explorer archetype—your quest for truth through higher learning, philosophy, and spiritual insight. It governs long-distance travel, encounters with other cultures, legal and ethical studies, and the expansion of mental, physical, and spiritual horizons. When you honor your Ninth House, you cultivate wisdom, open-mindedness, and integrity; when it's misaligned, you may feel dogmatic, restless, or disconnected from your deeper purpose.",
+      "keyTraits": [
+        "Higher Learning & Philosophy",
+        "Travel & Foreign Cultures",
+        "Spiritual & Ethical Inquiry",
+        "Expansion of Horizons",
+        "Belief Systems & Wisdom"
+      ],
+      "ritualPrompt": "Commit to a mini-quest today: read a passage of philosophy, watch a documentary about another culture, or plan a future trip. Journal: 'What new truths are calling to me?' Then choose one idea or destination to explore further this week."
+    },
+    "tenth": {
+      "name": "Tenth House",
+      "numerology": {
+        "houseNumber": 10
+      },
+      "glyph": "X",
+      "symbol": "Mountain Summit",
+      "naturalSign": "Capricorn",
+      "element": "Earth",
+      "mode": "Cardinal",
+      "keyword": "Manifest",
+      "description": "The Tenth House embodies the Visionary archetype—your public persona, career trajectory, and the legacy you build. As the house of authority and societal contribution, it reveals how your private roots (Fourth House) translate into tangible achievements. When you honor your Tenth House, you step confidently into leadership and purpose; when it's misaligned, you may feel blocked in your ambitions or uncertain about your life direction.",
+      "keyTraits": [
+        "Career & Vocation",
+        "Public Image & Reputation",
+        "Authority & Leadership",
+        "Aspirations & Social Contribution",
+        "Parent Figure & Role Models"
+      ],
+      "ritualPrompt": "At noon, pause and envision your highest goal. Journal: 'What concrete step can I take today to manifest my vocation?' Then choose one action and carry it out with full intention."
+    },
+    "eleventh": {
+      "name": "Eleventh House",
+      "numerology": {
+        "houseNumber": 11
+      },
+      "glyph": "XI",
+      "symbol": "Constellation & Network",
+      "naturalSign": "Aquarius",
+      "element": "Air",
+      "mode": "Fixed",
+      "keyword": "Connect",
+      "description": "The Eleventh House embodies the Networker archetype—your sphere of friendships, group aspirations, and visions for the future. It governs long-term goals, collective projects, and the communities that support your highest ideals. When you honor your Eleventh House, you build meaningful alliances, align with like-minded souls, and co-create toward a shared vision; when it's misaligned, you may feel isolated, unclear on your purpose, or disconnected from community.",
+      "keyTraits": [
+        "Goals & Future Objectives",
+        "Friendships & Group Membership",
+        "Collective Vision & Ideals",
+        "Social Innovation & Reform",
+        "Support Networks & Alliances"
+      ],
+      "ritualPrompt": "At dusk, light an icy-blue candle and journal: 'What is my highest aspiration, and who supports me in reaching it?' Then reach out to one friend or group whose ideals align with yours and share your vision."
+    },
+    "twelfth": {
+      "name": "Twelfth House",
+      "numerology": {
+        "houseNumber": 12
+      },
+      "glyph": "XII",
+      "symbol": "Veil & Wave",
+      "naturalSign": "Pisces",
+      "element": "Water",
+      "mode": "Mutable",
+      "keyword": "Transcend",
+      "description": "The Twelfth House embodies the Mystic archetype—your bridge to the unconscious, to hidden realms, and to the great collective of soul. It governs solitude, dreams, psychic receptivity, confinement, and karmic patterns that live beneath the surface of awareness. When you honor your Twelfth House, you open to deep compassion, intuitive guidance, and inner healing; when it's misaligned, you may feel scattered, overwhelmed by unseen forces, or trapped by self-undoing habits.",
+      "keyTraits": [
+        "Unconscious Patterns & Shadow",
+        "Psychic Receptivity & Dreams",
+        "Solitude, Retreat & Confinement",
+        "Karma & Past-Life Echoes",
+        "Compassion & Self-Sacrifice"
+      ],
+      "ritualPrompt": "Late at night, sit quietly by candlelight. Journal: 'What messages arise from my dreams or intuition?' Then spend five minutes in meditation, allowing any images or feelings to surface without judgment."
+    }
+  },
+  "cusps": {
+    "ascendant": {
+      "name": "Ascendant",
+      "numerology": {
+        "houseNumber": 1
+      },
+      "glyph": "AC",
+      "naturalSign": "Aries",
+      "element": "Fire",
+      "mode": "Cardinal",
+      "keyword": "Persona",
+      "description": "The Ascendant embodies the Persona archetype—your mask, first impression, and the energetic lens through which you engage the world. It colors your appearance, physical mannerisms, and the initial vibe you project. When you honor your Ascendant, you step into authentic expression; when it's misaligned, you may feel unseen or out of sync with how you wish to be perceived.",
+      "keyTraits": [
+        "Mask & First Impressions",
+        "Physical Appearance & Demeanor",
+        "Personal Style & Aura",
+        "How Others Encounter You",
+        "Soul-Level Self-Expression"
+      ],
+      "ritualPrompt": "At sunrise, face east and journal: 'How do I want to show up today?' Note one quality of your persona to embody, then move through your morning with that intention."
+    },
+    "descendant": {
+      "name": "Descendant",
+      "numerology": {
+        "houseNumber": 7
+      },
+      "glyph": "DC",
+      "naturalSign": "Libra",
+      "element": "Air",
+      "mode": "Cardinal",
+      "keyword": "Partner",
+      "description": "The Descendant embodies the Partner archetype—your mirror in relationship, the qualities you attract, and the dynamics that teach you cooperation. It shows the mask you drop in one-on-one connections and the balance you seek through others. When you honor your Descendant, you cultivate healthy partnerships; when it's misaligned, you may attract projection, conflict, or power struggles.",
+      "keyTraits": [
+        "One-to-One Relationships",
+        "Projection & Attraction",
+        "Balance & Negotiation",
+        "Contracts & Commitments",
+        "Conflict Resolution & Harmony"
+      ],
+      "ritualPrompt": "Light a pale-blue candle at dusk and journal: 'What do I seek in a partnership?' Reflect on one pattern you repeat with others, then set an intention for more balanced give-and-take in your relationships."
+    },
+    "midheaven": {
+      "name": "Midheaven",
+      "numerology": {
+        "houseNumber": 10
+      },
+      "glyph": "MC",
+      "naturalSign": "Capricorn",
+      "element": "Earth",
+      "mode": "Cardinal",
+      "keyword": "Legacy",
+      "description": "The Midheaven embodies the Visionary archetype—your public persona, career path, and soul's highest calling. It marks the pinnacle of your chart, illuminating how you contribute to the world and the reputation you cultivate. When you honor your MC, you step fully into your vocation and ideals; when it's out of alignment, you may feel blocked in your ambitions or uncertain of your place in the world.",
+      "keyTraits": [
+        "Career & Vocation",
+        "Public Image & Reputation",
+        "Aspirations & Ideals",
+        "Authority & Leadership",
+        "Long-Term Goals & Legacy"
+      ],
+      "ritualPrompt": "At midday, gaze upward and journal: 'What legacy do I wish to leave?' Identify one concrete step today that moves you closer to your highest ambition, then embody it with intention."
+    },
+    "nadir": {
+      "name": "Nadir",
+      "numerology": {
+        "houseNumber": 4
+      },
+      "glyph": "IC",
+      "naturalSign": "Cancer",
+      "element": "Water",
+      "mode": "Cardinal",
+      "keyword": "Foundation",
+      "description": "The Nadir embodies the Sanctuary archetype—your emotional roots, home, and inner sanctuary. It represents your private self, family heritage, and the foundational structures that sustain you. When you honor the Nadir, you cultivate emotional security and a stable sense of belonging; when it's misaligned, you may feel unanchored or disconnected from your true home.",
+      "keyTraits": [
+        "Home & Family",
+        "Emotional Foundations",
+        "Roots & Heritage",
+        "Privacy & Sanctuary",
+        "Inner Stability"
+      ],
+      "ritualPrompt": "At dusk in your sacred space, light a pale-blue or white candle. Journal: 'What nourishes my soul and gives me a sense of home?' Identify one small ritual to create deeper emotional security in your daily life."
+    }
+  }
+}
