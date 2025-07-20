@@ -107,18 +107,9 @@ struct MoonPhaseCalculator {
         // 29.530588853 days is the precise astronomical average lunar cycle length
         let synodicMonth = 29.530588853
         
-        // DEBUG: Print all calculation steps
-        print("🔍 DEBUG moonAge calculation:")
-        print("   Input date: \(date)")
-        print("   Julian Day: \(julianDay)")
-        print("   Known New Moon JD: \(knownNewMoonJD)")
-        print("   Days since new moon: \(daysSinceNewMoon)")
-        print("   Synodic month: \(synodicMonth)")
-        
         // Claude: Calculate current position within lunar cycle using modulo arithmetic
         // The truncatingRemainder gives us days elapsed in the current 29.53-day cycle
         var moonAge = daysSinceNewMoon.truncatingRemainder(dividingBy: synodicMonth)
-        print("   Raw moon age (after modulo): \(moonAge)")
         
         // Claude: Handle negative results for dates before epoch
         // If modulo result is negative, add one full cycle to get positive moon age
@@ -127,7 +118,6 @@ struct MoonPhaseCalculator {
             print("   Adjusted moon age (made positive): \(moonAge)")
         }
         
-        print("   Final moon age: \(moonAge)")
         print("")
         
         return moonAge
@@ -150,8 +140,6 @@ struct MoonPhaseCalculator {
             return 0.0
         }
         
-        print("🔍 DEBUG Julian Day calculation:")
-        print("   Year: \(year), Month: \(month), Day: \(day)")
         
         // Claude: Conway's Julian Day calculation - astronomical date conversion
         var y = year

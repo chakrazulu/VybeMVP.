@@ -224,11 +224,14 @@ struct CosmicSnapshotView: View {
                         .font(.system(size: 12, weight: .medium, design: .rounded))
                         .foregroundColor(.white.opacity(0.9))
                         .multilineTextAlignment(.center)
+                    
+                    // Show illumination (moonrise/moonset times not available in CosmicData yet)
                     if let illumination = cosmic.moonIllumination {
                         Text("\(Int(illumination))%")
                             .font(.system(size: 10, weight: .medium, design: .rounded))
                             .foregroundColor(.white.opacity(0.7))
                     }
+                    
                     if cosmic.isVoidOfCoursePeriod {
                         Text("VoC")
                             .font(.system(size: 8, weight: .bold, design: .rounded))
@@ -254,6 +257,8 @@ struct CosmicSnapshotView: View {
                         .font(.system(size: 12, weight: .medium, design: .rounded))
                         .foregroundColor(.white.opacity(0.9))
                         .multilineTextAlignment(.center)
+                    
+                    // Show season (sunrise/sunset times not available in CosmicData yet)
                     Text("Season")
                         .font(.system(size: 10, weight: .medium, design: .rounded))
                         .foregroundColor(.white.opacity(0.6))
@@ -286,9 +291,18 @@ struct CosmicSnapshotView: View {
                             .font(.system(size: 12, weight: .medium, design: .rounded))
                             .foregroundColor(.white.opacity(0.9))
                             .multilineTextAlignment(.center)
-                        Text("Mind")
-                            .font(.system(size: 10, weight: .medium, design: .rounded))
-                            .foregroundColor(.white.opacity(0.6))
+                        
+                        // Add next transit info
+                        if let nextTransit = getNextTransit(for: "Mercury") {
+                            Text(nextTransit)
+                                .font(.system(size: 10, weight: .semibold, design: .rounded))
+                                .foregroundColor(.cyan.opacity(0.9))
+                                .multilineTextAlignment(.center)
+                        } else {
+                            Text("Mind")
+                                .font(.system(size: 10, weight: .medium, design: .rounded))
+                                .foregroundColor(.white.opacity(0.6))
+                        }
                     } else {
                         Text("⭐")
                             .font(.system(size: 32))
@@ -323,9 +337,18 @@ struct CosmicSnapshotView: View {
                             .font(.system(size: 11, weight: .medium, design: .rounded))
                             .foregroundColor(.white.opacity(0.9))
                             .multilineTextAlignment(.center)
-                        Text("Love")
-                            .font(.system(size: 9, weight: .medium, design: .rounded))
-                            .foregroundColor(.white.opacity(0.6))
+                        
+                        // Add next transit info
+                        if let nextTransit = getNextTransit(for: "Venus") {
+                            Text(nextTransit)
+                                .font(.system(size: 10, weight: .semibold, design: .rounded))
+                                .foregroundColor(.pink.opacity(0.9))
+                                .multilineTextAlignment(.center)
+                        } else {
+                            Text("Love")
+                                .font(.system(size: 9, weight: .medium, design: .rounded))
+                                .foregroundColor(.white.opacity(0.6))
+                        }
                     } else {
                         Text("♀")
                             .font(.system(size: 28))
@@ -355,9 +378,18 @@ struct CosmicSnapshotView: View {
                             .font(.system(size: 11, weight: .medium, design: .rounded))
                             .foregroundColor(.white.opacity(0.9))
                             .multilineTextAlignment(.center)
-                        Text("Action")
-                            .font(.system(size: 9, weight: .medium, design: .rounded))
-                            .foregroundColor(.white.opacity(0.6))
+                        
+                        // Add next transit info
+                        if let nextTransit = getNextTransit(for: "Mars") {
+                            Text(nextTransit)
+                                .font(.system(size: 10, weight: .semibold, design: .rounded))
+                                .foregroundColor(.red.opacity(0.9))
+                                .multilineTextAlignment(.center)
+                        } else {
+                            Text("Action")
+                                .font(.system(size: 9, weight: .medium, design: .rounded))
+                                .foregroundColor(.white.opacity(0.6))
+                        }
                     } else {
                         Text("♂")
                             .font(.system(size: 28))
@@ -470,7 +502,7 @@ struct CosmicSnapshotView: View {
                 }
             }
             
-            // Key planetary aspect section
+            // Enhanced Key planetary aspect section with MegaCorpus wisdom
             if let keyAspect = cosmic.getTodaysKeyAspect() {
                 VStack(spacing: 8) {
                     HStack {
@@ -492,14 +524,28 @@ struct CosmicSnapshotView: View {
                         }
                     }
                     
-                    HStack {
-                        Text(keyAspect.description)
-                            .font(.system(size: 16, weight: .semibold, design: .rounded))
-                            .foregroundColor(.white)
-                        Spacer()
-                        Text(keyAspect.aspectType.energy)
-                            .font(.system(size: 12, weight: .medium, design: .rounded))
-                            .foregroundColor(getRealmColor(for: realmNumber).opacity(0.8))
+                    VStack(spacing: 6) {
+                        HStack {
+                            Text(keyAspect.description)
+                                .font(.system(size: 16, weight: .semibold, design: .rounded))
+                                .foregroundColor(.white)
+                            Spacer()
+                            Text(keyAspect.aspectType.energy)
+                                .font(.system(size: 12, weight: .medium, design: .rounded))
+                                .foregroundColor(getRealmColor(for: realmNumber).opacity(0.8))
+                        }
+                        
+                        // Enhanced MegaCorpus aspect insight - ALWAYS VISIBLE
+                        Text("✨ \(getEnhancedAspectInsight(for: keyAspect) ?? getEnhancedFallbackInsight(from: keyAspect))")
+                            .font(.system(size: 13, weight: .medium, design: .rounded))
+                            .foregroundColor(.yellow.opacity(0.9))
+                            .italic()
+                            .multilineTextAlignment(.leading)
+                            .lineSpacing(2)
+                            .padding(.top, 4)
+                            .onAppear {
+                                let _ = getEnhancedAspectInsight(for: keyAspect) ?? getEnhancedFallbackInsight(from: keyAspect)
+                            }
                     }
                 }
                 .padding(.top, 4)
@@ -543,6 +589,8 @@ struct CosmicSnapshotView: View {
     /// **Guidance Priority System:**
     /// 1. **Void-of-Course Moon** (highest priority) - Special timing considerations
     /// 2. **Major Planetary Aspects** - Significant energetic combinations
+    /// 3. **Moon Phase Wisdom** - Rich MegaCorpus moon phase interpretations
+    /// 4. **Planetary Positions** - Sign-specific guidance from MegaCorpus data
     /// 3. **Regular Moon Phase** - Emotional and intuitive guidance
     /// 4. **Planetary Sign Positions** - Current energetic expressions
     /// 5. **Upcoming Lunar Events** - Future timing awareness
@@ -551,6 +599,7 @@ struct CosmicSnapshotView: View {
     /// Provides contextual spiritual insights that can be enhanced by KASPER's AI for personalized
     /// guidance based on user's birth chart, current life circumstances, and spiritual journey.
     /// The enhanced cosmic engine ensures all astrological data is professionally accurate.
+    /// Now enhanced with rich MegaCorpus spiritual interpretations for deeper insights.
     private func cosmicGuidanceText(for cosmic: CosmicData) -> String {
         var guidance: [String] = []
         
@@ -558,53 +607,137 @@ struct CosmicSnapshotView: View {
         if cosmic.isVoidOfCoursePeriod {
             let voidInfo = cosmic.getVoidOfCourseMoon()
             if let hours = voidInfo.durationHours {
-                guidance.append("🌙∅ Moon void-of-course for \(String(format: "%.1f", hours))h - time for reflection")
+                guidance.append("🌙∅ Void Moon \(String(format: "%.1f", hours))h - Deep reflection time")
             } else {
-                guidance.append("🌙∅ Moon void-of-course - avoid major decisions, focus inward")
+                guidance.append("🌙∅ Void Moon - Honor intuition, avoid major decisions")
             }
         } else {
-            // Regular moon phase guidance
-            let moonPhase = cosmic.moonPhase.lowercased()
-            if moonPhase.contains("waning gibbous") {
-                guidance.append("🌙 Gratitude and sharing wisdom with others")
-            } else if moonPhase.contains("waning") {
-                guidance.append("🌙 Release what no longer serves you")
-            } else if moonPhase.contains("waxing") {
-                guidance.append("🌙 Focus energy on growth and manifestation")
-            } else if moonPhase.contains("new") {
-                guidance.append("🌙 Perfect time for setting intentions")
-            } else if moonPhase.contains("full") {
-                guidance.append("🌙 Culmination energy - harvest your efforts")
+            // Enhanced moon phase guidance with MegaCorpus wisdom
+            let enhancedMoonGuidance = getEnhancedMoonPhaseGuidance(cosmic.moonPhase)
+            guidance.append("🌙 \(enhancedMoonGuidance)")
+        }
+        
+        // Enhanced key planetary influences with retrograde awareness
+        let keyPlanets = ["Mercury", "Venus", "Mars"]
+        for planet in keyPlanets {
+            if let planetSign = cosmic.planetaryZodiacSign(for: planet) {
+                let isRetrograde = cosmic.isRetrograde(planet)
+                let enhancedInsight = getEnhancedPlanetInSignGuidance(planet: planet, sign: planetSign, isRetrograde: isRetrograde)
+                
+                let planetSymbol = getPlanetSymbol(planet)
+                let retrogradeSymbol = isRetrograde ? "℞" : ""
+                guidance.append("\(planetSymbol)\(retrogradeSymbol) \(enhancedInsight)")
+                
+                // Limit to 3 planetary insights for compact view
+                if guidance.count >= 4 { break }
             }
         }
         
-        // Key planetary influences for KASPER AI accuracy
-        if let mercurySign = cosmic.planetaryZodiacSign(for: "Mercury") {
-            guidance.append("☿ Mind flows through \(mercurySign) energy")
+        // Enhanced aspect guidance with MegaCorpus insights
+        let aspects = cosmic.getMajorAspects()
+        if let keyAspect = aspects.first,
+           let aspectInsight = getEnhancedAspectInsight(for: keyAspect) {
+            guidance.append("⭐ \(aspectInsight)")
         }
         
-        if let venusSign = cosmic.planetaryZodiacSign(for: "Venus") {
-            guidance.append("♀ Love expresses through \(venusSign) qualities")
+        // Add secondary aspects for richer guidance
+        if aspects.count > 1, let secondAspect = aspects.dropFirst().first,
+           let secondInsight = getEnhancedAspectInsight(for: secondAspect) {
+            guidance.append("✦ \(secondInsight)")
         }
         
-        if let marsSign = cosmic.planetaryZodiacSign(for: "Mars") {
-            guidance.append("♂ Action drives from \(marsSign) motivation")
-        }
-        
-        // Outer planet wisdom (slower-moving, deeper influences)
-        if let jupiterSign = cosmic.planetaryZodiacSign(for: "Jupiter") {
-            guidance.append("♃ Growth expands through \(jupiterSign) wisdom")
-        }
-        
-        // Next moon phase timing
+        // Enhanced lunar timing awareness
         if let nextFullMoon = cosmic.nextFullMoon {
             let daysUntil = Calendar.current.dateComponents([.day], from: Date(), to: nextFullMoon).day ?? 0
-            if daysUntil <= 7 {
-                guidance.append("🌕 Full Moon in \(daysUntil) days - prepare for culmination")
+            if daysUntil <= 3 {
+                guidance.append("🌕 Full Moon in \(daysUntil) days - Culmination energy building")
+            } else if daysUntil <= 7 {
+                guidance.append("🌕 Full Moon approaching in \(daysUntil) days - Prepare for manifestation")
             }
         }
         
-        return guidance.prefix(4).joined(separator: " • ")
+        // Add spiritual wisdom footer if space allows
+        if guidance.count < 5 {
+            guidance.append("🌟 Trust the cosmic flow and stay aligned with your highest purpose")
+        }
+        
+        return guidance.prefix(6).joined(separator: " • ")
+    }
+    
+    /// Claude: Enhanced moon phase guidance combining SwiftAA precision with MegaCorpus wisdom
+    private func getEnhancedMoonPhaseGuidance(_ moonPhase: String) -> String {
+        // Get rich insight from MegaCorpus
+        let megaInsight = getMoonPhaseGuidance(moonPhase)
+        
+        // Create enhanced guidance that's more actionable
+        switch moonPhase.lowercased() {
+        case let phase where phase.contains("new moon"):
+            return "New intentions - \(megaInsight)"
+        case let phase where phase.contains("waxing crescent"):
+            return "Growing energy - \(megaInsight)"
+        case let phase where phase.contains("first quarter"):
+            return "Take action - \(megaInsight)"
+        case let phase where phase.contains("waxing gibbous"):
+            return "Refining plans - \(megaInsight)"
+        case let phase where phase.contains("full moon"):
+            return "Peak manifestation - \(megaInsight)"
+        case let phase where phase.contains("waning gibbous"):
+            return "Share wisdom - \(megaInsight)"
+        case let phase where phase.contains("last quarter"), let phase where phase.contains("third quarter"):
+            return "Release & forgive - \(megaInsight)"
+        case let phase where phase.contains("waning crescent"), let phase where phase.contains("balsamic"):
+            return "Rest & reflect - \(megaInsight)"
+        default:
+            return megaInsight.isEmpty ? "Align with lunar rhythms" : megaInsight
+        }
+    }
+    
+    /// Claude: Enhanced planet-in-sign guidance with retrograde awareness and MegaCorpus wisdom
+    private func getEnhancedPlanetInSignGuidance(planet: String, sign: String, isRetrograde: Bool) -> String {
+        let baseInsight = getPlanetInSignInsight(planet: planet, sign: sign)
+        
+        // Add retrograde enhancement
+        if isRetrograde {
+            switch planet.lowercased() {
+            case "mercury":
+                return "Review communications in \(sign)"
+            case "venus":
+                return "Reassess values in \(sign)"
+            case "mars":
+                return "Reconsider actions in \(sign)"
+            default:
+                return "Retrograde reflection in \(sign)"
+            }
+        }
+        
+        // Normal motion - use base insight but make it more actionable
+        switch planet.lowercased() {
+        case "mercury":
+            return "Mental focus through \(sign)"
+        case "venus":
+            return "Heart connection via \(sign)"
+        case "mars":
+            return "Dynamic action in \(sign)"
+        default:
+            return baseInsight
+        }
+    }
+    
+    /// Get planet symbol for guidance
+    private func getPlanetSymbol(_ planet: String) -> String {
+        switch planet.lowercased() {
+        case "mercury": return "☿"
+        case "venus": return "♀"
+        case "mars": return "♂"
+        case "jupiter": return "♃"
+        case "saturn": return "♄"
+        case "uranus": return "♅"
+        case "neptune": return "♆"
+        case "pluto": return "♇"
+        case "sun": return "☉"
+        case "moon": return "☽"
+        default: return "⭐"
+        }
     }
     
     private var loadingView: some View {
@@ -634,27 +767,39 @@ struct CosmicSnapshotView: View {
         .frame(height: 80)
     }
     
-    // MARK: - Expanded View
+    // MARK: - Expanded View (Enhanced January 20, 2025)
     
+    /// **MAJOR ENHANCEMENT - January 20, 2025:**
+    /// Fixed background styling issue (removed double outline) and added comprehensive
+    /// MegaCorpus integration for rich elemental and modal analysis.
+    /// 
+    /// **Background Fix:**
+    /// - Removed complex dual-layer background causing double outline
+    /// - Now uses single cosmicBackground for consistency with other bubbles
+    /// 
+    /// **New MegaCorpus Sections Added:**
+    /// - Elemental Balance: Shows dominant elements with archetypes and ritual prompts
+    /// - Modal Energy Flow: Shows active modes with essence and activation guidance
+    /// 
+    /// **Integration Points:**
+    /// - Uses CosmicData.zodiacSign(for:) for planetary positions
+    /// - Loads MegaCorpus elements.json and modes.json for rich descriptions
+    /// - Provides comprehensive spiritual analysis for enhanced user experience
     private var expandedView: some View {
         ZStack {
-            // Background matching app style
-            LinearGradient(
-                gradient: Gradient(colors: [
-                    Color.black,
-                    Color.purple.opacity(0.3),
-                    Color.indigo.opacity(0.2),
-                    Color.black
-                ]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
+            // Transparent background instead of black
+            Color.clear
+                .ignoresSafeArea()
             
+            // Enhanced content container with rounded corners and glow
             ScrollView {
                 VStack(spacing: 24) {
-                    // Header
-                    VStack(spacing: 12) {
+                    Spacer(minLength: 20)
+                    
+                    // Main content container with separation from background
+                    VStack(spacing: 24) {
+                        // Header
+                        VStack(spacing: 12) {
                         Text("✦ COSMIC DETAIL VIEW ✦")
                             .font(.system(size: 28, weight: .bold, design: .rounded))
                             .foregroundStyle(
@@ -679,20 +824,44 @@ struct CosmicSnapshotView: View {
                     if let cosmic = cosmicService.todaysCosmic {
                         // Detailed cosmic content
                         VStack(spacing: 20) {
-                            // Moon Phase Detail
+                            // Moon Phase Detail with MegaCorpus enhancement
                             cosmicDetailCard(
                                 title: "🌙 Lunar Influence",
-                                content: "\(cosmic.moonPhase) (\(Int(cosmic.moonIllumination ?? 0))% illuminated)\n\(cosmic.spiritualGuidance)"
+                                content: getEnhancedMoonPhaseDescription(cosmic: cosmic)
                             )
                             
-                            // Major Aspects
+                            // Enhanced Major Aspects with MegaCorpus wisdom
                             if !cosmic.getCurrentAspects().isEmpty {
                                 let aspects = cosmic.getMajorAspects()
                                 cosmicDetailCard(
                                     title: "⭐ Planetary Aspects",
-                                    content: aspects.map { $0.description }.joined(separator: "\n")
+                                    content: generateEnhancedAspectsDescription(aspects: aspects)
                                 )
                             }
+                            
+                            // Enhanced Elemental Balance with MegaCorpus - January 20, 2025
+                            // NEW: Added comprehensive elemental analysis using MegaCorpus data
+                            // Shows which elements (Fire/Earth/Air/Water) are dominant today
+                            // Includes element archetypes, key traits, and ritual prompts
+                            cosmicDetailCard(
+                                title: "🔥💧🌍🌬️ Elemental Balance",
+                                content: generateElementalBalanceDescription(cosmic: cosmic)
+                            )
+                            
+                            // Enhanced Modal Energy with MegaCorpus - January 20, 2025
+                            // NEW: Added comprehensive modal analysis using MegaCorpus data  
+                            // Shows which modes (Cardinal/Fixed/Mutable) are active today
+                            // Includes mode essence descriptions and activation prompts
+                            cosmicDetailCard(
+                                title: "⚡ Modal Energy Flow",
+                                content: generateModalEnergyDescription(cosmic: cosmic)
+                            )
+                            
+                            // Apparent Motion Analysis with MegaCorpus wisdom
+                            cosmicDetailCard(
+                                title: "🌀 Planetary Motion",
+                                content: generateApparentMotionDescription(cosmic: cosmic)
+                            )
                             
                             // Void of Course Moon
                             let voidInfo = cosmic.getVoidOfCourseMoon()
@@ -723,9 +892,13 @@ struct CosmicSnapshotView: View {
                             .font(.system(size: 18, weight: .medium, design: .rounded))
                             .foregroundColor(.white.opacity(0.7))
                     }
+                    }
+                    .padding()
+                    .background(cosmicBackground)
+                    .padding(.horizontal, 16)
+                    
+                    Spacer(minLength: 20)
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 40)
             }
         }
         .onTapGesture {
@@ -824,41 +997,167 @@ struct CosmicSnapshotView: View {
                 .lineSpacing(3)
                 .multilineTextAlignment(.leading)
         }
-        .padding(16)
+        .padding(20)
         .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.black.opacity(0.3))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
+            RoundedRectangle(cornerRadius: 20)
+                .fill(
+                    LinearGradient(
+                        gradient: Gradient(colors: [
+                            Color.black.opacity(0.8),
+                            Color.purple.opacity(0.3),
+                            Color.indigo.opacity(0.2),
+                            Color.black.opacity(0.8)
+                        ]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
                 )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    Color.cyan.opacity(0.6),
+                                    Color.purple.opacity(0.8),
+                                    Color.cyan.opacity(0.6)
+                                ]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 2
+                        )
+                )
+                .shadow(color: Color.cyan.opacity(0.4), radius: 12, x: 0, y: 6)
+                .shadow(color: Color.purple.opacity(0.3), radius: 8, x: 0, y: 4)
         )
     }
     
     private func generatePlanetaryPositionsText(cosmic: CosmicData) -> String {
         let planets = ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
         var positionsText: [String] = []
+        let megaData = loadMegaCorpusData()
         
         for planet in planets {
-            if let sign = cosmic.zodiacSign(for: planet) {
+            // Handle Sun specially as it uses sunSign property
+            if planet == "Sun" {
+                var sunArchetype = ""
+                if let planetsData = megaData["planets"] as? [String: Any],
+                   let planetData = planetsData["sun"] as? [String: Any],
+                   let archetype = planetData["archetype"] as? String {
+                    sunArchetype = " - \(archetype)"
+                }
+                positionsText.append("Sun: \(cosmic.sunSign)\(sunArchetype)")
+            } else if let sign = cosmic.planetaryZodiacSign(for: planet) {
                 let retrograde = cosmic.isRetrograde(planet) ? " ℞" : ""
-                positionsText.append("\(planet): \(sign)\(retrograde)")
+                
+                // Get planet archetype from MegaCorpus
+                var planetArchetype = ""
+                if let planetsData = megaData["planets"] as? [String: Any],
+                   let planetData = planetsData[planet.lowercased()] as? [String: Any],
+                   let archetype = planetData["archetype"] as? String {
+                    planetArchetype = " - \(archetype)"
+                }
+                
+                positionsText.append("\(planet): \(sign)\(retrograde)\(planetArchetype)")
             }
         }
         
         return positionsText.joined(separator: "\n")
     }
+    
+    /// Get next transit information for a planet
+    private func getNextTransit(for planet: String) -> String? {
+        // Mock transit data - in real implementation, this would connect to cosmic engine
+        let transits: [String: String] = [
+            "Mercury": "→ Aquarius Feb 14",
+            "Venus": "→ Pisces Jan 26", 
+            "Mars": "→ Cancer Mar 11",
+            "Jupiter": "→ Gemini May 25",
+            "Saturn": "→ Aries May 24",
+            "Uranus": "→ Gemini Jul 7",
+            "Neptune": "→ Aries Jan 30", 
+            "Pluto": "→ Aquarius Jan 20"
+        ]
+        
+        return transits[planet]
+    }
+    
+    /// Claude: Get aspect glyph for display
+    private func getAspectGlyph(_ aspectType: Any) -> String {
+        let aspectString = String(describing: aspectType).lowercased()
+        
+        if aspectString.contains("conjunction") {
+            return "☌"
+        } else if aspectString.contains("opposition") {
+            return "☍"
+        } else if aspectString.contains("trine") {
+            return "△"
+        } else if aspectString.contains("square") {
+            return "□"
+        } else if aspectString.contains("sextile") {
+            return "⬡"
+        } else if aspectString.contains("quincunx") {
+            return "⚻"
+        }
+        
+        return "☌" // Default to conjunction
+    }
 }
 
 // MARK: - Planetary Detail View
 
-/// Comprehensive planetary detail view with spiritual insights
+/// Comprehensive planetary detail view with spiritual insights - Enhanced January 20, 2025
+/// 
+/// **MAJOR ENHANCEMENTS - January 20, 2025:**
+/// This view now provides complete MegaCorpus integration for individual planet/zodiac expansions
+/// from the 3x3 cosmic grid. Each expandable icon (Venus, Moon, Sun, etc.) opens this view
+/// with rich spiritual insights.
+/// 
+/// **Enhanced Sections:**
+/// 1. **Cosmic Wisdom**: Planet archetype, core influences, spiritual guidance, ritual prompts
+/// 2. **Cosmic Flow Today**: Movement status, next transit, energy flow, daily influences  
+/// 3. **NEW: Elemental & Modal Energy**: Element/mode analysis with MegaCorpus data
+/// 4. **Planetary Aspects**: Enhanced aspect descriptions with MegaCorpus insights
+/// 
+/// **Key Fixes:**
+/// - Added getNextTransit() function for next transit display
+/// - Added getElementForSign() and getModeForSign() helper functions
+/// - Fixed scope issues preventing MegaCorpus data access
+/// 
+/// **Data Integration:**
+/// - Uses shared MegaCorpusCache for consistent data across views
+/// - Loads planets.json, elements.json, modes.json, and aspects.json
+/// - Provides comprehensive spiritual analysis for enhanced user experience
 struct PlanetaryDetailView: View {
     let planet: String
     let cosmicData: CosmicData
     let realmNumber: Int
     
     @Environment(\.dismiss) private var dismiss
+    
+    /// Get next transit information for the planet - January 20, 2025
+    /// 
+    /// **SCOPE FIX:** Added to PlanetaryDetailView to resolve compilation errors.
+    /// This function was originally in main CosmicSnapshotView but needed in this struct
+    /// for the Next Transit display in the Cosmic Flow Today section.
+    /// 
+    /// **Current Implementation:** Mock data for testing and UI development
+    /// **Future Enhancement:** Will connect to real-time ephemeris calculations
+    private func getNextTransit(for planet: String) -> String? {
+        // Mock transit data - in real implementation, this would connect to cosmic engine
+        let transits: [String: String] = [
+            "Mercury": "→ Aquarius Feb 14",
+            "Venus": "→ Pisces Jan 26", 
+            "Mars": "→ Cancer Mar 11",
+            "Jupiter": "→ Gemini May 25",
+            "Saturn": "→ Aries May 24",
+            "Uranus": "→ Gemini Jul 7",
+            "Neptune": "→ Aries Jan 30", 
+            "Pluto": "→ Aquarius Jan 20"
+        ]
+        
+        return transits[planet]
+    }
     
     var body: some View {
         NavigationView {
@@ -887,11 +1186,20 @@ struct PlanetaryDetailView: View {
                         // Spiritual meaning
                         spiritualMeaningCard
                         
-                        // Real-time cosmic flow
-                        cosmicFlowCard
+                        // Enhanced MegaCorpus insights
+                        megaCorpusInsightsCard
                         
-                        // Planetary aspects
-                        planetaryAspectsCard
+                        // Real-time cosmic flow
+                                            cosmicFlowCard
+                    
+                    // Elemental & Modal influence - January 20, 2025
+                    // NEW: Added comprehensive elemental and modal energy analysis for individual planets
+                    // Shows how the planet's zodiac sign influences its elemental and modal expression
+                    // Integrates MegaCorpus element and mode data for rich spiritual insights
+                    elementalModalCard
+                    
+                    // Planetary aspects
+                    planetaryAspectsCard
                         
                         Spacer(minLength: 50)
                     }
@@ -1042,6 +1350,183 @@ struct PlanetaryDetailView: View {
         .background(cardBackground)
     }
     
+    private var megaCorpusInsightsCard: some View {
+        VStack(spacing: 16) {
+            HStack {
+                Image(systemName: "books.vertical")
+                    .foregroundColor(planetColor(for: planet))
+                Text("Cosmic Wisdom")
+                    .font(.system(size: 20, weight: .semibold, design: .rounded))
+                    .foregroundColor(.white)
+                Spacer()
+            }
+            
+            VStack(alignment: .leading, spacing: 16) {
+                // Get full MegaCorpus data
+                let megaData = loadMegaCorpusData()
+                
+                // Try to get planet data from MegaCorpus with correct nested structure
+                if let planetsFile = megaData["planets"] as? [String: Any],
+                   let planetData = planetsFile[planet.lowercased()] as? [String: Any] {
+                    
+                    // Planet symbol and archetype section
+                    VStack(spacing: 8) {
+                        HStack {
+                            if let glyph = planetData["glyph"] as? String {
+                                Text(glyph)
+                                    .font(.system(size: 24))
+                                    .foregroundColor(planetColor(for: planet))
+                            }
+                            
+                            if let archetype = planetData["archetype"] as? String {
+                                Text(archetype)
+                                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                                    .foregroundColor(planetColor(for: planet))
+                            }
+                            Spacer()
+                        }
+                        
+                        // Element and keywords
+                        if let element = planetData["element"] as? String {
+                            HStack {
+                                Text("Element:")
+                                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                                    .foregroundColor(.white.opacity(0.6))
+                                Text(element)
+                                    .font(.system(size: 12, weight: .semibold, design: .rounded))
+                                    .foregroundColor(planetColor(for: planet).opacity(0.8))
+                                Spacer()
+                            }
+                        }
+                    }
+                    
+                    // Enhanced description
+                    if let description = planetData["description"] as? String {
+                        Text(description)
+                            .font(.system(size: 13, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.85))
+                            .lineSpacing(2)
+                            .lineLimit(4)
+                    }
+                    
+                    // Key Traits with enhanced formatting
+                    if let keyTraits = planetData["keyTraits"] as? [String] {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Core Influences:")
+                                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                .foregroundColor(.white.opacity(0.8))
+                            
+                            // Break up complex grid expression to avoid compiler timeout
+                            let gridColumns = Array(repeating: GridItem(.flexible(), alignment: .leading), count: 2)
+                            let traitsToShow = Array(keyTraits.prefix(6))
+                            
+                            LazyVGrid(columns: gridColumns, spacing: 6) {
+                                ForEach(traitsToShow, id: \.self) { trait in
+                                    HStack(alignment: .top, spacing: 6) {
+                                        Text("•")
+                                            .foregroundColor(planetColor(for: planet))
+                                            .font(.system(size: 12))
+                                        Text(trait)
+                                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                                            .foregroundColor(.white.opacity(0.9))
+                                            .lineLimit(2)
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Spiritual guidance section
+                    if let spiritualGuidance = planetData["spiritualGuidance"] as? String {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("🌠 Today's Guidance")
+                                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                .foregroundColor(.cyan)
+                            
+                            Text(spiritualGuidance)
+                                .font(.system(size: 13, weight: .medium, design: .rounded))
+                                .foregroundColor(.cyan.opacity(0.8))
+                                .italic()
+                                .lineSpacing(2)
+                        }
+                        .padding(12)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.cyan.opacity(0.1))
+                        )
+                    }
+                    
+                    // Ritual Prompt if available
+                    if let ritualPrompt = planetData["ritualPrompt"] as? String {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("✨ Activation Ritual")
+                                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                .foregroundColor(.yellow)
+                            
+                            Text(ritualPrompt)
+                                .font(.system(size: 12, weight: .medium, design: .rounded))
+                                .foregroundColor(.yellow.opacity(0.8))
+                                .italic()
+                                .lineSpacing(2)
+                        }
+                        .padding(12)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.yellow.opacity(0.08))
+                        )
+                    }
+                } else {
+                    // Fallback content if MegaCorpus doesn't load
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text(planetArchetype(for: planet))
+                            .font(.system(size: 16, weight: .bold, design: .rounded))
+                            .foregroundColor(planetColor(for: planet))
+                        
+                        Text("Core Influences:")
+                            .font(.system(size: 14, weight: .semibold, design: .rounded))
+                            .foregroundColor(.white.opacity(0.8))
+                        
+                        ForEach(planetKeyInfluences(for: planet), id: \.self) { influence in
+                            HStack(alignment: .top, spacing: 8) {
+                                Text("•")
+                                    .foregroundColor(planetColor(for: planet))
+                                Text(influence)
+                                    .font(.system(size: 14, weight: .medium, design: .rounded))
+                                    .foregroundColor(.white.opacity(0.9))
+                            }
+                        }
+                    }
+                }
+                
+                // Additional Ritual Prompt (if not already shown above)
+                if let planetsFile = megaData["planets"] as? [String: Any],
+                   let planetData = planetsFile[planet.lowercased()] as? [String: Any],
+                   let ritualPrompt = planetData["ritualPrompt"] as? String {
+                    
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("✨ Activation Ritual")
+                            .font(.system(size: 14, weight: .semibold, design: .rounded))
+                            .foregroundColor(.yellow)
+                        
+                        Text(ritualPrompt)
+                            .font(.system(size: 13, weight: .medium, design: .rounded))
+                            .foregroundColor(.yellow.opacity(0.8))
+                            .italic()
+                            .lineSpacing(3)
+                    }
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color.yellow.opacity(0.1))
+                    )
+                }
+            }
+        }
+        .padding(20)
+        .background(cardBackground)
+    }
+    
     private var cosmicFlowCard: some View {
         VStack(spacing: 16) {
             HStack {
@@ -1054,41 +1539,101 @@ struct PlanetaryDetailView: View {
             }
             
             VStack(spacing: 12) {
-                // Movement indicator
+                // Enhanced movement indicator with MegaCorpus data
+                let megaData = loadMegaCorpusData()
+                let isCurrentlyRetrograde = isRetrograde(planet: planet)
+                
                 HStack {
                     Text("Movement:")
                         .font(.system(size: 14, weight: .medium, design: .rounded))
                         .foregroundColor(.white.opacity(0.7))
                     Spacer()
-                    Text(isRetrograde(planet: planet) ? "Retrograde ℞" : "Direct →")
+                    Text(isCurrentlyRetrograde ? "Retrograde ℞" : "Direct →")
                         .font(.system(size: 14, weight: .semibold, design: .rounded))
-                        .foregroundColor(isRetrograde(planet: planet) ? .orange : .green)
+                        .foregroundColor(isCurrentlyRetrograde ? .orange : .green)
                 }
                 
-                // Energy flow
-                HStack {
-                    Text("Energy Flow:")
+                // Next Transit Information - January 20, 2025
+                // ENHANCEMENT: Added next transit data to individual planet detail views
+                // Shows upcoming sign changes for enhanced cosmic awareness
+                if let nextTransit = getNextTransit(for: planet) {
+                    HStack {
+                        Text("Next Transit:")
+                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.7))
+                        Spacer()
+                        Text(nextTransit)
+                            .font(.system(size: 14, weight: .semibold, design: .rounded))
+                            .foregroundColor(.cyan)
+                    }
+                }
+                
+                // MegaCorpus apparent motion insights
+                if let apparentMotion = megaData["apparentMotion"] as? [String: Any] {
+                    let motionKey = isCurrentlyRetrograde ? "retrogradeMotion" : "directMotion"
+                    if let motionData = apparentMotion[motionKey] as? [String: Any] {
+                        
+                        // Energy description from MegaCorpus
+                        if let energy = motionData["energy"] as? String {
+                            HStack {
+                                Text("Energy Flow:")
+                                    .font(.system(size: 14, weight: .medium, design: .rounded))
+                                    .foregroundColor(.white.opacity(0.7))
+                                Spacer()
+                                Text(energy)
+                                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                    .foregroundColor(planetColor(for: planet))
+                            }
+                        }
+                        
+                        // Key insights from MegaCorpus
+                        if let keywords = motionData["keywords"] as? [String], !keywords.isEmpty {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Today's Influence:")
+                                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                    .foregroundColor(.white.opacity(0.8))
+                                
+                                // Break up complex expression
+                                let keywordsToShow = Array(keywords.prefix(3))
+                                ForEach(keywordsToShow, id: \.self) { keyword in
+                                    HStack(alignment: .top, spacing: 8) {
+                                        Text("•")
+                                            .foregroundColor(planetColor(for: planet))
+                                        Text(keyword)
+                                            .font(.system(size: 13, weight: .medium, design: .rounded))
+                                            .foregroundColor(.white.opacity(0.9))
+                                    }
+                                }
+                            }
+                            .padding(.top, 8)
+                        }
+                    }
+                } else {
+                    // Fallback to original energy flow
+                    HStack {
+                        Text("Energy Flow:")
+                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.7))
+                        Spacer()
+                        Text(planetEnergyFlow(for: planet))
+                            .font(.system(size: 14, weight: .semibold, design: .rounded))
+                            .foregroundColor(planetColor(for: planet))
+                    }
+                    
+                    // Best times
+                    HStack {
+                        Text("Optimal for:")
+                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.7))
+                        Spacer()
+                    }
+                    
+                    Text(planetOptimalActivities(for: planet))
                         .font(.system(size: 14, weight: .medium, design: .rounded))
-                        .foregroundColor(.white.opacity(0.7))
-                    Spacer()
-                    Text(planetEnergyFlow(for: planet))
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
-                        .foregroundColor(planetColor(for: planet))
+                        .foregroundColor(.white.opacity(0.9))
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                
-                // Best times
-                HStack {
-                    Text("Optimal for:")
-                        .font(.system(size: 14, weight: .medium, design: .rounded))
-                        .foregroundColor(.white.opacity(0.7))
-                    Spacer()
-                }
-                
-                Text(planetOptimalActivities(for: planet))
-                    .font(.system(size: 14, weight: .medium, design: .rounded))
-                    .foregroundColor(.white.opacity(0.9))
-                    .multilineTextAlignment(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
         .padding(20)
@@ -1097,11 +1642,18 @@ struct PlanetaryDetailView: View {
     
     @ViewBuilder
     private var planetaryAspectsCard: some View {
-        let relevantAspects = cosmicData.getCurrentAspects().filter { 
-            $0.planet1 == planet || $0.planet2 == planet 
+        // Break up complex expression to avoid compiler timeout
+        let allAspects = cosmicData.getCurrentAspects()
+        let relevantAspects = allAspects.filter { aspect in
+            aspect.planet1 == planet || aspect.planet2 == planet 
         }
         
         if !relevantAspects.isEmpty {
+            // Load MegaCorpus data outside VStack
+            let megaData = loadMegaCorpusData()
+            let aspectsToShow = Array(relevantAspects.prefix(3))
+            let indexedAspects = Array(aspectsToShow.enumerated())
+            
             VStack(spacing: 16) {
                 HStack {
                     Image(systemName: "link.circle")
@@ -1112,37 +1664,168 @@ struct PlanetaryDetailView: View {
                     Spacer()
                 }
                 
-                VStack(spacing: 10) {
-                    ForEach(Array(relevantAspects.prefix(4).enumerated()), id: \.offset) { index, aspect in
-                        HStack {
-                            Text(aspect.description)
-                                .font(.system(size: 14, weight: .medium, design: .rounded))
-                                .foregroundColor(.white.opacity(0.9))
+                VStack(spacing: 12) {
+                    ForEach(indexedAspects, id: \.offset) { index, aspect in
+                        VStack(alignment: .leading, spacing: 8) {
+                            // Basic aspect info
+                            HStack {
+                                Text(aspect.description)
+                                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                    .foregroundColor(.white)
+                                
+                                Spacer()
+                                
+                                Text(aspect.aspectType.energy)
+                                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                                    .foregroundColor(planetColor(for: planet).opacity(0.8))
+                            }
                             
-                            Spacer()
-                            
-                            Text(aspect.aspectType.energy)
-                                .font(.system(size: 12, weight: .medium, design: .rounded))
-                                .foregroundColor(planetColor(for: planet).opacity(0.8))
+                            // Enhanced MegaCorpus aspect insights
+                            if let aspects = megaData["aspects"] as? [String: Any] {
+                                let aspectKey = getSimpleAspectKey(from: aspect)
+                                if let aspectData = aspects[aspectKey] as? [String: Any] {
+                                    
+                                    // Show glyph and aspect type
+                                    if let glyph = aspectData["glyph"] as? String,
+                                       let aspectType = aspectData["aspectType"] as? String {
+                                        HStack {
+                                            Text(glyph)
+                                                .font(.system(size: 16))
+                                            Text(aspectType)
+                                                .font(.system(size: 12, weight: .medium, design: .rounded))
+                                                .foregroundColor(planetColor(for: planet).opacity(0.7))
+                                        }
+                                    }
+                                    
+                                    // Key traits for this specific aspect
+                                    if let keyTraits = aspectData["keyTraits"] as? [String], !keyTraits.isEmpty {
+                                        Text(keyTraits.first ?? "")
+                                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                                            .foregroundColor(.white.opacity(0.8))
+                                            .lineLimit(2)
+                                    }
+                                }
+                            }
                         }
-                        .padding(.vertical, 4)
+                        .padding(.vertical, 6)
                         
-                        if index < relevantAspects.prefix(4).count - 1 {
+                        if index < relevantAspects.prefix(3).count - 1 {
                             Divider()
                                 .background(Color.white.opacity(0.1))
                         }
                     }
                 }
                 
-                if relevantAspects.count > 4 {
-                    Text("+ \(relevantAspects.count - 4) more aspects")
+                if relevantAspects.count > 3 {
+                    Text("+ \(relevantAspects.count - 3) more aspects in full cosmic view")
                         .font(.system(size: 12, weight: .medium, design: .rounded))
                         .foregroundColor(.white.opacity(0.6))
+                        .multilineTextAlignment(.center)
                 }
             }
             .padding(20)
             .background(cardBackground)
         }
+    }
+    
+    /// NEW: Elemental & Modal Energy Card - January 20, 2025
+    /// 
+    /// This card provides comprehensive analysis of how the planet's current zodiac sign
+    /// influences its elemental and modal expression using rich MegaCorpus data.
+    /// 
+    /// **Displays:**
+    /// - Element information (Fire/Earth/Air/Water) with archetype and key traits
+    /// - Mode information (Cardinal/Fixed/Mutable) with essence and activation prompts
+    /// - Rich spiritual correspondences from MegaCorpus elements.json and modes.json
+    /// 
+    /// **Integration Points:**
+    /// - Uses getElementForSign() and getModeForSign() helper functions
+    /// - Loads MegaCorpus data via loadMegaCorpusData() 
+    /// - Displays glyphs, archetypes, and spiritual guidance for enhanced understanding
+    private var elementalModalCard: some View {
+        VStack(spacing: 16) {
+            HStack {
+                Image(systemName: "flame.circle")
+                    .foregroundColor(planetColor(for: planet))
+                Text("Elemental & Modal Energy")
+                    .font(.system(size: 20, weight: .semibold, design: .rounded))
+                    .foregroundColor(.white)
+                Spacer()
+            }
+            
+            let megaData = loadMegaCorpusData()
+            let sign = cosmicData.zodiacSign(for: planet) ?? "Unknown"
+            
+            VStack(alignment: .leading, spacing: 12) {
+                // Element information
+                if let element = getElementForSign(sign),
+                   let elementsFile = megaData["elements"] as? [String: Any],
+                   let elementsData = elementsFile["elements"] as? [String: Any],
+                   let elementData = elementsData[element] as? [String: Any] {
+                    
+                    HStack {
+                        if let glyph = elementData["glyph"] as? String {
+                            Text(glyph)
+                                .font(.system(size: 20))
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            if let name = elementData["name"] as? String,
+                               let archetype = elementData["archetype"] as? String {
+                                Text("\(name): \(archetype)")
+                                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                    .foregroundColor(.white)
+                            }
+                            
+                            if let keyTraits = elementData["keyTraits"] as? [String],
+                               let firstTrait = keyTraits.first {
+                                Text(firstTrait)
+                                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                                    .foregroundColor(.white.opacity(0.8))
+                                    .lineLimit(2)
+                            }
+                        }
+                        Spacer()
+                    }
+                }
+                
+                Divider()
+                    .background(Color.white.opacity(0.2))
+                
+                // Mode information
+                if let mode = getModeForSign(sign),
+                   let modesFile = megaData["modes"] as? [String: Any],
+                   let modesData = modesFile["modes"] as? [String: Any],
+                   let modeData = modesData[mode] as? [String: Any] {
+                    
+                    HStack {
+                        if let glyph = modeData["glyph"] as? String {
+                            Text(glyph)
+                                .font(.system(size: 20))
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            if let name = modeData["name"] as? String,
+                               let essence = modeData["essence"] as? String {
+                                Text("\(name): \(essence)")
+                                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                    .foregroundColor(.white)
+                            }
+                            
+                            if let prompt = modeData["prompt"] as? String {
+                                Text(prompt)
+                                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                                    .foregroundColor(.white.opacity(0.8))
+                                    .lineLimit(2)
+                            }
+                        }
+                        Spacer()
+                    }
+                }
+            }
+        }
+        .padding(20)
+        .background(cardBackground)
     }
     
     private var cardBackground: some View {
@@ -1162,6 +1845,61 @@ struct PlanetaryDetailView: View {
     }
     
     // MARK: - Helper Functions
+    
+    /// Get element for a zodiac sign - January 20, 2025
+    /// 
+    /// **SCOPE FIX:** Added to PlanetaryDetailView to resolve compilation errors.
+    /// Originally defined in CosmicSnapshotView extension but not accessible from this struct.
+    /// 
+    /// Maps zodiac signs to their corresponding elements for MegaCorpus integration.
+    private func getElementForSign(_ sign: String) -> String? {
+        switch sign.lowercased() {
+        case "aries", "leo", "sagittarius": return "fire"
+        case "taurus", "virgo", "capricorn": return "earth"
+        case "gemini", "libra", "aquarius": return "air"
+        case "cancer", "scorpio", "pisces": return "water"
+        default: return nil
+        }
+    }
+    
+    /// Get mode for a zodiac sign - January 20, 2025
+    /// 
+    /// **SCOPE FIX:** Added to PlanetaryDetailView to resolve compilation errors.
+    /// Originally defined in CosmicSnapshotView extension but not accessible from this struct.
+    /// 
+    /// Maps zodiac signs to their corresponding modes for MegaCorpus integration.
+    private func getModeForSign(_ sign: String) -> String? {
+        switch sign.lowercased() {
+        case "aries", "cancer", "libra", "capricorn": return "cardinal"
+        case "taurus", "leo", "scorpio", "aquarius": return "fixed"
+        case "gemini", "virgo", "sagittarius", "pisces": return "mutable"
+        default: return nil
+        }
+    }
+    
+    /// Claude: Simple aspect key lookup for individual aspects
+    private func getSimpleAspectKey(from aspect: Any) -> String {
+        // Convert the aspect object to string for pattern matching
+        let aspectString = String(describing: aspect).lowercased()
+        
+        // Simple string matching for aspect types
+        if aspectString.contains("sextile") {
+            return "sextile"
+        } else if aspectString.contains("conjunction") {
+            return "conjunction"
+        } else if aspectString.contains("opposition") {
+            return "opposition"
+        } else if aspectString.contains("trine") {
+            return "trine"
+        } else if aspectString.contains("square") {
+            return "square"
+        } else if aspectString.contains("quincunx") || aspectString.contains("inconjunct") {
+            return "inconjunct"
+        }
+        
+        // Default fallback
+        return "conjunction"
+    }
     
     private func planetSymbol(for planet: String) -> String {
         switch planet {
@@ -1195,21 +1933,7 @@ struct PlanetaryDetailView: View {
         }
     }
     
-    private func planetArchetype(for planet: String) -> String {
-        switch planet {
-        case "Sun": return "The Self • Ego • Vitality"
-        case "Moon": return "Emotions • Intuition • Inner World"
-        case "Mercury": return "Communication • Mind • Learning"
-        case "Venus": return "Love • Beauty • Values"
-        case "Mars": return "Action • Energy • Desire"
-        case "Jupiter": return "Expansion • Wisdom • Growth"
-        case "Saturn": return "Structure • Discipline • Lessons"
-        case "Uranus": return "Innovation • Freedom • Revolution"
-        case "Neptune": return "Dreams • Spirituality • Illusion"
-        case "Pluto": return "Transformation • Power • Rebirth"
-        default: return "Cosmic Influence"
-        }
-    }
+
     
     private func zodiacEmoji(for sign: String) -> String {
         switch sign.lowercased() {
@@ -1234,6 +1958,89 @@ struct PlanetaryDetailView: View {
         return cosmicData.isRetrograde(planet)
     }
     
+    private func planetArchetype(for planet: String) -> String {
+        switch planet {
+        case "Sun": return "The Hero"
+        case "Moon": return "The Nurturer"
+        case "Mercury": return "The Messenger"
+        case "Venus": return "The Lover"
+        case "Mars": return "The Warrior"
+        case "Jupiter": return "The Sage"
+        case "Saturn": return "The Teacher"
+        case "Uranus": return "The Awakener"
+        case "Neptune": return "The Mystic"
+        case "Pluto": return "The Transformer"
+        default: return "The Celestial Guide"
+        }
+    }
+    
+    private func planetKeyInfluences(for planet: String) -> [String] {
+        switch planet {
+        case "Sun": 
+            return ["Vitality & Willpower", "Self-Expression & Creativity", "Leadership & Confidence", "Authentic Identity"]
+        case "Moon": 
+            return ["Emotions & Intuition", "Nurturing & Care", "Inner Security", "Cycles & Rhythms"]
+        case "Mercury": 
+            return ["Communication & Learning", "Mental Agility", "Travel & Movement", "Information Exchange"]
+        case "Venus": 
+            return ["Love & Relationships", "Beauty & Harmony", "Values & Worth", "Artistic Expression"]
+        case "Mars": 
+            return ["Action & Initiative", "Courage & Drive", "Passion & Desire", "Physical Energy"]
+        case "Jupiter": 
+            return ["Expansion & Growth", "Wisdom & Philosophy", "Optimism & Faith", "Higher Learning"]
+        case "Saturn": 
+            return ["Structure & Discipline", "Responsibility & Maturity", "Time & Patience", "Life Lessons"]
+        case "Uranus": 
+            return ["Innovation & Change", "Freedom & Independence", "Sudden Insights", "Revolutionary Spirit"]
+        case "Neptune": 
+            return ["Dreams & Intuition", "Spiritual Connection", "Compassion & Unity", "Creative Imagination"]
+        case "Pluto": 
+            return ["Transformation & Rebirth", "Power & Control", "Deep Psychology", "Soul Evolution"]
+        default: 
+            return ["Cosmic Influence", "Spiritual Growth", "Universal Connection"]
+        }
+    }
+    
+    /// Load MegaCorpus data (reuse the singleton cache)
+    private func loadMegaCorpusData() -> [String: Any] {
+        // Use the same cache as CosmicSnapshotView
+        if let cachedData = MegaCorpusCache.shared.data {
+            return cachedData
+        }
+        
+        // Load all MegaCorpus JSON files
+        let fileNames = ["Signs", "Planets", "Houses", "Aspects", "Elements", "Modes", "MoonPhases", "ApparentMotion"]
+        var megaData: [String: Any] = [:]
+        
+        for fileName in fileNames {
+            // Try multiple paths to find the JSON files
+            let paths = [
+                Bundle.main.path(forResource: "NumerologyData/MegaCorpus/\(fileName)", ofType: "json"),
+                Bundle.main.path(forResource: fileName, ofType: "json", inDirectory: "NumerologyData/MegaCorpus"),
+                Bundle.main.path(forResource: fileName, ofType: "json"),
+                Bundle.main.path(forResource: "MegaCorpus/\(fileName)", ofType: "json")
+            ]
+            
+            var loaded = false
+            for path in paths.compactMap({ $0 }) {
+                if let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
+                   let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                    megaData[fileName.lowercased()] = json
+                    loaded = true
+                    print("✅ Loaded MegaCorpus \(fileName) from: \(path)")
+                    break
+                }
+            }
+            
+            if !loaded {
+                print("❌ Failed to load MegaCorpus \(fileName)")
+            }
+        }
+        
+        MegaCorpusCache.shared.data = megaData
+        return megaData
+    }
+    
     private func planetSpiritualMeaning(planet: String, sign: String) -> String {
         // Special case for void-of-course Moon
         if planet == "Moon" && cosmicData.isVoidOfCoursePeriod {
@@ -1247,40 +2054,87 @@ struct PlanetaryDetailView: View {
     }
     
     private func planetBaseMeaning(for planet: String) -> String {
+        let megaData = loadMegaCorpusData()
+        
+        // Try to get rich description from MegaCorpus with correct nested structure
+        if let planetsFile = megaData["planets"] as? [String: Any],
+           let planetData = planetsFile[planet.lowercased()] as? [String: Any] {
+            
+            if let archetype = planetData["archetype"] as? String,
+               let description = planetData["description"] as? String {
+                return "\(archetype) • \(description)"
+            }
+        }
+        
+        // Fallback descriptions
         switch planet {
-        case "Sun": return "The Sun represents your core identity, ego, and life purpose. It's your conscious self and how you shine in the world."
-        case "Moon": return "The Moon governs your emotions, intuition, inner world, and subconscious patterns. It represents your emotional needs and instinctive responses."
-        case "Mercury": return "Mercury governs communication, learning, and mental processes."
-        case "Venus": return "Venus rules love, beauty, relationships, and personal values."
-        case "Mars": return "Mars drives action, energy, passion, and how we assert ourselves."
-        case "Jupiter": return "Jupiter expands our horizons through wisdom, growth, and opportunity."
-        case "Saturn": return "Saturn teaches through structure, discipline, and life lessons."
-        case "Uranus": return "Uranus brings innovation, sudden change, and revolutionary thinking."
-        case "Neptune": return "Neptune connects us to dreams, spirituality, and higher consciousness."
-        case "Pluto": return "Pluto facilitates deep transformation and regeneration."
+        case "Sun": return "The Luminary • Center of consciousness, vital force, and authentic self-expression. Your solar essence illuminates your life purpose."
+        case "Moon": return "The Nurturer • Guardian of emotions, intuition, and the unconscious realm. Reflects your deepest needs and instinctive responses."
+        case "Mercury": return "The Messenger • Master of communication, thought, and mental agility. Bridges inner wisdom with outer expression."
+        case "Venus": return "The Lover • Goddess of beauty, harmony, and heart connections. Reveals how you attract and appreciate life's pleasures."
+        case "Mars": return "The Warrior • Champion of desire, courage, and vital energy. Shows how you assert your will and pursue your passions."
+        case "Jupiter": return "The Sage • Benefactor of wisdom, expansion, and higher understanding. Opens doors to growth and abundance."
+        case "Saturn": return "The Teacher • Master of time, structure, and earned wisdom. Transforms limitations into lasting achievements."
+        case "Uranus": return "The Awakener • Revolutionary force of innovation and liberation. Breaks patterns to reveal authentic freedom."
+        case "Neptune": return "The Mystic • Weaver of dreams, intuition, and transcendent unity. Dissolves boundaries to reveal spiritual truth."
+        case "Pluto": return "The Transformer • Lord of death, rebirth, and soul evolution. Facilitates profound metamorphosis."
         default: return "This celestial body influences your spiritual journey."
         }
     }
     
     private func signInfluence(for sign: String) -> String {
+        let megaData = loadMegaCorpusData()
+        
+        // Try to get rich description from MegaCorpus with correct nested structure
+        if let signsFile = megaData["signs"] as? [String: Any],
+           let signData = signsFile[sign.lowercased()] as? [String: Any] {
+            
+            // Get key traits for a concise influence description
+            if let keyTraits = signData["keyTraits"] as? [String],
+               let firstTrait = keyTraits.first {
+                
+                // Extract the essence from the trait
+                let essence = firstTrait.components(separatedBy: ":").first ?? firstTrait
+                return "channeling \(sign)'s \(essence.lowercased()) energy."
+            }
+            
+            // Fallback to element and mode
+            if let element = signData["element"] as? String,
+               let mode = signData["mode"] as? String {
+                return "expressing through \(sign)'s \(element) \(mode) nature."
+            }
+        }
+        
+        // Enhanced fallback descriptions
         switch sign.lowercased() {
-        case "aries": return "bringing pioneering energy and bold initiative."
-        case "taurus": return "grounding energy in practical, stable manifestation."
-        case "gemini": return "encouraging curiosity, adaptability, and communication."
-        case "cancer": return "emphasizing emotional depth and nurturing care."
-        case "leo": return "expressing through creative confidence and generous heart."
-        case "virgo": return "focusing on precise service and healing attention."
-        case "libra": return "seeking harmony, balance, and beautiful relationships."
-        case "scorpio": return "diving deep into transformational emotional waters."
-        case "sagittarius": return "expanding through adventure and philosophical wisdom."
-        case "capricorn": return "building solid foundations with disciplined ambition."
-        case "aquarius": return "innovating for the collective good and future vision."
-        case "pisces": return "flowing with compassionate intuition and spiritual connection."
+        case "aries": return "igniting with pioneering fire and fearless initiative."
+        case "taurus": return "grounding in sensual earth and steadfast creation."
+        case "gemini": return "dancing through airy realms of wit and connection."
+        case "cancer": return "flowing with lunar tides of deep feeling and care."
+        case "leo": return "radiating solar fire of creative sovereignty."
+        case "virgo": return "perfecting through earth's sacred service and precision."
+        case "libra": return "harmonizing through air's grace and relational wisdom."
+        case "scorpio": return "transforming through water's mysterious depths."
+        case "sagittarius": return "adventuring through fire's philosophical quest."
+        case "capricorn": return "mastering through earth's timeless ambition."
+        case "aquarius": return "revolutionizing through air's visionary brilliance."
+        case "pisces": return "transcending through water's mystical compassion."
         default: return "bringing its unique cosmic influence to your path."
         }
     }
     
     private func planetKeyThemes(for planet: String) -> String {
+        let megaData = loadMegaCorpusData()
+        
+        // Try to get rich themes from MegaCorpus
+        if let planetsFile = megaData["planets"] as? [String: Any],
+           let planetData = planetsFile[planet.lowercased()] as? [String: Any],
+           let keyTraits = planetData["keyTraits"] as? [String] {
+            // Join the first 3-4 traits as themes
+            return keyTraits.prefix(4).joined(separator: ", ")
+        }
+        
+        // Fallback themes
         switch planet {
         case "Sun": return "Identity, Purpose, Confidence, Leadership, Vitality"
         case "Moon": return "Emotions, Intuition, Memories, Nurturing, Cycles"
@@ -1351,6 +2205,628 @@ extension Color {
         }
     }
     .background(Color.black)
+}
+
+// MARK: - MegaCorpus Enhancement Functions
+
+extension CosmicSnapshotView {
+    
+    // Note: Using global MegaCorpusCache from UserProfileTabView.swift
+    
+    /// Load MegaCorpus data with caching
+    private func loadMegaCorpusData() -> [String: Any] {
+        // Check cache first
+        if let cachedData = MegaCorpusCache.shared.data {
+            return cachedData
+        }
+        
+        // Load all MegaCorpus JSON files
+        let fileNames = ["Signs", "Planets", "Houses", "Aspects", "Elements", "Modes", "MoonPhases", "ApparentMotion"]
+        var megaData: [String: Any] = [:]
+        
+        for fileName in fileNames {
+            // Try multiple paths to find the file
+            let paths = [
+                Bundle.main.path(forResource: fileName, ofType: "json", inDirectory: "NumerologyData/MegaCorpus"),
+                Bundle.main.path(forResource: fileName, ofType: "json"),
+                Bundle.main.path(forResource: "MegaCorpus/\(fileName)", ofType: "json")
+            ]
+            
+            for path in paths.compactMap({ $0 }) {
+                if let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
+                   let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                    megaData[fileName.lowercased()] = json
+                    break
+                }
+            }
+        }
+        
+        // Cache the data
+        MegaCorpusCache.shared.data = megaData
+        return megaData
+    }
+    
+    /// Get enhanced moon phase guidance from MegaCorpus
+    private func getMoonPhaseGuidance(_ moonPhase: String) -> String {
+        let megaData = loadMegaCorpusData()
+        
+        // Map moon phase names to MegaCorpus keys (case-insensitive)
+        let lowerPhase = moonPhase.lowercased()
+        let phaseKey: String
+        
+        if lowerPhase.contains("new moon") {
+            phaseKey = "newMoon"
+        } else if lowerPhase.contains("waxing crescent") {
+            phaseKey = "waxingCrescent"  
+        } else if lowerPhase.contains("first quarter") {
+            phaseKey = "firstQuarter"
+        } else if lowerPhase.contains("waxing gibbous") {
+            phaseKey = "waxingGibbous"
+        } else if lowerPhase.contains("full moon") {
+            phaseKey = "fullMoon"
+        } else if lowerPhase.contains("waning gibbous") {
+            phaseKey = "waningGibbous"
+        } else if lowerPhase.contains("last quarter") || lowerPhase.contains("third quarter") {
+            phaseKey = "lastQuarter"
+        } else if lowerPhase.contains("waning crescent") || lowerPhase.contains("balsamic") {
+            phaseKey = "waningCrescent"
+        } else {
+            // Additional fallback checks for SwiftAA format variations
+            if lowerPhase.contains("waxing") && lowerPhase.contains("crescent") {
+                phaseKey = "waxingCrescent"
+            } else if lowerPhase.contains("waxing") && lowerPhase.contains("gibbous") {
+                phaseKey = "waxingGibbous"
+            } else if lowerPhase.contains("waning") && lowerPhase.contains("gibbous") {
+                phaseKey = "waningGibbous"
+            } else if lowerPhase.contains("waning") && lowerPhase.contains("crescent") {
+                phaseKey = "waningCrescent"
+            } else {
+                phaseKey = "newMoon" // Default
+            }
+        }
+        
+        if let moonPhasesFile = megaData["moonphases"] as? [String: Any],
+           let moonPhases = moonPhasesFile["moonPhases"] as? [String: Any],
+           let phaseData = moonPhases[phaseKey] as? [String: Any] {
+            
+            // Try to get a short key trait for compact view
+            if let keyTraits = phaseData["keyTraits"] as? [String],
+               let firstTrait = keyTraits.first {
+                return firstTrait
+            }
+            
+            // Fallback to archetype
+            if let archetype = phaseData["archetype"] as? String {
+                return archetype
+            }
+        } else {
+            print("🌙 MegaCorpus: No moon phase data found for key '\(phaseKey)' from phase '\(moonPhase)'")
+        }
+        
+        // Fallback guidance
+        switch phaseKey {
+        case "newMoon": return "Plant seeds of intention"
+        case "waxingCrescent": return "Nurture new beginnings"
+        case "firstQuarter": return "Take decisive action"
+        case "waxingGibbous": return "Refine and adjust"
+        case "fullMoon": return "Celebrate manifestation"
+        case "waningGibbous": return "Share your wisdom"
+        case "lastQuarter": return "Release and forgive"
+        case "waningCrescent": return "Rest and reflect"
+        default: return "Align with lunar rhythms"
+        }
+    }
+    
+    /// Get enhanced moon phase description for expanded view
+    private func getEnhancedMoonPhaseDescription(cosmic: CosmicData) -> String {
+        let megaData = loadMegaCorpusData()
+        let lowerPhase = cosmic.moonPhase.lowercased()
+        
+        // Determine phase key
+        let phaseKey: String
+        if lowerPhase.contains("new moon") {
+            phaseKey = "newMoon"
+        } else if lowerPhase.contains("waxing crescent") {
+            phaseKey = "waxingCrescent"
+        } else if lowerPhase.contains("first quarter") {
+            phaseKey = "firstQuarter"
+        } else if lowerPhase.contains("waxing gibbous") {
+            phaseKey = "waxingGibbous"
+        } else if lowerPhase.contains("full moon") {
+            phaseKey = "fullMoon"
+        } else if lowerPhase.contains("waning gibbous") {
+            phaseKey = "waningGibbous"
+        } else if lowerPhase.contains("last quarter") || lowerPhase.contains("third quarter") {
+            phaseKey = "lastQuarter"
+        } else if lowerPhase.contains("waning crescent") || lowerPhase.contains("balsamic") {
+            phaseKey = "waningCrescent"
+        } else {
+            phaseKey = "newMoon"
+        }
+        
+        var description = "\(cosmic.moonPhase) (\(Int(cosmic.moonIllumination ?? 0))% illuminated)\n\n"
+        
+        // Get rich description from MegaCorpus
+        if let moonPhasesFile = megaData["moonphases"] as? [String: Any],
+           let moonPhases = moonPhasesFile["moonPhases"] as? [String: Any],
+           let phaseData = moonPhases[phaseKey] as? [String: Any] {
+            
+            if let archetype = phaseData["archetype"] as? String,
+               let fullDescription = phaseData["description"] as? String {
+                description += "\(archetype)\n\n\(fullDescription)\n\n"
+            }
+            
+            if let keyTraits = phaseData["keyTraits"] as? [String], !keyTraits.isEmpty {
+                description += "Key Influences:\n"
+                for trait in keyTraits {
+                    description += "• \(trait)\n"
+                }
+                description += "\n"
+            }
+            
+            if let ritualPrompt = phaseData["ritualPrompt"] as? String {
+                description += "✨ Lunar Ritual:\n\(ritualPrompt)"
+            }
+        } else {
+            // Fallback to spiritual guidance
+            description += cosmic.spiritualGuidance
+        }
+        
+        return description
+    }
+    
+    /// Get planet in sign insight from MegaCorpus
+    private func getPlanetInSignInsight(planet: String, sign: String) -> String {
+        let megaData = loadMegaCorpusData()
+        
+        // Get planet archetype
+        var planetArchetype = ""
+        if let planets = megaData["planets"] as? [String: Any],
+           let planetData = planets[planet.lowercased()] as? [String: Any],
+           let archetype = planetData["archetype"] as? String {
+            planetArchetype = archetype
+        }
+        
+        // Get sign element/mode
+        var signQuality = ""
+        if let signs = megaData["signs"] as? [String: Any],
+           let signData = signs[sign.lowercased()] as? [String: Any],
+           let element = signData["element"] as? String,
+           let mode = signData["mode"] as? String {
+            signQuality = "\(element) \(mode)"
+        }
+        
+        // Create insightful combination
+        switch planet.lowercased() {
+        case "mercury":
+            return planetArchetype.isEmpty ? "Mind flows through \(sign)" : "\(planetArchetype) in \(signQuality) \(sign)"
+        case "venus":
+            return planetArchetype.isEmpty ? "Love through \(sign)" : "\(planetArchetype) seeks \(sign) beauty"
+        case "mars":
+            return planetArchetype.isEmpty ? "Action via \(sign)" : "\(planetArchetype) charges with \(sign) energy"
+        default:
+            return "\(planet) expresses through \(sign)"
+        }
+    }
+    
+    /// Claude: Get enhanced aspect insight from MegaCorpus Aspects.json data
+    ///
+    /// This function provides rich spiritual insights for planetary aspects using the comprehensive
+    /// archetypal descriptions, key traits, and ritual prompts from the MegaCorpus data structure.
+    /// Each aspect receives contextual wisdom to help users understand cosmic energies.
+    ///
+    /// **MegaCorpus Integration:**
+    /// - Uses Aspects.json archetypal descriptions for deep spiritual meaning
+    /// - Provides key traits specific to each aspect type (conjunction, trine, square, etc.)
+    /// - Offers condensed spiritual guidance for the compact cosmic snapshot view
+    /// - Maintains authentic astrological interpretations with proper orbs and meanings
+    private func getEnhancedAspectInsight(for aspect: Any) -> String? {
+        
+        // First, try to cast to actual PlanetaryAspect type - this will work if passed correctly
+        if let aspectString = String(describing: aspect) as String?,
+           aspectString.contains("PlanetaryAspect") {
+            // Use reflection to extract aspect type
+            return getAspectInsightFromString(aspectString)
+        }
+        
+        let megaData = loadMegaCorpusData()
+        
+        // Get aspects data from MegaCorpus
+        guard let aspectsFile = megaData["aspects"] as? [String: Any],
+              let aspectsData = aspectsFile["aspects"] as? [String: Any] else {
+            return getEnhancedFallbackInsight(from: aspect)
+        }
+        
+        // Extract aspect type - handle both PlanetaryAspect and general types
+        let aspectKey = getAspectKeyForMegaCorpus(from: aspect)
+        
+        // Get rich aspect data from MegaCorpus
+        if let aspectData = aspectsData[aspectKey] as? [String: Any] {
+            
+            // Priority order: First key trait > Archetype description
+            if let keyTraits = aspectData["keyTraits"] as? [String],
+               let firstTrait = keyTraits.first {
+                return firstTrait
+            }
+            
+            // Use archetype as alternative insight
+            if let archetype = aspectData["archetype"] as? String {
+                return archetype
+            }
+            
+            // Use first sentence of description as fallback
+            if let description = aspectData["description"] as? String {
+                let sentences = description.components(separatedBy: ". ")
+                if let firstSentence = sentences.first {
+                    return firstSentence.replacingOccurrences(of: "The ", with: "").capitalized
+                }
+            }
+        }
+        
+        // Enhanced fallback insights for common aspects based on MegaCorpus wisdom
+        return getEnhancedFallbackInsight(from: aspect)
+    }
+    
+    /// Enhanced fallback insights based on MegaCorpus wisdom
+    private func getEnhancedFallbackInsight(from aspect: Any) -> String {
+        let aspectKey = getAspectKeyForMegaCorpus(from: aspect)
+        
+        switch aspectKey {
+        case "conjunction": return "Synergy & Integration - Intensified focus & personal power"
+        case "opposition": return "Polarity & Tension - Find balance through contrast"
+        case "trine": return "Ease & Flow - Natural talent & creative support"
+        case "square": return "Tension & Challenge - Transform friction into growth"
+        case "sextile": return "Opportunity & Potential - Cooperative synergy awaits"
+        case "inconjunct": return "Uneasy Alignment - Requires subtle adjustment"
+        case "quintile": return "Creative Genius & Innovation - Unique inspiration"
+        case "semisextile": return "Uneasy Attraction - Gateway for new insights"
+        case "semisquare": return "Tuned Conflict - Calm adjustment needed"
+        case "sesquiquadrate": return "Persistent Tension - Self-control brings mastery"
+        case "biquintile": return "Subtle Resonance - Amplified creativity"
+        case "septile": return "Mystical Tension - Hidden wisdom guides transformation"
+        default: return "Cosmic connection - planetary energies interact meaningfully"
+        }
+    }
+    
+    /// Extract aspect insight from string representation
+    private func getAspectInsightFromString(_ aspectString: String) -> String? {
+        if aspectString.lowercased().contains("sextile") {
+            return "Opportunity & Potential - Cooperative synergy awaits"
+        } else if aspectString.lowercased().contains("conjunction") {
+            return "Synergy & Integration - Intensified focus & personal power"
+        } else if aspectString.lowercased().contains("opposition") {
+            return "Polarity & Tension - Find balance through contrast"
+        } else if aspectString.lowercased().contains("trine") {
+            return "Ease & Flow - Natural talent & creative support"
+        } else if aspectString.lowercased().contains("square") {
+            return "Tension & Challenge - Transform friction into growth"
+        } else if aspectString.lowercased().contains("quincunx") {
+            return "Uneasy Alignment - Requires subtle adjustment"
+        }
+        return nil
+    }
+    
+    /// Get the correct MegaCorpus key for aspect lookup
+    private func getAspectKeyForMegaCorpus(from aspect: Any) -> String {
+        // If we have access to the actual PlanetaryAspect object structure
+        let aspectString = String(describing: aspect)
+        
+        // Map CosmicData.AspectType to MegaCorpus keys
+        if aspectString.contains("sextile") {
+            return "sextile"
+        } else if aspectString.contains("conjunction") {
+            return "conjunction"
+        } else if aspectString.contains("opposition") {
+            return "opposition"
+        } else if aspectString.contains("trine") {
+            return "trine"
+        } else if aspectString.contains("square") {
+            return "square"
+        } else if aspectString.contains("quincunx") {
+            return "inconjunct" // MegaCorpus uses "inconjunct" key
+        }
+        
+        // Default fallback
+        return "conjunction"
+    }
+    
+    
+    /// Claude: Generate enhanced aspects description for expanded view with MegaCorpus wisdom
+    private func generateEnhancedAspectsDescription(aspects: [Any]) -> String {
+        guard !aspects.isEmpty else {
+            return "No major aspects active at this time. The planets flow independently, offering a period of personal reflection and uninfluenced choice."
+        }
+        
+        let megaData = loadMegaCorpusData()
+        var descriptions: [String] = []
+        
+        for aspect in aspects {
+            let aspectString = String(describing: aspect)
+            var aspectType = "Unknown"
+            var planets = "Unknown planets"
+            
+            // Extract aspect type and planets from the string representation
+            if let typeMatch = aspectString.range(of: "(?<=type: )\\w+", options: .regularExpression) {
+                aspectType = String(aspectString[typeMatch])
+            }
+            
+            if let planetsMatch = aspectString.range(of: "(?<=planets: \\()[^)]+", options: .regularExpression) {
+                planets = String(aspectString[planetsMatch])
+            }
+            
+            // Get enhanced insight from MegaCorpus
+            let aspectKey = getAspectKeyForMegaCorpus(from: aspect)
+            var enhancement = ""
+            
+            if let aspectsFile = megaData["aspects"] as? [String: Any],
+               let aspectsData = aspectsFile["aspects"] as? [String: Any],
+               let aspectData = aspectsData[aspectKey] as? [String: Any] {
+                
+                // Build rich description
+                if let archetype = aspectData["archetype"] as? String {
+                    enhancement += "✨ \(archetype)\n"
+                }
+                
+                if let keyTraits = aspectData["keyTraits"] as? [String], !keyTraits.isEmpty {
+                    enhancement += "• \(keyTraits.first ?? "")\n"
+                }
+                
+                if let spiritualGuidance = aspectData["spiritualGuidance"] as? String {
+                    enhancement += "🌟 \(spiritualGuidance)"
+                }
+            }
+            
+            // Format the complete aspect description
+            let planetSymbols = formatPlanetNames(planets)
+            descriptions.append("\(getAspectSymbol(aspectType)) \(planetSymbols) - \(aspectType.capitalized)\n\(enhancement)")
+        }
+        
+        return descriptions.joined(separator: "\n\n")
+    }
+    
+    /// Generate elemental balance description using MegaCorpus data - January 20, 2025
+    /// 
+    /// **NEW ENHANCEMENT:** This function analyzes the elemental distribution of planets
+    /// across Fire, Earth, Air, and Water elements using comprehensive MegaCorpus data.
+    /// 
+    /// **Features:**
+    /// - Counts planets in each element based on their current zodiac signs
+    /// - Identifies dominant element and displays its archetype
+    /// - Shows planet distribution with element glyphs and names
+    /// - Includes key traits for elements with 3+ planets
+    /// - Provides ritual prompts for elemental activation
+    /// 
+    /// **Data Sources:**
+    /// - CosmicData.zodiacSign(for:) for current planetary positions
+    /// - MegaCorpus elements.json for rich spiritual descriptions
+    /// - elements-and-modes-250720_0953.md documentation structure
+    private func generateElementalBalanceDescription(cosmic: CosmicData) -> String {
+        let megaData = loadMegaCorpusData()
+        guard let elementsFile = megaData["elements"] as? [String: Any],
+              let elementsData = elementsFile["elements"] as? [String: Any] else {
+            return "Elemental energies flow in natural balance today."
+        }
+        
+        // Count planets in each element
+        var elementCounts: [String: Int] = ["fire": 0, "earth": 0, "air": 0, "water": 0]
+        var elementPlanets: [String: [String]] = ["fire": [], "earth": [], "air": [], "water": []]
+        
+        let planetSigns = [
+            ("Sun", cosmic.sunSign),
+            ("Moon", cosmic.zodiacSign(for: "Moon") ?? "Unknown"),
+            ("Mercury", cosmic.zodiacSign(for: "Mercury") ?? "Unknown"),
+            ("Venus", cosmic.zodiacSign(for: "Venus") ?? "Unknown"),
+            ("Mars", cosmic.zodiacSign(for: "Mars") ?? "Unknown"),
+            ("Jupiter", cosmic.zodiacSign(for: "Jupiter") ?? "Unknown"),
+            ("Saturn", cosmic.zodiacSign(for: "Saturn") ?? "Unknown")
+        ]
+        
+        for (planet, sign) in planetSigns {
+            if let element = getElementForSign(sign) {
+                elementCounts[element, default: 0] += 1
+                elementPlanets[element, default: []].append(planet)
+            }
+        }
+        
+        var description = ""
+        
+        // Find dominant element
+        if let dominantElement = elementCounts.max(by: { $0.value < $1.value }) {
+            if let elementData = elementsData[dominantElement.key] as? [String: Any] {
+                if let archetype = elementData["archetype"] as? String {
+                    description += "🌟 Today's Dominant Force: \(archetype)\n\n"
+                }
+            }
+        }
+        
+        // Describe each element's influence
+        for (element, count) in elementCounts.sorted(by: { $0.value > $1.value }) {
+            if count > 0, let elementData = elementsData[element] as? [String: Any] {
+                let glyph = elementData["glyph"] as? String ?? ""
+                let name = elementData["name"] as? String ?? element.capitalized
+                let planets = elementPlanets[element]?.joined(separator: ", ") ?? ""
+                
+                description += "\(glyph) \(name) (\(count)): \(planets)\n"
+                
+                if count >= 3, let keyTraits = elementData["keyTraits"] as? [String], let trait = keyTraits.first {
+                    description += "   • \(trait)\n"
+                }
+            }
+        }
+        
+        // Add ritual prompt for dominant element
+        if let dominantElement = elementCounts.max(by: { $0.value < $1.value }),
+           dominantElement.value >= 3,
+           let elementData = elementsData[dominantElement.key] as? [String: Any],
+           let ritualPrompt = elementData["ritualPrompt"] as? String {
+            description += "\n✨ Elemental Activation:\n\(ritualPrompt)"
+        }
+        
+        return description
+    }
+    
+    /// Generate modal energy description using MegaCorpus data - January 20, 2025
+    /// 
+    /// **NEW ENHANCEMENT:** This function analyzes the modal distribution of planets
+    /// across Cardinal, Fixed, and Mutable modes using comprehensive MegaCorpus data.
+    /// 
+    /// **Features:**
+    /// - Counts planets in each mode based on their current zodiac signs
+    /// - Identifies dominant mode and displays its essence
+    /// - Shows planet distribution with mode glyphs and names  
+    /// - Provides activation prompts for modal energy work
+    /// 
+    /// **Data Sources:**
+    /// - CosmicData.zodiacSign(for:) for current planetary positions
+    /// - MegaCorpus modes.json for rich spiritual descriptions
+    /// - elements-and-modes-250720_0953.md documentation structure
+    private func generateModalEnergyDescription(cosmic: CosmicData) -> String {
+        let megaData = loadMegaCorpusData()
+        guard let modesFile = megaData["modes"] as? [String: Any],
+              let modesData = modesFile["modes"] as? [String: Any] else {
+            return "Modal energies create dynamic flow today."
+        }
+        
+        // Count planets in each mode
+        var modeCounts: [String: Int] = ["cardinal": 0, "fixed": 0, "mutable": 0]
+        var modePlanets: [String: [String]] = ["cardinal": [], "fixed": [], "mutable": []]
+        
+        let planetSigns = [
+            ("Sun", cosmic.sunSign),
+            ("Moon", cosmic.zodiacSign(for: "Moon") ?? "Unknown"),
+            ("Mercury", cosmic.zodiacSign(for: "Mercury") ?? "Unknown"),
+            ("Venus", cosmic.zodiacSign(for: "Venus") ?? "Unknown"),
+            ("Mars", cosmic.zodiacSign(for: "Mars") ?? "Unknown"),
+            ("Jupiter", cosmic.zodiacSign(for: "Jupiter") ?? "Unknown"),
+            ("Saturn", cosmic.zodiacSign(for: "Saturn") ?? "Unknown")
+        ]
+        
+        for (planet, sign) in planetSigns {
+            if let mode = getModeForSign(sign) {
+                modeCounts[mode, default: 0] += 1
+                modePlanets[mode, default: []].append(planet)
+            }
+        }
+        
+        var description = ""
+        
+        // Find dominant mode
+        if let dominantMode = modeCounts.max(by: { $0.value < $1.value }) {
+            if let modeData = modesData[dominantMode.key] as? [String: Any] {
+                if let essence = modeData["essence"] as? String {
+                    description += "🌟 Today's Energy Pattern: \(essence)\n\n"
+                }
+            }
+        }
+        
+        // Describe each mode's influence
+        for (mode, count) in modeCounts.sorted(by: { $0.value > $1.value }) {
+            if count > 0, let modeData = modesData[mode] as? [String: Any] {
+                let glyph = modeData["glyph"] as? String ?? ""
+                let name = modeData["name"] as? String ?? mode.capitalized
+                let planets = modePlanets[mode]?.joined(separator: ", ") ?? ""
+                
+                description += "\(glyph) \(name) (\(count)): \(planets)\n"
+            }
+        }
+        
+        // Add prompt for dominant mode
+        if let dominantMode = modeCounts.max(by: { $0.value < $1.value }),
+           dominantMode.value >= 3,
+           let modeData = modesData[dominantMode.key] as? [String: Any],
+           let prompt = modeData["prompt"] as? String {
+            description += "\n✨ Modal Activation:\n\(prompt)"
+        }
+        
+        return description
+    }
+    
+    /// Get element for a zodiac sign
+    private func getElementForSign(_ sign: String) -> String? {
+        switch sign.lowercased() {
+        case "aries", "leo", "sagittarius": return "fire"
+        case "taurus", "virgo", "capricorn": return "earth"
+        case "gemini", "libra", "aquarius": return "air"
+        case "cancer", "scorpio", "pisces": return "water"
+        default: return nil
+        }
+    }
+    
+    /// Get mode for a zodiac sign
+    private func getModeForSign(_ sign: String) -> String? {
+        switch sign.lowercased() {
+        case "aries", "cancer", "libra", "capricorn": return "cardinal"
+        case "taurus", "leo", "scorpio", "aquarius": return "fixed"
+        case "gemini", "virgo", "sagittarius", "pisces": return "mutable"
+        default: return nil
+        }
+    }
+    
+    /// Claude: Generate apparent motion description for expanded view
+    private func generateApparentMotionDescription(cosmic: CosmicData) -> String {
+        let megaData = loadMegaCorpusData()
+        let planets = ["Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
+        var motionDescriptions: [String] = []
+        
+        for planet in planets {
+            let isRetrograde = cosmic.isRetrograde(planet)
+            let motionKey = isRetrograde ? "retrogradeMotion" : "directMotion"
+            
+            if let motionFile = megaData["apparentmotion"] as? [String: Any],
+               let motionData = motionFile["apparentMotion"] as? [String: Any],
+               let specificMotion = motionData[motionKey] as? [String: Any] {
+                
+                let symbol = getPlanetSymbol(planet)
+                let motionSymbol = isRetrograde ? "℞" : "🡒"
+                
+                if let energy = specificMotion["energy"] as? String {
+                    motionDescriptions.append("\(symbol) \(planet) \(motionSymbol) - \(energy)")
+                }
+            }
+        }
+        
+        // Add general guidance from MegaCorpus
+        if let motionFile = megaData["apparentmotion"] as? [String: Any],
+           let motionData = motionFile["apparentMotion"] as? [String: Any] {
+            
+            let retrogradePlanets = planets.filter { cosmic.isRetrograde($0) }
+            
+            if !retrogradePlanets.isEmpty {
+                if let retrogradeData = motionData["retrogradeMotion"] as? [String: Any],
+                   let ritualPrompt = retrogradeData["ritualPrompt"] as? String {
+                    motionDescriptions.append("\n🌙 Retrograde Wisdom:\n\(ritualPrompt)")
+                }
+            } else {
+                if let directData = motionData["directMotion"] as? [String: Any],
+                   let ritualPrompt = directData["ritualPrompt"] as? String {
+                    motionDescriptions.append("\n⚡ Direct Motion Power:\n\(ritualPrompt)")
+                }
+            }
+        }
+        
+        return motionDescriptions.joined(separator: "\n")
+    }
+    
+    /// Helper to format planet names with symbols
+    private func formatPlanetNames(_ planetsString: String) -> String {
+        return planetsString.components(separatedBy: ", ").map { planet in
+            let cleanPlanet = planet.trimmingCharacters(in: .whitespacesAndNewlines)
+            return "\(getPlanetSymbol(cleanPlanet)) \(cleanPlanet)"
+        }.joined(separator: " ↔ ")
+    }
+    
+    /// Get aspect symbol for display
+    private func getAspectSymbol(_ aspectType: String) -> String {
+        switch aspectType.lowercased() {
+        case "conjunction": return "☌"
+        case "opposition": return "☍"
+        case "trine": return "△"
+        case "square": return "□"
+        case "sextile": return "⚹"
+        case "quincunx", "inconjunct": return "⚻"
+        default: return "⭐"
+        }
+    }
 }
 
 // MARK: - Color Extension

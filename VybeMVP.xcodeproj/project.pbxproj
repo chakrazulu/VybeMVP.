@@ -477,7 +477,6 @@
 		4DCE3BCF2D3C75E80022F283 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDCDFCC2E2C63D9005FDD32 /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
 		4DDCDFCE2E2C64B1005FDD32 /* FriendManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendManager.swift; sourceTree = "<group>"; };
-		4DDCDFD22E2CCB68005FDD32 /* phase_12x_cosmic_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = phase_12x_cosmic_data.json; sourceTree = "<group>"; };
 		4DE4C37D2DB3918E00BB7572 /* NumerologyMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyMessage.swift; sourceTree = "<group>"; };
 		4DE4C37F2DB392E900BB7572 /* NumerologyNotificationTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyNotificationTestView.swift; sourceTree = "<group>"; };
 		4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyNotificationTester.swift; sourceTree = "<group>"; };
@@ -842,7 +841,6 @@
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
-				4DDCDFD22E2CCB68005FDD32 /* phase_12x_cosmic_data.json */,
 				4DB1DE952E22A5C2001A9EA5 /* scripts */,
 				4DCB393A2E1F78AE00311D51 /* Resources */,
 				4D2CC7052E08C96E00BDF100 /* Preview Content */,

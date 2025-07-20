@@ -102,26 +102,13 @@ struct MoonPhaseCalculator {
         // Conway's precise lunar cycle length (synodic month)
         let synodicMonth = 29.530588853
         
-        // DEBUG: Print all calculation steps
-        print("🔍 DEBUG moonAge calculation:")
-        print("   Input date: \(date)")
-        print("   Julian Day: \(julianDay)")
-        print("   Known New Moon JD: \(knownNewMoonJD)")
-        print("   Days since new moon: \(daysSinceNewMoon)")
-        print("   Synodic month: \(synodicMonth)")
-        
         // Calculate moon age using astronomical modulo
         var moonAge = daysSinceNewMoon.truncatingRemainder(dividingBy: synodicMonth)
-        print("   Raw moon age (after modulo): \(moonAge)")
         
         // Ensure positive result
         if moonAge < 0 {
             moonAge += synodicMonth
-            print("   Adjusted moon age (made positive): \(moonAge)")
         }
-        
-        print("   Final moon age: \(moonAge)")
-        print("")
         
         return moonAge
     }
@@ -139,12 +126,8 @@ struct MoonPhaseCalculator {
         guard let year = components.year,
               let month = components.month,
               let day = components.day else {
-            print("🚨 ERROR: Could not extract date components from \(date)")
             return 0.0
         }
-        
-        print("🔍 DEBUG Julian Day calculation:")
-        print("   Year: \(year), Month: \(month), Day: \(day)")
         
         // Conway's Julian Day calculation
         var y = year
@@ -154,21 +137,16 @@ struct MoonPhaseCalculator {
         if m <= 2 {
             y -= 1
             m += 12
-            print("   Adjusted for Jan/Feb: Y=\(y), M=\(m)")
         }
         
         // Calculate Julian Day Number components
         let a = y / 100
         let b = 2 - a + (a / 4)
         
-        print("   a = \(a), b = \(b)")
-        
         // Core Julian Day calculation
         let jd = Int(365.25 * Double(y + 4716)) + 
                  Int(30.6001 * Double(m + 1)) + 
                  day + b - 1524
-        
-        print("   Integer JD: \(jd)")
         
         // Add fractional day from time
         let hour = Double(components.hour ?? 0)
@@ -177,11 +155,7 @@ struct MoonPhaseCalculator {
         
         let fractionalDay = (hour + (minute / 60.0) + (second / 3600.0)) / 24.0
         
-        print("   Time: \(hour):\(minute):\(second)")
-        print("   Fractional day: \(fractionalDay)")
-        
         let finalJD = Double(jd) + fractionalDay
-        print("   Final Julian Day: \(finalJD)")
         
         return finalJD
     }
