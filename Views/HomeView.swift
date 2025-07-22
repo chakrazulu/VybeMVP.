@@ -144,12 +144,16 @@ struct HomeView: View {
                     //     .ignoresSafeArea()
                     
                     ScrollView {
-                        VStack(spacing: 30) { // 🎯 MAIN STACK: 30pt spacing between sections
-                            Text("Vybe")
-                                .font(.system(size: 40, weight: .bold)) // 🎨 APP TITLE: 40pt bold
-                            
-                            Text("Your Focus Number")
-                                .font(.title) // 📝 SECTION LABEL: ~28pt title font
+                        VStack(spacing: 15) { // 🎯 MAIN STACK: Compact spacing
+                            // Move titles higher up for button space - keep original font sizes
+                            VStack(spacing: 8) {
+                                Text("Vybe")
+                                    .font(.system(size: 32, weight: .bold)) // Back to original size
+                                
+                                Text("Your Focus Number")
+                                    .font(.title2) // Back to original size
+                            }
+                            .padding(.top, 5) // Move higher towards status bar
                             
                             // MARK: ––– SACRED GEOMETRY SECTION START –––
                             // 🌟 SACRED GEOMETRY CONTAINER: 350×350pt with 40pt vertical padding
@@ -177,6 +181,9 @@ struct HomeView: View {
                                         )
                                         .frame(width: 320, height: 320)
                                         
+                                        // Phase 13: Organic Edge Buttons positioned around mandala
+                                        organicEdgeButtons
+                                        
                                         // Large Focus Number with Enhanced Glow
                                         Text("\(focusNumberManager.selectedFocusNumber)")
                                             .font(.system(size: 140, weight: .bold, design: .rounded))
@@ -197,6 +204,13 @@ struct HomeView: View {
                                             pickerScale = 1.0
                                             pickerOpacity = 1.0
                                         }
+                                    }
+                                    .onTapGesture {
+                                        // Phase 13: Tap gesture for Activity navigation
+                                        let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                                        impactFeedback.impactOccurred()
+                                        print("Focus number tapped - navigate to Activity view")
+                                        // TODO: Implement Activity view navigation
                                     }
                                     
                                     Text("✦ Hold to Change ✦")
@@ -700,6 +714,284 @@ struct HomeView: View {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             showingCosmicPicker = false
+        }
+    }
+    
+    // MARK: - Phase 13: Organic Edge Buttons
+    
+    /// January 20, 2025: Kabalistic organic arrangement - mystical positioning around the sacred mandala
+    /// Creates an esoteric, natural flow that feels intuitive and spiritually aligned
+    private var organicEdgeButtons: some View {
+        GeometryReader { geometry in
+            let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
+            
+            ZStack {
+                // KABALISTIC ARRANGEMENT: Organic positioning for mystical flow
+                
+                // Sightings - Top center (unchanged)
+                cosmicEdgeButton(
+                    icon: "🔭",
+                    title: "Sightings",
+                    color: .cyan,
+                    destination: .sightings
+                )
+                .position(
+                    x: center.x,
+                    y: center.y - 190
+                )
+                
+                // Settings - SPREAD OUT MORE (top row wider)
+                cosmicEdgeButton(
+                    icon: "⚙️",
+                    title: "Settings",
+                    color: .gray,
+                    destination: .settings
+                )
+                .position(
+                    x: center.x + 140, // Spread out from +120 to +140
+                    y: center.y - 150 // Higher than before
+                )
+                
+                // Sanctum - CLOSER TO SCREEN EDGE
+                cosmicEdgeButton(
+                    icon: "🏛️",
+                    title: "Sanctum",
+                    color: .indigo,
+                    destination: .sanctum,
+                    size: .compact // 25% smaller
+                )
+                .position(
+                    x: center.x + 165, // Closer to right edge (from +140 to +165)
+                    y: center.y + 20
+                )
+                
+                // Create - LOWER (pushed down further)
+                cosmicEdgeButton(
+                    icon: "✍️",
+                    title: "Create",
+                    color: .orange,
+                    destination: .create
+                )
+                .position(
+                    x: center.x + 135,
+                    y: center.y + 180 // Even lower than before
+                )
+                
+                // Analytics - Bottom center (unchanged)
+                cosmicEdgeButton(
+                    icon: "📈",
+                    title: "Analytics",
+                    color: .pink,
+                    destination: .analytics
+                )
+                .position(
+                    x: center.x,
+                    y: center.y + 190
+                )
+                
+                // Graph - LOWER (pushed down further)
+                cosmicEdgeButton(
+                    icon: "📊",
+                    title: "Graph",
+                    color: .green,
+                    destination: .graph
+                )
+                .position(
+                    x: center.x - 135,
+                    y: center.y + 180 // Even lower than before
+                )
+                
+                // Activity - CLOSER TO SCREEN EDGE
+                cosmicEdgeButton(
+                    icon: "📱",
+                    title: "Activity",
+                    color: .yellow,
+                    destination: .activity,
+                    size: .compact // 25% smaller
+                )
+                .position(
+                    x: center.x - 165, // Closer to left edge (from -140 to -165)
+                    y: center.y + 20
+                )
+                
+                // Chakras - SPREAD OUT MORE (top row wider)
+                cosmicEdgeButton(
+                    icon: "🌈",
+                    title: "Chakras",
+                    color: .purple,
+                    destination: .chakras
+                )
+                .position(
+                    x: center.x - 140, // Spread out from -120 to -140
+                    y: center.y - 150 // Higher than before
+                )
+            }
+        }
+        .frame(width: 350, height: 350)
+    }
+    
+    /// January 20, 2025: Individual cosmic edge button - orbiting planet style
+    /// Designed as orbiting planets around the central mandala
+    private func cosmicEdgeButton(
+        icon: String,
+        title: String, 
+        color: Color,
+        destination: CosmicDestination,
+        size: ButtonSize = .standard
+    ) -> some View {
+        Button(action: {
+            navigateToDestination(destination)
+        }) {
+            VStack(spacing: size == .compact ? 4 : 6) {
+                Text(icon)
+                    .font(.system(size: size.iconSize))
+                
+                Text(title)
+                    .font(.system(size: size.textSize, weight: .semibold, design: .rounded))
+                    .foregroundColor(.white)
+            }
+            .frame(width: size.dimensions, height: size.dimensions)
+            .background(
+                Circle()
+                    .fill(.ultraThinMaterial)
+                    .overlay(
+                        Circle()
+                            .stroke(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [
+                                        color.opacity(0.8),
+                                        color.opacity(0.4)
+                                    ]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
+                                lineWidth: 2
+                            )
+                    )
+            )
+            .shadow(color: color.opacity(0.4), radius: size == .compact ? 9 : 12, x: 0, y: 3)
+            .shadow(color: .black.opacity(0.3), radius: size == .compact ? 4 : 6, x: 0, y: 2)
+        }
+        .buttonStyle(PlainButtonStyle())
+        .scaleEffect(1.0) // Full size for orbiting planet effect
+    }
+    
+    /// January 20, 2025: Navigation destinations for edge buttons
+    private enum CosmicDestination {
+        case sightings, chakras, sanctum, create, graph, activity, settings, analytics
+    }
+    
+    /// Button size options for different positioning needs
+    private enum ButtonSize {
+        case standard, compact
+        
+        var dimensions: CGFloat {
+            switch self {
+            case .standard: return 88 // Original size
+            case .compact: return 66  // 25% smaller (88 * 0.75 = 66)
+            }
+        }
+        
+        var iconSize: CGFloat {
+            switch self {
+            case .standard: return 28
+            case .compact: return 21 // 25% smaller
+            }
+        }
+        
+        var textSize: CGFloat {
+            switch self {
+            case .standard: return 12
+            case .compact: return 9  // 25% smaller
+            }
+        }
+    }
+    
+    /// January 20, 2025: Handle navigation to different destinations
+    /// Uses the same notification pattern that ContentView already supports
+    private func navigateToDestination(_ destination: CosmicDestination) {
+        let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+        impactFeedback.impactOccurred()
+        
+        print("🚀 HomeView: Button tapped for destination: \(destination)")
+        
+        // Use the working ActivityNavigationManager patterns that ContentView already handles
+        switch destination {
+        case .graph:
+            print("📊 Using ActivityNavigationManager for Realm")
+            activityNavigationManager.requestRealmNavigation()
+            
+        case .activity:
+            print("📱 Using ActivityNavigationManager for Activity")
+            // Create a simple insight data for navigation
+            let activityInsight = MatchedInsightData(
+                number: focusNumberManager.selectedFocusNumber,
+                category: "Cosmic Navigation",
+                text: "Cosmic Activity Hub - Explore your spiritual journey",
+                timestamp: Date()
+            )
+            activityNavigationManager.requestNavigation(to: activityInsight)
+            
+        case .sightings:
+            print("🔭 Navigating to Sightings with required userInfo")
+            // ContentView handler requires: number, title, significance
+            NotificationCenter.default.post(
+                name: Notification.Name("NavigateToSighting"), 
+                object: nil,
+                userInfo: [
+                    "number": focusNumberManager.selectedFocusNumber,
+                    "title": "Cosmic Sighting from Focus \(focusNumberManager.selectedFocusNumber)",
+                    "significance": "Mystical observation logged from cosmic command center"
+                ]
+            )
+            
+        case .chakras:
+            print("🌈 Navigating to Chakras/Meditation with required userInfo")
+            // ContentView handler requires: number, chakra
+            NotificationCenter.default.post(
+                name: Notification.Name("NavigateToMeditation"), 
+                object: nil,
+                userInfo: [
+                    "number": focusNumberManager.selectedFocusNumber,
+                    "chakra": "Root" // Default chakra for meditation
+                ]
+            )
+            
+        case .sanctum:
+            print("🏛️ Navigating to My Sanctum")
+            // Our custom handler - no special userInfo required
+            NotificationCenter.default.post(name: Notification.Name("NavigateToSanctum"), object: nil)
+            
+        case .create:
+            print("✍️ Navigating to Timeline and opening Post Composer")
+            // Use the same NotificationCenter pattern that works for other buttons
+            NotificationCenter.default.post(
+                name: Notification.Name("NavigateToStatusPost"), 
+                object: nil,
+                userInfo: [
+                    "cosmic_match": true,
+                    "number": focusNumberManager.selectedFocusNumber,
+                    "message": "Cosmic Vybe from Focus \(focusNumberManager.selectedFocusNumber)",
+                    "sacred_meaning": "Sacred energy shared from cosmic command center"
+                ]
+            )
+            print("🎨 Posted NavigateToStatusPost notification")
+            
+        case .settings:
+            print("⚙️ Navigating to Settings")
+            // Our custom handler - no special userInfo required
+            NotificationCenter.default.post(name: Notification.Name("NavigateToSettings"), object: nil)
+            
+        case .analytics:
+            print("📈 Navigating to Analytics with required userInfo")
+            // ContentView handler requires: number
+            NotificationCenter.default.post(
+                name: Notification.Name("NavigateToAnalytics"), 
+                object: nil,
+                userInfo: [
+                    "number": focusNumberManager.selectedFocusNumber
+                ]
+            )
         }
     }
     

@@ -448,6 +448,20 @@ struct ContentView: View {
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NavigateToAnalytics"))) { notification in
             handleAnalyticsNavigation(notification)
         }
+        /// **SETTINGS NAVIGATION RECEIVER - COSMIC EDGE BUTTON INTEGRATION**
+        /// 
+        /// **Purpose:** Listen for settings navigation requests from HomeView cosmic edge buttons
+        /// **Integration:** Part of Phase 13 cosmic command center navigation system
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NavigateToSettings"))) { notification in
+            handleSettingsNavigation(notification)
+        }
+        /// **SANCTUM NAVIGATION RECEIVER - COSMIC EDGE BUTTON INTEGRATION**
+        /// 
+        /// **Purpose:** Listen for sanctum navigation requests from HomeView cosmic edge buttons
+        /// **Integration:** Part of Phase 13 cosmic command center navigation system
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NavigateToSanctum"))) { notification in
+            handleSanctumNavigation(notification)
+        }
     }
     
     // 🧪 TEMPORARY: Phase 2 Testing Functions (REMOVE AFTER TESTING)
@@ -619,6 +633,48 @@ struct ContentView: View {
             if let focus = userInfo["focus"] as? String {
                 print("📈 Focus area: \(focus)")
             }
+        }
+    }
+    
+    /// **SETTINGS NAVIGATION HANDLER - COSMIC EDGE BUTTON INTEGRATION**
+    ///
+    /// **Purpose:** Handle navigation to Settings tab from HomeView cosmic edge buttons
+    /// **Trigger:** "NavigateToSettings" NotificationCenter notification from HomeView
+    /// **Target:** Settings tab (tag 11) - SettingsView
+    ///
+    /// **Navigation Pattern:**
+    /// Follows same structure as other navigation handlers:
+    /// - Immediate tab switch for responsive UX
+    /// - Console logging for development debugging
+    private func handleSettingsNavigation(_ notification: Notification) {
+        print("⚙️ Navigating to Settings view from cosmic edge button")
+        
+        // Navigate to Settings tab (tag 11)
+        selectedTab = 11
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            print("🎯 Settings view opened successfully")
+        }
+    }
+    
+    /// **SANCTUM NAVIGATION HANDLER - COSMIC EDGE BUTTON INTEGRATION**
+    ///
+    /// **Purpose:** Handle navigation to My Sanctum tab from HomeView cosmic edge buttons
+    /// **Trigger:** "NavigateToSanctum" NotificationCenter notification from HomeView
+    /// **Target:** My Sanctum tab (tag 10) - UserProfileTabView (Spiritual sanctuary)
+    ///
+    /// **Navigation Pattern:**
+    /// Follows same structure as other navigation handlers:
+    /// - Immediate tab switch for responsive UX
+    /// - Console logging for development debugging
+    private func handleSanctumNavigation(_ notification: Notification) {
+        print("🏛️ Navigating to My Sanctum view from cosmic edge button")
+        
+        // Navigate to My Sanctum tab (tag 10)
+        selectedTab = 10
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            print("🎯 My Sanctum view opened successfully")
         }
     }
 }
