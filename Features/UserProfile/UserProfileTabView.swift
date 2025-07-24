@@ -152,9 +152,22 @@ func loadMegaCorpusData() -> [String: Any] {
 
 // MARK: - Helper Functions for Spiritual Descriptions
 
-// Life Path Descriptions
+// Claude: Life Path Descriptions using MegaCorpus Numerology data for KASPER AI integration
 func lifePathDescription(for number: Int, isMaster: Bool) -> String {
+    let cosmicData = loadMegaCorpusData()
+    
     if isMaster {
+        // Load from MegaCorpus masterNumbers section
+        if let numerology = cosmicData["numerology"] as? [String: Any],
+           let masterNumbers = numerology["masterNumbers"] as? [String: Any],
+           let masterData = masterNumbers[String(number)] as? [String: Any],
+           let name = masterData["name"] as? String,
+           let keywords = masterData["keywords"] as? [String] {
+            let keywordString = keywords.prefix(3).joined(separator: " • ")
+            return "The \(name) • \(keywordString) • Divine Spiritual Mission"
+        }
+        
+        // Fallback for master numbers (maintaining spiritual quality)
         switch number {
         case 11: return "The Intuitive Illuminator • Master of Spiritual Insight • Channel for Divine Wisdom"
         case 22: return "The Master Builder • Architect of Dreams • Creator of Lasting Legacy"
@@ -162,6 +175,17 @@ func lifePathDescription(for number: Int, isMaster: Bool) -> String {
         default: return "Master Number • Divine Spiritual Mission • Sacred Soul Purpose"
         }
     } else {
+        // Load from MegaCorpus focusNumbers section
+        if let numerology = cosmicData["numerology"] as? [String: Any],
+           let focusNumbers = numerology["focusNumbers"] as? [String: Any],
+           let numberData = focusNumbers[String(number)] as? [String: Any],
+           let archetype = numberData["archetype"] as? String,
+           let keywords = numberData["keywords"] as? [String] {
+            let keywordString = keywords.prefix(3).joined(separator: " • ")
+            return "\(archetype) • \(keywordString) • Sacred Soul Path"
+        }
+        
+        // Fallback descriptions (maintaining existing spiritual quality)
         switch number {
         case 1: return "The Pioneer • Natural born leader with incredible drive and innovation"
         case 2: return "The Peacemaker • Diplomatic soul who brings harmony and cooperation"
@@ -407,8 +431,21 @@ func detailedShadowPlanetDescription(for planet: Planet) -> String {
     }
 }
 
-// Soul Urge and Expression Descriptions
+// Claude: Soul Urge and Expression Descriptions using MegaCorpus Numerology data
 func soulUrgeDescription(for number: Int) -> String {
+    let cosmicData = loadMegaCorpusData()
+    
+    // Try to load from MegaCorpus focusNumbers section for soul desires
+    if let numerology = cosmicData["numerology"] as? [String: Any],
+       let focusNumbers = numerology["focusNumbers"] as? [String: Any],
+       let numberData = focusNumbers[String(number)] as? [String: Any],
+       let archetype = numberData["archetype"] as? String,
+       let keywords = numberData["keywords"] as? [String] {
+        let keywordString = keywords.prefix(2).joined(separator: " and ")
+        return "Your soul craves \(keywordString.lowercased()) as \(archetype) • Deep inner yearning for authentic expression"
+    }
+    
+    // Fallback descriptions (maintaining spiritual quality)
     switch number {
     case 1: return "You desire to lead, innovate, and be recognized for your unique contributions"
     case 2: return "You crave harmony, partnership, and meaningful emotional connections"
@@ -424,6 +461,19 @@ func soulUrgeDescription(for number: Int) -> String {
 }
 
 func expressionDescription(for number: Int) -> String {
+    let cosmicData = loadMegaCorpusData()
+    
+    // Try to load from MegaCorpus focusNumbers section for natural expression
+    if let numerology = cosmicData["numerology"] as? [String: Any],
+       let focusNumbers = numerology["focusNumbers"] as? [String: Any],
+       let numberData = focusNumbers[String(number)] as? [String: Any],
+       let archetype = numberData["archetype"] as? String,
+       let strengths = numberData["strengths"] as? [String] {
+        let strengthString = strengths.prefix(2).joined(separator: " and ")
+        return "You naturally express \(strengthString.lowercased()) as \(archetype) • Innate gifts flow through your being"
+    }
+    
+    // Fallback descriptions (maintaining spiritual quality)
     switch number {
     case 1: return "You naturally express leadership, originality, and pioneering spirit"
     case 2: return "You naturally express cooperation, diplomacy, and supportive energy"
@@ -1059,9 +1109,9 @@ struct UserProfileTabView: View {
         VStack(spacing: 0) {
             // Accordion Header (Always Visible)
             Button(action: {
-                withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                    isExpanded.wrappedValue.toggle()
-                }
+                // Claude: Single animation to prevent double dropdown glitch
+                // Remove withAnimation wrapper to prevent conflict with rotationEffect animation
+                isExpanded.wrappedValue.toggle()
                 
                 // Haptic feedback
                 let impactFeedback = UIImpactFeedbackGenerator(style: .light)
