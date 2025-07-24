@@ -235,7 +235,7 @@ struct SwissEphemerisCalculator {
     /**
      * Calculate precise position for a specific celestial body
      */
-    private static func calculatePlanetPosition(body: CelestialBody, julianDay: JulianDay, houseCusps: [Double]? = nil) -> PlanetaryPosition? {
+    static func calculatePlanetPosition(body: CelestialBody, julianDay: JulianDay, houseCusps: [Double]? = nil) -> PlanetaryPosition? {
         // Calculate position based on body type using SwiftAA
         let longitude = calculatePlanetLongitude(body: body, julianDay: julianDay)
         
