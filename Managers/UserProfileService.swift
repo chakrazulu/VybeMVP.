@@ -228,7 +228,16 @@ class UserProfileService {
             "expressionNumber": profile.expressionNumber ?? NSNull(),
 
             // Step 9: UX Personalization
-            "wantsReflectionMode": profile.wantsReflectionMode
+            "wantsReflectionMode": profile.wantsReflectionMode,
+            
+            // CRITICAL FIX: Birth Time & Location Data for accurate charts
+            "birthTimeHour": profile.birthTimeHour ?? NSNull(),
+            "birthTimeMinute": profile.birthTimeMinute ?? NSNull(),
+            "hasBirthTime": profile.hasBirthTime,
+            "birthplaceLatitude": profile.birthplaceLatitude ?? NSNull(),
+            "birthplaceLongitude": profile.birthplaceLongitude ?? NSNull(),
+            "birthplaceName": profile.birthplaceName ?? NSNull(),
+            "birthTimezone": profile.birthTimezone ?? NSNull()
         ]
         
         // Remove NSNull fields if you prefer not to store them
@@ -297,7 +306,15 @@ class UserProfileService {
                 birthName: data["birthName"] as? String,
                 soulUrgeNumber: data["soulUrgeNumber"] as? Int,
                 expressionNumber: data["expressionNumber"] as? Int,
-                wantsReflectionMode: data["wantsReflectionMode"] as? Bool ?? false
+                wantsReflectionMode: data["wantsReflectionMode"] as? Bool ?? false,
+                // CRITICAL FIX: Parse birth time and location data from Firestore
+                birthplaceLatitude: data["birthplaceLatitude"] as? Double,
+                birthplaceLongitude: data["birthplaceLongitude"] as? Double,
+                birthplaceName: data["birthplaceName"] as? String,
+                birthTimezone: data["birthTimezone"] as? String,
+                birthTimeHour: data["birthTimeHour"] as? Int,
+                birthTimeMinute: data["birthTimeMinute"] as? Int,
+                hasBirthTime: data["hasBirthTime"] as? Bool ?? false
             )
 
             print("✅ UserProfileService: Profile fetched successfully for userID: \(userID)")
@@ -332,6 +349,42 @@ class UserProfileService {
             let exists = document?.exists ?? false
             print("ℹ️ UserProfileService: Profile exists for userID \(userID): \(exists)")
             completion(exists, nil)
+        }
+    }
+    
+    /// TEMPORARY: Update existing user profile with correct birth data
+    /// Birth: 09/10/1991, 5:46 AM, Charlotte, NC
+    func updateUserBirthData(for userID: String, completion: @escaping (Error?) -> Void) {
+        print("🎯 UPDATING USER BIRTH DATA: 09/10/1991, 5:46 AM, Charlotte, NC")
+        
+        let birthData: [String: Any] = [
+            "birthTimeHour": 5,
+            "birthTimeMinute": 46,
+            "hasBirthTime": true,
+            "birthplaceLatitude": 35.2271,  // Charlotte, NC
+            "birthplaceLongitude": -80.8431, // Charlotte, NC
+            "birthplaceName": "Charlotte, NC, USA",
+            "birthTimezone": "America/New_York"
+        ]
+        
+        // Claude: Check if Firestore is available before attempting operation
+        guard let usersCollection = usersCollection else {
+            print("🛡️ TEST MODE: Skipping Firestore update operation")
+            completion(nil)
+            return
+        }
+        
+        usersCollection.document(userID).updateData(birthData) { error in
+            if let error = error {
+                print("❌ Error updating birth data: \(error.localizedDescription)")
+                completion(error)
+            } else {
+                print("✅ BIRTH DATA UPDATED SUCCESSFULLY!")
+                print("   🕐 Time: 5:46 AM")
+                print("   🌍 Location: Charlotte, NC (35.2271, -80.8431)")
+                print("   🕰️ Timezone: America/New_York")
+                completion(nil)
+            }
         }
     }
 }

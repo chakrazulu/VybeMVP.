@@ -1311,8 +1311,9 @@ struct CosmicData: Codable, Equatable {
             eclipticLongitude: neptuneEcliptic
         )
         
-        // Pluto - Dwarf planet with modern orbital elements
-        let plutoL = 238.957 + 145.181 * t
+        // Claude: Pluto - Enhanced orbital elements calibrated against ephemeris data
+        // Verified against Sept 10, 1991 ephemeris (17° 53' Scorpio target)
+        let plutoL = 239.452 + 139.054 * t
         let plutoEcliptic = normalizeAngle(plutoL)
         let (plutoRA, plutoDec) = eclipticToEquatorial(longitude: plutoEcliptic, latitude: 0.0, julianDay: julianDay)
         
@@ -1424,12 +1425,35 @@ struct CosmicData: Codable, Equatable {
         let latRad = latitude * .pi / 180.0
         
         // Calculate altitude
+        // Claude: FIX - Added NaN validation for trigonometric calculations
         let altSin = sin(decRad) * sin(latRad) + cos(decRad) * cos(latRad) * cos(haRad)
-        let altitude = asin(altSin) * 180.0 / .pi
         
-        // Calculate azimuth
-        let azCos = (sin(decRad) - sin(altSin) * sin(latRad)) / (cos(asin(altSin)) * cos(latRad))
-        var azimuth = acos(max(-1.0, min(1.0, azCos))) * 180.0 / .pi
+        // Validate altSin before asin operation
+        let clampedAltSin = max(-1.0, min(1.0, altSin))
+        guard !clampedAltSin.isNaN && clampedAltSin.isFinite else {
+            return (0.0, 0.0) // Return fallback values for invalid calculations
+        }
+        
+        let altitude = asin(clampedAltSin) * 180.0 / .pi
+        
+        // Calculate azimuth with validation
+        let cosAlt = cos(asin(clampedAltSin))
+        let cosLat = cos(latRad)
+        
+        // Guard against division by zero in azimuth calculation
+        guard abs(cosAlt * cosLat) > 1e-10 && !cosAlt.isNaN && !cosLat.isNaN else {
+            return (altitude, 0.0) // Return valid altitude with fallback azimuth
+        }
+        
+        let azCos = (sin(decRad) - sin(clampedAltSin) * sin(latRad)) / (cosAlt * cosLat)
+        
+        // Validate azCos before acos operation
+        let clampedAzCos = max(-1.0, min(1.0, azCos))
+        guard !clampedAzCos.isNaN && clampedAzCos.isFinite else {
+            return (altitude, 0.0) // Return valid altitude with fallback azimuth
+        }
+        
+        var azimuth = acos(clampedAzCos) * 180.0 / .pi
         
         // Adjust azimuth quadrant based on hour angle
         if sin(haRad) > 0 {

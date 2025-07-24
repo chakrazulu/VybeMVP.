@@ -313,19 +313,34 @@ struct SocialTimelineView: View {
         }
     }
     
-    // Current user - uses consistent Firebase UID from AuthenticationManager
+    // Current user - uses consistent Firebase UID from AuthenticationManager with real user data
     private var currentUser: SocialUser {
-        // Claude: PHASE 6 REFACTOR - Now AuthenticationManager.userID returns Firebase UID consistently
+        // Claude: REAL USER DATA INTEGRATION - Load actual numerology from UserProfileService
+        // This fixes hardcoded 3,5,7 placeholder values in social timeline interactions
         let userID = AuthenticationManager.shared.userID ?? "unknown"
-        print("👤 SocialTimelineView userID (Firebase UID): \(userID)")
-        return SocialUser(
-            userId: userID, // AuthenticationManager.userID now returns Firebase UID
-            displayName: "Corey Jermaine Davis",
-            lifePathNumber: 3,
-            soulUrgeNumber: 5,
-            expressionNumber: 7,
-            currentFocusNumber: 3
-        )
+        
+        // Load real user profile data from UserProfileService cache
+        if let userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID) {
+            return SocialUser(
+                userId: userID, // AuthenticationManager.userID returns Firebase UID
+                displayName: userProfile.birthName ?? "Cosmic Wanderer", // Use real birth name or fallback
+                lifePathNumber: userProfile.lifePathNumber, // Real life path from user profile
+                soulUrgeNumber: userProfile.soulUrgeNumber ?? 1, // Real soul urge or fallback
+                expressionNumber: userProfile.expressionNumber ?? 1, // Real expression or fallback
+                currentFocusNumber: FocusNumberManager.shared.selectedFocusNumber // Real current focus
+            )
+        } else {
+            // Fallback to neutral values if no profile data available
+            print("⚠️ SocialTimelineView: No user profile found, using fallback values")
+            return SocialUser(
+                userId: userID, // AuthenticationManager.userID returns Firebase UID
+                displayName: "Cosmic Wanderer", // Fallback display name
+                lifePathNumber: 1, // Neutral fallback
+                soulUrgeNumber: 1, // Neutral fallback
+                expressionNumber: 1, // Neutral fallback
+                currentFocusNumber: FocusNumberManager.shared.selectedFocusNumber // Real current focus
+            )
+        }
     }
     
     var body: some View {

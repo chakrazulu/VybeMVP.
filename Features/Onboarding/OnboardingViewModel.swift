@@ -25,6 +25,15 @@ class OnboardingViewModel: ObservableObject {
     // MARK: - Step 9: UX Personalization (Step 8 is optional birthName, covered by fullNameAtBirth)
     @Published var doesWantReflectionMode: Bool = true
     
+    // MARK: - Birth Time & Location Data (CRITICAL for accurate charts)
+    @Published var birthTimeHour: Int? = nil
+    @Published var birthTimeMinute: Int? = nil
+    @Published var hasBirthTime: Bool = false
+    @Published var birthplaceLatitude: Double? = nil
+    @Published var birthplaceLongitude: Double? = nil
+    @Published var birthplaceName: String? = nil
+    @Published var birthTimezone: String? = nil
+    
     // MARK: - Onboarding State
     @Published var onboardingComplete: Bool = false
     @Published var userProfile: UserProfile?
@@ -82,7 +91,15 @@ class OnboardingViewModel: ObservableObject {
             birthName: birthNameForProfile, // Use the potentially nil birthName
             soulUrgeNumber: soulUrgeResult?.number,
             expressionNumber: expressionResult?.number,
-            wantsReflectionMode: doesWantReflectionMode
+            wantsReflectionMode: doesWantReflectionMode,
+            // CRITICAL FIX: Include birth time and location data for accurate charts
+            birthplaceLatitude: birthplaceLatitude,
+            birthplaceLongitude: birthplaceLongitude,
+            birthplaceName: birthplaceName,
+            birthTimezone: birthTimezone,
+            birthTimeHour: birthTimeHour,
+            birthTimeMinute: birthTimeMinute,
+            hasBirthTime: hasBirthTime
         )
         
         self.userProfile = profile
@@ -92,6 +109,9 @@ class OnboardingViewModel: ObservableObject {
         print("   Life Path: \(profile.lifePathNumber) \(profile.isMasterNumber ? "(Master)" : "")")
         print("   Spiritual Mode: \(profile.spiritualMode)")
         print("   Insight Tone: \(profile.insightTone)")
+        print("   Birth Time: \(profile.birthTimeHour?.description ?? "nil"):\(profile.birthTimeMinute?.description ?? "nil") (hasBirthTime: \(profile.hasBirthTime))")
+        print("   Birth Location: \(profile.birthplaceName ?? "nil") (\(profile.birthplaceLatitude?.description ?? "nil"), \(profile.birthplaceLongitude?.description ?? "nil"))")
+        print("   Birth Timezone: \(profile.birthTimezone ?? "nil")")
         print("   Focus Tags: \(profile.focusTags.joined(separator: ", "))")
         print("   Cosmic Preference: \(profile.cosmicPreference)")
         print("   Cosmic Rhythms: \(profile.cosmicRhythms.joined(separator: ", "))")
@@ -103,6 +123,70 @@ class OnboardingViewModel: ObservableObject {
         print("   Wants Reflection Mode: \(profile.wantsReflectionMode)")
 
         saveUserProfileToStorage(profile)
+    }
+    
+    /// CRITICAL FIX: Helper function to set birth time and location data
+    /// This should be called when user provides birth time/location in UI
+    func setBirthTimeAndLocation(
+        hour: Int? = nil,
+        minute: Int? = nil,
+        latitude: Double? = nil,
+        longitude: Double? = nil,
+        locationName: String? = nil,
+        timezone: String? = nil
+    ) {
+        print("🕐 Setting birth time: \(hour?.description ?? "nil"):\(minute?.description ?? "nil")")
+        print("🌍 Setting birth location: \(locationName ?? "nil") (\(latitude?.description ?? "nil"), \(longitude?.description ?? "nil"))")
+        
+        self.birthTimeHour = hour
+        self.birthTimeMinute = minute
+        self.hasBirthTime = (hour != nil && minute != nil)
+        
+        self.birthplaceLatitude = latitude
+        self.birthplaceLongitude = longitude
+        self.birthplaceName = locationName
+        self.birthTimezone = timezone
+        
+        print("✅ Birth data updated in ViewModel - hasBirthTime: \(self.hasBirthTime)")
+    }
+    
+    /// TEMPORARY: Set user's actual birth data for testing chart accuracy
+    /// Birth: 09/10/1991, 5:46 AM, Charlotte, NC
+    func setUserActualBirthData() {
+        print("🎯 SETTING ACTUAL USER BIRTH DATA FOR TESTING")
+        
+        // Set birth date: September 10, 1991
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
+        dateComponents.year = 1991
+        dateComponents.month = 9
+        dateComponents.day = 10
+        dateComponents.hour = 5
+        dateComponents.minute = 46
+        dateComponents.timeZone = TimeZone(identifier: "America/New_York") // Charlotte, NC timezone
+        
+        if let birthDate = calendar.date(from: dateComponents) {
+            self.birthDate = birthDate
+            print("✅ Birth date set: \(birthDate)")
+        }
+        
+        // Set birth time: 5:46 AM
+        self.birthTimeHour = 5
+        self.birthTimeMinute = 46
+        self.hasBirthTime = true
+        
+        // Set birth location: Charlotte, NC coordinates
+        self.birthplaceLatitude = 35.2271  // Charlotte, NC latitude
+        self.birthplaceLongitude = -80.8431 // Charlotte, NC longitude
+        self.birthplaceName = "Charlotte, NC, USA"
+        self.birthTimezone = "America/New_York"
+        
+        print("✅ ACTUAL BIRTH DATA SET:")
+        print("   📅 Date: September 10, 1991")
+        print("   🕐 Time: 5:46 AM")
+        print("   🌍 Location: Charlotte, NC (35.2271, -80.8431)")
+        print("   🕰️ Timezone: America/New_York")
+        print("   ✨ hasBirthTime: \(self.hasBirthTime)")
     }
 
     private func saveUserProfileToStorage(_ profile: UserProfile) {

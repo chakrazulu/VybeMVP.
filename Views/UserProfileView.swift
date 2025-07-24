@@ -778,25 +778,60 @@ struct UserProfileView: View {
     }
     
     private func getCurrentSocialUser() -> SocialUser {
-        // Claude: FIREBASE UID CONSISTENCY - Use AuthenticationManager for consistent user identification
-        // Create a mock SocialUser for now - this should eventually use real user data
-        return SocialUser(
-            userId: AuthenticationManager.shared.userID ?? "unknown",
-            displayName: displayName,
-            lifePathNumber: 3,
-            soulUrgeNumber: 5,
-            expressionNumber: 7,
-            currentFocusNumber: focusNumberManager.selectedFocusNumber
-        )
+        // Claude: REAL USER DATA INTEGRATION - Load actual numerology from UserProfileService
+        // This fixes the hardcoded 3,5,7 placeholder issue identified in data audit
+        
+        let userID = AuthenticationManager.shared.userID ?? "unknown"
+        
+        // Load real user profile data from UserProfileService cache
+        if let userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID) {
+            // Use real numerology data from user's onboarding profile
+            return SocialUser(
+                userId: userID,
+                displayName: displayName,
+                lifePathNumber: userProfile.lifePathNumber,
+                soulUrgeNumber: userProfile.soulUrgeNumber ?? 1, // Fallback to 1 if not calculated
+                expressionNumber: userProfile.expressionNumber ?? 1, // Fallback to 1 if not calculated
+                currentFocusNumber: focusNumberManager.selectedFocusNumber
+            )
+        } else {
+            // Fallback to defaults if no profile data available (e.g., new user)
+            print("⚠️ UserProfileView: No user profile found, using fallback numerology values")
+            return SocialUser(
+                userId: userID,
+                displayName: displayName,
+                lifePathNumber: 1, // Neutral fallback
+                soulUrgeNumber: 1, // Neutral fallback
+                expressionNumber: 1, // Neutral fallback
+                currentFocusNumber: focusNumberManager.selectedFocusNumber
+            )
+        }
     }
     
     private func getCurrentCosmicSignature() -> CosmicSignature {
-        return CosmicSignature(
-            focusNumber: focusNumberManager.selectedFocusNumber,
-            currentChakra: "heart", // This should come from user's current chakra state
-            lifePathNumber: 3, // This should come from user profile
-            realmNumber: 5 // This should come from realm calculation
-        )
+        // Claude: REAL USER DATA INTEGRATION - Load actual numerology from UserProfileService
+        // This fixes hardcoded placeholder values for cosmic signature calculations
+        
+        let userID = AuthenticationManager.shared.userID ?? "unknown"
+        
+        // Load real user profile data for cosmic signature
+        if let userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID) {
+            return CosmicSignature(
+                focusNumber: focusNumberManager.selectedFocusNumber,
+                currentChakra: "heart", // TODO: Implement dynamic chakra state tracking
+                lifePathNumber: userProfile.lifePathNumber, // Real life path from user profile
+                realmNumber: 5 // TODO: Connect to real realm number calculation from RealmNumberManager
+            )
+        } else {
+            // Fallback cosmic signature if no profile data available
+            print("⚠️ UserProfileView: No user profile found for cosmic signature, using fallback values")
+            return CosmicSignature(
+                focusNumber: focusNumberManager.selectedFocusNumber,
+                currentChakra: "heart", // Default chakra
+                lifePathNumber: 1, // Neutral fallback
+                realmNumber: 5 // Default realm number
+            )
+        }
     }
     
     /// **INSIGHTS TAB CONTENT - AI INSIGHT INTEGRATION**

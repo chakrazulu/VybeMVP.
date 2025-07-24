@@ -225,9 +225,12 @@
 		4DCB39782E1F78AE00311D51 /* renewal_infinity.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39152E1F78AE00311D51 /* renewal_infinity.svg */; };
 		4DCB39792E1F78AE00311D51 /* mystery_seed_life.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39122E1F78AE00311D51 /* mystery_seed_life.svg */; };
 		4DCB397A2E1F78AE00311D51 /* will_phoenix.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39342E1F78AE00311D51 /* will_phoenix.svg */; };
-		4DCB397C2E2094A500311D51 /* NumberPatternGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCB397B2E2094A500311D51 /* NumberPatternGenerator.swift */; };
 		4DDCDFCD2E2C63D9005FDD32 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDCDFCC2E2C63D9005FDD32 /* FriendRequest.swift */; };
 		4DDCDFCF2E2C64B1005FDD32 /* FriendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDCDFCE2E2C64B1005FDD32 /* FriendManager.swift */; };
+		4DDCE0042E31468A005FDD32 /* AstrologyHouseCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDCE0032E31468A005FDD32 /* AstrologyHouseCalculator.swift */; };
+		4DDCE0062E3146B4005FDD32 /* TestConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDCE0052E3146B4005FDD32 /* TestConfiguration.swift */; };
+		4DDCE0082E3146DC005FDD32 /* NumberPatternGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDCE0072E3146DC005FDD32 /* NumberPatternGenerator.swift */; };
+		4DDCE00A2E3151D8005FDD32 /* SwissEphemerisCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDCE0092E3151D8005FDD32 /* SwissEphemerisCalculator.swift */; };
 		4DE4C37E2DB3918E00BB7572 /* NumerologyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C37D2DB3918E00BB7572 /* NumerologyMessage.swift */; };
 		4DE4C3802DB392E900BB7572 /* NumerologyNotificationTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C37F2DB392E900BB7572 /* NumerologyNotificationTestView.swift */; };
 		4DE4C3822DB393DA00BB7572 /* NumerologyNotificationTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */; };
@@ -473,10 +476,13 @@
 		4DCB39362E1F78AE00311D51 /* will_shield.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = will_shield.svg; sourceTree = "<group>"; };
 		4DCB39372E1F78AE00311D51 /* will_star.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = will_star.svg; sourceTree = "<group>"; };
 		4DCB39382E1F78AE00311D51 /* wisdom_enneagram.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = wisdom_enneagram.svg; sourceTree = "<group>"; };
-		4DCB397B2E2094A500311D51 /* NumberPatternGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPatternGenerator.swift; sourceTree = "<group>"; };
 		4DCE3BCF2D3C75E80022F283 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDCDFCC2E2C63D9005FDD32 /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
 		4DDCDFCE2E2C64B1005FDD32 /* FriendManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendManager.swift; sourceTree = "<group>"; };
+		4DDCE0032E31468A005FDD32 /* AstrologyHouseCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstrologyHouseCalculator.swift; sourceTree = "<group>"; };
+		4DDCE0052E3146B4005FDD32 /* TestConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestConfiguration.swift; sourceTree = "<group>"; };
+		4DDCE0072E3146DC005FDD32 /* NumberPatternGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPatternGenerator.swift; sourceTree = "<group>"; };
+		4DDCE0092E3151D8005FDD32 /* SwissEphemerisCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwissEphemerisCalculator.swift; sourceTree = "<group>"; };
 		4DE4C37D2DB3918E00BB7572 /* NumerologyMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyMessage.swift; sourceTree = "<group>"; };
 		4DE4C37F2DB392E900BB7572 /* NumerologyNotificationTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyNotificationTestView.swift; sourceTree = "<group>"; };
 		4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyNotificationTester.swift; sourceTree = "<group>"; };
@@ -619,9 +625,12 @@
 		4D3055ED2D3CF838009A7BBD /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				4DDCE0092E3151D8005FDD32 /* SwissEphemerisCalculator.swift */,
+				4DDCE0072E3146DC005FDD32 /* NumberPatternGenerator.swift */,
+				4DDCE0052E3146B4005FDD32 /* TestConfiguration.swift */,
+				4DDCE0032E31468A005FDD32 /* AstrologyHouseCalculator.swift */,
 				4DB1E05A2E23D597001A9EA5 /* ZodiacSignCalculator.swift */,
 				4DB1DF8F2E235393001A9EA5 /* MoonPhaseCalculator.swift */,
-				4DCB397B2E2094A500311D51 /* NumberPatternGenerator.swift */,
 				4DCB38772E1F647B00311D51 /* SVGPathExtractor.swift */,
 				4DB233FE2E121BF7004EC2BC /* PerformanceMonitor.swift */,
 				4D3727072DE48D7100B5A02B /* NotificationNames.swift */,
@@ -1246,6 +1255,7 @@
 				4D6C7B592DE45517001036E5 /* ResonanceEngine.swift in Sources */,
 				4D3055FA2D3D899A009A7BBD /* JournalMood.swift in Sources */,
 				4D92F48C2D49E9C90001A16E /* TestingView.swift in Sources */,
+				4DDCE0062E3146B4005FDD32 /* TestConfiguration.swift in Sources */,
 				4DCB38742E1B4CDB00311D51 /* ProfileSetupView.swift in Sources */,
 				4DCB38722E1B3CDD00311D51 /* KASPERManager.swift in Sources */,
 				4D3727082DE48D7100B5A02B /* NotificationNames.swift in Sources */,
@@ -1261,6 +1271,7 @@
 				4DA98FCE2E073D0000FAE5FF /* ReportContentView.swift in Sources */,
 				4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */,
 				4D6C7BB92DE480E4001036E5 /* PreparedInsight.swift in Sources */,
+				4DDCE00A2E3151D8005FDD32 /* SwissEphemerisCalculator.swift in Sources */,
 				4D2CC7082E08C9ED00BDF100 /* TestSacredGeometry.swift in Sources */,
 				4DB1E05B2E23D597001A9EA5 /* ZodiacSignCalculator.swift in Sources */,
 				4D3055CE2D3CC9CA009A7BBD /* FocusNumberPicker.swift in Sources */,
@@ -1306,6 +1317,7 @@
 				4DCB386E2E1B050400311D51 /* RecentMatchPopupView.swift in Sources */,
 				4D2CC70A2E08CA0C00BDF100 /* TestAdvancedSacredGeometry.swift in Sources */,
 				4DA98F992E07230500FAE5FF /* CommentManager.swift in Sources */,
+				4DDCE0042E31468A005FDD32 /* AstrologyHouseCalculator.swift in Sources */,
 				4D2CC7032E08C78C00BDF100 /* UserProfile.swift in Sources */,
 				4D6308DC2DFFCB2C00FD32E9 /* PostComposerView.swift in Sources */,
 				4DB233F62E1169CD004EC2BC /* VybeMatchOverlay.swift in Sources */,
@@ -1329,7 +1341,6 @@
 				4D2CC7182E0C70F600BDF100 /* TwinklingDigitsBackground.swift in Sources */,
 				4D2CC7142E0B9EFA00BDF100 /* EnhancedLoadingView.swift in Sources */,
 				4DB233F42E114580004EC2BC /* NeonTracerView.swift in Sources */,
-				4DCB397C2E2094A500311D51 /* NumberPatternGenerator.swift in Sources */,
 				4D3727152DE550ED00B5A02B /* CosmicBackgroundView.swift in Sources */,
 				4D2CC7102E0B9EB700BDF100 /* RulingNumberChartView.swift in Sources */,
 				4D6C7B9D2DE47E99001036E5 /* OnboardingReflectionModeView.swift in Sources */,
@@ -1376,6 +1387,7 @@
 				4DCB386C2E1AAF1C00311D51 /* UserProfileView.swift in Sources */,
 				4D2CC70C2E08EAD200BDF100 /* StaticAssetMandalaView.swift in Sources */,
 				4D2CC6F02E079B6D00BDF100 /* SacredGeometry3DView.swift in Sources */,
+				4DDCE0082E3146DC005FDD32 /* NumberPatternGenerator.swift in Sources */,
 				4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */,
 				4D37270A2DE50FEC00B5A02B /* OnboardingCompletionView.swift in Sources */,
 			);

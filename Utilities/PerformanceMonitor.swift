@@ -144,7 +144,18 @@ class PerformanceMonitor: ObservableObject {
         let deltaTime = displayLink.timestamp - lastTimestamp
         
         if deltaTime >= 1.0 {
+            // Claude: FIX - Added NaN validation for FPS calculations
+            guard deltaTime > 0 && !deltaTime.isNaN && deltaTime.isFinite else {
+                return // Skip this frame if deltaTime is invalid
+            }
+            
             let fps = Double(frameCount) / deltaTime
+            
+            // Validate FPS value before using it
+            guard !fps.isNaN && fps.isFinite && fps >= 0 else {
+                return // Skip this frame if FPS calculation is invalid
+            }
+            
             currentFPS = fps
             fpsHistory.append(fps)
             
@@ -153,7 +164,10 @@ class PerformanceMonitor: ObservableObject {
                 fpsHistory.removeFirst()
             }
             
-            averageFPS = fpsHistory.reduce(0, +) / Double(fpsHistory.count)
+            // Guard against division by zero in average calculation
+            if !fpsHistory.isEmpty {
+                averageFPS = fpsHistory.reduce(0, +) / Double(fpsHistory.count)
+            }
             
             frameCount = 0
             lastTimestamp = displayLink.timestamp

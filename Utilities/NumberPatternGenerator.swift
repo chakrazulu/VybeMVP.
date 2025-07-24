@@ -153,9 +153,23 @@ class NumberPatternGenerator {
             let t = CGFloat(i) * 2 * .pi / CGFloat(points)
             
             // Lemniscate parametric equations: creates perfect figure-8 infinity symbol
+            // Claude: FIX - Added NaN validation to prevent CoreGraphics errors
             let denominator = 1 + sin(t) * sin(t)
+            
+            // Guard against invalid denominator (should never be <= 0, but safety first)
+            guard denominator > 0.001 && !denominator.isNaN && denominator.isFinite else {
+                // Skip this point if denominator is invalid
+                continue
+            }
+            
             let x = center.x + width * cos(t) / denominator
             let y = center.y + height * sin(t) * cos(t) / denominator
+            
+            // Validate final coordinates
+            guard !x.isNaN && !y.isNaN && x.isFinite && y.isFinite else {
+                // Skip this point if coordinates are invalid
+                continue
+            }
             
             let point = CGPoint(x: x, y: y)
             

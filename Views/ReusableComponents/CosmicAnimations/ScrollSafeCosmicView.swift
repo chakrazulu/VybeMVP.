@@ -394,9 +394,21 @@ struct ScrollSafeTwinklingNumber: Identifiable {
         }
         
         // EDGE-FADE GRADIENT: Full opacity at center, diminishing toward edges
+        // Claude: FIX - Added NaN validation to prevent CoreGraphics errors
         let distanceFromCenter = sqrt(pow(x - centerX, 2) + pow(y - centerY, 2))
         let maxRadius = sqrt(pow(screenWidth / 2, 2) + pow(screenHeight / 2, 2))
+        
+        // Guard against division by zero and invalid values
+        guard maxRadius > 0 && !maxRadius.isNaN && !distanceFromCenter.isNaN else {
+            return max(0.0, min(1.0, maxOpacity * lifecycleOpacity * 0.5)) // Fallback to 50% fade
+        }
+        
         let distanceRatio = min(1.0, distanceFromCenter / maxRadius)
+        
+        // Validate distance ratio before power operation
+        guard !distanceRatio.isNaN && distanceRatio.isFinite else {
+            return max(0.0, min(1.0, maxOpacity * lifecycleOpacity * 0.5)) // Fallback to 50% fade
+        }
         
         // Smooth gradient with gentle falloff
         let edgeFadeMultiplier = max(0.1, 1.0 - pow(distanceRatio, 0.8)) // Gentler falloff

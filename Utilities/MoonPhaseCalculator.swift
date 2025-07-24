@@ -159,7 +159,8 @@ struct MoonPhaseCalculator {
         let a = Double(y) / 100.0  // Century component for calendar correction
         let b = 2.0 - a + (a / 4.0)  // Gregorian leap year adjustment
         
-        print("   a = \(a), b = \(b)")
+        // Claude: Debug logging disabled to prevent console spam
+        // print("   a = \(a), b = \(b)")
         
         // Claude: Core Julian Day calculation using Conway's formula
         // CRITICAL FIX: Use floor() with Double arithmetic for astronomical precision
@@ -168,7 +169,8 @@ struct MoonPhaseCalculator {
                  floor(30.6001 * Double(m + 1)) +    // Months to days  
                  Double(day) + b - 1524.0             // Day + corrections
         
-        print("   Base JD: \(jd)")
+        // Claude: Debug logging disabled to prevent console spam
+        // print("   Base JD: \(jd)")
         
         // Claude: Add time-of-day precision for sub-day accuracy
         let hour = Double(components.hour ?? 0)
@@ -179,12 +181,14 @@ struct MoonPhaseCalculator {
         // Essential for accurate moon phase timing within daily precision
         let fractionalDay = (hour + (minute / 60.0) + (second / 3600.0)) / 24.0
         
-        print("   Time: \(hour):\(minute):\(second)")
-        print("   Fractional day: \(fractionalDay)")
+        // Claude: Debug logging disabled to prevent console spam
+        // print("   Time: \(hour):\(minute):\(second)")
+        // print("   Fractional day: \(fractionalDay)")
         
         // Claude: Combine integer day number with fractional time for final precision
         let finalJD = jd + fractionalDay
-        print("   Final Julian Day: \(finalJD)")
+        // Claude: Debug logging disabled to prevent console spam
+        // print("   Final Julian Day: \(finalJD)")
         
         return finalJD
     }

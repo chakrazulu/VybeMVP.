@@ -218,15 +218,30 @@ struct PostComposerView: View {
         self._authorName = State(initialValue: loadedAuthorName)
         self._authorDisplayName = State(initialValue: loadedDisplayName)
         
-        // Create SocialUser with real user data
-        self.currentUser = SocialUser(
-            userId: userID,
-            displayName: loadedDisplayName,  // Real display name loaded immediately
-            lifePathNumber: 3,   // Default - TODO: Load from saved profile later
-            soulUrgeNumber: 5,   // Default - TODO: Load from saved profile later
-            expressionNumber: 7, // Default - TODO: Load from saved profile later
-            currentFocusNumber: currentFocusNumber  // Real focus number
-        )
+        // Create SocialUser with real user data from UserProfileService
+        if let userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID) {
+            // Use real numerology data from user's onboarding profile
+            self.currentUser = SocialUser(
+                userId: userID,
+                displayName: loadedDisplayName,  // Real display name loaded immediately
+                lifePathNumber: userProfile.lifePathNumber, // Real life path from user profile
+                soulUrgeNumber: userProfile.soulUrgeNumber ?? 1, // Real soul urge or fallback
+                expressionNumber: userProfile.expressionNumber ?? 1, // Real expression or fallback
+                currentFocusNumber: currentFocusNumber  // Real focus number
+            )
+            print("✅ PostComposerView: Using real user numerology - LP:\(userProfile.lifePathNumber), SU:\(userProfile.soulUrgeNumber ?? 1), EX:\(userProfile.expressionNumber ?? 1)")
+        } else {
+            // Fallback to neutral values if no profile data available
+            self.currentUser = SocialUser(
+                userId: userID,
+                displayName: loadedDisplayName,  // Real display name loaded immediately
+                lifePathNumber: 1,   // Neutral fallback
+                soulUrgeNumber: 1,   // Neutral fallback
+                expressionNumber: 1, // Neutral fallback
+                currentFocusNumber: currentFocusNumber  // Real focus number
+            )
+            print("⚠️ PostComposerView: No user profile found, using neutral numerology fallbacks")
+        }
         
         print("✅ PostComposerView initialized with immediate real data")
     }
