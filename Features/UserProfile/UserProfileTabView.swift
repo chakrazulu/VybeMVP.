@@ -12,37 +12,8 @@ class MegaCorpusCache {
 /// Claude: Load MegaCorpus data with caching for UserProfileTabView
 /// This function loads all MegaCorpus JSON files and caches them for efficient access.
 /// Used throughout UserProfileTabView to provide rich spiritual data for user insights.
-func loadMegaCorpusData() -> [String: Any] {
-    // Check cache first
-    if let cachedData = MegaCorpusCache.shared.data {
-        return cachedData
-    }
-    
-    // Load all MegaCorpus JSON files
-    let fileNames = ["Signs", "Planets", "Houses", "Aspects", "Elements", "Modes", "MoonPhases", "ApparentMotion"]
-    var megaData: [String: Any] = [:]
-    
-    for fileName in fileNames {
-        // Try multiple paths to find the file
-        let paths = [
-            Bundle.main.path(forResource: fileName, ofType: "json", inDirectory: "NumerologyData/MegaCorpus"),
-            Bundle.main.path(forResource: fileName, ofType: "json"),
-            Bundle.main.path(forResource: "MegaCorpus/\(fileName)", ofType: "json")
-        ]
-        
-        for path in paths.compactMap({ $0 }) {
-            if let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
-               let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                megaData[fileName.lowercased()] = json
-                break
-            }
-        }
-    }
-    
-    // Cache the data
-    MegaCorpusCache.shared.data = megaData
-    return megaData
-}
+/// Claude: REMOVED DUPLICATE GLOBAL FUNCTION - loadMegaCorpusData() is now properly scoped within UserProfileTabView struct
+/// This eliminates namespace pollution and scope conflicts identified in comprehensive analysis
 
 /**
  * UserProfileTabView - The Sacred Digital Altar
@@ -301,192 +272,17 @@ func detailedZodiacDescription(for sign: ZodiacSign) -> String {
     }
 }
 
-// Element Descriptions (Enhanced with MegaCorpus)
-/// Claude: Enhanced element description using MegaCorpus spiritual data
-/// 
-/// **Sacred Element Integration:**
-/// - Loads elemental energies from MegaCorpus/Elements.json
-/// - Combines archetype, core description, and key traits
-/// - Provides deep spiritual understanding of Fire, Earth, Air, Water
-///
-/// **Return Format:** "Archetype • Description • Core Traits: Trait1 • Trait2"
-/// **Example:** "The Nurturing Builder • Earth grounds spirit into form... • Core Traits: Practical Wisdom • Steadfast Endurance"
-func detailedElementDescription(for element: Element) -> String {
-    let cosmicData = loadMegaCorpusData()
-    
-    // Try to load from mega corpus first - fix nested structure access
-    if let elementsFile = cosmicData["elements"] as? [String: Any],
-       let elements = elementsFile["elements"] as? [String: Any] {
-        let elementKey = element.rawValue.lowercased()
-        
-        if let elementData = elements[elementKey] as? [String: Any] {
-            if let description = elementData["description"] as? String,
-               let archetype = elementData["archetype"] as? String,
-               let keyTraits = elementData["keyTraits"] as? [String] {
-                
-                let traitsText = keyTraits.prefix(2).map { trait in
-                    trait.components(separatedBy: ":").first?.trimmingCharacters(in: .whitespaces) ?? trait
-                }.joined(separator: " • ")
-                let enhancedDescription = "\(archetype) • \(description) • Core Traits: \(traitsText)"
-                return enhancedDescription
-            }
-        }
-    }
-    
-    print("⚠️ Using fallback description for \(element.rawValue)")
-    // Fallback to original descriptions
-    switch element {
-    case .fire: return "Sacred flame of creation • Spirit spark that ignites passion, inspiration, and transformation • Channel of divine will and creative power"
-    case .earth: return "Grounding force of manifestation • Sacred vessel that transforms dreams into reality • Foundation of practical wisdom and material mastery"
-    case .air: return "Breath of consciousness • Mental realm connector • Bridge between thought and communication • Carrier of ideas and intellectual awakening"
-    case .water: return "Ocean of emotion and intuition • Sacred flow of feeling • Deep well of psychic knowing and spiritual cleansing • Heart's wisdom keeper"
-    }
-}
+/// Claude: REMOVED DUPLICATE GLOBAL FUNCTION - detailedElementDescription() is properly scoped within UserProfileTabView struct
+/// This eliminates namespace pollution and provides better encapsulation
 
-// Planet Descriptions (Enhanced with MegaCorpus)
-/// Claude: Enhanced planetary description using MegaCorpus astrological data
-/// 
-/// **Planetary Archetype Integration:**
-/// - Loads planetary symbolism from MegaCorpus/Planets.json
-/// - Combines planetary archetype with core keywords
-/// - Provides authentic astrological interpretations
-///
-/// **Return Format:** "Archetype • Keyword1 • Keyword2 • Keyword3"
-/// **Example:** "The Teacher • Expansion • Wisdom • Growth"
-func detailedPlanetDescription(for planet: Planet) -> String {
-    let cosmicData = loadMegaCorpusData()
-    
-    // Try to load from mega corpus first - fix nested structure access  
-    if let planetsFile = cosmicData["planets"] as? [String: Any],
-       let planets = planetsFile["planets"] as? [String: Any] {
-        let planetKey = planet.rawValue.lowercased()
-        
-        if let planetData = planets[planetKey] as? [String: Any] {
-            if let archetype = planetData["archetype"] as? String,
-               let description = planetData["description"] as? String,
-               let keyTraits = planetData["keyTraits"] as? [String] {
-                
-                let traitsText = keyTraits.prefix(2).map { trait in
-                    trait.components(separatedBy: ":").first?.trimmingCharacters(in: .whitespaces) ?? trait
-                }.joined(separator: " • ")
-                let enhancedDescription = "\(archetype) • \(description) • Core Traits: \(traitsText)"
-                return enhancedDescription
-            }
-        }
-    }
-    
-    // Fallback to original descriptions
-    switch planet {
-    case .sun: return "Central life force • Core identity radiator • Creative heart that illuminates your essential self and vital purpose in this lifetime"
-    case .moon: return "Emotional wisdom keeper • Intuitive inner world • Subconscious patterns and deepest needs • Your soul's receptive feminine nature"
-    case .mercury: return "Mind's swift messenger • Communication mastery • Learning style and mental agility • Bridge between thought and expression"
-    case .venus: return "Love and beauty magnetizer • Heart's values and desires • Attraction principles and artistic sensibilities • Harmony seeker"
-    case .mars: return "Warrior's driving force • Action and courage • Passionate pursuits and aggressive energy • Your inner fighter and motivator"
-    case .jupiter: return "Expansion and wisdom teacher • Growth through experience • Higher learning and philosophical understanding • Abundance attractor"
-    case .saturn: return "Discipline's stern teacher • Structure and responsibility • Life lessons through challenge • Mastery achieved through perseverance"
-    case .uranus: return "Revolutionary awakener • Sudden change catalyst • Innovation and rebellion • Your unique genius and freedom impulse"
-    case .neptune: return "Mystical dream weaver • Spiritual inspiration • Illusion and transcendence • Connection to divine and collective unconscious"
-    case .pluto: return "Death and rebirth transformer • Deep psychological power • Hidden treasures through crisis • Your soul's evolutionary force"
-    case .earth: return "Grounding stability anchor • Material world mastery • Practical foundation and physical realm connection • Steady presence"
-    }
-}
+/// Claude: REMOVED DUPLICATE GLOBAL FUNCTION - detailedPlanetDescription() is properly scoped within UserProfileTabView struct
+/// This eliminates namespace pollution and provides better encapsulated astrological data access
 
-// Shadow Planet Descriptions (Enhanced with Mega Corpus)
-func detailedShadowPlanetDescription(for planet: Planet) -> String {
-    let cosmicData = loadMegaCorpusData()
-    
-    // Try to load shadow aspects from mega corpus - fix nested structure access
-    if let planetsFile = cosmicData["planets"] as? [String: Any],
-       let planets = planetsFile["planets"] as? [String: Any] {
-        let planetKey = planet.rawValue.lowercased()
-        
-        if let planetData = planets[planetKey] as? [String: Any],
-           let description = planetData["description"] as? String,
-           let archetype = planetData["archetype"] as? String,
-           let keyTraits = planetData["keyTraits"] as? [String] {
-            
-            // Create shadow interpretation
-            let shadowTraits = keyTraits.prefix(2).map { trait in
-                let baseTrait = trait.components(separatedBy: ":").first?.trimmingCharacters(in: .whitespaces) ?? trait
-                return "Shadow \(baseTrait)"
-            }.joined(separator: " • ")
-            
-            return "Shadow \(archetype) • Unconscious expression of \(description.lowercased()) • \(shadowTraits)"
-        }
-    }
-    
-    // Fallback shadow descriptions
-    switch planet {
-    case .sun: return "Ego inflation and pride • Arrogance overshadowing authentic self • Identity crises and excessive need for recognition and validation"
-    case .moon: return "Emotional reactivity and moodiness • Security fears and clingy attachments • Past wounds controlling present emotional responses"
-    case .mercury: return "Mental confusion and communication blocks • Information overload and scattered thinking • Gossip and superficial understanding"
-    case .venus: return "Relationship dependency and material attachment • Beauty obsession and shallow values • Love addiction and aesthetic perfectionism"
-    case .mars: return "Uncontrolled anger and destructive impulses • Impatience and reckless aggression • Violence and competitive ruthlessness"
-    case .jupiter: return "Over-expansion and excess • Wasteful abundance and false wisdom • Dogmatic beliefs and spiritual materialism"
-    case .saturn: return "Paralyzing limitation and harsh self-criticism • Rigid control and fearful restriction • Pessimism blocking natural growth"
-    case .uranus: return "Chaotic rebellion and unpredictable disruption • Alienation from others • Revolutionary destruction without constructive purpose"
-    case .neptune: return "Delusion and escapist fantasy • Victim consciousness and martyrdom • Addiction to illusion and spiritual bypassing"
-    case .pluto: return "Obsessive control and manipulative power • Destructive compulsions • Shadow projection and psychological warfare"
-    case .earth: return "Material attachment and rigid thinking • Stagnation in comfort zone • Resistance to spiritual growth and change"
-    }
-}
+/// Claude: REMOVED DUPLICATE GLOBAL FUNCTION - detailedShadowPlanetDescription() is properly scoped within UserProfileTabView struct
+/// This eliminates namespace pollution and provides better encapsulated shadow archetype analysis
 
-// Claude: Soul Urge and Expression Descriptions using MegaCorpus Numerology data
-func soulUrgeDescription(for number: Int) -> String {
-    let cosmicData = loadMegaCorpusData()
-    
-    // Try to load from MegaCorpus focusNumbers section for soul desires
-    if let numerology = cosmicData["numerology"] as? [String: Any],
-       let focusNumbers = numerology["focusNumbers"] as? [String: Any],
-       let numberData = focusNumbers[String(number)] as? [String: Any],
-       let archetype = numberData["archetype"] as? String,
-       let keywords = numberData["keywords"] as? [String] {
-        let keywordString = keywords.prefix(2).joined(separator: " and ")
-        return "Your soul craves \(keywordString.lowercased()) as \(archetype) • Deep inner yearning for authentic expression"
-    }
-    
-    // Fallback descriptions (maintaining spiritual quality)
-    switch number {
-    case 1: return "You desire to lead, innovate, and be recognized for your unique contributions"
-    case 2: return "You crave harmony, partnership, and meaningful emotional connections"
-    case 3: return "You yearn for creative expression, communication, and joyful social interaction"
-    case 4: return "You seek stability, practical achievement, and building lasting foundations"
-    case 5: return "You desire freedom, adventure, and diverse life experiences"
-    case 6: return "You crave nurturing others, creating harmony, and serving your community"
-    case 7: return "You yearn for spiritual wisdom, solitude, and deep understanding"
-    case 8: return "You desire material success, authority, and recognition for achievements"
-    case 9: return "You crave humanitarian service, universal love, and healing the world"
-    default: return "Your soul seeks its unique path of growth and expression"
-    }
-}
-
-func expressionDescription(for number: Int) -> String {
-    let cosmicData = loadMegaCorpusData()
-    
-    // Try to load from MegaCorpus focusNumbers section for natural expression
-    if let numerology = cosmicData["numerology"] as? [String: Any],
-       let focusNumbers = numerology["focusNumbers"] as? [String: Any],
-       let numberData = focusNumbers[String(number)] as? [String: Any],
-       let archetype = numberData["archetype"] as? String,
-       let strengths = numberData["strengths"] as? [String] {
-        let strengthString = strengths.prefix(2).joined(separator: " and ")
-        return "You naturally express \(strengthString.lowercased()) as \(archetype) • Innate gifts flow through your being"
-    }
-    
-    // Fallback descriptions (maintaining spiritual quality)
-    switch number {
-    case 1: return "You naturally express leadership, originality, and pioneering spirit"
-    case 2: return "You naturally express cooperation, diplomacy, and supportive energy"
-    case 3: return "You naturally express creativity, communication, and inspirational joy"
-    case 4: return "You naturally express practicality, organization, and reliable service"
-    case 5: return "You naturally express versatility, curiosity, and dynamic energy"
-    case 6: return "You naturally express nurturing, responsibility, and healing compassion"
-    case 7: return "You naturally express analytical thinking, spirituality, and inner wisdom"
-    case 8: return "You naturally express business acumen, material mastery, and executive ability"
-    case 9: return "You naturally express universal understanding, artistic vision, and humanitarian service"
-    default: return "You express your unique talents and gifts in your own special way"
-    }
-}
+/// Claude: REMOVED DUPLICATE GLOBAL FUNCTIONS - soulUrgeDescription() and expressionDescription() are properly scoped within UserProfileTabView struct
+/// This eliminates global namespace pollution and provides better encapsulation of numerology data access
 
 // Icon helper functions
 func zodiacIcon(for sign: ZodiacSign) -> String {
