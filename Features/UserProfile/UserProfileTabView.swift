@@ -2704,29 +2704,19 @@ struct UserProfileTabView: View {
     
     /// Fallback calculation for users missing complete birth data
     private func getFallbackBirthChartPositions(profile: UserProfile) -> [PlanetaryPosition] {
-        print("⚠️ Using fallback birth chart calculation (incomplete birth data)")
+        print("⚠️ CRITICAL: Missing birth location data - cannot calculate accurate birth chart")
+        print("   User needs to complete birth location setup for accurate astrological readings")
         
-        // Use existing CosmicData system as fallback
-        let cosmicData = CosmicData.getEnhancedCosmicData(
-            for: profile.birthdate, 
-            latitude: 37.7749, 
-            longitude: -122.4194
-        )
-        
-        var positions: [PlanetaryPosition] = []
-        
-        // Convert from ecliptic longitudes to zodiac positions
-        for (planetName, eclipticLongitude) in cosmicData.enhancedPlanets {
-            let zodiacInfo = self.eclipticLongitudeToZodiacInfo(longitude: eclipticLongitude.eclipticLongitude)
-            positions.append(PlanetaryPosition(
-                planet: planetName,
-                sign: zodiacInfo.sign,
-                degree: Int(zodiacInfo.degree),
-                houseNumber: nil // Fallback mode - no house information available
-            ))
-        }
-        
-        return positions
+        // Claude: Return error indication instead of incorrect calculations
+        // Using wrong coordinates would provide completely inaccurate spiritual guidance
+        return [
+            PlanetaryPosition(
+                planet: "Error", 
+                sign: "Complete birth location required", 
+                degree: 0, 
+                houseNumber: nil
+            )
+        ]
     }
     
     private func getCurrentPlanetaryPositions() -> [PlanetaryPosition] {
