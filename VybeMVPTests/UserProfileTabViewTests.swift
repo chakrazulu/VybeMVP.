@@ -173,19 +173,36 @@ final class UserProfileTabViewTests: XCTestCase, @unchecked Sendable {
     }
     
     /// Claude: Test numerology data integration
-    /// Validates proper integration of numerology data from MegaCorpus
+    /// Validates MegaCorpus data loading and Divine Triangle placeholder behavior
     func testNumerologyDataIntegration() {
-        _ = loadMegaCorpusDataForTesting()
+        let megaData = loadMegaCorpusDataForTesting()
+        XCTAssertFalse(megaData.isEmpty, "Should load MegaCorpus data")
         
-        // Test life path description generation (adjusted for placeholder implementation)
+        // Test life path description generation (Divine Triangle - can use MegaCorpus or fallback)
         let lifePathDesc = lifePathDescription(for: 7, isMaster: false)
         XCTAssertNotNil(lifePathDesc, "Should generate life path description")
         XCTAssertGreaterThan(lifePathDesc.count, 0, "Description should not be empty")
         
-        // Test master number handling (adjusted for placeholder implementation)
+        // Either MegaCorpus data or meaningful fallback is acceptable for Divine Triangle
+        if lifePathDesc == "Fallback description for 7" {
+            // Basic fallback is too minimal, should be more meaningful
+            XCTFail("Fallback should be more descriptive than: '\(lifePathDesc)'")
+        } else {
+            // Should be either MegaCorpus archetype or a meaningful description
+            XCTAssertGreaterThan(lifePathDesc.count, 5, "Description should be meaningful")
+        }
+        
+        // Test master number handling (also Divine Triangle)
         let masterDesc = lifePathDescription(for: 11, isMaster: true)
         XCTAssertNotNil(masterDesc, "Should generate master number description")
         XCTAssertGreaterThan(masterDesc.count, 0, "Master description should not be empty")
+        
+        if masterDesc == "Fallback description for 11" {
+            XCTFail("Master number fallback should be more descriptive than: '\(masterDesc)'")
+        }
+        
+        // Verify the function can handle both regular and master numbers
+        XCTAssertNotEqual(lifePathDesc, masterDesc, "Regular and master descriptions should differ")
     }
     
     /// Claude: Test astrological data integration
@@ -283,19 +300,35 @@ final class UserProfileTabViewTests: XCTestCase, @unchecked Sendable {
     /// Claude: Test numerology edge cases
     /// Validates handling of edge cases in numerology calculations
     func testNumerologyEdgeCases() {
-        // Test empty name (adjusted expectation for unimplemented function)
+        // Test empty name - should gracefully handle with 0 result
         let emptyNameSoulUrge = calculateSoulUrgeNumber(from: "")
         XCTAssertEqual(emptyNameSoulUrge, 0, "Should return 0 for empty name")
         
-        // Test special characters
+        let emptyNameExpression = calculateExpressionNumber(from: "")
+        XCTAssertEqual(emptyNameExpression, 0, "Should return 0 for empty name in expression number")
+        
+        // Test special characters - should ignore non-letters
         let specialCharName = "John-Paul O'Connor III"
         let specialSoulUrge = calculateSoulUrgeNumber(from: specialCharName)
-        XCTAssertGreaterThan(specialSoulUrge, 0, "Should handle special characters")
+        XCTAssertGreaterThan(specialSoulUrge, 0, "Should handle special characters by extracting vowels")
+        XCTAssertLessThanOrEqual(specialSoulUrge, 44, "Should be within valid numerology range")
         
-        // Test very long names
-        let longName = String(repeating: "ABCDEFGHIJKLMNOPQRSTUVWXYZ", count: 10)
+        let specialExpression = calculateExpressionNumber(from: specialCharName)
+        XCTAssertGreaterThan(specialExpression, 0, "Should handle special characters in expression number")
+        XCTAssertLessThanOrEqual(specialExpression, 44, "Should be within valid numerology range")
+        
+        // Test very long names - should still calculate correctly
+        let longName = String(repeating: "ABCDEFGHIJKLMNOPQRSTUVWXYZ", count: 5) // Reduced for reasonable test
         let longNameExpression = calculateExpressionNumber(from: longName)
         XCTAssertGreaterThan(longNameExpression, 0, "Should handle very long names")
+        XCTAssertLessThanOrEqual(longNameExpression, 44, "Should reduce to valid range even for long names")
+        
+        // Test all uppercase vs mixed case should give same result
+        let name1 = "JANE DOE"
+        let name2 = "jane doe"
+        let soulUrge1 = calculateSoulUrgeNumber(from: name1)
+        let soulUrge2 = calculateSoulUrgeNumber(from: name2)
+        XCTAssertEqual(soulUrge1, soulUrge2, "Case should not affect numerology calculation")
     }
     
     // MARK: - 🌟 ASTROLOGICAL DATA DISPLAY TESTS
@@ -417,15 +450,34 @@ final class UserProfileTabViewTests: XCTestCase, @unchecked Sendable {
     /// Claude: Test concurrent data access safety
     /// Validates thread safety of data access methods
     func testConcurrentDataAccessSafety() {
-        // Test data access from main actor (simplified for Swift 6 compatibility)
-        for i in 0..<10 {
-            let megaData = loadMegaCorpusDataForTesting()
-            XCTAssertNotNil(megaData, "Data access \(i) should succeed")
-            XCTAssertFalse(megaData.isEmpty, "Data should not be empty on access \(i)")
+        let expectation = XCTestExpectation(description: "Concurrent data access")
+        expectation.expectedFulfillmentCount = 5 // Reduced count for performance
+        var results: [Bool] = []
+        let resultsQueue = DispatchQueue(label: "test.results", attributes: .concurrent)
+        
+        // Create concurrent access to MegaCorpus data
+        for _ in 0..<5 {
+            DispatchQueue.global(qos: .userInitiated).async {
+                // Access data on main queue as required by MainActor
+                DispatchQueue.main.async { [weak self] in
+                    let megaData = self?.loadMegaCorpusDataForTesting() ?? [:]
+                    let isValid = !megaData.isEmpty && megaData["numerology"] != nil
+                    
+                    resultsQueue.async(flags: .barrier) {
+                        results.append(isValid)
+                        expectation.fulfill()
+                    }
+                }
+            }
         }
         
-        // Test passes if no crashes or data corruption occurs
-        XCTAssertTrue(true, "Concurrent-style data access completed successfully")
+        wait(for: [expectation], timeout: 3.0)
+        
+        // Verify all concurrent accesses succeeded
+        XCTAssertEqual(results.count, 5, "All concurrent tasks should complete")
+        for (index, isValid) in results.enumerated() {
+            XCTAssertTrue(isValid, "Concurrent access \(index) should return valid data")
+        }
     }
     
     // MARK: - 👆 USER INTERACTION AND STATE MANAGEMENT TESTS
@@ -470,24 +522,38 @@ final class UserProfileTabViewTests: XCTestCase, @unchecked Sendable {
     // MARK: - 🔐 SECURITY AND INPUT VALIDATION TESTS
     
     /// Claude: Test input sanitization
-    /// Validates that user inputs are properly sanitized
+    /// Validates that user inputs are properly sanitized and transformed
     func testInputSanitization() {
         let maliciousInputs = [
-            "<script>alert('xss')</script>",
-            "'; DROP TABLE users; --",
-            "../../../../etc/passwd",
-            String(repeating: "A", count: 100) // Reduced size for test
+            ("<script>alert('xss')</script>", "Should remove script tags"),
+            ("'; DROP TABLE users; --", "Should remove SQL injection patterns"),
+            ("../../../../etc/passwd", "Should handle path traversal attempts"),
+            (String(repeating: "A", count: 150), "Should truncate overly long input")
         ]
         
-        for input in maliciousInputs {
+        for (input, description) in maliciousInputs {
             // Test name input sanitization
             let sanitizedName = sanitizeNameInput(input)
-            XCTAssertFalse(sanitizedName.contains("<script>"), "Should remove script tags")
-            XCTAssertLessThanOrEqual(sanitizedName.count, 100, "Should limit input length")
+            
+            // Verify dangerous content is removed
+            XCTAssertFalse(sanitizedName.contains("<script>"), "Should remove script tags: \(description)")
+            XCTAssertFalse(sanitizedName.contains("DROP TABLE"), "Should remove SQL injection: \(description)")
+            XCTAssertLessThanOrEqual(sanitizedName.count, 100, "Should limit input length: \(description)")
+            
+            // Verify transformation actually occurred for malicious input
+            if input.contains("<script>") || input.contains("DROP TABLE") || input.count > 100 {
+                XCTAssertNotEqual(sanitizedName, input, "Should transform malicious input: \(description)")
+            }
             
             // Test location input sanitization
             let sanitizedLocation = sanitizeLocationInput(input)
-            XCTAssertFalse(sanitizedLocation.contains("<script>"), "Should remove script tags")
+            XCTAssertFalse(sanitizedLocation.contains("<script>"), "Should remove script tags from location: \(description)")
+            XCTAssertFalse(sanitizedLocation.contains("DROP TABLE"), "Should remove SQL injection from location: \(description)")
+            
+            // Verify location transformation
+            if input.contains("<script>") || input.contains("DROP TABLE") || input.count > 100 {
+                XCTAssertNotEqual(sanitizedLocation, input, "Should transform malicious location input: \(description)")
+            }
         }
     }
     
