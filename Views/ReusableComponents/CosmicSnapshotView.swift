@@ -2232,7 +2232,7 @@ struct PlanetaryDetailView: View {
     /// Load MegaCorpus data (reuse the singleton cache)
     private func loadMegaCorpusData() -> [String: Any] {
         // Use the same cache as CosmicSnapshotView
-        if let cachedData = MegaCorpusCache.shared.data {
+        if let cachedData = VybeMVP.MegaCorpusCache.shared.data {
             return cachedData
         }
         
@@ -2265,7 +2265,7 @@ struct PlanetaryDetailView: View {
             }
         }
         
-        MegaCorpusCache.shared.data = megaData
+        VybeMVP.MegaCorpusCache.shared.data = megaData
         return megaData
     }
     
@@ -2444,7 +2444,7 @@ extension CosmicSnapshotView {
     /// Load MegaCorpus data with caching
     private func loadMegaCorpusData() -> [String: Any] {
         // Check cache first
-        if let cachedData = MegaCorpusCache.shared.data {
+        if let cachedData = VybeMVP.MegaCorpusCache.shared.data {
             return cachedData
         }
         
@@ -2470,7 +2470,7 @@ extension CosmicSnapshotView {
         }
         
         // Cache the data
-        MegaCorpusCache.shared.data = megaData
+        VybeMVP.MegaCorpusCache.shared.data = megaData
         return megaData
     }
     
