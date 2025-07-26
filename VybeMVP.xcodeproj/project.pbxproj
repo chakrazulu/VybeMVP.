@@ -72,7 +72,6 @@
 		4D6308DA2DFFCB2C00FD32E9 /* ReactionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D62DFFCB2C00FD32E9 /* ReactionPickerView.swift */; };
 		4D6308DB2DFFCB2C00FD32E9 /* Reaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D12DFFCB2C00FD32E9 /* Reaction.swift */; };
 		4D6308DC2DFFCB2C00FD32E9 /* PostComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D52DFFCB2C00FD32E9 /* PostComposerView.swift */; };
-		4D6308DD2DFFCB2C00FD32E9 /* PostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308CE2DFFCB2C00FD32E9 /* PostManager.swift */; };
 		4D6308DE2DFFCB2C00FD32E9 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D02DFFCB2C00FD32E9 /* Post.swift */; };
 		4D6308DF2DFFCB2C00FD32E9 /* PostCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D42DFFCB2C00FD32E9 /* PostCardView.swift */; };
 		4D6308E02DFFCB2C00FD32E9 /* SocialTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D72DFFCB2C00FD32E9 /* SocialTimelineView.swift */; };
@@ -245,6 +244,9 @@
 		4DE4C3802DB392E900BB7572 /* NumerologyNotificationTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C37F2DB392E900BB7572 /* NumerologyNotificationTestView.swift */; };
 		4DE4C3822DB393DA00BB7572 /* NumerologyNotificationTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */; };
 		4DF77E482E35660500B6D45E /* VybeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E472E35660500B6D45E /* VybeConstants.swift */; };
+		4DF77E4C2E358B2E00B6D45E /* PostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E4A2E358B2E00B6D45E /* PostRepository.swift */; };
+		4DF77E4D2E358B2E00B6D45E /* FirebasePostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E492E358B2E00B6D45E /* FirebasePostRepository.swift */; };
+		4DF77E4F2E358DC500B6D45E /* PostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E4E2E358DC500B6D45E /* PostManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -347,7 +349,6 @@
 		4D3727182DE5538A00B5A02B /* NumerologyInsightService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyInsightService.swift; sourceTree = "<group>"; };
 		4D37271A2DE554B700B5A02B /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordingManager.swift; sourceTree = "<group>"; };
-		4D6308CE2DFFCB2C00FD32E9 /* PostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostManager.swift; sourceTree = "<group>"; };
 		4D6308D02DFFCB2C00FD32E9 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		4D6308D12DFFCB2C00FD32E9 /* Reaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reaction.swift; sourceTree = "<group>"; };
 		4D6308D22DFFCB2C00FD32E9 /* SocialUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialUser.swift; sourceTree = "<group>"; };
@@ -518,6 +519,9 @@
 		4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyNotificationTester.swift; sourceTree = "<group>"; };
 		4DF0F5A82D4FEF3F007EC3BF /* VybeMVP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VybeMVP.entitlements; sourceTree = "<group>"; };
 		4DF77E472E35660500B6D45E /* VybeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeConstants.swift; sourceTree = "<group>"; };
+		4DF77E492E358B2E00B6D45E /* FirebasePostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePostRepository.swift; sourceTree = "<group>"; };
+		4DF77E4A2E358B2E00B6D45E /* PostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRepository.swift; sourceTree = "<group>"; };
+		4DF77E4E2E358DC500B6D45E /* PostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -754,10 +758,10 @@
 		4D6308CF2DFFCB2C00FD32E9 /* SocialManagers */ = {
 			isa = PBXGroup;
 			children = (
+				4DF77E4E2E358DC500B6D45E /* PostManager.swift */,
 				4DDCDFCE2E2C64B1005FDD32 /* FriendManager.swift */,
 				4DA98FCB2E073CDC00FAE5FF /* ReportManager.swift */,
 				4DA98F982E07230500FAE5FF /* CommentManager.swift */,
-				4D6308CE2DFFCB2C00FD32E9 /* PostManager.swift */,
 			);
 			path = SocialManagers;
 			sourceTree = "<group>";
@@ -793,6 +797,7 @@
 		4D6308D92DFFCB2C00FD32E9 /* Social */ = {
 			isa = PBXGroup;
 			children = (
+				4DF77E4B2E358B2E00B6D45E /* SocialRepositories */,
 				4D6308CF2DFFCB2C00FD32E9 /* SocialManagers */,
 				4D6308D32DFFCB2C00FD32E9 /* SocialModels */,
 				4D6308D82DFFCB2C00FD32E9 /* SocialViews */,
@@ -1085,6 +1090,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		4DF77E4B2E358B2E00B6D45E /* SocialRepositories */ = {
+			isa = PBXGroup;
+			children = (
+				4DF77E492E358B2E00B6D45E /* FirebasePostRepository.swift */,
+				4DF77E4A2E358B2E00B6D45E /* PostRepository.swift */,
+			);
+			path = SocialRepositories;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1375,7 +1389,6 @@
 				4D6308DC2DFFCB2C00FD32E9 /* PostComposerView.swift in Sources */,
 				4DCEE47E2E34339B007CA451 /* NumerologyService.swift in Sources */,
 				4DB233F62E1169CD004EC2BC /* VybeMatchOverlay.swift in Sources */,
-				4D6308DD2DFFCB2C00FD32E9 /* PostManager.swift in Sources */,
 				4D6308DE2DFFCB2C00FD32E9 /* Post.swift in Sources */,
 				4D6308DF2DFFCB2C00FD32E9 /* PostCardView.swift in Sources */,
 				4D2CC6FB2E08BE3700BDF100 /* SacredGeometryAssets.swift in Sources */,
@@ -1440,6 +1453,7 @@
 				4D92F4BC2D4DE1E80001A16E /* RealmNumberManager.swift in Sources */,
 				4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */,
 				4D2DB4862DFF6A450003353E /* SightingsManager.swift in Sources */,
+				4DF77E4F2E358DC500B6D45E /* PostManager.swift in Sources */,
 				4DA98FCC2E073CDC00FAE5FF /* ReportManager.swift in Sources */,
 				4D92F4BD2D4DE1E80001A16E /* BackgroundManager.swift in Sources */,
 				4D3055E32D3CEADA009A7BBD /* JournalEntry+CoreDataHelpers.swift in Sources */,
@@ -1450,6 +1464,8 @@
 				4DDCE0082E3146DC005FDD32 /* NumberPatternGenerator.swift in Sources */,
 				4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */,
 				4D37270A2DE50FEC00B5A02B /* OnboardingCompletionView.swift in Sources */,
+				4DF77E4C2E358B2E00B6D45E /* PostRepository.swift in Sources */,
+				4DF77E4D2E358B2E00B6D45E /* FirebasePostRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

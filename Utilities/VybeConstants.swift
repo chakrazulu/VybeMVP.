@@ -197,6 +197,31 @@ struct VybeConstants {
     /// Slow cosmic drift animation duration (seconds)
     static let slowCosmicDriftDuration: TimeInterval = 20.0
     
+    // MARK: - Phase 17A: Pull-to-Refresh Configuration
+    
+    /// Delay after pull-to-refresh to allow Firebase listener to establish (seconds)
+    static let pullRefreshCompletionDelay: TimeInterval = 0.5
+    
+    /// Maximum time to wait for pull-to-refresh to complete before showing timeout (seconds)
+    static let pullRefreshTimeout: TimeInterval = 10.0
+    
+    /// Minimum time pull-to-refresh should be visible for user feedback (seconds)
+    static let pullRefreshMinimumDuration: TimeInterval = 0.8
+    
+    // MARK: - Phase 17C: Enhanced Firestore Listener Configuration
+    
+    /// Minimum time between listener restarts to prevent thrashing (seconds)
+    static let listenerRestartThrottle: TimeInterval = 30.0
+    
+    /// Maximum age for posts to have active listeners - 24 hours (seconds)
+    static let maxPostAgeForListeners: TimeInterval = 86400
+    
+    /// Maximum age for posts to have reaction listeners - 1 hour (seconds)
+    static let maxReactionListenerAge: TimeInterval = 3600
+    
+    /// Optimized post query limit for cost reduction
+    static let optimizedPostQueryLimit: Int = 25
+    
     /// Medium cosmic drift animation duration (seconds)
     static let mediumCosmicDriftDuration: TimeInterval = 15.0
 }

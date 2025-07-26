@@ -678,22 +678,12 @@ struct PostCardView: View {
         impactFeedback.impactOccurred()
         
         // Delete post via PostManager
-        Task {
-            do {
-                try await PostManager.shared.deletePost(post)
-                print("✅ Successfully deleted post: \(post.id ?? "unknown")")
-                
-                // Success haptic feedback
-                let successFeedback = UINotificationFeedbackGenerator()
-                successFeedback.notificationOccurred(.success)
-            } catch {
-                print("❌ Failed to delete post: \(error.localizedDescription)")
-                
-                // Error haptic feedback
-                let errorFeedback = UINotificationFeedbackGenerator()
-                errorFeedback.notificationOccurred(.error)
-            }
-        }
+        PostManager.shared.deletePost(post)
+        print("✅ Successfully deleted post: \(post.id ?? "unknown")")
+        
+        // Success haptic feedback
+        let successFeedback = UINotificationFeedbackGenerator()
+        successFeedback.notificationOccurred(.success)
     }
 }
 
