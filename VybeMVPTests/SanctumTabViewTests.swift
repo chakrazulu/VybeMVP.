@@ -128,14 +128,14 @@ final class SanctumTabViewTests: XCTestCase, @unchecked Sendable {
     /// Claude: Test section accordion functionality
     /// Validates that accordion sections can expand and collapse properly
     func testAccordionFunctionality() throws {
-        let _ = UserProfileTabView()
+        let _ = SanctumTabView()
         
         // Test accordion state management
         // This would require UI testing framework for full validation
         // For now, ensure no memory issues in accordion creation
         autoreleasepool {
             for _ in 0..<10 {
-                let _ = UserProfileTabView()
+                let _ = SanctumTabView()
             }
         }
         
@@ -485,14 +485,14 @@ final class SanctumTabViewTests: XCTestCase, @unchecked Sendable {
     /// Claude: Test accordion expansion state management
     /// Validates proper state management for UI interactions
     func testAccordionStateManagement() {
-        let _ = UserProfileTabView()
+        let _ = SanctumTabView()
         
         // Test accordion state changes
         // This would require ViewInspector or SwiftUI testing framework for full validation
         // For now, ensure state management doesn't cause memory issues
         autoreleasepool {
             for _ in 0..<20 {
-                let _ = UserProfileTabView()
+                let _ = SanctumTabView()
             }
         }
         

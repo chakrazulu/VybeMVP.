@@ -203,7 +203,7 @@ class ChakraManager: ObservableObject {
             print("✅ Audio engine started successfully")
             
             // Connect effects after a small delay to ensure stability
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.quickTransitionDuration) { [weak self] in
                 self?.connectAudioEffects()
             }
         } catch {
@@ -417,7 +417,7 @@ class ChakraManager: ObservableObject {
         
         // Show affirmation text
         currentAffirmationText = type.affirmation
-        withAnimation(.easeInOut(duration: 0.5)) {
+        withAnimation(.easeInOut(duration: VybeConstants.standardFeedbackDelay)) {
             isShowingAffirmation = true
         }
         
@@ -439,7 +439,7 @@ class ChakraManager: ObservableObject {
         let displayDuration = Double(type.affirmation.count) * 0.08 + 2.0 // Approximate reading time
         affirmationTimer?.invalidate()
         affirmationTimer = Timer.scheduledTimer(withTimeInterval: displayDuration, repeats: false) { [weak self] _ in
-            withAnimation(.easeInOut(duration: 0.5)) {
+            withAnimation(.easeInOut(duration: VybeConstants.standardFeedbackDelay)) {
                 self?.isShowingAffirmation = false
             }
             self?.currentAffirmationText = nil
@@ -616,6 +616,9 @@ class ChakraManager: ObservableObject {
     // MARK: - Cleanup
     
     deinit {
+        // Remove notification observers to prevent memory leaks
+        NotificationCenter.default.removeObserver(self)
+        
         audioEngine?.stop()
         hapticEngine?.stop()
         speechSynthesizer?.stopSpeaking(at: .immediate)

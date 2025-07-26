@@ -136,12 +136,12 @@ struct TwinklingDigitsBackground: View {
         generateInitialNumbers()
         
         // Start generation timer
-        generationTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
+        generationTimer = Timer.scheduledTimer(withTimeInterval: VybeConstants.twinklingDigitsGenerationInterval, repeats: true) { _ in
             generateNewNumber()
-            }
+        }
         
         // Start cleanup timer
-        cleanupTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
+        cleanupTimer = Timer.scheduledTimer(withTimeInterval: VybeConstants.twinklingDigitsCleanupInterval, repeats: true) { _ in
             cleanupOldNumbers()
         }
     }

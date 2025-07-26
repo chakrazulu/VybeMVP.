@@ -250,7 +250,8 @@ import BackgroundTasks
      * with SwiftUI's published properties.
      */
     internal func updateCurrentHeartRate(_ value: Double?, fromSimulation: Bool = false) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             let previousValue = self.currentHeartRate
             let newValue = Int(value ?? 0.0)
             
@@ -282,8 +283,8 @@ import BackgroundTasks
      * the most recent non-zero heart rate reading.
      */
     internal func updateLastValidBPM(_ value: Int) {
-        DispatchQueue.main.async {
-            self.lastValidBPM = value
+        DispatchQueue.main.async { [weak self] in
+            self?.lastValidBPM = value
         }
     }
     

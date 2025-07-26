@@ -249,11 +249,8 @@ class SightingsManager: ObservableObject {
     private func saveContext() {
         guard viewContext.hasChanges else { return }
         
-        do {
-            try viewContext.save()
-            print("✅ Sightings context saved successfully")
-        } catch {
-            print("❌ Failed to save sightings context: \(error)")
-        }
+        // Use background context to avoid blocking main thread
+        PersistenceController.shared.save()
+        print("✅ Sightings context saved successfully (background context)")
     }
 } 

@@ -244,6 +244,7 @@
 		4DE4C37E2DB3918E00BB7572 /* NumerologyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C37D2DB3918E00BB7572 /* NumerologyMessage.swift */; };
 		4DE4C3802DB392E900BB7572 /* NumerologyNotificationTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C37F2DB392E900BB7572 /* NumerologyNotificationTestView.swift */; };
 		4DE4C3822DB393DA00BB7572 /* NumerologyNotificationTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */; };
+		4DF77E482E35660500B6D45E /* VybeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E472E35660500B6D45E /* VybeConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -516,6 +517,7 @@
 		4DE4C37F2DB392E900BB7572 /* NumerologyNotificationTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyNotificationTestView.swift; sourceTree = "<group>"; };
 		4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyNotificationTester.swift; sourceTree = "<group>"; };
 		4DF0F5A82D4FEF3F007EC3BF /* VybeMVP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VybeMVP.entitlements; sourceTree = "<group>"; };
+		4DF77E472E35660500B6D45E /* VybeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -667,6 +669,7 @@
 		4D3055ED2D3CF838009A7BBD /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				4DF77E472E35660500B6D45E /* VybeConstants.swift */,
 				4DDCE0092E3151D8005FDD32 /* SwissEphemerisCalculator.swift */,
 				4DDCE0072E3146DC005FDD32 /* NumberPatternGenerator.swift */,
 				4DDCE0052E3146B4005FDD32 /* TestConfiguration.swift */,
@@ -1307,6 +1310,7 @@
 				4DCB38742E1B4CDB00311D51 /* ProfileSetupView.swift in Sources */,
 				4DCB38722E1B3CDD00311D51 /* KASPERManager.swift in Sources */,
 				4D3727082DE48D7100B5A02B /* NotificationNames.swift in Sources */,
+				4DF77E482E35660500B6D45E /* VybeConstants.swift in Sources */,
 				4DA98F972E0722E800FAE5FF /* Comment.swift in Sources */,
 				4DA2EE2D2D502D1D001F8E9D /* HealthKitPermissionView.swift in Sources */,
 				4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */,

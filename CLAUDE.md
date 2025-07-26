@@ -316,3 +316,4 @@ This document incorporates guidelines and best practices from:
 
 ## Memory
 - **Build Testing:** I will test the builds myself unless just syntax checking because it will time out everytime. 
+- **NO MORE DerivedData deletions without my explicit approval**

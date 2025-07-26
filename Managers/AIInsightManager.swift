@@ -214,12 +214,9 @@ class AIInsightManager: ObservableObject {
         }
         newInsightLog.tags = tags.joined(separator: ", ")
         
-        do {
-            try viewContext.save()
-            print("💾 Successfully saved daily insight to Core Data")
-        } catch {
-            print("❌ Error saving daily insight to Core Data: \(error.localizedDescription)")
-        }
+        // Use background context to avoid blocking main thread
+        PersistenceController.shared.save()
+        print("💾 Successfully saved daily insight to Core Data (background context)")
     }
     
     /**

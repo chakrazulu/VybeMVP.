@@ -126,7 +126,7 @@ final class MegaCorpusIntegrationTests: XCTestCase {
     /// Claude: Test loadMegaCorpusData function
     /// Validates the main data loading function works correctly
     func testLoadMegaCorpusDataFunction() throws {
-        // Test with UserProfileTabView's loadMegaCorpusData if it exists
+        // Test with SanctumTabView's loadMegaCorpusData if it exists
         let megaData = loadMegaCorpusDataTestHelper()
         
         XCTAssertNotNil(megaData, "loadMegaCorpusData should return data")

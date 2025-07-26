@@ -404,7 +404,7 @@ struct HeartRateView: View {
         refreshHeartRate()
         
         // Set up timer for periodic refresh (every 30 seconds)
-        timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: VybeConstants.heartRateRefreshInterval, repeats: true) { _ in
             if retryCount < maxRetryCount || hasValidHeartRate {
                 refreshHeartRate()
             }

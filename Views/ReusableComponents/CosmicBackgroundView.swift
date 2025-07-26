@@ -115,7 +115,7 @@ struct CosmicBackgroundView: View {
     }
     
     private func startStarAnimation() {
-        animationTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
+        animationTimer = Timer.scheduledTimer(withTimeInterval: VybeConstants.cosmicStarAnimationInterval, repeats: true) { _ in
             updateStars()
         }
     }

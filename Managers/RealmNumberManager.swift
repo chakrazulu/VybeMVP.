@@ -313,7 +313,8 @@ class RealmNumberManager: NSObject, ObservableObject {
      */
     private func setupManager() {
         // Setup location manager on main thread
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             self.locationManager = CLLocationManager()
             self.locationManager?.delegate = self
             self.locationManager?.desiredAccuracy = Constants.locationAccuracy

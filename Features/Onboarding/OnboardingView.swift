@@ -127,7 +127,7 @@ struct MinimalCosmicBackground: View {
     }
     
     private func startGentleAnimation() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.15, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: VybeConstants.onboardingSparkleInterval, repeats: true) { _ in
             for i in sparkles.indices {
                 // Gentle twinkle effect
                 sparkles[i].opacity += sparkles[i].twinkleDirection * 0.01

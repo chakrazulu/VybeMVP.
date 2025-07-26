@@ -145,11 +145,11 @@ class FriendManager: ObservableObject {
             .addSnapshotListener { [weak self] snapshot, error in
                 guard let self = self else { return }
                 
-                DispatchQueue.main.async {
-                    self.isLoadingRequests = false
+                DispatchQueue.main.async { [weak self] in
+                    self?.isLoadingRequests = false
                     
                     if let error = error {
-                        self.lastError = error
+                        self?.lastError = error
                         print("❌ Friend requests listener error: \(error)")
                         return
                     }
@@ -160,11 +160,13 @@ class FriendManager: ObservableObject {
                         try? doc.data(as: FriendRequest.self)
                     }
                     
-                    // Separate incoming and outgoing requests
-                    self.incomingRequests = requests.filter { $0.toUserId == userId }
-                    self.outgoingRequests = requests.filter { $0.fromUserId == userId }
+                    // Claude: Phase 16 optional unwrapping safety improvement
+                    // Previous: Direct assignment could crash if self was deallocated
+                    // Current: Safe optional chaining prevents crashes
+                    self?.incomingRequests = requests.filter { $0.toUserId == userId }
+                    self?.outgoingRequests = requests.filter { $0.fromUserId == userId }
                     
-                    print("🔄 Friend requests updated: \(self.incomingRequests.count) incoming, \(self.outgoingRequests.count) outgoing")
+                    print("🔄 Friend requests updated: \(self?.incomingRequests.count ?? 0) incoming, \(self?.outgoingRequests.count ?? 0) outgoing")
                 }
             }
     }
@@ -178,22 +180,25 @@ class FriendManager: ObservableObject {
             .addSnapshotListener { [weak self] snapshot, error in
                 guard let self = self else { return }
                 
-                DispatchQueue.main.async {
-                    self.isLoadingFriendships = false
+                DispatchQueue.main.async { [weak self] in
+                    self?.isLoadingFriendships = false
                     
                     if let error = error {
-                        self.lastError = error
+                        // Claude: Phase 16 optional unwrapping safety improvement
+                        // Previous: self.lastError = error (force unwrapping could crash)
+                        // Current: self?.lastError = error (safe optional chaining)
+                        self?.lastError = error
                         print("❌ Friendships listener error: \(error)")
                         return
                     }
                     
                     guard let documents = snapshot?.documents else { return }
                     
-                    self.friendships = documents.compactMap { doc -> Friendship? in
+                    self?.friendships = documents.compactMap { doc -> Friendship? in
                         try? doc.data(as: Friendship.self)
                     }
                     
-                    print("🔄 Friendships updated: \(self.friendships.count) active friendships")
+                    print("🔄 Friendships updated: \(self?.friendships.count ?? 0) active friendships")
                 }
             }
     }

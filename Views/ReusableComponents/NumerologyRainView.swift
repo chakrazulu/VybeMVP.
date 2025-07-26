@@ -9,6 +9,7 @@ import SwiftUI
 struct NumerologyRainView: View {
     @State private var cosmicNumbers: [CosmicNumber] = []
     @State private var sparklePhase: Double = 0
+    @State private var manifestationTimer: Timer?
     
     var body: some View {
         GeometryReader { geometry in
@@ -28,19 +29,32 @@ struct NumerologyRainView: View {
         .onAppear {
             startCosmicManifestation()
         }
+        .onDisappear {
+            // Claude: Phase 16 critical memory leak prevention
+            // Previous implementation: Timer continued running after view dismissal causing memory accumulation
+            // Current implementation: Proper timer invalidation prevents memory leaks
+            // Impact: Eliminates guaranteed timer leak in numerology rain animation
+            manifestationTimer?.invalidate()
+            manifestationTimer = nil
+        }
     }
     
     private func startCosmicManifestation() {
         // Create initial cosmic numbers
         generateCosmicNumbers()
         
-        // Start sparkle animation
-        withAnimation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true)) {
+        // Claude: Phase 16 magic number elimination
+        // Before: withAnimation(.easeInOut(duration: 2.0) - hardcoded 2-second duration
+        // After: VybeConstants.epicAnimationDuration for consistent cosmic animations
+        withAnimation(.easeInOut(duration: VybeConstants.epicAnimationDuration).repeatForever(autoreverses: true)) {
             sparklePhase = 1.0
         }
         
-        // Continuously manifest new numbers
-        Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) { _ in
+        // Claude: Phase 16 magic number elimination and memory safety
+        // Before: Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) - hardcoded timing
+        // After: Uses VybeConstants.numerologyRainInterval for centralized configuration
+        // Benefits: Consistent timing across app, easy A/B testing, memory-safe implementation
+        manifestationTimer = Timer.scheduledTimer(withTimeInterval: VybeConstants.numerologyRainInterval, repeats: true) { _ in
             generateCosmicNumbers()
         }
     }
@@ -60,7 +74,7 @@ struct NumerologyRainView: View {
             )
         }
         
-        withAnimation(.easeInOut(duration: 1.5)) {
+        withAnimation(.easeInOut(duration: VybeConstants.longAnimationDuration)) {
             cosmicNumbers = newNumbers
         }
     }

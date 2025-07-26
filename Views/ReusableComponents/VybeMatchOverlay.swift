@@ -275,11 +275,11 @@ struct VybeMatchOverlay: View {
             }
         }
         .opacity(isVisible ? 1.0 : 0.0)
-        .animation(.easeInOut(duration: 0.5), value: isVisible)
+        .animation(.easeInOut(duration: VybeConstants.standardFeedbackDelay), value: isVisible)
         .onChange(of: isVisible) { _, newValue in
             handleVisibilityChange(newValue)
         }
-        .onReceive(Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()) { _ in
+        .onReceive(Timer.publish(every: VybeConstants.instantFeedbackDelay, on: .main, in: .common).autoconnect()) { _ in
             updateAnimations()
         }
     }
@@ -490,12 +490,12 @@ struct VybeMatchOverlay: View {
             impactFeedback.impactOccurred()
             
             // Highlight effect
-            withAnimation(.easeInOut(duration: 0.1)) {
+            withAnimation(.easeInOut(duration: VybeConstants.veryShortAnimationDuration)) {
                 highlightedAction = action
             }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                withAnimation(.easeInOut(duration: 0.1)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.quickTransitionDuration) {
+                withAnimation(.easeInOut(duration: VybeConstants.veryShortAnimationDuration)) {
                     highlightedAction = nil
                 }
             }
@@ -592,7 +592,7 @@ struct VybeMatchOverlay: View {
         isVisible = false
         
         // Delay navigation slightly for better UX
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.shortAnimationDuration) {
             switch action {
             case .viewInsight:
                 print("🌟 Opening insight view for matched number \(matchedNumber)")
@@ -755,15 +755,15 @@ struct VybeMatchOverlay: View {
         }
         
         // Phase 3: Complete glow fade-in (0.5s delay)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            withAnimation(.easeInOut(duration: 0.5)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.standardFeedbackDelay) {
+            withAnimation(.easeInOut(duration: VybeConstants.standardFeedbackDelay)) {
                 self.backgroundGlow = 1.0 // Full cosmic glow
                 self.numberGlow = 1.0 // Full number glow
             }
         }
         
         // Phase 4: Start continuous cosmic rotation (1.0s delay)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.dramaticFeedbackDelay) {
             withAnimation(.linear(duration: 20).repeatForever(autoreverses: false)) {
                 self.cosmicRotation = 360
             }
@@ -773,7 +773,7 @@ struct VybeMatchOverlay: View {
         }
         
         // 🎯 PHASE 2.2: Show action buttons immediately with bubble for unified cosmic experience
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.instantFeedbackDelay) {
             if self.isVisible { // Only show if overlay is still visible
                 withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
                     self.showActionButtons = true

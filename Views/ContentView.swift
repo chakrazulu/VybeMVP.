@@ -379,20 +379,20 @@ struct ContentView: View {
             
             // ULTRA-LIGHT startup - minimal operations only
             
-            // Step 1: Configure FocusNumberManager (0.2s delay)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            // Step 1: Configure FocusNumberManager
+            DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.startupFocusManagerDelay) {
                 FocusNumberManager.shared.configure(realmManager: realmNumberManager)
                 print("🔧 Configured FocusNumberManager with RealmNumberManager...")
             }
             
-            // Step 2: Start heart rate monitoring (0.8s delay) 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            // Step 2: Start heart rate monitoring
+            DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.startupHeartRateDelay) {
                 HealthKitManager.shared.startHeartRateMonitoring()
                 print("💓 Started heart rate monitoring...")
             }
             
-            // Step 3: Defer AI insights to prevent UserProfile flood (2.0s delay)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            // Step 3: Defer AI insights to prevent UserProfile flood
+            DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.startupAIInsightsDelay) {
                 aiInsightManager.refreshInsightIfNeeded()
                 print("🧠 AI insights refresh initiated...")
                 
@@ -403,8 +403,8 @@ struct ContentView: View {
                 )
             }
             
-            // Step 4: CRITICAL - Defer match detection system to prevent freeze (15.0s delay)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 15.0) {
+            // Step 4: CRITICAL - Defer match detection system to prevent freeze
+            DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.extendedStartupDelay) {
                 FocusNumberManager.shared.enableMatchDetection()
                 print("🎯 Match detection system enabled after startup stabilization")
             }
@@ -498,7 +498,7 @@ struct ContentView: View {
         selectedTab = 4
         
         // Generate insight for the specific matched number and filter to show it
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.standardFeedbackDelay) {
             aiInsightManager.refreshInsightIfNeeded()
             // TODO: Add filtering in ActivityView to highlight insights for number \(number)
             print("🎯 Activity view should focus on insights for cosmic match number \(number)")
@@ -518,7 +518,7 @@ struct ContentView: View {
         
         // TODO: Trigger specific chakra meditation for the matched number
         // This would require updating PhantomChakrasView to accept a specific chakra focus
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.standardFeedbackDelay) {
             print("🎯 PhantomChakrasView should focus on \(chakra) chakra meditation")
         }
     }
@@ -541,7 +541,7 @@ struct ContentView: View {
         // - Pre-filled title: "Sacred Reflection - Cosmic Alignment"
         // - Pre-set focus and realm numbers
         // - Cosmic match context in description
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.standardFeedbackDelay) {
             print("🎯 Journal should open Sacred Reflection with Focus \(focusNumber), Realm \(realmNumber)")
             print("📝 Pre-filled title: '\(title)'")
         }
@@ -565,7 +565,7 @@ struct ContentView: View {
         // - Pre-filled title: "\(title)"
         // - Pre-filled significance: "\(significance)"
         // - Auto-set location and timestamp
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.standardFeedbackDelay) {
             print("🎯 Sightings should open creation form with cosmic match data")
             print("📍 Pre-filled: Number \(number), Title: '\(title)', Significance: '\(significance)'")
         }
@@ -589,7 +589,7 @@ struct ContentView: View {
         // - Pre-filled message: "\(message)"
         // - Cosmic match context and number
         // - Sacred meaning and spiritual significance
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.standardFeedbackDelay) {
             print("🎯 Social timeline should open status composer with cosmic match")
             print("📱 Pre-filled message: '\(message)'")
             print("🔮 Sacred meaning: '\(sacredMeaning)'")
@@ -628,7 +628,7 @@ struct ContentView: View {
         selectedTab = 8
         
         // TODO: Analytics view could be enhanced to highlight patterns for specific numbers
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.standardFeedbackDelay) {
             print("🎯 Analytics view should focus on patterns for number \(number)")
             if let focus = userInfo["focus"] as? String {
                 print("📈 Focus area: \(focus)")
@@ -652,7 +652,7 @@ struct ContentView: View {
         // Navigate to Settings tab (tag 11)
         selectedTab = 11
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.standardFeedbackDelay) {
             print("🎯 Settings view opened successfully")
         }
     }
@@ -673,7 +673,7 @@ struct ContentView: View {
         // Navigate to My Sanctum tab (tag 10)
         selectedTab = 10
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.standardFeedbackDelay) {
             print("🎯 My Sanctum view opened successfully")
         }
     }

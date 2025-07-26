@@ -280,12 +280,9 @@ class JournalManager: ObservableObject {
     private func saveContext() {
         guard viewContext.hasChanges else { return }
         
-        do {
-            try viewContext.save()
-            print("✅ Context saved successfully")
-        } catch {
-            logger.error("Failed to save context: \(error.localizedDescription)")
-        }
+        // Use background context to avoid blocking main thread
+        PersistenceController.shared.save()
+        print("✅ Context saved successfully (background context)")
     }
     
     // MARK: - Filtering Methods

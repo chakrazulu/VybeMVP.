@@ -478,25 +478,25 @@ struct SanctumTabView: View {
                 // PERFORMANCE FIX: Defer heavy operations to prevent tab loading delays
                 
                 // Immediate: Start animations (lightweight)
-                withAnimation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true)) {
+                withAnimation(.easeInOut(duration: VybeConstants.epicAnimationDuration).repeatForever(autoreverses: true)) {
                     lifePathPulse = true
                 }
-                withAnimation(.easeInOut(duration: 3.0).repeatForever(autoreverses: true)) {
+                withAnimation(.easeInOut(duration: VybeConstants.dramaticRevealDuration).repeatForever(autoreverses: true)) {
                     archetypeGlow = true
                 }
                 
-                // Step 1: Quick cache check (0.2s delay)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                // Step 1: Quick cache check
+                DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.quickTransitionDuration) {
                     loadUserProfileFromCache()
                 }
                 
                 // Step 2: Full profile loading (1.0s delay)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.dramaticFeedbackDelay) {
                     loadUserProfile()
                 }
                 
                 // Step 3: Archetype loading (2.0s delay) 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.startupAIInsightsDelay) {
                     loadArchetype()
                 }
             }

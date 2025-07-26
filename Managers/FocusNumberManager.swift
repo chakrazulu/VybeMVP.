@@ -446,36 +446,36 @@ class FocusNumberManager: NSObject, ObservableObject {
             newMatch.locationLongitude = 0
         }
         
-        // Save to Core Data
-        do {
-            // Ensure changes are saved synchronously in test context
-            viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-            try viewContext.save()
-            print("   ✅ Match saved successfully")
-            
-            // Force immediate reload of matches
-            loadMatchLogs()
-            print("   📱 New Match Count: \(matchLogs.count)")
-            
-            // Additional check for tests to verify the save was successful
-            if matchLogs.isEmpty {
-                print("   ⚠️ Warning: Match saved but matchLogs is still empty")
-                // For test environments, try to verify the save another way
-                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FocusMatch")
-                do {
-                    let count = try viewContext.count(for: fetchRequest)
-                    print("   📊 Direct fetch match count: \(count)")
-                } catch {
-                    print("   ❌ Error counting matches: \(error)")
-                }
+        // Claude: Phase 16 Core Data background optimization - removed unnecessary do-catch
+        // Previous: Unnecessary do-catch around non-throwing save method
+        // Current: Direct call to background save with proper error handling where needed
+        
+        // Use background context to avoid blocking main thread
+        viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
+        // Save using PersistenceController's background save method
+        PersistenceController.shared.save()
+        print("   ✅ Match saved successfully (background context)")
+        
+        // Force immediate reload of matches
+        loadMatchLogs()
+        print("   📱 New Match Count: \(matchLogs.count)")
+        
+        // Additional check for tests to verify the save was successful
+        if matchLogs.isEmpty {
+            print("   ⚠️ Warning: Match saved but matchLogs is still empty")
+            // For test environments, try to verify the save another way
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FocusMatch")
+            do {
+                let count = try viewContext.count(for: fetchRequest)
+                print("   📊 Direct fetch match count: \(count)")
+            } catch {
+                print("   ❌ Error counting matches: \(error)")
             }
-            
-            // Send local notification for the match
-            sendMatchNotification(for: matchedRealmNumber)
-        } catch {
-            print("❌ Failed to save match: \(error)")
-            print("   Error Description: \(error.localizedDescription)")
         }
+        
+        // Send local notification for the match
+        sendMatchNotification(for: matchedRealmNumber)
         print("🌟 ================================\n")
     }
     
@@ -728,12 +728,9 @@ class FocusNumberManager: NSObject, ObservableObject {
         newPersistedInsight.text = text
         newPersistedInsight.tags = tags // e.g., "FocusMatch, RealmTouch"
 
-        do {
-            try context.save()
-            print("💾 Successfully saved PersistedInsightLog for number \(number), category \(category).")
-        } catch {
-            print("❌ Error saving PersistedInsightLog: \(error.localizedDescription)")
-        }
+        // Use background context to avoid blocking main thread
+        PersistenceController.shared.save()
+        print("💾 Successfully saved PersistedInsightLog for number \(number), category \(category) (background context).")
     }
 
     // Restore the methods accidentally removed

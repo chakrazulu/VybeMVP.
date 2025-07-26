@@ -274,14 +274,14 @@ class VoiceRecordingManager: NSObject, ObservableObject {
     // MARK: - Timer Management
     
     private func startRecordingTimer() {
-        recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            self.updateRecordingMetrics()
+        recordingTimer = Timer.scheduledTimer(withTimeInterval: VybeConstants.voiceRecordingMetricsInterval, repeats: true) { [weak self] _ in
+            self?.updateRecordingMetrics()
         }
     }
     
     private func startPlaybackTimer() {
-        playbackTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            self.updatePlaybackProgress()
+        playbackTimer = Timer.scheduledTimer(withTimeInterval: VybeConstants.voicePlaybackProgressInterval, repeats: true) { [weak self] _ in
+            self?.updatePlaybackProgress()
         }
     }
     
