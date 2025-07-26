@@ -403,24 +403,7 @@ struct SanctumTabView: View {
     @State private var selectedPlanet: PlanetaryPosition?
     @State private var selectedAspect: NatalAspect?
     
-    enum SanctumViewMode: String, CaseIterable {
-        case birthChart = "Birth Chart"
-        case liveTransits = "Live Transits"
-        
-        var icon: String {
-            switch self {
-            case .birthChart: return "person.circle.fill"
-            case .liveTransits: return "globe.americas.fill"
-            }
-        }
-        
-        var description: String {
-            switch self {
-            case .birthChart: return "Your natal chart at birth"
-            case .liveTransits: return "Current planetary positions"
-            }
-        }
-    }
+    // Claude: SanctumViewMode enum moved to SanctumDataStructures.swift
     
     var body: some View {
         NavigationView {
@@ -434,24 +417,43 @@ struct SanctumTabView: View {
                         // Show content based on profile state
                         if let profile = userProfile {
                             // The Divine Triangle - Complete Numerological Trinity
-                            theDivineTriangleSection(profile)
+                            DivineTriangleSection(
+                                profile: profile,
+                                selectedArchetypeDetail: $selectedArchetypeDetail
+                            )
                             
-                            // Claude: Phase 12A.1 - Your Natal Chart Section
-                            natalChartSection(profile)
+                            // Your Natal Chart Section
+                            NatalChartSection(
+                                profile: profile,
+                                sanctumViewMode: $sanctumViewMode,
+                                housesAccordionExpanded: $housesAccordionExpanded,
+                                aspectsAccordionExpanded: $aspectsAccordionExpanded,
+                                glyphMapAccordionExpanded: $glyphMapAccordionExpanded,
+                                selectedHouseForSheet: $selectedHouseForSheet,
+                                selectedPlanet: $selectedPlanet,
+                                selectedAspect: $selectedAspect
+                            )
                         
-                        // Complete Spiritual Archetype
-                        if let userArchetype = archetypeManager.currentArchetype ?? archetypeManager.storedArchetype {
-                            completeArchetypeCodex(userArchetype)
-                        } else {
-                            // Show loading state for archetype
-                            archetypeLoadingView
-                        }
-                        
-                        // Action Buttons Section
-                        actionButtonsSection
-                        
-                        // Profile Summary
-                            profileSummarySection(profile)
+                            // Complete Spiritual Archetype
+                            if let userArchetype = archetypeManager.currentArchetype ?? archetypeManager.storedArchetype {
+                                ArchetypeCodexSection(
+                                    archetype: userArchetype,
+                                    selectedArchetypeDetail: $selectedArchetypeDetail,
+                                    archetypeGlow: $archetypeGlow
+                                )
+                            } else {
+                                // Show loading state for archetype
+                                archetypeLoadingView
+                            }
+                            
+                            // Action Buttons Section
+                            ActionButtonsSection(
+                                showingSigilView: $showingSigilView,
+                                showingShareSheet: $showingShareSheet
+                            )
+                            
+                            // Profile Summary
+                            ProfileSummarySection(profile: profile)
                         } else {
                             // Profile not loaded - show setup state
                             profileSetupNeededView
@@ -527,652 +529,6 @@ struct SanctumTabView: View {
         }
     }
     
-    // MARK: - Phase 12A.1: Natal Chart Section
-    
-    /// Claude: Your Natal Chart section with progressive disclosure accordions
-    ///
-    /// **🌌 Phase 12A.1: Sanctum Natal Chart Integration**
-    /// 
-    /// This section transforms the Sanctum into a comprehensive cosmic data center by adding
-    /// interactive natal chart information using the Phase 11A birth chart foundation.
-    /// Implements progressive disclosure to prevent information overload while providing
-    /// deep astrological insights for spiritually curious users.
-    ///
-    /// **🏗️ Accordion Architecture:**
-    /// - **Houses Accordion**: 12 astrological houses with planetary cusps
-    /// - **Aspects Accordion**: Major natal aspects table with orbs and meanings  
-    /// - **Glyph Map Accordion**: Visual ecliptic wheel with planetary positions
-    ///
-    /// **📱 UX Design:**
-    /// - All accordions collapsed by default to prevent cognitive overload
-    /// - Smooth expand/collapse animations using withAnimation
-    /// - Consistent styling with existing Sanctum aesthetic
-    /// - Tap-to-expand tooltips and detailed explanations
-    ///
-    /// **🔗 Integration:**
-    /// - Uses Phase 11A birth chart properties from UserProfile
-    /// - Builds on existing spiritual sanctuary concept
-    /// - Maintains performance with lazy loading of complex astrological data
-    private func natalChartSection(_ profile: UserProfile) -> some View {
-        VStack(spacing: 24) {
-            // Section Header with View Mode Toggle
-            VStack(spacing: 12) {
-                HStack {
-                    Text("✦ Your Cosmic Map ✦")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundStyle(
-                            LinearGradient(
-                                gradient: Gradient(colors: [.cyan, .blue, .purple]),
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .shadow(color: .cyan.opacity(0.5), radius: 5)
-                    
-                    Spacer()
-                    
-                    // View Mode Toggle
-                    Picker("View Mode", selection: $sanctumViewMode) {
-                        ForEach(SanctumViewMode.allCases, id: \.self) { mode in
-                            Label(mode.rawValue, systemImage: mode.icon)
-                                .tag(mode)
-                        }
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .scaleEffect(0.8)
-                }
-                
-                Text(sanctumViewMode.description)
-                    .font(.caption)
-                    .foregroundColor(.white.opacity(0.8))
-                    .italic()
-                
-                if let birthplace = profile.birthplaceName {
-                    Text("📍 \(birthplace)")
-                        .font(.caption2)
-                        .foregroundColor(.cyan.opacity(0.7))
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 4)
-                        .background(
-                            Capsule()
-                                .fill(Color.cyan.opacity(0.1))
-                                .overlay(
-                                    Capsule()
-                                        .stroke(Color.cyan.opacity(0.3), lineWidth: 1)
-                                )
-                        )
-                }
-            }
-            
-            // Claude: Phase 12A.1 Enhancement - Birth Chart Summary
-            if !getPlanetaryPositions(profile: profile, mode: sanctumViewMode).isEmpty {
-                birthChartSummary(profile)
-            }
-            
-            VStack(spacing: 16) {
-                // Houses Accordion
-                natalChartAccordion(
-                    title: "🏠 Astrological Houses",
-                    subtitle: "12 Life Areas & Planetary Cusps",
-                    isExpanded: $housesAccordionExpanded,
-                    content: {
-                        housesAccordionContent(profile)
-                    }
-                )
-                
-                // Aspects Accordion  
-                natalChartAccordion(
-                    title: "⭐ Major Aspects",
-                    subtitle: "Planetary Relationships & Orbs",
-                    isExpanded: $aspectsAccordionExpanded,
-                    content: {
-                        aspectsAccordionContent(profile)
-                    }
-                )
-                
-                // Planetary Map Accordion
-                natalChartAccordion(
-                    title: "🌌 Planetary Map",
-                    subtitle: "Visual Birth Chart Wheel",
-                    isExpanded: $glyphMapAccordionExpanded,
-                    content: {
-                        glyphMapAccordionContent(profile)
-                    }
-                )
-            }
-        }
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.black.opacity(0.4))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(
-                            LinearGradient(
-                                gradient: Gradient(colors: [.cyan.opacity(0.6), .blue.opacity(0.4), .purple.opacity(0.3)]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            ),
-                            lineWidth: 1.5
-                        )
-                )
-        )
-        .shadow(color: .cyan.opacity(0.3), radius: 15, x: 0, y: 8)
-    }
-    
-    /// Creates the birth chart summary section displaying planetary positions in a responsive grid layout
-    /// 
-    /// This function renders the main planetary positions section with a 3-column LazyVGrid layout,
-    /// displaying each planet's position in its zodiac sign with elemental information. Added in Phase 12A.1
-    /// and enhanced in Phase 15 with improved MegaCorpus integration and fixed card heights.
-    /// 
-    /// **Phase History:**
-    /// - Phase 12A.1: Initial planetary positions grid implementation
-    /// - Phase 15: Enhanced with MegaCorpus data integration and uniform card sizing
-    /// 
-    /// **UI Design Decisions:**
-    /// - Uses LazyVGrid with 3 flexible columns for optimal space utilization on all device sizes
-    /// - Fixed card height of 120pt ensures uniform appearance across all planetary position cards
-    /// - Purple gradient background maintains cosmic theme consistency
-    /// - Birth time validation shows precise calculation status to users
-    /// 
-    /// **MegaCorpus Integration:**
-    /// - Planetary positions sourced from CosmicData calculations
-    /// - Element colors and correspondences loaded from Signs.json MegaCorpus data
-    /// - Spiritual significance preserved through archetypal descriptions
-    /// 
-    /// **Spiritual Significance:**
-    /// - Each planet represents archetypal energies in the user's cosmic blueprint
-    /// - Elemental associations (Fire, Earth, Air, Water) show fundamental life force expressions
-    /// - Birth time precision affects house cusps and angles calculation accuracy
-    /// 
-    /// - Parameter profile: UserProfile containing birth data and cosmic information
-    /// - Returns: SwiftUI View displaying the planetary positions grid with birth time status
-    /// 
-    /// **Dependencies:**
-    /// - getPlanetaryPositions(): Calculates planetary positions from birth data
-    /// - planetPositionCard(): Renders individual planet position cards
-    /// - loadMegaCorpusData(): Accesses spiritual correspondence data
-    /// 
-    /// **Performance Notes:**
-    /// - LazyVGrid renders only visible cards for memory efficiency
-    /// - Fixed heights prevent layout calculations during scrolling
-    /// 
-    /// Claude: Phase 12A.1 Enhancement - Birth Chart Summary Section
-    private func birthChartSummary(_ profile: UserProfile) -> some View {
-        VStack(spacing: 12) {
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Text("🌟 Your Planetary Positions")
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                    
-                    Spacer()
-                }
-                
-                Text("Each planet carries archetypal wisdom and elemental energy that shapes your cosmic blueprint")
-                    .font(.caption)
-                    .foregroundColor(.white.opacity(0.7))
-                    .italic()
-            }
-            
-            let positions = getPlanetaryPositions(profile: profile, mode: sanctumViewMode)
-            LazyVGrid(columns: [
-                GridItem(.flexible(), spacing: 8),
-                GridItem(.flexible(), spacing: 8),
-                GridItem(.flexible(), spacing: 8)
-            ], spacing: 12) {
-                ForEach(positions, id: \.planet) { position in
-                    planetPositionCard(position: position)
-                        .frame(height: 120) // Claude: Fixed height for uniform cards
-                }
-            }
-            
-            // Claude: Check actual birth time data instead of hasBirthTime flag
-            if let hour = profile.birthTimeHour, let minute = profile.birthTimeMinute {
-                Text("✨ Calculated with exact birth time for precision (\(hour):\(String(format: "%02d", minute)))")
-                    .font(.caption2)
-                    .foregroundColor(.cyan.opacity(0.6))
-                    .italic()
-                    .onAppear {
-                        print("🕐 DEBUG: Birth time found - Hour: \(hour), Minute: \(minute), hasBirthTime flag: \(profile.hasBirthTime)")
-                    }
-            } else {
-                Text("🕐 Add birth time for precise house cusps and angles")
-                    .font(.caption2)
-                    .foregroundColor(.yellow.opacity(0.7))
-                    .italic()
-                    .onAppear {
-                        print("🕐 DEBUG: No birth time - Hour: \(profile.birthTimeHour?.description ?? "nil"), Minute: \(profile.birthTimeMinute?.description ?? "nil"), hasBirthTime flag: \(profile.hasBirthTime)")
-                    }
-                
-                // TEMPORARY: Button to fix birth data
-                Button(action: {
-                    print("🎯 FIXING BIRTH DATA...")
-                    UserProfileService.shared.updateUserBirthData(for: profile.id) { error in
-                        if let error = error {
-                            print("❌ Failed to update birth data: \(error.localizedDescription)")
-                        } else {
-                            print("✅ Birth data updated! Please restart the app to see changes.")
-                        }
-                    }
-                }) {
-                    Text("🔧 FIX BIRTH DATA (TEMP)")
-                        .font(.caption)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(Color.red.opacity(0.8))
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                }
-            }
-        }
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.purple.opacity(0.1))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.purple.opacity(0.3), lineWidth: 1)
-                )
-        )
-    }
-    
-    /// Renders an individual planetary position card with uniform sizing and comprehensive astrological information
-    /// 
-    /// Creates a tappable card displaying a planet's position in its zodiac sign, including planetary glyph,
-    /// elemental association, and archetypal description. This function ensures uniform card appearance
-    /// through fixed heights and prevents text overlap issues present in earlier phases.
-    /// 
-    /// **Phase History:**
-    /// - Phase 12A.1: Initial planet card implementation with basic information
-    /// - Phase 15: Major enhancement with fixed heights, improved text layout, and MegaCorpus integration
-    /// 
-    /// **UI Design Decisions:**
-    /// - Fixed height of 120pt matches birthChartSummary grid requirements for visual uniformity
-    /// - Header fixed at 24pt height to accommodate planet glyph and info icon consistently
-    /// - Planet name allocated 16pt height, sign text 14pt, description 20pt for consistent spacing
-    /// - Element badge positioned at bottom with Spacer() ensuring consistent placement
-    /// - Gradient border combines planet and sign colors for visual hierarchy
-    /// 
-    /// **MegaCorpus Integration:**
-    /// - Planet colors sourced from standardized cosmic color correspondence system
-    /// - Sign colors derived from elemental associations in Signs.json MegaCorpus data
-    /// - Element information (Fire, Earth, Air, Water) loaded from MegaCorpus Signs data
-    /// - Archetypal descriptions from planetary wisdom traditions
-    /// 
-    /// **Spiritual Significance:**
-    /// - Planet glyph represents archetypal symbol recognized across astrological traditions
-    /// - Sign placement shows the filter through which planetary energy expresses
-    /// - Element badge indicates fundamental life force quality (Fire=action, Earth=structure, Air=thought, Water=emotion)
-    /// - Mini descriptions provide accessible spiritual insights without overwhelming novice users
-    /// 
-    /// **Text Layout Engineering:**
-    /// - lineLimit(1) on planet name and sign prevents overflow in narrow cards
-    /// - lineLimit(2) on description provides essential info while preventing card height variations
-    /// - multilineTextAlignment(.center) ensures balanced appearance in grid layout
-    /// - All text heights are explicitly set to prevent dynamic sizing issues
-    /// 
-    /// - Parameter position: PlanetaryPosition containing planet name, zodiac sign, and calculated data
-    /// - Returns: SwiftUI Button view that opens detailed planet information when tapped
-    /// 
-    /// **Dependencies:**
-    /// - getPlanetGlyph(): Returns Unicode astrological symbol for planet
-    /// - getPlanetColor(): Returns thematic color for visual identification
-    /// - getSignColor(): Returns elemental color for zodiac sign
-    /// - getSignElement(): Retrieves elemental association from MegaCorpus
-    /// - getPlanetMiniDescription(): Provides concise archetypal description
-    /// - getElementColor(): Returns color for Fire/Earth/Air/Water elements
-    /// 
-    /// **Interactive Behavior:**
-    /// - Tapping sets selectedPlanet state to trigger detailed planetary information sheet
-    /// - PlainButtonStyle prevents default button styling from interfering with custom design
-    /// - Info icon provides visual cue that additional details are available
-    /// 
-    /// Claude: Enhanced planetary position card with uniform sizing and no text overlap
-    /// Claude: Phase 15 Enhancement - Fixed uniform card heights and improved text layout
-    private func planetPositionCard(position: PlanetaryPosition) -> some View {
-        Button(action: {
-            selectedPlanet = position
-        }) {
-            VStack(spacing: 4) {
-                // Claude: Header with planet glyph and info icon
-                ZStack(alignment: .topTrailing) {
-                    HStack {
-                        Text(getPlanetGlyph(position.planet))
-                            .font(.title3)
-                            .foregroundColor(getPlanetColor(position.planet))
-                        Spacer()
-                    }
-                    
-                    Image(systemName: "info.circle.fill")
-                        .font(.caption2)
-                        .foregroundColor(.white.opacity(0.6))
-                }
-                .frame(height: 24) // Claude: Fixed header height
-                
-                // Claude: Planet name - fixed space
-                Text(position.planet)
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white.opacity(0.9))
-                    .lineLimit(1)
-                    .frame(height: 16)
-                
-                // Claude: Sign text - fixed space
-                Text("in \(position.sign)")
-                    .font(.caption2)
-                    .foregroundColor(getSignColor(position.sign))
-                    .lineLimit(1)
-                    .frame(height: 14)
-                
-                // Claude: Description - controlled space
-                Text(getPlanetMiniDescription(position.planet))
-                    .font(.system(size: 9, weight: .medium))
-                    .foregroundColor(.white.opacity(0.6))
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-                    .frame(height: 20)
-                    .padding(.horizontal, 2)
-                
-                Spacer() // Claude: Push element to bottom
-                
-                // Claude: Element indicator - always at bottom
-                if let element = getSignElement(position.sign) {
-                    Text(element.uppercased())
-                        .font(.system(size: 8, weight: .bold))
-                        .foregroundColor(getElementColor(element))
-                        .padding(.horizontal, 4)
-                        .padding(.vertical, 1)
-                        .background(
-                            Capsule()
-                                .fill(getElementColor(element).opacity(0.2))
-                        )
-                        .frame(height: 16)
-                }
-            }
-            .padding(8)
-            .frame(maxWidth: .infinity) // Claude: Ensure full width usage
-            .background(
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.white.opacity(0.05))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [
-                                        getPlanetColor(position.planet).opacity(0.4),
-                                        getSignColor(position.sign).opacity(0.3)
-                                    ]),
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                ),
-                                lineWidth: 1
-                            )
-                    )
-            )
-        }
-        .buttonStyle(PlainButtonStyle())
-    }
-    
-    /// Retrieves the classical element (Fire, Earth, Air, Water) for a zodiac sign from MegaCorpus Signs.json data
-    /// 
-    /// This function accesses the MegaCorpus astrological database to determine the elemental association
-    /// of each zodiac sign, representing the fundamental life force energy that governs the sign's expression.
-    /// The four elements form the cornerstone of astrological understanding, representing different approaches
-    /// to experiencing and interacting with the world based on ancient philosophical traditions.
-    /// 
-    /// **Phase History:**
-    /// - Phase 12A.1: Basic element retrieval for planetary position cards
-    /// - Phase 15: Enhanced integration with house system and expanded usage throughout UI
-    /// 
-    /// **Classical Element System:**
-    /// The four elements represent fundamental energetic patterns in mystical tradition:
-    /// 
-    /// **Fire Signs:** Aries, Leo, Sagittarius
-    /// - Energy: Active, initiating, inspirational
-    /// - Nature: Spontaneous action, leadership, enthusiasm
-    /// - Spiritual Quality: Divine spark, creative force, will to manifest
-    /// 
-    /// **Earth Signs:** Taurus, Virgo, Capricorn  
-    /// - Energy: Stable, practical, materializing
-    /// - Nature: Structure, persistence, tangible results
-    /// - Spiritual Quality: Grounding force, manifestation, sacred matter
-    /// 
-    /// **Air Signs:** Gemini, Libra, Aquarius
-    /// - Energy: Mental, communicative, connecting
-    /// - Nature: Ideas, relationships, intellectual exploration
-    /// - Spiritual Quality: Breath of life, consciousness, divine thought
-    /// 
-    /// **Water Signs:** Cancer, Scorpio, Pisces
-    /// - Energy: Emotional, intuitive, flowing
-    /// - Nature: Feeling, depth, psychic sensitivity
-    /// - Spiritual Quality: Sacred waters, emotional wisdom, soul connection
-    /// 
-    /// **MegaCorpus Integration:**
-    /// - Sources authentic elemental data from Signs.json in MegaCorpus database
-    /// - Uses lowercase sign name for consistent JSON key matching
-    /// - Maintains traditional correspondences from classical astrology
-    /// - Provides graceful fallback if data is unavailable
-    /// 
-    /// **Spiritual Significance:**
-    /// - Elements reveal the soul's fundamental approach to life experience
-    /// - Shows the primary energy through which consciousness expresses
-    /// - Indicates natural affinities and challenges in personal development
-    /// - Forms the basis for understanding compatibility and growth patterns
-    /// 
-    /// - Parameter sign: String name of the zodiac sign (case-insensitive)
-    /// - Returns: Optional String containing element name ("fire", "earth", "air", "water"), or nil if unavailable
-    /// 
-    /// **Usage Throughout UI:**
-    /// - planetPositionCard(): Creates element badges for planetary positions
-    /// - houseCard(): Shows natural sign element influence on house domains
-    /// - Element badges provide quick visual identification of energetic quality
-    /// - Color coding through getElementColor() creates consistent visual language
-    /// 
-    /// **Dependencies:**
-    /// - loadMegaCorpusData(): Core function for accessing spiritual correspondence data
-    /// - Signs.json: MegaCorpus file containing complete zodiac sign attributes
-    /// - getElementColor(): Converts element names to visual colors
-    /// 
-    /// **Performance Notes:**
-    /// - Lightweight JSON lookup with minimal processing
-    /// - Case-insensitive matching for robust data retrieval
-    /// - Cached MegaCorpus data prevents repeated file access
-    /// 
-    /// Claude: Get sign element using SanctumDataManager service
-    private func getSignElement(_ sign: String) -> String? {
-        let element = sanctumData.getSignElement(for: sign)
-        return element.isEmpty ? nil : element
-    }
-    
-    /// Returns the corresponding SwiftUI Color for each classical astrological element with spiritual significance
-    /// 
-    /// This function translates element names into visually meaningful colors that maintain the spiritual
-    /// correspondence system throughout the Vybe app. Each color choice reflects both traditional
-    /// astrological associations and modern UI accessibility, creating an intuitive visual language
-    /// that helps users immediately recognize elemental energies in their cosmic profile.
-    /// 
-    /// **Phase History:**
-    /// - Phase 12A.1: Basic element color mapping for planetary cards
-    /// - Phase 15: Enhanced usage across house cards and expanded UI elements
-    /// 
-    /// **Color-Element Correspondences:**
-    /// **Fire → Red**
-    /// - Traditional: Mars energy, action, passion, dynamic force
-    /// - Visual Psychology: Stimulating, energizing, calls attention to active energy
-    /// - Spiritual Meaning: Divine spark, creative fire, will to manifest
-    /// 
-    /// **Earth → Brown**  
-    /// - Traditional: Grounding, stability, material manifestation
-    /// - Visual Psychology: Stable, reliable, connected to natural world
-    /// - Spiritual Meaning: Sacred matter, crystallized consciousness, foundation
-    /// 
-    /// **Air → Cyan**
-    /// - Traditional: Mental clarity, communication, breath of life
-    /// - Visual Psychology: Open, expansive, intellectual stimulation  
-    /// - Spiritual Meaning: Divine thought, consciousness, connecting principle
-    /// 
-    /// **Water → Blue**
-    /// - Traditional: Emotional depth, intuition, psychic sensitivity
-    /// - Visual Psychology: Calming, profound, invites introspection
-    /// - Spiritual Meaning: Sacred waters, soul connection, emotional wisdom
-    /// 
-    /// **Default → White**
-    /// - Fallback for invalid or missing element data
-    /// - Maintains UI consistency when data is unavailable
-    /// - Neutral presence that doesn't mislead users
-    /// 
-    /// **UI Integration Strategy:**
-    /// - Creates consistent visual vocabulary across all astrological displays
-    /// - Works with opacity variations for subtle background applications
-    /// - Provides sufficient contrast for accessibility in both light and cosmic themes
-    /// - Harmonizes with Vybe's overall purple-cyan cosmic color palette
-    /// 
-    /// **Spiritual Design Philosophy:**
-    /// - Colors chosen to invoke the authentic energetic feeling of each element
-    /// - Maintains reverence for traditional astrological color symbolism
-    /// - Supports meditative recognition of elemental qualities in user's chart
-    /// - Enhances intuitive understanding of cosmic forces in daily life
-    /// 
-    /// - Parameter element: String name of the classical element (case-insensitive)
-    /// - Returns: SwiftUI Color corresponding to the element's traditional association
-    /// 
-    /// **Usage Throughout UI:**
-    /// - Element badges in planetPositionCard() and houseCard()
-    /// - Background tints for element-themed sections
-    /// - Border colors that reflect elemental signatures
-    /// - Opacity variations for subtle elemental theming
-    /// 
-    /// **Dependencies:**
-    /// - SwiftUI Color system for cross-platform compatibility
-    /// - Case-insensitive element matching for robust color assignment
-    /// 
-    /// **Performance Notes:**
-    /// - Simple switch statement provides O(1) lookup time
-    /// - No external data dependencies - entirely self-contained
-    /// - Lightweight operation suitable for frequent UI updates
-    /// 
-    /// Claude: Get element color for visual distinction
-    private func getElementColor(_ element: String) -> Color {
-        switch element.lowercased() {
-        case "fire": return .red
-        case "earth": return .brown
-        case "air": return .cyan
-        case "water": return .blue
-        default: return .white
-        }
-    }
-    
-    /// Returns the traditional astrological color for each planet based on spiritual correspondences and visual theming
-    /// 
-    /// This function provides color associations for the ten primary celestial bodies used in modern astrology,
-    /// drawing from centuries of astrological tradition, alchemical correspondences, and practical UI design.
-    /// Each color choice reflects both the mythological associations of planetary deities and the visual
-    /// characteristics needed for clear identification in cosmic interface design.
-    /// 
-    /// **Phase History:**
-    /// - Phase 12A.1: Initial planetary color system for position cards
-    /// - Phase 15: Enhanced integration with gradient borders and expanded UI theming
-    /// 
-    /// **Traditional Planetary Color Correspondences:**
-    /// **Sun → Yellow**
-    /// - Traditional: Solar gold, life force, divine consciousness
-    /// - Mythology: Apollo's golden chariot, solar deity associations
-    /// - Spiritual Meaning: Core identity, creative power, vital essence
-    /// 
-    /// **Moon → Silver**
-    /// - Traditional: Lunar silver, reflection, feminine receptivity  
-    /// - Mythology: Diana's silver bow, nocturnal goddess symbolism
-    /// - Spiritual Meaning: Emotional nature, intuitive wisdom, cyclic rhythms
-    /// 
-    /// **Mercury → Blue**
-    /// - Traditional: Quicksilver, mental agility, communication
-    /// - Mythology: Hermes' caduceus, messenger deity speed
-    /// - Spiritual Meaning: Thought processes, learning ability, information exchange
-    /// 
-    /// **Venus → Green**
-    /// - Traditional: Copper green, love, natural beauty, harmony
-    /// - Mythology: Aphrodite's emerald, goddess of love and beauty
-    /// - Spiritual Meaning: Aesthetic values, relationships, attraction principles
-    /// 
-    /// **Mars → Red**
-    /// - Traditional: Iron red, action, passion, warrior energy
-    /// - Mythology: Ares' red armor, god of war symbolism
-    /// - Spiritual Meaning: Desire nature, assertiveness, courage to act
-    /// 
-    /// **Jupiter → Orange**
-    /// - Traditional: Expansive warmth, wisdom, benefic influence
-    /// - Mythology: Zeus' royal orange, king of gods majesty
-    /// - Spiritual Meaning: Higher wisdom, philosophical growth, abundance
-    /// 
-    /// **Saturn → Brown**
-    /// - Traditional: Lead brown, structure, time, limitation
-    /// - Mythology: Cronos' earthen restraint, father time symbolism
-    /// - Spiritual Meaning: Discipline, life lessons, karmic responsibility
-    /// 
-    /// **Uranus → Cyan**
-    /// - Traditional: Electric blue-green, innovation, awakening
-    /// - Modern: Discovery era electrical associations, sudden insights
-    /// - Spiritual Meaning: Revolutionary change, individualism, higher consciousness
-    /// 
-    /// **Neptune → Purple**
-    /// - Traditional: Mystical violet, spirituality, illusion
-    /// - Modern: Ocean depths, transcendent experiences
-    /// - Spiritual Meaning: Spiritual idealism, psychic sensitivity, dissolution of boundaries
-    /// 
-    /// **Pluto → Gray**
-    /// - Traditional: Underworld darkness, transformation, hidden power
-    /// - Modern: Atomic gray, plutonium associations
-    /// - Spiritual Meaning: Death-rebirth cycles, shadow work, profound transformation
-    /// 
-    /// **Default → White**
-    /// - Fallback for unrecognized planetary names or calculation errors
-    /// - Maintains visual consistency when data is incomplete
-    /// - Neutral presence that doesn't convey false astrological meaning
-    /// 
-    /// - Parameter planet: String name of the celestial body (case-insensitive)
-    /// - Returns: SwiftUI Color corresponding to traditional planetary associations
-    /// 
-    /// **Usage Throughout UI:**
-    /// - Primary identification color in planetPositionCard() headers
-    /// - Gradient border components blending with sign colors
-    /// - Thematic backgrounds for detailed planetary information sheets
-    /// - Visual hierarchy establishment in planetary aspect displays
-    /// 
-    /// **Design Philosophy:**
-    /// - Honors traditional astrological color symbolism for spiritual authenticity
-    /// - Provides sufficient contrast for accessibility in cosmic dark themes
-    /// - Creates intuitive associations between color and planetary archetype
-    /// - Supports meditative recognition of planetary energies in user's chart
-    /// 
-    /// **Dependencies:**
-    /// - SwiftUI Color system for cross-platform compatibility
-    /// - Case-insensitive planet matching for robust color assignment
-    /// 
-    /// **Performance Notes:**
-    /// - Efficient switch statement for O(1) color lookup
-    /// - No external data dependencies - entirely self-contained
-    /// - Suitable for frequent UI updates without performance impact
-    /// 
-    /// Claude: Get planet color for theming
-    private func getPlanetColor(_ planet: String) -> Color {
-        switch planet.lowercased() {
-        case "sun": return .yellow
-        case "moon": return .silver
-        case "mercury": return .blue
-        case "venus": return .green
-        case "mars": return .red
-        case "jupiter": return .orange
-        case "saturn": return .brown
-        case "uranus": return .cyan
-        case "neptune": return .purple
-        case "pluto": return .gray
-        default: return .white
-        }
-    }
     
     /// Claude: Reusable accordion component for natal chart sections
     private func natalChartAccordion<Content: View>(
@@ -1217,10 +573,10 @@ struct SanctumTabView: View {
                 .padding()
                 .background(
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.cyan.opacity(0.1))
+                        .fill(SwiftUI.Color.cyan.opacity(0.1))
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.cyan.opacity(0.3), lineWidth: 1)
+                                .stroke(SwiftUI.Color.cyan.opacity(0.3), lineWidth: 1)
                         )
                 )
             }
@@ -1280,10 +636,10 @@ struct SanctumTabView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.black.opacity(0.2))
+                .fill(SwiftUI.Color.black.opacity(0.2))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.cyan.opacity(0.2), lineWidth: 1)
+                        .stroke(SwiftUI.Color.cyan.opacity(0.2), lineWidth: 1)
                 )
         )
     }
@@ -1375,6 +731,36 @@ struct SanctumTabView: View {
             return zodiacInterpretation.mode
         }
         
+        func getSignElement(_ sign: String) -> String? {
+            return sanctumData.getSignElement(for: sign)
+        }
+        
+        func getElementColor(_ element: String) -> Color {
+            switch element.lowercased() {
+            case "fire": return .red
+            case "earth": return .brown
+            case "air": return .cyan
+            case "water": return .blue
+            default: return .white
+            }
+        }
+        
+        func getPlanetColor(_ planet: String) -> Color {
+            switch planet.lowercased() {
+            case "sun": return .yellow
+            case "moon": return .silver
+            case "mercury": return .blue
+            case "venus": return .green
+            case "mars": return .red
+            case "jupiter": return .orange
+            case "saturn": return .brown
+            case "uranus": return .cyan
+            case "neptune": return .purple
+            case "pluto": return .gray
+            default: return .white
+            }
+        }
+        
         return Button(action: {
             selectedHouseForSheet = IdentifiableInt(value: houseNumber)
         }) {
@@ -1452,7 +838,7 @@ struct SanctumTabView: View {
                             .padding(.vertical, 1)
                             .background(
                                 Capsule()
-                                    .fill(Color.white.opacity(0.1))
+                                    .fill(SwiftUI.Color.white.opacity(0.1))
                             )
                         
                         Spacer()
@@ -1471,7 +857,7 @@ struct SanctumTabView: View {
             .frame(height: 120) // Claude: Fixed height for uniform cards
             .background(
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.cyan.opacity(0.08))
+                    .fill(SwiftUI.Color.cyan.opacity(0.08))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(
@@ -1530,10 +916,10 @@ struct SanctumTabView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.black.opacity(0.2))
+                .fill(SwiftUI.Color.black.opacity(0.2))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.purple.opacity(0.2), lineWidth: 1)
+                        .stroke(SwiftUI.Color.purple.opacity(0.2), lineWidth: 1)
                 )
         )
     }
@@ -1641,10 +1027,10 @@ struct SanctumTabView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.black.opacity(0.2))
+                .fill(SwiftUI.Color.black.opacity(0.2))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.blue.opacity(0.2), lineWidth: 1)
+                        .stroke(SwiftUI.Color.blue.opacity(0.2), lineWidth: 1)
                 )
         )
     }
@@ -1652,7 +1038,38 @@ struct SanctumTabView: View {
     /// Claude: Individual planet row for list view
     /// Claude: Individual planet row for list view with rich descriptions
     private func planetListRow(position: PlanetaryPosition) -> some View {
-        Button(action: {
+        // Claude: Inline helper functions to resolve scope issues
+        func getPlanetColor(_ planet: String) -> Color {
+            switch planet.lowercased() {
+            case "sun": return .yellow
+            case "moon": return .silver
+            case "mercury": return .blue
+            case "venus": return .green
+            case "mars": return .red
+            case "jupiter": return .orange
+            case "saturn": return .brown
+            case "uranus": return .cyan
+            case "neptune": return .purple
+            case "pluto": return .gray
+            default: return .white
+            }
+        }
+        
+        func getSignElement(_ sign: String) -> String? {
+            return sanctumData.getSignElement(for: sign)
+        }
+        
+        func getElementColor(_ element: String) -> Color {
+            switch element.lowercased() {
+            case "fire": return .red
+            case "earth": return .brown
+            case "air": return .cyan
+            case "water": return .blue
+            default: return .white
+            }
+        }
+        
+        return Button(action: {
             selectedPlanet = position
         }) {
             HStack(spacing: 12) {
@@ -1713,14 +1130,14 @@ struct SanctumTabView: View {
             .padding(.vertical, 10)
             .background(
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.white.opacity(0.05))
+                    .fill(SwiftUI.Color.white.opacity(0.05))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(
                                 LinearGradient(
                                     gradient: Gradient(colors: [
                                         getPlanetColor(position.planet).opacity(0.3),
-                                        Color.white.opacity(0.1)
+                                        SwiftUI.Color.white.opacity(0.1)
                                     ]),
                                     startPoint: .leading,
                                     endPoint: .trailing
@@ -1850,7 +1267,7 @@ struct SanctumTabView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color.black.opacity(0.4))
+                .fill(SwiftUI.Color.black.opacity(0.4))
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
                         .stroke(
@@ -1925,7 +1342,7 @@ struct SanctumTabView: View {
                         gradient: Gradient(colors: [
                             color.opacity(0.25),
                             color.opacity(0.15),
-                            Color.black.opacity(0.4)
+                            SwiftUI.Color.black.opacity(0.4)
                         ]),
                         startPoint: .leading,
                         endPoint: .trailing
@@ -1993,10 +1410,10 @@ struct SanctumTabView: View {
                     .padding(.vertical, 6)
                     .background(
                         Capsule()
-                            .fill(Color.purple.opacity(0.2))
+                            .fill(SwiftUI.Color.purple.opacity(0.2))
                             .overlay(
                                 Capsule()
-                                    .stroke(Color.purple.opacity(0.4), lineWidth: 1)
+                                    .stroke(SwiftUI.Color.purple.opacity(0.4), lineWidth: 1)
                             )
                     )
                 }
@@ -2006,10 +1423,10 @@ struct SanctumTabView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color.black.opacity(0.4))
+                .fill(SwiftUI.Color.black.opacity(0.4))
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.purple.opacity(0.5), lineWidth: 1)
+                        .stroke(SwiftUI.Color.purple.opacity(0.5), lineWidth: 1)
                 )
         )
         .onAppear {
@@ -2032,9 +1449,9 @@ struct SanctumTabView: View {
                     .fill(
                         RadialGradient(
                             gradient: Gradient(colors: [
-                                Color.yellow.opacity(0.4),
-                                Color.orange.opacity(0.3),
-                                Color.clear
+                                SwiftUI.Color.yellow.opacity(0.4),
+                                SwiftUI.Color.orange.opacity(0.3),
+                                SwiftUI.Color.clear
                             ]),
                             center: .center,
                             startRadius: 50,
@@ -2073,10 +1490,10 @@ struct SanctumTabView: View {
                         .padding(.vertical, 6)
                         .background(
                             Capsule()
-                                .fill(Color.yellow.opacity(0.2))
+                                .fill(SwiftUI.Color.yellow.opacity(0.2))
                                 .overlay(
                                     Capsule()
-                                        .stroke(Color.yellow.opacity(0.4), lineWidth: 1)
+                                        .stroke(SwiftUI.Color.yellow.opacity(0.4), lineWidth: 1)
                                 )
                         )
                 }
@@ -2092,7 +1509,7 @@ struct SanctumTabView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 24)
-                .fill(Color.black.opacity(0.4))
+                .fill(SwiftUI.Color.black.opacity(0.4))
                 .overlay(
                     RoundedRectangle(cornerRadius: 24)
                         .stroke(
@@ -2108,113 +1525,7 @@ struct SanctumTabView: View {
         .shadow(color: .yellow.opacity(0.3), radius: 20, x: 0, y: 10)
     }
     
-    // MARK: - Action Buttons Section
     
-    private var actionButtonsSection: some View {
-        HStack(spacing: 20) {
-            // View Sigil Button
-            Button(action: {
-                showingSigilView = true
-                let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-                impactFeedback.impactOccurred()
-            }) {
-                HStack(spacing: 12) {
-                    Image(systemName: "hexagon.fill")
-                        .font(.title2)
-                    Text("View My Sigil")
-                        .fontWeight(.semibold)
-                }
-                .frame(maxWidth: .infinity)
-                .frame(height: 50)
-                .background(
-                    LinearGradient(
-                        gradient: Gradient(colors: [.purple, .indigo]),
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                )
-                .foregroundColor(.white)
-                .cornerRadius(12)
-                .shadow(color: .purple.opacity(0.3), radius: 8, x: 0, y: 4)
-            }
-            
-            // Share Card Button
-            Button(action: {
-                showingShareSheet = true
-                let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-                impactFeedback.impactOccurred()
-            }) {
-                HStack(spacing: 12) {
-                    Image(systemName: "square.and.arrow.up")
-                        .font(.title2)
-                    Text("Share Card")
-                        .fontWeight(.semibold)
-                }
-                .frame(maxWidth: .infinity)
-                .frame(height: 50)
-                .background(
-                    LinearGradient(
-                        gradient: Gradient(colors: [.teal, .blue]),
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                )
-                .foregroundColor(.white)
-                .cornerRadius(12)
-                .shadow(color: .teal.opacity(0.3), radius: 8, x: 0, y: 4)
-            }
-        }
-    }
-    
-    // MARK: - Profile Summary Section
-    
-    private func profileSummarySection(_ profile: UserProfile) -> some View {
-        VStack(spacing: 16) {
-            Text("Spiritual Preferences")
-                .font(.headline)
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            VStack(spacing: 12) {
-                ProfileSummaryRow(
-                    icon: "heart.circle.fill",
-                    title: "Spiritual Modes",
-                    value: profile.spiritualMode,
-                    color: .purple
-                )
-                
-                ProfileSummaryRow(
-                    icon: "message.circle.fill",
-                    title: "Insight Tone",
-                    value: profile.insightTone,
-                    color: .blue
-                )
-                
-                ProfileSummaryRow(
-                    icon: "tag.circle.fill",
-                    title: "Focus Areas",
-                    value: profile.focusTags.joined(separator: ", "),
-                    color: .green
-                )
-                
-                ProfileSummaryRow(
-                    icon: "moon.stars.fill",
-                    title: "Cosmic Preference",
-                    value: profile.cosmicPreference,
-                    color: .cyan
-                )
-            }
-        }
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.black.opacity(0.3))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
-                )
-        )
-    }
     
     // MARK: - Profile Setup Needed View
     
@@ -2229,7 +1540,7 @@ struct SanctumTabView: View {
                     Circle()
                         .fill(
                             RadialGradient(
-                                gradient: Gradient(colors: [Color.purple.opacity(0.3), Color.blue.opacity(0.3)]),
+                                gradient: Gradient(colors: [SwiftUI.Color.purple.opacity(0.3), SwiftUI.Color.blue.opacity(0.3)]),
                                 center: .center,
                                 startRadius: 10,
                                 endRadius: 60
@@ -2238,7 +1549,7 @@ struct SanctumTabView: View {
                 )
                 .overlay(
                     Circle()
-                        .stroke(Color.white.opacity(0.3), lineWidth: 2)
+                        .stroke(SwiftUI.Color.white.opacity(0.3), lineWidth: 2)
                 )
             
             VStack(spacing: 16) {
@@ -2303,10 +1614,10 @@ struct SanctumTabView: View {
                 .padding()
                 .background(
                     RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.black.opacity(0.4))
+                        .fill(SwiftUI.Color.black.opacity(0.4))
                         .overlay(
                             RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color.blue.opacity(0.5), lineWidth: 1)
+                                .stroke(SwiftUI.Color.blue.opacity(0.5), lineWidth: 1)
                         )
                 )
                 
@@ -2336,7 +1647,7 @@ struct SanctumTabView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color.black.opacity(0.3))
+                .fill(SwiftUI.Color.black.opacity(0.3))
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
                         .stroke(
@@ -2352,141 +1663,6 @@ struct SanctumTabView: View {
         .shadow(color: .purple.opacity(0.2), radius: 15, x: 0, y: 8)
     }
     
-    // MARK: - The Divine Triangle Section (Complete Numerological Trinity)
-    
-    private func theDivineTriangleSection(_ profile: UserProfile) -> some View {
-        VStack(spacing: 24) {
-            // Section Header
-            VStack(spacing: 8) {
-                Text("✧ The Divine Triangle ✧")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundStyle(
-                        LinearGradient(
-                            gradient: Gradient(colors: [.yellow, .orange, .red]),
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                    )
-                    .shadow(color: .yellow.opacity(0.5), radius: 5)
-                
-                Text("Your Sacred Numerological Trinity")
-                    .font(.subheadline)
-                    .foregroundColor(.white.opacity(0.8))
-                    .italic()
-                
-                Text("The complete blueprint of your soul's journey")
-                    .font(.caption)
-                    .foregroundColor(.white.opacity(0.6))
-                    .italic()
-            }
-            
-            VStack(spacing: 20) {
-                // Life Path Number (Primary - Larger Display)
-                Button(action: {
-                    selectedArchetypeDetail = .lifePathNumber(profile.lifePathNumber)
-                    let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-                    impactFeedback.impactOccurred()
-                }) {
-                    divineTriangleCard(
-                        number: profile.lifePathNumber,
-                        title: "Life Path Number",
-                        subtitle: "Soul's Journey & Purpose",
-                        description: sanctumData.getLifePathDescription(for: profile.lifePathNumber, isMaster: profile.isMasterNumber),
-                        icon: "star.circle.fill",
-                        color: .yellow,
-                        glowColor: .orange,
-                        isPrimary: true
-                    )
-                }
-                .buttonStyle(PlainButtonStyle())
-                
-                // Soul Urge Number (Heart's Desire)
-                if let soulUrge = profile.soulUrgeNumber {
-                    Button(action: {
-                        selectedArchetypeDetail = .soulUrgeNumber(soulUrge)
-                        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-                        impactFeedback.impactOccurred()
-                    }) {
-                        divineTriangleCard(
-                            number: soulUrge,
-                            title: "Soul Urge Number",
-                            subtitle: "Heart's Deepest Desire",
-                            description: soulUrgeDescription(for: soulUrge),
-                            icon: "heart.fill",
-                            color: .pink,
-                            glowColor: .red,
-                            isPrimary: false
-                        )
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                }
-                
-                // Expression Number (Life's Purpose)
-                if let expression = profile.expressionNumber {
-                    Button(action: {
-                        selectedArchetypeDetail = .expressionNumber(expression)
-                        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-                        impactFeedback.impactOccurred()
-                    }) {
-                        divineTriangleCard(
-                            number: expression,
-                            title: "Expression Number", 
-                            subtitle: "Natural Talents & Gifts",
-                            description: expressionDescription(for: expression),
-                            icon: "star.fill",
-                            color: .cyan,
-                            glowColor: .blue,
-                            isPrimary: false
-                        )
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                }
-                
-                // Master Number Badge (if applicable)
-                if profile.isMasterNumber {
-                    HStack {
-                        Image(systemName: "sparkles")
-                            .foregroundColor(.yellow)
-                        Text("✨ Master Number ✨")
-                            .font(.subheadline)
-                            .fontWeight(.medium)
-                            .foregroundColor(.yellow)
-                        Image(systemName: "sparkles")
-                            .foregroundColor(.yellow)
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 8)
-                    .background(
-                        Capsule()
-                            .fill(Color.yellow.opacity(0.2))
-                            .overlay(
-                                Capsule()
-                                    .stroke(Color.yellow.opacity(0.4), lineWidth: 1)
-                            )
-                    )
-                    .shadow(color: .yellow.opacity(0.3), radius: 5)
-                }
-            }
-        }
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.black.opacity(0.4))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(
-                            LinearGradient(
-                                gradient: Gradient(colors: [.yellow.opacity(0.6), .orange.opacity(0.4), .red.opacity(0.3)]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            ),
-                            lineWidth: 1.5
-                        )
-                )
-        )
-        .shadow(color: .yellow.opacity(0.3), radius: 15, x: 0, y: 8)
-    }
     
     // MARK: - Helper Functions
     
@@ -2617,7 +1793,7 @@ struct SanctumTabView: View {
                             gradient: Gradient(colors: [
                                 color.opacity(0.8),
                                 color.opacity(0.4),
-                                Color.clear
+                                SwiftUI.Color.clear
                             ]),
                             center: .center,
                             startRadius: isPrimary ? 15 : 10,
@@ -2672,7 +1848,7 @@ struct SanctumTabView: View {
         .padding(isPrimary ? 20 : 16)
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color.black.opacity(isPrimary ? 0.4 : 0.3))
+                .fill(SwiftUI.Color.black.opacity(isPrimary ? 0.4 : 0.3))
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(color.opacity(isPrimary ? 0.6 : 0.5), lineWidth: isPrimary ? 1.5 : 1)
@@ -2943,7 +2119,7 @@ struct InteractiveArchetypeCard: View {
         .padding(16)
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color.black.opacity(0.4))
+                .fill(SwiftUI.Color.black.opacity(0.4))
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(color.opacity(0.5), lineWidth: 1)
@@ -2953,36 +2129,6 @@ struct InteractiveArchetypeCard: View {
     }
 }
 
-struct ProfileSummaryRow: View {
-    let icon: String
-    let title: String
-    let value: String
-    let color: Color
-    
-    var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: icon)
-                .font(.title3)
-                .foregroundColor(color)
-                .frame(width: 24)
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-                    .foregroundColor(.white)
-                
-                Text(value)
-                    .font(.caption)
-                    .foregroundColor(.white.opacity(0.7))
-                    .lineLimit(2)
-            }
-            
-            Spacer()
-        }
-        .padding(.vertical, 8)
-    }
-}
 
 // MARK: - Placeholder Views
 
@@ -3328,47 +2474,7 @@ struct ArchetypeDetailView: View {
 
 // MARK: - Phase 12A.1: Natal Chart Helper Functions & Data Structures
 
-/// Claude: Data structure for natal aspects
-struct NatalAspect: Identifiable {
-    let id = UUID()
-    let planet1: String
-    let planet2: String
-    let type: AspectType
-    let orb: Double
-}
-
-/// Claude: Aspect types for natal chart analysis
-enum AspectType: String, CaseIterable {
-    case conjunction = "Conjunction"
-    case opposition = "Opposition"
-    case trine = "Trine"
-    case square = "Square"
-    case sextile = "Sextile"
-    case quincunx = "Quincunx"
-}
-
-/// Claude: Data structure for planetary positions on chart wheel
-struct PlanetaryPosition: Identifiable {
-    let id = UUID()
-    let planet: String
-    let sign: String
-    let degree: Int
-    let houseNumber: Int? // Placidus house number (1-12), nil for transits
-    
-    /// Formatted display with house number (like Co-Star)
-    var formattedWithHouse: String {
-        if let house = houseNumber {
-            return "in \(sign), House \(house)"
-        }
-        return "in \(sign)"
-    }
-}
-
-/// Claude: Identifiable wrapper for Int values in sheets
-struct IdentifiableInt: Identifiable {
-    let id = UUID()
-    let value: Int
-}
+// Claude: Type definitions moved to SanctumDataStructures.swift to avoid duplication
 
 // MARK: - Supporting Functions
 
@@ -3510,21 +2616,27 @@ private func getMajorAspects(profile: UserProfile) -> [NatalAspect] {
             planet1: "Sun",
             planet2: "Moon",
             type: .sextile,
-            orb: 3.2
+            orb: 3.2,
+            maxOrb: 6.0,
+            interpretation: "Harmonious balance between conscious will and emotional nature"
         ))
         
         aspects.append(NatalAspect(
             planet1: "Venus",
             planet2: "Jupiter",
             type: .trine,
-            orb: 4.1
+            orb: 4.1,
+            maxOrb: 8.0,
+            interpretation: "Natural abundance and graceful expansion in relationships"
         ))
         
         aspects.append(NatalAspect(
             planet1: "Sun",
             planet2: "Mercury",
             type: .conjunction,
-            orb: 2.1
+            orb: 2.1,
+            maxOrb: 10.0,
+            interpretation: "Strong integration of mind and identity"
         ))
         
         // Challenging aspects for growth
@@ -3532,14 +2644,18 @@ private func getMajorAspects(profile: UserProfile) -> [NatalAspect] {
             planet1: "Moon",
             planet2: "Saturn",
             type: .square,
-            orb: 5.3
+            orb: 5.3,
+            maxOrb: 8.0,
+            interpretation: "Learning to balance emotional needs with responsibility"
         ))
         
         aspects.append(NatalAspect(
             planet1: "Mars",
             planet2: "Pluto",
             type: .opposition,
-            orb: 6.8
+            orb: 6.8,
+            maxOrb: 8.0,
+            interpretation: "Transforming personal will through deep psychological insights"
         ))
     }
     
@@ -3640,7 +2756,7 @@ struct HouseDetailView: View {
                         .foregroundColor(.secondary)
                 }
                 .padding()
-                .background(Color.secondary.opacity(0.1))
+                .background(SwiftUI.Color.secondary.opacity(0.1))
                 .cornerRadius(12)
                 
                 // Key Life Themes Section
@@ -3667,7 +2783,7 @@ struct HouseDetailView: View {
                     }
                 }
                 .padding()
-                .background(Color.secondary.opacity(0.05))
+                .background(SwiftUI.Color.secondary.opacity(0.05))
                 .cornerRadius(12)
                 
                 // Zodiac Influence Section
@@ -3684,7 +2800,7 @@ struct HouseDetailView: View {
                             .foregroundColor(.secondary)
                     }
                     .padding()
-                    .background(Color.secondary.opacity(0.1))
+                    .background(SwiftUI.Color.secondary.opacity(0.1))
                     .cornerRadius(12)
                 }
                 
@@ -3702,7 +2818,7 @@ struct HouseDetailView: View {
                         .foregroundColor(.secondary)
                 }
                 .padding()
-                .background(Color.secondary.opacity(0.1))
+                .background(SwiftUI.Color.secondary.opacity(0.1))
                 .cornerRadius(12)
                 
                 Spacer()
@@ -3932,6 +3048,23 @@ struct HouseDetailView: View {
 struct PlanetDetailView: View {
     let planet: String
     
+    // Claude: Helper functions for planet detail view
+    private func getPlanetColor(_ planet: String) -> Color {
+        switch planet.lowercased() {
+        case "sun": return .yellow
+        case "moon": return .silver
+        case "mercury": return .blue
+        case "venus": return .green
+        case "mars": return .red
+        case "jupiter": return .orange
+        case "saturn": return .brown
+        case "uranus": return .cyan
+        case "neptune": return .purple
+        case "pluto": return .gray
+        default: return .white
+        }
+    }
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
@@ -3967,7 +3100,7 @@ struct PlanetDetailView: View {
                         .foregroundColor(.secondary)
                 }
                 .padding()
-                .background(Color.secondary.opacity(0.1))
+                .background(SwiftUI.Color.secondary.opacity(0.1))
                 .cornerRadius(12)
                 
                 // Key Energies Section
@@ -3994,7 +3127,7 @@ struct PlanetDetailView: View {
                     }
                 }
                 .padding()
-                .background(Color.secondary.opacity(0.05))
+                .background(SwiftUI.Color.secondary.opacity(0.05))
                 .cornerRadius(12)
                 
                 // Spiritual Guidance Section
@@ -4011,7 +3144,7 @@ struct PlanetDetailView: View {
                         .foregroundColor(.secondary)
                 }
                 .padding()
-                .background(Color.secondary.opacity(0.1))
+                .background(SwiftUI.Color.secondary.opacity(0.1))
                 .cornerRadius(12)
                 
                 Spacer()
@@ -4118,16 +3251,6 @@ struct PlanetDetailView: View {
         ]
         return guidance[planet.lowercased()] ?? "This planetary energy offers unique gifts for your spiritual journey. Embrace its lessons with an open heart."
     }
-    
-    private func getPlanetColor(_ planet: String) -> Color {
-        let colors = [
-            "sun": Color.yellow, "moon": Color.blue, "mercury": Color.orange,
-            "venus": Color.pink, "mars": Color.red, "jupiter": Color.purple,
-            "saturn": Color.brown, "uranus": Color.cyan, "neptune": Color.mint,
-            "pluto": Color.indigo
-        ]
-        return colors[planet.lowercased()] ?? Color.white
-    }
 }
 
 /// Enhanced aspect detail view with comprehensive MegaCorpus data and spiritual insights
@@ -4170,7 +3293,7 @@ struct AspectDetailView: View {
                         .foregroundColor(.secondary)
                 }
                 .padding()
-                .background(Color.secondary.opacity(0.1))
+                .background(SwiftUI.Color.secondary.opacity(0.1))
                 .cornerRadius(12)
                 
                 // Key Themes Section
@@ -4197,7 +3320,7 @@ struct AspectDetailView: View {
                     }
                 }
                 .padding()
-                .background(Color.secondary.opacity(0.05))
+                .background(SwiftUI.Color.secondary.opacity(0.05))
                 .cornerRadius(12)
                 
                 // Planetary Relationship Section
@@ -4213,7 +3336,7 @@ struct AspectDetailView: View {
                         .foregroundColor(.secondary)
                 }
                 .padding()
-                .background(Color.secondary.opacity(0.1))
+                .background(SwiftUI.Color.secondary.opacity(0.1))
                 .cornerRadius(12)
                 
                 // Spiritual Guidance Section
@@ -4230,7 +3353,7 @@ struct AspectDetailView: View {
                         .foregroundColor(.secondary)
                 }
                 .padding()
-                .background(Color.secondary.opacity(0.1))
+                .background(SwiftUI.Color.secondary.opacity(0.1))
                 .cornerRadius(12)
                 
                 Spacer()
@@ -4519,6 +3642,41 @@ struct AspectDetailView: View {
         case 8: return "You naturally express business acumen, material mastery, and executive ability"
         case 9: return "You naturally express universal understanding, artistic vision, and humanitarian service"
         default: return "You express your unique talents and gifts in your own special way"
+        }
+    }
+    
+    // MARK: - Helper Functions
+    
+    /// Claude: Get element for zodiac sign using SanctumDataManager
+    private func getSignElement(_ sign: String) -> String? {
+        return SanctumDataManager.shared.getSignElement(for: sign)
+    }
+    
+    /// Claude: Get element color for visual theming
+    private func getElementColor(_ element: String) -> Color {
+        switch element.lowercased() {
+        case "fire": return .red
+        case "earth": return .brown
+        case "air": return .cyan
+        case "water": return .blue
+        default: return .white
+        }
+    }
+    
+    /// Claude: Get planet color for visual theming
+    private func getPlanetColor(_ planet: String) -> Color {
+        switch planet.lowercased() {
+        case "sun": return .yellow
+        case "moon": return .silver
+        case "mercury": return .blue
+        case "venus": return .green
+        case "mars": return .red
+        case "jupiter": return .orange
+        case "saturn": return .brown
+        case "uranus": return .cyan
+        case "neptune": return .purple
+        case "pluto": return .gray
+        default: return .white
         }
     }
 }

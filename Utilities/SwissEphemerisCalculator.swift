@@ -284,38 +284,67 @@ struct SwissEphemerisCalculator {
             
         case .mercury:
             let mercury = Mercury(julianDay: julianDay)
-            let mercuryEcliptic = mercury.heliocentricEclipticCoordinates
-            return mercuryEcliptic.celestialLongitude.value
+            let mercuryEquatorial = mercury.equatorialCoordinates
+            // Convert equatorial to ecliptic longitude for astrological use
+            return convertEquatorialToEclipticLongitude(
+                rightAscension: mercuryEquatorial.rightAscension.value * 15.0, // Convert hours to degrees
+                declination: mercuryEquatorial.declination.value,
+                julianDay: julianDay
+            )
             
         case .venus:
             let venus = Venus(julianDay: julianDay)
-            let venusEcliptic = venus.heliocentricEclipticCoordinates
-            return venusEcliptic.celestialLongitude.value
+            let venusEquatorial = venus.equatorialCoordinates
+            return convertEquatorialToEclipticLongitude(
+                rightAscension: venusEquatorial.rightAscension.value * 15.0,
+                declination: venusEquatorial.declination.value,
+                julianDay: julianDay
+            )
             
         case .mars:
             let mars = Mars(julianDay: julianDay)
-            let marsEcliptic = mars.heliocentricEclipticCoordinates
-            return marsEcliptic.celestialLongitude.value
+            let marsEquatorial = mars.equatorialCoordinates
+            return convertEquatorialToEclipticLongitude(
+                rightAscension: marsEquatorial.rightAscension.value * 15.0,
+                declination: marsEquatorial.declination.value,
+                julianDay: julianDay
+            )
             
         case .jupiter:
             let jupiter = Jupiter(julianDay: julianDay)
-            let jupiterEcliptic = jupiter.heliocentricEclipticCoordinates
-            return jupiterEcliptic.celestialLongitude.value
+            let jupiterEquatorial = jupiter.equatorialCoordinates
+            return convertEquatorialToEclipticLongitude(
+                rightAscension: jupiterEquatorial.rightAscension.value * 15.0,
+                declination: jupiterEquatorial.declination.value,
+                julianDay: julianDay
+            )
             
         case .saturn:
             let saturn = Saturn(julianDay: julianDay)
-            let saturnEcliptic = saturn.heliocentricEclipticCoordinates
-            return saturnEcliptic.celestialLongitude.value
+            let saturnEquatorial = saturn.equatorialCoordinates
+            return convertEquatorialToEclipticLongitude(
+                rightAscension: saturnEquatorial.rightAscension.value * 15.0,
+                declination: saturnEquatorial.declination.value,
+                julianDay: julianDay
+            )
             
         case .uranus:
             let uranus = Uranus(julianDay: julianDay)
-            let uranusEcliptic = uranus.heliocentricEclipticCoordinates
-            return uranusEcliptic.celestialLongitude.value
+            let uranusEquatorial = uranus.equatorialCoordinates
+            return convertEquatorialToEclipticLongitude(
+                rightAscension: uranusEquatorial.rightAscension.value * 15.0,
+                declination: uranusEquatorial.declination.value,
+                julianDay: julianDay
+            )
             
         case .neptune:
             let neptune = Neptune(julianDay: julianDay)
-            let neptuneEcliptic = neptune.heliocentricEclipticCoordinates
-            return neptuneEcliptic.celestialLongitude.value
+            let neptuneEquatorial = neptune.equatorialCoordinates
+            return convertEquatorialToEclipticLongitude(
+                rightAscension: neptuneEquatorial.rightAscension.value * 15.0,
+                declination: neptuneEquatorial.declination.value,
+                julianDay: julianDay
+            )
             
         case .pluto:
             // Claude: Pluto orbital calculation using professional JPL elements
@@ -384,6 +413,39 @@ struct SwissEphemerisCalculator {
     }
     
     // MARK: - Coordinate Conversion
+    
+    /**
+     * Convert equatorial coordinates to ecliptic longitude for astrological calculations
+     * This provides geocentric ecliptic positions as seen from Earth
+     */
+    private static func convertEquatorialToEclipticLongitude(
+        rightAscension: Double,
+        declination: Double,
+        julianDay: JulianDay
+    ) -> Double {
+        // Calculate obliquity of the ecliptic for the given date
+        let t = (julianDay.value - 2451545.0) / 36525.0  // Julian centuries from J2000.0
+        let obliquity = 23.439291 - 0.0130042 * t  // Mean obliquity in degrees
+        let obliquityRad = obliquity * .pi / 180.0
+        
+        // Convert degrees to radians
+        let raRad = rightAscension * .pi / 180.0
+        let decRad = declination * .pi / 180.0
+        
+        // Convert equatorial to ecliptic coordinates
+        let cosObliquity = cos(obliquityRad)
+        let sinObliquity = sin(obliquityRad)
+        
+        let x = cos(decRad) * cos(raRad)
+        let y = cos(decRad) * sin(raRad) * cosObliquity + sin(decRad) * sinObliquity
+        let _ = -cos(decRad) * sin(raRad) * sinObliquity + sin(decRad) * cosObliquity  // z-coordinate not needed for longitude
+        
+        // Calculate ecliptic longitude
+        let eclipticLongitude = atan2(y, x) * 180.0 / .pi
+        
+        // Normalize to 0-360 degrees
+        return eclipticLongitude < 0 ? eclipticLongitude + 360.0 : eclipticLongitude
+    }
     
     /**
      * Convert ecliptic longitude to zodiac sign and degree within sign

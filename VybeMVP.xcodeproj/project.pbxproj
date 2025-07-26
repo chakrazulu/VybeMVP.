@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D0AF68F2E348B7D003E4838 /* SanctumDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0AF68E2E348B7D003E4838 /* SanctumDataStructures.swift */; };
 		4D0CA8D12DE69F4600D4A6D6 /* NumerologyRainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CA8D02DE69F4600D4A6D6 /* NumerologyRainView.swift */; };
 		4D2CC6F02E079B6D00BDF100 /* SacredGeometry3DView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC6EF2E079B6D00BDF100 /* SacredGeometry3DView.swift */; };
 		4D2CC6F22E08680400BDF100 /* MandalaBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC6F12E08680400BDF100 /* MandalaBackgroundView.swift */; };
@@ -34,6 +35,11 @@
 		4D2DB48D2DFF6AF90003353E /* SightingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB48C2DFF6AF90003353E /* SightingDetailView.swift */; };
 		4D2DB48F2DFF70490003353E /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB48E2DFF70490003353E /* LocationManager.swift */; };
 		4D2DB4912DFF70E00003353E /* SharedUIComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DB4902DFF70E00003353E /* SharedUIComponents.swift */; };
+		4D2F223E2E347C0F0087B052 /* ArchetypeCodexSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2F223A2E347C0F0087B052 /* ArchetypeCodexSection.swift */; };
+		4D2F223F2E347C0F0087B052 /* ProfileSummarySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2F223C2E347C0F0087B052 /* ProfileSummarySection.swift */; };
+		4D2F22402E347C0F0087B052 /* ActionButtonsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2F22392E347C0F0087B052 /* ActionButtonsSection.swift */; };
+		4D2F22412E347C0F0087B052 /* DivineTriangleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2F223B2E347C0F0087B052 /* DivineTriangleSection.swift */; };
+		4D2F22432E3482C70087B052 /* NatalChartSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2F22422E3482C70087B052 /* NatalChartSection.swift */; };
 		4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */; };
 		4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */; };
 		4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055BF2D3CA97C009A7BBD /* VybeMVP.xcdatamodeld */; };
@@ -276,6 +282,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4D0AF68E2E348B7D003E4838 /* SanctumDataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SanctumDataStructures.swift; sourceTree = "<group>"; };
 		4D0CA8D02DE69F4600D4A6D6 /* NumerologyRainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyRainView.swift; sourceTree = "<group>"; };
 		4D2CC6EF2E079B6D00BDF100 /* SacredGeometry3DView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SacredGeometry3DView.swift; sourceTree = "<group>"; };
 		4D2CC6F12E08680400BDF100 /* MandalaBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalaBackgroundView.swift; sourceTree = "<group>"; };
@@ -304,6 +311,11 @@
 		4D2DB48C2DFF6AF90003353E /* SightingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SightingDetailView.swift; sourceTree = "<group>"; };
 		4D2DB48E2DFF70490003353E /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		4D2DB4902DFF70E00003353E /* SharedUIComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedUIComponents.swift; sourceTree = "<group>"; };
+		4D2F22392E347C0F0087B052 /* ActionButtonsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonsSection.swift; sourceTree = "<group>"; };
+		4D2F223A2E347C0F0087B052 /* ArchetypeCodexSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchetypeCodexSection.swift; sourceTree = "<group>"; };
+		4D2F223B2E347C0F0087B052 /* DivineTriangleSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivineTriangleSection.swift; sourceTree = "<group>"; };
+		4D2F223C2E347C0F0087B052 /* ProfileSummarySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSummarySection.swift; sourceTree = "<group>"; };
+		4D2F22422E3482C70087B052 /* NatalChartSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NatalChartSection.swift; sourceTree = "<group>"; };
 		4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberHelper.swift; sourceTree = "<group>"; };
 		4D3055B62D3C9C3B009A7BBD /* VybeMVP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VybeMVP.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4D3055BD2D3C9FF0009A7BBD /* FocusNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNumberView.swift; sourceTree = "<group>"; };
@@ -585,6 +597,18 @@
 			path = Sightings;
 			sourceTree = "<group>";
 		};
+		4D2F223D2E347C0F0087B052 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4D2F22422E3482C70087B052 /* NatalChartSection.swift */,
+				4D2F22392E347C0F0087B052 /* ActionButtonsSection.swift */,
+				4D2F223A2E347C0F0087B052 /* ArchetypeCodexSection.swift */,
+				4D2F223B2E347C0F0087B052 /* DivineTriangleSection.swift */,
+				4D2F223C2E347C0F0087B052 /* ProfileSummarySection.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		4D3055972D3C941B009A7BBD /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -683,6 +707,8 @@
 			isa = PBXGroup;
 			children = (
 				4DCEE4832E3438DB007CA451 /* SanctumTabView.swift */,
+				4D0AF68E2E348B7D003E4838 /* SanctumDataStructures.swift */,
+				4D2F223D2E347C0F0087B052 /* Components */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -1349,6 +1375,10 @@
 				4D6308DE2DFFCB2C00FD32E9 /* Post.swift in Sources */,
 				4D6308DF2DFFCB2C00FD32E9 /* PostCardView.swift in Sources */,
 				4D2CC6FB2E08BE3700BDF100 /* SacredGeometryAssets.swift in Sources */,
+				4D2F223E2E347C0F0087B052 /* ArchetypeCodexSection.swift in Sources */,
+				4D2F223F2E347C0F0087B052 /* ProfileSummarySection.swift in Sources */,
+				4D2F22402E347C0F0087B052 /* ActionButtonsSection.swift in Sources */,
+				4D2F22412E347C0F0087B052 /* DivineTriangleSection.swift in Sources */,
 				4D6308E02DFFCB2C00FD32E9 /* SocialTimelineView.swift in Sources */,
 				4D6308E12DFFCB2C00FD32E9 /* SocialUser.swift in Sources */,
 				4DCEE4802E3433CF007CA451 /* AstrologyService.swift in Sources */,
@@ -1366,6 +1396,7 @@
 				4D2CC7182E0C70F600BDF100 /* TwinklingDigitsBackground.swift in Sources */,
 				4D2CC7142E0B9EFA00BDF100 /* EnhancedLoadingView.swift in Sources */,
 				4DB233F42E114580004EC2BC /* NeonTracerView.swift in Sources */,
+				4D2F22432E3482C70087B052 /* NatalChartSection.swift in Sources */,
 				4D3727152DE550ED00B5A02B /* CosmicBackgroundView.swift in Sources */,
 				4D2CC7102E0B9EB700BDF100 /* RulingNumberChartView.swift in Sources */,
 				4D6C7B9D2DE47E99001036E5 /* OnboardingReflectionModeView.swift in Sources */,
@@ -1382,6 +1413,7 @@
 				4D6C7BA52DE47E99001036E5 /* OnboardingSpiritualModeView.swift in Sources */,
 				4D6C7BA62DE47E99001036E5 /* OnboardingFocusTagsView.swift in Sources */,
 				4D6C7BA72DE47E99001036E5 /* OnboardingNotificationsView.swift in Sources */,
+				4D0AF68F2E348B7D003E4838 /* SanctumDataStructures.swift in Sources */,
 				4DB233FD2E11F4CC004EC2BC /* TestCosmicAnimationView.swift in Sources */,
 				4D6C7BAA2DE47F1B001036E5 /* InsightFilterService.swift in Sources */,
 				4DC602392D345A3500B5E4A9 /* SignInView.swift in Sources */,
