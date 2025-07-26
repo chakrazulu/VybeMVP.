@@ -313,3 +313,6 @@ This document incorporates guidelines and best practices from:
 - Always check imports when using UI functions (e.g., SwiftUI for withAnimation)
 - Maintain existing code style and patterns
 - Test thoroughly before marking tasks complete
+
+## Memory
+- **Build Testing:** I will test the builds myself unless just syntax checking because it will time out everytime. 

@@ -1,54 +1,16 @@
 import SwiftUI
 import Foundation
 
-// MARK: - MegaCorpus Cache
-/// Singleton cache for MegaCorpus JSON data to avoid reloading
-class MegaCorpusCache {
-    static let shared = MegaCorpusCache()
-    var data: [String: Any]?
-    private init() {}
-}
+// MARK: - Service Dependencies
+/// Claude: Centralized services eliminate scope issues and provide clean architecture
 
-/// Claude: Load MegaCorpus data with caching for UserProfileTabView
-/// This function loads all MegaCorpus JSON files and caches them for efficient access.
-/// Used throughout UserProfileTabView to provide rich spiritual data for user insights.
-/// Claude: Global loadMegaCorpusData function for UserProfileTabView
-/// This function loads all MegaCorpus JSON files and caches them for efficient access.
-/// Used throughout UserProfileTabView to provide rich spiritual data for user insights.
-func loadMegaCorpusData() -> [String: Any] {
-    // Check cache first
-    if let cachedData = MegaCorpusCache.shared.data {
-        return cachedData
-    }
-    
-    // Load all MegaCorpus JSON files
-    let fileNames = ["Signs", "Planets", "Houses", "Aspects", "Elements", "Modes", "MoonPhases", "ApparentMotion", "Numerology"]
-    var megaData: [String: Any] = [:]
-    
-    for fileName in fileNames {
-        // Try multiple paths to find the file
-        let paths = [
-            Bundle.main.path(forResource: fileName, ofType: "json", inDirectory: "NumerologyData/MegaCorpus"),
-            Bundle.main.path(forResource: fileName, ofType: "json"),
-            Bundle.main.path(forResource: "MegaCorpus/\(fileName)", ofType: "json")
-        ]
-        
-        for path in paths.compactMap({ $0 }) {
-            if let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
-               let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                megaData[fileName.lowercased()] = json
-                break
-            }
-        }
-    }
-    
-    // Cache the loaded data
-    MegaCorpusCache.shared.data = megaData
-    return megaData
+/// Claude: Global MegaCorpus data loading function for compatibility
+@MainActor func loadMegaCorpusData() -> [String: Any] {
+    return SanctumDataManager.shared.megaCorpusData
 }
 
 /**
- * UserProfileTabView - The Sacred Digital Altar
+ * SanctumTabView - The Sacred Digital Altar
  * 
  * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
  * 
@@ -155,9 +117,9 @@ func loadMegaCorpusData() -> [String: Any] {
 
 // MARK: - Helper Functions for Spiritual Descriptions
 
-// Claude: Life Path Descriptions using MegaCorpus Numerology data for KASPER AI integration
-func lifePathDescription(for number: Int, isMaster: Bool) -> String {
-    let cosmicData = loadMegaCorpusData()
+// Claude: Life Path Descriptions using SanctumDataManager for KASPER AI integration
+@MainActor func lifePathDescription(for number: Int, isMaster: Bool) -> String {
+    let cosmicData = SanctumDataManager.shared.megaCorpusData
     
     if isMaster {
         // Load from MegaCorpus masterNumbers section
@@ -251,56 +213,18 @@ func lifePathDescription(for number: Int, isMaster: Bool) -> String {
 ///
 /// **Return Format:** "Archetype • Element Mode • Keyword1 • Keyword2 • Keyword3"
 /// **Example:** "The Pioneer • Fire Cardinal • Initiative • Leadership • Courage"
-func detailedZodiacDescription(for sign: ZodiacSign) -> String {
-    let cosmicData = loadMegaCorpusData()
+/// Claude: Global zodiac description using AstrologyService
+@MainActor func detailedZodiacDescription(for sign: ZodiacSign) -> String {
+    let astrologyService = AstrologyService.shared
+    let zodiacInterpretation = astrologyService.getZodiacInterpretation(for: sign.rawValue)
     
-    // Try to load from mega corpus first - fix nested structure access
-    if let signsFile = cosmicData["signs"] as? [String: Any],
-       let signs = signsFile["signs"] as? [String: Any] {
-        let signKey = sign.rawValue.lowercased()
-        
-        if let signData = signs[signKey] as? [String: Any] {
-            // Extract data from the actual JSON structure for rich description
-            let name = signData["name"] as? String ?? sign.rawValue
-            let description = signData["description"] as? String ?? ""
-            let keyTraits = signData["keyTraits"] as? [String] ?? []
-            
-            // Create rich description format like other detailed views
-            if !description.isEmpty {
-                let traitsText = keyTraits.prefix(3).map { trait in
-                    trait.components(separatedBy: ":").first?.trimmingCharacters(in: .whitespacesAndNewlines) ?? trait
-                }.joined(separator: " • ")
-                
-                let richDescription = "\(description)\n\nCore Traits: \(traitsText)"
-                return richDescription
-            } else {
-                // Fallback to basic format if no description
-                let element = signData["element"] as? String ?? ""
-                let mode = signData["mode"] as? String ?? ""
-                let traitsText = keyTraits.prefix(3).map { trait in
-                    trait.components(separatedBy: ":").first?.trimmingCharacters(in: .whitespacesAndNewlines) ?? trait
-                }.joined(separator: " • ")
-                
-                return "\(name) • \(element) \(mode) • \(traitsText)"
-            }
-        }
-    }
+    let description = zodiacInterpretation.baseDescription
+    let traitsText = zodiacInterpretation.keywords.prefix(3).joined(separator: " • ")
     
-    print("⚠️ Using fallback zodiac description for \(sign.rawValue)")
-    // Fallback to original descriptions
-    switch sign {
-    case .aries: return "The Pioneer • Fire Cardinal • Initiative • Leadership • Courage"
-    case .taurus: return "The Builder • Earth Fixed • Stability • Sensuality • Persistence"
-    case .gemini: return "The Communicator • Air Mutable • Communication • Curiosity • Adaptability"
-    case .cancer: return "The Nurturer • Water Cardinal • Nurturing • Intuition • Protection"
-    case .leo: return "The Performer • Fire Fixed • Creativity • Drama • Generosity"
-    case .virgo: return "The Healer • Earth Mutable • Service • Analysis • Perfectionism"
-    case .libra: return "The Peacemaker • Air Cardinal • Balance • Harmony • Justice"
-    case .scorpio: return "The Transformer • Water Fixed • Transformation • Intensity • Mystery"
-    case .sagittarius: return "The Explorer • Fire Mutable • Adventure • Philosophy • Freedom"
-    case .capricorn: return "The Achiever • Earth Cardinal • Ambition • Discipline • Structure"
-    case .aquarius: return "The Revolutionary • Air Fixed • Innovation • Independence • Humanitarianism"
-    case .pisces: return "The Mystic • Water Mutable • Compassion • Intuition • Imagination"
+    if !description.isEmpty {
+        return "\(description)\n\nCore Traits: \(traitsText)"
+    } else {
+        return "The \(zodiacInterpretation.sign) • \(zodiacInterpretation.element) \(zodiacInterpretation.mode) • \(traitsText)"
     }
 }
 
@@ -447,7 +371,7 @@ func getExpressionGuidance(for number: Int) -> String {
     }
 }
 
-struct UserProfileTabView: View {
+struct SanctumTabView: View {
     @StateObject private var archetypeManager = UserArchetypeManager.shared
     @State private var userProfile: UserProfile?
     @State private var showingEditProfile = false
@@ -455,6 +379,12 @@ struct UserProfileTabView: View {
     @State private var showingShareSheet = false
     @State private var selectedArchetypeDetail: ArchetypeDetailType?
     @State private var archetypeRetryCount = 0
+    
+    // MARK: - Service Dependencies
+    /// Claude: Centralized services eliminate scope issues and provide clean data access
+    private let sanctumData = SanctumDataManager.shared
+    private let numerologyService = NumerologyService.shared
+    private let astrologyService = AstrologyService.shared
     
     // Animation states
     @State private var lifePathPulse: Bool = false
@@ -1052,17 +982,10 @@ struct UserProfileTabView: View {
     /// - Case-insensitive matching for robust data retrieval
     /// - Cached MegaCorpus data prevents repeated file access
     /// 
-    /// Claude: Get sign element from MegaCorpus data
+    /// Claude: Get sign element using SanctumDataManager service
     private func getSignElement(_ sign: String) -> String? {
-        let cosmicData = loadMegaCorpusData()
-        
-        if let signs = cosmicData["signs"] as? [String: Any],
-           let signData = signs[sign.lowercased()] as? [String: Any],
-           let element = signData["element"] as? String {
-            return element
-        }
-        
-        return nil
+        let element = sanctumData.getSignElement(for: sign)
+        return element.isEmpty ? nil : element
     }
     
     /// Returns the corresponding SwiftUI Color for each classical astrological element with spiritual significance
@@ -1443,22 +1366,13 @@ struct UserProfileTabView: View {
         }
         
         func getHouseKeyword(houseNumber: Int) -> String? {
-            let cosmicData = loadMegaCorpusData()
-            let houseKeys = ["", "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth"]
-            guard houseNumber >= 1 && houseNumber <= 12 else { return nil }
-            let houseKey = houseKeys[houseNumber]
-            if let houses = cosmicData["houses"] as? [String: Any], let houseData = houses[houseKey] as? [String: Any], let keyword = houseData["keyword"] as? String {
-                return keyword
-            }
-            return nil
+            let keywords = astrologyService.getHouseInterpretation(for: houseNumber).keywords
+            return keywords.first
         }
         
         func getSignMode(_ sign: String) -> String? {
-            let cosmicData = loadMegaCorpusData()
-            if let signs = cosmicData["signs"] as? [String: Any], let signData = signs[sign.lowercased()] as? [String: Any], let mode = signData["mode"] as? String {
-                return mode
-            }
-            return nil
+            let zodiacInterpretation = astrologyService.getZodiacInterpretation(for: sign)
+            return zodiacInterpretation.mode
         }
         
         return Button(action: {
@@ -1821,50 +1735,22 @@ struct UserProfileTabView: View {
     
     
     /// Get mini planet description for list view
+    /// Claude: Planet mini description using SanctumDataManager service
     private func getPlanetMiniDescription(_ planet: String) -> String {
-        let cosmicData = loadMegaCorpusData()
-        
-        if let planets = cosmicData["planets"] as? [String: Any],
-           let planetData = planets[planet.lowercased()] as? [String: Any],
-           let archetype = planetData["archetype"] as? String {
-            return archetype
-        }
-        
-        // Fallback mini descriptions
-        switch planet.lowercased() {
-        case "sun": return "The Luminary"
-        case "moon": return "The Nurturer"
-        case "mercury": return "The Messenger"
-        case "venus": return "The Lover"
-        case "mars": return "The Warrior"
-        case "jupiter": return "The Sage"
-        case "saturn": return "The Teacher"
-        case "uranus": return "The Awakener"
-        case "neptune": return "The Mystic"
-        case "pluto": return "The Transformer"
-        case "ascendant": return "The Rising Self"
-        default: return "Celestial Body"
-        }
+        return sanctumData.getPlanetaryArchetype(for: planet)
     }
     
-    /// Get sign color for visual distinction
+    /// Claude: Sign color using SanctumDataManager service
     private func getSignColor(_ sign: String) -> Color {
-        let cosmicData = loadMegaCorpusData()
+        let element = sanctumData.getSignElement(for: sign)
         
-        if let signs = cosmicData["signs"] as? [String: Any],
-           let signData = signs[sign.lowercased()] as? [String: Any],
-           let element = signData["element"] as? String {
-            
-            switch element.lowercased() {
-            case "fire": return .orange
-            case "earth": return .brown
-            case "air": return .cyan
-            case "water": return .blue
-            default: return .white
-            }
+        switch element.lowercased() {
+        case "fire": return .orange
+        case "earth": return .brown
+        case "air": return .cyan
+        case "water": return .blue
+        default: return .white.opacity(0.8)
         }
-        
-        return .white.opacity(0.8)
     }
     
     // MARK: - Complete Archetype Codex
@@ -2195,7 +2081,7 @@ struct UserProfileTabView: View {
                         )
                 }
                 
-                Text(lifePathDescription(for: profile.lifePathNumber, isMaster: profile.isMasterNumber))
+                Text(sanctumData.getLifePathDescription(for: profile.lifePathNumber, isMaster: profile.isMasterNumber))
                     .font(.body)
                     .foregroundColor(.white.opacity(0.9))
                     .multilineTextAlignment(.center)
@@ -2506,7 +2392,7 @@ struct UserProfileTabView: View {
                         number: profile.lifePathNumber,
                         title: "Life Path Number",
                         subtitle: "Soul's Journey & Purpose",
-                        description: lifePathDescription(for: profile.lifePathNumber, isMaster: profile.isMasterNumber),
+                        description: sanctumData.getLifePathDescription(for: profile.lifePathNumber, isMaster: profile.isMasterNumber),
                         icon: "star.circle.fill",
                         color: .yellow,
                         glowColor: .orange,
@@ -2604,63 +2490,9 @@ struct UserProfileTabView: View {
     
     // MARK: - Helper Functions
     
-    /// Load MegaCorpus data with caching
+    /// Claude: Use SanctumDataManager for MegaCorpus data access
     private func loadMegaCorpusData() -> [String: Any] {
-        // Use singleton cache
-        if let cachedData = MegaCorpusCache.shared.data {
-            return cachedData
-        }
-        
-        // Load all MegaCorpus JSON files
-        let fileNames = ["Signs", "Planets", "Houses", "Aspects", "Elements", "Modes", "MoonPhases", "ApparentMotion"]
-        var megaData: [String: Any] = [:]
-        
-        for fileName in fileNames {
-            // Try multiple paths to find the JSON files
-            let paths = [
-                Bundle.main.path(forResource: "NumerologyData/MegaCorpus/\(fileName)", ofType: "json"),
-                Bundle.main.path(forResource: fileName, ofType: "json", inDirectory: "NumerologyData/MegaCorpus"),
-                Bundle.main.path(forResource: fileName, ofType: "json"),
-                Bundle.main.path(forResource: "MegaCorpus/\(fileName)", ofType: "json")
-            ]
-            
-            var loaded = false
-            for path in paths.compactMap({ $0 }) {
-                if let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
-                   let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                    
-                    // Extract the main data section from each file (skip metadata)
-                    if let mainKey = json.keys.first(where: { $0 != "metadata" }),
-                       let mainData = json[mainKey] {
-                        megaData[mainKey] = mainData
-                        
-                        // Also add individual entries for easier access
-                        if let dataDict = mainData as? [String: Any] {
-                            for (key, value) in dataDict {
-                                megaData[key] = value
-                            }
-                        }
-                        
-                        loaded = true
-                        print("✅ Loaded MegaCorpus \(fileName) -> \(mainKey) from: \(path)")
-                        break
-                    } else {
-                        // Fallback: store entire JSON if no clear main section
-                        megaData[fileName.lowercased()] = json
-                        loaded = true
-                        print("✅ Loaded MegaCorpus \(fileName) (fallback) from: \(path)")
-                        break
-                    }
-                }
-            }
-            
-            if !loaded {
-                print("❌ Failed to load MegaCorpus \(fileName)")
-            }
-        }
-        
-        MegaCorpusCache.shared.data = megaData
-        return megaData
+        return sanctumData.megaCorpusData
     }
     
     /**
@@ -2861,52 +2693,11 @@ struct UserProfileTabView: View {
     ///
     /// **Return Format:** "Archetype • Element Mode • Keyword1 • Keyword2 • Keyword3"
     /// **Example:** "The Pioneer • Fire Cardinal • Initiative • Leadership • Courage"
+    /// Claude: Zodiac description using AstrologyService
     private func detailedZodiacDescription(for sign: ZodiacSign) -> String {
-        let cosmicData = loadMegaCorpusData()
-        
-        // Try to load from mega corpus first - fix nested structure access
-        if let signsFile = cosmicData["signs"] as? [String: Any],
-           let signs = signsFile["signs"] as? [String: Any] {
-            let signKey = sign.rawValue.lowercased()
-            
-            if let signData = signs[signKey] as? [String: Any] {
-                // Extract data from the actual JSON structure for rich description
-                let name = signData["name"] as? String ?? sign.rawValue
-                let _ = signData["description"] as? String ?? ""
-                let keyTraits = signData["keyTraits"] as? [String] ?? []
-                
-                // Get element and mode data
-                let element = signData["element"] as? String ?? ""
-                let mode = signData["mode"] as? String ?? ""
-                
-                // Combine element and mode for archetype description
-                let archetypePart = "\(element.capitalized) \(mode.capitalized)"
-                
-                // Create rich description with traits
-                let traitsText = keyTraits.prefix(3).joined(separator: " • ")
-                
-                return "The \(name) • \(archetypePart) • \(traitsText)"
-            } else {
-                // Fallback to basic structured approach if specific sign data missing
-                return "The \(sign.rawValue) • Cosmic Being • Strength • Wisdom • Purpose"
-            }
-        } else {
-            // Final fallback with curated descriptions if MegaCorpus unavailable
-            switch sign {
-            case .aries: return "The Pioneer • Fire Cardinal • Initiative • Leadership • Courage"
-            case .taurus: return "The Builder • Earth Fixed • Stability • Patience • Strength" 
-            case .gemini: return "The Communicator • Air Mutable • Curiosity • Adaptability • Connection"
-            case .cancer: return "The Nurturer • Water Cardinal • Intuition • Care • Protection"
-            case .leo: return "The Creator • Fire Fixed • Confidence • Creativity • Generosity"
-            case .virgo: return "The Perfectionist • Earth Mutable • Service • Analysis • Healing"
-            case .libra: return "The Harmonizer • Air Cardinal • Balance • Beauty • Justice"
-            case .scorpio: return "The Transformer • Water Fixed • Depth • Intensity • Rebirth"
-            case .sagittarius: return "The Explorer • Fire Mutable • Freedom • Wisdom • Adventure"
-            case .capricorn: return "The Achiever • Earth Cardinal • Ambition • Structure • Mastery"
-            case .aquarius: return "The Innovator • Air Fixed • Independence • Innovation • Humanity"
-            case .pisces: return "The Dreamer • Water Mutable • Compassion • Intuition • Transcendence"
-            }
-        }
+        let zodiacInterpretation = astrologyService.getZodiacInterpretation(for: sign.rawValue)
+        let traitsText = zodiacInterpretation.keywords.prefix(3).joined(separator: " • ")
+        return "The \(zodiacInterpretation.sign) • \(zodiacInterpretation.element) \(zodiacInterpretation.mode) • \(traitsText)"
     }
     
     /// Claude: Enhanced element description using MegaCorpus data
@@ -2918,35 +2709,10 @@ struct UserProfileTabView: View {
     ///
     /// **Return Format:** "Archetype • Description • Core Traits: Trait1 • Trait2"
     /// **Example:** "The Nurturing Builder • Earth grounds spirit into form... • Core Traits: Practical Wisdom • Steadfast Endurance"
+    /// Claude: Element description using SanctumDataManager service
     private func detailedElementDescription(for element: Element) -> String {
-        let cosmicData = loadMegaCorpusData()
-        
-        // Try to load from mega corpus first
-        if let elementsFile = cosmicData["elements"] as? [String: Any],
-           let elements = elementsFile["elements"] as? [String: Any] {
-            let elementKey = element.rawValue.lowercased()
-            
-            if let elementData = elements[elementKey] as? [String: Any] {
-                let name = elementData["name"] as? String ?? element.rawValue.capitalized
-                let description = elementData["description"] as? String ?? ""
-                let traits = elementData["traits"] as? [String] ?? []
-                
-                // Create rich description with traits
-                let traitsText = traits.prefix(2).map { "• \($0)" }.joined(separator: " ")
-                
-                return "The \(name) Element • \(description) • Core Traits: \(traitsText)"
-            } else {
-                return "The \(element.rawValue.capitalized) Element • Cosmic Force • Core Traits: • Power • Wisdom"
-            }
-        } else {
-            // Fallback descriptions if MegaCorpus unavailable
-            switch element {
-            case .fire: return "The Vital Spark • Fire ignites passion and drives action... • Core Traits: • Dynamic Energy • Creative Force"
-            case .earth: return "The Nurturing Builder • Earth grounds spirit into form... • Core Traits: • Practical Wisdom • Steadfast Endurance" 
-            case .air: return "The Mental Connector • Air carries thoughts and communication... • Core Traits: • Intellectual Clarity • Social Harmony"
-            case .water: return "The Emotional Healer • Water flows with intuition and feeling... • Core Traits: • Emotional Depth • Psychic Sensitivity"
-            }
-        }
+        let description = sanctumData.getElementDescription(for: element.rawValue)
+        return "The \(element.rawValue.capitalized) Element • \(description)"
     }
     
     /// Claude: Enhanced planet description using MegaCorpus data
@@ -2958,130 +2724,28 @@ struct UserProfileTabView: View {
     ///
     /// **Return Format:** "Archetype • Keyword1 • Keyword2 • Keyword3"
     /// **Example:** "The Teacher • Expansion • Wisdom • Growth"
+    /// Claude: Planet description using SanctumDataManager service
     private func detailedPlanetDescription(for planet: Planet) -> String {
-        let cosmicData = loadMegaCorpusData()
-        
-        // Try to load from mega corpus first
-        if let planetsFile = cosmicData["planets"] as? [String: Any],
-           let planets = planetsFile["planets"] as? [String: Any] {
-            let planetKey = planet.rawValue.lowercased()
-            
-            if let planetData = planets[planetKey] as? [String: Any] {
-                let _ = planetData["name"] as? String ?? planet.rawValue.capitalized
-                let archetype = planetData["archetype"] as? String ?? "Cosmic Force"
-                let keywords = planetData["keywords"] as? [String] ?? []
-                
-                // Create rich description with keywords
-                let keywordsText = keywords.prefix(3).joined(separator: " • ")
-                
-                return "The \(archetype) • \(keywordsText)"
-            } else {
-                return "The \(planet.rawValue.capitalized) • Cosmic Force • Power • Wisdom • Purpose"
-            }
-        } else {
-            // Fallback descriptions if MegaCorpus unavailable
-            switch planet {
-            case .sun: return "The Life Giver • Identity • Vitality • Purpose"
-            case .moon: return "The Emotional Guide • Intuition • Cycles • Nurturing"
-            case .mercury: return "The Messenger • Communication • Learning • Adaptability"
-            case .venus: return "The Lover • Beauty • Harmony • Values"
-            case .mars: return "The Warrior • Action • Passion • Courage"
-            case .jupiter: return "The Teacher • Expansion • Wisdom • Growth"
-            case .saturn: return "The Taskmaster • Structure • Discipline • Mastery"
-            case .uranus: return "The Revolutionary • Innovation • Freedom • Awakening"
-            case .neptune: return "The Mystic • Dreams • Spirituality • Transcendence"
-            case .pluto: return "The Transformer • Power • Regeneration • Rebirth"
-            case .earth: return "The Foundation • Grounding • Stability • Material Manifestation"
-            }
-        }
+        return sanctumData.getPlanetaryDescription(for: planet.rawValue)
     }
     
-    /// Claude: Detailed shadow planet description for archetype cards
+    /// Claude: Shadow planet description using SanctumDataManager service
     private func detailedShadowPlanetDescription(for planet: Planet) -> String {
-        let cosmicData = loadMegaCorpusData()
-        
-        if let planetsFile = cosmicData["planets"] as? [String: Any],
-           let planets = planetsFile["planets"] as? [String: Any] {
-            let planetKey = planet.rawValue.lowercased()
-            
-            if let planetData = planets[planetKey] as? [String: Any],
-               let archetype = planetData["archetype"] as? String,
-               let keywords = planetData["keywords"] as? [String] {
-                let keywordsText = keywords.prefix(2).joined(separator: " • ")
-                return "Shadow \(archetype) • \(keywordsText) • Hidden depths"
-            }
-        }
-        
-        // Fallback descriptions
-        switch planet {
-        case .sun: return "Shadow Ego • Pride • Arrogance • Hidden depths"
-        case .moon: return "Shadow Emotions • Moodiness • Insecurity • Hidden depths"
-        case .mercury: return "Shadow Mind • Deception • Overthinking • Hidden depths"
-        case .venus: return "Shadow Love • Vanity • Jealousy • Hidden depths"
-        case .mars: return "Shadow Action • Anger • Aggression • Hidden depths"
-        case .jupiter: return "Shadow Growth • Excess • Overconfidence • Hidden depths"
-        case .saturn: return "Shadow Structure • Rigidity • Fear • Hidden depths"
-        case .uranus: return "Shadow Change • Chaos • Rebellion • Hidden depths"
-        case .neptune: return "Shadow Dreams • Illusion • Confusion • Hidden depths"
-        case .pluto: return "Shadow Power • Obsession • Control • Hidden depths"
-        case .earth: return "Shadow Foundation • Materialism • Stagnation • Hidden depths"
-        }
+        let description = sanctumData.getPlanetaryDescription(for: planet.rawValue)
+        return "Shadow \(description) • Hidden depths"
     }
     
     /// Claude: Soul urge description for numerology cards
+    /// Claude: Soul urge description using SanctumDataManager service
     private func soulUrgeDescription(for number: Int) -> String {
-        let cosmicData = loadMegaCorpusData()
-        
-        if let numerology = cosmicData["numerology"] as? [String: Any],
-           let focusNumbers = numerology["focusNumbers"] as? [String: Any],
-           let numberData = focusNumbers[String(number)] as? [String: Any],
-           let archetype = numberData["archetype"] as? String,
-           let keywords = numberData["keywords"] as? [String] {
-            let keywordsText = keywords.prefix(2).joined(separator: " • ")
-            return "\(archetype) • \(keywordsText) • Soul's deepest desire"
-        }
-        
-        // Fallback descriptions
-        switch number {
-        case 1: return "The Pioneer • Independence • Leadership • Soul's deepest desire"
-        case 2: return "The Peacemaker • Cooperation • Harmony • Soul's deepest desire"
-        case 3: return "The Creative • Expression • Joy • Soul's deepest desire"
-        case 4: return "The Builder • Stability • Order • Soul's deepest desire"
-        case 5: return "The Explorer • Freedom • Adventure • Soul's deepest desire"
-        case 6: return "The Nurturer • Service • Love • Soul's deepest desire"
-        case 7: return "The Seeker • Wisdom • Spirituality • Soul's deepest desire"
-        case 8: return "The Achiever • Success • Power • Soul's deepest desire"
-        case 9: return "The Humanitarian • Service • Completion • Soul's deepest desire"
-        default: return "Soul Number \(number) • Sacred purpose • Soul's deepest desire"
-        }
+        let description = sanctumData.getSoulUrgeDescription(for: number, isMaster: numerologyService.isMasterNumber(number))
+        return "\(description) • Soul's deepest desire"
     }
     
-    /// Claude: Expression description for numerology cards
+    /// Claude: Expression description using SanctumDataManager service
     private func expressionDescription(for number: Int) -> String {
-        let cosmicData = loadMegaCorpusData()
-        
-        if let numerology = cosmicData["numerology"] as? [String: Any],
-           let focusNumbers = numerology["focusNumbers"] as? [String: Any],
-           let numberData = focusNumbers[String(number)] as? [String: Any],
-           let archetype = numberData["archetype"] as? String,
-           let keywords = numberData["keywords"] as? [String] {
-            let keywordsText = keywords.prefix(2).joined(separator: " • ")
-            return "\(archetype) • \(keywordsText) • Outward expression"
-        }
-        
-        // Fallback descriptions
-        switch number {
-        case 1: return "The Pioneer • Independence • Leadership • Outward expression"
-        case 2: return "The Peacemaker • Cooperation • Diplomacy • Outward expression"
-        case 3: return "The Creative • Communication • Inspiration • Outward expression"
-        case 4: return "The Builder • Organization • Reliability • Outward expression"
-        case 5: return "The Explorer • Versatility • Freedom • Outward expression"
-        case 6: return "The Nurturer • Responsibility • Caring • Outward expression"
-        case 7: return "The Seeker • Analysis • Introspection • Outward expression"
-        case 8: return "The Achiever • Authority • Material success • Outward expression"
-        case 9: return "The Humanitarian • Generosity • Universal love • Outward expression"
-        default: return "Expression Number \(number) • Sacred gifts • Outward expression"
-        }
+        let description = sanctumData.getExpressionDescription(for: number, isMaster: numerologyService.isMasterNumber(number))
+        return "\(description) • Outward expression"
     }
     
     // MARK: - Missing Helper Functions
@@ -3558,7 +3222,7 @@ struct ArchetypeDetailView: View {
         }
     }
     
-    private var detailDescription: String {
+    @MainActor private var detailDescription: String {
         switch detailType {
         case .soulUrgeNumber(let number):
             return getSoulUrgeDetailedDescription(for: number)
@@ -3573,7 +3237,7 @@ struct ArchetypeDetailView: View {
         case .shadowPlanet(let planet):
             return detailedShadowPlanetDescription(for: planet)
         case .lifePathNumber(let number):
-            return lifePathDescription(for: number, isMaster: false)
+            return SanctumDataManager.shared.getLifePathDescription(for: number, isMaster: NumerologyService.shared.isMasterNumber(number))
         }
     }
     
@@ -3738,8 +3402,8 @@ private func getHouseLifeAreaShort(houseNumber: Int) -> String {
 ///
 /// **Return Format:** "House Name\n\nDescription\n\nKey Themes: Theme1, Theme2, Theme3, Theme4"
 /// **Example:** "First House\n\nThe house of self-expression...\n\nKey Themes: Identity, Appearance, First Impressions, Personal Initiative"
-private func getHouseLifeAreaFull(houseNumber: Int) -> String {
-    let cosmicData = loadMegaCorpusData()
+@MainActor private func getHouseLifeAreaFull(houseNumber: Int) -> String {
+    let cosmicData = SanctumDataManager.shared.megaCorpusData
     
     // Convert house number to word key (1 -> "first", 2 -> "second", etc.)
     let houseKeys = ["", "first", "second", "third", "fourth", "fifth", "sixth", 
@@ -3761,7 +3425,7 @@ private func getHouseLifeAreaFull(houseNumber: Int) -> String {
            let keyTraits = houseData["keyTraits"] as? [String] {
             
             let traitsText = keyTraits.prefix(4).map { trait in
-                trait.components(separatedBy: ":").first?.trimmingCharacters(in: .whitespaces) ?? trait
+                trait.components(separatedBy: ":").first?.trimmingCharacters(in: CharacterSet.whitespaces) ?? trait
             }.joined(separator: ", ")
             let enhancedDescription = "\(name)\n\n\(description)\n\nKey Themes: \(traitsText)"
             return enhancedDescription
@@ -4694,7 +4358,7 @@ struct AspectDetailView: View {
                    let keyTraits = elementData["keyTraits"] as? [String] {
                     
                     let traitsText = keyTraits.prefix(2).map { trait in
-                        trait.components(separatedBy: ":").first?.trimmingCharacters(in: .whitespacesAndNewlines) ?? trait
+                        trait.components(separatedBy: ":").first?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? trait
                     }.joined(separator: " • ")
                     let enhancedDescription = "\(archetype) • \(description) • Core Traits: \(traitsText)"
                     return enhancedDescription
@@ -4735,7 +4399,7 @@ struct AspectDetailView: View {
                    let keyTraits = planetData["keyTraits"] as? [String] {
                     
                     let traitsText = keyTraits.prefix(2).map { trait in
-                        trait.components(separatedBy: ":").first?.trimmingCharacters(in: .whitespacesAndNewlines) ?? trait
+                        trait.components(separatedBy: ":").first?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? trait
                     }.joined(separator: " • ")
                     let enhancedDescription = "\(archetype) • \(description) • Core Traits: \(traitsText)"
                     return enhancedDescription
@@ -4776,7 +4440,7 @@ struct AspectDetailView: View {
                 
                 // Create shadow interpretation
                 let shadowTraits = keyTraits.prefix(2).map { trait in
-                    let baseTrait = trait.components(separatedBy: ":").first?.trimmingCharacters(in: .whitespacesAndNewlines) ?? trait
+                    let baseTrait = trait.components(separatedBy: ":").first?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? trait
                     return "Shadow \(baseTrait)"
                 }.joined(separator: " • ")
                 
@@ -4861,9 +4525,9 @@ struct AspectDetailView: View {
 
 // MARK: - Preview
 
-struct UserProfileTabView_Previews: PreviewProvider {
+struct SanctumTabView_Previews: PreviewProvider {
     static var previews: some View {
-        UserProfileTabView()
+        SanctumTabView()
     }
 }
 

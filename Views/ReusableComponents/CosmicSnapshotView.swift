@@ -2229,44 +2229,9 @@ struct PlanetaryDetailView: View {
         }
     }
     
-    /// Load MegaCorpus data (reuse the singleton cache)
-    private func loadMegaCorpusData() -> [String: Any] {
-        // Use the same cache as CosmicSnapshotView
-        if let cachedData = VybeMVP.MegaCorpusCache.shared.data {
-            return cachedData
-        }
-        
-        // Load all MegaCorpus JSON files
-        let fileNames = ["Signs", "Planets", "Houses", "Aspects", "Elements", "Modes", "MoonPhases", "ApparentMotion"]
-        var megaData: [String: Any] = [:]
-        
-        for fileName in fileNames {
-            // Try multiple paths to find the JSON files
-            let paths = [
-                Bundle.main.path(forResource: "NumerologyData/MegaCorpus/\(fileName)", ofType: "json"),
-                Bundle.main.path(forResource: fileName, ofType: "json", inDirectory: "NumerologyData/MegaCorpus"),
-                Bundle.main.path(forResource: fileName, ofType: "json"),
-                Bundle.main.path(forResource: "MegaCorpus/\(fileName)", ofType: "json")
-            ]
-            
-            var loaded = false
-            for path in paths.compactMap({ $0 }) {
-                if let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
-                   let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                    megaData[fileName.lowercased()] = json
-                    loaded = true
-                    print("✅ Loaded MegaCorpus \(fileName) from: \(path)")
-                    break
-                }
-            }
-            
-            if !loaded {
-                print("❌ Failed to load MegaCorpus \(fileName)")
-            }
-        }
-        
-        VybeMVP.MegaCorpusCache.shared.data = megaData
-        return megaData
+    /// Claude: Use SanctumDataManager for MegaCorpus data access
+    @MainActor private func loadMegaCorpusData() -> [String: Any] {
+        return SanctumDataManager.shared.megaCorpusData
     }
     
     private func planetSpiritualMeaning(planet: String, sign: String) -> String {
@@ -2441,37 +2406,9 @@ extension CosmicSnapshotView {
     
     // Note: Using global MegaCorpusCache from UserProfileTabView.swift
     
-    /// Load MegaCorpus data with caching
-    private func loadMegaCorpusData() -> [String: Any] {
-        // Check cache first
-        if let cachedData = VybeMVP.MegaCorpusCache.shared.data {
-            return cachedData
-        }
-        
-        // Load all MegaCorpus JSON files
-        let fileNames = ["Signs", "Planets", "Houses", "Aspects", "Elements", "Modes", "MoonPhases", "ApparentMotion"]
-        var megaData: [String: Any] = [:]
-        
-        for fileName in fileNames {
-            // Try multiple paths to find the file
-            let paths = [
-                Bundle.main.path(forResource: fileName, ofType: "json", inDirectory: "NumerologyData/MegaCorpus"),
-                Bundle.main.path(forResource: fileName, ofType: "json"),
-                Bundle.main.path(forResource: "MegaCorpus/\(fileName)", ofType: "json")
-            ]
-            
-            for path in paths.compactMap({ $0 }) {
-                if let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
-                   let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                    megaData[fileName.lowercased()] = json
-                    break
-                }
-            }
-        }
-        
-        // Cache the data
-        VybeMVP.MegaCorpusCache.shared.data = megaData
-        return megaData
+    /// Claude: Use SanctumDataManager for MegaCorpus data access
+    @MainActor private func loadMegaCorpusData() -> [String: Any] {
+        return SanctumDataManager.shared.megaCorpusData
     }
     
     /// Get enhanced moon phase guidance from MegaCorpus

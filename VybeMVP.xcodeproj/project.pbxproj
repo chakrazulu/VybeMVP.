@@ -56,7 +56,6 @@
 		4D3056002D3D9245009A7BBD /* JournalEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3055FF2D3D9245009A7BBD /* JournalEntryView.swift */; };
 		4D3727082DE48D7100B5A02B /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3727072DE48D7100B5A02B /* NotificationNames.swift */; };
 		4D37270A2DE50FEC00B5A02B /* OnboardingCompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3727092DE50FEC00B5A02B /* OnboardingCompletionView.swift */; };
-		4D37270D2DE5404500B5A02B /* UserProfileTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D37270B2DE5404500B5A02B /* UserProfileTabView.swift */; };
 		4D3727102DE5407100B5A02B /* InsightHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D37270E2DE5407100B5A02B /* InsightHistoryView.swift */; };
 		4D3727122DE540AE00B5A02B /* PersonalizedInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3727112DE540AE00B5A02B /* PersonalizedInsight.swift */; };
 		4D3727152DE550ED00B5A02B /* CosmicBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3727132DE550ED00B5A02B /* CosmicBackgroundView.swift */; };
@@ -94,7 +93,6 @@
 		4D6C7BAD2DE47F55001036E5 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7BAB2DE47F55001036E5 /* AuthService.swift */; };
 		4D6C7BAF2DE47FC2001036E5 /* InsightTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7BAE2DE47FC2001036E5 /* InsightTemplate.swift */; };
 		4D6C7BB12DE4803E001036E5 /* AIInsightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7BB02DE4803E001036E5 /* AIInsightManager.swift */; };
-		4D6C7BB32DE48067001036E5 /* NumerologyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7BB22DE48067001036E5 /* NumerologyService.swift */; };
 		4D6C7BB52DE48089001036E5 /* UserProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7BB42DE48089001036E5 /* UserProfileService.swift */; };
 		4D6C7BB92DE480E4001036E5 /* PreparedInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7BB82DE480E4001036E5 /* PreparedInsight.swift */; };
 		4D6C7BBB2DE48126001036E5 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7BBA2DE48126001036E5 /* Logger+Extensions.swift */; };
@@ -225,6 +223,10 @@
 		4DCB39782E1F78AE00311D51 /* renewal_infinity.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39152E1F78AE00311D51 /* renewal_infinity.svg */; };
 		4DCB39792E1F78AE00311D51 /* mystery_seed_life.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39122E1F78AE00311D51 /* mystery_seed_life.svg */; };
 		4DCB397A2E1F78AE00311D51 /* will_phoenix.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4DCB39342E1F78AE00311D51 /* will_phoenix.svg */; };
+		4DCEE47C2E3432A0007CA451 /* SanctumDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCEE47B2E3432A0007CA451 /* SanctumDataManager.swift */; };
+		4DCEE47E2E34339B007CA451 /* NumerologyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCEE47D2E34339B007CA451 /* NumerologyService.swift */; };
+		4DCEE4802E3433CF007CA451 /* AstrologyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCEE47F2E3433CF007CA451 /* AstrologyService.swift */; };
+		4DCEE4842E3438DB007CA451 /* SanctumTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCEE4832E3438DB007CA451 /* SanctumTabView.swift */; };
 		4DDCDFCD2E2C63D9005FDD32 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDCDFCC2E2C63D9005FDD32 /* FriendRequest.swift */; };
 		4DDCDFCF2E2C64B1005FDD32 /* FriendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDCDFCE2E2C64B1005FDD32 /* FriendManager.swift */; };
 		4DDCE0042E31468A005FDD32 /* AstrologyHouseCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDCE0032E31468A005FDD32 /* AstrologyHouseCalculator.swift */; };
@@ -325,7 +327,6 @@
 		4D3055FF2D3D9245009A7BBD /* JournalEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryView.swift; sourceTree = "<group>"; };
 		4D3727072DE48D7100B5A02B /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		4D3727092DE50FEC00B5A02B /* OnboardingCompletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCompletionView.swift; sourceTree = "<group>"; };
-		4D37270B2DE5404500B5A02B /* UserProfileTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTabView.swift; sourceTree = "<group>"; };
 		4D37270E2DE5407100B5A02B /* InsightHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightHistoryView.swift; sourceTree = "<group>"; };
 		4D3727112DE540AE00B5A02B /* PersonalizedInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedInsight.swift; sourceTree = "<group>"; };
 		4D3727132DE550ED00B5A02B /* CosmicBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicBackgroundView.swift; sourceTree = "<group>"; };
@@ -362,7 +363,6 @@
 		4D6C7BAB2DE47F55001036E5 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		4D6C7BAE2DE47FC2001036E5 /* InsightTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightTemplate.swift; sourceTree = "<group>"; };
 		4D6C7BB02DE4803E001036E5 /* AIInsightManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIInsightManager.swift; sourceTree = "<group>"; };
-		4D6C7BB22DE48067001036E5 /* NumerologyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyService.swift; sourceTree = "<group>"; };
 		4D6C7BB42DE48089001036E5 /* UserProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileService.swift; sourceTree = "<group>"; };
 		4D6C7BB82DE480E4001036E5 /* PreparedInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparedInsight.swift; sourceTree = "<group>"; };
 		4D6C7BBA2DE48126001036E5 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
@@ -490,6 +490,10 @@
 		4DCB39372E1F78AE00311D51 /* will_star.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = will_star.svg; sourceTree = "<group>"; };
 		4DCB39382E1F78AE00311D51 /* wisdom_enneagram.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = wisdom_enneagram.svg; sourceTree = "<group>"; };
 		4DCE3BCF2D3C75E80022F283 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DCEE47B2E3432A0007CA451 /* SanctumDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SanctumDataManager.swift; sourceTree = "<group>"; };
+		4DCEE47D2E34339B007CA451 /* NumerologyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyService.swift; sourceTree = "<group>"; };
+		4DCEE47F2E3433CF007CA451 /* AstrologyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstrologyService.swift; sourceTree = "<group>"; };
+		4DCEE4832E3438DB007CA451 /* SanctumTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SanctumTabView.swift; sourceTree = "<group>"; };
 		4DDCDFCC2E2C63D9005FDD32 /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
 		4DDCDFCE2E2C64B1005FDD32 /* FriendManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendManager.swift; sourceTree = "<group>"; };
 		4DDCE0032E31468A005FDD32 /* AstrologyHouseCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstrologyHouseCalculator.swift; sourceTree = "<group>"; };
@@ -599,6 +603,7 @@
 		4D3055982D3C9462009A7BBD /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				4DCEE47B2E3432A0007CA451 /* SanctumDataManager.swift */,
 				4DB1DF952E235450001A9EA5 /* CosmicService.swift */,
 				4DCB38712E1B3CDD00311D51 /* KASPERManager.swift */,
 				4DB233F72E116AF5004EC2BC /* VybeMatchManager.swift */,
@@ -608,7 +613,6 @@
 				4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */,
 				4D3727162DE551E100B5A02B /* ActivityNavigationManager.swift */,
 				4D6C7BB42DE48089001036E5 /* UserProfileService.swift */,
-				4D6C7BB22DE48067001036E5 /* NumerologyService.swift */,
 				4D6C7BB02DE4803E001036E5 /* AIInsightManager.swift */,
 				4D6C7BA92DE47F1B001036E5 /* Services */,
 				4D6C7B5C2DE458A4001036E5 /* AuthenticationManager.swift */,
@@ -678,7 +682,7 @@
 		4D37270C2DE5404500B5A02B /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
-				4D37270B2DE5404500B5A02B /* UserProfileTabView.swift */,
+				4DCEE4832E3438DB007CA451 /* SanctumTabView.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -795,6 +799,8 @@
 		4D6C7BA92DE47F1B001036E5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				4DCEE47F2E3433CF007CA451 /* AstrologyService.swift */,
+				4DCEE47D2E34339B007CA451 /* NumerologyService.swift */,
 				4D3727182DE5538A00B5A02B /* NumerologyInsightService.swift */,
 				4D6C7BA82DE47F1B001036E5 /* InsightFilterService.swift */,
 			);
@@ -1259,12 +1265,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D6C7BB32DE48067001036E5 /* NumerologyService.swift in Sources */,
 				4D6C7BBB2DE48126001036E5 /* Logger+Extensions.swift in Sources */,
 				4D3055FC2D3D8F8A009A7BBD /* JournalListView.swift in Sources */,
 				4DB233F82E116AF5004EC2BC /* VybeMatchManager.swift in Sources */,
 				4DB1DF942E23540B001A9EA5 /* CosmicData.swift in Sources */,
 				4DC602402D34651C00B5E4A9 /* SettingsView.swift in Sources */,
+				4DCEE4842E3438DB007CA451 /* SanctumTabView.swift in Sources */,
 				4D80E1012D3F1DD80020F7BB /* NumberMeaning.swift in Sources */,
 				4DB1DF962E235450001A9EA5 /* CosmicService.swift in Sources */,
 				4DC6023E2D34650400B5E4A9 /* HomeView.swift in Sources */,
@@ -1327,6 +1333,7 @@
 				4DA98F9B2E07238000FAE5FF /* CommentsView.swift in Sources */,
 				4D3055FE2D3D903B009A7BBD /* JournalEntryRow.swift in Sources */,
 				4DC6023C2D345E2000B5E4A9 /* MainView.swift in Sources */,
+				4DCEE47C2E3432A0007CA451 /* SanctumDataManager.swift in Sources */,
 				4D3055E92D3CEF45009A7BBD /* EditJournalEntryView.swift in Sources */,
 				4D6308DA2DFFCB2C00FD32E9 /* ReactionPickerView.swift in Sources */,
 				4D6308DB2DFFCB2C00FD32E9 /* Reaction.swift in Sources */,
@@ -1336,6 +1343,7 @@
 				4DDCE0042E31468A005FDD32 /* AstrologyHouseCalculator.swift in Sources */,
 				4D2CC7032E08C78C00BDF100 /* UserProfile.swift in Sources */,
 				4D6308DC2DFFCB2C00FD32E9 /* PostComposerView.swift in Sources */,
+				4DCEE47E2E34339B007CA451 /* NumerologyService.swift in Sources */,
 				4DB233F62E1169CD004EC2BC /* VybeMatchOverlay.swift in Sources */,
 				4D6308DD2DFFCB2C00FD32E9 /* PostManager.swift in Sources */,
 				4D6308DE2DFFCB2C00FD32E9 /* Post.swift in Sources */,
@@ -1343,6 +1351,7 @@
 				4D2CC6FB2E08BE3700BDF100 /* SacredGeometryAssets.swift in Sources */,
 				4D6308E02DFFCB2C00FD32E9 /* SocialTimelineView.swift in Sources */,
 				4D6308E12DFFCB2C00FD32E9 /* SocialUser.swift in Sources */,
+				4DCEE4802E3433CF007CA451 /* AstrologyService.swift in Sources */,
 				4D6C7B5F2DE45C07001036E5 /* AuthenticationWrapperView.swift in Sources */,
 				4DA01CB22D8534BF0070309D /* NumberMatchNotificationView.swift in Sources */,
 				4DDCDFCD2E2C63D9005FDD32 /* FriendRequest.swift in Sources */,
@@ -1396,7 +1405,6 @@
 				4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */,
 				4D2DB4862DFF6A450003353E /* SightingsManager.swift in Sources */,
 				4DA98FCC2E073CDC00FAE5FF /* ReportManager.swift in Sources */,
-				4D37270D2DE5404500B5A02B /* UserProfileTabView.swift in Sources */,
 				4D92F4BD2D4DE1E80001A16E /* BackgroundManager.swift in Sources */,
 				4D3055E32D3CEADA009A7BBD /* JournalEntry+CoreDataHelpers.swift in Sources */,
 				4D3055E12D3CE90C009A7BBD /* FocusNumberContent.swift in Sources */,

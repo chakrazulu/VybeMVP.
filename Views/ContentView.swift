@@ -209,7 +209,7 @@ struct ContentView: View {
                     }
                     .tag(9) // Adjusted tag
                     
-                    UserProfileTabView()
+                    SanctumTabView()
                         .environmentObject(focusNumberManager)
                         .tabItem {
                             Image(systemName: "star.circle.fill")
@@ -661,7 +661,7 @@ struct ContentView: View {
     ///
     /// **Purpose:** Handle navigation to My Sanctum tab from HomeView cosmic edge buttons
     /// **Trigger:** "NavigateToSanctum" NotificationCenter notification from HomeView
-    /// **Target:** My Sanctum tab (tag 10) - UserProfileTabView (Spiritual sanctuary)
+    /// **Target:** My Sanctum tab (tag 10) - SanctumTabView (Spiritual sanctuary)
     ///
     /// **Navigation Pattern:**
     /// Follows same structure as other navigation handlers:

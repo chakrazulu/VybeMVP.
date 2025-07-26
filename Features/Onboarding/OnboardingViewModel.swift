@@ -62,10 +62,11 @@ class OnboardingViewModel: ObservableObject {
         let birthNameForProfile = fullNameAtBirth.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : fullNameAtBirth.trimmingCharacters(in: .whitespacesAndNewlines)
 
         // Calculate Numerology Data
-        let lifePathResult = numerologyService.calculateLifePathNumber(from: birthDate)
+        let lifePathNumber = numerologyService.calculateLifePathNumber(from: birthDate)
+        let isLifePathMaster = numerologyService.isMasterNumber(lifePathNumber)
         // Soul Urge and Expression are calculated based on birthNameForProfile if provided
-        let soulUrgeResult = birthNameForProfile != nil ? numerologyService.calculateSoulUrgeNumber(from: birthNameForProfile!) : nil
-        let expressionResult = birthNameForProfile != nil ? numerologyService.calculateExpressionNumber(from: birthNameForProfile!) : nil
+        let soulUrgeNumber = birthNameForProfile != nil ? numerologyService.calculateSoulUrgeNumber(from: birthNameForProfile!) : nil
+        let expressionNumber = birthNameForProfile != nil ? numerologyService.calculateExpressionNumber(from: birthNameForProfile!) : nil
 
         // CRITICAL FIX: Calculate and store the full spiritual archetype
         let userArchetype = UserArchetypeManager.shared.calculateArchetype(from: birthDate)
@@ -79,8 +80,8 @@ class OnboardingViewModel: ObservableObject {
         let profile = UserProfile(
             id: userID, 
             birthdate: birthDate,
-            lifePathNumber: lifePathResult.number,
-            isMasterNumber: lifePathResult.isMaster,
+            lifePathNumber: lifePathNumber,
+            isMasterNumber: isLifePathMaster,
             spiritualMode: selectedSpiritualModes.joined(separator: ", "),
             insightTone: selectedInsightTones.joined(separator: ", "), // Join multiple tones
             focusTags: selectedFocusTags,
@@ -89,8 +90,8 @@ class OnboardingViewModel: ObservableObject {
             preferredHour: selectedPreferredHour,
             wantsWhispers: doesWantWhispers,
             birthName: birthNameForProfile, // Use the potentially nil birthName
-            soulUrgeNumber: soulUrgeResult?.number,
-            expressionNumber: expressionResult?.number,
+            soulUrgeNumber: soulUrgeNumber,
+            expressionNumber: expressionNumber,
             wantsReflectionMode: doesWantReflectionMode,
             // CRITICAL FIX: Include birth time and location data for accurate charts
             birthplaceLatitude: birthplaceLatitude,
@@ -118,8 +119,8 @@ class OnboardingViewModel: ObservableObject {
         print("   Preferred Hour: \(profile.preferredHour)")
         print("   Wants Whispers: \(profile.wantsWhispers)")
         print("   Birth Name (Optional): \(profile.birthName ?? "N/A")")
-        print("   Soul Urge (Optional): \(profile.soulUrgeNumber != nil ? String(describing: profile.soulUrgeNumber!) : "N/A") \(soulUrgeResult?.isMaster == true ? "(Master)" : "")")
-        print("   Expression (Optional): \(profile.expressionNumber != nil ? String(describing: profile.expressionNumber!) : "N/A") \(expressionResult?.isMaster == true ? "(Master)" : "")")
+        print("   Soul Urge (Optional): \(profile.soulUrgeNumber != nil ? String(describing: profile.soulUrgeNumber!) : "N/A") \(profile.soulUrgeNumber != nil && numerologyService.isMasterNumber(profile.soulUrgeNumber!) ? "(Master)" : "")")
+        print("   Expression (Optional): \(profile.expressionNumber != nil ? String(describing: profile.expressionNumber!) : "N/A") \(profile.expressionNumber != nil && numerologyService.isMasterNumber(profile.expressionNumber!) ? "(Master)" : "")")
         print("   Wants Reflection Mode: \(profile.wantsReflectionMode)")
 
         saveUserProfileToStorage(profile)

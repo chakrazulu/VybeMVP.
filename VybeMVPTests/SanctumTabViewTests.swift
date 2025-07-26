@@ -1,10 +1,10 @@
 /*
  * ========================================
- * 👤 USER PROFILE TAB VIEW COMPREHENSIVE TESTS
+ * 🔮 SANCTUM TAB VIEW COMPREHENSIVE TESTS
  * ========================================
  * 
  * CRITICAL PURPOSE:
- * Comprehensive testing of UserProfileTabView (4000+ lines) to ensure UI stability,
+ * Comprehensive testing of SanctumTabView (4000+ lines) to ensure UI stability,
  * data accuracy, memory safety, and proper integration with MegaCorpus data.
  * This is the most complex view in the app and requires extensive testing.
  * 
@@ -36,7 +36,7 @@ import Combine
 @testable import VybeMVP
 
 @MainActor
-final class UserProfileTabViewTests: XCTestCase, @unchecked Sendable {
+final class SanctumTabViewTests: XCTestCase, @unchecked Sendable {
     
     // MARK: - Test Configuration
     
@@ -44,7 +44,7 @@ final class UserProfileTabViewTests: XCTestCase, @unchecked Sendable {
     private var testUserProfile: UserProfile!
     
     /// Test view instance
-    private var userProfileTabView: UserProfileTabView!
+    private var sanctumTabView: SanctumTabView!
     
     /// Combine cancellables for async testing
     private var cancellables: Set<AnyCancellable>!
@@ -84,7 +84,7 @@ final class UserProfileTabViewTests: XCTestCase, @unchecked Sendable {
         )
         
         // Initialize test view
-        userProfileTabView = UserProfileTabView()
+        sanctumTabView = SanctumTabView()
         
         // Configure test settings
         continueAfterFailure = false
@@ -96,7 +96,7 @@ final class UserProfileTabViewTests: XCTestCase, @unchecked Sendable {
     override func tearDownWithError() throws {
         cancellables?.removeAll()
         testUserProfile = nil
-        userProfileTabView = nil
+        sanctumTabView = nil
         MegaCorpusCache.shared.data = nil
         
         try super.tearDownWithError()
@@ -105,10 +105,10 @@ final class UserProfileTabViewTests: XCTestCase, @unchecked Sendable {
     // MARK: - 🎨 VIEW RENDERING AND UI COMPONENT TESTS
     
     /// Claude: Test view initialization and basic rendering
-    /// Validates that UserProfileTabView initializes without crashing
+    /// Validates that SanctumTabView initializes without crashing
     func testViewInitialization() throws {
-        let view = UserProfileTabView()
-        XCTAssertNotNil(view, "UserProfileTabView should initialize successfully")
+        let view = SanctumTabView()
+        XCTAssertNotNil(view, "SanctumTabView should initialize successfully")
         
         // Test that view can be rendered (basic smoke test)
         let hostingController = UIHostingController(rootView: view)
@@ -118,7 +118,7 @@ final class UserProfileTabViewTests: XCTestCase, @unchecked Sendable {
     /// Claude: Test navigation structure
     /// Validates proper navigation setup and title configuration
     func testNavigationStructure() throws {
-        let view = UserProfileTabView()
+        let view = SanctumTabView()
         
         // Test navigation elements (would require ViewInspector or similar for full testing)
         // For now, verify view creation doesn't crash
@@ -145,7 +145,7 @@ final class UserProfileTabViewTests: XCTestCase, @unchecked Sendable {
     /// Claude: Test cosmic background integration
     /// Validates that cosmic background renders without performance issues
     func testCosmicBackgroundIntegration() throws {
-        let view = UserProfileTabView()
+        let view = SanctumTabView()
         
         // Test background rendering stability
         let hostingController = UIHostingController(rootView: view)
@@ -402,7 +402,7 @@ final class UserProfileTabViewTests: XCTestCase, @unchecked Sendable {
         autoreleasepool {
             // Create and destroy multiple view instances
             for _ in 0..<100 {
-                let view = UserProfileTabView()
+                let view = SanctumTabView()
                 let hostingController = UIHostingController(rootView: view)
                 hostingController.loadViewIfNeeded()
                 // Let ARC clean up
@@ -441,7 +441,7 @@ final class UserProfileTabViewTests: XCTestCase, @unchecked Sendable {
             )
             
             // Create view with complex profile
-            let view = UserProfileTabView()
+            let view = SanctumTabView()
             let hostingController = UIHostingController(rootView: view)
             hostingController.loadViewIfNeeded()
         }
@@ -502,7 +502,7 @@ final class UserProfileTabViewTests: XCTestCase, @unchecked Sendable {
     /// Claude: Test editing mode functionality
     /// Validates edit mode state and functionality
     func testEditingModeFunctionality() {
-        let view = UserProfileTabView()
+        let view = SanctumTabView()
         
         // Test edit mode state management
         // This requires UI testing framework for full validation
@@ -512,7 +512,7 @@ final class UserProfileTabViewTests: XCTestCase, @unchecked Sendable {
     /// Claude: Test data binding and updates
     /// Validates proper data flow and UI updates
     func testDataBindingAndUpdates() {
-        let view = UserProfileTabView()
+        let view = SanctumTabView()
         
         // Test that view can handle profile updates
         // This would require ObservableObject testing
@@ -590,7 +590,7 @@ final class UserProfileTabViewTests: XCTestCase, @unchecked Sendable {
 
 // MARK: - 🧪 TEST UTILITIES AND HELPERS
 
-extension UserProfileTabViewTests {
+extension SanctumTabViewTests {
     
     /// Claude: Load MegaCorpus data for testing
     /// Provides consistent data loading across all tests
