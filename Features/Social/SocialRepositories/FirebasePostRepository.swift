@@ -1,3 +1,4 @@
+ 
 //
 //  FirebasePostRepository.swift
 //  VybeMVP
@@ -67,6 +68,14 @@ class FirebasePostRepository: ObservableObject, PostRepository {
         $_errorMessage.eraseToAnyPublisher()
     }
     
+    var isPaginatingPublisher: AnyPublisher<Bool, Never> {
+        $_isPaginating.eraseToAnyPublisher()
+    }
+    
+    var hasMorePostsPublisher: AnyPublisher<Bool, Never> {
+        $_hasMorePosts.eraseToAnyPublisher()
+    }
+    
     // MARK: - Cache Management
     
     /// In-memory cache for posts with timestamp tracking
@@ -97,11 +106,38 @@ class FirebasePostRepository: ObservableObject, PostRepository {
     /// Last listener restart time to prevent excessive restarts
     private var lastListenerRestart: Date = Date()
     
+    // MARK: - Phase 17D: Advanced Pagination & Query Management
+    
+    /// Current pagination state
+    private var paginationState = PaginationState()
+    
+    /// Last document snapshot for cursor-based pagination
+    private var lastDocumentSnapshot: DocumentSnapshot?
+    
+    /// Loading state for pagination requests
+    @Published private var _isPaginating: Bool = false
+    var isPaginating: Bool { _isPaginating }
+    
+    /// Indicates if more posts are available for loading
+    @Published private var _hasMorePosts: Bool = true
+    var hasMorePosts: Bool { _hasMorePosts }
+    
+    /// Track user scroll behavior for smart prefetching
+    private var userScrollMetrics = UserScrollMetrics()
+    
     // MARK: - Initialization
     
     init() {
         print("🏗️ FirebasePostRepository: Initializing with cache-first strategy")
-        // Don't start real-time updates immediately - let the caller decide when
+        
+        // Claude: Fix empty timeline issue - load cached posts immediately
+        Task { @MainActor in
+            // Try to load from cache first
+            if hasFreshCachedPosts() {
+                print("⚡ Startup: Loading posts from cache")
+                _posts = getCachedPosts()
+            }
+        }
     }
     
     deinit {
@@ -136,31 +172,43 @@ class FirebasePostRepository: ObservableObject, PostRepository {
         
         cacheStats.incrementMiss()
         
-        // Set loading state
-        _isLoading = true
-        _errorMessage = nil
-        
-        // If force refresh, remove existing listener to get fresh data
+        // Claude: Fix refresh UX - don't clear posts immediately on force refresh
         if forceRefresh {
+            print("🔄 Force refresh: Keeping existing posts visible during reload")
+            // Keep current posts visible, just mark as refreshing
+            _isLoading = true
+            _errorMessage = nil
+            
+            // Remove listener to force fresh data
             postsListener?.remove()
-        }
-        
-        // Start real-time listener if not already active
-        if postsListener == nil {
-            startRealtimeUpdates()
-        }
-        
-        // Wait for initial data load with timeout
-        let startTime = Date()
-        let timeout: TimeInterval = VybeConstants.pullRefreshTimeout
-        
-        while _isLoading && Date().timeIntervalSince(startTime) < timeout {
-            try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
-        }
-        
-        if _isLoading {
-            _errorMessage = "Request timed out"
-            _isLoading = false
+            postsListener = nil
+            
+            // Do immediate fetch for fast refresh
+            await performImmediateFetch()
+            
+            // Then start fresh listener for ongoing updates (without setting loading state)
+            startRealtimeUpdatesForRefresh()
+            
+            // Safety timeout for refresh
+            Task {
+                try? await Task.sleep(nanoseconds: 5_000_000_000) // 5 seconds
+                if _isLoading {
+                    print("⚠️ Refresh timeout - force completing")
+                    _isLoading = false
+                }
+            }
+        } else {
+            // Claude: Fix slow loading - immediate fetch for initial load
+            _isLoading = true
+            _errorMessage = nil
+            
+            // Do immediate fetch first for fast loading
+            await performImmediateFetch()
+            
+            // Then start real-time listener for ongoing updates
+            if postsListener == nil {
+                startRealtimeUpdates()
+            }
         }
     }
     
@@ -397,6 +445,18 @@ class FirebasePostRepository: ObservableObject, PostRepository {
      * - Efficient change detection
      */
     func startRealtimeUpdates() {
+        startRealtimeUpdatesInternal(setLoadingState: true)
+    }
+    
+    /**
+     * Claude: Fix infinite refresh loading - start listener without overriding loading state
+     * Used during refresh when performImmediateFetch already handles loading state
+     */
+    private func startRealtimeUpdatesForRefresh() {
+        startRealtimeUpdatesInternal(setLoadingState: false)
+    }
+    
+    private func startRealtimeUpdatesInternal(setLoadingState: Bool) {
         guard postsListener == nil else { return }
         guard isConnected else {
             print("📵 Skipping listener start - device offline")
@@ -411,8 +471,10 @@ class FirebasePostRepository: ObservableObject, PostRepository {
         }
         lastListenerRestart = now
         
-        print("🔄 Phase 17C: Starting optimized real-time post listener")
-        _isLoading = true
+        print("🔄 Phase 17C: Starting optimized real-time post listener (setLoading: \(setLoadingState))")
+        if setLoadingState {
+            _isLoading = true
+        }
         
         // Phase 17C: Smart query with cost optimization
         let cutoffDate = Date().addingTimeInterval(-VybeConstants.maxPostAgeForListeners)
@@ -612,7 +674,172 @@ class FirebasePostRepository: ObservableObject, PostRepository {
         }
     }
     
+    // MARK: - Phase 17D: Pagination Implementation
+    
+    /**
+     * Loads the next page of posts using cursor-based pagination
+     */
+    func loadNextPage() async {
+        guard !_isPaginating && _hasMorePosts else {
+            print("⏸️ Skipping pagination - already loading or no more posts")
+            return
+        }
+        
+        _isPaginating = true
+        print("📄 Phase 17D: Loading next page (\(paginationState.currentPage + 1))")
+        
+        do {
+            // Determine page size based on user behavior
+            let pageSize = adaptivePageSize()
+            
+            // Build query with cursor
+            var query = db.collection("posts")
+                .order(by: "timestamp", descending: true)
+                .limit(to: pageSize)
+            
+            // Add cursor if we have a last document
+            if let lastDoc = lastDocumentSnapshot {
+                query = query.start(afterDocument: lastDoc)
+            }
+            
+            // Add time filter for recent posts only
+            let cutoffDate = Date().addingTimeInterval(-VybeConstants.maxPostAgeForListeners)
+            query = query.whereField("timestamp", isGreaterThan: cutoffDate)
+            
+            let snapshot = try await query.getDocuments()
+            
+            let newPosts = snapshot.documents.compactMap { document -> Post? in
+                do {
+                    var post = try document.data(as: Post.self)
+                    post.id = document.documentID
+                    return post
+                } catch {
+                    print("❌ Error decoding paginated post: \(error)")
+                    return nil
+                }
+            }
+            
+            // Update pagination state
+            lastDocumentSnapshot = snapshot.documents.last
+            paginationState.incrementPage()
+            
+            // Check if we have more posts
+            _hasMorePosts = newPosts.count == pageSize
+            
+            // Update cache and UI
+            updateCache(with: newPosts)
+            _posts.append(contentsOf: newPosts)
+            
+            // Setup reaction listeners for new posts
+            setupOptimizedReactionListeners(for: newPosts)
+            
+            print("✅ Phase 17D: Loaded page \(paginationState.currentPage) with \(newPosts.count) posts")
+            
+        } catch {
+            print("❌ Pagination error: \(error.localizedDescription)")
+            _errorMessage = "Failed to load more posts: \(error.localizedDescription)"
+        }
+        
+        _isPaginating = false
+    }
+    
+    /**
+     * Records user scroll behavior for smart prefetching
+     */
+    func recordScrollBehavior(speed: Double) async {
+        userScrollMetrics.recordScrollEvent(speed: speed)
+        
+        // Smart prefetching based on scroll behavior
+        if userScrollMetrics.prefersFastLoading && !_isPaginating && _hasMorePosts {
+            let postsRemaining = max(0, _posts.count - VybeConstants.paginationTriggerThreshold)
+            if postsRemaining <= 0 {
+                print("🏃‍♂️ Fast scroll detected - preloading next page")
+                await loadNextPage()
+            }
+        }
+    }
+    
+    /**
+     * Resets pagination state and starts fresh
+     */
+    func resetPagination() async {
+        print("🔄 Phase 17D: Resetting pagination state")
+        
+        paginationState.reset()
+        lastDocumentSnapshot = nil
+        _hasMorePosts = true
+        _isPaginating = false
+        userScrollMetrics = UserScrollMetrics()
+        
+        // Clear current posts and restart
+        _posts.removeAll()
+        postCache.removeAll()
+        
+        // Restart real-time updates
+        stopRealtimeUpdates()
+        startRealtimeUpdates()
+    }
+    
+    /**
+     * Phase 17D: Adaptive page size based on user behavior and device performance
+     */
+    private func adaptivePageSize() -> Int {
+        let baseSize = VybeConstants.optimizedPostQueryLimit
+        
+        // Adjust based on user scroll behavior
+        if userScrollMetrics.prefersFastLoading {
+            return min(baseSize + VybeConstants.pageSizeIncrement, VybeConstants.maximumPageSize)
+        } else {
+            return max(baseSize - 5, VybeConstants.minimumPageSize)
+        }
+    }
+    
     // MARK: - Private Helper Methods
+    
+    /**
+     * Claude: Immediate fetch for fast initial loading
+     * Performs one-time Firebase read instead of waiting for real-time listener
+     */
+    private func performImmediateFetch() async {
+        do {
+            print("⚡ Performing immediate fetch for fast startup")
+            
+            // Use same query as real-time listener for consistency  
+            let cutoffDate = Date().addingTimeInterval(-VybeConstants.maxPostAgeForListeners)
+            
+            let snapshot = try await db.collection("posts")
+                .whereField("timestamp", isGreaterThan: cutoffDate)
+                .order(by: "timestamp", descending: true)
+                .limit(to: VybeConstants.optimizedPostQueryLimit)
+                .getDocuments()
+            
+            let fetchedPosts = snapshot.documents.compactMap { document -> Post? in
+                do {
+                    var post = try document.data(as: Post.self)
+                    post.id = document.documentID
+                    return post
+                } catch {
+                    print("❌ Error decoding immediate fetch post: \(error)")
+                    return nil
+                }
+            }
+            
+            // Update cache and UI immediately
+            updateCache(with: fetchedPosts)
+            _posts = fetchedPosts
+            _isLoading = false
+            
+            // Set up reaction listeners for fetched posts
+            setupOptimizedReactionListeners(for: fetchedPosts)
+            
+            print("✅ Immediate fetch completed: \(fetchedPosts.count) posts loaded")
+            
+        } catch {
+            print("❌ Immediate fetch failed: \(error.localizedDescription)")
+            _errorMessage = "Failed to load posts: \(error.localizedDescription)"
+            _isLoading = false
+        }
+    }
     
     private func hasFreshCachedPosts() -> Bool {
         let now = Date()
@@ -707,5 +934,57 @@ private struct CacheStatistics {
     
     mutating func incrementMiss() {
         misses += 1
+    }
+}
+
+/**
+ * Phase 17D: Pagination state management
+ */
+private struct PaginationState {
+    var currentPage: Int = 0
+    var totalPagesLoaded: Int = 0
+    var lastLoadTime: Date = Date()
+    var averagePostsPerPage: Int = 25
+    
+    mutating func incrementPage() {
+        currentPage += 1
+        totalPagesLoaded += 1
+        lastLoadTime = Date()
+    }
+    
+    mutating func reset() {
+        currentPage = 0
+        totalPagesLoaded = 0
+        lastLoadTime = Date()
+    }
+}
+
+/**
+ * Phase 17D: User scroll behavior tracking for smart prefetching
+ */
+private struct UserScrollMetrics {
+    var averageScrollSpeed: Double = 0.0
+    var fastScrollCount: Int = 0
+    var slowScrollCount: Int = 0
+    var lastScrollTime: Date = Date()
+    
+    mutating func recordScrollEvent(speed: Double) {
+        let now = Date()
+        _ = now.timeIntervalSince(lastScrollTime) // Claude: Fix unused variable warning
+        
+        // Update average scroll speed with weighted average
+        averageScrollSpeed = (averageScrollSpeed * 0.8) + (speed * 0.2)
+        
+        if speed > VybeConstants.fastScrollThreshold {
+            fastScrollCount += 1
+        } else {
+            slowScrollCount += 1
+        }
+        
+        lastScrollTime = now
+    }
+    
+    var prefersFastLoading: Bool {
+        return fastScrollCount > slowScrollCount * 2
     }
 }

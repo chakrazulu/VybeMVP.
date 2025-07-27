@@ -51,6 +51,12 @@ protocol PostRepository {
     /// Publisher for error changes
     @MainActor var errorPublisher: AnyPublisher<String?, Never> { get }
     
+    /// Publisher for pagination loading state changes
+    @MainActor var isPaginatingPublisher: AnyPublisher<Bool, Never> { get }
+    
+    /// Publisher for more posts availability changes
+    @MainActor var hasMorePostsPublisher: AnyPublisher<Bool, Never> { get }
+    
     // MARK: - Post Operations
     
     /**
@@ -105,6 +111,31 @@ protocol PostRepository {
      * - Returns: Array of recent posts from cache or Firebase
      */
     func getRecentPosts(within timeInterval: TimeInterval) async -> [Post]
+    
+    // MARK: - Phase 17D: Pagination Operations
+    
+    /// Loading state for pagination requests
+    @MainActor var isPaginating: Bool { get }
+    
+    /// Indicates if more posts are available for loading
+    @MainActor var hasMorePosts: Bool { get }
+    
+    /**
+     * Loads the next page of posts using cursor-based pagination
+     * - Returns: Async operation that completes when next page is loaded
+     */
+    func loadNextPage() async
+    
+    /**
+     * Records user scroll behavior for smart prefetching optimization
+     * - Parameter speed: Scroll speed in points per second
+     */
+    func recordScrollBehavior(speed: Double) async
+    
+    /**
+     * Resets pagination state and starts fresh
+     */
+    func resetPagination() async
     
     // MARK: - Reaction Operations
     

@@ -1,0 +1,4 @@
+module grpcppWrapper {
+umbrella "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/grpc-binary/grpcpp-Wrapper/include"
+export *
+}

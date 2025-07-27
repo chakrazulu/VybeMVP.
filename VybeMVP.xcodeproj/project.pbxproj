@@ -69,6 +69,9 @@
 		4D3727192DE5538A00B5A02B /* NumerologyInsightService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3727182DE5538A00B5A02B /* NumerologyInsightService.swift */; };
 		4D37271C2DE554B700B5A02B /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D37271A2DE554B700B5A02B /* ActivityView.swift */; };
 		4D53BE252DEC151900BAE6AE /* VoiceRecordingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */; };
+		4D5BEAF52E35A7AD00B56575 /* PostEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF22E35A7AD00B56575 /* PostEntity+CoreDataClass.swift */; };
+		4D5BEAF72E35A7E900B56575 /* PostEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF62E35A7E900B56575 /* PostEntity+CoreDataProperties.swift */; };
+		4D5BEAF92E35A81400B56575 /* HybridPostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF82E35A81400B56575 /* HybridPostRepository.swift */; };
 		4D6308DA2DFFCB2C00FD32E9 /* ReactionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D62DFFCB2C00FD32E9 /* ReactionPickerView.swift */; };
 		4D6308DB2DFFCB2C00FD32E9 /* Reaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D12DFFCB2C00FD32E9 /* Reaction.swift */; };
 		4D6308DC2DFFCB2C00FD32E9 /* PostComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D52DFFCB2C00FD32E9 /* PostComposerView.swift */; };
@@ -349,6 +352,9 @@
 		4D3727182DE5538A00B5A02B /* NumerologyInsightService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyInsightService.swift; sourceTree = "<group>"; };
 		4D37271A2DE554B700B5A02B /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordingManager.swift; sourceTree = "<group>"; };
+		4D5BEAF22E35A7AD00B56575 /* PostEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4D5BEAF62E35A7E900B56575 /* PostEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4D5BEAF82E35A81400B56575 /* HybridPostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HybridPostRepository.swift; sourceTree = "<group>"; };
 		4D6308D02DFFCB2C00FD32E9 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		4D6308D12DFFCB2C00FD32E9 /* Reaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reaction.swift; sourceTree = "<group>"; };
 		4D6308D22DFFCB2C00FD32E9 /* SocialUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialUser.swift; sourceTree = "<group>"; };
@@ -618,6 +624,8 @@
 		4D3055972D3C941B009A7BBD /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				4D5BEAF62E35A7E900B56575 /* PostEntity+CoreDataProperties.swift */,
+				4D5BEAF22E35A7AD00B56575 /* PostEntity+CoreDataClass.swift */,
 				4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */,
 				4D3055C52D3CB201009A7BBD /* UserPreferences+Helper.swift */,
 				4D3055B02D3C9942009A7BBD /* FocusNumberHelper.swift */,
@@ -1093,6 +1101,7 @@
 		4DF77E4B2E358B2E00B6D45E /* SocialRepositories */ = {
 			isa = PBXGroup;
 			children = (
+				4D5BEAF82E35A81400B56575 /* HybridPostRepository.swift */,
 				4DF77E492E358B2E00B6D45E /* FirebasePostRepository.swift */,
 				4DF77E4A2E358B2E00B6D45E /* PostRepository.swift */,
 			);
@@ -1345,6 +1354,7 @@
 				4D2DB4802DFF43390003353E /* ChakraModel.swift in Sources */,
 				4DCB38702E1B3C8F00311D51 /* KASPERPrimingPayload.swift in Sources */,
 				4D2DB4812DFF43390003353E /* PhantomChakrasView.swift in Sources */,
+				4D5BEAF92E35A81400B56575 /* HybridPostRepository.swift in Sources */,
 				4D2CC7162E0C37F200BDF100 /* RulingNumberChartDetailView.swift in Sources */,
 				4DA98FCA2E073CB100FAE5FF /* Report.swift in Sources */,
 				4D2DB4822DFF43390003353E /* ChakraManager.swift in Sources */,
@@ -1396,6 +1406,7 @@
 				4D2F223F2E347C0F0087B052 /* ProfileSummarySection.swift in Sources */,
 				4D2F22402E347C0F0087B052 /* ActionButtonsSection.swift in Sources */,
 				4D2F22412E347C0F0087B052 /* DivineTriangleSection.swift in Sources */,
+				4D5BEAF52E35A7AD00B56575 /* PostEntity+CoreDataClass.swift in Sources */,
 				4D6308E02DFFCB2C00FD32E9 /* SocialTimelineView.swift in Sources */,
 				4D6308E12DFFCB2C00FD32E9 /* SocialUser.swift in Sources */,
 				4DCEE4802E3433CF007CA451 /* AstrologyService.swift in Sources */,
@@ -1416,6 +1427,7 @@
 				4D2F22432E3482C70087B052 /* NatalChartSection.swift in Sources */,
 				4D3727152DE550ED00B5A02B /* CosmicBackgroundView.swift in Sources */,
 				4D2CC7102E0B9EB700BDF100 /* RulingNumberChartView.swift in Sources */,
+				4D5BEAF72E35A7E900B56575 /* PostEntity+CoreDataProperties.swift in Sources */,
 				4D6C7B9D2DE47E99001036E5 /* OnboardingReflectionModeView.swift in Sources */,
 				4D0CA8D12DE69F4600D4A6D6 /* NumerologyRainView.swift in Sources */,
 				4D6C7B9E2DE47E99001036E5 /* OnboardingInsightToneView.swift in Sources */,

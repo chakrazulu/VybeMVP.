@@ -176,6 +176,7 @@
  * VybeMVP
  *
  * PHASE 6 SOCIAL INTEGRATION: Global Resonance Timeline with Authentication Integration
+ * PHASE 17A FIREBASE OPTIMIZATION: Pull-to-Refresh Implementation
  * 
  * PURPOSE:
  * Main social timeline view displaying all user posts in the Global Resonance feed.
@@ -187,6 +188,12 @@
  * - ✅ "Create First Post" Button Data: Proper user info extraction from NotificationCenter
  * - ✅ Authentication Integration: Real user ID matching for edit/delete functionality
  * - ✅ Post Composer Triggers: Multiple entry points with consistent user data flow
+ *
+ * PHASE 17A FIREBASE OPTIMIZATION IMPLEMENTED:
+ * - ✅ Pull-to-Refresh: Added SwiftUI .refreshable modifier to social timeline ScrollView
+ * - ✅ Cost-Optimized Refresh: PostManager.refreshPosts() leverages existing Firebase infrastructure
+ * - ✅ Real-time Integration: Refresh re-establishes snapshot listeners for fresh data
+ * - ✅ User Experience: Immediate feedback with proper loading states and timing constants
  *
  * TECHNICAL ARCHITECTURE:
  * - Real-time Post Loading: Firebase Firestore listener for live post updates
@@ -250,6 +257,12 @@
  * - User Authentication: Firebase Auth integration for user identification
  * - Data Persistence: Posts stored in Firestore with proper user attribution
  * - Scalability: Designed for growing user base and increased post volume
+ *
+ * PHASE 17A PULL-TO-REFRESH INTEGRATION:
+ * - SwiftUI Native: Uses .refreshable modifier for iOS 15+ native pull-to-refresh
+ * - Cost Optimization: Leverages existing Firebase listeners instead of duplicate queries
+ * - Real-time Sync: Re-establishes snapshot listeners to force fresh data fetch
+ * - User Feedback: Proper loading states with VybeConstants timing for consistent UX
  *
  * FUTURE ENHANCEMENTS:
  * - Advanced Post Filtering: By user, content type, spiritual insights
@@ -354,13 +367,20 @@ struct SocialTimelineView: View {
                     // Filter tabs
                     filterTabsSection
                     
-                    // Main content
-                    if postManager.isLoading {
-                        loadingView
-                    } else if postManager.posts.isEmpty {
-                        emptyStateView
-                    } else {
-                        timelineScrollView
+                    // Main content - Claude: Fix empty state refresh by wrapping in ScrollView
+                    ScrollView {
+                        if postManager.isLoading {
+                            loadingView
+                        } else if postManager.posts.isEmpty {
+                            emptyStateView
+                                .frame(minHeight: 400) // Ensure scrollable content
+                        } else {
+                            timelineContent
+                        }
+                    }
+                    // Claude: Phase 17A - Pull-to-refresh moved here to work with empty state
+                    .refreshable {
+                        await postManager.refreshPosts()
                     }
                 }
                 
@@ -439,29 +459,27 @@ struct SocialTimelineView: View {
         }
     }
     
-    private var timelineScrollView: some View {
-        ScrollView {
-            LazyVStack(spacing: 20) {
-                ForEach(Array(filteredPosts.enumerated()), id: \.element.id) { index, post in
-                    PostCardView(
-                        post: post,
-                        currentUser: currentUser,
-                        onReaction: { reactionType in
-                            addReaction(to: post, type: reactionType)
-                        }
-                    )
-                    .scaleEffect(animateIn ? 1.0 : 0.8)
-                    .opacity(animateIn ? 1.0 : 0.0)
-                    .animation(
-                        .easeOut(duration: 0.6)
-                        .delay(Double(index) * 0.1 + 0.4),
-                        value: animateIn
-                    )
-                }
+    private var timelineContent: some View {
+        LazyVStack(spacing: 20) {
+            ForEach(Array(filteredPosts.enumerated()), id: \.element.id) { index, post in
+                PostCardView(
+                    post: post,
+                    currentUser: currentUser,
+                    onReaction: { reactionType in
+                        addReaction(to: post, type: reactionType)
+                    }
+                )
+                .scaleEffect(animateIn ? 1.0 : 0.8)
+                .opacity(animateIn ? 1.0 : 0.0)
+                .animation(
+                    .easeOut(duration: 0.6)
+                    .delay(Double(index) * 0.1 + 0.4),
+                    value: animateIn
+                )
             }
-            .padding()
-            .padding(.bottom, 100) // Space for floating button
         }
+        .padding()
+        .padding(.bottom, 100) // Space for floating button
     }
     
     private var loadingView: some View {

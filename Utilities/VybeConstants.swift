@@ -222,6 +222,23 @@ struct VybeConstants {
     /// Optimized post query limit for cost reduction
     static let optimizedPostQueryLimit: Int = 25
     
+    // MARK: - Phase 17D: Pagination Configuration
+    
+    /// Fast scroll threshold for smart prefetching (points per second)
+    static let fastScrollThreshold: Double = 100.0
+    
+    /// Posts remaining threshold to trigger pagination
+    static let paginationTriggerThreshold: Int = 10
+    
+    /// Minimum page size for slow scrollers
+    static let minimumPageSize: Int = 15
+    
+    /// Maximum page size for fast scrollers
+    static let maximumPageSize: Int = 40
+    
+    /// Page size increment for fast scrollers
+    static let pageSizeIncrement: Int = 10
+    
     /// Medium cosmic drift animation duration (seconds)
     static let mediumCosmicDriftDuration: TimeInterval = 15.0
 }
