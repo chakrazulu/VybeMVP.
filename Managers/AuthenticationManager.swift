@@ -135,6 +135,7 @@ import Foundation
 import AuthenticationServices
 import Combine
 import FirebaseAuth
+import FirebaseCore
 import CryptoKit
 
 /**
@@ -202,6 +203,15 @@ class AuthenticationManager: ObservableObject {
             return
         }
         
+        // Ensure Firebase is configured before accessing Auth
+        guard FirebaseApp.app() != nil else {
+            print("⚠️ Firebase not configured yet, deferring Auth listener setup")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.setupFirebaseAuthListener()
+            }
+            return
+        }
+        
         // Listen for Firebase Auth state changes
         authStateListener = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             DispatchQueue.main.async {
@@ -218,6 +228,28 @@ class AuthenticationManager: ObservableObject {
         if let listener = authStateListener {
             Auth.auth().removeStateDidChangeListener(listener)
         }
+    }
+    
+    /**
+     * Claude: Sets up Firebase Auth listener after ensuring Firebase is configured
+     */
+    private func setupFirebaseAuthListener() {
+        guard FirebaseApp.app() != nil else {
+            print("❌ Firebase still not configured, cannot setup Auth listener")
+            return
+        }
+        
+        // Only setup if not already setup
+        guard authStateListener == nil else { return }
+        
+        authStateListener = Auth.auth().addStateDidChangeListener { [weak self] _, user in
+            DispatchQueue.main.async {
+                self?.firebaseUser = user
+                self?.updateAuthenticationState()
+            }
+        }
+        
+        checkAuthenticationStatus()
     }
     
     // MARK: - Authentication Status

@@ -189,9 +189,11 @@ VybeMVP/
 - **CI/CD compatibility:** Ensure builds work in automated environments
 
 ### **Testing Protocol**
-- **Unit tests:** Run full test suite after each change
+- **Unit tests:** Run full test suite after each change (currently 434/434 passing)
+- **Test Architecture:** Use TestableHybridPostRepository and SimpleMockPostRepository for isolation
+- **Behavior Tests:** Focus on user experience, not implementation details
+- **Performance tests:** Dedicated performance test suite with manual timing (no measure{} blocks)
 - **UI tests:** Validate user interactions and flows
-- **Performance tests:** Ensure 60fps target is maintained
 - **Regression testing:** Verify existing functionality still works
 
 ---
@@ -229,7 +231,7 @@ VybeMVP/
 
 ## 📚 **Documentation and Maintenance**
 
-### **CLAUDE_RULES.md Maintenance**
+### **CLAUDE.md Maintenance**
 - **Update after each sprint** with new conventions or adjustments
 - **Version control:** Commit changes with descriptive messages
 - **Team collaboration:** Review updates during planning sessions
@@ -237,7 +239,7 @@ VybeMVP/
 
 ### **Commit Message Format**
 ```
-docs: update CLAUDE_RULES.md for Sprint X
+docs: update CLAUDE.md for Sprint X
 - Added new performance guidelines
 - Updated testing protocols
 - Enhanced spiritual integrity rules

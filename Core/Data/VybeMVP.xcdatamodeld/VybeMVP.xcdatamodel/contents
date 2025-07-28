@@ -28,7 +28,7 @@
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="PostEntity" representedClassName="PostEntity" syncable="YES">
-        <attribute name="astModifiedTimestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="lastModifiedTimestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="authorId" optional="YES" attributeType="String"/>
         <attribute name="authorName" optional="YES" attributeType="String"/>
         <attribute name="chakraType" optional="YES" attributeType="String"/>
