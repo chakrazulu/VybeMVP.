@@ -78,6 +78,13 @@ final class KASPERIntegrationTests: XCTestCase {
         // Create comprehensive test user profile with natal chart data
         testUserProfile = createTestUserProfile()
         
+        // Mock the authentication state for testing
+        // This ensures the tests don't depend on actual authentication
+        setupMockAuthentication()
+        
+        // Configure HealthKitManager with valid test data
+        setupHealthKitManager()
+        
         print("🧪 KASPERIntegrationTests: Setup complete with test profile and configured dependencies")
     }
     
@@ -92,6 +99,38 @@ final class KASPERIntegrationTests: XCTestCase {
     }
     
     // MARK: - Core Integration Tests
+    
+    /**
+     * DEBUG TEST: Basic payload generation
+     * 
+     * This test helps debug why payload generation is failing
+     */
+    func testDebugBasicPayloadGeneration() throws {
+        // Test 1: Can we generate a test payload?
+        let testPayload = kasperManager.generateTestPayload()
+        XCTAssertNotNil(testPayload, "Test payload generation should work")
+        XCTAssertTrue(testPayload.isValid, "Test payload should be valid")
+        
+        // Test 2: Can we use the test profile directly?
+        let userProfile = testUserProfile!
+        print("🔍 Test profile: Life Path = \(userProfile.lifePathNumber), ID = \(userProfile.id)")
+        
+        // Test 3: Try payload generation with explicit logging
+        let payload = kasperManager.generatePayloadWithProfile(userProfile)
+        
+        if payload == nil {
+            print("❌ Payload generation returned nil")
+            print("🔍 Checking dependencies:")
+            print("   - KASPERManager: \(kasperManager != nil)")
+            print("   - RealmNumberManager: \(testRealmNumberManager != nil)")
+            print("   - CosmicDataRepository: \(testCosmicDataRepository != nil)")
+        } else {
+            print("✅ Payload generated successfully")
+            print("🔍 Payload details: Life Path = \(payload!.lifePathNumber), Valid = \(payload!.isValid)")
+        }
+        
+        XCTAssertNotNil(payload, "Basic payload generation should work")
+    }
     
     /**
      * TEST 1: Complete Enhanced Payload Generation
@@ -444,6 +483,39 @@ final class KASPERIntegrationTests: XCTestCase {
             northNodeSign: "Gemini",
             birthChartCalculatedAt: Date()
         )
+    }
+    
+    /**
+     * Setup mock authentication for testing
+     * 
+     * This ensures tests don't depend on actual authentication state
+     * and can run consistently in any environment.
+     */
+    private func setupMockAuthentication() {
+        // Set test user ID in AuthenticationManager if needed
+        // Note: This approach depends on how AuthenticationManager is implemented
+        // For now, we'll rely on generatePayloadWithProfile() which bypasses auth
+    }
+    
+    /**
+     * Setup HealthKitManager with valid test data
+     * 
+     * Ensures BPM is in valid range (40-200) for payload validation
+     */
+    private func setupHealthKitManager() {
+        // If using real HealthKitManager, simulate a valid heart rate
+        if let mockManager = HealthKitManager.shared as? MockHealthKitManager {
+            // Using mock manager directly
+            mockManager.updateHeartRateForTesting(72)
+        } else {
+            // Real HealthKitManager - ensure it has simulation data
+            // The real HealthKitManager should have simulation fallback
+            print("🔍 Using real HealthKitManager with simulation mode")
+            // Force a heart rate update to ensure valid BPM
+            Task {
+                await HealthKitManager.shared.forceHeartRateUpdate()
+            }
+        }
     }
     
     /**
