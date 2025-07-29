@@ -88,6 +88,18 @@ final class KASPERIntegrationTests: XCTestCase {
         // Force configure FocusNumberManager with valid number
         FocusNumberManager.shared.setFocusNumber(3)
         
+        // Verify all critical values are valid
+        print("🧪 KASPERIntegrationTests: Setup verification:")
+        print("   - HealthKit BPM: \(HealthKitManager.shared.currentHeartRate)")
+        print("   - RealmNumber: \(testRealmNumberManager.currentRealmNumber)")
+        print("   - FocusNumber: \(FocusNumberManager.shared.selectedFocusNumber)")
+        
+        // Ensure FocusNumber is valid (sometimes it resets)
+        if FocusNumberManager.shared.selectedFocusNumber < 1 || FocusNumberManager.shared.selectedFocusNumber > 9 {
+            print("⚠️ Focus number invalid, forcing to 3")
+            FocusNumberManager.shared.setFocusNumber(3)
+        }
+        
         print("🧪 KASPERIntegrationTests: Setup complete with test profile and configured dependencies")
     }
     
@@ -160,7 +172,14 @@ final class KASPERIntegrationTests: XCTestCase {
         let userProfile = testUserProfile!
         
         // When: Generating a KASPER payload with the enhanced integration
+        print("🔍 About to call generatePayloadWithProfile...")
+        print("🔍 Pre-generation check:")
+        print("   - HealthKit BPM: \(HealthKitManager.shared.currentHeartRate)")
+        print("   - RealmNumber: \(testRealmNumberManager?.currentRealmNumber ?? -1)")
+        print("   - FocusNumber: \(FocusNumberManager.shared.selectedFocusNumber)")
+        
         let payload = kasperManager.generatePayloadWithProfile(userProfile)
+        print("🔍 generatePayloadWithProfile returned: \(payload != nil ? "SUCCESS" : "NIL")")
         
         // Debug: Print what we got
         if payload == nil {
