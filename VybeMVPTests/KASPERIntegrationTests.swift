@@ -162,6 +162,41 @@ final class KASPERIntegrationTests: XCTestCase {
         // When: Generating a KASPER payload with the enhanced integration
         let payload = kasperManager.generatePayloadWithProfile(userProfile)
         
+        // Debug: Print what we got
+        if payload == nil {
+            print("❌ generatePayloadWithProfile returned nil")
+            print("🔍 Debug info:")
+            print("   - HealthKit BPM: \(HealthKitManager.shared.currentHeartRate)")
+            print("   - RealmNumber: \(testRealmNumberManager?.currentRealmNumber ?? -1)")
+            print("   - FocusNumber: \(FocusNumberManager.shared.selectedFocusNumber)")
+            print("   - UserProfile tone: '\(userProfile.insightTone)'")
+            
+            // Test creating payload with exact same data to see validation issue
+            let testPayload = KASPERPrimingPayload(
+                lifePathNumber: userProfile.lifePathNumber,
+                soulUrgeNumber: userProfile.soulUrgeNumber ?? 1,
+                expressionNumber: userProfile.expressionNumber ?? 1,
+                userTonePreference: userProfile.insightTone,
+                chakraState: nil,
+                bpm: HealthKitManager.shared.currentHeartRate,
+                lunarPhase: "Waxing Crescent", // Default from KASPERManager
+                dominantPlanet: "Venus", // Default from KASPERManager
+                realmNumber: testRealmNumberManager?.currentRealmNumber ?? 1,
+                focusNumber: FocusNumberManager.shared.selectedFocusNumber,
+                proximityMatchScore: 0.0,
+                natalChart: NatalChartData(from: userProfile),
+                currentTransits: nil,
+                environmentalContext: EnvironmentalContext(),
+                megaCorpusData: nil
+            )
+            print("🔍 Manual payload validation: \(testPayload.isValid)")
+            if !testPayload.isValid {
+                print("🔍 Manual payload debug: BPM=\(testPayload.bpm), LP=\(testPayload.lifePathNumber), SU=\(testPayload.soulUrgeNumber), EX=\(testPayload.expressionNumber)")
+                print("🔍 Manual payload strings: tone='\(testPayload.userTonePreference)', lunar='\(testPayload.lunarPhase)', planet='\(testPayload.dominantPlanet)'")
+                print("🔍 Manual payload numbers: realm=\(testPayload.realmNumber), focus=\(testPayload.focusNumber), proximity=\(testPayload.proximityMatchScore)")
+            }
+        }
+        
         // Then: Validate all enhanced fields are present and correctly populated
         XCTAssertNotNil(payload, "KASPER payload should be generated successfully")
         
@@ -348,6 +383,15 @@ final class KASPERIntegrationTests: XCTestCase {
         
         // When: Transforming to KASPER payload
         let payload = kasperManager.generatePayloadWithProfile(userProfile)
+        
+        // Debug: Print what we got
+        if payload == nil {
+            print("❌ Data transformation failed - generatePayloadWithProfile returned nil")
+            print("🔍 Debug info:")
+            print("   - HealthKit BPM: \(HealthKitManager.shared.currentHeartRate)")
+            print("   - RealmNumber: \(testRealmNumberManager?.currentRealmNumber ?? -1)")
+            print("   - FocusNumber: \(FocusNumberManager.shared.selectedFocusNumber)")
+        }
         
         // Then: Validate every field transformation
         XCTAssertNotNil(payload, "Data transformation should succeed")
