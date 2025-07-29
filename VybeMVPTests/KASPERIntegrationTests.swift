@@ -515,7 +515,7 @@ final class KASPERIntegrationTests: XCTestCase {
         print("🔍 Setting up HealthKitManager for testing")
         
         // Enable simulation mode and force a valid heart rate
-        HealthKitManager.shared.enableSimulationMode(true)
+        HealthKitManager.shared.setSimulationMode(enabled: true)
         HealthKitManager.shared.simulateHeartRateForDevelopment(rate: 72)
         
         print("🔍 HealthKit simulation enabled with BPM: \(HealthKitManager.shared.currentHeartRate)")
