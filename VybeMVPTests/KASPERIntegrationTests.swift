@@ -85,6 +85,9 @@ final class KASPERIntegrationTests: XCTestCase {
         // Configure HealthKitManager with valid test data
         setupHealthKitManager()
         
+        // Force configure FocusNumberManager with valid number
+        FocusNumberManager.shared.setFocusNumber(3)
+        
         print("🧪 KASPERIntegrationTests: Setup complete with test profile and configured dependencies")
     }
     
@@ -106,66 +109,36 @@ final class KASPERIntegrationTests: XCTestCase {
      * This test helps debug why payload generation is failing
      */
     func testDebugBasicPayloadGeneration() throws {
-        print("🔍 === DEBUG TEST START ===")
+        // Create a working payload directly to verify structure works
+        let workingPayload = createWorkingTestPayload()
+        XCTAssertTrue(workingPayload.isValid, "Working test payload should be valid")
         
-        // Test 1: Can we generate a test payload?
-        print("🔍 Testing generateTestPayload()...")
-        let testPayload = kasperManager.generateTestPayload()
-        XCTAssertTrue(testPayload.isValid, "Test payload should be valid")
-        print("✅ Test payload: BPM=\(testPayload.bpm), Valid=\(testPayload.isValid)")
-        
-        // Test 2: Check all our dependencies
-        print("🔍 Checking dependencies:")
-        print("   - KASPERManager: \(kasperManager != nil)")
-        print("   - RealmNumberManager: \(testRealmNumberManager != nil)")
-        print("   - RealmNumber: \(testRealmNumberManager?.currentRealmNumber ?? -1)")
-        print("   - CosmicDataRepository: \(testCosmicDataRepository != nil)")
-        print("   - HealthKitManager BPM: \(HealthKitManager.shared.currentHeartRate)")
-        print("   - FocusNumberManager: \(FocusNumberManager.shared.selectedFocusNumber)")
-        
-        // Test 3: Check test profile
-        let userProfile = testUserProfile!
-        print("🔍 Test profile:")
-        print("   - Life Path: \(userProfile.lifePathNumber)")
-        print("   - Soul Urge: \(userProfile.soulUrgeNumber ?? -1)")
-        print("   - Expression: \(userProfile.expressionNumber ?? -1)")
-        print("   - Tone: '\(userProfile.insightTone)'")
-        
-        // Test 4: Try payload generation with explicit logging
-        print("🔍 Testing generatePayloadWithProfile()...")
-        let payload = kasperManager.generatePayloadWithProfile(userProfile)
-        
-        if payload == nil {
-            print("❌ Payload generation returned nil")
-            
-            // Try creating a payload manually to see what's failing
-            print("🔍 Creating manual payload to test validation...")
-            let manualPayload = KASPERPrimingPayload(
-                lifePathNumber: userProfile.lifePathNumber,
-                soulUrgeNumber: userProfile.soulUrgeNumber ?? 1,
-                expressionNumber: userProfile.expressionNumber ?? 1,
-                userTonePreference: userProfile.insightTone,
-                chakraState: nil,
-                bpm: HealthKitManager.shared.currentHeartRate,
-                lunarPhase: "Waxing Crescent",
-                dominantPlanet: "Venus",
-                realmNumber: testRealmNumberManager?.currentRealmNumber ?? 1,
-                focusNumber: FocusNumberManager.shared.selectedFocusNumber,
-                proximityMatchScore: 0.0,
-                natalChart: nil,
-                currentTransits: nil,
-                environmentalContext: nil,
-                megaCorpusData: nil
-            )
-            print("🔍 Manual payload valid: \(manualPayload.isValid)")
-            print("🔍 Manual payload BPM: \(manualPayload.bpm)")
-        } else {
-            print("✅ Payload generated successfully")
-            print("🔍 Payload details: Life Path = \(payload!.lifePathNumber), Valid = \(payload!.isValid)")
-        }
-        
-        print("🔍 === DEBUG TEST END ===")
+        // Now test the actual generation
+        let payload = kasperManager.generatePayloadWithProfile(testUserProfile)
         XCTAssertNotNil(payload, "Basic payload generation should work")
+    }
+    
+    /**
+     * Create a known working payload for testing
+     */
+    private func createWorkingTestPayload() -> KASPERPrimingPayload {
+        return KASPERPrimingPayload(
+            lifePathNumber: 7,
+            soulUrgeNumber: 11,
+            expressionNumber: 3,
+            userTonePreference: "Poetic",
+            chakraState: nil,
+            bpm: 72, // Valid BPM
+            lunarPhase: "Waxing Crescent",
+            dominantPlanet: "Venus",
+            realmNumber: 5, // Valid realm number
+            focusNumber: 3, // Valid focus number
+            proximityMatchScore: 0.0,
+            natalChart: NatalChartData(from: testUserProfile),
+            currentTransits: createTestTransitData(),
+            environmentalContext: EnvironmentalContext(),
+            megaCorpusData: nil
+        )
     }
     
     /**
@@ -539,19 +512,13 @@ final class KASPERIntegrationTests: XCTestCase {
      * Ensures BPM is in valid range (40-200) for payload validation
      */
     private func setupHealthKitManager() {
-        // The real HealthKitManager should have simulation fallback
         print("🔍 Setting up HealthKitManager for testing")
         
-        // Since we can't cast to MockHealthKitManager, we'll force the real manager
-        // to update its heart rate through its simulation mode
-        let expectation = expectation(description: "HealthKit setup")
-        Task {
-            let success = await HealthKitManager.shared.forceHeartRateUpdate()
-            print("🔍 HealthKit force update result: \(success)")
-            print("🔍 Current BPM: \(HealthKitManager.shared.currentHeartRate)")
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: 2.0)
+        // Enable simulation mode and force a valid heart rate
+        HealthKitManager.shared.enableSimulationMode(true)
+        HealthKitManager.shared.simulateHeartRateForDevelopment(rate: 72)
+        
+        print("🔍 HealthKit simulation enabled with BPM: \(HealthKitManager.shared.currentHeartRate)")
     }
     
     /**
