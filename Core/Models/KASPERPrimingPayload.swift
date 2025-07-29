@@ -462,6 +462,43 @@ struct TransitData: Codable {
         self.calculatedAt = cosmicSnapshot.lastUpdated
         self.nextMajorTransit = nil // TODO: Calculate next major transit
     }
+    
+    // Manual initializer for testing and direct creation
+    init(
+        currentMoonSign: String,
+        moonIsRetrograde: Bool = false,
+        moonNextTransit: String? = nil,
+        currentSunSign: String,
+        currentMercury: PlanetaryTransit? = nil,
+        currentVenus: PlanetaryTransit? = nil,
+        currentMars: PlanetaryTransit? = nil,
+        currentJupiter: PlanetaryTransit? = nil,
+        currentSaturn: PlanetaryTransit? = nil,
+        currentUranus: PlanetaryTransit? = nil,
+        currentNeptune: PlanetaryTransit? = nil,
+        currentPluto: PlanetaryTransit? = nil,
+        currentSeason: String = "Summer",
+        lunarPhase: String = "Waxing Crescent",
+        calculatedAt: Date = Date(),
+        nextMajorTransit: String? = nil
+    ) {
+        self.currentMoonSign = currentMoonSign
+        self.moonIsRetrograde = moonIsRetrograde
+        self.moonNextTransit = moonNextTransit
+        self.currentSunSign = currentSunSign
+        self.currentMercury = currentMercury
+        self.currentVenus = currentVenus
+        self.currentMars = currentMars
+        self.currentJupiter = currentJupiter
+        self.currentSaturn = currentSaturn
+        self.currentUranus = currentUranus
+        self.currentNeptune = currentNeptune
+        self.currentPluto = currentPluto
+        self.currentSeason = currentSeason
+        self.lunarPhase = lunarPhase
+        self.calculatedAt = calculatedAt
+        self.nextMajorTransit = nextMajorTransit
+    }
 }
 
 /**
@@ -480,6 +517,21 @@ struct PlanetaryTransit: Codable {
         self.isRetrograde = planetaryData.isRetrograde
         self.nextTransit = planetaryData.nextTransit
         self.position = planetaryData.position
+    }
+    
+    // Manual initializer for testing and direct creation
+    init(
+        planet: String,
+        currentSign: String,
+        isRetrograde: Bool = false,
+        nextTransit: String? = nil,
+        position: Double? = nil
+    ) {
+        self.planet = planet
+        self.currentSign = currentSign
+        self.isRetrograde = isRetrograde
+        self.nextTransit = nextTransit
+        self.position = position
     }
 }
 
