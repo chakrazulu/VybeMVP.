@@ -59,13 +59,21 @@ final class KASPERIntegrationTests: XCTestCase {
         
         // Initialize test dependencies
         testRealmNumberManager = RealmNumberManager()
-        testCosmicDataRepository = MockCosmicDataRepository()
         
-        // Initialize KASPERManager for testing
-        kasperManager = KASPERManager.shared
-        
-        // Configure KASPERManager with test dependencies
-        kasperManager.configure(with: testRealmNumberManager, cosmicRepository: testCosmicDataRepository)
+        // Initialize mock cosmic data repository on MainActor
+        let expectation = expectation(description: "Setup MockCosmicDataRepository")
+        Task { @MainActor in
+            testCosmicDataRepository = MockCosmicDataRepository()
+            
+            // Initialize KASPERManager for testing
+            kasperManager = KASPERManager.shared
+            
+            // Configure KASPERManager with test dependencies
+            kasperManager.configure(with: testRealmNumberManager, cosmicRepository: testCosmicDataRepository)
+            
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 2.0)
         
         // Create comprehensive test user profile with natal chart data
         testUserProfile = createTestUserProfile()
