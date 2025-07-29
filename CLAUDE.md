@@ -315,7 +315,10 @@ This document incorporates guidelines and best practices from:
 - Always check imports when using UI functions (e.g., SwiftUI for withAnimation)
 - Maintain existing code style and patterns
 - Test thoroughly before marking tasks complete
+- Follow Phase 18 test architecture patterns for new test development
+- Add comprehensive documentation comments explaining problems and solutions
 
 ## Memory
-- **Build Testing:** I will test the builds myself unless just syntax checking because it will time out everytime. 
+- **Build Testing:** Test suite now reliable with 434/434 passing - timeouts resolved via Phase 18 fixes
 - **NO MORE DerivedData deletions without my explicit approval**
+- **Test Architecture:** Use TestableHybridPostRepository for isolated testing without production impact

@@ -748,7 +748,7 @@ struct SanctumTabView: View {
         func getPlanetColor(_ planet: String) -> Color {
             switch planet.lowercased() {
             case "sun": return .yellow
-            case "moon": return .silver
+            case "moon": return .gray
             case "mercury": return .blue
             case "venus": return .green
             case "mars": return .red
@@ -1042,7 +1042,7 @@ struct SanctumTabView: View {
         func getPlanetColor(_ planet: String) -> Color {
             switch planet.lowercased() {
             case "sun": return .yellow
-            case "moon": return .silver
+            case "moon": return .gray
             case "mercury": return .blue
             case "venus": return .green
             case "mars": return .red
@@ -3052,7 +3052,7 @@ struct PlanetDetailView: View {
     private func getPlanetColor(_ planet: String) -> Color {
         switch planet.lowercased() {
         case "sun": return .yellow
-        case "moon": return .silver
+        case "moon": return .gray
         case "mercury": return .blue
         case "venus": return .green
         case "mars": return .red
@@ -3667,7 +3667,7 @@ struct AspectDetailView: View {
     private func getPlanetColor(_ planet: String) -> Color {
         switch planet.lowercased() {
         case "sun": return .yellow
-        case "moon": return .silver
+        case "moon": return .gray
         case "mercury": return .blue
         case "venus": return .green
         case "mars": return .red

@@ -145,6 +145,9 @@ class FocusNumberManager: NSObject, ObservableObject {
     /// Core Data managed object context for persistence
     private let viewContext: NSManagedObjectContext
     
+    /// Claude: PERFORMANCE OPTIMIZATION - Persistence controller for background operations
+    private let persistenceController: PersistenceController
+    
     /// Current device location, used in transcendental calculations
     var currentLocation: CLLocation? {
         didSet {
@@ -199,6 +202,7 @@ class FocusNumberManager: NSObject, ObservableObject {
      */
     private init(persistenceController: PersistenceController = .shared) {
         self.viewContext = persistenceController.container.viewContext
+        self.persistenceController = persistenceController  // Claude: Store reference for background operations
         super.init()
         
         loadPreferences()
@@ -429,37 +433,47 @@ class FocusNumberManager: NSObject, ObservableObject {
             return
         }
         
-        // Create a new match entity
-        let newMatch = FocusMatch(context: viewContext)
-        // No UUID/id property in the FocusMatch entity
-        newMatch.timestamp = Date()
-        newMatch.chosenNumber = Int16(selectedFocusNumber)
-        newMatch.matchedNumber = Int16(matchedRealmNumber)
+        // Claude: PERFORMANCE OPTIMIZATION - Move entire match creation to background context
+        // This prevents blocking the main thread during Core Data operations
         
-        // Add location if available
-        if let location = _currentLocation {
-            newMatch.locationLatitude = location.latitude
-            newMatch.locationLongitude = location.longitude
-        } else {
-            // Default to 0,0 if no location
-            newMatch.locationLatitude = 0
-            newMatch.locationLongitude = 0
+        // Capture values for background context
+        let currentSelectedNumber = selectedFocusNumber
+        let currentLocation = _currentLocation
+        
+        // Perform Core Data operations on background thread
+        persistenceController.performBackgroundTask { backgroundContext in
+            // Create a new match entity in background context
+            let newMatch = FocusMatch(context: backgroundContext)
+            newMatch.timestamp = Date()
+            newMatch.chosenNumber = Int16(currentSelectedNumber)
+            newMatch.matchedNumber = Int16(matchedRealmNumber)
+            
+            // Add location if available
+            if let location = currentLocation {
+                newMatch.locationLatitude = location.latitude
+                newMatch.locationLongitude = location.longitude
+            } else {
+                // Default to 0,0 if no location
+                newMatch.locationLatitude = 0
+                newMatch.locationLongitude = 0
+            }
+            
+            // Background context automatically saves when operation completes
+            print("   🚀 Match creation scheduled for background save")
+            
+        } completion: { result in
+            // Handle completion on main thread
+            switch result {
+            case .success:
+                print("   ✅ Match saved successfully (background context)")
+                // Reload matches on main thread
+                self.loadMatchLogs()
+                print("   📱 Updated Match Count: \(self.matchLogs.count)")
+                
+            case .failure(let error):
+                print("   ❌ Error saving match: \(error.localizedDescription)")
+            }
         }
-        
-        // Claude: Phase 16 Core Data background optimization - removed unnecessary do-catch
-        // Previous: Unnecessary do-catch around non-throwing save method
-        // Current: Direct call to background save with proper error handling where needed
-        
-        // Use background context to avoid blocking main thread
-        viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        
-        // Save using PersistenceController's background save method
-        PersistenceController.shared.save()
-        print("   ✅ Match saved successfully (background context)")
-        
-        // Force immediate reload of matches
-        loadMatchLogs()
-        print("   📱 New Match Count: \(matchLogs.count)")
         
         // Additional check for tests to verify the save was successful
         if matchLogs.isEmpty {
@@ -708,29 +722,31 @@ class FocusNumberManager: NSObject, ObservableObject {
         return HealthKitManager.shared.getCurrentHeartRate()
     }
     
-    // New private helper function in FocusNumberManager.swift
+    // Claude: PERFORMANCE OPTIMIZATION - Enhanced background context insight saving
     private func savePersistedInsight(number: Int, category: String, text: String, tags: String?) {
-        let context = self.viewContext // Assuming viewContext is your NSManagedObjectContext
-
-        // Ensure Core Data operations are on the main thread
-        if !Thread.isMainThread {
-            DispatchQueue.main.async { [weak self] in
-                self?.savePersistedInsight(number: number, category: category, text: text, tags: tags)
+        // Claude: Move to background context for better performance - no main thread requirement
+        persistenceController.performBackgroundTask { backgroundContext in
+            // Create insight log in background context
+            let newPersistedInsight = PersistedInsightLog(context: backgroundContext)
+            newPersistedInsight.id = UUID()
+            newPersistedInsight.timestamp = Date()
+            newPersistedInsight.number = Int16(number)
+            newPersistedInsight.category = category
+            newPersistedInsight.text = text
+            newPersistedInsight.tags = tags // e.g., "FocusMatch, RealmTouch"
+            
+            print("🚀 PersistedInsightLog creation scheduled for background save")
+            
+        } completion: { result in
+            // Handle completion on main thread
+            switch result {
+            case .success:
+                print("💾 Successfully saved PersistedInsightLog for number \(number), category \(category) (background context).")
+                
+            case .failure(let error):
+                print("❌ Error saving PersistedInsightLog: \(error.localizedDescription)")
             }
-            return
         }
-
-        let newPersistedInsight = PersistedInsightLog(context: context)
-        newPersistedInsight.id = UUID()
-        newPersistedInsight.timestamp = Date()
-        newPersistedInsight.number = Int16(number)
-        newPersistedInsight.category = category
-        newPersistedInsight.text = text
-        newPersistedInsight.tags = tags // e.g., "FocusMatch, RealmTouch"
-
-        // Use background context to avoid blocking main thread
-        PersistenceController.shared.save()
-        print("💾 Successfully saved PersistedInsightLog for number \(number), category \(category) (background context).")
     }
 
     // Restore the methods accidentally removed

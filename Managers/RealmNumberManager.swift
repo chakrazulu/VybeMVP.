@@ -16,7 +16,7 @@
  * • Dynamic: 0 (reserved for future use)
  * 
  * === KEY FEATURES ===
- * • Real-time updates every 5 minutes
+ * • Real-time updates every 1 minute
  * • Heart rate integration from HealthKit
  * • Location-aware calculations
  * • Performance caching system
@@ -29,7 +29,7 @@
  * • currentBPM: Current heart rate (real or simulated)
  * 
  * === UPDATE TRIGGERS ===
- * 1. Timer: Every 5 minutes (300 seconds)
+ * 1. Timer: Every 1 minute (60 seconds)
  * 2. Heart rate change: Throttled to once per minute
  * 3. Location change: 500+ meter movement
  * 4. Manual: calculateRealmNumber() call
@@ -91,6 +91,7 @@
 import Foundation
 import Combine
 import CoreLocation
+import UIKit
 
 /**
  * Manager responsible for calculating and providing realm numbers.
@@ -118,8 +119,14 @@ class RealmNumberManager: NSObject, ObservableObject {
      * used in the calculation of realm numbers.
      */
     private enum Constants {
-        /// Interval between timer-based realm number updates (in seconds) - REDUCED for performance
-        static let timerUpdateInterval: TimeInterval = 300   // 5 minutes (reduced from 1 minute)
+        /// Active app update interval (when app is in foreground)
+        static let activeAppUpdateInterval: TimeInterval = 60    // 1 minute for active testing
+        
+        /// Background update interval (when app is backgrounded)  
+        static let backgroundUpdateInterval: TimeInterval = 300  // 5 minutes to conserve battery
+        
+        /// Same location update interval (when user hasn't moved significantly)
+        static let sameLocationUpdateInterval: TimeInterval = 300 // 5 minutes if same location
         
         /// Minimum time between realm number calculations (in seconds)
         static let calculationThrottle: TimeInterval = 1.0   // minimum time between calculations
@@ -231,6 +238,13 @@ class RealmNumberManager: NSObject, ObservableObject {
     /// Custom date for testing scenarios
     private var testDate: Date?
     
+    // Claude: SMART UPDATE INTERVALS - App state tracking
+    /// Whether app is currently in foreground
+    private var isAppActive: Bool = true
+    
+    /// Last known location for same-location detection
+    private var lastKnownLocation: CLLocation?
+    
     // MARK: - Cache Management
     /**
      * Represents a cached realm number calculation.
@@ -295,6 +309,7 @@ class RealmNumberManager: NSObject, ObservableObject {
         print(ManagerState.initializing.description)
         setupManager()
         setupHealthKitObserver()
+        setupAppStateObserver()
         // Retain self after setup
         retainedSelf = self
     }
@@ -435,13 +450,73 @@ class RealmNumberManager: NSObject, ObservableObject {
         
         // Only perform updates once per minute at most
         let timeSinceLastUpdate = Date().timeIntervalSince(lastUpdate)
-        let shouldUpdate = timeSinceLastUpdate >= Constants.timerUpdateInterval
+        let shouldUpdate = timeSinceLastUpdate >= Constants.activeAppUpdateInterval
         
         if shouldUpdate {
             lastHeartRateUpdateTime = Date()
         }
         
         return shouldUpdate
+    }
+    
+    // Claude: SMART UPDATE INTERVALS - App state observation
+    private func setupAppStateObserver() {
+        // Listen for app becoming active
+        NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.isAppActive = true
+                self?.restartTimerWithOptimalInterval()
+                print("📱 App became active - switching to 1-minute updates")
+            }
+            .store(in: &cancellables)
+        
+        // Listen for app going to background
+        NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.isAppActive = false
+                self?.restartTimerWithOptimalInterval()
+                print("📱 App went to background - switching to 5-minute updates")
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func restartTimerWithOptimalInterval() {
+        // Cancel existing timer
+        timer?.invalidate()
+        
+        // Choose interval based on app state and location
+        let interval = getOptimalUpdateInterval()
+        
+        // Restart timer with new interval
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
+            self?.calculateRealmNumber()
+        }
+        
+        print("⏰ Timer restarted with \(Int(interval/60))-minute interval")
+    }
+    
+    private func getOptimalUpdateInterval() -> TimeInterval {
+        // If app is not active, use background interval
+        guard isAppActive else {
+            return Constants.backgroundUpdateInterval
+        }
+        
+        // If we have location and user hasn't moved much, use same-location interval
+        if let lastLocation = lastKnownLocation, 
+           let currentLocation = getCurrentLocation(),
+           lastLocation.distance(from: currentLocation) < Constants.locationUpdateDistance {
+            return Constants.sameLocationUpdateInterval
+        }
+        
+        // Default to active app interval
+        return Constants.activeAppUpdateInterval
+    }
+    
+    private func getCurrentLocation() -> CLLocation? {
+        // Return current location from location manager if available
+        return locationManager?.location
     }
     
     // MARK: - Core Calculation Logic
@@ -812,11 +887,13 @@ class RealmNumberManager: NSObject, ObservableObject {
             // Start location updates
             self.locationManager?.startUpdatingLocation()
             
-            // Create new timer
-            self.timer = Timer.scheduledTimer(withTimeInterval: Constants.timerUpdateInterval, repeats: true) { [weak self] _ in
+            // Create new timer with adaptive interval
+            let interval = self.getOptimalUpdateInterval()
+            self.timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
                 self?.calculateRealmNumber()
             }
             self.timer?.tolerance = 1.0
+            print("⏰ Timer started with \(Int(interval/60))-minute adaptive interval")
             
             // Verify timer creation
             if self.timer != nil {
@@ -1117,11 +1194,17 @@ extension RealmNumberManager: CLLocationManagerDelegate {
             guard oldLocation.distance(from: newLocation) > Constants.locationUpdateDistance else { return }
         }
         
+        // Update current and last known location
         currentLocation = location
+        lastKnownLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
+        
         if currentState != .active {
             currentState = .active
             print(currentState.description)
         }
+        
+        // Consider restarting timer with new optimal interval if location changed significantly
+        restartTimerWithOptimalInterval()
         calculateRealmNumber()
     }
     

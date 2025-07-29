@@ -212,16 +212,25 @@ struct VybeMVPApp: App {
 
     init() {
         let _ = Logger.app
-        Logger.app.info("🚀 VybeMVPApp: INIT CALLED - VERSION_WITH_OS_LOGS_NOV_19_D")
-        // Firebase is now configured in AppDelegate
-        // print("🔥 Firebase configured") // This print might now be misleading here, better in AppDelegate
-        let messageManager = NumerologyMessageManager.shared
-        messageManager.preloadMessages()
+        Logger.app.info("🚀 VybeMVPApp: INIT CALLED - OPTIMIZED_LAUNCH")
+        
+        // Claude: PERFORMANCE OPTIMIZATION - Defer heavy operations to background
         #if DEBUG
         UserDefaults.standard.set(false, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
         #endif
-        configureAppearance()
-        Logger.app.info("🚀 VybeMVPApp: INIT COMPLETED - VERSION_WITH_OS_LOGS_NOV_19_D")
+        
+        // Claude: Move appearance configuration to background thread - create static method
+        DispatchQueue.global(qos: .userInitiated).async {
+            VybeMVPApp.performAppearanceConfiguration()
+        }
+        
+        // Claude: Defer message preloading to prevent blocking launch
+        DispatchQueue.global(qos: .utility).async {
+            let messageManager = NumerologyMessageManager.shared
+            messageManager.preloadMessages()
+        }
+        
+        Logger.app.info("🚀 VybeMVPApp: INIT COMPLETED - OPTIMIZED_LAUNCH")
     }
     
     var body: some Scene {
@@ -235,8 +244,9 @@ struct VybeMVPApp: App {
                 .environmentObject(cosmicService)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onAppear {
-                    // --- Instance Sharing Setup --- (Moved to onAppear)
-                    // Ensure this runs only once
+                    // Claude: PERFORMANCE OPTIMIZATION - Defer heavy operations to background
+                    
+                    // --- Instance Sharing Setup --- (Keep on main thread for UI)
                     if appDelegate.realmNumberManager == nil {
                         appDelegate.realmNumberManager = self.realmNumberManager
                         appDelegate.journalManager = self.journalManager
@@ -246,22 +256,28 @@ struct VybeMVPApp: App {
                         print("🔗 Linked AppDelegate to shared managers (onAppear).")
                     }
                     
-                    // DISABLED: Load and categorize mandala assets (causing freeze issues)
-                    // MandalaAssetManager.shared.loadAndCategorizeMandalaAssets()
-                    
-                    // Start RealmNumberManager and configure background manager
-                    self.realmNumberManager.startUpdates()
-                    print("▶️ Starting RealmNumberManager from onAppear...")
-                    
-                    // Configure KASPERManager with RealmNumberManager dependency
-                    KASPERManager.shared.configure(with: self.realmNumberManager)
-                    print("🔮 KASPERManager configured with RealmNumberManager")
-                    
-                    // Existing onAppear logic:
-                    backgroundManager.setManagers(realm: realmNumberManager, focus: focusNumberManager)
-                    backgroundManager.scheduleBackgroundTask()
-                    if healthKitManager.authorizationStatus == .sharingAuthorized {
-                        healthKitManager.startHeartRateMonitoring()
+                    // Claude: Move heavy manager initialization to background thread
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        // Start RealmNumberManager and configure background manager
+                        DispatchQueue.main.async {
+                            self.realmNumberManager.startUpdates()
+                            print("▶️ Starting RealmNumberManager from background...")
+                        }
+                        
+                        // Configure KASPERManager with RealmNumberManager dependency
+                        KASPERManager.shared.configure(with: self.realmNumberManager)
+                        print("🔮 KASPERManager configured with RealmNumberManager")
+                        
+                        // Background manager setup
+                        DispatchQueue.main.async {
+                            self.backgroundManager.setManagers(realm: self.realmNumberManager, focus: self.focusNumberManager)
+                            self.backgroundManager.scheduleBackgroundTask()
+                            
+                            // HealthKit monitoring (only if already authorized)
+                            if self.healthKitManager.authorizationStatus == .sharingAuthorized {
+                                self.healthKitManager.startHeartRateMonitoring()
+                            }
+                        }
                     }
                 }
                 .onChange(of: signInViewModel.isSignedIn) { oldValue, newValue in
@@ -299,8 +315,8 @@ struct VybeMVPApp: App {
     private func checkOnboardingStatusInFirestore(for userID: String, source: String) {
         Logger.network.debug("FIRESTORE_CHECK (Called by \(source)): Checking profile for userID: \(userID) - V.OSL_NOV_19_D")
         
-        // PERFORMANCE FIX: Defer Firestore calls to prevent blocking UI during startup
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+        // Claude: PERFORMANCE OPTIMIZATION - Reduce Firestore delay from 3s to 1s
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1.0) {
         UserProfileService.shared.profileExists(for: userID) { [self] existsInFirestore, _ in
             DispatchQueue.main.async {
                 if existsInFirestore {
@@ -325,8 +341,8 @@ struct VybeMVPApp: App {
     private func fetchProfileAndConfigureInsightManager(for userID: String, source: String) {
         Logger.network.debug("FETCH_PROFILE_FOR_AI (Called by \(source)): Fetching profile for userID: \(userID) to configure AIInsightManager.")
         
-        // PERFORMANCE FIX: Additional delay for profile fetching to prevent UI blocking
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        // Claude: PERFORMANCE OPTIMIZATION - Move to background thread immediately
+        DispatchQueue.global(qos: .userInitiated).async {
         UserProfileService.shared.fetchUserProfile(for: userID) { profile, _ in
             DispatchQueue.main.async {
                 if let fetchedProfile = profile {
@@ -342,10 +358,24 @@ struct VybeMVPApp: App {
     }
 
     private func configureAppearance() {
-        Logger.ui.info("🎨 VybeMVPApp: configureAppearance called - V.OSL_NOV_19_D")
-        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.label]
-        let appearance = UITabBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        UITabBar.appearance().scrollEdgeAppearance = appearance
+        // Claude: PERFORMANCE OPTIMIZATION - Ensure UI operations happen on main thread
+        DispatchQueue.main.async {
+            Logger.ui.info("🎨 VybeMVPApp: configureAppearance called - OPTIMIZED_LAUNCH")
+            UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.label]
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            UITabBar.appearance().scrollEdgeAppearance = appearance
+        }
+    }
+    
+    // Claude: PERFORMANCE OPTIMIZATION - Static method for appearance configuration
+    static func performAppearanceConfiguration() {
+        DispatchQueue.main.async {
+            Logger.ui.info("🎨 VybeMVPApp: static appearance configuration - OPTIMIZED_LAUNCH")
+            UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.label]
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            UITabBar.appearance().scrollEdgeAppearance = appearance
+        }
     }
 } 

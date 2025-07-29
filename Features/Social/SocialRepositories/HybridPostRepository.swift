@@ -168,58 +168,81 @@ class HybridPostRepository: ObservableObject, PostRepository {
      * - Never lose user's content
      */
     func createPost(_ post: Post) async throws {
-        print("📝 Phase 17E: Creating post (offline-first)")
+        print("📝 Phase 17E: Creating post (offline-first with background context)")
         
-        let context = persistenceController.container.viewContext
+        // Claude: PERFORMANCE OPTIMIZATION - Use background context for Core Data operations
+        // This prevents blocking the main thread during post creation
         
-        // Create local entity immediately for instant UI response
+        // Create local post with ID if needed
         var localPost = post
         if localPost.id == nil {
             localPost.id = UUID().uuidString // Generate local ID for offline support
         }
         
-        let entity = PostEntity.create(from: localPost, in: context)
-        entity.pendingOperation = "create" // Mark for Firestore sync
-        entity.needsSync = true
+        // Perform Core Data operations on background thread
+        try await persistenceController.performBackgroundOperation { backgroundContext in
+            let entity = PostEntity.create(from: localPost, in: backgroundContext)
+            entity.pendingOperation = "create" // Mark for Firestore sync
+            entity.needsSync = true
+            
+            // Background context automatically saves when operation completes
+            print("🚀 Post creation scheduled for background save")
+        }
         
-        // Save to Core Data for offline persistence
-        try context.save()
-        
-        // Update UI immediately - no network delay
-        loadPostsFromCoreData()
+        // Update UI on main thread after background save completes
+        await MainActor.run {
+            loadPostsFromCoreData()
+            print("✅ Phase 17E: Post created with background context, UI updated")
+        }
         
         // Queue Firestore sync in background (non-blocking)
         Task {
-            await syncPostToFirestore(entity)
+            // Need to fetch the entity from view context for sync
+            let context = persistenceController.container.viewContext
+            if let entity = PostEntity.findPost(withFirebaseId: localPost.id!, in: context) {
+                await syncPostToFirestore(entity)
+            }
         }
-        
-        print("✅ Phase 17E: Post created locally, sync queued")
     }
     
     func updatePost(_ post: Post, newContent: String) async throws {
         guard let postId = post.id else { throw PostRepositoryError.invalidData }
         
-        print("📝 Phase 17E: Updating post \(postId) (offline-first)")
+        print("📝 Phase 17E: Updating post \(postId) (offline-first with background context)")
         
-        let context = persistenceController.container.viewContext
+        // Claude: PERFORMANCE OPTIMIZATION - Use background context for update operations
+        // This prevents blocking the main thread during post updates
         
-        if let entity = PostEntity.findPost(withFirebaseId: postId, in: context) {
-            // Update locally
-            entity.content = newContent
-            entity.lastModifiedTimestamp = Date()
-            entity.markForSync(operation: "update")
-            
-            try context.save()
+        var updateSucceeded = false
+        
+        try await persistenceController.performBackgroundOperation { backgroundContext in
+            if let entity = PostEntity.findPost(withFirebaseId: postId, in: backgroundContext) {
+                // Update locally in background context
+                entity.content = newContent
+                entity.lastModifiedTimestamp = Date()
+                entity.markForSync(operation: "update")
+                
+                updateSucceeded = true
+                print("🚀 Post update scheduled for background save")
+            }
+        }
+        
+        guard updateSucceeded else {
+            throw PostRepositoryError.postNotFound
+        }
+        
+        // Update UI on main thread after background save completes
+        await MainActor.run {
             loadPostsFromCoreData()
-            
-            // Sync in background
-            Task {
+            print("✅ Phase 17E: Post updated with background context, UI updated")
+        }
+        
+        // Sync in background
+        Task {
+            let context = persistenceController.container.viewContext
+            if let entity = PostEntity.findPost(withFirebaseId: postId, in: context) {
                 await syncPostToFirestore(entity)
             }
-            
-            print("✅ Phase 17E: Post updated locally, sync queued")
-        } else {
-            throw PostRepositoryError.postNotFound
         }
     }
     

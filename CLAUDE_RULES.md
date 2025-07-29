@@ -1,8 +1,9 @@
 # 🤖 Claude Rules for VybeMVP SwiftUI Development
 
-**Last Updated:** July 2, 2025  
+**Last Updated:** July 27, 2025  
 **Project:** VybeMVP - Spiritual Wellness iOS App  
 **Framework:** SwiftUI, MVVM Architecture  
+**Current Phase:** Post-Phase 18 (Enterprise Test Architecture Complete)  
 
 ---
 
@@ -189,10 +190,19 @@ VybeMVP/
 - **CI/CD compatibility:** Ensure builds work in automated environments
 
 ### **Testing Protocol**
-- **Unit tests:** Run full test suite after each change
+- **Unit tests:** Run full test suite after each change (currently 434/434 passing)
+- **Test Architecture:** Use TestableHybridPostRepository and SimpleMockPostRepository for isolation
+- **Behavior Tests:** Focus on user experience, not implementation details
+- **Performance tests:** Dedicated performance test suite with manual timing (no measure{} blocks)
 - **UI tests:** Validate user interactions and flows
-- **Performance tests:** Ensure 60fps target is maintained
 - **Regression testing:** Verify existing functionality still works
+
+### **Phase 18 Test Standards**
+- **Test Isolation:** Use TestableHybridPostRepository for clean test state
+- **Mock Strategy:** SimpleMockPostRepository (<150 lines) for predictable behavior
+- **Documentation:** Every test file documented with problem/solution context
+- **Async Handling:** Proper Task.sleep() delays for async operations
+- **MainActor Compliance:** All test assertions properly annotated
 
 ---
 
