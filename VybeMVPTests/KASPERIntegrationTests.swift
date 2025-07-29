@@ -106,29 +106,68 @@ final class KASPERIntegrationTests: XCTestCase {
      * This test helps debug why payload generation is failing
      */
     func testDebugBasicPayloadGeneration() throws {
+        print("🔍 === DEBUG TEST START ===")
+        
         // Test 1: Can we generate a test payload?
+        print("🔍 Testing generateTestPayload()...")
         let testPayload = kasperManager.generateTestPayload()
         XCTAssertNotNil(testPayload, "Test payload generation should work")
-        XCTAssertTrue(testPayload.isValid, "Test payload should be valid")
+        if let testPayload = testPayload {
+            XCTAssertTrue(testPayload.isValid, "Test payload should be valid")
+            print("✅ Test payload: BPM=\(testPayload.bpm), Valid=\(testPayload.isValid)")
+        }
         
-        // Test 2: Can we use the test profile directly?
+        // Test 2: Check all our dependencies
+        print("🔍 Checking dependencies:")
+        print("   - KASPERManager: \(kasperManager != nil)")
+        print("   - RealmNumberManager: \(testRealmNumberManager != nil)")
+        print("   - RealmNumber: \(testRealmNumberManager?.currentRealmNumber ?? -1)")
+        print("   - CosmicDataRepository: \(testCosmicDataRepository != nil)")
+        print("   - HealthKitManager BPM: \(HealthKitManager.shared.currentHeartRate)")
+        print("   - FocusNumberManager: \(FocusNumberManager.shared.selectedFocusNumber)")
+        
+        // Test 3: Check test profile
         let userProfile = testUserProfile!
-        print("🔍 Test profile: Life Path = \(userProfile.lifePathNumber), ID = \(userProfile.id)")
+        print("🔍 Test profile:")
+        print("   - Life Path: \(userProfile.lifePathNumber)")
+        print("   - Soul Urge: \(userProfile.soulUrgeNumber ?? -1)")
+        print("   - Expression: \(userProfile.expressionNumber ?? -1)")
+        print("   - Tone: '\(userProfile.insightTone)'")
         
-        // Test 3: Try payload generation with explicit logging
+        // Test 4: Try payload generation with explicit logging
+        print("🔍 Testing generatePayloadWithProfile()...")
         let payload = kasperManager.generatePayloadWithProfile(userProfile)
         
         if payload == nil {
             print("❌ Payload generation returned nil")
-            print("🔍 Checking dependencies:")
-            print("   - KASPERManager: \(kasperManager != nil)")
-            print("   - RealmNumberManager: \(testRealmNumberManager != nil)")
-            print("   - CosmicDataRepository: \(testCosmicDataRepository != nil)")
+            
+            // Try creating a payload manually to see what's failing
+            print("🔍 Creating manual payload to test validation...")
+            let manualPayload = KASPERPrimingPayload(
+                lifePathNumber: userProfile.lifePathNumber,
+                soulUrgeNumber: userProfile.soulUrgeNumber ?? 1,
+                expressionNumber: userProfile.expressionNumber ?? 1,
+                userTonePreference: userProfile.insightTone,
+                chakraState: nil,
+                bpm: HealthKitManager.shared.currentHeartRate,
+                lunarPhase: "Waxing Crescent",
+                dominantPlanet: "Venus",
+                realmNumber: testRealmNumberManager?.currentRealmNumber ?? 1,
+                focusNumber: FocusNumberManager.shared.selectedFocusNumber,
+                proximityMatchScore: 0.0,
+                natalChart: nil,
+                currentTransits: nil,
+                environmentalContext: nil,
+                megaCorpusData: nil
+            )
+            print("🔍 Manual payload valid: \(manualPayload.isValid)")
+            print("🔍 Manual payload BPM: \(manualPayload.bpm)")
         } else {
             print("✅ Payload generated successfully")
             print("🔍 Payload details: Life Path = \(payload!.lifePathNumber), Valid = \(payload!.isValid)")
         }
         
+        print("🔍 === DEBUG TEST END ===")
         XCTAssertNotNil(payload, "Basic payload generation should work")
     }
     
@@ -503,19 +542,19 @@ final class KASPERIntegrationTests: XCTestCase {
      * Ensures BPM is in valid range (40-200) for payload validation
      */
     private func setupHealthKitManager() {
-        // If using real HealthKitManager, simulate a valid heart rate
-        if let mockManager = HealthKitManager.shared as? MockHealthKitManager {
-            // Using mock manager directly
-            mockManager.updateHeartRateForTesting(72)
-        } else {
-            // Real HealthKitManager - ensure it has simulation data
-            // The real HealthKitManager should have simulation fallback
-            print("🔍 Using real HealthKitManager with simulation mode")
-            // Force a heart rate update to ensure valid BPM
-            Task {
-                await HealthKitManager.shared.forceHeartRateUpdate()
-            }
+        // The real HealthKitManager should have simulation fallback
+        print("🔍 Setting up HealthKitManager for testing")
+        
+        // Since we can't cast to MockHealthKitManager, we'll force the real manager
+        // to update its heart rate through its simulation mode
+        let expectation = expectation(description: "HealthKit setup")
+        Task {
+            let success = await HealthKitManager.shared.forceHeartRateUpdate()
+            print("🔍 HealthKit force update result: \(success)")
+            print("🔍 Current BPM: \(HealthKitManager.shared.currentHeartRate)")
+            expectation.fulfill()
         }
+        wait(for: [expectation], timeout: 2.0)
     }
     
     /**
