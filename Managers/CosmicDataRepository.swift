@@ -45,7 +45,7 @@ struct CosmicSnapshot {
 
 // MARK: - Repository Protocol
 
-protocol CosmicDataRepositoryProtocol {
+protocol CosmicDataRepositoryProtocol: AnyObject {
     @MainActor var currentSnapshot: CosmicSnapshot { get }
     @MainActor var snapshotPublisher: AnyPublisher<CosmicSnapshot, Never> { get }
     

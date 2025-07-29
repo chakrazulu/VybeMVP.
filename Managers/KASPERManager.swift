@@ -187,6 +187,9 @@ class KASPERManager: ObservableObject {
     /// Reference to RealmNumberManager for cosmic calculations (injected dependency)
     private weak var realmNumberManager: RealmNumberManager?
     
+    /// Reference to CosmicDataRepository for real-time transit data (injected dependency)
+    private weak var cosmicDataRepository: CosmicDataRepositoryProtocol?
+    
     /// Reference to FocusNumberManager for intention tracking
     private var focusNumberManager: FocusNumberManager {
         return FocusNumberManager.shared
@@ -200,6 +203,11 @@ class KASPERManager: ObservableObject {
     /// Reference to UserProfileService for spiritual identity
     private var userProfileService: UserProfileService {
         return UserProfileService.shared
+    }
+    
+    /// Reference to SanctumDataManager for MegaCorpus spiritual interpretations
+    @MainActor private var sanctumDataManager: SanctumDataManager {
+        return SanctumDataManager.shared
     }
     
     // MARK: - Initialization
@@ -221,15 +229,18 @@ class KASPERManager: ObservableObject {
      * Configure KASPERManager with required dependencies
      * 
      * This method must be called during app initialization to provide access
-     * to the RealmNumberManager instance created in the main app.
+     * to the RealmNumberManager and CosmicDataRepository instances.
      * 
-     * Parameter realmManager: The RealmNumberManager instance from VybeMVPApp
+     * Parameters:
+     *   - realmManager: The RealmNumberManager instance from VybeMVPApp
+     *   - cosmicRepository: The CosmicDataRepository instance for real-time transit data
      */
-    func configure(with realmManager: RealmNumberManager) {
-        logger.info("🔧 Configuring KASPERManager with RealmNumberManager")
+    func configure(with realmManager: RealmNumberManager, cosmicRepository: CosmicDataRepositoryProtocol? = nil) {
+        logger.info("🔧 Configuring KASPERManager with RealmNumberManager and CosmicDataRepository")
         self.realmNumberManager = realmManager
+        self.cosmicDataRepository = cosmicRepository
         
-        // Re-setup subscriptions with the new manager
+        // Re-setup subscriptions with the new managers
         setupDataSourceSubscriptions()
     }
     
@@ -319,7 +330,13 @@ class KASPERManager: ObservableObject {
         // Gather social data
         let proximityScore = getProximityMatchScore() // Future Phase 9 implementation
         
-        // Create payload with validation
+        // Generate enhanced natal chart and transit data
+        let natalChartData = NatalChartData(from: profile)
+        let currentTransitData = getCurrentTransitData()
+        let environmentalContextData = EnvironmentalContext()
+        let megaCorpusExtract = extractRelevantMegaCorpusData(natalChart: natalChartData, transits: currentTransitData)
+        
+        // Create enhanced payload with validation
         let payload = KASPERPrimingPayload(
             lifePathNumber: lifePathNumber,
             soulUrgeNumber: soulUrgeNumber,
@@ -331,7 +348,11 @@ class KASPERManager: ObservableObject {
             dominantPlanet: dominantPlanet,
             realmNumber: realmNumber,
             focusNumber: focusNumber,
-            proximityMatchScore: proximityScore
+            proximityMatchScore: proximityScore,
+            natalChart: natalChartData,
+            currentTransits: currentTransitData,
+            environmentalContext: environmentalContextData,
+            megaCorpusData: megaCorpusExtract
         )
         
         // Validate payload integrity
@@ -370,8 +391,41 @@ class KASPERManager: ObservableObject {
      * 
      * Returns: KASPERPrimingPayload with test data
      */
+    @available(iOS 13.0, *)
     func generateTestPayload() -> KASPERPrimingPayload {
         logger.info("🧪 Generating test KASPER payload")
+        
+        // Create test natal chart data
+        let testNatalChart = NatalChartData(
+            sunSign: "Leo",
+            moonSign: "Scorpio", 
+            risingSign: "Aquarius",
+            midheavenSign: "Sagittarius",
+            mercurySign: "Virgo",
+            venusSign: "Cancer",
+            marsSign: "Aries",
+            jupiterSign: "Pisces",
+            saturnSign: "Capricorn",
+            uranusSign: nil,
+            neptuneSign: nil,
+            plutoSign: nil,
+            northNodeSign: "Gemini",
+            southNodeSign: nil,
+            dominantElement: "Fire",
+            dominantModality: "Fixed",
+            hasBirthTime: true,
+            birthLocation: "New York, NY",
+            calculatedAt: Date()
+        )
+        
+        // Create test transit data
+        let testTransitData = getCurrentTransitData() // Use our current method
+        
+        // Create test environmental context
+        let testEnvironmentalContext = EnvironmentalContext()
+        
+        // Create test MegaCorpus extract
+        let testMegaCorpusExtract = createTestMegaCorpusExtract()
         
         return KASPERPrimingPayload(
             lifePathNumber: 7,
@@ -384,7 +438,11 @@ class KASPERManager: ObservableObject {
             dominantPlanet: "Venus",
             realmNumber: 5,
             focusNumber: 3,
-            proximityMatchScore: 0.85
+            proximityMatchScore: 0.85,
+            natalChart: testNatalChart,
+            currentTransits: testTransitData,
+            environmentalContext: testEnvironmentalContext,
+            megaCorpusData: testMegaCorpusExtract
         )
     }
     
@@ -404,6 +462,17 @@ class KASPERManager: ObservableObject {
                     self?.schedulePayloadRefresh()
                 }
                 .store(in: &cancellables)
+        }
+        
+        // Subscribe to cosmic data changes (if repository is available)
+        if let cosmicRepository = cosmicDataRepository {
+            Task { @MainActor in
+                cosmicRepository.snapshotPublisher
+                    .sink { [weak self] _ in
+                        self?.schedulePayloadRefresh()
+                    }
+                    .store(in: &cancellables)
+            }
         }
         
         // Subscribe to focus number changes
@@ -507,6 +576,303 @@ class KASPERManager: ObservableObject {
     }
     
     /**
+     * Get current transit data from CosmicDataRepository
+     * 
+     * This bridges the gap between the cosmic snapshot view and KASPER by providing
+     * real-time planetary positions and transit information for personalized insights.
+     */
+    private func getCurrentTransitData() -> TransitData? {
+        // Use real CosmicDataRepository if available
+        if let repository = cosmicDataRepository {
+            let currentSnapshot = MainActor.assumeIsolated {
+                repository.currentSnapshot
+            }
+            logger.info("🌌 Using real cosmic data from CosmicDataRepository")
+            return TransitData(from: currentSnapshot)
+        }
+        
+        // Fallback to placeholder data if repository not configured
+        logger.warning("⚠️ CosmicDataRepository not configured, using placeholder transit data")
+        
+        let now = Date()
+        
+        // Create placeholder transit data for development/testing
+        let fallbackCosmicSnapshot = CosmicSnapshot(
+            moonData: PlanetaryData(
+                planet: "Moon",
+                currentSign: "Cancer", // Placeholder
+                isRetrograde: false,
+                nextTransit: "→ Leo",
+                position: 15.5,
+                emoji: "☽",
+                lastUpdated: now
+            ),
+            sunData: PlanetaryData(
+                planet: "Sun",
+                currentSign: "Leo", // Placeholder based on current season
+                isRetrograde: false,
+                nextTransit: "→ Virgo",
+                position: 5.2,
+                emoji: "☉",
+                lastUpdated: now
+            ),
+            planetaryData: [
+                // Add basic planetary data for testing
+                PlanetaryData(planet: "Mercury", currentSign: "Leo", isRetrograde: false, nextTransit: "→ Virgo", position: 10.0, emoji: "☿", lastUpdated: now),
+                PlanetaryData(planet: "Venus", currentSign: "Cancer", isRetrograde: false, nextTransit: "→ Leo", position: 25.0, emoji: "♀", lastUpdated: now),
+                PlanetaryData(planet: "Mars", currentSign: "Gemini", isRetrograde: false, nextTransit: "→ Cancer", position: 8.0, emoji: "♂", lastUpdated: now),
+                PlanetaryData(planet: "Jupiter", currentSign: "Taurus", isRetrograde: false, nextTransit: "→ Gemini", position: 12.0, emoji: "♃", lastUpdated: now),
+                PlanetaryData(planet: "Saturn", currentSign: "Pisces", isRetrograde: true, nextTransit: "→ Aries", position: 19.0, emoji: "♄", lastUpdated: now)
+            ],
+            currentSeason: getCurrentSeason(),
+            lastUpdated: now,
+            isLoading: false,
+            error: nil
+        )
+        
+        return TransitData(from: fallbackCosmicSnapshot)
+    }
+    
+    /**
+     * Get current season based on current date
+     */
+    private func getCurrentSeason() -> String {
+        let month = Calendar.current.component(.month, from: Date())
+        switch month {
+        case 3...5: return "Spring"
+        case 6...8: return "Summer"
+        case 9...11: return "Autumn"
+        default: return "Winter"
+        }
+    }
+    
+    /**
+     * Extract relevant MegaCorpus data based on natal chart and current transits
+     * 
+     * This method analyzes the user's natal chart and current planetary transits
+     * to extract the most relevant spiritual wisdom and interpretations from the
+     * MegaCorpus database for personalized KASPER insights.
+     */
+    private func extractRelevantMegaCorpusData(natalChart: NatalChartData?, transits: TransitData?) -> MegaCorpusExtract? {
+        logger.info("📚 Extracting relevant MegaCorpus data for KASPER")
+        
+        // Check if MegaCorpus data is available
+        let (isDataLoaded, megaCorpusData) = MainActor.assumeIsolated {
+            (sanctumDataManager.isDataLoaded, sanctumDataManager.megaCorpusData)
+        }
+        
+        guard isDataLoaded else {
+            logger.warning("⚠️ MegaCorpus data not loaded, skipping extraction")
+            return nil
+        }
+        var signInterpretations: [String: SignInterpretation] = [:]
+        var planetaryMeanings: [String: PlanetaryMeaning] = [:]
+        var elementalGuidance: [String: ElementalGuidance] = [:]
+        var numerologicalInsights: [String: NumerologicalInsight] = [:]
+        
+        // Extract sign interpretations for natal chart
+        if let natalChart = natalChart {
+            let relevantSigns = [
+                natalChart.sunSign,
+                natalChart.moonSign,
+                natalChart.risingSign,
+                natalChart.mercurySign,
+                natalChart.venusSign,
+                natalChart.marsSign
+            ].compactMap { $0 }
+            
+            if let signsData = megaCorpusData["signs"] as? [String: Any] {
+                for sign in relevantSigns {
+                    if let signData = signsData[sign] as? [String: Any] {
+                        signInterpretations[sign] = SignInterpretation(
+                            sign: sign,
+                            element: signData["element"] as? String ?? "Unknown",
+                            modality: signData["modality"] as? String ?? "Unknown",
+                            rulingPlanet: signData["ruling_planet"] as? String ?? "Unknown",
+                            keyTraits: signData["traits"] as? String ?? "Unknown",
+                            spiritualMeaning: signData["spiritual_meaning"] as? String ?? "Unknown"
+                        )
+                    }
+                }
+            }
+        }
+        
+        // Extract planetary meanings for current transits
+        if let transits = transits {
+            let activePlanets = ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn"]
+            
+            if let planetsData = megaCorpusData["planets"] as? [String: Any] {
+                for planet in activePlanets {
+                    if let planetData = planetsData[planet] as? [String: Any] {
+                        planetaryMeanings[planet] = PlanetaryMeaning(
+                            planet: planet,
+                            archetype: planetData["archetype"] as? String ?? "Unknown",
+                            influence: planetData["influence"] as? String ?? "Unknown",
+                            spiritualPurpose: planetData["spiritual_purpose"] as? String ?? "Unknown",
+                            currentRelevance: generateCurrentRelevance(planet: planet, transits: transits)
+                        )
+                    }
+                }
+            }
+        }
+        
+        // Extract elemental guidance
+        if let natalChart = natalChart, let dominantElement = natalChart.dominantElement {
+            if let elementsData = megaCorpusData["elements"] as? [String: Any],
+               let elementData = elementsData[dominantElement] as? [String: Any] {
+                elementalGuidance[dominantElement] = ElementalGuidance(
+                    element: dominantElement,
+                    characteristics: elementData["characteristics"] as? String ?? "Unknown",
+                    guidance: elementData["guidance"] as? String ?? "Unknown",
+                    balancingElements: elementData["balancing_elements"] as? [String] ?? []
+                )
+            }
+        }
+        
+        // Extract numerological insights
+        // TODO: Add life path, soul urge, expression number insights from MegaCorpus
+        
+        // Extract lunar phase wisdom
+        let lunarPhaseWisdom = extractLunarPhaseWisdom(transits: transits)
+        
+        return MegaCorpusExtract(
+            signInterpretations: signInterpretations,
+            planetaryMeanings: planetaryMeanings,
+            elementalGuidance: elementalGuidance,
+            numerologicalInsights: numerologicalInsights,
+            lunarPhaseWisdom: lunarPhaseWisdom,
+            aspectInterpretations: [], // TODO: Implement aspect interpretations
+            extractedAt: Date()
+        )
+    }
+    
+    /**
+     * Generate current relevance for a planet based on transits
+     */
+    private func generateCurrentRelevance(planet: String, transits: TransitData) -> String {
+        switch planet {
+        case "Sun":
+            return "Currently in \(transits.currentSunSign), illuminating themes of this sign"
+        case "Moon":
+            let retrogradeNote = transits.moonIsRetrograde ? " (retrograde energy)" : ""
+            return "Currently in \(transits.currentMoonSign)\(retrogradeNote), affecting emotional currents"
+        default:
+            return "Active in current cosmic conditions"
+        }
+    }
+    
+    /**
+     * Extract lunar phase wisdom from MegaCorpus
+     */
+    private func extractLunarPhaseWisdom(transits: TransitData?) -> LunarPhaseWisdom? {
+        guard let transits = transits else { return nil }
+        
+        let megaCorpusData = MainActor.assumeIsolated {
+            sanctumDataManager.megaCorpusData
+        }
+        
+        if let moonPhasesData = megaCorpusData["moonphases"] as? [String: Any],
+           let phaseData = moonPhasesData[transits.lunarPhase] as? [String: Any] {
+            
+            return LunarPhaseWisdom(
+                phase: transits.lunarPhase,
+                energy: phaseData["energy"] as? String ?? "Unknown",
+                guidance: phaseData["guidance"] as? String ?? "Unknown",
+                ritualSuggestions: phaseData["ritual_suggestions"] as? String ?? "Unknown"
+            )
+        }
+        
+        return nil
+    }
+    
+    /**
+     * Create test MegaCorpus extract for development and testing
+     */
+    private func createTestMegaCorpusExtract() -> MegaCorpusExtract {
+        // Create test sign interpretations
+        let testSignInterpretations = [
+            "Leo": SignInterpretation(
+                sign: "Leo",
+                element: "Fire",
+                modality: "Fixed",
+                rulingPlanet: "Sun",
+                keyTraits: "Creative, confident, generous, dramatic",
+                spiritualMeaning: "The path of self-expression and creative leadership"
+            ),
+            "Scorpio": SignInterpretation(
+                sign: "Scorpio",
+                element: "Water",
+                modality: "Fixed",
+                rulingPlanet: "Pluto",
+                keyTraits: "Intense, transformative, mysterious, powerful",
+                spiritualMeaning: "The path of deep transformation and spiritual rebirth"
+            )
+        ]
+        
+        // Create test planetary meanings
+        let testPlanetaryMeanings = [
+            "Sun": PlanetaryMeaning(
+                planet: "Sun",
+                archetype: "The Hero",
+                influence: "Vitality, ego, life force",
+                spiritualPurpose: "To shine your authentic light in the world",
+                currentRelevance: "Currently in Leo, amplifying creative self-expression"
+            ),
+            "Moon": PlanetaryMeaning(
+                planet: "Moon",
+                archetype: "The Mother",
+                influence: "Emotions, intuition, subconscious",
+                spiritualPurpose: "To nurture and flow with natural rhythms",
+                currentRelevance: "Currently in Cancer, enhancing emotional sensitivity"
+            )
+        ]
+        
+        // Create test elemental guidance
+        let testElementalGuidance = [
+            "Fire": ElementalGuidance(
+                element: "Fire",
+                characteristics: "Passionate, spontaneous, inspiring, action-oriented",
+                guidance: "Channel your fiery energy into creative projects and leadership",
+                balancingElements: ["Water", "Earth"]
+            )
+        ]
+        
+        // Create test numerological insights
+        let testNumerologicalInsights = [
+            "7": NumerologicalInsight(
+                number: 7,
+                meaning: "The Seeker",
+                spiritualSignificance: "Deep spiritual wisdom and introspection",
+                guidanceMessage: "Trust your inner wisdom and seek deeper truths"
+            ),
+            "11": NumerologicalInsight(
+                number: 11,
+                meaning: "The Visionary",
+                spiritualSignificance: "Master number of spiritual illumination",
+                guidanceMessage: "You are here to inspire and uplift others with your vision"
+            )
+        ]
+        
+        // Create test lunar phase wisdom
+        let testLunarPhaseWisdom = LunarPhaseWisdom(
+            phase: "Full Moon",
+            energy: "Peak manifestation and release",
+            guidance: "This is the time to release what no longer serves and celebrate your achievements",
+            ritualSuggestions: "Moon bathing, gratitude ceremony, energy cleansing"
+        )
+        
+        return MegaCorpusExtract(
+            signInterpretations: testSignInterpretations,
+            planetaryMeanings: testPlanetaryMeanings,
+            elementalGuidance: testElementalGuidance,
+            numerologicalInsights: testNumerologicalInsights,
+            lunarPhaseWisdom: testLunarPhaseWisdom,
+            aspectInterpretations: [],
+            extractedAt: Date()
+        )
+    }
+    
+    /**
      * Generate anonymous payload for users without profile
      */
     private func generateAnonymousPayload() -> KASPERPrimingPayload? {
@@ -523,7 +889,11 @@ class KASPERManager: ObservableObject {
             dominantPlanet: getDominantPlanet(),
             realmNumber: realmNumberManager?.currentRealmNumber ?? 1,
             focusNumber: focusNumberManager.selectedFocusNumber,
-            proximityMatchScore: 0.0
+            proximityMatchScore: 0.0,
+            natalChart: nil, // No natal chart for anonymous users
+            currentTransits: getCurrentTransitData(), // Still provide current transits
+            environmentalContext: EnvironmentalContext(), // Basic environmental context
+            megaCorpusData: createTestMegaCorpusExtract() // Provide spiritual wisdom even for anonymous users
         )
     }
     
