@@ -111,11 +111,8 @@ final class KASPERIntegrationTests: XCTestCase {
         // Test 1: Can we generate a test payload?
         print("🔍 Testing generateTestPayload()...")
         let testPayload = kasperManager.generateTestPayload()
-        XCTAssertNotNil(testPayload, "Test payload generation should work")
-        if let testPayload = testPayload {
-            XCTAssertTrue(testPayload.isValid, "Test payload should be valid")
-            print("✅ Test payload: BPM=\(testPayload.bpm), Valid=\(testPayload.isValid)")
-        }
+        XCTAssertTrue(testPayload.isValid, "Test payload should be valid")
+        print("✅ Test payload: BPM=\(testPayload.bpm), Valid=\(testPayload.isValid)")
         
         // Test 2: Check all our dependencies
         print("🔍 Checking dependencies:")
