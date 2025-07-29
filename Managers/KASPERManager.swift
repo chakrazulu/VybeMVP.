@@ -265,14 +265,9 @@ class KASPERManager: ObservableObject {
         }
         
         // Get current user ID for profile lookup
-        guard let currentUserID = getCurrentUserID() else {
-            logger.warning("⚠️ No current user ID available for payload generation")
-            return generateAnonymousPayload()
-        }
-        
-        // Fetch user profile for numerological data
-        guard let userProfile = getUserProfile(for: currentUserID) else {
-            logger.warning("⚠️ No user profile available for payload generation")
+        guard let currentUserID = getCurrentUserID(),
+              let userProfile = getUserProfile(for: currentUserID) else {
+            logger.warning("⚠️ No user ID or profile available - generating anonymous payload")
             return generateAnonymousPayload()
         }
         
@@ -668,7 +663,7 @@ class KASPERManager: ObservableObject {
         var signInterpretations: [String: SignInterpretation] = [:]
         var planetaryMeanings: [String: PlanetaryMeaning] = [:]
         var elementalGuidance: [String: ElementalGuidance] = [:]
-        var numerologicalInsights: [String: NumerologicalInsight] = [:]
+        let numerologicalInsights: [String: NumerologicalInsight] = [:] // TODO: Implement numerology extraction
         
         // Extract sign interpretations for natal chart
         if let natalChart = natalChart {
