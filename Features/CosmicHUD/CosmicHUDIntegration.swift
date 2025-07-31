@@ -23,12 +23,16 @@ class CosmicHUDIntegration: ObservableObject {
     private let navigationCoordinator = CosmicHUDNavigationCoordinator.shared
     private let realmNumberManager = RealmNumberManager()
     
+    // Claude: Configure HUD manager with main app's realm manager for data sync
+    private var isHUDConfigured = false
+    
     // MARK: - Private Properties
     private var isInitialized = false
     private var cancellables = Set<AnyCancellable>()
     
     private init() {
         setupNavigationObserver()
+        setupNotificationObservers()
     }
     
     // MARK: - Public Methods
@@ -36,6 +40,12 @@ class CosmicHUDIntegration: ObservableObject {
     /// Initializes the Cosmic HUD system when app launches
     func initializeHUD() async {
         guard !isInitialized else { return }
+        
+        // Claude: Configure HUD manager with main app's realm manager for data sync
+        if !isHUDConfigured {
+            hudManager.configureWithMainAppManagers(realmManager: realmNumberManager)
+            isHUDConfigured = true
+        }
         
         // Check device compatibility
         guard await CosmicHUDIntentValidator.validateIntentPermissions() else {
@@ -97,8 +107,8 @@ class CosmicHUDIntegration: ObservableObject {
             // Create activity attributes and initial state
             let attributes = CosmicHUDWidgetAttributes()
             let contentState = CosmicHUDWidgetAttributes.ContentState(
-                rulerNumber: hudData.rulerNumber,
-                realmNumber: realmNumberManager.currentRealmNumber,
+                rulerNumber: hudData.rulerNumber,                   // LIVE from HUD manager
+                realmNumber: hudManager.getCurrentRealmNumber(),    // LIVE from HUD manager
                 aspectDisplay: formatAspectForHUD(hudData.dominantAspect),
                 element: HUDGlyphMapper.element(for: hudData.element),
                 lastUpdate: Date()
@@ -170,8 +180,8 @@ class CosmicHUDIntegration: ObservableObject {
         }
         
         let updatedState = CosmicHUDWidgetAttributes.ContentState(
-            rulerNumber: hudData.rulerNumber,
-            realmNumber: realmNumberManager.currentRealmNumber,
+            rulerNumber: hudData.rulerNumber,                   // LIVE from HUD manager
+            realmNumber: hudManager.getCurrentRealmNumber(),    // LIVE from HUD manager
             aspectDisplay: formatAspectForHUD(hudData.dominantAspect),
             element: HUDGlyphMapper.element(for: hudData.element),
             lastUpdate: Date()
@@ -225,9 +235,11 @@ class CosmicHUDIntegration: ObservableObject {
     
     /// Should be called when focus number changes
     func focusNumberDidChange(_ newNumber: Int) async {
+        print("🎯 HUD Integration: Focus number changed to \(newNumber)")
         if isHUDEnabled {
             await hudManager.refreshHUDData()
             await updateHUD()
+            print("✅ HUD Integration: HUD updated for new focus number")
         }
     }
     
@@ -261,6 +273,36 @@ class CosmicHUDIntegration: ObservableObject {
                 self?.handleNavigationRequest(request)
             }
             .store(in: &cancellables) // Use local cancellables set
+    }
+    
+    /// Claude: Sets up notification observers for app-wide events
+    private func setupNotificationObservers() {
+        // Listen for focus number changes
+        NotificationCenter.default.publisher(for: NSNotification.Name.focusNumberChanged)
+            .compactMap { $0.userInfo?["focusNumber"] as? Int }
+            .sink { [weak self] newFocusNumber in
+                Task {
+                    await self?.focusNumberDidChange(newFocusNumber)
+                }
+            }
+            .store(in: &cancellables)
+        
+        // Listen for realm number changes
+        NotificationCenter.default.publisher(for: NSNotification.Name.realmNumberChanged)
+            .compactMap { $0.userInfo?["realmNumber"] as? Int }
+            .sink { [weak self] newRealmNumber in
+                print("🌌 HUD Integration: Realm number changed to \(newRealmNumber)")
+                Task {
+                    if self?.isHUDEnabled == true {
+                        await self?.hudManager.refreshHUDData()
+                        await self?.updateHUD()
+                        print("✅ HUD Integration: HUD updated for new realm number")
+                    }
+                }
+            }
+            .store(in: &cancellables)
+        
+        print("🔗 HUD: Notification observers configured")
     }
     
     private func formatAspectForHUD(_ aspectData: AspectData?) -> String {
