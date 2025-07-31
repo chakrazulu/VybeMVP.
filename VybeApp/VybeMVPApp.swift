@@ -202,6 +202,7 @@ struct VybeMVPApp: App {
     @StateObject private var backgroundManager = BackgroundManager.shared
     @StateObject private var healthKitManager = HealthKitManager.shared
     @StateObject private var cosmicService = CosmicService.shared
+    @StateObject private var cosmicHUDIntegration = CosmicHUDIntegration.shared
     @Environment(\.scenePhase) private var scenePhase
     let persistenceController = PersistenceController.shared
     
@@ -242,7 +243,9 @@ struct VybeMVPApp: App {
                 .environmentObject(backgroundManager)
                 .environmentObject(healthKitManager)
                 .environmentObject(cosmicService)
+                .environmentObject(cosmicHUDIntegration)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .modifier(cosmicHUDIntegration.integrateWithMainApp())
                 .onAppear {
                     // Claude: PERFORMANCE OPTIMIZATION - Defer heavy operations to background
                     
@@ -276,6 +279,12 @@ struct VybeMVPApp: App {
                             // HealthKit monitoring (only if already authorized)
                             if self.healthKitManager.authorizationStatus == .sharingAuthorized {
                                 self.healthKitManager.startHeartRateMonitoring()
+                            }
+                            
+                            // Claude: 🌌 Initialize Cosmic HUD - Revolutionary Spiritual Awareness System
+                            Task {
+                                await self.cosmicHUDIntegration.initializeHUD()
+                                Logger.app.info("🌌 Cosmic HUD initialized - Omnipresent spiritual awareness activated!")
                             }
                         }
                     }

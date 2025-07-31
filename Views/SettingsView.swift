@@ -190,6 +190,9 @@ struct SettingsView: View {
                     .foregroundColor(.secondary)
             }
             
+            // Claude: 🌌 COSMIC HUD - Revolutionary Omnipresent Spiritual Awareness
+            CosmicHUDSettings()
+            
             // Testing Section
             Section(header: Text("TESTING")) {
                 NavigationLink(destination: TestingView()) {

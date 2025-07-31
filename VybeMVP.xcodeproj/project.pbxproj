@@ -69,6 +69,17 @@
 		4D3727192DE5538A00B5A02B /* NumerologyInsightService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3727182DE5538A00B5A02B /* NumerologyInsightService.swift */; };
 		4D37271C2DE554B700B5A02B /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D37271A2DE554B700B5A02B /* ActivityView.swift */; };
 		4D53BE252DEC151900BAE6AE /* VoiceRecordingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */; };
+		4D55BE562E3AC1DB00F7BE5B /* MiniInsightProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE542E3AC1DB00F7BE5B /* MiniInsightProvider.swift */; };
+		4D55BE572E3AC1DB00F7BE5B /* CosmicHUDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE512E3AC1DB00F7BE5B /* CosmicHUDManager.swift */; };
+		4D55BE582E3AC1DB00F7BE5B /* HUDGlyphMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE532E3AC1DB00F7BE5B /* HUDGlyphMapper.swift */; };
+		4D55BE592E3AC1DB00F7BE5B /* CosmicHUDIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE502E3AC1DB00F7BE5B /* CosmicHUDIntents.swift */; };
+		4D55BE5A2E3AC1DB00F7BE5B /* CosmicHUDIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE4F2E3AC1DB00F7BE5B /* CosmicHUDIntegration.swift */; };
+		4D55BE5B2E3AC1DB00F7BE5B /* CosmicHUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE522E3AC1DB00F7BE5B /* CosmicHUDView.swift */; };
+		4D55BE5F2E3AC55400F7BE5B /* CosmicHUDTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE5E2E3AC55400F7BE5B /* CosmicHUDTypes.swift */; };
+		4D55BE662E3AD37B00F7BE5B /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D55BE652E3AD37B00F7BE5B /* WidgetKit.framework */; };
+		4D55BE682E3AD37B00F7BE5B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D55BE672E3AD37B00F7BE5B /* SwiftUI.framework */; };
+		4D55BE792E3AD37C00F7BE5B /* CosmicHUDWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4D55BE642E3AD37B00F7BE5B /* CosmicHUDWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4D55BE7F2E3AD4AD00F7BE5B /* CosmicHUDTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE5E2E3AC55400F7BE5B /* CosmicHUDTypes.swift */; };
 		4D5BEAF52E35A7AD00B56575 /* PostEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF22E35A7AD00B56575 /* PostEntity+CoreDataClass.swift */; };
 		4D5BEAF72E35A7E900B56575 /* PostEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF62E35A7E900B56575 /* PostEntity+CoreDataProperties.swift */; };
 		4D5BEAF92E35A81400B56575 /* HybridPostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF82E35A81400B56575 /* HybridPostRepository.swift */; };
@@ -248,6 +259,8 @@
 		4DE4C37E2DB3918E00BB7572 /* NumerologyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C37D2DB3918E00BB7572 /* NumerologyMessage.swift */; };
 		4DE4C3802DB392E900BB7572 /* NumerologyNotificationTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C37F2DB392E900BB7572 /* NumerologyNotificationTestView.swift */; };
 		4DE4C3822DB393DA00BB7572 /* NumerologyNotificationTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */; };
+		4DF6AACA2E3AF79200E0937E /* CosmicInsightEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6AAC92E3AF79200E0937E /* CosmicInsightEngine.swift */; };
+		4DF6AACC2E3B223200E0937E /* KASPERIntegrationTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6AACB2E3B223200E0937E /* KASPERIntegrationTemplate.swift */; };
 		4DF77E482E35660500B6D45E /* VybeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E472E35660500B6D45E /* VybeConstants.swift */; };
 		4DF77E4C2E358B2E00B6D45E /* PostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E4A2E358B2E00B6D45E /* PostRepository.swift */; };
 		4DF77E4D2E358B2E00B6D45E /* FirebasePostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E492E358B2E00B6D45E /* FirebasePostRepository.swift */; };
@@ -255,6 +268,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4D55BE772E3AD37C00F7BE5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DC602132D343E8D00B5E4A9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D55BE632E3AD37B00F7BE5B;
+			remoteInfo = CosmicHUDWidgetExtension;
+		};
 		4D80E1102D41E17A0020F7BB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DC602132D343E8D00B5E4A9 /* Project object */;
@@ -265,6 +285,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		4D55BE7E2E3AD37C00F7BE5B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4D55BE792E3AD37C00F7BE5B /* CosmicHUDWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4DB1E0642E23FBE7001A9EA5 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -354,6 +385,16 @@
 		4D3727182DE5538A00B5A02B /* NumerologyInsightService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyInsightService.swift; sourceTree = "<group>"; };
 		4D37271A2DE554B700B5A02B /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordingManager.swift; sourceTree = "<group>"; };
+		4D55BE4F2E3AC1DB00F7BE5B /* CosmicHUDIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicHUDIntegration.swift; sourceTree = "<group>"; };
+		4D55BE502E3AC1DB00F7BE5B /* CosmicHUDIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicHUDIntents.swift; sourceTree = "<group>"; };
+		4D55BE512E3AC1DB00F7BE5B /* CosmicHUDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicHUDManager.swift; sourceTree = "<group>"; };
+		4D55BE522E3AC1DB00F7BE5B /* CosmicHUDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicHUDView.swift; sourceTree = "<group>"; };
+		4D55BE532E3AC1DB00F7BE5B /* HUDGlyphMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDGlyphMapper.swift; sourceTree = "<group>"; };
+		4D55BE542E3AC1DB00F7BE5B /* MiniInsightProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniInsightProvider.swift; sourceTree = "<group>"; };
+		4D55BE5E2E3AC55400F7BE5B /* CosmicHUDTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicHUDTypes.swift; sourceTree = "<group>"; };
+		4D55BE642E3AD37B00F7BE5B /* CosmicHUDWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CosmicHUDWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D55BE652E3AD37B00F7BE5B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		4D55BE672E3AD37B00F7BE5B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		4D5BEAF22E35A7AD00B56575 /* PostEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4D5BEAF62E35A7E900B56575 /* PostEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4D5BEAF82E35A81400B56575 /* HybridPostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HybridPostRepository.swift; sourceTree = "<group>"; };
@@ -528,13 +569,33 @@
 		4DE4C37F2DB392E900BB7572 /* NumerologyNotificationTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyNotificationTestView.swift; sourceTree = "<group>"; };
 		4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyNotificationTester.swift; sourceTree = "<group>"; };
 		4DF0F5A82D4FEF3F007EC3BF /* VybeMVP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VybeMVP.entitlements; sourceTree = "<group>"; };
+		4DF6AAC92E3AF79200E0937E /* CosmicInsightEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicInsightEngine.swift; sourceTree = "<group>"; };
+		4DF6AACB2E3B223200E0937E /* KASPERIntegrationTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERIntegrationTemplate.swift; sourceTree = "<group>"; };
 		4DF77E472E35660500B6D45E /* VybeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeConstants.swift; sourceTree = "<group>"; };
 		4DF77E492E358B2E00B6D45E /* FirebasePostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePostRepository.swift; sourceTree = "<group>"; };
 		4DF77E4A2E358B2E00B6D45E /* PostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRepository.swift; sourceTree = "<group>"; };
 		4DF77E4E2E358DC500B6D45E /* PostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4D55BE7A2E3AD37C00F7BE5B /* Exceptions for "CosmicHUDWidget" folder in "CosmicHUDWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 4D55BE632E3AD37B00F7BE5B /* CosmicHUDWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		4D55BE692E3AD37B00F7BE5B /* CosmicHUDWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4D55BE7A2E3AD37C00F7BE5B /* Exceptions for "CosmicHUDWidget" folder in "CosmicHUDWidgetExtension" target */,
+			);
+			path = CosmicHUDWidget;
+			sourceTree = "<group>";
+		};
 		4D80E10D2D41E17A0020F7BB /* VybeMVPTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = VybeMVPTests;
@@ -553,6 +614,15 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4D55BE612E3AD37B00F7BE5B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D55BE682E3AD37B00F7BE5B /* SwiftUI.framework in Frameworks */,
+				4D55BE662E3AD37B00F7BE5B /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4D80E1092D41E17A0020F7BB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -768,6 +838,22 @@
 			path = Activity;
 			sourceTree = "<group>";
 		};
+		4D55BE552E3AC1DB00F7BE5B /* CosmicHUD */ = {
+			isa = PBXGroup;
+			children = (
+				4DF6AACB2E3B223200E0937E /* KASPERIntegrationTemplate.swift */,
+				4DF6AAC92E3AF79200E0937E /* CosmicInsightEngine.swift */,
+				4D55BE5E2E3AC55400F7BE5B /* CosmicHUDTypes.swift */,
+				4D55BE4F2E3AC1DB00F7BE5B /* CosmicHUDIntegration.swift */,
+				4D55BE502E3AC1DB00F7BE5B /* CosmicHUDIntents.swift */,
+				4D55BE512E3AC1DB00F7BE5B /* CosmicHUDManager.swift */,
+				4D55BE522E3AC1DB00F7BE5B /* CosmicHUDView.swift */,
+				4D55BE532E3AC1DB00F7BE5B /* HUDGlyphMapper.swift */,
+				4D55BE542E3AC1DB00F7BE5B /* MiniInsightProvider.swift */,
+			);
+			path = CosmicHUD;
+			sourceTree = "<group>";
+		};
 		4D5BEB332E372AC100B56575 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -829,6 +915,8 @@
 		4D6308E22DFFCB6F00FD32E9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D55BE652E3AD37B00F7BE5B /* WidgetKit.framework */,
+				4D55BE672E3AD37B00F7BE5B /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -942,6 +1030,7 @@
 				4DC6022E2D34440900B5E4A9 /* Features */,
 				4DC602302D34440900B5E4A9 /* Views */,
 				4D80E10D2D41E17A0020F7BB /* VybeMVPTests */,
+				4D55BE692E3AD37B00F7BE5B /* CosmicHUDWidget */,
 				4DC6021C2D343E8D00B5E4A9 /* Products */,
 				4D6308E22DFFCB6F00FD32E9 /* Frameworks */,
 			);
@@ -953,6 +1042,7 @@
 				4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */,
 				4D80E10C2D41E17A0020F7BB /* VybeMVPTests.xctest */,
 				4DC6021D2D343E8D00B5E4A9 /* VybeApp */,
+				4D55BE642E3AD37B00F7BE5B /* CosmicHUDWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -970,6 +1060,7 @@
 		4DC6022E2D34440900B5E4A9 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4D55BE552E3AC1DB00F7BE5B /* CosmicHUD */,
 				4D6308D92DFFCB2C00FD32E9 /* Social */,
 				4D2DB4892DFF6ABA0003353E /* Sightings */,
 				4D2DB47D2DFF43390003353E /* Chakras */,
@@ -1125,6 +1216,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4D55BE632E3AD37B00F7BE5B /* CosmicHUDWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D55BE7B2E3AD37C00F7BE5B /* Build configuration list for PBXNativeTarget "CosmicHUDWidgetExtension" */;
+			buildPhases = (
+				4D55BE602E3AD37B00F7BE5B /* Sources */,
+				4D55BE612E3AD37B00F7BE5B /* Frameworks */,
+				4D55BE622E3AD37B00F7BE5B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				4D55BE692E3AD37B00F7BE5B /* CosmicHUDWidget */,
+			);
+			name = CosmicHUDWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = CosmicHUDWidgetExtension;
+			productReference = 4D55BE642E3AD37B00F7BE5B /* CosmicHUDWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		4D80E10B2D41E17A0020F7BB /* VybeMVPTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D80E1122D41E17A0020F7BB /* Build configuration list for PBXNativeTarget "VybeMVPTests" */;
@@ -1158,10 +1271,12 @@
 				4DC602182D343E8D00B5E4A9 /* Frameworks */,
 				4DC602192D343E8D00B5E4A9 /* Resources */,
 				4DB1E0642E23FBE7001A9EA5 /* Embed Frameworks */,
+				4D55BE7E2E3AD37C00F7BE5B /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4D55BE782E3AD37C00F7BE5B /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				4DC6021D2D343E8D00B5E4A9 /* VybeApp */,
@@ -1188,9 +1303,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1620;
+				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
+					4D55BE632E3AD37B00F7BE5B = {
+						CreatedOnToolsVersion = 16.4;
+					};
 					4D80E10B2D41E17A0020F7BB = {
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = 4DC6021A2D343E8D00B5E4A9;
@@ -1226,11 +1344,19 @@
 			targets = (
 				4DC6021A2D343E8D00B5E4A9 /* VybeMVP */,
 				4D80E10B2D41E17A0020F7BB /* VybeMVPTests */,
+				4D55BE632E3AD37B00F7BE5B /* CosmicHUDWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4D55BE622E3AD37B00F7BE5B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4D80E10A2D41E17A0020F7BB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1319,6 +1445,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4D55BE602E3AD37B00F7BE5B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D55BE7F2E3AD4AD00F7BE5B /* CosmicHUDTypes.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4D80E1082D41E17A0020F7BB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1395,6 +1529,7 @@
 				4D37271C2DE554B700B5A02B /* ActivityView.swift in Sources */,
 				4D6C7BAD2DE47F55001036E5 /* AuthService.swift in Sources */,
 				4D6C7BB12DE4803E001036E5 /* AIInsightManager.swift in Sources */,
+				4DF6AACC2E3B223200E0937E /* KASPERIntegrationTemplate.swift in Sources */,
 				4D92F4BF2D4DE6050001A16E /* HealthKitManager.swift in Sources */,
 				4D2DB48A2DFF6ABA0003353E /* SightingsView.swift in Sources */,
 				4D2DB48B2DFF6ABA0003353E /* NewSightingView.swift in Sources */,
@@ -1412,6 +1547,7 @@
 				4DA98F992E07230500FAE5FF /* CommentManager.swift in Sources */,
 				4DDCE0042E31468A005FDD32 /* AstrologyHouseCalculator.swift in Sources */,
 				4D2CC7032E08C78C00BDF100 /* UserProfile.swift in Sources */,
+				4DF6AACA2E3AF79200E0937E /* CosmicInsightEngine.swift in Sources */,
 				4D6308DC2DFFCB2C00FD32E9 /* PostComposerView.swift in Sources */,
 				4DCEE47E2E34339B007CA451 /* NumerologyService.swift in Sources */,
 				4DB233F62E1169CD004EC2BC /* VybeMatchOverlay.swift in Sources */,
@@ -1476,6 +1612,7 @@
 				4D3727172DE551E100B5A02B /* ActivityNavigationManager.swift in Sources */,
 				4D3727192DE5538A00B5A02B /* NumerologyInsightService.swift in Sources */,
 				4D92F4BB2D4DE1E80001A16E /* JournalManager.swift in Sources */,
+				4D55BE5F2E3AC55400F7BE5B /* CosmicHUDTypes.swift in Sources */,
 				4DE4C3822DB393DA00BB7572 /* NumerologyNotificationTester.swift in Sources */,
 				4D6C7B632DE46A33001036E5 /* BirthdateInputView.swift in Sources */,
 				4D92F4BC2D4DE1E80001A16E /* RealmNumberManager.swift in Sources */,
@@ -1484,6 +1621,12 @@
 				4DF77E4F2E358DC500B6D45E /* PostManager.swift in Sources */,
 				4DA98FCC2E073CDC00FAE5FF /* ReportManager.swift in Sources */,
 				4D92F4BD2D4DE1E80001A16E /* BackgroundManager.swift in Sources */,
+				4D55BE562E3AC1DB00F7BE5B /* MiniInsightProvider.swift in Sources */,
+				4D55BE572E3AC1DB00F7BE5B /* CosmicHUDManager.swift in Sources */,
+				4D55BE582E3AC1DB00F7BE5B /* HUDGlyphMapper.swift in Sources */,
+				4D55BE592E3AC1DB00F7BE5B /* CosmicHUDIntents.swift in Sources */,
+				4D55BE5A2E3AC1DB00F7BE5B /* CosmicHUDIntegration.swift in Sources */,
+				4D55BE5B2E3AC1DB00F7BE5B /* CosmicHUDView.swift in Sources */,
 				4D3055E32D3CEADA009A7BBD /* JournalEntry+CoreDataHelpers.swift in Sources */,
 				4D3055E12D3CE90C009A7BBD /* FocusNumberContent.swift in Sources */,
 				4DCB386C2E1AAF1C00311D51 /* UserProfileView.swift in Sources */,
@@ -1500,6 +1643,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4D55BE782E3AD37C00F7BE5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D55BE632E3AD37B00F7BE5B /* CosmicHUDWidgetExtension */;
+			targetProxy = 4D55BE772E3AD37C00F7BE5B /* PBXContainerItemProxy */;
+		};
 		4D80E1112D41E17A0020F7BB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4DC6021A2D343E8D00B5E4A9 /* VybeMVP */;
@@ -1508,6 +1656,64 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		4D55BE7C2E3AD37C00F7BE5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 78GUR5644G;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CosmicHUDWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CosmicHUDWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infinitiesinn.vybe.VybeMVP.CosmicHUDWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4D55BE7D2E3AD37C00F7BE5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 78GUR5644G;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CosmicHUDWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CosmicHUDWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infinitiesinn.vybe.VybeMVP.CosmicHUDWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		4D80E1132D41E17A0020F7BB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1759,6 +1965,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4D55BE7B2E3AD37C00F7BE5B /* Build configuration list for PBXNativeTarget "CosmicHUDWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D55BE7C2E3AD37C00F7BE5B /* Debug */,
+				4D55BE7D2E3AD37C00F7BE5B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4D80E1122D41E17A0020F7BB /* Build configuration list for PBXNativeTarget "VybeMVPTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

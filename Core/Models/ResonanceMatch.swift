@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftAA  // For Planet type
 
 /**
  * Model representing internal spiritual resonance patterns.
@@ -137,11 +138,11 @@ enum ResonanceType: String, CaseIterable, Codable {
 /**
  * Archetype context for resonance matches.
  */
-struct ArchetypeContext: Codable {
+struct ArchetypeContext: Codable, Equatable {
     /// User's life path number
     let lifePath: Int
     
-    /// Current elemental influence
+    /// Current elemental influence  
     let element: Element
     
     /// Primary planetary archetype
