@@ -406,11 +406,13 @@ struct SanctumTabView: View {
     // Claude: SanctumViewMode enum moved to SanctumDataStructures.swift
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                // Cosmic Background
-                CosmicBackgroundView()
-                    .allowsHitTesting(false)
+        // Claude: CRITICAL FIX - Removed duplicate NavigationView wrapper that was causing 
+        // double edit button in Sanctum view as reported in user feedback
+        // The parent TabView already provides NavigationView context
+        ZStack {
+            // Cosmic Background
+            CosmicBackgroundView()
+                .allowsHitTesting(false)
                 
                 ScrollView {
                     VStack(spacing: 16) {
@@ -466,14 +468,7 @@ struct SanctumTabView: View {
             }
             .navigationTitle("My Sanctum")
             .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Edit") {
-                        showingEditProfile = true
-                    }
-                    .foregroundColor(.purple)
-                }
-            }
+            // Claude: Removed edit button - Sanctum is set in stone
             .onAppear {
                 // PERFORMANCE FIX: Defer heavy operations to prevent tab loading delays
                 
@@ -526,7 +521,6 @@ struct SanctumTabView: View {
             .sheet(item: $selectedAspect) { aspect in
                 AspectDetailView(aspect: aspect)
             }
-        }
     }
     
     

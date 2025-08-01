@@ -74,7 +74,9 @@ struct CosmicHUDWidgetLiveActivity: Widget {
                             }
                         }
                         
-                        Text("Active Aspect")
+                        // Claude: CRITICAL FIX - Use formatAspectExplanation() to show actual planetary aspects
+                        // instead of hardcoded "Active Aspect" text that was reported in user feedback
+                        Text(formatAspectExplanation(context.state.aspectDisplay))
                             .font(.caption2)
                             .foregroundColor(.secondary)
                             .opacity(0.7)
@@ -252,7 +254,9 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         return formatter.string(from: date)
     }
     
-    /// Claude: Converts planet symbols to readable names for aspect explanation
+    /// Claude: CRITICAL FUNCTION - Converts planet symbols to readable names for aspect explanation
+    /// This function solves the Dynamic Island expanded view showing "Active Aspect" issue
+    /// by converting symbolic display like "☉ ☍ ☿" to readable "Sun opposite Mercury"
     private func formatAspectExplanation(_ aspectDisplay: String) -> String {
         // Simple symbol to name mapping for common planets
         let symbolMap: [String: String] = [
