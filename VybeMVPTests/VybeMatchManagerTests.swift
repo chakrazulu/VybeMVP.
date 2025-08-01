@@ -250,42 +250,40 @@ final class VybeMatchManagerTests: XCTestCase {
      * for immediate spiritual celebration display in the user interface.
      */
     @MainActor
-    func testPublishedPropertiesObservable() {
+    func testPublishedPropertiesObservable() async {
         // Test that @Published properties can be observed
-        let matchActiveExpectation = expectation(description: "Match active property observed")
-        let matchedNumberExpectation = expectation(description: "Matched number property observed")
-        let heartRateExpectation = expectation(description: "Heart rate property observed")
-        let recentMatchesExpectation = expectation(description: "Recent matches property observed")
+        let expectation = expectation(description: "Published properties should emit")
+        expectation.expectedFulfillmentCount = 4
         
         matchManager.$isMatchActive
             .prefix(1)   // Only take the first emission
             .sink { _ in
-                matchActiveExpectation.fulfill()
+                expectation.fulfill()
             }
             .store(in: &cancellables)
         
         matchManager.$currentMatchedNumber
             .prefix(1)   // Only take the first emission
             .sink { _ in
-                matchedNumberExpectation.fulfill()
+                expectation.fulfill()
             }
             .store(in: &cancellables)
         
         matchManager.$currentHeartRate
             .prefix(1)   // Only take the first emission
             .sink { _ in
-                heartRateExpectation.fulfill()
+                expectation.fulfill()
             }
             .store(in: &cancellables)
         
         matchManager.$recentMatches
             .prefix(1)   // Only take the first emission
             .sink { _ in
-                recentMatchesExpectation.fulfill()
+                expectation.fulfill()
             }
             .store(in: &cancellables)
         
-        waitForExpectations(timeout: 1.0)
+        await fulfillment(of: [expectation], timeout: 1.0)
     }
     
     // ═══════════════════════════════════════════════════════════════════════════════════
@@ -348,9 +346,8 @@ final class VybeMatchManagerTests: XCTestCase {
      * notifications from Focus and Realm number managers.
      */
     @MainActor
-    func testFocusNumberNotificationProcessing() {
+    func testFocusNumberNotificationProcessing() async {
         // Test focus number notification handling
-        let expectation = expectation(description: "Focus number notification processed")
         
         // Post focus number change notification
         NotificationCenter.default.post(
@@ -360,18 +357,14 @@ final class VybeMatchManagerTests: XCTestCase {
         )
         
         // Allow time for notification processing
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            XCTAssertNotNil(self.matchManager, "Manager should remain stable after focus notification")
-            expectation.fulfill()
-        }
+        try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
         
-        waitForExpectations(timeout: 1.0)
+        XCTAssertNotNil(self.matchManager, "Manager should remain stable after focus notification")
     }
     
     @MainActor
-    func testRealmNumberNotificationProcessing() {
+    func testRealmNumberNotificationProcessing() async {
         // Test realm number notification handling
-        let expectation = expectation(description: "Realm number notification processed")
         
         // Post realm number change notification
         NotificationCenter.default.post(
@@ -381,18 +374,14 @@ final class VybeMatchManagerTests: XCTestCase {
         )
         
         // Allow time for notification processing
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            XCTAssertNotNil(self.matchManager, "Manager should remain stable after realm notification")
-            expectation.fulfill()
-        }
+        try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
         
-        waitForExpectations(timeout: 1.0)
+        XCTAssertNotNil(self.matchManager, "Manager should remain stable after realm notification")
     }
     
     @MainActor
-    func testMultipleNotificationProcessing() {
+    func testMultipleNotificationProcessing() async {
         // Test handling multiple rapid notifications
-        let expectation = expectation(description: "Multiple notifications processed")
         
         // Post multiple notifications rapidly
         for i in 1...5 {
@@ -409,13 +398,10 @@ final class VybeMatchManagerTests: XCTestCase {
             )
         }
         
-        // Verify system stability
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            XCTAssertNotNil(self.matchManager, "Manager should handle multiple notifications")
-            expectation.fulfill()
-        }
+        // Allow time for notification processing
+        try? await Task.sleep(nanoseconds: 200_000_000) // 0.2 seconds
         
-        waitForExpectations(timeout: 1.0)
+        XCTAssertNotNil(self.matchManager, "Manager should handle multiple notifications")
     }
     
     // ═══════════════════════════════════════════════════════════════════════════════════

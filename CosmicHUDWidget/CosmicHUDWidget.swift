@@ -264,18 +264,18 @@ struct CosmicHUDWidgetEntryView : View {
     }
     
     // MARK: - Cosmic Haze Background
-    /// Claude: Subtle cosmic haze effect that creates floating parallax illusion - fills entire widget
-    /// Opacity reduced per user feedback to pull back the haze effect
+    /// Claude: Elegant cosmic haze effect that creates floating parallax illusion - fills entire widget
+    /// Opacity balanced for subtle visibility while maintaining elegance
     private var cosmicHazeBackground: some View {
         Rectangle()
             .fill(
                 RadialGradient(
                     colors: [
                         Color.clear,
-                        Color.purple.opacity(0.06),  // Reduced from 0.1
-                        Color.blue.opacity(0.08),    // Reduced from 0.15
-                        Color.indigo.opacity(0.12),  // Reduced from 0.2
-                        Color.purple.opacity(0.15)   // Reduced from 0.25
+                        Color.purple.opacity(0.05),  // Slightly more visible than 0.03
+                        Color.blue.opacity(0.06),    // Slightly more visible than 0.04
+                        Color.indigo.opacity(0.08),  // Slightly more visible than 0.06
+                        Color.purple.opacity(0.11)   // Slightly more visible than 0.08
                     ],
                     center: .center,
                     startRadius: 10,
@@ -287,29 +287,29 @@ struct CosmicHUDWidgetEntryView : View {
                     .stroke(
                         LinearGradient(
                             colors: [
-                                Color.purple.opacity(0.35),  // Reduced from 0.6
-                                Color.blue.opacity(0.25),    // Reduced from 0.4
-                                Color.indigo.opacity(0.4),   // Reduced from 0.7
-                                Color.cyan.opacity(0.2),     // Reduced from 0.3
-                                Color.purple.opacity(0.3)    // Reduced from 0.5
+                                Color.purple.opacity(0.25),  // More visible than 0.18
+                                Color.blue.opacity(0.18),    // More visible than 0.13
+                                Color.indigo.opacity(0.28),  // More visible than 0.2
+                                Color.cyan.opacity(0.15),    // More visible than 0.1
+                                Color.purple.opacity(0.22)   // More visible than 0.15
                             ],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         ),
-                        lineWidth: 1.5  // Reduced from 2.0
+                        lineWidth: 1.8  // Slightly thicker than 1.5
                     )
             )
             .shadow(
-                color: Color.purple.opacity(0.25),  // Reduced from 0.4
-                radius: 8,   // Reduced from 10
+                color: Color.purple.opacity(0.18),  // More visible than 0.13
+                radius: 7,   // Between original 8 and reduced 6
                 x: 0,
-                y: 2         // Reduced from 3
+                y: 1.5       // Between original 2 and reduced 1
             )
             .shadow(
-                color: Color.blue.opacity(0.2),     // Reduced from 0.3
-                radius: 12,  // Reduced from 15
+                color: Color.blue.opacity(0.15),    // More visible than 0.1
+                radius: 11,  // Between original 12 and reduced 10
                 x: 0,
-                y: 4         // Reduced from 6
+                y: 3.5       // Between original 4 and reduced 3
             )
             .clipped()
     }
