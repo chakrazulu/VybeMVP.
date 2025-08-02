@@ -1,0 +1,4 @@
+module ObjCAA {
+umbrella header "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/ObjCAA/include/ObjCAA.h"
+export *
+}

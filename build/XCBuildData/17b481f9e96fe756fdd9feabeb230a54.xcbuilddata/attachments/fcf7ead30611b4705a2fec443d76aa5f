@@ -1,0 +1,418 @@
+{
+  "" : {
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SwiftAA-master.dia",
+    "emit-module-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SwiftAA-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SwiftAA-master-emit-module.dia",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SwiftAA-master.swiftdeps"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Angles.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Angles.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Angles.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Angles.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Angles.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Angles.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Angles.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Angles.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Angles~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Asteroids.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Asteroids.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Asteroids.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Asteroids.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Asteroids.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Asteroids.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Asteroids.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Asteroids.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Asteroids~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/AstronomicalCoordinates.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AstronomicalCoordinates.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AstronomicalCoordinates.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AstronomicalCoordinates.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AstronomicalCoordinates.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AstronomicalCoordinates.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AstronomicalCoordinates.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AstronomicalCoordinates.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AstronomicalCoordinates~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/AstronomicalObject.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AstronomicalObject.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AstronomicalObject.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AstronomicalObject.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AstronomicalObject.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AstronomicalObject.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AstronomicalObject.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AstronomicalObject.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AstronomicalObject~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/AthmosphericRefraction.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AthmosphericRefraction.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AthmosphericRefraction.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AthmosphericRefraction.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AthmosphericRefraction.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AthmosphericRefraction.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AthmosphericRefraction.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AthmosphericRefraction.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/AthmosphericRefraction~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/BinaryStars.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/BinaryStars.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/BinaryStars.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/BinaryStars.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/BinaryStars.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/BinaryStars.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/BinaryStars.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/BinaryStars.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/BinaryStars~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/CelestialBodies.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/CelestialBodies.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/CelestialBodies.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/CelestialBodies.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/CelestialBodies.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/CelestialBodies.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/CelestialBodies.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/CelestialBodies.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/CelestialBodies~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Constants.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Constants.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Constants.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Constants.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Constants.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Constants.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Constants.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Constants.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Constants~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/DateExtensions.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/DateExtensions.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/DateExtensions.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/DateExtensions.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/DateExtensions.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/DateExtensions.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/DateExtensions.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/DateExtensions.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/DateExtensions~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Distances.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Distances.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Distances.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Distances.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Distances.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Distances.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Distances.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Distances.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Distances~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Earth.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Earth.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Earth.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Earth.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Earth.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Earth.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Earth.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Earth.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Earth~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Fluxes.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Fluxes.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Fluxes.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Fluxes.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Fluxes.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Fluxes.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Fluxes.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Fluxes.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Fluxes~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/GeographicCoordinates.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/GeographicCoordinates.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/GeographicCoordinates.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/GeographicCoordinates.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/GeographicCoordinates.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/GeographicCoordinates.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/GeographicCoordinates.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/GeographicCoordinates.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/GeographicCoordinates~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/JulianDay.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/JulianDay.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/JulianDay.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/JulianDay.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/JulianDay.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/JulianDay.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/JulianDay.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/JulianDay.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/JulianDay~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Jupiter.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Jupiter.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Jupiter.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Jupiter.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Jupiter.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Jupiter.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Jupiter.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Jupiter.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Jupiter~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/JupiterMoons.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/JupiterMoons.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/JupiterMoons.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/JupiterMoons.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/JupiterMoons.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/JupiterMoons.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/JupiterMoons.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/JupiterMoons.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/JupiterMoons~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Magnitudes.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Magnitudes.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Magnitudes.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Magnitudes.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Magnitudes.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Magnitudes.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Magnitudes.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Magnitudes.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Magnitudes~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Mars.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Mars.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Mars.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Mars.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Mars.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Mars.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Mars.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Mars.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Mars~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Mercury.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Mercury.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Mercury.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Mercury.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Mercury.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Mercury.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Mercury.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Mercury.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Mercury~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Moon.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Moon.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Moon.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Moon.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Moon.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Moon.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Moon.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Moon.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Moon~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Neptune.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Neptune.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Neptune.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Neptune.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Neptune.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Neptune.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Neptune.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Neptune.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Neptune~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/NumericType.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/NumericType.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/NumericType.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/NumericType.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/NumericType.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/NumericType.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/NumericType.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/NumericType.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/NumericType~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Nutation.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Nutation.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Nutation.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Nutation.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Nutation.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Nutation.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Nutation.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Nutation.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Nutation~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/ObjectBase.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/ObjectBase.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/ObjectBase.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/ObjectBase.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/ObjectBase.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/ObjectBase.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/ObjectBase.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/ObjectBase.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/ObjectBase~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/PlanetConstants.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetConstants.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetConstants.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetConstants.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetConstants.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetConstants.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetConstants.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetConstants.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetConstants~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/PlanetaryBase.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryBase.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryBase.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryBase.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryBase.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryBase.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryBase.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryBase.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryBase~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/PlanetaryDetails.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryDetails.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryDetails.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryDetails.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryDetails.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryDetails.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryDetails.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryDetails.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryDetails~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/PlanetaryOrbits.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryOrbits.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryOrbits.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryOrbits.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryOrbits.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryOrbits.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryOrbits.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryOrbits.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryOrbits~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/PlanetaryPhenomena.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryPhenomena.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryPhenomena.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryPhenomena.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryPhenomena.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryPhenomena.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryPhenomena.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryPhenomena.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryPhenomena~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/PlanetaryPhysicalDetails.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryPhysicalDetails.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryPhysicalDetails.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryPhysicalDetails.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryPhysicalDetails.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryPhysicalDetails.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryPhysicalDetails.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryPhysicalDetails.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/PlanetaryPhysicalDetails~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Planets.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Planets.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Planets.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Planets.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Planets.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Planets.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Planets.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Planets.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Planets~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Pluto.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Pluto.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Pluto.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Pluto.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Pluto.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Pluto.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Pluto.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Pluto.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Pluto~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/RiseTransitSet.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/RiseTransitSet.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/RiseTransitSet.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/RiseTransitSet.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/RiseTransitSet.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/RiseTransitSet.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/RiseTransitSet.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/RiseTransitSet.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/RiseTransitSet~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Saturn.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Saturn.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Saturn.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Saturn.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Saturn.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Saturn.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Saturn.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Saturn.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Saturn~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/SaturnMoons.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SaturnMoons.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SaturnMoons.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SaturnMoons.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SaturnMoons.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SaturnMoons.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SaturnMoons.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SaturnMoons.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SaturnMoons~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/SaturnRings.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SaturnRings.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SaturnRings.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SaturnRings.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SaturnRings.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SaturnRings.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SaturnRings.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SaturnRings.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/SaturnRings~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/ScientificConstants.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/ScientificConstants.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/ScientificConstants.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/ScientificConstants.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/ScientificConstants.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/ScientificConstants.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/ScientificConstants.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/ScientificConstants.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/ScientificConstants~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Sun.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Sun.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Sun.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Sun.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Sun.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Sun.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Sun.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Sun.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Sun~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Times.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Times.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Times.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Times.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Times.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Times.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Times.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Times.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Times~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Uranus.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Uranus.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Uranus.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Uranus.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Uranus.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Uranus.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Uranus.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Uranus.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Uranus~partial.swiftmodule"
+  },
+  "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/SwiftAA/Venus.swift" : {
+    "const-values" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Venus.swiftconstvalues",
+    "dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Venus.d",
+    "diagnostics" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Venus.dia",
+    "index-unit-output-path" : "/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Venus.o",
+    "llvm-bc" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Venus.bc",
+    "object" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Venus.o",
+    "swift-dependencies" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Venus.swiftdeps",
+    "swiftmodule" : "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/build/SwiftAA.build/Debug-iphoneos/SwiftAA.build/Objects-normal/arm64/Venus~partial.swiftmodule"
+  }
+}

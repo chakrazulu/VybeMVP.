@@ -102,6 +102,9 @@
 
 import Foundation
 
+// Claude: FIXED - Import required utilities for real data calculations
+// Imports needed for MoonPhaseCalculator, HealthKitManager, FocusNumberManager
+
 /**
  * KASPERPrimingPayload: Complete spiritual data aggregation for oracle engine
  * 
@@ -458,7 +461,8 @@ struct TransitData: Codable {
         self.currentPluto = cosmicSnapshot.planetaryData.first { $0.planet == "Pluto" }.map { PlanetaryTransit(from: $0) }
         
         self.currentSeason = cosmicSnapshot.currentSeason
-        self.lunarPhase = "Current Phase" // TODO: Calculate real lunar phase
+        // Claude: FIXED - Use actual lunar phase calculation
+        self.lunarPhase = MoonPhaseCalculator.moonPhase(for: Date()).rawValue
         self.calculatedAt = cosmicSnapshot.lastUpdated
         self.nextMajorTransit = nil // TODO: Calculate next major transit
     }
@@ -593,9 +597,15 @@ struct EnvironmentalContext: Codable {
         self.dayOfWeek = formatter.string(from: Date())
         
         self.currentDate = Date()
-        self.energyLevel = nil // TODO: Derive from biometrics
-        self.recentFocus = nil
-        self.timeSinceLastPractice = nil
+        
+        // Claude: FIXED - Derive energy level from heart rate data
+        let currentBPM = HealthKitManager.shared.currentHeartRate
+        self.energyLevel = EnergyLevel.from(bpm: currentBPM)
+        
+        // Claude: FIXED - Get recent focus from FocusNumberManager
+        self.recentFocus = "Focus Number \(FocusNumberManager.shared.selectedFocusNumber)"
+        
+        self.timeSinceLastPractice = nil // TODO: Track spiritual practice timing
     }
 }
 
@@ -622,6 +632,16 @@ enum EnergyLevel: String, Codable, CaseIterable {
     case medium = "Medium"
     case high = "High"
     case unknown = "Unknown"
+    
+    /// Claude: FIXED - Derive energy level from heart rate data
+    static func from(bpm: Int) -> EnergyLevel {
+        switch bpm {
+        case 0..<60: return .low
+        case 60..<80: return .medium
+        case 80...: return .high
+        default: return .unknown
+        }
+    }
 }
 
 /**

@@ -22,16 +22,16 @@ struct WidgetInsightTemplates {
     /// Small widget insights (not used - too small)
     static let smallRulerInsights: [Int: String] = [:]
     
-    /// Medium widget insights (30 characters max)
+    /// Medium widget insights (20 characters max for single line)
     static let mediumRulerInsights: [Int: String] = [
-        1: "Lead with confidence",
-        2: "Seek harmony today", 
-        3: "Express creativity",
-        4: "Build foundations",
-        5: "Embrace change",
-        6: "Nurture with love",
-        7: "Trust inner wisdom",
-        8: "Manifest success",
+        1: "Lead boldly today",
+        2: "Harmonize energy", 
+        3: "Create freely",
+        4: "Build steadily",
+        5: "Explore change",
+        6: "Love deeply",
+        7: "Seek wisdom",
+        8: "Manifest power",
         9: "Serve others"
     ]
     
@@ -63,14 +63,14 @@ struct WidgetInsightTemplates {
     
     // MARK: - Aspect-Based Insights by Widget Size
     
-    /// Medium widget aspect insights (40 characters max)
+    /// Medium widget aspect insights (15 characters max to ensure fit)
     static let mediumAspectInsights: [String: String] = [
-        "conjunction": "Unified planetary energy flows",
-        "opposition": "Balance opposing cosmic forces", 
-        "trine": "Harmonious energy creates flow",
-        "square": "Dynamic tension sparks growth",
-        "sextile": "Gentle opportunities emerge",
-        "quincunx": "Divine adjustments align you"
+        "conjunction": "Unity flows",
+        "opposition": "Seek balance", 
+        "trine": "Flow smoothly",
+        "square": "Grow stronger",
+        "sextile": "Open doors",
+        "quincunx": "Adjust path"
     ]
     
     /// Large widget aspect insights (120 characters max)

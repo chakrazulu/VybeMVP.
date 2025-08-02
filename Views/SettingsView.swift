@@ -200,6 +200,11 @@ struct SettingsView: View {
                         .foregroundColor(.blue)
                 }
                 
+                NavigationLink(destination: KASPERMLXTestView()) {
+                    Label("KASPER MLX Engine", systemImage: "sparkles")
+                        .foregroundColor(.purple)
+                }
+                
                 /// Claude: Enhanced Cosmic Engine Testing Interface
                 /// 
                 /// This button provides comprehensive testing and validation of the enhanced

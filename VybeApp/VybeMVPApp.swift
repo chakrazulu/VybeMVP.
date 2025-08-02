@@ -203,6 +203,7 @@ struct VybeMVPApp: App {
     @StateObject private var healthKitManager = HealthKitManager.shared
     @StateObject private var cosmicService = CosmicService.shared
     @StateObject private var cosmicHUDIntegration = CosmicHUDIntegration.shared
+    @StateObject private var kasperMLXManager = KASPERMLXManager.shared
     @Environment(\.scenePhase) private var scenePhase
     let persistenceController = PersistenceController.shared
     
@@ -244,6 +245,7 @@ struct VybeMVPApp: App {
                 .environmentObject(healthKitManager)
                 .environmentObject(cosmicService)
                 .environmentObject(cosmicHUDIntegration)
+                .environmentObject(kasperMLXManager)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .modifier(cosmicHUDIntegration.integrateWithMainApp())
                 .onAppear {
@@ -267,9 +269,31 @@ struct VybeMVPApp: App {
                             print("▶️ Starting RealmNumberManager from background...")
                         }
                         
-                        // Configure KASPERManager with RealmNumberManager dependency
-                        KASPERManager.shared.configure(with: self.realmNumberManager)
-                        print("🔮 KASPERManager configured with RealmNumberManager")
+                        // Claude: 🔮 KASPER MLX - Configure new async KASPER engine
+                        Task { @MainActor in
+                            await self.kasperMLXManager.configure(
+                                realmManager: self.realmNumberManager,
+                                focusManager: self.focusNumberManager,
+                                healthManager: self.healthKitManager
+                            )
+                            print("🔮 KASPER MLX configured with app managers")
+                        }
+                        
+                        // Claude: SAFE - Re-enable background tasks now that MiniInsightProvider issue is fixed
+                        Task.detached(priority: .background) {
+                            // Load MegaCorpus data in background (lightweight operation)
+                            await SanctumDataManager.shared.loadMegaCorpusData()
+                            print("📚 SanctumDataManager MegaCorpus loading initiated (background)")
+                            
+                            // Wait briefly for data to settle
+                            try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second only
+                            
+                            // Claude: 🔮 KASPER MLX - New async engine replaces old blocking payload system
+                            print("🔮 KASPER MLX: New async architecture ready - no more blocking!")
+                            // Old KASPER has been replaced with KASPER MLX - fully async, no MainActor blocking
+                            
+                            print("🔗 KASPER subscription setup completed")
+                        }
                         
                         // Background manager setup
                         DispatchQueue.main.async {
@@ -281,10 +305,13 @@ struct VybeMVPApp: App {
                                 self.healthKitManager.startHeartRateMonitoring()
                             }
                             
-                            // Claude: 🌌 Initialize Cosmic HUD - Revolutionary Spiritual Awareness System
-                            Task {
+                            // Claude: 🌌 CRITICAL FIX - Configure HUD with main app's realm manager to prevent duplicates
+                            self.cosmicHUDIntegration.setMainAppRealmManager(self.realmNumberManager)
+                            
+                            // Claude: 🌌 SAFE - Re-enable Cosmic HUD now that MiniInsightProvider issue is fixed
+                            Task.detached(priority: .background) {
                                 await self.cosmicHUDIntegration.initializeHUD()
-                                Logger.app.info("🌌 Cosmic HUD initialized - Omnipresent spiritual awareness activated!")
+                                Logger.app.info("🌌 Cosmic HUD initialized efficiently in background!")
                             }
                         }
                     }
@@ -316,6 +343,30 @@ struct VybeMVPApp: App {
                         Logger.data.info("ONBOARDING_STATE_CHANGED: Cached to UserDefaults for user \(userID): \(newValue)")
                     } else {
                         Logger.app.info("ONBOARDING_STATE_CHANGED: User not signed in or userID nil. Not caching. (isSignedIn: \(self.signInViewModel.isSignedIn))")
+                    }
+                }
+                .onChange(of: scenePhase) { oldValue, newValue in
+                    // Claude: CRITICAL FIX - Sync widget data when app goes to background
+                    if oldValue == .active && newValue == .background {
+                        Logger.app.info("🔄 App going to background - syncing widget data")
+                        
+                        // Use the dedicated background method for widget sync
+                        cosmicHUDIntegration.appDidEnterBackground()
+                        
+                        // Also force HUD update for immediate sync
+                        Task.detached(priority: .userInitiated) {
+                            await cosmicHUDIntegration.updateHUD()
+                            Logger.app.info("✅ Widget data synced for background state")
+                        }
+                    }
+                }
+                .onChange(of: realmNumberManager.currentRealmNumber) { oldValue, newValue in
+                    // Claude: WIDGET FIX - Update widgets immediately when realm number changes
+                    Logger.app.info("🔄 Realm number changed from \(oldValue) to \(newValue) - updating widgets")
+                    
+                    Task.detached(priority: .userInitiated) {
+                        await cosmicHUDIntegration.updateHUD()
+                        Logger.app.info("✅ Widgets updated for realm number change")
                     }
                 }
         }

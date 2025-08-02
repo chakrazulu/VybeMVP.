@@ -261,6 +261,13 @@
 		4DE4C3822DB393DA00BB7572 /* NumerologyNotificationTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */; };
 		4DF6AACA2E3AF79200E0937E /* CosmicInsightEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6AAC92E3AF79200E0937E /* CosmicInsightEngine.swift */; };
 		4DF6AACC2E3B223200E0937E /* KASPERIntegrationTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6AACB2E3B223200E0937E /* KASPERIntegrationTemplate.swift */; };
+		4DF6ABB72E3EAFA500E0937E /* KASPERMLXTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6ABAF2E3EAFA500E0937E /* KASPERMLXTestView.swift */; };
+		4DF6ABB82E3EAFA500E0937E /* CosmicDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6ABB32E3EAFA500E0937E /* CosmicDataProvider.swift */; };
+		4DF6ABB92E3EAFA500E0937E /* KASPERMLXManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6ABAE2E3EAFA500E0937E /* KASPERMLXManager.swift */; };
+		4DF6ABBA2E3EAFA500E0937E /* KASPERMLXTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6ABAA2E3EAFA500E0937E /* KASPERMLXTypes.swift */; };
+		4DF6ABBB2E3EAFA500E0937E /* KASPERMLXEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6ABAC2E3EAFA500E0937E /* KASPERMLXEngine.swift */; };
+		4DF6ABBC2E3EAFA500E0937E /* NumerologyDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6ABB42E3EAFA500E0937E /* NumerologyDataProvider.swift */; };
+		4DF6ABBD2E3EAFA500E0937E /* BiometricDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6ABB22E3EAFA500E0937E /* BiometricDataProvider.swift */; };
 		4DF77E482E35660500B6D45E /* VybeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E472E35660500B6D45E /* VybeConstants.swift */; };
 		4DF77E4C2E358B2E00B6D45E /* PostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E4A2E358B2E00B6D45E /* PostRepository.swift */; };
 		4DF77E4D2E358B2E00B6D45E /* FirebasePostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E492E358B2E00B6D45E /* FirebasePostRepository.swift */; };
@@ -571,6 +578,13 @@
 		4DF0F5A82D4FEF3F007EC3BF /* VybeMVP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VybeMVP.entitlements; sourceTree = "<group>"; };
 		4DF6AAC92E3AF79200E0937E /* CosmicInsightEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicInsightEngine.swift; sourceTree = "<group>"; };
 		4DF6AACB2E3B223200E0937E /* KASPERIntegrationTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERIntegrationTemplate.swift; sourceTree = "<group>"; };
+		4DF6ABAA2E3EAFA500E0937E /* KASPERMLXTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERMLXTypes.swift; sourceTree = "<group>"; };
+		4DF6ABAC2E3EAFA500E0937E /* KASPERMLXEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERMLXEngine.swift; sourceTree = "<group>"; };
+		4DF6ABAE2E3EAFA500E0937E /* KASPERMLXManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERMLXManager.swift; sourceTree = "<group>"; };
+		4DF6ABAF2E3EAFA500E0937E /* KASPERMLXTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERMLXTestView.swift; sourceTree = "<group>"; };
+		4DF6ABB22E3EAFA500E0937E /* BiometricDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricDataProvider.swift; sourceTree = "<group>"; };
+		4DF6ABB32E3EAFA500E0937E /* CosmicDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicDataProvider.swift; sourceTree = "<group>"; };
+		4DF6ABB42E3EAFA500E0937E /* NumerologyDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyDataProvider.swift; sourceTree = "<group>"; };
 		4DF77E472E35660500B6D45E /* VybeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeConstants.swift; sourceTree = "<group>"; };
 		4DF77E492E358B2E00B6D45E /* FirebasePostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePostRepository.swift; sourceTree = "<group>"; };
 		4DF77E4A2E358B2E00B6D45E /* PostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRepository.swift; sourceTree = "<group>"; };
@@ -1013,6 +1027,7 @@
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
+				4DF6ABB62E3EAFA500E0937E /* KASPERMLX */,
 				4D5BEB332E372AC100B56575 /* ViewModels */,
 				4DB1DE952E22A5C2001A9EA5 /* scripts */,
 				4DCB393A2E1F78AE00311D51 /* Resources */,
@@ -1201,6 +1216,60 @@
 				4DCB39392E1F78AE00311D51 /* SVG */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		4DF6ABAB2E3EAFA500E0937E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				4DF6ABAA2E3EAFA500E0937E /* KASPERMLXTypes.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		4DF6ABAD2E3EAFA500E0937E /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				4DF6ABAC2E3EAFA500E0937E /* KASPERMLXEngine.swift */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		4DF6ABB02E3EAFA500E0937E /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				4DF6ABAE2E3EAFA500E0937E /* KASPERMLXManager.swift */,
+				4DF6ABAF2E3EAFA500E0937E /* KASPERMLXTestView.swift */,
+			);
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		4DF6ABB12E3EAFA500E0937E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4DF6ABB52E3EAFA500E0937E /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				4DF6ABB22E3EAFA500E0937E /* BiometricDataProvider.swift */,
+				4DF6ABB32E3EAFA500E0937E /* CosmicDataProvider.swift */,
+				4DF6ABB42E3EAFA500E0937E /* NumerologyDataProvider.swift */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
+		4DF6ABB62E3EAFA500E0937E /* KASPERMLX */ = {
+			isa = PBXGroup;
+			children = (
+				4DF6ABAB2E3EAFA500E0937E /* Core */,
+				4DF6ABAD2E3EAFA500E0937E /* Engine */,
+				4DF6ABB02E3EAFA500E0937E /* Integration */,
+				4DF6ABB12E3EAFA500E0937E /* Models */,
+				4DF6ABB52E3EAFA500E0937E /* Providers */,
+			);
+			path = KASPERMLX;
 			sourceTree = "<group>";
 		};
 		4DF77E4B2E358B2E00B6D45E /* SocialRepositories */ = {
@@ -1624,6 +1693,13 @@
 				4D55BE562E3AC1DB00F7BE5B /* MiniInsightProvider.swift in Sources */,
 				4D55BE572E3AC1DB00F7BE5B /* CosmicHUDManager.swift in Sources */,
 				4D55BE582E3AC1DB00F7BE5B /* HUDGlyphMapper.swift in Sources */,
+				4DF6ABB72E3EAFA500E0937E /* KASPERMLXTestView.swift in Sources */,
+				4DF6ABB82E3EAFA500E0937E /* CosmicDataProvider.swift in Sources */,
+				4DF6ABB92E3EAFA500E0937E /* KASPERMLXManager.swift in Sources */,
+				4DF6ABBA2E3EAFA500E0937E /* KASPERMLXTypes.swift in Sources */,
+				4DF6ABBB2E3EAFA500E0937E /* KASPERMLXEngine.swift in Sources */,
+				4DF6ABBC2E3EAFA500E0937E /* NumerologyDataProvider.swift in Sources */,
+				4DF6ABBD2E3EAFA500E0937E /* BiometricDataProvider.swift in Sources */,
 				4D55BE592E3AC1DB00F7BE5B /* CosmicHUDIntents.swift in Sources */,
 				4D55BE5A2E3AC1DB00F7BE5B /* CosmicHUDIntegration.swift in Sources */,
 				4D55BE5B2E3AC1DB00F7BE5B /* CosmicHUDView.swift in Sources */,
@@ -1661,6 +1737,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = CosmicHUDWidget/CosmicHUDWidget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1690,6 +1767,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = CosmicHUDWidget/CosmicHUDWidget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

@@ -62,5 +62,7 @@
 	<string>VybeMVP needs access to your photo library to save and select photos for your number sightings.</string>
 	<key>NSSupportsLiveActivities</key>
 	<true/>
+	<key>NSSupportsLiveActivitiesFrequentUpdates</key>
+	<true/>
 </dict>
 </plist>

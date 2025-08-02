@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftAA
 import ActivityKit
 import Combine
+import WidgetKit
 
 // Claude: Import shared HUD types
 // CosmicHUDTypes.swift contains HUDData, AspectData, CosmicElement, CosmicAspect
@@ -43,7 +44,8 @@ class CosmicHUDManager: ObservableObject {
     @Published var lastUpdate: Date = Date()
     
     // MARK: - Dependencies
-    private let realmNumberManager: RealmNumberManager
+    // Claude: FIXED - Don't create own instance, use main app's shared instance
+    private var realmNumberManager: RealmNumberManager?
     private let focusNumberManager: FocusNumberManager
     private let realmSampleManager: RealmSampleManager  // For ruler number calculation
     private let kasperManager: KASPERManager
@@ -61,8 +63,8 @@ class CosmicHUDManager: ObservableObject {
     static let shared = CosmicHUDManager()
     
     private init() {
-        // Claude: Use shared managers for live data synchronization
-        self.realmNumberManager = RealmNumberManager()
+        // Claude: FIXED - Don't create duplicate instance, will be set via configureWithMainAppManagers
+        self.realmNumberManager = nil  // Will be set by main app
         self.focusNumberManager = FocusNumberManager.shared
         self.realmSampleManager = RealmSampleManager.shared  // For ruler number calculation
         self.kasperManager = KASPERManager.shared
@@ -74,12 +76,13 @@ class CosmicHUDManager: ObservableObject {
     
     // MARK: - Configuration
     
-    /// Claude: Configure HUD to use main app's managers for data sync
+    /// Claude: CRITICAL FIX - Configure HUD to use main app's managers (prevents duplicate instances)
     func configureWithMainAppManagers(realmManager: RealmNumberManager) {
-        self.mainAppRealmManager = realmManager
+        self.realmNumberManager = realmManager  // Use main app's instance
+        self.mainAppRealmManager = realmManager  // Keep reference for observers
         self.mainAppFocusManager = FocusNumberManager.shared
         setupDataObservers()
-        print("🔗 HUD: Configured with main app managers")
+        print("🔗 HUD: FIXED - Using main app's RealmNumberManager (no duplicate calculations)")
     }
     
     // MARK: - Data Observers Setup
@@ -91,12 +94,19 @@ class CosmicHUDManager: ObservableObject {
             .receive(on: DispatchQueue.main)
             .removeDuplicates() // Claude: Only update if ruler number actually changes
             .sink { [weak self] newRulerNumber in
-                print("👑 HUD: Ruler number changed to \(newRulerNumber) - refreshing HUD")
+                print("👑 HUD: Ruler number changed to \(newRulerNumber) - refreshing HUD and Live Activity")
                 Task { @MainActor in
                     await self?.refreshHUDData()
                     // Claude: Force UI update by updating lastUpdate timestamp
                     self?.lastUpdate = Date()
-                    print("👑 HUD: Ruler number refresh complete - UI updated")
+                    print("👑 HUD: Ruler number refresh complete - HUD data updated")
+                    
+                    // Claude: Notify integration to update Live Activity immediately
+                    NotificationCenter.default.post(
+                        name: NSNotification.Name("HUDDataUpdated"),
+                        object: nil,
+                        userInfo: ["rulerNumber": newRulerNumber]
+                    )
                 }
             }
             .store(in: &cancellables)
@@ -159,11 +169,39 @@ class CosmicHUDManager: ObservableObject {
             let hudData = try await calculateCurrentHUDData()
             self.currentHUDData = hudData
             self.lastUpdate = Date()
+            
+            // Claude: Write to shared UserDefaults for widget consistency
+            updateSharedUserDefaults(with: hudData)
         } catch {
             print("Claude: HUD data refresh failed: \(error)")
             // Fallback to cached data or default values
             await loadFallbackData()
         }
+    }
+    
+    /// Claude: Update shared UserDefaults for widget data consistency
+    private func updateSharedUserDefaults(with hudData: HUDData) {
+        let userDefaults = UserDefaults(suiteName: "group.com.infinitiesinn.vybe.VybeMVP") ?? UserDefaults.standard
+        
+        userDefaults.set(hudData.rulerNumber, forKey: "CosmicHUD_RulerNumber")
+        userDefaults.set(getCurrentRealmNumber(), forKey: "CosmicHUD_RealmNumber")
+        
+        if let dominantAspect = hudData.dominantAspect {
+            let aspectDisplay = HUDGlyphMapper.aspectChain(
+                planet1: dominantAspect.planet1,
+                aspect: dominantAspect.aspect,
+                planet2: dominantAspect.planet2
+            )
+            userDefaults.set(aspectDisplay, forKey: "CosmicHUD_DominantAspect")
+        }
+        
+        userDefaults.set(hudData.element.emoji, forKey: "CosmicHUD_Element")
+        userDefaults.set(Date(), forKey: "CosmicHUD_LastUpdate")
+        
+        // Claude: Force widget timeline reload to show updated data immediately
+        WidgetCenter.shared.reloadAllTimelines()
+        
+        print("📱 HUD: Updated shared UserDefaults for widget consistency and reloaded widget timelines")
     }
     
     /// Generates mini insight for expanded HUD state
@@ -187,9 +225,14 @@ class CosmicHUDManager: ObservableObject {
     
     /// Gets current realm number (LIVE data)
     func getCurrentRealmNumber() -> Int {
-        // Claude: Get LIVE data from main app realm manager if available, fallback to local
-        let realmNumber = mainAppRealmManager?.currentRealmNumber ?? realmNumberManager.currentRealmNumber
-        print("🌌 HUD: Current realm number = \(realmNumber) (source: \(mainAppRealmManager != nil ? "main app" : "local"))")
+        // Claude: FIXED - Use the configured main app realm manager (single source of truth)
+        guard let realmManager = realmNumberManager else {
+            print("❌ HUD: No realm manager configured! Using fallback value 1")
+            return 1
+        }
+        
+        let realmNumber = realmManager.currentRealmNumber
+        print("🌌 HUD: Using main app's RealmNumberManager - Realm: \(realmNumber)")
         return realmNumber
     }
     
@@ -331,13 +374,18 @@ class CosmicHUDManager: ObservableObject {
         let liveRulerNumber = getCurrentRulerNumber()  // Still get LIVE ruler number
         let liveElement = getCurrentElement()          // Still get LIVE element
         
-        currentHUDData = HUDData(
+        let fallbackData = HUDData(
             rulerNumber: liveRulerNumber,              // LIVE data
             dominantAspect: fallbackAspect,            // Fallback aspect only
             element: liveElement,                      // LIVE element
             lastCalculated: Date(),
             allAspects: [fallbackAspect]
         )
+        
+        currentHUDData = fallbackData
+        
+        // Claude: Update shared UserDefaults even with fallback data for widget consistency
+        updateSharedUserDefaults(with: fallbackData)
         
         print("✅ HUD: Fallback data loaded with live ruler: \(liveRulerNumber), element: \(liveElement)")
     }
