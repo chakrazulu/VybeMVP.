@@ -1,6 +1,7 @@
 import SwiftUI
 import ActivityKit
 import Combine
+import WidgetKit
 
 // MARK: - Cosmic HUD Integration
 /// Claude: The bridge between cosmic consciousness and Vybe's main app
@@ -21,7 +22,8 @@ class CosmicHUDIntegration: ObservableObject {
     // MARK: - Dependencies
     private let hudManager = CosmicHUDManager.shared
     private let navigationCoordinator = CosmicHUDNavigationCoordinator.shared
-    private let realmNumberManager = RealmNumberManager()
+    // Claude: FIXED - Don't create new instance, will use main app's shared instance
+    private var mainAppRealmManager: RealmNumberManager?
     
     // Claude: Configure HUD manager with main app's realm manager for data sync
     private var isHUDConfigured = false
@@ -30,6 +32,9 @@ class CosmicHUDIntegration: ObservableObject {
     private var isInitialized = false
     private var cancellables = Set<AnyCancellable>()
     
+    // Claude: Immediate update system - no timer needed
+    // Updates happen instantly when values change while app is in foreground
+    
     private init() {
         setupNavigationObserver()
         setupNotificationObservers()
@@ -37,13 +42,19 @@ class CosmicHUDIntegration: ObservableObject {
     
     // MARK: - Public Methods
     
+    /// Claude: CRITICAL FIX - Set the main app's realm manager to prevent duplicate instances
+    func setMainAppRealmManager(_ realmManager: RealmNumberManager) {
+        self.mainAppRealmManager = realmManager
+        print("🔗 HUD Integration: Main app realm manager configured - no more duplicate instances")
+    }
+    
     /// Initializes the Cosmic HUD system when app launches
     func initializeHUD() async {
         guard !isInitialized else { return }
         
         // Claude: Configure HUD manager with main app's realm manager for data sync
-        if !isHUDConfigured {
-            hudManager.configureWithMainAppManagers(realmManager: realmNumberManager)
+        if !isHUDConfigured, let realmManager = mainAppRealmManager {
+            hudManager.configureWithMainAppManagers(realmManager: realmManager)
             isHUDConfigured = true
         }
         
@@ -106,9 +117,12 @@ class CosmicHUDIntegration: ObservableObject {
             
             // Create activity attributes and initial state
             let attributes = CosmicHUDWidgetAttributes()
+            let currentRealmNumber = hudManager.getCurrentRealmNumber()
+            print("Claude: 📊 Starting Live Activity - Ruler: \(hudData.rulerNumber), Realm: \(currentRealmNumber)")
+            
             let contentState = CosmicHUDWidgetAttributes.ContentState(
                 rulerNumber: hudData.rulerNumber,                   // LIVE from HUD manager
-                realmNumber: hudManager.getCurrentRealmNumber(),    // LIVE from HUD manager
+                realmNumber: currentRealmNumber,                    // LIVE from HUD manager
                 aspectDisplay: formatAspectForHUD(hudData.dominantAspect),
                 element: HUDGlyphMapper.element(for: hudData.element),
                 lastUpdate: Date()
@@ -130,6 +144,7 @@ class CosmicHUDIntegration: ObservableObject {
             hudManager.startHUD()
             
             print("Claude: ✅ Cosmic HUD Live Activity started successfully! ID: \(activity.id)")
+            print("Claude: 📡 HUD now updates immediately on value changes")
             
         } catch {
             print("Claude: ❌ Error starting HUD: \(error)")
@@ -149,29 +164,27 @@ class CosmicHUDIntegration: ObservableObject {
         }
     }
     
-    /// Stops the Cosmic HUD Live Activity
+    /// Stops the Cosmic HUD Live Activity (explicit user action only)
     func stopHUD() async {
         guard #available(iOS 16.1, *) else { return }
         
         if let activity = hudActivity {
-            print("Claude: 🛑 Ending Live Activity: \(activity.id)")
+            print("Claude: 🛑 User requested to end Live Activity: \(activity.id)")
             await activity.end(nil, dismissalPolicy: .immediate)
             await MainActor.run {
                 self.hudActivity = nil
             }
         }
         
-        // Let the system handle cleanup naturally
-        
         hudManager.stopHUD()
         await MainActor.run {
             self.isHUDEnabled = false
         }
         
-        print("Claude: ✅ Cosmic HUD stopped and cleaned up")
+        print("Claude: ✅ Cosmic HUD stopped by user request")
     }
     
-    /// Updates the HUD with fresh cosmic data
+    /// Updates the HUD with fresh cosmic data (foreground-only strategy)
     func updateHUD() async {
         guard #available(iOS 16.1, *),
               let activity = hudActivity,
@@ -179,16 +192,23 @@ class CosmicHUDIntegration: ObservableObject {
             return
         }
         
+        let currentRealmNumber = hudManager.getCurrentRealmNumber()
+        print("Claude: 📊 Updating Live Activity - Ruler: \(hudData.rulerNumber), Realm: \(currentRealmNumber)")
+        
         let updatedState = CosmicHUDWidgetAttributes.ContentState(
             rulerNumber: hudData.rulerNumber,                   // LIVE from HUD manager
-            realmNumber: hudManager.getCurrentRealmNumber(),    // LIVE from HUD manager
+            realmNumber: currentRealmNumber,                    // LIVE from HUD manager
             aspectDisplay: formatAspectForHUD(hudData.dominantAspect),
             element: HUDGlyphMapper.element(for: hudData.element),
             lastUpdate: Date()
         )
         
         await activity.update(.init(state: updatedState, staleDate: nil))
-        print("Claude: HUD updated successfully")
+        
+        // Also update widgets to keep them in sync
+        WidgetCenter.shared.reloadTimelines(ofKind: "CosmicHUDWidget")
+        
+        print("Claude: ✅ HUD & widgets updated successfully")
     }
     
     /// Handles navigation requests from HUD intents
@@ -211,9 +231,9 @@ class CosmicHUDIntegration: ObservableObject {
     /// Toggles HUD on/off based on user preference
     func toggleHUD() async {
         if isHUDEnabled {
-            await stopHUD()
+            await stopHUD() // This will end the Live Activity completely
         } else {
-            await startHUD()
+            await startHUD() // This will create a new Live Activity
         }
     }
     
@@ -221,16 +241,22 @@ class CosmicHUDIntegration: ObservableObject {
     
     /// Should be called when app enters foreground
     func appDidBecomeActive() async {
+        print("Claude: 🌅 App became active - immediate update with latest data")
+        
         if isHUDEnabled {
+            // Immediate update with latest data only - no timer
             await hudManager.refreshHUDData()
             await updateHUD()
+            print("Claude: 📡 HUD now responds immediately to value changes")
         }
     }
     
     /// Should be called when app enters background
     func appDidEnterBackground() {
-        // HUD continues running in background via Live Activity
-        print("Claude: App backgrounded, HUD continues via Live Activity")
+        print("Claude: 🌙 App backgrounded - Live Activity persists with last state")
+        
+        // Live Activity continues showing last state for up to 8 hours
+        // Updates stop automatically when app backgrounds
     }
     
     /// Should be called when focus number changes
@@ -238,7 +264,7 @@ class CosmicHUDIntegration: ObservableObject {
         print("🎯 HUD Integration: Focus number changed to \(newNumber)")
         if isHUDEnabled {
             await hudManager.refreshHUDData()
-            await updateHUD()
+            await updateHUD() // Update with new focus number
             print("✅ HUD Integration: HUD updated for new focus number")
         }
     }
@@ -281,28 +307,44 @@ class CosmicHUDIntegration: ObservableObject {
         NotificationCenter.default.publisher(for: NSNotification.Name.focusNumberChanged)
             .compactMap { $0.userInfo?["focusNumber"] as? Int }
             .sink { [weak self] newFocusNumber in
+                print("🎯 HUD Integration: Focus number changed to \(newFocusNumber) - updating immediately")
                 Task {
                     await self?.focusNumberDidChange(newFocusNumber)
                 }
             }
             .store(in: &cancellables)
         
-        // Listen for realm number changes
+        // Listen for realm number changes  
         NotificationCenter.default.publisher(for: NSNotification.Name.realmNumberChanged)
             .compactMap { $0.userInfo?["realmNumber"] as? Int }
             .sink { [weak self] newRealmNumber in
-                print("🌌 HUD Integration: Realm number changed to \(newRealmNumber)")
+                print("🌌 HUD Integration: Realm number changed to \(newRealmNumber) - updating immediately")
                 Task {
                     if self?.isHUDEnabled == true {
                         await self?.hudManager.refreshHUDData()
-                        await self?.updateHUD()
-                        print("✅ HUD Integration: HUD updated for new realm number")
+                        await self?.updateHUD() // Update with new realm number
+                        print("✅ HUD Integration: HUD updated immediately for realm number \(newRealmNumber)")
                     }
                 }
             }
             .store(in: &cancellables)
         
-        print("🔗 HUD: Notification observers configured")
+        // Listen for HUD data updates (ruler number changes, aspect changes, etc.)
+        NotificationCenter.default.publisher(for: NSNotification.Name("HUDDataUpdated"))
+            .sink { [weak self] notification in
+                if let rulerNumber = notification.userInfo?["rulerNumber"] as? Int {
+                    print("🔄 HUD Integration: HUD data updated with ruler \(rulerNumber) - updating Live Activity")
+                }
+                Task {
+                    if self?.isHUDEnabled == true {
+                        await self?.updateHUD()
+                        print("✅ HUD Integration: Live Activity updated for HUD data change")
+                    }
+                }
+            }
+            .store(in: &cancellables)
+        
+        print("🔗 HUD: Notification observers configured for immediate updates")
     }
     
     private func formatAspectForHUD(_ aspectData: AspectData?) -> String {

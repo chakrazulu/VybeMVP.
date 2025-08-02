@@ -129,7 +129,7 @@ class RealmNumberManager: NSObject, ObservableObject {
         static let sameLocationUpdateInterval: TimeInterval = 300 // 5 minutes if same location
         
         /// Minimum time between realm number calculations (in seconds)
-        static let calculationThrottle: TimeInterval = 1.0   // minimum time between calculations
+        static let calculationThrottle: TimeInterval = 55.0   // 55 seconds to prevent spam calculations
         
         /// Minimum distance (in meters) required for location-based updates
         static let locationUpdateDistance: CLLocationDistance = 500  // meters

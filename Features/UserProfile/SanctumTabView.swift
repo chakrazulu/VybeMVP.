@@ -972,11 +972,11 @@ struct SanctumTabView: View {
         .buttonStyle(PlainButtonStyle())
     }
     
-    /// Claude: Enhanced Planetary Map accordion content with rich MegaCorpus descriptions
+    /// Claude: Enhanced Birth Chart accordion content with rich MegaCorpus descriptions
     private func glyphMapAccordionContent(_ profile: UserProfile) -> some View {
         VStack(spacing: 16) {
             VStack(spacing: 8) {
-                Text("🌌 Your Sacred Planetary Map")
+                Text("🌌 Your Birth Chart")
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundColor(.cyan)

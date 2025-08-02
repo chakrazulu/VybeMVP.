@@ -16,5 +16,9 @@
 	<array>
 		<string>$(AppIdentifierPrefix)com.infinitiesinn.vybe.VybeMVP</string>
 	</array>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.com.infinitiesinn.vybe.VybeMVP</string>
+	</array>
 </dict>
 </plist>

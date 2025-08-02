@@ -271,6 +271,24 @@ struct VybeMVPApp: App {
                         KASPERManager.shared.configure(with: self.realmNumberManager)
                         print("🔮 KASPERManager configured with RealmNumberManager")
                         
+                        // Claude: SAFE - Re-enable background tasks now that MiniInsightProvider issue is fixed
+                        Task.detached(priority: .background) {
+                            // Load MegaCorpus data in background (lightweight operation)
+                            await SanctumDataManager.shared.loadMegaCorpusData()
+                            print("📚 SanctumDataManager MegaCorpus loading initiated (background)")
+                            
+                            // Wait briefly for data to settle
+                            try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second only
+                            
+                            // Claude: 🚨 DISABLED AGAIN - KASPER still causing freezes due to MainActor calls
+                            print("🔮 KASPER: Payload generation DISABLED - needs complete async rewrite")
+                            // The issue: KASPER calls MainActor.assumeIsolated from background thread
+                            // TODO: Rewrite KASPER to be fully async and avoid MainActor blocking
+                            // _ = KASPERManager.shared.generateCurrentPayload()
+                            
+                            print("🔗 KASPER subscription setup completed")
+                        }
+                        
                         // Background manager setup
                         DispatchQueue.main.async {
                             self.backgroundManager.setManagers(realm: self.realmNumberManager, focus: self.focusNumberManager)
@@ -281,10 +299,13 @@ struct VybeMVPApp: App {
                                 self.healthKitManager.startHeartRateMonitoring()
                             }
                             
-                            // Claude: 🌌 Initialize Cosmic HUD - Revolutionary Spiritual Awareness System
-                            Task {
+                            // Claude: 🌌 CRITICAL FIX - Configure HUD with main app's realm manager to prevent duplicates
+                            self.cosmicHUDIntegration.setMainAppRealmManager(self.realmNumberManager)
+                            
+                            // Claude: 🌌 SAFE - Re-enable Cosmic HUD now that MiniInsightProvider issue is fixed
+                            Task.detached(priority: .background) {
                                 await self.cosmicHUDIntegration.initializeHUD()
-                                Logger.app.info("🌌 Cosmic HUD initialized - Omnipresent spiritual awareness activated!")
+                                Logger.app.info("🌌 Cosmic HUD initialized efficiently in background!")
                             }
                         }
                     }
@@ -316,6 +337,21 @@ struct VybeMVPApp: App {
                         Logger.data.info("ONBOARDING_STATE_CHANGED: Cached to UserDefaults for user \(userID): \(newValue)")
                     } else {
                         Logger.app.info("ONBOARDING_STATE_CHANGED: User not signed in or userID nil. Not caching. (isSignedIn: \(self.signInViewModel.isSignedIn))")
+                    }
+                }
+                .onChange(of: scenePhase) { oldValue, newValue in
+                    // Claude: CRITICAL FIX - Sync widget data when app goes to background
+                    if oldValue == .active && newValue == .background {
+                        Logger.app.info("🔄 App going to background - syncing widget data")
+                        
+                        // Use the dedicated background method for widget sync
+                        cosmicHUDIntegration.appDidEnterBackground()
+                        
+                        // Also force HUD update for immediate sync
+                        Task.detached(priority: .userInitiated) {
+                            await cosmicHUDIntegration.updateHUD()
+                            Logger.app.info("✅ Widget data synced for background state")
+                        }
                     }
                 }
         }

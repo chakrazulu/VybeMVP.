@@ -247,8 +247,9 @@ class MiniInsightProvider: ObservableObject {
     }
     
     private func generateKASPERInsight(for aspectData: AspectData) async -> String {
-        // Claude: KASPER integration placeholder - no async operations yet
-        let _ = kasperManager.generateCurrentPayload()
+        // Claude: 🚨 DISABLED - KASPER integration disabled to prevent freezing
+        print("🚨 KASPER call from MiniInsightProvider DISABLED")
+        // let _ = kasperManager.generateCurrentPayload()
         
         // Create specific context for this aspect
         let _ = """
