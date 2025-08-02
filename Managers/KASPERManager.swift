@@ -144,11 +144,16 @@ import os.log
 // Import needed for MoonPhaseCalculator
 
 /**
- * KASPERManager: Central orchestration for spiritual data aggregation and oracle payload generation
+ * KASPERManager: Legacy compatibility layer for KASPER MLX
  * 
- * This manager serves as the primary coordination point for all spiritual data sources
- * in VybeMVP, generating comprehensive payloads for the KASPER oracle engine and
- * maintaining the integrity of numerological calculations and mystical correspondences.
+ * ⚠️ DEPRECATED: This manager is replaced by KASPERMLXManager
+ * 
+ * This class now serves as a compatibility layer that redirects
+ * calls to the new KASPER MLX async architecture. New code should
+ * use KASPERMLXManager directly for modern async/await patterns.
+ * 
+ * The old synchronous payload approach has been replaced with
+ * lightweight, feature-specific insight generation.
  */
 class KASPERManager: ObservableObject {
     
@@ -231,20 +236,24 @@ class KASPERManager: ObservableObject {
     /**
      * Configure KASPERManager with required dependencies
      * 
-     * This method must be called during app initialization to provide access
-     * to the RealmNumberManager and CosmicDataRepository instances.
+     * ⚠️ DEPRECATED: This method is replaced by KASPERMLXManager.configure()
+     * 
+     * Legacy compatibility method that redirects to the new KASPER MLX system.
+     * The new system handles configuration automatically during app initialization.
      * 
      * Parameters:
-     *   - realmManager: The RealmNumberManager instance from VybeMVPApp
-     *   - cosmicRepository: The CosmicDataRepository instance for real-time transit data
+     *   - realmManager: The RealmNumberManager instance (forwarded to KASPER MLX)
+     *   - cosmicRepository: The CosmicDataRepository instance (not used in new system)
      */
     func configure(with realmManager: RealmNumberManager, cosmicRepository: CosmicDataRepositoryProtocol? = nil) {
-        logger.info("🔧 Configuring KASPERManager with RealmNumberManager and CosmicDataRepository")
+        logger.info("🔧 KASPER Legacy: Configuration called - KASPER MLX handles this automatically")
+        
+        // Store references for legacy compatibility
         self.realmNumberManager = realmManager
         self.cosmicDataRepository = cosmicRepository
         
-        // Re-setup subscriptions with the new managers
-        setupDataSourceSubscriptions()
+        // Note: KASPER MLX is configured separately in VybeMVPApp
+        logger.info("🔧 KASPER Legacy: Configuration complete (KASPER MLX handles actual setup)")
     }
     
     // MARK: - Public Payload Generation Methods
@@ -252,37 +261,33 @@ class KASPERManager: ObservableObject {
     /**
      * Generate current KASPER payload with latest spiritual and biometric data
      * 
-     * This method aggregates data from all available sources and creates a complete
-     * payload suitable for oracle processing. It includes validation and fallback
-     * mechanisms to ensure data integrity.
+     * ⚠️ DEPRECATED: This method is replaced by KASPERMLXManager.generateQuickInsight()
      * 
-     * Returns: KASPERPrimingPayload with current spiritual state, nil if generation fails
+     * This legacy method now redirects to the new KASPER MLX architecture.
+     * For new code, use KASPERMLXManager directly with async/await patterns.
+     * 
+     * Returns: String indicating legacy mode (old payload system discontinued)
      */
     func generateCurrentPayload() -> KASPERPrimingPayload? {
-        logger.info("🔮 Generating current KASPER payload")
+        logger.info("🔮 KASPER Legacy: Payload method called - redirecting to KASPER MLX")
         
-        // Check cache freshness first
-        if let cachedPayload = getCachedPayload() {
-            logger.info("📦 Returning cached KASPER payload")
-            return cachedPayload
+        // Redirect to new KASPER MLX system
+        Task { @MainActor in
+            do {
+                let insight = try await KASPERMLXManager.shared.generateQuickInsight(
+                    for: .sanctumGuidance,
+                    query: "Legacy payload compatibility"
+                )
+                logger.info("🔮 KASPER MLX: Legacy compatibility insight generated")
+                print("🔮 Legacy KASPER payload replaced with KASPER MLX insight: \(insight.content)")
+            } catch {
+                logger.error("🔮 KASPER MLX: Legacy compatibility failed: \(error)")
+            }
         }
         
-        // Get current user ID for profile lookup
-        guard let currentUserID = getCurrentUserID() else {
-            logger.warning("⚠️ No user ID available - generating anonymous payload")
-            print("🔍 KASPER DEBUG - No current user ID found")
-            return generateAnonymousPayload()
-        }
-        
-        guard let userProfile = getUserProfile(for: currentUserID) else {
-            logger.warning("⚠️ No profile available for user \(currentUserID) - generating anonymous payload")
-            print("🔍 KASPER DEBUG - No UserProfile found for user: \(currentUserID)")
-            return generateAnonymousPayload()
-        }
-        
-        print("🔍 KASPER DEBUG - Using UserProfile for user: \(currentUserID)")
-        
-        return generatePayloadWithProfile(userProfile)
+        // Return nil to indicate legacy mode (old payload system discontinued)
+        logger.warning("🔮 KASPER Legacy: Returning nil - use KASPERMLXManager for new insights")
+        return nil
     }
     
     /**

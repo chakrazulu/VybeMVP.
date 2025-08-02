@@ -203,6 +203,7 @@ struct VybeMVPApp: App {
     @StateObject private var healthKitManager = HealthKitManager.shared
     @StateObject private var cosmicService = CosmicService.shared
     @StateObject private var cosmicHUDIntegration = CosmicHUDIntegration.shared
+    @StateObject private var kasperMLXManager = KASPERMLXManager.shared
     @Environment(\.scenePhase) private var scenePhase
     let persistenceController = PersistenceController.shared
     
@@ -244,6 +245,7 @@ struct VybeMVPApp: App {
                 .environmentObject(healthKitManager)
                 .environmentObject(cosmicService)
                 .environmentObject(cosmicHUDIntegration)
+                .environmentObject(kasperMLXManager)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .modifier(cosmicHUDIntegration.integrateWithMainApp())
                 .onAppear {
@@ -267,9 +269,15 @@ struct VybeMVPApp: App {
                             print("▶️ Starting RealmNumberManager from background...")
                         }
                         
-                        // Configure KASPERManager with RealmNumberManager dependency
-                        KASPERManager.shared.configure(with: self.realmNumberManager)
-                        print("🔮 KASPERManager configured with RealmNumberManager")
+                        // Claude: 🔮 KASPER MLX - Configure new async KASPER engine
+                        Task { @MainActor in
+                            await self.kasperMLXManager.configure(
+                                realmManager: self.realmNumberManager,
+                                focusManager: self.focusNumberManager,
+                                healthManager: self.healthKitManager
+                            )
+                            print("🔮 KASPER MLX configured with app managers")
+                        }
                         
                         // Claude: SAFE - Re-enable background tasks now that MiniInsightProvider issue is fixed
                         Task.detached(priority: .background) {
@@ -280,11 +288,9 @@ struct VybeMVPApp: App {
                             // Wait briefly for data to settle
                             try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second only
                             
-                            // Claude: 🚨 DISABLED AGAIN - KASPER still causing freezes due to MainActor calls
-                            print("🔮 KASPER: Payload generation DISABLED - needs complete async rewrite")
-                            // The issue: KASPER calls MainActor.assumeIsolated from background thread
-                            // TODO: Rewrite KASPER to be fully async and avoid MainActor blocking
-                            // _ = KASPERManager.shared.generateCurrentPayload()
+                            // Claude: 🔮 KASPER MLX - New async engine replaces old blocking payload system
+                            print("🔮 KASPER MLX: New async architecture ready - no more blocking!")
+                            // Old KASPER has been replaced with KASPER MLX - fully async, no MainActor blocking
                             
                             print("🔗 KASPER subscription setup completed")
                         }
