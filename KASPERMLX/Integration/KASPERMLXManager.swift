@@ -327,7 +327,7 @@ class KASPERMLXManager: ObservableObject {
         
         Task {
             do {
-                let insight = try await generateQuickInsight(for: .sanctumGuidance)
+                _ = try await generateQuickInsight(for: .sanctumGuidance)
                 logger.info("🔮 KASPER MLX: Legacy payload generated as insight")
             } catch {
                 logger.error("🔮 KASPER MLX: Legacy payload generation failed: \\(error)")

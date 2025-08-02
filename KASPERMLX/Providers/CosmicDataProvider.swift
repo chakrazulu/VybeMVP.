@@ -20,7 +20,7 @@ actor CosmicDataProvider: SpiritualDataProvider {
     
     func isDataAvailable() async -> Bool {
         // Check if CosmicService has data without triggering calculations
-        await MainActor.run {
+        return await MainActor.run {
             CosmicService.shared.todaysCosmic != nil
         }
     }
@@ -33,9 +33,11 @@ actor CosmicDataProvider: SpiritualDataProvider {
         }
         
         // Get cosmic data from main actor
-        guard let cosmicData = await MainActor.run(body: { 
+        let cosmicDataOptional = await MainActor.run {
             CosmicService.shared.todaysCosmic 
-        }) else {
+        }
+        
+        guard let cosmicData = cosmicDataOptional else {
             throw KASPERMLXError.providerUnavailable("CosmicService")
         }
         

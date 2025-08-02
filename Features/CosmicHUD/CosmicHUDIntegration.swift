@@ -211,6 +211,59 @@ class CosmicHUDIntegration: ObservableObject {
         print("Claude: ✅ HUD & widgets updated successfully")
     }
     
+    /// Updates the HUD with a specific realm number (bypasses potential timing issues)
+    private func updateHUDWithRealmNumber(_ realmNumber: Int) async {
+        guard #available(iOS 16.1, *),
+              let activity = hudActivity,
+              let hudData = hudManager.currentHUDData else {
+            return
+        }
+        
+        print("Claude: 📊 Updating Live Activity with direct realm number - Ruler: \(hudData.rulerNumber), Realm: \(realmNumber)")
+        
+        let updatedState = CosmicHUDWidgetAttributes.ContentState(
+            rulerNumber: hudData.rulerNumber,                   // LIVE from HUD manager
+            realmNumber: realmNumber,                           // Direct parameter (guaranteed fresh)
+            aspectDisplay: formatAspectForHUD(hudData.dominantAspect),
+            element: HUDGlyphMapper.element(for: hudData.element),
+            lastUpdate: Date()
+        )
+        
+        await activity.update(.init(state: updatedState, staleDate: nil))
+        
+        // Also update widgets to keep them in sync
+        WidgetCenter.shared.reloadTimelines(ofKind: "CosmicHUDWidget")
+        
+        print("Claude: ✅ HUD & widgets updated successfully with direct realm number \(realmNumber)")
+    }
+    
+    /// Updates the HUD with a specific ruler number (bypasses potential timing issues)
+    private func updateHUDWithRulerNumber(_ rulerNumber: Int) async {
+        guard #available(iOS 16.1, *),
+              let activity = hudActivity,
+              let hudData = hudManager.currentHUDData else {
+            return
+        }
+        
+        let currentRealmNumber = hudManager.getCurrentRealmNumber()
+        print("Claude: 📊 Updating Live Activity with direct ruler number - Ruler: \(rulerNumber), Realm: \(currentRealmNumber)")
+        
+        let updatedState = CosmicHUDWidgetAttributes.ContentState(
+            rulerNumber: rulerNumber,                           // Direct parameter (guaranteed fresh)
+            realmNumber: currentRealmNumber,                    // LIVE from HUD manager
+            aspectDisplay: formatAspectForHUD(hudData.dominantAspect),
+            element: HUDGlyphMapper.element(for: hudData.element),
+            lastUpdate: Date()
+        )
+        
+        await activity.update(.init(state: updatedState, staleDate: nil))
+        
+        // Also update widgets to keep them in sync
+        WidgetCenter.shared.reloadTimelines(ofKind: "CosmicHUDWidget")
+        
+        print("Claude: ✅ HUD & widgets updated successfully with direct ruler number \(rulerNumber)")
+    }
+    
     /// Handles navigation requests from HUD intents
     func handleNavigationRequest(_ request: HUDNavigationRequest) {
         navigationRequest = request
@@ -322,7 +375,7 @@ class CosmicHUDIntegration: ObservableObject {
                 Task {
                     if self?.isHUDEnabled == true {
                         await self?.hudManager.refreshHUDData()
-                        await self?.updateHUD() // Update with new realm number
+                        await self?.updateHUDWithRealmNumber(newRealmNumber) // Pass the new realm number directly
                         print("✅ HUD Integration: HUD updated immediately for realm number \(newRealmNumber)")
                     }
                 }
@@ -334,11 +387,20 @@ class CosmicHUDIntegration: ObservableObject {
             .sink { [weak self] notification in
                 if let rulerNumber = notification.userInfo?["rulerNumber"] as? Int {
                     print("🔄 HUD Integration: HUD data updated with ruler \(rulerNumber) - updating Live Activity")
-                }
-                Task {
-                    if self?.isHUDEnabled == true {
-                        await self?.updateHUD()
-                        print("✅ HUD Integration: Live Activity updated for HUD data change")
+                    Task {
+                        if self?.isHUDEnabled == true {
+                            await self?.updateHUDWithRulerNumber(rulerNumber) // Pass the direct ruler number
+                            print("✅ HUD Integration: Live Activity updated for ruler number \(rulerNumber)")
+                        }
+                    }
+                } else {
+                    // Fallback for other types of HUD data updates (aspects, etc.)
+                    Task {
+                        if self?.isHUDEnabled == true {
+                            await self?.hudManager.refreshHUDData()
+                            await self?.updateHUD()
+                            print("✅ HUD Integration: Live Activity updated for general HUD data change")
+                        }
                     }
                 }
             }

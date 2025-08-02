@@ -5,14 +5,14 @@ import SwiftAA
 
 // MARK: - Mini Insight Provider
 /// Claude: Bite-sized spiritual wisdom for the Cosmic HUD
-/// Bridges KASPER AI with template-based insights for instant cosmic guidance
-/// Premium users get personalized KASPER insights, free users get curated templates
+/// Bridges KASPER MLX AI with template-based insights for instant cosmic guidance
+/// Premium users get personalized KASPER MLX insights, free users get curated templates
 
 @MainActor
 class MiniInsightProvider: ObservableObject {
     
     // MARK: - Dependencies
-    private let kasperManager: KASPERManager
+    private let kasperMLXManager: KASPERMLXManager
     private let templateLibrary: CosmicInsightTemplateLibrary
     
     // MARK: - Published Properties
@@ -28,7 +28,7 @@ class MiniInsightProvider: ObservableObject {
     static let shared = MiniInsightProvider()
     
     private init() {
-        self.kasperManager = KASPERManager.shared
+        self.kasperMLXManager = KASPERMLXManager.shared
         self.templateLibrary = CosmicInsightTemplateLibrary()
     }
     
@@ -125,15 +125,14 @@ class MiniInsightProvider: ObservableObject {
     // MARK: - Private Methods
     
     /// Claude: Premium access check - integrates with existing Vybe subscription system
-    /// Returns true if user has active premium subscription for KASPER features
+    /// Returns true if user has active premium subscription for KASPER MLX features
     private func hasPremiumAccess() async -> Bool {
-        // Claude: KASPER is not yet fully implemented for real-time insights
-        // This will be activated when KASPER API is ready for HUD integration
-        // For now, all users get enhanced template system with their latest insights
-        return false
+        // Claude: ✨ KASPER MLX ENABLED - Now fully implemented for real-time insights
+        // For development/testing, enable for all users to test KASPER MLX
+        return true
         
-        // Claude: Future implementation will check:
-        // return await kasperManager.hasActiveSubscription()
+        // Claude: Future implementation will check subscription:
+        // return await kasperMLXManager.hasActiveSubscription()
     }
     
     /// Claude: Enhanced free user insight system - shows latest app-generated insights
@@ -247,44 +246,44 @@ class MiniInsightProvider: ObservableObject {
     }
     
     private func generateKASPERInsight(for aspectData: AspectData) async -> String {
-        // Claude: 🚨 DISABLED - KASPER integration disabled to prevent freezing
-        print("🚨 KASPER call from MiniInsightProvider DISABLED")
-        // let _ = kasperManager.generateCurrentPayload()
+        // Claude: ✨ KASPER MLX ENABLED - Modern async insights without blocking
+        print("✨ KASPER MLX: Generating cosmic timing insight for aspect")
         
-        // Create specific context for this aspect
-        let _ = """
-        Current planetary aspect: \(aspectData.planet1.rawValue.capitalized) \(aspectData.aspect.rawValue) \(aspectData.planet2.rawValue.capitalized)
-        Orb: \(String(format: "%.1f", aspectData.orb)) degrees
-        Status: \(aspectData.isApplying ? "Applying" : "Separating")
-        User's spiritual profile included in payload.
-        
-        Generate a 1-2 sentence mini insight about how this aspect affects the user's spiritual journey today.
-        Keep it inspiring, actionable, and personally relevant.
-        """
-        
-        // This would call KASPER API in production
-        // For now, return enhanced template
-        return generateEnhancedTemplateInsight(for: aspectData, context: "")
+        do {
+            let insight = try await kasperMLXManager.generateCosmicTimingInsight()
+            print("✅ KASPER MLX: Generated insight for aspect: \(aspectData.planet1.rawValue) \(aspectData.aspect.rawValue) \(aspectData.planet2.rawValue)")
+            return insight.content
+        } catch {
+            print("❌ KASPER MLX: Failed to generate insight: \(error)")
+            // Fallback to template if KASPER MLX fails
+            return generateEnhancedTemplateInsight(for: aspectData)
+        }
     }
     
     private func generateKASPERElementInsight(for element: CosmicElement) async -> String {
-        let _ = """
-        Today's ruling element: \(element.rawValue.capitalized)
-        Generate a brief insight about how to work with this elemental energy today.
-        """
+        print("✨ KASPER MLX: Generating cosmic timing insight for element: \(element.rawValue)")
         
-        // Fallback to template for now
-        return generateTemplateElementInsight(for: element)
+        do {
+            let insight = try await kasperMLXManager.generateCosmicTimingInsight()
+            print("✅ KASPER MLX: Generated insight for element: \(element.rawValue)")
+            return insight.content
+        } catch {
+            print("❌ KASPER MLX: Failed to generate element insight: \(error)")
+            return generateTemplateElementInsight(for: element)
+        }
     }
     
     private func generateKASPERRulerInsight(for rulerNumber: Int) async -> String {
-        let _ = """
-        User's current ruler number: \(rulerNumber)
-        Generate a mini insight about this number's influence today.
-        """
+        print("✨ KASPER MLX: Generating realm insight for ruler number: \(rulerNumber)")
         
-        // Fallback to template for now
-        return generateTemplateRulerInsight(for: rulerNumber)
+        do {
+            let insight = try await kasperMLXManager.generateRealmInsight()
+            print("✅ KASPER MLX: Generated insight for ruler number: \(rulerNumber)")
+            return insight.content
+        } catch {
+            print("❌ KASPER MLX: Failed to generate ruler insight: \(error)")
+            return generateTemplateRulerInsight(for: rulerNumber)
+        }
     }
     
     private func generateTemplateInsight(for aspectData: AspectData) -> String {

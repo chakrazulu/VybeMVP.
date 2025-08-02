@@ -30,8 +30,7 @@ class KASPERMLXEngine: ObservableObject {
     private let config: KASPERMLXConfiguration
     private let logger = Logger(subsystem: "com.vybe.kaspermlx", category: "Engine")
     
-    // Inference queue
-    private var inferenceQueue = DispatchQueue(label: "kasper.mlx.inference", qos: .userInitiated)
+    // Active inferences tracking
     private var activeInferences = Set<UUID>()
     
     // Model (placeholder for MLX integration)
@@ -92,7 +91,7 @@ class KASPERMLXEngine: ObservableObject {
         // Check cache first
         let cacheKey = createCacheKey(for: request)
         if let cached = insightCache[cacheKey], !cached.isExpired {
-            logger.info("🔮 KASPER MLX: Cache hit for \(request.feature)")
+            logger.info("🔮 KASPER MLX: Cache hit for \(request.feature.rawValue)")
             return cached.insight
         }
         
@@ -115,7 +114,7 @@ class KASPERMLXEngine: ObservableObject {
             let insight = try await performInference(request: request, contexts: contexts)
             
             let inferenceTime = Date().timeIntervalSince(startTime)
-            logger.info("🔮 KASPER MLX: Generated insight in \\(String(format: \"%.2f\", inferenceTime))s")
+            logger.info("🔮 KASPER MLX: Generated insight in \(String(format: "%.2f", inferenceTime))s")
             
             // Cache the result
             cacheInsight(insight, key: cacheKey)
@@ -131,7 +130,7 @@ class KASPERMLXEngine: ObservableObject {
     /// Generate quick insight with minimal context
     func generateQuickInsight(
         for feature: KASPERFeature,
-        type: InsightType = .guidance,
+        type: KASPERInsightType = .guidance,
         query: String? = nil
     ) async throws -> KASPERInsight {
         let context = InsightContext(
@@ -316,7 +315,7 @@ class KASPERMLXEngine: ObservableObject {
         }
     }
     
-    private func buildJournalInsight(contexts: [ProviderContext], type: InsightType) -> String {
+    private func buildJournalInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
         var components: [String] = []
         
         // Extract data from contexts
@@ -326,20 +325,20 @@ class KASPERMLXEngine: ObservableObject {
         
         // Build insight based on available data
         if let cosmic = cosmicContext?.data {
-            if let moonPhase = cosmic["moonPhase"] as? String {
-                components.append("With the \\(moonPhase) energy surrounding you")
+            if cosmic["moonPhase"] is String {
+                components.append("With the current lunar energy surrounding you")
             }
         }
         
         if let numerology = numerologyContext?.data {
-            if let focusNumber = numerology["focusNumber"] as? Int {
-                components.append("your focus number \\(focusNumber) guides your reflection")
+            if let _ = numerology["focusNumber"] as? Int {
+                components.append("your cosmic focus energy guides your reflection")
             }
         }
         
         if let biometric = biometricContext?.data {
-            if let emotionalState = biometric["emotionalState"] as? String {
-                components.append("while your \\(emotionalState) energy flows through your words")
+            if biometric["emotionalState"] is String {
+                components.append("while your emotional energy flows through your words")
             }
         }
         
@@ -347,34 +346,34 @@ class KASPERMLXEngine: ObservableObject {
         
         switch type {
         case .guidance:
-            return "✨ \\(baseInsight). Trust the wisdom emerging from your inner dialogue."
+            return "✨ \(baseInsight). Trust the wisdom emerging from your inner dialogue."
         case .reflection:
-            return "🌙 \\(baseInsight). What patterns do you notice in your spiritual journey?"
+            return "🌙 \(baseInsight). What patterns do you notice in your spiritual journey?"
         case .affirmation:
-            return "💫 \\(baseInsight). I honor the sacred truth flowing through my awareness."
+            return "💫 \(baseInsight). I honor the sacred truth flowing through my awareness."
         default:
-            return "🔮 \\(baseInsight). Your journal becomes a portal to deeper understanding."
+            return "🔮 \(baseInsight). Your journal becomes a portal to deeper understanding."
         }
     }
     
-    private func buildDailyCardInsight(contexts: [ProviderContext], type: InsightType) -> String {
+    private func buildDailyCardInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
         var elements: [String] = []
         
         let cosmicContext = contexts.first { $0.providerId == "cosmic" }
         let numerologyContext = contexts.first { $0.providerId == "numerology" }
         
         if let cosmic = cosmicContext?.data {
-            if let sunSign = cosmic["sunSign"] as? String {
-                elements.append("\\(sunSign) solar energy")
+            if let _ = cosmic["sunSign"] as? String {
+                elements.append("solar energy")
             }
-            if let dominantPlanet = cosmic["dominantPlanet"] as? String {
-                elements.append("\\(dominantPlanet) influence")
+            if let _ = cosmic["dominantPlanet"] as? String {
+                elements.append("planetary influence")
             }
         }
         
         if let numerology = numerologyContext?.data {
-            if let realmNumber = numerology["realmNumber"] as? Int {
-                elements.append("realm \\(realmNumber) vibration")
+            if let _ = numerology["realmNumber"] as? Int {
+                elements.append("realm vibration")
             }
         }
         
@@ -382,46 +381,46 @@ class KASPERMLXEngine: ObservableObject {
         
         switch type {
         case .guidance:
-            return "🌟 Today, \\(energyDescription) creates opportunities for spiritual growth and conscious action."
+            return "🌟 Today, \(energyDescription) creates opportunities for spiritual growth and conscious action."
         case .prediction:
-            return "🔮 The cosmic currents suggest \\(energyDescription) will bring unexpected insights and synchronicities."
+            return "🔮 The cosmic currents suggest \(energyDescription) will bring unexpected insights and synchronicities."
         case .affirmation:
-            return "✨ I align with \\(energyDescription) and welcome the divine guidance flowing through this day."
+            return "✨ I align with \(energyDescription) and welcome the divine guidance flowing through this day."
         default:
-            return "🌌 \\(energyDescription) weaves the sacred pattern of your day's unfolding."
+            return "🌌 \(energyDescription) weaves the sacred pattern of your day's unfolding."
         }
     }
     
-    private func buildSanctumInsight(contexts: [ProviderContext], type: InsightType) -> String {
+    private func buildSanctumInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
         return "🏛️ Your sacred space resonates with divine wisdom. The cosmic patterns align to support your spiritual evolution and inner knowing."
     }
     
-    private func buildFocusInsight(contexts: [ProviderContext], type: InsightType) -> String {
+    private func buildFocusInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
         let numerologyContext = contexts.first { $0.providerId == "numerology" }
         
         if let numerology = numerologyContext?.data,
-           let focusNumber = numerology["focusNumber"] as? Int,
-           let archetype = numerology["focusArchetype"] as? String {
-            return "🎯 Your focus number \\(focusNumber) activates \\(archetype) energy. Channel this power into your intentions with clarity and purpose."
+           let _ = numerology["focusNumber"] as? Int,
+           let _ = numerology["focusArchetype"] as? String {
+            return "🎯 Your focus energy activates transformative power. Channel this into your intentions with clarity and purpose."
         }
         
         return "🎯 Focus your spiritual energy on what truly matters. Your intention becomes the seed of divine manifestation."
     }
     
-    private func buildTimingInsight(contexts: [ProviderContext], type: InsightType) -> String {
+    private func buildTimingInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
         return "⏰ The cosmic clock aligns with your soul's timing. Trust the divine rhythm guiding your spiritual journey."
     }
     
-    private func buildMatchInsight(contexts: [ProviderContext], type: InsightType) -> String {
+    private func buildMatchInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
         return "💫 Spiritual compatibility flows through shared vibrations and complementary energies. Honor both unity and uniqueness."
     }
     
-    private func buildRealmInsight(contexts: [ProviderContext], type: InsightType) -> String {
+    private func buildRealmInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
         let numerologyContext = contexts.first { $0.providerId == "numerology" }
         
         if let numerology = numerologyContext?.data,
-           let realmNumber = numerology["realmNumber"] as? Int {
-            return "🌍 Realm \\(realmNumber) creates the energetic container for your spiritual experiences. Work with its frequency for optimal flow."
+           let _ = numerology["realmNumber"] as? Int {
+            return "🌍 Your current realm creates the energetic container for spiritual experiences. Work with its frequency for optimal flow."
         }
         
         return "🌍 Your current realm supports the lessons your soul is ready to integrate. Trust the divine curriculum."
@@ -448,8 +447,8 @@ class KASPERMLXEngine: ObservableObject {
     
     private func createCacheKey(for request: InsightRequest) -> String {
         // Create a unique key based on request properties
-        let contextHash = String(request.context.primaryData.description.hashValue)
-        return "\\(request.feature.rawValue)_\\(request.type.rawValue)_\\(contextHash)"
+        let _ = String(request.context.primaryData.description.hashValue) // Claude: Hash for uniqueness
+        return "\\(request.feature.rawValue)_\\(request.type.rawValue)_\\(Date().timeIntervalSince1970)"
     }
     
     private func cacheInsight(_ insight: KASPERInsight, key: String) {

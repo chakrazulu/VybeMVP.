@@ -28,7 +28,7 @@ enum KASPERFeature: String, CaseIterable {
 }
 
 /// Types of insights KASPER MLX can generate
-enum InsightType: String {
+enum KASPERInsightType: String {
     case guidance = "guidance"
     case interpretation = "interpretation"
     case affirmation = "affirmation"
@@ -49,7 +49,7 @@ enum InsightPriority {
 /// Base protocol for all spiritual data providers
 protocol SpiritualDataProvider: Actor {
     /// Unique identifier for this provider
-    var id: String { get }
+    nonisolated var id: String { get }
     
     /// Check if provider has data available
     func isDataAvailable() async -> Bool
@@ -93,7 +93,7 @@ struct ProviderContext {
 struct InsightRequest {
     let id: UUID = UUID()
     let feature: KASPERFeature
-    let type: InsightType
+    let type: KASPERInsightType
     let priority: InsightPriority
     let context: InsightContext
     let requiredProviders: Set<String>
@@ -101,7 +101,7 @@ struct InsightRequest {
     
     init(
         feature: KASPERFeature,
-        type: InsightType,
+        type: KASPERInsightType,
         priority: InsightPriority = .high,
         context: InsightContext,
         requiredProviders: Set<String> = []
@@ -165,7 +165,7 @@ struct KASPERInsight {
     let id: UUID
     let requestId: UUID
     let content: String
-    let type: InsightType
+    let type: KASPERInsightType
     let feature: KASPERFeature
     let confidence: Double
     let generatedAt: Date
@@ -175,7 +175,7 @@ struct KASPERInsight {
     init(
         requestId: UUID,
         content: String,
-        type: InsightType,
+        type: KASPERInsightType,
         feature: KASPERFeature,
         confidence: Double,
         inferenceTime: TimeInterval,

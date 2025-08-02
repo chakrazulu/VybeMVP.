@@ -360,6 +360,15 @@ struct VybeMVPApp: App {
                         }
                     }
                 }
+                .onChange(of: realmNumberManager.currentRealmNumber) { oldValue, newValue in
+                    // Claude: WIDGET FIX - Update widgets immediately when realm number changes
+                    Logger.app.info("🔄 Realm number changed from \(oldValue) to \(newValue) - updating widgets")
+                    
+                    Task.detached(priority: .userInitiated) {
+                        await cosmicHUDIntegration.updateHUD()
+                        Logger.app.info("✅ Widgets updated for realm number change")
+                    }
+                }
         }
     }
     

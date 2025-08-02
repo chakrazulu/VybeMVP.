@@ -27,9 +27,11 @@ actor BiometricDataProvider: SpiritualDataProvider {
     // MARK: - SpiritualDataProvider Implementation
     
     func isDataAvailable() async -> Bool {
-        await MainActor.run {
-            healthKitManager?.authorizationStatus == .sharingAuthorized ||
-            healthKitManager?.currentHeartRate > 0
+        guard let healthManager = healthKitManager else { return false }
+        
+        return await MainActor.run {
+            healthManager.authorizationStatus == .sharingAuthorized ||
+            healthManager.currentHeartRate > 0
         }
     }
     
@@ -60,8 +62,13 @@ actor BiometricDataProvider: SpiritualDataProvider {
         var data: [String: Any] = [:]
         
         // Get current heart rate data
-        let currentBPM = await MainActor.run {
-            healthKitManager?.currentHeartRate ?? 0
+        let currentBPM: Int
+        if let healthManager = healthKitManager {
+            currentBPM = await MainActor.run {
+                healthManager.currentHeartRate
+            }
+        } else {
+            currentBPM = 0
         }
         
         // Get heart rate history if available
@@ -352,8 +359,10 @@ actor BiometricDataProvider: SpiritualDataProvider {
     }
     
     private func getAuthorizationStatus() async -> String {
-        await MainActor.run {
-            switch healthKitManager?.authorizationStatus {
+        guard let healthManager = healthKitManager else { return "not_determined" }
+        
+        return await MainActor.run {
+            switch healthManager.authorizationStatus {
             case .sharingAuthorized: return "authorized"
             case .sharingDenied: return "denied"
             default: return "not_determined"
@@ -362,8 +371,10 @@ actor BiometricDataProvider: SpiritualDataProvider {
     }
     
     private func isSimulatedData() async -> Bool {
-        await MainActor.run {
-            healthKitManager?.isSimulationMode ?? false
+        guard let healthManager = healthKitManager else { return false }
+        
+        return await MainActor.run {
+            healthManager.isHeartRateSimulated
         }
     }
     

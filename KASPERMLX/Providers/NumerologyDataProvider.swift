@@ -32,9 +32,7 @@ actor NumerologyDataProvider: SpiritualDataProvider {
     
     func isDataAvailable() async -> Bool {
         // Check if we have access to core numerology data
-        await MainActor.run {
-            realmNumberManager != nil && focusNumberManager != nil
-        }
+        return realmNumberManager != nil && focusNumberManager != nil
     }
     
     func provideContext(for feature: KASPERFeature) async throws -> ProviderContext {
@@ -64,11 +62,23 @@ actor NumerologyDataProvider: SpiritualDataProvider {
         var data: [String: Any] = [:]
         
         // Get core numbers from managers
-        let realmNumber = await MainActor.run {
-            realmNumberManager?.currentRealmNumber ?? 1
+        let realmNumber: Int
+        let focusNumber: Int
+        
+        if let realmManager = realmNumberManager {
+            realmNumber = await MainActor.run {
+                realmManager.currentRealmNumber
+            }
+        } else {
+            realmNumber = 1
         }
-        let focusNumber = await MainActor.run {
-            focusNumberManager?.selectedFocusNumber ?? 3
+        
+        if let focusManager = focusNumberManager {
+            focusNumber = await MainActor.run {
+                focusManager.selectedFocusNumber
+            }
+        } else {
+            focusNumber = 3
         }
         
         // Get user profile if available
@@ -190,8 +200,9 @@ actor NumerologyDataProvider: SpiritualDataProvider {
     }
     
     private func getPersonalYear(userProfile: UserProfile?) -> Int? {
-        guard let profile = userProfile,
-              let birthDate = profile.birthDate else { return nil }
+        guard let profile = userProfile else { return nil }
+        
+        let birthDate = profile.birthdate
         
         let birthComponents = Calendar.current.dateComponents([.day, .month], from: birthDate)
         let currentYear = Calendar.current.component(.year, from: Date())
