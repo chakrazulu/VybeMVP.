@@ -71,6 +71,9 @@ struct NewJournalEntryView: View {
     @EnvironmentObject var realmNumberManager: RealmNumberManager
     @StateObject private var voiceManager = VoiceRecordingManager.shared
     
+    // Claude: KASPER MLX Journal Integration
+    @StateObject private var kasperMLX = KASPERMLXManager.shared
+    
     // MARK: - State Properties
     
     /// Journal entry title input
@@ -90,6 +93,13 @@ struct NewJournalEntryView: View {
     
     /// Controls pulse animation for mystical effects
     @State private var pulseAnimation = false
+    
+    // Claude: KASPER MLX Journal States
+    /// Controls visibility of KASPER MLX insight section
+    @State private var showKasperInsight = false
+    
+    /// Stores the generated KASPER insight for this journal entry
+    @State private var kasperInsight: KASPERInsight?
     
     // MARK: - Focus Management
     
@@ -143,6 +153,11 @@ struct NewJournalEntryView: View {
                         // MARK: - Mood Selection Section
                         moodSelectionSection
                         
+                        // Claude: KASPER MLX Journal Insight Section
+                        if showKasperInsight {
+                            kasperMLXInsightSection
+                        }
+                        
                         // MARK: - Privacy Notice Section
                         privacyNoticeSection
                     }
@@ -161,14 +176,30 @@ struct NewJournalEntryView: View {
                     }
                     .foregroundColor(.purple)
                 }
-                // MARK: - Save Button
+                // Claude: KASPER MLX Insight Button
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Save") { 
-                        saveEntry() 
+                    HStack(spacing: 12) {
+                        // KASPER MLX Insight Button
+                        Button(action: {
+                            showKasperInsight = true
+                            if kasperInsight == nil {
+                                generateJournalInsight()
+                            }
+                        }) {
+                            Image(systemName: "sparkles")
+                                .font(.title3)
+                                .foregroundColor(.purple)
+                        }
+                        .disabled(content.isEmpty && title.isEmpty)
+                        
+                        // Save Button
+                        Button("Save") { 
+                            saveEntry() 
+                        }
+                        .foregroundColor(.purple)
+                        .fontWeight(.semibold)
+                        .disabled(content.isEmpty && voiceRecordingFilename == nil)
                     }
-                    .foregroundColor(.purple)
-                    .fontWeight(.semibold)
-                    .disabled(content.isEmpty && voiceRecordingFilename == nil)
                 }
             }
             .onAppear {
@@ -662,6 +693,226 @@ struct NewJournalEntryView: View {
         let minutes = Int(duration) / 60
         let seconds = Int(duration) % 60
         return String(format: "%d:%02d", minutes, seconds)
+    }
+    
+    // MARK: - KASPER MLX Journal Insight Section
+    
+    /// Claude: KASPER MLX Journal Integration
+    /// Generates personalized insights based on journal content for spiritual reflection
+    private var kasperMLXInsightSection: some View {
+        VStack(spacing: 16) {
+            // Header with toggle
+            HStack {
+                Text("🔮 AI Spiritual Insight")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                
+                Spacer()
+                
+                Button(action: { showKasperInsight = false }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.title3)
+                        .foregroundColor(.white.opacity(0.6))
+                }
+            }
+            
+            // Insight Content
+            VStack(spacing: 12) {
+                if kasperMLX.isGeneratingInsight {
+                    // Loading state
+                    VStack(spacing: 8) {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .purple))
+                            .scaleEffect(0.8)
+                        
+                        Text("Analyzing your sacred reflection...")
+                            .font(.caption)
+                            .foregroundColor(.white.opacity(0.7))
+                            .italic()
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 60)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(.ultraThinMaterial)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(.purple.opacity(0.3), lineWidth: 1)
+                            )
+                    )
+                } else if let insight = kasperInsight {
+                    // Display insight content
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(insight.content)
+                            .font(.body)
+                            .foregroundColor(.white.opacity(0.9))
+                            .multilineTextAlignment(.leading)
+                            .lineSpacing(4)
+                            .fixedSize(horizontal: false, vertical: true)
+                        
+                        // Insight metadata
+                        HStack {
+                            Text("Confidence: \(Int(insight.confidence * 100))%")
+                                .font(.caption2)
+                                .foregroundColor(.green.opacity(0.8))
+                            
+                            Spacer()
+                            
+                            Text("Generated \(insight.generatedAt, style: .relative) ago")
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
+                        }
+                        
+                        // Action buttons
+                        HStack(spacing: 16) {
+                            // Regenerate button
+                            Button(action: generateJournalInsight) {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "arrow.clockwise")
+                                        .font(.caption)
+                                    Text("New Insight")
+                                        .font(.caption)
+                                        .fontWeight(.medium)
+                                }
+                                .foregroundColor(.purple)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(
+                                    Capsule()
+                                        .fill(Color.purple.opacity(0.1))
+                                        .overlay(
+                                            Capsule()
+                                                .stroke(Color.purple.opacity(0.3), lineWidth: 1)
+                                        )
+                                )
+                            }
+                            .disabled(kasperMLX.isGeneratingInsight)
+                            
+                            Spacer()
+                            
+                            // Feedback buttons
+                            HStack(spacing: 12) {
+                                Button(action: { provideJournalFeedback(positive: true) }) {
+                                    Image(systemName: "hand.thumbsup.fill")
+                                        .font(.caption)
+                                        .foregroundColor(.green)
+                                        .scaleEffect(1.1)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                                
+                                Button(action: { provideJournalFeedback(positive: false) }) {
+                                    Image(systemName: "hand.thumbsdown.fill")
+                                        .font(.caption)
+                                        .foregroundColor(.red)
+                                        .scaleEffect(1.1)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                        }
+                        .padding(.top, 8)
+                    }
+                    .padding(12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(.ultraThinMaterial)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(.purple.opacity(0.3), lineWidth: 1)
+                            )
+                    )
+                } else {
+                    // Initial state - generate insight button
+                    Button(action: generateJournalInsight) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "sparkles")
+                                .font(.caption)
+                                .foregroundColor(.purple)
+                            
+                            Text("Generate Spiritual Insight")
+                                .font(.subheadline)
+                                .fontWeight(.medium)
+                                .foregroundColor(.white)
+                            
+                            Spacer()
+                            
+                            Image(systemName: "arrow.right.circle")
+                                .font(.caption)
+                                .foregroundColor(.purple)
+                        }
+                        .padding(12)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(.ultraThinMaterial)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(.purple.opacity(0.4), lineWidth: 1)
+                                )
+                        )
+                    }
+                    .disabled(!kasperMLX.isReady)
+                }
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color.black.opacity(0.4))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.purple.opacity(0.5), lineWidth: 1)
+                )
+        )
+        .shadow(color: .purple.opacity(0.3), radius: 8, x: 0, y: 4)
+    }
+    
+    // MARK: - KASPER MLX Journal Methods
+    
+    /// Claude: Generates a journal insight using KASPER MLX based on current content
+    private func generateJournalInsight() {
+        Task {
+            do {
+                print("🔮 KASPER MLX: Generating journal insight")
+                
+                // Configure KASPER MLX if needed
+                await kasperMLX.configure(
+                    realmManager: realmNumberManager,
+                    focusManager: focusNumberManager,
+                    healthManager: nil // HealthKit not needed for journal insights
+                )
+                
+                // Clear cache for fresh insight
+                await kasperMLX.clearCache()
+                
+                // Generate insight with current journal content
+                let insight = try await kasperMLX.generateJournalInsight(
+                    entryText: content.isEmpty ? title : content,
+                    tone: selectedMoodEmoji.isEmpty ? nil : selectedMoodEmoji
+                )
+                
+                kasperInsight = insight
+                print("🔮 KASPER MLX: Journal insight generated: \(insight.content)")
+                
+            } catch {
+                print("🔮 KASPER MLX: Failed to generate journal insight: \(error)")
+            }
+        }
+    }
+    
+    /// Claude: Provides feedback on journal insights for future AI training
+    private func provideJournalFeedback(positive: Bool) {
+        let feedback = positive ? "👍" : "👎"
+        print("🔮 KASPER MLX: Journal feedback - \(feedback)")
+        
+        // Haptic feedback
+        let impactFeedback = UIImpactFeedbackGenerator(style: positive ? .light : .soft)
+        impactFeedback.impactOccurred()
+        
+        // Log feedback for future training
+        if let insight = kasperInsight {
+            print("🔮 KASPER MLX: Journal Feedback for insight: \(insight.id.uuidString)")
+            print("🔮 KASPER MLX: Entry content: \(content.prefix(50))...")
+            print("🔮 KASPER MLX: Generated insight: \(insight.content)")
+            print("🔮 KASPER MLX: User rating: \(positive ? "Positive" : "Negative")")
+        }
     }
 }
 
