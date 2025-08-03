@@ -255,7 +255,7 @@ struct KASPERInsight {
     let confidence: Double
     let generatedAt: Date
     let inferenceTime: TimeInterval
-    let metadata: InsightMetadata
+    let metadata: KASPERInsightMetadata
     
     init(
         requestId: UUID,
@@ -264,7 +264,7 @@ struct KASPERInsight {
         feature: KASPERFeature,
         confidence: Double,
         inferenceTime: TimeInterval,
-        metadata: InsightMetadata = InsightMetadata()
+        metadata: KASPERInsightMetadata = KASPERInsightMetadata()
     ) {
         self.id = UUID()
         self.requestId = requestId
@@ -278,8 +278,8 @@ struct KASPERInsight {
     }
 }
 
-/// Metadata about generated insights
-struct InsightMetadata {
+/// Metadata about generated KASPER insights
+struct KASPERInsightMetadata {
     let modelVersion: String
     let providersUsed: [String]
     let cacheHit: Bool

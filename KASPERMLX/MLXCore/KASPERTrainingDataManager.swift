@@ -31,16 +31,16 @@ import SwiftUI
  * These match the JSON schema exactly for seamless data flow
  */
 
-/// Individual spiritual insight with complete metadata
-struct SpiritualInsight: Codable, Identifiable {
+/// Individual spiritual insight with complete metadata for training
+struct TrainingSpiritualInsight: Codable, Identifiable {
     let id: String
     let number: Int
-    let category: InsightCategory
+    let category: TrainingInsightCategory
     let content: String
     let confidence: Double
     let themes: [String]
     let astrologicalContext: AstrologicalContext
-    let metadata: InsightMetadata
+    let metadata: TrainingInsightMetadata
 }
 
 /// Training batch containing multiple insights for a number
@@ -54,7 +54,7 @@ struct TrainingBatch: Codable {
     let planetaryRuler: String
     let astrologicalSign: String
     let element: String
-    let insights: [SpiritualInsight]
+    let insights: [TrainingSpiritualInsight]
 }
 
 /// Category breakdown for training batch
@@ -74,9 +74,9 @@ struct AstrologicalContext: Codable {
 }
 
 /// Comprehensive metadata for quality assurance
-struct InsightMetadata: Codable {
+struct TrainingInsightMetadata: Codable {
     let created: Date
-    let source: InsightSource
+    let source: TrainingInsightSource
     let validated: Bool
     let qualityScore: Double
     let tags: [String]?
@@ -87,7 +87,7 @@ struct InsightMetadata: Codable {
 }
 
 /// Source tracking for training pipeline
-enum InsightSource: String, Codable, CaseIterable {
+enum TrainingInsightSource: String, Codable, CaseIterable {
     case grok4Generation = "grok_4_generation"
     case humanCurated = "human_curated"
     case claudeGenerated = "claude_generated"
@@ -95,7 +95,7 @@ enum InsightSource: String, Codable, CaseIterable {
 }
 
 /// Enhanced insight categories for comprehensive training
-enum InsightCategory: String, Codable, CaseIterable {
+enum TrainingInsightCategory: String, Codable, CaseIterable {
     case insight = "insight"           // Intuitive messages and universal truths
     case reflection = "reflection"     // Self-inquiry questions 
     case contemplation = "contemplation" // Meditative thoughts and philosophy
@@ -184,11 +184,11 @@ class KASPERTrainingDataManager: ObservableObject {
     
     struct TrainingStatistics {
         var totalInsights = 0
-        var byCategory: [InsightCategory: Int] = [:]
+        var byCategory: [TrainingInsightCategory: Int] = [:]
         var byNumber: [Int: Int] = [:]
         var averageQualityScore = 0.0
         var validatedCount = 0
-        var sourceBreakdown: [InsightSource: Int] = [:]
+        var sourceBreakdown: [TrainingInsightSource: Int] = [:]
     }
     
     // MARK: - Core Training Methods
@@ -262,7 +262,7 @@ class KASPERTrainingDataManager: ObservableObject {
     /**
      * Claude: Validate spiritual insights for authenticity and quality
      */
-    private func validateInsights(_ insights: [SpiritualInsight]) async throws -> [SpiritualInsight] {
+    private func validateInsights(_ insights: [TrainingSpiritualInsight]) async throws -> [TrainingSpiritualInsight] {
         return insights.compactMap { insight in
             let validation = validateInsightQuality(insight)
             return validation.isValid ? insight : nil
@@ -272,7 +272,7 @@ class KASPERTrainingDataManager: ObservableObject {
     /**
      * Claude: Comprehensive validation of spiritual insight quality
      */
-    func validateInsightQuality(_ insight: SpiritualInsight) -> ValidationResult {
+    func validateInsightQuality(_ insight: TrainingSpiritualInsight) -> ValidationResult {
         var score = 0.0
         var issues: [String] = []
         
@@ -318,7 +318,7 @@ class KASPERTrainingDataManager: ObservableObject {
     
     // MARK: - Validation Helpers
     
-    private func isNumerologicallyValid(_ insight: SpiritualInsight) -> Bool {
+    private func isNumerologicallyValid(_ insight: TrainingSpiritualInsight) -> Bool {
         // Validate number is in valid range
         guard (1...9).contains(insight.number) || [11, 22, 33, 44].contains(insight.number) else {
             return false
@@ -329,7 +329,7 @@ class KASPERTrainingDataManager: ObservableObject {
         return insight.themes.contains { validThemes.contains($0.lowercased()) }
     }
     
-    private func isAstrologicallyValid(_ insight: SpiritualInsight) -> Bool {
+    private func isAstrologicallyValid(_ insight: TrainingSpiritualInsight) -> Bool {
         let context = insight.astrologicalContext
         
         // Validate planet-sign-element correspondence
@@ -390,8 +390,8 @@ class KASPERTrainingDataManager: ObservableObject {
     
     // MARK: - Helper Methods
     
-    private func countCategories(in insights: [SpiritualInsight]) -> CategoryCounts {
-        let counts = insights.reduce(into: [InsightCategory: Int]()) { counts, insight in
+    private func countCategories(in insights: [TrainingSpiritualInsight]) -> CategoryCounts {
+        let counts = insights.reduce(into: [TrainingInsightCategory: Int]()) { counts, insight in
             counts[insight.category, default: 0] += 1
         }
         
@@ -512,12 +512,12 @@ extension KASPERTrainingDataManager {
         return MLXTrainingData(
             version: "1.0.0",
             totalExamples: trainingExamples.count,
-            categories: InsightCategory.allCases.map { $0.rawValue },
+            categories: TrainingInsightCategory.allCases.map { $0.rawValue },
             examples: trainingExamples
         )
     }
     
-    private func createMLXInput(from insight: SpiritualInsight) -> String {
+    private func createMLXInput(from insight: TrainingSpiritualInsight) -> String {
         // Create structured input for MLX training
         let context = """
         Number: \(insight.number)

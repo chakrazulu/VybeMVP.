@@ -287,7 +287,7 @@ class KASPERMLXEngine: ObservableObject {
             feature: request.feature,
             confidence: 0.85, // Template confidence
             inferenceTime: 0.1, // Template inference time
-            metadata: InsightMetadata(
+            metadata: KASPERInsightMetadata(
                 modelVersion: currentModel ?? "template",
                 providersUsed: contexts.map { $0.providerId },
                 cacheHit: false

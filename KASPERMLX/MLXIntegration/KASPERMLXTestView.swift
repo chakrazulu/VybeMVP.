@@ -134,6 +134,7 @@ struct KASPERMLXTestView: View {
                 VStack(spacing: 24) {
                     headerSection
                     performanceDashboardSection
+                    quickTestScenariosSection // Claude: Sprint 2 - Quick test scenarios for demos
                     featureSelectionSection
                     customPromptSection
                     generateButtonSection
@@ -198,6 +199,105 @@ struct KASPERMLXTestView: View {
                 MetricCard(title: "Generated", value: "\(totalInsightsGenerated)", icon: "sparkles")
                 MetricCard(title: "Last Time", value: String(format: "%.2fs", lastInferenceTime), icon: "timer")
                 MetricCard(title: "Engine", value: kasperMLX.getEngineStatus(), icon: "cpu")
+            }
+        }
+        .padding(20)
+        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(.quaternary, lineWidth: 1)
+        )
+    }
+    
+    // Claude: Sprint 2 - Quick Test Scenarios for instant AI demos
+    private var quickTestScenariosSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("🧪 Quick Test Scenarios")
+                .font(.headline.weight(.semibold))
+                .foregroundColor(.primary)
+            
+            Text("One-tap testing for common spiritual guidance scenarios")
+                .font(.caption)
+                .foregroundColor(.secondary)
+            
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 12) {
+                QuickTestButton(
+                    title: "Anxiety Relief",
+                    icon: "brain.head.profile",
+                    color: .blue,
+                    prompt: "I'm feeling anxious about the future and need spiritual guidance",
+                    action: {
+                        testQuickScenario(
+                            prompt: "I'm feeling anxious about the future and need spiritual guidance",
+                            feature: .sanctumGuidance
+                        )
+                    }
+                )
+                
+                QuickTestButton(
+                    title: "Relationship",
+                    icon: "heart.circle",
+                    color: .pink,
+                    prompt: "I need guidance about my relationship dynamics",
+                    action: {
+                        testQuickScenario(
+                            prompt: "I need guidance about my relationship dynamics",
+                            feature: .matchCompatibility
+                        )
+                    }
+                )
+                
+                QuickTestButton(
+                    title: "Career Path",
+                    icon: "briefcase.circle",
+                    color: .green,
+                    prompt: "I'm at a career crossroads and seeking cosmic guidance",
+                    action: {
+                        testQuickScenario(
+                            prompt: "I'm at a career crossroads and seeking cosmic guidance",
+                            feature: .cosmicTiming
+                        )
+                    }
+                )
+                
+                QuickTestButton(
+                    title: "Daily Motivation",
+                    icon: "sunrise.circle",
+                    color: .orange,
+                    prompt: "I need spiritual motivation to start my day with purpose",
+                    action: {
+                        testQuickScenario(
+                            prompt: "I need spiritual motivation to start my day with purpose",
+                            feature: .dailyCard
+                        )
+                    }
+                )
+                
+                QuickTestButton(
+                    title: "Life Purpose",
+                    icon: "compass.drawing",
+                    color: .purple,
+                    prompt: "I'm searching for my life purpose and spiritual direction",
+                    action: {
+                        testQuickScenario(
+                            prompt: "I'm searching for my life purpose and spiritual direction",
+                            feature: .focusIntention
+                        )
+                    }
+                )
+                
+                QuickTestButton(
+                    title: "Energy Reading",
+                    icon: "waveform.circle",
+                    color: .teal,
+                    prompt: "What is my current energetic state and spiritual frequency?",
+                    action: {
+                        testQuickScenario(
+                            prompt: "What is my current energetic state and spiritual frequency?",
+                            feature: .realmInterpretation
+                        )
+                    }
+                )
             }
         }
         .padding(20)
@@ -646,6 +746,20 @@ struct KASPERMLXTestView: View {
         }
     }
     
+    // Claude: Sprint 2 - Quick scenario testing method for one-tap demos
+    private func testQuickScenario(prompt: String, feature: KASPERFeature) {
+        // Set the selected feature and custom prompt
+        selectedFeature = feature
+        customPrompt = prompt
+        useCustomPrompt = true
+        
+        // Generate insight with the scenario
+        generateInsight()
+        
+        // Log for debugging
+        print("🧪 Quick Test: \(feature.rawValue) - \(prompt)")
+    }
+    
     private func updateEngineStatus() {
         currentStatus = kasperMLX.isReady ? "Ready" : "Initializing"
     }
@@ -970,6 +1084,50 @@ struct PerformanceMetricCard: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(color.opacity(0.3), lineWidth: 1)
         )
+    }
+}
+
+// Claude: Sprint 2 - Quick Test Button for one-tap scenario testing
+struct QuickTestButton: View {
+    let title: String
+    let icon: String
+    let color: Color
+    let prompt: String
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 10) {
+                Image(systemName: icon)
+                    .font(.title3.weight(.medium))
+                    .foregroundColor(color)
+                    .frame(width: 24, height: 24)
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundColor(.primary)
+                        .lineLimit(1)
+                    
+                    Text("Tap to test")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+                
+                Spacer()
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 10)
+            .background(Color.secondary.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(color.opacity(0.3), lineWidth: 1)
+            )
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PlainButtonStyle())
+        .scaleEffect(0.98)
+        .animation(.easeInOut(duration: 0.1), value: UUID())
     }
 }
 
