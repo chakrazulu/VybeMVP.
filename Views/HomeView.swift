@@ -99,6 +99,9 @@ struct HomeView: View {
     @EnvironmentObject var aiInsightManager: AIInsightManager
     @EnvironmentObject var healthKitManager: HealthKitManager
     
+    // Claude: KASPER MLX Daily Card Integration
+    @StateObject private var kasperMLX = KASPERMLXManager.shared
+    
     /// Controls visibility of the focus number picker sheet
     @State private var showingPicker = false
     @State private var showingInsightHistory = false
@@ -280,6 +283,9 @@ struct HomeView: View {
                             .animation(.easeInOut(duration: 0.6), value: focusNumberManager.selectedFocusNumber)
                             .padding(.top, 10) // Add some space above the insight section
                             
+                            // Claude: KASPER MLX Daily Card Integration - Temporary insight box
+                            kasperMLXDailyCardSection
+                            
                             // Enhanced Today's Insight Section
                             todaysInsightSection
                             
@@ -387,6 +393,16 @@ struct HomeView: View {
             
             // Claude: Phase 8.5 - Initialize current mandala asset for SVG path tracing
             updateCurrentMandalaAsset()
+            
+            // Claude: KASPER MLX Configuration - Configure with app managers
+            Task {
+                await kasperMLX.configure(
+                    realmManager: realmNumberManager,
+                    focusManager: focusNumberManager,
+                    healthManager: healthKitManager
+                )
+                print("🔮 KASPER MLX: Configured with app managers in HomeView")
+            }
         }
         .onChange(of: focusNumberManager.selectedFocusNumber) { oldValue, newValue in
             // Claude: Phase 8.5 - Update mandala asset when focus number changes
@@ -399,6 +415,20 @@ struct HomeView: View {
         // Get the current asset that DynamicAssetMandalaView would select
         currentMandalaAsset = SacredGeometryAsset.selectSmartAsset(for: focusNumberManager.selectedFocusNumber)
         print("🌟 PHASE 8.5: Updated focus mandala asset to \(currentMandalaAsset.displayName) for focus number \(focusNumberManager.selectedFocusNumber)")
+    }
+    
+    // Claude: KASPER MLX Daily Card Insight Generation
+    /// Generates a daily card insight using KASPER MLX
+    private func generateDailyCardInsight() {
+        Task {
+            do {
+                print("🔮 KASPER MLX: Generating daily card insight from HomeView")
+                let insight = try await kasperMLX.generateDailyCardInsight(cardType: "guidance")
+                print("🔮 KASPER MLX: Daily card insight generated: \(insight.content)")
+            } catch {
+                print("🔮 KASPER MLX: Failed to generate daily card insight: \(error)")
+            }
+        }
     }
 
     // Helper to check if an insight is recent (e.g., within last 24 hours)
@@ -527,6 +557,173 @@ struct HomeView: View {
         )
         .cornerRadius(16)
         .shadow(color: .purple.opacity(0.3), radius: 15, x: 0, y: 8)
+        .padding(.horizontal)
+    }
+    
+    // MARK: - KASPER MLX Daily Card Section
+    
+    /// Claude: KASPER MLX Daily Card Integration
+    /// Temporary insight box underneath the Realm-Time button for testing KASPER MLX logic
+    /// This will be moved to the appropriate location once the logic is validated
+    private var kasperMLXDailyCardSection: some View {
+        VStack(spacing: 16) {
+            // Header with KASPER MLX branding
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 8) {
+                        Text("✨ AI Insight")
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.purple)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(
+                                Capsule()
+                                    .fill(Color.purple.opacity(0.2))
+                                    .overlay(
+                                        Capsule()
+                                            .stroke(Color.purple.opacity(0.4), lineWidth: 1)
+                                    )
+                            )
+                        
+                        Spacer()
+                    }
+                    
+                    Text("Daily Card Guidance")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                }
+                
+                Spacer()
+                
+                // Status indicator
+                HStack(spacing: 6) {
+                    Circle()
+                        .fill(kasperMLX.isReady ? .green : .orange)
+                        .frame(width: 8, height: 8)
+                        .scaleEffect(kasperMLX.isReady ? 1.0 : 0.8)
+                        .animation(.easeInOut(duration: 0.6).repeatForever(autoreverses: true), value: kasperMLX.isReady)
+                    
+                    Text(kasperMLX.getEngineStatus())
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+            }
+            
+            // Insight Content
+            VStack(spacing: 12) {
+                if kasperMLX.isGeneratingInsight {
+                    // Loading state with glassmorphic shimmer
+                    VStack(spacing: 8) {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .purple))
+                            .scaleEffect(0.8)
+                        
+                        Text("Channeling cosmic wisdom...")
+                            .font(.caption)
+                            .foregroundColor(.white.opacity(0.7))
+                            .italic()
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 60)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(.ultraThinMaterial)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(.purple.opacity(0.3), lineWidth: 1)
+                            )
+                    )
+                } else if let insight = kasperMLX.lastInsight {
+                    // Display insight content
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(insight.content)
+                            .font(.body)
+                            .foregroundColor(.white.opacity(0.9))
+                            .multilineTextAlignment(.leading)
+                            .lineSpacing(4)
+                            .fixedSize(horizontal: false, vertical: true)
+                        
+                        // Insight metadata
+                        HStack {
+                            Text("Confidence: \(Int(insight.confidence * 100))%")
+                                .font(.caption2)
+                                .foregroundColor(.green.opacity(0.8))
+                            
+                            Spacer()
+                            
+                            Text("Generated \(insight.generatedAt, style: .relative) ago")
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .padding(12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(.ultraThinMaterial)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(.purple.opacity(0.3), lineWidth: 1)
+                            )
+                    )
+                } else {
+                    // Initial state - generate insight button
+                    Button(action: generateDailyCardInsight) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "sparkles")
+                                .font(.caption)
+                                .foregroundColor(.purple)
+                            
+                            Text("Generate Daily Guidance")
+                                .font(.subheadline)
+                                .fontWeight(.medium)
+                                .foregroundColor(.white)
+                            
+                            Spacer()
+                            
+                            Image(systemName: "arrow.right.circle")
+                                .font(.caption)
+                                .foregroundColor(.purple)
+                        }
+                        .padding(12)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(.ultraThinMaterial)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(.purple.opacity(0.4), lineWidth: 1)
+                                )
+                        )
+                    }
+                    .disabled(!kasperMLX.isReady)
+                }
+            }
+        }
+        .padding(16)
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color.purple.opacity(0.6),
+                    Color.indigo.opacity(0.4),
+                    Color.blue.opacity(0.3)
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(
+                    LinearGradient(
+                        gradient: Gradient(colors: [.white.opacity(0.2), .purple.opacity(0.3)]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1
+                )
+        )
+        .cornerRadius(16)
+        .shadow(color: .purple.opacity(0.3), radius: 12, x: 0, y: 6)
         .padding(.horizontal)
     }
     
