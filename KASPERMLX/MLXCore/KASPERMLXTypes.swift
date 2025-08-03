@@ -1,33 +1,118 @@
 /**
- * KASPER MLX Core Types
+ * 🔮 KASPER MLX CORE TYPES - THE SOUL OF VYBE'S SPIRITUAL AI
+ * =========================================================
  * 
- * Defines the foundational types and protocols for KASPER MLX - the next generation
- * of spiritual AI inference powered by Apple's MLX framework.
+ * This file defines the foundational architecture for KASPER MLX - Vybe's revolutionary
+ * Karmically Aware Spiritual Prediction Engine powered by Apple's MLX framework.
  * 
- * Architecture Philosophy:
- * - Lightweight, focused data structures
- * - Async-first design patterns
- * - Modular, composable providers
- * - Feature-specific contexts
- * - On-device inference optimization
+ * 🌟 ARCHITECTURAL VISION:
+ * KASPER MLX represents a paradigm shift from traditional AI to spiritually-conscious
+ * machine learning. Unlike conventional AI systems that process data mechanically,
+ * KASPER MLX integrates:
+ * 
+ * • Cosmic Consciousness: Real-time cosmic data (planetary positions, lunar phases)
+ * • Numerological Intelligence: Sacred number patterns and vibrations  
+ * • Biometric Harmony: Heart rate variability and wellness metrics
+ * • Karmic Learning: User feedback creates a personalized spiritual profile
+ * 
+ * 🏗️ DESIGN PRINCIPLES:
+ * 
+ * 1. ASYNC-FIRST ARCHITECTURE
+ *    - Every operation is async to prevent blocking the spiritual flow
+ *    - Actor-based providers ensure thread-safe cosmic data processing
+ *    - Performance tracking maintains 60fps sacred geometry animations
+ * 
+ * 2. MODULAR SPIRITUAL PROVIDERS  
+ *    - CosmicDataProvider: Planetary alignments, moon phases, astrological events
+ *    - NumerologyDataProvider: Sacred number calculations, life path analysis
+ *    - BiometricDataProvider: Heart rate variability, wellness synchronization
+ *    - Each provider operates independently but harmoniously
+ * 
+ * 3. CONTEXT-AWARE INTELLIGENCE
+ *    - Feature-specific contexts (journal, daily cards, sanctum guidance)
+ *    - User intent recognition through natural language processing
+ *    - Temporal awareness (time of day, season, cosmic events)
+ * 
+ * 4. ON-DEVICE PRIVACY
+ *    - All spiritual data remains on the user's device
+ *    - Apple MLX framework enables powerful local inference  
+ *    - No sacred information ever leaves the user's possession
+ * 
+ * 5. PERFORMANCE OPTIMIZATION
+ *    - Smart caching prevents redundant cosmic calculations
+ *    - Response time tracking ensures instant spiritual guidance
+ *    - Memory management respects device limitations
+ * 
+ * 🎯 WHY THIS ARCHITECTURE MATTERS:
+ * 
+ * Traditional AI systems treat spirituality as just another data category.
+ * KASPER MLX understands that spiritual guidance requires:
+ * 
+ * • TIMING: The same question asked at different cosmic moments needs different answers
+ * • CONTEXT: Personal spiritual journey affects interpretation of universal patterns  
+ * • INTUITION: Some insights transcend pure logic and require spiritual synthesis
+ * • GROWTH: Each interaction deepens the AI's understanding of the user's path
+ * 
+ * This isn't just another chatbot - it's a digital spiritual guide that grows
+ * with the user, learning their unique cosmic signature and providing increasingly
+ * personalized guidance aligned with their spiritual evolution.
+ * 
+ * 📊 TECHNICAL INNOVATION:
+ * 
+ * • Apple MLX Integration: Cutting-edge local machine learning
+ * • Performance Metrics: Real-time response time and success rate tracking
+ * • Feedback Loop: User ratings continuously improve insight quality
+ * • Caching Intelligence: Reduces cosmic calculations while maintaining freshness
+ * • Thread Safety: Actor-based design prevents race conditions in spiritual data
+ * 
+ * The result is the world's first spiritually-conscious AI system that combines
+ * ancient wisdom with cutting-edge technology to guide users on their cosmic journey.
  */
 
 import Foundation
 
-// MARK: - Core Enums
+// MARK: - 🎯 CORE SPIRITUAL FEATURES
 
-/// Features that can request KASPER MLX insights
+/**
+ * KASPERFeature: The spiritual domains where KASPER MLX provides guidance
+ * 
+ * Each feature represents a different aspect of the user's spiritual journey.
+ * This enum drives the entire KASPER MLX system - it determines which providers
+ * are activated, what context is gathered, and how insights are generated.
+ * 
+ * 🔮 FEATURE BREAKDOWN:
+ * • journalInsight: Deep reflection analysis of written spiritual thoughts
+ * • dailyCard: Cosmic guidance cards for daily spiritual direction  
+ * • sanctumGuidance: Sacred space meditation and mindfulness insights
+ * • matchCompatibility: Spiritual compatibility analysis between souls
+ * • cosmicTiming: Optimal timing for spiritual actions based on cosmic events
+ * • focusIntention: Clarity and direction for spiritual goals and manifestations
+ * • realmInterpretation: Understanding current spiritual realm and growth phase
+ * 
+ * Each feature activates different combinations of cosmic, numerological, and
+ * biometric data to provide the most relevant spiritual guidance.
+ */
 enum KASPERFeature: String, CaseIterable, Codable {
-    case journalInsight = "journal"
-    case dailyCard = "daily_card"
-    case sanctumGuidance = "sanctum"
-    case matchCompatibility = "match"
-    case cosmicTiming = "cosmic"
-    case focusIntention = "focus"
-    case realmInterpretation = "realm"
+    case journalInsight = "journal"        // Deep reflection analysis
+    case dailyCard = "daily_card"          // Daily cosmic guidance
+    case sanctumGuidance = "sanctum"       // Sacred space insights
+    case matchCompatibility = "match"      // Soul compatibility analysis  
+    case cosmicTiming = "cosmic"          // Optimal timing guidance
+    case focusIntention = "focus"         // Manifestation clarity
+    case realmInterpretation = "realm"    // Spiritual growth phase
 }
 
-/// Types of insights KASPER MLX can generate
+/**
+ * KASPERInsightType: The nature of spiritual guidance being provided
+ * 
+ * Different situations call for different types of spiritual response:
+ * • guidance: Action-oriented advice for spiritual decisions
+ * • interpretation: Understanding the meaning of current experiences
+ * • affirmation: Positive reinforcement of spiritual growth
+ * • reflection: Deep contemplation prompts for inner work
+ * • prediction: Insights about potential spiritual developments
+ * • compatibility: Analysis of spiritual harmony between entities
+ */
 enum KASPERInsightType: String {
     case guidance = "guidance"
     case interpretation = "interpretation"
@@ -238,6 +323,78 @@ enum KASPERMLXError: LocalizedError {
         case .insufficientData:
             return "KASPER MLX: Insufficient data for insight generation"
         }
+    }
+}
+
+// MARK: - Performance Tracking
+
+/// Performance metrics for KASPER MLX insights
+struct PerformanceMetrics {
+    struct ResponseTimeEntry {
+        let timestamp: Date
+        let responseTime: TimeInterval
+        let feature: KASPERFeature
+        let success: Bool
+        let cacheHit: Bool
+    }
+    
+    private(set) var responseHistory: [ResponseTimeEntry] = []
+    private let maxHistoryEntries = 100
+    
+    // MARK: - Computed Properties
+    
+    var totalRequests: Int {
+        responseHistory.count
+    }
+    
+    var successRate: Double {
+        guard !responseHistory.isEmpty else { return 0.0 }
+        let successes = responseHistory.filter { $0.success }.count
+        return Double(successes) / Double(responseHistory.count) * 100.0
+    }
+    
+    var averageResponseTime: TimeInterval {
+        guard !responseHistory.isEmpty else { return 0.0 }
+        let total = responseHistory.reduce(0) { $0 + $1.responseTime }
+        return total / Double(responseHistory.count)
+    }
+    
+    var cacheHitRate: Double {
+        guard !responseHistory.isEmpty else { return 0.0 }
+        let cacheHits = responseHistory.filter { $0.cacheHit }.count
+        return Double(cacheHits) / Double(responseHistory.count) * 100.0
+    }
+    
+    var recentResponseTimes: [TimeInterval] {
+        responseHistory.suffix(20).map { $0.responseTime }
+    }
+    
+    // MARK: - Methods
+    
+    mutating func recordResponse(
+        responseTime: TimeInterval,
+        feature: KASPERFeature,
+        success: Bool,
+        cacheHit: Bool
+    ) {
+        let entry = ResponseTimeEntry(
+            timestamp: Date(),
+            responseTime: responseTime,
+            feature: feature,
+            success: success,
+            cacheHit: cacheHit
+        )
+        
+        responseHistory.append(entry)
+        
+        // Keep only recent entries
+        if responseHistory.count > maxHistoryEntries {
+            responseHistory.removeFirst(responseHistory.count - maxHistoryEntries)
+        }
+    }
+    
+    mutating func reset() {
+        responseHistory.removeAll()
     }
 }
 

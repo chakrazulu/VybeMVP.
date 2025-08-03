@@ -179,28 +179,26 @@ struct NewJournalEntryView: View {
                 }
                 // Claude: KASPER MLX Insight Button
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack(spacing: 12) {
-                        // KASPER MLX Insight Button
-                        Button(action: {
-                            showKasperInsight = true
-                            if kasperInsight == nil {
-                                generateJournalInsight()
-                            }
-                        }) {
-                            Image(systemName: "sparkles")
-                                .font(.title3)
-                                .foregroundColor(.purple)
+                    Button(action: {
+                        showKasperInsight = true
+                        if kasperInsight == nil {
+                            generateJournalInsight()
                         }
-                        .disabled(content.isEmpty && title.isEmpty)
-                        
-                        // Save Button
-                        Button("Save") { 
-                            saveEntry() 
-                        }
-                        .foregroundColor(.purple)
-                        .fontWeight(.semibold)
-                        .disabled(content.isEmpty && voiceRecordingFilename == nil)
+                    }) {
+                        Text("🔮")
+                            .font(.title2)
                     }
+                    .disabled(content.isEmpty && title.isEmpty)
+                }
+                
+                // Save Button
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Save") { 
+                        saveEntry() 
+                    }
+                    .foregroundColor(.purple)
+                    .fontWeight(.semibold)
+                    .disabled(content.isEmpty && voiceRecordingFilename == nil)
                 }
             }
             .onAppear {
@@ -224,7 +222,7 @@ struct NewJournalEntryView: View {
                 Text(getFloatingNumber(for: index))
                     .font(.system(size: 100, weight: .ultraLight, design: .rounded))
                     .foregroundColor(getFloatingNumberColor(for: index))
-                    .opacity(0.12)
+                    .opacity(0.03)
                     .scaleEffect(pulseAnimation ? 1.08 : 0.92)
                     .animation(.easeInOut(duration: 4.0 + Double(index)).repeatForever(autoreverses: true), value: pulseAnimation)
                     .offset(x: getFloatingOffset(index: index).x, y: getFloatingOffset(index: index).y)
@@ -859,7 +857,7 @@ struct NewJournalEntryView: View {
     private var kasperMLXGenerateButton: some View {
         Button(action: generateJournalInsight) {
             HStack(spacing: 8) {
-                Image(systemName: "sparkles")
+                Text("🔮")
                     .font(.caption)
                     .foregroundColor(.purple)
                 

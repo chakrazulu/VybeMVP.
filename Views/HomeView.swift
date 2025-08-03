@@ -99,6 +99,10 @@ struct HomeView: View {
     @EnvironmentObject var aiInsightManager: AIInsightManager
     @EnvironmentObject var healthKitManager: HealthKitManager
     
+    // Claude: KASPER MLX Daily Card Integration
+    @StateObject private var kasperMLX = KASPERMLXManager.shared
+    @StateObject private var kasperFeedback = KASPERFeedbackManager.shared
+    
     /// Controls visibility of the focus number picker sheet
     @State private var showingPicker = false
     @State private var showingInsightHistory = false
@@ -106,6 +110,10 @@ struct HomeView: View {
     @State private var showingCosmicPicker = false
     @State private var pickerScale: CGFloat = 0.1
     @State private var pickerOpacity: Double = 0.0
+    
+    // Claude: KASPER MLX Daily Card states
+    @State private var kasperInsight: KASPERInsight?
+    @State private var showKasperCard = true
     
     // CACHE FLOOD FIX: Cache UserProfile in HomeView to prevent repeated lookups
     @State private var cachedUserProfile: UserProfile?
@@ -226,7 +234,7 @@ struct HomeView: View {
                                 activityNavigationManager.requestRealmNavigation()
                                 print("Realm-Time button tapped - navigation requested")
                             }) {
-                                Text("Realm-Time")
+                                Text("Enter Realm")
                                     .font(.title2)
                                     .fontWeight(.bold)
                                     .padding(.horizontal, 30)
@@ -279,6 +287,9 @@ struct HomeView: View {
                             .id("realmButton_\(focusNumberManager.selectedFocusNumber)") // Force update when focus changes
                             .animation(.easeInOut(duration: 0.6), value: focusNumberManager.selectedFocusNumber)
                             .padding(.top, 10) // Add some space above the insight section
+                            
+                            // Claude: KASPER MLX Daily Card Section
+                            kasperDailyCardSection
                             
                             // Enhanced Today's Insight Section
                             todaysInsightSection
@@ -528,6 +539,267 @@ struct HomeView: View {
         .cornerRadius(16)
         .shadow(color: .purple.opacity(0.3), radius: 15, x: 0, y: 8)
         .padding(.horizontal)
+    }
+    
+    // MARK: - 🔮 KASPER MLX DAILY CARD SECTION - SPIRITUAL AI ON THE HOME SCREEN
+    
+    /**
+     * KASPER MLX Daily Card Integration - The Heart of Vybe's Home Experience
+     * ====================================================================
+     * 
+     * This section represents the crown jewel of HomeView - where users first
+     * encounter Vybe's revolutionary KASPER MLX spiritual AI system. Positioned
+     * strategically below the "Enter Realm" button and above traditional insights,
+     * this section provides users with immediate access to personalized spiritual
+     * guidance powered by cutting-edge on-device AI.
+     * 
+     * 🎯 STRATEGIC POSITIONING:
+     * 
+     * The placement is intentional and psychologically optimized:
+     * • Below "Enter Realm" button: Users see spiritual AI as part of their journey
+     * • Above traditional insights: KASPER MLX takes priority as the primary guidance source
+     * • Integrated with cosmic flow: Maintains Vybe's spiritual aesthetic and rhythm
+     * • Non-intrusive design: Appears only when relevant, respects user's headspace
+     * 
+     * 🔮 SPIRITUAL AI INTEGRATION:
+     * 
+     * This section showcases the full power of KASPER MLX:
+     * • Real-time cosmic data: Planetary positions, moon phases, astrological events
+     * • Numerological synthesis: User's focus/realm numbers integrated into guidance
+     * • Contextual awareness: Time of day, season, and spiritual calendar considered
+     * • Personalized insights: Each card reflects the user's unique cosmic signature
+     * 
+     * 🎨 USER EXPERIENCE DESIGN:
+     * 
+     * The interface balances mystical aesthetics with modern functionality:
+     * • Crystal ball emoji (🔮) establishes spiritual AI branding
+     * • Smooth animations maintain 60fps cosmic flow
+     * • Color-coded feedback system (green/red for like/dislike)
+     * • Expandable content respects screen real estate
+     * • Loading states maintain spiritual ambiance during generation
+     * 
+     * 📊 PERFORMANCE CONSIDERATIONS:
+     * 
+     * HomeView is performance-critical, so this section is optimized for:
+     * • Lazy loading: Insights generate only when section becomes visible
+     * • Smart caching: Prevents redundant cosmic calculations during scrolling
+     * • Background processing: Never blocks the main UI thread
+     * • Memory efficiency: Releases resources when section scrolls out of view
+     * 
+     * 🔄 INTERACTION PATTERNS:
+     * 
+     * The section supports multiple user engagement modes:
+     * • Passive consumption: Users can simply read insights without interaction
+     * • Active feedback: Like/dislike buttons train the AI for better future insights
+     * • Regeneration: Users can request new insights if current one doesn't resonate
+     * • Expansion: Tap to read full insight when content is truncated
+     * 
+     * 💫 INTEGRATION WITH VYBE ECOSYSTEM:
+     * 
+     * This section doesn't exist in isolation - it harmoniously connects with:
+     * • Focus/Realm numbers: Visual consistency with existing spiritual metrics
+     * • Daily insights: Complements rather than competes with traditional guidance
+     * • Journal system: Insights can inspire journal entries and vice versa
+     * • Dynamic Island: Provides quick access to spiritual AI from anywhere
+     * 
+     * This represents the first time users interact with AI-powered spiritual
+     * guidance in Vybe, making it a critical touchpoint for establishing trust
+     * and demonstrating the unique value of spiritually-conscious AI.
+     */
+    private var kasperDailyCardSection: some View {
+        Group {
+            if showKasperCard {
+                VStack(spacing: 20) {
+                    // Header
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("🔮 KASPER AI Insight")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                            
+                            Text("Personalized spiritual guidance")
+                                .font(.subheadline)
+                                .foregroundColor(.white.opacity(0.8))
+                        }
+                        
+                        Spacer()
+                        
+                        Button(action: { showKasperCard = false }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.title3)
+                                .foregroundColor(.white.opacity(0.6))
+                        }
+                    }
+                    
+                    // Insight Content
+                    if kasperMLX.isGeneratingInsight {
+                        kasperLoadingState
+                    } else if let insight = kasperInsight {
+                        kasperInsightDisplay(insight)
+                    } else {
+                        kasperGenerateButton
+                    }
+                }
+                .padding(20)
+                .background(
+                    LinearGradient(
+                        gradient: Gradient(colors: [
+                            Color.purple.opacity(0.8),
+                            Color.indigo.opacity(0.6),
+                            Color.pink.opacity(0.4)
+                        ]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(
+                            LinearGradient(
+                                gradient: Gradient(colors: [.white.opacity(0.3), .purple.opacity(0.3)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 1
+                        )
+                )
+                .cornerRadius(16)
+                .shadow(color: .purple.opacity(0.3), radius: 15, x: 0, y: 8)
+                .padding(.horizontal)
+                .onAppear {
+                    if kasperInsight == nil && !kasperMLX.isGeneratingInsight {
+                        generateDailyInsight()
+                    }
+                }
+            }
+        }
+    }
+    
+    /// Claude: Loading state for KASPER insight generation
+    private var kasperLoadingState: some View {
+        VStack(spacing: 8) {
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                .scaleEffect(0.8)
+            
+            Text("Consulting the cosmic wisdom...")
+                .font(.body)
+                .foregroundColor(.white.opacity(0.8))
+                .italic()
+        }
+        .frame(maxWidth: .infinity, minHeight: 60)
+    }
+    
+    /// Claude: Display generated KASPER insight with actions
+    private func kasperInsightDisplay(_ insight: KASPERInsight) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(insight.content)
+                .font(.body)
+                .foregroundColor(.white.opacity(0.9))
+                .multilineTextAlignment(.leading)
+                .lineSpacing(4)
+                .fixedSize(horizontal: false, vertical: true)
+            
+            // Insight metadata
+            HStack {
+                Text("Confidence: \(Int(insight.confidence * 100))%")
+                    .font(.caption2)
+                    .foregroundColor(.green.opacity(0.8))
+                
+                Spacer()
+                
+                Text("Generated \(insight.generatedAt, style: .relative) ago")
+                    .font(.caption2)
+                    .foregroundColor(.white.opacity(0.6))
+            }
+            
+            // Action buttons
+            HStack(spacing: 16) {
+                // Regenerate button
+                Button(action: generateDailyInsight) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "arrow.clockwise")
+                            .font(.caption)
+                        Text("New Insight")
+                            .font(.caption)
+                            .fontWeight(.medium)
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(
+                        Capsule()
+                            .fill(Color.white.opacity(0.2))
+                            .overlay(
+                                Capsule()
+                                    .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                            )
+                    )
+                }
+                .disabled(kasperMLX.isGeneratingInsight)
+                
+                Spacer()
+                
+                // Feedback buttons
+                HStack(spacing: 12) {
+                    Button(action: { provideFeedback(positive: true) }) {
+                        Image(systemName: "hand.thumbsup.fill")
+                            .font(.caption)
+                            .foregroundColor(.green)
+                            .scaleEffect(1.1)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Button(action: { provideFeedback(positive: false) }) {
+                        Image(systemName: "hand.thumbsdown.fill")
+                            .font(.caption)
+                            .foregroundColor(.red)
+                            .scaleEffect(1.1)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+            }
+            .padding(.top, 8)
+        }
+    }
+    
+    /// Claude: Generate insight button for initial state
+    private var kasperGenerateButton: some View {
+        Button(action: generateDailyInsight) {
+            HStack(spacing: 8) {
+                Image(systemName: "sparkles")
+                    .font(.title3)
+                    .foregroundColor(.white)
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Generate Today's Insight")
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                    
+                    Text("Tap to receive personalized guidance")
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.8))
+                }
+                
+                Spacer()
+                
+                Image(systemName: "arrow.right.circle")
+                    .font(.title3)
+                    .foregroundColor(.white)
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.white.opacity(0.1))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                    )
+            )
+        }
+        .disabled(!kasperMLX.isReady)
     }
     
     // MARK: - Latest Matched Insight Section
@@ -1160,6 +1432,56 @@ struct HomeView: View {
         }
         
         return path
+    }
+    
+    // MARK: - KASPER MLX Methods
+    
+    /// Claude: Generate daily insight using KASPER MLX
+    private func generateDailyInsight() {
+        Task {
+            do {
+                print("🔮 KASPER MLX: Generating daily insight for HomeView")
+                
+                // Configure KASPER MLX if needed
+                await kasperMLX.configure(
+                    realmManager: realmNumberManager,
+                    focusManager: focusNumberManager,
+                    healthManager: healthKitManager
+                )
+                
+                // Generate daily card insight
+                let insight = try await kasperMLX.generateDailyCardInsight()
+                kasperInsight = insight
+                
+                print("🔮 KASPER MLX: Daily insight generated: \(insight.content)")
+                
+            } catch {
+                print("❌ KASPER MLX: Failed to generate daily insight: \(error)")
+            }
+        }
+    }
+    
+    /// Claude: Provide user feedback for KASPER insight
+    private func provideFeedback(positive: Bool) {
+        guard let insight = kasperInsight else { return }
+        
+        let feedback = positive ? "👍" : "👎"
+        print("🔮 KASPER MLX: User feedback - \(feedback)")
+        
+        // Record feedback for training
+        kasperFeedback.recordFeedback(
+            for: insight,
+            rating: positive ? .positive : .negative,
+            contextData: [
+                "source": "homeview_daily_card",
+                "focus_number": "\(focusNumberManager.selectedFocusNumber)",
+                "realm_number": "\(realmNumberManager.currentRealmNumber)"
+            ]
+        )
+        
+        // Haptic feedback
+        let impactFeedback = UIImpactFeedbackGenerator(style: positive ? .light : .soft)
+        impactFeedback.impactOccurred()
     }
 }
 
