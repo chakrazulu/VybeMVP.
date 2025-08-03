@@ -135,6 +135,15 @@
 		4DA01CB92D853A640070309D /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA01CB82D853A640070309D /* FirebaseCore */; };
 		4DA01CBB2D853A640070309D /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4DA01CBA2D853A640070309D /* FirebaseMessaging */; };
 		4DA2EE2D2D502D1D001F8E9D /* HealthKitPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA2EE2C2D502D1D001F8E9D /* HealthKitPermissionView.swift */; };
+		4DA359AF2E3F135B0010101F /* NumerologyDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA359AC2E3F135B0010101F /* NumerologyDataProvider.swift */; };
+		4DA359B02E3F135B0010101F /* CosmicDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA359AB2E3F135B0010101F /* CosmicDataProvider.swift */; };
+		4DA359B12E3F135B0010101F /* KASPERMLXTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA3599F2E3F135B0010101F /* KASPERMLXTypes.swift */; };
+		4DA359B22E3F135B0010101F /* KASPERFeedbackAnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA359A52E3F135B0010101F /* KASPERFeedbackAnalyticsView.swift */; };
+		4DA359B32E3F135B0010101F /* KASPERMLXTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA359A72E3F135B0010101F /* KASPERMLXTestView.swift */; };
+		4DA359B42E3F135B0010101F /* KASPERFeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA359A12E3F135B0010101F /* KASPERFeedbackManager.swift */; };
+		4DA359B52E3F135B0010101F /* KASPERMLXEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA359A32E3F135B0010101F /* KASPERMLXEngine.swift */; };
+		4DA359B62E3F135B0010101F /* KASPERMLXManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA359A62E3F135B0010101F /* KASPERMLXManager.swift */; };
+		4DA359B72E3F135B0010101F /* BiometricDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA359AA2E3F135B0010101F /* BiometricDataProvider.swift */; };
 		4DA6425D2D8113D80047287B /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA6425C2D8113D80047287B /* HeartRateView.swift */; };
 		4DA642642D8122590047287B /* HealthKitManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA642632D8122590047287B /* HealthKitManaging.swift */; };
 		4DA642652D8122C70047287B /* HealthKitManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA642632D8122590047287B /* HealthKitManaging.swift */; };
@@ -261,13 +270,6 @@
 		4DE4C3822DB393DA00BB7572 /* NumerologyNotificationTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */; };
 		4DF6AACA2E3AF79200E0937E /* CosmicInsightEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6AAC92E3AF79200E0937E /* CosmicInsightEngine.swift */; };
 		4DF6AACC2E3B223200E0937E /* KASPERIntegrationTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6AACB2E3B223200E0937E /* KASPERIntegrationTemplate.swift */; };
-		4DF6ABB72E3EAFA500E0937E /* KASPERMLXTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6ABAF2E3EAFA500E0937E /* KASPERMLXTestView.swift */; };
-		4DF6ABB82E3EAFA500E0937E /* CosmicDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6ABB32E3EAFA500E0937E /* CosmicDataProvider.swift */; };
-		4DF6ABB92E3EAFA500E0937E /* KASPERMLXManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6ABAE2E3EAFA500E0937E /* KASPERMLXManager.swift */; };
-		4DF6ABBA2E3EAFA500E0937E /* KASPERMLXTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6ABAA2E3EAFA500E0937E /* KASPERMLXTypes.swift */; };
-		4DF6ABBB2E3EAFA500E0937E /* KASPERMLXEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6ABAC2E3EAFA500E0937E /* KASPERMLXEngine.swift */; };
-		4DF6ABBC2E3EAFA500E0937E /* NumerologyDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6ABB42E3EAFA500E0937E /* NumerologyDataProvider.swift */; };
-		4DF6ABBD2E3EAFA500E0937E /* BiometricDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6ABB22E3EAFA500E0937E /* BiometricDataProvider.swift */; };
 		4DF77E482E35660500B6D45E /* VybeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E472E35660500B6D45E /* VybeConstants.swift */; };
 		4DF77E4C2E358B2E00B6D45E /* PostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E4A2E358B2E00B6D45E /* PostRepository.swift */; };
 		4DF77E4D2E358B2E00B6D45E /* FirebasePostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E492E358B2E00B6D45E /* FirebasePostRepository.swift */; };
@@ -455,6 +457,15 @@
 		4DA01CB12D8534BF0070309D /* NumberMatchNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMatchNotificationView.swift; sourceTree = "<group>"; };
 		4DA01CB32D8537FB0070309D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4DA2EE2C2D502D1D001F8E9D /* HealthKitPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitPermissionView.swift; sourceTree = "<group>"; };
+		4DA3599F2E3F135B0010101F /* KASPERMLXTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERMLXTypes.swift; sourceTree = "<group>"; };
+		4DA359A12E3F135B0010101F /* KASPERFeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERFeedbackManager.swift; sourceTree = "<group>"; };
+		4DA359A32E3F135B0010101F /* KASPERMLXEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERMLXEngine.swift; sourceTree = "<group>"; };
+		4DA359A52E3F135B0010101F /* KASPERFeedbackAnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERFeedbackAnalyticsView.swift; sourceTree = "<group>"; };
+		4DA359A62E3F135B0010101F /* KASPERMLXManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERMLXManager.swift; sourceTree = "<group>"; };
+		4DA359A72E3F135B0010101F /* KASPERMLXTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERMLXTestView.swift; sourceTree = "<group>"; };
+		4DA359AA2E3F135B0010101F /* BiometricDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricDataProvider.swift; sourceTree = "<group>"; };
+		4DA359AB2E3F135B0010101F /* CosmicDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicDataProvider.swift; sourceTree = "<group>"; };
+		4DA359AC2E3F135B0010101F /* NumerologyDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyDataProvider.swift; sourceTree = "<group>"; };
 		4DA6425C2D8113D80047287B /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
 		4DA642632D8122590047287B /* HealthKitManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManaging.swift; sourceTree = "<group>"; };
 		4DA98F962E0722E800FAE5FF /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -578,13 +589,6 @@
 		4DF0F5A82D4FEF3F007EC3BF /* VybeMVP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VybeMVP.entitlements; sourceTree = "<group>"; };
 		4DF6AAC92E3AF79200E0937E /* CosmicInsightEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicInsightEngine.swift; sourceTree = "<group>"; };
 		4DF6AACB2E3B223200E0937E /* KASPERIntegrationTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERIntegrationTemplate.swift; sourceTree = "<group>"; };
-		4DF6ABAA2E3EAFA500E0937E /* KASPERMLXTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERMLXTypes.swift; sourceTree = "<group>"; };
-		4DF6ABAC2E3EAFA500E0937E /* KASPERMLXEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERMLXEngine.swift; sourceTree = "<group>"; };
-		4DF6ABAE2E3EAFA500E0937E /* KASPERMLXManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERMLXManager.swift; sourceTree = "<group>"; };
-		4DF6ABAF2E3EAFA500E0937E /* KASPERMLXTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERMLXTestView.swift; sourceTree = "<group>"; };
-		4DF6ABB22E3EAFA500E0937E /* BiometricDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricDataProvider.swift; sourceTree = "<group>"; };
-		4DF6ABB32E3EAFA500E0937E /* CosmicDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicDataProvider.swift; sourceTree = "<group>"; };
-		4DF6ABB42E3EAFA500E0937E /* NumerologyDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyDataProvider.swift; sourceTree = "<group>"; };
 		4DF77E472E35660500B6D45E /* VybeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeConstants.swift; sourceTree = "<group>"; };
 		4DF77E492E358B2E00B6D45E /* FirebasePostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePostRepository.swift; sourceTree = "<group>"; };
 		4DF77E4A2E358B2E00B6D45E /* PostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRepository.swift; sourceTree = "<group>"; };
@@ -972,6 +976,70 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		4DA359A02E3F135B0010101F /* MLXCore */ = {
+			isa = PBXGroup;
+			children = (
+				4DA3599F2E3F135B0010101F /* KASPERMLXTypes.swift */,
+			);
+			path = MLXCore;
+			sourceTree = "<group>";
+		};
+		4DA359A22E3F135B0010101F /* MLXData */ = {
+			isa = PBXGroup;
+			children = (
+				4DA359A12E3F135B0010101F /* KASPERFeedbackManager.swift */,
+			);
+			path = MLXData;
+			sourceTree = "<group>";
+		};
+		4DA359A42E3F135B0010101F /* MLXEngine */ = {
+			isa = PBXGroup;
+			children = (
+				4DA359A32E3F135B0010101F /* KASPERMLXEngine.swift */,
+			);
+			path = MLXEngine;
+			sourceTree = "<group>";
+		};
+		4DA359A82E3F135B0010101F /* MLXIntegration */ = {
+			isa = PBXGroup;
+			children = (
+				4DA359A52E3F135B0010101F /* KASPERFeedbackAnalyticsView.swift */,
+				4DA359A62E3F135B0010101F /* KASPERMLXManager.swift */,
+				4DA359A72E3F135B0010101F /* KASPERMLXTestView.swift */,
+			);
+			path = MLXIntegration;
+			sourceTree = "<group>";
+		};
+		4DA359A92E3F135B0010101F /* MLXModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MLXModels;
+			sourceTree = "<group>";
+		};
+		4DA359AD2E3F135B0010101F /* MLXProviders */ = {
+			isa = PBXGroup;
+			children = (
+				4DA359AA2E3F135B0010101F /* BiometricDataProvider.swift */,
+				4DA359AB2E3F135B0010101F /* CosmicDataProvider.swift */,
+				4DA359AC2E3F135B0010101F /* NumerologyDataProvider.swift */,
+			);
+			path = MLXProviders;
+			sourceTree = "<group>";
+		};
+		4DA359AE2E3F135B0010101F /* KASPERMLX */ = {
+			isa = PBXGroup;
+			children = (
+				4DA359A02E3F135B0010101F /* MLXCore */,
+				4DA359A22E3F135B0010101F /* MLXData */,
+				4DA359A42E3F135B0010101F /* MLXEngine */,
+				4DA359A82E3F135B0010101F /* MLXIntegration */,
+				4DA359A92E3F135B0010101F /* MLXModels */,
+				4DA359AD2E3F135B0010101F /* MLXProviders */,
+			);
+			path = KASPERMLX;
+			sourceTree = "<group>";
+		};
 		4DB1DE8D2E22A5C2001A9EA5 /* assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -1027,7 +1095,7 @@
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
-				4DF6ABB62E3EAFA500E0937E /* KASPERMLX */,
+				4DA359AE2E3F135B0010101F /* KASPERMLX */,
 				4D5BEB332E372AC100B56575 /* ViewModels */,
 				4DB1DE952E22A5C2001A9EA5 /* scripts */,
 				4DCB393A2E1F78AE00311D51 /* Resources */,
@@ -1216,60 +1284,6 @@
 				4DCB39392E1F78AE00311D51 /* SVG */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		4DF6ABAB2E3EAFA500E0937E /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				4DF6ABAA2E3EAFA500E0937E /* KASPERMLXTypes.swift */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		4DF6ABAD2E3EAFA500E0937E /* Engine */ = {
-			isa = PBXGroup;
-			children = (
-				4DF6ABAC2E3EAFA500E0937E /* KASPERMLXEngine.swift */,
-			);
-			path = Engine;
-			sourceTree = "<group>";
-		};
-		4DF6ABB02E3EAFA500E0937E /* Integration */ = {
-			isa = PBXGroup;
-			children = (
-				4DF6ABAE2E3EAFA500E0937E /* KASPERMLXManager.swift */,
-				4DF6ABAF2E3EAFA500E0937E /* KASPERMLXTestView.swift */,
-			);
-			path = Integration;
-			sourceTree = "<group>";
-		};
-		4DF6ABB12E3EAFA500E0937E /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		4DF6ABB52E3EAFA500E0937E /* Providers */ = {
-			isa = PBXGroup;
-			children = (
-				4DF6ABB22E3EAFA500E0937E /* BiometricDataProvider.swift */,
-				4DF6ABB32E3EAFA500E0937E /* CosmicDataProvider.swift */,
-				4DF6ABB42E3EAFA500E0937E /* NumerologyDataProvider.swift */,
-			);
-			path = Providers;
-			sourceTree = "<group>";
-		};
-		4DF6ABB62E3EAFA500E0937E /* KASPERMLX */ = {
-			isa = PBXGroup;
-			children = (
-				4DF6ABAB2E3EAFA500E0937E /* Core */,
-				4DF6ABAD2E3EAFA500E0937E /* Engine */,
-				4DF6ABB02E3EAFA500E0937E /* Integration */,
-				4DF6ABB12E3EAFA500E0937E /* Models */,
-				4DF6ABB52E3EAFA500E0937E /* Providers */,
-			);
-			path = KASPERMLX;
 			sourceTree = "<group>";
 		};
 		4DF77E4B2E358B2E00B6D45E /* SocialRepositories */ = {
@@ -1575,6 +1589,15 @@
 				4D2DB4812DFF43390003353E /* PhantomChakrasView.swift in Sources */,
 				4D5BEAF92E35A81400B56575 /* HybridPostRepository.swift in Sources */,
 				4D2CC7162E0C37F200BDF100 /* RulingNumberChartDetailView.swift in Sources */,
+				4DA359AF2E3F135B0010101F /* NumerologyDataProvider.swift in Sources */,
+				4DA359B02E3F135B0010101F /* CosmicDataProvider.swift in Sources */,
+				4DA359B12E3F135B0010101F /* KASPERMLXTypes.swift in Sources */,
+				4DA359B22E3F135B0010101F /* KASPERFeedbackAnalyticsView.swift in Sources */,
+				4DA359B32E3F135B0010101F /* KASPERMLXTestView.swift in Sources */,
+				4DA359B42E3F135B0010101F /* KASPERFeedbackManager.swift in Sources */,
+				4DA359B52E3F135B0010101F /* KASPERMLXEngine.swift in Sources */,
+				4DA359B62E3F135B0010101F /* KASPERMLXManager.swift in Sources */,
+				4DA359B72E3F135B0010101F /* BiometricDataProvider.swift in Sources */,
 				4DA98FCA2E073CB100FAE5FF /* Report.swift in Sources */,
 				4D2DB4822DFF43390003353E /* ChakraManager.swift in Sources */,
 				4D2DB4842DFF43B10003353E /* ContentView.swift in Sources */,
@@ -1693,13 +1716,6 @@
 				4D55BE562E3AC1DB00F7BE5B /* MiniInsightProvider.swift in Sources */,
 				4D55BE572E3AC1DB00F7BE5B /* CosmicHUDManager.swift in Sources */,
 				4D55BE582E3AC1DB00F7BE5B /* HUDGlyphMapper.swift in Sources */,
-				4DF6ABB72E3EAFA500E0937E /* KASPERMLXTestView.swift in Sources */,
-				4DF6ABB82E3EAFA500E0937E /* CosmicDataProvider.swift in Sources */,
-				4DF6ABB92E3EAFA500E0937E /* KASPERMLXManager.swift in Sources */,
-				4DF6ABBA2E3EAFA500E0937E /* KASPERMLXTypes.swift in Sources */,
-				4DF6ABBB2E3EAFA500E0937E /* KASPERMLXEngine.swift in Sources */,
-				4DF6ABBC2E3EAFA500E0937E /* NumerologyDataProvider.swift in Sources */,
-				4DF6ABBD2E3EAFA500E0937E /* BiometricDataProvider.swift in Sources */,
 				4D55BE592E3AC1DB00F7BE5B /* CosmicHUDIntents.swift in Sources */,
 				4D55BE5A2E3AC1DB00F7BE5B /* CosmicHUDIntegration.swift in Sources */,
 				4D55BE5B2E3AC1DB00F7BE5B /* CosmicHUDView.swift in Sources */,

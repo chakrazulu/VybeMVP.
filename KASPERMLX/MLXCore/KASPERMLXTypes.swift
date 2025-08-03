@@ -17,7 +17,7 @@ import Foundation
 // MARK: - Core Enums
 
 /// Features that can request KASPER MLX insights
-enum KASPERFeature: String, CaseIterable {
+enum KASPERFeature: String, CaseIterable, Codable {
     case journalInsight = "journal"
     case dailyCard = "daily_card"
     case sanctumGuidance = "sanctum"

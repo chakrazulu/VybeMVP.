@@ -86,28 +86,28 @@ struct KASPERFeedbackAnalyticsView: View {
                 .foregroundColor(.white)
             
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 2), spacing: 12) {
-                StatCard(
+                KASPERStatCard(
                     title: "Total Feedback",
                     value: "\(feedbackManager.stats.totalFeedback)",
                     icon: "chart.bar.fill",
                     color: .blue
                 )
                 
-                StatCard(
+                KASPERStatCard(
                     title: "Satisfaction Rate",
                     value: String(format: "%.1f%%", feedbackManager.stats.positivePercentage),
                     icon: "heart.fill",
                     color: .green
                 )
                 
-                StatCard(
+                KASPERStatCard(
                     title: "Positive Feedback",
                     value: "\(feedbackManager.stats.positiveCount)",
                     icon: "hand.thumbsup.fill",
                     color: .green
                 )
                 
-                StatCard(
+                KASPERStatCard(
                     title: "Needs Improvement",
                     value: "\(feedbackManager.stats.negativeCount)",
                     icon: "hand.thumbsdown.fill",
@@ -290,7 +290,7 @@ struct KASPERFeedbackAnalyticsView: View {
 
 // MARK: - Supporting Views
 
-struct StatCard: View {
+struct KASPERStatCard: View {
     let title: String
     let value: String
     let icon: String
