@@ -397,7 +397,8 @@ final class KASPERMLXProvidersTests: XCTestCase {
             XCTAssertEqual(contexts.count, concurrentRequests, "All concurrent requests should complete for \(providerName)")
             
             for context in contexts {
-                XCTAssertEqual(context.providerId, await provider.id, "All contexts should have correct provider ID")
+                let providerId = await provider.id
+                XCTAssertEqual(context.providerId, providerId, "All contexts should have correct provider ID")
                 XCTAssertFalse(context.data.isEmpty, "All contexts should have data")
             }
             

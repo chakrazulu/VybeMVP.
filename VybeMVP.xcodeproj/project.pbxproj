@@ -273,7 +273,6 @@
 		4DE4C3802DB392E900BB7572 /* NumerologyNotificationTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C37F2DB392E900BB7572 /* NumerologyNotificationTestView.swift */; };
 		4DE4C3822DB393DA00BB7572 /* NumerologyNotificationTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */; };
 		4DF6AACA2E3AF79200E0937E /* CosmicInsightEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6AAC92E3AF79200E0937E /* CosmicInsightEngine.swift */; };
-		4DF6AACC2E3B223200E0937E /* KASPERIntegrationTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6AACB2E3B223200E0937E /* KASPERIntegrationTemplate.swift */; };
 		4DF77E482E35660500B6D45E /* VybeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E472E35660500B6D45E /* VybeConstants.swift */; };
 		4DF77E4C2E358B2E00B6D45E /* PostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E4A2E358B2E00B6D45E /* PostRepository.swift */; };
 		4DF77E4D2E358B2E00B6D45E /* FirebasePostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF77E492E358B2E00B6D45E /* FirebasePostRepository.swift */; };
@@ -596,7 +595,6 @@
 		4DE4C3812DB393DA00BB7572 /* NumerologyNotificationTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyNotificationTester.swift; sourceTree = "<group>"; };
 		4DF0F5A82D4FEF3F007EC3BF /* VybeMVP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VybeMVP.entitlements; sourceTree = "<group>"; };
 		4DF6AAC92E3AF79200E0937E /* CosmicInsightEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicInsightEngine.swift; sourceTree = "<group>"; };
-		4DF6AACB2E3B223200E0937E /* KASPERIntegrationTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERIntegrationTemplate.swift; sourceTree = "<group>"; };
 		4DF77E472E35660500B6D45E /* VybeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeConstants.swift; sourceTree = "<group>"; };
 		4DF77E492E358B2E00B6D45E /* FirebasePostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePostRepository.swift; sourceTree = "<group>"; };
 		4DF77E4A2E358B2E00B6D45E /* PostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRepository.swift; sourceTree = "<group>"; };
@@ -867,7 +865,6 @@
 		4D55BE552E3AC1DB00F7BE5B /* CosmicHUD */ = {
 			isa = PBXGroup;
 			children = (
-				4DF6AACB2E3B223200E0937E /* KASPERIntegrationTemplate.swift */,
 				4DF6AAC92E3AF79200E0937E /* CosmicInsightEngine.swift */,
 				4D55BE5E2E3AC55400F7BE5B /* CosmicHUDTypes.swift */,
 				4D55BE4F2E3AC1DB00F7BE5B /* CosmicHUDIntegration.swift */,
@@ -1644,7 +1641,6 @@
 				4D37271C2DE554B700B5A02B /* ActivityView.swift in Sources */,
 				4D6C7BAD2DE47F55001036E5 /* AuthService.swift in Sources */,
 				4D6C7BB12DE4803E001036E5 /* AIInsightManager.swift in Sources */,
-				4DF6AACC2E3B223200E0937E /* KASPERIntegrationTemplate.swift in Sources */,
 				4D92F4BF2D4DE6050001A16E /* HealthKitManager.swift in Sources */,
 				4D2DB48A2DFF6ABA0003353E /* SightingsView.swift in Sources */,
 				4D2DB48B2DFF6ABA0003353E /* NewSightingView.swift in Sources */,
