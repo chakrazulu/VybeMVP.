@@ -423,11 +423,34 @@ struct HomeView: View {
         Task {
             do {
                 print("🔮 KASPER MLX: Generating daily card insight from HomeView")
+                
+                // Clear cache to ensure fresh insight every time
+                await kasperMLX.clearCache()
+                
                 let insight = try await kasperMLX.generateDailyCardInsight(cardType: "guidance")
                 print("🔮 KASPER MLX: Daily card insight generated: \(insight.content)")
             } catch {
                 print("🔮 KASPER MLX: Failed to generate daily card insight: \(error)")
             }
+        }
+    }
+    
+    // Claude: KASPER MLX Feedback System
+    /// Provides feedback on generated insights for future AI training
+    private func provideFeedback(positive: Bool) {
+        let feedback = positive ? "👍" : "👎"
+        print("🔮 KASPER MLX: User feedback - \(feedback)")
+        
+        // Haptic feedback
+        let impactFeedback = UIImpactFeedbackGenerator(style: positive ? .light : .soft)
+        impactFeedback.impactOccurred()
+        
+        // TODO: In future, send this feedback to training pipeline
+        // For now, just log it
+        if let insight = kasperMLX.lastInsight {
+            print("🔮 KASPER MLX: Feedback for insight: \(insight.id.uuidString)")
+            print("🔮 KASPER MLX: Content: \(insight.content)")
+            print("🔮 KASPER MLX: Rating: \(positive ? "Positive" : "Negative")")
         }
     }
 
@@ -656,6 +679,54 @@ struct HomeView: View {
                                 .font(.caption2)
                                 .foregroundColor(.secondary)
                         }
+                        
+                        // Claude: Action buttons - regenerate and feedback
+                        HStack(spacing: 16) {
+                            // Regenerate button
+                            Button(action: generateDailyCardInsight) {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "arrow.clockwise")
+                                        .font(.caption)
+                                    Text("New Insight")
+                                        .font(.caption)
+                                        .fontWeight(.medium)
+                                }
+                                .foregroundColor(.purple)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(
+                                    Capsule()
+                                        .fill(Color.purple.opacity(0.1))
+                                        .overlay(
+                                            Capsule()
+                                                .stroke(Color.purple.opacity(0.3), lineWidth: 1)
+                                        )
+                                )
+                            }
+                            .disabled(kasperMLX.isGeneratingInsight)
+                            
+                            Spacer()
+                            
+                            // Feedback buttons
+                            HStack(spacing: 12) {
+                                Button(action: { provideFeedback(positive: true) }) {
+                                    Image(systemName: "hand.thumbsup.fill")
+                                        .font(.caption)
+                                        .foregroundColor(.green)
+                                        .scaleEffect(1.1)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                                
+                                Button(action: { provideFeedback(positive: false) }) {
+                                    Image(systemName: "hand.thumbsdown.fill")
+                                        .font(.caption)
+                                        .foregroundColor(.red)
+                                        .scaleEffect(1.1)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                        }
+                        .padding(.top, 8)
                     }
                     .padding(12)
                     .background(

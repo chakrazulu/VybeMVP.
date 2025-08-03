@@ -358,36 +358,142 @@ class KASPERMLXEngine: ObservableObject {
     
     private func buildDailyCardInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
         var elements: [String] = []
+        var specifics: [String: Any] = [:]
         
         let cosmicContext = contexts.first { $0.providerId == "cosmic" }
         let numerologyContext = contexts.first { $0.providerId == "numerology" }
+        let biometricContext = contexts.first { $0.providerId == "biometric" }
         
+        // Claude: Enhanced insight generation with more variety
         if let cosmic = cosmicContext?.data {
-            if let _ = cosmic["sunSign"] as? String {
-                elements.append("solar energy")
+            if let sunSign = cosmic["sunSign"] as? String {
+                elements.append("\(sunSign) solar energy")
+                specifics["sunSign"] = sunSign
             }
-            if let _ = cosmic["dominantPlanet"] as? String {
-                elements.append("planetary influence")
+            if let planet = cosmic["dominantPlanet"] as? String {
+                elements.append("\(planet)'s influence")
+                specifics["planet"] = planet
+            }
+            if let moonPhase = cosmic["moonPhase"] as? String {
+                specifics["moonPhase"] = moonPhase
             }
         }
         
         if let numerology = numerologyContext?.data {
-            if let _ = numerology["realmNumber"] as? Int {
-                elements.append("realm vibration")
+            if let realmNumber = numerology["realmNumber"] as? Int {
+                elements.append("Realm \(realmNumber) vibration")
+                specifics["realm"] = realmNumber
+            }
+            if let focusNumber = numerology["focusNumber"] as? Int {
+                specifics["focus"] = focusNumber
             }
         }
         
-        let energyDescription = elements.joined(separator: " merges with ")
+        if let biometric = biometricContext?.data {
+            if let emotionalState = biometric["emotionalState"] as? String {
+                specifics["emotional"] = emotionalState
+            }
+        }
+        
+        // Generate varied insights based on available data
+        let randomVariant = Int.random(in: 0...4)
         
         switch type {
         case .guidance:
-            return "🌟 Today, \(energyDescription) creates opportunities for spiritual growth and conscious action."
+            return generateGuidanceVariant(elements: elements, specifics: specifics, variant: randomVariant)
         case .prediction:
-            return "🔮 The cosmic currents suggest \(energyDescription) will bring unexpected insights and synchronicities."
+            return generatePredictionVariant(elements: elements, specifics: specifics, variant: randomVariant)
         case .affirmation:
-            return "✨ I align with \(energyDescription) and welcome the divine guidance flowing through this day."
+            return generateAffirmationVariant(elements: elements, specifics: specifics, variant: randomVariant)
         default:
+            return generateDefaultVariant(elements: elements, specifics: specifics, variant: randomVariant)
+        }
+    }
+    
+    // Claude: Helper methods for varied insight generation
+    private func generateGuidanceVariant(elements: [String], specifics: [String: Any], variant: Int) -> String {
+        let energyDescription = elements.joined(separator: " harmonizes with ")
+        
+        switch variant {
+        case 0:
+            return "🌟 Today, \(energyDescription) creates opportunities for spiritual growth and conscious action."
+        case 1:
+            if let moonPhase = specifics["moonPhase"] as? String {
+                return "🌙 The \(moonPhase) illuminates your path as \(energyDescription). Trust your inner wisdom today."
+            }
+            return "🌟 Divine timing aligns as \(energyDescription) guides your spiritual journey forward."
+        case 2:
+            if let focus = specifics["focus"] as? Int {
+                return "✨ Your Focus Number \(focus) activates powerful potential. \(energyDescription) amplifies your manifestation abilities."
+            }
+            return "🌟 \(energyDescription) opens doorways to higher consciousness and spiritual revelation."
+        case 3:
+            if let realm = specifics["realm"] as? Int {
+                return "🔮 Realm \(realm)'s cosmic frequency resonates deeply today. Let \(energyDescription) guide your sacred actions."
+            }
+            return "🌟 Universal forces conspire in your favor as \(energyDescription) creates divine synchronicities."
+        default:
+            return "💫 Today's cosmic alignment brings \(energyDescription) into perfect harmony. Embrace the spiritual opportunities unfolding."
+        }
+    }
+    
+    private func generatePredictionVariant(elements: [String], specifics: [String: Any], variant: Int) -> String {
+        let energyDescription = elements.joined(separator: " dances with ")
+        
+        switch variant {
+        case 0:
+            return "🔮 The cosmic currents suggest \(energyDescription) will bring unexpected insights and synchronicities."
+        case 1:
+            if let planet = specifics["planet"] as? String {
+                return "🪐 \(planet) whispers of coming revelations. \(energyDescription) promises spiritual breakthroughs."
+            }
+            return "🔮 Ancient wisdom speaks through \(energyDescription), revealing hidden truths today."
+        case 2:
+            return "🌌 The universe conspires to bring \(energyDescription) into divine alignment. Expect miracles."
+        case 3:
+            if let emotional = specifics["emotional"] as? String {
+                return "💭 Your \(emotional) energy attracts cosmic support. \(energyDescription) manifests your deepest desires."
+            }
+            return "🔮 Sacred patterns emerge as \(energyDescription) weaves destiny's tapestry."
+        default:
+            return "✨ Mystical forces gather as \(energyDescription) prepares to transform your spiritual landscape."
+        }
+    }
+    
+    private func generateAffirmationVariant(elements: [String], specifics: [String: Any], variant: Int) -> String {
+        let energyDescription = elements.joined(separator: " flows with ")
+        
+        switch variant {
+        case 0:
+            return "✨ I align with \(energyDescription) and welcome the divine guidance flowing through this day."
+        case 1:
+            return "🙏 I am one with \(energyDescription), channeling cosmic wisdom through every thought and action."
+        case 2:
+            if let sunSign = specifics["sunSign"] as? String {
+                return "☀️ My \(sunSign) essence radiates as \(energyDescription) empowers my spiritual journey."
+            }
+            return "✨ I embrace \(energyDescription) and trust the sacred unfolding of my path."
+        case 3:
+            return "💫 Divine light flows through me as \(energyDescription) activates my highest potential."
+        default:
+            return "🌟 I am a sacred vessel for \(energyDescription), manifesting miracles with every breath."
+        }
+    }
+    
+    private func generateDefaultVariant(elements: [String], specifics: [String: Any], variant: Int) -> String {
+        let energyDescription = elements.joined(separator: " merges with ")
+        
+        switch variant {
+        case 0:
             return "🌌 \(energyDescription) weaves the sacred pattern of your day's unfolding."
+        case 1:
+            return "🎭 The cosmic dance begins as \(energyDescription) orchestrates divine synchronicities."
+        case 2:
+            return "🌠 Sacred geometry aligns as \(energyDescription) creates portals of possibility."
+        case 3:
+            return "🔯 Ancient mysteries reveal themselves through \(energyDescription) today."
+        default:
+            return "⚡ Spiritual electricity charges the air as \(energyDescription) ignites transformation."
         }
     }
     
