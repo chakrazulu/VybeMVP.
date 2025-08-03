@@ -40,7 +40,7 @@ class KASPERMLXEngine: ObservableObject {
     
     static let shared = KASPERMLXEngine()
     
-    private init(config: KASPERMLXConfiguration = .default) {
+    init(config: KASPERMLXConfiguration = .default) {
         self.config = config
         setupEngine()
     }

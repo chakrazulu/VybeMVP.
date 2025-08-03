@@ -300,7 +300,7 @@ struct KASPERInsightMetadata {
 
 // MARK: - Error Types
 
-enum KASPERMLXError: LocalizedError {
+enum KASPERMLXError: LocalizedError, Equatable {
     case providerUnavailable(String)
     case inferenceTimeout
     case modelNotLoaded
