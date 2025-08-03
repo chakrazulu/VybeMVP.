@@ -205,6 +205,11 @@ struct SettingsView: View {
                         .foregroundColor(.purple)
                 }
                 
+                NavigationLink(destination: KASPERFeedbackAnalyticsView()) {
+                    Label("KASPER MLX Analytics", systemImage: "chart.bar.fill")
+                        .foregroundColor(.blue)
+                }
+                
                 /// Claude: Enhanced Cosmic Engine Testing Interface
                 /// 
                 /// This button provides comprehensive testing and validation of the enhanced

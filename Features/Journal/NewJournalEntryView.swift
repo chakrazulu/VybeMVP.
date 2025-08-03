@@ -73,6 +73,7 @@ struct NewJournalEntryView: View {
     
     // Claude: KASPER MLX Journal Integration
     @StateObject private var kasperMLX = KASPERMLXManager.shared
+    @StateObject private var kasperFeedback = KASPERFeedbackManager.shared
     
     // MARK: - State Properties
     
@@ -899,19 +900,26 @@ struct NewJournalEntryView: View {
     
     /// Claude: Provides feedback on journal insights for future AI training
     private func provideJournalFeedback(positive: Bool) {
-        let feedback = positive ? "👍" : "👎"
-        print("🔮 KASPER MLX: Journal feedback - \(feedback)")
+        let rating: FeedbackRating = positive ? .positive : .negative
         
         // Haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: positive ? .light : .soft)
         impactFeedback.impactOccurred()
         
-        // Log feedback for future training
+        // Record feedback persistently
         if let insight = kasperInsight {
-            print("🔮 KASPER MLX: Journal Feedback for insight: \(insight.id.uuidString)")
-            print("🔮 KASPER MLX: Entry content: \(content.prefix(50))...")
-            print("🔮 KASPER MLX: Generated insight: \(insight.content)")
-            print("🔮 KASPER MLX: User rating: \(positive ? "Positive" : "Negative")")
+            kasperFeedback.recordFeedback(
+                for: insight,
+                rating: rating,
+                contextData: [
+                    "journalTitle": title,
+                    "journalContentLength": "\(content.count)",
+                    "mood": selectedMoodEmoji,
+                    "hasVoiceRecording": voiceRecordingFilename != nil ? "true" : "false"
+                ]
+            )
+            
+            print("🔮 KASPER MLX: Journal feedback \(rating.emoji) recorded persistently")
         }
     }
 }
