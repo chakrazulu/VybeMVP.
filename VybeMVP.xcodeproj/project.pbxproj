@@ -144,6 +144,10 @@
 		4DA359B52E3F135B0010101F /* KASPERMLXEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA359A32E3F135B0010101F /* KASPERMLXEngine.swift */; };
 		4DA359B62E3F135B0010101F /* KASPERMLXManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA359A62E3F135B0010101F /* KASPERMLXManager.swift */; };
 		4DA359B72E3F135B0010101F /* BiometricDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA359AA2E3F135B0010101F /* BiometricDataProvider.swift */; };
+		4DA359B92E3FF6160010101F /* KASPERTrainingDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA359B82E3FF6160010101F /* KASPERTrainingDataManager.swift */; };
+		4DA359BE2E3FF6380010101F /* TeachKASPER.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DA359BC2E3FF6380010101F /* TeachKASPER.md */; };
+		4DA359BF2E3FF6380010101F /* SpiritualInsightSchema.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DA359BB2E3FF6380010101F /* SpiritualInsightSchema.json */; };
+		4DA359C02E3FF6380010101F /* SampleTrainingBatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DA359BA2E3FF6380010101F /* SampleTrainingBatch.json */; };
 		4DA6425D2D8113D80047287B /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA6425C2D8113D80047287B /* HeartRateView.swift */; };
 		4DA642642D8122590047287B /* HealthKitManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA642632D8122590047287B /* HealthKitManaging.swift */; };
 		4DA642652D8122C70047287B /* HealthKitManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA642632D8122590047287B /* HealthKitManaging.swift */; };
@@ -466,6 +470,10 @@
 		4DA359AA2E3F135B0010101F /* BiometricDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricDataProvider.swift; sourceTree = "<group>"; };
 		4DA359AB2E3F135B0010101F /* CosmicDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicDataProvider.swift; sourceTree = "<group>"; };
 		4DA359AC2E3F135B0010101F /* NumerologyDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyDataProvider.swift; sourceTree = "<group>"; };
+		4DA359B82E3FF6160010101F /* KASPERTrainingDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERTrainingDataManager.swift; sourceTree = "<group>"; };
+		4DA359BA2E3FF6380010101F /* SampleTrainingBatch.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SampleTrainingBatch.json; sourceTree = "<group>"; };
+		4DA359BB2E3FF6380010101F /* SpiritualInsightSchema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SpiritualInsightSchema.json; sourceTree = "<group>"; };
+		4DA359BC2E3FF6380010101F /* TeachKASPER.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TeachKASPER.md; sourceTree = "<group>"; };
 		4DA6425C2D8113D80047287B /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
 		4DA642632D8122590047287B /* HealthKitManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManaging.swift; sourceTree = "<group>"; };
 		4DA98F962E0722E800FAE5FF /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -979,6 +987,7 @@
 		4DA359A02E3F135B0010101F /* MLXCore */ = {
 			isa = PBXGroup;
 			children = (
+				4DA359B82E3FF6160010101F /* KASPERTrainingDataManager.swift */,
 				4DA3599F2E3F135B0010101F /* KASPERMLXTypes.swift */,
 			);
 			path = MLXCore;
@@ -1030,6 +1039,7 @@
 		4DA359AE2E3F135B0010101F /* KASPERMLX */ = {
 			isa = PBXGroup;
 			children = (
+				4DA359BD2E3FF6380010101F /* Documentation */,
 				4DA359A02E3F135B0010101F /* MLXCore */,
 				4DA359A22E3F135B0010101F /* MLXData */,
 				4DA359A42E3F135B0010101F /* MLXEngine */,
@@ -1038,6 +1048,16 @@
 				4DA359AD2E3F135B0010101F /* MLXProviders */,
 			);
 			path = KASPERMLX;
+			sourceTree = "<group>";
+		};
+		4DA359BD2E3FF6380010101F /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				4DA359BA2E3FF6380010101F /* SampleTrainingBatch.json */,
+				4DA359BB2E3FF6380010101F /* SpiritualInsightSchema.json */,
+				4DA359BC2E3FF6380010101F /* TeachKASPER.md */,
+			);
+			path = Documentation;
 			sourceTree = "<group>";
 		};
 		4DB1DE8D2E22A5C2001A9EA5 /* assets */ = {
@@ -1485,6 +1505,9 @@
 				4DCB39552E1F78AE00311D51 /* mystery_wisdom.svg in Resources */,
 				4DB1DE9C2E22A7A9001A9EA5 /* SCRIPTS_GUIDE.md in Resources */,
 				4DCB39562E1F78AE00311D51 /* mystery_seals.svg in Resources */,
+				4DA359BE2E3FF6380010101F /* TeachKASPER.md in Resources */,
+				4DA359BF2E3FF6380010101F /* SpiritualInsightSchema.json in Resources */,
+				4DA359C02E3FF6380010101F /* SampleTrainingBatch.json in Resources */,
 				4DCB39572E1F78AE00311D51 /* void_zero_point.svg in Resources */,
 				4DCB39582E1F78AE00311D51 /* foundation_cube.svg in Resources */,
 				4DCB39592E1F78AE00311D51 /* unity_spark.svg in Resources */,
@@ -1634,6 +1657,7 @@
 				4D3055E92D3CEF45009A7BBD /* EditJournalEntryView.swift in Sources */,
 				4D6308DA2DFFCB2C00FD32E9 /* ReactionPickerView.swift in Sources */,
 				4D6308DB2DFFCB2C00FD32E9 /* Reaction.swift in Sources */,
+				4DA359B92E3FF6160010101F /* KASPERTrainingDataManager.swift in Sources */,
 				4DCB386E2E1B050400311D51 /* RecentMatchPopupView.swift in Sources */,
 				4D2CC70A2E08CA0C00BDF100 /* TestAdvancedSacredGeometry.swift in Sources */,
 				4DA98F992E07230500FAE5FF /* CommentManager.swift in Sources */,
