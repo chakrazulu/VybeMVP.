@@ -392,38 +392,231 @@ class KASPERMLXEngine: ObservableObject {
         }
     }
     
+    /// Claude: Enhanced daily card insight generation with personalized spiritual guidance
+    /// Transforms generic templates into meaningful, personally relevant spiritual wisdom
+    /// that resonates with the user's current focus numbers, realm energy, and cosmic timing
     private func buildDailyCardInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
-        var elements: [String] = []
-        
         let cosmicContext = contexts.first { $0.providerId == "cosmic" }
         let numerologyContext = contexts.first { $0.providerId == "numerology" }
+        let biometricContext = contexts.first { $0.providerId == "biometric" }
         
-        if let cosmic = cosmicContext?.data {
-            if let _ = cosmic["sunSign"] as? String {
-                elements.append("solar energy")
-            }
-            if let _ = cosmic["dominantPlanet"] as? String {
-                elements.append("planetary influence")
-            }
-        }
+        // Extract personalized spiritual data
+        var focusNumber: Int?
+        var realmNumber: Int?
+        var moonPhase: String?
+        var dominantPlanet: String?
+        var emotionalState: String?
+        var heartRateVariability: String?
         
         if let numerology = numerologyContext?.data {
-            if let _ = numerology["realmNumber"] as? Int {
-                elements.append("realm vibration")
+            focusNumber = numerology["focusNumber"] as? Int
+            realmNumber = numerology["realmNumber"] as? Int
+        }
+        
+        if let cosmic = cosmicContext?.data {
+            moonPhase = cosmic["moonPhase"] as? String
+            dominantPlanet = cosmic["dominantPlanet"] as? String
+        }
+        
+        if let biometric = biometricContext?.data {
+            emotionalState = biometric["emotionalState"] as? String
+            heartRateVariability = biometric["heartRateVariability"] as? String
+        }
+        
+        // Generate personalized insights based on available data
+        return generatePersonalizedDailyGuidance(
+            focusNumber: focusNumber,
+            realmNumber: realmNumber,
+            moonPhase: moonPhase,
+            dominantPlanet: dominantPlanet,
+            emotionalState: emotionalState,
+            type: type
+        )
+    }
+    
+    /// Claude: Generate truly personalized daily spiritual guidance
+    /// Creates meaningful insights that feel personally relevant and spiritually authentic
+    private func generatePersonalizedDailyGuidance(
+        focusNumber: Int?,
+        realmNumber: Int?,
+        moonPhase: String?,
+        dominantPlanet: String?,
+        emotionalState: String?,
+        type: KASPERInsightType
+    ) -> String {
+        
+        // Build personalized spiritual context
+        var spiritualComponents: [String] = []
+        var personalReferences: [String] = []
+        var actionableGuidance: [String] = []
+        
+        // Focus Number Wisdom
+        if let focus = focusNumber {
+            switch focus {
+            case 1:
+                spiritualComponents.append("pioneering energy")
+                personalReferences.append("your natural leadership essence")
+                actionableGuidance.append("trust your instincts to initiate new ventures")
+            case 2:
+                spiritualComponents.append("harmonizing vibration")
+                personalReferences.append("your gift for bringing balance")
+                actionableGuidance.append("focus on collaboration and peaceful resolution")
+            case 3:
+                spiritualComponents.append("creative expression flow")
+                personalReferences.append("your vibrant communication gifts")
+                actionableGuidance.append("channel inspiration through creative outlets")
+            case 4:
+                spiritualComponents.append("grounding foundation energy")
+                personalReferences.append("your steadfast dedication")
+                actionableGuidance.append("build something lasting through patient effort")
+            case 5:
+                spiritualComponents.append("transformative freedom current")
+                personalReferences.append("your adventurous spirit")
+                actionableGuidance.append("embrace change as a pathway to growth")
+            case 6:
+                spiritualComponents.append("nurturing service vibration")
+                personalReferences.append("your compassionate heart")
+                actionableGuidance.append("offer healing presence to those around you")
+            case 7:
+                spiritualComponents.append("mystical wisdom frequency")
+                personalReferences.append("your intuitive knowing")
+                actionableGuidance.append("seek solitude for spiritual insights")
+            case 8:
+                spiritualComponents.append("material mastery force")
+                personalReferences.append("your powerful manifestation abilities")
+                actionableGuidance.append("balance ambition with spiritual integrity")
+            case 9:
+                spiritualComponents.append("universal love frequency")
+                personalReferences.append("your humanitarian nature")
+                actionableGuidance.append("serve the greater good through compassionate action")
+            default:
+                spiritualComponents.append("cosmic alignment energy")
+                personalReferences.append("your unique spiritual path")
+                actionableGuidance.append("trust the divine timing of your journey")
             }
         }
         
-        let energyDescription = elements.joined(separator: " merges with ")
+        // Realm Number Integration
+        if let realm = realmNumber {
+            switch realm {
+            case 1:
+                spiritualComponents.append("new beginning realm")
+                actionableGuidance.append("step boldly into fresh opportunities")
+            case 2:
+                spiritualComponents.append("partnership realm")
+                actionableGuidance.append("seek harmony in all relationships")
+            case 3:
+                spiritualComponents.append("creative manifestation realm")
+                actionableGuidance.append("express your authentic truth")
+            case 4:
+                spiritualComponents.append("stable foundation realm")
+                actionableGuidance.append("organize your spiritual practices")
+            case 5:
+                spiritualComponents.append("dynamic change realm")
+                actionableGuidance.append("welcome unexpected shifts with curiosity")
+            case 6:
+                spiritualComponents.append("loving service realm")
+                actionableGuidance.append("nurture yourself and others")
+            case 7:
+                spiritualComponents.append("inner wisdom realm")
+                actionableGuidance.append("trust your deepest intuition")
+            case 8:
+                spiritualComponents.append("material-spiritual balance realm")
+                actionableGuidance.append("align worldly success with soul purpose")
+            case 9:
+                spiritualComponents.append("completion and release realm")
+                actionableGuidance.append("let go of what no longer serves")
+            default:
+                spiritualComponents.append("cosmic transition realm")
+                actionableGuidance.append("flow with the divine current")
+            }
+        }
+        
+        // Cosmic Integration
+        if let phase = moonPhase {
+            switch phase.lowercased() {
+            case "new moon", "new":
+                spiritualComponents.append("new moon intention energy")
+                actionableGuidance.append("plant seeds for future manifestation")
+            case "waxing", "first quarter":
+                spiritualComponents.append("growing momentum energy")
+                actionableGuidance.append("take inspired action on your goals")
+            case "full moon", "full":
+                spiritualComponents.append("illuminating full moon energy")
+                actionableGuidance.append("celebrate your progress and release what's complete")
+            case "waning", "third quarter":
+                spiritualComponents.append("releasing lunar energy")
+                actionableGuidance.append("practice gratitude and gentle letting go")
+            default:
+                spiritualComponents.append("cyclical lunar wisdom")
+                actionableGuidance.append("honor the natural rhythms of your soul")
+            }
+        }
+        
+        // Planetary Influence
+        if let planet = dominantPlanet {
+            switch planet.lowercased() {
+            case "mercury":
+                spiritualComponents.append("mercurial communication flow")
+                actionableGuidance.append("speak your truth with clarity and wisdom")
+            case "venus":
+                spiritualComponents.append("venusian love frequency")
+                actionableGuidance.append("cultivate beauty and harmony in your environment")
+            case "mars":
+                spiritualComponents.append("martian courage energy")
+                actionableGuidance.append("take decisive action on important matters")
+            case "jupiter":
+                spiritualComponents.append("jupiterian expansion force")
+                actionableGuidance.append("embrace opportunities for growth and learning")
+            case "saturn":
+                spiritualComponents.append("saturnian wisdom structure")
+                actionableGuidance.append("honor your commitments and build lasting foundations")
+            default:
+                spiritualComponents.append("planetary guidance current")
+                actionableGuidance.append("align with cosmic timing for optimal flow")
+            }
+        }
+        
+        // Emotional Integration
+        if let emotion = emotionalState {
+            switch emotion.lowercased() {
+            case "balanced", "calm":
+                actionableGuidance.append("maintain this centered state through mindful presence")
+            case "energized", "excited":
+                actionableGuidance.append("channel this vibrant energy toward meaningful pursuits")
+            case "contemplative", "reflective":
+                actionableGuidance.append("honor this introspective mood with gentle self-inquiry")
+            case "restless", "unsettled":
+                actionableGuidance.append("ground this energy through movement and breathwork")
+            default:
+                actionableGuidance.append("honor your current emotional state as sacred information")
+            }
+        }
+        
+        // Construct personalized insight based on type
+        let primaryElement = spiritualComponents.first ?? "divine wisdom"
+        let personalReference = personalReferences.first ?? "your spiritual essence"
+        let guidanceAction = actionableGuidance.randomElement() ?? "trust the unfolding of your path"
         
         switch type {
         case .guidance:
-            return "🌟 Today, \(energyDescription) creates opportunities for spiritual growth and conscious action."
+            if spiritualComponents.count >= 2 {
+                return "🌟 Today, \(spiritualComponents[0]) harmonizes with \(spiritualComponents[1]) through \(personalReference). The cosmos invites you to \(guidanceAction) while staying aligned with your authentic spiritual nature."
+            } else {
+                return "🌟 \(primaryElement.capitalized) flows through \(personalReference) today. The universe encourages you to \(guidanceAction) with confidence and spiritual awareness."
+            }
+            
         case .prediction:
-            return "🔮 The cosmic currents suggest \(energyDescription) will bring unexpected insights and synchronicities."
+            return "🔮 Your connection to \(primaryElement) reveals approaching opportunities for deeper spiritual understanding. Today's energy suggests you will \(guidanceAction) and discover new aspects of your soul's wisdom."
+            
         case .affirmation:
-            return "✨ I align with \(energyDescription) and welcome the divine guidance flowing through this day."
+            return "✨ I embrace \(primaryElement) flowing through \(personalReference). I trust my ability to \(guidanceAction) and remain open to the divine guidance surrounding me."
+            
+        case .reflection:
+            return "🌙 As \(primaryElement) influences your day, reflect on how \(personalReference) serves your highest good. Consider how you can \(guidanceAction) while honoring your spiritual journey."
+            
         default:
-            return "🌌 \(energyDescription) weaves the sacred pattern of your day's unfolding."
+            return "🌌 The sacred dance of \(primaryElement) weaves through \(personalReference), creating opportunities to \(guidanceAction). Trust the divine intelligence guiding your path."
         }
     }
     
