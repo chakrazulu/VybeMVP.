@@ -11,7 +11,7 @@ actor NumerologyDataProvider: SpiritualDataProvider {
     
     // MARK: - Properties
     
-    let id = "numerology"
+    nonisolated let id = "numerology"
     private var contextCache: [KASPERFeature: ProviderContext] = [:]
     
     // References to existing managers

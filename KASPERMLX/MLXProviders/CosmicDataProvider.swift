@@ -13,7 +13,7 @@ actor CosmicDataProvider: SpiritualDataProvider {
     
     // MARK: - Properties
     
-    let id = "cosmic"
+    nonisolated let id = "cosmic"
     private var contextCache: [KASPERFeature: ProviderContext] = [:]
     
     // MARK: - SpiritualDataProvider Implementation

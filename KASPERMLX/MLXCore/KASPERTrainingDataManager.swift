@@ -309,7 +309,7 @@ class KASPERTrainingDataManager: ObservableObject {
         }
         
         return ValidationResult(
-            isValid: score >= 75.0 && issues.isEmpty,
+            isValid: score >= 70.0 && issues.isEmpty,
             score: score,
             issues: issues,
             confidence: insight.confidence

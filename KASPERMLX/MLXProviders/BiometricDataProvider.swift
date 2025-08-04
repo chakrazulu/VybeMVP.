@@ -12,7 +12,7 @@ actor BiometricDataProvider: SpiritualDataProvider {
     
     // MARK: - Properties
     
-    let id = "biometric"
+    nonisolated let id = "biometric"
     private var contextCache: [KASPERFeature: ProviderContext] = [:]
     
     // Reference to existing health manager

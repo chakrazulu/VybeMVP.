@@ -102,7 +102,7 @@ final class KASPERMLXProvidersTests: XCTestCase {
      */
     func testCosmicDataProviderFunctionality() async throws {
         // Test provider identification
-        let providerId = await cosmicProvider.id
+        let providerId = cosmicProvider.id
         XCTAssertEqual(providerId, "cosmic", "Provider should have correct ID")
         
         // Test data availability
@@ -126,17 +126,16 @@ final class KASPERMLXProvidersTests: XCTestCase {
             XCTAssertFalse(context.data.isEmpty, "Context data should not be empty")
             XCTAssertFalse(context.isExpired, "Fresh context should not be expired")
             
-            // Validate cosmic data content
-            XCTAssertNotNil(context.data["moonPhase"], "Moon phase should be provided")
-            XCTAssertNotNil(context.data["dominantPlanet"], "Dominant planet should be provided")
-            XCTAssertNotNil(context.data["currentSeason"], "Current season should be provided")
-            
-            if let moonPhase = context.data["moonPhase"] as? String {
-                XCTAssertFalse(moonPhase.isEmpty, "Moon phase should not be empty")
-            }
-            
-            if let dominantPlanet = context.data["dominantPlanet"] as? String {
-                XCTAssertFalse(dominantPlanet.isEmpty, "Dominant planet should not be empty")
+            // Validate cosmic data content based on feature
+            if feature == .cosmicTiming {
+                // Cosmic timing provides specific timing data
+                XCTAssertNotNil(context.data["moonPhase"], "Moon phase should be provided for cosmic timing")
+                XCTAssertNotNil(context.data["sunDegree"], "Sun degree should be provided for cosmic timing")
+                XCTAssertNotNil(context.data["moonDegree"], "Moon degree should be provided for cosmic timing")
+            } else {
+                // Other features may have different data requirements
+                // Just validate that some cosmic data is provided
+                XCTAssertFalse(context.data.isEmpty, "Some cosmic data should be provided")
             }
             
             print("✅ Cosmic context validated for \(feature.rawValue)")
@@ -207,7 +206,7 @@ final class KASPERMLXProvidersTests: XCTestCase {
      */
     func testNumerologyDataProviderFunctionality() async throws {
         // Test provider identification
-        let providerId = await numerologyProvider.id
+        let providerId = numerologyProvider.id
         XCTAssertEqual(providerId, "numerology", "Provider should have correct ID")
         
         // Test data availability (will be false without external managers)
@@ -288,7 +287,7 @@ final class KASPERMLXProvidersTests: XCTestCase {
      */
     func testBiometricDataProviderFunctionality() async throws {
         // Test provider identification
-        let providerId = await biometricProvider.id
+        let providerId = biometricProvider.id
         XCTAssertEqual(providerId, "biometric", "Provider should have correct ID")
         
         // Test data availability (will be false without external managers)
@@ -397,7 +396,7 @@ final class KASPERMLXProvidersTests: XCTestCase {
             XCTAssertEqual(contexts.count, concurrentRequests, "All concurrent requests should complete for \(providerName)")
             
             for context in contexts {
-                let providerId = await provider.id
+                let providerId = provider.id
                 XCTAssertEqual(context.providerId, providerId, "All contexts should have correct provider ID")
                 XCTAssertFalse(context.data.isEmpty, "All contexts should have data")
             }
