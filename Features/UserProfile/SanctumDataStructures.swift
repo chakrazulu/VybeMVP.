@@ -46,15 +46,9 @@ enum SanctumViewMode: String, CaseIterable {
 
 // MARK: - Astrological Data Structures
 
-/// Claude: Aspect types for natal chart analysis
-enum AspectType: String, CaseIterable {
-    case conjunction = "Conjunction"
-    case opposition = "Opposition"
-    case trine = "Trine"
-    case square = "Square"
-    case sextile = "Sextile"
-    case quincunx = "Quincunx"
-}
+// Claude: Removed duplicate AspectType enum - now using SwiftData version from AstrologicalAspect.swift
+// This prevents "AspectType is ambiguous for type lookup" errors
+// enum AspectType: String, CaseIterable { ... }
 
 /// Claude: Planetary position data structure
 struct PlanetaryPosition: Identifiable {

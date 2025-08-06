@@ -8,11 +8,11 @@
 import Foundation
 import HealthKit
 
-actor BiometricDataProvider: SpiritualDataProvider {
+final class BiometricDataProvider: SpiritualDataProvider {
     
     // MARK: - Properties
     
-    nonisolated let id = "biometric"
+    let id = "biometric"
     private var contextCache: [KASPERFeature: ProviderContext] = [:]
     
     // Reference to existing health manager

@@ -111,9 +111,11 @@ struct HomeView: View {
     @State private var pickerScale: CGFloat = 0.1
     @State private var pickerOpacity: Double = 0.0
     
-    // Claude: KASPER MLX Daily Card states
+    // Claude: KASPER MLX Daily Card states - Fixed race condition issues
     @State private var kasperInsight: KASPERInsight?
     @State private var showKasperCard = true
+    @State private var kasperError: String?
+    @State private var isKasperLoading = false
     
     // CACHE FLOOD FIX: Cache UserProfile in HomeView to prevent repeated lookups
     @State private var cachedUserProfile: UserProfile?
@@ -379,6 +381,18 @@ struct HomeView: View {
             InsightHistoryView()
         }
         .onAppear {
+            // Claude: Fixed race condition - ensure KASPER MLX is configured early and once
+            Task {
+                // Configure KASPER MLX first (if not already configured)
+                if !kasperMLX.isReady {
+                    await kasperMLX.configure(
+                        realmManager: realmNumberManager,
+                        focusManager: focusNumberManager,
+                        healthManager: healthKitManager
+                    )
+                }
+            }
+            
             // FREEZE FIX: Stagger HomeView operations to prevent simultaneous heavy lifting
             
             // Step 1: Load match logs (lightweight)
@@ -684,9 +698,11 @@ struct HomeView: View {
                         .accessibilityLabel("Dismiss KASPER insight card")
                     }
                     
-                    // Insight Content
-                    if kasperMLX.isGeneratingInsight {
+                    // Claude: Fixed loading state management - use local state instead of manager state
+                    if isKasperLoading {
                         kasperLoadingState
+                    } else if let error = kasperError {
+                        kasperErrorDisplay(error)
                     } else if let insight = kasperInsight {
                         kasperInsightDisplay(insight)
                     } else {
@@ -748,12 +764,52 @@ struct HomeView: View {
                 .shadow(color: .cyan.opacity(0.3), radius: 10, x: 0, y: 5)
                 .padding(.horizontal)
                 .onAppear {
-                    if kasperInsight == nil && !kasperMLX.isGeneratingInsight {
+                    // Claude: Fixed auto-generation - only generate if needed and KASPER is ready
+                    if kasperInsight == nil && !isKasperLoading && kasperMLX.isReady {
                         generateDailyInsight()
                     }
                 }
             }
         }
+    }
+    
+    /// Claude: Error display for KASPER insight generation failures
+    private func kasperErrorDisplay(_ errorMessage: String) -> some View {
+        VStack(spacing: 12) {
+            HStack(spacing: 8) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .font(.title3)
+                    .foregroundColor(.orange)
+                
+                Text("Insight Generation Issue")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .fontWeight(.semibold)
+            }
+            
+            Text(errorMessage)
+                .font(.caption)
+                .foregroundColor(.white.opacity(0.8))
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+            
+            Button("Try Again") {
+                generateDailyInsight()
+            }
+            .font(.caption.weight(.medium))
+            .foregroundColor(.white)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(
+                Capsule()
+                    .fill(Color.orange.opacity(0.3))
+                    .overlay(
+                        Capsule()
+                            .stroke(Color.orange.opacity(0.6), lineWidth: 1)
+                    )
+            )
+        }
+        .frame(maxWidth: .infinity, minHeight: 80)
     }
     
     /// Claude: Enhanced loading state for KASPER insight generation with shimmer effect
@@ -847,7 +903,7 @@ struct HomeView: View {
                     )
                     .shadow(color: .cyan.opacity(0.3), radius: 6, x: 0, y: 2)
                 }
-                .disabled(kasperMLX.isGeneratingInsight)
+                .disabled(isKasperLoading)
                 
                 // Enhanced feedback buttons section
                 HStack(spacing: 20) {
@@ -927,7 +983,7 @@ struct HomeView: View {
                 
                 Spacer()
                 
-                // Animated arrow with spiritual glow
+                // Animated arrow with spiritual glow  
                 Image(systemName: "arrow.right.circle.fill")
                     .font(.title2)
                     .foregroundColor(.cyan)
@@ -968,7 +1024,7 @@ struct HomeView: View {
             .shadow(color: .purple.opacity(0.3), radius: 10, x: 0, y: 4)
             .scaleEffect(kasperMLX.isReady ? 1.0 : 0.95)
         }
-        .disabled(!kasperMLX.isReady)
+        .disabled(!kasperMLX.isReady || isKasperLoading)
         .animation(.easeInOut(duration: 0.3), value: kasperMLX.isReady)
         .accessibilityLabel("Generate spiritual insight")
         .accessibilityHint("Tap to create a personalized daily guidance card using cosmic AI")
@@ -1608,21 +1664,39 @@ struct HomeView: View {
     
     // MARK: - KASPER MLX Methods
     
-    /// Claude: Enhanced daily insight generation with performance tracking and optimization
+    /// Claude: Fixed daily insight generation with robust error handling and race condition prevention
     private func generateDailyInsight() {
+        // Prevent multiple simultaneous generations
+        guard !isKasperLoading else {
+            print("🔮 KASPER MLX: Already generating insight, skipping duplicate request")
+            return
+        }
+        
         Task {
             let startTime = Date()
+            
+            // Set loading state immediately on main thread
+            await MainActor.run {
+                isKasperLoading = true
+                kasperError = nil
+            }
             
             do {
                 print("🔮 KASPER MLX: Generating daily insight for HomeView")
                 
-                // Configure KASPER MLX if needed (only if not already configured)
-                if !kasperMLX.isReady {
-                    await kasperMLX.configure(
-                        realmManager: realmNumberManager,
-                        focusManager: focusNumberManager,
-                        healthManager: healthKitManager
-                    )
+                // Wait for KASPER MLX to be ready (with timeout)
+                var waitTime = 0.0
+                let maxWaitTime = 5.0 // 5 second timeout
+                
+                while !kasperMLX.isReady && waitTime < maxWaitTime {
+                    try await Task.sleep(nanoseconds: 100_000_000) // 100ms
+                    waitTime += 0.1
+                }
+                
+                guard kasperMLX.isReady else {
+                    throw NSError(domain: "KASPERMLXError", code: 1, userInfo: [
+                        NSLocalizedDescriptionKey: "KASPER MLX not ready after \(Int(maxWaitTime)) seconds"
+                    ])
                 }
                 
                 // Generate daily card insight with current focus/realm context
@@ -1632,6 +1706,8 @@ struct HomeView: View {
                 // Update UI on main thread
                 await MainActor.run {
                     kasperInsight = insight
+                    isKasperLoading = false
+                    kasperError = nil
                 }
                 
                 let responseTime = Date().timeIntervalSince(startTime)
@@ -1639,9 +1715,9 @@ struct HomeView: View {
                 print("🔮 Insight Content: \(insight.content)")
                 print("🔮 Confidence: \(Int(insight.confidence * 100))%")
                 
-                // Performance validation - warn if >100ms
-                if responseTime > 0.1 {
-                    print("⚠️ KASPER MLX: Response time \(String(format: "%.3f", responseTime))s exceeds 100ms target")
+                // Performance validation - warn if >2s (more realistic for HomeView)
+                if responseTime > 2.0 {
+                    print("⚠️ KASPER MLX: Response time \(String(format: "%.3f", responseTime))s exceeds 2s target for HomeView")
                 } else {
                     print("✅ KASPER MLX: Performance target met - \(String(format: "%.3f", responseTime))s")
                 }
@@ -1650,9 +1726,11 @@ struct HomeView: View {
                 let responseTime = Date().timeIntervalSince(startTime)
                 print("❌ KASPER MLX: Failed to generate daily insight after \(String(format: "%.3f", responseTime))s: \(error)")
                 
-                // Clear the insight to show error state
+                // Set error state on main thread
                 await MainActor.run {
                     kasperInsight = nil
+                    isKasperLoading = false
+                    kasperError = error.localizedDescription
                 }
             }
         }

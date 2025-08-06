@@ -7,28 +7,43 @@
 
 import Foundation
 
-actor NumerologyDataProvider: SpiritualDataProvider {
+final class NumerologyDataProvider: SpiritualDataProvider {
     
     // MARK: - Properties
     
-    nonisolated let id = "numerology"
+    let id = "numerology"
     private var contextCache: [KASPERFeature: ProviderContext] = [:]
     
     // References to existing managers
     private weak var realmNumberManager: RealmNumberManager?
     private weak var focusNumberManager: FocusNumberManager?
+    private weak var spiritualDataController: SpiritualDataController?
     
     // MARK: - Initialization
     
     init(
         realmNumberManager: RealmNumberManager? = nil,
-        focusNumberManager: FocusNumberManager? = nil
+        focusNumberManager: FocusNumberManager? = nil,
+        spiritualDataController: SpiritualDataController? = nil
     ) {
         self.realmNumberManager = realmNumberManager
         self.focusNumberManager = focusNumberManager
+        // Claude: Store provided controller or set to nil for lazy initialization to avoid Swift 6 actor isolation
+        self.spiritualDataController = spiritualDataController
     }
     
     // MARK: - SpiritualDataProvider Implementation
+    
+    /// Helper to lazily initialize SpiritualDataController
+    private func getSpiritualDataController() async -> SpiritualDataController {
+        if let controller = spiritualDataController {
+            return controller
+        }
+        
+        let controller = await MainActor.run { SpiritualDataController.shared }
+        self.spiritualDataController = controller
+        return controller
+    }
     
     func isDataAvailable() async -> Bool {
         // Check if we have access to core numerology data
@@ -90,7 +105,7 @@ actor NumerologyDataProvider: SpiritualDataProvider {
             data["focusNumber"] = focusNumber
             data["realmNumber"] = realmNumber
             data["personalVibration"] = getPersonalVibration(focus: focusNumber, realm: realmNumber)
-            data["numericalGuidance"] = getNumericalGuidance(for: focusNumber)
+            data["numericalGuidance"] = await getNumericalGuidance(for: focusNumber)
             
             if let profile = userProfile {
                 data["lifePathNumber"] = profile.lifePathNumber
@@ -117,14 +132,14 @@ actor NumerologyDataProvider: SpiritualDataProvider {
         case .focusIntention:
             // Focus needs intention-specific data
             data["focusNumber"] = focusNumber
-            data["focusArchetype"] = getFocusArchetype(focusNumber)
+            data["focusArchetype"] = await getFocusArchetype(focusNumber)
             data["focusEnergy"] = getFocusEnergy(focusNumber)
             data["supportingNumbers"] = getSupportingNumbers(focusNumber)
             
         case .realmInterpretation:
             // Realm needs environmental numerology
             data["realmNumber"] = realmNumber
-            data["realmArchetype"] = getRealmArchetype(realmNumber)
+            data["realmArchetype"] = await getRealmArchetype(realmNumber)
             data["realmChallenges"] = getRealmChallenges(realmNumber)
             data["realmOpportunities"] = getRealmOpportunities(realmNumber)
             
@@ -173,7 +188,13 @@ actor NumerologyDataProvider: SpiritualDataProvider {
         return reduceToSingleDigit(focus + realm)
     }
     
-    private func getNumericalGuidance(for number: Int) -> String {
+    private func getNumericalGuidance(for number: Int) async -> String {
+        // First try to get MegaCorpus guidance
+        if let megaCorpusGuidance = await getMegaCorpusGuidance(for: number) {
+            return megaCorpusGuidance
+        }
+        
+        // Fallback to template guidance
         let guidance = [
             1: "Leadership and new beginnings flow through you",
             2: "Cooperation and harmony guide your path",
@@ -257,7 +278,13 @@ actor NumerologyDataProvider: SpiritualDataProvider {
         return [profile.lifePathNumber, (profile.lifePathNumber + 1) % 9 + 1]
     }
     
-    private func getFocusArchetype(_ number: Int) -> String {
+    private func getFocusArchetype(_ number: Int) async -> String {
+        // First try to get MegaCorpus archetype
+        if let megaCorpusArchetype = await getMegaCorpusArchetype(for: number) {
+            return megaCorpusArchetype
+        }
+        
+        // Fallback to template archetypes
         let archetypes = [
             1: "The Leader",
             2: "The Diplomat",
@@ -303,8 +330,8 @@ actor NumerologyDataProvider: SpiritualDataProvider {
         }
     }
     
-    private func getRealmArchetype(_ number: Int) -> String {
-        return getFocusArchetype(number) // Same archetype system
+    private func getRealmArchetype(_ number: Int) async -> String {
+        return await getFocusArchetype(number) // Same archetype system
     }
     
     private func getRealmChallenges(_ number: Int) -> [String] {
@@ -405,5 +432,140 @@ actor NumerologyDataProvider: SpiritualDataProvider {
     
     private func isMasterNumber(_ number: Int) -> Bool {
         return [11, 22, 33, 44].contains(number)
+    }
+    
+    // MARK: - MegaCorpus Integration Methods
+    
+    /// Gets SwiftData guidance for a specific focus number
+    private func getMegaCorpusGuidance(for number: Int) async -> String? {
+        // TODO: Implement proper SwiftData access when MLX integration is complete
+        // For now, use fallback archetype data to avoid Swift 6 concurrency issues
+        let archetype = getFallbackArchetype(for: number)
+        let strength = getFallbackStrengths(for: number).first ?? "your unique gifts"
+        return "\(archetype) energy flows through you, emphasizing \(strength.lowercased())"
+    }
+    
+    /// Gets SwiftData archetype for a specific focus number
+    private func getMegaCorpusArchetype(for number: Int) async -> String? {
+        // TODO: Implement proper SwiftData access when MLX integration is complete
+        // For now, use fallback archetype data to avoid Swift 6 concurrency issues
+        return getFallbackArchetype(for: number)
+    }
+    
+    /// Gets SwiftData keywords for a specific focus number
+    private func getMegaCorpusKeywords(for number: Int) async -> [String]? {
+        // TODO: Implement proper SwiftData access when MLX integration is complete
+        return getFallbackKeywords(for: number)
+    }
+    
+    /// Gets SwiftData strengths for a specific focus number
+    private func getMegaCorpusStrengths(for number: Int) async -> [String]? {
+        // TODO: Implement proper SwiftData access when MLX integration is complete
+        return getFallbackStrengths(for: number)
+    }
+    
+    /// Gets SwiftData challenges for a specific focus number
+    private func getMegaCorpusChallenges(for number: Int) async -> [String]? {
+        // TODO: Implement proper SwiftData access when MLX integration is complete
+        return getFallbackChallenges(for: number)
+    }
+    
+    /// Gets SwiftData element correspondence for a specific focus number
+    private func getMegaCorpusElement(for number: Int) async -> String? {
+        // TODO: Implement proper SwiftData access when MLX integration is complete
+        return getFallbackElement(for: number)
+    }
+    
+    /// Gets SwiftData planetary correspondence for a specific focus number
+    private func getMegaCorpusPlanetaryCorrespondence(for number: Int) async -> String? {
+        // TODO: Implement proper SwiftData access when MLX integration is complete
+        return getFallbackPlanetaryCorrespondence(for: number)
+    }
+    
+    // MARK: - Fallback Methods
+    
+    private func getFallbackArchetype(for number: Int) -> String {
+        switch number {
+        case 1: return "The Leader"
+        case 2: return "The Diplomat"
+        case 3: return "The Creative"
+        case 4: return "The Builder"
+        case 5: return "The Explorer"
+        case 6: return "The Nurturer"
+        case 7: return "The Mystic"
+        case 8: return "The Executive"
+        case 9: return "The Humanitarian"
+        default: return "The Unique Path"
+        }
+    }
+    
+    private func getFallbackKeywords(for number: Int) -> [String] {
+        switch number {
+        case 1: return ["leadership", "initiative", "pioneering"]
+        case 2: return ["cooperation", "harmony", "partnership"]
+        case 3: return ["creativity", "expression", "communication"]
+        case 4: return ["stability", "foundation", "organization"]
+        case 5: return ["freedom", "adventure", "transformation"]
+        case 6: return ["nurturing", "healing", "responsibility"]
+        case 7: return ["wisdom", "mysticism", "introspection"]
+        case 8: return ["achievement", "material success", "power"]
+        case 9: return ["humanitarian", "universal love", "completion"]
+        default: return ["unique", "spiritual", "individual"]
+        }
+    }
+    
+    private func getFallbackStrengths(for number: Int) -> [String] {
+        switch number {
+        case 1: return ["natural leadership", "independence", "innovation"]
+        case 2: return ["sensitivity", "cooperation", "diplomatic skills"]
+        case 3: return ["artistic talent", "communication", "optimism"]
+        case 4: return ["reliability", "practical skills", "organization"]
+        case 5: return ["adaptability", "curiosity", "progressive thinking"]
+        case 6: return ["compassion", "healing ability", "responsibility"]
+        case 7: return ["analytical mind", "spiritual insight", "research skills"]
+        case 8: return ["business acumen", "material success", "executive ability"]
+        case 9: return ["humanitarian spirit", "universal compassion", "wisdom"]
+        default: return ["unique gifts", "spiritual insight"]
+        }
+    }
+    
+    private func getFallbackChallenges(for number: Int) -> [String] {
+        switch number {
+        case 1: return ["impatience", "aggression", "selfishness"]
+        case 2: return ["indecision", "over-sensitivity", "dependency"]
+        case 3: return ["scattered energy", "superficiality", "criticism"]
+        case 4: return ["rigidity", "limitation", "stubbornness"]
+        case 5: return ["restlessness", "irresponsibility", "addiction"]
+        case 6: return ["martyrdom", "interference", "perfectionism"]
+        case 7: return ["isolation", "skepticism", "depression"]
+        case 8: return ["materialism", "workaholism", "power struggles"]
+        case 9: return ["emotional extremes", "resentment", "martyrdom"]
+        default: return ["finding balance", "self-acceptance"]
+        }
+    }
+    
+    private func getFallbackElement(for number: Int) -> String {
+        switch number {
+        case 1, 3, 5: return "Fire"
+        case 2, 4, 8: return "Earth"
+        case 6, 9: return "Water"
+        case 7: return "Air"
+        default: return "Spirit"
+        }
+    }
+    
+    private func getFallbackPlanetaryCorrespondence(for number: Int) -> String {
+        switch number {
+        case 1: return "Sun"
+        case 2: return "Moon"
+        case 3: return "Jupiter"
+        case 4: return "Uranus"
+        case 5: return "Mercury"
+        case 6: return "Venus"
+        case 7: return "Neptune"
+        case 8: return "Saturn"
+        case 9: return "Mars"
+        default: return "Pluto"
+        }
     }
 }

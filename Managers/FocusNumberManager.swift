@@ -330,10 +330,10 @@ class FocusNumberManager: NSObject, ObservableObject {
         print("✨ New match confirmed! Recording match between Focus Number \(selectedFocusNumber) and Realm Number \(matchedRealmNumber)")
         
         // Fetch and store the insight for this new match
-        if let insightText = NumerologyInsightService.shared.fetchInsight(forNumber: matchedRealmNumber, category: InsightCategory.insight) {
+        if let insightText = NumerologyInsightService.shared.fetchInsight(forNumber: matchedRealmNumber, category: InsightCategory.insight.rawValue) {
             self.latestMatchedInsight = MatchedInsightData(
                 number: matchedRealmNumber,
-                category: InsightCategory.insight, // Or dynamically determine if needed
+                category: InsightCategory.insight.rawValue, // Or dynamically determine if needed
                 text: insightText,
                 timestamp: Date() // Record when this insight was fetched/matched
             )
@@ -342,7 +342,7 @@ class FocusNumberManager: NSObject, ObservableObject {
             // NEW: Save this insight to PersistedInsightLog
             savePersistedInsight(
                 number: matchedRealmNumber,
-                category: InsightCategory.insight, // Or determine dynamically if needed
+                category: InsightCategory.insight.rawValue, // Or determine dynamically if needed
                 text: insightText,
                 tags: "FocusMatch, RealmTouch" // Example tags
             )

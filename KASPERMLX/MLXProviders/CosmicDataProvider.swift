@@ -9,11 +9,11 @@
 import Foundation
 import SwiftUI
 
-actor CosmicDataProvider: SpiritualDataProvider {
+final class CosmicDataProvider: SpiritualDataProvider {
     
     // MARK: - Properties
     
-    nonisolated let id = "cosmic"
+    let id = "cosmic"
     private var contextCache: [KASPERFeature: ProviderContext] = [:]
     
     // MARK: - SpiritualDataProvider Implementation

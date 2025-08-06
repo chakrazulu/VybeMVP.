@@ -179,8 +179,15 @@ class UserArchetypeManager: ObservableObject {
      * 4. Planetary mapping from life path number
      */
     func calculateArchetype(from birthdate: Date) -> UserArchetype {
-        isCalculating = true
-        defer { isCalculating = false }
+        // Ensure UI updates happen on main thread
+        Task { @MainActor in
+            isCalculating = true
+        }
+        defer { 
+            Task { @MainActor in
+                isCalculating = false
+            }
+        }
         
         print("\n🌟 ===============================")
         print("🌟   USER ARCHETYPE CALCULATION  ")

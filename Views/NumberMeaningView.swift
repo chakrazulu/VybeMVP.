@@ -60,7 +60,8 @@ import SwiftUI
 
 struct NumberMeaningView: View {
     @State private var selectedNumber: Int
-    private let manager = NumberMeaningManager.shared
+    // Claude: Updated to use SwiftData SpiritualDataController instead of NumberMeaningManager
+    @EnvironmentObject private var spiritualDataController: SpiritualDataController
     
     // Animation states
     @State private var titlePulse: CGFloat = 1.0
@@ -91,39 +92,36 @@ struct NumberMeaningView: View {
                     // Enhanced cosmic number selector
                     enhancedCosmicNumberSelector
                 
-                if let meaning = manager.getMeaning(for: selectedNumber) {
-                        // Enhanced number display with cosmic styling
-                        enhancedCosmicNumberDisplay(meaning: meaning)
-                        
-                        // Meaning sections with enhanced cosmic styling
-                        VStack(spacing: 35) {
-                            EnhancedCosmicMeaningSection(
-                                title: "✧ ✦ ESSENCE ✦ ✧", 
-                                content: meaning.essence,
-                                accentColor: sacredColor(for: selectedNumber),
-                                icon: "sparkles.rectangle.stack.fill"
+                // TODO: Implement async SwiftData NumberMeaning loading
+                // Temporarily showing number only until SwiftData integration complete
+                VStack(spacing: 20) {
+                    Text("Number \(selectedNumber)")
+                        .font(.system(size: 24, weight: .bold, design: .rounded))
+                        .foregroundStyle(
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    sacredColor(for: selectedNumber),
+                                    sacredColor(for: selectedNumber).opacity(0.7)
+                                ]),
+                                startPoint: .leading,
+                                endPoint: .trailing
                             )
-                            
-                            EnhancedCosmicMeaningSection(
-                                title: "✧ ✦ SYMBOLISM ✦ ✧", 
-                                content: meaning.symbolism,
-                                accentColor: sacredColor(for: selectedNumber).opacity(0.8),
-                                icon: "eye.circle.fill"
-                            )
-                            
-                            EnhancedCosmicMeaningSection(
-                                title: "✧ ✦ APPLICATION ✦ ✧", 
-                                content: meaning.application,
-                                accentColor: sacredColor(for: selectedNumber).opacity(0.6),
-                                icon: "wand.and.stars"
-                            )
-                            
-                            // Enhanced notes section
-                            if !meaning.notes.isEmpty {
-                                enhancedUniversalIntegrationSection(meaning: meaning)
-                            }
-                        }
-                    }
+                        )
+                    
+                    Text("SwiftData integration coming soon...")
+                        .font(.body)
+                        .foregroundColor(.white.opacity(0.7))
+                        .italic()
+                }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(sacredColor(for: selectedNumber).opacity(0.2))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(sacredColor(for: selectedNumber).opacity(0.5), lineWidth: 2)
+                        )
+                )
                     
                     Spacer(minLength: 80)
             }
@@ -133,7 +131,8 @@ struct NumberMeaningView: View {
         .navigationTitle("Sacred Numbers")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            manager.setupInitialMeanings()
+            // TODO: Implement SwiftData NumberMeaning loading
+            // manager.setupInitialMeanings()
             startMysticalAnimations()
         }
     }
@@ -297,8 +296,9 @@ struct NumberMeaningView: View {
         .shadow(color: sacredColor(for: selectedNumber).opacity(0.3), radius: 20, x: 0, y: 10)
     }
     
-    // MARK: - Enhanced Cosmic Number Display
+    // MARK: - Enhanced Cosmic Number Display (Disabled for SwiftData Migration)
     
+    /*
     private func enhancedCosmicNumberDisplay(meaning: NumberMeaning) -> some View {
         HStack(spacing: 25) {
             // Enhanced large cosmic number
@@ -437,9 +437,11 @@ struct NumberMeaningView: View {
         )
         .shadow(color: sacredColor(for: selectedNumber).opacity(0.4), radius: 25, x: 0, y: 15)
     }
+    */
     
-    // MARK: - Enhanced Universal Integration Section
+    // MARK: - Enhanced Universal Integration Section (Disabled for SwiftData Migration)
     
+    /*
     private func enhancedUniversalIntegrationSection(meaning: NumberMeaning) -> some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
@@ -508,6 +510,7 @@ struct NumberMeaningView: View {
         }
         .padding(.top, 15)
     }
+    */
     
     // MARK: - Floating Cosmic Symbols
     

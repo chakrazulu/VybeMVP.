@@ -1,4 +1,0 @@
-module AAplus {
-umbrella "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/SwiftAA/Sources/AA+/include"
-export *
-}

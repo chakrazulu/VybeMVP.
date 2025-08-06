@@ -40,6 +40,7 @@
  */
 
 import SwiftUI
+import SwiftData  // Added for SwiftData support
 import os.log
 import BackgroundTasks
 import FirebaseCore
@@ -204,6 +205,7 @@ struct VybeMVPApp: App {
     @StateObject private var cosmicService = CosmicService.shared
     @StateObject private var cosmicHUDIntegration = CosmicHUDIntegration.shared
     @StateObject private var kasperMLXManager = KASPERMLXManager.shared
+    @StateObject private var spiritualDataController = SpiritualDataController.shared
     @Environment(\.scenePhase) private var scenePhase
     let persistenceController = PersistenceController.shared
     
@@ -238,6 +240,7 @@ struct VybeMVPApp: App {
     var body: some Scene {
         WindowGroup {
             AuthenticationWrapperView()
+                .modelContainer(spiritualDataController.container)
                 .environmentObject(realmNumberManager)
                 .environmentObject(journalManager)
                 .environmentObject(focusNumberManager)
@@ -246,6 +249,7 @@ struct VybeMVPApp: App {
                 .environmentObject(cosmicService)
                 .environmentObject(cosmicHUDIntegration)
                 .environmentObject(kasperMLXManager)
+                .environmentObject(spiritualDataController)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .modifier(cosmicHUDIntegration.integrateWithMainApp())
                 .onAppear {
