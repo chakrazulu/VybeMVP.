@@ -282,6 +282,7 @@ struct InsightHistoryView: View {
     // MARK: - Data Loading
     
     private func loadInsights() {
+        // Claude: SWIFT 6 COMPLIANCE - Removed [weak self] from struct (value type)
         Task {
             await insightService.loadInsightTemplates()
             
@@ -289,7 +290,7 @@ struct InsightHistoryView: View {
             let sampleInsights = generatePersonalizedInsights()
             
             await MainActor.run {
-                self.insights = sampleInsights
+                insights = sampleInsights
                 self.isLoading = false
             }
         }

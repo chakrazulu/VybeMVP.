@@ -278,8 +278,10 @@ struct ActivityView: View {
             // activityNavigationManager.insightToView = nil
             
             // Defer AI insights refresh by 1 second to prevent blocking
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            aiInsightManager.refreshInsightIfNeeded()
+            // Claude: SWIFT 6 COMPLIANCE - Use Task for async method call
+            Task {
+                try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second delay
+                await aiInsightManager.refreshInsightIfNeeded()
                 print("⚡ ActivityView: AI insights refresh deferred for performance")
             }
         }
@@ -382,7 +384,8 @@ struct ActivityView: View {
     
     private func refreshActivityData() async {
         // Refresh AI insights
-        aiInsightManager.refreshInsightIfNeeded()
+        // Claude: SWIFT 6 COMPLIANCE - Use await for async method
+        await aiInsightManager.refreshInsightIfNeeded()
         
         // VybeMatchManager data is already live, no refresh needed
         print("🔄 Activity data refreshed")

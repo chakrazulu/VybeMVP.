@@ -27,6 +27,8 @@ import CoreData
  * Design pattern: MVVM (Model-View-ViewModel)
  * Dependencies: CoreData for match history access
  */
+// Claude: SWIFT 6 COMPLIANCE - Added @MainActor for UI state management
+@MainActor
 class MatchAnalyticsViewModel: ObservableObject {
     /// The selected time range for analytics display
     @Published var selectedTimeFrame: TimeFrame = .day
@@ -146,8 +148,11 @@ class MatchAnalyticsViewModel: ObservableObject {
             return "No matches yet"
         }
         
-        let firstMatch = matchLogs.last!.timestamp
-        let lastMatch = matchLogs.first!.timestamp
+        // Claude: DORMANT BUG FIX - Replace force unwraps with safe optional handling
+        guard let firstMatch = matchLogs.last?.timestamp,
+              let lastMatch = matchLogs.first?.timestamp else {
+            return "No valid match data"
+        }
         
         let daysBetween = calendar.dateComponents([.day], from: firstMatch, to: lastMatch).day ?? 0
         

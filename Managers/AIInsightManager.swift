@@ -137,15 +137,19 @@ class AIInsightManager: ObservableObject {
         // Check if we already have today's insight in Core Data
         if let existingInsight = fetchTodaysInsightFromCoreData(lifePathNumber: profile.lifePathNumber) {
             print("✨ Found existing insight for today in Core Data")
-            self.personalizedDailyInsight = existingInsight
-            self.isInsightReady = true
+            await MainActor.run {
+                self.personalizedDailyInsight = existingInsight
+                self.isInsightReady = true
+            }
             return
         }
         
         // Generate new insight
         if let insight = InsightFilterService.getPersonalizedInsight(for: profile) {
-            self.personalizedDailyInsight = insight
-            self.isInsightReady = true
+            await MainActor.run {
+                self.personalizedDailyInsight = insight
+                self.isInsightReady = true
+            }
             print("✨ Personalized insight prepared: \"\(insight.text.prefix(70))...\"")
             if let source = insight.source {
                 print("   Source Details - Template ID: '\(source.templateID)', Score: \(source.score), Matched Tags: \(source.matchedFocusTags.joined(separator: ", ")), Fallback: \(source.isFallback)")
@@ -154,8 +158,10 @@ class AIInsightManager: ObservableObject {
             // Save to Core Data for ActivityView
             saveInsightToCoreData(insight: insight, profile: profile)
         } else {
-            self.personalizedDailyInsight = nil // Clear any old insight
-            self.isInsightReady = false
+            await MainActor.run {
+                self.personalizedDailyInsight = nil // Clear any old insight
+                self.isInsightReady = false
+            }
             print("😔 AIInsightManager: Could not prepare a personalized insight for the current profile.")
         }
     }
@@ -163,8 +169,9 @@ class AIInsightManager: ObservableObject {
     /**
      * Refreshes the insight for the current user if they have a profile.
      * This should be called on app launch or when switching tabs.
+     * Claude: SWIFT 6 COMPLIANCE - Made async to properly handle MainActor access
      */
-    func refreshInsightIfNeeded() {
+    func refreshInsightIfNeeded() async {
         // THROTTLING: Prevent rapid successive calls
         if let lastRefresh = lastRefreshTime,
            Date().timeIntervalSince(lastRefresh) < refreshThrottleSeconds {
@@ -181,8 +188,14 @@ class AIInsightManager: ObservableObject {
         }
         
         // FALLBACK: Try AuthenticationManager if UserDefaults fails
-        if userProfile == nil, let authID = AuthenticationManager.shared.userID {
-            userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: authID)
+        // Claude: SWIFT 6 COMPLIANCE - Access MainActor property properly
+        if userProfile == nil {
+            let authID = await MainActor.run {
+                return AuthenticationManager.shared.userID
+            }
+            if let authID = authID {
+                userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: authID)
+            }
         }
         
         guard let profile = userProfile else {

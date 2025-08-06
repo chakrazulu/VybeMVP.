@@ -595,9 +595,13 @@ class KASPERManager: ObservableObject {
     /**
      * Get current user ID from authentication system
      */
-    private func getCurrentUserID() -> String? {
+    private func getCurrentUserID() async -> String? {
         // Get user ID from AuthenticationManager
-        if let userID = AuthenticationManager.shared.userID {
+        // Claude: SWIFT 6 COMPLIANCE - Access MainActor property properly
+        let userID = await MainActor.run {
+            return AuthenticationManager.shared.userID
+        }
+        if let userID = userID {
             logger.info("🔍 Retrieved user ID from AuthenticationManager: \(userID)")
             return userID
         }

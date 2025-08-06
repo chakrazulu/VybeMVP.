@@ -514,12 +514,14 @@ class KASPERMLXManager: ObservableObject {
     func generateCurrentPayload() -> String? {
         logger.info("🔮 KASPER MLX: Legacy payload method called - redirecting to quick insight")
         
-        Task {
+        // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
+        Task { [weak self] in
+            guard let self = self else { return }
             do {
-                _ = try await generateQuickInsight(for: .sanctumGuidance)
-                logger.info("🔮 KASPER MLX: Legacy payload generated as insight")
+                _ = try await self.generateQuickInsight(for: .sanctumGuidance)
+                self.logger.info("🔮 KASPER MLX: Legacy payload generated as insight")
             } catch {
-                logger.error("🔮 KASPER MLX: Legacy payload generation failed: \\(error)")
+                self.logger.error("🔮 KASPER MLX: Legacy payload generation failed: \\(error)")
             }
         }
         

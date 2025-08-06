@@ -153,6 +153,8 @@ import CryptoKit
  * - Clean logout with data clearing
  * - Published properties for SwiftUI integration
  */
+// Claude: SWIFT 6 COMPLIANCE - Added @MainActor for UI state management
+@MainActor
 class AuthenticationManager: ObservableObject {
     
     // MARK: - Singleton Instance

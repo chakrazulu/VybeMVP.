@@ -101,8 +101,10 @@ class CosmicService: ObservableObject {
         loadCachedData()
         
         // Fetch fresh data
-        Task {
-            await fetchTodaysCosmicData()
+        // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
+        Task { [weak self] in
+            guard let self = self else { return }
+            await self.fetchTodaysCosmicData()
         }
         
         // Schedule daily updates

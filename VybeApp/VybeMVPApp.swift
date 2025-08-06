@@ -80,12 +80,24 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         BGTaskScheduler.shared.register(
             forTaskWithIdentifier: "com.infinitiesinn.vybe.backgroundUpdate",
             using: nil) { task in
-                BackgroundManager.shared.handleBackgroundTask(task as! BGAppRefreshTask)
+                // Claude: DORMANT BUG FIX - Replace force cast with safe cast
+                guard let refreshTask = task as? BGAppRefreshTask else {
+                    print("⚠️ Unexpected background task type received for backgroundUpdate")
+                    task.setTaskCompleted(success: false)
+                    return
+                }
+                BackgroundManager.shared.handleBackgroundTask(refreshTask)
             }
         
         // Register background tasks
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.infinitiesinn.vybe.heartrate-update", using: nil) { task in
-            self.handleHeartRateUpdate(task: task as! BGAppRefreshTask)
+            // Claude: DORMANT BUG FIX - Replace force cast with safe cast
+            guard let refreshTask = task as? BGAppRefreshTask else {
+                print("⚠️ Unexpected background task type received for heartrate-update")
+                task.setTaskCompleted(success: false)
+                return
+            }
+            self.handleHeartRateUpdate(task: refreshTask)
         }
         
         // Set delegate for notification handling

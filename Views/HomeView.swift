@@ -382,6 +382,7 @@ struct HomeView: View {
         }
         .onAppear {
             // Claude: Fixed race condition - ensure KASPER MLX is configured early and once
+            // Claude: SWIFT 6 COMPLIANCE - Removed [weak self] from struct (value type)
             Task {
                 // Configure KASPER MLX first (if not already configured)
                 if !kasperMLX.isReady {
@@ -406,8 +407,10 @@ struct HomeView: View {
             }
             
             // Step 3: AI insights (can be heavy, after larger delay)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            aiInsightManager.refreshInsightIfNeeded()
+            // Claude: SWIFT 6 COMPLIANCE - Use Task for async method call
+            Task {
+                try await Task.sleep(nanoseconds: 1_500_000_000) // 1.5 second delay
+                await aiInsightManager.refreshInsightIfNeeded()
             }
             
             // Claude: Phase 8.5 - Initialize current mandala asset for SVG path tracing
@@ -1672,13 +1675,14 @@ struct HomeView: View {
             return
         }
         
+        // Claude: SWIFT 6 COMPLIANCE - Removed [weak self] from struct (value type)
         Task {
             let startTime = Date()
             
             // Set loading state immediately on main thread
             await MainActor.run {
                 isKasperLoading = true
-                kasperError = nil
+                self.kasperError = nil
             }
             
             do {
@@ -1688,26 +1692,26 @@ struct HomeView: View {
                 var waitTime = 0.0
                 let maxWaitTime = 5.0 // 5 second timeout
                 
-                while !kasperMLX.isReady && waitTime < maxWaitTime {
+                while !self.kasperMLX.isReady && waitTime < maxWaitTime {
                     try await Task.sleep(nanoseconds: 100_000_000) // 100ms
                     waitTime += 0.1
                 }
                 
-                guard kasperMLX.isReady else {
+                guard self.kasperMLX.isReady else {
                     throw NSError(domain: "KASPERMLXError", code: 1, userInfo: [
                         NSLocalizedDescriptionKey: "KASPER MLX not ready after \(Int(maxWaitTime)) seconds"
                     ])
                 }
                 
                 // Generate daily card insight with current focus/realm context
-                let cardType = "daily_focus_\(focusNumberManager.selectedFocusNumber)_realm_\(realmNumberManager.currentRealmNumber)"
-                let insight = try await kasperMLX.generateDailyCardInsight(cardType: cardType)
+                let cardType = "daily_focus_\(self.focusNumberManager.selectedFocusNumber)_realm_\(self.realmNumberManager.currentRealmNumber)"
+                let insight = try await self.kasperMLX.generateDailyCardInsight(cardType: cardType)
                 
                 // Update UI on main thread
                 await MainActor.run {
-                    kasperInsight = insight
-                    isKasperLoading = false
-                    kasperError = nil
+                    self.kasperInsight = insight
+                    self.isKasperLoading = false
+                    self.kasperError = nil
                 }
                 
                 let responseTime = Date().timeIntervalSince(startTime)
@@ -1728,9 +1732,9 @@ struct HomeView: View {
                 
                 // Set error state on main thread
                 await MainActor.run {
-                    kasperInsight = nil
-                    isKasperLoading = false
-                    kasperError = error.localizedDescription
+                    self.kasperInsight = nil
+                    self.isKasperLoading = false
+                    self.kasperError = error.localizedDescription
                 }
             }
         }

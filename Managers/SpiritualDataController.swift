@@ -72,8 +72,10 @@ final class SpiritualDataController: ObservableObject {
             )
             
             // Check if migration is needed
-            Task {
-                await checkAndPerformMigration()
+            // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
+            Task { [weak self] in
+                guard let self = self else { return }
+                await self.checkAndPerformMigration()
             }
             
         } catch {
@@ -240,9 +242,11 @@ final class SpiritualDataController: ObservableObject {
         }
         
         // Fallback to database query
-        Task {
-            if let meaning = try? await getNumberMeaning(number) {
-                archetypeCache[number] = meaning.archetype
+        // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
+        Task { [weak self] in
+            guard let self = self else { return }
+            if let meaning = try? await self.getNumberMeaning(number) {
+                self.archetypeCache[number] = meaning.archetype
             }
         }
         

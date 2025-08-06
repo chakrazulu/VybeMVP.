@@ -541,6 +541,8 @@ struct BirthdateInputView: View {
 // MARK: - Location Search Completer
 
 /// Claude: Location search completer for birthplace selection
+// Claude: SWIFT 6 COMPLIANCE - Added @MainActor for UI state management
+@MainActor
 class LocationSearchCompleter: NSObject, ObservableObject, MKLocalSearchCompleterDelegate {
     @Published var searchResults: [MKLocalSearchCompletion] = []
     private let completer = MKLocalSearchCompleter()
@@ -558,13 +560,17 @@ class LocationSearchCompleter: NSObject, ObservableObject, MKLocalSearchComplete
         completer.region = MKCoordinateRegion(.world) // Global search
     }
     
-    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        searchResults = completer.results
+    nonisolated func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        Task { @MainActor in
+            searchResults = completer.results
+        }
     }
     
-    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+    nonisolated func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
         print("Location search error: \(error.localizedDescription)")
-        searchResults = []
+        Task { @MainActor in
+            searchResults = []
+        }
     }
 }
 
