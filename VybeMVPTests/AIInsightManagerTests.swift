@@ -272,9 +272,9 @@ final class AIInsightManagerTests: XCTestCase {
      * Validates that AI insights are properly personalized based on the user's
      * life path number and spiritual tags for authentic wisdom delivery.
      */
-    func testConfigureAndRefreshInsight() {
+    func testConfigureAndRefreshInsight() async {
         // Test insight configuration with mock profile
-        insightManager.configureAndRefreshInsight(for: mockUserProfile)
+        await insightManager.configureAndRefreshInsight(for: mockUserProfile)
         
         // Verify the manager processes the profile without crashing
         XCTAssertNotNil(insightManager, "Manager should remain stable after configuration")
@@ -305,9 +305,9 @@ final class AIInsightManagerTests: XCTestCase {
      * Validates that the AI insight refresh system works reliably
      * without user profile data, testing fallback mechanisms.
      */
-    func testRefreshInsightIfNeeded() {
+    func testRefreshInsightIfNeeded() async {
         // Test insight refresh without explicit profile
-        insightManager.refreshInsightIfNeeded()
+        await insightManager.refreshInsightIfNeeded()
         
         // Verify system remains stable during refresh attempt
         XCTAssertNotNil(insightManager, "Manager should remain stable during refresh")
@@ -316,10 +316,10 @@ final class AIInsightManagerTests: XCTestCase {
         XCTAssertTrue(true, "Refresh completed without system failure")
     }
     
-    func testInsightGenerationStability() {
+    func testInsightGenerationStability() async {
         // Test multiple rapid insight generation attempts
         for _ in 0..<5 {
-            insightManager.refreshInsightIfNeeded()
+            await insightManager.refreshInsightIfNeeded()
         }
         
         // Verify system remains stable under rapid requests
@@ -340,23 +340,23 @@ final class AIInsightManagerTests: XCTestCase {
      * Validates that AI insights are properly persisted in Core Data
      * for consistent daily wisdom delivery and activity tracking.
      */
-    func testCoreDataIntegration() {
+    func testCoreDataIntegration() async {
         // Test that Core Data context is properly initialized
         XCTAssertNotNil(insightManager, "Manager should have Core Data access")
         
         // Test insight persistence functionality exists
-        insightManager.configureAndRefreshInsight(for: mockUserProfile)
+        await insightManager.configureAndRefreshInsight(for: mockUserProfile)
         
         // Verify Core Data operations don't crash
         XCTAssertTrue(true, "Core Data integration stable")
     }
     
-    func testInsightPersistenceStability() {
+    func testInsightPersistenceStability() async {
         // Test persistence under various profile conditions
         let profiles = [mockUserProfile!]
         
         for profile in profiles {
-            insightManager.configureAndRefreshInsight(for: profile)
+            await insightManager.configureAndRefreshInsight(for: profile)
         }
         
         // Verify persistence operations remain stable
@@ -374,19 +374,19 @@ final class AIInsightManagerTests: XCTestCase {
      * Ensures AI insight generation gracefully handles edge cases
      * and maintains spiritual guidance availability under all conditions.
      */
-    func testErrorHandlingRobustness() {
+    func testErrorHandlingRobustness() async {
         // Test handling of nil profile gracefully
-        insightManager.refreshInsightIfNeeded()
+        await insightManager.refreshInsightIfNeeded()
         
         // Test multiple rapid calls don't crash system
         for _ in 0..<10 {
-            insightManager.refreshInsightIfNeeded()
+            await insightManager.refreshInsightIfNeeded()
         }
         
         XCTAssertNotNil(insightManager, "Manager should handle error conditions gracefully")
     }
     
-    func testEdgeCaseHandling() {
+    func testEdgeCaseHandling() async {
         // Test with extreme life path numbers
         let edgeProfile = UserProfile(
             id: "edge_test_user",
@@ -406,7 +406,7 @@ final class AIInsightManagerTests: XCTestCase {
             wantsReflectionMode: false
         )
         
-        insightManager.configureAndRefreshInsight(for: edgeProfile)
+        await insightManager.configureAndRefreshInsight(for: edgeProfile)
         
         // Verify system handles edge cases
         XCTAssertNotNil(insightManager, "Manager should handle edge case profiles")
@@ -423,12 +423,18 @@ final class AIInsightManagerTests: XCTestCase {
      * Validates that AI insight generation maintains performance
      * under intensive spiritual guidance request patterns.
      */
-    func testPerformanceUnderLoad() {
-        measure {
-            for _ in 0..<10 {
-                insightManager.configureAndRefreshInsight(for: mockUserProfile)
-            }
+    func testPerformanceUnderLoad() async {
+        // Claude: Modified for async compatibility - manual timing instead of measure block
+        let startTime = Date()
+        for _ in 0..<10 {
+            await insightManager.configureAndRefreshInsight(for: mockUserProfile)
         }
+        let endTime = Date()
+        let executionTime = endTime.timeIntervalSince(startTime)
+        
+        // Verify reasonable performance (10 operations should complete within reasonable time)
+        XCTAssertLessThan(executionTime, 10.0, "10 insight configurations should complete within 10 seconds")
+        print("🕐 Performance test: 10 insight configurations completed in \(String(format: "%.3f", executionTime)) seconds")
     }
     
     func testMemoryManagement() {

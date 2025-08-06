@@ -423,7 +423,9 @@ struct VybeMVPApp: App {
             DispatchQueue.main.async {
                 if let fetchedProfile = profile {
                     Logger.ai.info("FETCH_PROFILE_FOR_AI (Callback for \(userID)): UserProfile fetched successfully. Configuring AIInsightManager.")
-                    AIInsightManager.shared.configureAndRefreshInsight(for: fetchedProfile)
+                    Task {
+                        await AIInsightManager.shared.configureAndRefreshInsight(for: fetchedProfile)
+                    }
                     UserProfileService.shared.cacheUserProfileToUserDefaults(fetchedProfile)
                 } else {
                     Logger.network.error("FETCH_PROFILE_FOR_AI (Callback for \(userID)): UserProfile fetch returned nil but no error. AIInsightManager will not be configured.")

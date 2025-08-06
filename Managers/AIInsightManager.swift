@@ -131,7 +131,7 @@ class AIInsightManager: ObservableObject {
      *
      * - Parameter profile: The `UserProfile` object for the current user.
      */
-    func configureAndRefreshInsight(for profile: UserProfile) {
+    func configureAndRefreshInsight(for profile: UserProfile) async {
         print("AIInsightManager: Configuring and refreshing insight for user ID \(profile.id)...")
         
         // Check if we already have today's insight in Core Data
@@ -206,7 +206,7 @@ class AIInsightManager: ObservableObject {
         // Update throttle time
         lastRefreshTime = Date()
         
-        configureAndRefreshInsight(for: profile)
+        await configureAndRefreshInsight(for: profile)
     }
     
     /**
