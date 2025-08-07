@@ -119,6 +119,10 @@
 		4D6C7BBB2DE48126001036E5 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7BBA2DE48126001036E5 /* Logger+Extensions.swift */; };
 		4D6C7BBD2DE4885F001036E5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4D6C7BBC2DE4885F001036E5 /* FirebaseFirestore */; };
 		4D731D2C2E44A34F0083C82C /* SpiritualFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D731D2A2E44A34F0083C82C /* SpiritualFont.swift */; };
+		4D731D2F2E44B1510083C82C /* MLX in Frameworks */ = {isa = PBXBuildFile; productRef = 4D731D2E2E44B1510083C82C /* MLX */; };
+		4D731D312E44B1510083C82C /* MLXFast in Frameworks */ = {isa = PBXBuildFile; productRef = 4D731D302E44B1510083C82C /* MLXFast */; };
+		4D731D332E44B1510083C82C /* MLXNN in Frameworks */ = {isa = PBXBuildFile; productRef = 4D731D322E44B1510083C82C /* MLXNN */; };
+		4D731D352E44B1510083C82C /* MLXRandom in Frameworks */ = {isa = PBXBuildFile; productRef = 4D731D342E44B1510083C82C /* MLXRandom */; };
 		4D80E0FD2D3F1B0B0020F7BB /* NumberMeaningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E0FC2D3F1B0B0020F7BB /* NumberMeaningView.swift */; };
 		4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */; };
 		4D92F48C2D49E9C90001A16E /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F48B2D49E9BF0001A16E /* TestingView.swift */; };
@@ -681,12 +685,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D731D312E44B1510083C82C /* MLXFast in Frameworks */,
 				4DA01CBB2D853A640070309D /* FirebaseMessaging in Frameworks */,
 				4D6308E42DFFCB6F00FD32E9 /* FirebaseAuth in Frameworks */,
+				4D731D352E44B1510083C82C /* MLXRandom in Frameworks */,
 				4D6C7BBD2DE4885F001036E5 /* FirebaseFirestore in Frameworks */,
 				4DA01CB92D853A640070309D /* FirebaseCore in Frameworks */,
+				4D731D2F2E44B1510083C82C /* MLX in Frameworks */,
 				4DB1E0592E23BD98001A9EA5 /* FirebaseAppCheck in Frameworks */,
 				4DB1E0622E23F6F0001A9EA5 /* SwiftAA in Frameworks */,
+				4D731D332E44B1510083C82C /* MLXNN in Frameworks */,
 				4DA01CB72D853A640070309D /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1440,6 +1448,10 @@
 				4D6308E32DFFCB6F00FD32E9 /* FirebaseAuth */,
 				4DB1E0582E23BD98001A9EA5 /* FirebaseAppCheck */,
 				4DB1E0612E23F6F0001A9EA5 /* SwiftAA */,
+				4D731D2E2E44B1510083C82C /* MLX */,
+				4D731D302E44B1510083C82C /* MLXFast */,
+				4D731D322E44B1510083C82C /* MLXNN */,
+				4D731D342E44B1510083C82C /* MLXRandom */,
 			);
 			productName = VybeMVP;
 			productReference = 4DC6021B2D343E8D00B5E4A9 /* VybeMVP.app */;
@@ -1479,6 +1491,7 @@
 			packageReferences = (
 				4DA01CB52D853A640070309D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				4DB1E05C2E23F6F0001A9EA5 /* XCRemoteSwiftPackageReference "SwiftAA" */,
+				4D731D2D2E44B1510083C82C /* XCRemoteSwiftPackageReference "mlx-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4DC6021C2D343E8D00B5E4A9 /* Products */;
@@ -2178,6 +2191,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4D731D2D2E44B1510083C82C /* XCRemoteSwiftPackageReference "mlx-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ml-explore/mlx-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.25.6;
+			};
+		};
 		4DA01CB52D853A640070309D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -2206,6 +2227,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4DA01CB52D853A640070309D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		4D731D2E2E44B1510083C82C /* MLX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4D731D2D2E44B1510083C82C /* XCRemoteSwiftPackageReference "mlx-swift" */;
+			productName = MLX;
+		};
+		4D731D302E44B1510083C82C /* MLXFast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4D731D2D2E44B1510083C82C /* XCRemoteSwiftPackageReference "mlx-swift" */;
+			productName = MLXFast;
+		};
+		4D731D322E44B1510083C82C /* MLXNN */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4D731D2D2E44B1510083C82C /* XCRemoteSwiftPackageReference "mlx-swift" */;
+			productName = MLXNN;
+		};
+		4D731D342E44B1510083C82C /* MLXRandom */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4D731D2D2E44B1510083C82C /* XCRemoteSwiftPackageReference "mlx-swift" */;
+			productName = MLXRandom;
 		};
 		4DA01CB62D853A640070309D /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
