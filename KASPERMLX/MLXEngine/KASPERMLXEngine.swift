@@ -678,11 +678,39 @@ class KASPERMLXEngine: ObservableObject {
     }
     
     private func buildTimingInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
-        return "⏰ The cosmic clock aligns with your soul's timing. Trust the divine rhythm guiding your spiritual journey."
+        // Claude: Enhanced cosmic timing using new template system
+        let cosmicContext = contexts.first { $0.providerId == "cosmic" }
+        
+        let planetaryEnergy = cosmicContext?.data["dominantPlanet"] as? String ??
+                             cosmicContext?.data["primaryPlanet"] as? String
+        let moonPhase = cosmicContext?.data["moonPhase"] as? String
+        let astrologicalEvent = cosmicContext?.data["currentTransit"] as? String ??
+                               cosmicContext?.data["astroEvent"] as? String
+        
+        return KASPERTemplateEnhancer.generateCosmicTimingInsight(
+            planetaryEnergy: planetaryEnergy,
+            moonPhase: moonPhase,
+            astrologicalEvent: astrologicalEvent
+        )
     }
     
     private func buildMatchInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
-        return "💫 Spiritual compatibility flows through shared vibrations and complementary energies. Honor both unity and uniqueness."
+        // Claude: Enhanced relationship compatibility using new template system
+        let numerologyContext = contexts.first { $0.providerId == "numerology" }
+        let cosmicContext = contexts.first { $0.providerId == "cosmic" }
+        
+        // Extract both numbers for compatibility analysis
+        let number1 = numerologyContext?.data["userNumber"] as? Int ?? 
+                     numerologyContext?.data["focusNumber"] as? Int ?? 5
+        let number2 = numerologyContext?.data["partnerNumber"] as? Int ?? 
+                     numerologyContext?.data["targetNumber"] as? Int ?? 7
+        let moonPhase = cosmicContext?.data["moonPhase"] as? String
+        
+        return KASPERTemplateEnhancer.generateRelationshipInsight(
+            number1: number1,
+            number2: number2,
+            moonPhase: moonPhase
+        )
     }
     
     private func buildRealmInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
@@ -837,7 +865,7 @@ class KASPERMLXEngine: ObservableObject {
     }
     
     /// Generate final insight by combining all components
-    /// Claude: CRITICAL FIX - Prioritize focus-specific content over random selection for personalized insights
+    /// Claude: ENHANCED - Uses new template system for natural, flowing spiritual language
     private func generateFinalInsight(spiritualComponents: [String], personalReferences: [String], actionableGuidance: [String], type: KASPERInsightType, constraints: InsightConstraints?) -> String {
         
         // Claude: FIXED PERSONALIZATION ISSUE - Prioritize focus-specific content by selecting from focus components first
@@ -886,8 +914,7 @@ class KASPERMLXEngine: ObservableObject {
         // Claude: CRITICAL FIX - Ensure actionable guidance is always present for test compliance
         let requiredActionWords = ["trust", "embrace", "channel", "honor", "align", "focus", "seek"]
         let hasActionableWord = requiredActionWords.contains { word in 
-            selectedGuidance.lowercased().contains(word)
-        }
+            selectedGuidance.lowercased().contains($0) }
         
         if !hasActionableWord {
             // Force actionable word inclusion if missing
@@ -902,18 +929,39 @@ class KASPERMLXEngine: ObservableObject {
             selectedGuidance = actionableBackups.randomElement() ?? "trust your spiritual journey"
         }
         
-        // Claude: Generate final insight with focus-prioritized content for authentic personalization
+        // Claude: ENHANCED - Use new natural language templates instead of rigid patterns
         switch type {
         case .guidance:
-            return "🌟 Today, \(selectedComponent) flows through \(selectedReference). \(selectedGuidance.capitalized)."
+            return KASPERTemplateEnhancer.generateGuidanceInsight(
+                component: selectedComponent,
+                reference: selectedReference,
+                guidance: selectedGuidance
+            )
         case .reflection:
-            return "🌙 With \(selectedComponent) active, reflect on how \(selectedReference) guides your journey. \(selectedGuidance.capitalized)."
+            return KASPERTemplateEnhancer.generateReflectionInsight(
+                component: selectedComponent,
+                reference: selectedReference,
+                guidance: selectedGuidance
+            )
         case .affirmation:
-            return "💫 I embrace \(selectedComponent) through \(selectedReference). I \(selectedGuidance)."
+            return KASPERTemplateEnhancer.generateAffirmationInsight(
+                component: selectedComponent,
+                reference: selectedReference,
+                guidance: selectedGuidance
+            )
         case .prediction:
-            return "🔮 \(selectedComponent.capitalized) channels through \(selectedReference). \(selectedGuidance.capitalized)."
+            return KASPERTemplateEnhancer.generatePredictionInsight(
+                component: selectedComponent,
+                reference: selectedReference,
+                guidance: selectedGuidance
+            )
         default:
-            return "✨ \(selectedComponent.capitalized) channels through \(selectedReference). \(selectedGuidance.capitalized)."
+            // Default fallback to guidance style for unknown types
+            return KASPERTemplateEnhancer.generateGuidanceInsight(
+                component: selectedComponent,
+                reference: selectedReference,
+                guidance: selectedGuidance
+            )
         }
     }
     
