@@ -417,6 +417,7 @@ struct KASPERMLXConfiguration {
     let defaultCacheExpiry: TimeInterval
     let inferenceTimeout: TimeInterval
     let enableDebugLogging: Bool
+    let enableMLXInference: Bool  // Claude: Toggle for real MLX vs template fallback
     let modelPath: String?
     
     static let `default` = KASPERMLXConfiguration(
@@ -424,6 +425,7 @@ struct KASPERMLXConfiguration {
         defaultCacheExpiry: 300, // 5 minutes
         inferenceTimeout: 5.0,   // 5 seconds
         enableDebugLogging: true,
+        enableMLXInference: true,  // Claude: Ready for MLX integration
         modelPath: nil
     )
 }

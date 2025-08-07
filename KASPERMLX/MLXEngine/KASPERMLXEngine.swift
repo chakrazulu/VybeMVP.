@@ -77,8 +77,8 @@ class KASPERMLXEngine: ObservableObject {
         // MegaCorpus provider for rich spiritual wisdom data using SwiftData
         await registerProvider(MegaCorpusDataProvider(spiritualDataController: SpiritualDataController.shared))
         
-        // Initialize model (placeholder)
-        await initializeModel()
+        // Initialize MLX model with fallback support
+        await initializeMLXModel()
         
         isReady = await validateReadiness()
         
@@ -308,10 +308,23 @@ class KASPERMLXEngine: ObservableObject {
     private func performInference(request: InsightRequest, contexts: [ProviderContext]) async throws -> KASPERInsight {
         logger.info("🔮 KASPER MLX: Performing inference for \\(request.feature)")
         
-        // TODO: Replace with actual MLX inference
-        // For now, generate template-based insights
-        let insight = await generateTemplateInsight(request: request, contexts: contexts)
+        // Claude: Enhanced MLX integration - try MLX model first, fallback to templates
+        if let mlxModel = mlxModel, config.enableMLXInference {
+            do {
+                let insight = try await performMLXInference(
+                    model: mlxModel,
+                    request: request, 
+                    contexts: contexts
+                )
+                logger.info("🔮 KASPER MLX: Successful MLX inference")
+                return insight
+            } catch {
+                logger.warning("🔮 KASPER MLX: MLX inference failed, falling back to template: \\(error)")
+            }
+        }
         
+        // Fallback to template-based insights for reliability
+        let insight = await generateTemplateInsight(request: request, contexts: contexts)
         return insight
     }
     
@@ -896,6 +909,172 @@ class KASPERMLXEngine: ObservableObject {
             return "🔮 \(selectedComponent.capitalized) channels through \(selectedReference). \(selectedGuidance.capitalized)."
         default:
             return "✨ \(selectedComponent.capitalized) channels through \(selectedReference). \(selectedGuidance.capitalized)."
+        }
+    }
+    
+    // MARK: - MLX Integration Methods
+    
+    /// Initialize MLX model with fallback handling
+    /// Claude: This method attempts to load a real MLX model, falls back gracefully
+    private func initializeMLXModel() async {
+        logger.info("🔮 KASPER MLX: Initializing spiritual consciousness model...")
+        
+        do {
+            // Check for MLX model in app bundle
+            guard let modelPath = Bundle.main.path(forResource: "kasper-spiritual-v1", ofType: "mlx") else {
+                logger.info("🔮 KASPER MLX: No MLX model found in bundle, using template fallback")
+                currentModel = "template-v1.0"
+                return
+            }
+            
+            // Attempt to load MLX model (placeholder for actual MLX integration)
+            // In real implementation, this would use MLX Swift package:
+            // mlxModel = try MLXModel.load(from: modelPath)
+            
+            logger.warning("🔮 KASPER MLX: MLX Swift package not yet integrated - using template system")
+            currentModel = "template-v1.0-mlx-ready"
+            
+            // When MLX package is added, uncomment and implement:
+            /*
+            do {
+                mlxModel = try await loadMLXModel(path: modelPath)
+                currentModel = "kasper-spiritual-v1.0"
+                logger.info("🔮 KASPER MLX: MLX spiritual consciousness activated! ✨")
+            } catch {
+                logger.warning("🔮 KASPER MLX: MLX model load failed: \\(error), using template fallback")
+                currentModel = "template-v1.0-fallback"
+            }
+            */
+            
+        } catch {
+            logger.error("🔮 KASPER MLX: Model initialization failed: \\(error)")
+            currentModel = "template-v1.0-error-fallback"
+        }
+    }
+    
+    /// Perform MLX inference with spiritual data
+    /// Claude: When MLX integration is complete, this will handle real AI inference
+    private func performMLXInference(
+        model: Any,
+        request: InsightRequest,
+        contexts: [ProviderContext]
+    ) async throws -> KASPERInsight {
+        
+        logger.info("🔮 KASPER MLX: Attempting MLX inference...")
+        
+        // Prepare input tensors from spiritual contexts
+        let inputTensors = try await prepareSpiritualTensors(from: contexts, for: request)
+        
+        // Perform MLX inference (placeholder)
+        // In real implementation, this would use MLX Swift:
+        // let outputTensors = try await model.predict(inputTensors)
+        // let content = try decodeMLXOutput(outputTensors, for: request.feature)
+        
+        // For now, throw error to fallback to template
+        throw KASPERMLXError.modelNotLoaded
+        
+        /*
+        // Real MLX implementation would look like:
+        let startTime = Date()
+        let outputs = try await model.predict(inputTensors)
+        let inferenceTime = Date().timeIntervalSince(startTime)
+        
+        let content = try decodeMLXSpiritualOutput(outputs, for: request.feature)
+        
+        return KASPERInsight(
+            requestId: request.id,
+            content: content,
+            type: request.type,
+            feature: request.feature,
+            confidence: outputs.confidence ?? 0.95,
+            inferenceTime: inferenceTime,
+            metadata: KASPERInsightMetadata(
+                modelVersion: "kasper-spiritual-v1.0",
+                providersUsed: contexts.map { $0.providerId },
+                cacheHit: false
+            )
+        )
+        */
+    }
+    
+    /// Prepare spiritual context data as MLX-compatible tensors
+    /// Claude: Converts spiritual data (numbers, planets, moon phases) into ML tensors
+    private func prepareSpiritualTensors(
+        from contexts: [ProviderContext],
+        for request: InsightRequest
+    ) async throws -> [String: Any] {
+        
+        var tensors: [String: Any] = [:]
+        
+        // Extract spiritual features from contexts
+        for context in contexts {
+            switch context.providerId {
+            case "numerology":
+                // Convert numerological data to tensors
+                if let focusNumber = context.data["focusNumber"] as? Int {
+                    tensors["focus_number"] = focusNumber
+                }
+                if let realmNumber = context.data["realmNumber"] as? Int {
+                    tensors["realm_number"] = realmNumber
+                }
+                
+            case "cosmic":
+                // Convert cosmic data to tensors
+                if let moonPhase = context.data["moonPhase"] as? String {
+                    tensors["moon_phase"] = encodeMoonPhase(moonPhase)
+                }
+                if let planetaryEnergy = context.data["primaryPlanet"] as? String {
+                    tensors["planetary_energy"] = encodePlanet(planetaryEnergy)
+                }
+                
+            case "biometric":
+                // Convert biometric data to tensors
+                if let heartRate = context.data["heartRate"] as? Double {
+                    tensors["heart_rate"] = heartRate
+                }
+                
+            default:
+                break
+            }
+        }
+        
+        // Add request metadata
+        tensors["feature_type"] = request.feature.rawValue
+        tensors["insight_type"] = request.type.rawValue
+        tensors["spiritual_depth"] = request.context.constraints.spiritualDepth.rawValue
+        
+        return tensors
+    }
+    
+    /// Encode moon phase for ML processing
+    private func encodeMoonPhase(_ phase: String) -> Double {
+        switch phase.lowercased() {
+        case "new moon": return 0.0
+        case "waxing crescent": return 0.125
+        case "first quarter": return 0.25
+        case "waxing gibbous": return 0.375
+        case "full moon": return 0.5
+        case "waning gibbous": return 0.625
+        case "third quarter": return 0.75
+        case "waning crescent": return 0.875
+        default: return 0.0
+        }
+    }
+    
+    /// Encode planetary energy for ML processing
+    private func encodePlanet(_ planet: String) -> Double {
+        switch planet.lowercased() {
+        case "sun": return 1.0
+        case "moon": return 2.0
+        case "mercury": return 3.0
+        case "venus": return 4.0
+        case "mars": return 5.0
+        case "jupiter": return 6.0
+        case "saturn": return 7.0
+        case "uranus": return 8.0
+        case "neptune": return 9.0
+        case "pluto": return 10.0
+        default: return 0.0
         }
     }
 }
