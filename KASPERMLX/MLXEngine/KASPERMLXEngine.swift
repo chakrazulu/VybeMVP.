@@ -11,9 +11,9 @@ import Combine
 import OSLog
 
 // 🚀 MLX Integration: Uncomment these imports after adding MLX Swift package
-// import MLX
-// import MLXNN  
-// import MLXRandom
+import MLX
+import MLXNN
+import MLXRandom
 
 @MainActor
 class KASPERMLXEngine: ObservableObject {
@@ -1207,20 +1207,20 @@ class KASPERMLXEngine: ObservableObject {
         var trainingExamples: [SpiritualTrainingExample] = []
         
         // Get user feedback data
-        let feedbackManager = KASPERFeedbackManager()
-        let feedbackData = await feedbackManager.getAllFeedback()
+        let feedbackManager = KASPERFeedbackManager.shared
+        let feedbackData = feedbackManager.feedbackHistory
         
-        // Convert high-rated insights to training examples
-        for feedback in feedbackData where feedback.rating >= 4 {
+        // Convert positive-rated insights to training examples
+        for feedback in feedbackData where feedback.rating == FeedbackRating.positive {
             let example = SpiritualTrainingExample(
-                input: createMLXInput(from: feedback.context),
-                output: feedback.insight.content,
-                rating: Double(feedback.rating),
-                feature: feedback.insight.feature,
+                input: createMLXInput(from: feedback.contextData),
+                output: feedback.insightContent,
+                rating: feedback.rating.score,
+                feature: feedback.feature,
                 metadata: [
-                    "user_satisfaction": feedback.rating,
-                    "spiritual_depth": feedback.context["spiritual_depth"] ?? "balanced",
-                    "cosmic_context": feedback.context["cosmic_data"] ?? [:]
+                    "user_satisfaction": feedback.rating.score,
+                    "spiritual_depth": feedback.contextData["spiritual_depth"] ?? "balanced",
+                    "cosmic_context": feedback.contextData["cosmic_data"] ?? [:]
                 ]
             )
             trainingExamples.append(example)
