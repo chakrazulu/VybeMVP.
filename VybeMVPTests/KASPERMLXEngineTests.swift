@@ -71,6 +71,7 @@ final class KASPERMLXEngineTests: XCTestCase {
             defaultCacheExpiry: 60, // Shorter expiry for testing
             inferenceTimeout: 2.0,  // Shorter timeout for testing
             enableDebugLogging: true,
+            enableMLXInference: false, // Use template mode for testing
             modelPath: nil
         )
         

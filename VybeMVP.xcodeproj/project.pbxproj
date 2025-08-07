@@ -118,6 +118,7 @@
 		4D6C7BB92DE480E4001036E5 /* PreparedInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7BB82DE480E4001036E5 /* PreparedInsight.swift */; };
 		4D6C7BBB2DE48126001036E5 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7BBA2DE48126001036E5 /* Logger+Extensions.swift */; };
 		4D6C7BBD2DE4885F001036E5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4D6C7BBC2DE4885F001036E5 /* FirebaseFirestore */; };
+		4D731D2C2E44A34F0083C82C /* SpiritualFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D731D2A2E44A34F0083C82C /* SpiritualFont.swift */; };
 		4D80E0FD2D3F1B0B0020F7BB /* NumberMeaningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E0FC2D3F1B0B0020F7BB /* NumberMeaningView.swift */; };
 		4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */; };
 		4D92F48C2D49E9C90001A16E /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F48B2D49E9BF0001A16E /* TestingView.swift */; };
@@ -453,6 +454,7 @@
 		4D6C7BB42DE48089001036E5 /* UserProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileService.swift; sourceTree = "<group>"; };
 		4D6C7BB82DE480E4001036E5 /* PreparedInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparedInsight.swift; sourceTree = "<group>"; };
 		4D6C7BBA2DE48126001036E5 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
+		4D731D2A2E44A34F0083C82C /* SpiritualFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritualFont.swift; sourceTree = "<group>"; };
 		4D80E0FC2D3F1B0B0020F7BB /* NumberMeaningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMeaningView.swift; sourceTree = "<group>"; };
 		4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchAnalyticsView.swift; sourceTree = "<group>"; };
 		4D80E10C2D41E17A0020F7BB /* VybeMVPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VybeMVPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1001,6 +1003,14 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		4D731D2B2E44A34F0083C82C /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				4D731D2A2E44A34F0083C82C /* SpiritualFont.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		4DA359A02E3F135B0010101F /* MLXCore */ = {
 			isa = PBXGroup;
 			children = (
@@ -1171,6 +1181,7 @@
 		4DC6022D2D34440900B5E4A9 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				4D731D2B2E44A34F0083C82C /* UI */,
 				4D3055972D3C941B009A7BBD /* Data */,
 				4DC602322D34552200B5E4A9 /* KeychainHelper.swift */,
 				4D3055F92D3D899A009A7BBD /* Models */,
@@ -1774,6 +1785,7 @@
 				4D55BE5F2E3AC55400F7BE5B /* CosmicHUDTypes.swift in Sources */,
 				4DE4C3822DB393DA00BB7572 /* NumerologyNotificationTester.swift in Sources */,
 				4D6C7B632DE46A33001036E5 /* BirthdateInputView.swift in Sources */,
+				4D731D2C2E44A34F0083C82C /* SpiritualFont.swift in Sources */,
 				4D92F4BC2D4DE1E80001A16E /* RealmNumberManager.swift in Sources */,
 				4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */,
 				4D2DB4862DFF6A450003353E /* SightingsManager.swift in Sources */,

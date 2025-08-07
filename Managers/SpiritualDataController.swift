@@ -94,8 +94,15 @@ final class SpiritualDataController: ObservableObject {
                 print("✅ In-memory spiritual container created successfully")
             } catch let fallbackError {
                 print("❌ Critical: Even fallback container failed: \(fallbackError)")
-                // Set container to nil - app will have limited functionality
-                self.container = nil
+                // Claude: Create minimal empty container as last resort
+                let emptyConfig = ModelConfiguration(isStoredInMemoryOnly: true)
+                do {
+                    self.container = try ModelContainer(for: NumberMeaning.self, configurations: emptyConfig)
+                } catch {
+                    print("❌ Fatal: Cannot create any container: \(error)")
+                    // This should never happen, but create basic container
+                    self.container = try! ModelContainer(for: NumberMeaning.self)
+                }
             }
         }
     }
