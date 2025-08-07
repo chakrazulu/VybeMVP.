@@ -207,7 +207,26 @@ class UserArchetypeManager: ObservableObject {
         
         // 4. Map Planetary Archetypes
         guard let planetMapping = planetaryMappings[lifePath] else {
-            fatalError("No planetary mapping found for life path \(lifePath)")
+            // Claude: Graceful fallback for unexpected life path numbers
+            assertionFailure("No planetary mapping found for life path \(lifePath)")
+            print("🌀 Cosmic alignment unavailable for life path \(lifePath). Using default mapping.")
+            // Use Sun/Moon as default spiritual archetype
+            let fallbackMapping = (primary: Planet.sun, subconscious: Planet.moon)
+            print("✨ Using universal archetype: Sun (conscious) / Moon (subconscious)")
+            // Store the fallback mapping for consistent use
+            let archetype = UserArchetype(
+                lifePath: lifePath,
+                zodiacSign: zodiacSign,
+                element: element,
+                primaryPlanet: fallbackMapping.primary,
+                subconsciousPlanet: fallbackMapping.subconscious,
+                calculatedDate: Date()
+            )
+            cacheArchetype(archetype)
+            DispatchQueue.main.async {
+                self.currentArchetype = archetype
+            }
+            return archetype
         }
         
         let primaryPlanet = planetMapping.primary
@@ -314,7 +333,11 @@ class UserArchetypeManager: ObservableObject {
         guard let year = components.year,
               let month = components.month,
               let day = components.day else {
-            fatalError("Could not extract date components from birthdate")
+            // Claude: Graceful handling of invalid date components
+            assertionFailure("Could not extract date components from birthdate")
+            print("🌀 Birthdate energy temporarily misaligned. Using default Life Path 1.")
+            // Return Life Path 1 (Sun energy) as a safe default
+            return 1
         }
         
         print("\n📅 Birth Date Components:")

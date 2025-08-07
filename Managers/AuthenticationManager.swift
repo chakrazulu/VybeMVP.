@@ -517,7 +517,11 @@ class AuthenticationManager: ObservableObject {
                 var random: UInt8 = 0
                 let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
                 if errorCode != errSecSuccess {
-                    fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
+                    // Claude: Graceful fallback for nonce generation failure
+                    assertionFailure("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
+                    print("🌀 Cosmic entropy temporarily unavailable. Using fallback random generation.")
+                    // Use a fallback random value from system random generator
+                    random = UInt8.random(in: 0...255)
                 }
                 return random
             }

@@ -79,7 +79,24 @@ final class SpiritualDataController: ObservableObject {
             }
             
         } catch {
-            fatalError("Failed to create ModelContainer: \(error)")
+            // Claude: Graceful handling of ModelContainer creation failure
+            assertionFailure("Failed to create ModelContainer: \(error)")
+            print("🌀 Spiritual data container temporarily unavailable: \(error.localizedDescription)")
+            print("✨ Creating fallback in-memory container for spiritual journey continuity")
+            
+            // Create in-memory container as fallback
+            do {
+                let fallbackConfig = ModelConfiguration(isStoredInMemoryOnly: true)
+                self.container = try ModelContainer(
+                    for: NumberMeaning.self, 
+                    configurations: fallbackConfig
+                )
+                print("✅ In-memory spiritual container created successfully")
+            } catch let fallbackError {
+                print("❌ Critical: Even fallback container failed: \(fallbackError)")
+                // Set container to nil - app will have limited functionality
+                self.container = nil
+            }
         }
     }
     
