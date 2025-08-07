@@ -919,22 +919,12 @@ class KASPERMLXEngine: ObservableObject {
     private func initializeMLXModel() async {
         logger.info("🔮 KASPER MLX: Initializing spiritual consciousness model...")
         
-        do {
-            // Check for MLX model in app bundle
-            guard let modelPath = Bundle.main.path(forResource: "kasper-spiritual-v1", ofType: "mlx") else {
-                logger.info("🔮 KASPER MLX: No MLX model found in bundle, using template fallback")
-                currentModel = "template-v1.0"
-                return
-            }
-            
-            // Attempt to load MLX model (placeholder for actual MLX integration)
-            // In real implementation, this would use MLX Swift package:
-            // mlxModel = try MLXModel.load(from: modelPath)
-            
-            logger.warning("🔮 KASPER MLX: MLX Swift package not yet integrated - using template system")
+        // Check for MLX model in app bundle
+        if Bundle.main.path(forResource: "kasper-spiritual-v1", ofType: "mlx") != nil {
+            logger.warning("🔮 KASPER MLX: MLX model found but MLX Swift package not yet integrated")
             currentModel = "template-v1.0-mlx-ready"
             
-            // When MLX package is added, uncomment and implement:
+            // When MLX package is added, implement real model loading:
             /*
             do {
                 mlxModel = try await loadMLXModel(path: modelPath)
@@ -945,10 +935,9 @@ class KASPERMLXEngine: ObservableObject {
                 currentModel = "template-v1.0-fallback"
             }
             */
-            
-        } catch {
-            logger.error("🔮 KASPER MLX: Model initialization failed: \\(error)")
-            currentModel = "template-v1.0-error-fallback"
+        } else {
+            logger.info("🔮 KASPER MLX: No MLX model found in bundle, using template fallback")
+            currentModel = "template-v1.0"
         }
     }
     
@@ -963,7 +952,7 @@ class KASPERMLXEngine: ObservableObject {
         logger.info("🔮 KASPER MLX: Attempting MLX inference...")
         
         // Prepare input tensors from spiritual contexts
-        let inputTensors = try await prepareSpiritualTensors(from: contexts, for: request)
+        _ = try await prepareSpiritualTensors(from: contexts, for: request)
         
         // Perform MLX inference (placeholder)
         // In real implementation, this would use MLX Swift:
@@ -1041,7 +1030,19 @@ class KASPERMLXEngine: ObservableObject {
         // Add request metadata
         tensors["feature_type"] = request.feature.rawValue
         tensors["insight_type"] = request.type.rawValue
-        tensors["spiritual_depth"] = request.context.constraints.spiritualDepth.rawValue
+        
+        // Handle optional constraints and encode spiritual depth
+        let spiritualDepthValue: Double
+        if let constraints = request.context.constraints {
+            switch constraints.spiritualDepth {
+            case .surface: spiritualDepthValue = 1.0
+            case .balanced: spiritualDepthValue = 2.0
+            case .deep: spiritualDepthValue = 3.0
+            }
+        } else {
+            spiritualDepthValue = 2.0 // Default to balanced
+        }
+        tensors["spiritual_depth"] = spiritualDepthValue
         
         return tensors
     }
