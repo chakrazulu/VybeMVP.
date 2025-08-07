@@ -687,12 +687,11 @@ class KASPERMLXEngine: ObservableObject {
         let astrologicalEvent = cosmicContext?.data["currentTransit"] as? String ??
                                cosmicContext?.data["astroEvent"] as? String
         
-        // Temporary fallback until KASPERTemplateEnhancer.swift is added to project
-        let cosmicElements = [planetaryEnergy, moonPhase, astrologicalEvent]
-            .compactMap { $0 }
-            .joined(separator: " combined with ")
-        let contextText = cosmicElements.isEmpty ? "current cosmic energies" : cosmicElements
-        return "⏰ The cosmic clock reveals a powerful window of opportunity. With \(contextText) active, the universe invites bold spiritual action."
+        return KASPERTemplateEnhancer.generateCosmicTimingInsight(
+            planetaryEnergy: planetaryEnergy,
+            moonPhase: moonPhase,
+            astrologicalEvent: astrologicalEvent
+        )
     }
     
     private func buildMatchInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
@@ -707,9 +706,11 @@ class KASPERMLXEngine: ObservableObject {
                      numerologyContext?.data["targetNumber"] as? Int ?? 7
         let moonPhase = cosmicContext?.data["moonPhase"] as? String
         
-        // Temporary fallback until KASPERTemplateEnhancer.swift is added to project
-        let compatibility = calculateCompatibilityTemp(number1, number2)
-        return "💞 These two souls create \(compatibility) together. Number \(number1) and \(number2) weave sacred spiritual harmony that transcends ordinary connection."
+        return KASPERTemplateEnhancer.generateRelationshipInsight(
+            number1: number1,
+            number2: number2,
+            moonPhase: moonPhase
+        )
     }
     
     private func buildRealmInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
@@ -928,19 +929,39 @@ class KASPERMLXEngine: ObservableObject {
             selectedGuidance = actionableBackups.randomElement() ?? "trust your spiritual journey"
         }
         
-        // Claude: ENHANCED - Use new natural language templates instead of rigid patterns
-        // NOTE: Add KASPERTemplateEnhancer.swift to Xcode project to enable enhanced templates
+        // Claude: ENHANCED - Use new natural language templates for flowing spiritual insights
         switch type {
         case .guidance:
-            return "🌟 Today, \(selectedComponent) flows through \(selectedReference). \(selectedGuidance.capitalized)."
+            return KASPERTemplateEnhancer.generateGuidanceInsight(
+                component: selectedComponent,
+                reference: selectedReference,
+                guidance: selectedGuidance
+            )
         case .reflection:
-            return "🌙 With \(selectedComponent) active, reflect on how \(selectedReference) guides your journey. \(selectedGuidance.capitalized)."
+            return KASPERTemplateEnhancer.generateReflectionInsight(
+                component: selectedComponent,
+                reference: selectedReference,
+                guidance: selectedGuidance
+            )
         case .affirmation:
-            return "💫 I embrace \(selectedComponent) through \(selectedReference). I \(selectedGuidance)."
+            return KASPERTemplateEnhancer.generateAffirmationInsight(
+                component: selectedComponent,
+                reference: selectedReference,
+                guidance: selectedGuidance
+            )
         case .prediction:
-            return "🔮 \(selectedComponent.capitalized) channels through \(selectedReference). \(selectedGuidance.capitalized)."
+            return KASPERTemplateEnhancer.generatePredictionInsight(
+                component: selectedComponent,
+                reference: selectedReference,
+                guidance: selectedGuidance
+            )
         default:
-            return "✨ \(selectedComponent.capitalized) channels through \(selectedReference). \(selectedGuidance.capitalized)."
+            // Default fallback to guidance style for unknown types
+            return KASPERTemplateEnhancer.generateGuidanceInsight(
+                component: selectedComponent,
+                reference: selectedReference,
+                guidance: selectedGuidance
+            )
         }
     }
     
@@ -1111,17 +1132,6 @@ class KASPERMLXEngine: ObservableObject {
         }
     }
     
-    /// Temporary compatibility calculation helper
-    private func calculateCompatibilityTemp(_ num1: Int, _ num2: Int) -> String {
-        let sum = (num1 + num2) % 9
-        switch sum {
-        case 1, 5, 9: return "powerful spiritual resonance"
-        case 2, 6: return "harmonious heart connection"
-        case 3, 7: return "creative mystical synergy"
-        case 4, 8: return "grounding manifestation power"
-        default: return "unique transformative bond"
-        }
-    }
     
     // MARK: - 🚀 Real MLX Integration Methods
     

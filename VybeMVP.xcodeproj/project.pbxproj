@@ -124,6 +124,7 @@
 		4D731D332E44B1510083C82C /* MLXNN in Frameworks */ = {isa = PBXBuildFile; productRef = 4D731D322E44B1510083C82C /* MLXNN */; };
 		4D731D352E44B1510083C82C /* MLXRandom in Frameworks */ = {isa = PBXBuildFile; productRef = 4D731D342E44B1510083C82C /* MLXRandom */; };
 		4D731D372E453EBD0083C82C /* KASPERTrainingExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D731D362E453EBD0083C82C /* KASPERTrainingExporter.swift */; };
+		4D731D392E4542940083C82C /* KASPERTemplateEnhancer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D731D382E4542940083C82C /* KASPERTemplateEnhancer.swift */; };
 		4D80E0FD2D3F1B0B0020F7BB /* NumberMeaningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E0FC2D3F1B0B0020F7BB /* NumberMeaningView.swift */; };
 		4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */; };
 		4D92F48C2D49E9C90001A16E /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F48B2D49E9BF0001A16E /* TestingView.swift */; };
@@ -461,6 +462,7 @@
 		4D6C7BBA2DE48126001036E5 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 		4D731D2A2E44A34F0083C82C /* SpiritualFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritualFont.swift; sourceTree = "<group>"; };
 		4D731D362E453EBD0083C82C /* KASPERTrainingExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERTrainingExporter.swift; sourceTree = "<group>"; };
+		4D731D382E4542940083C82C /* KASPERTemplateEnhancer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERTemplateEnhancer.swift; sourceTree = "<group>"; };
 		4D80E0FC2D3F1B0B0020F7BB /* NumberMeaningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMeaningView.swift; sourceTree = "<group>"; };
 		4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchAnalyticsView.swift; sourceTree = "<group>"; };
 		4D80E10C2D41E17A0020F7BB /* VybeMVPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VybeMVPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1042,6 +1044,7 @@
 		4DA359A42E3F135B0010101F /* MLXEngine */ = {
 			isa = PBXGroup;
 			children = (
+				4D731D382E4542940083C82C /* KASPERTemplateEnhancer.swift */,
 				4DA359A32E3F135B0010101F /* KASPERMLXEngine.swift */,
 			);
 			path = MLXEngine;
@@ -1804,6 +1807,7 @@
 				4D6C7B632DE46A33001036E5 /* BirthdateInputView.swift in Sources */,
 				4D731D2C2E44A34F0083C82C /* SpiritualFont.swift in Sources */,
 				4D92F4BC2D4DE1E80001A16E /* RealmNumberManager.swift in Sources */,
+				4D731D392E4542940083C82C /* KASPERTemplateEnhancer.swift in Sources */,
 				4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */,
 				4D2DB4862DFF6A450003353E /* SightingsManager.swift in Sources */,
 				4DF77E4F2E358DC500B6D45E /* PostManager.swift in Sources */,
