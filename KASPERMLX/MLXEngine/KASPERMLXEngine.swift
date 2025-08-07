@@ -10,6 +10,11 @@ import Foundation
 import Combine
 import OSLog
 
+// 🚀 MLX Integration: Uncomment these imports after adding MLX Swift package
+// import MLX
+// import MLXNN  
+// import MLXRandom
+
 @MainActor
 class KASPERMLXEngine: ObservableObject {
     
@@ -1078,4 +1083,173 @@ class KASPERMLXEngine: ObservableObject {
         default: return 0.0
         }
     }
+    
+    // MARK: - 🚀 Real MLX Integration Methods
+    
+    /// Load MLX model from file path - Ready for activation!
+    /// Claude: Uncomment after adding MLX Swift package
+    private func loadMLXModel(path: String) async throws -> Any {
+        logger.info("🔮 KASPER MLX: Loading spiritual consciousness model from: \(path)")
+        
+        /* 🚀 ACTIVATE AFTER MLX PACKAGE ADDED:
+        do {
+            // Load the MLX model file
+            let modelData = try Data(contentsOf: URL(fileURLWithPath: path))
+            
+            // Create MLX model from data
+            let model = try MLXModel.load(from: modelData)
+            
+            logger.info("🔮 KASPER MLX: Spiritual consciousness model loaded successfully! ✨")
+            return model
+            
+        } catch {
+            logger.error("🔮 KASPER MLX: Model loading failed: \(error)")
+            throw KASPERMLXError.modelNotLoaded
+        }
+        */
+        
+        // Current placeholder - remove when activating real MLX
+        logger.info("🔮 KASPER MLX: Model loading ready - waiting for MLX package activation")
+        throw KASPERMLXError.modelNotLoaded
+    }
+    
+    /// Decode MLX output tensors to spiritual insight text - Ready for activation!
+    /// Claude: Uncomment after adding MLX Swift package
+    private func decodeMLXSpiritualOutput(_ outputs: Any, for feature: KASPERFeature) throws -> String {
+        logger.info("🔮 KASPER MLX: Decoding MLX spiritual output for feature: \(feature.rawValue)")
+        
+        /* 🚀 ACTIVATE AFTER MLX PACKAGE ADDED:
+        do {
+            // Cast outputs to MLX tensor array
+            guard let tensorOutputs = outputs as? [MLXArray] else {
+                throw KASPERMLXError.invalidContext
+            }
+            
+            // Get the main output tensor (text logits)
+            guard let outputTensor = tensorOutputs.first else {
+                throw KASPERMLXError.insufficientData
+            }
+            
+            // Decode tensor to text using MLX text generation
+            let decodedTokens = try outputTensor.asType(.int32).scalars(Int32.self)
+            let insightText = try decodeTokensToSpiritual​Text(decodedTokens, for: feature)
+            
+            logger.info("🔮 KASPER MLX: Successfully decoded \(insightText.count) characters of spiritual guidance")
+            return insightText
+            
+        } catch {
+            logger.error("🔮 KASPER MLX: Output decoding failed: \(error)")
+            throw error
+        }
+        */
+        
+        // Current placeholder - remove when activating real MLX
+        return "MLX spiritual consciousness ready for activation ✨"
+    }
+    
+    /// Convert MLX tokens back to spiritual insight text
+    /// Claude: Helper method for token-to-text decoding
+    private func decodeTokensToSpiritual​Text(_ tokens: [Int32], for feature: KASPERFeature) throws -> String {
+        /* 🚀 ACTIVATE AFTER MLX PACKAGE ADDED:
+        // This would use a tokenizer to convert tokens back to text
+        // For spiritual insights, we'd have a custom vocabulary that includes
+        // spiritual terms, cosmic concepts, and numerological language
+        
+        var spiritualText = ""
+        for token in tokens {
+            // Map tokens to spiritual vocabulary
+            if let word = spiritualTokenizer.decode(token) {
+                spiritualText += word + " "
+            }
+        }
+        
+        // Post-process for spiritual authenticity
+        return enhanceSpiritual​Authenticity(spiritualText, for: feature)
+        */
+        
+        // Current placeholder
+        return "Decoded spiritual insight from MLX tensors for \(feature.rawValue)"
+    }
+    
+    /// Enhance decoded text with spiritual authenticity
+    /// Claude: Ensures MLX output maintains spiritual integrity
+    private func enhanceSpiritual​Authenticity(_ text: String, for feature: KASPERFeature) -> String {
+        var enhanced = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // Add feature-specific spiritual enhancement
+        switch feature {
+        case .journalInsight:
+            enhanced = "✨ " + enhanced + " Trust in your inner wisdom."
+        case .dailyCard:
+            enhanced = "🌟 Daily Guidance: " + enhanced + " Embrace today's energy."
+        case .sanctumGuidance:
+            enhanced = "🧘‍♀️ Sacred Space: " + enhanced + " Find peace within."
+        case .matchCompatibility:
+            enhanced = "💫 Cosmic Connection: " + enhanced + " Soul recognition flows."
+        case .cosmicTiming:
+            enhanced = "⏰ Divine Timing: " + enhanced + " The universe aligns."
+        case .focusIntention:
+            enhanced = "🎯 Focused Intent: " + enhanced + " Manifest with clarity."
+        case .realmInterpretation:
+            enhanced = "🌌 Realm Insight: " + enhanced + " Your journey unfolds."
+        }
+        
+        return enhanced
+    }
+    
+    // MARK: - 🧠 MLX Training Infrastructure
+    
+    /// Prepare training data from user feedback - Ready for model training!
+    /// Claude: This creates the dataset for fine-tuning spiritual MLX models
+    func exportTrainingData() async throws -> [SpiritualTrainingExample] {
+        logger.info("🔮 KASPER MLX: Exporting spiritual training data...")
+        
+        var trainingExamples: [SpiritualTrainingExample] = []
+        
+        // Get user feedback data
+        let feedbackManager = KASPERFeedbackManager()
+        let feedbackData = await feedbackManager.getAllFeedback()
+        
+        // Convert high-rated insights to training examples
+        for feedback in feedbackData where feedback.rating >= 4 {
+            let example = SpiritualTrainingExample(
+                input: createMLXInput(from: feedback.context),
+                output: feedback.insight.content,
+                rating: Double(feedback.rating),
+                feature: feedback.insight.feature,
+                metadata: [
+                    "user_satisfaction": feedback.rating,
+                    "spiritual_depth": feedback.context["spiritual_depth"] ?? "balanced",
+                    "cosmic_context": feedback.context["cosmic_data"] ?? [:]
+                ]
+            )
+            trainingExamples.append(example)
+        }
+        
+        logger.info("🔮 KASPER MLX: Exported \(trainingExamples.count) training examples")
+        return trainingExamples
+    }
+    
+    /// Create MLX training input from spiritual context
+    private func createMLXInput(from context: [String: Any]) -> [String: Any] {
+        var mlxInput: [String: Any] = [:]
+        
+        // Extract spiritual features
+        mlxInput["focus_number"] = context["focus_number"] ?? 0
+        mlxInput["moon_phase"] = context["moon_phase"] ?? "new moon"
+        mlxInput["planetary_energy"] = context["planetary_energy"] ?? "neutral"
+        mlxInput["spiritual_mode"] = context["spiritual_mode"] ?? "balanced"
+        mlxInput["user_intent"] = context["user_query"] ?? ""
+        
+        return mlxInput
+    }
+}
+
+/// Training example for MLX spiritual model
+struct SpiritualTrainingExample {
+    let input: [String: Any]
+    let output: String
+    let rating: Double
+    let feature: KASPERFeature
+    let metadata: [String: Any]
 }
