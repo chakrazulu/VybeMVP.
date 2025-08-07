@@ -9,12 +9,12 @@
 import Foundation
 
 /// Enhanced template generator for natural spiritual language
-struct KASPERTemplateEnhancer {
+public struct KASPERTemplateEnhancer {
     
     // MARK: - Enhanced Insight Templates
     
     /// Generate guidance insights with natural language flow
-    static func generateGuidanceInsight(
+    public static func generateGuidanceInsight(
         component: String,
         reference: String,
         guidance: String
@@ -55,7 +55,7 @@ struct KASPERTemplateEnhancer {
     }
     
     /// Generate reflection insights with contemplative depth
-    static func generateReflectionInsight(
+    public static func generateReflectionInsight(
         component: String,
         reference: String,
         guidance: String
@@ -96,7 +96,7 @@ struct KASPERTemplateEnhancer {
     }
     
     /// Generate affirmation insights with empowering energy
-    static func generateAffirmationInsight(
+    public static func generateAffirmationInsight(
         component: String,
         reference: String,
         guidance: String
@@ -137,7 +137,7 @@ struct KASPERTemplateEnhancer {
     }
     
     /// Generate prediction insights with mystical foresight
-    static func generatePredictionInsight(
+    public static func generatePredictionInsight(
         component: String,
         reference: String,
         guidance: String
@@ -249,7 +249,7 @@ struct KASPERTemplateEnhancer {
     // MARK: - Relationship Compatibility Templates
     
     /// Generate relationship compatibility insights
-    static func generateRelationshipInsight(
+    public static func generateRelationshipInsight(
         number1: Int,
         number2: Int,
         moonPhase: String? = nil
@@ -369,7 +369,7 @@ struct KASPERTemplateEnhancer {
     // MARK: - Cosmic Timing Templates
     
     /// Generate cosmic timing insights
-    static func generateCosmicTimingInsight(
+    public static func generateCosmicTimingInsight(
         planetaryEnergy: String? = nil,
         moonPhase: String? = nil,
         astrologicalEvent: String? = nil

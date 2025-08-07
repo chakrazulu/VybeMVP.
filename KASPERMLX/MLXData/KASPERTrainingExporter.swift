@@ -291,48 +291,53 @@ class KASPERTrainingExporter: ObservableObject {
     }
     
     private func generateHighQualityInsight(for feature: KASPERFeature, focusNumber: Int) async -> String {
-        // Use template enhancer to generate high-quality synthetic examples
+        // Generate high-quality synthetic examples
         let component = getComponentForFocus(focusNumber)
         let reference = getReferenceForFocus(focusNumber)
         let guidance = getGuidanceForFocus(focusNumber)
         
         switch feature {
-        case .journalInsight, .dailyCard:
-            return KASPERTemplateEnhancer.generateGuidanceInsight(
-                component: component,
-                reference: reference,
-                guidance: guidance
-            )
+        case .journalInsight:
+            return "✨ Your journal reveals \(component) within your spiritual journey. \(reference.capitalizeFirstLetter()) guides you to \(guidance), allowing divine wisdom to illuminate your path forward."
+        case .dailyCard:
+            return "🌟 Today's spiritual landscape reveals \(component) radiating through \(reference). This cosmic alignment suggests that when you \(guidance), profound transformation naturally unfolds."
         case .sanctumGuidance:
-            return KASPERTemplateEnhancer.generateReflectionInsight(
-                component: component,
-                reference: reference,
-                guidance: guidance
-            )
+            return "🌙 Within the sacred spaces of your soul, \(component) speaks through \(reference). Listen deeply as you \(guidance), allowing inner wisdom to surface naturally."
         case .focusIntention:
-            return KASPERTemplateEnhancer.generateAffirmationInsight(
-                component: component,
-                reference: reference,
-                guidance: guidance
-            )
+            return "💫 I embody \(component) as it flows through \(reference) with grace and purpose. Each day I \(guidance), stepping deeper into my divine truth."
         case .cosmicTiming:
-            return KASPERTemplateEnhancer.generateCosmicTimingInsight(
-                planetaryEnergy: "Mercury",
-                moonPhase: "Full Moon",
-                astrologicalEvent: nil
-            )
+            return "⏰ Divine timing orchestrates Mercury's influence combined with the Full Moon to support your soul's evolution. The celestial symphony plays your song - dance with it, and watch as synchronized events align to guide your path forward."
         case .matchCompatibility:
-            return KASPERTemplateEnhancer.generateRelationshipInsight(
-                number1: focusNumber,
-                number2: (focusNumber + 4) % 9 + 1,
-                moonPhase: "New Moon"
-            )
+            let compatibility = calculateCompatibility(focusNumber, (focusNumber + 4) % 9 + 1)
+            return "💞 These two souls create harmonious heart connection together. Number \(focusNumber) brings \(getNumberGift(focusNumber)), while number \((focusNumber + 4) % 9 + 1) offers \(getNumberGift((focusNumber + 4) % 9 + 1)). This combination suggests \(compatibility) that deepens through conscious spiritual practice."
         case .realmInterpretation:
-            return KASPERTemplateEnhancer.generatePredictionInsight(
-                component: component,
-                reference: reference,
-                guidance: guidance
-            )
+            return "🔮 The cosmic winds carry \(component) through \(reference) toward a pivotal moment ahead. As you \(guidance), watch for synchronicities that confirm you're on the right path."
+        }
+    }
+    
+    private func calculateCompatibility(_ num1: Int, _ num2: Int) -> String {
+        let sum = (num1 + num2) % 9
+        switch sum {
+        case 1, 5, 9: return "powerful spiritual resonance"
+        case 2, 6: return "harmonious heart connection"
+        case 3, 7: return "creative mystical synergy"
+        case 4, 8: return "grounding manifestation power"
+        default: return "unique transformative bond"
+        }
+    }
+    
+    private func getNumberGift(_ number: Int) -> String {
+        switch number {
+        case 1: return "pioneering leadership"
+        case 2: return "harmonious collaboration"
+        case 3: return "creative expression"
+        case 4: return "stable foundations"
+        case 5: return "adventurous transformation"
+        case 6: return "nurturing wisdom"
+        case 7: return "mystical insight"
+        case 8: return "manifestation mastery"
+        case 9: return "universal compassion"
+        default: return "unique spiritual gifts"
         }
     }
     
@@ -431,4 +436,16 @@ private struct TrainingExample {
     let rating: FeedbackRating
     let timestamp: Date
     let contextData: [String: String]
+}
+
+// MARK: - Helper Extensions
+
+private extension String {
+    func lowercaseFirstLetter() -> String {
+        return prefix(1).lowercased() + dropFirst()
+    }
+    
+    func capitalizeFirstLetter() -> String {
+        return prefix(1).uppercased() + dropFirst()
+    }
 }
