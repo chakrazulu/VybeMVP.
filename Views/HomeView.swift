@@ -631,7 +631,7 @@ struct HomeView: View {
                     HStack {
                         VStack(alignment: .leading, spacing: 6) {
                             HStack(spacing: 8) {
-                                // Pulsing cosmic indicator
+                                // Pulsing cosmic indicator - PERFORMANCE OPTIMIZED
                                 Circle()
                                     .fill(
                                         RadialGradient(
@@ -647,7 +647,13 @@ struct HomeView: View {
                                     )
                                     .frame(width: 12, height: 12)
                                     .scaleEffect(kasperMLX.isGeneratingInsight ? 1.2 : 1.0)
-                                    .animation(.easeInOut(duration: 1.0).repeatForever(), value: kasperMLX.isGeneratingInsight)
+                                    // FIXED: Use autoreverses for smooth pulsing without expensive recalculation
+                                    .animation(
+                                        kasperMLX.isGeneratingInsight ? 
+                                        .easeInOut(duration: 1.0).repeatForever(autoreverses: true) : 
+                                        .easeInOut(duration: 0.3),
+                                        value: kasperMLX.isGeneratingInsight
+                                    )
                                 
                                 Text("🔮 KASPER AI Insight")
                                     .font(.title2)
@@ -701,17 +707,31 @@ struct HomeView: View {
                         .accessibilityLabel("Dismiss KASPER insight card")
                     }
                     
-                    // Claude: Fixed loading state management - use local state instead of manager state
-                    if isKasperLoading {
-                        kasperLoadingState
-                    } else if let error = kasperError {
-                        kasperErrorDisplay(error)
-                    } else if let insight = kasperInsight {
-                        kasperInsightDisplay(insight)
-                    } else {
+                    // Claude: DEFINITIVE RESIZE HITCH FIX - Use opacity transitions instead of layout animations
+                    ZStack {
+                        // Generate button (always present for consistent layout)
                         kasperGenerateButton
+                            .opacity(kasperInsight == nil && !isKasperLoading && kasperError == nil ? 1.0 : 0.0)
+                        
+                        // Loading state
+                        kasperLoadingState
+                            .opacity(isKasperLoading ? 1.0 : 0.0)
+                        
+                        // Error state
+                        if let error = kasperError {
+                            kasperErrorDisplay(error)
+                                .opacity(1.0)
+                        }
+                        
+                        // Insight display
+                        if let insight = kasperInsight {
+                            kasperInsightDisplay(insight)
+                                .opacity(1.0)
+                        }
                     }
+                    .animation(.easeInOut(duration: 0.3), value: isKasperLoading)  // Only animate loading state
                 }
+                .frame(minHeight: 200)  // Claude: FIXED - Prevent container resize hitch
                 .padding(20)
                 .background(
                     ZStack {
@@ -812,52 +832,37 @@ struct HomeView: View {
                     )
             )
         }
-        .frame(maxWidth: .infinity, minHeight: 80)
+        .frame(maxWidth: .infinity)
+        .frame(height: 265)  // Claude: Perfect height for complete insights + one more line
     }
     
-    /// Claude: Enhanced loading state for KASPER insight generation with shimmer effect
+    /// Claude: SIMPLIFIED loading state - Prevents compiler timeout
     private var kasperLoadingState: some View {
-        VStack(spacing: 12) {
-            // Cosmic loading animation
-            VStack(spacing: 8) {
-                ForEach(0..<3) { index in
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(
-                            LinearGradient(
-                                gradient: Gradient(colors: [
-                                    Color.white.opacity(0.1),
-                                    Color.cyan.opacity(0.3),
-                                    Color.white.opacity(0.1)
-                                ]),
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .frame(height: CGFloat(20 - index * 2))
-                        .opacity(0.7)
-                        .scaleEffect(0.95 + 0.1 * sin(Date().timeIntervalSince1970 * 2 + Double(index)))
-                        .animation(.easeInOut(duration: 1.5).repeatForever(), value: Date().timeIntervalSince1970)
-                }
-            }
+        VStack(spacing: 16) {
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: .cyan))
+                .scaleEffect(1.5)
             
             Text("Consulting the cosmic wisdom...")
                 .font(.body)
                 .foregroundColor(.white.opacity(0.8))
                 .italic()
-                .opacity(0.8 + 0.2 * sin(Date().timeIntervalSince1970 * 1.5))
         }
-        .frame(maxWidth: .infinity, minHeight: 80)
+        .frame(maxWidth: .infinity)
+        .frame(height: 265)  // Claude: Perfect height for complete insights + one more line
     }
     
-    /// Claude: Display generated KASPER insight with actions
+    /// Claude: Display generated KASPER insight with actions - FIXED RESIZE HITCH
     private func kasperInsightDisplay(_ insight: KASPERInsight) -> some View {
         VStack(alignment: .leading, spacing: 12) {
+            // Claude: DEFINITIVE HITCH FIX - Use fixed height container to prevent resize
             Text(insight.content)
                 .font(.body)
                 .foregroundColor(.white.opacity(0.9))
                 .multilineTextAlignment(.leading)
                 .lineSpacing(4)
-                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, minHeight: 140, maxHeight: 165, alignment: .topLeading)  // Perfect size for one more line!
+                .clipped()  // Clip overflow to prevent resize
             
             // Insight metadata
             HStack {
@@ -994,6 +999,7 @@ struct HomeView: View {
                     .scaleEffect(kasperMLX.isReady ? 1.0 : 0.8)
                     .opacity(kasperMLX.isReady ? 1.0 : 0.5)
             }
+            .frame(height: 120)  // Claude: DEFINITIVE HITCH FIX - Match other states
             .padding(20)
             .background(
                 RoundedRectangle(cornerRadius: 16)
