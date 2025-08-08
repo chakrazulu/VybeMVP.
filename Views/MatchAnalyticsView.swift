@@ -27,6 +27,8 @@ import CoreData
  * Design pattern: MVVM (Model-View-ViewModel)
  * Dependencies: CoreData for match history access
  */
+// Claude: SWIFT 6 COMPLIANCE - Added @MainActor for UI state management
+@MainActor
 class MatchAnalyticsViewModel: ObservableObject {
     /// The selected time range for analytics display
     @Published var selectedTimeFrame: TimeFrame = .day
@@ -94,6 +96,34 @@ class MatchAnalyticsViewModel: ObservableObject {
     }
     
     /**
+     * Determines the most frequently matched realm number.
+     *
+     * REALM NUMBER ANALYTICS ENHANCEMENT:
+     * This method provides insights into which spiritual states (realm numbers)
+     * coincide most often with synchronicity events, enabling users to understand
+     * optimal timing for spiritual practices and manifestation work.
+     *
+     * This method:
+     * 1. Groups matches by the realm number active during the match
+     * 2. Counts occurrences of each realm number  
+     * 3. Finds the realm number with the highest count
+     * 4. Returns the number and count as a formatted string
+     *
+     * - Returns: String describing the most common realm number and its frequency
+     */
+    func getMostCommonRealmNumber() -> String {
+        let realmCounts = Dictionary(grouping: matchLogs) { $0.realmNumber }
+            .mapValues { $0.count }
+        
+        if let maxCount = realmCounts.values.max(),
+           let mostCommonRealm = realmCounts.first(where: { $0.value == maxCount })?.key {
+            return "\(mostCommonRealm) (\(maxCount) times)"
+        }
+        
+        return "No matches yet"
+    }
+    
+    /**
      * Identifies the hour of day when matches most frequently occur.
      *
      * This method:
@@ -146,8 +176,11 @@ class MatchAnalyticsViewModel: ObservableObject {
             return "No matches yet"
         }
         
-        let firstMatch = matchLogs.last!.timestamp
-        let lastMatch = matchLogs.first!.timestamp
+        // Claude: DORMANT BUG FIX - Replace force unwraps with safe optional handling
+        guard let firstMatch = matchLogs.last?.timestamp,
+              let lastMatch = matchLogs.first?.timestamp else {
+            return "No valid match data"
+        }
         
         let daysBetween = calendar.dateComponents([.day], from: firstMatch, to: lastMatch).day ?? 0
         
@@ -548,6 +581,18 @@ struct MatchAnalyticsView: View {
                     value: commonNumber,
                     icon: "number.circle.fill",
                     color: .cyan
+                )
+                
+                Divider()
+                    .background(Color.white.opacity(0.2))
+                
+                // REALM NUMBER ANALYTICS ENHANCEMENT: Most common realm number
+                let commonRealm = viewModel.getMostCommonRealmNumber()
+                CosmicPatternRow(
+                    title: "Most Common Realm Number",
+                    value: commonRealm,
+                    icon: "crown.circle.fill",
+                    color: .purple
                 )
                 
                 Divider()

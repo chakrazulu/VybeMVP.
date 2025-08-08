@@ -956,7 +956,7 @@ struct NatalChartSection: View {
             aspects.append(NatalAspect(
                 planet1: "Sun",
                 planet2: "Moon",
-                type: .sextile,
+                type: .harmonious,
                 orb: 3.2,
                 maxOrb: 6.0,
                 interpretation: "Harmonious balance between conscious will and emotional nature"
@@ -965,7 +965,7 @@ struct NatalChartSection: View {
             aspects.append(NatalAspect(
                 planet1: "Venus",
                 planet2: "Jupiter",
-                type: .trine,
+                type: .flowing,
                 orb: 4.1,
                 maxOrb: 8.0,
                 interpretation: "Natural abundance and graceful expansion in relationships"
@@ -974,7 +974,7 @@ struct NatalChartSection: View {
             aspects.append(NatalAspect(
                 planet1: "Sun",
                 planet2: "Mercury",
-                type: .conjunction,
+                type: .unifying,
                 orb: 2.1,
                 maxOrb: 10.0,
                 interpretation: "Strong integration of mind and identity"
@@ -984,7 +984,7 @@ struct NatalChartSection: View {
             aspects.append(NatalAspect(
                 planet1: "Moon",
                 planet2: "Saturn",
-                type: .square,
+                type: .challenging,
                 orb: 5.3,
                 maxOrb: 8.0,
                 interpretation: "Learning to balance emotional needs with responsibility"
@@ -993,7 +993,7 @@ struct NatalChartSection: View {
             aspects.append(NatalAspect(
                 planet1: "Mars",
                 planet2: "Pluto",
-                type: .opposition,
+                type: .dynamic,
                 orb: 6.8,
                 maxOrb: 8.0,
                 interpretation: "Transforming personal will through deep psychological insights"

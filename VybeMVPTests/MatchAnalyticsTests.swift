@@ -3,6 +3,7 @@ import XCTest
 import CoreData
 import SwiftUI
 
+@MainActor
 final class MatchAnalyticsTests: XCTestCase {
     var focusNumberManager: FocusNumberManager!
     var persistenceController: PersistenceController!
@@ -83,6 +84,8 @@ final class MatchAnalyticsTests: XCTestCase {
         match.timestamp = timestamp
         match.chosenNumber = chosenNumber
         match.matchedNumber = chosenNumber
+        // REALM NUMBER ANALYTICS ENHANCEMENT: Set realm number for test analytics
+        match.realmNumber = chosenNumber  // Use same number for simplicity in tests
     }
     
     private func saveContext() {
@@ -119,6 +122,14 @@ final class MatchAnalyticsTests: XCTestCase {
         let viewModel = getAnalyticsViewModel()
         let commonNumber = viewModel.getMostCommonFocusNumber()
         XCTAssertEqual(commonNumber, "5 (6 times)", "Most common focus number should be 5 with 6 occurrences")
+    }
+    
+    // REALM NUMBER ANALYTICS ENHANCEMENT: Test the new realm number analytics
+    func testMostCommonRealmNumber() throws {
+        let viewModel = getAnalyticsViewModel()
+        let commonRealm = viewModel.getMostCommonRealmNumber()
+        // In our test data, realm numbers match focus numbers, so 5 should be most common
+        XCTAssertEqual(commonRealm, "5 (6 times)", "Most common realm number should be 5 with 6 occurrences")
     }
 } 
 

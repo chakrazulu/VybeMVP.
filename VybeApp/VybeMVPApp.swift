@@ -40,6 +40,7 @@
  */
 
 import SwiftUI
+import SwiftData  // Added for SwiftData support
 import os.log
 import BackgroundTasks
 import FirebaseCore
@@ -79,12 +80,24 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         BGTaskScheduler.shared.register(
             forTaskWithIdentifier: "com.infinitiesinn.vybe.backgroundUpdate",
             using: nil) { task in
-                BackgroundManager.shared.handleBackgroundTask(task as! BGAppRefreshTask)
+                // Claude: DORMANT BUG FIX - Replace force cast with safe cast
+                guard let refreshTask = task as? BGAppRefreshTask else {
+                    print("⚠️ Unexpected background task type received for backgroundUpdate")
+                    task.setTaskCompleted(success: false)
+                    return
+                }
+                BackgroundManager.shared.handleBackgroundTask(refreshTask)
             }
         
         // Register background tasks
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.infinitiesinn.vybe.heartrate-update", using: nil) { task in
-            self.handleHeartRateUpdate(task: task as! BGAppRefreshTask)
+            // Claude: DORMANT BUG FIX - Replace force cast with safe cast
+            guard let refreshTask = task as? BGAppRefreshTask else {
+                print("⚠️ Unexpected background task type received for heartrate-update")
+                task.setTaskCompleted(success: false)
+                return
+            }
+            self.handleHeartRateUpdate(task: refreshTask)
         }
         
         // Set delegate for notification handling
@@ -204,6 +217,7 @@ struct VybeMVPApp: App {
     @StateObject private var cosmicService = CosmicService.shared
     @StateObject private var cosmicHUDIntegration = CosmicHUDIntegration.shared
     @StateObject private var kasperMLXManager = KASPERMLXManager.shared
+    @StateObject private var spiritualDataController = SpiritualDataController.shared
     @Environment(\.scenePhase) private var scenePhase
     let persistenceController = PersistenceController.shared
     
@@ -238,6 +252,7 @@ struct VybeMVPApp: App {
     var body: some Scene {
         WindowGroup {
             AuthenticationWrapperView()
+                .modelContainer(spiritualDataController.container)
                 .environmentObject(realmNumberManager)
                 .environmentObject(journalManager)
                 .environmentObject(focusNumberManager)
@@ -246,6 +261,7 @@ struct VybeMVPApp: App {
                 .environmentObject(cosmicService)
                 .environmentObject(cosmicHUDIntegration)
                 .environmentObject(kasperMLXManager)
+                .environmentObject(spiritualDataController)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .modifier(cosmicHUDIntegration.integrateWithMainApp())
                 .onAppear {
@@ -407,7 +423,9 @@ struct VybeMVPApp: App {
             DispatchQueue.main.async {
                 if let fetchedProfile = profile {
                     Logger.ai.info("FETCH_PROFILE_FOR_AI (Callback for \(userID)): UserProfile fetched successfully. Configuring AIInsightManager.")
-                    AIInsightManager.shared.configureAndRefreshInsight(for: fetchedProfile)
+                    Task {
+                        await AIInsightManager.shared.configureAndRefreshInsight(for: fetchedProfile)
+                    }
                     UserProfileService.shared.cacheUserProfileToUserDefaults(fetchedProfile)
                 } else {
                     Logger.network.error("FETCH_PROFILE_FOR_AI (Callback for \(userID)): UserProfile fetch returned nil but no error. AIInsightManager will not be configured.")

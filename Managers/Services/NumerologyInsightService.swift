@@ -40,24 +40,7 @@
 
 import Foundation
 
-/**
- * InsightCategory: Static constants for numerology message categories
- * 
- * Defines the available categories of spiritual content that can be
- * loaded from the numerology JSON files.
- */
-struct InsightCategory {
-    static let insight = "insight"
-    static let reflection = "reflection"
-    static let contemplation = "contemplation"
-    static let manifestation = "manifestation"
-    static let challenge = "challenge"
-    static let physicalPractice = "physical_practice"
-    static let shadow = "shadow"
-    static let archetype = "archetype"
-    static let energyCheck = "energy_check"
-    // Add other categories as needed
-}
+// Claude: Removed duplicate InsightCategory struct - now using SwiftData enum from NumberMeaning.swift
 
 /**
  * NumerologyInsightService: Core service for loading numerology insights from JSON files
@@ -85,7 +68,7 @@ struct NumerologyInsightService {
      * @param category The category of insight to fetch (defaults to "insight")
      * @return A random insight message or nil if loading fails
      */
-    func fetchInsight(forNumber number: Int, category: String = InsightCategory.insight) -> String? {
+    func fetchInsight(forNumber number: Int, category: String = InsightCategory.insight.rawValue) -> String? {
         guard (0...9).contains(number) else {
             print("Error: Invalid number provided to fetchInsight: \(number)")
             return nil

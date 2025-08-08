@@ -31,8 +31,8 @@ struct NumberMatchNotificationView: View {
     /// Optional callback when user dismisses the view
     var onDismiss: (() -> Void)?
     
-    // Keep meaning manager if we still want the "About Number" section
-    private let meaningManager = NumberMeaningManager.shared 
+    // Claude: Updated to use SwiftData SpiritualDataController instead of NumberMeaningManager
+    @EnvironmentObject private var spiritualDataController: SpiritualDataController 
 
     var body: some View {
         ScrollView {
@@ -53,8 +53,11 @@ struct NumberMatchNotificationView: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal)
                 
-                // Optional: Keep the "About Number" section using meaningManager
-                if let meaning = meaningManager.getMeaning(for: matchNumber) {
+                // TODO: Implement async NumberMeaning loading with SwiftData
+                // Optional: Keep the "About Number" section using spiritualDataController
+                // Note: getNumberMeaning is async, need to restructure this section
+                /*
+                if let meaning = await spiritualDataController.getNumberMeaning(matchNumber) {
                     VStack(alignment: .leading, spacing: 16) {
                         Text("About Number \(matchNumber)")
                             .font(.headline)
@@ -84,6 +87,7 @@ struct NumberMatchNotificationView: View {
                     }
                     .padding(.horizontal)
                 }
+                */
                 
                 // Action buttons (These might need context later)
                 MatchActionButtons(matchNumber: matchNumber)

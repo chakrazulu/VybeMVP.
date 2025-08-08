@@ -75,6 +75,7 @@ import Combine
  * RELIABILITY: 100% pass rate on simulator and real device
  * MEMORY: Zero memory leaks detected
  */
+@MainActor
 final class AuthenticationManagerTests: XCTestCase {
     
     // ═══════════════════════════════════════════════════════════════════════════════════
@@ -360,7 +361,6 @@ final class AuthenticationManagerTests: XCTestCase {
     
     // MARK: - Threading Tests
     
-    @MainActor
     func testMainActorMethods() async {
         // Test that UI-related methods work on main actor
         // This test runs on @MainActor to verify threading safety

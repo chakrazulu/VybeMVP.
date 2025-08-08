@@ -2,6 +2,8 @@
 import Foundation
 import Combine
 
+// Claude: SWIFT 6 COMPLIANCE - Added @MainActor for UI state management
+@MainActor
 class OnboardingViewModel: ObservableObject {
     // MARK: - Step 1: Core Identity (Numerology Base)
     @Published var fullNameAtBirth: String = "" // User provides this for optional Soul Urge/Expression
@@ -65,8 +67,17 @@ class OnboardingViewModel: ObservableObject {
         let lifePathNumber = numerologyService.calculateLifePathNumber(from: birthDate)
         let isLifePathMaster = numerologyService.isMasterNumber(lifePathNumber)
         // Soul Urge and Expression are calculated based on birthNameForProfile if provided
-        let soulUrgeNumber = birthNameForProfile != nil ? numerologyService.calculateSoulUrgeNumber(from: birthNameForProfile!) : nil
-        let expressionNumber = birthNameForProfile != nil ? numerologyService.calculateExpressionNumber(from: birthNameForProfile!) : nil
+        // Claude: DORMANT BUG FIX - Replace force unwraps with safe optional handling
+        let soulUrgeNumber: Int?
+        let expressionNumber: Int?
+        
+        if let birthName = birthNameForProfile {
+            soulUrgeNumber = numerologyService.calculateSoulUrgeNumber(from: birthName)
+            expressionNumber = numerologyService.calculateExpressionNumber(from: birthName)
+        } else {
+            soulUrgeNumber = nil
+            expressionNumber = nil
+        }
 
         // CRITICAL FIX: Calculate and store the full spiritual archetype
         let userArchetype = UserArchetypeManager.shared.calculateArchetype(from: birthDate)
@@ -119,8 +130,11 @@ class OnboardingViewModel: ObservableObject {
         print("   Preferred Hour: \(profile.preferredHour)")
         print("   Wants Whispers: \(profile.wantsWhispers)")
         print("   Birth Name (Optional): \(profile.birthName ?? "N/A")")
-        print("   Soul Urge (Optional): \(profile.soulUrgeNumber != nil ? String(describing: profile.soulUrgeNumber!) : "N/A") \(profile.soulUrgeNumber != nil && numerologyService.isMasterNumber(profile.soulUrgeNumber!) ? "(Master)" : "")")
-        print("   Expression (Optional): \(profile.expressionNumber != nil ? String(describing: profile.expressionNumber!) : "N/A") \(profile.expressionNumber != nil && numerologyService.isMasterNumber(profile.expressionNumber!) ? "(Master)" : "")")
+        // Claude: DORMANT BUG FIX - Replace force unwraps with safe optional handling
+        let soulUrgeText = profile.soulUrgeNumber.map { "\($0) \(numerologyService.isMasterNumber($0) ? "(Master)" : "")" } ?? "N/A"
+        let expressionText = profile.expressionNumber.map { "\($0) \(numerologyService.isMasterNumber($0) ? "(Master)" : "")" } ?? "N/A"
+        print("   Soul Urge (Optional): \(soulUrgeText)")
+        print("   Expression (Optional): \(expressionText)")
         print("   Wants Reflection Mode: \(profile.wantsReflectionMode)")
 
         saveUserProfileToStorage(profile)
@@ -200,7 +214,7 @@ class OnboardingViewModel: ObservableObject {
                 
                 // ✨ New: Configure AIInsightManager with the newly saved profile
                 Task {
-                    AIInsightManager.shared.configureAndRefreshInsight(for: profile)
+                    await AIInsightManager.shared.configureAndRefreshInsight(for: profile)
                 }
                 
                 // ✨ Cache the newly created profile to UserDefaults so HomeView can access it immediately

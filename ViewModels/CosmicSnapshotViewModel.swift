@@ -77,8 +77,10 @@ class CosmicSnapshotViewModel: ObservableObject {
     }
     
     func refreshData() {
-        Task {
-            await repository.refreshData()
+        // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
+        Task { [weak self] in
+            guard let self = self else { return }
+            await self.repository.refreshData()
         }
     }
     
@@ -116,8 +118,10 @@ class CosmicSnapshotViewModel: ObservableObject {
     }
     
     private func loadInitialData() {
-        Task {
-            await repository.refreshData()
+        // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
+        Task { [weak self] in
+            guard let self = self else { return }
+            await self.repository.refreshData()
         }
     }
     

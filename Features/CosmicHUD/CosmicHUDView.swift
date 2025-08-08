@@ -263,6 +263,7 @@ struct CosmicHUDView: View {
                 .fill(.black.opacity(0.8))
         )
         .onAppear {
+            // Claude: SWIFT 6 COMPLIANCE - Removed [weak self] from struct (value type)
             Task {
                 await hudManager.refreshHUDData()
             }
@@ -277,6 +278,7 @@ struct CosmicHUDView: View {
     private func generateMiniInsight(for aspectData: AspectData?) {
         guard let aspectData = aspectData else { return }
         
+        // Claude: SWIFT 6 COMPLIANCE - Removed [weak self] from struct (value type)
         Task {
             // Claude: Call through CosmicHUDManager to MiniInsightProvider
             // Free users get latest app insights or enhanced templates

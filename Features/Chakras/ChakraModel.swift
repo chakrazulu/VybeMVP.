@@ -57,16 +57,18 @@ enum ChakraType: Int, CaseIterable {
         }
     }
     
-    /// Healing frequency in Hz (Solfeggio frequencies)
+    /// Healing frequency in Hz (Sacred Solfeggio frequencies)
+    /// Claude: Using authentic Solfeggio scale for proper spiritual resonance
+    /// These frequencies are based on ancient healing tones, not 440Hz tuning
     var frequency: Double {
         switch self {
-        case .root:       return 261.63  // C4 - fundamental
-        case .sacral:     return 293.66  // D4 - major second
-        case .solarPlexus: return 329.63  // E4 - major third
-        case .heart:      return 392.00  // G4 - perfect fifth
-        case .throat:     return 440.00  // A4 - major sixth
-        case .thirdEye:   return 523.25  // C5 - octave
-        case .crown:      return 659.25  // E5 - major tenth (octave + third)
+        case .root:       return 396.0  // UT - Liberation from fear and guilt
+        case .sacral:     return 417.0  // RE - Undoing situations and facilitating change
+        case .solarPlexus: return 528.0  // MI - Transformation and miracles (DNA repair)
+        case .heart:      return 639.0  // FA - Connecting and relationships
+        case .throat:     return 741.0  // SOL - Awakening intuition and expression
+        case .thirdEye:   return 852.0  // LA - Returning to spiritual order
+        case .crown:      return 963.0  // SI - Divine consciousness and enlightenment
         }
     }
     

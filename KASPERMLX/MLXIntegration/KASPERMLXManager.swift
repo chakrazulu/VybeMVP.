@@ -227,7 +227,8 @@ class KASPERMLXManager: ObservableObject {
     
     /// Generate daily card insight
     func generateDailyCardInsight(
-        cardType: String? = nil
+        cardType: String? = nil,
+        type: KASPERInsightType = .guidance
     ) async throws -> KASPERInsight {
         logger.info("🔮 KASPER MLX: Generating daily card insight")
         
@@ -236,9 +237,42 @@ class KASPERMLXManager: ObservableObject {
             contextData["cardType"] = type
         }
         
+        // Claude: Add current focus and realm numbers to context for personalization
+        // Get current focus number from configured manager
+        let focusNumber = await MainActor.run {
+            focusNumberManager?.selectedFocusNumber ?? 1
+        }
+        contextData["focusNumber"] = focusNumber
+        
+        // Get current realm number from configured manager  
+        let realmNumber = await MainActor.run {
+            realmNumberManager?.currentRealmNumber ?? 1
+        }
+        contextData["realmNumber"] = realmNumber
+        
+        logger.info("🔮 KASPER MLX: Daily card context - Focus: \(focusNumber), Realm: \(realmNumber)")
+        
+        // Claude: Add variability to prevent identical generations during tests
+        let currentTime = Date()
+        let timeVariations = [
+            "What spiritual guidance does today hold for me?",
+            "What cosmic wisdom should I embrace right now?", 
+            "How can I align with my highest purpose today?",
+            "What spiritual insights are emerging in this moment?",
+            "How should I honor my spiritual journey today?"
+        ]
+        
+        // Use time-based selection for natural variety
+        let queryIndex = Int(currentTime.timeIntervalSince1970) % timeVariations.count
+        let selectedQuery = timeVariations[queryIndex]
+        
+        // Add temporal context for uniqueness
+        contextData["timeOfDay"] = Calendar.current.component(.hour, from: currentTime)
+        contextData["uniqueTimestamp"] = Int(currentTime.timeIntervalSince1970) % 10000 // Small variation
+        
         let context = InsightContext(
             primaryData: contextData,
-            userQuery: "What spiritual guidance does today hold for me?",
+            userQuery: selectedQuery,
             constraints: InsightConstraints(
                 maxLength: 120,
                 spiritualDepth: .balanced
@@ -247,7 +281,7 @@ class KASPERMLXManager: ObservableObject {
         
         let request = InsightRequest(
             feature: .dailyCard,
-            type: .guidance,
+            type: type,
             priority: .high,
             context: context
         )
@@ -480,12 +514,14 @@ class KASPERMLXManager: ObservableObject {
     func generateCurrentPayload() -> String? {
         logger.info("🔮 KASPER MLX: Legacy payload method called - redirecting to quick insight")
         
-        Task {
+        // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
+        Task { [weak self] in
+            guard let self = self else { return }
             do {
-                _ = try await generateQuickInsight(for: .sanctumGuidance)
-                logger.info("🔮 KASPER MLX: Legacy payload generated as insight")
+                _ = try await self.generateQuickInsight(for: .sanctumGuidance)
+                self.logger.info("🔮 KASPER MLX: Legacy payload generated as insight")
             } catch {
-                logger.error("🔮 KASPER MLX: Legacy payload generation failed: \\(error)")
+                self.logger.error("🔮 KASPER MLX: Legacy payload generation failed: \\(error)")
             }
         }
         

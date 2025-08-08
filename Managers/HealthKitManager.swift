@@ -205,17 +205,19 @@ import BackgroundTasks
         }
         
         // Access HealthKit data types we need
-        Task {
+        // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
+        Task { [weak self] in
+            guard let self = self else { return }
             do {
-                try await checkAuthorizationStatus()
+                try await self.checkAuthorizationStatus()
                 
                 // If we have authorization, immediately start monitoring and force an update
-                if authorizationStatus == .sharingAuthorized {
+                if self.authorizationStatus == .sharingAuthorized {
                     // startHeartRateMonitoring() // REMOVED: Call moved to AppDelegate Task
-                    let success = await forceHeartRateUpdate()
+                    let success = await self.forceHeartRateUpdate()
                     
                     // Only enable simulation if we couldn't get real data and simulation is enabled in preferences
-                    if !success && simulationEnabled {
+                    if !success && self.simulationEnabled {
                         print("⚠️ Could not get real heart rate data, enabling simulation mode")
                         enableSimulationMode(true)
                         simulateHeartRateForTesting()
@@ -494,9 +496,11 @@ import BackgroundTasks
         
         // Force an update to get real data, but don't automatically enable simulation
         // if we don't find data immediately
-        Task {
+        // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
+        Task { [weak self] in
+            guard let self = self else { return }
             print("❤️ Attempting to get initial real heart rate data...")
-            let success = await forceHeartRateUpdate()
+            let success = await self.forceHeartRateUpdate()
             
             if success {
                 print("✅ Successfully retrieved initial real heart rate data")
@@ -528,11 +532,14 @@ import BackgroundTasks
                 return
             }
             
-            Task {
+            // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
+            Task { [weak self] in
+                guard let self = self else { 
+                    completionHandler()
+                    return 
+                }
                 do {
-                    if let self = self {
-                        _ = try await self.fetchLatestHeartRate()
-                    }
+                    _ = try await self.fetchLatestHeartRate()
                 } catch {
                     print("Error fetching heart rate in observer: \(error)")
                 }
@@ -1267,8 +1274,11 @@ import BackgroundTasks
             simulateHeartRateForTesting()
         } else {
             // Try to get real data if disabling
-            Task {
-                await forceHeartRateUpdate()
+            // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
+            Task { [weak self] in
+                guard let self = self else { return }
+                // Claude: SWIFT 6 COMPLIANCE - Use _ to explicitly ignore result
+                _ = await self.forceHeartRateUpdate()
             }
         }
     }

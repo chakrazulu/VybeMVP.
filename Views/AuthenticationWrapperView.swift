@@ -200,7 +200,9 @@ struct AuthenticationWrapperView: View {
             
             // Configure AI insights if we have a profile
             if let userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID) {
-                AIInsightManager.shared.configureAndRefreshInsight(for: userProfile)
+                Task {
+                    await AIInsightManager.shared.configureAndRefreshInsight(for: userProfile)
+                }
             }
         } else {
             hasCompletedOnboarding = false

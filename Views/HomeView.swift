@@ -111,9 +111,11 @@ struct HomeView: View {
     @State private var pickerScale: CGFloat = 0.1
     @State private var pickerOpacity: Double = 0.0
     
-    // Claude: KASPER MLX Daily Card states
+    // Claude: KASPER MLX Daily Card states - Fixed race condition issues
     @State private var kasperInsight: KASPERInsight?
     @State private var showKasperCard = true
+    @State private var kasperError: String?
+    @State private var isKasperLoading = false
     
     // CACHE FLOOD FIX: Cache UserProfile in HomeView to prevent repeated lookups
     @State private var cachedUserProfile: UserProfile?
@@ -379,6 +381,19 @@ struct HomeView: View {
             InsightHistoryView()
         }
         .onAppear {
+            // Claude: Fixed race condition - ensure KASPER MLX is configured early and once
+            // Claude: SWIFT 6 COMPLIANCE - Removed [weak self] from struct (value type)
+            Task {
+                // Configure KASPER MLX first (if not already configured)
+                if !kasperMLX.isReady {
+                    await kasperMLX.configure(
+                        realmManager: realmNumberManager,
+                        focusManager: focusNumberManager,
+                        healthManager: healthKitManager
+                    )
+                }
+            }
+            
             // FREEZE FIX: Stagger HomeView operations to prevent simultaneous heavy lifting
             
             // Step 1: Load match logs (lightweight)
@@ -392,8 +407,10 @@ struct HomeView: View {
             }
             
             // Step 3: AI insights (can be heavy, after larger delay)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            aiInsightManager.refreshInsightIfNeeded()
+            // Claude: SWIFT 6 COMPLIANCE - Use Task for async method call
+            Task {
+                try await Task.sleep(nanoseconds: 1_500_000_000) // 1.5 second delay
+                await aiInsightManager.refreshInsightIfNeeded()
             }
             
             // Claude: Phase 8.5 - Initialize current mandala asset for SVG path tracing
@@ -610,65 +627,168 @@ struct HomeView: View {
         Group {
             if showKasperCard {
                 VStack(spacing: 20) {
-                    // Header
+                    // Enhanced spiritual header
                     HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("🔮 KASPER AI Insight")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
+                        VStack(alignment: .leading, spacing: 6) {
+                            HStack(spacing: 8) {
+                                // Pulsing cosmic indicator - PERFORMANCE OPTIMIZED
+                                Circle()
+                                    .fill(
+                                        RadialGradient(
+                                            gradient: Gradient(colors: [
+                                                Color.cyan.opacity(0.8),
+                                                Color.purple.opacity(0.4),
+                                                Color.clear
+                                            ]),
+                                            center: .center,
+                                            startRadius: 2,
+                                            endRadius: 8
+                                        )
+                                    )
+                                    .frame(width: 12, height: 12)
+                                    .scaleEffect(kasperMLX.isGeneratingInsight ? 1.2 : 1.0)
+                                    // FIXED: Use autoreverses for smooth pulsing without expensive recalculation
+                                    .animation(
+                                        kasperMLX.isGeneratingInsight ? 
+                                        .easeInOut(duration: 1.0).repeatForever(autoreverses: true) : 
+                                        .easeInOut(duration: 0.3),
+                                        value: kasperMLX.isGeneratingInsight
+                                    )
+                                
+                                Text("🔮 KASPER AI Insight")
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(
+                                        LinearGradient(
+                                            gradient: Gradient(colors: [
+                                                Color.white,
+                                                Color.cyan.opacity(0.8)
+                                            ]),
+                                            startPoint: .leading,
+                                            endPoint: .trailing
+                                        )
+                                    )
+                            }
                             
-                            Text("Personalized spiritual guidance")
-                                .font(.subheadline)
-                                .foregroundColor(.white.opacity(0.8))
+                            HStack(spacing: 4) {
+                                Text("Personalized spiritual guidance")
+                                    .font(.subheadline)
+                                    .foregroundColor(.white.opacity(0.8))
+                                
+                                if kasperMLX.isReady {
+                                    Text("• Ready")
+                                        .font(.caption2)
+                                        .foregroundColor(.green.opacity(0.8))
+                                } else {
+                                    Text("• Initializing...")
+                                        .font(.caption2)
+                                        .foregroundColor(.orange.opacity(0.8))
+                                }
+                            }
                         }
                         
                         Spacer()
                         
-                        Button(action: { showKasperCard = false }) {
+                        // Elegant dismiss button
+                        Button(action: { 
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                showKasperCard = false 
+                            }
+                        }) {
                             Image(systemName: "xmark.circle.fill")
                                 .font(.title3)
-                                .foregroundColor(.white.opacity(0.6))
+                                .foregroundColor(.white.opacity(0.4))
+                                .background(
+                                    Circle()
+                                        .fill(Color.black.opacity(0.3))
+                                        .frame(width: 24, height: 24)
+                                )
                         }
+                        .accessibilityLabel("Dismiss KASPER insight card")
                     }
                     
-                    // Insight Content
-                    if kasperMLX.isGeneratingInsight {
-                        kasperLoadingState
-                    } else if let insight = kasperInsight {
-                        kasperInsightDisplay(insight)
-                    } else {
+                    // Claude: DEFINITIVE RESIZE HITCH FIX - Use opacity transitions instead of layout animations
+                    ZStack {
+                        // Generate button (always present for consistent layout)
                         kasperGenerateButton
+                            .opacity(kasperInsight == nil && !isKasperLoading && kasperError == nil ? 1.0 : 0.0)
+                        
+                        // Loading state
+                        kasperLoadingState
+                            .opacity(isKasperLoading ? 1.0 : 0.0)
+                        
+                        // Error state
+                        if let error = kasperError {
+                            kasperErrorDisplay(error)
+                                .opacity(1.0)
+                        }
+                        
+                        // Insight display
+                        if let insight = kasperInsight {
+                            kasperInsightDisplay(insight)
+                                .opacity(1.0)
+                        }
                     }
+                    .animation(.easeInOut(duration: 0.3), value: isKasperLoading)  // Only animate loading state
                 }
+                .frame(minHeight: 320)  // Claude: Enhanced height for richer insights - prevents resize hitch
                 .padding(20)
                 .background(
-                    LinearGradient(
-                        gradient: Gradient(colors: [
-                            Color.purple.opacity(0.8),
-                            Color.indigo.opacity(0.6),
-                            Color.pink.opacity(0.4)
-                        ]),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
+                    ZStack {
+                        // Base spiritual gradient
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [
+                                        Color.purple.opacity(0.8),
+                                        Color.indigo.opacity(0.6),
+                                        Color.cyan.opacity(0.4),
+                                        Color.purple.opacity(0.5)
+                                    ]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                        
+                        // Subtle cosmic overlay
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(
+                                RadialGradient(
+                                    gradient: Gradient(colors: [
+                                        Color.white.opacity(0.1),
+                                        Color.clear,
+                                        Color.cyan.opacity(0.2)
+                                    ]),
+                                    center: .topLeading,
+                                    startRadius: 50,
+                                    endRadius: 200
+                                )
+                            )
+                    }
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(
                             LinearGradient(
-                                gradient: Gradient(colors: [.white.opacity(0.3), .purple.opacity(0.3)]),
+                                gradient: Gradient(colors: [
+                                    Color.white.opacity(0.4),
+                                    Color.cyan.opacity(0.6),
+                                    Color.purple.opacity(0.4),
+                                    Color.white.opacity(0.2)
+                                ]),
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ),
-                            lineWidth: 1
+                            lineWidth: 1.5
                         )
                 )
                 .cornerRadius(16)
-                .shadow(color: .purple.opacity(0.3), radius: 15, x: 0, y: 8)
+                .shadow(color: .purple.opacity(0.4), radius: 20, x: 0, y: 10)
+                .shadow(color: .cyan.opacity(0.3), radius: 10, x: 0, y: 5)
                 .padding(.horizontal)
                 .onAppear {
-                    if kasperInsight == nil && !kasperMLX.isGeneratingInsight {
+                    // Claude: Fixed auto-generation - only generate if needed and KASPER is ready
+                    if kasperInsight == nil && !isKasperLoading && kasperMLX.isReady {
                         generateDailyInsight()
                     }
                 }
@@ -676,30 +796,73 @@ struct HomeView: View {
         }
     }
     
-    /// Claude: Loading state for KASPER insight generation
+    /// Claude: Error display for KASPER insight generation failures
+    private func kasperErrorDisplay(_ errorMessage: String) -> some View {
+        VStack(spacing: 12) {
+            HStack(spacing: 8) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .font(.title3)
+                    .foregroundColor(.orange)
+                
+                Text("Insight Generation Issue")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .fontWeight(.semibold)
+            }
+            
+            Text(errorMessage)
+                .font(.caption)
+                .foregroundColor(.white.opacity(0.8))
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+            
+            Button("Try Again") {
+                generateDailyInsight()
+            }
+            .font(.caption.weight(.medium))
+            .foregroundColor(.white)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(
+                Capsule()
+                    .fill(Color.orange.opacity(0.3))
+                    .overlay(
+                        Capsule()
+                            .stroke(Color.orange.opacity(0.6), lineWidth: 1)
+                    )
+            )
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 380)  // Claude: Further enhanced height for comprehensive spiritual insights
+    }
+    
+    /// Claude: SIMPLIFIED loading state - Prevents compiler timeout
     private var kasperLoadingState: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 16) {
             ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                .scaleEffect(0.8)
+                .progressViewStyle(CircularProgressViewStyle(tint: .cyan))
+                .scaleEffect(1.5)
             
             Text("Consulting the cosmic wisdom...")
                 .font(.body)
                 .foregroundColor(.white.opacity(0.8))
                 .italic()
         }
-        .frame(maxWidth: .infinity, minHeight: 60)
+        .frame(maxWidth: .infinity)
+        .frame(height: 380)  // Claude: Further enhanced height for comprehensive spiritual insights
     }
     
-    /// Claude: Display generated KASPER insight with actions
+    /// Claude: Display generated KASPER insight with actions - FIXED RESIZE HITCH
     private func kasperInsightDisplay(_ insight: KASPERInsight) -> some View {
         VStack(alignment: .leading, spacing: 12) {
+            // Claude: DEFINITIVE HITCH FIX - Use fixed height container to prevent resize
             Text(insight.content)
                 .font(.body)
                 .foregroundColor(.white.opacity(0.9))
                 .multilineTextAlignment(.leading)
                 .lineSpacing(4)
-                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, minHeight: 180, maxHeight: 300, alignment: .topLeading)  // Comprehensive space for detailed spiritual guidance
+                .clipped()  // Clip overflow to prevent resize
             
             // Insight metadata
             HStack {
@@ -714,92 +877,166 @@ struct HomeView: View {
                     .foregroundColor(.white.opacity(0.6))
             }
             
-            // Action buttons
-            HStack(spacing: 16) {
+            // Enhanced action buttons section
+            VStack(spacing: 12) {
                 // Regenerate button
                 Button(action: generateDailyInsight) {
-                    HStack(spacing: 4) {
+                    HStack(spacing: 8) {
                         Image(systemName: "arrow.clockwise")
                             .font(.caption)
-                        Text("New Insight")
+                        Text("Generate New Insight")
                             .font(.caption)
                             .fontWeight(.medium)
                     }
                     .foregroundColor(.white)
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
                     .background(
                         Capsule()
                             .fill(Color.white.opacity(0.2))
                             .overlay(
                                 Capsule()
-                                    .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                                    .stroke(
+                                        LinearGradient(
+                                            gradient: Gradient(colors: [
+                                                Color.cyan.opacity(0.6),
+                                                Color.purple.opacity(0.4)
+                                            ]),
+                                            startPoint: .leading,
+                                            endPoint: .trailing
+                                        ),
+                                        lineWidth: 1
+                                    )
                             )
                     )
+                    .shadow(color: .cyan.opacity(0.3), radius: 6, x: 0, y: 2)
                 }
-                .disabled(kasperMLX.isGeneratingInsight)
+                .disabled(isKasperLoading)
                 
-                Spacer()
-                
-                // Feedback buttons
-                HStack(spacing: 12) {
-                    Button(action: { provideFeedback(positive: true) }) {
-                        Image(systemName: "hand.thumbsup.fill")
-                            .font(.caption)
-                            .foregroundColor(.green)
-                            .scaleEffect(1.1)
-                    }
-                    .buttonStyle(PlainButtonStyle())
+                // Enhanced feedback buttons section
+                HStack(spacing: 20) {
+                    Text("Was this helpful?")
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.7))
+                        .italic()
                     
-                    Button(action: { provideFeedback(positive: false) }) {
-                        Image(systemName: "hand.thumbsdown.fill")
-                            .font(.caption)
-                            .foregroundColor(.red)
-                            .scaleEffect(1.1)
+                    Spacer()
+                    
+                    HStack(spacing: 16) {
+                        // Positive feedback button
+                        Button(action: { provideFeedback(positive: true) }) {
+                            Image(systemName: "hand.thumbsup.fill")
+                                .font(.caption)
+                                .foregroundColor(.green)
+                                .scaleEffect(1.1)
+                                .shadow(color: .green.opacity(0.6), radius: 4)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .accessibilityLabel("Rate insight as helpful")
+                        
+                        // Negative feedback button
+                        Button(action: { provideFeedback(positive: false) }) {
+                            Image(systemName: "hand.thumbsdown.fill")
+                                .font(.caption)
+                                .foregroundColor(.red)
+                                .scaleEffect(1.1)
+                                .shadow(color: .red.opacity(0.6), radius: 4)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .accessibilityLabel("Rate insight as not helpful")
                     }
-                    .buttonStyle(PlainButtonStyle())
                 }
             }
             .padding(.top, 8)
         }
     }
     
-    /// Claude: Generate insight button for initial state
+    /// Claude: Enhanced generate insight button with spiritual aesthetics
     private var kasperGenerateButton: some View {
         Button(action: generateDailyInsight) {
-            HStack(spacing: 8) {
-                Image(systemName: "sparkles")
-                    .font(.title3)
-                    .foregroundColor(.white)
+            HStack(spacing: 12) {
+                // Cosmic icon with glow effect
+                ZStack {
+                    Circle()
+                        .fill(
+                            RadialGradient(
+                                gradient: Gradient(colors: [
+                                    Color.cyan.opacity(0.8),
+                                    Color.purple.opacity(0.4),
+                                    Color.clear
+                                ]),
+                                center: .center,
+                                startRadius: 5,
+                                endRadius: 20
+                            )
+                        )
+                        .frame(width: 40, height: 40)
+                    
+                    Image(systemName: "sparkles")
+                        .font(.title3)
+                        .foregroundColor(.white)
+                        .shadow(color: .cyan.opacity(0.8), radius: 4)
+                }
                 
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("Generate Today's Insight")
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("🔮 Generate Today's Insight")
                         .font(.headline)
                         .fontWeight(.semibold)
                         .foregroundColor(.white)
                     
-                    Text("Tap to receive personalized guidance")
+                    Text("Tap to receive personalized cosmic guidance")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.8))
                 }
                 
                 Spacer()
                 
-                Image(systemName: "arrow.right.circle")
-                    .font(.title3)
-                    .foregroundColor(.white)
+                // Animated arrow with spiritual glow  
+                Image(systemName: "arrow.right.circle.fill")
+                    .font(.title2)
+                    .foregroundColor(.cyan)
+                    .shadow(color: .cyan.opacity(0.6), radius: 3)
+                    .scaleEffect(kasperMLX.isReady ? 1.0 : 0.8)
+                    .opacity(kasperMLX.isReady ? 1.0 : 0.5)
             }
-            .padding(16)
+            .frame(height: 180)  // Claude: Enhanced height to match insight container
+            .padding(20)
             .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.white.opacity(0.1))
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                Color.white.opacity(0.15),
+                                Color.purple.opacity(0.1),
+                                Color.cyan.opacity(0.05)
+                            ]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
                     .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [
+                                        Color.cyan.opacity(0.6),
+                                        Color.purple.opacity(0.4),
+                                        Color.white.opacity(0.2)
+                                    ]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
+                                lineWidth: 1.5
+                            )
                     )
             )
+            .shadow(color: .purple.opacity(0.3), radius: 10, x: 0, y: 4)
+            .scaleEffect(kasperMLX.isReady ? 1.0 : 0.95)
         }
-        .disabled(!kasperMLX.isReady)
+        .disabled(!kasperMLX.isReady || isKasperLoading)
+        .animation(.easeInOut(duration: 0.3), value: kasperMLX.isReady)
+        .accessibilityLabel("Generate spiritual insight")
+        .accessibilityHint("Tap to create a personalized daily guidance card using cosmic AI")
     }
     
     // MARK: - Latest Matched Insight Section
@@ -1436,27 +1673,75 @@ struct HomeView: View {
     
     // MARK: - KASPER MLX Methods
     
-    /// Claude: Generate daily insight using KASPER MLX
+    /// Claude: Fixed daily insight generation with robust error handling and race condition prevention
     private func generateDailyInsight() {
+        // Prevent multiple simultaneous generations
+        guard !isKasperLoading else {
+            print("🔮 KASPER MLX: Already generating insight, skipping duplicate request")
+            return
+        }
+        
+        // Claude: SWIFT 6 COMPLIANCE - Removed [weak self] from struct (value type)
         Task {
+            let startTime = Date()
+            
+            // Set loading state immediately on main thread
+            await MainActor.run {
+                isKasperLoading = true
+                self.kasperError = nil
+            }
+            
             do {
                 print("🔮 KASPER MLX: Generating daily insight for HomeView")
                 
-                // Configure KASPER MLX if needed
-                await kasperMLX.configure(
-                    realmManager: realmNumberManager,
-                    focusManager: focusNumberManager,
-                    healthManager: healthKitManager
-                )
+                // Wait for KASPER MLX to be ready (with timeout)
+                var waitTime = 0.0
+                let maxWaitTime = 5.0 // 5 second timeout
                 
-                // Generate daily card insight
-                let insight = try await kasperMLX.generateDailyCardInsight()
-                kasperInsight = insight
+                while !self.kasperMLX.isReady && waitTime < maxWaitTime {
+                    try await Task.sleep(nanoseconds: 100_000_000) // 100ms
+                    waitTime += 0.1
+                }
                 
-                print("🔮 KASPER MLX: Daily insight generated: \(insight.content)")
+                guard self.kasperMLX.isReady else {
+                    throw NSError(domain: "KASPERMLXError", code: 1, userInfo: [
+                        NSLocalizedDescriptionKey: "KASPER MLX not ready after \(Int(maxWaitTime)) seconds"
+                    ])
+                }
+                
+                // Generate daily card insight with current focus/realm context
+                let cardType = "daily_focus_\(self.focusNumberManager.selectedFocusNumber)_realm_\(self.realmNumberManager.currentRealmNumber)"
+                let insight = try await self.kasperMLX.generateDailyCardInsight(cardType: cardType)
+                
+                // Update UI on main thread
+                await MainActor.run {
+                    self.kasperInsight = insight
+                    self.isKasperLoading = false
+                    self.kasperError = nil
+                }
+                
+                let responseTime = Date().timeIntervalSince(startTime)
+                print("🔮 KASPER MLX: Daily insight generated in \(String(format: "%.3f", responseTime))s")
+                print("🔮 Insight Content: \(insight.content)")
+                print("🔮 Confidence: \(Int(insight.confidence * 100))%")
+                
+                // Performance validation - warn if >2s (more realistic for HomeView)
+                if responseTime > 2.0 {
+                    print("⚠️ KASPER MLX: Response time \(String(format: "%.3f", responseTime))s exceeds 2s target for HomeView")
+                } else {
+                    print("✅ KASPER MLX: Performance target met - \(String(format: "%.3f", responseTime))s")
+                }
                 
             } catch {
-                print("❌ KASPER MLX: Failed to generate daily insight: \(error)")
+                let responseTime = Date().timeIntervalSince(startTime)
+                print("❌ KASPER MLX: Failed to generate daily insight after \(String(format: "%.3f", responseTime))s: \(error)")
+                
+                // Set error state on main thread
+                await MainActor.run {
+                    self.kasperInsight = nil
+                    self.isKasperLoading = false
+                    self.kasperError = error.localizedDescription
+                }
             }
         }
     }

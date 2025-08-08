@@ -1,4 +1,0 @@
-module GTMSessionFetcherCore {
-umbrella "/Users/Maniac_Magee/Library/Developer/Xcode/DerivedData/VybeMVP-bxpgiyoxbdewhgfuonxxpnysrkny/SourcePackages/checkouts/gtm-session-fetcher/Sources/Core/Public"
-export *
-}

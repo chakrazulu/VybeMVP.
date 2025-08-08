@@ -36,6 +36,10 @@ public class FocusMatch: NSManagedObject {
     /// The realm number that matched with the user's focus number (1-9)
     @NSManaged public var matchedNumber: Int16
     
+    /// REALM NUMBER ANALYTICS ENHANCEMENT: The realm number (1-9) active when this match occurred
+    /// Enables analytics of which spiritual states correlate with synchronicity events
+    @NSManaged public var realmNumber: Int16
+    
     /// Geographical latitude where the match occurred
     @NSManaged public var locationLatitude: Double
     

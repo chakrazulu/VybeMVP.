@@ -889,6 +889,7 @@ struct NewJournalEntryView: View {
     
     /// Claude: Generates a journal insight using KASPER MLX based on current content
     private func generateJournalInsight() {
+        // Claude: SWIFT 6 FIX - Removed [weak self] as structs are value types
         Task {
             do {
                 print("🔮 KASPER MLX: Generating journal insight")

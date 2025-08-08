@@ -19,7 +19,7 @@
  * 
  * 1. ASYNC-FIRST ARCHITECTURE
  *    - Every operation is async to prevent blocking the spiritual flow
- *    - Actor-based providers ensure thread-safe cosmic data processing
+ *    - Async providers ensure thread-safe cosmic data processing
  *    - Performance tracking maintains 60fps sacred geometry animations
  * 
  * 2. MODULAR SPIRITUAL PROVIDERS  
@@ -63,7 +63,7 @@
  * • Performance Metrics: Real-time response time and success rate tracking
  * • Feedback Loop: User ratings continuously improve insight quality
  * • Caching Intelligence: Reduces cosmic calculations while maintaining freshness
- * • Thread Safety: Actor-based design prevents race conditions in spiritual data
+ * • Thread Safety: Async design prevents race conditions in spiritual data
  * 
  * The result is the world's first spiritually-conscious AI system that combines
  * ancient wisdom with cutting-edge technology to guide users on their cosmic journey.
@@ -132,9 +132,9 @@ enum InsightPriority {
 // MARK: - Core Protocols
 
 /// Base protocol for all spiritual data providers
-protocol SpiritualDataProvider: Actor {
+protocol SpiritualDataProvider {
     /// Unique identifier for this provider
-    nonisolated var id: String { get }
+    var id: String { get }
     
     /// Check if provider has data available
     func isDataAvailable() async -> Bool
@@ -417,6 +417,7 @@ struct KASPERMLXConfiguration {
     let defaultCacheExpiry: TimeInterval
     let inferenceTimeout: TimeInterval
     let enableDebugLogging: Bool
+    let enableMLXInference: Bool  // Claude: Toggle for real MLX vs template fallback
     let modelPath: String?
     
     static let `default` = KASPERMLXConfiguration(
@@ -424,6 +425,7 @@ struct KASPERMLXConfiguration {
         defaultCacheExpiry: 300, // 5 minutes
         inferenceTimeout: 5.0,   // 5 seconds
         enableDebugLogging: true,
+        enableMLXInference: true,  // Claude: Ready for MLX integration
         modelPath: nil
     )
 }

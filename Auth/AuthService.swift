@@ -73,25 +73,27 @@ class AuthService {
         print("➡️ Initiating logout process...")
 
         // Get the userID *before* it's cleared by logout process
-        let userIDToClearOnboardingFor = signInViewModel.userID
+        // Claude: SWIFT 6 COMPLIANCE - Access MainActor property in Task
+        Task { @MainActor in
+            let userIDToClearOnboardingFor = signInViewModel.userID
+            await performLogout(userIDToClearOnboardingFor: userIDToClearOnboardingFor, signInViewModel: signInViewModel)
+        }
+    }
+    
+    // Claude: SWIFT 6 COMPLIANCE - Separate async method for logout operations
+    private func performLogout(userIDToClearOnboardingFor: String?, signInViewModel: SignInViewModel) async {
 
         // Attempt to fetch the token first to ensure Firebase Messaging is active
-        Messaging.messaging().token { token, error in
-            if let error = error {
-                print("⚠️ Error fetching FCM token before deletion (this might be okay if deletion still works): \(error.localizedDescription)")
-            } else if let token = token {
-                print("ℹ️ Successfully fetched FCM token before deletion: \(token.prefix(10))...")
-            }
-
+        // Claude: SWIFT 6 COMPLIANCE - Use async versions of Firebase Messaging methods
+        do {
+            let token = try await Messaging.messaging().token()
+            print("ℹ️ Successfully fetched FCM token before deletion: \(token.prefix(10))...")
+            
             // Now, proceed to delete the FCM Token
-            Messaging.messaging().deleteToken { error in
-                if let error = error {
-                    // The original error you're seeing would be caught here
-                    print("🔥 Error deleting FCM token: \(error.localizedDescription)")
-                } else {
-                    print("✅ FCM token deleted successfully. User will stop receiving notifications.")
-                }
-            }
+            try await Messaging.messaging().deleteToken()
+            print("✅ FCM token deleted successfully. User will stop receiving notifications.")
+        } catch {
+            print("🔥 Error with FCM token operations: \(error.localizedDescription)")
         }
 
         // 2. Clear Keychain Data (This can run in parallel or after token operations)
@@ -110,11 +112,9 @@ class AuthService {
         }
 
         // 4. Update the app's state via SignInViewModel
-        signInViewModel.handleLogout()
-        
-        // This print statement can remain for clarity, confirming the intended navigation.
-        // It's good practice to ensure UI-related logging or state checks are main-thread if they could be.
-        DispatchQueue.main.async {
+        // Claude: SWIFT 6 COMPLIANCE - Call MainActor method properly
+        await MainActor.run {
+            signInViewModel.handleLogout()
             print("🔄 App state updated by handleLogout. Expecting navigation to SignInView.")
         }
         

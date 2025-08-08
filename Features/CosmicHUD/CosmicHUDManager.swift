@@ -150,9 +150,11 @@ class CosmicHUDManager: ObservableObject {
     
     /// Starts the Cosmic HUD with current spiritual data
     func startHUD() {
-        Task {
-            await refreshHUDData()
-            isHUDActive = true
+        // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
+        Task { [weak self] in
+            guard let self = self else { return }
+            await self.refreshHUDData()
+            self.isHUDActive = true
         }
     }
     
@@ -256,8 +258,10 @@ class CosmicHUDManager: ObservableObject {
     }
     
     private func loadInitialData() {
-        Task {
-            await refreshHUDData()
+        // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
+        Task { [weak self] in
+            guard let self = self else { return }
+            await self.refreshHUDData()
         }
     }
     

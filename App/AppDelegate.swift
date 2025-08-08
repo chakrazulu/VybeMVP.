@@ -46,8 +46,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             forTaskWithIdentifier: "com.infinitiesinn.vybe.backgroundUpdate",
             using: nil
         ) { task in
+            // Claude: DORMANT BUG FIX - Replace force cast with safe cast
             Task {
-                await self.backgroundManager.handleBackgroundTask(task as! BGAppRefreshTask)
+                guard let refreshTask = task as? BGAppRefreshTask else {
+                    print("⚠️ Unexpected background task type received")
+                    task.setTaskCompleted(success: false)
+                    return
+                }
+                await self.backgroundManager.handleBackgroundTask(refreshTask)
             }
         }
         

@@ -8,6 +8,8 @@ import Foundation
 import AuthenticationServices
 import Combine
 
+// Claude: SWIFT 6 COMPLIANCE - Added @MainActor for UI state management
+@MainActor
 class SignInViewModel: ObservableObject {
     @Published var isSignedIn = false
     @Published var userID: String? = nil

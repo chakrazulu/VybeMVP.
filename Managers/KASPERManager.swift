@@ -139,6 +139,7 @@
 import Foundation
 import Combine
 import os.log
+import UIKit
 
 // Claude: FIXED - Import required utilities for real data
 // Import needed for MoonPhaseCalculator
@@ -385,7 +386,60 @@ class KASPERManager: ObservableObject {
         // Validate payload integrity
         guard payload.isValid else {
             logger.error("❌ Generated payload failed validation")
+            // Claude: Enhanced debugging for iPhone 16 Pro Max simulator vs iPhone 14 Pro Max device differences
+            print("🔍 KASPER VALIDATION FAILURE DEBUG:")
+            print("   • BPM: \(payload.bpm) (valid range: 40-200)")
+            print("   • Life Path: \(payload.lifePathNumber) (valid range: 1-9, 11, 22, 33, 44)")
+            print("   • Soul Urge: \(payload.soulUrgeNumber) (valid range: 1-9, 11, 22, 33, 44)")
+            print("   • Expression: \(payload.expressionNumber) (valid range: 1-9, 11, 22, 33, 44)")
+            print("   • Tone: '\(payload.userTonePreference)' (empty: \(payload.userTonePreference.isEmpty))")
+            print("   • Lunar Phase: '\(payload.lunarPhase)' (empty: \(payload.lunarPhase.isEmpty))")
+            print("   • Dominant Planet: '\(payload.dominantPlanet)' (empty: \(payload.dominantPlanet.isEmpty))")
+            print("   • Realm Number: \(payload.realmNumber) (valid range: 1-9)")
+            print("   • Focus Number: \(payload.focusNumber) (valid range: 1-9)")
+            print("   • Proximity Score: \(payload.proximityMatchScore) (valid range: 0-1)")
+            
+            // Test each validation component individually
+            let bpmValid = payload.bpm >= 40 && payload.bpm <= 200
+            let lifePathValid = isValidNumerologyNumber(payload.lifePathNumber)
+            let soulUrgeValid = isValidNumerologyNumber(payload.soulUrgeNumber)
+            let expressionValid = isValidNumerologyNumber(payload.expressionNumber)
+            let toneValid = !payload.userTonePreference.isEmpty
+            let lunarValid = !payload.lunarPhase.isEmpty
+            let planetValid = !payload.dominantPlanet.isEmpty
+            let realmValid = payload.realmNumber >= 1 && payload.realmNumber <= 9
+            let focusValid = payload.focusNumber >= 1 && payload.focusNumber <= 9
+            let proximityValid = payload.proximityMatchScore >= 0.0 && payload.proximityMatchScore <= 1.0
+            
+            print("   • BPM Valid: \(bpmValid)")
+            print("   • Life Path Valid: \(lifePathValid)")
+            print("   • Soul Urge Valid: \(soulUrgeValid)")
+            print("   • Expression Valid: \(expressionValid)")
+            print("   • Tone Valid: \(toneValid)")
+            print("   • Lunar Valid: \(lunarValid)")
+            print("   • Planet Valid: \(planetValid)")
+            print("   • Realm Valid: \(realmValid)")
+            print("   • Focus Valid: \(focusValid)")
+            print("   • Proximity Valid: \(proximityValid)")
+            
+            // Check system state
+            print("   • HealthKit BPM: \(HealthKitManager.shared.currentHeartRate)")
+            print("   • RealmManager Available: \(realmNumberManager != nil)")
+            print("   • FocusManager Number: \(focusNumberManager.selectedFocusNumber)")
+            print("   • Device Model: \(UIDevice.current.model)")
+            print("   • iOS Version: \(UIDevice.current.systemVersion)")
+            #if targetEnvironment(simulator)
+            print("   • Is Simulator: true")
+            #else
+            print("   • Is Simulator: false")
+            #endif
+            
             return nil
+        }
+        
+        // Helper function for numerology validation
+        func isValidNumerologyNumber(_ number: Int) -> Bool {
+            return (number >= 1 && number <= 9) || number == 11 || number == 22 || number == 33 || number == 44
         }
         
         // Cache successful payload
@@ -541,9 +595,13 @@ class KASPERManager: ObservableObject {
     /**
      * Get current user ID from authentication system
      */
-    private func getCurrentUserID() -> String? {
+    private func getCurrentUserID() async -> String? {
         // Get user ID from AuthenticationManager
-        if let userID = AuthenticationManager.shared.userID {
+        // Claude: SWIFT 6 COMPLIANCE - Access MainActor property properly
+        let userID = await MainActor.run {
+            return AuthenticationManager.shared.userID
+        }
+        if let userID = userID {
             logger.info("🔍 Retrieved user ID from AuthenticationManager: \(userID)")
             return userID
         }

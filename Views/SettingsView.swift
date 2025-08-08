@@ -164,6 +164,7 @@ struct SettingsView: View {
                 // Request Access Button Row
                 if healthKitManager.authorizationStatus != .sharingAuthorized {
                     Button {
+                        // Claude: SWIFT 6 COMPLIANCE - Removed [weak self] from struct (value type)
                         Task {
                             await requestHealthKitAccess()
                         }
@@ -396,10 +397,11 @@ struct SettingsView: View {
                     cosmicValidationReport = "🔄 Connecting to NASA JPL Horizons...\nPlease wait while we validate your Swiss Ephemeris calculations..."
                     showingCosmicValidation = true
                     
+                    // Claude: SWIFT 6 COMPLIANCE - Removed [weak self] from struct (value type)
                     Task {
                         let result = await CosmicData.performAutomatedJPLValidation()
                         await MainActor.run {
-                            cosmicValidationReport = result
+                            self.cosmicValidationReport = result
                         }
                     }
                     
@@ -733,6 +735,7 @@ struct SettingsView: View {
             .foregroundColor(.blue)
             
             Button("Force Heart Rate Update") {
+                // Claude: SWIFT 6 COMPLIANCE - Removed [weak self] from struct (value type)
                 Task {
                     await healthKitManager.forceHeartRateUpdate()
                 }

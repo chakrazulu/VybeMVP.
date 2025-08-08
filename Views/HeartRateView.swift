@@ -328,6 +328,7 @@ struct HeartRateView: View {
                     }
                 } else {
                     // Request HealthKit authorization directly
+                    // Claude: SWIFT 6 COMPLIANCE - Removed [weak self] from struct (value type)
                     Task {
                         do {
                             try await healthKitManager.requestAuthorization()
@@ -372,6 +373,7 @@ struct HeartRateView: View {
                 healthKitManager.setSimulationMode(enabled: newSimulationState)
                 
                 // Force a heart rate update after toggling
+                // Claude: SWIFT 6 COMPLIANCE - Removed [weak self] from struct (value type)
                 Task {
                     _ = await healthKitManager.forceHeartRateUpdate()
                 }
@@ -425,6 +427,7 @@ struct HeartRateView: View {
     private func refreshHeartRate() {
         // Only allow refresh if we haven't reached max retries or we already have valid data
         if retryCount < maxRetryCount || hasValidHeartRate {
+            // Claude: SWIFT 6 COMPLIANCE - Removed [weak self] from struct (value type)
             Task {
                 if healthKitManager.authorizationStatus == .sharingAuthorized {
                     // If we're authorized, try to get heart rate data
@@ -443,7 +446,7 @@ struct HeartRateView: View {
                 } else {
                     // If not authorized, try to request authorization
                     do {
-                        try await healthKitManager.requestAuthorization()
+                        try await self.healthKitManager.requestAuthorization()
                     } catch {
                         print("Authorization error: \(error)")
                     }

@@ -392,8 +392,10 @@ struct ContentView: View {
             }
             
             // Step 3: Defer AI insights to prevent UserProfile flood
-            DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.startupAIInsightsDelay) {
-                aiInsightManager.refreshInsightIfNeeded()
+            // Claude: SWIFT 6 COMPLIANCE - Use Task for async method call
+            Task {
+                try await Task.sleep(nanoseconds: UInt64(VybeConstants.startupAIInsightsDelay * 1_000_000_000))
+                await aiInsightManager.refreshInsightIfNeeded()
                 print("🧠 AI insights refresh initiated...")
                 
                 // 🌟 Sync VybeMatchManager with current manager states
@@ -422,7 +424,10 @@ struct ContentView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
             // Refresh insights when app comes to foreground
-            aiInsightManager.refreshInsightIfNeeded()
+            // Claude: SWIFT 6 COMPLIANCE - Use Task for async method call
+            Task {
+                await aiInsightManager.refreshInsightIfNeeded()
+            }
         }
         // 🌟 VybeMatch Navigation Handlers - Handle action button navigation from cosmic match overlay
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NavigateToInsight"))) { notification in
@@ -498,8 +503,10 @@ struct ContentView: View {
         selectedTab = 4
         
         // Generate insight for the specific matched number and filter to show it
-        DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.standardFeedbackDelay) {
-            aiInsightManager.refreshInsightIfNeeded()
+        // Claude: SWIFT 6 COMPLIANCE - Use Task for async method call
+        Task {
+            try await Task.sleep(nanoseconds: UInt64(VybeConstants.standardFeedbackDelay * 1_000_000_000))
+            await aiInsightManager.refreshInsightIfNeeded()
             // TODO: Add filtering in ActivityView to highlight insights for number \(number)
             print("🎯 Activity view should focus on insights for cosmic match number \(number)")
         }

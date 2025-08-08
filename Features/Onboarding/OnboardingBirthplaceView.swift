@@ -423,6 +423,8 @@ struct OnboardingBirthplaceView: View {
 
 // MARK: - Location Search Completer
 
+// Claude: SWIFT 6 COMPLIANCE - Added @MainActor for UI state management
+@MainActor
 class LocationSearchCompleter: NSObject, ObservableObject, MKLocalSearchCompleterDelegate {
     @Published var searchResults: [MKLocalSearchCompletion] = []
     private let completer = MKLocalSearchCompleter()

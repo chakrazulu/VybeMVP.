@@ -1147,9 +1147,11 @@ class RealmNumberManager: NSObject, ObservableObject {
         }
         
         // Force one final attempt to get real heart rate data if available
-        Task {
+        // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
+        Task { [weak self] in
+            guard let self = self else { return }
             print("❤️ Making one final attempt to get real heart rate before using fallback...")
-            _ = await healthKitManager.forceHeartRateUpdate()
+            _ = await self.healthKitManager.forceHeartRateUpdate()
             // Note: This will be available for the next calculation
         }
         

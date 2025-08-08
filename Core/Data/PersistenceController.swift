@@ -122,10 +122,18 @@ class PersistenceController {
     /// Explicitly load the Managed Object Model once to avoid conflicts, especially in tests.
     static let model: NSManagedObjectModel = {
         guard let modelURL = Bundle.main.url(forResource: "VybeMVP", withExtension: "momd") else {
-            fatalError("Failed to find Core Data model file (VybeMVP.momd)")
+            // Claude: Graceful error handling for missing Core Data model
+            assertionFailure("Failed to find Core Data model file (VybeMVP.momd) in bundle")
+            print("🌀 Something is out of alignment. Core Data model not found.")
+            // Return empty model as fallback - app will be limited but won't crash
+            return NSManagedObjectModel()
         }
         guard let managedObjectModel = NSManagedObjectModel(contentsOf: modelURL) else {
-            fatalError("Failed to load Core Data model from file: \\(modelURL)")
+            // Claude: Graceful fallback for model loading failure
+            assertionFailure("Failed to load Core Data model from file: \(modelURL)")
+            print("🌀 Spiritual data temporarily unavailable. Using fallback configuration.")
+            // Return empty model as fallback
+            return NSManagedObjectModel()
         }
         return managedObjectModel
     }()
@@ -189,8 +197,23 @@ class PersistenceController {
         container.loadPersistentStores { description, error in
             // Check if an error occurred during loading
             if error != nil {
-                // Use the original 'error' parameter, force-unwrapped as we know it's non-nil
-                fatalError("Failed to load Core Data store: \\(error!.localizedDescription)")
+                // Claude: Log error and use in-memory store as fallback instead of crashing
+                assertionFailure("Failed to load Core Data store: \(error?.localizedDescription ?? "Unknown error")")
+                print("⚠️ Persistent store load failed. Using temporary in-memory store.")
+                print("🌀 Your spiritual journey continues, but data may not persist between sessions.")
+                
+                // Try to load an in-memory store as fallback
+                let inMemoryStoreDescription = NSPersistentStoreDescription()
+                inMemoryStoreDescription.url = URL(fileURLWithPath: "/dev/null")
+                self.container.persistentStoreDescriptions = [inMemoryStoreDescription]
+                
+                self.container.loadPersistentStores { _, fallbackError in
+                    if let fallbackError = fallbackError {
+                        print("❌ Critical: Even in-memory store failed: \(fallbackError)")
+                    } else {
+                        print("✅ In-memory fallback store loaded successfully")
+                    }
+                }
             }
             // Log successful loading
             print("✅ Core Data store loaded successfully: \\(description.url?.absoluteString ?? \"In-Memory\")")
@@ -246,7 +269,16 @@ class PersistenceController {
                 
                 #if DEBUG
                 DispatchQueue.main.async {
-                    fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                    // Claude: Log error and notify user instead of crashing
+                    assertionFailure("Core Data save error: \(nsError), \(nsError.userInfo)")
+                    print("⚠️ Failed to save spiritual data: \(nsError.localizedDescription)")
+                    
+                    // Post notification for UI to handle gracefully
+                    NotificationCenter.default.post(
+                        name: Notification.Name("VybeDataSaveError"),
+                        object: nil,
+                        userInfo: ["error": nsError]
+                    )
                 }
                 #endif
             }

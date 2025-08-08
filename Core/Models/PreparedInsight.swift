@@ -28,8 +28,8 @@ struct PreparedInsight: Identifiable {
     let text: String
     
     /// The current moon phase when this insight was generated (to be integrated later).
-    /// Defaults to `.unknown` until `CosmicService` is implemented.
-    var moonPhase: MoonPhase = .unknown // Assuming a MoonPhase enum will be created
+    /// Now uses SwiftData MoonPhase class instead of enum
+    var moonPhase: String = "unknown" // Will integrate with SwiftData MoonPhase class
     
     /// Optional: Information about how this insight was selected (for logging or AI training).
     var source: InsightSource?
@@ -39,17 +39,8 @@ struct PreparedInsight: Identifiable {
  * Enum to represent different moon phases.
  * This will be used by `CosmicService` and populated in `PreparedInsight`.
  */
-enum MoonPhase: String, Codable {
-    case newMoon = "New Moon"
-    case waxingCrescent = "Waxing Crescent"
-    case firstQuarter = "First Quarter"
-    case waxingGibbous = "Waxing Gibbous"
-    case fullMoon = "Full Moon"
-    case waningGibbous = "Waning Gibbous"
-    case lastQuarter = "Last Quarter"
-    case waningCrescent = "Waning Crescent"
-    case unknown = "Unknown"
-}
+// Claude: Removed duplicate MoonPhase enum - now using SwiftData version from MoonPhase.swift
+// This prevents "MoonPhase is ambiguous for type lookup" errors
 
 /**
  * Optional: Structure to log the source and matching criteria for a `PreparedInsight`.

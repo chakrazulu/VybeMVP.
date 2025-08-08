@@ -2051,23 +2051,23 @@ struct SanctumTabView: View {
     
     private func getAspectSymbol(for type: AspectType) -> String {
         switch type {
-        case .conjunction: return "☌"
-        case .sextile: return "⚹"
-        case .square: return "□"
-        case .trine: return "△"
-        case .opposition: return "☍"
-        case .quincunx: return "⚻"
+        case .unifying: return "☌"
+        case .harmonious: return "⚹"
+        case .challenging: return "□"
+        case .flowing: return "△"
+        case .dynamic: return "☍"
+        case .creative: return "⚻"
         }
     }
     
     private func getAspectColor(for type: AspectType) -> Color {
         switch type {
-        case .conjunction: return .yellow
-        case .sextile: return .green
-        case .square: return .red
-        case .trine: return .blue
-        case .opposition: return .purple
-        case .quincunx: return .orange
+        case .unifying: return .yellow
+        case .harmonious: return .green
+        case .challenging: return .red
+        case .flowing: return .blue
+        case .dynamic: return .purple
+        case .creative: return .orange
         }
     }
 }
@@ -2609,7 +2609,7 @@ private func getMajorAspects(profile: UserProfile) -> [NatalAspect] {
         aspects.append(NatalAspect(
             planet1: "Sun",
             planet2: "Moon",
-            type: .sextile,
+            type: .harmonious,
             orb: 3.2,
             maxOrb: 6.0,
             interpretation: "Harmonious balance between conscious will and emotional nature"
@@ -2618,7 +2618,7 @@ private func getMajorAspects(profile: UserProfile) -> [NatalAspect] {
         aspects.append(NatalAspect(
             planet1: "Venus",
             planet2: "Jupiter",
-            type: .trine,
+            type: .flowing,
             orb: 4.1,
             maxOrb: 8.0,
             interpretation: "Natural abundance and graceful expansion in relationships"
@@ -2627,7 +2627,7 @@ private func getMajorAspects(profile: UserProfile) -> [NatalAspect] {
         aspects.append(NatalAspect(
             planet1: "Sun",
             planet2: "Mercury",
-            type: .conjunction,
+            type: .unifying,
             orb: 2.1,
             maxOrb: 10.0,
             interpretation: "Strong integration of mind and identity"
@@ -2637,7 +2637,7 @@ private func getMajorAspects(profile: UserProfile) -> [NatalAspect] {
         aspects.append(NatalAspect(
             planet1: "Moon",
             planet2: "Saturn",
-            type: .square,
+            type: .challenging,
             orb: 5.3,
             maxOrb: 8.0,
             interpretation: "Learning to balance emotional needs with responsibility"
@@ -2646,7 +2646,7 @@ private func getMajorAspects(profile: UserProfile) -> [NatalAspect] {
         aspects.append(NatalAspect(
             planet1: "Mars",
             planet2: "Pluto",
-            type: .opposition,
+            type: .dynamic,
             orb: 6.8,
             maxOrb: 8.0,
             interpretation: "Transforming personal will through deep psychological insights"
@@ -3361,23 +3361,23 @@ struct AspectDetailView: View {
     // Claude: Helper functions with proper scope to avoid compilation issues
     private func getAspectSymbol(_ type: AspectType) -> String {
         switch type {
-        case .conjunction: return "☌"
-        case .sextile: return "⚹"
-        case .square: return "◽"
-        case .trine: return "△"
-        case .opposition: return "☍"
-        case .quincunx: return "⚻"
+        case .unifying: return "☌"
+        case .harmonious: return "⚹"
+        case .challenging: return "◽"
+        case .flowing: return "△"
+        case .dynamic: return "☍"
+        case .creative: return "⚻"
         }
     }
     
     private func getAspectColor(_ type: AspectType) -> Color {
         switch type {
-        case .conjunction: return .yellow
-        case .sextile: return .green
-        case .square: return .red
-        case .trine: return .blue
-        case .opposition: return .purple
-        case .quincunx: return .orange
+        case .unifying: return .yellow
+        case .harmonious: return .green
+        case .challenging: return .red
+        case .flowing: return .blue
+        case .dynamic: return .purple
+        case .creative: return .orange
         }
     }
     
@@ -3390,36 +3390,36 @@ struct AspectDetailView: View {
     
     private func getAspectDescription(_ type: AspectType) -> String {
         switch type {
-        case .conjunction:
+        case .unifying:
             return "A powerful fusion of planetary energies creating intensity and focus. When planets are conjunct, their energies blend and amplify each other, creating a concentrated force that demands expression."
-        case .sextile:
+        case .harmonious:
             return "A harmonious flow of energy offering opportunities for growth and creative expression. Sextiles provide natural talents and abilities that can be easily developed with conscious effort."
-        case .square:
+        case .challenging:
             return "A dynamic tension that creates motivation for growth through challenge. Squares represent internal conflicts that, when worked through, lead to strength and mastery."
-        case .trine:
+        case .flowing:
             return "A flowing, harmonious aspect that brings natural ease and grace. Trines represent gifts and talents that come naturally, offering support and good fortune."
-        case .opposition:
+        case .dynamic:
             return "A polarity that seeks balance and integration between opposing forces. Oppositions create awareness through contrast and teach the art of finding middle ground."
-        case .quincunx:
+        case .creative:
             return "An aspect of adjustment requiring flexibility and adaptation. Quincunxes create a need to constantly fine-tune and adjust approaches to find harmony."
         }
     }
     
     private func getAspectKeywords(_ type: AspectType) -> [String] {
         switch type {
-        case .conjunction: return ["Unity", "Fusion", "Intensity", "Focus", "Power", "Concentration"]
-        case .sextile: return ["Opportunity", "Harmony", "Talent", "Ease", "Support", "Growth"]
-        case .square: return ["Challenge", "Tension", "Motivation", "Conflict", "Growth", "Mastery"]
-        case .trine: return ["Flow", "Grace", "Natural", "Gift", "Harmony", "Support"]
-        case .opposition: return ["Balance", "Polarity", "Awareness", "Integration", "Contrast", "Completion"]
-        case .quincunx: return ["Adjustment", "Flexibility", "Adaptation", "Fine-tuning", "Complexity", "Growth"]
+        case .unifying: return ["Unity", "Fusion", "Intensity", "Focus", "Power", "Concentration"]
+        case .harmonious: return ["Opportunity", "Harmony", "Talent", "Ease", "Support", "Growth"]
+        case .challenging: return ["Challenge", "Tension", "Motivation", "Conflict", "Growth", "Mastery"]
+        case .flowing: return ["Flow", "Grace", "Natural", "Gift", "Harmony", "Support"]
+        case .dynamic: return ["Balance", "Polarity", "Awareness", "Integration", "Contrast", "Completion"]
+        case .creative: return ["Adjustment", "Flexibility", "Adaptation", "Fine-tuning", "Complexity", "Growth"]
         }
     }
     
     private func getPlanetaryRelationshipDescription(planet1: String, planet2: String, aspectType: AspectType) -> String {
         let relationship = "\(planet1.capitalized) and \(planet2.capitalized)"
-        let aspectNature = aspectType == .conjunction || aspectType == .trine || aspectType == .sextile ? "harmonious" : 
-                          aspectType == .square || aspectType == .opposition ? "challenging" : "complex"
+        let aspectNature = aspectType == .unifying || aspectType == .flowing || aspectType == .harmonious ? "harmonious" : 
+                          aspectType == .challenging || aspectType == .dynamic ? "challenging" : "complex"
         
         return "This \(aspectNature) aspect between \(relationship) creates a unique dynamic in your personality. \(planet1.capitalized) represents your \(getPlanetKeyword(planet1)) nature, while \(planet2.capitalized) embodies your \(getPlanetKeyword(planet2)) qualities. Together, they form a \(aspectType.rawValue.lowercased()) relationship that shapes how these energies express in your life."
     }
@@ -3435,17 +3435,17 @@ struct AspectDetailView: View {
     
     private func getAspectGuidance(_ type: AspectType, planet1: String, planet2: String) -> String {
         let baseGuidance = switch type {
-        case .conjunction:
+        case .unifying:
             "Focus on integrating these energies consciously. The power of this fusion can be directed toward your highest purpose when you align with your spiritual center."
-        case .sextile:
+        case .harmonious:
             "Embrace the opportunities this harmony brings. These gifts are meant to be shared and used in service of your soul's evolution."
-        case .square:
+        case .challenging:
             "Welcome the challenge as a catalyst for growth. The tension you feel is the universe inviting you to expand beyond your current limitations."
-        case .trine:
+        case .flowing:
             "Express these natural gifts with gratitude and purpose. Your ease in this area can inspire and uplift others on their spiritual journey."
-        case .opposition:
+        case .dynamic:
             "Seek the middle path that honors both energies. True wisdom comes from finding the sacred balance between opposing forces."
-        case .quincunx:
+        case .creative:
             "Trust the process of constant adjustment. This aspect teaches you to remain flexible and open to divine guidance in unexpected forms."
         }
         
