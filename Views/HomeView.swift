@@ -91,49 +91,158 @@
 import SwiftUI
 
 struct HomeView: View {
-    /// Access to the focus number manager for displaying the selected number and match history
+    // MARK: - 🌟 ENVIRONMENT OBJECT SPIRITUAL ECOSYSTEM INTEGRATION
+    
+    /// Claude: FocusNumberManager provides the user's selected spiritual focus number (1-9)
+    /// and manages cosmic match detection when focus equals realm number.
+    /// This manager is the heart of Vybe's spiritual matching system, coordinating
+    /// between user intention and cosmic alignment for transcendent experiences.
     @EnvironmentObject var focusNumberManager: FocusNumberManager
+    
+    /// Claude: RealmNumberManager calculates the current cosmic realm number based on
+    /// time, location, heart rate, and celestial influences. This dynamic number
+    /// represents the universe's current energetic state and serves as the target
+    /// for cosmic synchronicity when it aligns with the user's focus number.
     @EnvironmentObject var realmNumberManager: RealmNumberManager
+    
+    /// Claude: SignInViewModel handles user authentication and personalization,
+    /// providing access to user profile data that influences spiritual calculations
+    /// and personalized insight generation throughout the cosmic experience.
     @EnvironmentObject var signInViewModel: SignInViewModel
+    
+    /// Claude: ActivityNavigationManager orchestrates deep linking and navigation
+    /// to specific insights within the activity feed, enabling users to seamlessly
+    /// navigate between cosmic experiences and their spiritual activity timeline.
     @EnvironmentObject var activityNavigationManager: ActivityNavigationManager
+    
+    /// Claude: AIInsightManager provides traditional AI insight generation using
+    /// template-based spiritual guidance, serving as the foundation layer for
+    /// personalized daily spiritual wisdom before KASPER MLX enhancement.
     @EnvironmentObject var aiInsightManager: AIInsightManager
+    
+    /// Claude: HealthKitManager integrates biometric data including heart rate variability
+    /// to enhance cosmic calculations and provide physiological context for spiritual
+    /// experiences. Heart rate data influences neon tracer pulsing and realm calculations.
     @EnvironmentObject var healthKitManager: HealthKitManager
     
-    // Claude: KASPER MLX Daily Card Integration
+    // MARK: - 🧠 KASPER MLX SPIRITUAL AI INTEGRATION
+    
+    /// Claude: KASPERMLXManager represents the revolutionary spiritual AI system that provides
+    /// contextually-aware spiritual guidance with sub-second response times. This state object
+    /// manages the sophisticated AI inference engine that transforms HomeView from a static
+    /// dashboard into an intelligent spiritual companion.
     @StateObject private var kasperMLX = KASPERMLXManager.shared
+    
+    /// Claude: KASPERFeedbackManager collects user satisfaction data for continuous AI
+    /// improvement, enabling the spiritual AI system to learn and evolve based on
+    /// user feedback about insight quality and spiritual relevance.
     @StateObject private var kasperFeedback = KASPERFeedbackManager.shared
     
-    /// Controls visibility of the focus number picker sheet
+    // MARK: - 🎨 UI STATE MANAGEMENT FOR SPIRITUAL INTERACTIONS
+    
+    /// Claude: Legacy focus number picker sheet visibility control.
+    /// Maintained for backward compatibility but superseded by showingCosmicPicker
+    /// for the enhanced cosmic number selection experience.
     @State private var showingPicker = false
+    
+    /// Claude: Controls visibility of the insight history modal, providing users
+    /// access to their complete timeline of received spiritual guidance and
+    /// AI-generated insights for reflection and spiritual growth tracking.
     @State private var showingInsightHistory = false
-    /// New state for cosmic number picker overlay
+    
+    /// Claude: Modern cosmic number picker overlay visibility state.
+    /// This sophisticated overlay system replaces traditional sheet modals with
+    /// a magical cosmic interface that appears directly over the sacred geometry,
+    /// maintaining immersion in the spiritual experience.
     @State private var showingCosmicPicker = false
+    
+    /// Claude: Animation scale factor for cosmic picker entrance animation.
+    /// Starts at 0.1 and animates to 1.0 to create a magical appearance effect
+    /// that makes the number picker bloom into existence from the cosmic center.
     @State private var pickerScale: CGFloat = 0.1
+    
+    /// Claude: Animation opacity for cosmic picker entrance animation.
+    /// Coordinates with scale animation to create smooth, mystical transitions
+    /// that enhance the spiritual nature of number selection interactions.
     @State private var pickerOpacity: Double = 0.0
     
-    // Claude: KASPER MLX Daily Card states - Fixed race condition issues
+    // MARK: - 🤖 KASPER MLX AI STATE MANAGEMENT
+    
+    /// Claude: Current KASPER MLX generated insight displayed in HomeView.
+    /// This represents the latest AI-generated spiritual guidance contextually
+    /// aware of the user's focus number, realm alignment, and spiritual journey phase.
+    /// Race condition issues resolved through proper async/await patterns.
     @State private var kasperInsight: KASPERInsight?
+    
+    /// Claude: Controls visibility of the KASPER AI insight card in the main view.
+    /// When true, displays the sophisticated AI insight with smooth ZStack opacity
+    /// transitions that prevent layout hitches during content updates.
     @State private var showKasperCard = true
+    
+    /// Claude: Holds any error messages from KASPER MLX insight generation.
+    /// Provides user-friendly error communication when AI insight generation
+    /// encounters issues, maintaining graceful degradation of the spiritual experience.
     @State private var kasperError: String?
+    
+    /// Claude: Loading state for KASPER MLX insight generation operations.
+    /// Enables smooth loading animations with crystal ball iconography that
+    /// maintains the mystical aesthetic during AI processing periods.
     @State private var isKasperLoading = false
     
-    // CACHE FLOOD FIX: Cache UserProfile in HomeView to prevent repeated lookups
+    // MARK: - 📊 PERFORMANCE OPTIMIZATION STATE
+    
+    /// Claude: CACHE FLOOD FIX - Cached UserProfile to prevent repeated Core Data lookups.
+    /// This optimization significantly improves HomeView performance by eliminating
+    /// redundant profile queries that were causing UI stuttering during rapid updates.
+    /// The cached profile enables instant access to user spiritual data.
     @State private var cachedUserProfile: UserProfile?
     
-    // PHASE 3C-2: Recent Match Popup state
+    // MARK: - 🎊 COSMIC MATCH CELEBRATION STATE
+    
+    /// Claude: PHASE 3C-2 - Controls visibility of recent cosmic match popup modal.
+    /// When a cosmic match is detected (focus number equals realm number), this state
+    /// triggers the celebration interface that acknowledges the spiritual synchronicity.
     @State private var showingMatchPopup = false
+    
+    /// Claude: PHASE 3C-2 - Holds the selected FocusMatch for detailed display.
+    /// Contains complete match data including timestamp, location, and cosmic context
+    /// for comprehensive celebration and spiritual journey documentation.
     @State private var selectedMatch: FocusMatch?
     
-    // Claude: Phase 8.5 - Track current mandala asset for authentic SVG path tracing
+    // MARK: - 🌀 SACRED GEOMETRY ANIMATION STATE
+    
+    /// Claude: PHASE 8.5 - Tracks current mandala asset for authentic SVG path tracing.
+    /// This state enables the NeonTracerView to follow the exact geometric paths
+    /// of the currently displayed sacred geometry, creating authentic mystical effects
+    /// that trace real mandala structures rather than generic shapes.
     @State private var currentMandalaAsset: SacredGeometryAsset = .wisdomEnneagram
     
     var body: some View {
         ZStack {
-            // 🌌 COSMIC ANIMATION LAYER: Re-enabled with lightweight cosmic background
+            // MARK: - 🌌 COSMIC ANIMATION SYSTEM ARCHITECTURE
+            
+            /// Claude: ScrollSafeCosmicView provides the revolutionary animation system that enables
+            /// continuous cosmic effects without interfering with ScrollView performance. This
+            /// sophisticated wrapper prevents animation stuttering during scrolling while maintaining
+            /// the mystical twinkling number effects that bloom from sacred geometry centers.
+            /// 
+            /// The system represents a breakthrough in iOS animation architecture, solving the
+            /// challenging problem of scroll-safe continuous animations that plagued earlier
+            /// implementations. Users experience seamless cosmic effects even during rapid scrolling.
             ScrollSafeCosmicView {
-                // Original HomeView content wrapped in cosmic animations
+                // Claude: Primary content container wrapped within cosmic animation system.
+                // This ZStack layering enables the cosmic background to render behind all
+                // spiritual interface elements while maintaining proper depth relationships.
                 ZStack {
-                    // 🌌 SIMPLE COSMIC BACKGROUND: Replaces TwinklingDigitsBackground for now
+                    // MARK: - 🎨 COSMIC BACKGROUND GRADIENT SYSTEM
+                    
+                    /// Claude: Sophisticated cosmic background gradient replacing the previous
+                    /// TwinklingDigitsBackground system for improved performance. This gradient
+                    /// creates the mystical purple-to-indigo cosmic atmosphere that defines
+                    /// Vybe's spiritual aesthetic while ensuring smooth 60fps performance.
+                    /// 
+                    /// Color progression: Black → Purple (30%) → Indigo (20%) → Black
+                    /// This creates depth and mystical ambiance without overwhelming content.
                     LinearGradient(
                         gradient: Gradient(colors: [
                             Color.black,
@@ -153,9 +262,28 @@ struct HomeView: View {
                     //     .environmentObject(activityNavigationManager)
                     //     .ignoresSafeArea()
                     
+                    // MARK: - 📱 MAIN SCROLLVIEW CONTENT ARCHITECTURE
+                    
+                    /// Claude: Primary ScrollView container providing vertical scrolling for all
+                    /// spiritual dashboard content. This scrolling system is optimized to work
+                    /// seamlessly with ScrollSafeCosmicView's animation system, preventing any
+                    /// performance conflicts between scrolling interactions and cosmic animations.
                     ScrollView {
+                        /// Claude: Main vertical stack with carefully optimized 15pt spacing.
+                        /// This compact spacing balances visual hierarchy with screen real estate
+                        /// efficiency, ensuring all spiritual elements remain visible without
+                        /// requiring excessive scrolling on standard iPhone displays.
                         VStack(spacing: 15) { // 🎯 MAIN STACK: Compact spacing
-                            // Move titles higher up for button space - keep original font sizes
+                            
+                            // MARK: - 🎭 BRAND IDENTITY & NAVIGATION HEADER
+                            
+                            /// Claude: Brand identity section positioned high in the interface hierarchy.
+                            /// The 5pt top padding moves content closer to the status bar for maximum
+                            /// screen utilization while maintaining Apple's recommended safe areas.
+                            /// 
+                            /// Font sizing follows Apple's Human Interface Guidelines:
+                            /// - "Vybe" brand: 32pt bold system font for strong brand presence
+                            /// - Subtitle: Title2 (22pt) for clear feature identification
                             VStack(spacing: 8) {
                                 Text("Vybe")
                                     .font(.system(size: 32, weight: .bold)) // Back to original size

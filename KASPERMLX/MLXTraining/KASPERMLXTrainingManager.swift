@@ -96,7 +96,7 @@ public struct KASPERTrainingConfiguration {
 }
 
 /// Claude: Model architecture definitions for different KASPER use cases
-public enum KASPERModelArchitecture: String, CaseIterable {
+public enum KASPERModelArchitecture: String, CaseIterable, Codable {
     case spiritualGuidance7B = "spiritual_guidance_7b"
     case deepReflection13B = "deep_reflection_13b"
     case cosmicTiming3B = "cosmic_timing_3b"
@@ -240,9 +240,9 @@ public final class KASPERMLXTrainingManager: ObservableObject {
     @Published public private(set) var isTrainingActive: Bool = false
     @Published public private(set) var currentStage: KASPERTrainingStage = .preparation
     @Published public private(set) var trainingProgress: KASPERTrainingProgress?
-    @Published public private(set) var availableModels: [KASPERModelInfo] = []
-    @Published public private(set) var activeModel: KASPERModelInfo?
-    @Published public private(set) var trainingHistory: [KASPERTrainingSession] = []
+    @Published private(set) var availableModels: [KASPERModelInfo] = []
+    @Published private(set) var activeModel: KASPERModelInfo?
+    @Published private(set) var trainingHistory: [KASPERTrainingSession] = []
     
     // MARK: - Private Properties
     
@@ -284,12 +284,12 @@ public final class KASPERMLXTrainingManager: ObservableObject {
     /**
      * Start training a new KASPER MLX model
      */
-    public func startTraining(
+    func startTraining(
         architecture: KASPERModelArchitecture,
         configuration: KASPERTrainingConfiguration? = nil
     ) async throws {
         guard !isTrainingActive else {
-            throw KASPERMLXError.trainingAlreadyActive
+            throw KASPERMLXTrainingError.trainingAlreadyActive
         }
         
         logger.info("🤖 Starting MLX training for architecture: \(architecture.rawValue)")
@@ -338,12 +338,12 @@ public final class KASPERMLXTrainingManager: ObservableObject {
     /**
      * Deploy a trained model for inference
      */
-    public func deployModel(_ modelInfo: KASPERModelInfo) async throws {
+    func deployModel(_ modelInfo: KASPERModelInfo) async throws {
         logger.info("🤖 Deploying model: \(modelInfo.name)")
         
         // Validate model exists and is compatible
         guard FileManager.default.fileExists(atPath: modelInfo.modelPath) else {
-            throw KASPERMLXError.modelNotFound
+            throw KASPERMLXTrainingError.modelNotFound
         }
         
         // Update active model
@@ -589,6 +589,64 @@ struct KASPERModelInfo: Identifiable, Codable {
     public let validationAccuracy: Float
     public let modelSize: Int64
     public let isDeployed: Bool
+    
+    enum CodingKeys: CodingKey {
+        case id, name, architecture, version, modelPath, createdDate
+        case trainingAccuracy, validationAccuracy, modelSize, isDeployed
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(UUID.self, forKey: .id)
+        self.name = try container.decode(String.self, forKey: .name)
+        let architectureString = try container.decode(String.self, forKey: .architecture)
+        self.architecture = KASPERModelArchitecture(rawValue: architectureString) ?? .spiritualGuidance7B
+        self.version = try container.decode(String.self, forKey: .version)
+        self.modelPath = try container.decode(String.self, forKey: .modelPath)
+        self.createdDate = try container.decode(Date.self, forKey: .createdDate)
+        self.trainingAccuracy = try container.decode(Float.self, forKey: .trainingAccuracy)
+        self.validationAccuracy = try container.decode(Float.self, forKey: .validationAccuracy)
+        self.modelSize = try container.decode(Int64.self, forKey: .modelSize)
+        self.isDeployed = try container.decode(Bool.self, forKey: .isDeployed)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(architecture.rawValue, forKey: .architecture)
+        try container.encode(version, forKey: .version)
+        try container.encode(modelPath, forKey: .modelPath)
+        try container.encode(createdDate, forKey: .createdDate)
+        try container.encode(trainingAccuracy, forKey: .trainingAccuracy)
+        try container.encode(validationAccuracy, forKey: .validationAccuracy)
+        try container.encode(modelSize, forKey: .modelSize)
+        try container.encode(isDeployed, forKey: .isDeployed)
+    }
+    
+    public init(
+        id: UUID,
+        name: String,
+        architecture: KASPERModelArchitecture,
+        version: String,
+        modelPath: String,
+        createdDate: Date,
+        trainingAccuracy: Float,
+        validationAccuracy: Float,
+        modelSize: Int64,
+        isDeployed: Bool
+    ) {
+        self.id = id
+        self.name = name
+        self.architecture = architecture
+        self.version = version
+        self.modelPath = modelPath
+        self.createdDate = createdDate
+        self.trainingAccuracy = trainingAccuracy
+        self.validationAccuracy = validationAccuracy
+        self.modelSize = modelSize
+        self.isDeployed = isDeployed
+    }
 }
 
 /// Claude: Training session history tracking
@@ -604,6 +662,56 @@ struct KASPERTrainingSession: Identifiable, Codable {
     
     public var duration: TimeInterval {
         endDate.timeIntervalSince(startDate)
+    }
+    
+    enum CodingKeys: CodingKey {
+        case id, architecture, startDate, endDate, configuration
+        case finalAccuracy, finalLoss, modelInfo
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(UUID.self, forKey: .id)
+        let architectureString = try container.decode(String.self, forKey: .architecture)
+        self.architecture = KASPERModelArchitecture(rawValue: architectureString) ?? .spiritualGuidance7B
+        self.startDate = try container.decode(Date.self, forKey: .startDate)
+        self.endDate = try container.decode(Date.self, forKey: .endDate)
+        self.configuration = try container.decode(KASPERTrainingConfiguration.self, forKey: .configuration)
+        self.finalAccuracy = try container.decode(Float.self, forKey: .finalAccuracy)
+        self.finalLoss = try container.decode(Float.self, forKey: .finalLoss)
+        self.modelInfo = try container.decode(KASPERModelInfo.self, forKey: .modelInfo)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(architecture.rawValue, forKey: .architecture)
+        try container.encode(startDate, forKey: .startDate)
+        try container.encode(endDate, forKey: .endDate)
+        try container.encode(configuration, forKey: .configuration)
+        try container.encode(finalAccuracy, forKey: .finalAccuracy)
+        try container.encode(finalLoss, forKey: .finalLoss)
+        try container.encode(modelInfo, forKey: .modelInfo)
+    }
+    
+    public init(
+        id: UUID,
+        architecture: KASPERModelArchitecture,
+        startDate: Date,
+        endDate: Date,
+        configuration: KASPERTrainingConfiguration,
+        finalAccuracy: Float,
+        finalLoss: Float,
+        modelInfo: KASPERModelInfo
+    ) {
+        self.id = id
+        self.architecture = architecture
+        self.startDate = startDate
+        self.endDate = endDate
+        self.configuration = configuration
+        self.finalAccuracy = finalAccuracy
+        self.finalLoss = finalLoss
+        self.modelInfo = modelInfo
     }
 }
 

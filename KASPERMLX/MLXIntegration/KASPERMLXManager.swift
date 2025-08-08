@@ -154,9 +154,52 @@ class KASPERMLXManager: ObservableObject {
         logger.info("🔮 KASPER MLX Manager: Configuration complete")
     }
     
-    // MARK: - Insight Generation
+    // MARK: - 🤖 SOPHISTICATED SPIRITUAL AI GENERATION INTERFACES
     
-    /// Generate insight for journal entry
+    /// Claude: Advanced Journal Insight Generation with Deep Reflection Analysis
+    /// ======================================================================
+    /// 
+    /// This sophisticated method generates personalized spiritual insights for journal
+    /// entries, providing deep reflection analysis that understands the user's spiritual
+    /// context and offers meaningful guidance for continued growth and self-discovery.
+    /// 
+    /// 📝 JOURNAL INSIGHT ARCHITECTURE:
+    /// 
+    /// 1. COMPREHENSIVE REFLECTION ANALYSIS:
+    ///    - Optional entry text analysis providing context-aware spiritual guidance
+    ///    - Tone-aware insight generation matching the user's current emotional and spiritual state
+    ///    - Integration with user's focus and realm numbers for personalized reflection depth
+    ///    - Cosmic timing consideration ensuring guidance aligns with current spiritual energies
+    /// 
+    /// 2. SPIRITUAL GROWTH INTELLIGENCE:
+    ///    - Pattern recognition in journaling themes and spiritual development trends
+    ///    - Personalized guidance based on user's unique spiritual journey and growth patterns
+    ///    - Integration with biometric data for spiritual-physical harmony recommendations
+    ///    - Actionable insights that bridge reflection with practical spiritual application
+    /// 
+    /// 3. CONTEXTUAL SPIRITUAL GUIDANCE:
+    ///    - Entry-specific insights that respond directly to user's written reflections
+    ///    - Tone-sensitive guidance that matches user's current emotional and spiritual needs
+    ///    - Universal spiritual wisdom personalized for individual spiritual development stage
+    ///    - Encouragement and validation supporting continued spiritual exploration and growth
+    /// 
+    /// 🎯 JOURNAL INTEGRATION BENEFITS:
+    /// 
+    /// The journal insights transform writing practice into active spiritual development:
+    /// 
+    /// • REFLECTION AMPLIFICATION: Deepens spiritual insights from personal writing and contemplation
+    /// • PATTERN RECOGNITION: Identifies spiritual themes and growth opportunities in journal content
+    /// • PERSONALIZED GUIDANCE: Tailored spiritual advice based on individual reflection patterns
+    /// • GROWTH ACCELERATION: Actionable insights that transform reflection into spiritual advancement
+    /// • COSMIC INTEGRATION: Journal guidance aligned with current astrological and cosmic conditions
+    /// 
+    /// - Parameter entryText: Optional journal entry content for context-aware insight generation
+    /// - Parameter tone: Optional emotional/spiritual tone for appropriate guidance matching
+    /// - Returns: Personalized spiritual insight with deep reflection analysis and growth guidance
+    /// - Throws: Generation errors with detailed diagnostic information for troubleshooting
+    /// 
+    /// - Note: Integrates seamlessly with Vybe's journal interface for immediate spiritual enhancement
+    /// - Important: Respects user privacy - all analysis remains on device with complete user control
     func generateJournalInsight(
         entryText: String? = nil,
         tone: String? = nil

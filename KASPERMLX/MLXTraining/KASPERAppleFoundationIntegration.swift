@@ -360,7 +360,7 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
     /**
      * Update Dynamic Island with spiritual insight
      */
-    public func updateDynamicIslandSpiritual(
+    func updateDynamicIslandSpiritual(
         insight: KASPERInsight,
         presentation: KASPERDynamicIslandPresentation = .compact
     ) async {
@@ -591,7 +591,7 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
             self.availableFeatures = [.shortcuts, .liveActivities, .dynamicIsland]
         }
         
-        logger.info("🍎 Apple Intelligence available: \(isAppleIntelligenceAvailable), Features: \(availableFeatures.count)")
+        logger.info("🍎 Apple Intelligence available: \(self.isAppleIntelligenceAvailable), Features: \(self.availableFeatures.count)")
     }
     
     /**

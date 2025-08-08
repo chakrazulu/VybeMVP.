@@ -48,7 +48,7 @@ import CryptoKit
 import os.log
 
 /// Claude: MegaCorpus data categories for organized processing
-public enum KASPERMegaCorpusCategory: String, CaseIterable {
+public enum KASPERMegaCorpusCategory: String, CaseIterable, Codable {
     case numerology = "numerology"
     case astrology = "astrology"
     case spiritualPractices = "spiritual_practices"
@@ -117,6 +117,73 @@ struct KASPERMegaCorpusEntry: Codable, Identifiable {
     public let culturalOrigin: String?
     public let sourceReliability: Float
     public let lastUpdated: Date
+    
+    // Codable implementation
+    enum CodingKeys: CodingKey {
+        case id, category, title, content, spiritualMarkers, numerologicalRefs
+        case astrologicalRefs, qualityScore, authenticity, culturalOrigin, sourceReliability, lastUpdated
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(UUID.self, forKey: .id)
+        let categoryString = try container.decode(String.self, forKey: .category)
+        self.category = KASPERMegaCorpusCategory(rawValue: categoryString) ?? .spiritualPractices
+        self.title = try container.decode(String.self, forKey: .title)
+        self.content = try container.decode(String.self, forKey: .content)
+        self.spiritualMarkers = try container.decode([String].self, forKey: .spiritualMarkers)
+        self.numerologicalRefs = try container.decode([Int].self, forKey: .numerologicalRefs)
+        self.astrologicalRefs = try container.decode([String].self, forKey: .astrologicalRefs)
+        self.qualityScore = try container.decode(Float.self, forKey: .qualityScore)
+        self.authenticity = try container.decode(Float.self, forKey: .authenticity)
+        self.culturalOrigin = try container.decodeIfPresent(String.self, forKey: .culturalOrigin)
+        self.sourceReliability = try container.decode(Float.self, forKey: .sourceReliability)
+        self.lastUpdated = try container.decode(Date.self, forKey: .lastUpdated)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(category.rawValue, forKey: .category)
+        try container.encode(title, forKey: .title)
+        try container.encode(content, forKey: .content)
+        try container.encode(spiritualMarkers, forKey: .spiritualMarkers)
+        try container.encode(numerologicalRefs, forKey: .numerologicalRefs)
+        try container.encode(astrologicalRefs, forKey: .astrologicalRefs)
+        try container.encode(qualityScore, forKey: .qualityScore)
+        try container.encode(authenticity, forKey: .authenticity)
+        try container.encodeIfPresent(culturalOrigin, forKey: .culturalOrigin)
+        try container.encode(sourceReliability, forKey: .sourceReliability)
+        try container.encode(lastUpdated, forKey: .lastUpdated)
+    }
+    
+    public init(
+        id: UUID,
+        category: KASPERMegaCorpusCategory,
+        title: String,
+        content: String,
+        spiritualMarkers: [String],
+        numerologicalRefs: [Int],
+        astrologicalRefs: [String],
+        qualityScore: Float,
+        authenticity: Float,
+        culturalOrigin: String?,
+        sourceReliability: Float,
+        lastUpdated: Date
+    ) {
+        self.id = id
+        self.category = category
+        self.title = title
+        self.content = content
+        self.spiritualMarkers = spiritualMarkers
+        self.numerologicalRefs = numerologicalRefs
+        self.astrologicalRefs = astrologicalRefs
+        self.qualityScore = qualityScore
+        self.authenticity = authenticity
+        self.culturalOrigin = culturalOrigin
+        self.sourceReliability = sourceReliability
+        self.lastUpdated = lastUpdated
+    }
     
     /// Claude: Convert to MLX training format
     public func toMLXTrainingExample() -> [String: Any] {
@@ -245,7 +312,7 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
     private var processedEntries: [KASPERMegaCorpusEntry] = []
     
     /// Claude: Processing task for cancellation
-    private var processingTask: Task<Void, Error>?
+    private var processingTask: Task<[KASPERMegaCorpusEntry], Error>?
     
     // MARK: - Initialization
     
@@ -289,6 +356,7 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
                     self.processingProgress = 1.0
                 }
                 
+                // Return entries from task
                 return entries
             } catch {
                 await MainActor.run {
@@ -305,7 +373,7 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
     /**
      * Export processed corpus data to MLX format
      */
-    public func exportToMLXFormat(entries: [KASPERMegaCorpusEntry]? = nil) throws -> Data {
+    func exportToMLXFormat(entries: [KASPERMegaCorpusEntry]? = nil) throws -> Data {
         let corpusEntries = entries ?? processedEntries
         
         guard !corpusEntries.isEmpty else {

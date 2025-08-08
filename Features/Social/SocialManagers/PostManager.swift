@@ -1,27 +1,64 @@
-//
-//  PostManager.swift
-//  VybeMVP
-//
-//  PHASE 17B: Clean Repository-Based Post Management
-//  Simplified interface using Repository pattern for cache-first data access
-//
+/**
+ * Filename: PostManager.swift
+ * 
+ * 🎯 COMPREHENSIVE MANAGER REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
+ * 
+ * === CORE PURPOSE ===
+ * Central manager for all social media post operations in VybeMVP's spiritual community.
+ * This manager orchestrates post creation, updates, reactions, and social interactions
+ * while maintaining optimal performance through intelligent caching and repository patterns.
+ * 
+ * === KEY RESPONSIBILITIES ===
+ * • Post lifecycle management (create, read, update, delete)
+ * • Social interactions (reactions, comments, sharing)
+ * • Content filtering and search capabilities
+ * • Pagination and infinite scroll optimization
+ * • Real-time updates and synchronization
+ * • Analytics and engagement tracking
+ * • User authentication and authorization
+ * 
+ * === PHASE 17B ARCHITECTURE TRANSFORMATION ===
+ * Major refactor from direct Firebase access to repository pattern:
+ * • Repository Pattern: Clean separation of data access concerns
+ * • HybridPostRepository: Core Data + Firestore for offline-first approach
+ * • 80% cost reduction: Intelligent caching reduces Firebase reads
+ * • Reactive Binding: Publishers connected to SwiftUI for reactive updates
+ * • Cache-First Strategy: Instant UI updates with background sync
+ * 
+ * === PUBLISHED PROPERTIES ===
+ * • posts: [Post] - Current timeline posts array
+ * • isLoading: Bool - Loading state for initial data fetch
+ * • errorMessage: String? - User-facing error messages
+ * • isPaginating: Bool - Pagination loading state
+ * • hasMorePosts: Bool - Whether more pages are available
+ * 
+ * === REPOSITORY INTEGRATION ===
+ * Uses HybridPostRepository for complete functionality:
+ * • Core Data: Local persistence and offline access
+ * • Firestore: Cloud sync and real-time updates
+ * • Cache Management: Intelligent cache hit optimization
+ * • Pagination: Cursor-based infinite scroll
+ * • Conflict Resolution: Automatic merge strategies
+ * 
+ * Purpose: Central manager for all social media post operations, providing
+ * a clean interface for creating, managing, and interacting with spiritual
+ * community content while maintaining optimal performance and user experience.
+ *
+ * Key responsibilities:
+ * - Manage the complete post lifecycle from creation to deletion
+ * - Handle social interactions like reactions and comments
+ * - Provide efficient filtering and search capabilities
+ * - Maintain real-time synchronization with cloud services
+ * - Support offline-first user experience with intelligent caching
+ * - Ensure secure and authenticated user operations
+ * 
+ * This manager is central to VybeMVP's social features, enabling users to
+ * share their spiritual journeys and connect with like-minded individuals
+ * in a meaningful and authentic way.
+ */
 
 import Foundation
 import Combine
-
-/**
- * Claude: Phase 17B - Clean PostManager Implementation
- * 
- * PURPOSE:
- * Simplified post manager that delegates all operations to the repository pattern.
- * Maintains existing interface for backward compatibility while using cache-first strategy.
- * 
- * ARCHITECTURE:
- * - Repository Pattern: All data access through PostRepository interface
- * - Reactive Binding: Publishers connected to SwiftUI views
- * - Clean Interface: Simplified API with async/await methods
- * - Cost Optimization: 80% reduction in Firebase reads through intelligent caching
- */
 @MainActor
 class PostManager: ObservableObject {
     static let shared = PostManager()

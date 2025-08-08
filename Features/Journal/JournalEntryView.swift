@@ -1,12 +1,29 @@
 /*
  * ========================================
- * 📝 JOURNAL ENTRY VIEW - JOURNAL LIST ITEM
+ * 📝 JOURNALENTRYVIEW - SOPHISTICATED SPIRITUAL REFLECTION DISPLAY COMPONENT
  * ========================================
  * 
+ * Claude: JournalEntryView represents a carefully crafted list item component that
+ * distills the essence of spiritual journal entries into an elegant, informative
+ * interface element. This isn't just a simple row view - it's a micro-interface
+ * that communicates the spiritual significance of each journal entry through
+ * thoughtful typography, numerological awareness, and emotional context visualization.
+ * 
+ * The component demonstrates advanced SwiftUI layout techniques combining flexible
+ * content areas with fixed metadata displays, creating visual hierarchy that
+ * guides users through their spiritual journey timeline with clarity and beauty.
+ *
+ * SPIRITUAL INTERFACE DESIGN:
+ * • Sacred number integration with visual prominence for numerological tracking
+ * • Emotional state visualization through mood indicators and contextual icons
+ * • Temporal awareness through elegant timestamp formatting and visual hierarchy
+ * • Content accessibility enabling quick recognition of spiritual themes and growth
+ * • Tappable interface providing seamless navigation to detailed spiritual reflection
+ * 
  * CORE PURPOSE:
- * Displays a single journal entry in a list format with title, timestamp,
- * focus number, and mood information. Used in journal lists and search results.
- * Provides a compact, informative view of journal entry metadata.
+ * Displays a single spiritual journal entry in a sophisticated list format with title, 
+ * timestamp, sacred focus number, and spiritual mood information. Used throughout
+ * journal interfaces and search results to provide comprehensive entry overviews.
  * 
  * COMPONENT LAYOUT:
  * • HStack: Main container with leading content and trailing metadata

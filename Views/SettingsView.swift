@@ -113,39 +113,118 @@ import SafariServices
  * • Developer tools conditionally compiled
  */
 struct SettingsView: View {
+    // MARK: - 🏥 HEALTHKIT INTEGRATION & BIOMETRIC DATA MANAGEMENT
+    
+    /// Claude: HealthKitManager provides sophisticated biometric data integration enabling
+    /// heart rate variability to influence cosmic calculations and sacred geometry animations.
+    /// This environment object manages HealthKit authorization, real-time heart rate monitoring,
+    /// and privacy-compliant access to user health data for spiritual enhancement.
     @EnvironmentObject private var healthKitManager: HealthKitManager
+    
+    /// Claude: RealmNumberManager orchestrates the complex calculations that determine
+    /// the current cosmic realm number based on time, location, celestial influences,
+    /// and biometric data. This manager enables real-time cosmic state updates that
+    /// drive the entire spiritual matching system throughout the app.
     @EnvironmentObject private var realmNumberManager: RealmNumberManager
+    
+    /// Claude: AuthenticationManager handles user authentication, profile management,
+    /// and secure sign-out operations. This state object provides centralized access
+    /// to user identity and authentication state across the settings interface.
     @StateObject private var authManager = AuthenticationManager.shared
+    
+    // MARK: - 🔧 ERROR HANDLING & USER COMMUNICATION STATE
+    
+    /// Claude: Controls display of HealthKit authorization error alerts.
+    /// When HealthKit requests fail or encounter permission issues, this state
+    /// triggers user-friendly error dialogs explaining the issue and potential solutions.
     @State private var showHealthKitError = false
+    
+    /// Claude: Stores user-friendly error messages for HealthKit operations.
+    /// These messages provide clear explanations of permission issues and guide
+    /// users toward resolution through the Settings app or Health app.
     @State private var errorMessage = ""
+    
+    /// Claude: SwiftUI environment value for opening external URLs.
+    /// Enables navigation to the Health app and iOS Settings app for permission
+    /// management when users need to modify HealthKit authorization settings.
     @Environment(\.openURL) var openURL
     
-    // Add these state variables for feedback
+    // MARK: - 🧪 DEVELOPER TESTING & VALIDATION FEEDBACK STATE
+    
+    /// Claude: Controls confirmation alert display for silent background updates.
+    /// When developers trigger background realm number calculations, this state
+    /// provides immediate feedback confirming the operation completed successfully.
     @State private var showSilentUpdateConfirmation = false
+    
+    /// Claude: Controls confirmation alert display for manual calculation operations.
+    /// Provides developer feedback when manually triggering realm number recalculation
+    /// during testing and validation workflows.
     @State private var showManualCalculationConfirmation = false
+    
+    /// Claude: Controls visibility of the cosmic validation report modal.
+    /// This sophisticated validation system provides comprehensive analysis of
+    /// cosmic calculation accuracy and system health for development purposes.
     @State private var showingCosmicValidation = false
+    
+    /// Claude: Stores the complete cosmic validation report for developer analysis.
+    /// Contains detailed information about realm number calculations, accuracy metrics,
+    /// and system performance data for technical debugging and optimization.
     @State private var cosmicValidationReport = ""
+    
+    /// Claude: Tracks the previous realm number for change detection and validation.
+    /// Enables developers to monitor realm number transitions and validate that
+    /// cosmic calculations are updating correctly during testing scenarios.
     @State private var lastRealmNumber = 0
     
-    // Add logout confirmation state
+    // MARK: - 🔐 AUTHENTICATION & SECURITY STATE
+    
+    /// Claude: Controls display of logout confirmation alert dialog.
+    /// Provides users with clear warning about data implications before proceeding
+    /// with account sign-out operations, ensuring informed decision-making.
     @State private var showLogoutConfirmation = false
     
-    // TEMPORARY: Test state
+    // MARK: - 🎭 TEMPORARY ARCHETYPE TESTING STATE
+    
+    /// Claude: TEMPORARY - Holds calculated user archetype for testing purposes.
+    /// This state enables developers to validate archetype calculation algorithms
+    /// during development before full integration with the user profile system.
     @State private var testArchetype: UserArchetype?
+    
+    /// Claude: TEMPORARY - Controls display of archetype test result modal.
+    /// Shows calculated archetype information during developer testing workflows,
+    /// enabling validation of numerological calculations and spiritual profile generation.
     @State private var showTestResult = false
     
     var body: some View {
+        // MARK: - 📱 MAIN SETTINGS LIST ARCHITECTURE
+        
+        /// Claude: Primary List container using grouped style for iOS-native appearance.
+        /// This list provides hierarchical organization of all app settings, testing tools,
+        /// and developer functionality through clearly defined sections with proper
+        /// visual separation and accessibility support.
         List {
-            // HealthKit Section
+            // MARK: - 🏥 HEALTHKIT DATA MANAGEMENT SECTION
+            
+            /// Claude: HealthKit integration section providing comprehensive control over
+            /// biometric data access and authorization management. This section enables users
+            /// to understand their current health data permissions and take corrective action
+            /// when authorization issues prevent proper heart rate integration.
             Section(header: Text("HEALTH DATA")) {
-                // Status Row
+                
+                /// Claude: Primary authorization status display showing current HealthKit permission state.
+                /// This HStack presents a clear overview of heart rate access authorization with
+                /// immediate visual indicators (green checkmark, red X, orange warning) that
+                /// communicate permission status without requiring technical knowledge.
                 HStack {
                     Text("Heart Rate Access")
                     Spacer()
                     authorizationStatusView
                 }
                 
-                // Detailed Status
+                /// Claude: Detailed authorization breakdown for technical analysis.
+                /// Provides granular visibility into specific HealthKit data type permissions,
+                /// enabling developers and advanced users to diagnose complex authorization issues
+                /// that might affect cosmic calculation accuracy.
                 let sortedTypes = Array(healthKitManager.authorizationStatuses.keys)
                     .sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
                 

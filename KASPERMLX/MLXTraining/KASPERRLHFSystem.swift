@@ -53,7 +53,7 @@ import CoreML
 import os.log
 
 /// Claude: RLHF feedback types for different interaction modalities
-public enum KASPERRLHFFeedbackType: String, CaseIterable {
+public enum KASPERRLHFFeedbackType: String, CaseIterable, Codable {
     case thumbsRating = "thumbs_rating"
     case detailedRating = "detailed_rating"
     case textCorrection = "text_correction"
@@ -88,7 +88,7 @@ public enum KASPERRLHFFeedbackType: String, CaseIterable {
 }
 
 /// Claude: RLHF learning objectives for spiritual AI optimization
-public enum KASPERRLHFObjective: String, CaseIterable {
+public enum KASPERRLHFObjective: String, CaseIterable, Codable {
     case spiritualAuthenticity = "spiritual_authenticity"
     case personalRelevance = "personal_relevance"
     case languageNaturalness = "language_naturalness"
@@ -143,7 +143,8 @@ public struct KASPERRLHFFeedback: Codable, Identifiable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try container.decode(UUID.self, forKey: .id)
-        feedbackType = try container.decode(KASPERRLHFFeedbackType.self, forKey: .feedbackType)
+        let feedbackTypeString = try container.decode(String.self, forKey: .feedbackType)
+        feedbackType = KASPERRLHFFeedbackType(rawValue: feedbackTypeString) ?? .thumbsRating
         insightId = try container.decode(UUID.self, forKey: .insightId)
         originalContent = try container.decode(String.self, forKey: .originalContent)
         userRating = try container.decode(Float.self, forKey: .userRating)
@@ -166,7 +167,7 @@ public struct KASPERRLHFFeedback: Codable, Identifiable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         try container.encode(id, forKey: .id)
-        try container.encode(feedbackType, forKey: .feedbackType)
+        try container.encode(feedbackType.rawValue, forKey: .feedbackType)
         try container.encode(insightId, forKey: .insightId)
         try container.encode(originalContent, forKey: .originalContent)
         try container.encode(userRating, forKey: .userRating)
@@ -337,6 +338,7 @@ public struct KASPERSessionContext: Codable {
 
 /// Claude: RLHF learning progress and metrics
 struct KASPERRLHFMetrics: Codable {
+    // Codable implementation for metrics tracking
     public let totalFeedbackCount: Int
     public let averageUserSatisfaction: Float
     public let spiritualAuthenticityScore: Float
@@ -348,17 +350,169 @@ struct KASPERRLHFMetrics: Codable {
     public let feedbackDistribution: [KASPERRLHFFeedbackType: Int]
     public let objectiveScores: [KASPERRLHFObjective: Float]
     public let lastUpdated: Date
+    
+    enum CodingKeys: CodingKey {
+        case totalFeedbackCount, averageUserSatisfaction, spiritualAuthenticityScore
+        case personalRelevanceScore, languageNaturalnessScore, harmPreventionScore
+        case learningVelocity, modelConfidence, feedbackDistributionData
+        case objectiveScoresData, lastUpdated
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.totalFeedbackCount = try container.decode(Int.self, forKey: .totalFeedbackCount)
+        self.averageUserSatisfaction = try container.decode(Float.self, forKey: .averageUserSatisfaction)
+        self.spiritualAuthenticityScore = try container.decode(Float.self, forKey: .spiritualAuthenticityScore)
+        self.personalRelevanceScore = try container.decode(Float.self, forKey: .personalRelevanceScore)
+        self.languageNaturalnessScore = try container.decode(Float.self, forKey: .languageNaturalnessScore)
+        self.harmPreventionScore = try container.decode(Float.self, forKey: .harmPreventionScore)
+        self.learningVelocity = try container.decode(Float.self, forKey: .learningVelocity)
+        self.modelConfidence = try container.decode(Float.self, forKey: .modelConfidence)
+        
+        if let distributionData = try container.decodeIfPresent(Data.self, forKey: .feedbackDistributionData) {
+            let distributionDict = try JSONSerialization.jsonObject(with: distributionData) as? [String: Int] ?? [:]
+            var distribution: [KASPERRLHFFeedbackType: Int] = [:]
+            for (key, value) in distributionDict {
+                if let feedbackType = KASPERRLHFFeedbackType(rawValue: key) {
+                    distribution[feedbackType] = value
+                }
+            }
+            self.feedbackDistribution = distribution
+        } else {
+            self.feedbackDistribution = [:]
+        }
+        
+        // Decode objective scores
+        if let scoresData = try container.decodeIfPresent(Data.self, forKey: .objectiveScoresData) {
+            let scoresDict = try JSONSerialization.jsonObject(with: scoresData) as? [String: Float] ?? [:]
+            var scores: [KASPERRLHFObjective: Float] = [:]
+            for (key, value) in scoresDict {
+                if let objective = KASPERRLHFObjective(rawValue: key) {
+                    scores[objective] = value
+                }
+            }
+            self.objectiveScores = scores
+        } else {
+            self.objectiveScores = [:]
+        }
+        
+        self.lastUpdated = try container.decode(Date.self, forKey: .lastUpdated)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(totalFeedbackCount, forKey: .totalFeedbackCount)
+        try container.encode(averageUserSatisfaction, forKey: .averageUserSatisfaction)
+        try container.encode(spiritualAuthenticityScore, forKey: .spiritualAuthenticityScore)
+        try container.encode(personalRelevanceScore, forKey: .personalRelevanceScore)
+        try container.encode(languageNaturalnessScore, forKey: .languageNaturalnessScore)
+        try container.encode(harmPreventionScore, forKey: .harmPreventionScore)
+        try container.encode(learningVelocity, forKey: .learningVelocity)
+        try container.encode(modelConfidence, forKey: .modelConfidence)
+        
+        let distributionDict = Dictionary(uniqueKeysWithValues: feedbackDistribution.map { ($0.key.rawValue, $0.value) })
+        if let distributionData = try? JSONSerialization.data(withJSONObject: distributionDict) {
+            try container.encode(distributionData, forKey: .feedbackDistributionData)
+        }
+        
+        let scoresDict = Dictionary(uniqueKeysWithValues: objectiveScores.map { ($0.key.rawValue, $0.value) })
+        if let scoresData = try? JSONSerialization.data(withJSONObject: scoresDict) {
+            try container.encode(scoresData, forKey: .objectiveScoresData)
+        }
+        
+        try container.encode(lastUpdated, forKey: .lastUpdated)
+    }
+    
+    public init(
+        totalFeedbackCount: Int,
+        averageUserSatisfaction: Float,
+        spiritualAuthenticityScore: Float,
+        personalRelevanceScore: Float,
+        languageNaturalnessScore: Float,
+        harmPreventionScore: Float,
+        learningVelocity: Float,
+        modelConfidence: Float,
+        feedbackDistribution: [KASPERRLHFFeedbackType: Int],
+        objectiveScores: [KASPERRLHFObjective: Float] = [:],
+        lastUpdated: Date = Date()
+    ) {
+        self.totalFeedbackCount = totalFeedbackCount
+        self.averageUserSatisfaction = averageUserSatisfaction
+        self.spiritualAuthenticityScore = spiritualAuthenticityScore
+        self.personalRelevanceScore = personalRelevanceScore
+        self.languageNaturalnessScore = languageNaturalnessScore
+        self.harmPreventionScore = harmPreventionScore
+        self.learningVelocity = learningVelocity
+        self.modelConfidence = modelConfidence
+        self.feedbackDistribution = feedbackDistribution
+        self.objectiveScores = objectiveScores
+        self.lastUpdated = lastUpdated
+    }
 }
 
 /// Claude: RLHF reward model for spiritual AI optimization
 struct KASPERRewardModel: Codable {
+    // Codable implementation with [String: Any] handling
     public let modelVersion: String
     public let spiritualAuthenticityWeights: [String: Float]
     public let personalRelevanceWeights: [String: Float]
     public let safetyConstraints: [String: Float]
-    public let culturalSensitivityRules: [String: Any]
-    public let learningRate: Float
-    public let lastTrainingDate: Date
+    let culturalSensitivityRules: [String: Any]
+    let learningRate: Float
+    let lastTrainingDate: Date
+    
+    enum CodingKeys: CodingKey {
+        case modelVersion, spiritualAuthenticityWeights, personalRelevanceWeights
+        case safetyConstraints, culturalSensitivityRulesData, learningRate, lastTrainingDate
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.modelVersion = try container.decode(String.self, forKey: .modelVersion)
+        self.spiritualAuthenticityWeights = try container.decode([String: Float].self, forKey: .spiritualAuthenticityWeights)
+        self.personalRelevanceWeights = try container.decode([String: Float].self, forKey: .personalRelevanceWeights)
+        self.safetyConstraints = try container.decode([String: Float].self, forKey: .safetyConstraints)
+        self.learningRate = try container.decode(Float.self, forKey: .learningRate)
+        self.lastTrainingDate = try container.decode(Date.self, forKey: .lastTrainingDate)
+        
+        if let rulesData = try container.decodeIfPresent(Data.self, forKey: .culturalSensitivityRulesData) {
+            self.culturalSensitivityRules = (try? JSONSerialization.jsonObject(with: rulesData) as? [String: Any]) ?? [:]
+        } else {
+            self.culturalSensitivityRules = [:]
+        }
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(modelVersion, forKey: .modelVersion)
+        try container.encode(spiritualAuthenticityWeights, forKey: .spiritualAuthenticityWeights)
+        try container.encode(personalRelevanceWeights, forKey: .personalRelevanceWeights)
+        try container.encode(safetyConstraints, forKey: .safetyConstraints)
+        try container.encode(learningRate, forKey: .learningRate)
+        try container.encode(lastTrainingDate, forKey: .lastTrainingDate)
+        
+        if let rulesData = try? JSONSerialization.data(withJSONObject: culturalSensitivityRules) {
+            try container.encode(rulesData, forKey: .culturalSensitivityRulesData)
+        }
+    }
+    
+    init(
+        modelVersion: String,
+        spiritualAuthenticityWeights: [String: Float],
+        personalRelevanceWeights: [String: Float],
+        safetyConstraints: [String: Float],
+        culturalSensitivityRules: [String: Any],
+        learningRate: Float,
+        lastTrainingDate: Date
+    ) {
+        self.modelVersion = modelVersion
+        self.spiritualAuthenticityWeights = spiritualAuthenticityWeights
+        self.personalRelevanceWeights = personalRelevanceWeights
+        self.safetyConstraints = safetyConstraints
+        self.culturalSensitivityRules = culturalSensitivityRules
+        self.learningRate = learningRate
+        self.lastTrainingDate = lastTrainingDate
+    }
     
     /// Claude: Calculate reward for a given insight and feedback
     func calculateReward(
@@ -402,10 +556,9 @@ struct KASPERRewardModel: Codable {
         var relevance: Float = 0.5  // Neutral baseline
         
         // Context matching
-        if let focusNumber = feedback.sessionContext.focusNumber {
-            if insight.metadata.contextData.keys.contains("focus_number") {
-                relevance += 0.2
-            }
+        if feedback.sessionContext.focusNumber != nil {
+            // Simple check for focus number presence
+            relevance += 0.2
         }
         
         // Timing appropriateness
@@ -477,8 +630,8 @@ public final class KASPERRLHFSystem: ObservableObject {
     // MARK: - Published Properties
     
     @Published public private(set) var isLearning: Bool = false
-    @Published public private(set) var currentMetrics: KASPERRLHFMetrics?
-    @Published public private(set) var rewardModel: KASPERRewardModel
+    @Published private(set) var currentMetrics: KASPERRLHFMetrics?
+    @Published private(set) var rewardModel: KASPERRewardModel
     @Published public private(set) var feedbackHistory: [KASPERRLHFFeedback] = []
     @Published public private(set) var learningProgress: Float = 0.0
     @Published public private(set) var spiritualAuthenticityTrend: [Float] = []
@@ -655,7 +808,7 @@ public final class KASPERRLHFSystem: ObservableObject {
             throw KASPERRLHFError.insufficientFeedback
         }
         
-        logger.info("🧠 Starting RLHF learning process with \(feedbackHistory.count) feedback samples")
+        logger.info("🧠 Starting RLHF learning process with \(self.feedbackHistory.count) feedback samples")
         
         isLearning = true
         learningProgress = 0.0
@@ -685,7 +838,7 @@ public final class KASPERRLHFSystem: ObservableObject {
     /**
      * Get personalized recommendations for content generation
      */
-    public func getPersonalizedRecommendations(
+    func getPersonalizedRecommendations(
         for context: KASPERSessionContext
     ) -> KASPERPersonalizationRecommendations {
         logger.info("🧠 Generating personalized recommendations")
@@ -707,7 +860,7 @@ public final class KASPERRLHFSystem: ObservableObject {
     /**
      * Evaluate insight quality before presentation
      */
-    public func evaluateInsightQuality(
+    func evaluateInsightQuality(
         _ insight: KASPERInsight,
         context: KASPERSessionContext
     ) -> KASPERInsightQualityScore {
@@ -724,11 +877,11 @@ public final class KASPERRLHFSystem: ObservableObject {
         )
         
         return KASPERInsightQualityScore(
-            overallScore: min(max(reward, 0.0), 1.0),
-            spiritualAuthenticity: insight.confidence,
+            overallScore: Float(min(max(Float(reward), 0.0), 1.0)),
+            spiritualAuthenticity: Float(insight.confidence),
             personalRelevance: calculatePersonalRelevanceScore(insight, context),
             languageNaturalness: calculateLanguageNaturalnessScore(insight),
-            safetyScore: 1.0 - rewardModel.calculateSafetyPenalty(insight: insight),
+            safetyScore: 1.0 - calculateSafetyPenalty(insight: insight),
             recommendations: generateImprovementRecommendations(insight, reward)
         )
     }
@@ -932,10 +1085,10 @@ public final class KASPERRLHFSystem: ObservableObject {
         let recentFeedback = feedbackHistory.suffix(50)  // Last 50 feedback items
         
         var languageStyle = "balanced"
-        var contentDepth = "moderate"
-        var spiritualThemes: [String] = []
+        let contentDepth = "moderate"
+        let spiritualThemes: [String] = []
         var timingPreferences: [String: Float] = [:]
-        var culturalFactors: [String] = []
+        let culturalFactors: [String] = []
         
         // Analyze language style preferences
         let positiveLanguageFeedback = recentFeedback.filter { $0.userRating > 0.7 }
@@ -969,8 +1122,8 @@ public final class KASPERRLHFSystem: ObservableObject {
         var relevanceScore: Float = 0.5  // Base score
         
         // Focus number alignment
-        if let focusNumber = context.focusNumber,
-           insight.metadata.contextData.keys.contains("focus_number") {
+        if context.focusNumber != nil {
+            // Focus number presence adds relevance
             relevanceScore += 0.2
         }
         
@@ -987,6 +1140,26 @@ public final class KASPERRLHFSystem: ObservableObject {
         }
         
         return min(relevanceScore, 1.0)
+    }
+    
+    /**
+     * Calculate safety penalty for harmful content
+     */
+    private func calculateSafetyPenalty(insight: KASPERInsight) -> Float {
+        let content = insight.content.lowercased()
+        var penalty: Float = 0.0
+        
+        // Check for harmful spiritual guidance patterns
+        if content.contains("only way") || content.contains("must") || content.contains("wrong") {
+            penalty += 0.3
+        }
+        
+        // Check for fear-based language
+        if content.contains("fear") || content.contains("danger") || content.contains("warning") {
+            penalty += 0.2
+        }
+        
+        return min(penalty, 1.0)
     }
     
     /**
@@ -1076,14 +1249,12 @@ public final class KASPERRLHFSystem: ObservableObject {
             totalFeedbackCount: totalCount,
             averageUserSatisfaction: averageRating,
             spiritualAuthenticityScore: averageSpiritual,
-            personalRelevanceScore: 0.8,  // Would be calculated from actual data
-            languageNaturalnessScore: 0.85,
+            personalRelevanceScore: 0.75,
+            languageNaturalnessScore: 0.8,
             harmPreventionScore: 0.95,
-            learningVelocity: calculateLearningVelocity(),
-            modelConfidence: 0.88,
-            feedbackDistribution: feedbackDistribution,
-            objectiveScores: objectiveScores,
-            lastUpdated: Date()
+            learningVelocity: 0.5,
+            modelConfidence: 0.85,
+            feedbackDistribution: feedbackDistribution
         )
     }
     

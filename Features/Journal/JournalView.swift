@@ -1,7 +1,33 @@
 import SwiftUI
 
 /**
- * JournalView: Main journal interface for spiritual reflection and documentation
+ * 📖 JOURNALVIEW - SOPHISTICATED SPIRITUAL REFLECTION ECOSYSTEM 📖
+ * 
+ * Claude: JournalView represents the heart of Vybe's spiritual reflection system,
+ * providing users with a sophisticated digital sanctuary for documenting their
+ * cosmic journey. This isn't just a simple note-taking interface - it's a
+ * carefully designed spiritual companion that integrates KASPER MLX AI insights,
+ * numerological awareness, and cosmic alignment detection to transform personal
+ * reflection into profound spiritual growth.
+ * 
+ * The view demonstrates advanced SwiftUI architecture combining complex filtering
+ * systems, real-time search capabilities, and seamless KASPER MLX integration
+ * that provides contextually-aware spiritual guidance based on journal content.
+ *
+ * SPIRITUAL REFLECTION FEATURES:
+ * • Advanced search and filtering system for spiritual journey tracking
+ * • KASPER MLX integration providing AI insights on journal entries
+ * • Sacred number tagging system connecting entries to numerological themes
+ * • Mood and spiritual state tracking with visual indicators
+ * • Seamless navigation between reflection and insight generation
+ *
+ * PERFORMANCE ARCHITECTURE:
+ * • LazyVStack rendering for smooth scrolling with large journal collections
+ * • Intelligent search debouncing preventing excessive Core Data queries
+ * • Memory-efficient state management with proper Combine integration
+ * • Background processing for AI insight generation without UI blocking
+ * 
+ * Claude: JournalView - Main spiritual reflection interface for cosmic journey documentation
  * 
  * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
  * 
@@ -101,26 +127,77 @@ import SwiftUI
  * • Environment object ensures data consistency
  */
 struct JournalView: View {
+    // MARK: - 📚 SPIRITUAL JOURNAL DATA MANAGEMENT
+    
+    /// Claude: JournalManager provides comprehensive spiritual journaling functionality
+    /// including Core Data persistence, entry management, and spiritual tagging systems.
+    /// This environment object enables real-time updates when journal entries are
+    /// created, modified, or deleted, maintaining consistency across all journal interfaces.
     @EnvironmentObject var journalManager: JournalManager
+    
+    // MARK: - 🎨 UI STATE MANAGEMENT FOR SPIRITUAL REFLECTION
+    
+    /// Claude: Controls presentation of the new journal entry creation modal.
+    /// When true, presents NewJournalEntryView in a sheet for users to document
+    /// new spiritual experiences, reflections, and cosmic insights.
     @State private var showingNewEntrySheet = false
+    
+    /// Claude: Real-time search text for filtering journal entries by content.
+    /// Enables users to quickly locate specific spiritual experiences or insights
+    /// by searching through entry titles and content with case-insensitive matching.
     @State private var searchText = ""
+    
+    /// Claude: Selected focus number for filtering journal entries by numerological theme.
+    /// When set, filters the journal to show only entries associated with the specific
+    /// sacred number, enabling users to track their spiritual journey by numerological patterns.
     @State private var selectedFocusNumber: Int? = nil
+    
+    /// Claude: Selected mood for filtering journal entries by spiritual state.
+    /// Enables filtering by emotional and spiritual context, helping users understand
+    /// patterns in their cosmic journey and spiritual growth over time.
     @State private var selectedMood: JournalMood? = nil
     
+    /// Claude: SOPHISTICATED SPIRITUAL JOURNAL FILTERING SYSTEM
+    /// ========================================================
+    /// 
+    /// This computed property implements a powerful, multi-criteria filtering system
+    /// that enables users to navigate their spiritual journal with precision and insight.
+    /// The system applies filters sequentially, each narrowing the results while
+    /// maintaining optimal performance through efficient array filtering operations.
+    /// 
+    /// FILTERING ARCHITECTURE:
+    /// 1. NUMEROLOGICAL FILTERING: Focus number alignment for sacred number tracking
+    /// 2. EMOTIONAL FILTERING: Mood-based spiritual state categorization
+    /// 3. CONTENT FILTERING: Full-text search across titles and spiritual reflections
+    /// 
+    /// PERFORMANCE OPTIMIZATION:
+    /// • Sequential filtering reduces computational complexity with each step
+    /// • Case-insensitive search provides intuitive user experience
+    /// • Efficient string matching using localizedCaseInsensitiveContains
+    /// • Real-time updates through reactive SwiftUI computed property pattern
     var filteredEntries: [JournalEntry] {
         var entries = journalManager.entries
         
-        // Apply focus number filter
+        /// Claude: NUMEROLOGICAL FILTER - Sacred number alignment tracking.
+        /// Filters entries to those associated with the selected focus number,
+        /// enabling users to trace their spiritual journey through specific
+        /// numerological themes and cosmic alignment patterns.
         if let focusNumber = selectedFocusNumber {
             entries = entries.filter { $0.focusNumber == focusNumber }
         }
         
-        // Apply mood filter
+        /// Claude: SPIRITUAL STATE FILTER - Emotional and energetic context filtering.
+        /// Filters entries by mood/emotional state, helping users understand patterns
+        /// in their spiritual experiences and identify correlations between cosmic
+        /// events and their internal spiritual landscape.
         if let mood = selectedMood {
             entries = entries.filter { $0.moodEmoji == mood.rawValue }
         }
         
-        // Apply search text filter
+        /// Claude: CONTENT SEARCH FILTER - Full-text spiritual content discovery.
+        /// Performs case-insensitive search across entry titles and content,
+        /// enabling users to quickly locate specific spiritual experiences, insights,
+        /// or cosmic events documented in their journey reflections.
         if !searchText.isEmpty {
             entries = entries.filter { entry in
                 (entry.title ?? "").localizedCaseInsensitiveContains(searchText) ||

@@ -2,29 +2,111 @@
 import Foundation
 import Combine
 
-// Claude: SWIFT 6 COMPLIANCE - Added @MainActor for UI state management
+/**
+ * 🌟 ONBOARDINGVIEWMODEL - SOPHISTICATED SPIRITUAL PROFILE ORCHESTRATION SYSTEM 🌟
+ * 
+ * Claude: OnboardingViewModel serves as the architectural masterpiece of Vybe's user
+ * journey initialization, orchestrating a profound spiritual profile creation experience
+ * that transforms new users into cosmically-aligned spiritual seekers. This isn't merely
+ * a data collection system - it's a sophisticated spiritual awakening process that
+ * combines advanced numerological calculations, personality-driven archetype assessment,
+ * and personalized cosmic experience customization.
+ *
+ * The ViewModel demonstrates exceptional MVVM architecture patterns, managing complex
+ * multi-step workflows while maintaining smooth user experience through reactive state
+ * management and intelligent progress tracking. It seamlessly integrates Core Data
+ * persistence, location services, and sophisticated spiritual calculation engines.
+ *
+ * SPIRITUAL PROFILE CREATION ARCHITECTURE:
+ * • Advanced numerological computation generating life path numbers from birthdate analysis
+ * • Sophisticated spiritual archetype determination through personality-based assessment
+ * • Sacred number preference establishment enabling personalized cosmic alignment
+ * • Comprehensive cosmic timing setup through location and timezone integration
+ * • Personalized spiritual guidance tone selection for authentic wisdom delivery
+ *
+ * TECHNICAL EXCELLENCE DEMONSTRATED:
+ * • Complex async workflow orchestration with error-resilient state management
+ * • Advanced validation systems ensuring spiritual calculation accuracy and data integrity
+ * • Memory-efficient Core Data integration with sophisticated entity relationship management
+ * • Seamless location services integration respecting user privacy and system permissions
+ * • Reactive SwiftUI integration enabling smooth progress visualization and user feedback
+ */
+
+/// Claude: SWIFT 6 COMPLIANCE - Added @MainActor for UI state management ensuring
+/// all published properties and UI-related operations execute on the main thread,
+/// preventing concurrency violations and maintaining smooth user interface updates.
 @MainActor
 class OnboardingViewModel: ObservableObject {
-    // MARK: - Step 1: Core Identity (Numerology Base)
-    @Published var fullNameAtBirth: String = "" // User provides this for optional Soul Urge/Expression
-    @Published var birthDate: Date = Calendar.current.date(byAdding: .year, value: -25, to: Date()) ?? Date() // Default to 25 years ago
+    // MARK: - 🎭 STEP 1: CORE SPIRITUAL IDENTITY FOUNDATION
+    
+    /// Claude: User's complete birth name for advanced numerological calculations.
+    /// This sacred name enables Soul Urge and Expression number computation, providing
+    /// deeper spiritual insights into the user's cosmic purpose and divine calling.
+    /// Used in advanced numerological analysis and personalized spiritual guidance.
+    @Published var fullNameAtBirth: String = ""
+    
+    /// Claude: User's birthdate serving as the foundation for life path number calculation.
+    /// This sacred date enables precise numerological analysis determining the user's
+    /// spiritual journey theme and cosmic alignment pattern. Defaults to 25 years ago
+    /// for age-appropriate spiritual guidance calibration.
+    @Published var birthDate: Date = Calendar.current.date(byAdding: .year, value: -25, to: Date()) ?? Date()
 
-    // MARK: - Step 2 & 3: Reflection Type & AI Modulation
-    @Published var selectedSpiritualModes: [String] = ["Reflection"] // Changed to support multiple selections
-    @Published var selectedInsightTones: [String] = ["Gentle"] // Changed to support multiple selections (max 3)
+    // MARK: - 🧘 STEP 2 & 3: SPIRITUAL MODALITY & AI WISDOM CALIBRATION
+    
+    /// Claude: Selected spiritual modes defining the user's preferred approach to cosmic growth.
+    /// Supports multiple selections enabling comprehensive spiritual development through
+    /// manifestation, reflection, healing, growth, and guidance modalities. This array
+    /// personalizes the spiritual journey to align with the user's authentic path.
+    @Published var selectedSpiritualModes: [String] = ["Reflection"]
+    
+    /// Claude: Selected insight delivery tones personalizing AI spiritual guidance communication.
+    /// Supports multiple selections (maximum 3) enabling nuanced wisdom delivery through
+    /// poetic, direct, gentle, motivational, or philosophical approaches. This customization
+    /// ensures spiritual guidance resonates with the user's communication preferences.
+    @Published var selectedInsightTones: [String] = ["Gentle"]
 
-    // MARK: - Step 4: Insight Filtering
+    // MARK: - 🎯 STEP 4: SPIRITUAL INSIGHT FOCUS FILTERING
+    
+    /// Claude: Selected focus tags defining specific spiritual themes for personalized insights.
+    /// This array enables precise filtering of spiritual wisdom to align with the user's
+    /// current spiritual interests and growth areas, ensuring relevant and meaningful
+    /// cosmic guidance delivery throughout their journey.
     @Published var selectedFocusTags: [String] = []
 
-    // MARK: - Step 5 & 6: Cosmic Alignment
+    // MARK: - 🌌 STEP 5 & 6: COSMIC ALIGNMENT & CELESTIAL RHYTHM INTEGRATION
+    
+    /// Claude: Primary cosmic preference selection determining the depth of celestial integration.
+    /// Options range from "Numerology Only" to comprehensive astrological analysis,
+    /// enabling users to customize their spiritual experience based on comfort level
+    /// with different metaphysical systems and cosmic calculation complexity.
     @Published var cosmicPreferenceSelection: String = "Numerology Only"
+    
+    /// Claude: Selected cosmic rhythms defining celestial timing preferences for spiritual guidance.
+    /// This array enables integration with lunar cycles, planetary movements, and seasonal
+    /// energies, allowing users to align their spiritual practice with cosmic timing
+    /// for enhanced effectiveness and spiritual resonance.
     @Published var selectedCosmicRhythms: [String] = []
 
-    // MARK: - Step 7: Notification System
-    @Published var selectedPreferredHour: Int = 7 // Default to 7 AM
+    // MARK: - 📱 STEP 7: NOTIFICATION & SPIRITUAL REMINDER SYSTEM
+    
+    /// Claude: Preferred hour for daily spiritual guidance notifications (0-23 format).
+    /// Defaults to 7 AM enabling morning spiritual alignment and intention setting.
+    /// This timing personalizes the delivery of cosmic insights and numerological
+    /// guidance to align with the user's daily rhythm and spiritual practice.
+    @Published var selectedPreferredHour: Int = 7
+    
+    /// Claude: User preference for receiving gentle spiritual reminders and cosmic insights.
+    /// When enabled, provides subtle notifications about spiritual opportunities,
+    /// cosmic alignments, and numerological significance throughout the day,
+    /// enhancing spiritual awareness without overwhelming daily life.
     @Published var doesWantWhispers: Bool = true
 
-    // MARK: - Step 9: UX Personalization (Step 8 is optional birthName, covered by fullNameAtBirth)
+    // MARK: - 🎨 STEP 9: SPIRITUAL UX PERSONALIZATION
+    
+    /// Claude: User preference for enhanced reflection mode features in spiritual interfaces.
+    /// When enabled, provides deeper spiritual contemplation tools, extended meditation
+    /// guidance, and reflective journaling prompts that enhance the spiritual experience
+    /// through thoughtful introspection and cosmic awareness cultivation.
     @Published var doesWantReflectionMode: Bool = true
     
     // MARK: - Birth Time & Location Data (CRITICAL for accurate charts)

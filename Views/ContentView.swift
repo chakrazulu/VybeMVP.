@@ -67,47 +67,104 @@
 import SwiftUI
 
 /**
- * ContentView: The main container view for the VybeMVP application.
+ * 🌟 CONTENTVIEW - MASTER NAVIGATION & SPIRITUAL ECOSYSTEM ORCHESTRATION 🌟
+ * 
+ * Claude: ContentView serves as the architectural foundation of VybeMVP, orchestrating
+ * the entire spiritual ecosystem through sophisticated tab-based navigation and manager
+ * coordination. This isn't simply a navigation container - it's the nerve center that
+ * coordinates complex spiritual systems, biometric integration, and cosmic synchronicity
+ * detection across the entire application.
  *
- * This view provides:
- * 1. A tab-based navigation system to all major app sections
- * 2. Integration between realm number updates and focus number management
- * 3. A consistent navigation experience throughout the app
+ * The view demonstrates advanced iOS architecture patterns, managing multiple concurrent
+ * state objects while maintaining optimal performance and seamless user experience
+ * transitions between spiritual features.
  *
- * The view observes changes to the realm number and updates the focus number 
- * manager accordingly to maintain consistency between these two related systems.
+ * SPIRITUAL ECOSYSTEM COORDINATION:
+ * • 12-tab navigation providing comprehensive access to all spiritual features
+ * • VybeMatchOverlay system for cosmic synchronicity celebrations
+ * • Sophisticated startup sequence optimized for performance and user engagement
+ * • Manager integration enabling seamless data flow between spiritual systems
+ *
+ * PERFORMANCE ARCHITECTURE:
+ * • Strategic 15-second delayed match detection preventing app launch interference
+ * • Optimized manager initialization sequence preventing UI blocking
+ * • Memory-efficient state object management with proper lifecycle handling
+ * • Background processing coordination for continuous cosmic calculations
  */
 struct ContentView: View {
-    /// Manages focus numbers and match detection
+    // MARK: - 🎯 CORE SPIRITUAL SYSTEM MANAGERS
+    
+    /// Claude: FocusNumberManager orchestrates the user's selected spiritual focus number
+    /// and manages the sophisticated cosmic match detection when focus equals realm number.
+    /// This state object serves as the heart of Vybe's synchronicity system, coordinating
+    /// between user intention and cosmic alignment for transcendent experiences.
     @StateObject private var focusNumberManager = FocusNumberManager.shared
     
-    /// Manages realm numbers (numerical representation of universal states)
+    /// Claude: RealmNumberManager calculates and manages the dynamic cosmic realm number
+    /// based on time, location, celestial influences, and biometric data. This environment
+    /// object represents the universe's current energetic state and serves as the target
+    /// for cosmic synchronicity detection throughout the spiritual journey.
     @EnvironmentObject var realmNumberManager: RealmNumberManager
     
-    /// Manages activity navigation
+    /// Claude: ActivityNavigationManager provides sophisticated deep linking and navigation
+    /// coordination for the spiritual activity timeline. This state object enables seamless
+    /// navigation between cosmic experiences, insight history, and spiritual journey milestones
+    /// with proper state preservation and user context awareness.
     @StateObject private var activityNavigationManager = ActivityNavigationManager.shared
     
-    /// Manages AI insights
+    /// Claude: AIInsightManager orchestrates traditional template-based spiritual guidance
+    /// generation, serving as the foundation layer for personalized daily wisdom. This
+    /// state object manages Core Data persistence, intelligent caching, and seamless
+    /// insight delivery integrated with the broader spiritual AI ecosystem.
     @StateObject private var aiInsightManager = AIInsightManager.shared
     
-    /// Manages health data including heart rate
+    /// Claude: HealthKitManager provides sophisticated biometric data integration enabling
+    /// heart rate variability to influence cosmic calculations and sacred geometry animations.
+    /// This state object manages privacy-compliant HealthKit authorization, real-time
+    /// heart rate monitoring, and physiological context for enhanced spiritual experiences.
     @StateObject private var healthKitManager = HealthKitManager.shared
     
-    /// Manages sign in state
+    /// Claude: SignInViewModel handles comprehensive user authentication, profile management,
+    /// and personalization throughout the spiritual ecosystem. This state object provides
+    /// secure identity management enabling personalized cosmic calculations and spiritual
+    /// journey tracking across all app features.
     @StateObject private var signInViewModel = SignInViewModel()
     
-    /// 🌟 Manages cosmic match detection and visual effects
+    /// Claude: VybeMatchManager orchestrates the sophisticated cosmic match detection and
+    /// celebration system. When focus equals realm number, this state object triggers
+    /// magical visual effects, haptic feedback, and spiritual acknowledgment that transforms
+    /// mathematical synchronicity into transcendent user experiences.
     @StateObject private var vybeMatchManager = VybeMatchManager()
     
-    // NEW State for handling notification taps
+    // MARK: - 📲 NOTIFICATION SYSTEM STATE MANAGEMENT
+    
+    /// Claude: Controls presentation of notification-triggered modal sheets.
+    /// When users tap on numerology notifications, this state manages the display
+    /// of detailed spiritual guidance content within the app interface.
     @State private var showNotificationSheet = false
+    
+    /// Claude: Holds notification data for display in the notification modal.
+    /// This tuple contains the spiritual number, category, and message content
+    /// that was delivered via the iOS notification system for in-app presentation.
     @State private var notificationData: (number: Int, category: String, message: String)? = nil
     
-    /// Tracks the currently selected tab
+    // MARK: - 🧭 NAVIGATION STATE MANAGEMENT
+    
+    /// Claude: Controls the currently active tab in the 12-tab navigation system.
+    /// This zero-based index enables programmatic navigation between spiritual features
+    /// and maintains tab state across app lifecycle and configuration changes.
     @State private var selectedTab = 0
     
-    /// 🧪 TEMPORARY: Test button state for Phase 2 testing
+    // MARK: - 🧪 TEMPORARY TESTING STATE
+    
+    /// Claude: TEMPORARY - Current test number for Phase 2 cosmic match testing.
+    /// This state enables developers to cycle through different numbers during
+    /// match detection validation and VybeMatchOverlay celebration testing.
     @State private var currentTestNumber = 1
+    
+    /// Claude: TEMPORARY - Controls visibility of the test button during development.
+    /// This state allows developers to show/hide testing functionality during
+    /// cosmic match system validation and user experience refinement.
     @State private var showTestButton = true
     
     var body: some View {
