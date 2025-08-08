@@ -731,7 +731,7 @@ struct HomeView: View {
                     }
                     .animation(.easeInOut(duration: 0.3), value: isKasperLoading)  // Only animate loading state
                 }
-                .frame(minHeight: 200)  // Claude: FIXED - Prevent container resize hitch
+                .frame(minHeight: 320)  // Claude: Enhanced height for richer insights - prevents resize hitch
                 .padding(20)
                 .background(
                     ZStack {
@@ -833,7 +833,7 @@ struct HomeView: View {
             )
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 265)  // Claude: Perfect height for complete insights + one more line
+        .frame(height: 380)  // Claude: Further enhanced height for comprehensive spiritual insights
     }
     
     /// Claude: SIMPLIFIED loading state - Prevents compiler timeout
@@ -849,7 +849,7 @@ struct HomeView: View {
                 .italic()
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 265)  // Claude: Perfect height for complete insights + one more line
+        .frame(height: 380)  // Claude: Further enhanced height for comprehensive spiritual insights
     }
     
     /// Claude: Display generated KASPER insight with actions - FIXED RESIZE HITCH
@@ -861,7 +861,7 @@ struct HomeView: View {
                 .foregroundColor(.white.opacity(0.9))
                 .multilineTextAlignment(.leading)
                 .lineSpacing(4)
-                .frame(maxWidth: .infinity, minHeight: 140, maxHeight: 165, alignment: .topLeading)  // Perfect size for one more line!
+                .frame(maxWidth: .infinity, minHeight: 180, maxHeight: 300, alignment: .topLeading)  // Comprehensive space for detailed spiritual guidance
                 .clipped()  // Clip overflow to prevent resize
             
             // Insight metadata
@@ -999,7 +999,7 @@ struct HomeView: View {
                     .scaleEffect(kasperMLX.isReady ? 1.0 : 0.8)
                     .opacity(kasperMLX.isReady ? 1.0 : 0.5)
             }
-            .frame(height: 120)  // Claude: DEFINITIVE HITCH FIX - Match other states
+            .frame(height: 180)  // Claude: Enhanced height to match insight container
             .padding(20)
             .background(
                 RoundedRectangle(cornerRadius: 16)

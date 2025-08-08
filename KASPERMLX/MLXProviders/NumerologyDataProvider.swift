@@ -12,12 +12,30 @@ final class NumerologyDataProvider: SpiritualDataProvider {
     // MARK: - Properties
     
     let id = "numerology"
-    private var contextCache: [KASPERFeature: ProviderContext] = [:]
+    // Claude: Thread-safe cache using actor isolation for concurrent access
+    private let cacheActor = CacheActor()
     
     // References to existing managers
     private weak var realmNumberManager: RealmNumberManager?
     private weak var focusNumberManager: FocusNumberManager?
     private weak var spiritualDataController: SpiritualDataController?
+    
+    // MARK: - Thread-Safe Cache Actor
+    private actor CacheActor {
+        private var cache: [KASPERFeature: ProviderContext] = [:]
+        
+        func get(_ feature: KASPERFeature) -> ProviderContext? {
+            return cache[feature]
+        }
+        
+        func set(_ feature: KASPERFeature, context: ProviderContext) {
+            cache[feature] = context
+        }
+        
+        func clear() {
+            cache.removeAll()
+        }
+    }
     
     // MARK: - Initialization
     
@@ -47,12 +65,13 @@ final class NumerologyDataProvider: SpiritualDataProvider {
     
     func isDataAvailable() async -> Bool {
         // Check if we have access to core numerology data
+        // Claude: Only return true when managers are actually available
         return realmNumberManager != nil && focusNumberManager != nil
     }
     
     func provideContext(for feature: KASPERFeature) async throws -> ProviderContext {
-        // Check cache first
-        if let cached = contextCache[feature], !cached.isExpired {
+        // Check cache first - thread-safe read via actor
+        if let cached = await cacheActor.get(feature), !cached.isExpired {
             print("🔢 KASPER MLX: Using cached numerology context for \(feature)")
             return cached
         }
@@ -60,14 +79,14 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         // Build context based on feature needs
         let context = try await buildContext(for: feature)
         
-        // Cache the context
-        contextCache[feature] = context
+        // Cache the context - thread-safe write via actor
+        await cacheActor.set(feature, context: context)
         
         return context
     }
     
     func clearCache() async {
-        contextCache.removeAll()
+        await cacheActor.clear()
         print("🔢 KASPER MLX: Numerology provider cache cleared")
     }
     

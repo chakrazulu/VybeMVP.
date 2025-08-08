@@ -13,10 +13,28 @@ final class BiometricDataProvider: SpiritualDataProvider {
     // MARK: - Properties
     
     let id = "biometric"
-    private var contextCache: [KASPERFeature: ProviderContext] = [:]
+    // Claude: Thread-safe cache using actor isolation for concurrent access
+    private let cacheActor = CacheActor()
     
     // Reference to existing health manager
     private weak var healthKitManager: HealthKitManager?
+    
+    // MARK: - Thread-Safe Cache Actor
+    private actor CacheActor {
+        private var cache: [KASPERFeature: ProviderContext] = [:]
+        
+        func get(_ feature: KASPERFeature) -> ProviderContext? {
+            return cache[feature]
+        }
+        
+        func set(_ feature: KASPERFeature, context: ProviderContext) {
+            cache[feature] = context
+        }
+        
+        func clear() {
+            cache.removeAll()
+        }
+    }
     
     // MARK: - Initialization
     
@@ -36,8 +54,8 @@ final class BiometricDataProvider: SpiritualDataProvider {
     }
     
     func provideContext(for feature: KASPERFeature) async throws -> ProviderContext {
-        // Check cache first
-        if let cached = contextCache[feature], !cached.isExpired {
+        // Check cache first - thread-safe read via actor
+        if let cached = await cacheActor.get(feature), !cached.isExpired {
             print("💓 KASPER MLX: Using cached biometric context for \(feature)")
             return cached
         }
@@ -45,14 +63,14 @@ final class BiometricDataProvider: SpiritualDataProvider {
         // Build context based on feature needs
         let context = try await buildContext(for: feature)
         
-        // Cache the context
-        contextCache[feature] = context
+        // Cache the context - thread-safe write via actor
+        await cacheActor.set(feature, context: context)
         
         return context
     }
     
     func clearCache() async {
-        contextCache.removeAll()
+        await cacheActor.clear()
         print("💓 KASPER MLX: Biometric provider cache cleared")
     }
     

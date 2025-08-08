@@ -447,6 +447,8 @@ class FocusNumberManager: NSObject, ObservableObject {
             newMatch.timestamp = Date()
             newMatch.chosenNumber = Int16(currentSelectedNumber)
             newMatch.matchedNumber = Int16(matchedRealmNumber)
+            // REALM NUMBER ANALYTICS ENHANCEMENT: Save the realm number for analytics
+            newMatch.realmNumber = Int16(matchedRealmNumber)
             
             // Add location if available
             if let location = currentLocation {

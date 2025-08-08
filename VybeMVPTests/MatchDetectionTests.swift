@@ -47,6 +47,8 @@ class MatchDetectionTests: XCTestCase {
         match.timestamp = Date()
         match.chosenNumber = chosenNumber
         match.matchedNumber = matchedNumber
+        // REALM NUMBER ANALYTICS ENHANCEMENT: Set realm number for test data
+        match.realmNumber = matchedNumber  // Realm number matches the matched number
         
         do {
             try context!.save()

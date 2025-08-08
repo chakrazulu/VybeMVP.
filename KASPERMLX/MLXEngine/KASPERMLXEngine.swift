@@ -257,9 +257,13 @@ class KASPERMLXEngine: ObservableObject {
     }
     
     private func validateReadiness() async -> Bool {
-        // Check if model is loaded
-        guard mlxModel != nil else {
-            logger.warning("🔮 KASPER MLX: Model not loaded")
+        // Claude: Accept both MLX model mode and template mode as ready states
+        // Check if we have either a loaded MLX model OR template mode with current model set
+        let hasModel = mlxModel != nil
+        let hasTemplateMode = currentModel != nil && currentModel!.contains("template")
+        
+        guard hasModel || hasTemplateMode else {
+            logger.warning("🔮 KASPER MLX: Neither MLX model nor template mode available")
             return false
         }
         
@@ -275,6 +279,12 @@ class KASPERMLXEngine: ObservableObject {
         guard hasAvailableProvider else {
             logger.warning("🔮 KASPER MLX: No providers available")
             return false
+        }
+        
+        if hasModel {
+            logger.info("🔮 KASPER MLX: Ready with MLX model: \(self.currentModel ?? "unknown")")
+        } else {
+            logger.info("🔮 KASPER MLX: Ready with template mode: \(self.currentModel ?? "unknown")")
         }
         
         return true
@@ -399,13 +409,15 @@ class KASPERMLXEngine: ObservableObject {
         
         switch type {
         case .guidance:
-            return "✨ Your journal reveals \(selectedComponent) within your spiritual journey. \(focusReflectionGuidance)."
+            return "🌟 Your journal reveals \(selectedComponent) in your journey. \(focusReflectionGuidance)."
         case .reflection:
-            return "🌙 Through your writing, \(selectedComponent) emerges as a guiding force. \(focusReflectionGuidance)?"
+            return "🌙 Through your writing, \(selectedComponent) emerges. Consider: \(focusReflectionGuidance)?"
         case .affirmation:
-            return "💫 I embrace \(selectedComponent) flowing through my reflections. I \(selectedGuidance)."
+            return "💫 I embrace \(selectedComponent) in my reflections. I \(selectedGuidance)."
+        case .prediction:
+            return "🔮 Your words reveal \(selectedComponent) unfolding. \(focusReflectionGuidance)."
         default:
-            return "🔮 Your words channel \(selectedComponent) into conscious awareness. \(focusReflectionGuidance)."
+            return "🌟 Your journal reveals \(selectedComponent) in your spiritual journey. \(focusReflectionGuidance)."
         }
     }
     
@@ -585,7 +597,22 @@ class KASPERMLXEngine: ObservableObject {
                 // Enhance with MegaCorpus data for richer spiritual content
                 spiritualComponents.append("the energy of \(archetype)")
                 personalReferences.append("your \(archetype.lowercased().replacingOccurrences(of: "the ", with: "")) nature")
-                actionableGuidance.append(guidanceTemplate)
+                
+                // Claude: Clean and validate MegaCorpus guidance to prevent malformed patterns
+                let cleanedGuidance = guidanceTemplate
+                    .replacingOccurrences(of: "Trust your the ", with: "trust your ")
+                    .replacingOccurrences(of: "Trust The ", with: "trust the ")
+                    .replacingOccurrences(of: "Trust your The ", with: "trust your ")
+                    .lowercased()
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                
+                // Only use cleaned guidance if it's reasonable, otherwise fall back to template
+                if !cleanedGuidance.isEmpty && cleanedGuidance.count > 5 && !cleanedGuidance.contains("  ") {
+                    actionableGuidance.append(cleanedGuidance)
+                } else {
+                    print("🔮 KASPER DEBUG: Skipping malformed MegaCorpus guidance: '\(guidanceTemplate)'")
+                    // Template guidance already added above, so we're good
+                }
             }
         } else {
             // Claude: Add fallback for when focus number is nil - but ensure it's still meaningful
@@ -661,25 +688,82 @@ class KASPERMLXEngine: ObservableObject {
         )
     }
     
+    // MARK: - Template Helper Methods
+    
+    /// Claude: Get appropriate emoji based on insight type for consistent UI expectations
+    private func getEmojiForInsightType(_ type: KASPERInsightType) -> String {
+        switch type {
+        case .guidance:
+            return "🌟"
+        case .reflection:
+            return "🌙"
+        case .affirmation:
+            return "💫"
+        case .prediction:
+            return "🔮"
+        default:
+            return "✨" // Default spiritual sparkle
+        }
+    }
+    
     private func buildSanctumInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
-        return "🏛️ Your sacred space resonates with divine wisdom. The cosmic patterns align to support your spiritual evolution and inner knowing."
+        // Claude: Use appropriate emoji based on insight type
+        let emoji = getEmojiForInsightType(type)
+        
+        switch type {
+        case .guidance:
+            return "\(emoji) Your sacred space resonates with divine wisdom. The cosmic patterns flow to support your spiritual evolution and awaken inner knowing."
+        case .reflection:
+            return "\(emoji) Within the sacred depths of your soul, contemplation reveals spiritual truths and illuminates divine essence."
+        case .affirmation:
+            return "\(emoji) I am divinely guided and protected in my sacred spiritual sanctuary. Universal wisdom channels through my essence."
+        case .prediction:
+            return "\(emoji) The sacred sanctuary unfolds future blessings as spiritual opportunities emerge through divine timing."
+        default:
+            return "\(emoji) Your sacred space resonates with divine wisdom. The cosmic patterns align to support your spiritual evolution and inner knowing."
+        }
     }
     
     private func buildFocusInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
         let numerologyContext = contexts.first { $0.providerId == "numerology" }
+        let emoji = getEmojiForInsightType(type)
         
-        if let numerology = numerologyContext?.data,
-           let _ = numerology["focusNumber"] as? Int,
-           let _ = numerology["focusArchetype"] as? String {
-            return "🎯 Your focus energy activates transformative power. Channel this into your intentions with clarity and purpose."
+        // Extract focus number from context
+        let focusNumber = numerologyContext?.data["focusNumber"] as? Int ?? 5
+        
+        // Generate focus-specific content based on the actual focus number
+        let focusDescriptions: [Int: (energy: String, gift: String, action: String)] = [
+            1: ("pioneering leadership", "initiating new ventures", "trust your innovative instincts"),
+            2: ("harmonious cooperation", "creating balance", "seek collaborative harmony"),
+            3: ("creative expression", "artistic communication", "express your creative truth"),
+            4: ("stable foundation", "practical wisdom", "build with methodical purpose"),
+            5: ("adventurous freedom", "transformative exploration", "embrace dynamic change"),
+            6: ("nurturing service", "healing wisdom", "serve with compassionate heart"),
+            7: ("mystical insight", "spiritual understanding", "seek deeper wisdom"),
+            8: ("material mastery", "manifestation power", "achieve with focused determination"),
+            9: ("humanitarian wisdom", "universal compassion", "serve the greater good")
+        ]
+        
+        let focusInfo = focusDescriptions[focusNumber] ?? ("spiritual", "divine gifts", "trust your path")
+        
+        switch type {
+        case .guidance:
+            return "\(emoji) Focus \(focusNumber) brings \(focusInfo.energy) energy. Time to \(focusInfo.action)."
+        case .reflection:
+            return "\(emoji) How does focus \(focusNumber)'s gift of \(focusInfo.gift) show up in your life?"
+        case .affirmation:
+            return "\(emoji) I embody the \(focusInfo.energy) of focus \(focusNumber)."
+        case .prediction:
+            return "\(emoji) Your focus \(focusNumber) energy will manifest through \(focusInfo.gift)."
+        default:
+            return "\(emoji) Focus \(focusNumber) channels \(focusInfo.energy) energy into your life."
         }
-        
-        return "🎯 Focus your spiritual energy on what truly matters. Your intention becomes the seed of divine manifestation."
     }
     
     private func buildTimingInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
-        // Claude: Enhanced cosmic timing using new template system
+        // Claude: Enhanced cosmic timing using new template system with insight type support
         let cosmicContext = contexts.first { $0.providerId == "cosmic" }
+        let emoji = getEmojiForInsightType(type)
         
         let planetaryEnergy = cosmicContext?.data["dominantPlanet"] as? String ??
                              cosmicContext?.data["primaryPlanet"] as? String
@@ -687,11 +771,23 @@ class KASPERMLXEngine: ObservableObject {
         let astrologicalEvent = cosmicContext?.data["currentTransit"] as? String ??
                                cosmicContext?.data["astroEvent"] as? String
         
-        return KASPERTemplateEnhancer.generateCosmicTimingInsight(
-            planetaryEnergy: planetaryEnergy,
-            moonPhase: moonPhase,
-            astrologicalEvent: astrologicalEvent
-        )
+        let cosmicDescription = [planetaryEnergy, moonPhase, astrologicalEvent]
+            .compactMap { $0 }
+            .joined(separator: " and ")
+        let cosmicContent = cosmicDescription.isEmpty ? "cosmic energies" : cosmicDescription
+        
+        switch type {
+        case .guidance:
+            return "\(emoji) The timing of \(cosmicContent) supports your path forward."
+        case .reflection:
+            return "\(emoji) Consider how \(cosmicContent) reflects your inner rhythms."
+        case .affirmation:
+            return "\(emoji) I align with the perfect timing of \(cosmicContent)."
+        case .prediction:
+            return "\(emoji) The energy of \(cosmicContent) will bring new opportunities."
+        default:
+            return "\(emoji) The cosmic energy of \(cosmicContent) influences your timing."
+        }
     }
     
     private func buildMatchInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
@@ -714,14 +810,21 @@ class KASPERMLXEngine: ObservableObject {
     }
     
     private func buildRealmInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
-        let numerologyContext = contexts.first { $0.providerId == "numerology" }
+        let _ = contexts.first { $0.providerId == "numerology" }
+        let emoji = getEmojiForInsightType(type)
         
-        if let numerology = numerologyContext?.data,
-           let _ = numerology["realmNumber"] as? Int {
-            return "🌍 Your current realm creates the energetic container for spiritual experiences. Work with its frequency for optimal flow."
+        switch type {
+        case .guidance:
+            return "\(emoji) Your current realm supports your spiritual growth and evolution."
+        case .reflection:
+            return "\(emoji) What patterns do you notice emerging in your current spiritual space?"
+        case .affirmation:
+            return "\(emoji) I am aligned with my realm's energy and purpose."
+        case .prediction:
+            return "\(emoji) Your realm is shifting to support new levels of understanding."
+        default:
+            return "\(emoji) Your current realm holds important lessons for your journey."
         }
-        
-        return "🌍 Your current realm supports the lessons your soul is ready to integrate. Trust the divine curriculum."
     }
     
     private func getRequiredProviders(for feature: KASPERFeature) -> Set<String> {
@@ -917,16 +1020,16 @@ class KASPERMLXEngine: ObservableObject {
             selectedGuidance.lowercased().contains(word) }
         
         if !hasActionableWord {
-            // Force actionable word inclusion if missing
+            // Simple actionable guidance fallbacks
             let actionableBackups = [
                 "trust your inner wisdom",
-                "embrace your spiritual path", 
-                "honor your authentic self",
+                "embrace your authentic self",
+                "honor your spiritual path",
                 "seek deeper understanding",
-                "focus on your spiritual growth",
-                "align with your highest purpose"
+                "channel your true purpose",
+                "align with your highest self"
             ]
-            selectedGuidance = actionableBackups.randomElement() ?? "trust your spiritual journey"
+            selectedGuidance = actionableBackups.randomElement() ?? "trust your path"
         }
         
         // Claude: ENHANCED - Use new natural language templates for flowing spiritual insights
