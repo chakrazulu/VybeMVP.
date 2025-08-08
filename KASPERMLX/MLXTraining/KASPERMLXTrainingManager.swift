@@ -578,7 +578,7 @@ public final class KASPERMLXTrainingManager: ObservableObject {
 // MARK: - Supporting Types
 
 /// Claude: Model information for tracking and deployment
-public struct KASPERModelInfo: Identifiable, Codable {
+struct KASPERModelInfo: Identifiable, Codable {
     public let id: UUID
     public let name: String
     public let architecture: KASPERModelArchitecture
@@ -592,7 +592,7 @@ public struct KASPERModelInfo: Identifiable, Codable {
 }
 
 /// Claude: Training session history tracking
-public struct KASPERTrainingSession: Identifiable, Codable {
+struct KASPERTrainingSession: Identifiable, Codable {
     public let id: UUID
     public let architecture: KASPERModelArchitecture
     public let startDate: Date
@@ -646,6 +646,24 @@ public enum KASPERMLXTrainingError: LocalizedError {
 extension KASPERTrainingConfiguration: Codable {
     enum CodingKeys: CodingKey {
         case modelArchitecture, hyperparameters, dataConfig, schedule, features
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.modelArchitecture = try container.decode(KASPERModelArchitecture.self, forKey: .modelArchitecture)
+        self.hyperparameters = try container.decode(KASPERTrainingHyperparameters.self, forKey: .hyperparameters)
+        self.dataConfig = try container.decode(KASPERTrainingDataConfig.self, forKey: .dataConfig)
+        self.schedule = try container.decode(KASPERTrainingSchedule.self, forKey: .schedule)
+        self.features = try container.decode(KASPERTrainingFeatures.self, forKey: .features)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(modelArchitecture, forKey: .modelArchitecture)
+        try container.encode(hyperparameters, forKey: .hyperparameters)
+        try container.encode(dataConfig, forKey: .dataConfig)
+        try container.encode(schedule, forKey: .schedule)
+        try container.encode(features, forKey: .features)
     }
 }
 

@@ -125,6 +125,10 @@
 		4D731D352E44B1510083C82C /* MLXRandom in Frameworks */ = {isa = PBXBuildFile; productRef = 4D731D342E44B1510083C82C /* MLXRandom */; };
 		4D731D372E453EBD0083C82C /* KASPERTrainingExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D731D362E453EBD0083C82C /* KASPERTrainingExporter.swift */; };
 		4D731D392E4542940083C82C /* KASPERTemplateEnhancer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D731D382E4542940083C82C /* KASPERTemplateEnhancer.swift */; };
+		4D731D632E45A7230083C82C /* KASPERMLXTrainingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D731D602E45A7230083C82C /* KASPERMLXTrainingManager.swift */; };
+		4D731D642E45A7230083C82C /* KASPERAppleFoundationIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D731D5E2E45A7230083C82C /* KASPERAppleFoundationIntegration.swift */; };
+		4D731D652E45A7230083C82C /* KASPERMegaCorpusProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D731D5F2E45A7230083C82C /* KASPERMegaCorpusProcessor.swift */; };
+		4D731D662E45A7230083C82C /* KASPERRLHFSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D731D612E45A7230083C82C /* KASPERRLHFSystem.swift */; };
 		4D80E0FD2D3F1B0B0020F7BB /* NumberMeaningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E0FC2D3F1B0B0020F7BB /* NumberMeaningView.swift */; };
 		4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */; };
 		4D92F48C2D49E9C90001A16E /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F48B2D49E9BF0001A16E /* TestingView.swift */; };
@@ -463,6 +467,10 @@
 		4D731D2A2E44A34F0083C82C /* SpiritualFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritualFont.swift; sourceTree = "<group>"; };
 		4D731D362E453EBD0083C82C /* KASPERTrainingExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERTrainingExporter.swift; sourceTree = "<group>"; };
 		4D731D382E4542940083C82C /* KASPERTemplateEnhancer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERTemplateEnhancer.swift; sourceTree = "<group>"; };
+		4D731D5E2E45A7230083C82C /* KASPERAppleFoundationIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERAppleFoundationIntegration.swift; sourceTree = "<group>"; };
+		4D731D5F2E45A7230083C82C /* KASPERMegaCorpusProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERMegaCorpusProcessor.swift; sourceTree = "<group>"; };
+		4D731D602E45A7230083C82C /* KASPERMLXTrainingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERMLXTrainingManager.swift; sourceTree = "<group>"; };
+		4D731D612E45A7230083C82C /* KASPERRLHFSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERRLHFSystem.swift; sourceTree = "<group>"; };
 		4D80E0FC2D3F1B0B0020F7BB /* NumberMeaningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMeaningView.swift; sourceTree = "<group>"; };
 		4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchAnalyticsView.swift; sourceTree = "<group>"; };
 		4D80E10C2D41E17A0020F7BB /* VybeMVPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VybeMVPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -648,6 +656,11 @@
 				4D55BE7A2E3AD37C00F7BE5B /* Exceptions for "CosmicHUDWidget" folder in "CosmicHUDWidgetExtension" target */,
 			);
 			path = CosmicHUDWidget;
+			sourceTree = "<group>";
+		};
+		4D731D6D2E45A8650083C82C /* KasperMLXMasterDocs */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = KasperMLXMasterDocs;
 			sourceTree = "<group>";
 		};
 		4D80E10D2D41E17A0020F7BB /* VybeMVPTests */ = {
@@ -1023,6 +1036,17 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		4D731D622E45A7230083C82C /* MLXTraining */ = {
+			isa = PBXGroup;
+			children = (
+				4D731D5E2E45A7230083C82C /* KASPERAppleFoundationIntegration.swift */,
+				4D731D5F2E45A7230083C82C /* KASPERMegaCorpusProcessor.swift */,
+				4D731D602E45A7230083C82C /* KASPERMLXTrainingManager.swift */,
+				4D731D612E45A7230083C82C /* KASPERRLHFSystem.swift */,
+			);
+			path = MLXTraining;
+			sourceTree = "<group>";
+		};
 		4DA359A02E3F135B0010101F /* MLXCore */ = {
 			isa = PBXGroup;
 			children = (
@@ -1081,6 +1105,7 @@
 		4DA359AE2E3F135B0010101F /* KASPERMLX */ = {
 			isa = PBXGroup;
 			children = (
+				4D731D622E45A7230083C82C /* MLXTraining */,
 				4DA359BD2E3FF6380010101F /* Documentation */,
 				4DA359A02E3F135B0010101F /* MLXCore */,
 				4DA359A22E3F135B0010101F /* MLXData */,
@@ -1178,6 +1203,7 @@
 				4D55BE692E3AD37B00F7BE5B /* CosmicHUDWidget */,
 				4DC6021C2D343E8D00B5E4A9 /* Products */,
 				4D6308E22DFFCB6F00FD32E9 /* Frameworks */,
+				4D731D6D2E45A8650083C82C /* KasperMLXMasterDocs */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1442,6 +1468,7 @@
 				4D55BE782E3AD37C00F7BE5B /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				4D731D6D2E45A8650083C82C /* KasperMLXMasterDocs */,
 				4DC6021D2D343E8D00B5E4A9 /* VybeApp */,
 				4DE4C3A22DB5C85D00BB7572 /* NumerologyData */,
 			);
@@ -1694,6 +1721,10 @@
 				4D3055DF2D3CE8AE009A7BBD /* JournalView.swift in Sources */,
 				4D3727102DE5407100B5A02B /* InsightHistoryView.swift in Sources */,
 				4D80E0FD2D3F1B0B0020F7BB /* NumberMeaningView.swift in Sources */,
+				4D731D632E45A7230083C82C /* KASPERMLXTrainingManager.swift in Sources */,
+				4D731D642E45A7230083C82C /* KASPERAppleFoundationIntegration.swift in Sources */,
+				4D731D652E45A7230083C82C /* KASPERMegaCorpusProcessor.swift in Sources */,
+				4D731D662E45A7230083C82C /* KASPERRLHFSystem.swift in Sources */,
 				4D2CC70E2E0B9E5200BDF100 /* RealmSample.swift in Sources */,
 				4D3055E72D3CEEC9009A7BBD /* JournalEntryDetailView.swift in Sources */,
 				4DCB38782E1F647B00311D51 /* SVGPathExtractor.swift in Sources */,

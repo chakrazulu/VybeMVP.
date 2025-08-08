@@ -287,7 +287,7 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
     /**
      * Enhance spiritual content with Apple Intelligence
      */
-    public func enhanceSpiritualContent(
+    func enhanceSpiritualContent(
         _ content: String,
         feature: KASPERAppleIntelligenceFeature,
         spiritualContext: KASPERSpiritualContext
@@ -330,7 +330,7 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
     /**
      * Create Siri shortcut for spiritual guidance
      */
-    public func createSpiritualSiriShortcut(
+    func createSpiritualSiriShortcut(
         type: KASPERSpiritualShortcutType,
         customization: KASPERShortcutCustomization? = nil
     ) async throws -> INShortcut {
@@ -579,16 +579,16 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
         // For now, we simulate availability based on iOS version
         
         if #available(iOS 18.0, *) {
-            isAppleIntelligenceAvailable = true
-            availableFeatures = Set(KASPERAppleIntelligenceFeature.allCases.filter { !$0.requiresAppleIntelligence })
+            self.isAppleIntelligenceAvailable = true
+            self.availableFeatures = Set(KASPERAppleIntelligenceFeature.allCases.filter { !$0.requiresAppleIntelligence })
             
             // Check for Apple Intelligence features
             #if canImport(AppleIntelligence)
-            availableFeatures.formUnion([.foundationModels, .writingTools, .imagePlayground, .smartCompose])
+            self.availableFeatures.formUnion([.foundationModels, .writingTools, .imagePlayground, .smartCompose])
             #endif
         } else {
-            isAppleIntelligenceAvailable = false
-            availableFeatures = [.shortcuts, .liveActivities, .dynamicIsland]
+            self.isAppleIntelligenceAvailable = false
+            self.availableFeatures = [.shortcuts, .liveActivities, .dynamicIsland]
         }
         
         logger.info("🍎 Apple Intelligence available: \(isAppleIntelligenceAvailable), Features: \(availableFeatures.count)")
@@ -852,6 +852,95 @@ public struct KASPERSpiritualActivityContent {
     let spiritualContent: String
 }
 
-extension KASPERAppleIntelligenceConfig: Codable {}
-extension KASPERSpiritualContext: Codable {}
-extension KASPERAppleIntelligenceResponse: Codable {}
+// MARK: - Codable Conformance
+
+extension KASPERAppleIntelligenceConfig: Codable {
+    enum CodingKeys: CodingKey {
+        case enabledFeatures, privacyLevel, onDeviceOnly, enablePersonalization, spiritualContentFiltering
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let featuresArray = try container.decode([String].self, forKey: .enabledFeatures)
+        self.enabledFeatures = Set(featuresArray.compactMap { KASPERAppleIntelligenceFeature(rawValue: $0) })
+        let privacyLevelString = try container.decode(String.self, forKey: .privacyLevel)
+        self.privacyLevel = KASPERPrivacyLevel(rawValue: privacyLevelString) ?? .maximum
+        self.onDeviceOnly = try container.decode(Bool.self, forKey: .onDeviceOnly)
+        self.enablePersonalization = try container.decode(Bool.self, forKey: .enablePersonalization)
+        self.spiritualContentFiltering = try container.decode(Bool.self, forKey: .spiritualContentFiltering)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(Array(enabledFeatures.map { $0.rawValue }), forKey: .enabledFeatures)
+        try container.encode(privacyLevel.rawValue, forKey: .privacyLevel)
+        try container.encode(onDeviceOnly, forKey: .onDeviceOnly)
+        try container.encode(enablePersonalization, forKey: .enablePersonalization)
+        try container.encode(spiritualContentFiltering, forKey: .spiritualContentFiltering)
+    }
+}
+
+extension KASPERSpiritualContext: Codable {
+    enum CodingKeys: CodingKey {
+        case focusNumber, currentRealm, spiritualIntentions, meditationState, energyLevel, astrologicalInfoData
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.focusNumber = try container.decodeIfPresent(Int.self, forKey: .focusNumber)
+        self.currentRealm = try container.decodeIfPresent(Int.self, forKey: .currentRealm)
+        self.spiritualIntentions = try container.decode([String].self, forKey: .spiritualIntentions)
+        self.meditationState = try container.decodeIfPresent(String.self, forKey: .meditationState)
+        self.energyLevel = try container.decodeIfPresent(Float.self, forKey: .energyLevel)
+        
+        if let astroData = try container.decodeIfPresent(Data.self, forKey: .astrologicalInfoData) {
+            self.astrologicalInfo = try? JSONSerialization.jsonObject(with: astroData) as? [String: Any]
+        } else {
+            self.astrologicalInfo = nil
+        }
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(focusNumber, forKey: .focusNumber)
+        try container.encodeIfPresent(currentRealm, forKey: .currentRealm)
+        try container.encode(spiritualIntentions, forKey: .spiritualIntentions)
+        try container.encodeIfPresent(meditationState, forKey: .meditationState)
+        try container.encodeIfPresent(energyLevel, forKey: .energyLevel)
+        
+        if let astroInfo = astrologicalInfo,
+           let astroData = try? JSONSerialization.data(withJSONObject: astroInfo) {
+            try container.encode(astroData, forKey: .astrologicalInfoData)
+        }
+    }
+}
+
+extension KASPERAppleIntelligenceResponse: Codable {
+    enum CodingKeys: CodingKey {
+        case originalContent, enhancedContent, spiritualEnhancements, confidenceScore
+        case processingMethod, privacyCompliance, appliedFeatures
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.originalContent = try container.decode(String.self, forKey: .originalContent)
+        self.enhancedContent = try container.decode(String.self, forKey: .enhancedContent)
+        self.spiritualEnhancements = try container.decode([String].self, forKey: .spiritualEnhancements)
+        self.confidenceScore = try container.decode(Float.self, forKey: .confidenceScore)
+        self.processingMethod = try container.decode(String.self, forKey: .processingMethod)
+        self.privacyCompliance = try container.decode(Bool.self, forKey: .privacyCompliance)
+        let featuresArray = try container.decode([String].self, forKey: .appliedFeatures)
+        self.appliedFeatures = featuresArray.compactMap { KASPERAppleIntelligenceFeature(rawValue: $0) }
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(originalContent, forKey: .originalContent)
+        try container.encode(enhancedContent, forKey: .enhancedContent)
+        try container.encode(spiritualEnhancements, forKey: .spiritualEnhancements)
+        try container.encode(confidenceScore, forKey: .confidenceScore)
+        try container.encode(processingMethod, forKey: .processingMethod)
+        try container.encode(privacyCompliance, forKey: .privacyCompliance)
+        try container.encode(appliedFeatures.map { $0.rawValue }, forKey: .appliedFeatures)
+    }
+}

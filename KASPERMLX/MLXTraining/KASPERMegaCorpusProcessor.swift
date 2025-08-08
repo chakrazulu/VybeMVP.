@@ -104,7 +104,7 @@ public struct KASPERMegaCorpusConfig {
 }
 
 /// Claude: MegaCorpus entry structure with spiritual metadata
-public struct KASPERMegaCorpusEntry: Codable, Identifiable {
+struct KASPERMegaCorpusEntry: Codable, Identifiable {
     public let id: UUID
     public let category: KASPERMegaCorpusCategory
     public let title: String
@@ -268,7 +268,7 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
     /**
      * Process MegaCorpus data for MLX training
      */
-    public func processMegaCorpus(config: KASPERMegaCorpusConfig = .default) async throws -> [KASPERMegaCorpusEntry] {
+    func processMegaCorpus(config: KASPERMegaCorpusConfig = KASPERMegaCorpusConfig.default) async throws -> [KASPERMegaCorpusEntry] {
         guard !isProcessing else {
             throw KASPERMegaCorpusError.processingAlreadyActive
         }

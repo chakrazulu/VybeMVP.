@@ -336,7 +336,7 @@ public struct KASPERSessionContext: Codable {
 }
 
 /// Claude: RLHF learning progress and metrics
-public struct KASPERRLHFMetrics: Codable {
+struct KASPERRLHFMetrics: Codable {
     public let totalFeedbackCount: Int
     public let averageUserSatisfaction: Float
     public let spiritualAuthenticityScore: Float
@@ -351,7 +351,7 @@ public struct KASPERRLHFMetrics: Codable {
 }
 
 /// Claude: RLHF reward model for spiritual AI optimization
-public struct KASPERRewardModel: Codable {
+struct KASPERRewardModel: Codable {
     public let modelVersion: String
     public let spiritualAuthenticityWeights: [String: Float]
     public let personalRelevanceWeights: [String: Float]
@@ -361,7 +361,7 @@ public struct KASPERRewardModel: Codable {
     public let lastTrainingDate: Date
     
     /// Claude: Calculate reward for a given insight and feedback
-    public func calculateReward(
+    func calculateReward(
         insight: KASPERInsight,
         feedback: KASPERRLHFFeedback
     ) -> Float {
@@ -547,7 +547,7 @@ public final class KASPERRLHFSystem: ObservableObject {
     /**
      * Record user feedback for RLHF learning
      */
-    public func recordFeedback(
+    func recordFeedback(
         _ feedback: KASPERRLHFFeedback
     ) async {
         logger.info("🧠 Recording RLHF feedback: \(feedback.feedbackType.displayName)")
