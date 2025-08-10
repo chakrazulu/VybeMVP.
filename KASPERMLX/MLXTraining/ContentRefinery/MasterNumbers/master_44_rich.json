@@ -256,12 +256,12 @@
       "intensity": 0.94,
       "triggers": [
         "evolution_acceleration",
-        "DNA_activation",
+        "dna_activation",
         "species_upgrade"
       ],
       "supports": [
         "evolution_support",
-        "DNA_work",
+        "dna_work",
         "consciousness_acceleration"
       ],
       "challenges": [
@@ -413,6 +413,7 @@
   ],
   "meta": {
     "type": "master",
+    "archetype": "master_healer",
     "base_number": 8,
     "master_vibration": true,
     "keywords": [

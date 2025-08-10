@@ -413,6 +413,7 @@
   ],
   "meta": {
     "type": "master",
+    "archetype": "master_teacher",
     "base_number": 6,
     "master_vibration": true,
     "keywords": [

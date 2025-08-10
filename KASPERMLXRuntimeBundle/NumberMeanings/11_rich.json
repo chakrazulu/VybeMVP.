@@ -16,7 +16,7 @@
       "intensity": 0.9,
       "triggers": [
         "spiritual_awakening",
-        "11:11_sightings",
+        "synchronicity_sightings",
         "divine_timing"
       ],
       "supports": [
@@ -101,7 +101,7 @@
       ],
       "supports": [
         "kabbalistic_practice",
-        "meditation_on_da'at",
+        "daath_meditation",
         "wisdom_integration"
       ],
       "challenges": [
@@ -151,7 +151,7 @@
       ]
     },
     {
-      "category": "11_11_phenomenon",
+      "category": "portal_phenomenon",
       "insight": "The **11:11 phenomenon** represents a mass spiritual awakening, with millions worldwide reporting synchronized sightings. This collective experience signals readiness for consciousness evolution and serves as a portal for manifestation.",
       "intensity": 0.86,
       "triggers": [
@@ -413,6 +413,7 @@
   ],
   "meta": {
     "type": "master",
+    "archetype": "illuminator",
     "base_number": 2,
     "master_vibration": true,
     "keywords": [
@@ -422,7 +423,7 @@
       "bridge_builder",
       "nervous_sensitivity",
       "divine_channel",
-      "11:11_portal",
+      "spiritual_portal",
       "uranian_energy",
       "consciousness_pioneer"
     ],

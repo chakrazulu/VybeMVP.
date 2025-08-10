@@ -32,3 +32,12 @@ repos:
     hooks:
       - id: isort
         args: [--profile=black]
+
+  - repo: local
+    hooks:
+    -   id: vybe-content-lint
+        name: vybe content lint
+        entry: python3 scripts/lint_rich_content.py
+        language: system
+        pass_filenames: false
+        stages: [commit]

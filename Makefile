@@ -1,24 +1,42 @@
 # KASPER MLX Project Makefile
 # Automated tasks for spiritual AI development
 
-.PHONY: help release-cards clean install-dev test test-structural test-heuristic determinism lint tag build soft venv
+.PHONY: help release-cards clean install-dev test test-structural test-heuristic determinism lint tag build soft venv content-lint content-normalize content-export content-validate content-all
 
 # Default target
 help:
-	@echo "KASPER MLX Development Commands"
-	@echo "================================"
-	@echo "release-cards    Generate DATA_CARD.md and MODEL_CARD.md"
-	@echo "soft            Generate release cards in soft mode (warnings only)"
-	@echo "venv            Create local virtual environment (.venv)"
-	@echo "install-dev      Install development dependencies and pre-commit hooks"
-	@echo "clean           Clean generated artifacts"
-	@echo "test            Run all validation tests"
-	@echo "test-structural  Run structural validation tests only (CI-required)"
-	@echo "test-heuristic   Run heuristic quality tests only"
-	@echo "determinism     Test dataset digest stability (critical for production)"
-	@echo "lint            Run pre-commit on all files"
-	@echo "tag             Create and push git tag for current release"
-	@echo "help            Show this help message"
+	@echo "KASPER MLX Development Commands v2.1.4"
+	@echo "======================================="
+	@echo ""
+	@echo "📦 Release Management:"
+	@echo "  release-cards    Generate DATA_CARD.md and MODEL_CARD.md"
+	@echo "  soft            Generate release cards in soft mode (warnings only)"
+	@echo "  build           Build full release bundle"
+	@echo "  tag             Create and push git tag for current release"
+	@echo ""
+	@echo "🔧 Development Environment:"
+	@echo "  venv            Create local virtual environment (.venv)"
+	@echo "  install-dev      Install development dependencies and pre-commit hooks"
+	@echo "  clean           Clean generated artifacts"
+	@echo "  lint            Run pre-commit on all files"
+	@echo ""
+	@echo "🧪 Testing & Validation:"
+	@echo "  test            Run all validation tests"
+	@echo "  test-structural  Run structural validation tests only (CI-required)"
+	@echo "  test-heuristic   Run heuristic quality tests only"
+	@echo "  determinism     Test dataset digest stability (critical for production)"
+	@echo ""
+	@echo "🎯 Content Pipeline (Bulletproof v2.1.4):"
+	@echo "  content-lint     Run content linter on all *_rich.json files"
+	@echo "  content-normalize Fix snake_case and Claude artifacts in content"
+	@echo "  content-export   Generate KASPER MLX runtime bundle"
+	@echo "  content-validate Full validation pipeline (normalize + lint)"
+	@echo "  content-all      Complete content pipeline (normalize + lint + export)"
+	@echo ""
+	@echo "💡 Quick Commands:"
+	@echo "  make content-lint      # Quick content check"
+	@echo "  make content-all       # Complete content pipeline"
+	@echo "  help                   # Show this help message"
 
 # Generate release documentation
 release-cards:
@@ -96,3 +114,38 @@ tag:
 # Build full release bundle
 build: clean install-dev release-cards
 	@echo "🚀 KASPER MLX release build complete!"
+
+# ===================================================================
+# BULLETPROOF CONTENT PIPELINE v2.1.4
+# Exactly as specified by ChatGPT for spiritual AI content quality
+# ===================================================================
+
+# Run content linter on all *_rich.json files
+content-lint:
+	@echo "🔍 Running KASPER MLX content linter..."
+	@python3 scripts/lint_rich_content.py
+
+# Fix snake_case and Claude artifacts in content
+content-normalize:
+	@echo "🔧 Normalizing content with Claude artifact removal..."
+	@python3 scripts/normalize_content.py KASPERMLX/MLXTraining/ContentRefinery
+
+# Generate KASPER MLX runtime bundle
+content-export:
+	@echo "📦 Generating KASPER MLX v2.1.4 runtime bundle..."
+	@python3 scripts/export_runtime_bundle.py
+	@echo "✅ Runtime bundle exported successfully!"
+
+# Full validation pipeline (normalize + lint)
+content-validate: content-normalize content-lint
+	@echo "✅ Content validation pipeline complete!"
+
+# Complete content pipeline (normalize + lint + export)
+content-all: content-normalize content-lint content-export
+	@echo ""
+	@echo "🎯 KASPER MLX v2.1.4 Content Pipeline Complete!"
+	@echo "=============================================="
+	@echo "✅ Content normalized and validated"
+	@echo "✅ Runtime bundle exported"
+	@echo ""
+	@echo "🚀 Ready for spiritual AI excellence!"

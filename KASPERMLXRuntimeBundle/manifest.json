@@ -1,7 +1,7 @@
 {
-  "version": "2.1.2",
-  "generated": "2025-08-10T15:20:13.824094",
-  "bundle_hash": "6f24fa45c1e4c66a3bc1a0e9c9b641bb9d1b8654b06f17061519de1173df9670",
+  "version": "2.1.4",
+  "generated": "2025-08-10T16:12:10.735666",
+  "bundle_hash": "d393c2f4e2ff48d7e0eb27e48c03bc10c531372d200ccae442f68bd6aae158d5",
   "domains": {
     "numbers": {
       "rich": "NumberMeanings/{id}_rich.json",
@@ -42,6 +42,6 @@
   "statistics": {
     "behavioral_files": 104,
     "rich_files": 13,
-    "total_size_kb": 1546.5
+    "total_size_kb": 1442.87
   }
 }

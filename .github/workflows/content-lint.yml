@@ -1,0 +1,23 @@
+name: Content QA
+
+on:
+  pull_request:
+    paths:
+      - "KASPERMLX/MLXTraining/ContentRefinery/**"
+      - "scripts/lint_rich_content.py"
+      - "content.schema.json"
+      - ".github/workflows/content-lint.yml"
+  push:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Install deps
+        run: pip install --upgrade jsonschema
+      - name: Run content linter
+        run: python scripts/lint_rich_content.py
