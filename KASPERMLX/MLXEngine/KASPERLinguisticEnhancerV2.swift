@@ -203,12 +203,12 @@ public struct KASPERLinguisticEnhancerV2 {
         normalized = normalized.replacingOccurrences(of: "  +", with: " ", options: .regularExpression)
 
         // Replace smart quotes with ASCII
-        normalized = normalized.replacingOccurrences(of: """, with: "\"")
-        normalized = normalized.replacingOccurrences(of: """, with: "\"")
-        normalized = normalized.replacingOccurrences(of: "'", with: "'")
-        normalized = normalized.replacingOccurrences(of: "'", with: "'")
-        normalized = normalized.replacingOccurrences(of: "—", with: "--")
-        normalized = normalized.replacingOccurrences(of: "–", with: "-")
+        normalized = normalized.replacingOccurrences(of: "\u{201C}", with: "\"")  // Left double quotation mark
+        normalized = normalized.replacingOccurrences(of: "\u{201D}", with: "\"")  // Right double quotation mark
+        normalized = normalized.replacingOccurrences(of: "\u{2018}", with: "'")   // Left single quotation mark
+        normalized = normalized.replacingOccurrences(of: "\u{2019}", with: "'")   // Right single quotation mark
+        normalized = normalized.replacingOccurrences(of: "\u{2014}", with: "--")  // Em dash
+        normalized = normalized.replacingOccurrences(of: "\u{2013}", with: "-")   // En dash
 
         // Ensure proper sentence start capitalization
         if !normalized.isEmpty {
@@ -332,28 +332,15 @@ public struct KASPERLinguisticEnhancerV2 {
         // Whitelist for terms that can remain capitalized mid-sentence
         let capitalWhitelist = Set(["Divine", "Source", "God", "Universe", "Creator"])
 
-        // Fix common mid-sentence capitalization errors
-        let patterns = [
-            "\\bYour\\b(?!\\s+[A-Z])", // "Your" not followed by proper noun
-            "\\bYou\\b(?=\\s+[a-z])", // "You" followed by lowercase
-            "\\bTrust\\b(?!\\s*$)",   // "Trust" not at end of sentence
-            "\\bEmbrace\\b(?!\\s*$)",
-            "\\bHonor\\b(?!\\s*$)",
-            "\\bSeek\\b(?!\\s*$)",
-            "\\bExpress\\b(?!\\s*$)",
-            "\\bChannel\\b(?!\\s*$)"
-        ]
-
-        for pattern in patterns {
-            fixed = fixed.replacingOccurrences(
-                of: pattern,
-                with: { match in
-                    let word = String(match.dropFirst()) // Remove word boundary
-                    return word.lowercased()
-                },
-                options: .regularExpression
-            )
-        }
+        // Fix common mid-sentence capitalization errors with simple string replacement
+        fixed = fixed.replacingOccurrences(of: " Your ", with: " your ")
+        fixed = fixed.replacingOccurrences(of: " You ", with: " you ")
+        fixed = fixed.replacingOccurrences(of: " Trust ", with: " trust ")
+        fixed = fixed.replacingOccurrences(of: " Embrace ", with: " embrace ")
+        fixed = fixed.replacingOccurrences(of: " Honor ", with: " honor ")
+        fixed = fixed.replacingOccurrences(of: " Seek ", with: " seek ")
+        fixed = fixed.replacingOccurrences(of: " Express ", with: " express ")
+        fixed = fixed.replacingOccurrences(of: " Channel ", with: " channel ")
 
         return fixed
     }
@@ -570,7 +557,7 @@ public struct KASPERLinguisticEnhancerV2 {
     // MARK: - 🎨 STAGE 9: INTENSIFIER MODERATION
 
     private static func moderateIntensifiers(_ text: String) -> String {
-        var moderated = text
+        var _ = text
 
         let intensifiers = ["deeply", "beautiful", "powerful", "amazing", "incredible", "profound", "sacred"]
         let moderateAlternatives = ["gently", "steadily", "naturally", "quietly", "simply"]
@@ -647,7 +634,7 @@ public struct KASPERLinguisticEnhancerV2 {
         }
 
         // Ensure max 1 leading emoji, remove mid-sentence emojis
-        var processed = text
+        var _ = text
 
         // Remove mid-sentence emojis first
         let sentences = text.components(separatedBy: ". ")
@@ -805,7 +792,7 @@ public struct KASPERLinguisticEnhancerV2 {
 
     private static func calculateVarietyScore(_ text: String) -> Double {
         // Check for banned n-grams and repetitive patterns
-        let words = text.lowercased().components(separatedBy: .whitespaces)
+        let _ = text.lowercased().components(separatedBy: .whitespaces)
             .filter { !$0.isEmpty }
 
         var score = 1.0

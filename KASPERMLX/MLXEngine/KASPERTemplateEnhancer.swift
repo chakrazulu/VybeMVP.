@@ -85,7 +85,7 @@ import Foundation
  * that creates authentic, flowing, and personally relevant spiritual guidance.
  * All methods are static for performance and thread-safety across the app.
  *
- * ENHANCED WITH LINGUISTIC PROCESSING: Now integrates with KASPERLinguisticEnhancer
+ * ENHANCED WITH LINGUISTIC PROCESSING V2.0: Integrates with KASPERLinguisticEnhancerV2
  * for professional grammar quality and natural sentence flow.
  */
 public struct KASPERTemplateEnhancer {
@@ -131,12 +131,11 @@ public struct KASPERTemplateEnhancer {
         reference: String,
         guidance: String
     ) -> String {
-        // ENHANCED: Use linguistic enhancer for professional grammar and flow
-        let enhancedInsight = KASPERLinguisticEnhancer.enhanceSentenceFlow(
-            component: component,
-            reference: reference,
-            guidance: guidance,
-            type: .guidance
+        // ENHANCED: Use V2.0 linguistic enhancer for professional grammar and flow
+        let naturalInsight = "\(component) stirs within \(reference), inviting you to \(guidance) with gentle certainty."
+        let (enhancedInsight, _) = KASPERLinguisticEnhancerV2.enhance(
+            naturalInsight,
+            options: EnhancementOptions(persona: .oracle, allowEmoji: false, qualityThreshold: 0.80)
         )
 
         // Add spiritual guidance emoji
@@ -149,12 +148,11 @@ public struct KASPERTemplateEnhancer {
         reference: String,
         guidance: String
     ) -> String {
-        // ENHANCED: Use linguistic enhancer for professional grammar and flow
-        let enhancedInsight = KASPERLinguisticEnhancer.enhanceSentenceFlow(
-            component: component,
-            reference: reference,
-            guidance: guidance,
-            type: .reflection
+        // ENHANCED: Use V2.0 linguistic enhancer for contemplative flow
+        let naturalReflection = "Take a moment to notice how \(component) moves through \(reference). What would it feel like to fully \(guidance)?"
+        let (enhancedInsight, _) = KASPERLinguisticEnhancerV2.enhance(
+            naturalReflection,
+            options: EnhancementOptions(persona: .mindfulnessCoach, allowEmoji: false, qualityThreshold: 0.80)
         )
 
         // Add reflection moon emoji
@@ -167,12 +165,11 @@ public struct KASPERTemplateEnhancer {
         reference: String,
         guidance: String
     ) -> String {
-        // ENHANCED: Use linguistic enhancer for professional grammar and flow
-        let enhancedInsight = KASPERLinguisticEnhancer.enhanceSentenceFlow(
-            component: component,
-            reference: reference,
-            guidance: guidance,
-            type: .affirmation
+        // ENHANCED: Use V2.0 linguistic enhancer for empowering affirmations
+        let naturalAffirmation = "I welcome \(component) as it moves through \(reference), and I \(guidance) with growing confidence in my own wisdom."
+        let (enhancedInsight, _) = KASPERLinguisticEnhancerV2.enhance(
+            naturalAffirmation,
+            options: EnhancementOptions(persona: .oracle, allowEmoji: false, qualityThreshold: 0.80)
         )
 
         // Add empowerment star emoji
@@ -185,12 +182,11 @@ public struct KASPERTemplateEnhancer {
         reference: String,
         guidance: String
     ) -> String {
-        // ENHANCED: Use linguistic enhancer for professional grammar and flow
-        let enhancedInsight = KASPERLinguisticEnhancer.enhanceSentenceFlow(
-            component: component,
-            reference: reference,
-            guidance: guidance,
-            type: .prediction
+        // ENHANCED: Use V2.0 linguistic enhancer for gentle predictions
+        let naturalPrediction = "\(component.capitalized) is gathering momentum through \(reference), creating conditions that support \(guidance). Trust this natural progression."
+        let (enhancedInsight, _) = KASPERLinguisticEnhancerV2.enhance(
+            naturalPrediction,
+            options: EnhancementOptions(persona: .oracle, allowEmoji: false, qualityThreshold: 0.80)
         )
 
         // Add crystal ball emoji
