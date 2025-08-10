@@ -1,6 +1,6 @@
 {
-  "version": "2.0",
-  "description": "KASPER Linguistic Enhancement Configuration - Production-Grade Language Rules",
+  "version": "2.1",
+  "description": "KASPER V2.1 Natural Flow Enhancement - ChatGPT-5 Validated Improvements",
 
   "caps": {
     "whitelist": ["Divine", "Source", "Universe", "Creator", "God"],
@@ -10,12 +10,19 @@
 
   "cadence": {
     "minTokens": 12,
-    "maxTokens": 22,
+    "maxTokens": 18,
     "maxCommas": 1,
     "maxSentences": 2,
+    "optimalBreakpoint": 15,
+    "overstuffedTriggers": ["while", "and", "as", "through", "with"],
+    "maxConceptsPerSentence": 2,
     "followupMin": 6,
     "followupMax": 10,
-    "comment": "Target token counts and sentence structure for natural cadence"
+    "sentenceLengthTargets": {
+      "mobile": {"min": 8, "max": 15},
+      "desktop": {"min": 12, "max": 22}
+    },
+    "comment": "Mobile-optimized sentence length with concept density control"
   },
 
   "repetition": {
@@ -38,14 +45,35 @@
   "synonyms": {
     "mystic": ["mystical", "spiritual", "inner", "sacred", "divine"],
     "nature": ["essence", "spirit", "being", "true self", "authentic self", "soul"],
-    "wisdom": ["insight", "knowing", "understanding", "awareness", "consciousness", "clarity"],
-    "energy": ["force", "power", "essence", "vibration", "flow", "presence"],
+    "wisdom": ["insight", "knowing", "understanding", "awareness", "consciousness", "clarity", "discernment", "intuition"],
+    "energy": ["force", "power", "essence", "vibration", "flow", "presence", "current", "pulse", "rhythm"],
     "spiritual": ["sacred", "divine", "mystical", "cosmic", "soulful", "transcendent"],
-    "trust": ["embrace", "honor", "acknowledge", "welcome", "receive", "allow"],
+    "trust": ["embrace", "honor", "acknowledge", "welcome", "receive", "allow", "lean into", "rest in"],
     "path": ["journey", "way", "direction", "course", "unfolding", "progression"],
     "inner": ["internal", "deep", "core", "authentic", "true", "essential"],
     "authentic": ["genuine", "real", "true", "natural", "honest", "original"],
-    "divine": ["sacred", "holy", "spiritual", "cosmic", "celestial", "transcendent"]
+    "divine": ["sacred", "holy", "spiritual", "cosmic", "celestial", "transcendent"],
+    "truth": ["reality", "authenticity", "essence", "core", "heart", "center", "depth"],
+    "guidance": ["direction", "insight", "clarity", "wisdom", "knowing", "invitation"],
+    "invited": ["called", "drawn", "encouraged", "guided", "moved", "inspired"],
+    "align": ["harmonize", "attune", "sync", "connect", "merge", "unite"],
+    "feel": ["sense", "notice", "experience", "recognize", "perceive", "become aware of"],
+    "know": ["recognize", "understand", "realize", "sense", "perceive", "become clear about"],
+    "find": ["discover", "uncover", "recognize", "encounter", "come upon", "reveal"],
+    "see": ["notice", "observe", "recognize", "perceive", "become aware of", "witness"],
+    "bring": ["offer", "provide", "deliver", "create", "generate", "foster"],
+    "help": ["support", "assist", "guide", "encourage", "nurture", "facilitate"],
+    "give": ["offer", "provide", "share", "contribute", "extend", "present"],
+    "show": ["reveal", "demonstrate", "illustrate", "present", "display", "indicate"],
+    "open": ["unlock", "reveal", "expose", "uncover", "access", "make available"],
+    "create": ["generate", "produce", "develop", "cultivate", "foster", "build"],
+    "peace": ["calm", "serenity", "tranquility", "stillness", "harmony", "balance"],
+    "love": ["compassion", "care", "kindness", "warmth", "connection", "tenderness"],
+    "strength": ["power", "resilience", "fortitude", "courage", "determination", "resolve"],
+    "light": ["illumination", "clarity", "brightness", "radiance", "awareness", "understanding"],
+    "journey": ["path", "way", "progression", "evolution", "unfolding", "adventure"],
+    "growth": ["development", "expansion", "evolution", "progress", "transformation", "maturation"],
+    "change": ["transformation", "shift", "evolution", "transition", "adjustment", "adaptation"]
   },
 
   "intensifiers": {
@@ -60,15 +88,72 @@
       "reveals a beautiful opportunity to",
       "flows from your deepest knowing",
       "awakening of",
-      "within your being reveals"
+      "within your being reveals",
+      "you are invited to",
+      "trust in the",
+      "while trusting",
+      "as you align with"
     ],
     "replace": {
-      "reveals a beautiful opportunity to": "invites you to",
-      "flows from your deepest spiritual knowing": "emerges as a clear next step",
+      "reveals a beautiful opportunity to": "opens the door to",
+      "flows from your deepest spiritual knowing": "emerges naturally",
       "awakening of": "stirring of",
-      "within your being reveals": "suggests"
+      "within your being reveals": "shows you",
+      "you are invited to": "consider",
+      "trust in the": "lean into",
+      "while trusting": "knowing that",
+      "as you align with": "when you honor"
     },
-    "comment": "Remove template seams and mechanical phrases"
+    "mechanicalConnectors": [
+      "while", "as", "and", "through", "with", "by", "in order to"
+    ],
+    "naturalConnectors": [
+      "because", "since", "when", "after", "before", "until", "knowing that"
+    ],
+    "sentenceStarters": {
+      "imperative": ["Notice", "Feel", "Breathe", "Allow", "Let", "Take"],
+      "reflective": ["Something in you", "Your heart", "The part of you that", "Right now"],
+      "predictive": ["Soon", "In time", "Gradually", "As you continue"]
+    },
+    "comment": "Remove template seams and mechanical phrases, add natural variety"
+  },
+
+  "structuralVariation": {
+    "enableMicroVariation": true,
+    "sentenceFormPatterns": {
+      "imperative": {
+        "starters": ["Notice", "Feel", "Allow", "Breathe", "Take", "Let"],
+        "weight": 0.3,
+        "maxConsecutive": 1
+      },
+      "reflective": {
+        "starters": ["Something in you", "Your heart", "The part of you that", "Right now"],
+        "weight": 0.4,
+        "maxConsecutive": 2
+      },
+      "predictive": {
+        "starters": ["Soon", "In time", "Gradually", "As you continue"],
+        "weight": 0.2,
+        "maxConsecutive": 1
+      },
+      "present": {
+        "starters": ["Here", "Now", "This moment", "Today"],
+        "weight": 0.1,
+        "maxConsecutive": 1
+      }
+    },
+    "overstuffedDetection": {
+      "maxConceptsPerSentence": 2,
+      "breakTriggers": ["while", "and", "as", "through", "with", "during", "alongside"],
+      "splitIntoShorter": true,
+      "targetSentenceLength": {"min": 8, "max": 15}
+    },
+    "flowTransitions": {
+      "gentle": ["softly", "quietly", "naturally", "gently"],
+      "confident": ["clearly", "simply", "directly", "certainly"],
+      "contemplative": ["slowly", "deeply", "thoughtfully", "carefully"]
+    },
+    "comment": "V2.1: Enhanced sentence structure variation with overstuffed phrase detection"
   },
 
   "safety": {
@@ -108,13 +193,17 @@
   "personas": {
     "oracle": {
       "mysticalTerms": ["mystical", "cosmic", "divine", "sacred", "spiritual", "universe"],
+      "voiceMarkers": ["ancient wisdom", "cosmic truth", "sacred knowing", "divine flow"],
+      "sentencePatterns": ["The cosmos whispers", "Sacred energy reveals", "Divine truth shows"],
       "replacements": {
         "understand": "sense",
         "realize": "recognize",
         "discover": "unveil",
         "learn": "remember",
         "see": "perceive",
-        "know": "feel in your bones"
+        "know": "feel in your bones",
+        "you should": "the stars suggest",
+        "it's time": "the moment has arrived"
       },
       "maxMetaphors": 1,
       "avoidProphecy": true,
@@ -138,12 +227,16 @@
     "mindfulnessCoach": {
       "bodyTerms": ["breath", "breathe", "body", "sensation", "ground", "center"],
       "presentTenseOnly": true,
+      "voiceMarkers": ["right now", "in this moment", "feel your breath", "notice the sensation"],
+      "sentencePatterns": ["Take one breath and", "Right now, feel", "In this moment"],
       "replacements": {
         "will be": "is",
         "will feel": "feels",
         "will bring": "brings",
         "you can trust": "you trust",
-        "you might notice": "you notice"
+        "you might notice": "you notice",
+        "you should": "you can",
+        "consider": "notice what happens when you"
       },
       "requireBodyAwareness": true,
       "comment": "Present-moment awareness with embodied grounding"
@@ -151,9 +244,20 @@
 
     "numerologyScholar": {
       "academicTerms": ["pattern", "indicates", "suggests", "structure", "system", "configuration"],
+      "voiceMarkers": ["research shows", "patterns indicate", "evidence suggests", "historically"],
+      "sentencePatterns": ["The numbers reveal", "Patterns indicate", "Systems show"],
+      "replacements": {
+        "mystical": "systematic",
+        "cosmic": "numerical",
+        "divine": "precise",
+        "magical": "mathematical",
+        "feel": "observe",
+        "sense": "calculate"
+      },
       "requireFactualBasis": true,
       "practicalApplication": true,
-      "comment": "Academic precision with practical guidance"
+      "avoidWoo": ["mystical", "cosmic", "divine", "magical", "enchanted"],
+      "comment": "Academic precision with practical guidance and evidence-based language"
     },
 
     "philosopher": {
@@ -166,9 +270,19 @@
         ["certainty", "wonder"],
         ["depth", "simplicity"]
       ],
+      "voiceMarkers": ["perhaps", "consider that", "one might say", "the paradox reveals"],
+      "sentencePatterns": ["Consider how", "Perhaps this reveals", "The paradox shows"],
       "abstractConcepts": ["truth", "meaning", "essence", "being", "existence"],
+      "replacements": {
+        "you should": "one might consider",
+        "you must": "perhaps you could",
+        "definitely": "perhaps",
+        "always": "often",
+        "never": "rarely"
+      },
       "maxContrasts": 1,
-      "comment": "Abstract wisdom with dialectical thinking"
+      "requireNuance": true,
+      "comment": "Abstract wisdom with dialectical thinking and philosophical nuance"
     }
   },
 
