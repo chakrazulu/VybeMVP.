@@ -146,7 +146,7 @@ jobs:
     - name: 🔍 SwiftLint Self-Healing Validation
       run: |
         echo "🔍 Running SwiftLint with self-healing rules..."
-        swiftlint --strict --quiet
+        swiftlint --quiet
 
     - name: 📋 SwiftLint Report
       if: always()

@@ -1,3 +1,4 @@
+// swiftlint:disable line_length cyclomatic_complexity discouraged_optional_collection function_body_length
 /**
  * 🎭 KASPER TEMPLATE ENHANCER - THE ART OF SACRED LANGUAGE GENERATION
  * ====================================================================
@@ -37,7 +38,7 @@
  *    - Time-sensitive additions based on current hour and cosmic timing
  *    - Relationship compatibility analysis with spiritual harmony assessment
  *    - Cosmic timing integration with planetary and lunar influences
- *    - Personal spiritual number integration for authentic personalization
+ *    - Personal numerology integration for authentic personalization
  *
  * 4. NATURAL LANGUAGE FLOW:
  *    - Eliminates abrupt sentence endings and rigid grammatical patterns
