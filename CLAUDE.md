@@ -2,7 +2,7 @@
 
 **Project:** VybeMVP - Spiritual Wellness iOS App
 **Framework:** SwiftUI, MVVM, Swift 6
-**Status:** Production Ready - KASPER MLX v2.1.4 ✅ Authentic Content System
+**Status:** Production Ready - KASPER MLX v2.1.4 ✅ Bulletproof Content Pipeline Complete
 
 ## 🎯 Critical Rules (MUST FOLLOW)
 
@@ -29,21 +29,36 @@ VybeMVP/
 ├── Views/           # SwiftUI Views
 ├── ViewModels/      # Business logic
 ├── KASPERMLX/       # AI system
-└── Resources/RuntimeBundle/  # Content (v2.1.2)
+├── VybeCore/         # Branded shared utilities
+└── KASPERMLXRuntimeBundle/  # Content (v2.1.4)
 ```
 
-## 🔮 KASPER MLX v2.1.2
+## 🔮 KASPER MLX v2.1.4
 
-### Using RuntimeBundle (v2.1.2)
+### Using RuntimeBundle (v2.1.4)
 ```swift
 let router = KASPERContentRouter.shared  // Always use shared instance
 let content = await router.getRichContent(for: number)
 ```
 
-### Updating Content
-1. Export: `python scripts/export_runtime_bundle.py`
-2. Add RuntimeBundle to Xcode as folder reference
-3. Test with: `python scripts/kasper_smoke_test.py`
+### Bulletproof Content Pipeline (NEW v2.1.4)
+```bash
+# Complete pipeline (normalize + validate + export)
+make content-all
+
+# Individual operations
+make content-lint        # Validate all content
+make content-normalize   # Fix Claude artifacts
+make content-export      # Generate runtime bundle
+```
+
+### Content Validation
+- **Schema**: `content.schema.json` enforces structure
+- **Linter**: `scripts/lint_rich_content.py` validates content
+- **CI/CD**: GitHub Actions prevents invalid content
+- **Runtime Guards**: `VybeCore/Guards/RichContentValidator.swift`
+
+### Current Status: 13/13 files validated ✅
 
 ## ✅ Before Every Commit
 
