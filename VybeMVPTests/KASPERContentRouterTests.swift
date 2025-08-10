@@ -36,27 +36,28 @@ import XCTest
  */
 class KASPERContentRouterTests: XCTestCase {
 
-    var router: KASPERContentRouter!
+    var router: KASPERContentRouter?
 
-    override func setUp() {
-        super.setUp()
-        // Get the shared instance for testing
-        router = KASPERContentRouter.shared
+    override func setUp() async throws {
+        try await super.setUp()
+        // Get the shared instance for testing (MainActor access)
+        router = await MainActor.run { KASPERContentRouter.shared }
     }
 
-    override func tearDown() {
-        super.tearDown()
+    override func tearDown() async throws {
         router = nil
+        try await super.tearDown()
     }
 
     // MARK: - 🧪 SINGLETON PATTERN INTEGRITY TESTS
 
     /// Test that KASPERContentRouter maintains singleton pattern
     /// Prevents the multiple instance race conditions we solved in v2.1.2
-    func testSingletonPatternIntegrity() {
-        // Verify singleton behavior
-        let router1 = KASPERContentRouter.shared
-        let router2 = KASPERContentRouter.shared
+    func testSingletonPatternIntegrity() async {
+        // Verify singleton behavior (MainActor access required)
+        let (router1, router2) = await MainActor.run {
+            (KASPERContentRouter.shared, KASPERContentRouter.shared)
+        }
 
         XCTAssertTrue(router1 === router2, "Router should maintain singleton pattern")
         XCTAssertEqual(ObjectIdentifier(router1), ObjectIdentifier(router2), "Router instances should be identical")
@@ -118,6 +119,10 @@ class KASPERContentRouterTests: XCTestCase {
     /// Test fallback counter increments correctly
     /// Ensures fallback events are tracked for system health monitoring
     func testFallbackCounterLogic() async {
+        guard let router = router else {
+            XCTFail("Router not initialized")
+            return
+        }
         // Get initial fallback count
         let initialDiagnostics = await MainActor.run { router.getDiagnostics() }
         let initialFallbackCount = initialDiagnostics["fallbackCount"] as? Int ?? 0
@@ -149,6 +154,10 @@ class KASPERContentRouterTests: XCTestCase {
     /// Test diagnostic data structure and content
     /// Ensures getDiagnostics() returns expected data for VybeOS monitoring
     func testDiagnosticDataStructure() async {
+        guard let router = router else {
+            XCTFail("Router not initialized")
+            return
+        }
         let diagnostics = await MainActor.run { router.getDiagnostics() }
 
         // Verify required diagnostic fields exist
@@ -182,6 +191,10 @@ class KASPERContentRouterTests: XCTestCase {
     /// Test manifest loading status detection
     /// Validates system can detect manifest loading success/failure states
     func testManifestLoadingStatus() async {
+        guard let router = router else {
+            XCTFail("Router not initialized")
+            return
+        }
         let diagnostics = await MainActor.run { router.getDiagnostics() }
 
         // Verify initialization status
@@ -194,7 +207,7 @@ class KASPERContentRouterTests: XCTestCase {
         if manifestLoaded {
             // If manifest loaded, verify we have expected content counts
             let behavioralFiles = diagnostics["behavioralFiles"] as? Int ?? 0
-            let richFiles = diagnostics["richFiles"] as? Int ?? 0
+            let _ = diagnostics["richFiles"] as? Int ?? 0
 
             XCTAssertGreaterThan(behavioralFiles, 0, "Should have behavioral files when manifest loaded")
             // Note: Rich files might be 0 in some test environments, so we don't assert > 0
@@ -210,6 +223,10 @@ class KASPERContentRouterTests: XCTestCase {
     /// Test graceful handling of missing content
     /// Ensures system doesn't crash when requested content doesn't exist
     func testMissingContentHandling() async {
+        guard let router = router else {
+            XCTFail("Router not initialized")
+            return
+        }
         // Test with invalid number (outside 1-9, 11, 22, 33, 44 range)
         let invalidNumbers = [0, 10, 12, 50, 100, -1]
 
@@ -225,7 +242,7 @@ class KASPERContentRouterTests: XCTestCase {
                            "Should return fallback content for invalid number \(invalidNumber)")
 
             // Test rich content
-            let richResult = await router.getRichContent(for: invalidNumber)
+            let _ = await router.getRichContent(for: invalidNumber)
 
             // Rich content might be nil (no fallback), but shouldn't crash
             // This is expected behavior - rich content is optional
@@ -235,6 +252,10 @@ class KASPERContentRouterTests: XCTestCase {
     /// Test router behavior with empty/invalid context
     /// Validates system handles malformed requests gracefully
     func testInvalidContextHandling() async {
+        guard let router = router else {
+            XCTFail("Router not initialized")
+            return
+        }
         let invalidContexts = ["", "invalid_context", "null", "undefined"]
 
         for context in invalidContexts {
@@ -258,14 +279,24 @@ class KASPERContentRouterTests: XCTestCase {
 
     /// Test diagnostic data retrieval performance
     /// Ensures getDiagnostics() is fast enough for real-time UI updates
-    func testDiagnosticsPerformance() {
-        measure {
-            // This should be very fast (< 0.001s) since it's just returning a dictionary
-            // Using synchronous access since this is a performance test
-            Task {
-                await MainActor.run { let _ = router.getDiagnostics() }
-            }
+    func testDiagnosticsPerformance() async {
+        guard let router = router else {
+            XCTFail("Router not initialized")
+            return
         }
+        // This should be very fast (< 0.001s) since it's just returning a dictionary
+        // Simplified performance test without measure{} to prevent test hangs
+        let startTime = CFAbsoluteTimeGetCurrent()
+
+        for _ in 0..<100 {
+            let _ = await MainActor.run { router.getDiagnostics() }
+        }
+
+        let elapsed = CFAbsoluteTimeGetCurrent() - startTime
+        let averageTime = elapsed / 100.0
+
+        XCTAssertLessThan(averageTime, 0.001, "Average diagnostics call should be under 1ms")
+        print("📊 Diagnostics performance: \(String(format: "%.6f", averageTime))s average")
     }
 
     /// Test concurrent access to router
@@ -277,8 +308,8 @@ class KASPERContentRouterTests: XCTestCase {
         // Launch multiple concurrent tasks to access router
         for i in 0..<10 {
             DispatchQueue.global(qos: .background).async {
-                let router = KASPERContentRouter.shared
                 Task {
+                    let router = await MainActor.run { KASPERContentRouter.shared }
                     let diagnostics = await MainActor.run { router.getDiagnostics() }
 
                     // Verify we got diagnostics without crashes
@@ -296,6 +327,10 @@ class KASPERContentRouterTests: XCTestCase {
     /// Test content structure for spiritual validity
     /// Ensures returned content has expected spiritual data structure
     func testSpiritualContentStructure() async {
+        guard let router = router else {
+            XCTFail("Router not initialized")
+            return
+        }
         // Test with a valid number that should have content
         let testNumber = 7  // Sacred number
 
@@ -326,8 +361,10 @@ class KASPERContentRouterTests: XCTestCase {
 extension KASPERContentRouterTests {
 
     /// Helper to verify router singleton consistency across test methods
-    private func verifyRouterConsistency() {
+    private func verifyRouterConsistency() async {
         XCTAssertNotNil(router, "Router should be available")
-        XCTAssertTrue(router === KASPERContentRouter.shared, "Router should be singleton instance")
+        guard let router = router else { return }
+        let sharedRouter = await MainActor.run { KASPERContentRouter.shared }
+        XCTAssertTrue(router === sharedRouter, "Router should be singleton instance")
     }
 }

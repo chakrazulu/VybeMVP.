@@ -64,7 +64,7 @@ class KASPERRuntimeBundleDebug {
     static func debugContentRouter() async {
         logger.info("🔍 KASPER ContentRouter Debug Check")
 
-        let router = KASPERContentRouter.shared
+        let router = await MainActor.run { KASPERContentRouter.shared }
 
         // Give router time to initialize
         try? await Task.sleep(nanoseconds: 300_000_000) // 300ms
