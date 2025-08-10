@@ -62,3 +62,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Format: `{dataset_name}_{version}_{build}`
 - Example: `kasper-lp-trinity_v2.0_build1`
 - Tags created automatically via GitHub Actions release workflow
+# Content Linter Fixed - Python 3.13 Compatibility
