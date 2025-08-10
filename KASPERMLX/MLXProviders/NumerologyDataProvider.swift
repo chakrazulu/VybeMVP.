@@ -1,131 +1,131 @@
 /**
  * 🔢 KASPER MLX NUMEROLOGY DATA PROVIDER - SACRED NUMBER WISDOM FOR SPIRITUAL AI
  * =============================================================================
- * 
+ *
  * This sophisticated numerological intelligence provider serves as the foundation of
  * KASPER MLX's spiritual number wisdom, transforming ancient numerological principles
  * into comprehensive data context for spiritually-aware AI guidance. It represents the
  * most advanced integration of sacred number wisdom with machine learning technology.
- * 
+ *
  * ✨ COMPREHENSIVE NUMEROLOGICAL INTELLIGENCE SYSTEM:
- * 
+ *
  * The NumerologyDataProvider seamlessly integrates multiple numerological calculation
  * systems - from basic focus numbers to complex personal year cycles - creating a
  * holistic numerical spiritual profile that enables deeply personalized AI guidance
  * aligned with the user's current numerological influences and life path vibrations.
- * 
+ *
  * 🔮 ADVANCED NUMEROLOGICAL DATA ARCHITECTURE:
- * 
+ *
  * CORE NUMBER INTEGRATION:
  * • Focus number analysis providing daily spiritual energy and intention alignment
  * • Realm number correlation for environmental and situational spiritual guidance
  * • Life path number integration for deep personality-spiritual compatibility assessment
  * • Expression and soul urge number analysis for authentic spiritual guidance personalization
- * 
+ *
  * TEMPORAL NUMEROLOGICAL CYCLES:
  * • Personal year calculation for annual spiritual theme and growth focus identification
  * • Personal month and day analysis for precise spiritual timing and energy alignment
  * • Universal year/month/day correlation for collective spiritual energy understanding
  * • Master number recognition and specialized spiritual guidance for advanced souls
- * 
+ *
  * SACRED CORRESPONDENCE MAPPING:
  * • Numerological archetype identification (Leader, Diplomat, Creative, etc.) for spiritual guidance tone
  * • Elemental correspondence (Fire, Earth, Air, Water, Spirit) for energy-aligned recommendations
  * • Planetary correspondence integration for cosmic-numerological harmony analysis
  * • Supporting number identification for spiritual practice enhancement and balance
- * 
+ *
  * 🎯 FEATURE-SPECIFIC NUMEROLOGICAL CONTEXTUALIZATION:
- * 
+ *
  * JOURNAL INSIGHT NUMERICAL ENHANCEMENT:
  * • Personal vibration calculation (focus + realm) for spiritual reflection depth guidance
  * • Life path integration providing personality-aware spiritual growth recommendations
  * • MegaCorpus numerical guidance ensuring authentic traditional wisdom delivery
  * • Multi-dimensional number profile for comprehensive spiritual self-awareness
- * 
+ *
  * DAILY CARD NUMERICAL PERSONALIZATION:
  * • Active daily numbers (realm, focus, day, personal year) for current energy assessment
  * • Universal day correlation for collective spiritual energy alignment
  * • Temporal numerical convergence for optimal daily spiritual activity guidance
  * • Personal year theme integration for annual spiritual growth focus
- * 
+ *
  * SANCTUM GUIDANCE NUMERICAL AMPLIFICATION:
  * • Complete numerological profile including master numbers and karma numbers
  * • Pinnacle number analysis for life phase spiritual guidance and growth opportunities
  * • Advanced numerical pattern recognition for sophisticated spiritual practitioners
  * • Sacred number combination analysis for meditation and spiritual practice optimization
- * 
+ *
  * FOCUS INTENTION NUMERICAL CALIBRATION:
  * • Detailed focus number archetype and energy analysis for intention-setting guidance
  * • Supporting number identification for spiritual practice enhancement and balance
  * • Focus number challenges and opportunities for authentic spiritual growth
  * • Numerological spiritual guidance templates for consistent wisdom delivery
- * 
+ *
  * REALM INTERPRETATION NUMERICAL CORRELATION:
  * • Environmental numerology assessment for spiritual space harmony and navigation
  * • Realm number challenges and opportunities for situational spiritual guidance
  * • Numerological-environmental synchronization for optimal spiritual experience
  * • Sacred number-space correlation for authentic spiritual environment creation
- * 
+ *
  * MATCH COMPATIBILITY NUMERICAL ANALYSIS:
  * • Life path compatibility calculation using traditional numerological harmony principles
  * • Expression number synergy assessment for authentic spiritual connection evaluation
  * • Soul urge resonance analysis for deep spiritual relationship compatibility
  * • Current vibration correlation for real-time spiritual partnership harmony
- * 
+ *
  * COSMIC TIMING NUMERICAL SYNCHRONIZATION:
  * • Personal day/month/year cycle integration for precise spiritual timing guidance
  * • Universal number correlation for collective spiritual energy awareness
  * • Cyclical pattern recognition for optimal spiritual practice and manifestation timing
  * • Temporal-numerical convergence analysis for peak spiritual effectiveness identification
- * 
+ *
  * 🧠 SOPHISTICATED NUMERICAL PROCESSING INTELLIGENCE:
- * 
+ *
  * TRADITIONAL WISDOM INTEGRATION:
  * • MegaCorpus spiritual wisdom correlation ensuring authentic numerological guidance
  * • Traditional archetype and keyword mapping for spiritually accurate AI responses
  * • Sacred correspondence preservation maintaining numerological integrity and authenticity
  * • Historical numerological principle validation for spiritual guidance authenticity
- * 
+ *
  * ADVANCED CALCULATION ALGORITHMS:
  * • Proper master number recognition (11, 22, 33, 44) without inappropriate reduction
  * • Sacred number reduction respecting traditional numerological calculation methods
  * • Personal year/month/day calculation using validated numerological formulas
  * • Compatibility matrix analysis based on established numerological harmony principles
- * 
+ *
  * INTELLIGENT FALLBACK SYSTEMS:
  * • Comprehensive fallback numerological data ensuring spiritual guidance availability
  * • Traditional archetype preservation when advanced data sources unavailable
  * • Sacred correspondence maintenance across all operational scenarios
  * • Spiritual authenticity protection through verified numerological principle application
- * 
+ *
  * 🌊 THREAD-SAFE CONCURRENT NUMEROLOGICAL ACCESS:
- * 
+ *
  * ACTOR-BASED CACHING ARCHITECTURE:
  * • Thread-safe numerological context caching for concurrent spiritual feature access
  * • Feature-specific cache optimization based on numerological data sensitivity
  * • Memory-efficient number processing preventing computational resource exhaustion
  * • Intelligent cache expiry respecting numerological timing sensitivity
- * 
+ *
  * ASYNC-FIRST INTEGRATION PATTERNS:
  * • Non-blocking numerological calculation preserving UI responsiveness during processing
  * • MainActor integration for safe user profile access and numerological data retrieval
  * • Concurrent spiritual feature support enabling simultaneous numerological analysis
  * • Error-resilient processing with graceful degradation when numerological data unavailable
- * 
+ *
  * 💫 REVOLUTIONARY NUMEROLOGICAL-SPIRITUAL FUSION:
- * 
+ *
  * This provider transforms abstract numerical concepts into living spiritual guidance
  * that understands the user's current numerical influences, life path vibrations,
  * and temporal numerical cycles. It represents the evolution of numerology from
  * static calculation to dynamic, AI-enhanced spiritual intelligence.
- * 
+ *
  * 🔒 PRIVACY-PRESERVING NUMERICAL INTELLIGENCE:
- * 
+ *
  * • All numerological calculations processed locally using device-native capabilities
  * • No transmission of personal numerological data to external services or systems
  * • Complete user control over numerical profile integration with spiritual guidance
  * • Transparent numerological processing with clear understanding of calculation methods
- * 
+ *
  * This NumerologyDataProvider represents the pinnacle of numerological integration
  * with AI systems, maintaining sacred authenticity while enabling unprecedented
  * personalization and spiritual guidance sophistication.
@@ -134,37 +134,37 @@
 import Foundation
 
 final class NumerologyDataProvider: SpiritualDataProvider {
-    
+
     // MARK: - Properties
-    
+
     let id = "numerology"
     // Claude: Thread-safe cache using actor isolation for concurrent access
     private let cacheActor = CacheActor()
-    
+
     // References to existing managers
     private weak var realmNumberManager: RealmNumberManager?
     private weak var focusNumberManager: FocusNumberManager?
     private weak var spiritualDataController: SpiritualDataController?
-    
+
     // MARK: - Thread-Safe Cache Actor
     private actor CacheActor {
         private var cache: [KASPERFeature: ProviderContext] = [:]
-        
+
         func get(_ feature: KASPERFeature) -> ProviderContext? {
             return cache[feature]
         }
-        
+
         func set(_ feature: KASPERFeature, context: ProviderContext) {
             cache[feature] = context
         }
-        
+
         func clear() {
             cache.removeAll()
         }
     }
-    
+
     // MARK: - Initialization
-    
+
     init(
         realmNumberManager: RealmNumberManager? = nil,
         focusNumberManager: FocusNumberManager? = nil,
@@ -175,56 +175,56 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         // Claude: Store provided controller or set to nil for lazy initialization to avoid Swift 6 actor isolation
         self.spiritualDataController = spiritualDataController
     }
-    
+
     // MARK: - SpiritualDataProvider Implementation
-    
+
     /// Helper to lazily initialize SpiritualDataController
     private func getSpiritualDataController() async -> SpiritualDataController {
         if let controller = spiritualDataController {
             return controller
         }
-        
+
         let controller = await MainActor.run { SpiritualDataController.shared }
         self.spiritualDataController = controller
         return controller
     }
-    
+
     func isDataAvailable() async -> Bool {
         // Check if we have access to core numerology data
         // Claude: Only return true when managers are actually available
         return realmNumberManager != nil && focusNumberManager != nil
     }
-    
+
     func provideContext(for feature: KASPERFeature) async throws -> ProviderContext {
         // Check cache first - thread-safe read via actor
         if let cached = await cacheActor.get(feature), !cached.isExpired {
             print("🔢 KASPER MLX: Using cached numerology context for \(feature)")
             return cached
         }
-        
+
         // Build context based on feature needs
         let context = try await buildContext(for: feature)
-        
+
         // Cache the context - thread-safe write via actor
         await cacheActor.set(feature, context: context)
-        
+
         return context
     }
-    
+
     func clearCache() async {
         await cacheActor.clear()
         print("🔢 KASPER MLX: Numerology provider cache cleared")
     }
-    
+
     // MARK: - Private Methods
-    
+
     private func buildContext(for feature: KASPERFeature) async throws -> ProviderContext {
         var data: [String: Any] = [:]
-        
+
         // Get core numbers from managers
         let realmNumber: Int
         let focusNumber: Int
-        
+
         if let realmManager = realmNumberManager {
             realmNumber = await MainActor.run {
                 realmManager.currentRealmNumber
@@ -232,7 +232,7 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         } else {
             realmNumber = 1
         }
-        
+
         if let focusManager = focusNumberManager {
             focusNumber = await MainActor.run {
                 focusManager.selectedFocusNumber
@@ -240,10 +240,10 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         } else {
             focusNumber = 3
         }
-        
+
         // Get user profile if available
         let userProfile = await getUserProfile()
-        
+
         switch feature {
         case .journalInsight:
             // Journal needs personal numbers and current vibration
@@ -251,13 +251,13 @@ final class NumerologyDataProvider: SpiritualDataProvider {
             data["realmNumber"] = realmNumber
             data["personalVibration"] = getPersonalVibration(focus: focusNumber, realm: realmNumber)
             data["numericalGuidance"] = await getNumericalGuidance(for: focusNumber)
-            
+
             if let profile = userProfile {
                 data["lifePathNumber"] = profile.lifePathNumber
                 data["expressionNumber"] = profile.expressionNumber
                 data["soulUrgeNumber"] = profile.soulUrgeNumber
             }
-            
+
         case .dailyCard:
             // Daily card needs today's active numbers
             data["realmNumber"] = realmNumber
@@ -265,7 +265,7 @@ final class NumerologyDataProvider: SpiritualDataProvider {
             data["dayNumber"] = getDayNumber()
             data["personalYear"] = getPersonalYear(userProfile: userProfile)
             data["universalDay"] = getUniversalDay()
-            
+
         case .sanctumGuidance:
             // Sanctum needs complete numerological profile
             data["realmNumber"] = realmNumber
@@ -273,21 +273,21 @@ final class NumerologyDataProvider: SpiritualDataProvider {
             data["masterNumbers"] = getMasterNumbers(userProfile: userProfile)
             data["karmaNumbers"] = getKarmaNumbers(userProfile: userProfile)
             data["pinnacleNumbers"] = getPinnacleNumbers(userProfile: userProfile)
-            
+
         case .focusIntention:
             // Focus needs intention-specific data
             data["focusNumber"] = focusNumber
             data["focusArchetype"] = await getFocusArchetype(focusNumber)
             data["focusEnergy"] = getFocusEnergy(focusNumber)
             data["supportingNumbers"] = getSupportingNumbers(focusNumber)
-            
+
         case .realmInterpretation:
             // Realm needs environmental numerology
             data["realmNumber"] = realmNumber
             data["realmArchetype"] = await getRealmArchetype(realmNumber)
             data["realmChallenges"] = getRealmChallenges(realmNumber)
             data["realmOpportunities"] = getRealmOpportunities(realmNumber)
-            
+
         case .matchCompatibility:
             // Match needs compatibility calculations
             if let profile = userProfile {
@@ -296,7 +296,7 @@ final class NumerologyDataProvider: SpiritualDataProvider {
                 data["compatibilityFactors"] = getCompatibilityFactors(profile)
             }
             data["currentVibration"] = getCurrentVibration(focus: focusNumber, realm: realmNumber)
-            
+
         case .cosmicTiming:
             // Cosmic timing needs cyclical numbers
             data["personalDay"] = getPersonalDay(userProfile: userProfile)
@@ -304,12 +304,12 @@ final class NumerologyDataProvider: SpiritualDataProvider {
             data["personalYear"] = getPersonalYear(userProfile: userProfile)
             data["universalYear"] = getUniversalYear()
         }
-        
+
         // Add common numerological metadata
         data["timestamp"] = Date().timeIntervalSince1970
         data["dataSource"] = "NumerologyProviders"
         data["calculationDate"] = getCurrentNumerologyDate()
-        
+
         return ProviderContext(
             providerId: id,
             feature: feature,
@@ -317,9 +317,9 @@ final class NumerologyDataProvider: SpiritualDataProvider {
             cacheExpiry: getCacheExpiry(for: feature)
         )
     }
-    
+
     // MARK: - Helper Methods
-    
+
     private func getUserProfile() async -> UserProfile? {
         // Try to get cached user profile
         await MainActor.run {
@@ -327,18 +327,18 @@ final class NumerologyDataProvider: SpiritualDataProvider {
             return UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID)
         }
     }
-    
+
     private func getPersonalVibration(focus: Int, realm: Int) -> Int {
         // Combine focus and realm for current personal vibration
         return reduceToSingleDigit(focus + realm)
     }
-    
+
     private func getNumericalGuidance(for number: Int) async -> String {
         // First try to get MegaCorpus guidance
         if let megaCorpusGuidance = await getMegaCorpusGuidance(for: number) {
             return megaCorpusGuidance
         }
-        
+
         // Fallback to template guidance
         let guidance = [
             1: "Leadership and new beginnings flow through you",
@@ -353,52 +353,52 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         ]
         return guidance[number] ?? "Divine guidance flows through your unique path"
     }
-    
+
     private func getDayNumber() -> Int {
         let day = Calendar.current.component(.day, from: Date())
         return reduceToSingleDigit(day)
     }
-    
+
     private func getUniversalDay() -> Int {
         let components = Calendar.current.dateComponents([.day, .month, .year], from: Date())
         let sum = (components.day ?? 0) + (components.month ?? 0) + (components.year ?? 0)
         return reduceToSingleDigit(sum)
     }
-    
+
     private func getPersonalYear(userProfile: UserProfile?) -> Int? {
         guard let profile = userProfile else { return nil }
-        
+
         let birthDate = profile.birthdate
-        
+
         let birthComponents = Calendar.current.dateComponents([.day, .month], from: birthDate)
         let currentYear = Calendar.current.component(.year, from: Date())
-        
+
         let sum = (birthComponents.day ?? 0) + (birthComponents.month ?? 0) + currentYear
         return reduceToSingleDigit(sum)
     }
-    
+
     private func getPersonalDay(userProfile: UserProfile?) -> Int? {
         guard let personalYear = getPersonalYear(userProfile: userProfile) else { return nil }
         let today = Calendar.current.dateComponents([.day, .month], from: Date())
         let sum = personalYear + (today.day ?? 0) + (today.month ?? 0)
         return reduceToSingleDigit(sum)
     }
-    
+
     private func getPersonalMonth(userProfile: UserProfile?) -> Int? {
         guard let personalYear = getPersonalYear(userProfile: userProfile) else { return nil }
         let currentMonth = Calendar.current.component(.month, from: Date())
         return reduceToSingleDigit(personalYear + currentMonth)
     }
-    
+
     private func getUniversalYear() -> Int {
         let year = Calendar.current.component(.year, from: Date())
         return reduceToSingleDigit(year)
     }
-    
+
     private func getMasterNumbers(userProfile: UserProfile?) -> [Int] {
         guard let profile = userProfile else { return [] }
         var masterNumbers: [Int] = []
-        
+
         if isMasterNumber(profile.lifePathNumber) {
             masterNumbers.append(profile.lifePathNumber)
         }
@@ -408,27 +408,27 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         if let soulUrge = profile.soulUrgeNumber, isMasterNumber(soulUrge) {
             masterNumbers.append(soulUrge)
         }
-        
+
         return masterNumbers
     }
-    
+
     private func getKarmaNumbers(userProfile: UserProfile?) -> [Int] {
         // Simplified karma number detection
         return [13, 14, 16, 19]
     }
-    
+
     private func getPinnacleNumbers(userProfile: UserProfile?) -> [Int] {
         // Simplified pinnacle calculation
         guard let profile = userProfile else { return [] }
         return [profile.lifePathNumber, (profile.lifePathNumber + 1) % 9 + 1]
     }
-    
+
     private func getFocusArchetype(_ number: Int) async -> String {
         // First try to get MegaCorpus archetype
         if let megaCorpusArchetype = await getMegaCorpusArchetype(for: number) {
             return megaCorpusArchetype
         }
-        
+
         // Fallback to template archetypes
         let archetypes = [
             1: "The Leader",
@@ -443,7 +443,7 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         ]
         return archetypes[number] ?? "The Unique Path"
     }
-    
+
     private func getFocusEnergy(_ number: Int) -> String {
         let energies = [
             1: "pioneering",
@@ -458,7 +458,7 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         ]
         return energies[number] ?? "flowing"
     }
-    
+
     private func getSupportingNumbers(_ number: Int) -> [Int] {
         // Numbers that harmonize with the focus number
         switch number {
@@ -474,11 +474,11 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         default: return []
         }
     }
-    
+
     private func getRealmArchetype(_ number: Int) async -> String {
         return await getFocusArchetype(number) // Same archetype system
     }
-    
+
     private func getRealmChallenges(_ number: Int) -> [String] {
         let challenges = [
             1: ["impatience", "aggression", "isolation"],
@@ -493,7 +493,7 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         ]
         return challenges[number] ?? ["finding balance"]
     }
-    
+
     private func getRealmOpportunities(_ number: Int) -> [String] {
         let opportunities = [
             1: ["leadership", "innovation", "independence"],
@@ -508,7 +508,7 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         ]
         return opportunities[number] ?? ["self-discovery"]
     }
-    
+
     private func getCompatibilityFactors(_ profile: UserProfile) -> [String: Any] {
         return [
             "lifePathCompatibility": getLifePathCompatibility(profile.lifePathNumber),
@@ -516,7 +516,7 @@ final class NumerologyDataProvider: SpiritualDataProvider {
             "soulUrgeResonance": getSoulUrgeResonance(profile.soulUrgeNumber)
         ]
     }
-    
+
     private func getLifePathCompatibility(_ lifePath: Int) -> [Int] {
         // Compatible life path numbers
         switch lifePath {
@@ -532,27 +532,27 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         default: return []
         }
     }
-    
+
     private func getExpressionHarmony(_ expression: Int?) -> String {
         guard let expr = expression else { return "unknown" }
         return expr % 3 == 0 ? "harmonious" : "dynamic"
     }
-    
+
     private func getSoulUrgeResonance(_ soulUrge: Int?) -> String {
         guard let soul = soulUrge else { return "unknown" }
         return soul <= 5 ? "earthly" : "spiritual"
     }
-    
+
     private func getCurrentVibration(focus: Int, realm: Int) -> Int {
         return reduceToSingleDigit(focus + realm)
     }
-    
+
     private func getCurrentNumerologyDate() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter.string(from: Date())
     }
-    
+
     private func getCacheExpiry(for feature: KASPERFeature) -> TimeInterval {
         switch feature {
         case .dailyCard, .cosmicTiming:
@@ -563,9 +563,9 @@ final class NumerologyDataProvider: SpiritualDataProvider {
             return 300  // 5 minutes default
         }
     }
-    
+
     // MARK: - Utility Methods
-    
+
     private func reduceToSingleDigit(_ number: Int) -> Int {
         let absNumber = abs(number)
         if absNumber < 10 || isMasterNumber(absNumber) {
@@ -574,13 +574,13 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         let sum = String(absNumber).compactMap { Int(String($0)) }.reduce(0, +)
         return reduceToSingleDigit(sum)
     }
-    
+
     private func isMasterNumber(_ number: Int) -> Bool {
         return [11, 22, 33, 44].contains(number)
     }
-    
+
     // MARK: - MegaCorpus Integration Methods
-    
+
     /// Gets SwiftData guidance for a specific focus number
     private func getMegaCorpusGuidance(for number: Int) async -> String? {
         // TODO: Implement proper SwiftData access when MLX integration is complete
@@ -589,46 +589,46 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         let strength = getFallbackStrengths(for: number).first ?? "your unique gifts"
         return "\(archetype) energy flows through you, emphasizing \(strength.lowercased())"
     }
-    
+
     /// Gets SwiftData archetype for a specific focus number
     private func getMegaCorpusArchetype(for number: Int) async -> String? {
         // TODO: Implement proper SwiftData access when MLX integration is complete
         // For now, use fallback archetype data to avoid Swift 6 concurrency issues
         return getFallbackArchetype(for: number)
     }
-    
+
     /// Gets SwiftData keywords for a specific focus number
     private func getMegaCorpusKeywords(for number: Int) async -> [String]? {
         // TODO: Implement proper SwiftData access when MLX integration is complete
         return getFallbackKeywords(for: number)
     }
-    
+
     /// Gets SwiftData strengths for a specific focus number
     private func getMegaCorpusStrengths(for number: Int) async -> [String]? {
         // TODO: Implement proper SwiftData access when MLX integration is complete
         return getFallbackStrengths(for: number)
     }
-    
+
     /// Gets SwiftData challenges for a specific focus number
     private func getMegaCorpusChallenges(for number: Int) async -> [String]? {
         // TODO: Implement proper SwiftData access when MLX integration is complete
         return getFallbackChallenges(for: number)
     }
-    
+
     /// Gets SwiftData element correspondence for a specific focus number
     private func getMegaCorpusElement(for number: Int) async -> String? {
         // TODO: Implement proper SwiftData access when MLX integration is complete
         return getFallbackElement(for: number)
     }
-    
+
     /// Gets SwiftData planetary correspondence for a specific focus number
     private func getMegaCorpusPlanetaryCorrespondence(for number: Int) async -> String? {
         // TODO: Implement proper SwiftData access when MLX integration is complete
         return getFallbackPlanetaryCorrespondence(for: number)
     }
-    
+
     // MARK: - Fallback Methods
-    
+
     private func getFallbackArchetype(for number: Int) -> String {
         switch number {
         case 1: return "The Leader"
@@ -643,7 +643,7 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         default: return "The Unique Path"
         }
     }
-    
+
     private func getFallbackKeywords(for number: Int) -> [String] {
         switch number {
         case 1: return ["leadership", "initiative", "pioneering"]
@@ -658,7 +658,7 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         default: return ["unique", "spiritual", "individual"]
         }
     }
-    
+
     private func getFallbackStrengths(for number: Int) -> [String] {
         switch number {
         case 1: return ["natural leadership", "independence", "innovation"]
@@ -673,7 +673,7 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         default: return ["unique gifts", "spiritual insight"]
         }
     }
-    
+
     private func getFallbackChallenges(for number: Int) -> [String] {
         switch number {
         case 1: return ["impatience", "aggression", "selfishness"]
@@ -688,7 +688,7 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         default: return ["finding balance", "self-acceptance"]
         }
     }
-    
+
     private func getFallbackElement(for number: Int) -> String {
         switch number {
         case 1, 3, 5: return "Fire"
@@ -698,7 +698,7 @@ final class NumerologyDataProvider: SpiritualDataProvider {
         default: return "Spirit"
         }
     }
-    
+
     private func getFallbackPlanetaryCorrespondence(for number: Int) -> String {
         switch number {
         case 1: return "Sun"

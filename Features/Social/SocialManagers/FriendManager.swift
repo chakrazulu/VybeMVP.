@@ -49,7 +49,7 @@ import Combine
 /// Claude: Phase 12A.1 - Friend system manager for cosmic social network
 ///
 /// **🤝 Friend System Architecture:**
-/// 
+///
 /// This manager handles all friend-related operations including sending requests,
 /// accepting/declining requests, and managing friendships in the cosmic social network.
 /// Integrates seamlessly with Firestore for real-time social features.
@@ -73,44 +73,44 @@ import Combine
 @MainActor
 class FriendManager: ObservableObject {
     static let shared = FriendManager()
-    
+
     private let db = Firestore.firestore()
     private var cancellables = Set<AnyCancellable>()
-    
+
     // MARK: - Published Properties
-    
+
     /// Current user's pending friend requests (received)
     @Published var incomingRequests: [FriendRequest] = []
-    
+
     /// Current user's sent friend requests (pending responses)
     @Published var outgoingRequests: [FriendRequest] = []
-    
+
     /// Current user's established friendships
     @Published var friendships: [Friendship] = []
-    
+
     /// Loading states for UI feedback
     @Published var isLoadingRequests = false
     @Published var isLoadingFriendships = false
-    
+
     /// Error handling
     @Published var lastError: Error?
-    
+
     // MARK: - Private Properties
-    
+
     private var currentUserId: String?
     private var requestsListener: ListenerRegistration?
     private var friendshipsListener: ListenerRegistration?
-    
+
     private init() {}
-    
+
     // MARK: - Setup & Configuration
-    
+
     /// Configure friend manager for specific user
     func configure(for userId: String) {
         currentUserId = userId
         startListeners()
     }
-    
+
     /// Clean up listeners when user signs out
     func cleanup() {
         stopListeners()
@@ -119,70 +119,70 @@ class FriendManager: ObservableObject {
         outgoingRequests.removeAll()
         friendships.removeAll()
     }
-    
+
     // MARK: - Real-time Listeners
-    
+
     private func startListeners() {
         guard let userId = currentUserId else { return }
-        
+
         startRequestsListener(for: userId)
         startFriendshipsListener(for: userId)
     }
-    
+
     private func stopListeners() {
         requestsListener?.remove()
         friendshipsListener?.remove()
         requestsListener = nil
         friendshipsListener = nil
     }
-    
+
     private func startRequestsListener(for userId: String) {
         isLoadingRequests = true
-        
+
         requestsListener = db.collection("friends")
             .document(userId)
             .collection("requests")
             .addSnapshotListener { [weak self] snapshot, error in
                 guard let self = self else { return }
-                
+
                 DispatchQueue.main.async { [weak self] in
                     self?.isLoadingRequests = false
-                    
+
                     if let error = error {
                         self?.lastError = error
                         print("❌ Friend requests listener error: \(error)")
                         return
                     }
-                    
+
                     guard let documents = snapshot?.documents else { return }
-                    
+
                     let requests = documents.compactMap { doc -> FriendRequest? in
                         try? doc.data(as: FriendRequest.self)
                     }
-                    
+
                     // Claude: Phase 16 optional unwrapping safety improvement
                     // Previous: Direct assignment could crash if self was deallocated
                     // Current: Safe optional chaining prevents crashes
                     self?.incomingRequests = requests.filter { $0.toUserId == userId }
                     self?.outgoingRequests = requests.filter { $0.fromUserId == userId }
-                    
+
                     print("🔄 Friend requests updated: \(self?.incomingRequests.count ?? 0) incoming, \(self?.outgoingRequests.count ?? 0) outgoing")
                 }
             }
     }
-    
+
     private func startFriendshipsListener(for userId: String) {
         isLoadingFriendships = true
-        
+
         friendshipsListener = db.collection("friends")
             .document(userId)
             .collection("friendships")
             .addSnapshotListener { [weak self] snapshot, error in
                 guard let self = self else { return }
-                
+
                 DispatchQueue.main.async { [weak self] in
                     self?.isLoadingFriendships = false
-                    
+
                     if let error = error {
                         // Claude: Phase 16 optional unwrapping safety improvement
                         // Previous: self.lastError = error (force unwrapping could crash)
@@ -191,20 +191,20 @@ class FriendManager: ObservableObject {
                         print("❌ Friendships listener error: \(error)")
                         return
                     }
-                    
+
                     guard let documents = snapshot?.documents else { return }
-                    
+
                     self?.friendships = documents.compactMap { doc -> Friendship? in
                         try? doc.data(as: Friendship.self)
                     }
-                    
+
                     print("🔄 Friendships updated: \(self?.friendships.count ?? 0) active friendships")
                 }
             }
     }
-    
+
     // MARK: - Friend Request Operations
-    
+
     /// Send a friend request to another user
     func sendFriendRequest(
         to userId: String,
@@ -216,17 +216,17 @@ class FriendManager: ObservableObject {
         guard let currentUserId = currentUserId else {
             throw FriendError.notAuthenticated
         }
-        
+
         // Check if friendship already exists
         if isFriend(userId: userId) {
             throw FriendError.alreadyFriends
         }
-        
+
         // Check if request already sent
         if hasOutgoingRequest(to: userId) {
             throw FriendError.requestAlreadySent
         }
-        
+
         let request = FriendRequest(
             fromUserId: currentUserId,
             fromUserName: currentUserName,
@@ -235,26 +235,26 @@ class FriendManager: ObservableObject {
             compatibilityScore: compatibilityScore,
             message: message
         )
-        
+
         // Add to both users' request collections
         let batch = db.batch()
-        
+
         // Add to sender's outgoing requests
         let senderRef = db.collection("friends")
             .document(currentUserId)
             .collection("requests")
             .document()
-        
+
         // Add to recipient's incoming requests
         let recipientRef = db.collection("friends")
             .document(userId)
             .collection("requests")
             .document(senderRef.documentID) // Use same ID for consistency
-        
+
         do {
             try batch.setData(from: request, forDocument: senderRef)
             try batch.setData(from: request, forDocument: recipientRef)
-            
+
             try await batch.commit()
             print("✅ Friend request sent to \(userName)")
         } catch {
@@ -262,17 +262,17 @@ class FriendManager: ObservableObject {
             throw error
         }
     }
-    
+
     /// Accept an incoming friend request
     func acceptFriendRequest(_ request: FriendRequest) async throws {
         guard let currentUserId = currentUserId else {
             throw FriendError.notAuthenticated
         }
-        
+
         guard request.toUserId == currentUserId else {
             throw FriendError.invalidRequest
         }
-        
+
         // Create friendship
         let friendship = Friendship(
             userId1: request.fromUserId,
@@ -281,39 +281,39 @@ class FriendManager: ObservableObject {
             userName2: request.toUserName,
             compatibilityScore: request.compatibilityScore
         )
-        
+
         let batch = db.batch()
-        
+
         // Add friendship to both users
         let friendshipId = "\(min(request.fromUserId, request.toUserId))_\(max(request.fromUserId, request.toUserId))"
-        
+
         let friendship1Ref = db.collection("friends")
             .document(request.fromUserId)
             .collection("friendships")
             .document(friendshipId)
-        
+
         let friendship2Ref = db.collection("friends")
             .document(request.toUserId)
             .collection("friendships")
             .document(friendshipId)
-        
+
         // Remove requests from both users
         let request1Ref = db.collection("friends")
             .document(request.fromUserId)
             .collection("requests")
             .document(request.id ?? "")
-        
+
         let request2Ref = db.collection("friends")
             .document(request.toUserId)
             .collection("requests")
             .document(request.id ?? "")
-        
+
         do {
             try batch.setData(from: friendship, forDocument: friendship1Ref)
             try batch.setData(from: friendship, forDocument: friendship2Ref)
             batch.deleteDocument(request1Ref)
             batch.deleteDocument(request2Ref)
-            
+
             try await batch.commit()
             print("✅ Friend request accepted from \(request.fromUserName)")
         } catch {
@@ -321,33 +321,33 @@ class FriendManager: ObservableObject {
             throw error
         }
     }
-    
+
     /// Decline an incoming friend request
     func declineFriendRequest(_ request: FriendRequest) async throws {
         guard let currentUserId = currentUserId else {
             throw FriendError.notAuthenticated
         }
-        
+
         guard request.toUserId == currentUserId else {
             throw FriendError.invalidRequest
         }
-        
+
         let batch = db.batch()
-        
+
         // Remove request from both users
         let request1Ref = db.collection("friends")
             .document(request.fromUserId)
             .collection("requests")
             .document(request.id ?? "")
-        
+
         let request2Ref = db.collection("friends")
             .document(request.toUserId)
             .collection("requests")
             .document(request.id ?? "")
-        
+
         batch.deleteDocument(request1Ref)
         batch.deleteDocument(request2Ref)
-        
+
         do {
             try await batch.commit()
             print("✅ Friend request declined from \(request.fromUserName)")
@@ -356,33 +356,33 @@ class FriendManager: ObservableObject {
             throw error
         }
     }
-    
+
     /// Cancel an outgoing friend request
     func cancelFriendRequest(_ request: FriendRequest) async throws {
         guard let currentUserId = currentUserId else {
             throw FriendError.notAuthenticated
         }
-        
+
         guard request.fromUserId == currentUserId else {
             throw FriendError.invalidRequest
         }
-        
+
         let batch = db.batch()
-        
+
         // Remove request from both users
         let request1Ref = db.collection("friends")
             .document(request.fromUserId)
             .collection("requests")
             .document(request.id ?? "")
-        
+
         let request2Ref = db.collection("friends")
             .document(request.toUserId)
             .collection("requests")
             .document(request.id ?? "")
-        
+
         batch.deleteDocument(request1Ref)
         batch.deleteDocument(request2Ref)
-        
+
         do {
             try await batch.commit()
             print("✅ Friend request cancelled to \(request.toUserName)")
@@ -391,32 +391,32 @@ class FriendManager: ObservableObject {
             throw error
         }
     }
-    
+
     // MARK: - Friendship Management
-    
+
     /// Remove a friendship (unfriend)
     func removeFriendship(_ friendship: Friendship) async throws {
         guard let currentUserId = currentUserId else {
             throw FriendError.notAuthenticated
         }
-        
+
         guard friendship.userIds.contains(currentUserId) else {
             throw FriendError.invalidRequest
         }
-        
+
         let friendshipId = friendship.id ?? ""
         let batch = db.batch()
-        
+
         // Remove friendship from both users
         for userId in friendship.userIds {
             let friendshipRef = db.collection("friends")
                 .document(userId)
                 .collection("friendships")
                 .document(friendshipId)
-            
+
             batch.deleteDocument(friendshipRef)
         }
-        
+
         do {
             try await batch.commit()
             print("✅ Friendship removed")
@@ -425,34 +425,34 @@ class FriendManager: ObservableObject {
             throw error
         }
     }
-    
+
     // MARK: - Helper Methods
-    
+
     /// Check if user is already a friend
     func isFriend(userId: String) -> Bool {
         return friendships.contains { $0.userIds.contains(userId) }
     }
-    
+
     /// Check if outgoing request already sent to user
     func hasOutgoingRequest(to userId: String) -> Bool {
         return outgoingRequests.contains { $0.toUserId == userId }
     }
-    
+
     /// Check if incoming request exists from user
     func hasIncomingRequest(from userId: String) -> Bool {
         return incomingRequests.contains { $0.fromUserId == userId }
     }
-    
+
     /// Get friendship with specific user
     func getFriendship(with userId: String) -> Friendship? {
         return friendships.first { $0.userIds.contains(userId) }
     }
-    
+
     /// Get friend count
     var friendCount: Int {
         return friendships.count
     }
-    
+
     /// Get pending request count (both incoming and outgoing)
     var pendingRequestCount: Int {
         return incomingRequests.count + outgoingRequests.count
@@ -469,7 +469,7 @@ enum FriendError: LocalizedError {
     case invalidRequest
     case userNotFound
     case networkError
-    
+
     var errorDescription: String? {
         switch self {
         case .notAuthenticated:
@@ -505,7 +505,7 @@ extension FriendManager {
                 message: "I see we share similar cosmic vibrations! Let's connect on this spiritual journey. 🔮"
             )
         ]
-        
+
         friendships = [
             Friendship.sampleFriendship,
             Friendship(

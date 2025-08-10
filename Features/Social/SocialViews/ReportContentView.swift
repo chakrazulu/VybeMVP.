@@ -17,15 +17,15 @@ struct ReportContentView: View {
     let reportedUserId: String
     let reportedUserName: String
     let reporterName: String
-    
+
     @StateObject private var reportManager = ReportManager.shared
     @Environment(\.dismiss) private var dismiss
-    
+
     @State private var selectedReason: ReportReason = .spam
     @State private var customReason: String = ""
     @State private var description: String = ""
     @State private var showingConfirmation = false
-    
+
     var body: some View {
         NavigationView {
             Form {
@@ -36,19 +36,19 @@ struct ReportContentView: View {
                             Image(systemName: "exclamationmark.shield.fill")
                                 .foregroundColor(.red)
                                 .font(.title2)
-                            
+
                             Text("Report \(contentType.displayName)")
                                 .font(.headline)
                                 .fontWeight(.semibold)
                         }
-                        
+
                         Text("Help us keep VybeMVP safe by reporting content that violates our community guidelines.")
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                     }
                     .padding(.vertical, 8)
                 }
-                
+
                 // Reported Content Info
                 Section("Reporting") {
                     HStack {
@@ -57,7 +57,7 @@ struct ReportContentView: View {
                         Text(contentType.displayName)
                             .foregroundColor(.secondary)
                     }
-                    
+
                     HStack {
                         Text("User:")
                         Spacer()
@@ -65,7 +65,7 @@ struct ReportContentView: View {
                             .foregroundColor(.secondary)
                     }
                 }
-                
+
                 // Reason Selection
                 Section("Why are you reporting this \(contentType.displayName.lowercased())?") {
                     ForEach(ReportReason.allCases, id: \.self) { reason in
@@ -76,7 +76,7 @@ struct ReportContentView: View {
                         )
                     }
                 }
-                
+
                 // Custom Reason (if "Other" is selected)
                 if selectedReason == .other {
                     Section("Please specify") {
@@ -84,13 +84,13 @@ struct ReportContentView: View {
                             .lineLimit(3...6)
                     }
                 }
-                
+
                 // Additional Description
                 Section("Additional Details (Optional)") {
                     TextField("Provide any additional context that might help us review this report...", text: $description, axis: .vertical)
                         .lineLimit(3...8)
                 }
-                
+
                 // Submit Button
                 Section {
                     Button(action: submitReport) {
@@ -101,7 +101,7 @@ struct ReportContentView: View {
                             } else {
                                 Image(systemName: "paperplane.fill")
                             }
-                            
+
                             Text("Submit Report")
                                 .fontWeight(.semibold)
                         }
@@ -116,7 +116,7 @@ struct ReportContentView: View {
                     .disabled(!canSubmit || reportManager.isLoading)
                 }
                 .listRowBackground(Color.clear)
-                
+
                 // Guidelines Section
                 Section("Community Guidelines") {
                     Text("VybeMVP is a space for spiritual growth and positive energy. We don't tolerate harassment, hate speech, spam, or content that makes our community feel unsafe.")
@@ -155,22 +155,22 @@ struct ReportContentView: View {
             }
         }
     }
-    
+
     // MARK: - Helper Properties
-    
+
     private var canSubmit: Bool {
         if selectedReason == .other {
             return !customReason.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         }
         return true
     }
-    
+
     // MARK: - Actions
-    
+
     private func submitReport() {
         let finalCustomReason = selectedReason == .other ? customReason.trimmingCharacters(in: .whitespacesAndNewlines) : nil
         let finalDescription = description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : description.trimmingCharacters(in: .whitespacesAndNewlines)
-        
+
         reportManager.submitReport(
             contentId: contentId,
             contentType: contentType,
@@ -191,7 +191,7 @@ struct ReasonSelectionRow: View {
     let reason: ReportReason
     let isSelected: Bool
     let onSelect: () -> Void
-    
+
     var body: some View {
         Button(action: onSelect) {
             HStack(spacing: 12) {
@@ -200,15 +200,15 @@ struct ReasonSelectionRow: View {
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundColor(.primary)
-                    
+
                     Text(reason.description)
                         .font(.caption)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.leading)
                 }
-                
+
                 Spacer()
-                
+
                 if isSelected {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundColor(.red)
@@ -234,4 +234,4 @@ struct ReasonSelectionRow: View {
         reportedUserName: "Sample User",
         reporterName: "Current User"
     )
-} 
+}

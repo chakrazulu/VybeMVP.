@@ -2,26 +2,26 @@
  * ========================================
  * 👤 USER PROFILE SERVICE - FIRESTORE INTEGRATION
  * ========================================
- * 
+ *
  * CORE PURPOSE:
  * Comprehensive user profile management service handling Firestore synchronization,
  * intelligent caching, and complete spiritual profile persistence. Manages onboarding
  * data, spiritual preferences, and cosmic alignment settings with flood protection.
- * 
+ *
  * FIRESTORE INTEGRATION:
  * - Collection: "users" with userID as document ID
  * - Data Mapping: Complete UserProfile struct to Firestore document
  * - Timestamp Handling: Proper Date to Firestore Timestamp conversion
  * - Error Handling: Comprehensive error logging and recovery
  * - Null Value Management: NSNull filtering for optional fields
- * 
+ *
  * CACHING SYSTEM:
  * - Dual-Layer Cache: In-memory cache + UserDefaults persistence
  * - Cache Expiry: 5-minute (300s) expiration for data freshness
  * - Flood Protection: Prevents repeated UserDefaults reads
  * - Performance Optimization: Memory-first lookup strategy
  * - Cache Invalidation: Automatic refresh on data updates
- * 
+ *
  * USER PROFILE DATA STRUCTURE:
  * - Core Identity: birthdate, lifePathNumber, isMasterNumber
  * - Spiritual Settings: spiritualMode, insightTone, focusTags
@@ -29,49 +29,49 @@
  * - Notification Config: preferredHour, wantsWhispers
  * - Advanced Numerology: birthName, soulUrgeNumber, expressionNumber
  * - UX Personalization: wantsReflectionMode
- * 
+ *
  * INTEGRATION POINTS:
  * - AuthenticationWrapperView: Onboarding completion validation
  * - OnboardingView: Profile creation and step-by-step building
  * - UserProfileTabView: Profile display and editing interface
  * - AIInsightManager: Spiritual preference configuration
  * - NotificationManager: Notification timing and preference sync
- * 
+ *
  * CACHING PERFORMANCE:
  * - Memory Cache: Instant access for frequently accessed profiles
  * - UserDefaults Cache: Persistent storage for offline access
  * - Cache Hit Rate: Optimized for repeated profile access patterns
  * - Memory Management: Automatic cleanup of expired cache entries
  * - Thread Safety: Singleton pattern with proper synchronization
- * 
+ *
  * FIRESTORE OPERATIONS:
  * - saveUserProfile(): Complete profile save with error handling
  * - fetchUserProfile(): Profile retrieval with data parsing
  * - profileExists(): Existence check for onboarding flow
  * - Data Validation: Proper type checking and default values
  * - Batch Operations: Efficient single-document operations
- * 
+ *
  * ERROR HANDLING SYSTEM:
  * - Network Errors: Graceful fallback to cached data
  * - Parsing Errors: Robust data validation with defaults
  * - Authentication Errors: Proper error propagation
  * - Cache Corruption: Automatic cache invalidation and refresh
  * - Firestore Timeouts: Retry mechanisms with exponential backoff
- * 
+ *
  * ONBOARDING INTEGRATION:
  * - Step Validation: Checks profile completion status
  * - Progressive Building: Supports incremental profile construction
  * - Completion Detection: Validates all required fields present
  * - Cache Synchronization: Immediate cache updates on profile changes
  * - Flow Coordination: Seamless handoff between onboarding steps
- * 
+ *
  * PERFORMANCE OPTIMIZATIONS:
  * - Singleton Pattern: Single instance for app-wide efficiency
  * - Lazy Loading: On-demand profile fetching
  * - Cache Warming: Proactive cache population
  * - Memory Efficiency: Automatic cache expiration and cleanup
  * - Network Optimization: Minimal Firestore read/write operations
- * 
+ *
  * TECHNICAL NOTES:
  * - Codable Support: JSON encoding/decoding for UserDefaults
  * - Timestamp Conversion: Proper Firestore Timestamp handling
@@ -139,11 +139,11 @@ class UserProfileService {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(profile) {
             UserDefaults.standard.set(encoded, forKey: userProfileDefaultsKey(for: profile.id))
-            
+
             // CACHE FLOOD FIX: Also update in-memory cache
             cachedProfiles[profile.id] = profile
             lastCacheTime[profile.id] = Date()
-            
+
             print("💾 UserProfileService: Profile for userID \(profile.id) cached to UserDefaults.")
         } else {
             print("⚠️ UserProfileService: Failed to encode profile for userID \(profile.id) for UserDefaults caching.")
@@ -165,7 +165,7 @@ class UserProfileService {
             // Cache hit - return without logging to prevent flood
             return cachedProfile
         }
-        
+
         // Cache miss or expired - load from UserDefaults
         guard let savedProfileData = UserDefaults.standard.data(forKey: userProfileDefaultsKey(for: userID)) else {
             print("ℹ️ UserProfileService: No cached profile found in UserDefaults for userID \(userID).")
@@ -177,7 +177,7 @@ class UserProfileService {
             // Store in memory cache to prevent future UserDefaults hits
             cachedProfiles[userID] = loadedProfile
             lastCacheTime[userID] = Date()
-            
+
             print("✅ UserProfileService: Profile for userID \(userID) loaded from UserDefaults cache.")
             return loadedProfile
         } else {
@@ -229,7 +229,7 @@ class UserProfileService {
 
             // Step 9: UX Personalization
             "wantsReflectionMode": profile.wantsReflectionMode,
-            
+
             // CRITICAL FIX: Birth Time & Location Data for accurate charts
             "birthTimeHour": profile.birthTimeHour ?? NSNull(),
             "birthTimeMinute": profile.birthTimeMinute ?? NSNull(),
@@ -239,7 +239,7 @@ class UserProfileService {
             "birthplaceName": profile.birthplaceName ?? NSNull(),
             "birthTimezone": profile.birthTimezone ?? NSNull()
         ]
-        
+
         // Remove NSNull fields if you prefer not to store them
         profileData = profileData.filter { !($0.value is NSNull) }
 
@@ -249,7 +249,7 @@ class UserProfileService {
             completion(nil) // Success in test mode
             return
         }
-        
+
         usersCollection.document(userID).setData(profileData) { error in
             if let error = error {
                 print("❌ UserProfileService: Error saving user profile: \(error.localizedDescription)")
@@ -276,7 +276,7 @@ class UserProfileService {
             completion(nil, nil) // Return nil in test mode
             return
         }
-        
+
         usersCollection.document(userID).getDocument { document, error in
             if let error = error {
                 print("❌ UserProfileService: Error fetching user profile: \(error.localizedDescription)")
@@ -338,7 +338,7 @@ class UserProfileService {
             completion(false, nil) // Return false in test mode
             return
         }
-        
+
         usersCollection.document(userID).getDocument { document, error in
             if let error = error {
                 print("❌ UserProfileService: Error checking profile existence: \(error.localizedDescription)")
@@ -351,12 +351,12 @@ class UserProfileService {
             completion(exists, nil)
         }
     }
-    
+
     /// TEMPORARY: Update existing user profile with correct birth data
     /// Birth: 09/10/1991, 5:46 AM, Charlotte, NC
     func updateUserBirthData(for userID: String, completion: @escaping (Error?) -> Void) {
         print("🎯 UPDATING USER BIRTH DATA: 09/10/1991, 5:46 AM, Charlotte, NC")
-        
+
         let birthData: [String: Any] = [
             "birthTimeHour": 5,
             "birthTimeMinute": 46,
@@ -366,14 +366,14 @@ class UserProfileService {
             "birthplaceName": "Charlotte, NC, USA",
             "birthTimezone": "America/New_York"
         ]
-        
+
         // Claude: Check if Firestore is available before attempting operation
         guard let usersCollection = usersCollection else {
             print("🛡️ TEST MODE: Skipping Firestore update operation")
             completion(nil)
             return
         }
-        
+
         usersCollection.document(userID).updateData(birthData) { error in
             if let error = error {
                 print("❌ Error updating birth data: \(error.localizedDescription)")
@@ -419,7 +419,7 @@ struct UserProfile: Identifiable { // Keep Codable, it doesn't hurt
     var isMasterSoulUrge: Bool
     var expressionNumber: Int?
     var isMasterExpression: Bool
-    // personalityNumber and birthDayNumber were in the service placeholder, 
+    // personalityNumber and birthDayNumber were in the service placeholder,
     // but not in your UserProfile.swift. Removed from service example for now.
 
     var spiritualMode: String?
@@ -472,4 +472,4 @@ struct UserProfile: Identifiable { // Keep Codable, it doesn't hurt
         self.allowDailyEmotionalCheckIn = allowDailyEmotionalCheckIn
     }
 }
-*/ 
+*/

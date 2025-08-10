@@ -3,11 +3,11 @@ import SwiftData
 
 /**
  * NumberMeaning - Enhanced SwiftData Model for KASPER MLX Training
- * 
+ *
  * Represents comprehensive spiritual meanings for numbers (0-9, 11, 22, 33, 44)
  * Stores rich insight data from NumberMessages_Complete_X.json files
  * Used for KASPER MLX training, Focus Numbers, Realm Numbers, and cosmic insights
- * 
+ *
  * This model now accommodates 10,000+ insights across multiple categories:
  * - insight: General spiritual guidance (33+ entries per number)
  * - reflection: Soul-searching questions (25+ per number)
@@ -25,7 +25,7 @@ import SwiftData
 final class NumberMeaning {
     // Primary identifier
     @Attribute(.unique) var number: Int
-    
+
     // Rich insight categories (from NumberMessages_Complete JSON files)
     var insights: [String] = []              // General spiritual guidance
     var reflections: [String] = []           // Soul-searching questions
@@ -38,7 +38,7 @@ final class NumberMeaning {
     var energyChecks: [String] = []          // Real-time energetic guidance
     var numericalContexts: [String] = []     // Numerological relationships
     var astrologicalInsights: [String] = []  // Planetary correspondences
-    
+
     // Core spiritual data (legacy compatibility)
     var archetype: String
     var title: String
@@ -47,21 +47,21 @@ final class NumberMeaning {
     var strengths: [String]
     var legacyChallenges: [String]           // Renamed to avoid confusion with rich challenges
     var spiritualDescription: String
-    
+
     // Astrological correspondences
     var planetaryCorrespondence: String?
     var signCorrespondence: String?
     var color: String?
-    
+
     // KASPER MLX training metadata
     var insightCount: Int = 0                // Total number of insights for this number
     var lastKASPERUpdate: Date?
     var mlxTrainingReady: Bool = false       // Flag for KASPER MLX training readiness
-    
+
     // Timestamps
     var createdAt: Date
     var updatedAt: Date
-    
+
     init(
         number: Int,
         archetype: String,
@@ -98,7 +98,7 @@ final class NumberMeaning {
         self.planetaryCorrespondence = planetaryCorrespondence
         self.signCorrespondence = signCorrespondence
         self.color = color
-        
+
         // Rich insight data
         self.insights = insights
         self.reflections = reflections
@@ -111,17 +111,17 @@ final class NumberMeaning {
         self.energyChecks = energyChecks
         self.numericalContexts = numericalContexts
         self.astrologicalInsights = astrologicalInsights
-        
+
         self.createdAt = Date()
         self.updatedAt = Date()
         self.lastKASPERUpdate = Date()
-        
+
         // Calculate total insight count after all stored properties are initialized
-        self.insightCount = insights.count + reflections.count + contemplations.count + 
+        self.insightCount = insights.count + reflections.count + contemplations.count +
                            manifestations.count + challenges.count + physicalPractices.count +
                            shadowInsights.count + archetypeInsights.count + energyChecks.count +
                            numericalContexts.count + astrologicalInsights.count
-        
+
         self.mlxTrainingReady = self.insightCount > 0
     }
 }
@@ -133,20 +133,20 @@ extension NumberMeaning {
     var formattedArchetype: String {
         archetype.hasPrefix("The ") ? archetype : "The \(archetype)"
     }
-    
+
     /// Returns keywords as a comma-separated string
     var keywordString: String {
         keywords.joined(separator: ", ")
     }
-    
+
     /// Checks if this is a master number (11, 22, 33, 44)
     var isMasterNumber: Bool {
         [11, 22, 33, 44].contains(number)
     }
-    
+
     /// Updates insight count after data modification
     func updateInsightCount() {
-        insightCount = insights.count + reflections.count + contemplations.count + 
+        insightCount = insights.count + reflections.count + contemplations.count +
                       manifestations.count + challenges.count + physicalPractices.count +
                       shadowInsights.count + archetypeInsights.count + energyChecks.count +
                       numericalContexts.count + astrologicalInsights.count
@@ -154,11 +154,11 @@ extension NumberMeaning {
         updatedAt = Date()
         lastKASPERUpdate = Date()
     }
-    
+
     /// Gets a random insight from the specified category for KASPER MLX
     func getRandomInsight(from category: InsightCategory) -> String? {
         let categoryInsights: [String]
-        
+
         switch category {
         case .insight:
             categoryInsights = insights
@@ -183,21 +183,21 @@ extension NumberMeaning {
         case .astrological:
             categoryInsights = astrologicalInsights
         }
-        
+
         return categoryInsights.randomElement()
     }
-    
+
     /// Gets all insights as a flat array for KASPER MLX training
     var allInsights: [String] {
         return insights + reflections + contemplations + manifestations + challenges +
                physicalPractices + shadowInsights + archetypeInsights + energyChecks +
                numericalContexts + astrologicalInsights
     }
-    
+
     /// Gets insights with category labels for KASPER MLX context
     var categorizedInsights: [(category: InsightCategory, insight: String)] {
         var result: [(InsightCategory, String)] = []
-        
+
         insights.forEach { result.append((.insight, $0)) }
         reflections.forEach { result.append((.reflection, $0)) }
         contemplations.forEach { result.append((.contemplation, $0)) }
@@ -209,7 +209,7 @@ extension NumberMeaning {
         energyChecks.forEach { result.append((.energyCheck, $0)) }
         numericalContexts.forEach { result.append((.numericalContext, $0)) }
         astrologicalInsights.forEach { result.append((.astrological, $0)) }
-        
+
         return result
     }
 }
@@ -229,7 +229,7 @@ enum InsightCategory: String, CaseIterable, Codable {
     case energyCheck = "energy_check"
     case numericalContext = "numerical_context"
     case astrological = "astrological"
-    
+
     var displayName: String {
         switch self {
         case .insight: return "Spiritual Insights"

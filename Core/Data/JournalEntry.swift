@@ -1,6 +1,6 @@
 /**
  * Filename: JournalEntry.swift
- * 
+ *
  * Purpose: Defines the Core Data model for journal entries in the application.
  *
  * This file contains the JournalEntry class which represents user journal entries
@@ -27,25 +27,25 @@ import CoreData
 public class JournalEntry: NSManagedObject {
     /// Unique identifier for the journal entry
     @NSManaged public var id: UUID
-    
+
     /// Optional title of the journal entry
     @NSManaged public var title: String?
-    
+
     /// Main text content of the journal entry
     @NSManaged public var content: String?
-    
+
     /// Date and time when the entry was created
     @NSManaged public var timestamp: Date
-    
+
     /// The user's focus number (1-9) at the time of creating the entry
     @NSManaged public var focusNumber: Int16
-    
+
     /// Geographical latitude where the entry was created
     @NSManaged public var latitude: Double
-    
+
     /// Geographical longitude where the entry was created
     @NSManaged public var longitude: Double
-    
+
     /// Emoji string representing the mood (stored as raw value)
     @NSManaged public var moodEmoji: String?
 }
@@ -70,7 +70,7 @@ extension JournalEntry {
         case peaceful = "😌"
         case anxious = "😰"
         case excited = "🤩"
-        
+
         /// Human-readable description of the mood
         var description: String {
             switch self {
@@ -83,7 +83,7 @@ extension JournalEntry {
             }
         }
     }
-    
+
     /**
      * Computed property for accessing the mood as an enum value
      *
@@ -94,7 +94,7 @@ extension JournalEntry {
         get { Mood(rawValue: moodEmoji ?? "") }
         set { moodEmoji = newValue?.rawValue }
     }
-    
+
     /**
      * Creates a fetch request for JournalEntry entities
      *
@@ -103,4 +103,4 @@ extension JournalEntry {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<JournalEntry> {
         return NSFetchRequest<JournalEntry>(entityName: "JournalEntry")
     }
-} 
+}

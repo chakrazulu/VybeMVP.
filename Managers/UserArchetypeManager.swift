@@ -2,27 +2,27 @@
  * ========================================
  * 🌟 USER ARCHETYPE MANAGER - SPIRITUAL IDENTITY CALCULATOR
  * ========================================
- * 
+ *
  * CORE PURPOSE:
  * Advanced spiritual archetype calculation engine combining numerology, astrology,
  * and planetary mappings to create comprehensive spiritual identity profiles.
  * Generates Life Path numbers, zodiac alignments, elemental associations, and
  * planetary archetypal influences from user birthdates.
- * 
+ *
  * SPIRITUAL CALCULATION SYSTEMS:
  * - Life Path Numerology: Birthdate digit reduction with master number preservation
  * - Zodiac Astrology: Date-based zodiac sign determination with precise boundaries
  * - Elemental Mapping: Four-element system (Fire, Earth, Air, Water) from zodiac
  * - Planetary Archetypes: Sacred planetary mappings for conscious/subconscious influences
  * - Master Numbers: Special preservation of 11, 22, 33 in numerological calculations
- * 
+ *
  * NUMEROLOGY ALGORITHM:
  * 1. Extract year, month, day components from birthdate
  * 2. Sum all digits in each component using sumDigits() function
  * 3. Add component sums together for total sum
  * 4. Reduce using reduceToLifePath() preserving master numbers (11, 22, 33)
  * 5. Return final Life Path number (1-9, 11, 22, 33)
- * 
+ *
  * ZODIAC DETERMINATION:
  * - Aries: March 21 - April 19 (Fire)
  * - Taurus: April 20 - May 20 (Earth)
@@ -36,7 +36,7 @@
  * - Capricorn: December 22 - January 19 (Earth)
  * - Aquarius: January 20 - February 18 (Air)
  * - Pisces: February 19 - March 20 (Water)
- * 
+ *
  * PLANETARY MAPPING TABLE:
  * - 1: Sun/Saturn (Leadership/Structure)
  * - 2: Moon/Mars (Intuition/Action)
@@ -50,56 +50,56 @@
  * - 11: Moon/Uranus (Master Intuition/Innovation)
  * - 22: Earth/Mercury (Master Builder/Messenger)
  * - 33: Venus/Mars (Master Teacher/Warrior)
- * 
+ *
  * STATE MANAGEMENT:
  * - @Published currentArchetype: Currently loaded archetype for UI binding
  * - @Published isCalculating: Boolean flag for calculation loading states
  * - Singleton Pattern: UserArchetypeManager.shared for app-wide access
  * - UserDefaults Persistence: Cached archetype data with JSON encoding
  * - ObservableObject: SwiftUI reactive updates for archetype changes
- * 
+ *
  * INTEGRATION POINTS:
  * - BirthdateInputView: Primary calculation trigger during onboarding
  * - ArchetypeDisplayView: Displays calculated archetype with detailed breakdown
  * - OnboardingView: Archetype completion validation for flow progression
  * - UserProfileService: Profile integration for spiritual preference alignment
  * - NotificationCenter: Posts .archetypeCalculated for flow coordination
- * 
+ *
  * CACHING & PERSISTENCE:
  * - UserDefaults Storage: JSON-encoded archetype data for offline access
  * - Cache Key: "user_archetype" for consistent data retrieval
  * - Automatic Caching: All calculated archetypes automatically persisted
  * - Cache Validation: hasStoredArchetype() for onboarding completion checks
  * - Data Cleanup: clearArchetype() for logout and user data removal
- * 
+ *
  * CALCULATION PERFORMANCE:
  * - Efficient Algorithms: Optimized digit summing and reduction operations
  * - Master Number Logic: Proper preservation without unnecessary reduction
  * - Date Component Extraction: Calendar-based component parsing
  * - Error Handling: Comprehensive guards for invalid date components
  * - Debugging Support: Detailed calculation logging for verification
- * 
+ *
  * ARCHETYPE COMPOSITION:
  * - UserArchetype Struct: Complete spiritual profile data structure
  * - Life Path Integration: Primary numerological identity number
  * - Zodiac Properties: Sign, element, and date range information
  * - Planetary Influences: Primary and subconscious planetary archetypes
  * - Calculation Timestamp: Date tracking for archetype generation
- * 
+ *
  * ERROR HANDLING & VALIDATION:
  * - Date Component Guards: Ensures valid year, month, day extraction
  * - Planetary Mapping Validation: Fatal error for missing life path mappings
  * - JSON Encoding/Decoding: Graceful handling of persistence failures
  * - Fallback Mechanisms: Default zodiac sign (Capricorn) for edge cases
  * - Master Number Validation: Proper identification and preservation
- * 
+ *
  * DEBUGGING & DEVELOPMENT:
  * - Comprehensive Logging: Detailed calculation step tracking
  * - Test Archetype Creation: createTestArchetype() for development
  * - Debug Analysis: debugArchetype() for detailed profile inspection
  * - Stored Archetype Access: storedArchetype property for testing
  * - Calculation Tracing: Step-by-step numerology calculation logging
- * 
+ *
  * TECHNICAL NOTES:
  * - Thread Safety: Main queue updates for @Published properties
  * - Memory Efficiency: Minimal state storage with UserDefaults persistence
@@ -130,19 +130,19 @@ import Foundation
  * fast access throughout the app experience.
  */
 class UserArchetypeManager: ObservableObject {
-    
+
     // MARK: - Singleton Instance
     static let shared = UserArchetypeManager()
     private init() {}
-    
+
     // MARK: - Published Properties
     @Published private(set) var currentArchetype: UserArchetype?
     @Published private(set) var isCalculating: Bool = false
-    
+
     // MARK: - Private Properties
     private let userDefaults = UserDefaults.standard
     private let archetypeKey = "user_archetype"
-    
+
     // MARK: - Planetary Mapping Table
     /**
      * Sacred planetary mappings based on life path numbers.
@@ -160,12 +160,12 @@ class UserArchetypeManager: ObservableObject {
         8: (.saturn, .sun),
         9: (.mars, .venus),
         11: (.moon, .uranus),     // Master number: Moon/Uranus hybrid
-        22: (.earth, .mercury),   // Master number: Earth/Mercury hybrid  
+        22: (.earth, .mercury),   // Master number: Earth/Mercury hybrid
         33: (.venus, .mars)       // Master number: Venus/Mars hybrid
     ]
-    
+
     // MARK: - Public Methods
-    
+
     /**
      * Calculates the complete spiritual archetype from a birthdate.
      *
@@ -183,28 +183,28 @@ class UserArchetypeManager: ObservableObject {
         Task { @MainActor in
             isCalculating = true
         }
-        defer { 
+        defer {
             Task { @MainActor in
                 isCalculating = false
             }
         }
-        
+
         print("\n🌟 ===============================")
         print("🌟   USER ARCHETYPE CALCULATION  ")
         print("🌟 ===============================")
-        
+
         // 1. Calculate Life Path Number
         let lifePath = calculateLifePath(from: birthdate)
         print("📊 Life Path Number: \(lifePath)")
-        
+
         // 2. Determine Zodiac Sign
         let zodiacSign = calculateZodiacSign(from: birthdate)
         print("♈ Zodiac Sign: \(zodiacSign.rawValue)")
-        
+
         // 3. Derive Element from Zodiac
         let element = zodiacSign.element
         print("🔥 Element: \(element.rawValue.capitalized)")
-        
+
         // 4. Map Planetary Archetypes
         guard let planetMapping = planetaryMappings[lifePath] else {
             // Claude: Graceful fallback for unexpected life path numbers
@@ -228,13 +228,13 @@ class UserArchetypeManager: ObservableObject {
             }
             return archetype
         }
-        
+
         let primaryPlanet = planetMapping.primary
         let subconsciousPlanet = planetMapping.subconscious
-        
+
         print("🪐 Primary Planet: \(primaryPlanet.rawValue.capitalized)")
         print("🌙 Subconscious Planet: \(subconsciousPlanet.rawValue.capitalized)")
-        
+
         // 5. Create Archetype
         let archetype = UserArchetype(
             lifePath: lifePath,
@@ -244,20 +244,20 @@ class UserArchetypeManager: ObservableObject {
             subconsciousPlanet: subconsciousPlanet,
             calculatedDate: Date()
         )
-        
+
         print("✨ Archetype Created Successfully")
         print("🌟 ===============================\n")
-        
+
         // Cache the result
         cacheArchetype(archetype)
-        
+
         DispatchQueue.main.async {
             self.currentArchetype = archetype
         }
-        
+
         return archetype
     }
-    
+
     /**
      * Loads cached archetype from UserDefaults.
      *
@@ -268,14 +268,14 @@ class UserArchetypeManager: ObservableObject {
               let archetype = try? JSONDecoder().decode(UserArchetype.self, from: data) else {
             return nil
         }
-        
+
         DispatchQueue.main.async {
             self.currentArchetype = archetype
         }
-        
+
         return archetype
     }
-    
+
     /**
      * Clears the stored archetype data.
      * Used during logout to remove user-specific data.
@@ -287,7 +287,7 @@ class UserArchetypeManager: ObservableObject {
         }
         print("🗑️ Cleared stored archetype data")
     }
-    
+
     /**
      * Checks if there is a stored archetype for the current user.
      * Used to determine if onboarding has been completed.
@@ -297,7 +297,7 @@ class UserArchetypeManager: ObservableObject {
     func hasStoredArchetype() -> Bool {
         return userDefaults.object(forKey: archetypeKey) != nil
     }
-    
+
     /**
      * Returns the currently stored archetype without loading it into currentArchetype.
      * Used for debugging and testing purposes.
@@ -311,9 +311,9 @@ class UserArchetypeManager: ObservableObject {
         }
         return archetype
     }
-    
+
     // MARK: - Private Calculation Methods
-    
+
     /**
      * Calculates the Life Path number from a birthdate using numerological reduction.
      *
@@ -329,7 +329,7 @@ class UserArchetypeManager: ObservableObject {
     private func calculateLifePath(from birthdate: Date) -> Int {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month, .day], from: birthdate)
-        
+
         guard let year = components.year,
               let month = components.month,
               let day = components.day else {
@@ -339,33 +339,33 @@ class UserArchetypeManager: ObservableObject {
             // Return Life Path 1 (Sun energy) as a safe default
             return 1
         }
-        
+
         print("\n📅 Birth Date Components:")
         print("   Year: \(year)")
         print("   Month: \(month)")
         print("   Day: \(day)")
-        
+
         // Sum digits in each component
         let yearSum = sumDigits(year)
         let monthSum = sumDigits(month)
         let daySum = sumDigits(day)
-        
+
         print("\n🧮 Component Digit Sums:")
         print("   Year \(year) → \(yearSum)")
         print("   Month \(month) → \(monthSum)")
         print("   Day \(day) → \(daySum)")
-        
+
         // Add all components
         let totalSum = yearSum + monthSum + daySum
         print("   Total: \(yearSum) + \(monthSum) + \(daySum) = \(totalSum)")
-        
+
         // Reduce to life path, preserving master numbers
         let lifePath = reduceToLifePath(totalSum)
         print("   Life Path: \(totalSum) → \(lifePath)")
-        
+
         return lifePath
     }
-    
+
     /**
      * Determines zodiac sign from birth date.
      *
@@ -376,7 +376,7 @@ class UserArchetypeManager: ObservableObject {
         let calendar = Calendar.current
         let month = calendar.component(.month, from: birthdate)
         let day = calendar.component(.day, from: birthdate)
-        
+
         switch (month, day) {
         case (3, 21...), (4, ...19):
             return .aries
@@ -406,7 +406,7 @@ class UserArchetypeManager: ObservableObject {
             return .capricorn // Default fallback
         }
     }
-    
+
     /**
      * Sums all digits in a number.
      *
@@ -418,7 +418,7 @@ class UserArchetypeManager: ObservableObject {
             .compactMap { Int(String($0)) }
             .reduce(0, +)
     }
-    
+
     /**
      * Reduces a number to a life path, preserving master numbers.
      *
@@ -430,20 +430,20 @@ class UserArchetypeManager: ObservableObject {
      */
     private func reduceToLifePath(_ number: Int) -> Int {
         var num = abs(number)
-        
+
         while num > 9 {
             // Check for master numbers before reducing
             if num == 11 || num == 22 || num == 33 {
                 return num
             }
-            
+
             // Reduce by summing digits
             num = sumDigits(num)
         }
-        
+
         return num
     }
-    
+
     /**
      * Caches archetype to UserDefaults for persistence.
      *
@@ -471,7 +471,7 @@ extension UserArchetypeManager {
         let testBirthdate = Calendar.current.date(from: DateComponents(year: 1990, month: 6, day: 15)) ?? Date()
         return calculateArchetype(from: testBirthdate)
     }
-    
+
     /**
      * Prints detailed archetype information for debugging.
      *
@@ -490,4 +490,4 @@ extension UserArchetypeManager {
         print("Calculated: \(archetype.calculatedDate)")
         print("🔍 ===============================\n")
     }
-} 
+}

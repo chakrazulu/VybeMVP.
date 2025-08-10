@@ -149,4 +149,4 @@ grep -r "Auth.auth().currentUser" Features/
 
 ---
 
-**Note**: Test on both simulator and physical device for complete validation. Physical device testing is especially important for Sign In with Apple functionality. 
+**Note**: Test on both simulator and physical device for complete validation. Physical device testing is especially important for Sign In with Apple functionality.

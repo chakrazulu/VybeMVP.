@@ -2,7 +2,7 @@
  * ========================================
  * 🧪 TEST COSMIC ANIMATION VIEW
  * ========================================
- * 
+ *
  * TESTING PURPOSE:
  * Simple test view to validate ScrollSafeCosmicView component works properly
  * on real device before integrating into HomeView. This allows us to verify:
@@ -27,7 +27,7 @@ import SwiftUI
 
 struct TestCosmicAnimationView: View {
     @ObservedObject private var performanceMonitor = PerformanceMonitor.shared
-    
+
     var body: some View {
         NavigationView {
             ScrollView {
@@ -38,25 +38,25 @@ struct TestCosmicAnimationView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                         .padding(.top, 20)
-                    
+
                     Text("Scroll up and down to test cosmic animations")
                         .font(.body)
                         .foregroundColor(.gray)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal)
-                    
+
                     // Performance Monitor Display
                     VStack(spacing: 8) {
                         Text(performanceMonitor.performanceStatus)
                             .font(.caption)
                             .foregroundColor(.cyan)
-                        
+
                         if performanceMonitor.isMonitoring {
                             HStack {
                                 Text("FPS: \(String(format: "%.1f", performanceMonitor.currentFPS))")
                                     .font(.caption)
                                     .foregroundColor(performanceMonitor.currentFPS >= 55 ? .green : .orange)
-                                
+
                                 Text("Memory: \(String(format: "%.1f", performanceMonitor.memoryUsageMB))MB")
                                     .font(.caption)
                                     .foregroundColor(performanceMonitor.memoryUsageMB < 100 ? .green : .orange)
@@ -66,25 +66,25 @@ struct TestCosmicAnimationView: View {
                     .padding()
                     .background(Color.black.opacity(0.3))
                     .cornerRadius(8)
-                    
+
                     // Moon Phase Testing Section
                     VStack(alignment: .leading, spacing: 15) {
                         Text("🌙 Moon Phase Calculator Test")
                             .font(.headline)
                             .foregroundColor(.white)
-                        
+
                         // Current Moon Phase
                         CurrentMoonPhaseView()
-                        
+
                         // Spiritual Meaning
                         SpiritualMeaningView()
-                        
+
                         // Test Known Dates
                         VStack(alignment: .leading, spacing: 10) {
                             Text("📅 Known Date Tests:")
                                 .font(.subheadline)
                                 .foregroundColor(.white)
-                            
+
                             // July 3, 2023 - Known Full Moon
                             if let fullMoonDate = Calendar.current.date(from: DateComponents(year: 2023, month: 7, day: 3)) {
                                 let fullMoonInfo = MoonPhaseCalculator.moonInfo(for: fullMoonDate)
@@ -98,7 +98,7 @@ struct TestCosmicAnimationView: View {
                                         .font(.caption)
                                 }
                             }
-                            
+
                             // July 17, 2023 - Known New Moon
                             if let newMoonDate = Calendar.current.date(from: DateComponents(year: 2023, month: 7, day: 17)) {
                                 let newMoonInfo = MoonPhaseCalculator.moonInfo(for: newMoonDate)
@@ -116,13 +116,13 @@ struct TestCosmicAnimationView: View {
                         .padding()
                         .background(Color.black.opacity(0.2))
                         .cornerRadius(8)
-                        
+
                         // Utility Functions Test
                         VStack(alignment: .leading, spacing: 5) {
                             Text("🔮 Cosmic Timing:")
                                 .font(.subheadline)
                                 .foregroundColor(.white)
-                            
+
                             Text("Days until Full Moon: \(MoonPhaseCalculator.daysUntilFullMoon())")
                                 .foregroundColor(.yellow)
                             Text("Days until New Moon: \(MoonPhaseCalculator.daysUntilNewMoon())")
@@ -131,15 +131,15 @@ struct TestCosmicAnimationView: View {
                         .padding()
                         .background(Color.black.opacity(0.2))
                         .cornerRadius(8)
-                        
+
                         // Run Console Tests Button
                         Button(action: {
                             print("\n" + String(repeating: "🌙", count: 25))
                             print("🔬 CONWAY'S MOON PHASE ALGORITHM TEST")
                             print(String(repeating: "🌙", count: 25))
-                            
+
                             MoonPhaseCalculator.runTests()
-                            
+
                             print(String(repeating: "🌙", count: 25) + "\n")
                         }) {
                             Text("🧪 Run Console Tests")
@@ -152,7 +152,7 @@ struct TestCosmicAnimationView: View {
                     .padding()
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(15)
-                    
+
                     // Test Content Cards
                     ForEach(0..<10) { index in
                         VStack(alignment: .leading, spacing: 12) {
@@ -160,19 +160,19 @@ struct TestCosmicAnimationView: View {
                                 Text("Test Card \(index + 1)")
                                     .font(.headline)
                                     .foregroundColor(.white)
-                                
+
                                 Spacer()
-                                
+
                                 Text("Sacred Number: \(index + 1)")
                                     .font(.caption)
                                     .foregroundColor(.gold)
                             }
-                            
+
                             Text("This is test content to validate that cosmic animations continue running smoothly while scrolling. The background should show rotating sacred geometry and pulsing cosmic effects.")
                                 .font(.body)
                                 .foregroundColor(.gray)
                                 .lineLimit(nil)
-                            
+
                             // Simulate some interactive elements
                             HStack {
                                 Button("Test Button") {
@@ -184,9 +184,9 @@ struct TestCosmicAnimationView: View {
                                 .background(Color.blue.opacity(0.3))
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
-                                
+
                                 Spacer()
-                                
+
                                 Text("ID: \(index)")
                                     .font(.caption)
                                     .foregroundColor(.purple)
@@ -197,7 +197,7 @@ struct TestCosmicAnimationView: View {
                         .cornerRadius(12)
                         .padding(.horizontal)
                     }
-                    
+
                     // Footer
                     Text("🌟 End of Test Content")
                         .font(.title2)
@@ -230,7 +230,7 @@ struct TestCosmicAnimationView: View {
 struct CurrentMoonPhaseView: View {
     var body: some View {
         let currentMoonInfo = MoonPhaseCalculator.moonInfo(for: Date())
-        
+
         HStack {
             Text(currentMoonInfo.phase.emoji)
                 .font(.largeTitle)
@@ -253,7 +253,7 @@ struct CurrentMoonPhaseView: View {
 struct SpiritualMeaningView: View {
     var body: some View {
         let currentMoonInfo = MoonPhaseCalculator.moonInfo(for: Date())
-        
+
         Text("✨ \(currentMoonInfo.phase.spiritualMeaning)")
             .foregroundColor(.cyan)
             .font(.caption)
@@ -266,4 +266,4 @@ struct TestCosmicAnimationView_Previews: PreviewProvider {
     static var previews: some View {
         TestCosmicAnimationView()
     }
-} 
+}

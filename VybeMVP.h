@@ -12,4 +12,4 @@ FOUNDATION_EXPORT double VybeMVPVersionNumber;
 //! Project version string for VybeMVP.
 FOUNDATION_EXPORT const unsigned char VybeMVPVersionString[];
 
-#endif /* VybeMVP_h */ 
+#endif /* VybeMVP_h */

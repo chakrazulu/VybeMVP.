@@ -10,7 +10,7 @@
 
 **Archetype:** The Pioneer’s Spark
 
-**Ruling Planets:** Aries→Mars · Leo→Sun · Sagittarius→Jupiter 
+**Ruling Planets:** Aries→Mars · Leo→Sun · Sagittarius→Jupiter
 
 **Sign Order Numbers:** 1 (Aries), 5 (Leo), 9 (Sagittarius)
 
@@ -133,7 +133,7 @@
 
 **Resonant Realm Numbers:** 1, 4, 7, (10→1)
 
-> 
+>
 >
 > Cardinal sparks new cycles. It initiates change, rallies intention into action, and leads with visionary drive.
 
@@ -171,15 +171,15 @@
 
 > **Vybe Prompts per Mode:**
 
-- 
+-
 
 > **Cardinal:** “Today marks your starting line—take that inaugural leap and watch the universe rise to meet you.”
 
-- 
+-
 
 > **Fixed:** “Root yourself in your purpose—steady persistence now yields the abundant rewards you seek.”
 
-- 
+-
 
 >
 
@@ -190,7 +190,7 @@
 
 - **Modes:** Cardinal = Gold | Fixed = Copper | Mutable = Silver
 
-- **Drop-in Points:** Use these as detail pages in your “Learn” tab, or pipeline into KASPER for daily insight generation. 
+- **Drop-in Points:** Use these as detail pages in your “Learn” tab, or pipeline into KASPER for daily insight generation.
 
     - Use **Sign-Order Numbers** both in UI (e.g. “♈︎ 1st House”) and in your numerology engine to link Focus/Realm numbers.
 
@@ -240,9 +240,9 @@ Fire:
   ritual_prompt: "Write down one bold intention …"
 ```
 
-1. 
+1.
 
-    - 
+    -
 
     - That way, the Milanote layout directly informs your data model.
 
@@ -450,7 +450,7 @@ Overall, this format is **highly effective** for mapping out every field you nee
 
   }
 
-}  
+}
 
 **How to use**
 
@@ -4288,7 +4288,7 @@ Even if you’ve asked me not to detail them, the pattern is:
 
     - Retrograde Mars ⇒ add +3
 
-2. 
+2.
 
 3. Map that score mod 9 (or a bespoke scale) ⇒ daily Focus Number
 
@@ -4302,19 +4302,19 @@ Because everything is local you can recompute on each app‐open and show “Tod
 
     - Loads your scraped JSON-mega-corpus into dictionaries (elements, signs, planets, houses, aspects, moonPhases, motions).
 
-- 
+-
 
 - AstronomyEngine
 
     - Wraps SwiftAA calls: longitudes, velocities, house cusps, lunar phases.
 
-- 
+-
 
 - SnapshotBuilder
 
     - Pulls from both Repository and AstronomyEngine, outputs one CosmicSnapshot struct.
 
-- 
+-
 
 - SwiftUI/UIView
 
@@ -4322,7 +4322,7 @@ Because everything is local you can recompute on each app‐open and show “Tod
 
     - On appear: snapshot = builder.build()
 
-- 
+-
 
 All heavy math (e.g. root-finding for eclipses or voids) stays in SwiftAA; your own code is just simple loops and lookups.
 
@@ -4442,7 +4442,7 @@ A few extra thoughts you might consider as you build this out:
 
      - Background Refresh: Use BackgroundTasks or a silent URLSession task (even though you’re local) to pre-compute tomorrow’s snapshot just before the user wakes up, so your UI is instantly ready.
 
- 2. 
+ 2.
 
  3. Unit & Snapshot Testing
 
@@ -4450,7 +4450,7 @@ A few extra thoughts you might consider as you build this out:
 
      - Golden Snapshots: Capture the UI “Cosmic Snapshot” for those test vectors and have your CI flag any drift if SwiftAA or your code ever changes.
 
- 4. 
+ 4.
 
  5. Location & Time-Zone UX
 
@@ -4458,7 +4458,7 @@ A few extra thoughts you might consider as you build this out:
 
      - Fallbacks: If a user declines location permissions, let them manually pick a time-zone or choose from a list of major cities.
 
- 6. 
+ 6.
 
  7. Accessibility & Localization
 
@@ -4468,7 +4468,7 @@ A few extra thoughts you might consider as you build this out:
 
      - i18n: Factor your JSON corpus so you can swap in localized sign names, element keywords, and ritual prompts.
 
- 8. 
+ 8.
 
  9. Ephemeris Precision & Extensibility
 
@@ -4476,7 +4476,7 @@ A few extra thoughts you might consider as you build this out:
 
      - Swiss Ephemeris Bridge: For ultra-high precision or very long-term forecasting you could one day swap to the Swiss Ephemeris via a lightweight C wrapper—while keeping the same pipeline.
 
-10. 
+10.
 
 11. User Customization & Preferences
 
@@ -4484,7 +4484,7 @@ A few extra thoughts you might consider as you build this out:
 
      - Offer multiple house systems in Settings (Placidus, Koch, Equal, Whole-Sign) with instant visual comparison.
 
-12. 
+12.
 
 13. UX Polishes
 
@@ -4492,7 +4492,7 @@ A few extra thoughts you might consider as you build this out:
 
      - Transit Notifications: Tie into your existing reminder system (via automations) to ping users when a major transit to their natal chart occurs.
 
-14. 
+14.
 
 15. Analytics & Feedback Loop
 
@@ -4500,7 +4500,7 @@ A few extra thoughts you might consider as you build this out:
 
      - Consider an in-app feedback widget so users can report “This ritual didn’t resonate” or “Loved this focus number.”
 
-16. 
+16.
 
 17. Error Handling & Edge Cases
 
@@ -4508,7 +4508,7 @@ A few extra thoughts you might consider as you build this out:
 
      - Julian Day Precision: Always be explicit about the user’s timezone when converting to JulianDay to avoid off-by-a-day bugs.
 
-18. 
+18.
 
 By folding in these best practices—caching, testing, accessibility, user settings, and future-proofing—you’ll not only have a powerful client-side astro engine but a polished, private, and highly engaging Vybe experience. Excited to see it in action!
 
@@ -4522,7 +4522,7 @@ Here are a few creative “table-level” enhancements you might layer on top of
 
      - Subtly animate a slow “breathing” glow on Water cells, a flicker on Fire, a breeze-like shimmer on Air, and a root-pulse on Earth.
 
- 2. 
+ 2.
 
  3. Micro-Animations on State Change
 
@@ -4530,7 +4530,7 @@ Here are a few creative “table-level” enhancements you might layer on top of
 
      - Moon phases can smoothly morph between the Unicode glyphs with a brief fade-and-reveal.
 
- 4. 
+ 4.
 
  5. Daily Ritual Prompt Preview
 
@@ -4538,7 +4538,7 @@ Here are a few creative “table-level” enhancements you might layer on top of
 
      - Tapping expands into the full ritual in a bottom sheet.
 
- 6. 
+ 6.
 
  7. Numerology Overlay
 
@@ -4546,7 +4546,7 @@ Here are a few creative “table-level” enhancements you might layer on top of
 
      - Animate the badge when your “Daily Focus Number” changes to reinforce the numerology link.
 
- 8. 
+ 8.
 
  9. Progressive “Unlocks”
 
@@ -4554,7 +4554,7 @@ Here are a few creative “table-level” enhancements you might layer on top of
 
      - Show a “🔓 Advanced” icon on tertiary aspects or minor bodies once users have engaged with the basics for a certain number of days.
 
-10. 
+10.
 
 11. Chakra or Seasonal Icons
 
@@ -4562,13 +4562,13 @@ Here are a few creative “table-level” enhancements you might layer on top of
 
      - A tiny seasonal flower or runic symbol can reinforce the cycle’s texture.
 
-12. 
+12.
 
 13. Interactive What-If Slider
 
      - Let users drag a little timeline slider (±48h) to see upcoming/transiting events in real-time: planets move, aspects form, moon waxes/wanes.
 
-14. 
+14.
 
 15. Soundscapes & Haptics
 
@@ -4576,19 +4576,19 @@ Here are a few creative “table-level” enhancements you might layer on top of
 
      - Use gentle haptic pulses when a major transit completes.
 
-16. 
+16.
 
 17. “Cosmic Weather” Tooltip
 
      - Hovering (or long-pressing) the snapshot top-bar reveals a summary line—“Today’s Cosmic Weather: Mercury ☍ Saturn stirs deep reflection; Focus Number = 5”—tying it all into a single narrative.
 
-18. 
+18.
 
 19. Community Insights Pop-In
 
      - Periodically surface anonymized notes from your community (“10,000 Vybe users felt a surge of creativity under today’s Trine”; “70% journalled on self-care during Balsamic Moon”).
 
-20. 
+20.
 
 These flourishes keep the core data accurate and private, but turn your static grid into a living, breathing “Vybe” that users will look forward to opening every day.
 

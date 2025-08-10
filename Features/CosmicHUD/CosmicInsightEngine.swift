@@ -15,7 +15,7 @@ struct CosmicInsight: Codable, Identifiable {
     let components: InsightComponents
     let display: InsightDisplay
     let kasperMetadata: KASPERMetadata?
-    
+
     enum CodingKeys: String, CodingKey {
         case timestamp, tier, type, components, display, kasperMetadata
     }
@@ -92,9 +92,9 @@ struct KASPERMetadata: Codable {
 
 class CosmicInsightEngine {
     static let shared = CosmicInsightEngine()
-    
+
     private init() {}
-    
+
     /// Generate insight based on current cosmic state
     func generateInsight(
         rulerNumber: Int,
@@ -103,17 +103,17 @@ class CosmicInsightEngine {
         element: String,
         tier: InsightTier = .free
     ) -> CosmicInsight {
-        
+
         let components = buildComponents(
             rulerNumber: rulerNumber,
             realmNumber: realmNumber,
             aspectDisplay: aspectDisplay,
             element: element
         )
-        
+
         let display = buildDisplay(components: components, tier: tier)
         let kasperMetadata = tier == .premium ? buildKASPERMetadata(components: components) : nil
-        
+
         return CosmicInsight(
             timestamp: Date(),
             tier: tier,
@@ -123,16 +123,16 @@ class CosmicInsightEngine {
             kasperMetadata: kasperMetadata
         )
     }
-    
+
     // MARK: - Private Builder Methods
-    
+
     private func buildComponents(
         rulerNumber: Int,
         realmNumber: Int,
         aspectDisplay: String,
         element: String
     ) -> InsightComponents {
-        
+
         let numerology = NumerologyComponent(
             rulerNumber: rulerNumber,
             realmNumber: realmNumber,
@@ -141,10 +141,10 @@ class CosmicInsightEngine {
             specificAction: getSpecificRulerAction(rulerNumber),
             detailedGuidance: getDetailedRulerGuidance(rulerNumber)
         )
-        
+
         let planets = extractPlanets(from: aspectDisplay)
         let aspectType = extractAspectType(from: aspectDisplay)
-        
+
         let astrology = AstrologyComponent(
             dominantAspect: aspectDisplay,
             planets: planets,
@@ -155,7 +155,7 @@ class CosmicInsightEngine {
             detailedMessage: getDetailedPlanetaryMessage(aspectType, planets: planets),
             orb: nil // Would need actual orb data
         )
-        
+
         let elements = ElementComponent(
             element: element,
             phase: getElementPhase(element),
@@ -163,13 +163,13 @@ class CosmicInsightEngine {
             application: getElementalApplication(element),
             detailedAction: getDetailedElementalAction(element)
         )
-        
+
         let synthesis = synthesizeInfluences(
             numerology: numerology,
             astrology: astrology,
             elements: elements
         )
-        
+
         return InsightComponents(
             numerology: numerology,
             astrology: astrology,
@@ -177,7 +177,7 @@ class CosmicInsightEngine {
             synthesis: synthesis
         )
     }
-    
+
     private func buildDisplay(components: InsightComponents, tier: InsightTier) -> InsightDisplay {
         switch tier {
         case .free:
@@ -187,7 +187,7 @@ class CosmicInsightEngine {
                 lockScreen: "\(components.numerology.detailedGuidance)\n\(components.astrology.planetaryNarrative). \(getShortElementAction(components.elements.element))",
                 meditation: nil
             )
-            
+
         case .premium:
             return InsightDisplay(
                 compact: "\(components.numerology.theme) as \(components.astrology.planetaryNarrative) \(components.elements.influence)",
@@ -195,7 +195,7 @@ class CosmicInsightEngine {
                 lockScreen: "\(components.numerology.detailedGuidance)\n\(components.astrology.planetaryNarrative). \(getShortElementAction(components.elements.element))",
                 meditation: generateMeditation(components)
             )
-            
+
         case .kasper:
             return InsightDisplay(
                 compact: "KASPER: \(components.numerology.theme) flows with cosmic alignment",
@@ -205,7 +205,7 @@ class CosmicInsightEngine {
             )
         }
     }
-    
+
     private func buildKASPERMetadata(components: InsightComponents) -> KASPERMetadata {
         return KASPERMetadata(
             contextVector: [
@@ -219,9 +219,9 @@ class CosmicInsightEngine {
             readyForAI: true
         )
     }
-    
+
     // MARK: - Analysis Methods
-    
+
     private func getNumerologyInfluence(ruler: Int, realm: Int) -> String {
         let balance = abs(ruler - realm)
         switch balance {
@@ -231,7 +231,7 @@ class CosmicInsightEngine {
         default: return "Transformative contrast"
         }
     }
-    
+
     private func getNumerologyTheme(_ number: Int) -> String {
         switch number {
         case 1: return "Leadership awakening"
@@ -246,19 +246,19 @@ class CosmicInsightEngine {
         default: return "Cosmic channeling"
         }
     }
-    
+
     private func extractPlanets(from aspectDisplay: String) -> [String] {
         let planetMap: [Character: String] = [
             "☉": "Sun", "☽": "Moon", "☿": "Mercury", "♀": "Venus",
             "♂": "Mars", "♃": "Jupiter", "♄": "Saturn", "♅": "Uranus",
             "♆": "Neptune", "♇": "Pluto"
         ]
-        
+
         return aspectDisplay.compactMap { char in
             planetMap[char]
         }
     }
-    
+
     private func extractAspectType(from aspectDisplay: String) -> String {
         if aspectDisplay.contains("△") { return "trine" }
         if aspectDisplay.contains("□") { return "square" }
@@ -268,7 +268,7 @@ class CosmicInsightEngine {
         if aspectDisplay.contains("⚻") { return "quincunx" }
         return "unknown"
     }
-    
+
     private func getAstrologyInfluence(_ aspectDisplay: String) -> String {
         let aspectType = extractAspectType(from: aspectDisplay)
         switch aspectType {
@@ -281,7 +281,7 @@ class CosmicInsightEngine {
         default: return "Cosmic alignment"
         }
     }
-    
+
     private func getElementPhase(_ element: String) -> String {
         switch element {
         case "🔥": return "Transforming"
@@ -291,7 +291,7 @@ class CosmicInsightEngine {
         default: return "Cycling"
         }
     }
-    
+
     private func getElementInfluence(_ element: String) -> String {
         switch element {
         case "🔥": return "Fire transforms"
@@ -301,7 +301,7 @@ class CosmicInsightEngine {
         default: return "Elements align"
         }
     }
-    
+
     private func synthesizeInfluences(
         numerology: NumerologyComponent,
         astrology: AstrologyComponent,
@@ -309,15 +309,15 @@ class CosmicInsightEngine {
     ) -> String {
         return "\(numerology.theme) as \(astrology.planetaryNarrative) \(elements.influence). \(numerology.influence) creates the foundation for spiritual growth."
     }
-    
+
     private func generatePlanetaryNarrative(planets: [String], aspectType: String) -> String {
         guard planets.count >= 2 else {
             return "cosmic forces align"
         }
-        
+
         let planet1 = planets[0]
         let planet2 = planets[1]
-        
+
         // Use proper astrological aspect terminology
         switch aspectType {
         case "trine": return "\(planet1) trine \(planet2)"
@@ -329,27 +329,27 @@ class CosmicInsightEngine {
         default: return "\(planet1) aspects \(planet2)"
         }
     }
-    
+
     private func generatePremiumInsight(_ components: InsightComponents) -> String {
         return """
         🌟 PREMIUM INSIGHT
-        
+
         Numerology: \(components.numerology.theme) with \(components.numerology.influence)
         Astrology: \(components.astrology.planetaryNarrative) creating \(components.astrology.influence)
         Elements: \(components.elements.phase) \(components.elements.influence)
-        
+
         Synthesis: \(components.synthesis)
         """
     }
-    
+
     private func generateMeditation(_ components: InsightComponents) -> String {
         return "Focus on \(components.numerology.theme.lowercased()) while breathing with \(components.elements.influence.lowercased()) energy."
     }
-    
+
     private func generateAdvancedMeditation(_ components: InsightComponents) -> String {
         return "KASPER-guided meditation: Align your \(components.numerology.theme.lowercased()) with cosmic \(components.astrology.influence.lowercased()) through \(components.elements.phase.lowercased()) breath work."
     }
-    
+
     private func classifyIntent(_ components: InsightComponents) -> String {
         if components.numerology.rulerNumber == components.numerology.realmNumber {
             return "alignment_seeking"
@@ -361,10 +361,10 @@ class CosmicInsightEngine {
             return "growth_exploring"
         }
     }
-    
+
     private func derivePersonalityFactors(_ components: InsightComponents) -> [String] {
         var factors: [String] = []
-        
+
         // Numerology factors
         if components.numerology.rulerNumber <= 3 {
             factors.append("initiative_oriented")
@@ -373,19 +373,19 @@ class CosmicInsightEngine {
         } else {
             factors.append("wisdom_pursuing")
         }
-        
+
         // Astrological factors
         if components.astrology.aspectType == "trine" {
             factors.append("flow_preferring")
         } else if components.astrology.aspectType == "square" {
             factors.append("challenge_embracing")
         }
-        
+
         return factors
     }
-    
+
     // MARK: - Enhanced Insight Functions (matching Widget implementation)
-    
+
     private func getSpecificRulerAction(_ number: Int) -> String {
         switch number {
         case 1: return "Take decisive leadership action today"
@@ -400,7 +400,7 @@ class CosmicInsightEngine {
         default: return "Channel cosmic energy purposefully"
         }
     }
-    
+
     private func getDetailedRulerGuidance(_ number: Int) -> String {
         switch number {
         case 1: return "Your leadership energy is at its peak."
@@ -415,61 +415,61 @@ class CosmicInsightEngine {
         default: return "Cosmic forces amplify your potential."
         }
     }
-    
+
     private func getSpecificPlanetaryGuidance(_ aspectType: String, planets: [String]) -> String {
         guard planets.count >= 2 else {
             return "Cosmic energies support your path"
         }
-        
+
         let planet1 = planets[0]
         let planet2 = planets[1]
-        
+
         // Use proper astrological aspect terminology
         switch aspectType {
-        case "trine": 
+        case "trine":
             return "\(planet1) trine \(planet2) creates flowing energy"
-        case "square": 
+        case "square":
             return "\(planet1) square \(planet2) builds dynamic tension"
-        case "conjunction": 
+        case "conjunction":
             return "\(planet1) conjunct \(planet2) unites their powers"
-        case "opposition": 
+        case "opposition":
             return "\(planet1) opposite \(planet2) seeks perfect balance"
-        case "sextile": 
+        case "sextile":
             return "\(planet1) sextile \(planet2) opens opportunities"
-        case "quincunx": 
+        case "quincunx":
             return "\(planet1) quincunx \(planet2) requires adjustment"
-        default: 
+        default:
             return "\(planet1) aspects \(planet2) in cosmic harmony"
         }
     }
-    
+
     private func getDetailedPlanetaryMessage(_ aspectType: String, planets: [String]) -> String {
         guard planets.count >= 2 else {
             return "Universal energies support your journey."
         }
-        
+
         let planet1 = planets[0]
         let planet2 = planets[1]
-        
+
         // Use proper astrological aspect terminology
         switch aspectType {
-        case "trine": 
+        case "trine":
             return "\(planet1) trine \(planet2) creates harmonious opportunities for growth."
-        case "square": 
+        case "square":
             return "\(planet1) square \(planet2) builds character through challenge."
-        case "conjunction": 
+        case "conjunction":
             return "\(planet1) conjunct \(planet2) amplifies their combined power."
-        case "opposition": 
+        case "opposition":
             return "\(planet1) opposite \(planet2) seeks perfect balance in your life."
-        case "sextile": 
+        case "sextile":
             return "\(planet1) sextile \(planet2) opens beneficial opportunities."
-        case "quincunx": 
+        case "quincunx":
             return "\(planet1) quincunx \(planet2) requires subtle adjustments."
-        default: 
+        default:
             return "\(planet1) aspects \(planet2) in cosmic harmony."
         }
     }
-    
+
     private func getElementalApplication(_ element: String) -> String {
         switch element {
         case "🔥": return "Apply passionate fire energy to your goals"
@@ -479,7 +479,7 @@ class CosmicInsightEngine {
         default: return "Balance all elemental energies"
         }
     }
-    
+
     private func getDetailedElementalAction(_ element: String) -> String {
         switch element {
         case "🔥": return "Channel fire's transformative power into passionate action."
@@ -489,7 +489,7 @@ class CosmicInsightEngine {
         default: return "Balance all elements for complete spiritual harmony."
         }
     }
-    
+
     private func getElementName(_ element: String) -> String {
         switch element {
         case "🔥": return "fire"
@@ -499,7 +499,7 @@ class CosmicInsightEngine {
         default: return "cosmic"
         }
     }
-    
+
     private func getShortElementAction(_ element: String) -> String {
         switch element {
         case "🔥": return "Let fire transform you."

@@ -7,7 +7,7 @@
 1. **KASPERDailyCardTests**
    - `testFocusNumberSpecificGuidance` ✅
      - Focus 2 will show "harmony/balance" keywords
-     - Focus 3 will show "creative/expression" keywords  
+     - Focus 3 will show "creative/expression" keywords
      - Focus 7 will show "mystical/wisdom" keywords
    - `testCachedInsightPerformance` ✅
      - Focus 8 will show "material/mastery" content
@@ -30,7 +30,7 @@
 1. **KASPERIntegrationTests**
    - `testCompleteEnhancedPayloadGeneration`
    - `testDataTransformationIntegrity`
-   
+
    **Why:** These test the OLD KASPER system, not KASPER MLX. They expect KASPERPrimingPayload which is a different system. Consider disabling these once MegaCorpus integration is confirmed working.
 
 ---

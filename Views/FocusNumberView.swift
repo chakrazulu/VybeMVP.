@@ -11,7 +11,7 @@ struct FocusNumberView: View {
     @EnvironmentObject var focusNumberManager: FocusNumberManager
     @Environment(\.dismiss) var dismiss
     @State private var showingPicker = false
-    
+
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -19,7 +19,7 @@ struct FocusNumberView: View {
                 VStack {
                     Text("Selected Focus Number")
                         .font(.headline)
-                    
+
                     Text("\(focusNumberManager.selectedFocusNumber)")
                         .font(.system(size: 48, weight: .bold, design: .rounded))
                         .foregroundColor(.blue)
@@ -28,7 +28,7 @@ struct FocusNumberView: View {
                         .shadow(radius: 5)
                 }
                 .padding()
-                
+
                 // Choose Number Button
                 Button(action: {
                     showingPicker = true
@@ -45,7 +45,7 @@ struct FocusNumberView: View {
                 .sheet(isPresented: $showingPicker) {
                     FocusNumberPicker()
                 }
-                
+
                 Spacer()
             }
             .navigationTitle("Focus Number")

@@ -3,7 +3,7 @@ import SwiftData
 
 /**
  * SpiritualDataController
- * 
+ *
  * Manages the SwiftData stack for spiritual content (replacing MegaCorpus JSON)
  * Handles:
  * - Model container setup
@@ -13,31 +13,31 @@ import SwiftData
  */
 @MainActor
 final class SpiritualDataController: ObservableObject {
-    
+
     // MARK: - Properties
-    
+
     /// The SwiftData model container
     let container: ModelContainer
-    
+
     /// Main context for data operations
     var context: ModelContext {
         container.mainContext
     }
-    
+
     /// Migration status
     @Published var isMigrationComplete: Bool = false
     @Published var migrationProgress: Double = 0.0
     @Published var migrationStatus: String = ""
-    
+
     // In-memory cache for hot paths
     private var archetypeCache: [Int: String] = [:]
-    
+
     // MARK: - Singleton
-    
+
     static let shared = SpiritualDataController()
-    
+
     // MARK: - Initialization
-    
+
     private init() {
         // Configure the model schema with all SwiftData models
         let schema = Schema([
@@ -45,50 +45,50 @@ final class SpiritualDataController: ObservableObject {
             NumberMeaning.self,
             ZodiacMeaning.self,
             PersonalizedInsightTemplate.self,
-            
+
             // Astrological models
             AstrologicalAspect.self,
             AstrologicalElement.self,
             AstrologicalHouse.self,
             AstrologicalMode.self,
             AstrologicalPlanet.self,
-            
+
             // Planetary and lunar data
             ApparentMotion.self,
             MoonPhase.self
         ])
-        
+
         // Configure model container
         let modelConfiguration = ModelConfiguration(
             schema: schema,
             isStoredInMemoryOnly: false,
             allowsSave: true
         )
-        
+
         do {
             container = try ModelContainer(
                 for: schema,
                 configurations: [modelConfiguration]
             )
-            
+
             // Check if migration is needed
             // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
             Task { [weak self] in
                 guard let self = self else { return }
                 await self.checkAndPerformMigration()
             }
-            
+
         } catch {
             // Claude: Graceful handling of ModelContainer creation failure
             assertionFailure("Failed to create ModelContainer: \(error)")
             print("🌀 Spiritual data container temporarily unavailable: \(error.localizedDescription)")
             print("✨ Creating fallback in-memory container for spiritual journey continuity")
-            
+
             // Create in-memory container as fallback
             do {
                 let fallbackConfig = ModelConfiguration(isStoredInMemoryOnly: true)
                 self.container = try ModelContainer(
-                    for: NumberMeaning.self, 
+                    for: NumberMeaning.self,
                     configurations: fallbackConfig
                 )
                 print("✅ In-memory spiritual container created successfully")
@@ -106,58 +106,58 @@ final class SpiritualDataController: ObservableObject {
             }
         }
     }
-    
+
     // MARK: - Migration
-    
+
     /// Checks if data migration from JSON is needed and performs it
     private func checkAndPerformMigration() async {
         // Check if we already have data
         let descriptor = FetchDescriptor<NumberMeaning>()
         let existingCount = (try? context.fetchCount(descriptor)) ?? 0
-        
+
         if existingCount > 0 {
             // Data already migrated
             isMigrationComplete = true
             await loadHotCache()
             return
         }
-        
+
         // Perform migration
         await performJSONMigration()
     }
-    
+
     /// Migrates MegaCorpus JSON data to SwiftData
     private func performJSONMigration() async {
         migrationStatus = "Starting migration..."
-        
+
         do {
             // Migrate number meanings
             migrationStatus = "Migrating number meanings..."
             try await migrateNumberMeanings()
             migrationProgress = 0.5
-            
+
             // Migrate zodiac meanings
             migrationStatus = "Migrating zodiac signs..."
             try await migrateZodiacMeanings()
             migrationProgress = 1.0
-            
+
             // Save context
             try context.save()
-            
+
             // Load hot cache
             await loadHotCache()
-            
+
             migrationStatus = "Migration complete!"
             isMigrationComplete = true
-            
+
             print("✅ SwiftData migration complete")
-            
+
         } catch {
             migrationStatus = "Migration failed: \(error.localizedDescription)"
             print("❌ SwiftData migration failed: \(error)")
         }
     }
-    
+
     /// Migrates number meanings from JSON using your actual MegaCorpus structure
     private func migrateNumberMeanings() async throws {
         // Get the numerology data from MegaCorpus
@@ -167,7 +167,7 @@ final class SpiritualDataController: ObservableObject {
             print("⚠️ Could not load numerology data from MegaCorpus")
             return
         }
-        
+
         // Migrate numbers 1-9 from your actual JSON structure
         for number in 1...9 {
             if let numberData = focusNumbers[String(number)] as? [String: Any] {
@@ -184,15 +184,15 @@ final class SpiritualDataController: ObservableObject {
                     signCorrespondence: numberData["signCorrespondence"] as? String,
                     color: numberData["color"] as? String
                 )
-                
+
                 context.insert(meaning)
                 print("✅ Migrated Number \(number): \(meaning.archetype)")
             }
         }
-        
+
         // TODO: Add master numbers (11, 22, 33, 44) when you add them to JSON
     }
-    
+
     /// Migrates zodiac meanings from your actual Signs.json structure
     private func migrateZodiacMeanings() async throws {
         // Get the signs data from MegaCorpus
@@ -202,13 +202,13 @@ final class SpiritualDataController: ObservableObject {
             print("⚠️ Could not load signs data from MegaCorpus")
             return
         }
-        
+
         // Migrate all zodiac signs from your JSON
         for (signKey, signValue) in signs {
             if let signData = signValue as? [String: Any] {
                 // Extract numerology nested object
                 let numerologyData = signData["numerology"] as? [String: Any]
-                
+
                 let zodiacMeaning = ZodiacMeaning(
                     name: signData["name"] as? String ?? signKey.capitalized,
                     glyph: signData["glyph"] as? String ?? "♈︎",
@@ -230,15 +230,15 @@ final class SpiritualDataController: ObservableObject {
                     challenges: signData["challenges"] as? [String] ?? [],
                     strengths: signData["strengths"] as? [String] ?? []
                 )
-                
+
                 context.insert(zodiacMeaning)
                 print("✅ Migrated Zodiac Sign: \(zodiacMeaning.name)")
             }
         }
     }
-    
+
     // MARK: - Hot Cache
-    
+
     /// Loads frequently accessed data into memory cache
     private func loadHotCache() async {
         let descriptor = FetchDescriptor<NumberMeaning>()
@@ -248,9 +248,9 @@ final class SpiritualDataController: ObservableObject {
             }
         }
     }
-    
+
     // MARK: - Query Methods
-    
+
     /// Gets a number meaning from the database
     func getNumberMeaning(_ number: Int) async throws -> NumberMeaning? {
         let descriptor = FetchDescriptor<NumberMeaning>(
@@ -258,13 +258,13 @@ final class SpiritualDataController: ObservableObject {
         )
         return try context.fetch(descriptor).first
     }
-    
+
     /// Gets archetype for a number (uses hot cache)
     func getArchetype(for number: Int) -> String {
         if let cached = archetypeCache[number] {
             return cached
         }
-        
+
         // Fallback to database query
         // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
         Task { [weak self] in
@@ -273,10 +273,10 @@ final class SpiritualDataController: ObservableObject {
                 self.archetypeCache[number] = meaning.archetype
             }
         }
-        
+
         return "The Seeker" // Default fallback
     }
-    
+
     /// Searches for number meanings by keyword
     func searchNumberMeanings(keyword: String) async throws -> [NumberMeaning] {
         let descriptor = FetchDescriptor<NumberMeaning>(
@@ -287,7 +287,7 @@ final class SpiritualDataController: ObservableObject {
         )
         return try context.fetch(descriptor)
     }
-    
+
     /// Gets a zodiac sign meaning by name
     func getZodiacMeaning(_ signName: String) async throws -> ZodiacMeaning? {
         // SwiftData predicates don't support lowercased(), so fetch all and filter
@@ -295,7 +295,7 @@ final class SpiritualDataController: ObservableObject {
         let allSigns = try context.fetch(descriptor)
         return allSigns.first { $0.name.lowercased() == signName.lowercased() }
     }
-    
+
     /// Gets all zodiac signs
     func getAllZodiacSigns() async throws -> [ZodiacMeaning] {
         let descriptor = FetchDescriptor<ZodiacMeaning>(
@@ -303,9 +303,9 @@ final class SpiritualDataController: ObservableObject {
         )
         return try context.fetch(descriptor)
     }
-    
+
     // MARK: - Helper Methods for Number Migration
-    
+
     private func getArchetypeForNumber(_ number: Int) -> String {
         switch number {
         case 0: return "Void"
@@ -321,7 +321,7 @@ final class SpiritualDataController: ObservableObject {
         default: return "Seeker"
         }
     }
-    
+
     private func getElementForNumber(_ number: Int) -> String {
         switch number {
         case 1, 5, 9: return "Fire"
@@ -331,7 +331,7 @@ final class SpiritualDataController: ObservableObject {
         default: return "Universal"
         }
     }
-    
+
     private func getKeywordsForNumber(_ number: Int) -> [String] {
         switch number {
         case 0: return ["Potential", "Void", "Infinite"]
@@ -347,7 +347,7 @@ final class SpiritualDataController: ObservableObject {
         default: return ["Growth", "Learning"]
         }
     }
-    
+
     private func getStrengthsForNumber(_ number: Int) -> [String] {
         switch number {
         case 1: return ["Natural leader", "Independent", "Pioneering spirit"]
@@ -356,7 +356,7 @@ final class SpiritualDataController: ObservableObject {
         default: return ["Resilient", "Adaptable"]
         }
     }
-    
+
     private func getLegacyChallengesForNumber(_ number: Int) -> [String] {
         switch number {
         case 1: return ["Impatience", "Self-centeredness"]
@@ -365,7 +365,7 @@ final class SpiritualDataController: ObservableObject {
         default: return ["Self-doubt", "Resistance to change"]
         }
     }
-    
+
     private func getPlanetaryCorrespondence(_ number: Int) -> String? {
         switch number {
         case 1: return "Sun"
@@ -380,7 +380,7 @@ final class SpiritualDataController: ObservableObject {
         default: return nil
         }
     }
-    
+
     private func getSignCorrespondence(_ number: Int) -> String? {
         switch number {
         case 1: return "Aries"
@@ -395,7 +395,7 @@ final class SpiritualDataController: ObservableObject {
         default: return nil
         }
     }
-    
+
     private func getColorForNumber(_ number: Int) -> String? {
         switch number {
         case 1: return "Red"

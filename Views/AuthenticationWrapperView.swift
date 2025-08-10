@@ -2,62 +2,62 @@
  * ========================================
  * 🔐 AUTHENTICATION WRAPPER VIEW - APP ENTRY POINT
  * ========================================
- * 
+ *
  * CORE PURPOSE:
  * Root navigation controller managing entire app authentication flow. Determines user
  * journey based on authentication state: loading → sign-in → onboarding → main app.
  * Integrates Apple Sign-In with Firebase Auth and UserProfile management.
- * 
+ *
  * UI SPECIFICATIONS:
  * - Loading Screen: 60pt sparkles icon, purple accent, circular progress indicator
  * - Sign-In Screen: 80pt sparkles icon, gradient background, 50pt Apple Sign-In button
  * - Animations: 0.3s ease-in-out transitions between all states
  * - Background: Purple-to-blue gradient (10% opacity) for sign-in screen
  * - Button: Apple Sign-In with black style, 8pt corner radius, 20pt horizontal padding
- * 
+ *
  * AUTHENTICATION FLOW STATES:
  * 1. isCheckingAuthStatus=true → EnhancedLoadingView with timeout/retry
  * 2. isSignedIn=false → SignInWrapperView with Apple Sign-In
  * 3. isSignedIn=true + hasCompletedOnboarding=false → OnboardingView
  * 4. isSignedIn=true + hasCompletedOnboarding=true → ContentView (main app)
- * 
+ *
  * STATE MANAGEMENT:
  * - AuthenticationManager.shared: Global auth state observer
  * - SignInViewModel: User ID and auth data management
  * - hasCompletedOnboarding: Local state for onboarding completion
  * - UserProfileService: Profile persistence and Firestore sync
- * 
+ *
  * INTEGRATION POINTS:
  * - AuthenticationManager: Authentication state and Apple Sign-In handling
  * - UserProfileService: Profile validation and Firestore synchronization
  * - AIInsightManager: AI insights configuration after profile validation
  * - OnboardingView: Full onboarding flow with profile creation
  * - ContentView: Main app with 12-tab navigation structure
- * 
+ *
  * APPLE SIGN-IN SPECIFICATIONS:
  * - Nonce Generation: Security nonce for Firebase Auth integration
  * - Requested Scopes: .fullName and .email for user identification
  * - Button Style: .black with system styling
  * - Firebase Integration: Seamless Apple ID to Firebase Auth conversion
- * 
+ *
  * ONBOARDING VALIDATION:
  * - Profile Check: UserProfileService.getCurrentUserProfileFromUserDefaults()
  * - Completion Criteria: Complete UserProfile with all required fields
  * - Auto-Sync: Profiles automatically saved to Firestore after validation
  * - AI Configuration: AIInsightManager configured with validated profile
- * 
+ *
  * ERROR HANDLING & RECOVERY:
  * - Authentication Timeout: EnhancedLoadingView with retry mechanism
  * - Failed Auth Check: Force refresh with authManager.checkAuthenticationStatus()
  * - Profile Sync Errors: Graceful fallback with error logging
  * - State Reset: Clean state reset on sign-out
- * 
+ *
  * PERFORMANCE NOTES:
  * - State Observers: Efficient @StateObject and @State management
  * - Animation Optimization: Single 0.3s duration for all transitions
  * - Memory Management: Proper cleanup on state changes
  * - Background Processing: Non-blocking profile validation and sync
- * 
+ *
  * SECURITY FEATURES:
  * - Secure Nonce: Cryptographically secure nonce generation for Apple Sign-In
  * - Privacy Protection: Minimal data collection, secure storage only
@@ -90,10 +90,10 @@ struct AuthenticationWrapperView: View {
     @StateObject private var authManager = AuthenticationManager.shared
     @StateObject private var signInViewModel = SignInViewModel()
     @State private var hasCompletedOnboarding = false
-    
+
     // 🧪 TEMPORARY: Debug flag to bypass authentication for testing
     private let bypassAuthForTesting = false
-    
+
     var body: some View {
         Group {
             // 🧪 TEMPORARY: Bypass authentication for cosmic animation testing
@@ -103,17 +103,17 @@ struct AuthenticationWrapperView: View {
                     ZStack {
                         Color.purple.opacity(0.3)
                             .edgesIgnoringSafeArea(.all)
-                        
+
                         VStack(spacing: 20) {
                             Text("🧪 BYPASS ACTIVE")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
-                            
+
                             Text("Authentication bypassed for testing")
                                 .font(.title2)
                                 .foregroundColor(.white.opacity(0.8))
-                            
+
                             NavigationLink("Test Cosmic Animations") {
                                 TestCosmicAnimationView()
                             }
@@ -122,7 +122,7 @@ struct AuthenticationWrapperView: View {
                             .padding()
                             .background(Color.blue.opacity(0.6))
                             .cornerRadius(12)
-                            
+
                             NavigationLink("🌌 Main App (HomeView with cosmic animations)") {
                                 // Show the real ContentView (full app)
                                 ContentView()
@@ -182,22 +182,22 @@ struct AuthenticationWrapperView: View {
             signInViewModel.userID = newUserID
         }
     }
-    
+
     private func checkOnboardingStatus() {
         guard let userID = authManager.userID else {
             hasCompletedOnboarding = false
             print("🔍 No userID available, onboarding incomplete")
             return
         }
-        
+
         // Claude: Check UserDefaults first for onboarding completion flag (set by OnboardingCompletionView)
         let onboardingKey = "hasCompletedOnboarding" + userID
         let hasCompletedViaOnboarding = UserDefaults.standard.bool(forKey: onboardingKey)
-        
+
         if hasCompletedViaOnboarding {
             hasCompletedOnboarding = true
             print("🔍 Found onboarding completion flag for user \(userID), onboarding completed")
-            
+
             // Configure AI insights if we have a profile
             if let userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID) {
                 Task {
@@ -219,22 +219,22 @@ struct LoadingView: View {
         ZStack {
             Color(UIColor.systemBackground)
                 .edgesIgnoringSafeArea(.all)
-            
+
             VStack(spacing: 20) {
                 // App logo or icon
                 Image(systemName: "sparkles")
                     .font(.system(size: 60, weight: .light))
                     .foregroundColor(.purple)
-                
+
                 Text("Vybe")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
-                
+
                 ProgressView()
                     .scaleEffect(1.2)
                     .progressViewStyle(CircularProgressViewStyle(tint: .purple))
-                
+
                 Text("Checking authentication...")
                     .font(.caption)
                     .foregroundColor(.secondary)
@@ -248,7 +248,7 @@ struct LoadingView: View {
  */
 struct SignInWrapperView: View {
     @StateObject private var authManager = AuthenticationManager.shared
-    
+
     var body: some View {
         ZStack {
             // Background gradient
@@ -262,7 +262,7 @@ struct SignInWrapperView: View {
                 endPoint: .bottomTrailing
             )
             .edgesIgnoringSafeArea(.all)
-            
+
             VStack(spacing: 40) {
                 // Header
                 VStack(spacing: 20) {
@@ -270,34 +270,34 @@ struct SignInWrapperView: View {
                     Image(systemName: "sparkles")
                         .font(.system(size: 80, weight: .light))
                         .foregroundColor(.purple)
-                    
+
                     Text("Welcome to Vybe")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .multilineTextAlignment(.center)
-                    
+
                     Text("Discover your spiritual resonance through numerology, astrology, and the wisdom of numbers.")
                         .font(.body)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 20)
                 }
-                
+
                 Spacer()
-                
+
                 // Sign-in section
                 VStack(spacing: 20) {
                     SignInWithAppleView()
-                    
+
                     Text("Sign in to sync your spiritual journey across devices")
                         .font(.caption)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 40)
                 }
-                
+
                 Spacer()
-                
+
                 // Privacy note
                 Text("Your privacy is protected. We only store your authentication data securely.")
                     .font(.caption2)
@@ -316,7 +316,7 @@ struct SignInWrapperView: View {
  */
 struct SignInWithAppleView: View {
     @StateObject private var authManager = AuthenticationManager.shared
-    
+
     var body: some View {
         SignInWithAppleButton(.signIn, onRequest: { request in
             // Generate nonce for Firebase Auth integration

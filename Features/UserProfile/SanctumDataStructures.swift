@@ -2,7 +2,7 @@
  * ========================================
  * 🌌 SANCTUM DATA STRUCTURES
  * ========================================
- * 
+ *
  * SHARED PURPOSE:
  * Centralized data structures for the Sanctum view and its components
  * to avoid duplication and maintain consistency across the codebase.
@@ -28,14 +28,14 @@ import SwiftUI
 enum SanctumViewMode: String, CaseIterable {
     case birthChart = "Birth Chart"
     case liveTransits = "Live Transits"
-    
+
     var icon: String {
         switch self {
         case .birthChart: return "person.circle.fill"
         case .liveTransits: return "globe.americas.fill"
         }
     }
-    
+
     var description: String {
         switch self {
         case .birthChart: return "Your natal chart at birth"
@@ -57,7 +57,7 @@ struct PlanetaryPosition: Identifiable {
     let sign: String
     let degree: Int
     let houseNumber: Int? // Placidus house number (1-12), nil for transits
-    
+
     /// Formatted display with house number (like Co-Star)
     var formattedWithHouse: String {
         if let house = houseNumber {

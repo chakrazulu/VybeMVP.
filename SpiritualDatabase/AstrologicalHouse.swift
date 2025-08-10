@@ -3,13 +3,13 @@ import SwiftData
 
 /**
  * AstrologicalHouse - SwiftData Model for KASPER MLX House System Training
- * 
+ *
  * Represents the 12 astrological houses from Houses.json MegaCorpus data
  * Used by KASPER MLX to provide house-based insights for cosmic snapshots
- * 
+ *
  * Houses represent life areas and themes:
  * - 1st House: Self & Identity
- * - 2nd House: Resources & Values  
+ * - 2nd House: Resources & Values
  * - 3rd House: Communication & Learning
  * - And so on through 12th House: Spirituality & Transcendence
  */
@@ -17,36 +17,36 @@ import SwiftData
 final class AstrologicalHouse {
     // Primary identifier
     @Attribute(.unique) var houseNumber: Int
-    
+
     // House identity
     var houseName: String               // "First House", "Second House", etc.
     var glyph: String                   // House symbol or roman numeral
     var symbol: String                  // Descriptive symbol (Gateway, Foundation, etc.)
     var keyword: String                 // Core theme (Self, Resources, etc.)
-    
+
     // Astrological correspondences
     var naturalSign: String             // Sign that naturally rules this house
     var element: String                 // Fire, Earth, Air, Water
     var mode: String                    // Cardinal, Fixed, Mutable
-    
+
     // Spiritual content
     var houseDescription: String        // Comprehensive description of house themes
     var keyTraits: [String]            // Life areas governed by this house
     var ritualPrompt: String?          // Suggested spiritual practice
-    
+
     // KASPER MLX training data
     var lifeThemes: [String] = []      // Specific life areas this house governs
     var planetaryMeanings: [String: String] = [:] // How different planets manifest in this house
     var insightExamples: [String] = [] // Example insights for this house
-    
+
     // Usage metadata
     var lastKASPERUpdate: Date?
     var mlxTrainingReady: Bool = false
-    
+
     // Timestamps
     var createdAt: Date
     var updatedAt: Date
-    
+
     init(
         houseNumber: Int,
         houseName: String,
@@ -98,27 +98,27 @@ extension AstrologicalHouse {
             return .cadent
         }
     }
-    
+
     /// Returns key traits as a comma-separated string
     var keyTraitString: String {
         keyTraits.joined(separator: ", ")
     }
-    
+
     /// Returns life themes as a comma-separated string
     var lifeThemeString: String {
         lifeThemes.joined(separator: ", ")
     }
-    
+
     /// Gets a random insight example for KASPER MLX
     var randomInsightExample: String? {
         insightExamples.randomElement()
     }
-    
+
     /// Gets planetary meaning for a specific planet in this house
     func getPlanetaryMeaning(for planet: String) -> String? {
         planetaryMeanings[planet.lowercased()]
     }
-    
+
     /// Updates KASPER MLX training data
     func updateTrainingData(themes: [String], insights: [String], planetaryMeanings: [String: String] = [:]) {
         self.lifeThemes = themes
@@ -128,7 +128,7 @@ extension AstrologicalHouse {
         self.updatedAt = Date()
         self.lastKASPERUpdate = Date()
     }
-    
+
     /// Checks if this house governs a specific life area
     func governs(lifeArea: String) -> Bool {
         let lowerArea = lifeArea.lowercased()
@@ -143,9 +143,9 @@ extension AstrologicalHouse {
 /// Astrological house type classification
 enum HouseType: String, CaseIterable, Codable {
     case angular = "Angular"
-    case succedent = "Succedent"  
+    case succedent = "Succedent"
     case cadent = "Cadent"
-    
+
     var description: String {
         switch self {
         case .angular:
@@ -156,7 +156,7 @@ enum HouseType: String, CaseIterable, Codable {
             return "Houses of learning and adaptation (3rd, 6th, 9th, 12th)"
         }
     }
-    
+
     var houseNumbers: [Int] {
         switch self {
         case .angular:

@@ -1,6 +1,6 @@
 /**
  * Filename: MatchAnalyticsView.swift
- * 
+ *
  * Purpose: Displays analytical information about a user's focus number matches,
  * providing insights into patterns, frequency, and distribution of matches.
  *
@@ -8,7 +8,7 @@
  * - MatchAnalyticsViewModel: Contains logic for analytics calculations
  * - TimeFrame enum: Defines time periods for data analysis
  * - Various chart and statistics components
- * 
+ *
  * This view serves as the central analytics dashboard for the app,
  * helping users understand their match patterns and trends.
  */
@@ -20,7 +20,7 @@ import CoreData
 /**
  * View model that handles the analytics calculations for match data.
  *
- * This class processes the raw match data and provides derived metrics 
+ * This class processes the raw match data and provides derived metrics
  * such as match counts, frequencies, and patterns. It encapsulates all
  * the business logic for analytics, keeping the view focused on presentation.
  *
@@ -32,13 +32,13 @@ import CoreData
 class MatchAnalyticsViewModel: ObservableObject {
     /// The selected time range for analytics display
     @Published var selectedTimeFrame: TimeFrame = .day
-    
+
     /// Collection of match records from Core Data
     var matchLogs: [FocusMatch] = []
-    
+
     /// Managed object context for database operations
     var managedObjectContext: NSManagedObjectContext?
-    
+
     /**
      * Time periods for filtering and grouping analytics data.
      *
@@ -52,7 +52,7 @@ class MatchAnalyticsViewModel: ObservableObject {
         case week = "Week"
         case month = "Month"
     }
-    
+
     /**
      * Counts matches that occurred today.
      *
@@ -71,7 +71,7 @@ class MatchAnalyticsViewModel: ObservableObject {
         }.count
         return String(count)
     }
-    
+
     /**
      * Determines the most frequently matched focus number.
      *
@@ -86,15 +86,15 @@ class MatchAnalyticsViewModel: ObservableObject {
     func getMostCommonFocusNumber() -> String {
         let matchCounts = Dictionary(grouping: matchLogs) { $0.chosenNumber }
             .mapValues { $0.count }
-        
+
         if let maxCount = matchCounts.values.max(),
            let mostCommonNumber = matchCounts.first(where: { $0.value == maxCount })?.key {
             return "\(mostCommonNumber) (\(maxCount) times)"
         }
-        
+
         return "No matches yet"
     }
-    
+
     /**
      * Determines the most frequently matched realm number.
      *
@@ -105,7 +105,7 @@ class MatchAnalyticsViewModel: ObservableObject {
      *
      * This method:
      * 1. Groups matches by the realm number active during the match
-     * 2. Counts occurrences of each realm number  
+     * 2. Counts occurrences of each realm number
      * 3. Finds the realm number with the highest count
      * 4. Returns the number and count as a formatted string
      *
@@ -114,15 +114,15 @@ class MatchAnalyticsViewModel: ObservableObject {
     func getMostCommonRealmNumber() -> String {
         let realmCounts = Dictionary(grouping: matchLogs) { $0.realmNumber }
             .mapValues { $0.count }
-        
+
         if let maxCount = realmCounts.values.max(),
            let mostCommonRealm = realmCounts.first(where: { $0.value == maxCount })?.key {
             return "\(mostCommonRealm) (\(maxCount) times)"
         }
-        
+
         return "No matches yet"
     }
-    
+
     /**
      * Identifies the hour of day when matches most frequently occur.
      *
@@ -139,7 +139,7 @@ class MatchAnalyticsViewModel: ObservableObject {
         let matchesByHour = Dictionary(grouping: matchLogs) { match in
             calendar.component(.hour, from: match.timestamp)
         }
-        
+
         if let maxCount = matchesByHour.values.map({ $0.count }).max(),
            let peakHour = matchesByHour.first(where: { $0.value.count == maxCount })?.key {
             let dateFormatter = DateFormatter()
@@ -147,10 +147,10 @@ class MatchAnalyticsViewModel: ObservableObject {
             let date = calendar.date(bySettingHour: peakHour, minute: 0, second: 0, of: Date()) ?? Date()
             return dateFormatter.string(from: date)
         }
-        
+
         return "No matches yet"
     }
-    
+
     /**
      * Calculates the average frequency of matches over time.
      *
@@ -166,24 +166,24 @@ class MatchAnalyticsViewModel: ObservableObject {
     func getMatchFrequency() -> String {
         let matchCount = matchLogs.count
         let calendar = Calendar.current
-        
+
         if matchCount == 0 {
             return "No matches yet"
         }
-        
+
         // Get the earliest and latest match timestamps
         guard !matchLogs.isEmpty else {
             return "No matches yet"
         }
-        
+
         // Claude: DORMANT BUG FIX - Replace force unwraps with safe optional handling
         guard let firstMatch = matchLogs.last?.timestamp,
               let lastMatch = matchLogs.first?.timestamp else {
             return "No valid match data"
         }
-        
+
         let daysBetween = calendar.dateComponents([.day], from: firstMatch, to: lastMatch).day ?? 0
-        
+
         if daysBetween == 0 {
             return "\(matchCount) today"
         } else {
@@ -191,7 +191,7 @@ class MatchAnalyticsViewModel: ObservableObject {
             return String(format: "%.1f per day", average)
         }
     }
-    
+
     /**
      * Generates data for match distribution charts.
      *
@@ -211,59 +211,59 @@ class MatchAnalyticsViewModel: ObservableObject {
         let calendar = Calendar.current
         var timeSlots: [MatchData] = []
         let now = Date()
-        
+
         switch selectedTimeFrame {
         case .day:
             // Create 6-hour slots for the day
             let slots = ["12 AM", "6 AM", "12 PM", "6 PM"]
             let dayStart = calendar.startOfDay(for: now)
-            
+
             for (index, slot) in slots.enumerated() {
                 let slotStart = addHours(index * 6, to: dayStart)
                 let slotEnd = addHours(6, to: slotStart)
-                
+
                 let count = matchLogs.filter { match in
                     match.timestamp >= slotStart && match.timestamp < slotEnd
                 }.count
-                
+
                 timeSlots.append(MatchData(time: slot, count: count))
             }
-            
+
         case .week:
             // Create daily slots for the week
             let weekStart = addDays(-6, to: now)
-            
+
             for dayOffset in 0...6 {
                 let dayDate = addDays(dayOffset, to: weekStart)
                 let nextDay = addDays(1, to: dayDate)
                 let dayString = calendar.shortWeekdaySymbols[calendar.component(.weekday, from: dayDate) - 1]
-                
+
                 let count = matchLogs.filter { match in
                     match.timestamp >= dayDate && match.timestamp < nextDay
                 }.count
-                
+
                 timeSlots.append(MatchData(time: dayString, count: count))
             }
-            
+
         case .month:
             // Create weekly slots for the month
             let monthStart = addDays(-30, to: now)
-            
+
             for weekOffset in 0...4 {
                 let weekStart = addDays(weekOffset * 7, to: monthStart)
                 let weekEnd = addDays(7, to: weekStart)
-                
+
                 let count = matchLogs.filter { match in
                     match.timestamp >= weekStart && match.timestamp < weekEnd
                 }.count
-                
+
                 timeSlots.append(MatchData(time: "Week \(weekOffset + 1)", count: count))
             }
         }
-        
+
         return timeSlots
     }
-    
+
     // Helper functions for date calculations
     /**
      * Adds a specified number of days to a date.
@@ -276,7 +276,7 @@ class MatchAnalyticsViewModel: ObservableObject {
     private func addDays(_ days: Int, to date: Date) -> Date {
         Calendar.current.date(byAdding: .day, value: days, to: date) ?? date
     }
-    
+
     /**
      * Adds a specified number of hours to a date.
      *
@@ -299,10 +299,10 @@ class MatchAnalyticsViewModel: ObservableObject {
 struct MatchData: Identifiable {
     /// Unique identifier for this data point
     let id = UUID()
-    
+
     /// String representation of the time period (e.g., "12 AM", "Monday", "Week 1")
     let time: String
-    
+
     /// Number of matches that occurred during this time period
     let count: Int
 }
@@ -315,16 +315,16 @@ struct MatchData: Identifiable {
 struct EnhancedMatchData: Identifiable {
     /// Unique identifier for this data point
     let id = UUID()
-    
+
     /// String representation of the time period
     let time: String
-    
+
     /// Number of matches that occurred during this time period
     let count: Int
-    
+
     /// Current realm number at this time
     let realmNumber: Int
-    
+
     /// Current focus number at this time
     let focusNumber: Int
 }
@@ -343,17 +343,17 @@ struct EnhancedMatchData: Identifiable {
 struct MatchAnalyticsView: View {
     /// Access to the focus number manager for match data
     @EnvironmentObject var focusNumberManager: FocusNumberManager
-    
+
     /// Access to realm number manager for current realm number
     @EnvironmentObject var realmNumberManager: RealmNumberManager
-    
+
     /// View model containing analytics logic
     @StateObject private var viewModel = MatchAnalyticsViewModel()
-    
+
     /// UI state for chart series toggles
     @State private var showRealmNumbers = true
     @State private var showFocusNumbers = true
-    
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -363,16 +363,16 @@ struct MatchAnalyticsView: View {
                         LazyVStack(spacing: 20) {
                             // Time frame selector
                             timeFrameSelector
-                            
+
                             // Summary statistics
                             cardSummary
-                            
+
                             // Chart controls
                             chartControls
-                            
+
                             // Match distribution chart
                             cardDistribution
-                            
+
                             // Pattern analysis
                             cardPatterns
                         }
@@ -387,7 +387,7 @@ struct MatchAnalyticsView: View {
             }
         }
     }
-    
+
     /// Segmented control for selecting the analytics time frame
     private var timeFrameSelector: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -395,7 +395,7 @@ struct MatchAnalyticsView: View {
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding(.horizontal)
-            
+
             Picker(selection: $viewModel.selectedTimeFrame, label: Text("Time Frame")) {
                 ForEach(MatchAnalyticsViewModel.TimeFrame.allCases, id: \.self) { timeFrame in
                     Text(timeFrame.rawValue).tag(timeFrame)
@@ -414,9 +414,9 @@ struct MatchAnalyticsView: View {
                 )
         )
     }
-    
+
     /// Summary statistics card with cosmic neon glow effects
-    /// 
+    ///
     /// PHASE 3C-1 ENHANCEMENT: Added neon glow effects for floating space appearance
     /// - Multi-layer shadow system (cyan, purple, blue)
     /// - Gradient stroke borders for cosmic aesthetic
@@ -427,7 +427,7 @@ struct MatchAnalyticsView: View {
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding(.horizontal)
-            
+
             LazyHGrid(rows: [GridItem(.flexible())], spacing: 16) {
                 Group {
                     HStack(spacing: 12) {
@@ -440,7 +440,7 @@ struct MatchAnalyticsView: View {
                             color: .purple
                         )
                         .layoutPriority(1)
-                        
+
                         // Today's matches
                         let todayCount = viewModel.getTodayMatchCount()
                         CosmicStatCard(
@@ -481,9 +481,9 @@ struct MatchAnalyticsView: View {
                 .shadow(color: .purple.opacity(0.3), radius: 18, x: 0, y: 0)  // Outer glow
         )
     }
-    
+
     /// Match distribution chart card with enhanced cosmic neon glow effects
-    /// 
+    ///
     /// PHASE 3C-1 ENHANCEMENT: "Today's Pattern" with neon glow effects
     /// - Triple-layer shadow system (purple, blue, cyan) for floating appearance
     /// - Gradient stroke borders with cosmic color progression
@@ -495,18 +495,18 @@ struct MatchAnalyticsView: View {
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding(.horizontal)
-            
+
             if #available(iOS 16.0, *) {
                 let matchData = viewModel.getMatchData()
                 let enhancedData = enhanceMatchData(matchData)
-                
+
                 Chart(enhancedData) { data in
                     // Realm Numbers Line
                     if showRealmNumbers {
                         createRealmLineMark(data: data)
                     }
-                    
-                    // Focus Numbers Line  
+
+                    // Focus Numbers Line
                     if showFocusNumbers {
                         createFocusLineMark(data: data)
                     }
@@ -554,13 +554,13 @@ struct MatchAnalyticsView: View {
                 // PHASE 3C-1 ENHANCEMENT: Triple-layer shadow system for maximum neon glow
                 // Creates most prominent "floating in space" effect for primary chart
                 .shadow(color: .purple.opacity(0.6), radius: 12, x: 0, y: 0)  // Inner glow
-                .shadow(color: .blue.opacity(0.4), radius: 20, x: 0, y: 0)    // Mid glow  
+                .shadow(color: .blue.opacity(0.4), radius: 20, x: 0, y: 0)    // Mid glow
                 .shadow(color: .cyan.opacity(0.3), radius: 28, x: 0, y: 0)    // Outer glow
         )
     }
-    
+
     /// Pattern analysis card with cosmic neon glow effects
-    /// 
+    ///
     /// PHASE 3C-1 ENHANCEMENT: "Sacred Patterns" with neon glow effects
     /// - Dual-layer shadow system (yellow, orange) for warm cosmic glow
     /// - Gradient stroke borders with sacred color progression
@@ -572,7 +572,7 @@ struct MatchAnalyticsView: View {
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding(.horizontal)
-            
+
             VStack(alignment: .leading, spacing: 16) {
                 // Most common focus number
                 let commonNumber = viewModel.getMostCommonFocusNumber()
@@ -582,10 +582,10 @@ struct MatchAnalyticsView: View {
                     icon: "number.circle.fill",
                     color: .cyan
                 )
-                
+
                 Divider()
                     .background(Color.white.opacity(0.2))
-                
+
                 // REALM NUMBER ANALYTICS ENHANCEMENT: Most common realm number
                 let commonRealm = viewModel.getMostCommonRealmNumber()
                 CosmicPatternRow(
@@ -594,10 +594,10 @@ struct MatchAnalyticsView: View {
                     icon: "crown.circle.fill",
                     color: .purple
                 )
-                
+
                 Divider()
                     .background(Color.white.opacity(0.2))
-                
+
                 // Peak match time
                 let peakTime = viewModel.getPeakMatchTime()
                 CosmicPatternRow(
@@ -606,10 +606,10 @@ struct MatchAnalyticsView: View {
                     icon: "clock.circle.fill",
                     color: .yellow
                 )
-                
+
                 Divider()
                     .background(Color.white.opacity(0.2))
-                
+
                 // Match frequency
                 let frequency = viewModel.getMatchFrequency()
                 CosmicPatternRow(
@@ -660,12 +660,12 @@ struct MatchAnalyticsView: View {
 struct PatternRow: View {
     /// Title describing what pattern this row analyzes
     var title: String
-    
+
     /// The pattern value or result to display
     var value: String
-    
+
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: dynamicTypeSize.isAccessibilitySize ? 8 : 4) {
             Text(title)
@@ -673,7 +673,7 @@ struct PatternRow: View {
                 .font(.subheadline)
                 .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 2)
                 .fixedSize(horizontal: false, vertical: true)
-            
+
             Text(value)
                 .fontWeight(.medium)
                 .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 2)
@@ -698,18 +698,18 @@ struct CosmicStatCard: View {
     let value: String
     let icon: String
     let color: Color
-    
+
     var body: some View {
         VStack(spacing: 8) {
             Image(systemName: icon)
                 .font(.title2)
                 .foregroundColor(color)
-            
+
             Text(value)
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(.white)
-            
+
             Text(title)
                 .font(.caption)
                 .foregroundColor(.white.opacity(0.7))
@@ -738,25 +738,25 @@ struct CosmicPatternRow: View {
     let value: String
     let icon: String
     let color: Color
-    
+
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.title3)
                 .foregroundColor(color)
                 .frame(width: 24)
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(.subheadline)
                     .foregroundColor(.white.opacity(0.7))
-                
+
                 Text(value)
                     .font(.headline)
                     .fontWeight(.semibold)
                     .foregroundColor(.white)
             }
-            
+
             Spacer()
         }
         .padding(.vertical, 8)
@@ -775,7 +775,7 @@ extension MatchAnalyticsView {
                     .stroke(showRealmNumbers ? Color.purple.opacity(0.5) : Color.white.opacity(0.2), lineWidth: 1)
             )
     }
-    
+
     /// Focus number button background
     var focusNumberButtonBackground: some View {
         RoundedRectangle(cornerRadius: 20)
@@ -785,7 +785,7 @@ extension MatchAnalyticsView {
                     .stroke(showFocusNumbers ? Color.cyan.opacity(0.5) : Color.white.opacity(0.2), lineWidth: 1)
             )
     }
-    
+
     /// Chart controls for toggling series
     var chartControls: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -793,7 +793,7 @@ extension MatchAnalyticsView {
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding(.horizontal)
-            
+
             HStack(spacing: 16) {
                 // Realm Numbers Toggle
                 Button(action: {
@@ -805,7 +805,7 @@ extension MatchAnalyticsView {
                         Circle()
                             .fill(showRealmNumbers ? Color.purple : Color.gray)
                             .frame(width: 12, height: 12)
-                        
+
                         Text("Realm Numbers")
                             .font(.subheadline)
                             .foregroundColor(showRealmNumbers ? .white : .white.opacity(0.6))
@@ -814,7 +814,7 @@ extension MatchAnalyticsView {
                     .padding(.vertical, 8)
                     .background(realmNumberButtonBackground)
                 }
-                
+
                 // Focus Numbers Toggle
                 Button(action: {
                     showFocusNumbers.toggle()
@@ -825,7 +825,7 @@ extension MatchAnalyticsView {
                         Circle()
                             .fill(showFocusNumbers ? Color.cyan : Color.gray)
                             .frame(width: 12, height: 12)
-                        
+
                         Text("Focus Numbers")
                             .font(.subheadline)
                             .foregroundColor(showFocusNumbers ? .white : .white.opacity(0.6))
@@ -834,7 +834,7 @@ extension MatchAnalyticsView {
                     .padding(.vertical, 8)
                     .background(focusNumberButtonBackground)
                 }
-                
+
                 Spacer()
             }
             .padding(.horizontal)
@@ -849,7 +849,7 @@ extension MatchAnalyticsView {
                 )
         )
     }
-    
+
     /// Enhance match data with realm and focus numbers
     func enhanceMatchData(_ matchData: [MatchData]) -> [EnhancedMatchData] {
         return matchData.map { data in
@@ -861,7 +861,7 @@ extension MatchAnalyticsView {
             )
         }
     }
-    
+
     /// Create realm number line mark for chart
     @available(iOS 16.0, *)
     func createRealmLineMark(data: EnhancedMatchData) -> some ChartContent {
@@ -871,7 +871,7 @@ extension MatchAnalyticsView {
         )
         .foregroundStyle(Color.purple)
     }
-    
+
     /// Create focus number line mark for chart
     @available(iOS 16.0, *)
     func createFocusLineMark(data: EnhancedMatchData) -> some ChartContent {
@@ -890,4 +890,4 @@ extension MatchAnalyticsView {
         .environmentObject(FocusNumberManager.shared)
         .environmentObject(RealmNumberManager())
 }
-*/ 
+*/

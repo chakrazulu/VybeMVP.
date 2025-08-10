@@ -1,12 +1,12 @@
 /**
  * Filename: RealmNumberManager.swift
- * 
+ *
  * 🎯 COMPREHENSIVE MANAGER REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
- * 
+ *
  * === CORE PURPOSE ===
  * Generates cosmic realm numbers (1-9) based on environmental factors.
  * This is the mystical heart of the app - creating dynamic numbers for matching.
- * 
+ *
  * === CALCULATION ALGORITHM ===
  * Realm Number = reduceToSingleDigit(Time + Date + Location + BPM + Dynamic)
  * • Time: Hour + Minute (UTC)
@@ -14,7 +14,7 @@
  * • Location: 0 (no location) or 1 (has location)
  * • BPM: Heart rate reduced to single digit
  * • Dynamic: 0 (reserved for future use)
- * 
+ *
  * === KEY FEATURES ===
  * • Real-time updates every 1 minute
  * • Heart rate integration from HealthKit
@@ -22,18 +22,18 @@
  * • Performance caching system
  * • Prediction algorithm for next number
  * • Test mode support with mock data
- * 
+ *
  * === PUBLISHED PROPERTIES ===
  * • currentRealmNumber: The active realm number (1-9)
  * • currentState: Manager operational state
  * • currentBPM: Current heart rate (real or simulated)
- * 
+ *
  * === UPDATE TRIGGERS ===
  * 1. Timer: Every 1 minute (60 seconds)
  * 2. Heart rate change: Throttled to once per minute
  * 3. Location change: 500+ meter movement
  * 4. Manual: calculateRealmNumber() call
- * 
+ *
  * === HEART RATE HANDLING ===
  * Priority order:
  * 1. Forced BPM (testing)
@@ -42,48 +42,48 @@
  * 4. Simulated heart rate
  * 5. Last valid BPM
  * 6. Default: 72 BPM
- * 
+ *
  * === PERFORMANCE OPTIMIZATIONS ===
  * • Calculation throttling: 1 second minimum
  * • Result caching with component matching
  * • Heart rate throttling: 30 second intervals
  * • Location updates: 500m minimum distance
- * 
+ *
  * === MANAGER STATES ===
  * • 🚀 Initializing: Starting up
  * • ✅ Active: Generating numbers
  * • 📍 Waiting for Location: Need GPS
  * • ⏹ Stopped: Not running
- * 
+ *
  * === INTEGRATION POINTS ===
  * • HealthKitManager: Heart rate data
  * • CLLocationManager: GPS coordinates
  * • FocusNumberManager: Match detection
  * • NotificationCenter: Heart rate updates
- * 
+ *
  * === TESTING FEATURES ===
  * • Mock BPM array: [62, 75, 85, 95, 115, 135]
  * • Test date override capability
  * • Isolated test environment detection
  * • Forced BPM parameter support
- * 
+ *
  * === CRITICAL NOTES ===
  * • All calculations use UTC time
  * • Single digit reduction is recursive
  * • Location is binary (0 or 1)
  * • Cache prevents redundant calculations
- * 
- * Purpose: Manages the generation and calculation of realm numbers based on 
+ *
+ * Purpose: Manages the generation and calculation of realm numbers based on
  * multiple environmental factors including time, location, and heart rate.
  *
  * Key responsibilities:
  * - Generate realm numbers (1-9) using a deterministic algorithm
  * - Incorporate heart rate data from HealthKitManager
  * - Utilize location data to enhance number generation
- * - Provide real-time realm number updates 
+ * - Provide real-time realm number updates
  * - Cache calculations for performance optimization
  * - Support testing with mock data
- * 
+ *
  * The RealmNumberManager is a central component of the app, providing the
  * realm numbers that users can match with their chosen focus numbers.
  */
@@ -121,33 +121,33 @@ class RealmNumberManager: NSObject, ObservableObject {
     private enum Constants {
         /// Active app update interval (when app is in foreground)
         static let activeAppUpdateInterval: TimeInterval = 60    // 1 minute for active testing
-        
-        /// Background update interval (when app is backgrounded)  
+
+        /// Background update interval (when app is backgrounded)
         static let backgroundUpdateInterval: TimeInterval = 300  // 5 minutes to conserve battery
-        
+
         /// Same location update interval (when user hasn't moved significantly)
         static let sameLocationUpdateInterval: TimeInterval = 300 // 5 minutes if same location
-        
+
         /// Minimum time between realm number calculations (in seconds)
         static let calculationThrottle: TimeInterval = 55.0   // 55 seconds to prevent spam calculations
-        
+
         /// Minimum distance (in meters) required for location-based updates
         static let locationUpdateDistance: CLLocationDistance = 500  // meters
-        
+
         /// Accuracy level requested from the location manager
         static let locationAccuracy: CLLocationAccuracy = kCLLocationAccuracyHundredMeters
-        
+
         /// Minimum heart rate value used in calculations
         static let minBPM: Int = 62
-        
+
         /// Maximum heart rate value used in calculations
         static let maxBPM: Int = 135
     }
-    
+
     // MARK: - State Management
     /// Current operational state of the manager
     @Published private(set) var currentState: ManagerState = .initializing
-    
+
     /**
      * Represents the possible operational states of the RealmNumberManager.
      *
@@ -157,16 +157,16 @@ class RealmNumberManager: NSObject, ObservableObject {
     enum ManagerState: String {
         /// Manager is starting up and initializing resources
         case initializing = "Starting Up"
-        
+
         /// Manager is actively generating realm numbers
         case active = "Active"
-        
+
         /// Manager is waiting for location data before proceeding
         case waitingForLocation = "Waiting for Location"
-        
+
         /// Manager has been stopped and is not generating numbers
         case stopped = "Stopped"
-        
+
         /// Emoji representation of each state for visual indication
         var emoji: String {
             switch self {
@@ -176,75 +176,75 @@ class RealmNumberManager: NSObject, ObservableObject {
             case .stopped: return "⏹"
             }
         }
-        
+
         /// Human-readable description of the current state
         var description: String {
             return "\(emoji) Realm Manager: \(rawValue)"
         }
     }
-    
+
     // MARK: - Published Properties
     /// The current realm number (1-9) calculated by the manager
     @Published private(set) var currentRealmNumber: Int = 1
-    
+
     /// Detects if code is running in a test environment
     private var isTestEnvironment: Bool {
         return NSClassFromString("XCTest") != nil
     }
-    
+
     /// Self-reference to prevent deallocation during background operations
     private var retainedSelf: RealmNumberManager?
-    
+
     // MARK: - Private Properties
     /// Timer for scheduled realm number updates
     private var timer: Timer?
-    
+
     /// Location manager for geographical data collection
     private var locationManager: CLLocationManager?
-    
+
     /// Most recent device location coordinates
     private var currentLocation: CLLocationCoordinate2D?
-    
+
     /// Flag indicating whether the manager is currently active
     private var isActive: Bool = false
-    
+
     /// Timestamp of the last realm number calculation
     private var lastCalculationTime: Date?
-    
+
     /// Cache for the most recent calculation result to avoid redundant processing
     private var lastCalculationResult: (components: (time: Int, date: Int, location: Int, bpm: Int), result: Int)?
-    
+
     /// Reference to the shared HealthKit manager for heart rate data
     private let healthKitManager = HealthKitManager.shared
-    
+
     /// Subscription for heart rate updates
     private var heartRateSubscription: AnyCancellable?
-    
+
     /// Current heart rate in beats per minute
     @Published private var currentBPM: Int = 0
-    
+
     /// Collection of mock heart rate values for testing
     private let mockBPMs: [Int] = [62, 75, 85, 95, 115, 135]
-    
+
     /// Current index in the mock BPM array
     private var currentMockBPMIndex = 0
-    
+
     /// Current mock heart rate value for testing
     private var mockBPM: Int { mockBPMs[currentMockBPMIndex] }
-    
+
     /// Public accessor for the current mock heart rate (for testing)
     var currentMockBPM: Int { mockBPM }
-    
+
     /// Custom date for testing scenarios
     private var testDate: Date?
-    
+
     // Claude: SMART UPDATE INTERVALS - App state tracking
     /// Whether app is currently in foreground
     private var isAppActive: Bool = true
-    
+
     /// Last known location for same-location detection
     private var lastKnownLocation: CLLocation?
-    
+
     // MARK: - Cache Management
     /**
      * Represents a cached realm number calculation.
@@ -257,43 +257,43 @@ class RealmNumberManager: NSObject, ObservableObject {
     private struct CacheEntry {
         /// Input components used for the calculation
         let components: (time: Int, date: Int, location: Int, bpm: Int)
-        
+
         /// Resulting realm number (1-9)
         let result: Int
-        
+
         /// When this calculation was performed
         let timestamp: Date
     }
-    
+
     /// Cache of previous calculations for performance optimization
     private var calculationCache: [String: CacheEntry] = [:]
-    
+
     /// Predicted next realm number based on pattern analysis
     private var nextPredictedNumber: Int?
-    
+
     // MARK: - Prediction Validation
     /// History of prediction accuracy (true = correct prediction)
     private var predictionAccuracy: [Bool] = [] // Track last 10 predictions
-    
+
     /// Maximum number of predictions to track in history
     private let maxPredictionHistory = 10
-    
+
     /// Collection of Combine cancellables for subscription management
     private var cancellables = Set<AnyCancellable>()
-    
+
     /// Most recent valid heart rate value (non-zero)
     private var lastValidBPM: Int = 0
-    
+
     // Set these additional properties at class level
     /// Flag to track if current heart rate data is from simulation
     private var isUsingSimulatedHeartRate: Bool = true
-    
+
     /// Last heart rate we received from a real device (not simulated)
     private var lastRealHeartRate: Int = 0
-    
+
     // Add timestamp property to track the last heart rate update time
     private var lastHeartRateUpdateTime: Date?
-    
+
     // MARK: - Initialization
     /**
      * Initializes the RealmNumberManager and sets up required components.
@@ -313,7 +313,7 @@ class RealmNumberManager: NSObject, ObservableObject {
         // Retain self after setup
         retainedSelf = self
     }
-    
+
     /**
      * Sets up the location manager and initial realm number calculation.
      *
@@ -335,7 +335,7 @@ class RealmNumberManager: NSObject, ObservableObject {
             self.locationManager?.desiredAccuracy = Constants.locationAccuracy
             self.locationManager?.distanceFilter = Constants.locationUpdateDistance
             self.locationManager?.requestWhenInUseAuthorization()
-            
+
             self.currentState = .waitingForLocation
             print(self.currentState.description)
 
@@ -343,7 +343,7 @@ class RealmNumberManager: NSObject, ObservableObject {
             self.calculateRealmNumber()
         }
     }
-    
+
     /**
      * Sets up observers for heart rate data from HealthKitManager.
      *
@@ -361,15 +361,15 @@ class RealmNumberManager: NSObject, ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] heartRate in
                 guard let self = self else { return }
-                
+
                 // Only log significant changes
                 let shouldLog = self.currentBPM != heartRate
                 if shouldLog {
                     print("💓 Received heart rate update via Combine: \(heartRate) BPM")
                 }
-                
+
                 self.currentBPM = heartRate
-                
+
                 // Only calculate if we have a valid heart rate and sufficient time has passed
                 if heartRate > 0 {
                     // Check if we need to recalculate based on time since last update
@@ -385,23 +385,23 @@ class RealmNumberManager: NSObject, ObservableObject {
                 }
             }
             .store(in: &cancellables)
-            
+
         // Also observe heart rate updates through NotificationCenter as backup
         NotificationCenter.default.publisher(for: HealthKitManager.heartRateUpdated)
             .throttle(for: .seconds(30), scheduler: DispatchQueue.main, latest: true)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] notification in
                 guard let self = self else { return }
-                
+
                 if let heartRate = notification.userInfo?["heartRate"] as? Int {
                     // Only log significant changes
                     let shouldLog = self.currentBPM != heartRate
                     if shouldLog {
                         print("💓 Received heart rate update via Notification: \(heartRate) BPM")
                     }
-                    
+
                     self.currentBPM = heartRate
-                    
+
                     // Only calculate if we have a valid heart rate and sufficient time has passed
                     if heartRate > 0 {
                         // Check if we need to recalculate based on time since last update
@@ -418,12 +418,12 @@ class RealmNumberManager: NSObject, ObservableObject {
                 }
             }
             .store(in: &cancellables)
-            
+
         // Initial heart rate check
         let currentHeartRate = healthKitManager.currentHeartRate
         print("💓 Initial heart rate value: \(currentHeartRate) BPM")
         currentBPM = currentHeartRate
-        
+
         // Only calculate if we have a valid heart rate
         if currentHeartRate > 0 {
             calculateRealmNumber()
@@ -436,29 +436,29 @@ class RealmNumberManager: NSObject, ObservableObject {
                 calculateRealmNumber()
             }
         }
-        
+
         // Set initial update time
         lastHeartRateUpdateTime = Date()
     }
-    
+
     // Helper method to determine if we should perform an update based on time
     private func shouldPerformHeartRateUpdate() -> Bool {
         guard let lastUpdate = lastHeartRateUpdateTime else {
             lastHeartRateUpdateTime = Date()
             return true
         }
-        
+
         // Only perform updates once per minute at most
         let timeSinceLastUpdate = Date().timeIntervalSince(lastUpdate)
         let shouldUpdate = timeSinceLastUpdate >= Constants.activeAppUpdateInterval
-        
+
         if shouldUpdate {
             lastHeartRateUpdateTime = Date()
         }
-        
+
         return shouldUpdate
     }
-    
+
     // Claude: SMART UPDATE INTERVALS - App state observation
     private func setupAppStateObserver() {
         // Listen for app becoming active
@@ -470,7 +470,7 @@ class RealmNumberManager: NSObject, ObservableObject {
                 print("📱 App became active - switching to 1-minute updates")
             }
             .store(in: &cancellables)
-        
+
         // Listen for app going to background
         NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)
             .receive(on: DispatchQueue.main)
@@ -481,44 +481,44 @@ class RealmNumberManager: NSObject, ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
+
     private func restartTimerWithOptimalInterval() {
         // Cancel existing timer
         timer?.invalidate()
-        
+
         // Choose interval based on app state and location
         let interval = getOptimalUpdateInterval()
-        
+
         // Restart timer with new interval
         timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
             self?.calculateRealmNumber()
         }
-        
+
         print("⏰ Timer restarted with \(Int(interval/60))-minute interval")
     }
-    
+
     private func getOptimalUpdateInterval() -> TimeInterval {
         // If app is not active, use background interval
         guard isAppActive else {
             return Constants.backgroundUpdateInterval
         }
-        
+
         // If we have location and user hasn't moved much, use same-location interval
-        if let lastLocation = lastKnownLocation, 
+        if let lastLocation = lastKnownLocation,
            let currentLocation = getCurrentLocation(),
            lastLocation.distance(from: currentLocation) < Constants.locationUpdateDistance {
             return Constants.sameLocationUpdateInterval
         }
-        
+
         // Default to active app interval
         return Constants.activeAppUpdateInterval
     }
-    
+
     private func getCurrentLocation() -> CLLocation? {
         // Return current location from location manager if available
         return locationManager?.location
     }
-    
+
     // MARK: - Core Calculation Logic
     /**
      * Calculates the current realm number based on time, location, and heart rate.
@@ -538,7 +538,7 @@ class RealmNumberManager: NSObject, ObservableObject {
             print("🛑 Throttling calculation request - too soon since last calculation")
             return
         }
-        
+
         // If this is a real calculation (not a prediction), validate previous prediction
         if let predicted = nextPredictedNumber {
             // Ensure we're on main thread for UI updates
@@ -548,16 +548,16 @@ class RealmNumberManager: NSObject, ObservableObject {
                 }
                 return
             }
-            
+
             // Get the actual number
             let actualNumber = calculatePredictedNumber(for: Date())
             validatePrediction(predicted, actual: actualNumber)
         }
-        
+
         // Continue with normal calculation
         performCalculation()
     }
-    
+
     /**
      * Performs the actual realm number calculation algorithm.
      *
@@ -578,7 +578,7 @@ class RealmNumberManager: NSObject, ObservableObject {
             }
             return
         }
-        
+
         // Throttle calculations
         if forcedBPM == nil {  // Only throttle normal calculations, not forced ones
             if let lastTime = lastCalculationTime,
@@ -587,18 +587,18 @@ class RealmNumberManager: NSObject, ObservableObject {
             }
         }
         lastCalculationTime = Date()
-        
+
         print("\n🔮 RealmNumberManager - Starting calculation...")
-        
+
         // In test initialization, preserve the initial value of 1 unless forced
         if isTestEnvironment && testDate == nil && forcedBPM == nil && currentRealmNumber == 1 && currentLocation == nil {
             print("🧪 Test environment detected - preserving initial value of 1")
             return
         }
-        
+
         // Determine which heart rate to use - forced, real, last real, or simulated
         var bpmValue: Int
-        
+
         if let forced = forcedBPM {
             // Use forced BPM if provided (for testing)
             bpmValue = forced
@@ -625,7 +625,7 @@ class RealmNumberManager: NSObject, ObservableObject {
             bpmValue = 72 // Average resting heart rate
             print("⚠️ No heart rate history available - using default value: \(bpmValue) BPM")
         }
-        
+
         // Store this as the last valid reading
         if bpmValue > 0 {
             lastValidBPM = bpmValue
@@ -635,19 +635,19 @@ class RealmNumberManager: NSObject, ObservableObject {
         let utcNow = getCurrentUTCDate()
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(identifier: "UTC")!
-        
+
         // Extract components
         let hour = calendar.component(.hour, from: utcNow)
         let minute = calendar.component(.minute, from: utcNow)
         let day = calendar.component(.day, from: utcNow)
         let month = calendar.component(.month, from: utcNow)
-        
+
         // Calculate time sum (hour + minute)
         let timeSum = reduceToSingleDigit(hour + minute)
-        
+
         // Calculate date sum (day + month)
         let dateSum = reduceToSingleDigit(day + month)
-        
+
         // Process location
         var locationSum = 0
         if let location = currentLocation {
@@ -655,18 +655,18 @@ class RealmNumberManager: NSObject, ObservableObject {
                 .replacingOccurrences(of: ".", with: "")
             let lonDegrees = String(format: "%.6f", abs(location.longitude))
                 .replacingOccurrences(of: ".", with: "")
-            
+
             let latSum = reduceToSingleDigit(Int(latDegrees) ?? 0)
             let lonSum = reduceToSingleDigit(Int(lonDegrees) ?? 0)
             locationSum = reduceToSingleDigit(latSum + lonSum)
         }
-        
+
         // Calculate BPM sum
         let bpmSum = reduceToSingleDigit(bpmValue)
-        
+
         // Add a small dynamic factor based on actual BPM variability
         let dynamicFactor = reduceToSingleDigit(bpmValue % 3)
-        
+
         // Check cache for identical components
         if forcedBPM == nil {  // Skip cache for forced BPM calculations
             if let cached = lastCalculationResult,
@@ -678,26 +678,26 @@ class RealmNumberManager: NSObject, ObservableObject {
                 return
             }
         }
-        
+
         // Calculate final number using pure addition
         let totalSum = timeSum + dateSum + locationSum + bpmSum + dynamicFactor
         let finalNumber = reduceToSingleDigit(totalSum)
-        
+
         // Update cache
         lastCalculationResult = ((timeSum, dateSum, locationSum, bpmSum), finalNumber)
-        
+
         let oldNumber = currentRealmNumber
         if finalNumber != oldNumber || testDate != nil {
             currentRealmNumber = finalNumber
             print("🔄 Realm Number changed from \(oldNumber) to \(finalNumber)")
-            
+
             // 🌟 Publish realm number change for VybeMatchManager
             NotificationCenter.default.post(
                 name: NSNotification.Name.realmNumberChanged,
                 object: nil,
                 userInfo: ["realmNumber": finalNumber]
             )
-            
+
             print("\n🔢 Component Breakdown:")
             print("Time: \(hour)h:\(minute)m → \(timeSum)")
             print("Date: \(month)/\(day) → \(dateSum)")
@@ -705,7 +705,7 @@ class RealmNumberManager: NSObject, ObservableObject {
             print("BPM: \(bpmValue) → \(bpmSum)")
             print("Dynamic Factor: \(dynamicFactor)")
             print("Total: \(totalSum) → \(finalNumber)")
-            
+
             if testDate != nil {
                 print("\n🧪 Test Calculation Breakdown:")
                 print("Time Sum (\(hour) + \(minute) = \(hour + minute) → \(timeSum))")
@@ -717,7 +717,7 @@ class RealmNumberManager: NSObject, ObservableObject {
             }
         }
     }
-    
+
     /**
      * Reduces a number to a single digit using numerological principles.
      *
@@ -736,7 +736,7 @@ class RealmNumberManager: NSObject, ObservableObject {
         }
         return num
     }
-    
+
     // MARK: - Test Support
     /**
      * Sets a custom date for testing realm number calculations.
@@ -750,7 +750,7 @@ class RealmNumberManager: NSObject, ObservableObject {
         testDate = date
         calculateRealmNumber()
     }
-    
+
     /**
      * Cycles to the next mock heart rate value for testing.
      *
@@ -767,18 +767,18 @@ class RealmNumberManager: NSObject, ObservableObject {
         currentMockBPMIndex = (currentMockBPMIndex + 1) % mockBPMs.count
         let newBPM = mockBPMs[currentMockBPMIndex]
         print("Mock BPM cycled to: \(newBPM)")
-        
+
         // Force an immediate calculation with the new BPM
         // This ensures the realm number is updated during tests
         let currentMockBPM = mockBPM
-        
+
         // Calculate a new number based on the mock BPM
         performCalculation(forcedBPM: currentMockBPM)
-        
+
         // Log the change
         print("Realm number after BPM cycle: \(currentRealmNumber)")
     }
-    
+
     /**
      * Updates the current location used in realm number calculations.
      *
@@ -792,9 +792,9 @@ class RealmNumberManager: NSObject, ObservableObject {
     func updateLocation(_ location: CLLocation) {
         let oldLocation = currentLocation
         currentLocation = location.coordinate
-        
+
         print("Location updated to: \(location.coordinate.latitude), \(location.coordinate.longitude)")
-        
+
         // During tests, always force a new calculation with a different result
         if isTestEnvironment && testDate == nil {
             // Force a different number for testing
@@ -804,18 +804,18 @@ class RealmNumberManager: NSObject, ObservableObject {
             print("Realm number after location update: \(currentRealmNumber)")
             return
         }
-        
+
         // Normal behavior for non-test environments
-        if testDate != nil || oldLocation == nil || 
+        if testDate != nil || oldLocation == nil ||
            abs(oldLocation!.latitude - location.coordinate.latitude) > 0.001 ||
            abs(oldLocation!.longitude - location.coordinate.longitude) > 0.001 {
-            
+
             // Force an immediate calculation with the new location
             performCalculation()
             print("Realm number after location update: \(currentRealmNumber)")
         }
     }
-    
+
     private func getCurrentUTCDate() -> Date {
         if let testDate = testDate {
             return testDate
@@ -826,22 +826,22 @@ class RealmNumberManager: NSObject, ObservableObject {
         let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: current)
         return calendar.date(from: components) ?? current
     }
-    
+
     /// Starts the update cycle for realm numbers
     public func startUpdates() {
         print("➡️ Entering startUpdates() from external call...")
-        
+
         // Set up heart rate update subscription using Combine
         heartRateSubscription = HealthKitManager.shared.$currentHeartRate
             .sink { [weak self] heartRate in
                 guard let self = self else { return }
-                
+
                 // Check if the data is simulated
                 let isSimulated = HealthKitManager.shared.isHeartRateSimulated
-                
+
                 // Track simulation status
                 self.isUsingSimulatedHeartRate = isSimulated
-                
+
                 // If this is real data, save it
                 if !isSimulated && heartRate > 0 {
                     self.lastRealHeartRate = heartRate
@@ -849,17 +849,17 @@ class RealmNumberManager: NSObject, ObservableObject {
                 } else if isSimulated {
                     print("💓 Received SIMULATED heart rate update via Combine: \(heartRate) BPM")
                 }
-                
+
                 // Update current BPM
                 self.currentBPM = heartRate
-                
+
                 // Trigger calculation if we have a valid heart rate
                 if heartRate > 0 {
                     print("🔄 Triggered realm calculation from heart rate update")
                     self.performCalculation()
                 }
             }
-        
+
         // Register for heart rate update notifications
         NotificationCenter.default.addObserver(
             self,
@@ -867,26 +867,26 @@ class RealmNumberManager: NSObject, ObservableObject {
             name: HealthKitManager.heartRateUpdated,
             object: nil
         )
-        
+
         // Start the update timer
         startTimer()
     }
-    
+
     private func startTimer() {
         guard !isActive else { return }
-        
+
         DispatchQueue.main.async {
             print("\n🚀 Starting RealmNumberManager updates...")
             self.isActive = true
             self.currentState = .active
             print(self.currentState.description)
-            
+
             // Stop existing timer if any
             self.stopTimer()
-            
+
             // Start location updates
             self.locationManager?.startUpdatingLocation()
-            
+
             // Create new timer with adaptive interval
             let interval = self.getOptimalUpdateInterval()
             self.timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
@@ -894,7 +894,7 @@ class RealmNumberManager: NSObject, ObservableObject {
             }
             self.timer?.tolerance = 1.0
             print("⏰ Timer started with \(Int(interval/60))-minute adaptive interval")
-            
+
             // Verify timer creation
             if self.timer != nil {
                 print("✅ Realm timer started successfully")
@@ -906,12 +906,12 @@ class RealmNumberManager: NSObject, ObservableObject {
                     self.startUpdates()
                 }
             }
-            
+
             // Force immediate calculation
             self.calculateRealmNumber()
         }
     }
-    
+
     private func stopTimer() {
         if timer != nil {
             timer?.invalidate()
@@ -919,7 +919,7 @@ class RealmNumberManager: NSObject, ObservableObject {
             print("✅ Realm timer stopped successfully")
         }
     }
-    
+
     public func stopUpdates() {
         print("\n⏹ Stopping RealmNumberManager updates...")
         isActive = false
@@ -927,24 +927,24 @@ class RealmNumberManager: NSObject, ObservableObject {
         print(currentState.description)
         stopTimer()
         locationManager?.stopUpdatingLocation()
-        
+
         // Cancel heart rate subscription
         heartRateSubscription?.cancel()
         heartRateSubscription = nil
-        
+
         // Remove notification observer
         NotificationCenter.default.removeObserver(self, name: HealthKitManager.heartRateUpdated, object: nil)
-        
+
         print("✅ RealmNumberManager stopped successfully")
     }
-    
+
     deinit {
         print("\n🗑 RealmNumberManager deinitializing...")
         stopUpdates()
         retainedSelf = nil
         print("✅ RealmNumberManager cleanup completed")
     }
-    
+
     // Activity level descriptions
     private func getActivityLevelDescription() -> String {
         switch currentMockBPMIndex {
@@ -957,14 +957,14 @@ class RealmNumberManager: NSObject, ObservableObject {
             default: return "Unknown"
         }
     }
-    
+
     private func getLocationDescription() -> String {
         if let location = currentLocation {
             return String(format: "%.4f°, %.4f°", abs(location.latitude), abs(location.longitude))
         }
         return "Waiting for location..."
     }
-    
+
     private func debugLog(hour: Int,
                          minute: Int,
                          timeSum: Int,
@@ -998,39 +998,39 @@ class RealmNumberManager: NSObject, ObservableObject {
         print("   Final Number: \(result)")
         print("🌟 ===============================\n")
     }
-    
+
     private func getReductionSteps(_ number: Int) -> String {
         var num = abs(number)
         var steps: [String] = [String(num)]
-        
+
         while num > 9 {
             let digits = String(num).compactMap { Int(String($0)) }
             let digitStr = digits.map(String.init).joined(separator: "+")
             num = digits.reduce(0, +)
             steps.append("\(digitStr)=\(num)")
         }
-        
+
         return steps.joined(separator: " → ")
     }
-    
+
     // MARK: - Cache Management
     private func updateCache(components: (time: Int, date: Int, location: Int, bpm: Int), result: Int) {
         let cacheKey = "\(components.time)|\(components.date)|\(components.location)|\(components.bpm)"
         calculationCache[cacheKey] = CacheEntry(components: components, result: result, timestamp: Date())
-        
+
         // Predict next number based on patterns
         predictNextNumber()
     }
-    
+
     private func validatePrediction(_ predicted: Int, actual: Int) {
         let wasCorrect = predicted == actual
         predictionAccuracy.append(wasCorrect)
-        
+
         // Keep only last 10 predictions
         if predictionAccuracy.count > maxPredictionHistory {
             predictionAccuracy.removeFirst()
         }
-        
+
         // Log prediction accuracy
         let accuracy = Double(predictionAccuracy.filter { $0 }.count) / Double(predictionAccuracy.count) * 100
         print("\n🔮 Prediction Validation:")
@@ -1039,34 +1039,34 @@ class RealmNumberManager: NSObject, ObservableObject {
         print("   Correct: \(wasCorrect ? "✅" : "❌")")
         print("   Recent Accuracy: \(String(format: "%.1f%%", accuracy))")
     }
-    
+
     private func predictNextNumber() {
         // Calculate the next likely number based on current time and patterns
         let calendar = Calendar.current
         let nextMinute = calendar.date(byAdding: .minute, value: 1, to: Date()) ?? Date()
-        
+
         // Store current state
         let currentComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: nextMinute)
-        
+
         // Pre-calculate the next number
         let prediction = calculatePredictedNumber(for: nextMinute)
         nextPredictedNumber = prediction
-        
+
         print("\n🔮 Next Minute Prediction:")
         print("   Time: \(currentComponents.hour ?? 0):\(currentComponents.minute ?? 0)")
         print("   Predicted Number: \(prediction)")
     }
-    
+
     private func calculatePredictedNumber(for date: Date) -> Int {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(identifier: "UTC")!
-        
+
         let components = calendar.dateComponents([.hour, .minute, .day, .month], from: date)
-        
+
         // Calculate components
         let timeSum = reduceToSingleDigit((components.hour ?? 0) + (components.minute ?? 0))
         let dateSum = reduceToSingleDigit((components.day ?? 1) + (components.month ?? 1))
-        
+
         // Use current location and BPM as they likely won't change in a minute
         var locationSum = 0
         if let location = currentLocation {
@@ -1074,19 +1074,19 @@ class RealmNumberManager: NSObject, ObservableObject {
                 .replacingOccurrences(of: ".", with: "")
             let lonDegrees = String(format: "%.6f", abs(location.longitude))
                 .replacingOccurrences(of: ".", with: "")
-            
+
             let latSum = reduceToSingleDigit(Int(latDegrees) ?? 0)
             let lonSum = reduceToSingleDigit(Int(lonDegrees) ?? 0)
             locationSum = reduceToSingleDigit(latSum + lonSum)
         }
-        
+
         let bpmSum = reduceToSingleDigit(mockBPM)
-        
+
         // Calculate final prediction
         let totalSum = timeSum + dateSum + locationSum + bpmSum
         return reduceToSingleDigit(totalSum)
     }
-    
+
     private func checkCache(components: (time: Int, date: Int, location: Int, bpm: Int)) -> Int? {
         let cacheKey = "\(components.time)|\(components.date)|\(components.location)|\(components.bpm)"
         guard let cached = calculationCache[cacheKey],
@@ -1096,23 +1096,23 @@ class RealmNumberManager: NSObject, ObservableObject {
         }
         return cached.result
     }
-    
+
     // Cleanup old cache entries periodically
     private func cleanupCache() {
         let oldDate = Date().addingTimeInterval(-60) // Remove entries older than 1 minute
         calculationCache = calculationCache.filter { $0.value.timestamp > oldDate }
     }
-    
+
     // Update the handleHeartRateUpdated method to check if the data is simulated
     @objc private func handleHeartRateUpdated(notification: Notification) {
         let userInfo = notification.userInfo
         let isSimulated = userInfo?["isSimulated"] as? Bool ?? true
-        
+
         // Extract heart rate from notification
         if let heartRate = userInfo?["heartRate"] as? Int {
             // Track the source of heart rate data
             isUsingSimulatedHeartRate = isSimulated
-            
+
             // If this is real data, save it
             if !isSimulated && heartRate > 0 {
                 lastRealHeartRate = heartRate
@@ -1120,10 +1120,10 @@ class RealmNumberManager: NSObject, ObservableObject {
             } else if isSimulated {
                 print("💓 Received SIMULATED heart rate update via Notification: \(heartRate) BPM")
             }
-            
+
             // Update current BPM
             currentBPM = heartRate
-            
+
             // Only trigger calculation if sufficient time has passed
             if shouldPerformHeartRateUpdate() {
                 print("🔄 Triggered realm calculation from notification")
@@ -1133,7 +1133,7 @@ class RealmNumberManager: NSObject, ObservableObject {
             }
         }
     }
-    
+
     // Look for this method in RealmNumberManager that handles heart rate data
     private func getHeartRateForCalculation() -> Int {
         // Use the heart rate manager's last valid BPM if available
@@ -1145,7 +1145,7 @@ class RealmNumberManager: NSObject, ObservableObject {
             }
             return healthKitManager.lastValidBPM
         }
-        
+
         // Force one final attempt to get real heart rate data if available
         // Claude: MEMORY LEAK FIX - Added [weak self] to prevent retain cycle
         Task { [weak self] in
@@ -1154,7 +1154,7 @@ class RealmNumberManager: NSObject, ObservableObject {
             _ = await self.healthKitManager.forceHeartRateUpdate()
             // Note: This will be available for the next calculation
         }
-        
+
         // Fallback: If no heart rate is available, use a reasonable resting heart rate
         // as a placeholder until real data is available
         print("⚠️ No heart rate history available - using default value: 72 BPM")
@@ -1188,28 +1188,28 @@ extension RealmNumberManager: CLLocationManagerDelegate {
      */
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last?.coordinate else { return }
-        
+
         if let current = currentLocation {
             let oldLocation = CLLocation(latitude: current.latitude, longitude: current.longitude)
             let newLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
-            
+
             guard oldLocation.distance(from: newLocation) > Constants.locationUpdateDistance else { return }
         }
-        
+
         // Update current and last known location
         currentLocation = location
         lastKnownLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
-        
+
         if currentState != .active {
             currentState = .active
             print(currentState.description)
         }
-        
+
         // Consider restarting timer with new optimal interval if location changed significantly
         restartTimerWithOptimalInterval()
         calculateRealmNumber()
     }
-    
+
     /**
      * Called when location services encounters an error.
      *
@@ -1225,18 +1225,18 @@ extension RealmNumberManager: CLLocationManagerDelegate {
         if let error = error as? CLError, error.code == .denied {
             // Instead of stopping updates completely, just note that location is unavailable
             print("⚠️ Location access denied - continuing with limited functionality")
-            
+
             // Set state to active but note the limitation
             if currentState != .active {
                 currentState = .active
                 print("\(currentState.description) (without location data)")
             }
-            
+
             // Stop location updates to save battery, but keep timer running
             locationManager?.stopUpdatingLocation()
-            
+
             // Continue with calculations (will use default location factor)
             calculateRealmNumber()
         }
     }
-} 
+}

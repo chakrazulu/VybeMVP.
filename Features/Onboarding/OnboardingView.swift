@@ -73,14 +73,14 @@ import SwiftUI
 
 /**
  * MinimalCosmicBackground: Subtle cosmic background for onboarding focus
- * 
+ *
  * Provides a gentle cosmic aesthetic without the intense star field of the main
  * CosmicBackgroundView, allowing users to focus on onboarding content.
  */
 struct MinimalCosmicBackground: View {
     @State private var sparkles: [SparklePoint] = []
     @State private var timer: Timer?
-    
+
     var body: some View {
         ZStack {
             // Subtle gradient background
@@ -95,7 +95,7 @@ struct MinimalCosmicBackground: View {
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
-            
+
             // Minimal sparkle field (only 8 gentle sparkles)
             ForEach(sparkles, id: \.id) { sparkle in
                 Circle()
@@ -113,7 +113,7 @@ struct MinimalCosmicBackground: View {
             timer?.invalidate()
         }
     }
-    
+
     private func initializeSparkles() {
         sparkles = (0..<8).map { _ in
             SparklePoint(
@@ -125,13 +125,13 @@ struct MinimalCosmicBackground: View {
             )
         }
     }
-    
+
     private func startGentleAnimation() {
         timer = Timer.scheduledTimer(withTimeInterval: VybeConstants.onboardingSparkleInterval, repeats: true) { _ in
             for i in sparkles.indices {
                 // Gentle twinkle effect
                 sparkles[i].opacity += sparkles[i].twinkleDirection * 0.01
-                
+
                 if sparkles[i].opacity <= 0.1 || sparkles[i].opacity >= 0.6 {
                     sparkles[i].twinkleDirection *= -1
                 }
@@ -174,7 +174,7 @@ struct OnboardingView: View {
         NavigationView {
             ZStack { // Add ZStack to layer the background
                 MinimalCosmicBackground() // Minimal cosmic background for onboarding focus
-                
+
                 VStack {
                     // Progress Indicator - Only show for non-completion steps
                     if currentStep != .complete {
@@ -263,7 +263,7 @@ struct OnboardingView: View {
 
 struct OnboardingInitialInfoView: View {
     @ObservedObject var viewModel: OnboardingViewModel
-    
+
     // Individual name components for better numerology calculations
     @State private var firstName: String = ""
     @State private var middleName: String = ""
@@ -272,7 +272,7 @@ struct OnboardingInitialInfoView: View {
     @State private var birthTime: Date = Date()
     @State private var includeBirthTime: Bool = false
     @State private var isCalculating: Bool = false
-    
+
     // Date range constraints
     private let dateRange: ClosedRange<Date> = {
         let calendar = Calendar.current
@@ -280,16 +280,16 @@ struct OnboardingInitialInfoView: View {
         let endDate = Date()
         return startDate...endDate
     }()
-    
+
     var body: some View {
         ScrollView {
             VStack(spacing: 30) {
                 // Cosmic Header
                 headerSection
-                
+
                 // Input Fields Section
                 inputFieldsSection
-                
+
                 // Sacred Context Section
                 explanationSection
             }
@@ -309,9 +309,9 @@ struct OnboardingInitialInfoView: View {
         .onChange(of: middleName) { oldValue, newValue in updateFullName() }
         .onChange(of: lastName) { oldValue, newValue in updateFullName() }
     }
-    
+
     // MARK: - View Components
-    
+
     private var headerSection: some View {
         VStack(spacing: 20) {
             // Cosmic icon with animation
@@ -331,14 +331,14 @@ struct OnboardingInitialInfoView: View {
                     .frame(width: 120, height: 120)
                     .scaleEffect(isCalculating ? 1.1 : 1.0)
                     .animation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true), value: isCalculating)
-                
+
                 Image(systemName: "sparkles")
                     .font(.system(size: 50, weight: .light))
                     .foregroundColor(.white)
                     .rotationEffect(.degrees(isCalculating ? 360 : 0))
                     .animation(.linear(duration: 8.0).repeatForever(autoreverses: false), value: isCalculating)
             }
-            
+
             VStack(spacing: 12) {
                 Text("Your Spiritual Blueprint")
                     .font(.largeTitle)
@@ -350,7 +350,7 @@ struct OnboardingInitialInfoView: View {
                             endPoint: .trailing
                         )
                     )
-                
+
                 Text("Enter your sacred details to unlock your cosmic identity")
                     .font(.title3)
                     .foregroundColor(.white.opacity(0.8))
@@ -359,7 +359,7 @@ struct OnboardingInitialInfoView: View {
         }
         .padding(.top, 20)
     }
-    
+
     private var inputFieldsSection: some View {
         VStack(spacing: 25) {
             // Name Input Section
@@ -372,7 +372,7 @@ struct OnboardingInitialInfoView: View {
                         .font(.headline)
                         .foregroundColor(.white)
                 }
-                
+
                 VStack(spacing: 12) {
                     // First Name
                     VStack(alignment: .leading, spacing: 6) {
@@ -381,13 +381,13 @@ struct OnboardingInitialInfoView: View {
                             .foregroundColor(.white.opacity(0.7))
                             .textCase(.uppercase)
                             .tracking(0.5)
-                        
+
                         TextField("Given name", text: $firstName)
                             .textFieldStyle(CosmicTextFieldStyle())
                             .autocapitalization(.words)
                             .disableAutocorrection(true)
                     }
-                    
+
                     // Middle Name (Optional)
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Middle Name (Optional)")
@@ -395,13 +395,13 @@ struct OnboardingInitialInfoView: View {
                             .foregroundColor(.white.opacity(0.7))
                             .textCase(.uppercase)
                             .tracking(0.5)
-                        
+
                         TextField("Middle name", text: $middleName)
                             .textFieldStyle(CosmicTextFieldStyle())
                             .autocapitalization(.words)
                             .disableAutocorrection(true)
                     }
-                    
+
                     // Last Name
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Last Name")
@@ -409,7 +409,7 @@ struct OnboardingInitialInfoView: View {
                             .foregroundColor(.white.opacity(0.7))
                             .textCase(.uppercase)
                             .tracking(0.5)
-                        
+
                         TextField("Family name", text: $lastName)
                             .textFieldStyle(CosmicTextFieldStyle())
                             .autocapitalization(.words)
@@ -417,7 +417,7 @@ struct OnboardingInitialInfoView: View {
                     }
                 }
             }
-            
+
             // Birthdate Input Section
             VStack(alignment: .leading, spacing: 15) {
                 HStack {
@@ -428,7 +428,7 @@ struct OnboardingInitialInfoView: View {
                         .font(.headline)
                         .foregroundColor(.white)
                 }
-                
+
                 VStack(spacing: 12) {
                     DatePicker(
                         "Birth Date",
@@ -446,7 +446,7 @@ struct OnboardingInitialInfoView: View {
                                     .stroke(Color.blue.opacity(0.4), lineWidth: 1)
                             )
                     )
-                    
+
                     // Optional Birth Time Section
                     VStack(spacing: 8) {
                         HStack {
@@ -454,7 +454,7 @@ struct OnboardingInitialInfoView: View {
                                 .font(.caption)
                                 .foregroundColor(.white.opacity(0.8))
                         }
-                        
+
                         if includeBirthTime {
                             DatePicker(
                                 "Birth Time",
@@ -471,7 +471,7 @@ struct OnboardingInitialInfoView: View {
                                             .stroke(Color.indigo.opacity(0.4), lineWidth: 1)
                                     )
                             )
-                            
+
                             Text("Birth time enables deeper astrological insights")
                                 .font(.caption2)
                                 .foregroundColor(.white.opacity(0.6))
@@ -480,7 +480,7 @@ struct OnboardingInitialInfoView: View {
                     }
                 }
             }
-            
+
             // Claude: Phase 11A - Birthplace Input Section
             VStack(alignment: .leading, spacing: 15) {
                 HStack {
@@ -491,7 +491,7 @@ struct OnboardingInitialInfoView: View {
                         .font(.headline)
                         .foregroundColor(.white)
                 }
-                
+
                 VStack(spacing: 12) {
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Birth Location")
@@ -499,13 +499,13 @@ struct OnboardingInitialInfoView: View {
                             .foregroundColor(.white.opacity(0.7))
                             .textCase(.uppercase)
                             .tracking(0.5)
-                        
+
                         TextField("City, State/Province, Country", text: $birthLocation)
                             .textFieldStyle(CosmicTextFieldStyle())
                             .autocapitalization(.words)
                             .disableAutocorrection(false)
                     }
-                    
+
                     Text("Your birthplace enables precise astronomical calculations for personalized cosmic insights")
                         .font(.caption2)
                         .foregroundColor(.white.opacity(0.6))
@@ -532,7 +532,7 @@ struct OnboardingInitialInfoView: View {
         )
         .shadow(color: .purple.opacity(0.3), radius: 15, x: 0, y: 8)
     }
-    
+
     private var explanationSection: some View {
         VStack(spacing: 16) {
             HStack {
@@ -543,7 +543,7 @@ struct OnboardingInitialInfoView: View {
                     .foregroundColor(.white)
                 Spacer()
             }
-            
+
             VStack(alignment: .leading, spacing: 12) {
                 numerologyElement("📊", "Life Path Number", "Your core spiritual identity and life purpose")
                 numerologyElement("♈", "Zodiac Archetype", "Your astrological personality and cosmic role")
@@ -565,7 +565,7 @@ struct OnboardingInitialInfoView: View {
                 )
         )
     }
-    
+
     private func numerologyElement(_ icon: String, _ title: String, _ description: String) -> some View {
         HStack(spacing: 12) {
             Text(icon)
@@ -582,21 +582,21 @@ struct OnboardingInitialInfoView: View {
             Spacer()
         }
     }
-    
+
     // MARK: - Helper Properties & Methods
-    
+
     private var fullName: String {
         let components = [firstName.trimmingCharacters(in: .whitespacesAndNewlines),
                          middleName.trimmingCharacters(in: .whitespacesAndNewlines),
                          lastName.trimmingCharacters(in: .whitespacesAndNewlines)]
         return components.filter { !$0.isEmpty }.joined(separator: " ")
     }
-    
+
     private func updateFullName() {
         // Update the view model's fullNameAtBirth
         viewModel.fullNameAtBirth = fullName
     }
-    
+
     private func parseExistingName() {
         let components = viewModel.fullNameAtBirth.components(separatedBy: " ")
         if components.count >= 2 {
@@ -617,9 +617,9 @@ struct OnboardingInitialInfoView: View {
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
         let dummySignInViewModel = SignInViewModel()
-        dummySignInViewModel.userID = "previewUserID" 
-        
+        dummySignInViewModel.userID = "previewUserID"
+
         return OnboardingView(hasCompletedOnboarding: .constant(false))
             .environmentObject(dummySignInViewModel)
     }
-} 
+}

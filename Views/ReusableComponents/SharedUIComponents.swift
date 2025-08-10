@@ -32,7 +32,7 @@ struct CosmicTextFieldStyle: TextFieldStyle {
 /**
  * NumberButton provides a reusable selectable number button for various features.
  * Used in focus number selection, sightings creation, and other numeric inputs.
- * 
+ *
  * 🎯 PIXEL-PERFECT SPECIFICATIONS:
  * • Button size: 80×80pt circle
  * • Selected scale: 1.1x (88×88pt)
@@ -47,7 +47,7 @@ struct NumberButton: View {
     let number: Int
     let isSelected: Bool
     let action: () -> Void
-    
+
     private var sacredColor: Color {
         switch number {
         case 1: return .red
@@ -62,7 +62,7 @@ struct NumberButton: View {
         default: return .gray
         }
     }
-    
+
     var body: some View {
         Button(action: action) {
             ZStack {
@@ -87,7 +87,7 @@ struct NumberButton: View {
                                 lineWidth: isSelected ? 2 : 1
                             )
                     )
-                
+
                 Text("\(number)")
                     .font(.title2)
                     .fontWeight(.bold)
@@ -119,7 +119,7 @@ struct StatCard: View {
     let value: String
     let icon: String
     let color: Color
-    
+
     var body: some View {
         VStack(spacing: 12) {
             // Icon
@@ -127,14 +127,14 @@ struct StatCard: View {
                 .font(.title2)
                 .foregroundColor(color)
                 .frame(width: 30, height: 30)
-            
+
             // Value
             Text(value)
                 .font(.title3)
                 .fontWeight(.bold)
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
-            
+
             // Title
             Text(title)
                 .font(.caption)
@@ -164,7 +164,7 @@ struct SharedUIComponents_Previews: PreviewProvider {
                 NumberButton(number: 2, isSelected: false) {}
                 NumberButton(number: 3, isSelected: false) {}
             }
-            
+
             HStack {
                 StatCard(title: "Today", value: "5", icon: "calendar", color: .blue)
                 StatCard(title: "This Week", value: "23", icon: "chart.bar", color: .green)
@@ -174,4 +174,4 @@ struct SharedUIComponents_Previews: PreviewProvider {
         .background(Color.black)
         .previewLayout(.sizeThatFits)
     }
-} 
+}

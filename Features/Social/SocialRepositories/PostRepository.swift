@@ -11,18 +11,18 @@ import Combine
 
 /**
  * Claude: Phase 17B - PostRepository Protocol
- * 
+ *
  * PURPOSE:
  * Defines the interface for post data access operations with cache-first strategy.
  * Abstracts Firebase operations behind a clean interface for better testing and cost optimization.
- * 
+ *
  * BENEFITS:
  * - Cache-First Strategy: Reduces Firebase read costs by serving cached data when possible
  * - Testability: Clean interface allows easy mocking for unit tests
  * - Offline Support: Local cache provides data when network unavailable
  * - Cost Optimization: Intelligent caching reduces Firebase API calls significantly
  * - Separation of Concerns: Business logic separated from data access implementation
- * 
+ *
  * CACHE STRATEGY:
  * - Memory Cache: Recent posts kept in memory for instant access
  * - Disk Cache: Posts persisted locally for offline access
@@ -30,49 +30,49 @@ import Combine
  * - Network Fallback: Firebase queries only when cache misses or explicit refresh
  */
 protocol PostRepository {
-    
+
     // MARK: - Published Properties for UI Binding
-    
+
     /// Current posts array for UI binding
     @MainActor var posts: [Post] { get }
-    
+
     /// Loading state for UI feedback
     @MainActor var isLoading: Bool { get }
-    
+
     /// Error messages for user feedback
     @MainActor var errorMessage: String? { get }
-    
+
     /// Publisher for posts changes
     @MainActor var postsPublisher: AnyPublisher<[Post], Never> { get }
-    
+
     /// Publisher for loading state changes
     @MainActor var loadingPublisher: AnyPublisher<Bool, Never> { get }
-    
+
     /// Publisher for error changes
     @MainActor var errorPublisher: AnyPublisher<String?, Never> { get }
-    
+
     /// Publisher for pagination loading state changes
     @MainActor var isPaginatingPublisher: AnyPublisher<Bool, Never> { get }
-    
+
     /// Publisher for more posts availability changes
     @MainActor var hasMorePostsPublisher: AnyPublisher<Bool, Never> { get }
-    
+
     // MARK: - Post Operations
-    
+
     /**
      * Loads posts with cache-first strategy
      * - Parameter forceRefresh: If true, bypasses cache and fetches from Firebase
      * - Returns: Async operation that completes when posts are loaded
      */
     func loadPosts(forceRefresh: Bool) async
-    
+
     /**
      * Creates a new post
      * - Parameter post: The post to create
      * - Returns: Async operation that completes when post is created
      */
     func createPost(_ post: Post) async throws
-    
+
     /**
      * Updates an existing post
      * - Parameters:
@@ -81,64 +81,64 @@ protocol PostRepository {
      * - Returns: Async operation that completes when post is updated
      */
     func updatePost(_ post: Post, newContent: String) async throws
-    
+
     /**
      * Deletes a post
      * - Parameter post: The post to delete
      * - Returns: Async operation that completes when post is deleted
      */
     func deletePost(_ post: Post) async throws
-    
+
     // MARK: - Filtering & Querying
-    
+
     /**
      * Gets posts filtered by type with cache-first approach
      * - Parameter type: The post type to filter by
      * - Returns: Array of filtered posts from cache or Firebase
      */
     func getFilteredPosts(by type: PostType) async -> [Post]
-    
+
     /**
      * Gets resonant posts for a specific user
      * - Parameter user: The user to find resonant posts for
      * - Returns: Array of posts that resonate with the user's cosmic profile
      */
     func getResonantPosts(for user: SocialUser) async -> [Post]
-    
+
     /**
      * Gets recent posts within specified time window
      * - Parameter timeInterval: How far back to look (in seconds)
      * - Returns: Array of recent posts from cache or Firebase
      */
     func getRecentPosts(within timeInterval: TimeInterval) async -> [Post]
-    
+
     // MARK: - Phase 17D: Pagination Operations
-    
+
     /// Loading state for pagination requests
     @MainActor var isPaginating: Bool { get }
-    
+
     /// Indicates if more posts are available for loading
     @MainActor var hasMorePosts: Bool { get }
-    
+
     /**
      * Loads the next page of posts using cursor-based pagination
      * - Returns: Async operation that completes when next page is loaded
      */
     func loadNextPage() async
-    
+
     /**
      * Records user scroll behavior for smart prefetching optimization
      * - Parameter speed: Scroll speed in points per second
      */
     func recordScrollBehavior(speed: Double) async
-    
+
     /**
      * Resets pagination state and starts fresh
      */
     func resetPagination() async
-    
+
     // MARK: - Reaction Operations
-    
+
     /**
      * Adds a reaction to a post with optimistic updates
      * - Parameters:
@@ -154,30 +154,30 @@ protocol PostRepository {
         userDisplayName: String,
         cosmicSignature: CosmicSignature
     ) async throws
-    
+
     // MARK: - Cache Management
-    
+
     /**
      * Clears all cached data and forces fresh fetch
      */
     func clearCache() async
-    
+
     /**
      * Gets cache statistics for debugging and optimization
      * - Returns: Dictionary with cache hit rates, sizes, and performance metrics
      */
     @MainActor
     func getCacheStats() -> [String: Any]
-    
+
     // MARK: - Real-time Updates
-    
+
     /**
      * Starts real-time listener for post updates
      * Combines with cache strategy for optimal performance
      */
     @MainActor
     func startRealtimeUpdates()
-    
+
     /**
      * Stops real-time listener
      */
@@ -187,7 +187,7 @@ protocol PostRepository {
 
 /**
  * Claude: Phase 17B - PostRepositoryError
- * 
+ *
  * Standardized error types for repository operations
  */
 enum PostRepositoryError: LocalizedError {
@@ -198,7 +198,7 @@ enum PostRepositoryError: LocalizedError {
     case permissionDenied
     case rateLimitExceeded
     case invalidData
-    
+
     var errorDescription: String? {
         switch self {
         case .cacheFailure:

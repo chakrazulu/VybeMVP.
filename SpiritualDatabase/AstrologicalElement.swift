@@ -3,10 +3,10 @@ import SwiftData
 
 /**
  * AstrologicalElement - SwiftData Model for KASPER MLX Elemental Training
- * 
+ *
  * Represents the four sacred elements from Elements.json MegaCorpus data
  * Used by KASPER MLX to provide elemental insights for cosmic snapshots
- * 
+ *
  * The four elements form the foundation of astrological understanding:
  * - Fire: Initiative, passion, creativity (Aries, Leo, Sagittarius)
  * - Earth: Practicality, stability, manifestation (Taurus, Virgo, Capricorn)
@@ -17,40 +17,40 @@ import SwiftData
 final class AstrologicalElement {
     // Primary identifier
     @Attribute(.unique) var elementName: String
-    
+
     // Elemental identity
     var glyph: String                   // Element symbol (🔥, 🌍, 💨, 🌊)
     var polarity: String                // Masculine/Yang or Feminine/Yin
     var archetype: String               // The Pioneer's Spark, The Builder's Foundation, etc.
     var color: String                   // Associated color
-    
+
     // Astrological correspondences
     var rulingPlanets: [String]         // Planets associated with this element
     var signOrderNumbers: [Int]         // Sign positions (1,5,9 for Fire, etc.)
     var resonantFocusNumbers: [Int]     // Numerological correspondences
     var jungianTypology: String         // Jung's psychological types
-    
+
     // Signs of this element
     var associatedSigns: [String]       // Zodiac signs of this element
-    
+
     // Spiritual content
     var elementDescription: String      // Comprehensive description of elemental energy
     var keyTraits: [String]            // Core elemental characteristics
     var ritualPrompt: String?          // Suggested spiritual practice
-    
+
     // KASPER MLX training data
     var insightExamples: [String] = []  // Example insights for this element
     var seasonalMeanings: [String: String] = [:] // How element manifests in different seasons
     var planetaryMeanings: [String: String] = [:] // How element affects different planets
-    
+
     // Usage metadata
     var lastKASPERUpdate: Date?
     var mlxTrainingReady: Bool = false
-    
+
     // Timestamps
     var createdAt: Date
     var updatedAt: Date
-    
+
     init(
         elementName: String,
         glyph: String,
@@ -95,41 +95,41 @@ extension AstrologicalElement {
     var isYang: Bool {
         polarity.lowercased().contains("yang") || polarity.lowercased().contains("masculine")
     }
-    
+
     var isYin: Bool {
         !isYang
     }
-    
+
     /// Returns key traits as a comma-separated string
     var keyTraitString: String {
         keyTraits.joined(separator: ", ")
     }
-    
+
     /// Returns associated signs as a comma-separated string
     var signString: String {
         associatedSigns.joined(separator: ", ")
     }
-    
+
     /// Returns ruling planets as a comma-separated string
     var planetString: String {
         rulingPlanets.joined(separator: ", ")
     }
-    
+
     /// Gets a random insight example for KASPER MLX
     var randomInsightExample: String? {
         insightExamples.randomElement()
     }
-    
+
     /// Gets seasonal meaning for this element
     func getSeasonalMeaning(for season: String) -> String? {
         seasonalMeanings[season.lowercased()]
     }
-    
+
     /// Gets planetary meaning for this element with a specific planet
     func getPlanetaryMeaning(for planet: String) -> String? {
         planetaryMeanings[planet.lowercased()]
     }
-    
+
     /// Updates KASPER MLX training data
     func updateTrainingData(
         insights: [String],
@@ -143,17 +143,17 @@ extension AstrologicalElement {
         self.updatedAt = Date()
         self.lastKASPERUpdate = Date()
     }
-    
+
     /// Checks if this element is compatible with another element
     func isCompatible(with otherElement: String) -> ElementCompatibility {
         let other = otherElement.lowercased()
         let current = elementName.lowercased()
-        
+
         // Same element - natural understanding
         if current == other {
             return .natural
         }
-        
+
         // Fire and Air are compatible (Fire needs Air to burn)
         // Earth and Water are compatible (Earth needs Water to grow)
         if (current == "fire" && other == "air") ||
@@ -162,7 +162,7 @@ extension AstrologicalElement {
            (current == "water" && other == "earth") {
             return .supportive
         }
-        
+
         // Fire and Water oppose each other
         // Earth and Air oppose each other
         if (current == "fire" && other == "water") ||
@@ -171,7 +171,7 @@ extension AstrologicalElement {
            (current == "air" && other == "earth") {
             return .challenging
         }
-        
+
         // Fire and Earth, Air and Water - neutral/growth
         return .neutral
     }
@@ -185,7 +185,7 @@ enum ElementCompatibility: String, CaseIterable, Codable {
     case supportive = "Supportive"
     case neutral = "Neutral"
     case challenging = "Challenging"
-    
+
     var description: String {
         switch self {
         case .natural:
@@ -198,7 +198,7 @@ enum ElementCompatibility: String, CaseIterable, Codable {
             return "Opposing elements that create dynamic tension"
         }
     }
-    
+
     var strengthModifier: Double {
         switch self {
         case .natural:

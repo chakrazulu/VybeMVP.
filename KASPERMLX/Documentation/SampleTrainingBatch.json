@@ -11,7 +11,7 @@
   "archetype": "The Diplomat",
   "coreThemes": ["harmony", "balance", "partnership", "cooperation", "sensitivity"],
   "planetaryRuler": "Moon",
-  "astrologicalSign": "Cancer", 
+  "astrologicalSign": "Cancer",
   "element": "Water",
   "insights": [
     {
@@ -36,7 +36,7 @@
       }
     },
     {
-      "id": "insight_2_partnership_002", 
+      "id": "insight_2_partnership_002",
       "number": 2,
       "category": "insight",
       "content": "Two represents partnership — you don't have to go it alone.",
@@ -44,7 +44,7 @@
       "themes": ["partnership", "support", "collaboration", "connection"],
       "astrologicalContext": {
         "planet": "Moon",
-        "sign": "Cancer", 
+        "sign": "Cancer",
         "element": "Water",
         "modality": "Cardinal"
       },
@@ -59,7 +59,7 @@
     {
       "id": "reflection_2_support_001",
       "number": 2,
-      "category": "reflection", 
+      "category": "reflection",
       "content": "Do you allow others to support you as much as you support them?",
       "confidence": 0.89,
       "themes": ["reciprocity", "self_awareness", "balance", "vulnerability"],
@@ -87,7 +87,7 @@
       "astrologicalContext": {
         "planet": "Moon",
         "sign": "Cancer",
-        "element": "Water", 
+        "element": "Water",
         "modality": "Cardinal"
       },
       "metadata": {

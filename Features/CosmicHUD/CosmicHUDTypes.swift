@@ -19,11 +19,11 @@ enum HUDPlanet: String, CaseIterable {
     case uranus = "uranus"
     case neptune = "neptune"
     case pluto = "pluto"
-    
+
     var name: String {
         return rawValue.capitalized
     }
-    
+
     var symbol: String {
         switch self {
         case .sun: return "☉"
@@ -48,11 +48,11 @@ enum HUDAspect: String, CaseIterable {
     case square = "square"
     case sextile = "sextile"
     case quincunx = "quincunx"
-    
+
     var name: String {
         return rawValue.capitalized
     }
-    
+
     var symbol: String {
         switch self {
         case .conjunction: return "☌"
@@ -71,11 +71,11 @@ enum HUDElement: String, CaseIterable {
     case earth = "earth"
     case air = "air"
     case water = "water"
-    
+
     var name: String {
         return rawValue.capitalized
     }
-    
+
     var emoji: String {
         switch self {
         case .fire: return "🔥"
@@ -106,7 +106,7 @@ struct CosmicHUDWidgetAttributes: ActivityAttributes {
         /// Last update timestamp
         var lastUpdate: Date
     }
-    
+
     // Fixed attributes (don't change during the Live Activity)
     // Currently empty - all our data is dynamic
 }
@@ -124,18 +124,18 @@ struct HUDData {
     let element: HUDElement
     let lastCalculated: Date
     let allAspects: [AspectData]
-    
+
     /// Formatted display string for compact HUD
     var compactDisplay: String {
         let ruler = "👑\(rulerNumber)"
         let elem = element.emoji
-        
+
         guard let aspect = dominantAspect else {
             return "\(ruler)   No aspects   \(elem)"
         }
-        
+
         let aspectChain = "\(aspect.planet1.symbol) \(aspect.aspect.symbol) \(aspect.planet2.symbol)"
-        
+
         return "\(ruler)   \(aspectChain)   \(elem)"
     }
 }
@@ -147,7 +147,7 @@ struct AspectData {
     let aspect: HUDAspect
     let orb: Double
     let isApplying: Bool
-    
+
     var description: String {
         return "\(planet1.name) \(aspect.name) \(planet2.name)"
     }
@@ -158,7 +158,7 @@ enum HaloStyle: String, CaseIterable {
     case star = "star"
     case crown = "crown"
     case sparkles = "sparkles"
-    
+
     var symbol: String {
         switch self {
         case .star: return "⭐"
@@ -176,13 +176,13 @@ enum HUDIntent: String, CaseIterable {
     case rulerGraph = "rulerGraph"
     case focusSelector = "focusSelector"
     case cosmicSnapshot = "cosmicSnapshot"
-    
+
     // Alternative case names for backward compatibility
     static var addSighting: HUDIntent { return .sighting }
     static var addJournalEntry: HUDIntent { return .journal }
     static var postStatus: HUDIntent { return .composer }
     static var changeFocusNumber: HUDIntent { return .focusSelector }
-    
+
     var displayName: String {
         switch self {
         case .sighting:
@@ -199,7 +199,7 @@ enum HUDIntent: String, CaseIterable {
             return "Cosmic Snapshot"
         }
     }
-    
+
     var icon: String {
         switch self {
         case .sighting:
@@ -225,7 +225,7 @@ enum InsightType {
     case kasper
     case template
     case wisdom
-    
+
     var displayName: String {
         switch self {
         case .kasper:
@@ -236,7 +236,7 @@ enum InsightType {
             return "Universal Wisdom"
         }
     }
-    
+
     var icon: String {
         switch self {
         case .kasper:

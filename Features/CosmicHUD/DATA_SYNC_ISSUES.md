@@ -4,7 +4,7 @@
 The Cosmic HUD is displaying **placeholder/static data** instead of **live data** from the Vybe app:
 
 - **Ruler Number**: Stuck at 7 (should match focusNumberManager.selectedFocusNumber)
-- **Realm Number**: Stuck at 8 (should match realmNumberManager.currentRealmNumber)  
+- **Realm Number**: Stuck at 8 (should match realmNumberManager.currentRealmNumber)
 - **Aspects**: Using fallback data (should use live SwiftAA calculations)
 
 ## **Root Causes**
@@ -32,12 +32,12 @@ func getCurrentRulerNumber() -> Int {
 private func loadFallbackData() async {
     let fallbackAspect = AspectData(
         planet1: .sun,
-        planet2: .moon, 
+        planet2: .moon,
         aspect: .trine,
         orb: 2.5,
         isApplying: true
     )
-    
+
     currentHUDData = HUDData(
         rulerNumber: getCurrentRulerNumber(), // This might be cached
         dominantAspect: fallbackAspect,       // Static fallback
@@ -64,12 +64,12 @@ class CosmicHUDManager: ObservableObject {
     // Use @EnvironmentObject or shared singletons
     private let realmNumberManager = RealmNumberManager.shared
     private let focusNumberManager = FocusNumberManager.shared
-    
+
     func getCurrentRulerNumber() -> Int {
         // Add real-time observation
         return focusNumberManager.selectedFocusNumber
     }
-    
+
     func getCurrentRealmNumber() -> Int {
         return realmNumberManager.currentRealmNumber ?? 1
     }
@@ -82,7 +82,7 @@ private func calculateCurrentHUDData() async throws -> HUDData {
     // REAL SwiftAA calculations, not fallback
     let aspects = try await calculateMajorAspects()
     let dominantAspect = aspects.first // Strongest by orb
-    
+
     return HUDData(
         rulerNumber: getCurrentRulerNumber(),     // LIVE
         dominantAspect: dominantAspect,          // LIVE
@@ -99,15 +99,15 @@ private func calculateCurrentHUDData() async throws -> HUDData {
 func updateHUD() async {
     // Ensure we're pulling fresh data every time
     await hudManager.refreshHUDData()
-    
+
     let updatedState = CosmicHUDWidgetAttributes.ContentState(
         rulerNumber: hudManager.getCurrentRulerNumber(),     // LIVE
-        realmNumber: hudManager.getCurrentRealmNumber(),     // LIVE  
+        realmNumber: hudManager.getCurrentRealmNumber(),     // LIVE
         aspectDisplay: formatAspectForHUD(hudManager.currentHUDData?.dominantAspect), // LIVE
         element: HUDGlyphMapper.element(for: hudManager.currentHUDData?.element ?? .fire),
         lastUpdate: Date()
     )
-    
+
     await activity.update(.init(state: updatedState, staleDate: nil))
 }
 ```
@@ -156,7 +156,7 @@ func updateHUD() async {
 
 ## **Expected Results**
 - **Ruler Number**: Updates when user changes focus number ✅
-- **Realm Number**: Updates with real-time realm calculations ✅  
+- **Realm Number**: Updates with real-time realm calculations ✅
 - **Aspects**: Live planetary positions from SwiftAA ✅
 - **KASPER Ready**: Perfect data structure for AI integration ✅
 

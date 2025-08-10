@@ -134,7 +134,7 @@ func testPostCreationTime() async {
     let startTime = CFAbsoluteTimeGetCurrent()
     try? await repository.createPost(post)
     let endTime = CFAbsoluteTimeGetCurrent()
-    
+
     let timeMs = (endTime - startTime) * 1000
     XCTAssertLessThan(timeMs, 50.0, "Should be under 50ms")
 }
@@ -167,11 +167,11 @@ func testPostCreationTime() async {
 func testCreatePostAppearsInTimeline() async {
     // Given: I have no posts
     assertRepositoryIsClean(mockRepository)
-    
+
     // When: I create a post
     let post = TestDataFactory.createPost(content: "Test post")
     try? await repository.createPost(post)
-    
+
     // Then: The post appears in my timeline
     XCTAssertEqual(repository.posts.count, 1)
     XCTAssertEqual(repository.posts.first?.content, "Test post")
@@ -202,9 +202,9 @@ func testCreatePostAppearsInTimeline() {
 
 ## 🔄 Migration Strategy
 
-### Phase 1: ✅ **Complete** 
+### Phase 1: ✅ **Complete**
 - [x] Create new test architecture
-- [x] Build shared utilities  
+- [x] Build shared utilities
 - [x] Create example behavior tests
 - [x] Fix async/measure conflicts
 - [x] **434/434 tests passing with 0 failures, 0 warnings**
@@ -261,7 +261,7 @@ func testAsyncOperation() async {
     await waitForAsync {
         try await repository.createPost(post)
     }
-    
+
     XCTAssertEqual(repository.posts.count, 1)
 }
 ```
@@ -270,7 +270,7 @@ func testAsyncOperation() async {
 ```swift
 func testErrorsProvideHelpfulMessages() async {
     mockRepository.shouldThrowError = true
-    
+
     do {
         try await postManager.updatePost(nonExistentPost, newContent: "New")
         XCTFail("Expected error")
@@ -286,7 +286,7 @@ func testErrorsProvideHelpfulMessages() async {
 ```swift
 func testPublisherEmitsUpdates() async {
     let expectation = XCTestExpectation(description: "Publisher emits")
-    
+
     repository.postsPublisher
         .sink { posts in
             if !posts.isEmpty {
@@ -294,7 +294,7 @@ func testPublisherEmitsUpdates() async {
             }
         }
         .store(in: &cancellables)
-    
+
     try? await repository.createPost(testPost)
     await fulfillment(of: [expectation], timeout: 1.0)
 }

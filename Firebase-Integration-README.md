@@ -47,7 +47,7 @@ platform :ios, '15.0'
 
 target 'VybeMVP' do
   use_frameworks!
-  
+
   pod 'FirebaseCore'
   pod 'FirebaseMessaging'
 end
@@ -136,4 +136,4 @@ In `AppDelegate.swift`, uncomment the `FirebaseApp.configure()` line in the `app
 
 - [Firebase Cloud Messaging Documentation](https://firebase.google.com/docs/cloud-messaging)
 - [Setting Up APNs with FCM](https://firebase.google.com/docs/cloud-messaging/ios/certs)
-- [Sending Test FCM Messages](https://firebase.google.com/docs/cloud-messaging/ios/first-message) 
+- [Sending Test FCM Messages](https://firebase.google.com/docs/cloud-messaging/ios/first-message)

@@ -55,24 +55,24 @@ Once your SVGs are added, we need to update the manager to load them:
 
 func loadAndCategorizeMandalaAssets() {
     print("🔮 Loading mandala assets...")
-    
+
     // Get all SVG files from the bundle
     guard let resourcePath = Bundle.main.resourcePath else { return }
-    
+
     do {
         let fileManager = FileManager.default
         let resourceContents = try fileManager.contentsOfDirectory(atPath: resourcePath)
-        
+
         // Filter for SVG files
         let svgFiles = resourceContents.filter { $0.hasSuffix(".svg") }
-        
+
         print("📁 Found \(svgFiles.count) SVG files")
-        
+
         // Analyze and categorize each SVG
         for svgFile in svgFiles {
             let assetName = svgFile.replacingOccurrences(of: ".svg", with: "")
             let trueNumber = analyzeMandalaGeometry(assetName: assetName)
-            
+
             // Create mandala asset
             let mandala = MandalaAsset(
                 assetName: assetName,
@@ -82,19 +82,19 @@ func loadAndCategorizeMandalaAssets() {
                 symmetryAxes: 8,        // Will be calculated
                 hasNestedPatterns: true // Will be detected
             )
-            
+
             // Add to appropriate bucket
             mandalaBuckets[trueNumber]?.append(mandala)
-            
+
             print("✨ Categorized \(assetName) as number \(trueNumber)")
         }
-        
+
         // Log final distribution
         for number in 1...9 {
             let count = mandalaBuckets[number]?.count ?? 0
             print("🔢 Number \(number): \(count) mandalas")
         }
-        
+
     } catch {
         print("❌ Error loading mandala assets: \(error)")
     }
@@ -114,7 +114,7 @@ struct MandalaLayerView: View {
     let rotation: Double
     let scale: CGFloat
     let opacity: Double
-    
+
     var body: some View {
         Image(assetName)  // This will load your SVG
             .resizable()
@@ -179,4 +179,4 @@ If you encounter issues:
 1. Check the Xcode console for error messages
 2. Verify SVG files are in the correct format
 3. Test with a single SVG first before adding all 63
-4. Use the placeholder system while debugging 
+4. Use the placeholder system while debugging

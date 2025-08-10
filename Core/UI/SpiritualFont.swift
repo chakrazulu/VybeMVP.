@@ -12,13 +12,13 @@ import SwiftUI
 /// Based on the 40 transcendent fonts from the Spiritual Typography Manifesto
 /// Each font carries specific vibrational frequencies and mystical purposes
 enum SpiritualFont {
-    
+
     // MARK: - Primary Sacred Fonts (Core 10)
-    
+
     /// Sacred geometry and mathematical harmony - Headers and titles
     case sacredGeometry
     /// Intuitive flow and spiritual journey - Body text and insights
-    case spiritualFlow  
+    case spiritualFlow
     /// Ancient wisdom and mystical knowledge - Quotes and mantras
     case ancientWisdom
     /// Chakra energy and vibrational healing - Chakra labels
@@ -35,9 +35,9 @@ enum SpiritualFont {
     case crystalClarity
     /// Divine connection - Spiritual achievements
     case divineConnection
-    
+
     // MARK: - Font Mapping
-    
+
     /// Maps spiritual font types to actual system fonts
     /// Claude: Using system fonts with spiritual intentionality until custom fonts are loaded
     var font: Font {
@@ -64,9 +64,9 @@ enum SpiritualFont {
             return .custom("SF Pro Display", size: 22).fallback(.title)
         }
     }
-    
+
     // MARK: - Spiritual Properties
-    
+
     /// The spiritual energy frequency of each font
     var spiritualFrequency: Double {
         switch self {
@@ -82,7 +82,7 @@ enum SpiritualFont {
         case .divineConnection: return 963.0    // Pure consciousness
         }
     }
-    
+
     /// The spiritual purpose of each font
     var purpose: String {
         switch self {
@@ -98,7 +98,7 @@ enum SpiritualFont {
         case .divineConnection: return "Direct connection to divine consciousness"
         }
     }
-    
+
     /// The chakra alignment of each font
     var chakraAlignment: ChakraType {
         switch self {
@@ -135,7 +135,7 @@ extension View {
     func spiritualFont(_ font: SpiritualFont) -> some View {
         self.font(font.font)
     }
-    
+
     /// Apply spiritual font with size override while maintaining energy
     func spiritualFont(_ font: SpiritualFont, size: CGFloat) -> some View {
         self.font(font.font).font(.system(size: size))
@@ -147,23 +147,23 @@ extension View {
 /// Claude: Manages the loading and activation of spiritual fonts
 /// Will be expanded when custom fonts are added to the app bundle
 class SpiritualFontManager: ObservableObject {
-    
+
     @Published private(set) var fontsLoaded: Set<String> = []
     @Published private(set) var isLoadingFonts: Bool = false
-    
+
     static let shared = SpiritualFontManager()
     private init() {
         loadSystemFonts()
     }
-    
+
     /// Load available system fonts as spiritual placeholders
     private func loadSystemFonts() {
         isLoadingFonts = true
-        
+
         // Claude: Register system fonts that align with spiritual energy
         let systemFonts = [
             "Optima",
-            "Avenir Next", 
+            "Avenir Next",
             "Times New Roman",
             "Avenir Next Condensed",
             "SF Pro Display",
@@ -172,7 +172,7 @@ class SpiritualFontManager: ObservableObject {
             "Brandon Grotesque",
             "Helvetica Neue"
         ]
-        
+
         DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5) { [weak self] in
             DispatchQueue.main.async {
                 self?.fontsLoaded = Set(systemFonts)
@@ -181,13 +181,13 @@ class SpiritualFontManager: ObservableObject {
             }
         }
     }
-    
+
     /// Check if a spiritual font is available for use
     func isFontAvailable(_ font: SpiritualFont) -> Bool {
         // For now, all fonts are considered available as we're using system fallbacks
         return !isLoadingFonts
     }
-    
+
     /// Get spiritual guidance for font usage
     func getFontGuidance(for font: SpiritualFont) -> String {
         return """
@@ -202,23 +202,23 @@ class SpiritualFontManager: ObservableObject {
 
 /*
  Claude: Spiritual Font Usage Examples
- 
+
  // Header with sacred geometry energy
  Text("Welcome to Your Spiritual Journey")
      .spiritualFont(.sacredGeometry)
- 
+
  // Body text with intuitive flow
  Text("Your cosmic insights await...")
      .spiritualFont(.spiritualFlow)
- 
+
  // Chakra labels with energy activation
  Text("ROOT CHAKRA")
      .spiritualFont(.chakraEnergy)
- 
+
  // Numerological displays with precision
  Text("Life Path: 7")
      .spiritualFont(.numericalPrecision)
- 
+
  // Important spiritual messages
  Text("✨ Spiritual Calibration: Authenticated")
      .spiritualFont(.crystalClarity)

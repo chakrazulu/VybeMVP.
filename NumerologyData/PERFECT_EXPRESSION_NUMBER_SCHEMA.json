@@ -12,21 +12,21 @@
       "lifeLesson": "Learn to express leadership with collaboration. Your expression asks you to voice bold ideas while remaining open to feedback, and to pioneer paths that others can follow.",
       "shadowSignature": "Dominating conversations, dismissive communication, and ego-driven expression. When reactive, Expression 1 steamrolls dialogue or confuses volume with clarity. The remedy is inclusive leadership and collaborative innovation.",
       "planes": {
-        "physical": { 
-          "strength": 7, 
-          "notes": "Dynamic physical expression; benefits from movement-based communication and kinetic learning styles" 
+        "physical": {
+          "strength": 7,
+          "notes": "Dynamic physical expression; benefits from movement-based communication and kinetic learning styles"
         },
-        "mental": { 
-          "strength": 8, 
-          "notes": "Quick, decisive mental processing; excels at executive thinking but needs input diversity" 
+        "mental": {
+          "strength": 8,
+          "notes": "Quick, decisive mental processing; excels at executive thinking but needs input diversity"
         },
-        "emotional": { 
-          "strength": 5, 
-          "notes": "Contained emotional expression; learns to share vulnerability as strength not weakness" 
+        "emotional": {
+          "strength": 5,
+          "notes": "Contained emotional expression; learns to share vulnerability as strength not weakness"
         },
-        "intuitive": { 
-          "strength": 6, 
-          "notes": "Strong gut instincts in communication; clearest when acting on first impressions" 
+        "intuitive": {
+          "strength": 6,
+          "notes": "Strong gut instincts in communication; clearest when acting on first impressions"
         }
       },
       "chartOfInclusion": {
@@ -122,19 +122,19 @@
       },
       "behavioral": {
         "decisionMaking": [
-          { 
-            "text": "Express decisions with clarity and conviction while inviting collaborative input", 
-            "intensity": 0.88, 
-            "triggers": ["leadership moments"], 
-            "supports": ["clear frameworks"], 
-            "challenges": ["consultation resistance"] 
+          {
+            "text": "Express decisions with clarity and conviction while inviting collaborative input",
+            "intensity": 0.88,
+            "triggers": ["leadership moments"],
+            "supports": ["clear frameworks"],
+            "challenges": ["consultation resistance"]
           },
-          { 
-            "text": "Voice your vision first, then actively seek diverse perspectives for refinement", 
-            "intensity": 0.85, 
-            "triggers": ["project launches"], 
-            "supports": ["structured feedback"], 
-            "challenges": ["confirmation bias"] 
+          {
+            "text": "Voice your vision first, then actively seek diverse perspectives for refinement",
+            "intensity": 0.85,
+            "triggers": ["project launches"],
+            "supports": ["structured feedback"],
+            "challenges": ["confirmation bias"]
           },
           { "text": "Communicate decisions with executive summaries: what, why, and first step" },
           { "text": "Express choices through action demonstrations rather than lengthy explanations" },
@@ -148,19 +148,19 @@
           { "text": "Voice commitment by putting skin in the game visibly" }
         ],
         "stressResponse": [
-          { 
-            "text": "Under pressure you may dominate conversation; pause, breathe, invite others to speak first", 
-            "intensity": 0.87, 
-            "triggers": ["conflict", "urgency"], 
-            "supports": ["structured dialogue"], 
-            "challenges": ["verbal steamrolling"] 
+          {
+            "text": "Under pressure you may dominate conversation; pause, breathe, invite others to speak first",
+            "intensity": 0.87,
+            "triggers": ["conflict", "urgency"],
+            "supports": ["structured dialogue"],
+            "challenges": ["verbal steamrolling"]
           },
-          { 
-            "text": "Express stress through movement before verbal processing to avoid harsh delivery", 
-            "intensity": 0.83, 
-            "triggers": ["frustration"], 
-            "supports": ["physical release"], 
-            "challenges": ["explosive expression"] 
+          {
+            "text": "Express stress through movement before verbal processing to avoid harsh delivery",
+            "intensity": 0.83,
+            "triggers": ["frustration"],
+            "supports": ["physical release"],
+            "challenges": ["explosive expression"]
           },
           { "text": "Channel stress into written expression before verbal confrontation" },
           { "text": "Use 'I need a moment' to prevent reactive expression" },
@@ -174,19 +174,19 @@
           { "text": "Articulate requests for support without commanding" }
         ],
         "communication": [
-          { 
-            "text": "Lead conversations with bold vision while creating space for others' voices", 
-            "intensity": 0.85, 
-            "triggers": ["meetings", "presentations"], 
-            "supports": ["facilitation skills"], 
-            "challenges": ["monologuing"] 
+          {
+            "text": "Lead conversations with bold vision while creating space for others' voices",
+            "intensity": 0.85,
+            "triggers": ["meetings", "presentations"],
+            "supports": ["facilitation skills"],
+            "challenges": ["monologuing"]
           },
-          { 
-            "text": "Express original ideas with confidence while remaining open to refinement", 
-            "intensity": 0.82, 
-            "triggers": ["brainstorming"], 
-            "supports": ["structured formats"], 
-            "challenges": ["idea attachment"] 
+          {
+            "text": "Express original ideas with confidence while remaining open to refinement",
+            "intensity": 0.82,
+            "triggers": ["brainstorming"],
+            "supports": ["structured formats"],
+            "challenges": ["idea attachment"]
           },
           { "text": "Articulate complex visions in simple, actionable language" },
           { "text": "Voice disagreement with respect and alternative solutions" },
@@ -200,19 +200,19 @@
           { "text": "Communicate authority through expertise not volume" }
         ],
         "relationships": [
-          { 
-            "text": "Express love through acts of leadership and protection while allowing reciprocal care", 
-            "intensity": 0.80, 
-            "triggers": ["intimacy"], 
-            "supports": ["vulnerability practice"], 
-            "challenges": ["receiving help"] 
+          {
+            "text": "Express love through acts of leadership and protection while allowing reciprocal care",
+            "intensity": 0.80,
+            "triggers": ["intimacy"],
+            "supports": ["vulnerability practice"],
+            "challenges": ["receiving help"]
           },
-          { 
-            "text": "Voice relationship needs directly rather than expecting mind-reading", 
-            "intensity": 0.78, 
-            "triggers": ["unmet needs"], 
-            "supports": ["clear requests"], 
-            "challenges": ["indirect expression"] 
+          {
+            "text": "Voice relationship needs directly rather than expecting mind-reading",
+            "intensity": 0.78,
+            "triggers": ["unmet needs"],
+            "supports": ["clear requests"],
+            "challenges": ["indirect expression"]
           },
           { "text": "Express affection through empowering your partner's dreams" },
           { "text": "Voice appreciation for your partner's unique expression style" },
@@ -226,19 +226,19 @@
           { "text": "Express relationship growth through shared adventures" }
         ],
         "productivity": [
-          { 
-            "text": "Express productivity through pioneering initiatives that create new paradigms", 
-            "intensity": 0.84, 
-            "triggers": ["work planning"], 
-            "supports": ["innovation time"], 
-            "challenges": ["routine tasks"] 
+          {
+            "text": "Express productivity through pioneering initiatives that create new paradigms",
+            "intensity": 0.84,
+            "triggers": ["work planning"],
+            "supports": ["innovation time"],
+            "challenges": ["routine tasks"]
           },
-          { 
-            "text": "Articulate work priorities with bold strokes rather than microdetails", 
-            "intensity": 0.80, 
-            "triggers": ["task management"], 
-            "supports": ["delegation systems"], 
-            "challenges": ["detail overwhelm"] 
+          {
+            "text": "Articulate work priorities with bold strokes rather than microdetails",
+            "intensity": 0.80,
+            "triggers": ["task management"],
+            "supports": ["delegation systems"],
+            "challenges": ["detail overwhelm"]
           },
           { "text": "Voice project vision before diving into execution details" },
           { "text": "Express productivity through rapid prototyping and iteration" },
@@ -252,19 +252,19 @@
           { "text": "Voice completion with clear handoffs and documentation" }
         ],
         "financial": [
-          { 
-            "text": "Express financial goals through bold vision backed by strategic action", 
-            "intensity": 0.82, 
-            "triggers": ["money planning"], 
-            "supports": ["clear targets"], 
-            "challenges": ["conservative thinking"] 
+          {
+            "text": "Express financial goals through bold vision backed by strategic action",
+            "intensity": 0.82,
+            "triggers": ["money planning"],
+            "supports": ["clear targets"],
+            "challenges": ["conservative thinking"]
           },
-          { 
-            "text": "Articulate value proposition with confidence when negotiating rates", 
-            "intensity": 0.78, 
-            "triggers": ["pricing discussions"], 
-            "supports": ["value documentation"], 
-            "challenges": ["undervaluing"] 
+          {
+            "text": "Articulate value proposition with confidence when negotiating rates",
+            "intensity": 0.78,
+            "triggers": ["pricing discussions"],
+            "supports": ["value documentation"],
+            "challenges": ["undervaluing"]
           },
           { "text": "Voice investment strategies that align with pioneering vision" },
           { "text": "Express financial independence through multiple revenue streams" },
@@ -278,19 +278,19 @@
           { "text": "Voice financial leadership through transparent communication" }
         ],
         "creative": [
-          { 
-            "text": "Express creativity through original works that challenge conventions", 
-            "intensity": 0.86, 
-            "triggers": ["creative projects"], 
-            "supports": ["unlimited canvas"], 
-            "challenges": ["derivative work"] 
+          {
+            "text": "Express creativity through original works that challenge conventions",
+            "intensity": 0.86,
+            "triggers": ["creative projects"],
+            "supports": ["unlimited canvas"],
+            "challenges": ["derivative work"]
           },
-          { 
-            "text": "Voice artistic vision with conviction while remaining open to collaboration", 
-            "intensity": 0.82, 
-            "triggers": ["creative partnerships"], 
-            "supports": ["clear roles"], 
-            "challenges": ["creative control"] 
+          {
+            "text": "Voice artistic vision with conviction while remaining open to collaboration",
+            "intensity": 0.82,
+            "triggers": ["creative partnerships"],
+            "supports": ["clear roles"],
+            "challenges": ["creative control"]
           },
           { "text": "Articulate creative breakthroughs through bold experimentation" },
           { "text": "Express artistic voice through signature style development" },
@@ -304,19 +304,19 @@
           { "text": "Articulate creative legacy through teaching and mentorship" }
         ],
         "learning": [
-          { 
-            "text": "Express learning through teaching others while you master new domains", 
-            "intensity": 0.78, 
-            "triggers": ["skill development"], 
-            "supports": ["teach-to-learn"], 
-            "challenges": ["student mindset"] 
+          {
+            "text": "Express learning through teaching others while you master new domains",
+            "intensity": 0.78,
+            "triggers": ["skill development"],
+            "supports": ["teach-to-learn"],
+            "challenges": ["student mindset"]
           },
-          { 
-            "text": "Voice questions that challenge conventional understanding", 
-            "intensity": 0.76, 
-            "triggers": ["classroom settings"], 
-            "supports": ["debate formats"], 
-            "challenges": ["passive reception"] 
+          {
+            "text": "Voice questions that challenge conventional understanding",
+            "intensity": 0.76,
+            "triggers": ["classroom settings"],
+            "supports": ["debate formats"],
+            "challenges": ["passive reception"]
           },
           { "text": "Articulate learning goals through public commitment" },
           { "text": "Express mastery through original synthesis of knowledge" },
@@ -330,19 +330,19 @@
           { "text": "Articulate wisdom through stories not just facts" }
         ],
         "wellness": [
-          { 
-            "text": "Express wellness through active, dynamic practices that energize expression", 
-            "intensity": 0.80, 
-            "triggers": ["health routines"], 
-            "supports": ["movement variety"], 
-            "challenges": ["passive recovery"] 
+          {
+            "text": "Express wellness through active, dynamic practices that energize expression",
+            "intensity": 0.80,
+            "triggers": ["health routines"],
+            "supports": ["movement variety"],
+            "challenges": ["passive recovery"]
           },
-          { 
-            "text": "Voice health needs assertively to medical providers and support systems", 
-            "intensity": 0.76, 
-            "triggers": ["health challenges"], 
-            "supports": ["self-advocacy"], 
-            "challenges": ["minimizing needs"] 
+          {
+            "text": "Voice health needs assertively to medical providers and support systems",
+            "intensity": 0.76,
+            "triggers": ["health challenges"],
+            "supports": ["self-advocacy"],
+            "challenges": ["minimizing needs"]
           },
           { "text": "Articulate wellness goals through measurable challenges" },
           { "text": "Express vitality through adventurous physical pursuits" },
@@ -356,19 +356,19 @@
           { "text": "Articulate mind-body connection through integrated practices" }
         ],
         "spiritual": [
-          { 
-            "text": "Express spirituality through pioneering practices that inspire others' awakening", 
-            "intensity": 0.78, 
-            "triggers": ["spiritual seeking"], 
-            "supports": ["original practices"], 
-            "challenges": ["dogma resistance"] 
+          {
+            "text": "Express spirituality through pioneering practices that inspire others' awakening",
+            "intensity": 0.78,
+            "triggers": ["spiritual seeking"],
+            "supports": ["original practices"],
+            "challenges": ["dogma resistance"]
           },
-          { 
-            "text": "Voice divine connection through personal revelation rather than inherited tradition", 
-            "intensity": 0.76, 
-            "triggers": ["spiritual community"], 
-            "supports": ["direct experience"], 
-            "challenges": ["authority issues"] 
+          {
+            "text": "Voice divine connection through personal revelation rather than inherited tradition",
+            "intensity": 0.76,
+            "triggers": ["spiritual community"],
+            "supports": ["direct experience"],
+            "challenges": ["authority issues"]
           },
           { "text": "Articulate spiritual insights through accessible language" },
           { "text": "Express devotion through spiritual leadership roles" },
@@ -382,19 +382,19 @@
           { "text": "Articulate mystical experiences through creative expression" }
         ],
         "shadow": [
-          { 
-            "text": "When ego inflates expression, return to service-oriented communication", 
-            "intensity": 0.82, 
-            "triggers": ["praise", "success"], 
-            "supports": ["humility practices"], 
-            "challenges": ["superiority complex"] 
+          {
+            "text": "When ego inflates expression, return to service-oriented communication",
+            "intensity": 0.82,
+            "triggers": ["praise", "success"],
+            "supports": ["humility practices"],
+            "challenges": ["superiority complex"]
           },
-          { 
-            "text": "Transform dominating expression into empowering facilitation", 
-            "intensity": 0.78, 
-            "triggers": ["group dynamics"], 
-            "supports": ["listening practices"], 
-            "challenges": ["conversation monopoly"] 
+          {
+            "text": "Transform dominating expression into empowering facilitation",
+            "intensity": 0.78,
+            "triggers": ["group dynamics"],
+            "supports": ["listening practices"],
+            "challenges": ["conversation monopoly"]
           },
           { "text": "Notice when volume replaces substance in expression" },
           { "text": "Catch dismissive patterns and practice curious engagement" },
@@ -408,19 +408,19 @@
           { "text": "Notice when being right matters more than connection" }
         ],
         "transitions": [
-          { 
-            "text": "Express transition courage by publicly declaring new directions", 
-            "intensity": 0.80, 
-            "triggers": ["life changes"], 
-            "supports": ["public accountability"], 
-            "challenges": ["private processing"] 
+          {
+            "text": "Express transition courage by publicly declaring new directions",
+            "intensity": 0.80,
+            "triggers": ["life changes"],
+            "supports": ["public accountability"],
+            "challenges": ["private processing"]
           },
-          { 
-            "text": "Voice transition needs clearly to mobilize support systems", 
-            "intensity": 0.76, 
-            "triggers": ["major shifts"], 
-            "supports": ["direct requests"], 
-            "challenges": ["solo struggling"] 
+          {
+            "text": "Voice transition needs clearly to mobilize support systems",
+            "intensity": 0.76,
+            "triggers": ["major shifts"],
+            "supports": ["direct requests"],
+            "challenges": ["solo struggling"]
           },
           { "text": "Articulate transition vision before all details are clear" },
           { "text": "Express change through bold action rather than tentative steps" },

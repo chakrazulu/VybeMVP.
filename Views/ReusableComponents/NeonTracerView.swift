@@ -49,7 +49,7 @@ struct NeonTracerView: View {
     let path: CGPath  // Changed from @Binding since paths don't change
     let bpm: Double   // Changed from @Binding to regular parameter
     var color: Color = .cyan
-    
+
     // Phase 8I: Primary initializer for number-specific geometric patterns
     /// Creates neon tracer that follows sacred geometry patterns aligned with numerological meanings
     /// Each realm number (1-9) gets its own spiritually-significant geometric pattern
@@ -62,11 +62,11 @@ struct NeonTracerView: View {
         self.path = NumberPatternGenerator.createPattern(for: realmNumber, size: size)
         self.bpm = bpm
         self.color = color
-        
+
         let patternDescription = NumberPatternGenerator.getPatternDescription(for: realmNumber)
         print("🌟 PHASE 8I: NeonTracerView using \(patternDescription) for realm number \(realmNumber)")
     }
-    
+
     // Phase 8H: Legacy initializer for SVG asset-based tracing (backward compatibility)
     init(asset: SacredGeometryAsset, bpm: Double, color: Color = .cyan, size: CGSize = CGSize(width: 320, height: 320)) {
         // Extract the outermost perimeter path from the SVG (not internal geometry)
@@ -80,34 +80,34 @@ struct NeonTracerView: View {
         }()
         self.bpm = bpm
         self.color = color
-        
+
         print("🌟 PHASE 8H: NeonTracerView tracing actual mandala perimeter shape for \(asset.displayName)")
     }
-    
+
     // Original initializer for custom paths (backward compatibility)
     init(path: CGPath, bpm: Double, color: Color = .cyan) {
         self.path = path
         self.bpm = bpm
         self.color = color
     }
-    
+
     // Tail configuration - Restored to original beautiful trail effect
     private let tailCount = 10  // Original beautiful tail effect
     private let tailSpacing: CGFloat = 0.015  // Original spacing for elegant flowing trail
-    
+
     private var animationDuration: Double {
         // Claude: Phase 8I - Restored BPM synchronization for heart rate rhythm
         // Original design: 4-beat cycle duration aligned with heartbeat
         // At 72 BPM this gives ~3.3 seconds per complete pattern - much more engaging!
         60.0 / max(bpm, 40) * 4  // BPM-synchronized rhythm - mystical heart alignment
     }
-    
+
     var body: some View {
         // 🌌 SCROLL-SAFE ANIMATION: Use TimelineView instead of Timer
         TimelineView(.animation) { timeline in
             let elapsed = timeline.date.timeIntervalSince1970
             let progress = CGFloat((elapsed.truncatingRemainder(dividingBy: animationDuration)) / animationDuration)
-            
+
             ZStack {
                 // Create the tail effect with multiple particles
                 ForEach(0..<tailCount, id: \.self) { index in
@@ -117,7 +117,7 @@ struct NeonTracerView: View {
                     let particleOpacity = 1.0 - (indexDouble / (tailCountDouble * 1.2))
                     let particleSize = 16 - CGFloat(index) * 1.2
                     let particleGlow = index == 0 ? 1.0 : 0.5
-                    
+
                     TracerParticle(
                         path: path,
                         progress: particleProgress,
@@ -147,9 +147,9 @@ struct TracerParticle: View {
     let opacity: Double
     let size: CGFloat
     let glowIntensity: Double
-    
+
     @State private var position: CGPoint = .zero
-    
+
     var body: some View {
         ZStack {
             // Core particle
@@ -167,7 +167,7 @@ struct TracerParticle: View {
                     )
                 )
                 .frame(width: size, height: size)
-            
+
             // Inner bright core (only for lead particle)
             if glowIntensity > 0.8 {
                 Circle()
@@ -185,16 +185,16 @@ struct TracerParticle: View {
              updatePosition()
          }
     }
-    
+
     private func updatePosition() {
         // Ensure progress wraps around properly
         let normalizedProgress = progress.truncatingRemainder(dividingBy: 1.0)
         let clampedProgress = normalizedProgress < 0 ? normalizedProgress + 1.0 : normalizedProgress
-        
+
         // Use PathTracer to find position along path
         let tracer = PathTracer(path: path)
         let newPosition = tracer.pointAtProgress(clampedProgress)
-        
+
         position = newPosition
     }
 }
@@ -205,23 +205,23 @@ private class PathTracer {
     let path: CGPath
     private var pathLength: CGFloat = 0
     private var segments: [(start: CGPoint, end: CGPoint, length: CGFloat)] = []
-    
+
     init(path: CGPath) {
         self.path = path
         calculateSegments()
     }
-    
+
     private func calculateSegments() {
         var currentPoint = CGPoint.zero
         var totalLength: CGFloat = 0
-        
+
         path.applyWithBlock { element in
             let points = element.pointee.points
-            
+
             switch element.pointee.type {
             case .moveToPoint:
                 currentPoint = points[0]
-                
+
             case .addLineToPoint:
                 let start = currentPoint
                 let end = points[0]
@@ -229,7 +229,7 @@ private class PathTracer {
                 segments.append((start: start, end: end, length: length))
                 totalLength += length
                 currentPoint = end
-                
+
             case .addCurveToPoint:
                 // Approximate curve with line for simplicity
                 let start = currentPoint
@@ -238,7 +238,7 @@ private class PathTracer {
                 segments.append((start: start, end: end, length: length))
                 totalLength += length
                 currentPoint = end
-                
+
             case .closeSubpath:
                 // Close the path if needed
                 if !segments.isEmpty {
@@ -249,21 +249,21 @@ private class PathTracer {
                         totalLength += length
                     }
                 }
-                
+
             default:
                 break
             }
         }
-        
+
         pathLength = totalLength
     }
-    
+
     func pointAtProgress(_ progress: CGFloat) -> CGPoint {
         guard !segments.isEmpty && pathLength > 0 else { return .zero }
-        
+
         let targetLength = pathLength * progress
         var accumulatedLength: CGFloat = 0
-        
+
         for segment in segments {
             if accumulatedLength + segment.length >= targetLength {
                 let segmentProgress = (targetLength - accumulatedLength) / segment.length
@@ -271,17 +271,17 @@ private class PathTracer {
             }
             accumulatedLength += segment.length
         }
-        
+
         // Return last point if we've exceeded the path
         return segments.last?.end ?? .zero
     }
-    
+
     private func distance(from: CGPoint, to: CGPoint) -> CGFloat {
         let dx = to.x - from.x
         let dy = to.y - from.y
         return sqrt(dx * dx + dy * dy)
     }
-    
+
     private func interpolate(from: CGPoint, to: CGPoint, progress: CGFloat) -> CGPoint {
         CGPoint(
             x: from.x + (to.x - from.x) * progress,
@@ -295,7 +295,7 @@ struct NeonTracerView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.black
-            
+
             // Sample hexagon path for preview
             NeonTracerView(
                 path: createHexagonPath(),
@@ -306,19 +306,19 @@ struct NeonTracerView_Previews: PreviewProvider {
         .frame(width: 300, height: 300)
         .previewLayout(.sizeThatFits)
     }
-    
+
     static func createHexagonPath() -> CGPath {
         let path = CGMutablePath()
         let center = CGPoint(x: 150, y: 150)
         let radius: CGFloat = 80
-        
+
         for i in 0..<6 {
             let angle = CGFloat(i) * .pi / 3 - .pi / 2
             let point = CGPoint(
                 x: center.x + radius * cos(angle),
                 y: center.y + radius * sin(angle)
             )
-            
+
             if i == 0 {
                 path.move(to: point)
             } else {
@@ -326,7 +326,7 @@ struct NeonTracerView_Previews: PreviewProvider {
             }
         }
         path.closeSubpath()
-        
+
         return path
     }
-} 
+}

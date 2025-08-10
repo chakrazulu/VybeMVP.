@@ -14,46 +14,46 @@ import Combine
  */
 class CommentManager: ObservableObject {
     static let shared = CommentManager()
-    
+
     @Published var commentsByPost: [String: [Comment]] = [:] // postId -> comments
     @Published var isLoading = false
     @Published var errorMessage: String?
-    
+
     private let db = Firestore.firestore()
     private var commentListeners: [String: ListenerRegistration] = [:] // postId -> listener
     private var cancellables = Set<AnyCancellable>()
-    
+
     // Track optimistic comment updates
     private var optimisticComments: [String: Comment] = [:] // tempId -> comment
-    
+
     private init() {}
-    
+
     deinit {
         commentListeners.values.forEach { $0.remove() }
     }
-    
+
     // MARK: - Real-time Listeners
-    
+
     /**
      * Sets up real-time listener for comments on a specific post
      */
     func startListeningToComments(for postId: String) {
         // Skip if already listening
         if commentListeners[postId] != nil { return }
-        
+
         let listener = db.collection("comments")
             .whereField("postId", isEqualTo: postId)
             .order(by: "timestamp", descending: false)
             .addSnapshotListener { [weak self] snapshot, error in
                 guard let self = self else { return }
-                
+
                 if let error = error {
                     print("❌ Failed to listen to comments for post \(postId): \(error.localizedDescription)")
                     return
                 }
-                
+
                 guard let documents = snapshot?.documents else { return }
-                
+
                 let comments = documents.compactMap { document -> Comment? in
                     do {
                         var comment = try document.data(as: Comment.self)
@@ -64,16 +64,16 @@ class CommentManager: ObservableObject {
                         return nil
                     }
                 }
-                
+
                 DispatchQueue.main.async {
                     self.commentsByPost[postId] = comments
                     print("🔄 Loaded \(comments.count) comments for post \(postId)")
                 }
             }
-        
+
         commentListeners[postId] = listener
     }
-    
+
     /**
      * Stops listening to comments for a specific post
      */
@@ -82,9 +82,9 @@ class CommentManager: ObservableObject {
         commentListeners.removeValue(forKey: postId)
         commentsByPost.removeValue(forKey: postId)
     }
-    
+
     // MARK: - Comment Operations
-    
+
     /**
      * Adds a new comment to a post with optimistic update
      */
@@ -97,7 +97,7 @@ class CommentManager: ObservableObject {
         parentCommentId: String? = nil
     ) {
         let tempId = UUID().uuidString
-        
+
         // Create comment
         let comment = Comment(
             postId: postId,
@@ -107,11 +107,11 @@ class CommentManager: ObservableObject {
             parentCommentId: parentCommentId,
             cosmicSignature: cosmicSignature
         )
-        
+
         // Apply optimistic update
         var optimisticComment = comment
         optimisticComment.id = tempId
-        
+
         DispatchQueue.main.async {
             if self.commentsByPost[postId] == nil {
                 self.commentsByPost[postId] = []
@@ -120,7 +120,7 @@ class CommentManager: ObservableObject {
             self.optimisticComments[tempId] = optimisticComment
             print("⚡ Optimistic comment added to post \(postId)")
         }
-        
+
         // Save to Firebase
         do {
             _ = try db.collection("comments").addDocument(from: comment) { [weak self] error in
@@ -134,10 +134,10 @@ class CommentManager: ObservableObject {
                     print("❌ Failed to save comment: \(error.localizedDescription)")
                 } else {
                     print("✅ Comment saved successfully")
-                    
+
                     // Update post comment count
                     self?.updatePostCommentCount(postId: postId, increment: true)
-                    
+
                     // Update parent comment reply count if this is a reply
                     if let parentId = parentCommentId {
                         self?.updateCommentReplyCount(commentId: parentId, increment: true)
@@ -152,7 +152,7 @@ class CommentManager: ObservableObject {
             }
         }
     }
-    
+
     /**
      * Deletes a comment (soft delete - marks as deleted)
      */
@@ -161,9 +161,9 @@ class CommentManager: ObservableObject {
             errorMessage = "You can only delete your own comments"
             return
         }
-        
+
         guard let commentId = comment.id else { return }
-        
+
         db.collection("comments").document(commentId).updateData([
             "isDeleted": true,
             "content": "[deleted]"
@@ -177,7 +177,7 @@ class CommentManager: ObservableObject {
             }
         }
     }
-    
+
     /**
      * Edits a comment
      */
@@ -186,9 +186,9 @@ class CommentManager: ObservableObject {
             errorMessage = "You can only edit your own comments"
             return
         }
-        
+
         guard let commentId = comment.id else { return }
-        
+
         db.collection("comments").document(commentId).updateData([
             "content": newContent,
             "isEdited": true,
@@ -203,9 +203,9 @@ class CommentManager: ObservableObject {
             }
         }
     }
-    
+
     // MARK: - Helper Methods
-    
+
     /**
      * Updates the comment count on a post
      */
@@ -219,7 +219,7 @@ class CommentManager: ObservableObject {
             }
         }
     }
-    
+
     /**
      * Updates the reply count on a parent comment
      */
@@ -233,17 +233,17 @@ class CommentManager: ObservableObject {
             }
         }
     }
-    
+
     /**
      * Gets comment threads for a post (groups replies under parent comments)
      */
     func getCommentThreads(for postId: String) -> [CommentThread] {
         guard let comments = commentsByPost[postId] else { return [] }
-        
+
         // Separate parent comments and replies
         let parentComments = comments.filter { $0.parentCommentId == nil }
         let replies = comments.filter { $0.parentCommentId != nil }
-        
+
         // Group replies by parent
         var replyMap: [String: [Comment]] = [:]
         for reply in replies {
@@ -251,7 +251,7 @@ class CommentManager: ObservableObject {
                 replyMap[parentId, default: []].append(reply)
             }
         }
-        
+
         // Create threads
         return parentComments.map { parent in
             CommentThread(
@@ -260,4 +260,4 @@ class CommentManager: ObservableObject {
             )
         }
     }
-} 
+}

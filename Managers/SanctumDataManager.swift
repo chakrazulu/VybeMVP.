@@ -2,10 +2,10 @@
  * ========================================
  * 🔮 SANCTUM DATA MANAGER
  * ========================================
- * 
+ *
  * SPIRITUAL PURPOSE:
  * Centralized service for all spiritual data access within the Sanctum.
- * Provides MegaCorpus integration, numerological calculations, and 
+ * Provides MegaCorpus integration, numerological calculations, and
  * astrological insights while maintaining the sacred integrity of the data.
  *
  * SOLVES SCOPE ISSUES:
@@ -28,40 +28,40 @@ import Combine
 /// Claude: Centralized manager for all Sanctum spiritual data access
 @MainActor
 final class SanctumDataManager: ObservableObject {
-    
+
     // MARK: - Singleton
     static let shared = SanctumDataManager()
-    
+
     // MARK: - Published Properties
     @Published private(set) var megaCorpusData: [String: Any] = [:]
     @Published private(set) var isDataLoaded: Bool = false
     @Published private(set) var lastLoadError: String?
-    
+
     // MARK: - Private Properties
     private var dataLoadingTask: Task<Void, Never>?
     private let dataQueue = DispatchQueue(label: "com.vybe.sanctum.data", qos: .userInitiated)
-    
+
     // MARK: - Initialization
     private init() {
         loadMegaCorpusData()
     }
-    
+
     // MARK: - 📚 MegaCorpus Data Loading
-    
+
     /// Claude: Load all MegaCorpus spiritual data files
     /// Provides centralized loading with caching and error handling
     func loadMegaCorpusData() {
         guard !isDataLoaded else { return }
-        
+
         dataLoadingTask = Task { @MainActor in
             let fileNames = [
-                "Signs", "Planets", "Houses", "Aspects", "Elements", 
+                "Signs", "Planets", "Houses", "Aspects", "Elements",
                 "Modes", "MoonPhases", "ApparentMotion", "Numerology"
             ]
-            
+
             var loadedData: [String: Any] = [:]
             var hasErrors = false
-            
+
             for fileName in fileNames {
                 do {
                     let data = try await loadSingleMegaCorpusFile(fileName)
@@ -71,15 +71,15 @@ final class SanctumDataManager: ObservableObject {
                     hasErrors = true
                 }
             }
-            
+
             self.megaCorpusData = loadedData
             self.isDataLoaded = !loadedData.isEmpty
             self.lastLoadError = hasErrors ? "Some MegaCorpus files failed to load" : nil
-            
+
             print("🔮 SanctumDataManager: Loaded \(loadedData.count)/\(fileNames.count) MegaCorpus files")
         }
     }
-    
+
     /// Claude: Load a single MegaCorpus JSON file with multiple path fallbacks
     private func loadSingleMegaCorpusFile(_ fileName: String) async throws -> [String: Any] {
         let possiblePaths = [
@@ -88,7 +88,7 @@ final class SanctumDataManager: ObservableObject {
             Bundle.main.path(forResource: "MegaCorpus/\(fileName)", ofType: "json"),
             "/Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP/NumerologyData/MegaCorpus/\(fileName).json"
         ]
-        
+
         for path in possiblePaths.compactMap({ $0 }) {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path))
@@ -99,18 +99,18 @@ final class SanctumDataManager: ObservableObject {
                 continue // Try next path
             }
         }
-        
+
         throw SanctumDataError.fileNotFound(fileName)
     }
-    
+
     // MARK: - 🔮 Numerology Services
-    
+
     /// Claude: Generate life path description using MegaCorpus data or meaningful fallback
     func getLifePathDescription(for number: Int, isMaster: Bool) -> String {
         guard let numerology = megaCorpusData["numerology"] as? [String: Any] else {
             return generateNumerologyFallback(for: number, isMaster: isMaster, type: "Life Path")
         }
-        
+
         if isMaster {
             if let masterNumbers = numerology["masterNumbers"] as? [String: Any],
                let masterData = masterNumbers[String(number)] as? [String: Any],
@@ -125,22 +125,22 @@ final class SanctumDataManager: ObservableObject {
                 return archetype
             }
         }
-        
+
         return generateNumerologyFallback(for: number, isMaster: isMaster, type: "Life Path")
     }
-    
+
     /// Claude: Generate soul urge description using MegaCorpus data or meaningful fallback
     func getSoulUrgeDescription(for number: Int, isMaster: Bool) -> String {
         // TODO: Implement when you're ready to add real soul urge content
         return generateNumerologyFallback(for: number, isMaster: isMaster, type: "Soul Urge")
     }
-    
+
     /// Claude: Generate expression description using MegaCorpus data or meaningful fallback
     func getExpressionDescription(for number: Int, isMaster: Bool) -> String {
         // TODO: Implement when you're ready to add real expression content
         return generateNumerologyFallback(for: number, isMaster: isMaster, type: "Expression")
     }
-    
+
     /// Claude: Generate meaningful fallback content for Divine Triangle
     private func generateNumerologyFallback(for number: Int, isMaster: Bool, type: String) -> String {
         if isMaster {
@@ -168,7 +168,7 @@ final class SanctumDataManager: ObservableObject {
                 8: "The Executive - Ambitious, authoritative, and here to achieve material success with integrity.",
                 9: "The Humanitarian - Compassionate, generous, and dedicated to serving the greater good."
             ]
-            
+
             if let archetype = archetypes[number] {
                 return "\(type) \(archetype)"
             } else {
@@ -176,9 +176,9 @@ final class SanctumDataManager: ObservableObject {
             }
         }
     }
-    
+
     // MARK: - 🌟 Astrological Services
-    
+
     /// Claude: Get planetary description using MegaCorpus data
     func getPlanetaryDescription(for planet: String) -> String {
         guard let planets = self.megaCorpusData["planets"] as? [String: Any],
@@ -186,33 +186,33 @@ final class SanctumDataManager: ObservableObject {
               let planetData = planetsDict[planet.lowercased()] as? [String: Any] else {
             return "The \(planet.capitalized): A celestial body influencing your spiritual journey."
         }
-        
+
         if let archetype = planetData["archetype"] as? String,
            let description = planetData["description"] as? String {
             return "\(archetype): \(description)"
         } else if let archetype = planetData["archetype"] as? String {
             return archetype
         }
-        
+
         return "The \(planet.capitalized): A celestial guide in your cosmic journey."
     }
-    
+
     /// Claude: Get astrological house description using MegaCorpus data
     func getHouseDescription(for houseNumber: Int) -> String {
         guard let houses = megaCorpusData["houses"] as? [String: Any],
               let housesDict = houses["houses"] as? [String: Any] else {
             return "House \(houseNumber): An area of life experience and growth."
         }
-        
+
         let ordinalNames = ["first", "second", "third", "fourth", "fifth", "sixth",
                            "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth"]
-        
+
         guard houseNumber >= 1 && houseNumber <= 12,
               let houseKey = ordinalNames[safe: houseNumber - 1],
               let houseData = housesDict[houseKey] as? [String: Any] else {
             return "House \(houseNumber): An area of life experience and growth."
         }
-        
+
         if let name = houseData["name"] as? String,
            let description = houseData["description"] as? String {
             return "\(name): \(description)"
@@ -220,10 +220,10 @@ final class SanctumDataManager: ObservableObject {
                   let keyword = houseData["keyword"] as? String {
             return "\(name) - \(keyword)"
         }
-        
+
         return "House \(houseNumber): An area of life experience and growth."
     }
-    
+
     /// Claude: Get zodiac sign description using MegaCorpus data
     func getZodiacSignDescription(for sign: String) -> String {
         guard let signs = self.megaCorpusData["signs"] as? [String: Any],
@@ -231,7 +231,7 @@ final class SanctumDataManager: ObservableObject {
               let signData = signsDict[sign.lowercased()] as? [String: Any] else {
             return "\(sign.capitalized): A zodiac sign with unique qualities and characteristics."
         }
-        
+
         if let name = signData["name"] as? String,
            let description = signData["description"] as? String {
             return "\(name): \(description)"
@@ -239,12 +239,12 @@ final class SanctumDataManager: ObservableObject {
                   let element = signData["element"] as? String {
             return "\(sign.capitalized) - \(keyword) (\(element) Sign)"
         }
-        
+
         return "\(sign.capitalized): A zodiac sign with unique qualities and characteristics."
     }
-    
+
     // MARK: - 🔧 Utility Methods
-    
+
     /// Claude: Force reload MegaCorpus data (useful for testing or data updates)
     func reloadData() {
         isDataLoaded = false
@@ -252,19 +252,19 @@ final class SanctumDataManager: ObservableObject {
         dataLoadingTask?.cancel()
         loadMegaCorpusData()
     }
-    
+
     /// Claude: Check if specific MegaCorpus file is loaded
     func isFileLoaded(_ fileName: String) -> Bool {
         return megaCorpusData[fileName.lowercased()] != nil
     }
-    
+
     /// Claude: Get raw MegaCorpus data for specific file (for advanced usage)
     func getRawData(for fileName: String) -> [String: Any]? {
         return megaCorpusData[fileName.lowercased()] as? [String: Any]
     }
-    
+
     // MARK: - Additional Service Methods
-    
+
     /// Claude: Get sign element for astrological calculations
     func getSignElement(for sign: String) -> String {
         guard let signs = megaCorpusData["signs"] as? [String: Any],
@@ -274,7 +274,7 @@ final class SanctumDataManager: ObservableObject {
         }
         return element
     }
-    
+
     /// Claude: Get planetary archetype for mini descriptions
     func getPlanetaryArchetype(for planet: String) -> String {
         guard let planets = megaCorpusData["planets"] as? [String: Any],
@@ -298,7 +298,7 @@ final class SanctumDataManager: ObservableObject {
         }
         return archetype
     }
-    
+
     /// Claude: Get element description for spiritual insights
     func getElementDescription(for element: String) -> String {
         guard let elements = megaCorpusData["elements"] as? [String: Any],
@@ -315,7 +315,7 @@ final class SanctumDataManager: ObservableObject {
         }
         return description
     }
-    
+
 }
 
 // MARK: - 🚨 Error Types
@@ -324,7 +324,7 @@ enum SanctumDataError: LocalizedError {
     case fileNotFound(String)
     case invalidData(String)
     case loadingFailed(String)
-    
+
     var errorDescription: String? {
         switch self {
         case .fileNotFound(let fileName):
@@ -336,4 +336,3 @@ enum SanctumDataError: LocalizedError {
         }
     }
 }
-

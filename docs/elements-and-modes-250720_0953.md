@@ -8,7 +8,7 @@
 
 **Archetype:** The Pioneer’s Spark
 
-**Ruling Planets:** Aries→Mars · Leo→Sun · Sagittarius→Jupiter 
+**Ruling Planets:** Aries→Mars · Leo→Sun · Sagittarius→Jupiter
 
 **Sign Order Numbers:** 1 (Aries), 5 (Leo), 9 (Sagittarius)
 
@@ -131,7 +131,7 @@
 
 **Resonant Realm Numbers:** 1, 4, 7, (10→1)
 
-> 
+>
 >
 > Cardinal sparks new cycles. It initiates change, rallies intention into action, and leads with visionary drive.
 
@@ -169,15 +169,15 @@
 
 > **Vybe Prompts per Mode:**
 
-- 
+-
 
 > **Cardinal:** “Today marks your starting line—take that inaugural leap and watch the universe rise to meet you.”
 
-- 
+-
 
 > **Fixed:** “Root yourself in your purpose—steady persistence now yields the abundant rewards you seek.”
 
-- 
+-
 
 >
 
@@ -188,7 +188,7 @@
 
 - **Modes:** Cardinal = Gold | Fixed = Copper | Mutable = Silver
 
-- **Drop-in Points:** Use these as detail pages in your “Learn” tab, or pipeline into KASPER for daily insight generation. 
+- **Drop-in Points:** Use these as detail pages in your “Learn” tab, or pipeline into KASPER for daily insight generation.
 
     - Use **Sign-Order Numbers** both in UI (e.g. “♈︎ 1st House”) and in your numerology engine to link Focus/Realm numbers.
 
@@ -238,9 +238,9 @@ Fire:
   ritual_prompt: "Write down one bold intention …"
 ```
 
-1. 
+1.
 
-    - 
+    -
 
     - That way, the Milanote layout directly informs your data model.
 
@@ -448,7 +448,7 @@ Overall, this format is **highly effective** for mapping out every field you nee
 
   }
 
-}  
+}
 
 **How to use**
 

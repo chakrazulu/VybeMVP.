@@ -4,11 +4,11 @@ import SwiftUI
 
 // MARK: - Cosmic HUD App Intents
 /// Claude: Spiritual shortcuts that make Vybe accessible from anywhere
-/// 
+///
 /// REVOLUTIONARY UX CONCEPT:
 /// Hold the Dynamic Island to see system shortcuts for instant spiritual actions.
 /// No need to open the app - cosmic guidance is always one touch away.
-/// 
+///
 /// 6 SACRED ACTIONS:
 /// 1. 👁 Add Sighting - Capture number synchronicities in the moment
 /// 2. 📓 Journal Entry - Record spiritual insights instantly
@@ -16,14 +16,14 @@ import SwiftUI
 /// 4. 📊 Ruler Graph - Explore numerological patterns
 /// 5. 🔢 Change Focus - Shift spiritual alignment instantly
 /// 6. ✨ Cosmic Snapshot - Capture planetary moment for analysis
-/// 
+///
 /// TECHNICAL IMPLEMENTATION:
 /// - iOS 16.1+ App Intents framework for system integration
 /// - NotificationCenter routing to CosmicHUDIntegration
 /// - Haptic feedback for tactile spiritual connection
 /// - Siri voice shortcuts with natural language phrases
 /// - Parameters for quick data entry (notes, focus numbers, etc.)
-/// 
+///
 /// SPIRITUAL PHILOSOPHY:
 /// These shortcuts remove friction from spiritual practice.
 /// When synchronicity strikes, users can capture it instantly.
@@ -44,11 +44,11 @@ protocol CosmicIntent: AppIntent {
 struct AddSightingIntent: CosmicIntent {
     static var title: LocalizedStringResource = "Add Number Sighting"
     static var description = IntentDescription("Capture a sacred number sighting from the Cosmic HUD")
-    
+
     var cosmicDescription: String {
         return "👁 Capture cosmic synchronicity in the moment"
     }
-    
+
     func perform() async throws -> some IntentResult {
         // Claude: Navigate to sighting creation via notification system
         // CosmicHUDIntegration listens for this notification and routes to SightingView
@@ -59,7 +59,7 @@ struct AddSightingIntent: CosmicIntent {
                 userInfo: ["destination": "sighting"]
             )
         }
-        
+
         // Claude: Siri speaks this response when shortcut is voice-activated
         return .result(dialog: "Opening sighting capture...")
     }
@@ -72,16 +72,16 @@ struct AddSightingIntent: CosmicIntent {
 struct AddJournalEntryIntent: CosmicIntent {
     static var title: LocalizedStringResource = "Add Journal Entry"
     static var description = IntentDescription("Create a spiritual journal entry from the Cosmic HUD")
-    
+
     var cosmicDescription: String {
         return "📓 Record your spiritual journey"
     }
-    
+
     /// Claude: Optional parameter for voice shortcuts or quick text input
     /// Example: "Hey Siri, add journal entry 'feeling aligned with Venus energy'"
     @Parameter(title: "Quick Note", description: "Optional quick note for the entry")
     var quickNote: String?
-    
+
     func perform() async throws -> some IntentResult {
         await MainActor.run {
             // Claude: Build navigation payload with optional quick note
@@ -90,14 +90,14 @@ struct AddJournalEntryIntent: CosmicIntent {
             if let note = quickNote {
                 userInfo["quickNote"] = note
             }
-            
+
             NotificationCenter.default.post(
                 name: .cosmicHUDNavigate,
                 object: nil,
                 userInfo: userInfo
             )
         }
-        
+
         return .result(dialog: "Opening journal entry...")
     }
 }
@@ -109,30 +109,30 @@ struct AddJournalEntryIntent: CosmicIntent {
 struct PostStatusIntent: CosmicIntent {
     static var title: LocalizedStringResource = "Post Spiritual Status"
     static var description = IntentDescription("Share your cosmic state with the Vybe community")
-    
+
     var cosmicDescription: String {
         return "💬 Share your cosmic wisdom"
     }
-    
+
     /// Claude: Optional pre-filled message for voice shortcuts
     /// Example: "Hey Siri, post spiritual status 'Jupiter energy flowing strong today'"
     @Parameter(title: "Status Message", description: "Your spiritual status message")
     var statusMessage: String?
-    
+
     func perform() async throws -> some IntentResult {
         await MainActor.run {
             var userInfo: [String: Any] = ["destination": "composer"]
             if let message = statusMessage {
                 userInfo["prefilledMessage"] = message
             }
-            
+
             NotificationCenter.default.post(
                 name: .cosmicHUDNavigate,
                 object: nil,
                 userInfo: userInfo
             )
         }
-        
+
         return .result(dialog: "Opening post composer...")
     }
 }
@@ -144,12 +144,12 @@ struct PostStatusIntent: CosmicIntent {
 struct RulerGraphIntent: CosmicIntent {
     static var title: LocalizedStringResource = "View Ruler Number Graph"
     static var description = IntentDescription("Explore your numerological patterns and insights")
-    
-    
+
+
     var cosmicDescription: String {
         return "📊 Explore your sacred patterns"
     }
-    
+
     func perform() async throws -> some IntentResult {
         await MainActor.run {
             NotificationCenter.default.post(
@@ -158,7 +158,7 @@ struct RulerGraphIntent: CosmicIntent {
                 userInfo: ["destination": "rulerGraph"]
             )
         }
-        
+
         return .result(dialog: "Opening ruler number analysis...")
     }
 }
@@ -170,31 +170,31 @@ struct RulerGraphIntent: CosmicIntent {
 struct ChangeFocusNumberIntent: CosmicIntent {
     static var title: LocalizedStringResource = "Change Focus Number"
     static var description = IntentDescription("Select a new focus number for spiritual alignment")
-    
+
     var cosmicDescription: String {
         return "🔢 Shift your spiritual focus"
     }
-    
+
     /// Claude: Optional direct number selection with validation range
     /// Example: "Hey Siri, change focus number to 7" sets number directly
     /// If nil, opens FocusNumberSelector interface for manual selection
     @Parameter(title: "New Focus Number", description: "Choose a number from 1-9", inclusiveRange: (1, 9))
     var newFocusNumber: Int?
-    
+
     func perform() async throws -> some IntentResult {
         if let number = newFocusNumber {
             // Claude: Direct number update - perfect for voice shortcuts
             // "Hey Siri, change focus number to 3" → instant spiritual alignment
             await MainActor.run {
                 FocusNumberManager.shared.setFocusNumber(number, sendNotification: true)
-                
+
                 // Claude: Trigger immediate HUD refresh to show new ruler number
                 // Users see their new cosmic alignment reflected instantly
                 Task {
                     await CosmicHUDManager.shared.refreshHUDData()
                 }
             }
-            
+
             return .result(dialog: "Focus number changed to \(number). Your cosmic alignment is shifting...")
         } else {
             // Claude: No number specified - open selector interface
@@ -206,7 +206,7 @@ struct ChangeFocusNumberIntent: CosmicIntent {
                     userInfo: ["destination": "focusSelector"]
                 )
             }
-            
+
             return .result(dialog: "Opening focus number selector...")
         }
     }
@@ -219,11 +219,11 @@ struct ChangeFocusNumberIntent: CosmicIntent {
 struct CosmicSnapshotIntent: CosmicIntent {
     static var title: LocalizedStringResource = "Take Cosmic Snapshot"
     static var description = IntentDescription("Capture your current cosmic state and planetary alignments")
-    
+
     var cosmicDescription: String {
         return "✨ Capture this cosmic moment"
     }
-    
+
     func perform() async throws -> some IntentResult {
         await MainActor.run {
             NotificationCenter.default.post(
@@ -232,7 +232,7 @@ struct CosmicSnapshotIntent: CosmicIntent {
                 userInfo: ["destination": "cosmicSnapshot"]
             )
         }
-        
+
         return .result(dialog: "Opening cosmic snapshot...")
     }
 }
@@ -255,7 +255,7 @@ struct CosmicHUDShortcutsProvider: AppShortcutsProvider {
                 shortTitle: "Add Sighting",
                 systemImageName: "eye"
             ),
-            
+
             // Claude: Spiritual journaling - capture insights instantly
             AppShortcut(
                 intent: AddJournalEntryIntent(),
@@ -267,7 +267,7 @@ struct CosmicHUDShortcutsProvider: AppShortcutsProvider {
                 shortTitle: "Journal Entry",
                 systemImageName: "book.closed"
             ),
-            
+
             // Claude: Community sharing - spread cosmic wisdom
             AppShortcut(
                 intent: PostStatusIntent(),
@@ -279,7 +279,7 @@ struct CosmicHUDShortcutsProvider: AppShortcutsProvider {
                 shortTitle: "Post Status",
                 systemImageName: "bubble.left.and.bubble.right"
             ),
-            
+
             // Claude: Numerological analysis - explore sacred patterns
             AppShortcut(
                 intent: RulerGraphIntent(),
@@ -291,7 +291,7 @@ struct CosmicHUDShortcutsProvider: AppShortcutsProvider {
                 shortTitle: "Ruler Graph",
                 systemImageName: "chart.bar"
             ),
-            
+
             // Claude: Spiritual alignment - instant focus number shifts
             AppShortcut(
                 intent: ChangeFocusNumberIntent(),
@@ -303,7 +303,7 @@ struct CosmicHUDShortcutsProvider: AppShortcutsProvider {
                 shortTitle: "Change Focus",
                 systemImageName: "arrow.triangle.2.circlepath"
             ),
-            
+
             // Claude: Cosmic moment capture - preserve significant alignments
             AppShortcut(
                 intent: CosmicSnapshotIntent(),
@@ -325,16 +325,16 @@ struct CosmicHUDShortcutsProvider: AppShortcutsProvider {
 /// Maintains navigation data payload for contextual app launches
 class CosmicHUDNavigationCoordinator: ObservableObject {
     static let shared = CosmicHUDNavigationCoordinator()
-    
+
     /// Current navigation destination from HUD intent
     @Published var activeDestination: String?
     /// Payload data for navigation context (quick notes, focus numbers, etc.)
     @Published var navigationData: [String: Any] = [:]
-    
+
     private init() {
         setupNotificationObserver()
     }
-    
+
     /// Claude: Listens for App Intent navigation requests
     /// Converts NotificationCenter posts to SwiftUI navigation state
     /// Weak self prevents retain cycles in long-lived coordinator
@@ -348,7 +348,7 @@ class CosmicHUDNavigationCoordinator: ObservableObject {
                   let destination = userInfo["destination"] as? String else {
                 return
             }
-            
+
             // Claude: Update published properties to trigger SwiftUI navigation
             self?.activeDestination = destination
             self?.navigationData = Dictionary(uniqueKeysWithValues: userInfo.compactMap { key, value in
@@ -357,7 +357,7 @@ class CosmicHUDNavigationCoordinator: ObservableObject {
             })
         }
     }
-    
+
     func clearNavigation() {
         activeDestination = nil
         navigationData.removeAll()
@@ -388,17 +388,17 @@ struct CosmicHUDIntentValidator {
         guard #available(iOS 16.1, *) else {
             return false
         }
-        
+
         // Claude: Dynamic Island requires iPhone 14 Pro+ hardware
         // This is a simplified check - actual implementation would verify notch presence
         let hasNotch = await UIDevice.current.userInterfaceIdiom == .phone
-        
+
         // Claude: App Intents framework availability (iOS 16+)
         let hasAppIntents = true // AppIntents framework is available
-        
+
         return hasNotch && hasAppIntents
     }
-    
+
     /// Gets appropriate error message for unsupported devices
     static func getUnsupportedMessage() -> String {
         if #available(iOS 16.1, *) {

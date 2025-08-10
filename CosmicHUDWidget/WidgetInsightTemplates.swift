@@ -10,22 +10,22 @@ import Foundation
 /// Claude: Widget-specific insight templates to prevent text cutoff issues
 /// Different character limits for different widget sizes ensure proper display
 struct WidgetInsightTemplates {
-    
+
     // MARK: - Character Limits by Widget Size
     static let smallWidgetLimit = 0     // No insights for small widget
     static let mediumWidgetLimit = 30   // Medium widget - brief insights (reduced to prevent cutoff)
     static let largeWidgetLimit = 120   // Large widget - comprehensive insights
     static let rectangularLimit = 20    // Lock screen - ultra brief
-    
+
     // MARK: - Ruler Number Insights by Widget Size
-    
+
     /// Small widget insights (not used - too small)
     static let smallRulerInsights: [Int: String] = [:]
-    
+
     /// Medium widget insights (20 characters max for single line)
     static let mediumRulerInsights: [Int: String] = [
         1: "Lead boldly today",
-        2: "Harmonize energy", 
+        2: "Harmonize energy",
         3: "Create freely",
         4: "Build steadily",
         5: "Explore change",
@@ -34,7 +34,7 @@ struct WidgetInsightTemplates {
         8: "Manifest power",
         9: "Serve others"
     ]
-    
+
     /// Large widget insights (120 characters max)
     static let largeRulerInsights: [Int: String] = [
         1: "Leadership energy peaks. Take initiative in personal projects. Your pioneering spirit opens new pathways.",
@@ -47,11 +47,11 @@ struct WidgetInsightTemplates {
         8: "Manifestation power peaks strongly. Business ventures flourish now. Material goals align with effort.",
         9: "Service completes the cycle. Share wisdom generously today. Universal love guides every interaction."
     ]
-    
+
     /// Rectangular widget insights (20 characters max)
     static let rectangularRulerInsights: [Int: String] = [
         1: "Lead boldly",
-        2: "Find balance", 
+        2: "Find balance",
         3: "Create freely",
         4: "Build steady",
         5: "Seek change",
@@ -60,41 +60,41 @@ struct WidgetInsightTemplates {
         8: "Manifest goals",
         9: "Serve others"
     ]
-    
+
     // MARK: - Aspect-Based Insights by Widget Size
-    
+
     /// Medium widget aspect insights (15 characters max to ensure fit)
     static let mediumAspectInsights: [String: String] = [
         "conjunction": "Unity flows",
-        "opposition": "Seek balance", 
+        "opposition": "Seek balance",
         "trine": "Flow smoothly",
         "square": "Grow stronger",
         "sextile": "Open doors",
         "quincunx": "Adjust path"
     ]
-    
+
     /// Large widget aspect insights (120 characters max)
     static let largeAspectInsights: [String: String] = [
         "conjunction": "Planetary energies unite in powerful synthesis. This alignment amplifies shared qualities and creates focused intention.",
-        "opposition": "Cosmic forces seek perfect balance and integration. Tension between polarities creates awareness and growth opportunities.", 
+        "opposition": "Cosmic forces seek perfect balance and integration. Tension between polarities creates awareness and growth opportunities.",
         "trine": "Harmonious planetary flow supports natural expression. Energy moves freely between aligned cosmic influences today.",
         "square": "Dynamic planetary tension creates transformative pressure. Challenge sparks innovation and breakthrough potential.",
         "sextile": "Gentle cosmic opportunities invite conscious participation. Supportive energy rewards focused intention and effort.",
         "quincunx": "Divine cosmic adjustment requires conscious adaptation. Flexibility transforms challenge into spiritual growth."
     ]
-    
+
     /// Rectangular widget aspect insights (20 characters max)
     static let rectangularAspectInsights: [String: String] = [
         "conjunction": "Unity flows",
-        "opposition": "Seek balance", 
+        "opposition": "Seek balance",
         "trine": "Harmony flows",
         "square": "Growth sparks",
         "sextile": "Opportunity",
         "quincunx": "Adjust gently"
     ]
-    
+
     // MARK: - Comprehensive Insight Generation
-    
+
     /// Generate widget-appropriate insight combining ruler number and aspect
     static func generateInsight(
         rulerNumber: Int,
@@ -104,24 +104,24 @@ struct WidgetInsightTemplates {
         switch widgetSize {
         case .small:
             return "" // No insight for small widget
-            
+
         case .medium:
             let rulerInsight = mediumRulerInsights[rulerNumber] ?? "Cosmic energy flows"
             let aspectInsight = mediumAspectInsights[aspectType] ?? "Energy aligns"
             // Combine and truncate to limit
             let combined = "\(rulerInsight). \(aspectInsight)."
             return String(combined.prefix(mediumWidgetLimit))
-            
+
         case .large:
             let rulerInsight = largeRulerInsights[rulerNumber] ?? "Cosmic wisdom guides your spiritual journey with authentic purpose and divine timing."
             // Use full ruler insight for large widget
             return String(rulerInsight.prefix(largeWidgetLimit))
-            
+
         case .accessoryRectangular:
             return rectangularRulerInsights[rulerNumber] ?? "Flow"
         }
     }
-    
+
     /// Generate aspect-specific insight for different widget sizes
     static func generateAspectInsight(
         aspectType: String,
@@ -130,19 +130,19 @@ struct WidgetInsightTemplates {
     ) -> String {
         let planet1 = planets.first?.capitalized ?? "Cosmic"
         let planet2 = planets.count > 1 ? planets[1].capitalized : "Energy"
-        
+
         switch widgetSize {
         case .small:
             return ""
-            
+
         case .medium:
             let template = mediumAspectInsights[aspectType] ?? "Energy flows"
             return String(template.prefix(mediumWidgetLimit))
-            
+
         case .large:
             let template = largeAspectInsights[aspectType] ?? "Cosmic forces create dynamic interaction between \(planet1) and \(planet2) energies for spiritual growth."
             return String(template.prefix(largeWidgetLimit))
-            
+
         case .accessoryRectangular:
             return rectangularAspectInsights[aspectType] ?? "Flow"
         }
@@ -152,7 +152,7 @@ struct WidgetInsightTemplates {
 /// Widget size enumeration for template selection
 enum WidgetSize {
     case small
-    case medium  
+    case medium
     case large
     case accessoryRectangular
 }

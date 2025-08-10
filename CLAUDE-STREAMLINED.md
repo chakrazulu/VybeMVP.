@@ -1,9 +1,9 @@
 # 🤖 Claude Rules for VybeMVP SwiftUI Development
 
-**Last Updated:** August 10, 2025  
-**Project:** VybeMVP - Spiritual Wellness iOS App  
-**Framework:** SwiftUI, MVVM Architecture  
-**Latest Achievement:** 🎯 **SWIFT 6 COMPLIANT + PERFECT KASPER UI EXPERIENCE**  
+**Last Updated:** August 10, 2025
+**Project:** VybeMVP - Spiritual Wellness iOS App
+**Framework:** SwiftUI, MVVM Architecture
+**Latest Achievement:** 🎯 **SWIFT 6 COMPLIANT + PERFECT KASPER UI EXPERIENCE**
 
 ---
 
@@ -80,7 +80,7 @@ VybeMVP/
 
 ### MVVM Best Practices
 - **Views:** Simple, declarative UI components
-- **ViewModels:** Business logic and state management  
+- **ViewModels:** Business logic and state management
 - **Models:** Data structures and domain logic
 - **Clear Separation:** UI code should not contain business logic
 

@@ -8,10 +8,10 @@ struct OnboardingReflectionModeView: View {
             VStack(spacing: 30) {
                 // Header Section
                 headerSection
-                
+
                 // Reflection Settings
                 settingsSection
-                
+
                 // Description Section
                 descriptionSection
             }
@@ -20,7 +20,7 @@ struct OnboardingReflectionModeView: View {
             .padding(.bottom, 40)
         }
     }
-    
+
     private var headerSection: some View {
         VStack(spacing: 20) {
             // Icon
@@ -34,12 +34,12 @@ struct OnboardingReflectionModeView: View {
                         )
                     )
                     .frame(width: 100, height: 100)
-                
+
                 Image(systemName: "heart.text.square.fill")
                     .font(.system(size: 40, weight: .light))
                     .foregroundColor(.teal)
             }
-            
+
             VStack(spacing: 12) {
                 Text("Reflection Mode")
                     .font(.largeTitle)
@@ -51,7 +51,7 @@ struct OnboardingReflectionModeView: View {
                             endPoint: .trailing
                         )
                     )
-                
+
                 Text("Would you like to engage with daily mood check-ins or reflective prompts? This helps Vybe understand your emotional landscape over time.")
                     .font(.body)
                     .foregroundColor(.secondary)
@@ -61,7 +61,7 @@ struct OnboardingReflectionModeView: View {
         }
         .padding(.top, 20)
     }
-    
+
     private var settingsSection: some View {
         VStack(spacing: 20) {
             // Reflection Mode Card
@@ -70,27 +70,27 @@ struct OnboardingReflectionModeView: View {
                     Image(systemName: "heart.circle.fill")
                         .font(.title2)
                         .foregroundColor(.teal)
-                    
+
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Daily Reflections")
                             .font(.headline)
                             .fontWeight(.semibold)
-                        
+
                         Text("Enable mood check-ins and reflective prompts")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
-                    
+
                     Spacer()
-                    
+
                     Toggle("", isOn: $viewModel.doesWantReflectionMode)
                         .toggleStyle(SwitchToggleStyle(tint: .teal))
                 }
-                
+
                 if viewModel.doesWantReflectionMode {
                     Divider()
                         .background(Color.teal.opacity(0.3))
-                    
+
                     VStack(alignment: .leading, spacing: 12) {
                         HStack {
                             Image(systemName: "sparkles")
@@ -100,7 +100,7 @@ struct OnboardingReflectionModeView: View {
                                 .fontWeight(.medium)
                             Spacer()
                         }
-                        
+
                         VStack(alignment: .leading, spacing: 8) {
                             HStack(spacing: 12) {
                                 Image(systemName: "circle.fill")
@@ -111,7 +111,7 @@ struct OnboardingReflectionModeView: View {
                                     .foregroundColor(.secondary)
                                 Spacer()
                             }
-                            
+
                             HStack(spacing: 12) {
                                 Image(systemName: "circle.fill")
                                     .font(.caption)
@@ -121,7 +121,7 @@ struct OnboardingReflectionModeView: View {
                                     .foregroundColor(.secondary)
                                 Spacer()
                             }
-                            
+
                             HStack(spacing: 12) {
                                 Image(systemName: "circle.fill")
                                     .font(.caption)
@@ -148,7 +148,7 @@ struct OnboardingReflectionModeView: View {
             .shadow(color: Color.teal.opacity(0.1), radius: 8, x: 0, y: 4)
         }
     }
-    
+
     private var descriptionSection: some View {
         VStack(spacing: 16) {
             HStack {
@@ -158,7 +158,7 @@ struct OnboardingReflectionModeView: View {
                     .font(.headline)
                 Spacer()
             }
-            
+
             Text("Enabling this allows Vybe to offer more personalized support and track emotional patterns, enhancing the depth of your spiritual journey with the app.")
                 .font(.body)
                 .foregroundColor(.secondary)
@@ -183,4 +183,4 @@ struct OnboardingReflectionModeView_Previews: PreviewProvider {
         return OnboardingReflectionModeView(viewModel: viewModel)
             .padding()
     }
-} 
+}

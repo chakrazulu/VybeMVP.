@@ -2,7 +2,7 @@
  * ========================================
  * 🌟 ASTROLOGY SERVICE
  * ========================================
- * 
+ *
  * COSMIC PURPOSE:
  * Specialized service for astrological calculations and interpretations.
  * Handles planetary positions, house systems, zodiac signs, and aspects
@@ -27,52 +27,52 @@ import SwiftAA
 
 /// Claude: Specialized service for astrological calculations and interpretations
 final class AstrologyService {
-    
+
     // MARK: - Singleton
     static let shared = AstrologyService()
-    
-    // MARK: - Dependencies  
+
+    // MARK: - Dependencies
     /// Claude: Access SanctumDataManager.shared in methods to avoid MainActor isolation issues
-    
+
     // MARK: - Zodiac Constants
     private let zodiacSigns = [
         "aries", "taurus", "gemini", "cancer", "leo", "virgo",
         "libra", "scorpio", "sagittarius", "capricorn", "aquarius", "pisces"
     ]
-    
+
     private let elements = [
         "aries": "Fire", "leo": "Fire", "sagittarius": "Fire",
         "taurus": "Earth", "virgo": "Earth", "capricorn": "Earth",
         "gemini": "Air", "libra": "Air", "aquarius": "Air",
         "cancer": "Water", "scorpio": "Water", "pisces": "Water"
     ]
-    
+
     private let modes = [
         "aries": "Cardinal", "cancer": "Cardinal", "libra": "Cardinal", "capricorn": "Cardinal",
         "taurus": "Fixed", "leo": "Fixed", "scorpio": "Fixed", "aquarius": "Fixed",
         "gemini": "Mutable", "virgo": "Mutable", "sagittarius": "Mutable", "pisces": "Mutable"
     ]
-    
+
     // MARK: - Initialization
     private init() {}
-    
+
     // MARK: - 🌟 Planetary Interpretations
-    
+
     /// Claude: Get comprehensive planetary description with MegaCorpus integration
     @MainActor func getPlanetaryInterpretation(for planet: String, in sign: String? = nil, house: Int? = nil) -> PlanetaryInterpretation {
         let planetDescription = SanctumDataManager.shared.getPlanetaryDescription(for: planet)
-        
+
         var signInfluence: String = ""
         var houseInfluence: String = ""
-        
+
         if let sign = sign {
             signInfluence = getSignInfluence(for: planet, in: sign)
         }
-        
+
         if let house = house {
             houseInfluence = getHouseInfluence(for: planet, in: house)
         }
-        
+
         return PlanetaryInterpretation(
             planet: planet.capitalized,
             baseDescription: planetDescription,
@@ -82,33 +82,33 @@ final class AstrologyService {
             mode: sign != nil ? modes[sign!.lowercased()] : nil
         )
     }
-    
+
     /// Claude: Get sign influence on planetary expression
     @MainActor private func getSignInfluence(for planet: String, in sign: String) -> String {
         let signDescription = SanctumDataManager.shared.getZodiacSignDescription(for: sign)
         return "In \(sign.capitalized): \(signDescription)"
     }
-    
+
     /// Claude: Get house influence on planetary expression
     @MainActor private func getHouseInfluence(for planet: String, in house: Int) -> String {
         let houseDescription = SanctumDataManager.shared.getHouseDescription(for: house)
         return "In House \(house): \(houseDescription)"
     }
-    
+
     // MARK: - 🏠 House System Analysis
-    
+
     /// Claude: Generate comprehensive house interpretation with zodiac influences
     @MainActor func getHouseInterpretation(for houseNumber: Int, with sign: String? = nil) -> HouseInterpretation {
         let baseDescription = SanctumDataManager.shared.getHouseDescription(for: houseNumber)
-        
+
         var zodiacInfluence: String = ""
         if let sign = sign {
             zodiacInfluence = getZodiacInfluenceOnHouse(sign: sign, house: houseNumber)
         }
-        
+
         let keywords = getHouseKeywords(for: houseNumber)
         let lifeArea = getHouseLifeArea(for: houseNumber)
-        
+
         return HouseInterpretation(
             houseNumber: houseNumber,
             baseDescription: baseDescription,
@@ -117,16 +117,16 @@ final class AstrologyService {
             lifeArea: lifeArea
         )
     }
-    
+
     /// Claude: Get zodiac sign influence on house interpretation
     @MainActor private func getZodiacInfluenceOnHouse(sign: String, house: Int) -> String {
         let signDesc = SanctumDataManager.shared.getZodiacSignDescription(for: sign)
         let element = elements[sign.lowercased()] ?? "Unknown"
         let mode = modes[sign.lowercased()] ?? "Unknown"
-        
+
         return "With \(sign.capitalized) influence (\(element) \(mode)): \(signDesc)"
     }
-    
+
     /// Claude: Get house keywords for quick reference
     private func getHouseKeywords(for house: Int) -> [String] {
         let houseKeywords: [Int: [String]] = [
@@ -143,10 +143,10 @@ final class AstrologyService {
             11: ["Friends", "Groups", "Hopes", "Humanitarian Goals"],
             12: ["Spirituality", "Subconscious", "Hidden Enemies", "Karma"]
         ]
-        
+
         return houseKeywords[house] ?? ["Life Experience", "Growth", "Development"]
     }
-    
+
     /// Claude: Get primary life area for house
     private func getHouseLifeArea(for house: Int) -> String {
         let lifeAreas: [Int: String] = [
@@ -163,18 +163,18 @@ final class AstrologyService {
             11: "Friendships & Group Involvement",
             12: "Spirituality & Hidden Realms"
         ]
-        
+
         return lifeAreas[house] ?? "Life Experience & Growth"
     }
-    
+
     // MARK: - 🌙 Zodiac Sign Analysis
-    
+
     /// Claude: Get comprehensive zodiac sign interpretation
     @MainActor func getZodiacInterpretation(for sign: String) -> ZodiacInterpretation {
         let baseDescription = SanctumDataManager.shared.getZodiacSignDescription(for: sign)
         let element = elements[sign.lowercased()] ?? "Unknown"
         let mode = modes[sign.lowercased()] ?? "Unknown"
-        
+
         return ZodiacInterpretation(
             sign: sign.capitalized,
             baseDescription: baseDescription,
@@ -184,7 +184,7 @@ final class AstrologyService {
             compatibleSigns: getCompatibleSigns(for: sign)
         )
     }
-    
+
     /// Claude: Get keywords for zodiac sign
     private func getSignKeywords(for sign: String) -> [String] {
         // This could be enhanced with MegaCorpus data
@@ -202,10 +202,10 @@ final class AstrologyService {
             "aquarius": ["Innovative", "Independent", "Humanitarian", "Original"],
             "pisces": ["Compassionate", "Intuitive", "Artistic", "Spiritual"]
         ]
-        
+
         return signKeywords[sign.lowercased()] ?? ["Unique", "Individual", "Expressive"]
     }
-    
+
     /// Claude: Get compatible signs for relationship analysis
     private func getCompatibleSigns(for sign: String) -> [String] {
         let compatibility: [String: [String]] = [
@@ -222,17 +222,17 @@ final class AstrologyService {
             "aquarius": ["Gemini", "Libra", "Aries", "Sagittarius"],
             "pisces": ["Cancer", "Scorpio", "Taurus", "Capricorn"]
         ]
-        
+
         return compatibility[sign.lowercased()] ?? []
     }
-    
+
     // MARK: - 🔮 Comprehensive Chart Analysis
-    
+
     /// Claude: Generate complete astrological profile
     @MainActor func generateAstrologicalProfile(planets: [String: Double], houses: [Double], ascendant: String) -> AstrologicalProfile {
         var planetaryPlacements: [PlanetaryInterpretation] = []
         var houseInterpretations: [HouseInterpretation] = []
-        
+
         // Process planetary placements
         for (planet, longitude) in planets {
             let sign = determineZodiacSign(from: longitude)
@@ -240,7 +240,7 @@ final class AstrologyService {
             let interpretation = getPlanetaryInterpretation(for: planet, in: sign, house: house)
             planetaryPlacements.append(interpretation)
         }
-        
+
         // Process house interpretations with zodiac influences
         for (index, cusp) in houses.enumerated() {
             let houseNumber = index + 1
@@ -248,7 +248,7 @@ final class AstrologyService {
             let interpretation = getHouseInterpretation(for: houseNumber, with: sign)
             houseInterpretations.append(interpretation)
         }
-        
+
         return AstrologicalProfile(
             ascendant: ascendant,
             planetaryPlacements: planetaryPlacements,
@@ -256,24 +256,24 @@ final class AstrologyService {
             generatedAt: Date()
         )
     }
-    
+
     // MARK: - 🧮 Calculation Utilities
-    
+
     /// Claude: Determine zodiac sign from ecliptic longitude
     private func determineZodiacSign(from longitude: Double) -> String {
         let normalizedLongitude = longitude.truncatingRemainder(dividingBy: 360.0)
         let signIndex = Int(normalizedLongitude / 30.0)
         return zodiacSigns[safe: signIndex] ?? "aries"
     }
-    
+
     /// Claude: Determine astrological house from longitude and house cusps
     private func determineHouse(longitude: Double, houseCusps: [Double]) -> Int {
         let normalizedLongitude = longitude.truncatingRemainder(dividingBy: 360.0)
-        
+
         for i in 0..<12 {
             let currentHouse = houseCusps[i]
             let nextHouse = houseCusps[(i + 1) % 12]
-            
+
             if currentHouse < nextHouse {
                 if normalizedLongitude >= currentHouse && normalizedLongitude < nextHouse {
                     return i + 1
@@ -285,7 +285,7 @@ final class AstrologyService {
                 }
             }
         }
-        
+
         return 1 // Default to first house
     }
 }
@@ -328,4 +328,3 @@ struct AstrologicalProfile {
     let houseInterpretations: [HouseInterpretation]
     let generatedAt: Date
 }
-

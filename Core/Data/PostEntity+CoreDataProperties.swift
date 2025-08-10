@@ -15,7 +15,7 @@ extension PostEntity {
     }
 
     // MARK: - Core Post Properties
-    
+
     @NSManaged public var firebaseId: String?
     @NSManaged public var authorId: String?
     @NSManaged public var authorName: String?
@@ -23,9 +23,9 @@ extension PostEntity {
     @NSManaged public var type: String?
     @NSManaged public var timestamp: Date?
     @NSManaged public var isPublic: Bool
-    
+
     // MARK: - Content & Metadata
-    
+
     @NSManaged public var tagsString: String?
     @NSManaged public var reactionsJSON: String?
     @NSManaged public var commentCount: Int32
@@ -34,9 +34,9 @@ extension PostEntity {
     @NSManaged public var chakraType: String?
     @NSManaged public var journalExcerpt: String?
     @NSManaged public var cosmicSignatureJSON: String?
-    
+
     // MARK: - Sync Management Properties
-    
+
     @NSManaged public var needsSync: Bool
     @NSManaged public var pendingOperation: String?
     @NSManaged public var lastSyncTimestamp: Date?

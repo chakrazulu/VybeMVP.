@@ -2,29 +2,29 @@
  * ========================================
  * ♈ ZODIAC SIGN CALCULATOR - ASTROLOGICAL MAPPING ENGINE
  * ========================================
- * 
+ *
  * CORE PURPOSE:
  * Static sun sign calculation engine that maps dates to zodiac signs for both
  * birth charts and daily astrological tracking. Handles cusp dates precisely
  * and provides comprehensive zodiac metadata for spiritual insights.
- * 
+ *
  * PHASE 10 INTEGRATION:
  * - Primary Component: Phase 10A Local Ephemeris Core
  * - Zero Dependencies: Pure Swift implementation, works offline
  * - Accuracy: Exact cusp date handling
  * - Performance: < 1ms lookup time
- * 
+ *
  * ZODIAC SYSTEM:
  * Traditional Western/Tropical zodiac with 12 signs based on sun's apparent
  * position relative to Earth. Each sign spans approximately 30 degrees of
  * celestial longitude.
- * 
+ *
  * INTEGRATION POINTS:
  * - RealmNumberView: Display current sun sign with cosmic data
  * - MySanctumView: Show user's birth sun sign
  * - KASPERManager: Combine zodiac with numerology for insights
  * - CosmicService: Provide sun sign data when offline
- * 
+ *
  * TECHNICAL SPECIFICATIONS:
  * - Input: Any Date object
  * - Output: Zodiac sign enum with metadata
@@ -36,9 +36,9 @@ import Foundation
 
 /// Zodiac sign calculator for astrological date mapping
 struct ZodiacSignCalculator {
-    
+
     // MARK: - Zodiac Sign Enum
-    
+
     /// The 12 zodiac signs with comprehensive metadata
     enum ZodiacSign: String, CaseIterable {
         case aries = "Aries"
@@ -53,7 +53,7 @@ struct ZodiacSignCalculator {
         case capricorn = "Capricorn"
         case aquarius = "Aquarius"
         case pisces = "Pisces"
-        
+
         /// Emoji representation for UI display
         var emoji: String {
             switch self {
@@ -71,7 +71,7 @@ struct ZodiacSignCalculator {
             case .pisces: return "♓"
             }
         }
-        
+
         /// Element association (Fire, Earth, Air, Water)
         var element: String {
             switch self {
@@ -85,7 +85,7 @@ struct ZodiacSignCalculator {
                 return "Water"
             }
         }
-        
+
         /// Quality/Modality (Cardinal, Fixed, Mutable)
         var quality: String {
             switch self {
@@ -97,7 +97,7 @@ struct ZodiacSignCalculator {
                 return "Mutable"
             }
         }
-        
+
         /// Ruling planet(s)
         var rulingPlanet: String {
             switch self {
@@ -115,7 +115,7 @@ struct ZodiacSignCalculator {
             case .pisces: return "Jupiter & Neptune"
             }
         }
-        
+
         /// Key personality traits
         var traits: [String] {
             switch self {
@@ -133,7 +133,7 @@ struct ZodiacSignCalculator {
             case .pisces: return ["Compassionate", "Artistic", "Intuitive", "Gentle"]
             }
         }
-        
+
         /// Numerological affinity (which numbers resonate with this sign)
         var numerologicalAffinity: [Int] {
             switch self {
@@ -152,9 +152,9 @@ struct ZodiacSignCalculator {
             }
         }
     }
-    
+
     // MARK: - Date Range Structure
-    
+
     /// Date range for zodiac sign mapping
     private struct DateRange {
         let sign: ZodiacSign
@@ -162,14 +162,14 @@ struct ZodiacSignCalculator {
         let startDay: Int
         let endMonth: Int
         let endDay: Int
-        
+
         /// Check if a date falls within this range
         func contains(month: Int, day: Int) -> Bool {
             // Handle same month range
             if startMonth == endMonth {
                 return month == startMonth && day >= startDay && day <= endDay
             }
-            
+
             // Handle cross-month range
             if month == startMonth && day >= startDay {
                 return true
@@ -184,9 +184,9 @@ struct ZodiacSignCalculator {
             }
         }
     }
-    
+
     // MARK: - Static Date Ranges
-    
+
     /// Zodiac sign date ranges (using tropical/Western astrology)
     private static let dateRanges: [DateRange] = [
         DateRange(sign: .aries, startMonth: 3, startDay: 21, endMonth: 4, endDay: 19),
@@ -202,9 +202,9 @@ struct ZodiacSignCalculator {
         DateRange(sign: .aquarius, startMonth: 1, startDay: 20, endMonth: 2, endDay: 18),
         DateRange(sign: .pisces, startMonth: 2, startDay: 19, endMonth: 3, endDay: 20)
     ]
-    
+
     // MARK: - Core Calculations
-    
+
     /**
      * Calculate zodiac sign for a given date
      * - Parameter date: Date to calculate zodiac sign for
@@ -213,23 +213,23 @@ struct ZodiacSignCalculator {
     static func zodiacSign(for date: Date) -> ZodiacSign {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.month, .day], from: date)
-        
+
         guard let month = components.month, let day = components.day else {
             // Default to Aries if date components are invalid
             return .aries
         }
-        
+
         // Find matching date range
         for range in dateRanges {
             if range.contains(month: month, day: day) {
                 return range.sign
             }
         }
-        
+
         // Should never reach here, but default to Aries
         return .aries
     }
-    
+
     /**
      * Calculate zodiac sign from ecliptic longitude
      * - Parameter longitude: Ecliptic longitude in degrees (0-360)
@@ -239,10 +239,10 @@ struct ZodiacSignCalculator {
         // Normalize longitude to 0-360 range
         let normalizedLongitude = longitude.truncatingRemainder(dividingBy: 360)
         let positiveLongitude = normalizedLongitude < 0 ? normalizedLongitude + 360 : normalizedLongitude
-        
+
         // Each zodiac sign spans 30 degrees, starting from Aries at 0°
         let signIndex = Int(positiveLongitude / 30)
-        
+
         switch signIndex {
         case 0: return .aries        // 0° - 30°
         case 1: return .taurus       // 30° - 60°
@@ -259,7 +259,7 @@ struct ZodiacSignCalculator {
         default: return .aries       // Fallback
         }
     }
-    
+
     /**
      * Get zodiac sign with detailed information
      * - Parameter date: Date to analyze
@@ -269,7 +269,7 @@ struct ZodiacSignCalculator {
         let sign = zodiacSign(for: date)
         return (sign, sign.element, sign.quality, sign.rulingPlanet)
     }
-    
+
     /**
      * Calculate if date is on a cusp (within 2 days of sign change)
      * - Parameter date: Date to check
@@ -279,9 +279,9 @@ struct ZodiacSignCalculator {
         // TODO: Implement cusp detection logic
         return (false, nil)
     }
-    
+
     // MARK: - Utility Functions
-    
+
     /**
      * Get all zodiac signs for a specific element
      * - Parameter element: Element name (Fire, Earth, Air, Water)
@@ -290,7 +290,7 @@ struct ZodiacSignCalculator {
     static func signs(for element: String) -> [ZodiacSign] {
         return ZodiacSign.allCases.filter { $0.element == element }
     }
-    
+
     /**
      * Get zodiac compatibility score with another sign
      * - Parameters:
@@ -316,4 +316,4 @@ extension ZodiacSignCalculator {
         // TODO: Add test implementation
     }
 }
-#endif 
+#endif

@@ -46,7 +46,7 @@ import FirebaseFirestore
 /// Claude: Phase 12A.1 - Friend request model for cosmic social connections
 ///
 /// **🤝 Friend System Architecture:**
-/// 
+///
 /// This model represents friend requests between users in the cosmic social network,
 /// enabling spiritual connections based on astrological compatibility and shared
 /// cosmic experiences. Integrates with Firestore for real-time social features.
@@ -56,7 +56,7 @@ import FirebaseFirestore
 /// friends/{userId}/requests/{requestId}
 /// {
 ///   "fromUserId": "string",
-///   "fromUserName": "string", 
+///   "fromUserName": "string",
 ///   "toUserId": "string",
 ///   "toUserName": "string",
 ///   "status": "pending|accepted|declined",
@@ -74,27 +74,27 @@ import FirebaseFirestore
 /// - Privacy-aware friend discovery
 struct FriendRequest: Identifiable, Codable {
     @DocumentID var id: String?
-    
+
     /// User who sent the friend request
     let fromUserId: String
     let fromUserName: String
-    
-    /// User who received the friend request  
+
+    /// User who received the friend request
     let toUserId: String
     let toUserName: String
-    
+
     /// Current status of the request
     var status: FriendRequestStatus
-    
+
     /// When the request was created
     let timestamp: Date
-    
+
     /// Optional cosmic compatibility score (Phase 12B integration)
     let compatibilityScore: Double?
-    
+
     /// Optional personal message from requester
     let message: String?
-    
+
     init(
         fromUserId: String,
         fromUserName: String,
@@ -118,9 +118,9 @@ struct FriendRequest: Identifiable, Codable {
 /// Claude: Friend request status enumeration
 enum FriendRequestStatus: String, Codable, CaseIterable {
     case pending = "pending"
-    case accepted = "accepted" 
+    case accepted = "accepted"
     case declined = "declined"
-    
+
     var displayName: String {
         switch self {
         case .pending: return "Pending"
@@ -128,7 +128,7 @@ enum FriendRequestStatus: String, Codable, CaseIterable {
         case .declined: return "Declined"
         }
     }
-    
+
     var emoji: String {
         switch self {
         case .pending: return "⏳"
@@ -141,22 +141,22 @@ enum FriendRequestStatus: String, Codable, CaseIterable {
 /// Claude: Friendship relationship model
 struct Friendship: Identifiable, Codable {
     @DocumentID var id: String?
-    
+
     /// User IDs in the friendship (always sorted alphabetically for consistency)
     let userIds: [String]
-    
+
     /// User names for display purposes
     let userNames: [String]
-    
+
     /// When the friendship was established
     let establishedDate: Date
-    
+
     /// Cosmic compatibility score between friends
     let compatibilityScore: Double?
-    
+
     /// Whether both users have confirmed the friendship
     let isConfirmed: Bool
-    
+
     init(userId1: String, userName1: String, userId2: String, userName2: String, compatibilityScore: Double? = nil) {
         // Sort user IDs alphabetically for consistent document IDs
         if userId1 < userId2 {
@@ -166,17 +166,17 @@ struct Friendship: Identifiable, Codable {
             self.userIds = [userId2, userId1]
             self.userNames = [userName2, userName1]
         }
-        
+
         self.establishedDate = Date()
         self.compatibilityScore = compatibilityScore
         self.isConfirmed = true
     }
-    
+
     /// Get the other user's ID in this friendship
     func getOtherUserId(currentUserId: String) -> String? {
         return userIds.first { $0 != currentUserId }
     }
-    
+
     /// Get the other user's name in this friendship
     func getOtherUserName(currentUserId: String) -> String? {
         guard let index = userIds.firstIndex(of: currentUserId) else { return nil }
@@ -193,7 +193,7 @@ extension FriendRequest {
         return FriendRequest(
             fromUserId: "user123",
             fromUserName: "Cosmic Wanderer",
-            toUserId: "user456", 
+            toUserId: "user456",
             toUserName: "Stellar Sage",
             status: .pending,
             compatibilityScore: 0.87,

@@ -1,40 +1,40 @@
 /**
  * KASPERMegaCorpusProcessor.swift
- * 
+ *
  * 🗂️ KASPER MEGA CORPUS DATA PIPELINE PROCESSOR
- * 
+ *
  * ✅ STATUS: Phase 2 Core Component - MegaCorpus Integration for MLX Training
  * ✅ PURPOSE: Transform MegaCorpus spiritual data into MLX-ready training datasets
  * ✅ ARCHITECTURE: High-performance data processing with spiritual integrity preservation
- * 
+ *
  * REVOLUTIONARY DATA PIPELINE:
  * This processor transforms the comprehensive MegaCorpus spiritual database into
  * high-quality training datasets for Apple MLX models, ensuring spiritual authenticity
  * while optimizing for machine learning performance.
- * 
+ *
  * WHY THIS IS GROUNDBREAKING:
  * - First large-scale spiritual AI dataset processor with numerological integrity
  * - Privacy-preserving processing: All data stays on user's device
  * - Quality scoring ensures only authentic spiritual content enters training
  * - Multi-format export supporting MLX, TensorFlow, and PyTorch pipelines
  * - Intelligent data augmentation preserving spiritual coherence
- * 
+ *
  * MEGACORPUS INTEGRATION:
  * The MegaCorpus contains comprehensive spiritual data including:
  * - 🔢 Numerological systems and sacred number correspondences
- * - 🌟 Astrological wisdom and planetary influences  
+ * - 🌟 Astrological wisdom and planetary influences
  * - 🧘 Spiritual practices and contemplative traditions
  * - 💎 Crystal and gemstone energetic properties
  * - 🌿 Plant spirit medicine and natural healing
  * - 🎨 Sacred geometry and mystical symbols
  * - 📚 Wisdom traditions and spiritual teachings
- * 
+ *
  * DATA PROCESSING PIPELINE:
  * 1. MegaCorpus Ingestion → Validation → Quality Scoring
  * 2. Spiritual Authenticity Filtering → Content Augmentation
  * 3. MLX Format Conversion → Dataset Balancing → Export
  * 4. Training Data Validation → Performance Optimization
- * 
+ *
  * QUALITY ASSURANCE:
  * - Spiritual authenticity scoring prevents dilution of wisdom
  * - Numerological integrity validation ensures sacred mathematics
@@ -57,7 +57,7 @@ public enum KASPERMegaCorpusCategory: String, CaseIterable, Codable {
     case sacredGeometry = "sacred_geometry"
     case wisdomTraditions = "wisdom_traditions"
     case contemplativePractices = "contemplative_practices"
-    
+
     var displayName: String {
         switch self {
         case .numerology: return "Numerological Systems"
@@ -81,7 +81,7 @@ public struct KASPERMegaCorpusConfig {
     let preserveNumerology: Bool
     let culturalSensitivity: Bool
     let biasDetection: Bool
-    
+
     static let `default` = KASPERMegaCorpusConfig(
         categories: KASPERMegaCorpusCategory.allCases,
         qualityThreshold: 0.8,
@@ -91,7 +91,7 @@ public struct KASPERMegaCorpusConfig {
         culturalSensitivity: true,
         biasDetection: true
     )
-    
+
     static let numerologyFocused = KASPERMegaCorpusConfig(
         categories: [.numerology, .sacredGeometry, .astrology],
         qualityThreshold: 0.9,
@@ -117,13 +117,13 @@ struct KASPERMegaCorpusEntry: Codable, Identifiable {
     public let culturalOrigin: String?
     public let sourceReliability: Float
     public let lastUpdated: Date
-    
+
     // Codable implementation
     enum CodingKeys: CodingKey {
         case id, category, title, content, spiritualMarkers, numerologicalRefs
         case astrologicalRefs, qualityScore, authenticity, culturalOrigin, sourceReliability, lastUpdated
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(UUID.self, forKey: .id)
@@ -140,7 +140,7 @@ struct KASPERMegaCorpusEntry: Codable, Identifiable {
         self.sourceReliability = try container.decode(Float.self, forKey: .sourceReliability)
         self.lastUpdated = try container.decode(Date.self, forKey: .lastUpdated)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
@@ -156,7 +156,7 @@ struct KASPERMegaCorpusEntry: Codable, Identifiable {
         try container.encode(sourceReliability, forKey: .sourceReliability)
         try container.encode(lastUpdated, forKey: .lastUpdated)
     }
-    
+
     public init(
         id: UUID,
         category: KASPERMegaCorpusCategory,
@@ -184,7 +184,7 @@ struct KASPERMegaCorpusEntry: Codable, Identifiable {
         self.sourceReliability = sourceReliability
         self.lastUpdated = lastUpdated
     }
-    
+
     /// Claude: Convert to MLX training format
     public func toMLXTrainingExample() -> [String: Any] {
         return [
@@ -202,60 +202,60 @@ struct KASPERMegaCorpusEntry: Codable, Identifiable {
             ]
         ]
     }
-    
+
     /// Claude: Create MLX input format optimized for spiritual AI
     private func createMLXInput() -> String {
         var inputComponents: [String] = []
-        
+
         // Add category context
         inputComponents.append("Spiritual Domain: \(category.displayName)")
-        
+
         // Add numerological context if present
         if !numerologicalRefs.isEmpty {
             inputComponents.append("Sacred Numbers: \(numerologicalRefs.map(String.init).joined(separator: ", "))")
         }
-        
+
         // Add astrological context if present
         if !astrologicalRefs.isEmpty {
             inputComponents.append("Celestial Influences: \(astrologicalRefs.joined(separator: ", "))")
         }
-        
+
         // Add spiritual markers
         if !spiritualMarkers.isEmpty {
             inputComponents.append("Spiritual Themes: \(spiritualMarkers.joined(separator: ", "))")
         }
-        
+
         // Add main content
         inputComponents.append("Core Wisdom: \(title)")
-        
+
         return inputComponents.joined(separator: "\n")
     }
-    
+
     /// Claude: Create MLX output format with spiritual guidance structure
     private func createMLXOutput() -> String {
         // Transform corpus content into guided spiritual insight format
         return transformToGuidanceFormat(content)
     }
-    
+
     /// Claude: Transform raw corpus content to guided spiritual format
     private func transformToGuidanceFormat(_ content: String) -> String {
         // This will be enhanced with actual content transformation logic
         // For now, we ensure spiritual language and structure
-        
+
         var guidance = content
-        
+
         // Ensure spiritual opening
         if !guidance.lowercased().contains("divine") && !guidance.lowercased().contains("sacred") {
             guidance = "Divine wisdom reveals that \(guidance.lowercased())"
         }
-        
+
         // Add appropriate spiritual emoji based on category
         let spiritualEmoji = getSpiritualEmoji(for: category)
         guidance = "\(spiritualEmoji) \(guidance)"
-        
+
         return guidance
     }
-    
+
     /// Claude: Get appropriate spiritual emoji for category
     private func getSpiritualEmoji(for category: KASPERMegaCorpusCategory) -> String {
         switch category {
@@ -285,53 +285,53 @@ public struct KASPERMegaCorpusStats {
 
 /**
  * KASPER MEGA CORPUS PROCESSOR
- * 
+ *
  * High-performance processor that transforms the comprehensive MegaCorpus
  * spiritual database into MLX-ready training datasets while preserving
  * spiritual authenticity and numerological integrity.
  */
 @MainActor
 public final class KASPERMegaCorpusProcessor: ObservableObject {
-    
+
     // MARK: - Published Properties
-    
+
     @Published public private(set) var isProcessing: Bool = false
     @Published public private(set) var processingProgress: Float = 0.0
     @Published public private(set) var currentCategory: KASPERMegaCorpusCategory?
     @Published public private(set) var processedStats: KASPERMegaCorpusStats?
     @Published public private(set) var availableCorpusData: [KASPERMegaCorpusCategory: Int] = [:]
-    
+
     // MARK: - Private Properties
-    
+
     private let logger = Logger(subsystem: "com.VybeMVP.KASPERMegaCorpusProcessor", category: "processing")
-    
+
     /// Claude: Storage for processed corpus data
     private let corpusDataURL: URL
-    
+
     /// Claude: Cache for processed entries
     private var processedEntries: [KASPERMegaCorpusEntry] = []
-    
+
     /// Claude: Processing task for cancellation
     private var processingTask: Task<[KASPERMegaCorpusEntry], Error>?
-    
+
     // MARK: - Initialization
-    
+
     public init() {
         // Setup corpus data directory
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         self.corpusDataURL = documentsURL.appendingPathComponent("KASPERMegaCorpus")
-        
+
         // Create directory if needed
         try? FileManager.default.createDirectory(at: corpusDataURL, withIntermediateDirectories: true)
-        
+
         logger.info("🗂️ KASPERMegaCorpusProcessor initialized")
-        
+
         // Load available corpus data
         loadAvailableCorpusData()
     }
-    
+
     // MARK: - Public Processing Interface
-    
+
     /**
      * Process MegaCorpus data for MLX training
      */
@@ -339,23 +339,23 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
         guard !isProcessing else {
             throw KASPERMegaCorpusError.processingAlreadyActive
         }
-        
+
         logger.info("🗂️ Starting MegaCorpus processing with config: \(config.categories.count) categories")
-        
+
         isProcessing = true
         processingProgress = 0.0
         processedStats = nil
-        
+
         processingTask = Task {
             do {
                 let entries = try await executeProcessingPipeline(config: config)
-                
+
                 await MainActor.run {
                     self.processedEntries = entries
                     self.isProcessing = false
                     self.processingProgress = 1.0
                 }
-                
+
                 // Return entries from task
                 return entries
             } catch {
@@ -366,36 +366,36 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
                 throw error
             }
         }
-        
+
         return try await processingTask!.value
     }
-    
+
     /**
      * Export processed corpus data to MLX format
      */
     func exportToMLXFormat(entries: [KASPERMegaCorpusEntry]? = nil) throws -> Data {
         let corpusEntries = entries ?? processedEntries
-        
+
         guard !corpusEntries.isEmpty else {
             throw KASPERMegaCorpusError.noProcessedData
         }
-        
+
         logger.info("🗂️ Exporting \(corpusEntries.count) entries to MLX format")
-        
+
         let mlxDataset = corpusEntries.map { $0.toMLXTrainingExample() }
-        
+
         return try JSONSerialization.data(withJSONObject: mlxDataset, options: [.prettyPrinted])
     }
-    
+
     /**
      * Get quality statistics for processed data
      */
     public func getQualityAnalysis() -> KASPERMegaCorpusQualityAnalysis? {
         guard !processedEntries.isEmpty else { return nil }
-        
+
         let qualityScores = processedEntries.map { $0.qualityScore }
         let authenticityScores = processedEntries.map { $0.authenticity }
-        
+
         return KASPERMegaCorpusQualityAnalysis(
             totalEntries: processedEntries.count,
             averageQuality: qualityScores.reduce(0, +) / Float(qualityScores.count),
@@ -405,7 +405,7 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
             spiritualIntegrityScore: calculateSpiritualIntegrityScore()
         )
     }
-    
+
     /**
      * Clear processed data and free memory
      */
@@ -414,35 +414,35 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
         processedStats = nil
         logger.info("🗂️ Processed data cleared")
     }
-    
+
     // MARK: - Processing Pipeline Implementation
-    
+
     /**
      * Execute the complete processing pipeline
      */
     private func executeProcessingPipeline(config: KASPERMegaCorpusConfig) async throws -> [KASPERMegaCorpusEntry] {
         let startTime = Date()
         var allProcessedEntries: [KASPERMegaCorpusEntry] = []
-        
+
         logger.info("🗂️ Executing processing pipeline for \(config.categories.count) categories")
-        
+
         for (index, category) in config.categories.enumerated() {
             // Update progress
             await MainActor.run {
                 self.currentCategory = category
                 self.processingProgress = Float(index) / Float(config.categories.count)
             }
-            
+
             // Process category
             let categoryEntries = try await processCategory(category, config: config)
             allProcessedEntries.append(contentsOf: categoryEntries)
-            
+
             logger.info("🗂️ Processed \(categoryEntries.count) entries for category: \(category.displayName)")
         }
-        
+
         // Final processing and quality assurance
         let finalEntries = try await applyFinalProcessing(entries: allProcessedEntries, config: config)
-        
+
         // Generate statistics
         let processingTime = Date().timeIntervalSince(startTime)
         let stats = generateProcessingStats(
@@ -450,49 +450,49 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
             processingTime: processingTime,
             config: config
         )
-        
+
         await MainActor.run {
             self.processedStats = stats
         }
-        
+
         logger.info("🗂️ Processing pipeline complete: \(finalEntries.count) entries in \(processingTime)s")
-        
+
         return finalEntries
     }
-    
+
     /**
      * Process a specific category of MegaCorpus data
      */
     private func processCategory(_ category: KASPERMegaCorpusCategory, config: KASPERMegaCorpusConfig) async throws -> [KASPERMegaCorpusEntry] {
         // This will be implemented with actual MegaCorpus data loading
         // For now, we generate synthetic entries based on category
-        
+
         let syntheticEntries = generateSyntheticCategoryEntries(category: category, count: min(config.maxEntriesPerCategory, 100))
-        
+
         // Apply quality filtering
         let filteredEntries = syntheticEntries.filter { $0.qualityScore >= config.qualityThreshold }
-        
+
         // Apply spiritual authenticity validation
-        let authenticEntries = config.preserveNumerology ? 
+        let authenticEntries = config.preserveNumerology ?
             validateNumerologicalIntegrity(entries: filteredEntries) : filteredEntries
-        
+
         // Apply cultural sensitivity filtering
         let culturallyValidated = config.culturalSensitivity ?
             applyCulturalSensitivityFilter(entries: authenticEntries) : authenticEntries
-        
+
         // Apply bias detection and mitigation
         let finalEntries = config.biasDetection ?
             applyBiasDetectionAndMitigation(entries: culturallyValidated) : culturallyValidated
-        
+
         return finalEntries
     }
-    
+
     /**
      * Generate synthetic entries for testing and development
      */
     private func generateSyntheticCategoryEntries(category: KASPERMegaCorpusCategory, count: Int) -> [KASPERMegaCorpusEntry] {
         var entries: [KASPERMegaCorpusEntry] = []
-        
+
         for i in 0..<count {
             let entry = KASPERMegaCorpusEntry(
                 id: UUID(),
@@ -508,15 +508,15 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
                 sourceReliability: Float.random(in: 0.8...1.0),
                 lastUpdated: Date()
             )
-            
+
             entries.append(entry)
         }
-        
+
         return entries
     }
-    
+
     // MARK: - Quality Assurance Methods
-    
+
     /**
      * Validate numerological integrity in entries
      */
@@ -527,7 +527,7 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
             return entry.numerologicalRefs.allSatisfy { validSacredNumbers.contains($0) }
         }
     }
-    
+
     /**
      * Apply cultural sensitivity filtering
      */
@@ -536,7 +536,7 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
         // For now, we return all entries as culturally validated
         return entries
     }
-    
+
     /**
      * Apply bias detection and mitigation
      */
@@ -545,7 +545,7 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
         // For now, we return all entries as bias-free
         return entries
     }
-    
+
     /**
      * Apply final processing and quality assurance
      */
@@ -554,10 +554,10 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
         if config.enableAugmentation {
             return try await applyDataAugmentation(entries: entries)
         }
-        
+
         return entries
     }
-    
+
     /**
      * Apply data augmentation to increase training variety
      */
@@ -566,9 +566,9 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
         // For now, we return the original entries
         return entries
     }
-    
+
     // MARK: - Helper Methods
-    
+
     /**
      * Load available corpus data information
      */
@@ -584,11 +584,11 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
             .wisdomTraditions: 4000,
             .contemplativePractices: 2500
         ]
-        
+
         availableCorpusData = mockData
         logger.info("🗂️ Loaded corpus data availability: \(mockData.values.reduce(0, +)) total entries")
     }
-    
+
     /**
      * Generate synthetic category titles for testing
      */
@@ -612,7 +612,7 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
             return "Contemplative Method: Inner Reflection \(index + 1)"
         }
     }
-    
+
     /**
      * Generate synthetic category content for testing
      */
@@ -636,7 +636,7 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
             return "This contemplative method deepens inner awareness and spiritual insight, cultivating presence and divine connection."
         }
     }
-    
+
     /**
      * Generate spiritual markers for category
      */
@@ -660,7 +660,7 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
             return ["inner reflection", "contemplation", "mindful awareness"]
         }
     }
-    
+
     /**
      * Generate numerological references for category
      */
@@ -684,17 +684,17 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
             return [7, 11] // Spirituality and intuition
         }
     }
-    
+
     /**
      * Generate astrological references for category
      */
     private func generateAstrologicalRefs(category: KASPERMegaCorpusCategory) -> [String] {
         let planets = ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn"]
         let signs = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"]
-        
+
         return [planets.randomElement()!, signs.randomElement()!]
     }
-    
+
     /**
      * Get cultural origin for category
      */
@@ -718,7 +718,7 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
             return ["Universal", "Christian", "Buddhist", "Sufi"].randomElement()!
         }
     }
-    
+
     /**
      * Calculate quality distribution
      */
@@ -729,7 +729,7 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
             "fair": 0,      // 0.7-0.8
             "poor": 0       // <0.7
         ]
-        
+
         for score in scores {
             switch score {
             case 0.9...1.0:
@@ -742,16 +742,16 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
                 distribution["poor"]! += 1
             }
         }
-        
+
         return distribution
     }
-    
+
     /**
      * Calculate category-specific quality metrics
      */
     private func calculateCategoryQuality() -> [KASPERMegaCorpusCategory: Float] {
         var categoryQuality: [KASPERMegaCorpusCategory: Float] = [:]
-        
+
         for category in KASPERMegaCorpusCategory.allCases {
             let categoryEntries = processedEntries.filter { $0.category == category }
             if !categoryEntries.isEmpty {
@@ -759,23 +759,23 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
                 categoryQuality[category] = averageQuality
             }
         }
-        
+
         return categoryQuality
     }
-    
+
     /**
      * Calculate overall spiritual integrity score
      */
     private func calculateSpiritualIntegrityScore() -> Float {
         guard !processedEntries.isEmpty else { return 0.0 }
-        
+
         let authenticityAvg = processedEntries.map { $0.authenticity }.reduce(0, +) / Float(processedEntries.count)
         let qualityAvg = processedEntries.map { $0.qualityScore }.reduce(0, +) / Float(processedEntries.count)
         let reliabilityAvg = processedEntries.map { $0.sourceReliability }.reduce(0, +) / Float(processedEntries.count)
-        
+
         return (authenticityAvg + qualityAvg + reliabilityAvg) / 3.0
     }
-    
+
     /**
      * Generate processing statistics
      */
@@ -783,15 +783,15 @@ public final class KASPERMegaCorpusProcessor: ObservableObject {
         let totalPossibleEntries = config.categories.reduce(0) { sum, category in
             sum + (availableCorpusData[category] ?? 0)
         }
-        
+
         var categoryDistribution: [KASPERMegaCorpusCategory: Int] = [:]
         for category in KASPERMegaCorpusCategory.allCases {
             categoryDistribution[category] = entries.filter { $0.category == category }.count
         }
-        
+
         let qualityScores = entries.map { $0.qualityScore }
         let authenticityScores = entries.map { $0.authenticity }
-        
+
         return KASPERMegaCorpusStats(
             totalEntries: totalPossibleEntries,
             processedEntries: entries.count,
@@ -824,7 +824,7 @@ public enum KASPERMegaCorpusError: LocalizedError {
     case corpusDataNotFound
     case invalidConfiguration
     case qualityThresholdTooHigh
-    
+
     public var errorDescription: String? {
         switch self {
         case .processingAlreadyActive:

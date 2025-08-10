@@ -28,12 +28,12 @@ struct OnboardingCompletionView: View {
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
-            
+
             ScrollView(.vertical, showsIndicators: true) {
                 VStack(spacing: 30) {
                     // Animated Header
                     headerSection
-                    
+
                     // HERO: Life Path Number - Bold, Glowing, Animated
                     if let profile = viewModel.userProfile {
                         heroLifePathSection(profile)
@@ -42,7 +42,7 @@ struct OnboardingCompletionView: View {
                             .foregroundColor(.white)
                             .padding()
                     }
-                    
+
                     // Complete Spiritual Codex
                     if let userArchetype = archetypeManager.storedArchetype {
                         completeArchetypeCodex(userArchetype)
@@ -51,14 +51,14 @@ struct OnboardingCompletionView: View {
                             .foregroundColor(.white)
                             .padding()
                     }
-                    
+
                     // Comprehensive Spiritual Profile
                     if let profile = viewModel.userProfile {
                         comprehensiveProfileSection(profile)
                     } else {
                         loadingSection
                     }
-                    
+
                     // Completion Button
                     completionButton
                 }
@@ -74,13 +74,13 @@ struct OnboardingCompletionView: View {
             } else {
                 print("❌ OnboardingCompletionView: No profile data available")
             }
-            
+
             if let userArchetype = archetypeManager.storedArchetype {
                 print("🎯 OnboardingCompletionView: Archetype data available - \(userArchetype.zodiacSign.rawValue)")
             } else {
                 print("❌ OnboardingCompletionView: No archetype data available")
             }
-            
+
             startAnimations()
             // Haptic feedback for completion
             let impactFeedback = UIImpactFeedbackGenerator(style: .heavy)
@@ -91,7 +91,7 @@ struct OnboardingCompletionView: View {
                 .environmentObject(signInViewModel)
         }
     }
-    
+
     private func startAnimations() {
         sparkleAnimation = true
         withAnimation(.easeInOut(duration: 1.2).delay(0.3)) {
@@ -107,7 +107,7 @@ struct OnboardingCompletionView: View {
             pulsatingGlow = true
         }
     }
-    
+
     private var headerSection: some View {
         VStack(spacing: 20) {
             // Enhanced cosmic icon with animation
@@ -128,14 +128,14 @@ struct OnboardingCompletionView: View {
                     .scaleEffect(sparkleAnimation ? 1.15 : 1.0)
                     .shadow(color: .purple.opacity(0.5), radius: 20)
                     .animation(.easeInOut(duration: 3.0).repeatForever(autoreverses: true), value: sparkleAnimation)
-                
+
                 Image(systemName: "sparkles")
                     .font(.system(size: 60, weight: .light))
                     .foregroundColor(.white)
                     .rotationEffect(.degrees(sparkleAnimation ? 360 : 0))
                     .animation(.linear(duration: 10.0).repeatForever(autoreverses: false), value: sparkleAnimation)
             }
-            
+
             VStack(spacing: 12) {
                 Text("Your Complete Cosmic Codex")
                 .font(.largeTitle)
@@ -147,7 +147,7 @@ struct OnboardingCompletionView: View {
                             endPoint: .trailing
                         )
                     )
-                
+
                 Text("Welcome to the sacred knowledge of your complete spiritual blueprint")
                 .font(.title2)
                     .foregroundColor(.white.opacity(0.8))
@@ -157,7 +157,7 @@ struct OnboardingCompletionView: View {
         .scaleEffect(profileAnimation ? 1.0 : 0.8)
         .opacity(profileAnimation ? 1.0 : 0.0)
     }
-    
+
     // HERO SECTION: Life Path Number
     private func heroLifePathSection(_ profile: UserProfile) -> some View {
         VStack(spacing: 20) {
@@ -165,7 +165,7 @@ struct OnboardingCompletionView: View {
                 .font(.title)
                 .fontWeight(.semibold)
                 .foregroundColor(.white.opacity(0.9))
-            
+
             // MASSIVE Life Path Number - Bold, Glowing, Animated
             ZStack {
                 // Outer glow ring
@@ -184,7 +184,7 @@ struct OnboardingCompletionView: View {
                     )
                     .frame(width: 200, height: 200)
                     .scaleEffect(pulsatingGlow ? 1.2 : 1.0)
-                
+
                 // Inner circle
                 Circle()
                     .fill(
@@ -200,13 +200,13 @@ struct OnboardingCompletionView: View {
                     )
                     .frame(width: 160, height: 160)
                     .shadow(color: .gold.opacity(0.8), radius: 25)
-                
+
                 // Life Path Number
                 Text("\(profile.lifePathNumber)")
                     .font(.system(size: 80, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
                     .shadow(color: .black.opacity(0.5), radius: 10)
-                
+
                 // Master number indicator
                 if profile.isMasterNumber {
                     VStack {
@@ -220,7 +220,7 @@ struct OnboardingCompletionView: View {
                     .frame(width: 160, height: 160)
                 }
             }
-            
+
             // Life Path Description
             Text(lifePathDescription(for: profile.lifePathNumber, isMaster: profile.isMasterNumber))
                 .font(.title3)
@@ -249,7 +249,7 @@ struct OnboardingCompletionView: View {
         .scaleEffect(archetypeRevealAnimation ? 1.0 : 0.8)
         .opacity(archetypeRevealAnimation ? 1.0 : 0.0)
     }
-    
+
     // PRIMARY ARCHETYPAL INFORMATION - Right after Life Path
     private func primaryArchetypeSection(_ archetype: UserArchetype) -> some View {
         VStack(spacing: 25) {
@@ -264,11 +264,11 @@ struct OnboardingCompletionView: View {
                     )
                 )
                 .padding(.bottom, 10)
-            
+
             VStack(spacing: 25) {
                 // Zodiac & Element Row - Enhanced
                 enhancedZodiacElementSection(archetype)
-                
+
                 // Planetary Influences Row - Enhanced
                 enhancedPlanetarySection(archetype)
             }
@@ -293,7 +293,7 @@ struct OnboardingCompletionView: View {
         .scaleEffect(archetypeRevealAnimation ? 1.0 : 0.8)
         .opacity(archetypeRevealAnimation ? 1.0 : 0.0)
     }
-    
+
     // COMPLETE ARCHETYPAL CODEX
     private func completeArchetypeCodex(_ archetype: UserArchetype) -> some View {
         VStack(spacing: 25) {
@@ -308,14 +308,14 @@ struct OnboardingCompletionView: View {
                     )
                 )
                 .padding(.bottom, 10)
-            
+
             VStack(spacing: 25) {
                 // Zodiac & Element Row - Enhanced
                 enhancedZodiacElementSection(archetype)
-                
+
                 // Planetary Influences Row - Enhanced
                 enhancedPlanetarySection(archetype)
-                
+
                 // Numerology Breakdown - NEW
                 numerologyBreakdownSection()
             }
@@ -340,7 +340,7 @@ struct OnboardingCompletionView: View {
         .scaleEffect(archetypeRevealAnimation ? 1.0 : 0.8)
         .opacity(archetypeRevealAnimation ? 1.0 : 0.0)
     }
-    
+
     private func enhancedZodiacElementSection(_ archetype: UserArchetype) -> some View {
         HStack(spacing: 25) {
             // Zodiac Sign - Enhanced with full description
@@ -356,23 +356,23 @@ struct OnboardingCompletionView: View {
                         )
                         .frame(width: 90, height: 90)
                         .shadow(color: .blue.opacity(0.3), radius: 10)
-                    
+
                     Text(zodiacSymbol(for: archetype.zodiacSign))
                         .font(.system(size: 40))
                 }
-                
+
                 VStack(spacing: 6) {
                     Text("Zodiac Sign")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.7))
                         .textCase(.uppercase)
                         .tracking(0.5)
-                    
+
                     Text(archetype.zodiacSign.rawValue)
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(.blue)
-                    
+
                     Text(conciseZodiacDescription(for: archetype.zodiacSign))
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.8))
@@ -382,8 +382,8 @@ struct OnboardingCompletionView: View {
                 }
             }
             .frame(maxWidth: .infinity)
-            
-            // Element - Enhanced with full description  
+
+            // Element - Enhanced with full description
             VStack(spacing: 15) {
                 ZStack {
                     Circle()
@@ -396,23 +396,23 @@ struct OnboardingCompletionView: View {
                         )
                         .frame(width: 90, height: 90)
                         .shadow(color: .green.opacity(0.3), radius: 10)
-                    
+
                     Text(elementSymbol(for: archetype.element))
                         .font(.system(size: 40))
                 }
-                
+
                 VStack(spacing: 6) {
                     Text("Element")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.7))
                         .textCase(.uppercase)
                         .tracking(0.5)
-                    
+
                     Text(archetype.element.rawValue.capitalized)
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(.green)
-                    
+
                     Text(conciseElementDescription(for: archetype.element))
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.8))
@@ -424,7 +424,7 @@ struct OnboardingCompletionView: View {
             .frame(maxWidth: .infinity)
         }
     }
-    
+
     private func enhancedPlanetarySection(_ archetype: UserArchetype) -> some View {
         HStack(spacing: 25) {
             // Primary Planet - Enhanced with full description
@@ -440,23 +440,23 @@ struct OnboardingCompletionView: View {
                         )
                         .frame(width: 90, height: 90)
                         .shadow(color: .orange.opacity(0.3), radius: 10)
-                    
+
                     Text(planetSymbol(for: archetype.primaryPlanet))
                         .font(.system(size: 35))
                 }
-                
+
                 VStack(spacing: 6) {
                     Text("Primary Planet")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.7))
                         .textCase(.uppercase)
                         .tracking(0.5)
-                    
+
                     Text(archetype.primaryPlanet.rawValue.capitalized)
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(.orange)
-                    
+
                     Text(concisePrimaryPlanetDescription(for: archetype.primaryPlanet))
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.8))
@@ -466,7 +466,7 @@ struct OnboardingCompletionView: View {
                 }
             }
             .frame(maxWidth: .infinity)
-            
+
             // Shadow Planet - Enhanced with full description
             VStack(spacing: 15) {
                 ZStack {
@@ -480,23 +480,23 @@ struct OnboardingCompletionView: View {
                         )
                         .frame(width: 90, height: 90)
                         .shadow(color: .red.opacity(0.3), radius: 10)
-                    
+
                     Text(planetSymbol(for: archetype.subconsciousPlanet))
                         .font(.system(size: 35))
                 }
-                
+
                 VStack(spacing: 6) {
                     Text("Shadow Planet")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.7))
                         .textCase(.uppercase)
                         .tracking(0.5)
-                    
+
                     Text(archetype.subconsciousPlanet.rawValue.capitalized)
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(.red.opacity(0.9))
-                    
+
                     Text(conciseShadowPlanetDescription(for: archetype.subconsciousPlanet))
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.8))
@@ -508,7 +508,7 @@ struct OnboardingCompletionView: View {
             .frame(maxWidth: .infinity)
         }
     }
-    
+
     // NEW: Numerology Breakdown Section with enhanced Soul Urge and Expression
     private func numerologyBreakdownSection() -> some View {
         VStack(spacing: 15) {
@@ -530,7 +530,7 @@ struct OnboardingCompletionView: View {
                             color: .pink
                         )
                     }
-                    
+
                     // Expression Number - Enhanced
                     if let expression = profile.expressionNumber {
                         EnhancedNumerologyRow(
@@ -542,7 +542,7 @@ struct OnboardingCompletionView: View {
                             color: .yellow
                         )
                     }
-                    
+
                     // Birth name info
                     if let birthName = profile.birthName {
                         HStack {
@@ -588,7 +588,7 @@ struct OnboardingCompletionView: View {
                 )
         )
     }
-    
+
     // COMPREHENSIVE Spiritual Profile Section
     private func comprehensiveProfileSection(_ profile: UserProfile) -> some View {
         VStack(spacing: 25) {
@@ -609,7 +609,7 @@ struct OnboardingCompletionView: View {
                         description: "Your chosen spiritual energy and mode of growth"
                     )
                 }
-                
+
                 // Insight Tone
                 ProfileCard(
                     title: "Communication Style",
@@ -618,7 +618,7 @@ struct OnboardingCompletionView: View {
                     color: .blue,
                     description: "How Vybe will speak to your soul"
                 )
-                
+
                 // Focus Areas
                 if !profile.focusTags.isEmpty {
                     ProfileCard(
@@ -629,7 +629,7 @@ struct OnboardingCompletionView: View {
                         description: "Your current life priorities and growth areas"
                     )
                 }
-                
+
                 // Cosmic Preferences
                 ProfileCard(
                     title: "Cosmic Integration",
@@ -638,7 +638,7 @@ struct OnboardingCompletionView: View {
                     color: .purple,
                     description: "Your openness to cosmic influences beyond numerology"
                 )
-                
+
                 // Cosmic Rhythms
                 if !profile.cosmicRhythms.isEmpty {
                     ProfileCard(
@@ -649,7 +649,7 @@ struct OnboardingCompletionView: View {
                         description: "Cosmic cycles that resonate with your spirit"
                     )
                 }
-                
+
                 // Notification Preferences
                 if profile.wantsWhispers {
                     ProfileCard(
@@ -660,7 +660,7 @@ struct OnboardingCompletionView: View {
                         description: "When you receive your spiritual insights"
                     )
                 }
-                
+
                 // Reflection Mode
                 if profile.wantsReflectionMode {
                     ProfileCard(
@@ -676,34 +676,34 @@ struct OnboardingCompletionView: View {
         .scaleEffect(profileAnimation ? 1.0 : 0.8)
         .opacity(profileAnimation ? 1.0 : 0.0)
     }
-    
+
     private var loadingSection: some View {
         VStack(spacing: 16) {
             ProgressView()
                 .progressViewStyle(CircularProgressViewStyle(tint: .white))
                 .scaleEffect(1.5)
-            
+
             Text("Finalizing your cosmic profile...")
                 .foregroundColor(.white.opacity(0.8))
                 .font(.body)
         }
         .padding()
     }
-    
+
     private var completionButton: some View {
             Button(action: {
             // Enhanced haptic feedback
             let impactFeedback = UIImpactFeedbackGenerator(style: .heavy)
             impactFeedback.impactOccurred()
-            
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 let secondFeedback = UIImpactFeedbackGenerator(style: .medium)
                 secondFeedback.impactOccurred()
             }
-            
+
                 // Claude: Set loading state and add delay to allow user to appreciate completion screen
                 isCompletingJourney = true
-                
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                     // Show profile setup instead of completing onboarding immediately
                     showProfileSetup = true
@@ -714,7 +714,7 @@ struct OnboardingCompletionView: View {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                         .scaleEffect(0.8)
-                    
+
                     Text("Preparing Your Sacred Journey...")
                         .fontWeight(.bold)
                         .font(.callout)
@@ -724,14 +724,14 @@ struct OnboardingCompletionView: View {
                 } else {
                     Image(systemName: "sparkles")
                         .font(.body)
-                    
+
                     Text("Begin Your Sacred Journey")
                         .fontWeight(.bold)
                         .font(.callout)
                         .lineLimit(1)
                         .minimumScaleFactor(0.6)
                         .allowsTightening(true)
-                    
+
                     Image(systemName: "arrow.right.circle.fill")
                         .font(.body)
                 }
@@ -757,7 +757,7 @@ struct OnboardingCompletionView: View {
         .padding(.top, 20)
         .disabled(isCompletingJourney)
     }
-    
+
     // Helper functions for symbols
     private func zodiacSymbol(for sign: ZodiacSign) -> String {
         switch sign {
@@ -775,7 +775,7 @@ struct OnboardingCompletionView: View {
         case .pisces: return "♓"
         }
     }
-    
+
     private func elementSymbol(for element: Element) -> String {
         switch element {
         case .fire: return "🔥"
@@ -784,7 +784,7 @@ struct OnboardingCompletionView: View {
         case .water: return "🌊"
         }
     }
-    
+
     private func planetSymbol(for planet: Planet) -> String {
         switch planet {
         case .sun: return "☉"
@@ -800,7 +800,7 @@ struct OnboardingCompletionView: View {
         case .earth: return "🌍"
         }
     }
-    
+
     // Enhanced Description helper functions
     private func lifePathDescription(for number: Int, isMaster: Bool) -> String {
         if isMaster {
@@ -825,7 +825,7 @@ struct OnboardingCompletionView: View {
             }
         }
     }
-    
+
     private func zodiacDescription(for sign: ZodiacSign) -> String {
         switch sign {
         case .aries: return "Bold pioneer with natural leadership abilities • Courageously initiates new ventures • Passionate fire that ignites action in others • Learns through direct experience and trial by fire"
@@ -842,7 +842,7 @@ struct OnboardingCompletionView: View {
         case .pisces: return "Mystical dreamer with boundless compassion • Intuitive healer who feels everything deeply • Spiritual artist who channels divine beauty • Dissolves boundaries between self and universe"
         }
     }
-    
+
     private func elementDescription(for element: Element) -> String {
         switch element {
         case .fire: return "Passionate, creative, inspiring energy • Spirit of action, enthusiasm, and courage • Natural leader who ignites others • Learns through bold experience and intuitive leaps • Transforms ideas into dynamic reality"
@@ -851,7 +851,7 @@ struct OnboardingCompletionView: View {
         case .water: return "Emotional, intuitive, healing flow • Heart of empathy, depth, and psychic sensitivity • Natural healer who feels everything • Learns through emotional experience and spiritual surrender • Transforms feelings into wisdom and compassion"
         }
     }
-    
+
     private func primaryPlanetDescription(for planet: Planet) -> String {
         switch planet {
         case .sun: return "Core identity and life purpose • Creative force and vital energy • Radiant essence that illuminates your path • Divine spark of consciousness expressing through you • Leadership through authentic self-expression"
@@ -867,7 +867,7 @@ struct OnboardingCompletionView: View {
         case .earth: return "Grounding energy and material wisdom • Stability that anchors spiritual insights • Connection to body and physical realm • Practical magic that manifests visions • Foundation energy for all other expressions"
         }
     }
-    
+
     private func shadowPlanetDescription(for planet: Planet) -> String {
         switch planet {
         case .sun: return "Ego challenges and pride patterns • Learning humility while maintaining confidence • Balancing self-expression with service to others • Healing wounds around visibility and recognition • Shadow work: 'I am enough without needing to prove it'"
@@ -883,7 +883,7 @@ struct OnboardingCompletionView: View {
         case .earth: return "Materialism, rigidity, and stagnation patterns • Balancing form with spirit and flow • Healing wounds around scarcity and survival • Learning to honor body while nurturing soul • Shadow work: 'I can enjoy material life while staying spiritually connected'"
         }
     }
-    
+
     private func soulUrgeDescription(for number: Int) -> String {
         switch number {
         case 1: return "Deep desire for independence and leadership • Soul craves pioneering new paths • Heart yearns to be first and make unique impact • Inner calling to initiate and innovate"
@@ -901,7 +901,7 @@ struct OnboardingCompletionView: View {
         default: return "Deep soul desires seeking expression through your heart's calling"
         }
     }
-    
+
     private func expressionDescription(for number: Int) -> String {
         switch number {
         case 1: return "Natural talents for leadership and innovation • Life's work involves pioneering and initiating • Gift for inspiring others to take action • Meant to create original solutions and blaze new trails"
@@ -919,14 +919,14 @@ struct OnboardingCompletionView: View {
         default: return "Natural talents and life work expressing through your unique gifts"
         }
     }
-    
+
     private func formattedTime(for hour: Int) -> String {
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "h a"
         let time = Calendar.current.date(bySettingHour: hour, minute: 0, second: 0, of: Date()) ?? Date()
         return timeFormatter.string(from: time)
     }
-    
+
     // Helper functions for concise descriptions
     private func conciseZodiacDescription(for sign: ZodiacSign) -> String {
         switch sign {
@@ -944,7 +944,7 @@ struct OnboardingCompletionView: View {
         case .pisces: return "Mystical dreamer • Boundless compassion • Intuitive artist"
         }
     }
-    
+
     private func conciseElementDescription(for element: Element) -> String {
         switch element {
         case .fire: return "Passionate • Creative • Inspiring • Spirit of action and courage"
@@ -953,7 +953,7 @@ struct OnboardingCompletionView: View {
         case .water: return "Emotional • Intuitive • Healing • Heart of empathy and depth"
         }
     }
-    
+
     private func concisePrimaryPlanetDescription(for planet: Planet) -> String {
         switch planet {
         case .sun: return "Core identity • Life purpose • Creative force • Radiant essence"
@@ -969,7 +969,7 @@ struct OnboardingCompletionView: View {
         case .earth: return "Grounding • Material wisdom • Stability • Physical foundation"
         }
     }
-    
+
     private func conciseShadowPlanetDescription(for planet: Planet) -> String {
         switch planet {
         case .sun: return "Ego challenges • Pride patterns • Learning humility with confidence"
@@ -985,7 +985,7 @@ struct OnboardingCompletionView: View {
         case .earth: return "Materialism • Rigidity • Balancing form with spirit and flow"
         }
     }
-    
+
     private func conciseSoulUrgeDescription(for number: Int) -> String {
         switch number {
         case 1: return "Deep desire for independence and leadership • Soul craves pioneering new paths"
@@ -1003,7 +1003,7 @@ struct OnboardingCompletionView: View {
         default: return "Deep soul desires seeking expression through your heart's calling"
         }
     }
-    
+
     private func conciseExpressionDescription(for number: Int) -> String {
         switch number {
         case 1: return "Natural talents for leadership and innovation • Life's work involves pioneering"
@@ -1032,22 +1032,22 @@ struct EnhancedNumerologyRow: View {
     let description: String
     let detailedDescription: String
     let color: Color
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
                 Text(icon)
                     .font(.title2)
-                
+
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {
                         Text(title)
                             .font(.subheadline)
                             .fontWeight(.medium)
                     .foregroundColor(.white)
-                        
+
                         Spacer()
-                        
+
                         Text(value)
                             .font(.title2)
                             .fontWeight(.bold)
@@ -1063,14 +1063,14 @@ struct EnhancedNumerologyRow: View {
                                     )
                             )
                     }
-                    
+
                     Text(description)
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.8))
                         .fontWeight(.medium)
                 }
             }
-            
+
             // Detailed description in a styled container
             Text(detailedDescription)
                 .font(.caption)
@@ -1103,21 +1103,21 @@ struct NumerologyRow: View {
     let value: String
     let description: String
     let color: Color
-    
+
     var body: some View {
         HStack(spacing: 12) {
             Text(icon)
                 .font(.title2)
-            
+
             VStack(alignment: .leading, spacing: 2) {
                 HStack {
                     Text(title)
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundColor(.white)
-                    
+
                     Spacer()
-                    
+
                     Text(value)
                         .font(.headline)
                         .fontWeight(.bold)
@@ -1129,7 +1129,7 @@ struct NumerologyRow: View {
                                 .fill(color.opacity(0.2))
                         )
                 }
-                
+
                 Text(description)
                     .font(.caption)
                     .foregroundColor(.white.opacity(0.7))
@@ -1152,21 +1152,21 @@ struct ProfileCard: View {
                 Image(systemName: icon)
                     .font(.title3)
                     .foregroundColor(color)
-                
+
                 Text(title)
                     .font(.headline)
                     .fontWeight(.semibold)
                     .foregroundColor(.white)
-                
+
                 Spacer()
             }
-            
+
             Text(content)
                 .font(.body)
                 .fontWeight(.medium)
                 .foregroundColor(color)
                 .multilineTextAlignment(.leading)
-            
+
             Text(description)
                 .font(.caption)
                 .foregroundColor(.white.opacity(0.7))
@@ -1208,7 +1208,7 @@ struct OnboardingCompletionView_Previews: PreviewProvider {
             wantsWhispers: true,
             wantsReflectionMode: true
         )
-        
+
         return OnboardingCompletionView(viewModel: viewModel, hasCompletedOnboarding: .constant(false))
     }
-} 
+}

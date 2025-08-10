@@ -1,6 +1,6 @@
 /**
  * Filename: StaticAssetMandalaView.swift
- * 
+ *
  * Purpose: Simple static sacred geometry background using assets with optional rotation
  * PHASE 7: Now uses weighted selection system for spiritual authenticity
  */
@@ -15,18 +15,18 @@ struct StaticAssetMandalaView: View {
     let number: Int
     let size: CGFloat
     let enableRotation: Bool
-    
+
     // Animation state
     @State private var rotationAngle: Double = 0
-    
+
     // PHASE 7: Weighted asset selection with session stability
     @State private var selectedAsset: SacredGeometryAsset = .wisdomEnneagram
-    
+
     // Initialize asset on appear to maintain session stability while using weighted selection
     private func initializeAsset() {
         selectedAsset = SacredGeometryAsset.selectSmartAsset(for: number)
     }
-    
+
     var body: some View {
         selectedAsset.image
             .resizable()
@@ -38,27 +38,27 @@ struct StaticAssetMandalaView: View {
             .onAppear {
                 // PHASE 7: Initialize with weighted selection
                 initializeAsset()
-                
+
                 if enableRotation {
                     startSlowRotation()
                 }
-                
+
                 print("🎯 PHASE 7: StaticAssetMandalaView initialized for number \(number): \(selectedAsset.displayName)")
                 print("🔮 Resonance: \(selectedAsset.getResonanceReason(for: number))")
             }
     }
-    
+
     // MARK: - Animation Methods
-    
+
     private func startSlowRotation() {
         // Slow clockwise rotation - 60 seconds per full rotation for mystical effect
         withAnimation(.linear(duration: 60).repeatForever(autoreverses: false)) {
             rotationAngle = 360
         }
     }
-    
+
     // MARK: - Sacred Color System
-    
+
     private func getSacredColor(for number: Int) -> Color {
         switch number {
         case 0: return Color.purple // Void/infinite potential
@@ -95,14 +95,14 @@ struct StaticAssetMandalaView_Previews: PreviewProvider {
             Text("PHASE 7: Static Mandala with Weighted Selection")
                 .font(.headline)
                 .foregroundColor(.white)
-            
+
             ZStack {
                 Color.black
                 StaticAssetMandalaView(number: 6, size: 300)
             }
             .frame(width: 320, height: 320)
             .cornerRadius(20)
-            
+
             Text("Now uses weighted spiritual preferences")
                 .font(.caption)
                 .foregroundColor(.gray)
@@ -110,4 +110,4 @@ struct StaticAssetMandalaView_Previews: PreviewProvider {
         .padding()
         .background(Color.black)
     }
-} 
+}

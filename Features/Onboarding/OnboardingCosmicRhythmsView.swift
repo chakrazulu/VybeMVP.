@@ -8,10 +8,10 @@ struct OnboardingCosmicRhythmsView: View {
             VStack(spacing: 30) {
                 // Header Section
                 headerSection
-                
+
                 // Selection Cards
                 selectionSection
-                
+
                 // Description Section
                 descriptionSection
             }
@@ -20,7 +20,7 @@ struct OnboardingCosmicRhythmsView: View {
             .padding(.bottom, 40)
         }
     }
-    
+
     private var headerSection: some View {
         VStack(spacing: 20) {
             // Icon
@@ -34,12 +34,12 @@ struct OnboardingCosmicRhythmsView: View {
                         )
                     )
                     .frame(width: 100, height: 100)
-                
+
                 Image(systemName: "moon.stars.fill")
                     .font(.system(size: 40, weight: .light))
                     .foregroundColor(.cyan)
             }
-            
+
             VStack(spacing: 12) {
                 Text("Cosmic Rhythms")
                     .font(.largeTitle)
@@ -51,13 +51,13 @@ struct OnboardingCosmicRhythmsView: View {
                             endPoint: .trailing
                         )
                     )
-                
+
                 Text("Which specific cosmic rhythms do you feel most attuned to or wish to explore? This can modulate insight timing and themes.")
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                     .lineLimit(nil)
-                
+
                 // Add clear instruction for multiple selection
                 Text("✨ Select all that apply")
                     .font(.subheadline)
@@ -78,7 +78,7 @@ struct OnboardingCosmicRhythmsView: View {
         }
         .padding(.top, 20)
     }
-    
+
     private var selectionSection: some View {
         VStack(spacing: 16) {
             ForEach(viewModel.cosmicRhythmOptions, id: \.self) { option in
@@ -99,7 +99,7 @@ struct OnboardingCosmicRhythmsView: View {
             }
         }
     }
-    
+
     private var descriptionSection: some View {
         VStack(spacing: 16) {
             HStack {
@@ -109,7 +109,7 @@ struct OnboardingCosmicRhythmsView: View {
                     .font(.headline)
                 Spacer()
             }
-            
+
             Text("Your selections can influence the structure and timing of your insights, aligning them with lunar phases, solar events, or other selected rhythms.")
                 .font(.body)
                 .foregroundColor(.secondary)
@@ -131,7 +131,7 @@ struct CosmicRhythmCard: View {
     let title: String
     let isSelected: Bool
     let action: () -> Void
-    
+
     private var rhythmDescription: String {
         switch title {
         case "Moon Phases":
@@ -146,7 +146,7 @@ struct CosmicRhythmCard: View {
             return "Explore cosmic rhythms and their wisdom"
         }
     }
-    
+
     private var rhythmIcon: String {
         switch title {
         case "Moon Phases":
@@ -161,7 +161,7 @@ struct CosmicRhythmCard: View {
             return "circle.fill"
         }
     }
-    
+
     private var rhythmColor: Color {
         switch title {
         case "Moon Phases":
@@ -176,7 +176,7 @@ struct CosmicRhythmCard: View {
             return .cyan
         }
     }
-    
+
     var body: some View {
         Button(action: action) {
             HStack(spacing: 16) {
@@ -184,21 +184,21 @@ struct CosmicRhythmCard: View {
                 Image(systemName: rhythmIcon)
                     .font(.title2)
                     .foregroundColor(isSelected ? .white : rhythmColor)
-                
+
                 // Content
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
                         .font(.headline)
                         .fontWeight(.semibold)
                         .foregroundColor(isSelected ? .white : .primary)
-                    
+
                     Text(rhythmDescription)
                         .font(.caption)
                         .foregroundColor(isSelected ? .white.opacity(0.8) : .secondary)
                 }
-                
+
                 Spacer()
-                
+
                 // Selection indicator
                 Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
                     .font(.title3)
@@ -208,7 +208,7 @@ struct CosmicRhythmCard: View {
             .background(
                 RoundedRectangle(cornerRadius: 16)
                     .fill(
-                        isSelected 
+                        isSelected
                         ? LinearGradient(
                             gradient: Gradient(colors: [rhythmColor, rhythmColor.opacity(0.8)]),
                             startPoint: .leading,
@@ -244,4 +244,4 @@ struct OnboardingCosmicRhythmsView_Previews: PreviewProvider {
         return OnboardingCosmicRhythmsView(viewModel: viewModel)
             .padding()
     }
-} 
+}

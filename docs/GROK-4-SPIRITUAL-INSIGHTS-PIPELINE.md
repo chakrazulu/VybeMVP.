@@ -1,9 +1,9 @@
 # 🌟 Manual Grok-4 Spiritual Insights Generation Workflow for VybeMVP
 
-**Date:** August 5, 2025  
-**Purpose:** Manual generation of authentic spiritual insights using Grok-4 web interface  
-**Integration:** Copy-paste workflow with Claude for SwiftData integration  
-**User:** X Premium subscriber ($30/month) - Web interface access only  
+**Date:** August 5, 2025
+**Purpose:** Manual generation of authentic spiritual insights using Grok-4 web interface
+**Integration:** Copy-paste workflow with Claude for SwiftData integration
+**User:** X Premium subscriber ($30/month) - Web interface access only
 
 ---
 
@@ -12,7 +12,7 @@
 This is a **manual copy-paste workflow** for generating thousands of spiritual insights using Grok-4:
 
 1. **Copy prompts** from this document into Grok web interface
-2. **Generate 50 insights** per spiritual domain/category  
+2. **Generate 50 insights** per spiritual domain/category
 3. **Paste results** back to Claude for SwiftData integration
 4. **Validate and integrate** into KASPER MLX training corpus
 
@@ -28,7 +28,7 @@ This is a **manual copy-paste workflow** for generating thousands of spiritual i
 {
   "spiritual_domain": "numerology",
   "entity": "4",
-  "category": "insight", 
+  "category": "insight",
   "generation_info": {
     "date": "2025-08-05",
     "time_context": "morning",
@@ -44,10 +44,10 @@ This is a **manual copy-paste workflow** for generating thousands of spiritual i
 ```
 
 ### **Why This Schema Works:**
-✅ **SwiftData Compatible:** Direct insertion into existing models  
-✅ **Batch Efficient:** 50 insights per generation session  
-✅ **Trackable:** Clear metadata for organization  
-✅ **Validatable:** Simple string array format  
+✅ **SwiftData Compatible:** Direct insertion into existing models
+✅ **Batch Efficient:** 50 insights per generation session
+✅ **Trackable:** Clear metadata for organization
+✅ **Validatable:** Simple string array format
 
 ---
 
@@ -78,7 +78,7 @@ TONE EXAMPLE: "In the sacred emptiness, all possibilities dance—today, embrace
 Return as JSON using this exact format:
 {
   "spiritual_domain": "numerology",
-  "entity": "0", 
+  "entity": "0",
   "category": "insight",
   "generation_info": {
     "date": "2025-08-05",
@@ -118,7 +118,7 @@ Return as JSON using this exact format:
 {
   "spiritual_domain": "numerology",
   "entity": "1",
-  "category": "insight", 
+  "category": "insight",
   "generation_info": {
     "date": "2025-08-05",
     "time_context": "universal",
@@ -127,7 +127,7 @@ Return as JSON using this exact format:
   },
   "insights": [
     "Insight 1 here",
-    "Insight 2 here", 
+    "Insight 2 here",
     "...exactly 50 total insights..."
   ]
 }
@@ -159,7 +159,7 @@ Return as JSON using this exact format:
   "entity": "2",
   "category": "insight",
   "generation_info": {
-    "date": "2025-08-05", 
+    "date": "2025-08-05",
     "time_context": "universal",
     "theme": "harmonious_partnership",
     "batch_size": 50
@@ -199,7 +199,7 @@ Return as JSON using this exact format:
   "category": "insight",
   "generation_info": {
     "date": "2025-08-05",
-    "time_context": "universal", 
+    "time_context": "universal",
     "theme": "creative_expression",
     "batch_size": 50
   },
@@ -239,7 +239,7 @@ Return as JSON using this exact format:
   "generation_info": {
     "date": "2025-08-05",
     "time_context": "universal",
-    "theme": "foundation_building", 
+    "theme": "foundation_building",
     "batch_size": 50
   },
   "insights": [
@@ -282,7 +282,7 @@ Return as JSON using this exact format:
     "batch_size": 50
   },
   "insights": [
-    "Insight 1 here", 
+    "Insight 1 here",
     "Insight 2 here",
     "...exactly 50 total insights..."
   ]
@@ -412,7 +412,7 @@ Generate exactly 50 unique spiritual insights for numerological Number 9 (The Hu
 
 ARCHETYPE DATA:
 - Title: "The Humanitarian" or "The Completion"
-- Element: Fire/Spirit  
+- Element: Fire/Spirit
 - Keywords: compassion, universal love, completion, wisdom, service to humanity
 - Themes: global consciousness, spiritual completion, universal service, wisdom sharing
 
@@ -679,7 +679,7 @@ Return as JSON using this exact format:
   },
   "insights": [
     "Insight 1 here",
-    "Insight 2 here", 
+    "Insight 2 here",
     "...exactly 50 total insights..."
   ]
 }
@@ -1722,7 +1722,7 @@ Generate exactly 50 unique spiritual insights for the 7th House (Partnership/Mar
 
 HOUSE DATA:
 - Title: "7th House" or "House of Partnership"
-- Keywords: partnership, marriage, relationships, balance, cooperation, others, contracts  
+- Keywords: partnership, marriage, relationships, balance, cooperation, others, contracts
 - Themes: soul partnerships, sacred relationships, divine balance, spiritual mirrors, conscious relationships
 - Ruler: Venus (traditionally), governs partnerships and how we relate to others
 
@@ -1997,7 +1997,7 @@ Return as JSON using this exact format:
 
 ### **Weekly Targets:**
 - **Week 1:** Complete all 13 numbers (650 insights)
-- **Week 2:** Complete all 9 planets (450 insights)  
+- **Week 2:** Complete all 9 planets (450 insights)
 - **Week 3:** Complete moon phases + aspects (650 insights)
 - **Week 4:** Complete all 12 houses (600 insights)
 

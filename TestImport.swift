@@ -16,4 +16,4 @@ func testImport() {
     #else
     print("Cannot import HealthKitManaging")
     #endif
-} 
+}

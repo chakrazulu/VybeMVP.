@@ -12,7 +12,7 @@ import SwiftUI
  * VybeMVP
  *
  * PHASE 6 SOCIAL INTEGRATION: Post Card Component with Edit/Delete Functionality
- * 
+ *
  * PURPOSE:
  * Individual post display component with full interaction capabilities including reactions,
  * edit/delete operations for post owners, and comprehensive social engagement features.
@@ -79,7 +79,7 @@ struct PostCardView: View {
     let post: Post
     let currentUser: SocialUser
     let onReaction: (ReactionType) -> Void
-    
+
     @State private var showingReactionPicker = false
     @State private var showingCosmicDetails = false
     @State private var showingComments = false
@@ -89,14 +89,14 @@ struct PostCardView: View {
     @State private var animateIn = false
     @State private var reactionCounts: [String: Int] = [:]
     @State private var lastReactionUpdate = Date()
-    
+
     // MARK: - Post Ownership Check
     private var isUserPost: Bool {
         let isOwner = post.authorId == currentUser.userId
         print("🔍 Post ownership check: Post authorId='\(post.authorId)' vs Current userId='\(currentUser.userId)' → isOwner=\(isOwner)")
         return isOwner
     }
-    
+
     var body: some View {
         mainContent
             .padding(20)
@@ -152,34 +152,34 @@ struct PostCardView: View {
                 }
             }
     }
-    
+
     private var mainContent: some View {
         VStack(alignment: .leading, spacing: 16) {
             // Header with author info
             headerSection
-            
+
             // Main content
             contentSection
-            
+
             // Sighting or Chakra specific displays
             if let sightingNumber = post.sightingNumber {
                 sightingNumberDisplay(sightingNumber)
             }
-            
+
             if let chakraType = post.chakraType {
                 chakraTypeDisplay(chakraType)
             }
-            
+
             // Cosmic signature (if available)
             if let signature = post.cosmicSignature {
                 cosmicSignatureSection(signature)
             }
-            
+
             // Interactions (reactions, comments, share)
             interactionsSection
         }
     }
-    
+
     private var cardBackground: some View {
         RoundedRectangle(cornerRadius: 16)
             .fill(Color.white.opacity(0.05))
@@ -188,9 +188,9 @@ struct PostCardView: View {
                     .stroke(post.sacredColor.opacity(0.3), lineWidth: 1)
             )
     }
-    
+
     // MARK: - View Sections
-    
+
     private var headerSection: some View {
         HStack(spacing: 12) {
             // Author's focus number circle
@@ -198,9 +198,9 @@ struct PostCardView: View {
                 .fill(
                     RadialGradient(
                         gradient: Gradient(colors: [
-                            (post.cosmicSignature?.focusNumber != nil ? 
+                            (post.cosmicSignature?.focusNumber != nil ?
                                   getSacredColor(for: post.cosmicSignature!.focusNumber) : getSacredColor(for: post.sightingNumber ?? 1)).opacity(0.8),
-                            (post.cosmicSignature?.focusNumber != nil ? 
+                            (post.cosmicSignature?.focusNumber != nil ?
                                   getSacredColor(for: post.cosmicSignature!.focusNumber) : getSacredColor(for: post.sightingNumber ?? 1)).opacity(0.4)
                         ]),
                         center: .center,
@@ -215,34 +215,34 @@ struct PostCardView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                 )
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(post.authorName)
                     .font(.headline)
                     .fontWeight(.semibold)
                     .foregroundColor(.white)
-                
+
                 HStack(spacing: 8) {
                     Image(systemName: post.type.icon)
                         .font(.caption)
                         .foregroundColor(post.type.color)
-                    
+
                     Text(post.type.displayName)
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.8))
-                    
+
                     Text("•")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.5))
-                    
+
                     Text(timeAgoDisplay(from: post.timestamp))
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.6))
                 }
             }
-            
+
             Spacer()
-            
+
             // More options menu
             Menu {
                 if post.authorId != currentUser.userId {
@@ -252,22 +252,22 @@ struct PostCardView: View {
                         Label("Report Post", systemImage: "exclamationmark.shield")
                     }
                 }
-                
+
                 Button(action: {
                     // TODO: Implement sharing
                 }) {
                     Label("Share Post", systemImage: "square.and.arrow.up")
                 }
-                
+
                 if post.authorId == currentUser.userId {
                     Divider()
-                    
+
                     Button(action: {
                         showingEditSheet = true
                     }) {
                         Label("Edit Post", systemImage: "pencil")
                     }
-                    
+
                     Button(role: .destructive, action: {
                         showingDeleteAlert = true
                     }) {
@@ -282,7 +282,7 @@ struct PostCardView: View {
             }
         }
     }
-    
+
     private var contentSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(post.content)
@@ -290,18 +290,18 @@ struct PostCardView: View {
                 .foregroundColor(.white.opacity(0.9))
                 .lineLimit(nil)
                 .multilineTextAlignment(.leading)
-            
+
             // Special content based on post type
             if let sightingNumber = post.sightingNumber {
                 sightingNumberDisplay(sightingNumber)
             }
-            
+
             if let chakraType = post.chakraType {
                 chakraTypeDisplay(chakraType)
             }
         }
     }
-    
+
     private var tagsSection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
@@ -320,7 +320,7 @@ struct PostCardView: View {
             .padding(.horizontal, 1)
         }
     }
-    
+
     private func cosmicSignatureSection(_ signature: CosmicSignature) -> some View {
         VStack(spacing: 12) {
             Button(action: {
@@ -330,13 +330,13 @@ struct PostCardView: View {
                     Image(systemName: "waveform.path")
                         .font(.caption)
                         .foregroundColor(getSacredColor(for: signature.focusNumber))
-                    
+
                     Text("Focus \(signature.focusNumber) • \(signature.currentChakra.capitalized) Chakra • Life Path \(signature.lifePathNumber)")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.8))
-                    
+
                     Spacer()
-                    
+
                     Image(systemName: showingCosmicDetails ? "chevron.up" : "chevron.down")
                         .font(.caption2)
                         .foregroundColor(.white.opacity(0.6))
@@ -352,14 +352,14 @@ struct PostCardView: View {
                 )
             }
             .buttonStyle(PlainButtonStyle())
-            
+
             if showingCosmicDetails {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Cosmic Alignment at Time of Posting")
                         .font(.caption)
                         .fontWeight(.semibold)
                         .foregroundColor(.white.opacity(0.9))
-                    
+
                     HStack {
                         cosmicDetailItem("Focus", "\(signature.focusNumber)", getSacredColor(for: signature.focusNumber))
                         cosmicDetailItem("Chakra", signature.currentChakra.capitalized, .green)
@@ -377,14 +377,14 @@ struct PostCardView: View {
             }
         }
     }
-    
+
     private var interactionsSection: some View {
         VStack(spacing: 12) {
             // Reaction summary
             if post.totalReactions > 0 {
                 reactionSummary
             }
-            
+
             // Action buttons
             HStack(spacing: 0) {
                 // React button with pulse animation
@@ -404,7 +404,7 @@ struct PostCardView: View {
                     .animation(.easeInOut(duration: 0.3), value: hasRecentReactionUpdate)
                 }
                 .frame(maxWidth: .infinity)
-                
+
                 // Comment button
                 Button(action: {
                     showingComments = true
@@ -412,7 +412,7 @@ struct PostCardView: View {
                     HStack(spacing: 4) {
                         Image(systemName: "bubble.left")
                             .font(.system(size: 18))
-                        
+
                         if post.commentCount > 0 {
                             Text("\(post.commentCount)")
                                 .font(.caption)
@@ -427,7 +427,7 @@ struct PostCardView: View {
                     .foregroundColor(.white.opacity(0.8))
                 }
                 .frame(maxWidth: .infinity)
-                
+
                 // Share button (placeholder)
                 Button(action: {
                     // TODO: Implement sharing
@@ -445,7 +445,7 @@ struct PostCardView: View {
             }
         }
     }
-    
+
     private var reactionSummary: some View {
         HStack(spacing: 8) {
             ForEach(ReactionType.allCases, id: \.self) { reactionType in
@@ -455,7 +455,7 @@ struct PostCardView: View {
                             .font(.caption)
                             .scaleEffect(hasRecentUpdate(for: reactionType) ? 1.2 : 1.0)
                             .animation(.spring(response: 0.3, dampingFraction: 0.6), value: hasRecentUpdate(for: reactionType))
-                        
+
                         Text("\(count)")
                             .font(.caption2)
                             .fontWeight(.semibold)
@@ -467,8 +467,8 @@ struct PostCardView: View {
                     .background(
                         Capsule()
                             .fill(
-                                hasRecentUpdate(for: reactionType) ? 
-                                reactionType.color.opacity(0.6) : 
+                                hasRecentUpdate(for: reactionType) ?
+                                reactionType.color.opacity(0.6) :
                                 reactionType.color.opacity(0.3)
                             )
                             .overlay(
@@ -486,9 +486,9 @@ struct PostCardView: View {
                     .animation(.spring(response: 0.4, dampingFraction: 0.8), value: hasRecentUpdate(for: reactionType))
                 }
             }
-            
+
             Spacer()
-            
+
             if post.commentCount > 0 {
                 Text("\(post.commentCount) comments")
                     .font(.caption2)
@@ -496,9 +496,9 @@ struct PostCardView: View {
             }
         }
     }
-    
+
     // MARK: - Helper Views
-    
+
     private func sightingNumberDisplay(_ number: Int) -> some View {
         HStack(spacing: 12) {
             Circle()
@@ -520,18 +520,18 @@ struct PostCardView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                 )
-            
+
             VStack(alignment: .leading, spacing: 2) {
                 Text("Number Sighting")
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(.white.opacity(0.9))
-                
+
                 Text("Synchronicity detected")
                     .font(.caption2)
                     .foregroundColor(.white.opacity(0.7))
             }
-            
+
             Spacer()
         }
         .padding(12)
@@ -544,7 +544,7 @@ struct PostCardView: View {
                 )
         )
     }
-    
+
     private func chakraTypeDisplay(_ chakra: String) -> some View {
         HStack(spacing: 12) {
             Circle()
@@ -565,18 +565,18 @@ struct PostCardView: View {
                         .font(.title3)
                         .foregroundColor(.white)
                 )
-            
+
             VStack(alignment: .leading, spacing: 2) {
                 Text("\(chakra.capitalized) Chakra")
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(.white.opacity(0.9))
-                
+
                 Text("Energy work session")
                     .font(.caption2)
                     .foregroundColor(.white.opacity(0.7))
             }
-            
+
             Spacer()
         }
         .padding(12)
@@ -589,26 +589,26 @@ struct PostCardView: View {
                 )
         )
     }
-    
+
     private func cosmicDetailItem(_ title: String, _ value: String, _ color: Color) -> some View {
         VStack(spacing: 4) {
             Text(value)
                 .font(.caption)
                 .fontWeight(.bold)
                 .foregroundColor(color)
-            
+
             Text(title)
                 .font(.caption2)
                 .foregroundColor(.white.opacity(0.7))
         }
         .frame(maxWidth: .infinity)
     }
-    
+
     // MARK: - Helper Functions
-    
+
     private func timeAgoDisplay(from date: Date) -> String {
         let interval = Date().timeIntervalSince(date)
-        
+
         if interval < 60 {
             return "now"
         } else if interval < 3600 {
@@ -622,9 +622,9 @@ struct PostCardView: View {
             return "\(days)d"
         }
     }
-    
+
     // MARK: - Helper Methods
-    
+
     /**
      * Checks if a reaction type has been recently updated (within last 2 seconds)
      */
@@ -632,7 +632,7 @@ struct PostCardView: View {
         let timeSinceUpdate = Date().timeIntervalSince(lastReactionUpdate)
         let currentCount = reactionCounts[reactionType.rawValue] ?? 0
         let originalCount = post.reactions[reactionType.rawValue] ?? 0
-        
+
         // Only show glow if:
         // 1. Recent update (within 2 seconds) AND
         // 2. This reaction type actually has a count > 0 AND
@@ -640,10 +640,10 @@ struct PostCardView: View {
         let hasCountChanged = currentCount != originalCount
         let hasValidCount = currentCount > 0
         let isRecent = timeSinceUpdate < 2.0
-        
+
         return isRecent && hasValidCount && hasCountChanged
     }
-    
+
     /**
      * Checks if there has been a recent reaction update
      */
@@ -651,15 +651,15 @@ struct PostCardView: View {
         let timeSinceUpdate = Date().timeIntervalSince(lastReactionUpdate)
         return timeSinceUpdate < 2.0 && post.totalReactions > 0
     }
-    
+
     // MARK: - Post Management Functions
-    
+
     /**
      * PHASE 6 ENHANCEMENT: Delete Post Functionality
-     * 
+     *
      * PURPOSE: Allows users to delete their own posts from Global Resonance Timeline
      * SECURITY: Only allows deletion of posts where authorId matches current user
-     * 
+     *
      * IMPLEMENTATION:
      * - Validates user ownership before deletion
      * - Uses PostManager to handle Firebase deletion
@@ -672,15 +672,15 @@ struct PostCardView: View {
             print("⚠️ User \(currentUser.userId) attempted to delete post by \(post.authorId)")
             return
         }
-        
+
         // Provide haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
         impactFeedback.impactOccurred()
-        
+
         // Delete post via PostManager
         PostManager.shared.deletePost(post)
         print("✅ Successfully deleted post: \(post.id ?? "unknown")")
-        
+
         // Success haptic feedback
         let successFeedback = UINotificationFeedbackGenerator()
         successFeedback.notificationOccurred(.success)
@@ -720,7 +720,7 @@ private func getSacredColor(for number: Int) -> Color {
             realmNumber: 7
         )
     )
-    
+
     let currentUser = SocialUser(
         userId: "current-user",
         displayName: "Test User",
@@ -728,7 +728,7 @@ private func getSacredColor(for number: Int) -> Color {
         soulUrgeNumber: 2,
         expressionNumber: 8
     )
-    
+
     PostCardView(
         post: samplePost,
         currentUser: currentUser,
@@ -736,4 +736,4 @@ private func getSacredColor(for number: Int) -> Color {
     )
     .padding()
     .background(Color.black)
-} 
+}

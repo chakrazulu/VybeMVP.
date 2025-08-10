@@ -3,10 +3,10 @@ import SwiftData
 
 /**
  * MoonPhase - SwiftData Model for KASPER MLX Lunar Training
- * 
+ *
  * Represents lunar phases from MoonPhases.json MegaCorpus data
  * Used by KASPER MLX to provide lunar insights for cosmic snapshots
- * 
+ *
  * The eight primary moon phases each carry distinct spiritual energies:
  * - New Moon: New beginnings, intention setting
  * - Waxing Crescent: Initial growth, taking action
@@ -21,39 +21,39 @@ import SwiftData
 final class MoonPhase {
     // Primary identifier
     @Attribute(.unique) var phaseName: String
-    
+
     // Lunar identity
     var glyph: String                   // Moon phase symbol (🌑, 🌒, 🌓, etc.)
     var phaseNumber: Int                // Sequential order (1-8)
     var illuminationPercentage: Double  // Percentage of moon illuminated (0.0-1.0)
     var archetype: String               // The Seeder, The Builder, The Warrior, etc.
     var keyword: String                 // Core theme (Begin, Grow, Challenge, etc.)
-    
+
     // Timing and duration
     var durationDays: Double            // Average length of this phase in days
     var optimalActions: [String]        // Best activities for this phase
     var energyDirection: String         // Increasing, Decreasing, Peak, Void
-    
+
     // Spiritual content
     var phaseDescription: String        // Comprehensive description of lunar energy
     var keyTraits: [String]            // Core phase characteristics
     var ritualPrompt: String?          // Suggested spiritual practice
     var manifestationFocus: String?     // What to focus manifestation on
-    
+
     // KASPER MLX training data
     var insightExamples: [String] = []  // Example insights for this phase
     var seasonalMeanings: [String: String] = [:] // How phase energy shifts by season
     var signMeanings: [String: String] = [:] // How phase manifests in different signs
     var practicalGuidance: [String] = [] // Actionable advice for this phase
-    
+
     // Usage metadata
     var lastKASPERUpdate: Date?
     var mlxTrainingReady: Bool = false
-    
+
     // Timestamps
     var createdAt: Date
     var updatedAt: Date
-    
+
     init(
         phaseName: String,
         glyph: String,
@@ -119,52 +119,52 @@ extension MoonPhase {
             return .newMoon
         }
     }
-    
+
     /// Returns whether this is a waxing (growing) phase
     var isWaxing: Bool {
         phaseNumber >= 1 && phaseNumber <= 4
     }
-    
+
     /// Returns whether this is a waning (diminishing) phase
     var isWaning: Bool {
         phaseNumber >= 6 && phaseNumber <= 8
     }
-    
+
     /// Returns whether this is a peak energy phase (New or Full)
     var isPeakPhase: Bool {
         phaseNumber == 1 || phaseNumber == 5
     }
-    
+
     /// Returns key traits as a comma-separated string
     var keyTraitString: String {
         keyTraits.joined(separator: ", ")
     }
-    
+
     /// Returns optimal actions as a comma-separated string
     var actionString: String {
         optimalActions.joined(separator: ", ")
     }
-    
+
     /// Gets a random insight example for KASPER MLX
     var randomInsightExample: String? {
         insightExamples.randomElement()
     }
-    
+
     /// Gets a random practical guidance for KASPER MLX
     var randomPracticalGuidance: String? {
         practicalGuidance.randomElement()
     }
-    
+
     /// Gets seasonal meaning for this phase
     func getSeasonalMeaning(for season: String) -> String? {
         seasonalMeanings[season.lowercased()]
     }
-    
+
     /// Gets sign-specific meaning for this phase
     func getSignMeaning(for sign: String) -> String? {
         signMeanings[sign.lowercased()]
     }
-    
+
     /// Updates KASPER MLX training data
     func updateTrainingData(
         insights: [String],
@@ -180,7 +180,7 @@ extension MoonPhase {
         self.updatedAt = Date()
         self.lastKASPERUpdate = Date()
     }
-    
+
     /// Checks if this phase is optimal for a specific type of work
     func isOptimalFor(activity: String) -> Bool {
         let activityLower = activity.lowercased()
@@ -188,12 +188,12 @@ extension MoonPhase {
                keyTraits.contains { $0.lowercased().contains(activityLower) } ||
                manifestationFocus?.lowercased().contains(activityLower) == true
     }
-    
+
     /// Gets the next phase in the lunar cycle
     var nextPhase: Int {
         phaseNumber == 8 ? 1 : phaseNumber + 1
     }
-    
+
     /// Gets the previous phase in the lunar cycle
     var previousPhase: Int {
         phaseNumber == 1 ? 8 : phaseNumber - 1
@@ -212,7 +212,7 @@ enum LunarPhaseType: String, CaseIterable, Codable {
     case waningGibbous = "Waning Gibbous"
     case lastQuarter = "Last Quarter"
     case waningCrescent = "Waning Crescent"
-    
+
     var phaseNumber: Int {
         switch self {
         case .newMoon: return 1
@@ -225,7 +225,7 @@ enum LunarPhaseType: String, CaseIterable, Codable {
         case .waningCrescent: return 8
         }
     }
-    
+
     var glyph: String {
         switch self {
         case .newMoon: return "🌑"
@@ -238,7 +238,7 @@ enum LunarPhaseType: String, CaseIterable, Codable {
         case .waningCrescent: return "🌘"
         }
     }
-    
+
     var primaryEnergy: String {
         switch self {
         case .newMoon: return "Intention and new beginnings"
@@ -259,7 +259,7 @@ enum LunarEnergyDirection: String, CaseIterable, Codable {
     case peak = "Peak"
     case decreasing = "Decreasing"
     case void = "Void"
-    
+
     var description: String {
         switch self {
         case .increasing:

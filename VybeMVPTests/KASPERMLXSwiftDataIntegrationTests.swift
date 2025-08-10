@@ -1,14 +1,14 @@
 /**
  * KASPER MLX SwiftData Integration Tests
- * 
+ *
  * Comprehensive test suite for KASPER MLX integration with SwiftData spiritual database.
  * Validates that spiritual insights are properly generated using SwiftData models instead
  * of legacy JSON-based MegaCorpus data.
- * 
+ *
  * Key Testing Areas:
  * - SwiftData model integration with KASPER MLX providers
  * - NumberMeaning insights with rich categorized content
- * - Astrological data integration for cosmic insights  
+ * - Astrological data integration for cosmic insights
  * - Performance with SwiftData queries
  * - Cache integration with SwiftData persistence
  */
@@ -21,24 +21,24 @@ import Combine
 @available(iOS 17.0, *)
 @MainActor
 final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
-    
+
     // MARK: - Test Properties
-    
+
     private var kasperEngine: KASPERMLXEngine!
     private var spiritualDataController: SpiritualDataController!
     private var testModelContainer: ModelContainer!
     private var testRealmNumberManager: RealmNumberManager!
     private var testFocusNumberManager: FocusNumberManager!
-    
+
     // MARK: - Test Lifecycle
-    
+
     override func setUpWithError() throws {
         super.setUp()
-        
+
         // Create in-memory SwiftData container for testing
         let schema = Schema([
             NumberMeaning.self,
-            ZodiacMeaning.self, 
+            ZodiacMeaning.self,
             PersonalizedInsightTemplate.self,
             AstrologicalAspect.self,
             AstrologicalElement.self,
@@ -47,30 +47,30 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
             ApparentMotion.self,
             MoonPhase.self
         ])
-        
+
         let modelConfiguration = ModelConfiguration(
             schema: schema,
             isStoredInMemoryOnly: true
         )
-        
+
         testModelContainer = try ModelContainer(
             for: schema,
             configurations: [modelConfiguration]
         )
-        
+
         // Initialize test managers
         testRealmNumberManager = RealmNumberManager()
         testFocusNumberManager = FocusNumberManager.shared
-        
+
         // Initialize KASPER engine
         kasperEngine = KASPERMLXEngine.shared
-        
+
         // Populate test data
         try populateTestData()
-        
+
         print("🧪 KASPERMLXSwiftDataIntegrationTests: Setup complete")
     }
-    
+
     override func tearDownWithError() throws {
         kasperEngine = nil
         spiritualDataController = nil
@@ -78,15 +78,15 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         testRealmNumberManager = nil
         testFocusNumberManager = nil
         super.tearDown()
-        
+
         print("🧪 KASPERMLXSwiftDataIntegrationTests: Teardown complete")
     }
-    
+
     // MARK: - Test Data Population
-    
+
     private func populateTestData() throws {
         let context = testModelContainer.mainContext
-        
+
         // Create test NumberMeaning data
         let testNumbers = [1, 3, 7, 9]
         for number in testNumbers {
@@ -109,7 +109,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
             )
             context.insert(numberMeaning)
         }
-        
+
         // Create test ZodiacMeaning data
         let testSigns = ["Aries", "Cancer", "Libra", "Pisces"]
         for (index, sign) in testSigns.enumerated() {
@@ -134,13 +134,13 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
             )
             context.insert(zodiacMeaning)
         }
-        
+
         try context.save()
         print("✅ Test SwiftData populated successfully")
     }
-    
+
     // MARK: - SwiftData Integration Tests
-    
+
     /**
      * TEST 1: NumberMeaning SwiftData Integration
      * Validates that KASPER MLX can access NumberMeaning data from SwiftData
@@ -149,14 +149,14 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         // Given: Test focus number
         let testFocusNumber = 7
         testFocusNumberManager.userDidPickFocusNumber(testFocusNumber)
-        
+
         // Configure engine
         await kasperEngine.configure(
             realmManager: testRealmNumberManager,
             focusManager: testFocusNumberManager,
             healthManager: nil
         )
-        
+
         // When: Generating insight for focus number
         let context = InsightContext(
             primaryData: [
@@ -169,35 +169,35 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
                 spiritualDepth: .deep
             )
         )
-        
+
         let request = InsightRequest(
             feature: .dailyCard,
             type: .guidance,
             priority: .high,
             context: context
         )
-        
+
         let insight = try await kasperEngine.generateInsight(for: request)
-        
+
         // Then: Validate SwiftData integration
         XCTAssertNotNil(insight, "Should generate insight with SwiftData")
         XCTAssertFalse(insight.content.isEmpty, "Should have meaningful content")
         XCTAssertGreaterThan(insight.confidence, 0.7, "Should have high confidence with real data")
-        
+
         // Should contain focus number 7 specific spiritual themes
         let content = insight.content.lowercased()
         let mysticKeywords = ["mystic", "spiritual", "wisdom", "intuition", "sacred", "inner", "divine"]
         let containsMysticThemes = mysticKeywords.contains { content.contains($0) }
-        
-        XCTAssertTrue(containsMysticThemes, 
+
+        XCTAssertTrue(containsMysticThemes,
                      "Focus 7 should contain mystical themes. Generated: \(insight.content)")
-        
+
         print("✅ NumberMeaning SwiftData integration validated")
         print("🔮 Generated insight: \(insight.content)")
     }
-    
+
     /**
-     * TEST 2: ZodiacMeaning SwiftData Integration  
+     * TEST 2: ZodiacMeaning SwiftData Integration
      * Validates astrological data integration from SwiftData
      */
     func testZodiacMeaningSwiftDataIntegration() async throws {
@@ -207,7 +207,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
             focusManager: testFocusNumberManager,
             healthManager: nil
         )
-        
+
         // When: Generating cosmic timing insight that uses zodiac data
         let context = InsightContext(
             primaryData: [
@@ -217,32 +217,32 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
             userQuery: "What is the current cosmic energy?",
             constraints: InsightConstraints(maxLength: 150)
         )
-        
+
         let request = InsightRequest(
             feature: .cosmicTiming,
             type: .guidance,
             priority: .high,
             context: context
         )
-        
+
         let insight = try await kasperEngine.generateInsight(for: request)
-        
+
         // Then: Validate zodiac data integration
         XCTAssertNotNil(insight, "Should generate cosmic insight")
         XCTAssertFalse(insight.content.isEmpty, "Should have cosmic content")
-        
+
         // Should reference astrological concepts
         let content = insight.content.lowercased()
         let astrologicalTerms = ["cosmic", "energy", "planetary", "celestial", "universe", "alignment"]
         let containsAstrologicalTerms = astrologicalTerms.contains { content.contains($0) }
-        
+
         XCTAssertTrue(containsAstrologicalTerms,
                      "Cosmic timing should reference astrological concepts. Generated: \(insight.content)")
-        
+
         print("✅ ZodiacMeaning SwiftData integration validated")
         print("🌌 Generated cosmic insight: \(insight.content)")
     }
-    
+
     /**
      * TEST 3: Rich Insight Categories Integration
      * Validates that NumberMeaning's rich categorized insights are utilized
@@ -251,16 +251,16 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         // Given: Focus number with rich insight data
         let testFocusNumber = 3
         testFocusNumberManager.userDidPickFocusNumber(testFocusNumber)
-        
+
         await kasperEngine.configure(
             realmManager: testRealmNumberManager,
             focusManager: testFocusNumberManager,
             healthManager: nil
         )
-        
+
         // Test different insight types to ensure variety
         let insightTypes: [KASPERInsightType] = [.guidance, .reflection, .affirmation]
-        
+
         for insightType in insightTypes {
             // When: Generating specific insight type
             let context = InsightContext(
@@ -270,35 +270,35 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
                 ],
                 userQuery: "Provide \(insightType.rawValue) for my spiritual journey"
             )
-            
+
             let request = InsightRequest(
                 feature: .journalInsight,
                 type: insightType,
                 priority: .high,
                 context: context
             )
-            
+
             let insight = try await kasperEngine.generateInsight(for: request)
-            
+
             // Then: Validate type-specific content
             XCTAssertNotNil(insight, "Should generate \(insightType.rawValue) insight")
             XCTAssertEqual(insight.type, insightType, "Should match requested type")
             XCTAssertFalse(insight.content.isEmpty, "Should have meaningful content")
-            
+
             // Focus 3 should contain creative/expressive themes
             let content = insight.content.lowercased()
             let creativeKeywords = ["creative", "expression", "communicate", "artistic", "joy", "inspiration"]
             let containsCreativeThemes = creativeKeywords.contains { content.contains($0) }
-            
+
             XCTAssertTrue(containsCreativeThemes,
                          "Focus 3 \(insightType.rawValue) should contain creative themes. Generated: \(insight.content)")
-            
+
             print("✅ \(insightType.rawValue) insight for Focus 3: \(insight.content)")
         }
-        
+
         print("✅ Rich insight categories integration validated")
     }
-    
+
     /**
      * TEST 4: SwiftData Performance with KASPER MLX
      * Validates that SwiftData queries don't negatively impact performance
@@ -306,63 +306,63 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
     func testSwiftDataPerformanceIntegration() async throws {
         // Given: Configure engine
         await kasperEngine.configure(
-            realmManager: testRealmNumberManager, 
+            realmManager: testRealmNumberManager,
             focusManager: testFocusNumberManager,
             healthManager: nil
         )
-        
+
         let performanceTests = 10
         var totalTime: TimeInterval = 0
-        
+
         for i in 0..<performanceTests {
             // When: Generating insights with SwiftData
             let startTime = Date()
-            
+
             let context = InsightContext(
                 primaryData: ["performanceTest": i],
                 userQuery: "Performance test query \(i)"
             )
-            
+
             let request = InsightRequest(
                 feature: .dailyCard,
                 type: .guidance,
                 priority: .high,
                 context: context
             )
-            
+
             let insight = try await kasperEngine.generateInsight(for: request)
             let queryTime = Date().timeIntervalSince(startTime)
             totalTime += queryTime
-            
+
             // Validate quality isn't compromised
             XCTAssertNotNil(insight, "Performance test \(i) should generate insight")
             XCTAssertFalse(insight.content.isEmpty, "Performance test \(i) should have content")
             XCTAssertLessThan(queryTime, 0.5, "Individual query should be under 500ms")
         }
-        
+
         let averageTime = totalTime / Double(performanceTests)
-        
+
         // Then: Validate overall performance
         XCTAssertLessThan(averageTime, 0.1, "Average SwiftData query time should be under 100ms")
         XCTAssertLessThan(totalTime, 2.0, "Total time for \(performanceTests) queries should be under 2 seconds")
-        
+
         print("✅ SwiftData performance validated")
         print("📊 Average query time: \(String(format: "%.2f", averageTime * 1000))ms")
         print("📊 Total time for \(performanceTests) queries: \(String(format: "%.2f", totalTime * 1000))ms")
     }
-    
+
     // MARK: - Test Data Helpers
-    
+
     private func getTestArchetype(for number: Int) -> String {
         switch number {
         case 1: return "Pioneer"
-        case 3: return "Creator" 
+        case 3: return "Creator"
         case 7: return "Mystic"
         case 9: return "Humanitarian"
         default: return "Seeker"
         }
     }
-    
+
     private func getTestElement(for number: Int) -> String {
         switch number {
         case 1, 9: return "Fire"
@@ -370,7 +370,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return "Universal"
         }
     }
-    
+
     private func getTestKeywords(for number: Int) -> [String] {
         switch number {
         case 1: return ["leadership", "independence", "initiative", "pioneering"]
@@ -380,7 +380,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return ["growth", "learning"]
         }
     }
-    
+
     private func getTestStrengths(for number: Int) -> [String] {
         switch number {
         case 1: return ["Natural leader", "Confident", "Independent"]
@@ -390,17 +390,17 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return ["Adaptable", "Resilient"]
         }
     }
-    
+
     private func getTestChallenges(for number: Int) -> [String] {
         switch number {
         case 1: return ["Impatience", "Selfishness"]
-        case 3: return ["Scattered energy", "Superficiality"]  
+        case 3: return ["Scattered energy", "Superficiality"]
         case 7: return ["Isolation", "Over-analysis"]
         case 9: return ["Emotional overwhelm", "Martyrdom"]
         default: return ["Self-doubt"]
         }
     }
-    
+
     private func getTestDescription(for number: Int) -> String {
         switch number {
         case 1: return "The pioneering spirit that initiates new beginnings and leads with courage."
@@ -410,7 +410,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return "A path of spiritual growth and learning."
         }
     }
-    
+
     private func getTestPlanet(for number: Int) -> String? {
         switch number {
         case 1: return "Sun"
@@ -420,7 +420,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return nil
         }
     }
-    
+
     private func getTestSign(for number: Int) -> String? {
         switch number {
         case 1: return "Aries"
@@ -430,7 +430,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return nil
         }
     }
-    
+
     private func getTestColor(for number: Int) -> String? {
         switch number {
         case 1: return "Red"
@@ -440,7 +440,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return nil
         }
     }
-    
+
     private func getTestInsights(for number: Int) -> [String] {
         switch number {
         case 1: return [
@@ -466,7 +466,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return ["Trust your journey of growth and discovery."]
         }
     }
-    
+
     private func getTestReflections(for number: Int) -> [String] {
         switch number {
         case 1: return [
@@ -488,7 +488,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return ["What is your soul trying to teach you today?"]
         }
     }
-    
+
     private func getTestContemplations(for number: Int) -> [String] {
         switch number {
         case 1: return ["The courage to begin is the first step toward all achievement."]
@@ -498,7 +498,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return ["Every moment offers an opportunity for growth."]
         }
     }
-    
+
     private func getTestManifestations(for number: Int) -> [String] {
         switch number {
         case 1: return ["I am a confident leader who pioneers new possibilities."]
@@ -508,7 +508,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return ["I am growing into my highest potential."]
         }
     }
-    
+
     // Zodiac test data helpers
     private func getTestGlyph(for sign: String) -> String {
         switch sign {
@@ -519,7 +519,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return "♈"
         }
     }
-    
+
     private func getTestDateRange(for sign: String) -> String {
         switch sign {
         case "Aries": return "March 21 - April 19"
@@ -529,7 +529,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return "Test Range"
         }
     }
-    
+
     private func getTestSymbol(for sign: String) -> String {
         switch sign {
         case "Aries": return "The Ram"
@@ -539,7 +539,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return "Test Symbol"
         }
     }
-    
+
     private func getTestRuler(for sign: String) -> String {
         switch sign {
         case "Aries": return "Mars"
@@ -549,7 +549,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return "Sun"
         }
     }
-    
+
     private func getTestElementForSign(for sign: String) -> String {
         switch sign {
         case "Aries": return "Fire"
@@ -559,7 +559,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return "Fire"
         }
     }
-    
+
     private func getTestModeForSign(for sign: String) -> String {
         switch sign {
         case "Aries": return "Cardinal"
@@ -569,7 +569,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return "Cardinal"
         }
     }
-    
+
     private func getTestKeywordForSign(for sign: String) -> String {
         switch sign {
         case "Aries": return "I Am"
@@ -579,7 +579,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return "I Exist"
         }
     }
-    
+
     private func getTestSignDescription(for sign: String) -> String {
         switch sign {
         case "Aries": return "The pioneering ram that charges forward with courage and initiative."
@@ -589,7 +589,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return "A spiritual archetype of cosmic wisdom."
         }
     }
-    
+
     private func getTestSignTraits(for sign: String) -> [String] {
         switch sign {
         case "Aries": return ["Bold", "Energetic", "Leadership", "Independent"]
@@ -599,7 +599,7 @@ final class KASPERMLXSwiftDataIntegrationTests: XCTestCase {
         default: return ["Spiritual", "Wise"]
         }
     }
-    
+
     private func getTestSignGuidance(for sign: String) -> String {
         switch sign {
         case "Aries": return "Channel your pioneering energy into meaningful new beginnings."

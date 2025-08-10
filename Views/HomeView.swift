@@ -75,7 +75,7 @@
  * • Insight history: Clock icon button (44×44pt)
  * • Number picker: Each number is 80×80pt target
  *
- * Purpose: 
+ * Purpose:
  * Provides a visual dashboard that displays the user's selected focus number and recent matches.
  * Serves as the central hub that users return to after navigating through other sections.
  *
@@ -92,140 +92,140 @@ import SwiftUI
 
 struct HomeView: View {
     // MARK: - 🌟 ENVIRONMENT OBJECT SPIRITUAL ECOSYSTEM INTEGRATION
-    
+
     /// Claude: FocusNumberManager provides the user's selected spiritual focus number (1-9)
     /// and manages cosmic match detection when focus equals realm number.
     /// This manager is the heart of Vybe's spiritual matching system, coordinating
     /// between user intention and cosmic alignment for transcendent experiences.
     @EnvironmentObject var focusNumberManager: FocusNumberManager
-    
+
     /// Claude: RealmNumberManager calculates the current cosmic realm number based on
     /// time, location, heart rate, and celestial influences. This dynamic number
     /// represents the universe's current energetic state and serves as the target
     /// for cosmic synchronicity when it aligns with the user's focus number.
     @EnvironmentObject var realmNumberManager: RealmNumberManager
-    
+
     /// Claude: SignInViewModel handles user authentication and personalization,
     /// providing access to user profile data that influences spiritual calculations
     /// and personalized insight generation throughout the cosmic experience.
     @EnvironmentObject var signInViewModel: SignInViewModel
-    
+
     /// Claude: ActivityNavigationManager orchestrates deep linking and navigation
     /// to specific insights within the activity feed, enabling users to seamlessly
     /// navigate between cosmic experiences and their spiritual activity timeline.
     @EnvironmentObject var activityNavigationManager: ActivityNavigationManager
-    
+
     /// Claude: AIInsightManager provides traditional AI insight generation using
     /// template-based spiritual guidance, serving as the foundation layer for
     /// personalized daily spiritual wisdom before KASPER MLX enhancement.
     @EnvironmentObject var aiInsightManager: AIInsightManager
-    
+
     /// Claude: HealthKitManager integrates biometric data including heart rate variability
     /// to enhance cosmic calculations and provide physiological context for spiritual
     /// experiences. Heart rate data influences neon tracer pulsing and realm calculations.
     @EnvironmentObject var healthKitManager: HealthKitManager
-    
+
     // MARK: - 🧠 KASPER MLX SPIRITUAL AI INTEGRATION
-    
+
     /// Claude: KASPERMLXManager represents the revolutionary spiritual AI system that provides
     /// contextually-aware spiritual guidance with sub-second response times. This state object
     /// manages the sophisticated AI inference engine that transforms HomeView from a static
     /// dashboard into an intelligent spiritual companion.
     @StateObject private var kasperMLX = KASPERMLXManager.shared
-    
+
     /// Claude: KASPERFeedbackManager collects user satisfaction data for continuous AI
     /// improvement, enabling the spiritual AI system to learn and evolve based on
     /// user feedback about insight quality and spiritual relevance.
     @StateObject private var kasperFeedback = KASPERFeedbackManager.shared
-    
+
     // MARK: - 🎨 UI STATE MANAGEMENT FOR SPIRITUAL INTERACTIONS
-    
+
     /// Claude: Legacy focus number picker sheet visibility control.
     /// Maintained for backward compatibility but superseded by showingCosmicPicker
     /// for the enhanced cosmic number selection experience.
     @State private var showingPicker = false
-    
+
     /// Claude: Controls visibility of the insight history modal, providing users
     /// access to their complete timeline of received spiritual guidance and
     /// AI-generated insights for reflection and spiritual growth tracking.
     @State private var showingInsightHistory = false
-    
+
     /// Claude: Modern cosmic number picker overlay visibility state.
     /// This sophisticated overlay system replaces traditional sheet modals with
     /// a magical cosmic interface that appears directly over the sacred geometry,
     /// maintaining immersion in the spiritual experience.
     @State private var showingCosmicPicker = false
-    
+
     /// Claude: Animation scale factor for cosmic picker entrance animation.
     /// Starts at 0.1 and animates to 1.0 to create a magical appearance effect
     /// that makes the number picker bloom into existence from the cosmic center.
     @State private var pickerScale: CGFloat = 0.1
-    
+
     /// Claude: Animation opacity for cosmic picker entrance animation.
     /// Coordinates with scale animation to create smooth, mystical transitions
     /// that enhance the spiritual nature of number selection interactions.
     @State private var pickerOpacity: Double = 0.0
-    
+
     // MARK: - 🤖 KASPER MLX AI STATE MANAGEMENT
-    
+
     /// Claude: Current KASPER MLX generated insight displayed in HomeView.
     /// This represents the latest AI-generated spiritual guidance contextually
     /// aware of the user's focus number, realm alignment, and spiritual journey phase.
     /// Race condition issues resolved through proper async/await patterns.
     @State private var kasperInsight: KASPERInsight?
-    
+
     /// Claude: Controls visibility of the KASPER AI insight card in the main view.
     /// When true, displays the sophisticated AI insight with smooth ZStack opacity
     /// transitions that prevent layout hitches during content updates.
     @State private var showKasperCard = true
-    
+
     /// Claude: Holds any error messages from KASPER MLX insight generation.
     /// Provides user-friendly error communication when AI insight generation
     /// encounters issues, maintaining graceful degradation of the spiritual experience.
     @State private var kasperError: String?
-    
+
     /// Claude: Loading state for KASPER MLX insight generation operations.
     /// Enables smooth loading animations with crystal ball iconography that
     /// maintains the mystical aesthetic during AI processing periods.
     @State private var isKasperLoading = false
-    
+
     // MARK: - 📊 PERFORMANCE OPTIMIZATION STATE
-    
+
     /// Claude: CACHE FLOOD FIX - Cached UserProfile to prevent repeated Core Data lookups.
     /// This optimization significantly improves HomeView performance by eliminating
     /// redundant profile queries that were causing UI stuttering during rapid updates.
     /// The cached profile enables instant access to user spiritual data.
     @State private var cachedUserProfile: UserProfile?
-    
+
     // MARK: - 🎊 COSMIC MATCH CELEBRATION STATE
-    
+
     /// Claude: PHASE 3C-2 - Controls visibility of recent cosmic match popup modal.
     /// When a cosmic match is detected (focus number equals realm number), this state
     /// triggers the celebration interface that acknowledges the spiritual synchronicity.
     @State private var showingMatchPopup = false
-    
+
     /// Claude: PHASE 3C-2 - Holds the selected FocusMatch for detailed display.
     /// Contains complete match data including timestamp, location, and cosmic context
     /// for comprehensive celebration and spiritual journey documentation.
     @State private var selectedMatch: FocusMatch?
-    
+
     // MARK: - 🌀 SACRED GEOMETRY ANIMATION STATE
-    
+
     /// Claude: PHASE 8.5 - Tracks current mandala asset for authentic SVG path tracing.
     /// This state enables the NeonTracerView to follow the exact geometric paths
     /// of the currently displayed sacred geometry, creating authentic mystical effects
     /// that trace real mandala structures rather than generic shapes.
     @State private var currentMandalaAsset: SacredGeometryAsset = .wisdomEnneagram
-    
+
     var body: some View {
         ZStack {
             // MARK: - 🌌 COSMIC ANIMATION SYSTEM ARCHITECTURE
-            
+
             /// Claude: ScrollSafeCosmicView provides the revolutionary animation system that enables
             /// continuous cosmic effects without interfering with ScrollView performance. This
             /// sophisticated wrapper prevents animation stuttering during scrolling while maintaining
             /// the mystical twinkling number effects that bloom from sacred geometry centers.
-            /// 
+            ///
             /// The system represents a breakthrough in iOS animation architecture, solving the
             /// challenging problem of scroll-safe continuous animations that plagued earlier
             /// implementations. Users experience seamless cosmic effects even during rapid scrolling.
@@ -235,12 +235,12 @@ struct HomeView: View {
                 // spiritual interface elements while maintaining proper depth relationships.
                 ZStack {
                     // MARK: - 🎨 COSMIC BACKGROUND GRADIENT SYSTEM
-                    
+
                     /// Claude: Sophisticated cosmic background gradient replacing the previous
                     /// TwinklingDigitsBackground system for improved performance. This gradient
                     /// creates the mystical purple-to-indigo cosmic atmosphere that defines
                     /// Vybe's spiritual aesthetic while ensuring smooth 60fps performance.
-                    /// 
+                    ///
                     /// Color progression: Black → Purple (30%) → Indigo (20%) → Black
                     /// This creates depth and mystical ambiance without overwhelming content.
                     LinearGradient(
@@ -254,16 +254,16 @@ struct HomeView: View {
                         endPoint: .bottomTrailing
                     )
                     .ignoresSafeArea()
-                    
+
                     // 🌌 TEMPORARILY DISABLED: TwinklingDigitsBackground to debug freeze
                     // TwinklingDigitsBackground()
                     //     .environmentObject(focusNumberManager)
                     //     .environmentObject(realmNumberManager)
                     //     .environmentObject(activityNavigationManager)
                     //     .ignoresSafeArea()
-                    
+
                     // MARK: - 📱 MAIN SCROLLVIEW CONTENT ARCHITECTURE
-                    
+
                     /// Claude: Primary ScrollView container providing vertical scrolling for all
                     /// spiritual dashboard content. This scrolling system is optimized to work
                     /// seamlessly with ScrollSafeCosmicView's animation system, preventing any
@@ -274,25 +274,25 @@ struct HomeView: View {
                         /// efficiency, ensuring all spiritual elements remain visible without
                         /// requiring excessive scrolling on standard iPhone displays.
                         VStack(spacing: 15) { // 🎯 MAIN STACK: Compact spacing
-                            
+
                             // MARK: - 🎭 BRAND IDENTITY & NAVIGATION HEADER
-                            
+
                             /// Claude: Brand identity section positioned high in the interface hierarchy.
                             /// The 5pt top padding moves content closer to the status bar for maximum
                             /// screen utilization while maintaining Apple's recommended safe areas.
-                            /// 
+                            ///
                             /// Font sizing follows Apple's Human Interface Guidelines:
                             /// - "Vybe" brand: 32pt bold system font for strong brand presence
                             /// - Subtitle: Title2 (22pt) for clear feature identification
                             VStack(spacing: 8) {
                                 Text("Vybe")
                                     .font(.system(size: 32, weight: .bold)) // Back to original size
-                                
+
                                 Text("Your Focus Number")
                                     .font(.title2) // Back to original size
                             }
                             .padding(.top, 5) // Move higher towards status bar
-                            
+
                             // MARK: ––– SACRED GEOMETRY SECTION START –––
                             // 🌟 SACRED GEOMETRY CONTAINER: 350×350pt with 40pt vertical padding
                             VStack(spacing: 30) {
@@ -309,7 +309,7 @@ struct HomeView: View {
                                             number: focusNumberManager.selectedFocusNumber,
                                             size: 350
                                         )
-                                        
+
                                         // PHASE 8I: Number-specific geometric pattern neon tracer
                                         NeonTracerView(
                                             realmNumber: focusNumberManager.selectedFocusNumber,
@@ -318,10 +318,10 @@ struct HomeView: View {
                                             size: CGSize(width: 320, height: 320)
                                         )
                                         .frame(width: 320, height: 320)
-                                        
+
                                         // Phase 13: Organic Edge Buttons positioned around mandala
                                         organicEdgeButtons
-                                        
+
                                         // Large Focus Number with Enhanced Glow
                                         Text("\(focusNumberManager.selectedFocusNumber)")
                                             .font(.system(size: 140, weight: .bold, design: .rounded))
@@ -335,7 +335,7 @@ struct HomeView: View {
                                         // Haptic feedback
                                         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
                                         impactFeedback.impactOccurred()
-                                        
+
                                         // Show cosmic picker with animation
                                         withAnimation(.easeInOut(duration: 0.4)) {
                                             showingCosmicPicker = true
@@ -350,7 +350,7 @@ struct HomeView: View {
                                         print("Focus number tapped - navigate to Activity view")
                                         // TODO: Implement Activity view navigation
                                     }
-                                    
+
                                     Text("✦ Hold to Change ✦")
                                         .font(.system(size: 12, weight: .medium, design: .rounded))
                                         .foregroundColor(.white.opacity(0.7))
@@ -358,7 +358,7 @@ struct HomeView: View {
                             }
                             .padding(.vertical, 40)  // Increased padding for more space
                             // MARK: ––– SACRED GEOMETRY SECTION END –––
-                            
+
                             // Realm-Time Button (Enhanced with Dynamic Colors)
                             Button(action: {
                                 activityNavigationManager.requestRealmNavigation()
@@ -382,7 +382,7 @@ struct HomeView: View {
                                                 startPoint: .topLeading,
                                                 endPoint: .bottomTrailing
                                             )
-                                            
+
                                             // Overlay gradient for depth
                                         LinearGradient(
                                                 gradient: Gradient(stops: [
@@ -417,25 +417,25 @@ struct HomeView: View {
                             .id("realmButton_\(focusNumberManager.selectedFocusNumber)") // Force update when focus changes
                             .animation(.easeInOut(duration: 0.6), value: focusNumberManager.selectedFocusNumber)
                             .padding(.top, 10) // Add some space above the insight section
-                            
+
                             // Claude: KASPER MLX Daily Card Section
                             kasperDailyCardSection
-                            
+
                             // Enhanced Today's Insight Section
                             todaysInsightSection
-                            
+
                             // NEW: Latest Matched Number Insight Section
                             if let matchedInsight = focusNumberManager.latestMatchedInsight,
                                isInsightRecent(matchedInsight.timestamp) { // Only show if recent
                                 matchedInsightSection(insightData: matchedInsight)
                             }
-                            
+
                             // Recent Matches Section
                             VStack(alignment: .leading, spacing: 10) {
                                 Text("Recent Matches")
                                     .font(.headline)
                                     .padding(.horizontal)
-                                
+
                                 if focusNumberManager.matchLogs.isEmpty {
                                     Text("No matches yet")
                                         .foregroundColor(.secondary)
@@ -459,7 +459,7 @@ struct HomeView: View {
                                                     // PHASE 3C-2: Show match details popup on hold
                                                     selectedMatch = match
                                                     showingMatchPopup = true
-                                                    
+
                                                     // Haptic feedback
                                                     let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
                                                     impactFeedback.impactOccurred()
@@ -470,9 +470,9 @@ struct HomeView: View {
                                     }
                                 }
                             }
-                            
+
                             Spacer()
-                            
+
                             // Change Number Button
                             Button("Change Number") {
                                 showingPicker = true
@@ -485,12 +485,12 @@ struct HomeView: View {
                     }
                 }
             }
-            
+
             // Cosmic Number Picker Overlay
             if showingCosmicPicker {
                 cosmicNumberPickerOverlay
             }
-            
+
             // PHASE 3C-2: Recent Match Popup Overlay
             if showingMatchPopup, let match = selectedMatch {
                 RecentMatchPopupView(
@@ -521,26 +521,26 @@ struct HomeView: View {
                     )
                 }
             }
-            
+
             // FREEZE FIX: Stagger HomeView operations to prevent simultaneous heavy lifting
-            
+
             // Step 1: Load match logs (lightweight)
             focusNumberManager.loadMatchLogs()
-            
+
             // Step 2: Cache user profile (lightweight, after small delay)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 if cachedUserProfile == nil, let userID = signInViewModel.userID {
                     cachedUserProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID)
                 }
             }
-            
+
             // Step 3: AI insights (can be heavy, after larger delay)
             // Claude: SWIFT 6 COMPLIANCE - Use Task for async method call
             Task {
                 try await Task.sleep(nanoseconds: 1_500_000_000) // 1.5 second delay
                 await aiInsightManager.refreshInsightIfNeeded()
             }
-            
+
             // Claude: Phase 8.5 - Initialize current mandala asset for SVG path tracing
             updateCurrentMandalaAsset()
         }
@@ -549,7 +549,7 @@ struct HomeView: View {
             updateCurrentMandalaAsset()
         }
     }
-    
+
     // Claude: Phase 8.5 - Update current mandala asset for authentic SVG path tracing
     private func updateCurrentMandalaAsset() {
         // Get the current asset that DynamicAssetMandalaView would select
@@ -561,9 +561,9 @@ struct HomeView: View {
     private func isInsightRecent(_ date: Date, within interval: TimeInterval = 24 * 60 * 60) -> Bool {
         return Date().timeIntervalSince(date) < interval
     }
-    
+
     // MARK: - Today's Insight Section
-    
+
     private var todaysInsightSection: some View {
         VStack(spacing: 20) {
             // Header with date
@@ -573,14 +573,14 @@ struct HomeView: View {
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                    
+
                     Text(Date(), style: .date)
                         .font(.subheadline)
                         .foregroundColor(.white.opacity(0.8))
                 }
-                
+
                 Spacer()
-                
+
                 Button(action: {
                     showingInsightHistory = true
                 }) {
@@ -589,7 +589,7 @@ struct HomeView: View {
                         .foregroundColor(.white.opacity(0.8))
                 }
             }
-            
+
             // Insight Content
             VStack(spacing: 16) {
                 if aiInsightManager.isInsightReady {
@@ -600,19 +600,19 @@ struct HomeView: View {
                             .multilineTextAlignment(.leading)
                             .lineSpacing(4)
                             .fixedSize(horizontal: false, vertical: true)
-                        
+
                         // Alignment context with beautiful styling (cache optimized)
                         if let userProfile = cachedUserProfile {
                             HStack(spacing: 8) {
                                 Image(systemName: "sparkles")
                                     .font(.caption)
                                     .foregroundColor(.yellow)
-                                
+
                                 Text("Aligned to your Life Path \(userProfile.lifePathNumber) & \(userProfile.spiritualMode) energy")
                                     .font(.caption)
                                     .foregroundColor(.white.opacity(0.7))
                                     .italic()
-                                
+
                                 Spacer()
                             }
                             .padding(.top, 8)
@@ -632,12 +632,12 @@ struct HomeView: View {
                             Image(systemName: "leaf.circle")
                                 .font(.title)
                                 .foregroundColor(.green.opacity(0.8))
-                            
+
                             Text("Your personalized insight is growing...")
                                 .font(.body)
                                 .foregroundColor(.white.opacity(0.8))
                                 .multilineTextAlignment(.center)
-                            
+
                             Text("Return soon for your daily wisdom")
                                 .font(.caption)
                                 .foregroundColor(.white.opacity(0.6))
@@ -649,7 +649,7 @@ struct HomeView: View {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle(tint: .white))
                             .scaleEffect(1.2)
-                        
+
                         Text("Cultivating your insight...")
                             .font(.body)
                             .foregroundColor(.white.opacity(0.8))
@@ -685,68 +685,68 @@ struct HomeView: View {
         .shadow(color: .purple.opacity(0.3), radius: 15, x: 0, y: 8)
         .padding(.horizontal)
     }
-    
+
     // MARK: - 🔮 KASPER MLX DAILY CARD SECTION - SPIRITUAL AI ON THE HOME SCREEN
-    
+
     /**
      * KASPER MLX Daily Card Integration - The Heart of Vybe's Home Experience
      * ====================================================================
-     * 
+     *
      * This section represents the crown jewel of HomeView - where users first
      * encounter Vybe's revolutionary KASPER MLX spiritual AI system. Positioned
      * strategically below the "Enter Realm" button and above traditional insights,
      * this section provides users with immediate access to personalized spiritual
      * guidance powered by cutting-edge on-device AI.
-     * 
+     *
      * 🎯 STRATEGIC POSITIONING:
-     * 
+     *
      * The placement is intentional and psychologically optimized:
      * • Below "Enter Realm" button: Users see spiritual AI as part of their journey
      * • Above traditional insights: KASPER MLX takes priority as the primary guidance source
      * • Integrated with cosmic flow: Maintains Vybe's spiritual aesthetic and rhythm
      * • Non-intrusive design: Appears only when relevant, respects user's headspace
-     * 
+     *
      * 🔮 SPIRITUAL AI INTEGRATION:
-     * 
+     *
      * This section showcases the full power of KASPER MLX:
      * • Real-time cosmic data: Planetary positions, moon phases, astrological events
      * • Numerological synthesis: User's focus/realm numbers integrated into guidance
      * • Contextual awareness: Time of day, season, and spiritual calendar considered
      * • Personalized insights: Each card reflects the user's unique cosmic signature
-     * 
+     *
      * 🎨 USER EXPERIENCE DESIGN:
-     * 
+     *
      * The interface balances mystical aesthetics with modern functionality:
      * • Crystal ball emoji (🔮) establishes spiritual AI branding
      * • Smooth animations maintain 60fps cosmic flow
      * • Color-coded feedback system (green/red for like/dislike)
      * • Expandable content respects screen real estate
      * • Loading states maintain spiritual ambiance during generation
-     * 
+     *
      * 📊 PERFORMANCE CONSIDERATIONS:
-     * 
+     *
      * HomeView is performance-critical, so this section is optimized for:
      * • Lazy loading: Insights generate only when section becomes visible
      * • Smart caching: Prevents redundant cosmic calculations during scrolling
      * • Background processing: Never blocks the main UI thread
      * • Memory efficiency: Releases resources when section scrolls out of view
-     * 
+     *
      * 🔄 INTERACTION PATTERNS:
-     * 
+     *
      * The section supports multiple user engagement modes:
      * • Passive consumption: Users can simply read insights without interaction
      * • Active feedback: Like/dislike buttons train the AI for better future insights
      * • Regeneration: Users can request new insights if current one doesn't resonate
      * • Expansion: Tap to read full insight when content is truncated
-     * 
+     *
      * 💫 INTEGRATION WITH VYBE ECOSYSTEM:
-     * 
+     *
      * This section doesn't exist in isolation - it harmoniously connects with:
      * • Focus/Realm numbers: Visual consistency with existing spiritual metrics
      * • Daily insights: Complements rather than competes with traditional guidance
      * • Journal system: Insights can inspire journal entries and vice versa
      * • Dynamic Island: Provides quick access to spiritual AI from anywhere
-     * 
+     *
      * This represents the first time users interact with AI-powered spiritual
      * guidance in Vybe, making it a critical touchpoint for establishing trust
      * and demonstrating the unique value of spiritually-conscious AI.
@@ -777,12 +777,12 @@ struct HomeView: View {
                                     .scaleEffect(kasperMLX.isGeneratingInsight ? 1.2 : 1.0)
                                     // FIXED: Use autoreverses for smooth pulsing without expensive recalculation
                                     .animation(
-                                        kasperMLX.isGeneratingInsight ? 
-                                        .easeInOut(duration: 1.0).repeatForever(autoreverses: true) : 
+                                        kasperMLX.isGeneratingInsight ?
+                                        .easeInOut(duration: 1.0).repeatForever(autoreverses: true) :
                                         .easeInOut(duration: 0.3),
                                         value: kasperMLX.isGeneratingInsight
                                     )
-                                
+
                                 Text("🔮 KASPER AI Insight")
                                     .font(.title2)
                                     .fontWeight(.bold)
@@ -797,12 +797,12 @@ struct HomeView: View {
                                         )
                                     )
                             }
-                            
+
                             HStack(spacing: 4) {
                                 Text("Personalized spiritual guidance")
                                     .font(.subheadline)
                                     .foregroundColor(.white.opacity(0.8))
-                                
+
                                 if kasperMLX.isReady {
                                     Text("• Ready")
                                         .font(.caption2)
@@ -814,13 +814,13 @@ struct HomeView: View {
                                 }
                             }
                         }
-                        
+
                         Spacer()
-                        
+
                         // Elegant dismiss button
-                        Button(action: { 
+                        Button(action: {
                             withAnimation(.easeInOut(duration: 0.3)) {
-                                showKasperCard = false 
+                                showKasperCard = false
                             }
                         }) {
                             Image(systemName: "xmark.circle.fill")
@@ -834,23 +834,23 @@ struct HomeView: View {
                         }
                         .accessibilityLabel("Dismiss KASPER insight card")
                     }
-                    
+
                     // Claude: DEFINITIVE RESIZE HITCH FIX - Use opacity transitions instead of layout animations
                     ZStack {
                         // Generate button (always present for consistent layout)
                         kasperGenerateButton
                             .opacity(kasperInsight == nil && !isKasperLoading && kasperError == nil ? 1.0 : 0.0)
-                        
+
                         // Loading state
                         kasperLoadingState
                             .opacity(isKasperLoading ? 1.0 : 0.0)
-                        
+
                         // Error state
                         if let error = kasperError {
                             kasperErrorDisplay(error)
                                 .opacity(1.0)
                         }
-                        
+
                         // Insight display
                         if let insight = kasperInsight {
                             kasperInsightDisplay(insight)
@@ -877,7 +877,7 @@ struct HomeView: View {
                                     endPoint: .bottomTrailing
                                 )
                             )
-                        
+
                         // Subtle cosmic overlay
                         RoundedRectangle(cornerRadius: 16)
                             .fill(
@@ -923,7 +923,7 @@ struct HomeView: View {
             }
         }
     }
-    
+
     /// Claude: Error display for KASPER insight generation failures
     private func kasperErrorDisplay(_ errorMessage: String) -> some View {
         VStack(spacing: 12) {
@@ -931,19 +931,19 @@ struct HomeView: View {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .font(.title3)
                     .foregroundColor(.orange)
-                
+
                 Text("Insight Generation Issue")
                     .font(.headline)
                     .foregroundColor(.white)
                     .fontWeight(.semibold)
             }
-            
+
             Text(errorMessage)
                 .font(.caption)
                 .foregroundColor(.white.opacity(0.8))
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
-            
+
             Button("Try Again") {
                 generateDailyInsight()
             }
@@ -963,14 +963,14 @@ struct HomeView: View {
         .frame(maxWidth: .infinity)
         .frame(height: 380)  // Claude: Further enhanced height for comprehensive spiritual insights
     }
-    
+
     /// Claude: SIMPLIFIED loading state - Prevents compiler timeout
     private var kasperLoadingState: some View {
         VStack(spacing: 16) {
             ProgressView()
                 .progressViewStyle(CircularProgressViewStyle(tint: .cyan))
                 .scaleEffect(1.5)
-            
+
             Text("Consulting the cosmic wisdom...")
                 .font(.body)
                 .foregroundColor(.white.opacity(0.8))
@@ -979,7 +979,7 @@ struct HomeView: View {
         .frame(maxWidth: .infinity)
         .frame(height: 380)  // Claude: Further enhanced height for comprehensive spiritual insights
     }
-    
+
     /// Claude: Display generated KASPER insight with actions - FIXED RESIZE HITCH
     private func kasperInsightDisplay(_ insight: KASPERInsight) -> some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -991,20 +991,20 @@ struct HomeView: View {
                 .lineSpacing(4)
                 .frame(maxWidth: .infinity, minHeight: 180, maxHeight: 300, alignment: .topLeading)  // Comprehensive space for detailed spiritual guidance
                 .clipped()  // Clip overflow to prevent resize
-            
+
             // Insight metadata
             HStack {
                 Text("Confidence: \(Int(insight.confidence * 100))%")
                     .font(.caption2)
                     .foregroundColor(.green.opacity(0.8))
-                
+
                 Spacer()
-                
+
                 Text("Generated \(insight.generatedAt, style: .relative) ago")
                     .font(.caption2)
                     .foregroundColor(.white.opacity(0.6))
             }
-            
+
             // Enhanced action buttons section
             VStack(spacing: 12) {
                 // Regenerate button
@@ -1040,16 +1040,16 @@ struct HomeView: View {
                     .shadow(color: .cyan.opacity(0.3), radius: 6, x: 0, y: 2)
                 }
                 .disabled(isKasperLoading)
-                
+
                 // Enhanced feedback buttons section
                 HStack(spacing: 20) {
                     Text("Was this helpful?")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.7))
                         .italic()
-                    
+
                     Spacer()
-                    
+
                     HStack(spacing: 16) {
                         // Positive feedback button
                         Button(action: { provideFeedback(positive: true) }) {
@@ -1061,7 +1061,7 @@ struct HomeView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         .accessibilityLabel("Rate insight as helpful")
-                        
+
                         // Negative feedback button
                         Button(action: { provideFeedback(positive: false) }) {
                             Image(systemName: "hand.thumbsdown.fill")
@@ -1078,7 +1078,7 @@ struct HomeView: View {
             .padding(.top, 8)
         }
     }
-    
+
     /// Claude: Enhanced generate insight button with spiritual aesthetics
     private var kasperGenerateButton: some View {
         Button(action: generateDailyInsight) {
@@ -1099,27 +1099,27 @@ struct HomeView: View {
                             )
                         )
                         .frame(width: 40, height: 40)
-                    
+
                     Image(systemName: "sparkles")
                         .font(.title3)
                         .foregroundColor(.white)
                         .shadow(color: .cyan.opacity(0.8), radius: 4)
                 }
-                
+
                 VStack(alignment: .leading, spacing: 4) {
                     Text("🔮 Generate Today's Insight")
                         .font(.headline)
                         .fontWeight(.semibold)
                         .foregroundColor(.white)
-                    
+
                     Text("Tap to receive personalized cosmic guidance")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.8))
                 }
-                
+
                 Spacer()
-                
-                // Animated arrow with spiritual glow  
+
+                // Animated arrow with spiritual glow
                 Image(systemName: "arrow.right.circle.fill")
                     .font(.title2)
                     .foregroundColor(.cyan)
@@ -1166,9 +1166,9 @@ struct HomeView: View {
         .accessibilityLabel("Generate spiritual insight")
         .accessibilityHint("Tap to create a personalized daily guidance card using cosmic AI")
     }
-    
+
     // MARK: - Latest Matched Insight Section
-    
+
     private func matchedInsightSection(insightData: MatchedInsightData) -> some View {
         VStack(spacing: 20) {
             // Header
@@ -1178,7 +1178,7 @@ struct HomeView: View {
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(.yellow) // Distinguish from Today's Insight
-                    
+
                     Text("Focus Number \(insightData.number) Aligned - \(insightData.timestamp, style: .relative) ago")
                         .font(.subheadline)
                         .foregroundColor(.white.opacity(0.8))
@@ -1186,7 +1186,7 @@ struct HomeView: View {
                 Spacer()
                 // Optional: Add a button to navigate to the full Activity page later
             }
-            
+
             // Insight Content
             Text(insightData.text)
                 .font(.body)
@@ -1195,7 +1195,7 @@ struct HomeView: View {
                 .lineSpacing(4)
                 .lineLimit(5) // Show a preview, full text on Activity page
                 .fixedSize(horizontal: false, vertical: true)
-            
+
             // TODO: Add a "View Full Insight" button or make the section tappable
             // to navigate to the new Activity Page
             Button(action: {
@@ -1235,13 +1235,13 @@ struct HomeView: View {
         .shadow(color: .orange.opacity(0.3), radius: 15, x: 0, y: 8)
         .padding(.horizontal)
     }
-    
+
     private let timeFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         return formatter
     }()
-    
+
     private var cosmicNumberPickerOverlay: some View {
         ZStack {
             // Backdrop
@@ -1250,7 +1250,7 @@ struct HomeView: View {
                 .onTapGesture {
                     dismissCosmicPicker()
                 }
-            
+
             VStack(spacing: 20) {
                 Text("✦ Choose Your Sacred Focus Number ✦")
                     .font(.system(size: 20, weight: .bold, design: .rounded))
@@ -1262,7 +1262,7 @@ struct HomeView: View {
                         )
                     )
                     .shadow(color: .white.opacity(0.3), radius: 5, x: 0, y: 2)
-                
+
                 // Sacred number grid
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 15), count: 3), spacing: 15) {
                     ForEach(1...9, id: \.self) { number in
@@ -1289,7 +1289,7 @@ struct HomeView: View {
                                             .stroke(getSacredColor(for: number), lineWidth: 2)
                                     )
                                     .shadow(color: getSacredColor(for: number).opacity(0.6), radius: 10, x: 0, y: 0)
-                                
+
                                 Text("\(number)")
                                     .font(.system(size: 30, weight: .bold, design: .rounded))
                                     .foregroundColor(.white)
@@ -1301,7 +1301,7 @@ struct HomeView: View {
                     }
                 }
                 .padding(.horizontal, 30)
-                
+
                 Button("✦ Close ✦") {
                     dismissCosmicPicker()
                 }
@@ -1330,41 +1330,41 @@ struct HomeView: View {
         .scaleEffect(pickerScale)
         .opacity(pickerOpacity)
     }
-    
+
     private func selectFocusNumber(_ number: Int) {
         // Haptic feedback for selection
         let selectionFeedback = UISelectionFeedbackGenerator()
         selectionFeedback.selectionChanged()
-        
+
         // Update focus number
         focusNumberManager.userDidPickFocusNumber(number)
-        
+
         // Dismiss picker with animation
         dismissCosmicPicker()
     }
-    
+
     private func dismissCosmicPicker() {
         withAnimation(.easeInOut(duration: 0.3)) {
             pickerScale = 0.1
             pickerOpacity = 0.0
         }
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             showingCosmicPicker = false
         }
     }
-    
+
     // MARK: - Phase 13: Organic Edge Buttons
-    
+
     /// January 20, 2025: Kabalistic organic arrangement - mystical positioning around the sacred mandala
     /// Creates an esoteric, natural flow that feels intuitive and spiritually aligned
     private var organicEdgeButtons: some View {
         GeometryReader { geometry in
             let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
-            
+
             ZStack {
                 // KABALISTIC ARRANGEMENT: Organic positioning for mystical flow
-                
+
                 // Sightings - Top center (unchanged)
                 cosmicEdgeButton(
                     icon: "🔭",
@@ -1376,7 +1376,7 @@ struct HomeView: View {
                     x: center.x,
                     y: center.y - 190
                 )
-                
+
                 // Settings - SPREAD OUT MORE (top row wider)
                 cosmicEdgeButton(
                     icon: "⚙️",
@@ -1388,7 +1388,7 @@ struct HomeView: View {
                     x: center.x + 140, // Spread out from +120 to +140
                     y: center.y - 150 // Higher than before
                 )
-                
+
                 // Sanctum - CLOSER TO SCREEN EDGE
                 cosmicEdgeButton(
                     icon: "🏛️",
@@ -1401,7 +1401,7 @@ struct HomeView: View {
                     x: center.x + 165, // Closer to right edge (from +140 to +165)
                     y: center.y + 20
                 )
-                
+
                 // Create - LOWER (pushed down further)
                 cosmicEdgeButton(
                     icon: "✍️",
@@ -1413,7 +1413,7 @@ struct HomeView: View {
                     x: center.x + 135,
                     y: center.y + 180 // Even lower than before
                 )
-                
+
                 // Analytics - Bottom center (unchanged)
                 cosmicEdgeButton(
                     icon: "📈",
@@ -1425,7 +1425,7 @@ struct HomeView: View {
                     x: center.x,
                     y: center.y + 190
                 )
-                
+
                 // Graph - LOWER (pushed down further)
                 cosmicEdgeButton(
                     icon: "📊",
@@ -1437,7 +1437,7 @@ struct HomeView: View {
                     x: center.x - 135,
                     y: center.y + 180 // Even lower than before
                 )
-                
+
                 // Activity - CLOSER TO SCREEN EDGE
                 cosmicEdgeButton(
                     icon: "📱",
@@ -1450,7 +1450,7 @@ struct HomeView: View {
                     x: center.x - 165, // Closer to left edge (from -140 to -165)
                     y: center.y + 20
                 )
-                
+
                 // Chakras - SPREAD OUT MORE (top row wider)
                 cosmicEdgeButton(
                     icon: "🌈",
@@ -1466,12 +1466,12 @@ struct HomeView: View {
         }
         .frame(width: 350, height: 350)
     }
-    
+
     /// January 20, 2025: Individual cosmic edge button - orbiting planet style
     /// Designed as orbiting planets around the central mandala
     private func cosmicEdgeButton(
         icon: String,
-        title: String, 
+        title: String,
         color: Color,
         destination: CosmicDestination,
         size: ButtonSize = .standard
@@ -1482,7 +1482,7 @@ struct HomeView: View {
             VStack(spacing: size == .compact ? 4 : 6) {
                 Text(icon)
                     .font(.system(size: size.iconSize))
-                
+
                 Text(title)
                     .font(.system(size: size.textSize, weight: .semibold, design: .rounded))
                     .foregroundColor(.white)
@@ -1512,30 +1512,30 @@ struct HomeView: View {
         .buttonStyle(PlainButtonStyle())
         .scaleEffect(1.0) // Full size for orbiting planet effect
     }
-    
+
     /// January 20, 2025: Navigation destinations for edge buttons
     private enum CosmicDestination {
         case sightings, chakras, sanctum, create, graph, activity, settings, analytics
     }
-    
+
     /// Button size options for different positioning needs
     private enum ButtonSize {
         case standard, compact
-        
+
         var dimensions: CGFloat {
             switch self {
             case .standard: return 88 // Original size
             case .compact: return 66  // 25% smaller (88 * 0.75 = 66)
             }
         }
-        
+
         var iconSize: CGFloat {
             switch self {
             case .standard: return 28
             case .compact: return 21 // 25% smaller
             }
         }
-        
+
         var textSize: CGFloat {
             switch self {
             case .standard: return 12
@@ -1543,21 +1543,21 @@ struct HomeView: View {
             }
         }
     }
-    
+
     /// January 20, 2025: Handle navigation to different destinations
     /// Uses the same notification pattern that ContentView already supports
     private func navigateToDestination(_ destination: CosmicDestination) {
         let impactFeedback = UIImpactFeedbackGenerator(style: .light)
         impactFeedback.impactOccurred()
-        
+
         print("🚀 HomeView: Button tapped for destination: \(destination)")
-        
+
         // Use the working ActivityNavigationManager patterns that ContentView already handles
         switch destination {
         case .graph:
             print("📊 Using ActivityNavigationManager for Realm")
             activityNavigationManager.requestRealmNavigation()
-            
+
         case .activity:
             print("📱 Using ActivityNavigationManager for Activity")
             // Create a simple insight data for navigation
@@ -1568,12 +1568,12 @@ struct HomeView: View {
                 timestamp: Date()
             )
             activityNavigationManager.requestNavigation(to: activityInsight)
-            
+
         case .sightings:
             print("🔭 Navigating to Sightings with required userInfo")
             // ContentView handler requires: number, title, significance
             NotificationCenter.default.post(
-                name: Notification.Name("NavigateToSighting"), 
+                name: Notification.Name("NavigateToSighting"),
                 object: nil,
                 userInfo: [
                     "number": focusNumberManager.selectedFocusNumber,
@@ -1581,29 +1581,29 @@ struct HomeView: View {
                     "significance": "Mystical observation logged from cosmic command center"
                 ]
             )
-            
+
         case .chakras:
             print("🌈 Navigating to Chakras/Meditation with required userInfo")
             // ContentView handler requires: number, chakra
             NotificationCenter.default.post(
-                name: Notification.Name("NavigateToMeditation"), 
+                name: Notification.Name("NavigateToMeditation"),
                 object: nil,
                 userInfo: [
                     "number": focusNumberManager.selectedFocusNumber,
                     "chakra": "Root" // Default chakra for meditation
                 ]
             )
-            
+
         case .sanctum:
             print("🏛️ Navigating to My Sanctum")
             // Our custom handler - no special userInfo required
             NotificationCenter.default.post(name: Notification.Name("NavigateToSanctum"), object: nil)
-            
+
         case .create:
             print("✍️ Navigating to Timeline and opening Post Composer")
             // Use the same NotificationCenter pattern that works for other buttons
             NotificationCenter.default.post(
-                name: Notification.Name("NavigateToStatusPost"), 
+                name: Notification.Name("NavigateToStatusPost"),
                 object: nil,
                 userInfo: [
                     "cosmic_match": true,
@@ -1613,17 +1613,17 @@ struct HomeView: View {
                 ]
             )
             print("🎨 Posted NavigateToStatusPost notification")
-            
+
         case .settings:
             print("⚙️ Navigating to Settings")
             // Our custom handler - no special userInfo required
             NotificationCenter.default.post(name: Notification.Name("NavigateToSettings"), object: nil)
-            
+
         case .analytics:
             print("📈 Navigating to Analytics with required userInfo")
             // ContentView handler requires: number
             NotificationCenter.default.post(
-                name: Notification.Name("NavigateToAnalytics"), 
+                name: Notification.Name("NavigateToAnalytics"),
                 object: nil,
                 userInfo: [
                     "number": focusNumberManager.selectedFocusNumber
@@ -1631,9 +1631,9 @@ struct HomeView: View {
             )
         }
     }
-    
+
     // MARK: - Sacred Color System
-    
+
     private func getSacredColor(for number: Int) -> Color {
         switch number {
         case 1: return .red
@@ -1648,12 +1648,12 @@ struct HomeView: View {
         default: return .white
         }
     }
-    
+
     private func getRealmButtonColor() -> Color {
         // Dynamic color based on FOCUS number - matches the focus number display
         switch focusNumberManager.selectedFocusNumber {
         case 1: return .red
-        case 2: return .orange  
+        case 2: return .orange
         case 3: return .yellow
         case 4: return .green
         case 5: return .blue
@@ -1664,31 +1664,31 @@ struct HomeView: View {
         default: return .blue // fallback
         }
     }
-    
+
     // MARK: - Sacred Path Creation
     // Creates paths that match the actual sacred geometry mandala patterns
     private func createSacredPath(for number: Int) -> CGPath {
         let path = CGMutablePath()
         let centerX: CGFloat = 160
         let centerY: CGFloat = 160
-        
+
         switch number {
         case 1: // Simple circle for unity
             let radius: CGFloat = 120
             path.addEllipse(in: CGRect(x: centerX - radius, y: centerY - radius, width: radius * 2, height: radius * 2))
-            
+
         case 2: // Star of David pattern (what's shown in your screenshot)
             // Create the outer star pattern that matches the sacred geometry
             let outerRadius: CGFloat = 140
             let innerRadius: CGFloat = 70
-            
+
             // Create a 12-pointed star path that traces the outer edges of the mandala
             for i in 0..<12 {
                 let angle = (CGFloat(i) * 2.0 * .pi) / 12.0 - .pi / 2
                 let radius = i % 2 == 0 ? outerRadius : innerRadius
                 let x = centerX + radius * cos(angle)
                 let y = centerY + radius * sin(angle)
-                
+
                 if i == 0 {
                     path.move(to: CGPoint(x: x, y: y))
                 } else {
@@ -1696,14 +1696,14 @@ struct HomeView: View {
                 }
             }
             path.closeSubpath()
-            
+
         case 3: // Triangle
             let radius: CGFloat = 130
             for i in 0..<3 {
                 let angle = (CGFloat(i) * 2.0 * .pi) / 3.0 - .pi / 2
                 let x = centerX + radius * cos(angle)
                 let y = centerY + radius * sin(angle)
-                
+
                 if i == 0 {
                     path.move(to: CGPoint(x: x, y: y))
                 } else {
@@ -1711,14 +1711,14 @@ struct HomeView: View {
                 }
             }
             path.closeSubpath()
-            
+
         case 4: // Square
             let radius: CGFloat = 120
             for i in 0..<4 {
                 let angle = (CGFloat(i) * 2.0 * .pi) / 4.0 - .pi / 4
                 let x = centerX + radius * cos(angle)
                 let y = centerY + radius * sin(angle)
-                
+
                 if i == 0 {
                     path.move(to: CGPoint(x: x, y: y))
                 } else {
@@ -1726,14 +1726,14 @@ struct HomeView: View {
                 }
             }
             path.closeSubpath()
-            
+
         case 5: // Pentagon
             let radius: CGFloat = 125
             for i in 0..<5 {
                 let angle = (CGFloat(i) * 2.0 * .pi) / 5.0 - .pi / 2
                 let x = centerX + radius * cos(angle)
                 let y = centerY + radius * sin(angle)
-                
+
                 if i == 0 {
                     path.move(to: CGPoint(x: x, y: y))
                 } else {
@@ -1741,14 +1741,14 @@ struct HomeView: View {
                 }
             }
             path.closeSubpath()
-            
+
         case 6: // Hexagon/Star of David
             let radius: CGFloat = 130
             for i in 0..<6 {
                 let angle = (CGFloat(i) * 2.0 * .pi) / 6.0 - .pi / 2
                 let x = centerX + radius * cos(angle)
                 let y = centerY + radius * sin(angle)
-                
+
                 if i == 0 {
                     path.move(to: CGPoint(x: x, y: y))
                 } else {
@@ -1756,14 +1756,14 @@ struct HomeView: View {
                 }
             }
             path.closeSubpath()
-            
+
         case 7: // Heptagon
             let radius: CGFloat = 125
             for i in 0..<7 {
                 let angle = (CGFloat(i) * 2.0 * .pi) / 7.0 - .pi / 2
                 let x = centerX + radius * cos(angle)
                 let y = centerY + radius * sin(angle)
-                
+
                 if i == 0 {
                     path.move(to: CGPoint(x: x, y: y))
                 } else {
@@ -1771,14 +1771,14 @@ struct HomeView: View {
                 }
             }
             path.closeSubpath()
-            
+
         case 8: // Octagon
             let radius: CGFloat = 130
             for i in 0..<8 {
                 let angle = (CGFloat(i) * 2.0 * .pi) / 8.0 - .pi / 4
                 let x = centerX + radius * cos(angle)
                 let y = centerY + radius * sin(angle)
-                
+
                 if i == 0 {
                     path.move(to: CGPoint(x: x, y: y))
                 } else {
@@ -1786,21 +1786,21 @@ struct HomeView: View {
                 }
             }
             path.closeSubpath()
-            
+
         case 9: // Circle for completion
             let radius: CGFloat = 135
             path.addEllipse(in: CGRect(x: centerX - radius, y: centerY - radius, width: radius * 2, height: radius * 2))
-            
+
         default: // Default circle
             let radius: CGFloat = 120
             path.addEllipse(in: CGRect(x: centerX - radius, y: centerY - radius, width: radius * 2, height: radius * 2))
         }
-        
+
         return path
     }
-    
+
     // MARK: - KASPER MLX Methods
-    
+
     /// Claude: Fixed daily insight generation with robust error handling and race condition prevention
     private func generateDailyInsight() {
         // Prevent multiple simultaneous generations
@@ -1808,62 +1808,62 @@ struct HomeView: View {
             print("🔮 KASPER MLX: Already generating insight, skipping duplicate request")
             return
         }
-        
+
         // Claude: SWIFT 6 COMPLIANCE - Removed [weak self] from struct (value type)
         Task {
             let startTime = Date()
-            
+
             // Set loading state immediately on main thread
             await MainActor.run {
                 isKasperLoading = true
                 self.kasperError = nil
             }
-            
+
             do {
                 print("🔮 KASPER MLX: Generating daily insight for HomeView")
-                
+
                 // Wait for KASPER MLX to be ready (with timeout)
                 var waitTime = 0.0
                 let maxWaitTime = 5.0 // 5 second timeout
-                
+
                 while !self.kasperMLX.isReady && waitTime < maxWaitTime {
                     try await Task.sleep(nanoseconds: 100_000_000) // 100ms
                     waitTime += 0.1
                 }
-                
+
                 guard self.kasperMLX.isReady else {
                     throw NSError(domain: "KASPERMLXError", code: 1, userInfo: [
                         NSLocalizedDescriptionKey: "KASPER MLX not ready after \(Int(maxWaitTime)) seconds"
                     ])
                 }
-                
+
                 // Generate daily card insight with current focus/realm context
                 let cardType = "daily_focus_\(self.focusNumberManager.selectedFocusNumber)_realm_\(self.realmNumberManager.currentRealmNumber)"
                 let insight = try await self.kasperMLX.generateDailyCardInsight(cardType: cardType)
-                
+
                 // Update UI on main thread
                 await MainActor.run {
                     self.kasperInsight = insight
                     self.isKasperLoading = false
                     self.kasperError = nil
                 }
-                
+
                 let responseTime = Date().timeIntervalSince(startTime)
                 print("🔮 KASPER MLX: Daily insight generated in \(String(format: "%.3f", responseTime))s")
                 print("🔮 Insight Content: \(insight.content)")
                 print("🔮 Confidence: \(Int(insight.confidence * 100))%")
-                
+
                 // Performance validation - warn if >2s (more realistic for HomeView)
                 if responseTime > 2.0 {
                     print("⚠️ KASPER MLX: Response time \(String(format: "%.3f", responseTime))s exceeds 2s target for HomeView")
                 } else {
                     print("✅ KASPER MLX: Performance target met - \(String(format: "%.3f", responseTime))s")
                 }
-                
+
             } catch {
                 let responseTime = Date().timeIntervalSince(startTime)
                 print("❌ KASPER MLX: Failed to generate daily insight after \(String(format: "%.3f", responseTime))s: \(error)")
-                
+
                 // Set error state on main thread
                 await MainActor.run {
                     self.kasperInsight = nil
@@ -1873,14 +1873,14 @@ struct HomeView: View {
             }
         }
     }
-    
+
     /// Claude: Provide user feedback for KASPER insight
     private func provideFeedback(positive: Bool) {
         guard let insight = kasperInsight else { return }
-        
+
         let feedback = positive ? "👍" : "👎"
         print("🔮 KASPER MLX: User feedback - \(feedback)")
-        
+
         // Record feedback for training
         kasperFeedback.recordFeedback(
             for: insight,
@@ -1891,7 +1891,7 @@ struct HomeView: View {
                 "realm_number": "\(realmNumberManager.currentRealmNumber)"
             ]
         )
-        
+
         // Haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: positive ? .light : .soft)
         impactFeedback.impactOccurred()

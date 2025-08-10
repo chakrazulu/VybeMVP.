@@ -16,27 +16,27 @@ import Combine
  * including creating, storing, retrieving, and analyzing sightings.
  */
 class SightingsManager: ObservableObject {
-    
+
     // MARK: - Singleton
     static let shared = SightingsManager()
-    
+
     // MARK: - Published Properties
     @Published var sightings: [Sighting] = []
     @Published var isLoading = false
     @Published var todaysSightingsCount = 0
     @Published var totalSightingsCount = 0
-    
+
     // MARK: - Properties
     private let viewContext: NSManagedObjectContext
     private var cancellables = Set<AnyCancellable>()
-    
+
     // MARK: - Initialization
     private init(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
         self.viewContext = context
         loadSightings()
         setupObservers()
     }
-    
+
     // MARK: - Setup
     private func setupObservers() {
         // Observe when app becomes active to refresh counts
@@ -46,9 +46,9 @@ class SightingsManager: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
+
     // MARK: - CRUD Operations
-    
+
     /**
      * Creates a new sighting entry
      */
@@ -68,26 +68,26 @@ class SightingsManager: ObservableObject {
         newSighting.title = title ?? "Spotted \(number)"
         newSighting.note = note
         newSighting.significance = significance
-        
+
         // Convert and store image data
         if let image = image,
            let imageData = image.jpegData(compressionQuality: 0.8) {
             newSighting.imageData = imageData
         }
-        
+
         // Store location data
         if let location = location {
             newSighting.locationLatitude = location.coordinate.latitude
             newSighting.locationLongitude = location.coordinate.longitude
         }
         newSighting.locationName = locationName
-        
+
         saveContext()
         loadSightings()
-        
+
         print("✨ Created new sighting for number \(number)")
     }
-    
+
     /**
      * Updates an existing sighting
      */
@@ -111,11 +111,11 @@ class SightingsManager: ObservableObject {
            let imageData = image.jpegData(compressionQuality: 0.8) {
             sighting.imageData = imageData
         }
-        
+
         saveContext()
         loadSightings()
     }
-    
+
     /**
      * Deletes a sighting
      */
@@ -124,16 +124,16 @@ class SightingsManager: ObservableObject {
         saveContext()
         loadSightings()
     }
-    
+
     // MARK: - Data Loading
-    
+
     /**
      * Loads all sightings from Core Data
      */
     func loadSightings() {
         let request: NSFetchRequest<Sighting> = Sighting.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
-        
+
         do {
             sightings = try viewContext.fetch(request)
             refreshCounts()
@@ -142,13 +142,13 @@ class SightingsManager: ObservableObject {
             print("❌ Failed to load sightings: \(error)")
         }
     }
-    
+
     /**
      * Refreshes sighting counts for statistics
      */
     private func refreshCounts() {
         totalSightingsCount = sightings.count
-        
+
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: Date())
         todaysSightingsCount = sightings.filter { sighting in
@@ -156,44 +156,44 @@ class SightingsManager: ObservableObject {
             return timestamp >= startOfDay
         }.count
     }
-    
+
     // MARK: - Filtering Methods
-    
+
     /**
      * Returns sightings for a specific number
      */
     func sightingsForNumber(_ number: Int) -> [Sighting] {
         return sightings.filter { $0.numberSpotted == number }
     }
-    
+
     /**
      * Returns sightings from today
      */
     func todaysSightings() -> [Sighting] {
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: Date())
-        
+
         return sightings.filter { sighting in
             guard let timestamp = sighting.timestamp else { return false }
             return timestamp >= startOfDay
         }
     }
-    
+
     /**
      * Returns sightings from the past week
      */
     func thisWeeksSightings() -> [Sighting] {
         let calendar = Calendar.current
         guard let weekAgo = calendar.date(byAdding: .day, value: -7, to: Date()) else { return [] }
-        
+
         return sightings.filter { sighting in
             guard let timestamp = sighting.timestamp else { return false }
             return timestamp >= weekAgo
         }
     }
-    
+
     // MARK: - Analytics
-    
+
     /**
      * Returns the most frequently spotted numbers
      */
@@ -203,10 +203,10 @@ class SightingsManager: ObservableObject {
             .sorted { $0.value > $1.value }
             .prefix(limit)
             .map { (number: $0.key, count: $0.value) }
-        
+
         return Array(numberCounts)
     }
-    
+
     /**
      * Returns sightings grouped by date
      */
@@ -216,13 +216,13 @@ class SightingsManager: ObservableObject {
             guard let timestamp = sighting.timestamp else { return Date() }
             return calendar.startOfDay(for: timestamp)
         }
-        
+
         return grouped.sorted { $0.key > $1.key }
             .map { (date: $0.key, sightings: $0.value) }
     }
-    
+
     // MARK: - Image Handling
-    
+
     /**
      * Converts sighting image data to UIImage
      */
@@ -230,9 +230,9 @@ class SightingsManager: ObservableObject {
         guard let imageData = sighting.imageData else { return nil }
         return UIImage(data: imageData)
     }
-    
+
     // MARK: - Location
-    
+
     /**
      * Gets CLLocation from sighting coordinates
      */
@@ -243,14 +243,14 @@ class SightingsManager: ObservableObject {
             longitude: sighting.locationLongitude
         )
     }
-    
+
     // MARK: - Private Methods
-    
+
     private func saveContext() {
         guard viewContext.hasChanges else { return }
-        
+
         // Use background context to avoid blocking main thread
         PersistenceController.shared.save()
         print("✅ Sightings context saved successfully (background context)")
     }
-} 
+}

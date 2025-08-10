@@ -17,7 +17,7 @@ enum ChakraType: Int, CaseIterable {
     case throat = 5
     case thirdEye = 6
     case crown = 7
-    
+
     /// Sanskrit name of the chakra
     var sanskritName: String {
         switch self {
@@ -30,7 +30,7 @@ enum ChakraType: Int, CaseIterable {
         case .crown: return "Sahasrara"
         }
     }
-    
+
     /// English name of the chakra
     var name: String {
         switch self {
@@ -43,7 +43,7 @@ enum ChakraType: Int, CaseIterable {
         case .crown: return "Crown"
         }
     }
-    
+
     /// Primary color associated with the chakra
     var color: Color {
         switch self {
@@ -56,7 +56,7 @@ enum ChakraType: Int, CaseIterable {
         case .crown: return Color(red: 145/255, green: 44/255, blue: 238/255) // Violet
         }
     }
-    
+
     /// Healing frequency in Hz (Sacred Solfeggio frequencies)
     /// Claude: Using authentic Solfeggio scale for proper spiritual resonance
     /// These frequencies are based on ancient healing tones, not 440Hz tuning
@@ -71,7 +71,7 @@ enum ChakraType: Int, CaseIterable {
         case .crown:      return 963.0  // SI - Divine consciousness and enlightenment
         }
     }
-    
+
     /// Element associated with the chakra
     var element: String {
         switch self {
@@ -84,7 +84,7 @@ enum ChakraType: Int, CaseIterable {
         case .crown: return "Thought"
         }
     }
-    
+
     /// Body location of the chakra
     var location: String {
         switch self {
@@ -97,7 +97,7 @@ enum ChakraType: Int, CaseIterable {
         case .crown: return "Top of head"
         }
     }
-    
+
     /// Primary mantra/vowel sound
     var mantra: String {
         switch self {
@@ -110,7 +110,7 @@ enum ChakraType: Int, CaseIterable {
         case .crown: return "AH"
         }
     }
-    
+
     /// Associated emotions and qualities
     var qualities: [String] {
         switch self {
@@ -123,7 +123,7 @@ enum ChakraType: Int, CaseIterable {
         case .crown: return ["Unity", "Enlightenment", "Consciousness", "Bliss"]
         }
     }
-    
+
     /// Numerological associations (based on chakra number and resonance)
     var numerologicalResonance: [Int] {
         switch self {
@@ -136,7 +136,7 @@ enum ChakraType: Int, CaseIterable {
         case .crown: return [8, 9, 22] // Mastery and transcendence
         }
     }
-    
+
     /// Affirmation for the chakra
     var affirmation: String {
         switch self {
@@ -149,7 +149,7 @@ enum ChakraType: Int, CaseIterable {
         case .crown: return "I am connected to the divine consciousness"
         }
     }
-    
+
     /// Symbol representation for the chakra
     var symbolName: String {
         switch self {
@@ -173,7 +173,7 @@ struct ChakraState: Identifiable {
     var glowIntensity: Double = 0.3
     var pulseRate: Double = 1.0 // Multiplier for animation speed
     var volume: Float = 0.7 // Individual volume level (0.0 - 1.0)
-    
+
     /// Check if this chakra resonates with a given number
     func resonatesWith(number: Int) -> Bool {
         return type.numerologicalResonance.contains(number)
@@ -190,4 +190,4 @@ struct ChakraConfiguration {
     var meditationDuration: TimeInterval = 300 // 5 minutes default
     var speechRate: Float = 0.5 // Slow and meditative
     var speechVolume: Float = 0.8
-} 
+}

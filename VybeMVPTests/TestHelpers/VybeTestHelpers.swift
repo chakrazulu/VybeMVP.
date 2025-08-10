@@ -17,36 +17,36 @@ import Combine
 
 /**
  * Claude: Phase 18 Test Architecture Refactoring - Centralized Test Helpers
- * 
+ *
  * PROBLEM WITH OLD APPROACH:
  * - Code duplication across test files (same createTestPost methods everywhere)
  * - Inconsistent test data creation (different defaults in different files)
  * - Complex MockPostRepository with 200+ lines doing too much
  * - No standardized assertion helpers
  * - Scattered timeout values and configuration
- * 
+ *
  * SOLUTION:
  * Created centralized utilities that provide:
- * 
+ *
  * 1. TestDataFactory: Standardized test data creation
  *    - Consistent defaults across all tests
  *    - Easy creation of realistic test scenarios
  *    - Batch creation for performance tests
- * 
+ *
  * 2. SimpleMockPostRepository: Lightweight mock for basic testing
  *    - Replaces the complex 200+ line MockPostRepository
  *    - Focused on simple, predictable behavior
  *    - Easy to control and understand
- * 
+ *
  * 3. XCTestCase Extensions: Common assertion and setup helpers
  *    - assertRepositoryIsClean() for state verification
  *    - assertPostsEqual() for semantic equality
  *    - makeTestRepository() for consistent setup
- * 
+ *
  * 4. Centralized Configuration: Consistent timeouts and batch sizes
  *    - No more scattered magic numbers
  *    - Easy to adjust globally
- * 
+ *
  * BENEFITS:
  * ✅ Reduced code duplication by ~70% across test files
  * ✅ Consistent test behavior and expectations
@@ -58,7 +58,7 @@ import Combine
 // MARK: - Test Data Factories
 
 struct TestDataFactory {
-    
+
     /**
      * Creates a test post with sensible defaults
      */
@@ -87,7 +87,7 @@ struct TestDataFactory {
         post.id = id
         return post
     }
-    
+
     /**
      * Creates a test post with cosmic signature
      */
@@ -104,14 +104,14 @@ struct TestDataFactory {
             mood: "Peaceful",
             intention: "Testing cosmic connections"
         )
-        
+
         return createPost(
             id: id,
             content: "Post with cosmic signature",
             cosmicSignature: cosmicSignature
         )
     }
-    
+
     /**
      * Creates a test sighting post
      */
@@ -135,7 +135,7 @@ struct TestDataFactory {
         post.id = id
         return post
     }
-    
+
     /**
      * Creates a test user profile
      */
@@ -154,7 +154,7 @@ struct TestDataFactory {
             currentFocusNumber: currentFocusNumber
         )
     }
-    
+
     /**
      * Creates a batch of test posts for performance testing
      */
@@ -172,7 +172,7 @@ struct TestDataFactory {
 // MARK: - Repository Helpers
 
 extension XCTestCase {
-    
+
     /**
      * Creates a clean TestableHybridPostRepository for testing
      */
@@ -181,7 +181,7 @@ extension XCTestCase {
         let testController = PersistenceController.makeTestController()
         return TestableHybridPostRepository(persistenceController: testController)
     }
-    
+
     /**
      * Creates a simple mock repository for basic tests
      */
@@ -194,7 +194,7 @@ extension XCTestCase {
 // MARK: - Assertion Helpers
 
 extension XCTestCase {
-    
+
     /**
      * Asserts that two posts are equal in meaningful ways
      */
@@ -209,7 +209,7 @@ extension XCTestCase {
         XCTAssertEqual(actual.authorName, expected.authorName, "Author names should match", file: file, line: line)
         XCTAssertEqual(actual.type, expected.type, "Post types should match", file: file, line: line)
     }
-    
+
     /**
      * Asserts that a repository is in a clean state
      */
@@ -223,7 +223,7 @@ extension XCTestCase {
         XCTAssertFalse(repository.isLoading, "Repository should not be loading", file: file, line: line)
         XCTAssertNil(repository.errorMessage, "Repository should have no errors", file: file, line: line)
     }
-    
+
     /**
      * Waits for an async operation with a reasonable timeout
      */
@@ -245,25 +245,25 @@ extension XCTestCase {
 
 /**
  * Claude: SimpleMockPostRepository - Replacement for Complex MockPostRepository
- * 
+ *
  * PROBLEM WITH ORIGINAL MockPostRepository:
  * - 200+ lines of complex logic
  * - Trying to simulate too many behaviors
  * - Hard to control and predict
  * - Caused async deadlocks in some scenarios
- * 
+ *
  * THIS SIMPLIFIED VERSION:
  * - <150 lines, focused on essentials
  * - Predictable, easy-to-control behavior
  * - Simple test helpers (setPosts, setLoading, setError)
  * - No complex async simulation that could cause deadlocks
  * - Perfect for behavior testing where you need predictable responses
- * 
+ *
  * WHEN TO USE:
  * - Behavior tests that need simple, predictable mock responses
  * - Tests that focus on PostManager logic rather than repository complexity
  * - When you want to control exact mock state without side effects
- * 
+ *
  * WHEN NOT TO USE:
  * - Integration tests that need realistic repository behavior
  * - Performance tests (use TestableHybridPostRepository instead)
@@ -271,45 +271,45 @@ extension XCTestCase {
  */
 @MainActor
 class SimpleMockPostRepository: ObservableObject, PostRepository {
-    
+
     @Published private var _posts: [Post] = []
     @Published private var _isLoading: Bool = false
     @Published private var _errorMessage: String?
     @Published private var _isPaginating: Bool = false
     @Published private var _hasMorePosts: Bool = true
-    
+
     // Protocol conformance
     var posts: [Post] { _posts }
     var isLoading: Bool { _isLoading }
     var errorMessage: String? { _errorMessage }
     var isPaginating: Bool { _isPaginating }
     var hasMorePosts: Bool { _hasMorePosts }
-    
+
     var postsPublisher: AnyPublisher<[Post], Never> {
         $_posts.eraseToAnyPublisher()
     }
-    
+
     var loadingPublisher: AnyPublisher<Bool, Never> {
         $_isLoading.eraseToAnyPublisher()
     }
-    
+
     var errorPublisher: AnyPublisher<String?, Never> {
         $_errorMessage.eraseToAnyPublisher()
     }
-    
+
     var isPaginatingPublisher: AnyPublisher<Bool, Never> {
         $_isPaginating.eraseToAnyPublisher()
     }
-    
+
     var hasMorePostsPublisher: AnyPublisher<Bool, Never> {
         $_hasMorePosts.eraseToAnyPublisher()
     }
-    
+
     // Claude: Simple test control - much easier than complex MockPostRepository
     // These flags let you easily control mock behavior for specific test scenarios
     var shouldThrowError = false  // Set to true to simulate repository errors
     var errorToThrow: Error = PostRepositoryError.invalidData  // Type of error to throw
-    
+
     // Simple implementations for testing
     func loadPosts(forceRefresh: Bool = false) async {
         _isLoading = true
@@ -317,7 +317,7 @@ class SimpleMockPostRepository: ObservableObject, PostRepository {
         try? await Task.sleep(nanoseconds: 50_000_000) // 0.05 seconds
         _isLoading = false
     }
-    
+
     func createPost(_ post: Post) async throws {
         if shouldThrowError { throw errorToThrow }
         var newPost = post
@@ -328,7 +328,7 @@ class SimpleMockPostRepository: ObservableObject, PostRepository {
         _posts.append(newPost)
         print("🧪 SimpleMock: Created post with ID: \(newPost.id ?? "nil"), content: \"\(newPost.content)\"")
     }
-    
+
     func updatePost(_ post: Post, newContent: String) async throws {
         if shouldThrowError { throw errorToThrow }
         guard let index = _posts.firstIndex(where: { $0.id == post.id }) else {
@@ -338,7 +338,7 @@ class SimpleMockPostRepository: ObservableObject, PostRepository {
         updatedPost.content = newContent
         _posts[index] = updatedPost
     }
-    
+
     func deletePost(_ post: Post) async throws {
         if shouldThrowError { throw errorToThrow }
         let beforeCount = _posts.count
@@ -347,56 +347,56 @@ class SimpleMockPostRepository: ObservableObject, PostRepository {
         print("🧪 SimpleMock: Delete attempt - Before: \(beforeCount), After: \(afterCount), Target ID: \(post.id ?? "nil")")
         print("🧪 SimpleMock: Remaining posts: \(_posts.map { "\($0.id ?? "nil"): \($0.content)" })")
     }
-    
+
     func addReaction(to post: Post, reactionType: ReactionType, userDisplayName: String, cosmicSignature: CosmicSignature) async throws {
         if shouldThrowError { throw errorToThrow }
         // Simple reaction implementation for testing
     }
-    
+
     func getFilteredPosts(by type: PostType) async -> [Post] {
         return _posts.filter { $0.type == type }
     }
-    
+
     func getResonantPosts(for user: SocialUser) async -> [Post] {
         return _posts.filter { post in
             guard let signature = post.cosmicSignature else { return false }
             return signature.lifePathNumber == user.lifePathNumber
         }
     }
-    
+
     func getRecentPosts(within timeInterval: TimeInterval) async -> [Post] {
         let cutoffDate = Date().addingTimeInterval(-timeInterval)
         return _posts.filter { $0.timestamp > cutoffDate }
     }
-    
+
     func loadNextPage() async {
         _isPaginating = true
         try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
         _isPaginating = false
     }
-    
+
     func recordScrollBehavior(speed: Double) async {}
     func resetPagination() async { _hasMorePosts = true }
     func startRealtimeUpdates() {}
     func stopRealtimeUpdates() {}
-    
+
     func clearCache() async {
         _posts.removeAll()
     }
-    
+
     func getCacheStats() -> [String: Any] {
         return ["totalPosts": _posts.count, "testMode": true]
     }
-    
+
     // Test helpers
     func setPosts(_ posts: [Post]) {
         _posts = posts
     }
-    
+
     func setLoading(_ loading: Bool) {
         _isLoading = loading
     }
-    
+
     func setError(_ message: String?) {
         _errorMessage = message
     }
@@ -411,7 +411,7 @@ struct VybeTestConfiguration {
     static let shortTimeout: TimeInterval = 0.5    // Quick operations
     static let defaultTimeout: TimeInterval = 1.0  // Standard async operations
     static let longTimeout: TimeInterval = 2.0     // Complex operations
-    
+
     // Batch sizes for performance testing
     static let smallBatchSize = 10   // Quick tests
     static let mediumBatchSize = 50  // Standard performance tests

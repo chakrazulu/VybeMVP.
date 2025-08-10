@@ -6,4 +6,4 @@ extension JournalEntry {
         get { moodEmoji.flatMap { JournalMood(rawValue: $0) } }
         set { moodEmoji = newValue?.rawValue }
     }
-} 
+}

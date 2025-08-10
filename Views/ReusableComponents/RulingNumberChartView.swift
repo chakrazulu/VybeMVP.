@@ -1,6 +1,6 @@
 /**
  * Filename: RulingNumberChartView.swift
- * 
+ *
  * Purpose: Interactive bar chart showing which realm digits appeared most frequently today
  * Replaces the "Cosmic Alignment Factors" panel with gamified ruling number visualization
  */
@@ -10,29 +10,29 @@ import SwiftUI
 /**
  * Interactive chart that displays today's realm number frequency distribution
  * Shows which number "ruled" the day and provides XP rewards for matches
- * 
+ *
  * Claude: Enhanced with realm number color theming to match other cosmic views
  */
 struct RulingNumberChartView: View {
     /// Claude: Current realm number for color theming consistency
     let realmNumber: Int
-    
+
     @StateObject private var sampleManager = RealmSampleManager.shared
     @EnvironmentObject var focusNumberManager: FocusNumberManager
     @EnvironmentObject var realmNumberManager: RealmNumberManager
-    
+
     @State private var showingCelebration = false
     @State private var selectedBarNumber: Int? = nil
     @State private var barAnimations: [Bool] = Array(repeating: false, count: 9)
     @State private var rulingBarPulse = false
     @State private var isViewReady = false  // Add initialization state
     @State private var showingDetailView = false  // For full-screen detail view
-    
+
     var body: some View {
         VStack(spacing: 20) {
             // Header
             headerSection
-            
+
             // Histogram - only show when view is ready
             if isViewReady {
                 histogramSection
@@ -42,14 +42,14 @@ struct RulingNumberChartView: View {
                     Text("✦ Loading Cosmic Data ✦")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.7))
-                    
+
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                         .scaleEffect(0.8)
                 }
                 .frame(height: 120)
             }
-            
+
             // Footer
             footerSection
         }
@@ -79,17 +79,17 @@ struct RulingNumberChartView: View {
                 .environmentObject(realmNumberManager)
         }
     }
-    
+
     // MARK: - Header Section
-    
+
     /// Claude: Header displaying today's ruling number with realm-themed styling
-    /// 
+    ///
     /// Shows the most frequently occurring realm number today with:
     /// - Prominent ruling number badge with realm color theming
     /// - Crown icon indicating dominance
     /// - Descriptive text explaining the ruling energy
     /// - Quick stats and navigation to detailed analysis
-    /// 
+    ///
     /// **Interactive Elements:**
     /// - Tap chart icon to expand to detailed view
     /// - Visual feedback with pulsing animations
@@ -114,21 +114,21 @@ struct RulingNumberChartView: View {
                         .frame(width: 50, height: 50)
                         .scaleEffect(rulingBarPulse ? 1.1 : 1.0)
                         .shadow(color: getSacredColor(for: sampleManager.rulingNumber).opacity(0.6), radius: 10)
-                    
+
                     Text("\(sampleManager.rulingNumber)")
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                 }
-                
+
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {
                         Text("✧ TODAY'S RULING NUMBER ✧")
                             .font(.system(size: 16, weight: .bold, design: .rounded))
                             .foregroundColor(.white.opacity(0.9))
-                        
+
                         Spacer()
-                        
+
                         // Expand button
                         Button(action: {
                             let impactFeedback = UIImpactFeedbackGenerator(style: .light)
@@ -149,7 +149,7 @@ struct RulingNumberChartView: View {
                                         RoundedRectangle(cornerRadius: 8)
                                             .stroke(Color.white.opacity(0.3), lineWidth: 1)
                                     )
-                                
+
                                 Image(systemName: "chart.line.uptrend.xyaxis")
                                     .font(.system(size: 12, weight: .medium))
                                     .foregroundColor(.white.opacity(0.9))
@@ -158,13 +158,13 @@ struct RulingNumberChartView: View {
                         .scaleEffect(rulingBarPulse ? 1.05 : 1.0)
                         .shadow(color: .purple.opacity(0.3), radius: 4)
                     }
-                    
+
                     Text(getRulingDescription())
                         .font(.system(size: 12, weight: .medium, design: .rounded))
                         .foregroundColor(.white.opacity(0.7))
                         .lineLimit(2)
                 }
-                
+
                 // Trophy if it's the ruling number
                 if sampleManager.getCount(for: sampleManager.rulingNumber) > 0 {
                     Image(systemName: "crown.fill")
@@ -174,7 +174,7 @@ struct RulingNumberChartView: View {
                         .scaleEffect(rulingBarPulse ? 1.1 : 1.0)
                 }
             }
-            
+
             // Quick stats row
             HStack(spacing: 16) {
                 // Sample count
@@ -186,9 +186,9 @@ struct RulingNumberChartView: View {
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.6))
                 }
-                
+
                 Spacer()
-                
+
                 // Sacred pattern indicator
                 if sampleManager.getSevenDayPattern() > 0.5 {
                     HStack(spacing: 4) {
@@ -200,7 +200,7 @@ struct RulingNumberChartView: View {
                             .foregroundColor(.purple.opacity(0.8))
                     }
                 }
-                
+
                 // Expand hint
                 HStack(spacing: 4) {
                     Image(systemName: "arrow.up.right")
@@ -213,18 +213,18 @@ struct RulingNumberChartView: View {
             }
         }
     }
-    
+
     // MARK: - Histogram Section
-    
+
     /// Claude: Interactive horizontal bar chart showing realm number frequency
-    /// 
+    ///
     /// Displays a beautiful horizontal histogram with:
     /// - Color-coded bars using sacred number colors
     /// - Animated bar growth on view appearance
     /// - Special highlighting for the ruling number
     /// - Crown icons and golden accents for dominance
     /// - Tap interaction for number exploration
-    /// 
+    ///
     /// **Visual Features:**
     /// - Consistent 28pt circles for number labels
     /// - Normalized bar widths with minimum visibility
@@ -243,12 +243,12 @@ struct RulingNumberChartView: View {
                         20 // Absolute minimum width
                     )
                     let isRuling = number == sampleManager.rulingNumber && count > 0
-                    
+
                     // Debug: Ensure all values are valid
                     let safeBarWidth = min(max(barWidth.isFinite && barWidth > 0 ? barWidth : 20, 20), 200)
                     let safeHeight: CGFloat = 12  // Fixed safe height
                     let safeCircleSize: CGFloat = 28  // Fixed safe circle size
-                    
+
                     HStack(spacing: 8) {
                         // Number label
                         ZStack {
@@ -263,21 +263,21 @@ struct RulingNumberChartView: View {
                                         )
                                 )
                                 .shadow(color: getSacredColor(for: number).opacity(0.4), radius: 4)
-                            
+
                             Text("\(number)")
                                 .font(.caption)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
                         }
                         .scaleEffect(isRuling && rulingBarPulse ? 1.1 : 1.0)
-                        
+
                         // Horizontal bar
                         ZStack(alignment: .leading) {
                             // Background track
                             RoundedRectangle(cornerRadius: 6)
                                 .fill(Color.white.opacity(0.1))
                                 .frame(width: 180, height: safeHeight)
-                            
+
                             // Progress bar
                             RoundedRectangle(cornerRadius: 6)
                                 .fill(
@@ -317,14 +317,14 @@ struct RulingNumberChartView: View {
                             selectedBarNumber = number
                             handleBarTap(number: number)
                         }
-                        
+
                         // Count label
                         Text("\(count)")
                             .font(.caption)
                             .fontWeight(isRuling ? .bold : .medium)
                             .foregroundColor(isRuling ? .yellow : .white.opacity(0.6))
                             .frame(minWidth: 20)
-                        
+
                         // Crown for ruling number
                         if isRuling && count > 0 {
                             Image(systemName: "crown.fill")
@@ -332,16 +332,16 @@ struct RulingNumberChartView: View {
                                 .foregroundColor(.yellow)
                                 .shadow(color: .yellow.opacity(0.6), radius: 3)
                         }
-                        
+
                         Spacer()
                     }
                 }
             }
         }
     }
-    
+
     // MARK: - Footer Section
-    
+
     private var footerSection: some View {
         VStack(spacing: 12) {
             // Exploration prompt
@@ -353,12 +353,12 @@ struct RulingNumberChartView: View {
                     .foregroundColor(.white.opacity(0.7))
                 Spacer()
             }
-            
+
             // XP reward section
             HStack {
                 Image(systemName: "ticket")
                     .foregroundColor(.green.opacity(0.8))
-                
+
                 if canEarnXPReward() {
                     Button(action: claimXPReward) {
                         Text("🎟️ Earn 1 XP - Your Focus number ruled today!")
@@ -374,17 +374,17 @@ struct RulingNumberChartView: View {
                         .font(.system(size: 12, weight: .medium))
                         .foregroundColor(.white.opacity(0.7))
                 }
-                
+
                 Spacer()
             }
-            
+
             // Enhanced footer with detail view hint
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Based on \(sampleManager.todaySamples.count) cosmic observations today")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.5))
-                    
+
                     HStack(spacing: 4) {
                         Image(systemName: "chart.line.uptrend.xyaxis")
                             .font(.caption)
@@ -394,9 +394,9 @@ struct RulingNumberChartView: View {
                             .foregroundColor(.purple.opacity(0.6))
                     }
                 }
-                
+
                 Spacer()
-                
+
                 Button(action: {
                     let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
                     impactFeedback.impactOccurred()
@@ -406,7 +406,7 @@ struct RulingNumberChartView: View {
                         Text("Analyze")
                             .font(.system(size: 12, weight: .semibold))
                             .foregroundColor(.white)
-                        
+
                         Image(systemName: "arrow.up.right")
                             .font(.system(size: 10, weight: .medium))
                             .foregroundColor(.white.opacity(0.8))
@@ -433,18 +433,18 @@ struct RulingNumberChartView: View {
             }
         }
     }
-    
+
     // MARK: - Helper Methods
-    
+
     private func startAnimations() {
         // Ensure barAnimations array is properly sized
         if barAnimations.count != 9 {
             barAnimations = Array(repeating: false, count: 9)
         }
-        
+
         // Reset all animations first
         barAnimations = Array(repeating: false, count: 9)
-        
+
         // Animate bars growing with a small delay to ensure proper initialization
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             for i in 0..<9 {
@@ -455,7 +455,7 @@ struct RulingNumberChartView: View {
                 }
             }
         }
-        
+
         // Pulse ruling bar with additional delay
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
@@ -463,57 +463,57 @@ struct RulingNumberChartView: View {
             }
         }
     }
-    
+
     private func recordCurrentRealmSample() {
         sampleManager.recordSample(
             realmDigit: realmNumberManager.currentRealmNumber,
             source: .viewAppear
         )
     }
-    
+
     private func handleBarTap(number: Int) {
         // Haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: .light)
         impactFeedback.impactOccurred()
-        
+
         // Navigate to number meaning (you can implement navigation here)
         print("🔍 User tapped bar for number \(number)")
-        
+
         // For now, open the detail view
         showingDetailView = true
     }
-    
+
     private func canEarnXPReward() -> Bool {
         return focusNumberManager.selectedFocusNumber == sampleManager.rulingNumber &&
                sampleManager.getCount(for: sampleManager.rulingNumber) > 0 &&
                !hasEarnedXPToday()
     }
-    
+
     private func hasEarnedXPToday() -> Bool {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
         let key = "lastXPAward_\(today.timeIntervalSince1970)"
         return UserDefaults.standard.bool(forKey: key)
     }
-    
+
     private func claimXPReward() {
         if sampleManager.checkForXPReward(focusNumber: focusNumberManager.selectedFocusNumber) {
             // Trigger celebration
             showingCelebration = true
-            
+
             // Haptic feedback
             let impactFeedback = UIImpactFeedbackGenerator(style: .heavy)
             impactFeedback.impactOccurred()
-            
+
             // You can also add XP to a user points system here
             print("🎉 User earned 1 XP for cosmic alignment!")
         }
     }
-    
+
     private func getRulingDescription() -> String {
         let descriptions = [
             "Genesis energy dominates",
-            "Duality and balance prevail", 
+            "Duality and balance prevail",
             "Creative expression flows",
             "Foundation energy anchors",
             "Freedom and change surge",
@@ -522,13 +522,13 @@ struct RulingNumberChartView: View {
             "Abundance and cycles renew",
             "Completion and unity reign"
         ]
-        
+
         let index = max(0, min(sampleManager.rulingNumber - 1, descriptions.count - 1))
         return descriptions[index]
     }
-    
+
     // MARK: - Cosmic Background Style
-    
+
     /// Claude: Cosmic background matching CosmicSnapshotView style with realm number color tint
     private var cosmicBackground: some View {
         RoundedRectangle(cornerRadius: 20)
@@ -563,7 +563,7 @@ struct RulingNumberChartView: View {
                     )
             )
     }
-    
+
     /// Claude: Get realm color matching the app's sacred color system
     private func getRealmColor(for number: Int) -> Color {
         switch number {
@@ -579,7 +579,7 @@ struct RulingNumberChartView: View {
         default: return .white
         }
     }
-    
+
     private func getSacredColor(for number: Int) -> Color {
         switch number {
         case 1: return .red
@@ -607,4 +607,4 @@ struct RulingNumberChartView_Previews: PreviewProvider {
                 .environmentObject(RealmNumberManager())
         }
     }
-} 
+}

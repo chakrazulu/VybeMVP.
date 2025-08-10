@@ -1,8 +1,8 @@
 # 🔮 Widget Template System Documentation
 
-**Created:** August 1, 2025  
-**Author:** Claude (Opus 4)  
-**Purpose:** Prevent text cutoff in widgets with size-appropriate insights  
+**Created:** August 1, 2025
+**Author:** Claude (Opus 4)
+**Purpose:** Prevent text cutoff in widgets with size-appropriate insights
 
 ---
 
@@ -30,7 +30,7 @@ Different widget sizes have different available space for text. Using the same i
   - Medium: "Seek harmony in relationships" (29 chars)
   - Large: "Harmony guides decisions. Balance opposing forces with grace. Cooperation brings unexpected opportunities." (116 chars)
 
-#### **Aspect-Based Insights** 
+#### **Aspect-Based Insights**
 - Guidance based on planetary aspect types
 - Explains the spiritual meaning of cosmic alignments
 - Examples:
@@ -45,7 +45,7 @@ Different widget sizes have different available space for text. Using the same i
 
 switch widgetFamily {
 case .systemSmall: return smallWidgetView
-case .systemMedium: return mediumWidgetView  
+case .systemMedium: return mediumWidgetView
 case .systemLarge: return largeWidgetView
 case .accessoryRectangular: return rectangularWidgetView
 }

@@ -62,13 +62,13 @@ import SwiftUI
 
 /**
  * RecentMatchPopupView: Detailed cosmic significance popup for match events
- * 
+ *
  * Purpose:
  * - Displays when user holds on a recent match card (0.8s minimum)
  * - Provides deep mystical context and numerological significance
  * - Creates immersive experience around synchronicity events
  * - Enhances user connection to their cosmic match history
- * 
+ *
  * Design Philosophy:
  * - Transforms simple timestamps into meaningful spiritual moments
  * - Provides educational content about numerological significance
@@ -76,22 +76,22 @@ import SwiftUI
  * - Bridges personal experience with universal mystical principles
  */
 struct RecentMatchPopupView: View {
-    
+
     // MARK: - Properties
-    
+
     /// The match data to display detailed information about
     let matchData: FocusMatch
-    
+
     /// Callback to dismiss the popup
     let onDismiss: () -> Void
-    
+
     /// Animation state for popup appearance
     @State private var showPopup = false
     @State private var dragOffset: CGFloat = 0
-    
+
     /// Dismiss threshold for swipe gesture
     private let dismissThreshold: CGFloat = 50
-    
+
     var body: some View {
         ZStack {
             // Backdrop with blur effect
@@ -101,12 +101,12 @@ struct RecentMatchPopupView: View {
                     dismissPopup()
                 }
                 .opacity(showPopup ? 1.0 : 0.0)
-            
+
             // Main popup content
             VStack(spacing: 0) {
                 // Header with close button
                 headerSection
-                
+
                 // Match details content with embedded actions
                 contentSectionWithActions
             }
@@ -166,24 +166,24 @@ struct RecentMatchPopupView: View {
             // Haptic feedback
             let impactFeedback = UIImpactFeedbackGenerator(style: .light)
             impactFeedback.impactOccurred()
-            
+
             // Animate appearance
             withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                 showPopup = true
             }
         }
     }
-    
+
     // MARK: - Header Section
-    
+
     private var headerSection: some View {
         HStack {
             Text("Sacred Match Details")
                 .font(.system(size: 22, weight: .bold, design: .rounded))
                 .foregroundColor(.white)
-            
+
             Spacer()
-            
+
             Button(action: {
                 dismissPopup()
             }) {
@@ -201,9 +201,9 @@ struct RecentMatchPopupView: View {
         .padding(.top, 24)
         .padding(.bottom, 16)
     }
-    
+
     // MARK: - Content Section with Actions
-    
+
     private var contentSectionWithActions: some View {
         ScrollView {
             VStack(spacing: 24) {
@@ -214,18 +214,18 @@ struct RecentMatchPopupView: View {
                         .foregroundColor(getSacredColor(for: Int(matchData.matchedNumber)))
                         .shadow(color: getSacredColor(for: Int(matchData.matchedNumber)).opacity(0.6), radius: 15)
                         .shadow(color: getSacredColor(for: Int(matchData.matchedNumber)).opacity(0.3), radius: 25)
-                    
+
                     Text(getRelativeTime(from: matchData.timestamp))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                         .foregroundColor(.white.opacity(0.8))
                 }
-                
+
                 // Cosmic significance
                 VStack(spacing: 16) {
                     Text("Cosmic Significance")
                         .font(.system(size: 18, weight: .semibold, design: .rounded))
                         .foregroundColor(.white)
-                    
+
                     Text(getCosmicSignificance(for: Int(matchData.matchedNumber)))
                         .font(.system(size: 16, weight: .regular, design: .rounded))
                         .foregroundColor(.white.opacity(0.95))
@@ -234,13 +234,13 @@ struct RecentMatchPopupView: View {
                         .lineLimit(nil)
                         .fixedSize(horizontal: false, vertical: true)
                         .padding(.horizontal, 20)
-                    
+
                     // AI Insight for this number
                     VStack(spacing: 8) {
                         Text("Today's Insight")
                             .font(.system(size: 16, weight: .semibold, design: .rounded))
                             .foregroundColor(.cyan.opacity(0.9))
-                        
+
                         Text(getNumberInsight(for: Int(matchData.matchedNumber)))
                             .font(.system(size: 14, weight: .regular, design: .rounded))
                             .foregroundColor(.white.opacity(0.9))
@@ -260,13 +260,13 @@ struct RecentMatchPopupView: View {
                             )
                     }
                 }
-                
+
                 // Sacred geometry symbol
                 Image(systemName: getSacredSymbol(for: Int(matchData.matchedNumber)))
                     .font(.system(size: 40, weight: .light))
                     .foregroundColor(getSacredColor(for: Int(matchData.matchedNumber)).opacity(0.7))
                     .padding(.top, 8)
-                
+
                 // Square Action Buttons Grid - NOW INSIDE SCROLLVIEW
                 squareActionButtons
                     .padding(.top, 16)
@@ -275,24 +275,24 @@ struct RecentMatchPopupView: View {
             .padding(.horizontal, 24)
         }
     }
-    
+
     // MARK: - Square Action Buttons
-    
+
     /// **INTERACTIVE ACTION BUTTON GRID - COMPLETE NAVIGATION SYSTEM**
-    /// 
+    ///
     /// **Action Button Navigation Implementation:** Each button now provides full navigation
     /// functionality using NotificationCenter to communicate with ContentView for tab switching.
-    /// 
+    ///
     /// **Navigation Architecture:**
     /// - Journal: NotificationCenter "NavigateToJournal" → Journal tab (tag 1)
     /// - Share: NotificationCenter "NavigateToStatusPost" → Timeline tab (tag 2)
     /// - Log Sighting: NotificationCenter "NavigateToSighting" → Sightings tab (tag 5)
     /// - Analytics: NotificationCenter "NavigateToAnalytics" → Analytics tab (tag 8)
-    /// 
+    ///
     /// **Data Passing Strategy:**
     /// Each navigation includes comprehensive userInfo dictionary with match context,
     /// cosmic significance, and pre-filled data ready for target view consumption.
-    /// 
+    ///
     /// **User Experience Flow:**
     /// 1. User taps action button → Haptic feedback
     /// 2. NotificationCenter posts navigation with data
@@ -302,12 +302,12 @@ struct RecentMatchPopupView: View {
     private var squareActionButtons: some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 2), spacing: 12) {
             /// **JOURNAL BUTTON - SACRED REFLECTION CREATION**
-            /// 
+            ///
             /// **Purpose:** Navigate to Journal tab for cosmic match reflection creation
             /// **Navigation Target:** Journal tab (tag 1)
             /// **Pre-filled Data:** Focus number, realm number, sacred title, timestamp
             /// **User Story:** "I want to journal about this cosmic match experience"
-            /// 
+            ///
             /// **Technical Implementation:**
             /// - Posts "NavigateToJournal" notification with match context
             /// - Provides title: "Sacred Reflection - Number X Match"
@@ -319,7 +319,7 @@ struct RecentMatchPopupView: View {
                 color: getSacredColor(for: Int(matchData.matchedNumber)),
                 action: {
                     print("📝 Journal match: \(Int(matchData.matchedNumber)) at \(matchData.timestamp)")
-                    
+
                     // Navigate to Journal tab with pre-filled cosmic match data
                     NotificationCenter.default.post(
                         name: Notification.Name("NavigateToJournal"),
@@ -332,18 +332,18 @@ struct RecentMatchPopupView: View {
                             "timestamp": matchData.timestamp
                         ]
                     )
-                    
+
                     dismissPopup()
                 }
             )
-            
+
             /// **SHARE BUTTON - COSMIC ALIGNMENT SOCIAL POST**
-            /// 
+            ///
             /// **Purpose:** Navigate to Timeline tab for social sharing of cosmic match
             /// **Navigation Target:** Timeline tab (tag 2)
             /// **Pre-filled Data:** Cosmic message, number significance, sacred meaning
             /// **User Story:** "I want to share this magical synchronicity with my community"
-            /// 
+            ///
             /// **Technical Implementation:**
             /// - Posts "NavigateToStatusPost" notification with rich match context
             /// - Pre-fills post with cosmic alignment message and spiritual significance
@@ -355,7 +355,7 @@ struct RecentMatchPopupView: View {
                 color: .cyan,
                 action: {
                     print("📤 Share match insight: \(Int(matchData.matchedNumber))")
-                    
+
                     // Navigate to Timeline tab with pre-filled post about the match
                     NotificationCenter.default.post(
                         name: Notification.Name("NavigateToStatusPost"),
@@ -367,18 +367,18 @@ struct RecentMatchPopupView: View {
                             "sacred_meaning": getCosmicSignificance(for: Int(matchData.matchedNumber))
                         ]
                     )
-                    
+
                     dismissPopup()
                 }
             )
-            
+
             /// **LOG SIGHTING BUTTON - SYNCHRONICITY DOCUMENTATION**
-            /// 
+            ///
             /// **Purpose:** Navigate to Sightings tab for cosmic match documentation
             /// **Navigation Target:** Sightings tab (tag 5)
             /// **Pre-filled Data:** Match number, cosmic title, spiritual significance
             /// **User Story:** "I want to log this synchronicity in my spiritual database"
-            /// 
+            ///
             /// **Technical Implementation:**
             /// - Posts "NavigateToSighting" notification with match documentation
             /// - Provides structured title: "Cosmic Match - Number X"
@@ -390,7 +390,7 @@ struct RecentMatchPopupView: View {
                 color: .orange,
                 action: {
                     print("👁️ Log sighting for match: \(Int(matchData.matchedNumber))")
-                    
+
                     // Navigate to Sightings tab with pre-filled data
                     NotificationCenter.default.post(
                         name: Notification.Name("NavigateToSighting"),
@@ -401,18 +401,18 @@ struct RecentMatchPopupView: View {
                             "significance": getCosmicSignificance(for: Int(matchData.matchedNumber))
                         ]
                     )
-                    
+
                     dismissPopup()
                 }
             )
-            
+
             /// **ANALYTICS BUTTON - PATTERN ANALYSIS & INSIGHTS**
-            /// 
+            ///
             /// **Purpose:** Navigate to Analytics tab for cosmic match pattern analysis
             /// **Navigation Target:** Analytics tab (tag 8)
             /// **Pre-filled Data:** Match number, focus area for pattern analysis
             /// **User Story:** "I want to see patterns and trends for this number"
-            /// 
+            ///
             /// **Technical Implementation:**
             /// - Posts "NavigateToAnalytics" notification with analysis focus
             /// - Specifies "match_patterns" focus for targeted analytics view
@@ -424,7 +424,7 @@ struct RecentMatchPopupView: View {
                 color: .purple,
                 action: {
                     print("📊 View analytics for match: \(Int(matchData.matchedNumber))")
-                    
+
                     // Navigate to Analytics tab to view match patterns
                     NotificationCenter.default.post(
                         name: Notification.Name("NavigateToAnalytics"),
@@ -434,36 +434,36 @@ struct RecentMatchPopupView: View {
                             "focus": "match_patterns"
                         ]
                     )
-                    
+
                     dismissPopup()
                 }
             )
         }
         .padding(.horizontal, 16)
     }
-    
+
     // MARK: - Helper Functions
-    
+
     private func dismissPopup() {
         // Haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
         impactFeedback.impactOccurred()
-        
+
         withAnimation(.easeOut(duration: 0.3)) {
             showPopup = false
         }
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             onDismiss()
         }
     }
-    
+
     private func getRelativeTime(from date: Date) -> String {
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .full
         return formatter.localizedString(for: date, relativeTo: Date())
     }
-    
+
     private func getSacredColor(for number: Int) -> Color {
         switch number {
         case 1: return .red
@@ -478,7 +478,7 @@ struct RecentMatchPopupView: View {
         default: return .white
         }
     }
-    
+
     private func getSacredSymbol(for number: Int) -> String {
         switch number {
         case 1: return "circle"
@@ -493,7 +493,7 @@ struct RecentMatchPopupView: View {
         default: return "circle"
         }
     }
-    
+
     private func getCosmicSignificance(for number: Int) -> String {
         switch number {
         case 1:
@@ -518,7 +518,7 @@ struct RecentMatchPopupView: View {
             return "A sacred numerical synchronicity that holds personal meaning for your unique spiritual journey."
         }
     }
-    
+
     private func getNumberInsight(for number: Int) -> String {
         switch number {
         case 1:
@@ -549,7 +549,7 @@ struct RecentMatchPopupView: View {
 
 /**
  * Square action button for the match popup.
- * 
+ *
  * Creates a square button with icon and title, optimized for grid layout.
  */
 struct SquareActionButton: View {
@@ -557,14 +557,14 @@ struct SquareActionButton: View {
     let title: String
     let color: Color
     let action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             VStack(spacing: 8) {
                 Image(systemName: icon)
                     .font(.system(size: 20, weight: .medium))
                     .foregroundColor(color)
-                
+
                 Text(title)
                     .font(.system(size: 12, weight: .semibold, design: .rounded))
                     .foregroundColor(.white.opacity(0.9))
@@ -607,7 +607,7 @@ struct SquareActionButton: View {
     sampleMatch.timestamp = Date().addingTimeInterval(-3600) // 1 hour ago
     sampleMatch.locationLatitude = 0.0
     sampleMatch.locationLongitude = 0.0
-    
+
     return RecentMatchPopupView(
         matchData: sampleMatch,
         onDismiss: {}

@@ -7,7 +7,7 @@ import SwiftAA
 /// No downloads, no memory overhead, no performance cost - just pure symbolic power
 
 struct HUDGlyphMapper {
-    
+
     // MARK: - Element Mapping
     /// Maps spiritual elements to their universal emoji representations
     static func element(for element: CosmicElement) -> String {
@@ -22,7 +22,7 @@ struct HUDGlyphMapper {
             return "💨"
         }
     }
-    
+
     /// Gets element color for visual theming
     static func elementColor(for element: CosmicElement) -> String {
         switch element {
@@ -36,7 +36,7 @@ struct HUDGlyphMapper {
             return "cyan"
         }
     }
-    
+
     // MARK: - Planet Mapping
     /// Returns authentic astrological planet symbols from SwiftAA
     /// These are text-based and scale perfectly at any size
@@ -55,7 +55,7 @@ struct HUDGlyphMapper {
         case .pluto: return "♇"
         }
     }
-    
+
     /// Emoji fallbacks for planets (if needed for theming)
     static func planetEmoji(for planet: HUDPlanet) -> String {
         switch planet {
@@ -81,7 +81,7 @@ struct HUDGlyphMapper {
             return "♇"
         }
     }
-    
+
     // MARK: - Aspect Mapping
     /// Returns authentic astrological aspect symbols from SwiftAA
     static func aspect(for aspect: CosmicAspect) -> String {
@@ -100,7 +100,7 @@ struct HUDGlyphMapper {
             return "⚻"  // Quincunx symbol
         }
     }
-    
+
     /// Emoji fallbacks for aspects
     static func aspectEmoji(for aspect: CosmicAspect) -> String {
         switch aspect {
@@ -118,7 +118,7 @@ struct HUDGlyphMapper {
             return "◯"
         }
     }
-    
+
     // MARK: - App Intent Icons
     /// Maps HUD App Intent actions to their visual representations
     static func intentIcon(for intent: HUDIntent) -> String {
@@ -137,19 +137,19 @@ struct HUDGlyphMapper {
             return "✨"
         }
     }
-    
+
     // MARK: - Ruler Number Styling
     /// Creates crowned ruler number display
     static func rulerNumber(_ number: Int) -> String {
         return "👑 \(number)"
     }
-    
+
     /// Alternative mystical backgrounds for ruler number
     static func rulerNumberWithHalo(_ number: Int, style: HaloStyle = .star) -> String {
         let halo = style.symbol
         return "\(halo) \(number)"
     }
-    
+
     // MARK: - Aspect Chain Formatting
     /// Formats complete aspect chain for HUD display
     /// Example: "♀ △ ♃" (Venus trine Jupiter)
@@ -159,7 +159,7 @@ struct HUDGlyphMapper {
         let p2 = planet(for: planet2)
         return "\(p1) \(asp) \(p2)"
     }
-    
+
     /// Formatted aspect chain with spacing for readability
     static func aspectChainSpaced(planet1: HUDPlanet, aspect: CosmicAspect, planet2: HUDPlanet) -> String {
         let p1 = planet(for: planet1)
@@ -171,7 +171,7 @@ struct HUDGlyphMapper {
 
 // MARK: - Supporting Types
 
-// MARK: - Supporting Types  
+// MARK: - Supporting Types
 // Claude: All shared types moved to CosmicHUDTypes.swift
 
 // MARK: - Preview Helper
@@ -182,7 +182,7 @@ extension HUDGlyphMapper {
         let ruler = rulerNumber(7)
         let aspect = aspectChain(planet1: .venus, aspect: .trine, planet2: .jupiter)
         let elem = element(for: .fire)
-        
+
         return "\(ruler)   \(aspect)   \(elem)"
     }
 }

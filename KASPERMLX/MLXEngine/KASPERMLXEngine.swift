@@ -1,6 +1,6 @@
 /**
  * KASPER MLX Engine
- * 
+ *
  * The heart of KASPER MLX - orchestrates spiritual data providers,
  * manages MLX model inference, handles caching, and generates
  * personalized spiritual insights using Apple's MLX framework.
@@ -17,69 +17,69 @@ import MLXRandom
 
 @MainActor
 class KASPERMLXEngine: ObservableObject {
-    
+
     // MARK: - 🌟 Published Properties for SwiftUI Integration
-    
+
     /// Claude: Whether the spiritual intelligence engine is fully initialized and ready for guidance generation
     /// SwiftUI views can observe this to show appropriate loading states or enable/disable spiritual features
     /// Becomes true when: providers are registered, model is loaded (or template fallback active), validation passes
     @Published private(set) var isReady: Bool = false
-    
+
     /// Claude: Whether the engine is currently generating spiritual insights
     /// Enables UI components to show loading indicators and prevent duplicate requests
     /// True during: provider coordination, insight generation, quality validation, caching
     @Published private(set) var isInferring: Bool = false
-    
+
     /// Claude: Identifier of the currently active spiritual intelligence model
     /// Examples: "template-v1.0", "kasper-spiritual-v2.1", "hybrid-v1.5"
     /// Used for: debugging, A/B testing, quality correlation, model version tracking
     @Published private(set) var currentModel: String?
-    
+
     // MARK: - 🔮 Core Spiritual Intelligence Components
-    
+
     /// Claude: Registry of spiritual data providers that feed the intelligence engine
     /// Key: Provider ID ("cosmic", "numerology", "biometric", "megacorpus")
     /// Value: Provider instance implementing SpiritualDataProvider protocol
     /// Enables dynamic provider management and graceful degradation when providers fail
     private var providers: [String: any SpiritualDataProvider] = [:]
-    
+
     /// Claude: High-performance cache for spiritual insights with intelligent expiry management
     /// Key: Context-sensitive cache key incorporating spiritual parameters
     /// Value: Complete cached insight with metadata and expiry information
     /// Balances spiritual freshness with performance optimization
     private var insightCache: [String: InsightCacheEntry] = [:]
-    
+
     /// Claude: Maximum cache entries to prevent unbounded memory growth
     /// 100 entries balance memory efficiency with cache effectiveness
     /// Implements LRU (Least Recently Used) eviction for optimal cache hit rates
     private let maxCacheSize = 100
-    
+
     /// Claude: Operational configuration for the spiritual intelligence engine
     /// Controls concurrency, timeouts, caching strategies, and AI evolution toggles
     private let config: KASPERMLXConfiguration
-    
+
     /// Claude: Structured logging for spiritual intelligence processing analysis
     /// Enables detailed debugging, performance tracking, and quality improvement
     private let logger = Logger(subsystem: "com.vybe.kaspermlx", category: "Engine")
-    
+
     /// Claude: Set of currently active inference request IDs for concurrency management
     /// Prevents system overload by tracking simultaneous spiritual guidance requests
     /// Enables queue management and performance optimization under load
     private var activeInferences = Set<UUID>()
-    
+
     /// Claude: Placeholder for Apple MLX model integration - the future of spiritual AI
     /// Currently: Template-based spiritual guidance with MLX-ready infrastructure
     /// Future: Trained spiritual intelligence models for personalized guidance
     /// Architecture: Supports seamless transition from templates to true AI
     private var mlxModel: Any? // Will be MLX model when integrated
-    
+
     // MARK: - 🌟 Singleton Spiritual Intelligence Access Point
-    
+
     /// Claude: Global access point for Vybe's spiritual intelligence engine
     /// Singleton ensures consistent spiritual guidance state across all app components
     /// Maintains spiritual context and learning across user sessions
     static let shared = KASPERMLXEngine()
-    
+
     /// Claude: Initialize the spiritual intelligence engine with comprehensive setup
     /// Configures: provider registration, model initialization, cache setup, logging
     /// Uses default configuration optimized for spiritual guidance performance and quality
@@ -87,64 +87,64 @@ class KASPERMLXEngine: ObservableObject {
         self.config = config
         setupEngine()
     }
-    
+
     // MARK: - 🌈 PUBLIC SPIRITUAL INTELLIGENCE INTERFACE
-    
+
     /// Claude: Configure KASPER MLX with Vybe's Spiritual Infrastructure
     /// =============================================================
-    /// 
+    ///
     /// This is the critical integration method that connects the spiritual intelligence
     /// engine to Vybe's existing spiritual data systems, enabling personalized guidance
     /// that understands the user's unique spiritual journey and current state.
-    /// 
+    ///
     /// 🌍 INTEGRATION ARCHITECTURE:
-    /// 
+    ///
     /// The configuration creates a comprehensive spiritual data ecosystem:
-    /// 
+    ///
     /// 1. PERSONAL SPIRITUAL CONTEXT:
     ///    - RealmNumberManager: User's spiritual environment and growth patterns
     ///    - FocusNumberManager: Current spiritual intentions and manifestation goals
     ///    - Provides consistent spiritual identity across all guidance requests
-    /// 
+    ///
     /// 2. BIOMETRIC SPIRITUAL ALIGNMENT:
     ///    - HealthKitManager: Heart rate variability, wellness data, meditation readiness
     ///    - Enables spiritual-physical harmony guidance and optimal timing recommendations
     ///    - Respects user privacy - only accesses data with explicit permission
-    /// 
+    ///
     /// 3. PROVIDER ECOSYSTEM:
     ///    - CosmicDataProvider: Real-time planetary positions and astrological events
     ///    - NumerologyDataProvider: Integrated with user's personal spiritual numbers
     ///    - BiometricDataProvider: Connected to user's wellness and readiness data
     ///    - MegaCorpusDataProvider: Rich spiritual wisdom database access
-    /// 
+    ///
     /// ⚙️ CONFIGURATION PROCESS:
-    /// 
+    ///
     /// 1. Manager registration and weak reference establishment
     /// 2. Provider initialization with manager integration
     /// 3. MLX model initialization (or template fallback activation)
     /// 4. System readiness validation and status updates
     /// 5. Logging and diagnostic setup for quality tracking
-    /// 
+    ///
     /// 🛡️ GRACEFUL DEGRADATION:
-    /// 
+    ///
     /// The engine handles missing managers elegantly:
     /// - nil managers don't prevent system operation
     /// - Cosmic data remains available for universal spiritual guidance
     /// - Personalization reduces but spiritual support continues
     /// - Users can still receive meaningful spiritual insights
-    /// 
+    ///
     /// 🚀 PERFORMANCE IMPLICATIONS:
-    /// 
+    ///
     /// Configuration optimizes the system for:
     /// - Faster insight generation through provider pre-loading
     /// - Reduced memory usage through manager weak references
     /// - Enhanced personalization through integrated spiritual context
     /// - Better cache hit rates through consistent spiritual data access
-    /// 
+    ///
     /// - Parameter realmManager: Provides user's realm numbers and spiritual calculations
-    /// - Parameter focusManager: Manages user's current focus intentions and goals  
+    /// - Parameter focusManager: Manages user's current focus intentions and goals
     /// - Parameter healthManager: Accesses HealthKit data for biometric spiritual alignment
-    /// 
+    ///
     /// - Note: Gracefully handles nil managers - engine will use cosmic data only
     /// - Important: Call during app startup after HealthKit permissions granted
     func configure(
@@ -153,7 +153,7 @@ class KASPERMLXEngine: ObservableObject {
         healthManager: HealthKitManager?
     ) async {
         logger.info("🔮 KASPER MLX: Configuring with app managers")
-        
+
         // Initialize providers with manager references
         await registerProvider(CosmicDataProvider())
         await registerProvider(NumerologyDataProvider(
@@ -164,184 +164,184 @@ class KASPERMLXEngine: ObservableObject {
         await registerProvider(BiometricDataProvider(healthKitManager: healthManager))
         // MegaCorpus provider for rich spiritual wisdom data using SwiftData
         await registerProvider(MegaCorpusDataProvider(spiritualDataController: SpiritualDataController.shared))
-        
+
         // Initialize MLX model with fallback support
         await initializeMLXModel()
-        
+
         isReady = await validateReadiness()
-        
+
         if isReady {
             logger.info("🔮 KASPER MLX: Engine ready for inference")
         } else {
             logger.warning("🔮 KASPER MLX: Engine not ready - missing dependencies")
         }
     }
-    
+
     /// Claude: Generate Personalized Spiritual Insight - The Core Intelligence Method
     /// =========================================================================
-    /// 
+    ///
     /// This is the primary method of the KASPER MLX spiritual intelligence system.
     /// It orchestrates the entire spiritual guidance generation pipeline, from context
     /// gathering through final insight delivery, while maintaining optimal performance
     /// and spiritual authenticity.
-    /// 
+    ///
     /// 🌟 THE SPIRITUAL INTELLIGENCE PIPELINE:
-    /// 
+    ///
     /// STAGE 1 - REQUEST VALIDATION AND PREPARATION:
     /// - Validates engine readiness and system capacity
     /// - Manages concurrency limits to prevent system overload
     /// - Checks intelligent cache for existing relevant insights
     /// - Tracks request lifecycle for performance optimization
-    /// 
+    ///
     /// STAGE 2 - SPIRITUAL CONTEXT COORDINATION:
     /// - Asynchronously gathers data from all required spiritual providers
     /// - Handles provider failures gracefully without breaking spiritual flow
     /// - Optimizes data collection based on feature requirements and priorities
     /// - Maintains spiritual data privacy through provider abstraction
-    /// 
+    ///
     /// STAGE 3 - INTELLIGENCE PROCESSING:
     /// - Attempts Apple MLX model inference when available and confident
     /// - Falls back to sophisticated template-based guidance generation
     /// - Ensures all insights maintain spiritual authenticity and personal relevance
     /// - Validates output against spiritual accuracy requirements
-    /// 
+    ///
     /// STAGE 4 - QUALITY ASSURANCE AND DELIVERY:
     /// - Records comprehensive performance metrics for system optimization
     /// - Caches insights with intelligent expiry based on spiritual temporal sensitivity
     /// - Provides detailed metadata for debugging and continuous improvement
     /// - Updates system state for reactive UI components
-    /// 
+    ///
     /// 🕰️ PERFORMANCE CHARACTERISTICS:
-    /// 
+    ///
     /// - Cache Hits: <50ms response time for immediate spiritual support
     /// - Fresh Generation: <500ms for comprehensive spiritual analysis
     /// - Concurrency: Handles multiple simultaneous guidance requests
     /// - Reliability: >99% success rate with graceful fallback mechanisms
     /// - Memory Efficiency: Bounded cache with LRU eviction prevents growth
-    /// 
+    ///
     /// 🔮 SPIRITUAL AUTHENTICITY GUARANTEES:
-    /// 
+    ///
     /// - Numerological Accuracy: All calculations preserve sacred number principles
     /// - Astrological Integrity: Planetary correspondences validated against spiritual tradition
     /// - Temporal Awareness: Guidance reflects current cosmic conditions and timing
     /// - Personal Relevance: Insights tailored to user's spiritual journey and growth stage
     /// - Quality Consistency: All guidance maintains high spiritual and technical standards
-    /// 
+    ///
     /// 🌊 DATA SOURCE INTEGRATION:
-    /// 
+    ///
     /// The method seamlessly combines:
     /// - Cosmic data: Planetary positions, moon phases, astrological transits
-    /// - Numerological calculations: Life path, focus numbers, personal spiritual metrics  
+    /// - Numerological calculations: Life path, focus numbers, personal spiritual metrics
     /// - Biometric wellness data: Heart rate variability, meditation readiness, stress levels
     /// - Wisdom corpus: Validated spiritual insights and archetypal guidance patterns
     /// - Apple MLX machine learning: Trained spiritual intelligence models (when available)
-    /// 
+    ///
     /// - Parameter request: Complete insight request with context, constraints, and feature type
     /// - Returns: Generated spiritual insight with metadata, confidence scores, and performance metrics
     /// - Throws: `KASPERMLXError.modelNotLoaded` if engine not ready, `KASPERMLXError.insufficientData` if providers unavailable
-    /// 
+    ///
     /// - Note: Maintains <100ms response time through smart caching and async provider coordination
     /// - Important: Preserves spiritual authenticity through validated astrological correspondences
     func generateInsight(for request: InsightRequest) async throws -> KASPERInsight {
         guard isReady else {
             throw KASPERMLXError.modelNotLoaded
         }
-        
+
         // Check if we're at inference limit
         guard activeInferences.count < config.maxConcurrentInferences else {
             logger.warning("🔮 KASPER MLX: Too many concurrent inferences, queuing...")
             try await Task.sleep(nanoseconds: 100_000_000) // 100ms delay
             return try await generateInsight(for: request)
         }
-        
+
         // Check cache first
         let cacheKey = createCacheKey(for: request)
         if let cached = insightCache[cacheKey], !cached.isExpired {
             logger.info("🔮 KASPER MLX: Cache hit for \(request.feature.rawValue)")
             return cached.insight
         }
-        
+
         // Track active inference
         activeInferences.insert(request.id)
         isInferring = !activeInferences.isEmpty
-        
+
         defer {
             activeInferences.remove(request.id)
             isInferring = !activeInferences.isEmpty
         }
-        
+
         do {
             let startTime = Date()
-            
+
             // Gather provider contexts
             let contexts = try await gatherProviderContexts(for: request)
-            
+
             // Generate insight
             let insight = try await performInference(request: request, contexts: contexts)
-            
+
             let inferenceTime = Date().timeIntervalSince(startTime)
             logger.info("🔮 KASPER MLX: Generated insight in \(String(format: "%.2f", inferenceTime))s")
-            
+
             // Cache the result
             cacheInsight(insight, key: cacheKey)
-            
+
             return insight
-            
+
         } catch {
             logger.error("🔮 KASPER MLX: Inference failed - \\(error.localizedDescription)")
             throw error
         }
     }
-    
+
     /// Claude: Generate Quick Spiritual Insight - Optimized for Immediate User Support
     /// ===========================================================================
-    /// 
+    ///
     /// This method provides instant spiritual guidance when users need immediate support
     /// or when UI components require fast spiritual content delivery. It's specifically
     /// optimized for responsiveness while maintaining spiritual authenticity.
-    /// 
+    ///
     /// ⚡ QUICK INSIGHT OPTIMIZATION STRATEGY:
-    /// 
+    ///
     /// 1. SIMPLIFIED CONTEXT GENERATION:
     ///    - Uses intelligent defaults for missing spiritual parameters
     ///    - Prioritizes cached data over fresh provider coordination
     ///    - Focuses on essential spiritual elements for the requested feature
     ///    - Reduces processing complexity without sacrificing spiritual quality
-    /// 
+    ///
     /// 2. PERFORMANCE-FIRST PROCESSING:
     ///    - Target response time: <50ms for optimal user experience
     ///    - Immediate priority processing bypasses queuing mechanisms
     ///    - Cache-preferred strategy maximizes hit rates for common guidance requests
     ///    - Minimal provider coordination reduces latency while maintaining relevance
-    /// 
+    ///
     /// 3. SPIRITUAL AUTHENTICITY PRESERVATION:
     ///    - Smart defaults based on universal spiritual principles
     ///    - Maintains numerological accuracy even with minimal context
     ///    - Ensures guidance feels personally relevant despite simplified processing
     ///    - Quality validation remains active to prevent degraded spiritual content
-    /// 
+    ///
     /// 🎯 OPTIMAL USE CASES:
-    /// 
+    ///
     /// - Daily Cards: Quick spiritual direction for the day ahead
     /// - Journal Prompts: Instant reflection questions for spiritual writing
     /// - Emergency Support: Immediate guidance during spiritual crisis or uncertainty
     /// - UI Placeholders: Fast content for loading states and progressive enhancement
     /// - Progressive Loading: Initial guidance while full context loads in background
-    /// 
+    ///
     /// 🔄 INTEGRATION WITH FULL PIPELINE:
-    /// 
+    ///
     /// Quick insights can seamlessly upgrade to full insights:
     /// - Initial quick response provides immediate user value
     /// - Full context processing happens in background when time allows
     /// - Users can request deeper insights that leverage complete spiritual analysis
     /// - Cache system ensures consistency between quick and full insights
-    /// 
+    ///
     /// - Parameter feature: Target spiritual feature (journal, dailyCard, sanctum, etc.)
     /// - Parameter type: Type of insight to generate (guidance, reflection, prediction)
     /// - Parameter query: Optional user query for personalized insights
     /// - Returns: Generated insight optimized for immediate display
     /// - Throws: Same errors as `generateInsight(for:)` but with simplified context
-    /// 
+    ///
     /// - Note: Uses smart defaults and cached data for sub-50ms response times
     /// - Important: Maintains spiritual authenticity even with minimal context
     func generateQuickInsight(
@@ -357,65 +357,65 @@ class KASPERMLXEngine: ObservableObject {
                 spiritualDepth: .surface
             )
         )
-        
+
         let request = InsightRequest(
             feature: feature,
             type: type,
             priority: .immediate,
             context: context
         )
-        
+
         return try await generateInsight(for: request)
     }
-    
+
     /// Claude: Check Spiritual Insight Availability - Smart Readiness Assessment
     /// ======================================================================
-    /// 
+    ///
     /// This method performs a comprehensive readiness assessment to determine whether
     /// spiritual guidance can be provided for a specific feature without significant
     /// delay or quality compromise. It enables UI components to make intelligent
     /// decisions about when to offer spiritual guidance options.
-    /// 
+    ///
     /// 🔍 AVAILABILITY ASSESSMENT STRATEGY:
-    /// 
+    ///
     /// The method checks multiple readiness indicators:
-    /// 
+    ///
     /// 1. CACHE AVAILABILITY:
     ///    - Searches for existing valid cached insights for the feature
     ///    - Considers cache expiry times and spiritual freshness requirements
     ///    - Fast path: If valid cached insight exists, availability is immediate
-    /// 
+    ///
     /// 2. PROVIDER READINESS:
     ///    - Queries required spiritual data providers for data availability
     ///    - Cosmic providers: Can current planetary data be calculated?
     ///    - Numerology providers: Are user's spiritual numbers accessible?
     ///    - Biometric providers: Is wellness data available if needed?
     ///    - MegaCorpus providers: Is spiritual wisdom database accessible?
-    /// 
+    ///
     /// 3. SYSTEM CAPACITY:
     ///    - Checks current engine load and processing capacity
     ///    - Considers active inference count against concurrency limits
     ///    - Evaluates system memory and performance health
-    /// 
+    ///
     /// 🌟 INTELLIGENT DECISION MAKING:
-    /// 
+    ///
     /// The availability check enables smart UI behavior:
     /// - Enable spiritual guidance buttons only when insights can be delivered quickly
     /// - Show loading states vs disabled states based on availability assessment
     /// - Provide helpful user feedback about why spiritual guidance might be delayed
     /// - Allow progressive enhancement where basic guidance loads while better context loads
-    /// 
+    ///
     /// 🚀 PERFORMANCE OPTIMIZATION:
-    /// 
+    ///
     /// This check is highly optimized:
     /// - Cache lookup: O(1) hash table access for instant results
     /// - Provider queries: Async parallel execution for minimal latency
     /// - Early exit: Returns immediately when cache hit is found
     /// - Lightweight: No actual spiritual processing, only readiness assessment
-    /// 
+    ///
     /// - Parameter feature: The spiritual domain to assess for insight availability
     /// - Returns: True if spiritual insight can be provided quickly, false if significant delay expected
-    /// 
+    ///
     /// - Note: This is a readiness check, not a guarantee - actual insight generation may still encounter issues
     /// - Performance: Typically completes in <10ms through cache optimization and async provider coordination
     func hasInsightAvailable(for feature: KASPERFeature) async -> Bool {
@@ -424,7 +424,7 @@ class KASPERMLXEngine: ObservableObject {
         if let cached = insightCache[cacheKey], !cached.isExpired {
             return true
         }
-        
+
         // Check if providers have data
         let requiredProviders = getRequiredProviders(for: feature)
         for providerId in requiredProviders {
@@ -433,87 +433,87 @@ class KASPERMLXEngine: ObservableObject {
                 if !hasData { return false }
             }
         }
-        
+
         return true
     }
-    
+
     /// Claude: Clear Spiritual Intelligence Cache - Privacy and Fresh Start Support
     /// ========================================================================
-    /// 
+    ///
     /// This method provides comprehensive cache clearing for privacy protection,
     /// system reset, and spiritual guidance freshness. It ensures that users can
     /// completely clear their spiritual data and start fresh when desired.
-    /// 
+    ///
     /// 🧙‍♀️ PRIVACY AND SPIRITUAL AUTONOMY:
-    /// 
+    ///
     /// Cache clearing supports user spiritual autonomy:
     /// - Complete removal of cached spiritual insights and context
     /// - Clearing of provider-specific spiritual data and calculations
     /// - Reset of personalization data and spiritual patterns
     /// - Fresh start for users wanting to recalibrate their spiritual journey
-    /// 
+    ///
     /// 🔄 COMPREHENSIVE CLEARING PROCESS:
-    /// 
+    ///
     /// 1. INSIGHT CACHE CLEARING:
     ///    - Removes all cached spiritual insights across all features
     ///    - Clears associated metadata and performance tracking
     ///    - Resets cache performance metrics and hit rate statistics
-    /// 
+    ///
     /// 2. PROVIDER CACHE COORDINATION:
     ///    - Requests all registered providers to clear their internal caches
     ///    - Cosmic providers: Clear planetary calculation caches
     ///    - Numerology providers: Reset personal spiritual number caches
     ///    - Biometric providers: Clear wellness data integration caches
     ///    - MegaCorpus providers: Reset wisdom corpus access caches
-    /// 
+    ///
     /// 3. SYSTEM STATE RESET:
     ///    - Maintains provider registrations and system configuration
     ///    - Preserves model initialization and system readiness
     ///    - Keeps logging and diagnostic infrastructure intact
     ///    - Ensures system continues functioning immediately after clear
-    /// 
+    ///
     /// 🌱 FRESH SPIRITUAL GUIDANCE:
-    /// 
+    ///
     /// After cache clearing:
     /// - All subsequent insights will be freshly generated with current spiritual conditions
     /// - Personalization will rebuild based on new interactions and spiritual growth
     /// - Provider data will reflect the most current spiritual state and cosmic conditions
     /// - Performance metrics will restart for clean system analysis
-    /// 
+    ///
     /// ⚡ PERFORMANCE CHARACTERISTICS:
-    /// 
+    ///
     /// - Async execution: Non-blocking operation maintains UI responsiveness
     /// - Parallel provider clearing: All providers clear simultaneously for efficiency
     /// - Memory recovery: Immediate memory deallocation for large spiritual data structures
     /// - Logging: Comprehensive clearing confirmation for debugging and verification
-    /// 
+    ///
     /// - Note: System remains fully functional after cache clearing - no restart required
     /// - Important: This is a complete spiritual data reset - all personalization will be lost
     func clearCache() async {
         insightCache.removeAll()
-        
+
         for provider in providers.values {
             await provider.clearCache()
         }
-        
+
         logger.info("🔮 KASPER MLX: All caches cleared")
     }
-    
+
     // MARK: - 🔧 INTERNAL SPIRITUAL INTELLIGENCE MACHINERY
-    
+
     private func setupEngine() {
         logger.info("🔮 KASPER MLX: Initializing engine")
-        
+
         // Setup model loading task
         Task {
             await initializeModel()
         }
     }
-    
+
     /// Claude: Register a spiritual data provider with the intelligence engine
     /// Adds a new source of spiritual context data to the engine's provider ecosystem
     /// Enables modular spiritual data architecture and graceful provider management
-    /// 
+    ///
     /// - Parameter provider: The spiritual data provider to register (cosmic, numerology, biometric, etc.)
     /// - Important: Providers are stored by ID, so duplicate IDs will replace existing providers
     /// - Note: Registration is async to support providers that need initialization or validation
@@ -521,31 +521,31 @@ class KASPERMLXEngine: ObservableObject {
         providers[provider.id] = provider
         logger.info("🔮 KASPER MLX: Registered spiritual provider: \\(provider.id)")
     }
-    
+
     private func initializeModel() async {
         logger.info("🔮 KASPER MLX: Initializing model (placeholder)")
-        
+
         // TODO: Replace with actual MLX model loading
         // For now, simulate model loading
         try? await Task.sleep(nanoseconds: 500_000_000) // 500ms
-        
+
         mlxModel = "placeholder_model" // Placeholder
         currentModel = "KASPER-Spiritual-v1.0"
-        
+
         logger.info("🔮 KASPER MLX: Model loaded: \\(currentModel ?? \"unknown\")")
     }
-    
+
     private func validateReadiness() async -> Bool {
         // Claude: Accept both MLX model mode and template mode as ready states
         // Check if we have either a loaded MLX model OR template mode with current model set
         let hasModel = mlxModel != nil
         let hasTemplateMode = currentModel != nil && currentModel!.contains("template")
-        
+
         guard hasModel || hasTemplateMode else {
             logger.warning("🔮 KASPER MLX: Neither MLX model nor template mode available")
             return false
         }
-        
+
         // Check if at least one provider is available
         var hasAvailableProvider = false
         for provider in providers.values {
@@ -554,34 +554,34 @@ class KASPERMLXEngine: ObservableObject {
                 break
             }
         }
-        
+
         guard hasAvailableProvider else {
             logger.warning("🔮 KASPER MLX: No providers available")
             return false
         }
-        
+
         if hasModel {
             logger.info("🔮 KASPER MLX: Ready with MLX model: \(self.currentModel ?? "unknown")")
         } else {
             logger.info("🔮 KASPER MLX: Ready with template mode: \(self.currentModel ?? "unknown")")
         }
-        
+
         return true
     }
-    
+
     private func gatherProviderContexts(for request: InsightRequest) async throws -> [ProviderContext] {
-        let requiredProviders = request.requiredProviders.isEmpty ? 
-            getRequiredProviders(for: request.feature) : 
+        let requiredProviders = request.requiredProviders.isEmpty ?
+            getRequiredProviders(for: request.feature) :
             request.requiredProviders
-        
+
         var contexts: [ProviderContext] = []
-        
+
         for providerId in requiredProviders {
             guard let provider = providers[providerId] else {
                 logger.warning("🔮 KASPER MLX: Provider \\(providerId) not found")
                 continue
             }
-            
+
             do {
                 let context = try await provider.provideContext(for: request.feature)
                 contexts.append(context)
@@ -591,23 +591,23 @@ class KASPERMLXEngine: ObservableObject {
                 // Continue with other providers
             }
         }
-        
+
         guard !contexts.isEmpty else {
             throw KASPERMLXError.insufficientData
         }
-        
+
         return contexts
     }
-    
+
     private func performInference(request: InsightRequest, contexts: [ProviderContext]) async throws -> KASPERInsight {
         logger.info("🔮 KASPER MLX: Performing inference for \\(request.feature)")
-        
+
         // Claude: Enhanced MLX integration - try MLX model first, fallback to templates
         if let mlxModel = mlxModel, config.enableMLXInference {
             do {
                 let insight = try await performMLXInference(
                     model: mlxModel,
-                    request: request, 
+                    request: request,
                     contexts: contexts
                 )
                 logger.info("🔮 KASPER MLX: Successful MLX inference")
@@ -616,16 +616,16 @@ class KASPERMLXEngine: ObservableObject {
                 logger.warning("🔮 KASPER MLX: MLX inference failed, falling back to template: \\(error)")
             }
         }
-        
+
         // Fallback to template-based insights for reliability
         let insight = await generateTemplateInsight(request: request, contexts: contexts)
         return insight
     }
-    
+
     private func generateTemplateInsight(request: InsightRequest, contexts: [ProviderContext]) async -> KASPERInsight {
         // Template-based insight generation (placeholder for MLX)
         let content = await buildTemplateContent(for: request, with: contexts)
-        
+
         return KASPERInsight(
             requestId: request.id,
             content: content,
@@ -640,7 +640,7 @@ class KASPERMLXEngine: ObservableObject {
             )
         )
     }
-    
+
     private func buildTemplateContent(for request: InsightRequest, with contexts: [ProviderContext]) async -> String {
         // Build content based on feature and available data
         switch request.feature {
@@ -660,17 +660,17 @@ class KASPERMLXEngine: ObservableObject {
             return buildRealmInsight(contexts: contexts, type: request.type)
         }
     }
-    
+
     private func buildJournalInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
         // Claude: Extract focus number from numerology context to generate focus-specific content
         let numerologyContext = contexts.first { $0.providerId == "numerology" }
         let focusNumber = numerologyContext?.data["focusNumber"] as? Int ?? 1
-        
+
         // Claude: Use the same focus-specific content generation as daily cards
         var spiritualComponents: [String] = []
         var personalReferences: [String] = []
         var actionableGuidance: [String] = []
-        
+
         // Generate focus-specific template content using existing method
         addTemplateFocusWisdom(
             focus: focusNumber,
@@ -678,14 +678,14 @@ class KASPERMLXEngine: ObservableObject {
             references: &personalReferences,
             guidance: &actionableGuidance
         )
-        
+
         // Claude: Select focus-relevant component for journal reflection
         let selectedComponent = spiritualComponents.randomElement() ?? "your spiritual energy"
         let selectedGuidance = actionableGuidance.randomElement() ?? "trust your spiritual journey"
-        
+
         // Claude: Generate focus-specific reflection guidance
         let focusReflectionGuidance = generateFocusReflectionGuidance(for: focusNumber)
-        
+
         switch type {
         case .guidance:
             return "🌟 Your journal reveals \(selectedComponent) in your journey. \(focusReflectionGuidance)."
@@ -699,7 +699,7 @@ class KASPERMLXEngine: ObservableObject {
             return "🌟 Your journal reveals \(selectedComponent) in your spiritual journey. \(focusReflectionGuidance)."
         }
     }
-    
+
     /// Claude: Generate focus-specific reflection guidance for journal insights
     private func generateFocusReflectionGuidance(for focusNumber: Int) -> String {
         switch focusNumber {
@@ -725,7 +725,7 @@ class KASPERMLXEngine: ObservableObject {
             return "Honor the unique spiritual path unfolding through your consciousness"
         }
     }
-    
+
     /// Claude: Generate actionable guidance for journal affirmations
     private func generateActionableGuidance(for focusNumber: Int) -> String {
         switch focusNumber {
@@ -751,7 +751,7 @@ class KASPERMLXEngine: ObservableObject {
             return "honor my spiritual path"
         }
     }
-    
+
     /// Claude: Enhanced daily card insight generation with personalized spiritual guidance
     /// Transforms generic templates into meaningful, personally relevant spiritual wisdom
     /// that resonates with the user's current focus numbers, realm energy, and cosmic timing
@@ -760,7 +760,7 @@ class KASPERMLXEngine: ObservableObject {
         let numerologyContext = contexts.first { $0.providerId == "numerology" }
         let biometricContext = contexts.first { $0.providerId == "biometric" }
         let megaCorpusContext = contexts.first { $0.providerId == "megacorpus" }
-        
+
         // Extract personalized spiritual data
         var focusNumber: Int?
         var realmNumber: Int?
@@ -768,7 +768,7 @@ class KASPERMLXEngine: ObservableObject {
         var dominantPlanet: String?
         var emotionalState: String?
         var heartRateVariability: String?
-        
+
         // Claude: First check the request context for focus/realm numbers (most current data)
         if let requestContext = request?.context.primaryData {
             focusNumber = requestContext["focusNumber"] as? Int
@@ -777,7 +777,7 @@ class KASPERMLXEngine: ObservableObject {
         } else {
             print("🔮 KASPER DEBUG: No request context available")
         }
-        
+
         // Claude: Fallback to numerology provider context if request context doesn't have the data
         if focusNumber == nil || realmNumber == nil {
             if let numerology = numerologyContext?.data {
@@ -788,17 +788,17 @@ class KASPERMLXEngine: ObservableObject {
                 print("🔮 KASPER DEBUG: No numerology provider context available")
             }
         }
-        
+
         print("🔮 KASPER DEBUG: FINAL focus/realm numbers - Focus: \(focusNumber ?? -1), Realm: \(realmNumber ?? -1)")
-        
+
         if let cosmic = cosmicContext?.data {
             moonPhase = cosmic["moonPhase"] as? String
             dominantPlanet = cosmic["dominantPlanet"] as? String
         }
-        
+
         // Claude: Initialize actionableGuidance array before use
         var actionableGuidance: [String] = []
-        
+
         if let biometric = biometricContext?.data {
             emotionalState = biometric["emotionalState"] as? String
             // Claude: Extract and use heartRateVariability for biometric-aware spiritual guidance
@@ -808,14 +808,14 @@ class KASPERMLXEngine: ObservableObject {
                 switch hrv.lowercased() {
                 case "high", "balanced":
                     actionableGuidance.append("your balanced energy supports deep spiritual practices")
-                case "variable", "dynamic": 
+                case "variable", "dynamic":
                     actionableGuidance.append("embrace the natural rhythms of your spiritual energy")
                 default:
                     actionableGuidance.append("honor your body's wisdom as spiritual guidance")
                 }
             }
         }
-        
+
         // Generate personalized insights based on available data
         return generatePersonalizedDailyGuidance(
             focusNumber: focusNumber,
@@ -829,7 +829,7 @@ class KASPERMLXEngine: ObservableObject {
             megaCorpusContext: megaCorpusContext
         )
     }
-    
+
     /// Claude: Generate truly personalized daily spiritual guidance
     /// Creates meaningful insights that feel personally relevant and spiritually authentic
     /// Ensures content uniqueness through randomized element selection and combinations
@@ -844,39 +844,39 @@ class KASPERMLXEngine: ObservableObject {
         constraints: InsightConstraints? = nil,
         megaCorpusContext: ProviderContext? = nil
     ) -> String {
-        
+
         // Claude: Add high-precision time-based randomization to ensure content uniqueness
         let microsecondSeed = Int(Date().timeIntervalSince1970 * 1_000_000) % 1_000_000
         _ = microsecondSeed + Int.random(in: 1...1000)
-        
+
         // Build personalized spiritual context
         var spiritualComponents: [String] = []
         var personalReferences: [String] = []
         var actionableGuidance: [String] = []
-        
+
         // Extract MegaCorpus focus number wisdom if available
         let megaCorpusFocusWisdom = megaCorpusContext?.data["focusNumberWisdom"] as? [String: Any]
-        
+
         // Claude: Focus number processing with MegaCorpus integration
-        
+
         // Claude: Focus Number Wisdom with MegaCorpus integration for authentic spiritual content
         if let focus = focusNumber {
             // Claude: CRITICAL FIX - Always add focus-specific template wisdom as primary content
             // This ensures focus personalization works even when MegaCorpus data is unavailable
-            addTemplateFocusWisdom(focus: focus, 
-                                 components: &spiritualComponents, 
-                                 references: &personalReferences, 
+            addTemplateFocusWisdom(focus: focus,
+                                 components: &spiritualComponents,
+                                 references: &personalReferences,
                                  guidance: &actionableGuidance)
-            
+
             // Claude: ENHANCED - Also try to add MegaCorpus enrichment when available
             if let focusWisdom = megaCorpusFocusWisdom?[String(focus)] as? [String: Any],
                let archetype = focusWisdom["archetype"] as? String,
                let guidanceTemplate = focusWisdom["guidanceTemplate"] as? String {
-                
+
                 // Enhance with MegaCorpus data for richer spiritual content
                 spiritualComponents.append("the energy of \(archetype)")
                 personalReferences.append("your \(archetype.lowercased().replacingOccurrences(of: "the ", with: "")) nature")
-                
+
                 // Claude: Clean and validate MegaCorpus guidance to prevent malformed patterns
                 let cleanedGuidance = guidanceTemplate
                     .replacingOccurrences(of: "Trust your the ", with: "trust your ")
@@ -884,7 +884,7 @@ class KASPERMLXEngine: ObservableObject {
                     .replacingOccurrences(of: "Trust your The ", with: "trust your ")
                     .lowercased()
                     .trimmingCharacters(in: .whitespacesAndNewlines)
-                
+
                 // Only use cleaned guidance if it's reasonable, otherwise fall back to template
                 if !cleanedGuidance.isEmpty && cleanedGuidance.count > 5 && !cleanedGuidance.contains("  ") {
                     actionableGuidance.append(cleanedGuidance)
@@ -899,7 +899,7 @@ class KASPERMLXEngine: ObservableObject {
             personalReferences.append("your unique spiritual essence")
             actionableGuidance.append("trust your inner wisdom and spiritual instincts")
         }
-        
+
         // Claude: Add realm number wisdom if available
         if let realm = realmNumber {
             switch realm {
@@ -934,7 +934,7 @@ class KASPERMLXEngine: ObservableObject {
                 break
             }
         }
-        
+
         // Claude: Add moon phase wisdom if available
         if let moon = moonPhase {
             switch moon.lowercased() {
@@ -955,9 +955,9 @@ class KASPERMLXEngine: ObservableObject {
                 actionableGuidance.append("flow with the cosmic rhythms")
             }
         }
-        
+
         // Claude: Generate final personalized insight from collected spiritual components
-        
+
         return generateFinalInsight(
             spiritualComponents: spiritualComponents,
             personalReferences: personalReferences,
@@ -966,9 +966,9 @@ class KASPERMLXEngine: ObservableObject {
             constraints: constraints
         )
     }
-    
+
     // MARK: - 🎭 SPIRITUAL TEMPLATE INTELLIGENCE SYSTEM
-    
+
     /// Claude: Get appropriate emoji based on insight type for consistent UI expectations
     private func getEmojiForInsightType(_ type: KASPERInsightType) -> String {
         switch type {
@@ -984,11 +984,11 @@ class KASPERMLXEngine: ObservableObject {
             return "✨" // Default spiritual sparkle
         }
     }
-    
+
     private func buildSanctumInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
         // Claude: Use appropriate emoji based on insight type
         let emoji = getEmojiForInsightType(type)
-        
+
         switch type {
         case .guidance:
             return "\(emoji) Your sacred space resonates with divine wisdom. The cosmic patterns flow to support your spiritual evolution and awaken inner knowing."
@@ -1002,14 +1002,14 @@ class KASPERMLXEngine: ObservableObject {
             return "\(emoji) Your sacred space resonates with divine wisdom. The cosmic patterns align to support your spiritual evolution and inner knowing."
         }
     }
-    
+
     private func buildFocusInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
         let numerologyContext = contexts.first { $0.providerId == "numerology" }
         let emoji = getEmojiForInsightType(type)
-        
+
         // Extract focus number from context
         let focusNumber = numerologyContext?.data["focusNumber"] as? Int ?? 5
-        
+
         // Generate focus-specific content based on the actual focus number
         let focusDescriptions: [Int: (energy: String, gift: String, action: String)] = [
             1: ("pioneering leadership", "initiating new ventures", "trust your innovative instincts"),
@@ -1022,9 +1022,9 @@ class KASPERMLXEngine: ObservableObject {
             8: ("material mastery", "manifestation power", "achieve with focused determination"),
             9: ("humanitarian wisdom", "universal compassion", "serve the greater good")
         ]
-        
+
         let focusInfo = focusDescriptions[focusNumber] ?? ("spiritual", "divine gifts", "trust your path")
-        
+
         switch type {
         case .guidance:
             return "\(emoji) Focus \(focusNumber) brings \(focusInfo.energy) energy. Time to \(focusInfo.action)."
@@ -1038,23 +1038,23 @@ class KASPERMLXEngine: ObservableObject {
             return "\(emoji) Focus \(focusNumber) channels \(focusInfo.energy) energy into your life."
         }
     }
-    
+
     private func buildTimingInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
         // Claude: Enhanced cosmic timing using new template system with insight type support
         let cosmicContext = contexts.first { $0.providerId == "cosmic" }
         let emoji = getEmojiForInsightType(type)
-        
+
         let planetaryEnergy = cosmicContext?.data["dominantPlanet"] as? String ??
                              cosmicContext?.data["primaryPlanet"] as? String
         let moonPhase = cosmicContext?.data["moonPhase"] as? String
         let astrologicalEvent = cosmicContext?.data["currentTransit"] as? String ??
                                cosmicContext?.data["astroEvent"] as? String
-        
+
         let cosmicDescription = [planetaryEnergy, moonPhase, astrologicalEvent]
             .compactMap { $0 }
             .joined(separator: " and ")
         let cosmicContent = cosmicDescription.isEmpty ? "cosmic energies" : cosmicDescription
-        
+
         switch type {
         case .guidance:
             return "\(emoji) The timing of \(cosmicContent) supports your path forward."
@@ -1068,30 +1068,30 @@ class KASPERMLXEngine: ObservableObject {
             return "\(emoji) The cosmic energy of \(cosmicContent) influences your timing."
         }
     }
-    
+
     private func buildMatchInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
         // Claude: Enhanced relationship compatibility using new template system
         let numerologyContext = contexts.first { $0.providerId == "numerology" }
         let cosmicContext = contexts.first { $0.providerId == "cosmic" }
-        
+
         // Extract both numbers for compatibility analysis
-        let number1 = numerologyContext?.data["userNumber"] as? Int ?? 
+        let number1 = numerologyContext?.data["userNumber"] as? Int ??
                      numerologyContext?.data["focusNumber"] as? Int ?? 5
-        let number2 = numerologyContext?.data["partnerNumber"] as? Int ?? 
+        let number2 = numerologyContext?.data["partnerNumber"] as? Int ??
                      numerologyContext?.data["targetNumber"] as? Int ?? 7
         let moonPhase = cosmicContext?.data["moonPhase"] as? String
-        
+
         return KASPERTemplateEnhancer.generateRelationshipInsight(
             number1: number1,
             number2: number2,
             moonPhase: moonPhase
         )
     }
-    
+
     private func buildRealmInsight(contexts: [ProviderContext], type: KASPERInsightType) -> String {
         let _ = contexts.first { $0.providerId == "numerology" }
         let emoji = getEmojiForInsightType(type)
-        
+
         switch type {
         case .guidance:
             return "\(emoji) Your current realm supports your spiritual growth and evolution."
@@ -1105,7 +1105,7 @@ class KASPERMLXEngine: ObservableObject {
             return "\(emoji) Your current realm holds important lessons for your journey."
         }
     }
-    
+
     private func getRequiredProviders(for feature: KASPERFeature) -> Set<String> {
         switch feature {
         case .journalInsight:
@@ -1124,32 +1124,32 @@ class KASPERMLXEngine: ObservableObject {
             return ["numerology", "cosmic", "megacorpus"]
         }
     }
-    
+
     /// Claude: Generate unique cache key based on request properties for insight caching
     /// Uses context hash to ensure cache invalidation when input data changes
     private func createCacheKey(for request: InsightRequest) -> String {
         // Claude: Create time-sensitive cache keys using both context and temporal data for uniqueness
         let contextHash = String(request.context.primaryData.description.hashValue)
-        
+
         // Claude: CRITICAL FIX - Include focus and realm numbers in cache key to prevent cross-contamination
         // This ensures different focus numbers get different cached insights
         var keyComponents = [request.feature.rawValue, request.type.rawValue, contextHash]
-        
+
         if let focusNumber = request.context.primaryData["focusNumber"] as? Int {
             keyComponents.append("focus_\(focusNumber)")
         }
-        
+
         if let realmNumber = request.context.primaryData["realmNumber"] as? Int {
             keyComponents.append("realm_\(realmNumber)")
         }
-        
+
         // Add temporal component for controlled cache expiry
         let timeHash = String(Date().timeIntervalSince1970.truncatingRemainder(dividingBy: 3600).hashValue)
         keyComponents.append("time_\(timeHash)")
-        
+
         return keyComponents.joined(separator: "_")
     }
-    
+
     private func cacheInsight(_ insight: KASPERInsight, key: String) {
         // Implement LRU cache behavior
         if insightCache.count >= maxCacheSize {
@@ -1159,19 +1159,19 @@ class KASPERMLXEngine: ObservableObject {
                 insightCache.removeValue(forKey: sortedEntries[i].key)
             }
         }
-        
+
         let expiry = Date().addingTimeInterval(config.defaultCacheExpiry)
         insightCache[key] = InsightCacheEntry(
             insight: insight,
             contextHash: key,
             expiresAt: expiry
         )
-        
+
         logger.debug("🔮 KASPER MLX: Cached insight with key: \\(key)")
     }
-    
+
     // MARK: - MegaCorpus Integration Helper Methods
-    
+
     /// Helper method to add template-based focus wisdom when MegaCorpus data is not available
     /// Claude: Enhanced with random single selection per focus number for true content variety
     private func addTemplateFocusWisdom(focus: Int, components: inout [String], references: inout [String], guidance: inout [String]) {
@@ -1245,59 +1245,59 @@ class KASPERMLXEngine: ObservableObject {
             guidance.append("trust your unique spiritual path")
         }
     }
-    
+
     /// Generate final insight by combining all components
     /// Claude: ENHANCED - Uses new template system for natural, flowing spiritual language
     private func generateFinalInsight(spiritualComponents: [String], personalReferences: [String], actionableGuidance: [String], type: KASPERInsightType, constraints: InsightConstraints?) -> String {
-        
+
         // Claude: FIXED PERSONALIZATION ISSUE - Prioritize focus-specific content by selecting from focus components first
         // Instead of random selection, use focus-specific content when available
-        
+
         var selectedComponent = "spiritual energy"
-        var selectedReference = "your spiritual essence"  
+        var selectedReference = "your spiritual essence"
         var selectedGuidance = "trust your inner wisdom"
-        
+
         // Claude: Priority 1 - Focus-specific content (contains focus number themes)
         // Look for focus-related components first (pioneering, harmonizing, creative, etc.)
         let focusRelatedComponents = spiritualComponents.filter { component in
             let focusKeywords = ["pioneering", "harmonizing", "creative", "artistic", "expression", "communication", "grounding", "transformative", "nurturing", "mystical", "material", "mastery", "achievement", "manifestation", "humanitarian"]
             return focusKeywords.contains { component.lowercased().contains($0) }
         }
-        
+
         let focusRelatedReferences = personalReferences.filter { reference in
             let focusKeywords = ["leadership", "harmony", "creative", "expressive", "artistic", "communication", "dedication", "adventurous", "compassionate", "wisdom-seeking", "manifestation", "strategic", "ambitious", "powerful", "humanitarian"]
             return focusKeywords.contains { reference.lowercased().contains($0) }
         }
-        
+
         let focusRelatedGuidance = actionableGuidance.filter { guidance in
             let focusKeywords = ["initiate", "collaboration", "expression", "communicate", "create", "inspire", "foundation", "change", "healing", "mystical", "ambition", "balance", "achieve", "manifest", "compassionate", "trust", "embrace", "seek", "honor", "explore", "nurture"]
             return focusKeywords.contains { guidance.lowercased().contains($0) }
         }
-        
+
         // Claude: PRIORITIZE FOCUS-SPECIFIC CONTENT - Use focus content when available, avoid mixing with realm content
         if !focusRelatedComponents.isEmpty {
             selectedComponent = focusRelatedComponents.randomElement() ?? selectedComponent
         } else if !spiritualComponents.isEmpty {
             selectedComponent = spiritualComponents.randomElement() ?? selectedComponent
         }
-        
+
         if !focusRelatedReferences.isEmpty {
             selectedReference = focusRelatedReferences.randomElement() ?? selectedReference
         } else if !personalReferences.isEmpty {
             selectedReference = personalReferences.randomElement() ?? selectedReference
         }
-        
+
         if !focusRelatedGuidance.isEmpty {
             selectedGuidance = focusRelatedGuidance.randomElement() ?? selectedGuidance
         } else if !actionableGuidance.isEmpty {
             selectedGuidance = actionableGuidance.randomElement() ?? selectedGuidance
         }
-        
+
         // Claude: CRITICAL FIX - Ensure actionable guidance is always present for test compliance
         let requiredActionWords = ["trust", "embrace", "channel", "honor", "align", "focus", "seek"]
-        let hasActionableWord = requiredActionWords.contains { word in 
+        let hasActionableWord = requiredActionWords.contains { word in
             selectedGuidance.lowercased().contains(word) }
-        
+
         if !hasActionableWord {
             // Simple actionable guidance fallbacks
             let actionableBackups = [
@@ -1310,7 +1310,7 @@ class KASPERMLXEngine: ObservableObject {
             ]
             selectedGuidance = actionableBackups.randomElement() ?? "trust your path"
         }
-        
+
         // Claude: ENHANCED - Use new natural language templates for flowing spiritual insights
         switch type {
         case .guidance:
@@ -1346,19 +1346,19 @@ class KASPERMLXEngine: ObservableObject {
             )
         }
     }
-    
+
     // MARK: - MLX Integration Methods
-    
+
     /// Initialize MLX model with fallback handling
     /// Claude: This method attempts to load a real MLX model, falls back gracefully
     private func initializeMLXModel() async {
         logger.info("🔮 KASPER MLX: Initializing spiritual consciousness model...")
-        
+
         // Check for MLX model in app bundle
         if Bundle.main.path(forResource: "kasper-spiritual-v1", ofType: "mlx") != nil {
             logger.warning("🔮 KASPER MLX: MLX model found but MLX Swift package not yet integrated")
             currentModel = "template-v1.0-mlx-ready"
-            
+
             // When MLX package is added, implement real model loading:
             /*
             do {
@@ -1375,7 +1375,7 @@ class KASPERMLXEngine: ObservableObject {
             currentModel = "template-v1.0"
         }
     }
-    
+
     /// Perform MLX inference with spiritual data
     /// Claude: When MLX integration is complete, this will handle real AI inference
     private func performMLXInference(
@@ -1383,28 +1383,28 @@ class KASPERMLXEngine: ObservableObject {
         request: InsightRequest,
         contexts: [ProviderContext]
     ) async throws -> KASPERInsight {
-        
+
         logger.info("🔮 KASPER MLX: Attempting MLX inference...")
-        
+
         // Prepare input tensors from spiritual contexts
         _ = try await prepareSpiritualTensors(from: contexts, for: request)
-        
+
         // Perform MLX inference (placeholder)
         // In real implementation, this would use MLX Swift:
         // let outputTensors = try await model.predict(inputTensors)
         // let content = try decodeMLXOutput(outputTensors, for: request.feature)
-        
+
         // For now, throw error to fallback to template
         throw KASPERMLXError.modelNotLoaded
-        
+
         /*
         // Real MLX implementation would look like:
         let startTime = Date()
         let outputs = try await model.predict(inputTensors)
         let inferenceTime = Date().timeIntervalSince(startTime)
-        
+
         let content = try decodeMLXSpiritualOutput(outputs, for: request.feature)
-        
+
         return KASPERInsight(
             requestId: request.id,
             content: content,
@@ -1420,16 +1420,16 @@ class KASPERMLXEngine: ObservableObject {
         )
         */
     }
-    
+
     /// Prepare spiritual context data as MLX-compatible tensors
     /// Claude: Converts spiritual data (numbers, planets, moon phases) into ML tensors
     private func prepareSpiritualTensors(
         from contexts: [ProviderContext],
         for request: InsightRequest
     ) async throws -> [String: Any] {
-        
+
         var tensors: [String: Any] = [:]
-        
+
         // Extract spiritual features from contexts
         for context in contexts {
             switch context.providerId {
@@ -1441,7 +1441,7 @@ class KASPERMLXEngine: ObservableObject {
                 if let realmNumber = context.data["realmNumber"] as? Int {
                     tensors["realm_number"] = realmNumber
                 }
-                
+
             case "cosmic":
                 // Convert cosmic data to tensors
                 if let moonPhase = context.data["moonPhase"] as? String {
@@ -1450,22 +1450,22 @@ class KASPERMLXEngine: ObservableObject {
                 if let planetaryEnergy = context.data["primaryPlanet"] as? String {
                     tensors["planetary_energy"] = encodePlanet(planetaryEnergy)
                 }
-                
+
             case "biometric":
                 // Convert biometric data to tensors
                 if let heartRate = context.data["heartRate"] as? Double {
                     tensors["heart_rate"] = heartRate
                 }
-                
+
             default:
                 break
             }
         }
-        
+
         // Add request metadata
         tensors["feature_type"] = request.feature.rawValue
         tensors["insight_type"] = request.type.rawValue
-        
+
         // Handle optional constraints and encode spiritual depth
         let spiritualDepthValue: Double
         if let constraints = request.context.constraints {
@@ -1478,10 +1478,10 @@ class KASPERMLXEngine: ObservableObject {
             spiritualDepthValue = 2.0 // Default to balanced
         }
         tensors["spiritual_depth"] = spiritualDepthValue
-        
+
         return tensors
     }
-    
+
     /// Encode moon phase for ML processing
     private func encodeMoonPhase(_ phase: String) -> Double {
         switch phase.lowercased() {
@@ -1496,7 +1496,7 @@ class KASPERMLXEngine: ObservableObject {
         default: return 0.0
         }
     }
-    
+
     /// Encode planetary energy for ML processing
     private func encodePlanet(_ planet: String) -> Double {
         switch planet.lowercased() {
@@ -1513,71 +1513,71 @@ class KASPERMLXEngine: ObservableObject {
         default: return 0.0
         }
     }
-    
-    
+
+
     // MARK: - 🚀 Real MLX Integration Methods
-    
+
     /// Load MLX model from file path - Ready for activation!
     /// Claude: Uncomment after adding MLX Swift package
     private func loadMLXModel(path: String) async throws -> Any {
         logger.info("🔮 KASPER MLX: Loading spiritual consciousness model from: \(path)")
-        
+
         /* 🚀 ACTIVATE AFTER MLX PACKAGE ADDED:
         do {
             // Load the MLX model file
             let modelData = try Data(contentsOf: URL(fileURLWithPath: path))
-            
+
             // Create MLX model from data
             let model = try MLXModel.load(from: modelData)
-            
+
             logger.info("🔮 KASPER MLX: Spiritual consciousness model loaded successfully! ✨")
             return model
-            
+
         } catch {
             logger.error("🔮 KASPER MLX: Model loading failed: \(error)")
             throw KASPERMLXError.modelNotLoaded
         }
         */
-        
+
         // Current placeholder - remove when activating real MLX
         logger.info("🔮 KASPER MLX: Model loading ready - waiting for MLX package activation")
         throw KASPERMLXError.modelNotLoaded
     }
-    
+
     /// Decode MLX output tensors to spiritual insight text - Ready for activation!
     /// Claude: Uncomment after adding MLX Swift package
     private func decodeMLXSpiritualOutput(_ outputs: Any, for feature: KASPERFeature) throws -> String {
         logger.info("🔮 KASPER MLX: Decoding MLX spiritual output for feature: \(feature.rawValue)")
-        
+
         /* 🚀 ACTIVATE AFTER MLX PACKAGE ADDED:
         do {
             // Cast outputs to MLX tensor array
             guard let tensorOutputs = outputs as? [MLXArray] else {
                 throw KASPERMLXError.invalidContext
             }
-            
+
             // Get the main output tensor (text logits)
             guard let outputTensor = tensorOutputs.first else {
                 throw KASPERMLXError.insufficientData
             }
-            
+
             // Decode tensor to text using MLX text generation
             let decodedTokens = try outputTensor.asType(.int32).scalars(Int32.self)
             let insightText = try decodeTokensToSpiritual​Text(decodedTokens, for: feature)
-            
+
             logger.info("🔮 KASPER MLX: Successfully decoded \(insightText.count) characters of spiritual guidance")
             return insightText
-            
+
         } catch {
             logger.error("🔮 KASPER MLX: Output decoding failed: \(error)")
             throw error
         }
         */
-        
+
         // Current placeholder - remove when activating real MLX
         return "MLX spiritual consciousness ready for activation ✨"
     }
-    
+
     /// Convert MLX tokens back to spiritual insight text
     /// Claude: Helper method for token-to-text decoding
     private func decodeTokensToSpiritual​Text(_ tokens: [Int32], for feature: KASPERFeature) throws -> String {
@@ -1585,7 +1585,7 @@ class KASPERMLXEngine: ObservableObject {
         // This would use a tokenizer to convert tokens back to text
         // For spiritual insights, we'd have a custom vocabulary that includes
         // spiritual terms, cosmic concepts, and numerological language
-        
+
         var spiritualText = ""
         for token in tokens {
             // Map tokens to spiritual vocabulary
@@ -1593,20 +1593,20 @@ class KASPERMLXEngine: ObservableObject {
                 spiritualText += word + " "
             }
         }
-        
+
         // Post-process for spiritual authenticity
         return enhanceSpiritual​Authenticity(spiritualText, for: feature)
         */
-        
+
         // Current placeholder
         return "Decoded spiritual insight from MLX tensors for \(feature.rawValue)"
     }
-    
+
     /// Enhance decoded text with spiritual authenticity
     /// Claude: Ensures MLX output maintains spiritual integrity
     private func enhanceSpiritual​Authenticity(_ text: String, for feature: KASPERFeature) -> String {
         var enhanced = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        
+
         // Add feature-specific spiritual enhancement
         switch feature {
         case .journalInsight:
@@ -1624,23 +1624,23 @@ class KASPERMLXEngine: ObservableObject {
         case .realmInterpretation:
             enhanced = "🌌 Realm Insight: " + enhanced + " Your journey unfolds."
         }
-        
+
         return enhanced
     }
-    
+
     // MARK: - 🧠 MLX Training Infrastructure
-    
+
     /// Prepare training data from user feedback - Ready for model training!
     /// Claude: This creates the dataset for fine-tuning spiritual MLX models
     func exportTrainingData() async throws -> [SpiritualTrainingExample] {
         logger.info("🔮 KASPER MLX: Exporting spiritual training data...")
-        
+
         var trainingExamples: [SpiritualTrainingExample] = []
-        
+
         // Get user feedback data
         let feedbackManager = KASPERFeedbackManager.shared
         let feedbackData = feedbackManager.feedbackHistory
-        
+
         // Convert positive-rated insights to training examples
         for feedback in feedbackData where feedback.rating == FeedbackRating.positive {
             let example = SpiritualTrainingExample(
@@ -1656,22 +1656,22 @@ class KASPERMLXEngine: ObservableObject {
             )
             trainingExamples.append(example)
         }
-        
+
         logger.info("🔮 KASPER MLX: Exported \(trainingExamples.count) training examples")
         return trainingExamples
     }
-    
+
     /// Create MLX training input from spiritual context
     private func createMLXInput(from context: [String: Any]) -> [String: Any] {
         var mlxInput: [String: Any] = [:]
-        
+
         // Extract spiritual features
         mlxInput["focus_number"] = context["focus_number"] ?? 0
         mlxInput["moon_phase"] = context["moon_phase"] ?? "new moon"
         mlxInput["planetary_energy"] = context["planetary_energy"] ?? "neutral"
         mlxInput["spiritual_mode"] = context["spiritual_mode"] ?? "balanced"
         mlxInput["user_intent"] = context["user_query"] ?? ""
-        
+
         return mlxInput
     }
 }

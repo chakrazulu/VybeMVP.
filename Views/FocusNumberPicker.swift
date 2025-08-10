@@ -1,6 +1,6 @@
 /**
  * Filename: FocusNumberPicker.swift
- * 
+ *
  * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
  *
  * === MODAL PRESENTATION ===
@@ -66,21 +66,21 @@ import SwiftUI
 struct FocusNumberPicker: View {
     /// Access to the focus number manager for reading/updating the selected number
     @EnvironmentObject var focusNumberManager: FocusNumberManager
-    
+
     /// Environment property to dismiss the sheet when selection is complete
     @Environment(\.dismiss) var dismiss
-    
+
     /// 🎯 GRID SPACING: 16pts between all items (horizontal and vertical)
     private let spacing: CGFloat = 16
-    
+
     /// 📐 GRID CONFIGURATION: Adaptive columns with 80pt minimum width
     private let columns = [
         GridItem(.adaptive(minimum: 80), spacing: 16) // Creates 3-4 columns on iPhone
     ]
-    
+
     /// 🔢 NUMBER SET: Always 1-9 from FocusNumberManager
     private let numbers = FocusNumberManager.validFocusNumbers
-    
+
     var body: some View {
         NavigationView { // 📱 MODAL WRAPPER: Required for navigation bar
             ScrollView { // 📜 SCROLLABLE CONTAINER: Vertical scrolling if needed

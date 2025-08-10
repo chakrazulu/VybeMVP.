@@ -87,17 +87,17 @@ struct PhantomChakrasView: View {
     @State private var animateIn = false
     @State private var isTapProcessing = false
     @State private var isInitialized = false
-    
+
     var body: some View {
         ZStack {
             // Cosmic background
             CosmicBackgroundView()
                 .allowsHitTesting(false)
-            
+
             VStack {
                 // Header
                 headerSection
-                
+
                 // 🎯 CHAKRA STACK: 35pt spacing, reversed order (Crown→Root)
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 35) { // 35pt vertical spacing between chakras
@@ -131,7 +131,7 @@ struct PhantomChakrasView: View {
                     .padding(.vertical, 30)
                 }
                 .padding(.horizontal, 10)
-                
+
                 // Audio status indicator (temporary for debugging)
                 if !chakraManager.isAudioEngineRunning {
                     Text("Audio engine initializing...")
@@ -139,11 +139,11 @@ struct PhantomChakrasView: View {
                         .foregroundColor(.yellow)
                         .padding(.horizontal)
                 }
-                
+
                 // Bottom controls
                 bottomControls
             }
-            
+
             // Affirmation overlay
             if chakraManager.isShowingAffirmation {
                 affirmationOverlay
@@ -160,22 +160,22 @@ struct PhantomChakrasView: View {
         }
         .onAppear {
             // PERFORMANCE FIX: Defer heavy operations to prevent tab loading delays
-            
+
             // Step 1: Start lightweight animations immediately
             startAnimations()
-            
+
             // Step 2: Initialize audio engine after delay to prevent blocking
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 // Enable UI first, even without audio
                 isInitialized = true
                 print("⚡ Chakras UI initialized (audio loading in background)")
             }
-            
+
             // Step 3: Update resonance after animations start
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             updateChakraResonance()
             }
-            
+
             // Step 4: Audio engine timeout fallback
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                 if !chakraManager.isAudioEngineRunning {
@@ -196,9 +196,9 @@ struct PhantomChakrasView: View {
             }
         }
     }
-    
+
     // MARK: - View Components
-    
+
     private var headerSection: some View {
         VStack(spacing: 10) {
             Text("Phantom of the Chakras")
@@ -213,7 +213,7 @@ struct PhantomChakrasView: View {
                 )
                 .scaleEffect(animateIn ? 1.0 : 0.8)
                 .opacity(animateIn ? 1.0 : 0.0)
-            
+
             Text("Tap to explore • Hold to harmonize • Double-tap for affirmation")
                 .font(.subheadline)
                 .foregroundColor(.white.opacity(0.7))
@@ -221,7 +221,7 @@ struct PhantomChakrasView: View {
         }
         .padding(.top, 20)
     }
-    
+
     private var bottomControls: some View {
         VStack(spacing: 20) {
             // Active chakras indicator
@@ -240,7 +240,7 @@ struct PhantomChakrasView: View {
                         .fill(Color.white.opacity(0.1))
                 )
             }
-            
+
             // Meditation button
             Button(action: {
                 showingMeditation = true
@@ -269,11 +269,11 @@ struct PhantomChakrasView: View {
         }
         .padding(.bottom, 30)
     }
-    
+
     private var affirmationOverlay: some View {
         VStack {
             Spacer()
-            
+
             VStack(spacing: 16) {
                 // Affirmation text
                 if let affirmationText = chakraManager.currentAffirmationText {
@@ -306,7 +306,7 @@ struct PhantomChakrasView: View {
                         .accessibilityLabel("Chakra Affirmation")
                         .accessibilityValue(affirmationText)
                 }
-                
+
                 // Meditation instruction
                 Text("Double-tap any chakra to hear its affirmation")
                     .font(.subheadline)
@@ -314,50 +314,50 @@ struct PhantomChakrasView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 40)
             }
-            
+
             Spacer()
         }
         .transition(.opacity.combined(with: .scale(scale: 0.9)))
         .zIndex(1)
     }
-    
+
     // MARK: - Computed Properties
-    
+
     private var hasActiveChakras: Bool {
         chakraManager.chakraStates.contains { $0.isActive || $0.isHarmonizing }
     }
-    
+
     private var activeChakras: [ChakraType] {
         chakraManager.chakraStates
             .filter { $0.isActive || $0.isHarmonizing }
             .map { $0.type }
     }
-    
+
     // MARK: - Methods
-    
+
     private func startAnimations() {
         withAnimation(.easeOut(duration: 0.5)) {
             animateIn = true
         }
     }
-    
+
     private func updateChakraResonance() {
         chakraManager.updateResonance(
             focusNumber: focusNumberManager.selectedFocusNumber,
             realmNumber: realmNumberManager.currentRealmNumber
         )
     }
-    
+
     private func handleChakraTap(_ type: ChakraType) {
         guard !isTapProcessing else { return }
-        
+
         isTapProcessing = true
         selectedChakra = type
         showingDetail = true
-        
+
         // Quick activation feedback
         chakraManager.activateChakra(type)
-        
+
         // Deactivate after a moment
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             chakraManager.deactivateChakra(type)
@@ -367,7 +367,7 @@ struct PhantomChakrasView: View {
             }
         }
     }
-    
+
     private func handleChakraLongPress(_ type: ChakraType) {
         guard !isTapProcessing else { return }
         chakraManager.toggleHarmonizing(type)
@@ -382,7 +382,7 @@ struct MeditationView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var meditationProgress: Double = 0
     @State private var pulseAnimation = false
-    
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -397,16 +397,16 @@ struct MeditationView: View {
                     endPoint: .bottom
                 )
                 .edgesIgnoringSafeArea(.all)
-                
+
                 VStack(spacing: 40) {
                     // Title
                     Text("Chakra Meditation")
                         .font(.largeTitle)
                         .fontWeight(.light)
                         .foregroundColor(.white)
-                    
+
                     Spacer()
-                    
+
                     // Central meditation visual
                     ZStack {
                         // Pulsing circle
@@ -429,13 +429,13 @@ struct MeditationView: View {
                                     .repeatForever(autoreverses: true),
                                 value: pulseAnimation
                             )
-                        
+
                         // Om symbol
                         Text("ॐ")
                             .font(.system(size: 80))
                             .foregroundColor(.white)
                     }
-                    
+
                     // Progress
                     if chakraManager.isMeditating {
                         VStack(spacing: 10) {
@@ -443,15 +443,15 @@ struct MeditationView: View {
                                 .font(.title2)
                                 .foregroundColor(.white)
                                 .monospacedDigit()
-                            
+
                             ProgressView(value: meditationProgress)
                                 .progressViewStyle(LinearProgressViewStyle(tint: .purple))
                                 .frame(width: 200)
                         }
                     }
-                    
+
                     Spacer()
-                    
+
                     // Controls
                     HStack(spacing: 40) {
                         Button(action: {
@@ -465,7 +465,7 @@ struct MeditationView: View {
                                 .font(.system(size: 60))
                                 .foregroundColor(.white)
                         }
-                        
+
                         Button(action: {
                             chakraManager.endMeditation()
                             dismiss()
@@ -487,7 +487,7 @@ struct MeditationView: View {
             }
         }
     }
-    
+
     private var formattedTime: String {
         let minutes = Int(chakraManager.currentMeditationTime) / 60
         let seconds = Int(chakraManager.currentMeditationTime) % 60
@@ -501,4 +501,4 @@ struct MeditationView: View {
     PhantomChakrasView()
         .environmentObject(FocusNumberManager.shared)
         .environmentObject(RealmNumberManager())
-} 
+}

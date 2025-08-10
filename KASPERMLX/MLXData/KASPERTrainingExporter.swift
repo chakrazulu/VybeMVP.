@@ -1,6 +1,6 @@
 /**
  * KASPER Training Data Exporter
- * 
+ *
  * Exports user feedback and insights into structured training data
  * for MLX model fine-tuning and continuous improvement.
  * Supports multiple export formats for different ML frameworks.
@@ -14,16 +14,16 @@ private let logger = Logger(subsystem: "com.vybe.kaspermlx", category: "Training
 /// Training data export manager for KASPER MLX
 @MainActor
 class KASPERTrainingExporter: ObservableObject {
-    
+
     // MARK: - Published Properties
-    
+
     @Published private(set) var isExporting = false
     @Published private(set) var exportProgress: Double = 0.0
     @Published private(set) var lastExportDate: Date?
     @Published private(set) var lastExportCount: Int = 0
-    
+
     // MARK: - Private Properties
-    
+
     private let feedbackManager = KASPERFeedbackManager.shared
     private let fileManager = FileManager.default
     private let dateFormatter: ISO8601DateFormatter = {
@@ -31,70 +31,70 @@ class KASPERTrainingExporter: ObservableObject {
         formatter.formatOptions = [.withInternetDateTime]
         return formatter
     }()
-    
+
     // MARK: - Singleton
-    
+
     static let shared = KASPERTrainingExporter()
-    
+
     private init() {
         loadExportHistory()
     }
-    
+
     // MARK: - Export Methods
-    
+
     /// Export training data to JSON file for MLX training
     func exportToJSON() async throws -> URL {
         logger.info("🔮 KASPER Training Export: Starting JSON export...")
-        
+
         await MainActor.run {
             isExporting = true
             exportProgress = 0.0
         }
-        
+
         defer {
             Task { @MainActor in
                 isExporting = false
             }
         }
-        
+
         // Collect all feedback data
         let feedbackData = feedbackManager.feedbackHistory
         await updateProgress(0.2)
-        
+
         // Convert to training examples
         let trainingExamples = await createTrainingExamples(from: feedbackData)
         await updateProgress(0.6)
-        
+
         // Create JSON structure
         let exportData = createExportStructure(examples: trainingExamples)
         await updateProgress(0.8)
-        
+
         // Save to file
         let fileURL = try await saveToFile(data: exportData)
         await updateProgress(1.0)
-        
+
         // Update export history
         await MainActor.run {
             lastExportDate = Date()
             lastExportCount = trainingExamples.count
         }
         saveExportHistory()
-        
+
         logger.info("🔮 KASPER Training Export: Exported \(trainingExamples.count) examples to \(fileURL.lastPathComponent)")
         return fileURL
     }
-    
+
     /// Export training data in MLX-compatible format
     func exportForMLX() async throws -> Data {
         logger.info("🔮 KASPER Training Export: Creating MLX-compatible dataset...")
-        
+
         let feedbackData = feedbackManager.feedbackHistory
         var mlxDataset: [[String: Any]] = []
-        
+
         for feedback in feedbackData {
             // Only use positively rated feedback for training
             guard feedback.rating == .positive else { continue }
-            
+
             // Create MLX training format
             let example: [String: Any] = [
                 "instruction": createInstruction(for: feedback.feature),
@@ -108,19 +108,19 @@ class KASPERTrainingExporter: ObservableObject {
             ]
             mlxDataset.append(example)
         }
-        
+
         let jsonData = try JSONSerialization.data(withJSONObject: mlxDataset, options: .prettyPrinted)
         logger.info("🔮 KASPER Training Export: Created MLX dataset with \(mlxDataset.count) examples")
         return jsonData
     }
-    
+
     /// Export augmented training data with negative examples
     func exportAugmentedDataset() async throws -> Data {
         logger.info("🔮 KASPER Training Export: Creating augmented dataset...")
-        
+
         let feedbackData = feedbackManager.feedbackHistory
         var augmentedDataset: [[String: Any]] = []
-        
+
         // Process all feedback
         for feedback in feedbackData {
             var example: [String: Any] = [
@@ -134,29 +134,29 @@ class KASPERTrainingExporter: ObservableObject {
                     "rating": feedback.rating.score
                 ]
             ]
-            
+
             // For negative feedback, add suggested improvement
             if feedback.rating == .negative {
                 example["suggested_improvement"] = generateImprovement(for: feedback)
             }
-            
+
             augmentedDataset.append(example)
         }
-        
+
         // Add synthetic positive examples from enhanced templates
         let syntheticExamples = await generateSyntheticExamples()
         augmentedDataset.append(contentsOf: syntheticExamples)
-        
+
         let jsonData = try JSONSerialization.data(withJSONObject: augmentedDataset, options: .prettyPrinted)
         logger.info("🔮 KASPER Training Export: Created augmented dataset with \(augmentedDataset.count) examples")
         return jsonData
     }
-    
+
     // MARK: - Private Methods
-    
+
     private func createTrainingExamples(from feedback: [KASPERFeedback]) async -> [TrainingExample] {
         var examples: [TrainingExample] = []
-        
+
         for item in feedback {
             let example = TrainingExample(
                 id: item.id,
@@ -169,10 +169,10 @@ class KASPERTrainingExporter: ObservableObject {
             )
             examples.append(example)
         }
-        
+
         return examples
     }
-    
+
     private func createExportStructure(examples: [TrainingExample]) -> [String: Any] {
         let structure: [String: Any] = [
             "version": "1.0.0",
@@ -191,19 +191,19 @@ class KASPERTrainingExporter: ObservableObject {
                 ]
             }
         ]
-        
+
         return structure
     }
-    
+
     private func createStatistics(from examples: [TrainingExample]) -> [String: Any] {
         let positiveCount = examples.filter { $0.rating == .positive }.count
         let negativeCount = examples.filter { $0.rating == .negative }.count
-        
+
         var featureDistribution: [String: Int] = [:]
         for example in examples {
             featureDistribution[example.feature.rawValue, default: 0] += 1
         }
-        
+
         return [
             "total_examples": examples.count,
             "positive_examples": positiveCount,
@@ -212,7 +212,7 @@ class KASPERTrainingExporter: ObservableObject {
             "feature_distribution": featureDistribution
         ]
     }
-    
+
     private func createInstruction(for feature: KASPERFeature) -> String {
         switch feature {
         case .journalInsight:
@@ -231,10 +231,10 @@ class KASPERTrainingExporter: ObservableObject {
             return "Interpret the current spiritual realm energy"
         }
     }
-    
+
     private func createInput(from contextData: [String: String]) -> String {
         var inputComponents: [String] = []
-        
+
         if let focusNumber = contextData["focus_number"] {
             inputComponents.append("Focus Number: \(focusNumber)")
         }
@@ -247,14 +247,14 @@ class KASPERTrainingExporter: ObservableObject {
         if let cosmicData = contextData["cosmic_data"] {
             inputComponents.append("Cosmic Context: \(cosmicData)")
         }
-        
+
         return inputComponents.joined(separator: " | ")
     }
-    
+
     private func generateImprovement(for feedback: KASPERFeedback) -> String {
         // Analyze why the insight might have been poorly received
         let content = feedback.insightContent.lowercased()
-        
+
         if content.count < 50 {
             return "Provide more detailed and comprehensive spiritual guidance"
         } else if !content.contains("you") && !content.contains("your") {
@@ -265,10 +265,10 @@ class KASPERTrainingExporter: ObservableObject {
             return "Enhance spiritual depth and provide more actionable guidance"
         }
     }
-    
+
     private func generateSyntheticExamples() async -> [[String: Any]] {
         var synthetic: [[String: Any]] = []
-        
+
         // Generate high-quality examples using enhanced templates
         for feature in KASPERFeature.allCases {
             for focusNumber in 1...9 {
@@ -286,16 +286,16 @@ class KASPERTrainingExporter: ObservableObject {
                 synthetic.append(example)
             }
         }
-        
+
         return synthetic
     }
-    
+
     private func generateHighQualityInsight(for feature: KASPERFeature, focusNumber: Int) async -> String {
         // Generate high-quality synthetic examples
         let component = getComponentForFocus(focusNumber)
         let reference = getReferenceForFocus(focusNumber)
         let guidance = getGuidanceForFocus(focusNumber)
-        
+
         switch feature {
         case .journalInsight:
             return "✨ Your journal reveals \(component) within your spiritual journey. \(reference.capitalizeFirstLetter()) guides you to \(guidance), allowing divine wisdom to illuminate your path forward."
@@ -314,7 +314,7 @@ class KASPERTrainingExporter: ObservableObject {
             return "🔮 The cosmic winds carry \(component) through \(reference) toward a pivotal moment ahead. As you \(guidance), watch for synchronicities that confirm you're on the right path."
         }
     }
-    
+
     private func calculateCompatibility(_ num1: Int, _ num2: Int) -> String {
         let sum = (num1 + num2) % 9
         switch sum {
@@ -325,7 +325,7 @@ class KASPERTrainingExporter: ObservableObject {
         default: return "unique transformative bond"
         }
     }
-    
+
     private func getNumberGift(_ number: Int) -> String {
         switch number {
         case 1: return "pioneering leadership"
@@ -340,7 +340,7 @@ class KASPERTrainingExporter: ObservableObject {
         default: return "unique spiritual gifts"
         }
     }
-    
+
     private func getComponentForFocus(_ number: Int) -> String {
         switch number {
         case 1: return "pioneering leadership energy"
@@ -355,7 +355,7 @@ class KASPERTrainingExporter: ObservableObject {
         default: return "unique spiritual energy"
         }
     }
-    
+
     private func getReferenceForFocus(_ number: Int) -> String {
         switch number {
         case 1: return "your natural leadership abilities"
@@ -370,7 +370,7 @@ class KASPERTrainingExporter: ObservableObject {
         default: return "your unique spiritual gifts"
         }
     }
-    
+
     private func getGuidanceForFocus(_ number: Int) -> String {
         switch number {
         case 1: return "trust your instincts to initiate new ventures"
@@ -385,41 +385,41 @@ class KASPERTrainingExporter: ObservableObject {
         default: return "trust your unique spiritual path"
         }
     }
-    
+
     private func saveToFile(data: [String: Any]) async throws -> URL {
         let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
         let exportFolder = documentsPath.appendingPathComponent("KASPERExports")
-        
+
         // Create export folder if needed
         if !fileManager.fileExists(atPath: exportFolder.path) {
             try fileManager.createDirectory(at: exportFolder, withIntermediateDirectories: true)
         }
-        
+
         // Create filename with timestamp
         let timestamp = Date().timeIntervalSince1970
         let filename = "kasper_training_\(Int(timestamp)).json"
         let fileURL = exportFolder.appendingPathComponent(filename)
-        
+
         // Write JSON data
         let jsonData = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
         try jsonData.write(to: fileURL)
-        
+
         return fileURL
     }
-    
+
     private func updateProgress(_ progress: Double) async {
         await MainActor.run {
             exportProgress = progress
         }
     }
-    
+
     private func loadExportHistory() {
         if let date = UserDefaults.standard.object(forKey: "kasper_last_export_date") as? Date {
             lastExportDate = date
         }
         lastExportCount = UserDefaults.standard.integer(forKey: "kasper_last_export_count")
     }
-    
+
     private func saveExportHistory() {
         UserDefaults.standard.set(lastExportDate, forKey: "kasper_last_export_date")
         UserDefaults.standard.set(lastExportCount, forKey: "kasper_last_export_count")
@@ -444,7 +444,7 @@ private extension String {
     func lowercaseFirstLetter() -> String {
         return prefix(1).lowercased() + dropFirst()
     }
-    
+
     func capitalizeFirstLetter() -> String {
         return prefix(1).uppercased() + dropFirst()
     }

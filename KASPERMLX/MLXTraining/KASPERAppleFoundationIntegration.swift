@@ -1,24 +1,24 @@
 /**
  * KASPERAppleFoundationIntegration.swift
- * 
+ *
  * 🍎 KASPER APPLE FOUNDATION MODELS INTEGRATION LAYER
- * 
+ *
  * ✅ STATUS: Phase 2 Core Component - Apple Intelligence Integration
  * ✅ PURPOSE: Seamless integration with Apple Foundation Models and Apple Intelligence
  * ✅ ARCHITECTURE: iOS 18+ native integration with privacy-first spiritual AI
- * 
+ *
  * REVOLUTIONARY APPLE INTELLIGENCE INTEGRATION:
  * This layer provides seamless integration with Apple's Foundation Models,
  * leveraging Apple Intelligence for enhanced spiritual AI capabilities while
  * maintaining complete user privacy and on-device processing.
- * 
+ *
  * WHY THIS IS GROUNDBREAKING:
  * - First spiritual AI to integrate with Apple Intelligence ecosystem
  * - Native iOS 18+ features: Live Activities, Dynamic Island, Shortcuts
  * - Privacy-first design: All spiritual data processed on-device
  * - Seamless Siri integration for voice-activated spiritual guidance
  * - Real-time spiritual insights with Apple Intelligence enhancement
- * 
+ *
  * APPLE INTELLIGENCE FEATURES:
  * - 🧠 Apple Foundation Models: 3B parameter on-device model integration
  * - 📱 Dynamic Island: Real-time spiritual guidance display
@@ -28,19 +28,19 @@
  * - ✨ Writing Tools: Enhanced spiritual journaling and reflection
  * - 🎨 Image Playground: Sacred geometry and spiritual art generation
  * - 📧 Smart Compose: Spiritual communication enhancement
- * 
+ *
  * INTEGRATION ARCHITECTURE:
  * 1. Apple Intelligence → KASPER MLX → Spiritual Enhancement
  * 2. On-device Models → Privacy-First Processing → Sacred Output
  * 3. System Integration → Native iOS Features → Seamless UX
  * 4. Real-time Processing → Contextual Awareness → Spiritual Guidance
- * 
+ *
  * PRIVACY & SECURITY:
  * - Zero server communication for spiritual data
  * - On-device processing with Apple Silicon optimization
  * - Encrypted spiritual data storage with iOS keychain
  * - User-controlled data sharing and spiritual insight personalization
- * 
+ *
  * PHASE 2 IMPLEMENTATION:
  * - Foundation: Apple Intelligence integration layer ✅ IN PROGRESS
  * - Enhanced: Siri Shortcuts and voice activation
@@ -70,7 +70,7 @@ public enum KASPERAppleIntelligenceFeature: String, CaseIterable {
     case liveActivities = "live_activities"
     case dynamicIsland = "dynamic_island"
     case shortcuts = "shortcuts"
-    
+
     var displayName: String {
         switch self {
         case .foundationModels: return "Apple Foundation Models"
@@ -83,7 +83,7 @@ public enum KASPERAppleIntelligenceFeature: String, CaseIterable {
         case .shortcuts: return "Shortcuts Integration"
         }
     }
-    
+
     var requiresAppleIntelligence: Bool {
         switch self {
         case .foundationModels, .writingTools, .imagePlayground, .smartCompose:
@@ -101,7 +101,7 @@ public struct KASPERAppleIntelligenceConfig {
     let onDeviceOnly: Bool
     let enablePersonalization: Bool
     let spiritualContentFiltering: Bool
-    
+
     static let `default` = KASPERAppleIntelligenceConfig(
         enabledFeatures: Set(KASPERAppleIntelligenceFeature.allCases),
         privacyLevel: .maximum,
@@ -109,7 +109,7 @@ public struct KASPERAppleIntelligenceConfig {
         enablePersonalization: true,
         spiritualContentFiltering: true
     )
-    
+
     static let privacyFirst = KASPERAppleIntelligenceConfig(
         enabledFeatures: [.shortcuts, .liveActivities, .dynamicIsland],
         privacyLevel: .maximum,
@@ -125,7 +125,7 @@ public enum KASPERPrivacyLevel: String, CaseIterable {
     case high = "high"
     case balanced = "balanced"
     case minimal = "minimal"
-    
+
     var description: String {
         switch self {
         case .maximum: return "Maximum privacy - all processing on-device"
@@ -143,7 +143,7 @@ public struct KASPERAppleIntelligenceRequest {
     let inputContent: String
     let personalizationHints: [String: Any]
     let privacyConstraints: [String]
-    
+
     init(
         feature: KASPERAppleIntelligenceFeature,
         spiritualContext: KASPERSpiritualContext,
@@ -167,7 +167,7 @@ public struct KASPERSpiritualContext {
     let spiritualIntentions: [String]
     let meditationState: String?
     let energyLevel: Float?
-    
+
     init(
         focusNumber: Int? = nil,
         currentRealm: Int? = nil,
@@ -194,7 +194,7 @@ public struct KASPERAppleIntelligenceResponse {
     let processingMethod: String
     let privacyCompliance: Bool
     let appliedFeatures: [KASPERAppleIntelligenceFeature]
-    
+
     var enhancementRatio: Float {
         let originalLength = Float(originalContent.count)
         let enhancedLength = Float(enhancedContent.count)
@@ -204,86 +204,86 @@ public struct KASPERAppleIntelligenceResponse {
 
 /**
  * KASPER APPLE FOUNDATION INTEGRATION MANAGER
- * 
+ *
  * Orchestrates seamless integration between KASPER spiritual AI and
  * Apple Intelligence ecosystem, providing enhanced spiritual guidance
  * through native iOS features while maintaining complete privacy.
  */
 @MainActor
 public final class KASPERAppleFoundationIntegration: ObservableObject {
-    
+
     // MARK: - Singleton
-    
+
     public static let shared = KASPERAppleFoundationIntegration()
-    
+
     // MARK: - Published Properties
-    
+
     @Published public private(set) var isAppleIntelligenceAvailable: Bool = false
     @Published public private(set) var availableFeatures: Set<KASPERAppleIntelligenceFeature> = []
     @Published public private(set) var currentConfiguration: KASPERAppleIntelligenceConfig = .default
     @Published public private(set) var isProcessing: Bool = false
     @Published public private(set) var lastEnhancement: KASPERAppleIntelligenceResponse?
     @Published public private(set) var privacyStatus: KASPERPrivacyStatus = .secure
-    
+
     // MARK: - Private Properties
-    
+
     private let logger = Logger(subsystem: "com.VybeMVP.KASPERAppleFoundationIntegration", category: "apple_intelligence")
-    
+
     /// Claude: System capability checker
     private var capabilityChecker: KASPERSystemCapabilityChecker
-    
+
     /// Claude: Privacy monitor
     private var privacyMonitor: KASPERPrivacyMonitor
-    
+
     /// Claude: Siri shortcut manager
     private var shortcutManager: KASPERSiriShortcutManager
-    
+
     /// Claude: Live activity manager
     private var liveActivityManager: KASPERLiveActivityManager
-    
+
     // MARK: - Initialization
-    
+
     private init() {
         self.capabilityChecker = KASPERSystemCapabilityChecker()
         self.privacyMonitor = KASPERPrivacyMonitor()
         self.shortcutManager = KASPERSiriShortcutManager()
         self.liveActivityManager = KASPERLiveActivityManager()
-        
+
         logger.info("🍎 KASPERAppleFoundationIntegration initialized")
-        
+
         // Check Apple Intelligence availability
         checkAppleIntelligenceAvailability()
-        
+
         // Setup feature monitoring
         setupFeatureMonitoring()
     }
-    
+
     // MARK: - Public Apple Intelligence Interface
-    
+
     /**
      * Configure Apple Intelligence integration
      */
     public func configure(config: KASPERAppleIntelligenceConfig) async {
         logger.info("🍎 Configuring Apple Intelligence with \(config.enabledFeatures.count) features")
-        
+
         currentConfiguration = config
-        
+
         // Validate feature availability
         let validatedFeatures = await validateFeatureAvailability(requestedFeatures: config.enabledFeatures)
-        
+
         await MainActor.run {
             self.availableFeatures = validatedFeatures
         }
-        
+
         // Configure privacy settings
         privacyMonitor.updatePrivacyLevel(config.privacyLevel)
-        
+
         // Setup enabled features
         await setupEnabledFeatures(config)
-        
+
         logger.info("🍎 Apple Intelligence configuration complete")
     }
-    
+
     /**
      * Enhance spiritual content with Apple Intelligence
      */
@@ -295,11 +295,11 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
         guard availableFeatures.contains(feature) else {
             throw KASPERAppleIntelligenceError.featureNotAvailable(feature)
         }
-        
+
         logger.info("🍎 Enhancing spiritual content with \(feature.displayName)")
-        
+
         isProcessing = true
-        
+
         do {
             let request = KASPERAppleIntelligenceRequest(
                 feature: feature,
@@ -308,17 +308,17 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
                 personalizationHints: generatePersonalizationHints(spiritualContext),
                 privacyConstraints: generatePrivacyConstraints()
             )
-            
+
             let response = try await processAppleIntelligenceRequest(request)
-            
+
             await MainActor.run {
                 self.lastEnhancement = response
                 self.isProcessing = false
             }
-            
+
             logger.info("🍎 Spiritual content enhancement complete")
             return response
-            
+
         } catch {
             await MainActor.run {
                 self.isProcessing = false
@@ -326,7 +326,7 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
             throw error
         }
     }
-    
+
     /**
      * Create Siri shortcut for spiritual guidance
      */
@@ -335,13 +335,13 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
         customization: KASPERShortcutCustomization? = nil
     ) async throws -> INShortcut {
         logger.info("🍎 Creating spiritual Siri shortcut: \(type.rawValue)")
-        
+
         return try await shortcutManager.createShortcut(
             type: type,
             customization: customization
         )
     }
-    
+
     /**
      * Start spiritual Live Activity
      */
@@ -350,13 +350,13 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
         initialContent: KASPERSpiritualActivityContent
     ) async throws -> String {
         logger.info("🍎 Starting spiritual Live Activity: \(type.rawValue)")
-        
+
         return try await liveActivityManager.startActivity(
             type: type,
             content: initialContent
         )
     }
-    
+
     /**
      * Update Dynamic Island with spiritual insight
      */
@@ -365,13 +365,13 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
         presentation: KASPERDynamicIslandPresentation = .compact
     ) async {
         logger.info("🍎 Updating Dynamic Island with spiritual insight")
-        
+
         await liveActivityManager.updateDynamicIsland(
             insight: insight,
             presentation: presentation
         )
     }
-    
+
     /**
      * Generate spiritual image with Image Playground
      */
@@ -383,16 +383,16 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
         guard availableFeatures.contains(.imagePlayground) else {
             throw KASPERAppleIntelligenceError.featureNotAvailable(.imagePlayground)
         }
-        
+
         logger.info("🍎 Generating spiritual image with Apple Intelligence")
-        
+
         // This will be implemented with actual Image Playground integration
         // For now, we return placeholder data
         return Data()
     }
-    
+
     // MARK: - Apple Intelligence Processing
-    
+
     /**
      * Process Apple Intelligence request
      */
@@ -408,27 +408,27 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
             return try await processStandardRequest(request)
         }
     }
-    
+
     /**
      * Process Foundation Model request
      */
     private func processFoundationModelRequest(_ request: KASPERAppleIntelligenceRequest) async throws -> KASPERAppleIntelligenceResponse {
         logger.info("🍎 Processing Foundation Model request")
-        
+
         // This will be implemented with actual Apple Foundation Models API
         // For now, we simulate enhanced spiritual content
-        
+
         let enhancedContent = enhanceSpiritualContentWithFoundationModel(
             content: request.inputContent,
             context: request.spiritualContext
         )
-        
+
         let spiritualEnhancements = [
             "Enhanced with Apple Intelligence spiritual understanding",
             "Personalized for user's spiritual journey",
             "Optimized for sacred numerological alignment"
         ]
-        
+
         return KASPERAppleIntelligenceResponse(
             originalContent: request.inputContent,
             enhancedContent: enhancedContent,
@@ -439,24 +439,24 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
             appliedFeatures: [.foundationModels]
         )
     }
-    
+
     /**
      * Process Writing Tools request
      */
     private func processWritingToolsRequest(_ request: KASPERAppleIntelligenceRequest) async throws -> KASPERAppleIntelligenceResponse {
         logger.info("🍎 Processing Writing Tools request")
-        
+
         let enhancedContent = enhanceSpiritualWritingWithAppleIntelligence(
             content: request.inputContent,
             context: request.spiritualContext
         )
-        
+
         let spiritualEnhancements = [
             "Enhanced spiritual language flow",
             "Improved contemplative structure",
             "Deepened spiritual authenticity"
         ]
-        
+
         return KASPERAppleIntelligenceResponse(
             originalContent: request.inputContent,
             enhancedContent: enhancedContent,
@@ -467,18 +467,18 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
             appliedFeatures: [.writingTools]
         )
     }
-    
+
     /**
      * Process Smart Compose request
      */
     private func processSmartComposeRequest(_ request: KASPERAppleIntelligenceRequest) async throws -> KASPERAppleIntelligenceResponse {
         logger.info("🍎 Processing Smart Compose request")
-        
+
         let enhancedContent = enhanceSpiritualCompositionWithAppleIntelligence(
             content: request.inputContent,
             context: request.spiritualContext
         )
-        
+
         return KASPERAppleIntelligenceResponse(
             originalContent: request.inputContent,
             enhancedContent: enhancedContent,
@@ -489,13 +489,13 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
             appliedFeatures: [.smartCompose]
         )
     }
-    
+
     /**
      * Process standard request (fallback)
      */
     private func processStandardRequest(_ request: KASPERAppleIntelligenceRequest) async throws -> KASPERAppleIntelligenceResponse {
         logger.info("🍎 Processing standard Apple Intelligence request")
-        
+
         return KASPERAppleIntelligenceResponse(
             originalContent: request.inputContent,
             enhancedContent: request.inputContent,
@@ -506,82 +506,82 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
             appliedFeatures: [request.feature]
         )
     }
-    
+
     // MARK: - Content Enhancement Methods
-    
+
     /**
      * Enhance spiritual content with Foundation Model
      */
     private func enhanceSpiritualContentWithFoundationModel(content: String, context: KASPERSpiritualContext) -> String {
         // This will be implemented with actual Apple Foundation Models integration
         // For now, we apply spiritual enhancement patterns
-        
+
         var enhanced = content
-        
+
         // Add spiritual depth based on focus number
         if let focusNumber = context.focusNumber {
             let numerologicalWisdom = getNumerologicalWisdom(focusNumber)
             enhanced = "Drawing upon the sacred energy of \(focusNumber), \(enhanced.lowercased()) This numerical vibration \(numerologicalWisdom)."
         }
-        
+
         // Add spiritual markers
         let spiritualEmoji = getSpiritualEmojiForContent(enhanced)
         enhanced = "\(spiritualEmoji) \(enhanced)"
-        
+
         // Enhance with Apple Intelligence contextual understanding
         if !enhanced.lowercased().contains("divine") && !enhanced.lowercased().contains("sacred") {
             enhanced = enhanced.replacingOccurrences(of: "you", with: "your sacred essence")
         }
-        
+
         return enhanced
     }
-    
+
     /**
      * Enhance spiritual writing with Apple Intelligence
      */
     private func enhanceSpiritualWritingWithAppleIntelligence(content: String, context: KASPERSpiritualContext) -> String {
         // Apply Apple Writing Tools-style enhancement for spiritual content
         var enhanced = content
-        
+
         // Improve sentence flow
         enhanced = enhanced.replacingOccurrences(of: ". ", with: ". The divine flow continues as ")
-        
+
         // Add contemplative transitions
         if enhanced.contains("spiritual") {
             enhanced = enhanced.replacingOccurrences(of: "spiritual", with: "spiritually profound")
         }
-        
+
         return enhanced
     }
-    
+
     /**
      * Enhance spiritual composition with Apple Intelligence
      */
     private func enhanceSpiritualCompositionWithAppleIntelligence(content: String, context: KASPERSpiritualContext) -> String {
         // Apply Smart Compose-style enhancement
         var enhanced = content
-        
+
         // Add contextual spiritual suggestions
         if enhanced.count < 50 {
             enhanced += " May this guidance illuminate your path with divine wisdom and sacred understanding."
         }
-        
+
         return enhanced
     }
-    
+
     // MARK: - Helper Methods
-    
+
     /**
      * Check Apple Intelligence availability
      */
     private func checkAppleIntelligenceAvailability() {
         // This will be implemented with actual Apple Intelligence API checks
         // For now, we simulate availability based on iOS version
-        
+
         if #available(iOS 18.0, *) {
             self.isAppleIntelligenceAvailable = true
             self.availableFeatures = Set(KASPERAppleIntelligenceFeature.allCases.filter { !$0.requiresAppleIntelligence })
-            
+
             // Check for Apple Intelligence features
             #if canImport(AppleIntelligence)
             self.availableFeatures.formUnion([.foundationModels, .writingTools, .imagePlayground, .smartCompose])
@@ -590,25 +590,25 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
             self.isAppleIntelligenceAvailable = false
             self.availableFeatures = [.shortcuts, .liveActivities, .dynamicIsland]
         }
-        
+
         logger.info("🍎 Apple Intelligence available: \(self.isAppleIntelligenceAvailable), Features: \(self.availableFeatures.count)")
     }
-    
+
     /**
      * Validate feature availability
      */
     private func validateFeatureAvailability(requestedFeatures: Set<KASPERAppleIntelligenceFeature>) async -> Set<KASPERAppleIntelligenceFeature> {
         var validatedFeatures: Set<KASPERAppleIntelligenceFeature> = []
-        
+
         for feature in requestedFeatures {
             if await capabilityChecker.isFeatureAvailable(feature) {
                 validatedFeatures.insert(feature)
             }
         }
-        
+
         return validatedFeatures
     }
-    
+
     /**
      * Setup enabled features
      */
@@ -624,7 +624,7 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
             }
         }
     }
-    
+
     /**
      * Setup feature monitoring
      */
@@ -636,45 +636,45 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
             }
         }
     }
-    
+
     /**
      * Generate personalization hints
      */
     private func generatePersonalizationHints(_ context: KASPERSpiritualContext) -> [String: Any] {
         var hints: [String: Any] = [:]
-        
+
         if let focusNumber = context.focusNumber {
             hints["spiritual_focus"] = focusNumber
         }
-        
+
         if let realm = context.currentRealm {
             hints["spiritual_realm"] = realm
         }
-        
+
         if !context.spiritualIntentions.isEmpty {
             hints["spiritual_intentions"] = context.spiritualIntentions
         }
-        
+
         return hints
     }
-    
+
     /**
      * Generate privacy constraints
      */
     private func generatePrivacyConstraints() -> [String] {
         var constraints: [String] = []
-        
+
         if currentConfiguration.onDeviceOnly {
             constraints.append("on_device_only")
         }
-        
+
         if currentConfiguration.spiritualContentFiltering {
             constraints.append("spiritual_content_only")
         }
-        
+
         return constraints
     }
-    
+
     /**
      * Get numerological wisdom
      */
@@ -692,13 +692,13 @@ public final class KASPERAppleFoundationIntegration: ObservableObject {
         default: return "carries divine significance in your spiritual evolution"
         }
     }
-    
+
     /**
      * Get spiritual emoji for content
      */
     private func getSpiritualEmojiForContent(_ content: String) -> String {
         let lowerContent = content.lowercased()
-        
+
         if lowerContent.contains("wisdom") || lowerContent.contains("spiritual") {
             return "✨"
         } else if lowerContent.contains("love") || lowerContent.contains("heart") {
@@ -720,7 +720,7 @@ public enum KASPERPrivacyStatus: String, CaseIterable {
     case secure = "secure"
     case warning = "warning"
     case compromised = "compromised"
-    
+
     var description: String {
         switch self {
         case .secure: return "All spiritual data secure and private"
@@ -737,7 +737,7 @@ public enum KASPERSpiritualShortcutType: String, CaseIterable {
     case meditationStart = "meditation_start"
     case journalEntry = "journal_entry"
     case cosmicTiming = "cosmic_timing"
-    
+
     var displayName: String {
         switch self {
         case .dailyGuidance: return "Daily Spiritual Guidance"
@@ -778,7 +778,7 @@ public enum KASPERAppleIntelligenceError: LocalizedError {
     case privacyConstraintViolation
     case appleIntelligenceUnavailable
     case processingFailed(String)
-    
+
     public var errorDescription: String? {
         switch self {
         case .featureNotAvailable(let feature):
@@ -806,7 +806,7 @@ class KASPERSystemCapabilityChecker {
 /// Claude: Privacy monitor (to be fully implemented)
 class KASPERPrivacyMonitor {
     var onPrivacyStatusChange: ((KASPERPrivacyStatus) -> Void)?
-    
+
     func updatePrivacyLevel(_ level: KASPERPrivacyLevel) {
         // Monitor privacy compliance
     }
@@ -817,7 +817,7 @@ class KASPERSiriShortcutManager {
     func setupShortcuts() async {
         // Setup Siri shortcuts
     }
-    
+
     func createShortcut(type: KASPERSpiritualShortcutType, customization: KASPERShortcutCustomization?) async throws -> INShortcut {
         // Create actual Siri shortcuts
         throw KASPERAppleIntelligenceError.processingFailed("Not yet implemented")
@@ -829,12 +829,12 @@ class KASPERLiveActivityManager {
     func setupLiveActivities() async {
         // Setup Live Activities
     }
-    
+
     func startActivity(type: KASPERSpiritualActivityType, content: KASPERSpiritualActivityContent) async throws -> String {
         // Start Live Activity
         return UUID().uuidString
     }
-    
+
     func updateDynamicIsland(insight: KASPERInsight, presentation: KASPERDynamicIslandPresentation) async {
         // Update Dynamic Island
     }
@@ -858,7 +858,7 @@ extension KASPERAppleIntelligenceConfig: Codable {
     enum CodingKeys: CodingKey {
         case enabledFeatures, privacyLevel, onDeviceOnly, enablePersonalization, spiritualContentFiltering
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let featuresArray = try container.decode([String].self, forKey: .enabledFeatures)
@@ -869,7 +869,7 @@ extension KASPERAppleIntelligenceConfig: Codable {
         self.enablePersonalization = try container.decode(Bool.self, forKey: .enablePersonalization)
         self.spiritualContentFiltering = try container.decode(Bool.self, forKey: .spiritualContentFiltering)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(Array(enabledFeatures.map { $0.rawValue }), forKey: .enabledFeatures)
@@ -884,7 +884,7 @@ extension KASPERSpiritualContext: Codable {
     enum CodingKeys: CodingKey {
         case focusNumber, currentRealm, spiritualIntentions, meditationState, energyLevel, astrologicalInfoData
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.focusNumber = try container.decodeIfPresent(Int.self, forKey: .focusNumber)
@@ -892,14 +892,14 @@ extension KASPERSpiritualContext: Codable {
         self.spiritualIntentions = try container.decode([String].self, forKey: .spiritualIntentions)
         self.meditationState = try container.decodeIfPresent(String.self, forKey: .meditationState)
         self.energyLevel = try container.decodeIfPresent(Float.self, forKey: .energyLevel)
-        
+
         if let astroData = try container.decodeIfPresent(Data.self, forKey: .astrologicalInfoData) {
             self.astrologicalInfo = try? JSONSerialization.jsonObject(with: astroData) as? [String: Any]
         } else {
             self.astrologicalInfo = nil
         }
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(focusNumber, forKey: .focusNumber)
@@ -907,7 +907,7 @@ extension KASPERSpiritualContext: Codable {
         try container.encode(spiritualIntentions, forKey: .spiritualIntentions)
         try container.encodeIfPresent(meditationState, forKey: .meditationState)
         try container.encodeIfPresent(energyLevel, forKey: .energyLevel)
-        
+
         if let astroInfo = astrologicalInfo,
            let astroData = try? JSONSerialization.data(withJSONObject: astroInfo) {
             try container.encode(astroData, forKey: .astrologicalInfoData)
@@ -920,7 +920,7 @@ extension KASPERAppleIntelligenceResponse: Codable {
         case originalContent, enhancedContent, spiritualEnhancements, confidenceScore
         case processingMethod, privacyCompliance, appliedFeatures
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.originalContent = try container.decode(String.self, forKey: .originalContent)
@@ -932,7 +932,7 @@ extension KASPERAppleIntelligenceResponse: Codable {
         let featuresArray = try container.decode([String].self, forKey: .appliedFeatures)
         self.appliedFeatures = featuresArray.compactMap { KASPERAppleIntelligenceFeature(rawValue: $0) }
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(originalContent, forKey: .originalContent)

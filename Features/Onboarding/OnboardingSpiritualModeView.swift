@@ -8,10 +8,10 @@ struct OnboardingSpiritualModeView: View {
             VStack(spacing: 30) {
                 // Header Section
                 headerSection
-                
+
                 // Selection Cards
                 selectionSection
-                
+
                 // Description Section
                 descriptionSection
             }
@@ -20,7 +20,7 @@ struct OnboardingSpiritualModeView: View {
             .padding(.bottom, 40)
         }
     }
-    
+
     private var headerSection: some View {
         VStack(spacing: 20) {
             // Icon
@@ -34,12 +34,12 @@ struct OnboardingSpiritualModeView: View {
                         )
                     )
                     .frame(width: 100, height: 100)
-                
+
                 Image(systemName: "heart.circle.fill")
                     .font(.system(size: 40, weight: .light))
                     .foregroundColor(.purple)
             }
-            
+
             VStack(spacing: 12) {
                 Text("Spiritual Alignment")
                     .font(.largeTitle)
@@ -51,13 +51,13 @@ struct OnboardingSpiritualModeView: View {
                             endPoint: .trailing
                         )
                     )
-                
+
                 Text("What spiritual mode or energy do you most seek to align with currently? This helps us tailor your Vybe experience.")
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                     .lineLimit(nil)
-                
+
                 // Add clear instruction for multiple selection
                 Text("✨ Select all that apply")
                     .font(.subheadline)
@@ -78,7 +78,7 @@ struct OnboardingSpiritualModeView: View {
         }
         .padding(.top, 20)
     }
-    
+
     private var selectionSection: some View {
         VStack(spacing: 16) {
             ForEach(viewModel.spiritualModeOptions, id: \.self) { option in
@@ -95,7 +95,7 @@ struct OnboardingSpiritualModeView: View {
             }
         }
     }
-    
+
     private func toggleSpiritualModeSelection(_ option: String) {
         if let index = viewModel.selectedSpiritualModes.firstIndex(of: option) {
             viewModel.selectedSpiritualModes.remove(at: index)
@@ -103,7 +103,7 @@ struct OnboardingSpiritualModeView: View {
             viewModel.selectedSpiritualModes.append(option)
         }
     }
-    
+
     private var descriptionSection: some View {
         VStack(spacing: 16) {
             HStack {
@@ -113,7 +113,7 @@ struct OnboardingSpiritualModeView: View {
                     .font(.headline)
                 Spacer()
             }
-            
+
             Text("Your choice will influence the themes of your daily insights, journal prompts, and reflections. Each mode offers a unique lens through which to explore your spiritual growth.")
                 .font(.body)
                 .foregroundColor(.secondary)
@@ -135,7 +135,7 @@ struct SpiritualModeCard: View {
     let title: String
     let isSelected: Bool
     let action: () -> Void
-    
+
     private var modeDescription: String {
         switch title {
         case "Manifestation":
@@ -152,7 +152,7 @@ struct SpiritualModeCard: View {
             return "Explore your spiritual path"
         }
     }
-    
+
     private var modeIcon: String {
         switch title {
         case "Manifestation":
@@ -169,7 +169,7 @@ struct SpiritualModeCard: View {
             return "circle.fill"
         }
     }
-    
+
     var body: some View {
         Button(action: action) {
             HStack(spacing: 16) {
@@ -178,7 +178,7 @@ struct SpiritualModeCard: View {
                     .font(.title2)
                     .foregroundColor(isSelected ? .white : .purple)
                     .frame(width: 30, height: 30)
-                
+
                 // Content
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
@@ -187,7 +187,7 @@ struct SpiritualModeCard: View {
                         .foregroundColor(isSelected ? .white : .primary)
                         .lineLimit(1)
                         .fixedSize(horizontal: false, vertical: true)
-                    
+
                     Text(modeDescription)
                         .font(.caption)
                         .foregroundColor(isSelected ? .white.opacity(0.8) : .secondary)
@@ -196,9 +196,9 @@ struct SpiritualModeCard: View {
                         .multilineTextAlignment(.leading)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                
+
                 Spacer(minLength: 8)
-                
+
                 // Selection indicator
                 Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
                     .font(.title3)
@@ -211,7 +211,7 @@ struct SpiritualModeCard: View {
             .background(
                 RoundedRectangle(cornerRadius: 16)
                     .fill(
-                        isSelected 
+                        isSelected
                         ? LinearGradient(
                             gradient: Gradient(colors: [.purple, .blue]),
                             startPoint: .leading,
@@ -245,4 +245,4 @@ struct OnboardingSpiritualModeView_Previews: PreviewProvider {
         OnboardingSpiritualModeView(viewModel: viewModel)
             .padding()
     }
-} 
+}

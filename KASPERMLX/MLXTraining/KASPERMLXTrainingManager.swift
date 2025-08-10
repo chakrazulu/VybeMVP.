@@ -1,36 +1,36 @@
 /**
  * KASPERMLXTrainingManager.swift
- * 
+ *
  * 🤖 KASPER MLX MODEL TRAINING ORCHESTRATION MANAGER
- * 
+ *
  * ✅ STATUS: Phase 2 Foundation - Apple MLX Training Infrastructure Setup
  * ✅ PURPOSE: Orchestrate MLX model training, data pipeline, and model management
  * ✅ ARCHITECTURE: Apple MLX integration with Swift 6 concurrency compliance
- * 
+ *
  * REVOLUTIONARY TRAINING SYSTEM:
  * This manager orchestrates the complete training pipeline from MegaCorpus data
  * to deployed MLX models, enabling continuous improvement of spiritual AI guidance
  * through Apple's state-of-the-art machine learning framework.
- * 
+ *
  * WHY THIS IS GROUNDBREAKING:
  * - First spiritual AI system with on-device MLX model training
  * - Privacy-first training: All spiritual data remains on user's device
  * - Continuous learning from user feedback through RLHF integration
  * - Seamless fallback between MLX models and enhanced templates
  * - Apple Silicon optimization for lightning-fast spiritual inference
- * 
+ *
  * TRAINING PIPELINE:
  * 1. MegaCorpus → Training Data → MLX Format
  * 2. Apple MLX Training → Model Checkpoints → Validation
  * 3. Model Deployment → A/B Testing → Performance Monitoring
  * 4. User Feedback → RLHF → Continuous Improvement
- * 
+ *
  * INTEGRATION POINTS:
  * - KASPERTrainingExporter: Export training data for MLX consumption
  * - Apple MLX Framework: Native Apple Silicon model training
  * - KASPERMLXEngine: Seamless model loading and inference
  * - KASPERFeedbackManager: RLHF data collection and processing
- * 
+ *
  * PHASE 2 IMPLEMENTATION ROADMAP:
  * - Foundation: Training infrastructure and data pipeline ✅ IN PROGRESS
  * - Core Training: MLX model training with MegaCorpus integration
@@ -50,7 +50,7 @@ public enum KASPERTrainingStage: String, CaseIterable {
     case validation = "validation"
     case deployment = "deployment"
     case monitoring = "monitoring"
-    
+
     var displayName: String {
         switch self {
         case .preparation: return "Data Preparation"
@@ -67,19 +67,19 @@ public enum KASPERTrainingStage: String, CaseIterable {
 public struct KASPERTrainingConfiguration {
     /// Model architecture configuration
     let modelArchitecture: KASPERModelArchitecture
-    
+
     /// Training hyperparameters
     let hyperparameters: KASPERTrainingHyperparameters
-    
+
     /// Data configuration
     let dataConfig: KASPERTrainingDataConfig
-    
+
     /// Training schedule and checkpointing
     let schedule: KASPERTrainingSchedule
-    
+
     /// Enable/disable specific training features
     let features: KASPERTrainingFeatures
-    
+
     init(
         modelArchitecture: KASPERModelArchitecture = .spiritualGuidance7B,
         hyperparameters: KASPERTrainingHyperparameters = .default,
@@ -101,7 +101,7 @@ public enum KASPERModelArchitecture: String, CaseIterable, Codable {
     case deepReflection13B = "deep_reflection_13b"
     case cosmicTiming3B = "cosmic_timing_3b"
     case relationshipAnalysis7B = "relationship_analysis_7b"
-    
+
     var parameters: Int {
         switch self {
         case .cosmicTiming3B: return 3_000_000_000
@@ -109,7 +109,7 @@ public enum KASPERModelArchitecture: String, CaseIterable, Codable {
         case .deepReflection13B: return 13_000_000_000
         }
     }
-    
+
     var description: String {
         switch self {
         case .spiritualGuidance7B: return "General spiritual guidance and daily card generation"
@@ -129,7 +129,7 @@ public struct KASPERTrainingHyperparameters {
     let dropoutRate: Float
     let weightDecay: Float
     let warmupSteps: Int
-    
+
     static let `default` = KASPERTrainingHyperparameters(
         learningRate: 2e-5,
         batchSize: 16,
@@ -139,7 +139,7 @@ public struct KASPERTrainingHyperparameters {
         weightDecay: 0.01,
         warmupSteps: 1000
     )
-    
+
     static let lightweight = KASPERTrainingHyperparameters(
         learningRate: 1e-4,
         batchSize: 8,
@@ -159,7 +159,7 @@ public struct KASPERTrainingDataConfig {
     let maxSequenceLength: Int
     let vocabularySize: Int
     let enableAugmentation: Bool
-    
+
     static let `default` = KASPERTrainingDataConfig(
         megaCorpusPath: "MegaCorpus/spiritual_training_data.json",
         userFeedbackWeight: 2.0,
@@ -176,7 +176,7 @@ public struct KASPERTrainingSchedule {
     let evaluationFrequency: Int
     let earlyStoppingPatience: Int
     let maxTrainingTime: TimeInterval
-    
+
     static let `default` = KASPERTrainingSchedule(
         checkpointFrequency: 100,
         evaluationFrequency: 50,
@@ -192,7 +192,7 @@ public struct KASPERTrainingFeatures {
     let enableQuantization: Bool
     let enableProfiler: Bool
     let enableWandBLogging: Bool
-    
+
     static let `default` = KASPERTrainingFeatures(
         enableRLHF: true,
         enableDistillation: false,
@@ -215,7 +215,7 @@ public struct KASPERTrainingProgress {
     let throughput: Float // tokens per second
     let memoryUsage: Float // GB
     let estimatedTimeRemaining: TimeInterval
-    
+
     var progressPercentage: Float {
         return min(Float(step) / Float(totalSteps), 1.0)
     }
@@ -223,64 +223,64 @@ public struct KASPERTrainingProgress {
 
 /**
  * KASPER MLX TRAINING MANAGER
- * 
+ *
  * The central orchestrator for all MLX model training operations,
  * providing a seamless interface between spiritual AI requirements
  * and Apple's cutting-edge machine learning framework.
  */
 @MainActor
 public final class KASPERMLXTrainingManager: ObservableObject {
-    
+
     // MARK: - Singleton
-    
+
     public static let shared = KASPERMLXTrainingManager()
-    
+
     // MARK: - Published Properties
-    
+
     @Published public private(set) var isTrainingActive: Bool = false
     @Published public private(set) var currentStage: KASPERTrainingStage = .preparation
     @Published public private(set) var trainingProgress: KASPERTrainingProgress?
     @Published private(set) var availableModels: [KASPERModelInfo] = []
     @Published private(set) var activeModel: KASPERModelInfo?
     @Published private(set) var trainingHistory: [KASPERTrainingSession] = []
-    
+
     // MARK: - Private Properties
-    
+
     private let logger = Logger(subsystem: "com.VybeMVP.KASPERMLXTrainingManager", category: "training")
-    
+
     /// Claude: Training configuration
     private var currentConfig: KASPERTrainingConfiguration?
-    
+
     /// Claude: Active training task for cancellation
     private var trainingTask: Task<Void, Error>?
-    
+
     /// Claude: Model storage directory
     private let modelStorageURL: URL
-    
+
     /// Claude: Training data directory
     private let trainingDataURL: URL
-    
+
     // MARK: - Initialization
-    
+
     private init() {
         // Setup storage directories
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         self.modelStorageURL = documentsURL.appendingPathComponent("KASPERMLXModels")
         self.trainingDataURL = documentsURL.appendingPathComponent("KASPERTrainingData")
-        
+
         // Create directories if needed
         try? FileManager.default.createDirectory(at: modelStorageURL, withIntermediateDirectories: true)
         try? FileManager.default.createDirectory(at: trainingDataURL, withIntermediateDirectories: true)
-        
+
         logger.info("🤖 KASPERMLXTrainingManager initialized")
-        
+
         // Load existing models and training history
         loadAvailableModels()
         loadTrainingHistory()
     }
-    
+
     // MARK: - Public Training Interface
-    
+
     /**
      * Start training a new KASPER MLX model
      */
@@ -291,14 +291,14 @@ public final class KASPERMLXTrainingManager: ObservableObject {
         guard !isTrainingActive else {
             throw KASPERMLXTrainingError.trainingAlreadyActive
         }
-        
+
         logger.info("🤖 Starting MLX training for architecture: \(architecture.rawValue)")
-        
+
         let config = configuration ?? KASPERTrainingConfiguration(modelArchitecture: architecture)
         self.currentConfig = config
         self.isTrainingActive = true
         self.currentStage = .preparation
-        
+
         // Start training task
         trainingTask = Task {
             do {
@@ -313,54 +313,54 @@ public final class KASPERMLXTrainingManager: ObservableObject {
                 throw error
             }
         }
-        
+
         try await trainingTask!.value
     }
-    
+
     /**
      * Stop active training
      */
     public func stopTraining() async {
         guard isTrainingActive else { return }
-        
+
         logger.info("🤖 Stopping MLX training...")
-        
+
         trainingTask?.cancel()
         trainingTask = nil
-        
+
         isTrainingActive = false
         currentStage = .preparation
         trainingProgress = nil
-        
+
         logger.info("🤖 Training stopped")
     }
-    
+
     /**
      * Deploy a trained model for inference
      */
     func deployModel(_ modelInfo: KASPERModelInfo) async throws {
         logger.info("🤖 Deploying model: \(modelInfo.name)")
-        
+
         // Validate model exists and is compatible
         guard FileManager.default.fileExists(atPath: modelInfo.modelPath) else {
             throw KASPERMLXTrainingError.modelNotFound
         }
-        
+
         // Update active model
         activeModel = modelInfo
-        
+
         // Notify KASPERMLXEngine about new model
         // This will be implemented when we integrate with the engine
-        
+
         logger.info("🤖 Model deployed successfully: \(modelInfo.name)")
     }
-    
+
     /**
      * Get training metrics and performance data
      */
     public func getTrainingMetrics() -> KASPERTrainingMetrics? {
         guard let progress = trainingProgress else { return nil }
-        
+
         return KASPERTrainingMetrics(
             currentLoss: progress.loss,
             validationLoss: progress.validationLoss,
@@ -370,37 +370,37 @@ public final class KASPERMLXTrainingManager: ObservableObject {
             trainingTime: 0 // Will be calculated from training start time
         )
     }
-    
+
     // MARK: - Training Pipeline Implementation
-    
+
     /**
      * Execute the complete training pipeline
      */
     private func executeTrainingPipeline(config: KASPERTrainingConfiguration) async throws {
         logger.info("🤖 Executing training pipeline for \(config.modelArchitecture.rawValue)")
-        
+
         // Stage 1: Data Preparation
         try await executeDataPreparation(config: config)
-        
+
         // Stage 2: Data Loading
         try await executeDataLoading(config: config)
-        
+
         // Stage 3: Model Training
         try await executeModelTraining(config: config)
-        
+
         // Stage 4: Validation
         try await executeValidation(config: config)
-        
+
         // Stage 5: Deployment Preparation
         try await executeDeploymentPreparation(config: config)
-        
+
         // Complete training
         await MainActor.run {
             self.isTrainingActive = false
             self.currentStage = .preparation
         }
     }
-    
+
     /**
      * Data preparation stage
      */
@@ -408,22 +408,22 @@ public final class KASPERMLXTrainingManager: ObservableObject {
         await MainActor.run {
             self.currentStage = .dataLoading
         }
-        
+
         logger.info("🤖 Stage 1: Data Preparation")
-        
+
         // Export training data from KASPER feedback
         let trainingExporter = KASPERTrainingExporter.shared
-        
+
         // Export in MLX format for training
         let trainingData = try await trainingExporter.exportForMLX()
-        
+
         // Save to training data directory
         let trainingDataFile = trainingDataURL.appendingPathComponent("training_data.json")
         try trainingData.write(to: trainingDataFile)
-        
+
         logger.info("🤖 Data preparation complete: \(trainingData.count) bytes")
     }
-    
+
     /**
      * Data loading stage
      */
@@ -431,17 +431,17 @@ public final class KASPERMLXTrainingManager: ObservableObject {
         await MainActor.run {
             self.currentStage = .dataLoading
         }
-        
+
         logger.info("🤖 Stage 2: Data Loading")
-        
+
         // This will be implemented with actual MLX data loading
         // For now, we simulate the process
-        
+
         try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second simulation
-        
+
         logger.info("🤖 Data loading complete")
     }
-    
+
     /**
      * Model training stage
      */
@@ -449,21 +449,21 @@ public final class KASPERMLXTrainingManager: ObservableObject {
         await MainActor.run {
             self.currentStage = .training
         }
-        
+
         logger.info("🤖 Stage 3: Model Training")
-        
+
         // This will be implemented with actual MLX training
         // For now, we simulate the training process
-        
+
         let totalSteps = 1000
-        
+
         for step in 1...totalSteps {
             // Check for cancellation
             try Task.checkCancellation()
-            
+
             // Simulate training step
             try await Task.sleep(nanoseconds: 10_000_000) // 10ms per step
-            
+
             // Update progress
             let progress = KASPERTrainingProgress(
                 stage: .training,
@@ -478,20 +478,20 @@ public final class KASPERMLXTrainingManager: ObservableObject {
                 memoryUsage: Float.random(in: 2.0...4.0),
                 estimatedTimeRemaining: TimeInterval(totalSteps - step) * 0.01
             )
-            
+
             await MainActor.run {
                 self.trainingProgress = progress
             }
-            
+
             // Log progress every 100 steps
             if step % 100 == 0 {
                 logger.info("🤖 Training progress: \(step)/\(totalSteps), Loss: \(progress.loss)")
             }
         }
-        
+
         logger.info("🤖 Model training complete")
     }
-    
+
     /**
      * Validation stage
      */
@@ -499,15 +499,15 @@ public final class KASPERMLXTrainingManager: ObservableObject {
         await MainActor.run {
             self.currentStage = .validation
         }
-        
+
         logger.info("🤖 Stage 4: Validation")
-        
+
         // This will be implemented with actual model validation
         try await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds simulation
-        
+
         logger.info("🤖 Validation complete")
     }
-    
+
     /**
      * Deployment preparation stage
      */
@@ -515,9 +515,9 @@ public final class KASPERMLXTrainingManager: ObservableObject {
         await MainActor.run {
             self.currentStage = .deployment
         }
-        
+
         logger.info("🤖 Stage 5: Deployment Preparation")
-        
+
         // Create model info
         let modelInfo = KASPERModelInfo(
             id: UUID(),
@@ -531,12 +531,12 @@ public final class KASPERMLXTrainingManager: ObservableObject {
             modelSize: Int64(config.modelArchitecture.parameters),
             isDeployed: false
         )
-        
+
         // Add to available models
         await MainActor.run {
             self.availableModels.append(modelInfo)
         }
-        
+
         // Save training session
         let trainingSession = KASPERTrainingSession(
             id: UUID(),
@@ -548,16 +548,16 @@ public final class KASPERMLXTrainingManager: ObservableObject {
             finalLoss: 0.15,
             modelInfo: modelInfo
         )
-        
+
         await MainActor.run {
             self.trainingHistory.append(trainingSession)
         }
-        
+
         logger.info("🤖 Deployment preparation complete")
     }
-    
+
     // MARK: - Model Management
-    
+
     /**
      * Load available models from storage
      */
@@ -565,7 +565,7 @@ public final class KASPERMLXTrainingManager: ObservableObject {
         // This will be implemented to load actual model metadata
         logger.info("🤖 Loading available models...")
     }
-    
+
     /**
      * Load training history
      */
@@ -589,12 +589,12 @@ struct KASPERModelInfo: Identifiable, Codable {
     public let validationAccuracy: Float
     public let modelSize: Int64
     public let isDeployed: Bool
-    
+
     enum CodingKeys: CodingKey {
         case id, name, architecture, version, modelPath, createdDate
         case trainingAccuracy, validationAccuracy, modelSize, isDeployed
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(UUID.self, forKey: .id)
@@ -609,7 +609,7 @@ struct KASPERModelInfo: Identifiable, Codable {
         self.modelSize = try container.decode(Int64.self, forKey: .modelSize)
         self.isDeployed = try container.decode(Bool.self, forKey: .isDeployed)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
@@ -623,7 +623,7 @@ struct KASPERModelInfo: Identifiable, Codable {
         try container.encode(modelSize, forKey: .modelSize)
         try container.encode(isDeployed, forKey: .isDeployed)
     }
-    
+
     public init(
         id: UUID,
         name: String,
@@ -659,16 +659,16 @@ struct KASPERTrainingSession: Identifiable, Codable {
     public let finalAccuracy: Float
     public let finalLoss: Float
     public let modelInfo: KASPERModelInfo
-    
+
     public var duration: TimeInterval {
         endDate.timeIntervalSince(startDate)
     }
-    
+
     enum CodingKeys: CodingKey {
         case id, architecture, startDate, endDate, configuration
         case finalAccuracy, finalLoss, modelInfo
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(UUID.self, forKey: .id)
@@ -681,7 +681,7 @@ struct KASPERTrainingSession: Identifiable, Codable {
         self.finalLoss = try container.decode(Float.self, forKey: .finalLoss)
         self.modelInfo = try container.decode(KASPERModelInfo.self, forKey: .modelInfo)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
@@ -693,7 +693,7 @@ struct KASPERTrainingSession: Identifiable, Codable {
         try container.encode(finalLoss, forKey: .finalLoss)
         try container.encode(modelInfo, forKey: .modelInfo)
     }
-    
+
     public init(
         id: UUID,
         architecture: KASPERModelArchitecture,
@@ -732,7 +732,7 @@ public enum KASPERMLXTrainingError: LocalizedError {
     case trainingDataNotFound
     case configurationInvalid
     case mlxFrameworkUnavailable
-    
+
     public var errorDescription: String? {
         switch self {
         case .trainingAlreadyActive:
@@ -755,7 +755,7 @@ extension KASPERTrainingConfiguration: Codable {
     enum CodingKeys: CodingKey {
         case modelArchitecture, hyperparameters, dataConfig, schedule, features
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.modelArchitecture = try container.decode(KASPERModelArchitecture.self, forKey: .modelArchitecture)
@@ -764,7 +764,7 @@ extension KASPERTrainingConfiguration: Codable {
         self.schedule = try container.decode(KASPERTrainingSchedule.self, forKey: .schedule)
         self.features = try container.decode(KASPERTrainingFeatures.self, forKey: .features)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(modelArchitecture, forKey: .modelArchitecture)

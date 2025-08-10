@@ -4,7 +4,7 @@ import Combine
 
 /**
  * 🌟 ONBOARDINGVIEWMODEL - SOPHISTICATED SPIRITUAL PROFILE ORCHESTRATION SYSTEM 🌟
- * 
+ *
  * Claude: OnboardingViewModel serves as the architectural masterpiece of Vybe's user
  * journey initialization, orchestrating a profound spiritual profile creation experience
  * that transforms new users into cosmically-aligned spiritual seekers. This isn't merely
@@ -38,13 +38,13 @@ import Combine
 @MainActor
 class OnboardingViewModel: ObservableObject {
     // MARK: - 🎭 STEP 1: CORE SPIRITUAL IDENTITY FOUNDATION
-    
+
     /// Claude: User's complete birth name for advanced numerological calculations.
     /// This sacred name enables Soul Urge and Expression number computation, providing
     /// deeper spiritual insights into the user's cosmic purpose and divine calling.
     /// Used in advanced numerological analysis and personalized spiritual guidance.
     @Published var fullNameAtBirth: String = ""
-    
+
     /// Claude: User's birthdate serving as the foundation for life path number calculation.
     /// This sacred date enables precise numerological analysis determining the user's
     /// spiritual journey theme and cosmic alignment pattern. Defaults to 25 years ago
@@ -52,13 +52,13 @@ class OnboardingViewModel: ObservableObject {
     @Published var birthDate: Date = Calendar.current.date(byAdding: .year, value: -25, to: Date()) ?? Date()
 
     // MARK: - 🧘 STEP 2 & 3: SPIRITUAL MODALITY & AI WISDOM CALIBRATION
-    
+
     /// Claude: Selected spiritual modes defining the user's preferred approach to cosmic growth.
     /// Supports multiple selections enabling comprehensive spiritual development through
     /// manifestation, reflection, healing, growth, and guidance modalities. This array
     /// personalizes the spiritual journey to align with the user's authentic path.
     @Published var selectedSpiritualModes: [String] = ["Reflection"]
-    
+
     /// Claude: Selected insight delivery tones personalizing AI spiritual guidance communication.
     /// Supports multiple selections (maximum 3) enabling nuanced wisdom delivery through
     /// poetic, direct, gentle, motivational, or philosophical approaches. This customization
@@ -66,7 +66,7 @@ class OnboardingViewModel: ObservableObject {
     @Published var selectedInsightTones: [String] = ["Gentle"]
 
     // MARK: - 🎯 STEP 4: SPIRITUAL INSIGHT FOCUS FILTERING
-    
+
     /// Claude: Selected focus tags defining specific spiritual themes for personalized insights.
     /// This array enables precise filtering of spiritual wisdom to align with the user's
     /// current spiritual interests and growth areas, ensuring relevant and meaningful
@@ -74,13 +74,13 @@ class OnboardingViewModel: ObservableObject {
     @Published var selectedFocusTags: [String] = []
 
     // MARK: - 🌌 STEP 5 & 6: COSMIC ALIGNMENT & CELESTIAL RHYTHM INTEGRATION
-    
+
     /// Claude: Primary cosmic preference selection determining the depth of celestial integration.
     /// Options range from "Numerology Only" to comprehensive astrological analysis,
     /// enabling users to customize their spiritual experience based on comfort level
     /// with different metaphysical systems and cosmic calculation complexity.
     @Published var cosmicPreferenceSelection: String = "Numerology Only"
-    
+
     /// Claude: Selected cosmic rhythms defining celestial timing preferences for spiritual guidance.
     /// This array enables integration with lunar cycles, planetary movements, and seasonal
     /// energies, allowing users to align their spiritual practice with cosmic timing
@@ -88,13 +88,13 @@ class OnboardingViewModel: ObservableObject {
     @Published var selectedCosmicRhythms: [String] = []
 
     // MARK: - 📱 STEP 7: NOTIFICATION & SPIRITUAL REMINDER SYSTEM
-    
+
     /// Claude: Preferred hour for daily spiritual guidance notifications (0-23 format).
     /// Defaults to 7 AM enabling morning spiritual alignment and intention setting.
     /// This timing personalizes the delivery of cosmic insights and numerological
     /// guidance to align with the user's daily rhythm and spiritual practice.
     @Published var selectedPreferredHour: Int = 7
-    
+
     /// Claude: User preference for receiving gentle spiritual reminders and cosmic insights.
     /// When enabled, provides subtle notifications about spiritual opportunities,
     /// cosmic alignments, and numerological significance throughout the day,
@@ -102,13 +102,13 @@ class OnboardingViewModel: ObservableObject {
     @Published var doesWantWhispers: Bool = true
 
     // MARK: - 🎨 STEP 9: SPIRITUAL UX PERSONALIZATION
-    
+
     /// Claude: User preference for enhanced reflection mode features in spiritual interfaces.
     /// When enabled, provides deeper spiritual contemplation tools, extended meditation
     /// guidance, and reflective journaling prompts that enhance the spiritual experience
     /// through thoughtful introspection and cosmic awareness cultivation.
     @Published var doesWantReflectionMode: Bool = true
-    
+
     // MARK: - Birth Time & Location Data (CRITICAL for accurate charts)
     @Published var birthTimeHour: Int? = nil
     @Published var birthTimeMinute: Int? = nil
@@ -117,7 +117,7 @@ class OnboardingViewModel: ObservableObject {
     @Published var birthplaceLongitude: Double? = nil
     @Published var birthplaceName: String? = nil
     @Published var birthTimezone: String? = nil
-    
+
     // MARK: - Onboarding State
     @Published var onboardingComplete: Bool = false
     @Published var userProfile: UserProfile?
@@ -152,7 +152,7 @@ class OnboardingViewModel: ObservableObject {
         // Claude: DORMANT BUG FIX - Replace force unwraps with safe optional handling
         let soulUrgeNumber: Int?
         let expressionNumber: Int?
-        
+
         if let birthName = birthNameForProfile {
             soulUrgeNumber = numerologyService.calculateSoulUrgeNumber(from: birthName)
             expressionNumber = numerologyService.calculateExpressionNumber(from: birthName)
@@ -171,7 +171,7 @@ class OnboardingViewModel: ObservableObject {
 
         // Create UserProfile using the collected and default values
         let profile = UserProfile(
-            id: userID, 
+            id: userID,
             birthdate: birthDate,
             lifePathNumber: lifePathNumber,
             isMasterNumber: isLifePathMaster,
@@ -195,7 +195,7 @@ class OnboardingViewModel: ObservableObject {
             birthTimeMinute: birthTimeMinute,
             hasBirthTime: hasBirthTime
         )
-        
+
         self.userProfile = profile
         print("👤 Onboarding ViewModel: UserProfile Prepared for Saving:")
         print("   User ID: \(profile.id)")
@@ -221,7 +221,7 @@ class OnboardingViewModel: ObservableObject {
 
         saveUserProfileToStorage(profile)
     }
-    
+
     /// CRITICAL FIX: Helper function to set birth time and location data
     /// This should be called when user provides birth time/location in UI
     func setBirthTimeAndLocation(
@@ -234,24 +234,24 @@ class OnboardingViewModel: ObservableObject {
     ) {
         print("🕐 Setting birth time: \(hour?.description ?? "nil"):\(minute?.description ?? "nil")")
         print("🌍 Setting birth location: \(locationName ?? "nil") (\(latitude?.description ?? "nil"), \(longitude?.description ?? "nil"))")
-        
+
         self.birthTimeHour = hour
         self.birthTimeMinute = minute
         self.hasBirthTime = (hour != nil && minute != nil)
-        
+
         self.birthplaceLatitude = latitude
         self.birthplaceLongitude = longitude
         self.birthplaceName = locationName
         self.birthTimezone = timezone
-        
+
         print("✅ Birth data updated in ViewModel - hasBirthTime: \(self.hasBirthTime)")
     }
-    
+
     /// TEMPORARY: Set user's actual birth data for testing chart accuracy
     /// Birth: 09/10/1991, 5:46 AM, Charlotte, NC
     func setUserActualBirthData() {
         print("🎯 SETTING ACTUAL USER BIRTH DATA FOR TESTING")
-        
+
         // Set birth date: September 10, 1991
         let calendar = Calendar.current
         var dateComponents = DateComponents()
@@ -261,23 +261,23 @@ class OnboardingViewModel: ObservableObject {
         dateComponents.hour = 5
         dateComponents.minute = 46
         dateComponents.timeZone = TimeZone(identifier: "America/New_York") // Charlotte, NC timezone
-        
+
         if let birthDate = calendar.date(from: dateComponents) {
             self.birthDate = birthDate
             print("✅ Birth date set: \(birthDate)")
         }
-        
+
         // Set birth time: 5:46 AM
         self.birthTimeHour = 5
         self.birthTimeMinute = 46
         self.hasBirthTime = true
-        
+
         // Set birth location: Charlotte, NC coordinates
         self.birthplaceLatitude = 35.2271  // Charlotte, NC latitude
         self.birthplaceLongitude = -80.8431 // Charlotte, NC longitude
         self.birthplaceName = "Charlotte, NC, USA"
         self.birthTimezone = "America/New_York"
-        
+
         print("✅ ACTUAL BIRTH DATA SET:")
         print("   📅 Date: September 10, 1991")
         print("   🕐 Time: 5:46 AM")
@@ -293,23 +293,23 @@ class OnboardingViewModel: ObservableObject {
                 // Handle error appropriately in UI if necessary
             } else {
                 print("✅ OnboardingViewModel: UserProfile saved successfully to Firestore!")
-                
+
                 // ✨ New: Configure AIInsightManager with the newly saved profile
                 Task {
                     await AIInsightManager.shared.configureAndRefreshInsight(for: profile)
                 }
-                
+
                 // ✨ Cache the newly created profile to UserDefaults so HomeView can access it immediately
                 UserProfileService.shared.cacheUserProfileToUserDefaults(profile)
-                
+
                 DispatchQueue.main.async {
                     self.onboardingComplete = true
                 }
             }
         }
     }
-    
+
     func setUserID(_ id: String) {
         self.currentUserID = id
     }
-} 
+}

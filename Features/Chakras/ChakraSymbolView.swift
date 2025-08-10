@@ -13,7 +13,7 @@ struct ChakraSymbolView: View {
     let onTap: () -> Void
     let onLongPress: () -> Void
     let onVolumeChange: (Float) -> Void
-    
+
     @StateObject private var chakraManager = ChakraManager.shared
     @State private var isPressed = false
     @State private var animationPhase = 0.0
@@ -22,24 +22,24 @@ struct ChakraSymbolView: View {
     @State private var rippleOpacity: Double = 0.0
     @State private var showVolumeSlider = false
     @State private var showFrequencyInfo = false
-    
+
     var body: some View {
         VStack(spacing: 10) {
             ZStack {
                 // Background glow layers
                 glowLayers
-                
+
                 // Main chakra symbol
                 chakraSymbol
-                
+
                 // Active state overlay
                 if chakraState.isActive || chakraState.isHarmonizing {
                     activeOverlay
                 }
-                
+
                 // Ripple effect
                 rippleEffect
-                
+
                 // Frequency info overlay
                 if showFrequencyInfo {
                     frequencyInfoOverlay
@@ -76,7 +76,7 @@ struct ChakraSymbolView: View {
             .accessibilityLabel("\(chakraState.type.name) Chakra")
             .accessibilityHint("Tap to explore chakra details, hold to harmonize, double-tap to hear affirmation")
             .accessibilityValue(chakraState.isHarmonizing ? "Harmonizing" : (chakraState.isActive ? "Active" : "Inactive"))
-            
+
             // Volume control (shows when harmonizing)
             if chakraState.isHarmonizing {
                 VolumeSlider(
@@ -89,9 +89,9 @@ struct ChakraSymbolView: View {
             }
         }
     }
-    
+
     // MARK: - View Components
-    
+
     private var glowLayers: some View {
         ZStack {
             // Outer glow
@@ -110,7 +110,7 @@ struct ChakraSymbolView: View {
                 .frame(width: 180, height: 180)
                 .blur(radius: 15)
                 .scaleEffect(chakraState.isActive || chakraState.isHarmonizing ? (1.0 + sin(chakraManager.globalAnimationPhase * .pi / 180) * 0.1) : 1.0)
-            
+
             // Inner glow
             Circle()
                 .fill(
@@ -126,7 +126,7 @@ struct ChakraSymbolView: View {
                 )
                 .frame(width: 130, height: 130)
                 .blur(radius: 8)
-            
+
             // Active pulse glow animation
             if chakraState.isActive || chakraState.isHarmonizing {
                 Circle()
@@ -147,7 +147,7 @@ struct ChakraSymbolView: View {
             }
         }
     }
-    
+
     private var chakraSymbol: some View {
         ZStack {
             // Background circle
@@ -163,7 +163,7 @@ struct ChakraSymbolView: View {
                     )
                 )
                 .frame(width: 95, height: 95)
-            
+
             // Chakra symbol
             Image(systemName: chakraState.type.symbolName)
                 .font(.system(size: 42, weight: .light))
@@ -175,7 +175,7 @@ struct ChakraSymbolView: View {
                     .default,
                     value: animationPhase
                 )
-            
+
             // Sanskrit name overlay
             Text(chakraState.type.sanskritName)
                 .font(.system(size: 10, weight: .medium))
@@ -183,7 +183,7 @@ struct ChakraSymbolView: View {
                 .offset(y: 35)
         }
     }
-    
+
     private var activeOverlay: some View {
         ZStack {
             // Pulsing ring
@@ -202,7 +202,7 @@ struct ChakraSymbolView: View {
                 .frame(width: 100, height: 100)
                 .scaleEffect(1.0 + sin(chakraManager.globalAnimationPhase * .pi / 180) * 0.05)
                 .opacity(0.6 + sin(chakraManager.globalAnimationPhase * .pi / 180) * 0.4)
-            
+
             // Energy particles (simplified)
             ForEach(0..<6) { index in
                 Circle()
@@ -214,7 +214,7 @@ struct ChakraSymbolView: View {
             }
         }
     }
-    
+
     private var rippleEffect: some View {
         Circle()
             .stroke(chakraState.type.color, lineWidth: 2)
@@ -222,13 +222,13 @@ struct ChakraSymbolView: View {
             .scaleEffect(rippleScale)
             .opacity(rippleOpacity)
     }
-    
+
     private var frequencyInfoOverlay: some View {
         VStack(spacing: 4) {
             Text("\(Int(chakraState.type.frequency)) Hz")
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundColor(.white)
-            
+
             Text(chakraState.type.sanskritName)
                 .font(.system(size: 14, weight: .medium))
                 .foregroundColor(.white.opacity(0.9))
@@ -246,9 +246,9 @@ struct ChakraSymbolView: View {
         .offset(y: -70)
         .transition(.scale.combined(with: .opacity))
     }
-    
+
     // MARK: - Animation Methods
-    
+
     private func startContinuousAnimation() {
         // No longer needed - using global animation
         if chakraState.isHarmonizing {
@@ -257,41 +257,41 @@ struct ChakraSymbolView: View {
             }
         }
     }
-    
+
     private func triggerTapAnimation() {
         // Ripple effect
         rippleScale = 1.0
         rippleOpacity = 1.0
-        
+
         withAnimation(.easeOut(duration: 0.6)) {
             rippleScale = 1.5
             rippleOpacity = 0
         }
-        
+
         // Haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: .light)
         impactFeedback.impactOccurred()
     }
-    
+
     private func triggerLongPressAnimation() {
         // Enhanced haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
         impactFeedback.impactOccurred()
-        
+
         // Visual feedback
         withAnimation(.easeInOut(duration: 0.3)) {
             // Animation handled by state change
         }
     }
-    
+
     private func triggerAffirmationTap() {
         // Enhanced haptic feedback for affirmation
         let impactFeedback = UIImpactFeedbackGenerator(style: .heavy)
         impactFeedback.impactOccurred()
-        
+
         // Trigger affirmation speech
         chakraManager.speakAffirmation(for: chakraState.type)
-        
+
         // Brief visual feedback
         withAnimation(.easeInOut(duration: 0.2)) {
             // Animation handled by ripple effect
@@ -306,23 +306,23 @@ struct ChakraDetailView: View {
     let chakraType: ChakraType
     @Environment(\.dismiss) private var dismiss
     @State private var animateIn = false
-    
+
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 30) {
                     // Header with animated symbol
                     headerSection
-                    
+
                     // Core information
                     coreInfoSection
-                    
+
                     // Qualities and attributes
                     qualitiesSection
-                    
+
                     // Numerological associations
                     numerologySection
-                    
+
                     // Affirmation
                     affirmationSection
                 }
@@ -354,7 +354,7 @@ struct ChakraDetailView: View {
             }
         }
     }
-    
+
     private var headerSection: some View {
         VStack(spacing: 20) {
             ZStack {
@@ -374,7 +374,7 @@ struct ChakraDetailView: View {
                     .frame(width: 200, height: 200)
                     .scaleEffect(animateIn ? 1.0 : 0.5)
                     .opacity(animateIn ? 1.0 : 0.0)
-                
+
                 // Symbol
                 Image(systemName: chakraType.symbolName)
                     .font(.system(size: 60, weight: .light))
@@ -382,7 +382,7 @@ struct ChakraDetailView: View {
                     .scaleEffect(animateIn ? 1.0 : 0.5)
                     .opacity(animateIn ? 1.0 : 0.0)
             }
-            
+
             Text(chakraType.sanskritName)
                 .font(.title2)
                 .fontWeight(.medium)
@@ -390,7 +390,7 @@ struct ChakraDetailView: View {
         }
         .padding(.top, 20)
     }
-    
+
     private var coreInfoSection: some View {
         VStack(alignment: .leading, spacing: 20) {
             InfoRow(icon: "location.fill", title: "Location", value: chakraType.location)
@@ -400,13 +400,13 @@ struct ChakraDetailView: View {
         }
         .padding(.horizontal)
     }
-    
+
     private var qualitiesSection: some View {
         VStack(alignment: .leading, spacing: 15) {
             Text("Qualities & Attributes")
                 .font(.headline)
                 .foregroundColor(.primary)
-            
+
             FlowLayout(spacing: 10) {
                 ForEach(chakraType.qualities, id: \.self) { quality in
                     Text(quality)
@@ -421,24 +421,24 @@ struct ChakraDetailView: View {
         }
         .padding(.horizontal)
     }
-    
+
     private var numerologySection: some View {
         VStack(alignment: .leading, spacing: 15) {
             Text("Numerological Resonance")
                 .font(.headline)
                 .foregroundColor(.primary)
-            
+
             Text("This chakra resonates with the following numbers:")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
-            
+
             HStack(spacing: 15) {
                 ForEach(chakraType.numerologicalResonance, id: \.self) { number in
                     ZStack {
                         Circle()
                             .fill(chakraType.color.opacity(0.2))
                             .frame(width: 50, height: 50)
-                        
+
                         Text("\(number)")
                             .font(.title2)
                             .fontWeight(.semibold)
@@ -449,13 +449,13 @@ struct ChakraDetailView: View {
         }
         .padding(.horizontal)
     }
-    
+
     private var affirmationSection: some View {
         VStack(spacing: 15) {
             Text("Affirmation")
                 .font(.headline)
                 .foregroundColor(.primary)
-            
+
             Text("\"" + chakraType.affirmation + "\"")
                 .font(.title3)
                 .fontWeight(.medium)
@@ -477,14 +477,14 @@ struct InfoRow: View {
     let icon: String
     let title: String
     let value: String
-    
+
     var body: some View {
         HStack(spacing: 15) {
             Image(systemName: icon)
                 .font(.system(size: 20))
                 .foregroundColor(.secondary)
                 .frame(width: 30)
-            
+
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(.caption)
@@ -493,7 +493,7 @@ struct InfoRow: View {
                     .font(.subheadline)
                     .fontWeight(.medium)
             }
-            
+
             Spacer()
         }
     }
@@ -502,28 +502,28 @@ struct InfoRow: View {
 // Simple flow layout for qualities
 struct FlowLayout: Layout {
     var spacing: CGFloat = 10
-    
+
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
         let result = FlowResult(in: proposal.width ?? 0, spacing: spacing, subviews: subviews)
         return CGSize(width: proposal.width ?? 0, height: result.height)
     }
-    
+
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
         let result = FlowResult(in: bounds.width, spacing: spacing, subviews: subviews)
         for (index, frame) in result.frames.enumerated() {
             subviews[index].place(at: CGPoint(x: bounds.minX + frame.minX, y: bounds.minY + frame.minY), proposal: ProposedViewSize(frame.size))
         }
     }
-    
+
     struct FlowResult {
         var frames: [CGRect] = []
         var height: CGFloat = 0
-        
+
         init(in width: CGFloat, spacing: CGFloat, subviews: Subviews) {
             var x: CGFloat = 0
             var y: CGFloat = 0
             var maxHeight: CGFloat = 0
-            
+
             for subview in subviews {
                 let size = subview.sizeThatFits(.unspecified)
                 if x + size.width > width && x > 0 {
@@ -546,30 +546,30 @@ struct VolumeSlider: View {
     let volume: Float
     let color: Color
     let onVolumeChange: (Float) -> Void
-    
+
     @State private var currentVolume: Float
     @State private var isDragging = false
-    
+
     init(volume: Float, color: Color, onVolumeChange: @escaping (Float) -> Void) {
         self.volume = max(0, min(1, volume)) // Ensure valid range
         self.color = color
         self.onVolumeChange = onVolumeChange
         self._currentVolume = State(initialValue: max(0, min(1, volume)))
     }
-    
+
     var body: some View {
         HStack(spacing: 10) {
             Image(systemName: "speaker.fill")
                 .font(.system(size: 12))
                 .foregroundColor(color.opacity(0.8))
-            
+
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
                     // Track background
                     Capsule()
                         .fill(Color.black.opacity(0.3))
                         .frame(height: 6)
-                    
+
                     // Gradient fill
                     Capsule()
                         .fill(
@@ -584,7 +584,7 @@ struct VolumeSlider: View {
                             )
                         )
                         .frame(width: max(0, geometry.size.width * CGFloat(currentVolume)), height: 6)
-                    
+
                     // Circular handle with glow
                     Circle()
                         .fill(color)
@@ -605,7 +605,7 @@ struct VolumeSlider: View {
                             let newValue = Float(max(0, min(geometry.size.width, value.location.x)) / geometry.size.width)
                             currentVolume = max(0, min(1, newValue))
                             onVolumeChange(currentVolume)
-                            
+
                             // Haptic feedback
                             let impactFeedback = UIImpactFeedbackGenerator(style: .light)
                             impactFeedback.impactOccurred()
@@ -616,7 +616,7 @@ struct VolumeSlider: View {
                 )
             }
             .frame(width: 80, height: 20)
-            
+
             Image(systemName: "speaker.wave.3.fill")
                 .font(.system(size: 12))
                 .foregroundColor(color.opacity(0.8))
@@ -634,4 +634,4 @@ struct VolumeSlider: View {
                 .shadow(color: color.opacity(0.2), radius: 4, x: 0, y: 2)
         )
     }
-} 
+}

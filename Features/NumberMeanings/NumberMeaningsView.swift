@@ -13,10 +13,10 @@ struct NumberMeaningsView: View {
                             Text("Focus Numbers")
                                 .font(.title2)
                                 .fontWeight(.bold)
-                            
+
                             Text("Your Focus Number is a personal number you choose to align with. Each number carries unique energetic properties and meanings.")
                                 .foregroundColor(.secondary)
-                            
+
                             NumberMeaningsList(type: .focus)
                         }
                         .padding()
@@ -26,16 +26,16 @@ struct NumberMeaningsView: View {
                             RoundedRectangle(cornerRadius: 12)
                                 .stroke(Color.purple.opacity(0.5), lineWidth: 1)
                         )
-                        
+
                         // Realm Numbers Section
                         VStack(alignment: .leading, spacing: 15) {
                             Text("Realm Numbers")
                                 .font(.title2)
                                 .fontWeight(.bold)
-                            
+
                             Text("The Realm Number represents the current vibrational frequency of your environment. It is calculated using time, location, and biometric data.")
                                 .foregroundColor(.secondary)
-                            
+
                             NumberMeaningsList(type: .realm)
                         }
                         .padding()
@@ -59,23 +59,23 @@ struct NumberMeaningsList: View {
         case focus
         case realm
     }
-    
+
     let type: NumberType
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             ForEach(1...9, id: \.self) { number in
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Number \(number)")
                         .font(.headline)
-                    
+
                     Text(getMeaning(for: number, type: type))
                         .foregroundColor(.secondary)
                 }
             }
         }
     }
-    
+
     private func getMeaning(for number: Int, type: NumberType) -> String {
         switch type {
         case .focus:
@@ -91,7 +91,7 @@ struct NumberMeaningsList: View {
             case 9: return "Compassion & Completion: The humanitarian and teacher. Represents universal love."
             default: return ""
             }
-            
+
         case .realm:
             switch number {
             case 1: return "Realm of Creation: A time for new beginnings, taking initiative, and starting fresh."
@@ -111,4 +111,4 @@ struct NumberMeaningsList: View {
 
 #Preview {
     NumberMeaningsView()
-} 
+}

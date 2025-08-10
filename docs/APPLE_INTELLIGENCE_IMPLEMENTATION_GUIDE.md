@@ -1,8 +1,8 @@
 # 🧠 Apple Intelligence Implementation Guide for Vybe
 
-**Created:** July 28, 2025  
-**Target:** iOS 18.1+ (Available Now)  
-**Framework:** Apple Foundation Models  
+**Created:** July 28, 2025
+**Target:** iOS 18.1+ (Available Now)
+**Framework:** Apple Foundation Models
 **Architecture:** VybeMVP Spiritual AI Integration
 
 ---
@@ -36,10 +36,10 @@
 
 ```swift
 // Current Data Flow:
-UserProfile (natal chart) 
-→ KASPERManager 
-→ KASPERPrimingPayload 
-→ [Missing AI Layer] 
+UserProfile (natal chart)
+→ KASPERManager
+→ KASPERPrimingPayload
+→ [Missing AI Layer]
 → Spiritual Insights
 
 // Target Data Flow:
@@ -112,47 +112,47 @@ extension VybeMVPApp {
 @available(iOS 18.1, *)
 @MainActor
 class AppleIntelligenceManager: ObservableObject {
-    
+
     // MARK: - Published Properties
     @Published private(set) var isInitialized: Bool = false
     @Published private(set) var lastError: String? = nil
     @Published private(set) var isGenerating: Bool = false
-    
+
     // MARK: - Private Properties
     private var languageModelSession: LanguageModelSession?
     private let logger = Logger(subsystem: "com.vybe.ai", category: "AppleIntelligence")
-    
+
     // MARK: - Dependencies
     private let kasperManager: KASPERManager
     private let sanctumDataManager: SanctumDataManager
-    
+
     // MARK: - Initialization
     init(kasperManager: KASPERManager, sanctumDataManager: SanctumDataManager) {
         self.kasperManager = kasperManager
         self.sanctumDataManager = sanctumDataManager
-        
+
         Task {
             await initializeSession()
         }
     }
-    
+
     // MARK: - Core Methods
     private func initializeSession() async {
         do {
             // Create system prompt with spiritual context
             let systemPrompt = createSpiritualSystemPrompt()
-            
+
             // Initialize session with tools
             let tools = createSpiritualTools()
-            
+
             self.languageModelSession = try await LanguageModelSession(
                 systemPrompt: systemPrompt,
                 tools: tools
             )
-            
+
             self.isInitialized = true
             logger.info("🧠 Apple Intelligence session initialized successfully")
-            
+
         } catch {
             self.lastError = "Failed to initialize AI: \(error.localizedDescription)"
             logger.error("❌ Failed to initialize Apple Intelligence: \(error)")
@@ -166,35 +166,35 @@ class AppleIntelligenceManager: ObservableObject {
 ```swift
 @available(iOS 18.1, *)
 extension AppleIntelligenceManager {
-    
+
     private func createSpiritualSystemPrompt() -> String {
         return """
         You are KASPER, Vybe's Knowledge-Activated Spiritual Pattern & Expression Renderer.
-        
+
         CORE IDENTITY:
         - You provide personalized spiritual guidance combining astrology and numerology
         - You maintain spiritual authenticity while being encouraging and insightful
         - You respect the sacred nature of birth charts and numerological calculations
         - You focus on growth, self-awareness, and positive transformation
-        
+
         KNOWLEDGE DOMAINS:
         - Astrology: Birth charts, transits, aspects, houses, planetary influences
         - Numerology: Life path, soul urge, expression numbers, sacred number patterns
         - Spiritual Timing: Lunar phases, planetary cycles, cosmic rhythms
         - Personal Growth: Chakras, meditation, intention setting, manifestation
-        
+
         RESPONSE STYLE:
         - Warm, wise, and spiritually attuned
         - Specific to user's natal chart and current cosmic conditions
         - Balance mystical wisdom with practical application
         - Always encouraging while being authentic to astrological/numerological meanings
-        
+
         TOOLS AVAILABLE:
         - CosmicDataTool: Get current planetary positions and transits
         - NatalChartTool: Access user's birth chart data
         - MegaCorpusTool: Retrieve spiritual interpretations and meanings
         - BiometricTool: Get current heart rate and wellness data
-        
+
         When generating insights, always consider:
         1. User's natal chart (birth planets, signs, houses)
         2. Current planetary transits and how they affect the natal chart
@@ -220,22 +220,22 @@ import AppleIntelligence
 struct SpiritualInsight {
     /// Main insight or guidance message (2-3 sentences)
     let primaryMessage: String
-    
+
     /// Specific astrological context (current transits affecting user)
     let astrologicalContext: String
-    
+
     /// Numerological relevance (life path, focus number connections)
     let numerologicalContext: String
-    
+
     /// Actionable suggestion for the day
     let actionableGuidance: String
-    
+
     /// Brief affirmation or mantra
     let affirmation: String
-    
+
     /// Relevant spiritual themes (3-5 keywords)
     let themes: [String]
-    
+
     /// Confidence level of interpretation (0.0-1.0)
     let confidenceLevel: Double
 }
@@ -245,19 +245,19 @@ struct SpiritualInsight {
 struct DailyCosmicSummary {
     /// Overall cosmic energy description
     let cosmicWeather: String
-    
+
     /// Top 3 planetary influences for the day
     let planetaryHighlights: [String]
-    
+
     /// Personal transit alerts (how today affects user's chart)
     let personalTransits: [String]
-    
+
     /// Lucky numbers for the day
     let luckyNumbers: [Int]
-    
+
     /// Recommended focus areas
     let focusAreas: [String]
-    
+
     /// Best times for different activities
     let timingGuidance: String
 }
@@ -267,16 +267,16 @@ struct DailyCosmicSummary {
 struct PersonalizedAffirmation {
     /// Main affirmation text
     let affirmationText: String
-    
+
     /// Astrological basis for the affirmation
     let astrologicalBasis: String
-    
+
     /// Numerological significance
     let numerologicalBasis: String
-    
+
     /// Best time to use this affirmation
     let optimalTiming: String
-    
+
     /// Duration to focus on this affirmation
     let recommendedDuration: String
 }
@@ -287,43 +287,43 @@ struct PersonalizedAffirmation {
 ```swift
 @available(iOS 18.1, *)
 extension AppleIntelligenceManager {
-    
+
     func generateDailyInsight() async -> SpiritualInsight? {
         guard let session = languageModelSession else { return nil }
-        
+
         isGenerating = true
         defer { isGenerating = false }
-        
+
         do {
             // Get current KASPER payload
             guard let payload = kasperManager.generateCurrentPayload() else {
                 throw AIGenerationError.noPayloadAvailable
             }
-            
+
             // Create context-rich prompt
             let prompt = createDailyInsightPrompt(payload: payload)
-            
+
             // Generate structured response
             let response = try await session.generate(
                 prompt: prompt,
                 responseType: SpiritualInsight.self
             )
-            
+
             logger.info("✨ Generated daily insight successfully")
             return response.content
-            
+
         } catch {
             logger.error("❌ Failed to generate daily insight: \(error)")
             lastError = error.localizedDescription
             return nil
         }
     }
-    
+
     func generateCosmicSummary() async -> DailyCosmicSummary? {
         // Similar implementation for cosmic summary
         // Uses current cosmic data + natal chart integration
     }
-    
+
     func generatePersonalizedAffirmation(theme: String? = nil) async -> PersonalizedAffirmation? {
         // Targeted affirmation generation based on current energy + user profile
     }
@@ -337,7 +337,7 @@ extension AppleIntelligenceManager {
 ```swift
 @available(iOS 18.1, *)
 extension AppleIntelligenceManager {
-    
+
     private func createSpiritualTools() -> [Tool] {
         return [
             createCosmicDataTool(),
@@ -346,7 +346,7 @@ extension AppleIntelligenceManager {
             createBiometricTool()
         ]
     }
-    
+
     private func createCosmicDataTool() -> Tool {
         return Tool(
             name: "cosmic_data_tool",
@@ -354,24 +354,24 @@ extension AppleIntelligenceManager {
             arguments: CosmicDataToolArguments.self
         ) { [weak self] arguments in
             guard let self = self else { return "Tool unavailable" }
-            
+
             // Get current cosmic snapshot from CosmicDataRepository
             let cosmicData = CosmicDataRepository.shared.currentSnapshot
-            
+
             return """
             Current Cosmic Conditions:
             Moon: \(cosmicData.moonData.currentSign) \(cosmicData.moonData.isRetrograde ? "(Retrograde)" : "")
             Sun: \(cosmicData.sunData.currentSign)
-            
+
             Planetary Positions:
             \(cosmicData.planetaryData.map { "\($0.planet): \($0.currentSign)" }.joined(separator: "\n"))
-            
+
             Last Updated: \(cosmicData.lastUpdated.formatted())
             Season: \(cosmicData.currentSeason)
             """
         }
     }
-    
+
     private func createNatalChartTool() -> Tool {
         return Tool(
             name: "natal_chart_tool",
@@ -382,7 +382,7 @@ extension AppleIntelligenceManager {
                   let userProfile = self.getCurrentUserProfile() else {
                 return "User profile not available"
             }
-            
+
             return """
             Natal Chart Data:
             Sun: \(userProfile.natalSunSign ?? "Unknown")
@@ -393,17 +393,17 @@ extension AppleIntelligenceManager {
             Mars: \(userProfile.natalMarsSign ?? "Unknown")
             Jupiter: \(userProfile.natalJupiterSign ?? "Unknown")
             Saturn: \(userProfile.natalSaturnSign ?? "Unknown")
-            
+
             Dominant Element: \(userProfile.dominantElement ?? "Unknown")
             Dominant Modality: \(userProfile.dominantModality ?? "Unknown")
             North Node: \(userProfile.northNodeSign ?? "Unknown")
-            
+
             Birth Location: \(userProfile.birthplaceName ?? "Unknown")
             Has Birth Time: \(userProfile.hasBirthTime)
             """
         }
     }
-    
+
     private func createMegaCorpusTool() -> Tool {
         return Tool(
             name: "megacorpus_tool",
@@ -411,15 +411,15 @@ extension AppleIntelligenceManager {
             arguments: MegaCorpusToolArguments.self
         ) { [weak self] arguments in
             guard let self = self else { return "Tool unavailable" }
-            
+
             // Access MegaCorpus data through SanctumDataManager
             let megaCorpusData = self.sanctumDataManager.megaCorpusData
-            
+
             // Extract relevant data based on arguments
             if let signsData = megaCorpusData["signs"] as? [String: Any],
                let requestedSign = arguments.sign,
                let signData = signsData[requestedSign] as? [String: Any] {
-                
+
                 return """
                 \(requestedSign) Information:
                 Element: \(signData["element"] as? String ?? "Unknown")
@@ -428,7 +428,7 @@ extension AppleIntelligenceManager {
                 Key Traits: \(signData["traits"] as? String ?? "Unknown")
                 """
             }
-            
+
             return "MegaCorpus data not available for requested item"
         }
     }
@@ -466,18 +466,18 @@ struct MegaCorpusToolArguments {
 ```swift
 // Extend KASPERManager.swift
 extension KASPERManager {
-    
+
     /// Generate Apple Intelligence-enhanced payload
     func generateAIEnhancedPayload() -> AIEnhancedKASPERPayload? {
         guard let basePayload = generateCurrentPayload() else { return nil }
-        
+
         // Add natal chart integration
         guard let userProfile = getCurrentUserProfile() else { return nil }
-        
+
         return AIEnhancedKASPERPayload(
             // Base KASPER data
             basePayload: basePayload,
-            
+
             // Enhanced natal chart data
             natalChart: NatalChartData(
                 sunSign: userProfile.natalSunSign,
@@ -488,21 +488,21 @@ extension KASPERManager {
                 northNode: userProfile.northNodeSign,
                 hasBirthTime: userProfile.hasBirthTime
             ),
-            
+
             // Current cosmic conditions
             currentTransits: getCurrentTransitData(),
-            
+
             // Environmental context
             environmentalContext: getEnvironmentalContext(),
-            
+
             // Timestamp for cache invalidation
             generatedAt: Date()
         )
     }
-    
+
     private func getCurrentTransitData() -> TransitData {
         let cosmicSnapshot = CosmicDataRepository.shared.currentSnapshot
-        
+
         return TransitData(
             moonSign: cosmicSnapshot.moonData.currentSign,
             moonIsRetrograde: cosmicSnapshot.moonData.isRetrograde,
@@ -528,7 +528,7 @@ struct AIEnhancedKASPERPayload {
     let currentTransits: TransitData
     let environmentalContext: EnvironmentalContext
     let generatedAt: Date
-    
+
     /// Check if payload is still fresh (within 10 minutes)
     var isFresh: Bool {
         Date().timeIntervalSince(generatedAt) < 600
@@ -541,7 +541,7 @@ struct AIEnhancedKASPERPayload {
 ```swift
 // Extend CosmicSnapshotView.swift to include AI insights
 extension CosmicSnapshotView {
-    
+
     @ViewBuilder
     private func aiInsightsSection() -> some View {
         if isAppleIntelligenceAvailable {
@@ -550,15 +550,15 @@ extension CosmicSnapshotView {
                     Text("🧠 AI Insights")
                         .font(.headline)
                         .foregroundColor(.primary)
-                    
+
                     Spacer()
-                    
+
                     if aiManager.isGenerating {
                         ProgressView()
                             .scaleEffect(0.8)
                     }
                 }
-                
+
                 if let insight = currentInsight {
                     aiInsightCard(insight)
                 } else {
@@ -575,20 +575,20 @@ extension CosmicSnapshotView {
             .cornerRadius(16)
         }
     }
-    
+
     @ViewBuilder
     private func aiInsightCard(_ insight: SpiritualInsight) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(insight.primaryMessage)
                 .font(.body)
                 .foregroundColor(.primary)
-            
+
             if !insight.astrologicalContext.isEmpty {
                 Label(insight.astrologicalContext, systemImage: "star.circle")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
-            
+
             if !insight.actionableGuidance.isEmpty {
                 HStack {
                     Image(systemName: "lightbulb")
@@ -598,7 +598,7 @@ extension CosmicSnapshotView {
                         .foregroundColor(.secondary)
                 }
             }
-            
+
             if !insight.affirmation.isEmpty {
                 Text("💫 \(insight.affirmation)")
                     .font(.caption)
@@ -611,7 +611,7 @@ extension CosmicSnapshotView {
             }
         }
     }
-    
+
     private func generateAIInsight() async {
         currentInsight = await aiManager.generateDailyInsight()
     }
@@ -625,20 +625,20 @@ extension CosmicSnapshotView {
 ```swift
 // Create fallback manager for unsupported devices
 class FallbackInsightManager: ObservableObject {
-    
+
     @Published private(set) var currentInsight: TemplateInsight?
-    
+
     private let kasperManager: KASPERManager
     private let sanctumDataManager: SanctumDataManager
-    
+
     init(kasperManager: KASPERManager, sanctumDataManager: SanctumDataManager) {
         self.kasperManager = kasperManager
         self.sanctumDataManager = sanctumDataManager
     }
-    
+
     func generateTemplateInsight() -> TemplateInsight? {
         guard let payload = kasperManager.generateCurrentPayload() else { return nil }
-        
+
         // Use existing MegaCorpus + template logic
         return TemplateInsight(
             primaryMessage: generateTemplateMessage(payload: payload),
@@ -647,7 +647,7 @@ class FallbackInsightManager: ObservableObject {
             affirmation: generateAffirmation(payload: payload)
         )
     }
-    
+
     // Template generation methods using existing MegaCorpus logic
     private func generateTemplateMessage(payload: KASPERPrimingPayload) -> String {
         // Implementation using existing template logic
@@ -672,10 +672,10 @@ protocol InsightProvider {
 }
 
 class UnifiedInsightManager: ObservableObject {
-    
+
     @Published private(set) var isGenerating: Bool = false
     @Published private(set) var currentProvider: InsightProvider
-    
+
     init() {
         // Choose provider based on availability
         if #available(iOS 18.1, *), LanguageModel.isAvailable {
@@ -690,11 +690,11 @@ class UnifiedInsightManager: ObservableObject {
             )
         }
     }
-    
+
     func generateInsight() async -> (any InsightType)? {
         isGenerating = true
         defer { isGenerating = false }
-        
+
         return await currentProvider.generateDailyInsight()
     }
 }
@@ -710,17 +710,17 @@ class UnifiedInsightManager: ObservableObject {
 // Create test harness for Apple Intelligence features
 #if DEBUG
 class AppleIntelligenceTestHarness {
-    
+
     static func runBasicTests() async {
         guard #available(iOS 18.1, *) else {
             print("❌ Apple Intelligence not available")
             return
         }
-        
+
         // Test availability
         let isAvailable = LanguageModel.isAvailable
         print("✅ Apple Intelligence Available: \(isAvailable)")
-        
+
         // Test basic generation
         if isAvailable {
             await testBasicGeneration()
@@ -728,15 +728,15 @@ class AppleIntelligenceTestHarness {
             await testToolCalling()
         }
     }
-    
+
     static func testBasicGeneration() async {
         // Implementation
     }
-    
+
     static func testStructuredOutput() async {
         // Test @Generable models
     }
-    
+
     static func testToolCalling() async {
         // Test spiritual tools
     }
@@ -749,12 +749,12 @@ class AppleIntelligenceTestHarness {
 ```swift
 // Analytics and error tracking
 extension AppleIntelligenceManager {
-    
+
     private func trackGenerationSuccess(type: String, duration: TimeInterval) {
         // Track successful AI generations
         logger.info("✅ AI Generation Success: \(type) in \(duration)s")
     }
-    
+
     private func trackGenerationError(type: String, error: Error) {
         // Track and report AI failures
         logger.error("❌ AI Generation Failed: \(type) - \(error)")

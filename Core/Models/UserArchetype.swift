@@ -20,22 +20,22 @@ import Foundation
 struct UserArchetype: Codable, Equatable {
     /// Life Path number (1-9, 11, 22, 33) - primary numerological identity
     let lifePath: Int
-    
+
     /// Zodiac sign based on birth date
     let zodiacSign: ZodiacSign
-    
+
     /// Elemental alignment derived from zodiac sign
     let element: Element
-    
+
     /// Primary planetary archetype based on life path number
     let primaryPlanet: Planet
-    
+
     /// Subconscious planetary influence based on life path number
     let subconsciousPlanet: Planet
-    
+
     /// Date when this archetype was calculated
     let calculatedDate: Date
-    
+
     /// Computed property for UI display of planetary influences
     var planetaryDescription: String {
         if lifePath == 11 || lifePath == 22 || lifePath == 33 {
@@ -44,12 +44,12 @@ struct UserArchetype: Codable, Equatable {
             return "\(primaryPlanet.rawValue.capitalized) (Primary) • \(subconsciousPlanet.rawValue.capitalized) (Shadow)"
         }
     }
-    
+
     /// Computed property for element description
     var elementDescription: String {
         return "\(element.rawValue.capitalized) • \(element.qualities)"
     }
-    
+
     /// Computed property for zodiac description
     var zodiacDescription: String {
         return "\(zodiacSign.rawValue) • \(zodiacSign.dateRange)"
@@ -64,7 +64,7 @@ enum Element: String, CaseIterable, Codable {
     case earth = "earth"
     case air = "air"
     case water = "water"
-    
+
     /// Qualities and characteristics of each element
     var qualities: String {
         switch self {
@@ -78,7 +78,7 @@ enum Element: String, CaseIterable, Codable {
             return "Emotion • Intuition • Flowing Wisdom"
         }
     }
-    
+
     /// Compatible elements for resonance matching
     var compatibleElements: [Element] {
         switch self {
@@ -109,7 +109,7 @@ enum Planet: String, CaseIterable, Codable {
     case neptune = "neptune"
     case pluto = "pluto"
     case earth = "earth"
-    
+
     /// Archetypal qualities of each planet
     var archetype: String {
         switch self {
@@ -155,7 +155,7 @@ enum ZodiacSign: String, CaseIterable, Codable {
     case capricorn = "Capricorn"
     case aquarius = "Aquarius"
     case pisces = "Pisces"
-    
+
     /// Date range for each zodiac sign
     var dateRange: String {
         switch self {
@@ -185,7 +185,7 @@ enum ZodiacSign: String, CaseIterable, Codable {
             return "Feb 19 - Mar 20"
         }
     }
-    
+
     /// Element associated with this zodiac sign
     var element: Element {
         switch self {
@@ -199,4 +199,4 @@ enum ZodiacSign: String, CaseIterable, Codable {
             return .water
         }
     }
-} 
+}

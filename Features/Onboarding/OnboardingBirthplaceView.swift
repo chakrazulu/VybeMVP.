@@ -2,30 +2,30 @@
  * ========================================
  * 🌍 ONBOARDING BIRTHPLACE VIEW - LOCATION-BASED COSMIC ACCURACY
  * ========================================
- * 
+ *
  * CORE PURPOSE:
  * Enhanced onboarding component collecting both birthdate AND birthplace for
  * accurate location-based astronomical calculations. Integrates with Swiss Ephemeris
  * for precise rise/set times and location-specific cosmic data.
- * 
+ *
  * LOCATION FEATURES:
  * - Birth Date: Date picker for temporal calculations
  * - Birth Location: City/country picker with coordinate resolution
  * - Timezone Detection: Automatic timezone identification from coordinates
  * - Accuracy Enhancement: Location-specific astronomical calculations
- * 
+ *
  * UI SPECIFICATIONS:
  * - Two-step process: Date selection, then location selection
  * - MapKit integration for location search and selection
  * - Real-time coordinate and timezone display
  * - Beautiful cosmic-themed design with location awareness
- * 
+ *
  * SWIFTAA INTEGRATION:
  * - GeographicCoordinates: Precise latitude/longitude storage
  * - RiseTransitSetTimes: Location-specific celestial events
  * - HorizontalCoordinates: Local sky position calculations
  * - Enhanced accuracy for spiritual timing and natal charts
- * 
+ *
  * TECHNICAL IMPLEMENTATION:
  * - CLGeocoder for location search and coordinate resolution
  * - TimeZone detection from geographic coordinates
@@ -53,13 +53,13 @@ struct OnboardingBirthplaceView: View {
     @State private var searchResults: [MKLocalSearchCompletion] = []
     @State private var showingDatePicker = true
     @State private var isProcessing = false
-    
+
     // Search completer for location search
     @StateObject private var locationSearchCompleter = LocationSearchCompleter()
-    
+
     // Binding for navigation control
     @Binding var isCompleted: Bool
-    
+
     // Date range constraints
     private let dateRange: ClosedRange<Date> = {
         let calendar = Calendar.current
@@ -67,13 +67,13 @@ struct OnboardingBirthplaceView: View {
         let endDate = Date()
         return startDate...endDate
     }()
-    
+
     var body: some View {
         ScrollView {
             VStack(spacing: 30) {
                 // Header
                 headerSection
-                
+
                 if showingDatePicker {
                     // Step 1: Date Selection
                     datePickerSection
@@ -92,9 +92,9 @@ struct OnboardingBirthplaceView: View {
         .navigationTitle("Birth Details")
         .navigationBarTitleDisplayMode(.large)
     }
-    
+
     // MARK: - View Components
-    
+
     private var headerSection: some View {
         VStack(spacing: 20) {
             // Cosmic location icon
@@ -102,14 +102,14 @@ struct OnboardingBirthplaceView: View {
                 .font(.system(size: 50, weight: .light))
                 .foregroundColor(.purple)
                 .animation(.easeInOut(duration: 0.3), value: showingDatePicker)
-            
+
             Text(showingDatePicker ? "When were you born?" : "Where were you born?")
                 .font(.title2)
                 .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
                 .animation(.easeInOut(duration: 0.3), value: showingDatePicker)
-            
-            Text(showingDatePicker ? 
+
+            Text(showingDatePicker ?
                  "Your birthdate unlocks your spiritual archetype and cosmic timing." :
                  "Your birthplace enables precise astronomical calculations for your exact location in the cosmos.")
                 .font(.body)
@@ -120,7 +120,7 @@ struct OnboardingBirthplaceView: View {
         }
         .padding(.top, 20)
     }
-    
+
     private var datePickerSection: some View {
         VStack(spacing: 20) {
             // Show selected date
@@ -130,7 +130,7 @@ struct OnboardingBirthplaceView: View {
                     .foregroundColor(.secondary)
                     .textCase(.uppercase)
                     .tracking(1)
-                
+
                 Text(selectedDate, style: .date)
                     .font(.title2)
                     .fontWeight(.semibold)
@@ -146,7 +146,7 @@ struct OnboardingBirthplaceView: View {
                             )
                     )
             }
-            
+
             DatePicker(
                 "Birth Date",
                 selection: $selectedDate,
@@ -166,7 +166,7 @@ struct OnboardingBirthplaceView: View {
             }
         }
     }
-    
+
     private var dateActionButton: some View {
         Button(action: {
             withAnimation(.easeInOut(duration: 0.3)) {
@@ -193,7 +193,7 @@ struct OnboardingBirthplaceView: View {
         }
         .padding(.top, 20)
     }
-    
+
     private var locationPickerSection: some View {
         VStack(spacing: 20) {
             // Location search field
@@ -201,7 +201,7 @@ struct OnboardingBirthplaceView: View {
                 HStack {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.gray)
-                    
+
                     TextField("Search for your birth city...", text: $searchText)
                         .textFieldStyle(PlainTextFieldStyle())
                         .onChange(of: searchText) { oldValue, newValue in
@@ -217,7 +217,7 @@ struct OnboardingBirthplaceView: View {
                                 .stroke(Color.purple.opacity(0.3), lineWidth: 1)
                         )
                 )
-                
+
                 // Search results
                 if !locationSearchCompleter.searchResults.isEmpty {
                     VStack(spacing: 8) {
@@ -228,20 +228,20 @@ struct OnboardingBirthplaceView: View {
                                 HStack {
                                     Image(systemName: "location")
                                         .foregroundColor(.purple)
-                                    
+
                                     VStack(alignment: .leading, spacing: 2) {
                                         Text(result.title)
                                             .font(.subheadline)
                                             .fontWeight(.medium)
                                             .foregroundColor(.primary)
-                                        
+
                                         if !result.subtitle.isEmpty {
                                             Text(result.subtitle)
                                                 .font(.caption)
                                                 .foregroundColor(.secondary)
                                         }
                                     }
-                                    
+
                                     Spacer()
                                 }
                                 .padding()
@@ -255,7 +255,7 @@ struct OnboardingBirthplaceView: View {
                     .padding(.top, 8)
                 }
             }
-            
+
             // Current location option
             Button(action: useCurrentLocation) {
                 HStack {
@@ -276,7 +276,7 @@ struct OnboardingBirthplaceView: View {
                         )
                 )
             }
-            
+
             // Selected location display
             if let location = selectedLocation, !selectedLocationName.isEmpty {
                 VStack(spacing: 12) {
@@ -287,16 +287,16 @@ struct OnboardingBirthplaceView: View {
                             .font(.headline)
                         Spacer()
                     }
-                    
+
                     VStack(alignment: .leading, spacing: 6) {
                         Text(selectedLocationName)
                             .font(.subheadline)
                             .fontWeight(.medium)
-                        
+
                         Text("Coordinates: \(String(format: "%.4f", location.latitude))°, \(String(format: "%.4f", location.longitude))°")
                             .font(.caption)
                             .foregroundColor(.secondary)
-                        
+
                         if let timezone = selectedTimezone {
                             Text("Timezone: \(timezone.identifier)")
                                 .font(.caption)
@@ -317,7 +317,7 @@ struct OnboardingBirthplaceView: View {
             }
         }
     }
-    
+
     private var locationActionButton: some View {
         Button(action: completeBirthplaceSelection) {
             HStack {
@@ -328,7 +328,7 @@ struct OnboardingBirthplaceView: View {
                 } else {
                     Image(systemName: "sparkles")
                 }
-                
+
                 Text(isProcessing ? "Creating Profile..." : "Complete Setup")
                     .fontWeight(.semibold)
             }
@@ -351,41 +351,41 @@ struct OnboardingBirthplaceView: View {
         .animation(.easeInOut(duration: 0.1), value: isProcessing)
         .padding(.top, 20)
     }
-    
+
     // MARK: - Actions
-    
+
     private func selectLocation(_ result: MKLocalSearchCompletion) {
         let searchRequest = MKLocalSearch.Request(completion: result)
         let search = MKLocalSearch(request: searchRequest)
-        
+
         search.start { response, error in
             if let mapItem = response?.mapItems.first {
                 selectedLocation = mapItem.placemark.coordinate
                 selectedLocationName = "\(result.title), \(result.subtitle)"
                 searchText = selectedLocationName
-                
+
                 // Detect timezone
                 selectedTimezone = TimeZone(identifier: mapItem.timeZone?.identifier ?? "")
-                
+
                 // Clear search results
                 locationSearchCompleter.searchResults = []
-                
+
                 print("🌍 Selected location: \(selectedLocationName)")
                 print("📍 Coordinates: \(mapItem.placemark.coordinate.latitude), \(mapItem.placemark.coordinate.longitude)")
                 print("🕐 Timezone: \(selectedTimezone?.identifier ?? "Unknown")")
             }
         }
     }
-    
+
     private func useCurrentLocation() {
         guard let currentLocation = locationManager.currentLocation else {
             locationManager.requestLocationPermission()
             return
         }
-        
+
         selectedLocation = currentLocation.coordinate
         selectedTimezone = TimeZone.current
-        
+
         // Reverse geocode to get location name
         locationManager.reverseGeocode(location: currentLocation) { locationName in
             DispatchQueue.main.async {
@@ -394,12 +394,12 @@ struct OnboardingBirthplaceView: View {
             }
         }
     }
-    
+
     private func completeBirthplaceSelection() {
         guard let location = selectedLocation else { return }
-        
+
         isProcessing = true
-        
+
         // Create comprehensive user profile with location data
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             print("🎂 Creating profile with birth details:")
@@ -407,13 +407,13 @@ struct OnboardingBirthplaceView: View {
             print("   Location: \(selectedLocationName)")
             print("   Coordinates: \(location.latitude), \(location.longitude)")
             print("   Timezone: \(selectedTimezone?.identifier ?? "Unknown")")
-            
+
             // Here you would integrate with UserArchetypeManager and UserProfileService
             // to create the complete profile with location data
-            
+
             isProcessing = false
             isCompleted = true
-            
+
             // Haptic feedback
             let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
             impactFeedback.impactOccurred()
@@ -428,23 +428,23 @@ struct OnboardingBirthplaceView: View {
 class LocationSearchCompleter: NSObject, ObservableObject, MKLocalSearchCompleterDelegate {
     @Published var searchResults: [MKLocalSearchCompletion] = []
     private let completer = MKLocalSearchCompleter()
-    
+
     var searchQuery: String = "" {
         didSet {
             completer.queryFragment = searchQuery
         }
     }
-    
+
     override init() {
         super.init()
         completer.delegate = self
         completer.resultTypes = [.address, .pointOfInterest]
     }
-    
+
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchResults = completer.results
     }
-    
+
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
         print("Location search error: \(error.localizedDescription)")
         searchResults = []

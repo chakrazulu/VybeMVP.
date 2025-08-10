@@ -1,12 +1,12 @@
 /**
  * Filename: FocusNumberManager.swift
- * 
+ *
  * 🎯 COMPREHENSIVE MANAGER REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
- * 
+ *
  * === CORE PURPOSE ===
  * Central manager for all focus number operations and cosmic match detection.
  * This is THE brain of the matching system - when Focus Number == Realm Number.
- * 
+ *
  * === KEY RESPONSIBILITIES ===
  * • Store user's selected focus number (1-9)
  * • Detect matches between focus and realm numbers
@@ -14,20 +14,20 @@
  * • Trigger notifications and UI celebrations
  * • Manage match debouncing (prevent duplicates)
  * • Coordinate with VybeMatchManager for visual effects
- * 
+ *
  * === ARCHITECTURE PATTERN ===
  * • Design: Singleton with dependency injection support
  * • Threading: Main thread for Core Data operations
  * • Storage: Core Data (matches) + UserDefaults (preferences)
  * • Communication: Combine publishers for reactive updates
- * 
+ *
  * === PUBLISHED PROPERTIES ===
  * • selectedFocusNumber: Current focus number (1-9)
  * • matchLogs: Array of FocusMatch Core Data entities
  * • isAutoUpdateEnabled: Toggle for automatic updates
  * • realmNumber: Current realm number (synced from RealmNumberManager)
  * • latestMatchedInsight: Most recent match insight data
- * 
+ *
  * === MATCH DETECTION FLOW ===
  * 1. RealmNumberManager updates currentRealmNumber
  * 2. FocusNumberManager receives update via Combine
@@ -35,19 +35,19 @@
  * 4. If match: verifyAndSaveMatch() checks debouncing
  * 5. If new: Save to Core Data + send notification
  * 6. VybeMatchManager triggers visual celebration
- * 
+ *
  * === DEBOUNCING SYSTEM ===
  * • Interval: 90 seconds between same-number matches
  * • Checks: In-memory cache + Core Data query
  * • Purpose: Prevent notification spam
  * • Cache: lastNotificationTimestamps dictionary
- * 
+ *
  * === STARTUP SEQUENCE ===
  * • 0.0s: Initialize with saved preferences
  * • 0.2s: Configure with RealmNumberManager
  * • 15.0s: Enable match detection (prevents app freeze)
  * • Deferred to prevent blocking UI during launch
- * 
+ *
  * === CORE DATA SCHEMA ===
  * Entity: FocusMatch
  * • timestamp: Date of match
@@ -55,24 +55,24 @@
  * • matchedNumber: Int16 (realm number)
  * • locationLatitude: Double
  * • locationLongitude: Double
- * 
+ *
  * === NOTIFICATION INTEGRATION ===
  * • Uses NotificationManager.shared
  * • Schedules numerology notifications
  * • 1 second delay for UI updates
  * • Category-based content selection
- * 
+ *
  * === TESTING SUPPORT ===
  * • createForTesting(): Isolated instance
  * • Custom persistence controller
  * • Mock-friendly dependency injection
- * 
+ *
  * === CRITICAL PERFORMANCE NOTES ===
  * • Match detection DISABLED for first 15 seconds
  * • Core Data saves on main thread only
  * • Combine subscriptions use receive(on: main)
  * • Prevents app freeze during launch
- * 
+ *
  * Purpose: Core manager that handles all focus number operations, matching logic,
  * and synchronization with the realm number system.
  *
@@ -82,7 +82,7 @@
  * - Persist match history and preferences
  * - Calculate transcendental numbers based on time, location, and focus inputs
  * - Notify the app when matches occur
- * 
+ *
  * This manager is a central component of the app's core functionality, managing
  * the relationship between user focus numbers and dynamically calculated realm numbers.
  */
@@ -120,65 +120,65 @@ struct MatchedInsightData: Identifiable {
  */
 class FocusNumberManager: NSObject, ObservableObject {
     // MARK: - Properties
-    
+
     /// Singleton instance for app-wide access
     static let shared = FocusNumberManager()
-    
+
     /// The user's currently selected focus number (1-9)
     @Published var selectedFocusNumber: Int = 0
-    
+
     /// History of all matches between focus and realm numbers
     @Published var matchLogs: [FocusMatch] = []
-    
+
     /// Whether automatic focus number updates are enabled
     @Published var isAutoUpdateEnabled: Bool = false
-    
+
     /// The current realm number value, tracked for match detection
     @Published var realmNumber: Int = 0
-    
+
     /// Publishes the latest insight when a new match occurs
     @Published var latestMatchedInsight: MatchedInsightData? = nil
-    
+
     /// Cached location coordinates for calculations
     private var _currentLocation: CLLocationCoordinate2D?
-    
+
     /// Core Data managed object context for persistence
     private let viewContext: NSManagedObjectContext
-    
+
     /// Claude: PERFORMANCE OPTIMIZATION - Persistence controller for background operations
     private let persistenceController: PersistenceController
-    
+
     /// Current device location, used in transcendental calculations
     var currentLocation: CLLocation? {
         didSet {
             _currentLocation = currentLocation?.coordinate
         }
     }
-    
+
     /// Valid range for focus numbers (1-9)
     static let validFocusNumbers = 1...9
-    
+
     /// Default focus number for new users (1)
     static let defaultFocusNumber = 1
-    
+
     /// Access to notification manager for sending notifications
     private let notificationManager = NotificationManager.shared
-    
+
     /// Combine cancellables storage
     private var cancellables = Set<AnyCancellable>()
-    
+
     /// Cache to track the last notification time for each number to prevent rapid duplicates
     private var lastNotificationTimestamps: [Int: Date] = [:]
     private let notificationDebounceInterval: TimeInterval = 90 // 90 seconds
-    
+
     /// Flag to ensure configuration and subscription happens only once
     private var isConfigured = false
-    
+
     /// Flag to disable match detection during startup to prevent freeze
     var isMatchDetectionEnabled = false
-    
+
     // MARK: - Initialization
-    
+
     /**
      * Creates a testing instance of FocusNumberManager with a custom persistence controller.
      *
@@ -191,10 +191,10 @@ class FocusNumberManager: NSObject, ObservableObject {
     static func createForTesting(with persistenceController: PersistenceController) -> FocusNumberManager {
         return FocusNumberManager(persistenceController: persistenceController)
     }
-    
+
     /**
      * Private initializer enforcing the singleton pattern.
-     * 
+     *
      * - Parameter persistenceController: The CoreData controller to use for data persistence
      *
      * Sets up the manager with saved preferences and loads match history from CoreData.
@@ -204,12 +204,12 @@ class FocusNumberManager: NSObject, ObservableObject {
         self.viewContext = persistenceController.container.viewContext
         self.persistenceController = persistenceController  // Claude: Store reference for background operations
         super.init()
-        
+
         loadPreferences()
         loadMatchLogs()
         Logger.focus.debug("📱 FocusNumberManager initialized with number: \(self.selectedFocusNumber)")
     }
-    
+
     /// Configures the manager with necessary dependencies after initialization.
     /// This should be called once, typically after the RealmNumberManager instance is available.
     func configure(realmManager: RealmNumberManager) {
@@ -230,15 +230,15 @@ class FocusNumberManager: NSObject, ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] newRealmNumber in
                 // Log *every* value received by the sink
-                // print("➡️ [Combine Trace] Sink received newRealmNumber: \(newRealmNumber)") // REMOVED TRACE LOG 
+                // print("➡️ [Combine Trace] Sink received newRealmNumber: \(newRealmNumber)") // REMOVED TRACE LOG
                 self?.updateRealmNumber(newRealmNumber)
             }
             .store(in: &cancellables)
         print("🔗 FocusNumberManager subscribed to RealmNumberManager updates.")
     }
-    
+
     // MARK: - Number Processing Methods
-    
+
     /**
      * Reduces any number to a single digit (1-9) using numerological principles.
      *
@@ -258,13 +258,13 @@ class FocusNumberManager: NSObject, ObservableObject {
     func reduceToSingleDigit(_ number: Int) -> Int {
         var sum = 0
         var num = abs(number)
-        
+
         // First sum all digits
         while num > 0 {
             sum += num % 10
             num /= 10
         }
-        
+
         // If sum is still greater than 9, reduce again
         while sum > 9 {
             var tempSum = 0
@@ -274,10 +274,10 @@ class FocusNumberManager: NSObject, ObservableObject {
             }
             sum = tempSum
         }
-        
+
         return sum
     }
-    
+
     /**
      * Returns the effective focus number, ensuring it's within valid range (1-9).
      * Used for journal entries and other contexts where the number must be valid.
@@ -285,9 +285,9 @@ class FocusNumberManager: NSObject, ObservableObject {
     var effectiveFocusNumber: Int {
         max(1, min(selectedFocusNumber, 9))  // Ensure valid range
     }
-    
+
     // MARK: - Match Detection and Saving
-    
+
     /**
      * Verifies if the given realm number matches the current focus number and saves the match if needed.
      *
@@ -304,21 +304,21 @@ class FocusNumberManager: NSObject, ObservableObject {
     func verifyAndSaveMatch(realmNumber: Int?, completion: @escaping (Bool) -> Void = { _ in }) {
         // print("➡️ [Match Trace] verifyAndSaveMatch called with realmNumber: \(realmNumber ?? -1)") // REMOVED TRACE LOG
         print("\n🔍 Verifying potential match...")
-        
+
         // Must have a valid realm number
         guard let matchedRealmNumber = realmNumber else {
             print("❌ Cannot verify match - no realm number provided")
             completion(false)
             return
         }
-        
+
         // Must match the current focus number
         guard matchedRealmNumber == selectedFocusNumber else {
             print("ℹ️ No match: realm number \(matchedRealmNumber) ≠ focus number \(selectedFocusNumber)")
             completion(false)
             return
         }
-        
+
         // Check if we already recorded this match recently
         print("🔍 Match found! Checking if it's a new match...")
         if checkForRecentMatchOrNotification(for: matchedRealmNumber) {
@@ -326,9 +326,9 @@ class FocusNumberManager: NSObject, ObservableObject {
             completion(false)
             return
         }
-        
+
         print("✨ New match confirmed! Recording match between Focus Number \(selectedFocusNumber) and Realm Number \(matchedRealmNumber)")
-        
+
         // Fetch and store the insight for this new match
         if let insightText = NumerologyInsightService.shared.fetchInsight(forNumber: matchedRealmNumber, category: InsightCategory.insight.rawValue) {
             self.latestMatchedInsight = MatchedInsightData(
@@ -350,12 +350,12 @@ class FocusNumberManager: NSObject, ObservableObject {
         } else {
             print("⚠️ Could not fetch insight for matched number \(matchedRealmNumber).")
         }
-        
+
         // Continue with the rest of the existing method
         saveMatch(matchedRealmNumber: matchedRealmNumber)
         completion(true)
     }
-    
+
     /**
      * Checks if there's a recently recorded match *for the specific number* to prevent duplicates.
      * Also checks the timestamp cache for recently *sent notifications*.
@@ -409,11 +409,11 @@ class FocusNumberManager: NSObject, ObservableObject {
         } catch {
              // print("  [Debounce Check] Error fetching recent matches: \(error)") // REMOVED TRACE LOG
         }
-        
+
         // print("⬅️ [Debounce Check] Result: FALSE (No recent match/notification found)") // REMOVED TRACE LOG
         return false
     }
-    
+
     /**
      * Saves a match to Core Data and sends a notification
      *
@@ -424,7 +424,7 @@ class FocusNumberManager: NSObject, ObservableObject {
         print("   Focus Number: \(selectedFocusNumber)")
         print("   Realm Number: \(matchedRealmNumber)")
         print("   Timestamp: \(Date())")
-        
+
         // Ensure we save on the main thread for Core Data
         if !Thread.isMainThread {
             DispatchQueue.main.async { [weak self] in
@@ -432,14 +432,14 @@ class FocusNumberManager: NSObject, ObservableObject {
             }
             return
         }
-        
+
         // Claude: PERFORMANCE OPTIMIZATION - Move entire match creation to background context
         // This prevents blocking the main thread during Core Data operations
-        
+
         // Capture values for background context
         let currentSelectedNumber = selectedFocusNumber
         let currentLocation = _currentLocation
-        
+
         // Perform Core Data operations on background thread
         persistenceController.performBackgroundTask { backgroundContext in
             // Create a new match entity in background context
@@ -449,7 +449,7 @@ class FocusNumberManager: NSObject, ObservableObject {
             newMatch.matchedNumber = Int16(matchedRealmNumber)
             // REALM NUMBER ANALYTICS ENHANCEMENT: Save the realm number for analytics
             newMatch.realmNumber = Int16(matchedRealmNumber)
-            
+
             // Add location if available
             if let location = currentLocation {
                 newMatch.locationLatitude = location.latitude
@@ -459,10 +459,10 @@ class FocusNumberManager: NSObject, ObservableObject {
                 newMatch.locationLatitude = 0
                 newMatch.locationLongitude = 0
             }
-            
+
             // Background context automatically saves when operation completes
             print("   🚀 Match creation scheduled for background save")
-            
+
         } completion: { result in
             // Handle completion on main thread
             switch result {
@@ -471,12 +471,12 @@ class FocusNumberManager: NSObject, ObservableObject {
                 // Reload matches on main thread
                 self.loadMatchLogs()
                 print("   📱 Updated Match Count: \(self.matchLogs.count)")
-                
+
             case .failure(let error):
                 print("   ❌ Error saving match: \(error.localizedDescription)")
             }
         }
-        
+
         // Additional check for tests to verify the save was successful
         if matchLogs.isEmpty {
             print("   ⚠️ Warning: Match saved but matchLogs is still empty")
@@ -489,12 +489,12 @@ class FocusNumberManager: NSObject, ObservableObject {
                 print("   ❌ Error counting matches: \(error)")
             }
         }
-        
+
         // Send local notification for the match
         sendMatchNotification(for: matchedRealmNumber)
         print("🌟 ================================\n")
     }
-    
+
     /**
      * Sends a local notification for a number match *after checking debounce cache*.
      *
@@ -510,7 +510,7 @@ class FocusNumberManager: NSObject, ObservableObject {
         // Use a short delay (e.g., 1 second) to allow the UI to potentially update first if needed
         NotificationManager.shared.scheduleRandomNumerologyNotification(forNumber: number, delaySeconds: 1)
     }
-    
+
     /**
      * Enables match detection after startup stabilization period.
      * This prevents heavy match detection operations from running during app launch.
@@ -518,11 +518,11 @@ class FocusNumberManager: NSObject, ObservableObject {
     func enableMatchDetection() {
         isMatchDetectionEnabled = true
         print("🎯 Match detection enabled - will now check for matches")
-        
+
         // Perform an immediate check now that detection is enabled
         checkForMatches()
     }
-    
+
     /**
      * Checks if the current focus number matches the realm number and handles match creation.
      *
@@ -547,7 +547,7 @@ class FocusNumberManager: NSObject, ObservableObject {
             // Using DispatchQueue.main to ensure Core Data operations run on the main thread
             DispatchQueue.main.async { [weak self] in
                 // print("➡️ [Match Trace] DispatchQueue.main.async block in checkForMatches entered.") // REMOVED TRACE LOG
-                guard let self = self else { 
+                guard let self = self else {
                     // print("⚠️ [Match Trace] self is nil in checkForMatches async block.") // REMOVED TRACE LOG
                     return
                  }
@@ -570,7 +570,7 @@ class FocusNumberManager: NSObject, ObservableObject {
         }
         // print("⬅️ [Match Trace] checkForMatches finished.") // REMOVED TRACE LOG
     }
-    
+
     /**
      * Updates the manager's internal realm number and checks for matches.
      *
@@ -592,7 +592,7 @@ class FocusNumberManager: NSObject, ObservableObject {
         }
         // print("⬅️ [Match Trace] updateRealmNumber finished for newValue: \(newValue)") // REMOVED TRACE LOG
     }
-    
+
     /**
      * Sets the user's focus number and saves it to preferences.
      *
@@ -609,23 +609,23 @@ class FocusNumberManager: NSObject, ObservableObject {
     func userDidPickFocusNumber(_ number: Int) {
         let validNumber = max(1, min(number, 9))
         selectedFocusNumber = validNumber
-        
+
         // Save to Core Data
         UserPreferences.save(
             in: viewContext,
             lastSelectedNumber: Int16(validNumber),
             isAutoUpdateEnabled: isAutoUpdateEnabled
         )
-        
+
         print("\n📝 Focus Number set to: \(validNumber)")
-        
+
         // 🌟 ALWAYS publish focus number change for VybeMatchManager (UI updates should be immediate)
         NotificationCenter.default.post(
             name: NSNotification.Name.focusNumberChanged,
             object: nil,
             userInfo: ["focusNumber": validNumber]
         )
-        
+
         // 🔧 FIX: Always notify UI of change immediately, regardless of match detection status
         // This ensures UI components update instantly when user picks a new focus number
         DispatchQueue.main.async {
@@ -636,13 +636,13 @@ class FocusNumberManager: NSObject, ObservableObject {
                 userInfo: ["focusNumber": validNumber]
             )
         }
-        
+
         // Check for immediate match with current realm number (only if match detection is enabled)
         checkForMatches()
     }
-    
+
     // MARK: - Transcendental Calculations
-    
+
     /**
      * Calculates a transcendental number based on multiple factors.
      *
@@ -660,12 +660,12 @@ class FocusNumberManager: NSObject, ObservableObject {
         let timeFactor = calculateTimeFactor()
         let locationFactor = calculateLocationFactor()
         let focusFactor = selectedFocusNumber
-        
+
         // Calculate the transcendental number by combining all factors
         let sum = timeFactor + locationFactor + focusFactor
         return reduceToSingleDigit(sum)
     }
-    
+
     /**
      * Calculates a numeric factor based on current time.
      *
@@ -678,16 +678,16 @@ class FocusNumberManager: NSObject, ObservableObject {
         let now = Date()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.hour, .minute], from: now)
-        
+
         guard let hour = components.hour,
               let minute = components.minute else {
             return 1 // Default to 1 if we can't get time components
         }
-        
+
         // Combine hour and minute into a single number and reduce
         return reduceToSingleDigit(hour + minute)
     }
-    
+
     /**
      * Calculates a numeric factor based on current location.
      *
@@ -700,21 +700,21 @@ class FocusNumberManager: NSObject, ObservableObject {
         guard let location = _currentLocation else {
             return 1 // Default to 1 if no location available
         }
-        
+
         // Convert coordinates to positive integers by removing decimal point
         let latString = String(format: "%.6f", abs(location.latitude))
             .replacingOccurrences(of: ".", with: "")
         let longString = String(format: "%.6f", abs(location.longitude))
             .replacingOccurrences(of: ".", with: "")
-        
+
         // Convert strings to integers and reduce to single digits
         let latSum = reduceToSingleDigit(Int(latString) ?? 0)
         let longSum = reduceToSingleDigit(Int(longString) ?? 0)
-        
+
         // Combine latitude and longitude factors
         return reduceToSingleDigit(latSum + longSum)
     }
-    
+
     /**
      * Retrieves the current heart rate from HealthKit if available
      *
@@ -723,7 +723,7 @@ class FocusNumberManager: NSObject, ObservableObject {
     private func getCurrentHeartRate() -> Double {
         return HealthKitManager.shared.getCurrentHeartRate()
     }
-    
+
     // Claude: PERFORMANCE OPTIMIZATION - Enhanced background context insight saving
     private func savePersistedInsight(number: Int, category: String, text: String, tags: String?) {
         // Claude: Move to background context for better performance - no main thread requirement
@@ -736,15 +736,15 @@ class FocusNumberManager: NSObject, ObservableObject {
             newPersistedInsight.category = category
             newPersistedInsight.text = text
             newPersistedInsight.tags = tags // e.g., "FocusMatch, RealmTouch"
-            
+
             print("🚀 PersistedInsightLog creation scheduled for background save")
-            
+
         } completion: { result in
             // Handle completion on main thread
             switch result {
             case .success:
                 print("💾 Successfully saved PersistedInsightLog for number \(number), category \(category) (background context).")
-                
+
             case .failure(let error):
                 print("❌ Error saving PersistedInsightLog: \(error.localizedDescription)")
             }
@@ -763,7 +763,7 @@ class FocusNumberManager: NSObject, ObservableObject {
     private func loadPreferences() {
         let preferences = UserPreferences.fetch(in: viewContext)
         selectedFocusNumber = Int(preferences.lastSelectedNumber)
-        
+
         // Ensure we never have 0 as a focus number
         if selectedFocusNumber == 0 {
             selectedFocusNumber = Self.defaultFocusNumber
@@ -773,14 +773,14 @@ class FocusNumberManager: NSObject, ObservableObject {
                 isAutoUpdateEnabled: false
             )
         }
-        
+
         isAutoUpdateEnabled = preferences.isAutoUpdateEnabled
         Logger.focus.debug("Loaded preferences - Number: \(self.selectedFocusNumber), Auto Update: \(self.isAutoUpdateEnabled)")
     }
-    
+
     /**
      * Saves the auto-update preference to Core Data.
-     * 
+     *
      * - Parameter enabled: Whether auto-update should be enabled
      *
      * This method persists both the current focus number and auto-update preference
@@ -793,7 +793,7 @@ class FocusNumberManager: NSObject, ObservableObject {
             isAutoUpdateEnabled: enabled
         )
     }
-    
+
     /**
      * Loads the history of matches from Core Data.
      *
@@ -808,11 +808,11 @@ class FocusNumberManager: NSObject, ObservableObject {
         // Create a fetch request for FocusMatch entity
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "FocusMatch")
         request.sortDescriptors = [NSSortDescriptor(keyPath: \FocusMatch.timestamp, ascending: false)]
-        
+
         do {
             // Execute the fetch request and safely cast the results
             let results = try viewContext.fetch(request)
-            
+
             // Cast the results to FocusMatch objects
             matchLogs = results.compactMap { $0 as? FocusMatch }
             print("📱 Loaded \(matchLogs.count) matches from storage")
@@ -820,7 +820,7 @@ class FocusNumberManager: NSObject, ObservableObject {
             print("❌ Failed to fetch matches: \(error)")
         }
     }
-    
+
     /**
      * Schedules a daily numerology notification for the user's current focus number
      *
@@ -830,13 +830,13 @@ class FocusNumberManager: NSObject, ObservableObject {
     func scheduleDailyNumerologyMessage() {
         // Get the current focus number
         let focusNumber = selectedFocusNumber
-        
+
         // Schedule the notification
         NotificationManager.shared.scheduleDailyNumerologyMessage(forFocusNumber: focusNumber)
-        
+
         print("📆 Scheduled daily numerology message for focus number \(focusNumber)")
     }
-    
+
     /**
      * Updates the selected focus number and saves the change to persistent storage.
      *
@@ -853,20 +853,20 @@ class FocusNumberManager: NSObject, ObservableObject {
         // Validate the number is within range
         let validNumber = max(1, min(number, 9))
         print("🔄 Setting focus number to \(validNumber)")
-        
+
         // Update the stored value and notify observers
         let previousNumber = selectedFocusNumber
         selectedFocusNumber = validNumber
-        
+
         // Save to UserDefaults for persistence
         UserPreferences.save(
             in: viewContext,
             lastSelectedNumber: Int16(validNumber),
             isAutoUpdateEnabled: isAutoUpdateEnabled
         )
-        
+
         print("✅ Focus number updated to \(validNumber)")
-        
+
         // Optionally send a notification with numerology insight
         if sendNotification && validNumber != previousNumber {
             // Send an immediate notification with a relevant insight
@@ -923,7 +923,7 @@ extension FocusNumberManager: CLLocationManagerDelegate {
         _currentLocation = location
         Logger.location.debug("📍 Location updated: \(location.latitude), \(location.longitude)")
     }
-    
+
     /**
      * Called when location services encounters an error.
      *
@@ -949,4 +949,3 @@ extension FocusNumberManager: CLLocationManagerDelegate {
         }
     }
 }
-

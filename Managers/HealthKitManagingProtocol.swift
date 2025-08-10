@@ -1,6 +1,6 @@
 /**
  * Filename: HealthKitManagingProtocol.swift
- * 
+ *
  * Purpose: Defines the interface for HealthKit interactions, enabling
  * dependency injection and testability for heart rate monitoring.
  *
@@ -9,7 +9,7 @@
  * - Enable mocking for unit tests
  * - Provide a consistent interface for heart rate data access
  * - Support authorization and monitoring operations
- * 
+ *
  * This protocol is implemented by both the real HealthKitManager and
  * mock implementations used in testing, ensuring consistent behavior
  * across production and test environments.
@@ -34,16 +34,16 @@ import SwiftUI
 public protocol HealthKitManaging: ObservableObject {
     /// The current heart rate value in beats per minute (BPM)
     var currentHeartRate: Int { get }
-    
+
     /// The most recent valid (non-zero) heart rate reading in BPM
     var lastValidBPM: Int { get }
-    
+
     /// Current authorization status for HealthKit heart rate access
     var authorizationStatus: HKAuthorizationStatus { get }
-    
+
     /// Indicates whether the user needs to manually enable HealthKit in Settings
     var needsSettingsAccess: Bool { get }
-    
+
     /**
      * Requests authorization to access heart rate data from HealthKit.
      *
@@ -53,7 +53,7 @@ public protocol HealthKitManaging: ObservableObject {
      * 3. Throw an error if authorization fails
      */
     func requestAuthorization() async throws
-    
+
     /**
      * Begins monitoring heart rate data from HealthKit.
      *
@@ -61,7 +61,7 @@ public protocol HealthKitManaging: ObservableObject {
      * to continuously monitor heart rate changes.
      */
     func startHeartRateMonitoring()
-    
+
     /**
      * Explicitly requests an immediate heart rate update.
      *
@@ -69,7 +69,7 @@ public protocol HealthKitManaging: ObservableObject {
      * heart rate data outside of the regular update cycle.
      */
     func forceHeartRateUpdate() async
-    
+
     /**
      * Retrieves the initial heart rate reading when monitoring begins.
      *
@@ -77,7 +77,7 @@ public protocol HealthKitManaging: ObservableObject {
      * to establish a baseline when the app starts.
      */
     func fetchInitialHeartRate() async
-    
+
     /**
      * Stops monitoring heart rate data from HealthKit.
      *
@@ -85,4 +85,4 @@ public protocol HealthKitManaging: ObservableObject {
      * to prevent unnecessary background activity.
      */
     func stopHeartRateMonitoring()
-} 
+}

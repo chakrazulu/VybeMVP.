@@ -2,7 +2,7 @@ import SwiftUI
 
 /**
  * NumerologyRainView: Creates mystical randomly appearing numerology numbers
- * 
+ *
  * Cosmic energy manifestation - numbers appear and fade in random locations
  * Like numerological consciousness flickering across dimensional space
  */
@@ -10,7 +10,7 @@ struct NumerologyRainView: View {
     @State private var cosmicNumbers: [CosmicNumber] = []
     @State private var sparklePhase: Double = 0
     @State private var manifestationTimer: Timer?
-    
+
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -38,18 +38,18 @@ struct NumerologyRainView: View {
             manifestationTimer = nil
         }
     }
-    
+
     private func startCosmicManifestation() {
         // Create initial cosmic numbers
         generateCosmicNumbers()
-        
+
         // Claude: Phase 16 magic number elimination
         // Before: withAnimation(.easeInOut(duration: 2.0) - hardcoded 2-second duration
         // After: VybeConstants.epicAnimationDuration for consistent cosmic animations
         withAnimation(.easeInOut(duration: VybeConstants.epicAnimationDuration).repeatForever(autoreverses: true)) {
             sparklePhase = 1.0
         }
-        
+
         // Claude: Phase 16 magic number elimination and memory safety
         // Before: Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) - hardcoded timing
         // After: Uses VybeConstants.numerologyRainInterval for centralized configuration
@@ -58,14 +58,14 @@ struct NumerologyRainView: View {
             generateCosmicNumbers()
         }
     }
-    
+
     private func generateCosmicNumbers() {
         guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = screen.windows.first else { return }
-        
+
         let screenWidth = window.frame.width
         let screenHeight = window.frame.height
-        
+
         // Create 15-25 random cosmic numbers
         let newNumbers = (0..<Int.random(in: 15...25)).map { _ in
             CosmicNumber(
@@ -73,7 +73,7 @@ struct NumerologyRainView: View {
                 screenHeight: screenHeight
             )
         }
-        
+
         withAnimation(.easeInOut(duration: VybeConstants.longAnimationDuration)) {
             cosmicNumbers = newNumbers
         }
@@ -90,7 +90,7 @@ struct CosmicNumber {
     let scale: CGFloat
     let glowRadius: CGFloat
     let animationDuration: Double
-    
+
     init(screenWidth: CGFloat, screenHeight: CGFloat) {
         self.number = Int.random(in: 1...9)
         self.x = CGFloat.random(in: 40...(screenWidth - 40)) // Avoid edges
@@ -101,7 +101,7 @@ struct CosmicNumber {
         self.glowRadius = CGFloat.random(in: 5...15)
         self.animationDuration = Double.random(in: 1.0...3.0)
     }
-    
+
     var color: Color {
         switch number {
         case 1: return .red          // Creation/Fire 🔥
@@ -123,4 +123,4 @@ struct CosmicNumber {
         Color.black.ignoresSafeArea()
         NumerologyRainView()
     }
-} 
+}

@@ -39,7 +39,7 @@ import SwiftData  // Add this import
 struct VybeMVPApp: App {
     // Add the spiritual data controller
     @StateObject private var spiritualDataController = SpiritualDataController.shared
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -65,25 +65,25 @@ import SwiftUI
 
 struct MigrationStatusView: View {
     @EnvironmentObject var dataController: SpiritualDataController
-    
+
     var body: some View {
         VStack(spacing: 20) {
             Image(systemName: "sparkles")
                 .font(.system(size: 60))
                 .foregroundColor(.purple)
-            
+
             Text("Preparing Spiritual Wisdom")
                 .font(.title)
                 .fontWeight(.semibold)
-            
+
             Text(dataController.migrationStatus)
                 .font(.caption)
                 .foregroundColor(.secondary)
-            
+
             ProgressView(value: dataController.migrationProgress)
                 .progressViewStyle(.linear)
                 .padding(.horizontal, 40)
-            
+
             Text("\(Int(dataController.migrationProgress * 100))%")
                 .font(.caption2)
                 .foregroundColor(.secondary)
@@ -98,7 +98,7 @@ struct MigrationStatusView: View {
 ```swift
 struct ContentView: View {
     @EnvironmentObject var dataController: SpiritualDataController
-    
+
     var body: some View {
         if dataController.isMigrationComplete {
             // Your normal app UI

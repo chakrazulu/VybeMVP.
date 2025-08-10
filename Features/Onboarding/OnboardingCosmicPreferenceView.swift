@@ -8,10 +8,10 @@ struct OnboardingCosmicPreferenceView: View {
             VStack(spacing: 30) {
                 // Header Section
                 headerSection
-                
+
                 // Selection Cards
                 selectionSection
-                
+
                 // Description Section
                 descriptionSection
             }
@@ -20,7 +20,7 @@ struct OnboardingCosmicPreferenceView: View {
             .padding(.bottom, 40)
         }
     }
-    
+
     private var headerSection: some View {
         VStack(spacing: 20) {
             // Icon
@@ -34,12 +34,12 @@ struct OnboardingCosmicPreferenceView: View {
                         )
                     )
                     .frame(width: 100, height: 100)
-                
+
                 Image(systemName: "sparkles.rectangle.stack.fill")
                     .font(.system(size: 40, weight: .light))
                     .foregroundColor(.indigo)
             }
-            
+
             VStack(spacing: 12) {
                 Text("Cosmic Preferences")
                     .font(.largeTitle)
@@ -51,7 +51,7 @@ struct OnboardingCosmicPreferenceView: View {
                             endPoint: .trailing
                         )
                     )
-                
+
                 Text("How open are you to exploring influences beyond foundational numerology? This helps us scale your experience.")
                     .font(.body)
                     .foregroundColor(.secondary)
@@ -61,7 +61,7 @@ struct OnboardingCosmicPreferenceView: View {
         }
         .padding(.top, 20)
     }
-    
+
     private var selectionSection: some View {
         VStack(spacing: 16) {
             ForEach(viewModel.cosmicPreferenceOptions, id: \.self) { option in
@@ -78,7 +78,7 @@ struct OnboardingCosmicPreferenceView: View {
             }
         }
     }
-    
+
     private var descriptionSection: some View {
         VStack(spacing: 16) {
             HStack {
@@ -88,7 +88,7 @@ struct OnboardingCosmicPreferenceView: View {
                     .font(.headline)
                 Spacer()
             }
-            
+
             Text("Your choice here prepares Vybe for potential future integrations, such as astrology, lunar cycles, or other cosmic data streams, aligning the app more deeply with universal rhythms if you choose.")
                 .font(.body)
                 .foregroundColor(.secondary)
@@ -110,7 +110,7 @@ struct CosmicPreferenceCard: View {
     let title: String
     let isSelected: Bool
     let action: () -> Void
-    
+
     private var preferenceDescription: String {
         switch title {
         case "Numerology Only":
@@ -123,7 +123,7 @@ struct CosmicPreferenceCard: View {
             return "Explore your cosmic preferences"
         }
     }
-    
+
     private var preferenceIcon: String {
         switch title {
         case "Numerology Only":
@@ -136,7 +136,7 @@ struct CosmicPreferenceCard: View {
             return "circle.fill"
         }
     }
-    
+
     private var preferenceColor: Color {
         switch title {
         case "Numerology Only":
@@ -149,7 +149,7 @@ struct CosmicPreferenceCard: View {
             return .indigo
         }
     }
-    
+
     var body: some View {
         Button(action: action) {
             HStack(spacing: 16) {
@@ -157,21 +157,21 @@ struct CosmicPreferenceCard: View {
                 Image(systemName: preferenceIcon)
                     .font(.title2)
                     .foregroundColor(isSelected ? .white : preferenceColor)
-                
+
                 // Content
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
                         .font(.headline)
                         .fontWeight(.semibold)
                         .foregroundColor(isSelected ? .white : .primary)
-                    
+
                     Text(preferenceDescription)
                         .font(.caption)
                         .foregroundColor(isSelected ? .white.opacity(0.8) : .secondary)
                 }
-                
+
                 Spacer()
-                
+
                 // Selection indicator
                 Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
                     .font(.title3)
@@ -181,7 +181,7 @@ struct CosmicPreferenceCard: View {
             .background(
                 RoundedRectangle(cornerRadius: 16)
                     .fill(
-                        isSelected 
+                        isSelected
                         ? LinearGradient(
                             gradient: Gradient(colors: [preferenceColor, preferenceColor.opacity(0.8)]),
                             startPoint: .leading,
@@ -217,4 +217,4 @@ struct OnboardingCosmicPreferenceView_Previews: PreviewProvider {
         return OnboardingCosmicPreferenceView(viewModel: viewModel)
             .padding()
     }
-} 
+}

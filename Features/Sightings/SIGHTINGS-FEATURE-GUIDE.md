@@ -72,4 +72,4 @@ The Sightings Portal appears as a tab in the main navigation. Users can:
 - Filter by specific numbers
 - Tap any sighting for full details
 - Share sightings with formatted text and images
-- Track their synchronicity patterns over time 
+- Track their synchronicity patterns over time

@@ -21,7 +21,7 @@ class SignInViewModel: ObservableObject {
                 let userIdentifier = appleIDCredential.user
                 let email = appleIDCredential.email
                 let fullName = appleIDCredential.fullName?.givenName
-                
+
                 KeychainHelper.shared.save(userIdentifier, for: "userID")
                 KeychainHelper.shared.save(email ?? "", for: "email")
                 KeychainHelper.shared.save(fullName ?? "", for: "fullName")
@@ -64,22 +64,22 @@ class SignInViewModel: ObservableObject {
             print("🚪 SignInViewModel: User logged out.")
         }
     }
-    
+
     func signOut() {
         // Clear all user data from keychain
         KeychainHelper.shared.delete(for: "userID")
         KeychainHelper.shared.delete(for: "email")
         KeychainHelper.shared.delete(for: "fullName")
-        
+
         // Clear any other user-specific data
         UserDefaults.standard.removeObject(forKey: "user_archetype")
         UserDefaults.standard.removeObject(forKey: "resonance_matches")
         UserDefaults.standard.removeObject(forKey: "resonance_streak")
-        
+
         DispatchQueue.main.async {
             self.isSignedIn = false
         }
-        
+
         print("User signed out successfully")
     }
 }

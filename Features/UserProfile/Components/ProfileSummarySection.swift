@@ -2,7 +2,7 @@
  * ========================================
  * 👤 PROFILE SUMMARY SECTION COMPONENT
  * ========================================
- * 
+ *
  * INFORMATIONAL PURPOSE:
  * User preference display showing spiritual modes, insight tones, focus areas,
  * and cosmic preferences in a clean, organized format for profile overview.
@@ -31,10 +31,10 @@ import SwiftUI
 
 /// Claude: Profile Summary Section component for displaying user preferences
 struct ProfileSummarySection: View {
-    
+
     // MARK: - Properties
     let profile: UserProfile
-    
+
     // MARK: - Body
     var body: some View {
         VStack(spacing: 16) {
@@ -42,7 +42,7 @@ struct ProfileSummarySection: View {
                 .font(.headline)
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             VStack(spacing: 12) {
                 ProfileSummaryRow(
                     icon: "heart.circle.fill",
@@ -50,21 +50,21 @@ struct ProfileSummarySection: View {
                     value: profile.spiritualMode,
                     color: .purple
                 )
-                
+
                 ProfileSummaryRow(
                     icon: "message.circle.fill",
                     title: "Insight Tone",
                     value: profile.insightTone,
                     color: .blue
                 )
-                
+
                 ProfileSummaryRow(
                     icon: "tag.circle.fill",
                     title: "Focus Areas",
                     value: profile.focusTags.joined(separator: ", "),
                     color: .green
                 )
-                
+
                 ProfileSummaryRow(
                     icon: "moon.stars.fill",
                     title: "Cosmic Preference",
@@ -76,7 +76,7 @@ struct ProfileSummarySection: View {
         .padding()
         .background(profileSummaryBackground)
     }
-    
+
     // MARK: - Background Style
     private var profileSummaryBackground: some View {
         RoundedRectangle(cornerRadius: 16)
@@ -94,26 +94,26 @@ struct ProfileSummaryRow: View {
     let title: String
     let value: String
     let color: Color
-    
+
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.title3)
                 .foregroundColor(color)
                 .frame(width: 24)
-            
+
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(.subheadline)
                     .fontWeight(.medium)
                     .foregroundColor(.white)
-                
+
                 Text(value)
                     .font(.caption)
                     .foregroundColor(.white.opacity(0.7))
                     .lineLimit(2)
             }
-            
+
             Spacer()
         }
         .padding(.vertical, 8)
@@ -125,7 +125,7 @@ struct ProfileSummaryRow: View {
     ZStack {
         // Dark background for proper preview context
         Color.black.ignoresSafeArea()
-        
+
         ProfileSummarySection(
             profile: UserProfile(
                 id: "preview",

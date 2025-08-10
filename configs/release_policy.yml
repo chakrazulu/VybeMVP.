@@ -12,43 +12,43 @@ required:
   insights_per_category: 12         # Insights required per category
   intensity_min: 0.60              # Minimum spiritual intensity score
   intensity_max: 0.90              # Maximum spiritual intensity score
-  
+
 # Gate enforcement levels (soft = warnings, hard = build failures)
 gates:
   # Core data integrity (should always be hard)
   determinism: hard                 # Dataset digest consistency
   secrets: hard                     # No leaked credentials/keys
   schema_validation: hard           # JSON schema compliance
-  
+
   # Quality assurance (can be soft for development)
   duplicate_insights: soft          # Prevent content repetition
   spiritual_authenticity: soft      # Maintain tradition accuracy
   content_completeness: soft        # Full category coverage
-  
+
 # File validation thresholds
 thresholds:
   max_file_size_mb: 1.0            # Individual file size limit
   min_insight_length: 50           # Minimum insight character count
   max_insight_length: 500          # Maximum insight character count
-  
+
 # Content quality standards
 quality_standards:
   require_source_attribution: true  # Must reference Divine Triangle
   enforce_master_numbers: true      # 11, 22, 33, 44 unreduced
   validate_numerology_accuracy: true # Check against established tradition
-  
+
 # Development workflow support
 development:
   allow_incomplete_categories: false # Require all 12 categories
   skip_intensity_validation: false  # Always validate intensity bounds
   enable_debug_output: true         # Verbose validation messages
-  
+
 # CI/CD environment settings
 ci_environment:
   enforce_all_gates: true           # Hard enforcement in CI
   timeout_seconds: 300              # Maximum validation time
   fail_fast: true                   # Stop on first critical error
-  
+
 # Local development overrides
 local_development:
   soft_mode_available: true         # Allow --soft flag locally
@@ -56,7 +56,7 @@ local_development:
     - duplicate_insights
     - spiritual_authenticity
     - content_completeness
-    
+
 # Notification settings
 notifications:
   slack_webhook: null               # Future: Slack integration
@@ -97,7 +97,6 @@ exceptions:
   grandfathered_files: []           # Legacy content with relaxed rules
   maintenance_mode: false           # Bypass all non-critical validations
 
----
 # Policy version history:
 # v2.0 (2025-08-09): Initial policy-driven configuration
 # Future versions will track policy evolution and rule changes

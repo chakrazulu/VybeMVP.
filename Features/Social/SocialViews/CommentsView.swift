@@ -10,20 +10,20 @@ import SwiftUI
 struct CommentsView: View {
     let post: Post
     let currentUser: SocialUser
-    
+
     @StateObject private var commentManager = CommentManager.shared
     @State private var commentText = ""
     @State private var replyingTo: Comment? = nil
     @State private var showingKeyboard = false
     @FocusState private var isCommentFieldFocused: Bool
-    
+
     var body: some View {
         NavigationView {
             ZStack {
                 // Cosmic background
                 CosmicBackgroundView()
                     .ignoresSafeArea()
-                
+
                 VStack(spacing: 0) {
                     // Comments list
                     if commentThreads.isEmpty {
@@ -31,7 +31,7 @@ struct CommentsView: View {
                     } else {
                         commentsList
                     }
-                    
+
                     // Comment input
                     commentInputSection
                 }
@@ -54,28 +54,28 @@ struct CommentsView: View {
             commentManager.stopListeningToComments(for: post.id ?? "")
         }
     }
-    
+
     @Environment(\.dismiss) private var dismiss
-    
+
     // MARK: - Computed Properties
-    
+
     private var commentThreads: [CommentThread] {
         commentManager.getCommentThreads(for: post.id ?? "")
     }
-    
+
     // MARK: - View Components
-    
+
     private var emptyStateView: some View {
         VStack(spacing: 20) {
             Image(systemName: "bubble.left.and.bubble.right")
                 .font(.system(size: 60))
                 .foregroundColor(.white.opacity(0.3))
-            
+
             Text("No comments yet")
                 .font(.title3)
                 .fontWeight(.medium)
                 .foregroundColor(.white.opacity(0.8))
-            
+
             Text("Be the first to share your cosmic wisdom")
                 .font(.subheadline)
                 .foregroundColor(.white.opacity(0.6))
@@ -84,7 +84,7 @@ struct CommentsView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
     }
-    
+
     private var commentsList: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16) {
@@ -102,7 +102,7 @@ struct CommentsView: View {
             .padding()
         }
     }
-    
+
     private var commentInputSection: some View {
         VStack(spacing: 0) {
             // Reply indicator
@@ -111,13 +111,13 @@ struct CommentsView: View {
                     Image(systemName: "arrow.turn.down.right")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.6))
-                    
+
                     Text("Replying to \(replyingTo.authorName)")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.8))
-                    
+
                     Spacer()
-                    
+
                     Button(action: {
                         self.replyingTo = nil
                     }) {
@@ -130,7 +130,7 @@ struct CommentsView: View {
                 .padding(.vertical, 8)
                 .background(Color.white.opacity(0.1))
             }
-            
+
             // Comment input field
             HStack(spacing: 12) {
                 // User's focus number
@@ -153,14 +153,14 @@ struct CommentsView: View {
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                     )
-                
+
                 // Text field
                 TextField("Share your cosmic wisdom...", text: $commentText, axis: .vertical)
                     .textFieldStyle(PlainTextFieldStyle())
                     .foregroundColor(.white)
                     .focused($isCommentFieldFocused)
                     .lineLimit(1...4)
-                
+
                 // Send button
                 Button(action: sendComment) {
                     Image(systemName: "paperplane.fill")
@@ -183,13 +183,13 @@ struct CommentsView: View {
         }
         .background(Color.black.opacity(0.3))
     }
-    
+
     // MARK: - Actions
-    
+
     private func sendComment() {
         guard !commentText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
               let postId = post.id else { return }
-        
+
         commentManager.addComment(
             to: postId,
             content: commentText,
@@ -198,12 +198,12 @@ struct CommentsView: View {
             cosmicSignature: currentUser.currentCosmicSignature,
             parentCommentId: replyingTo?.id
         )
-        
+
         // Clear input
         commentText = ""
         replyingTo = nil
         isCommentFieldFocused = false
-        
+
         // Haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: .light)
         impactFeedback.impactOccurred()
@@ -216,9 +216,9 @@ struct CommentThreadView: View {
     let thread: CommentThread
     let currentUser: SocialUser
     let onReply: (Comment) -> Void
-    
+
     @State private var showReplies = true
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             // Parent comment
@@ -228,7 +228,7 @@ struct CommentThreadView: View {
                 onReply: onReply,
                 isReply: false
             )
-            
+
             // Replies
             if thread.replies.count > 0 {
                 Button(action: {
@@ -239,7 +239,7 @@ struct CommentThreadView: View {
                     HStack(spacing: 8) {
                         Image(systemName: showReplies ? "chevron.down" : "chevron.right")
                             .font(.caption)
-                        
+
                         Text("\(thread.replies.count) \(thread.replies.count == 1 ? "reply" : "replies")")
                             .font(.caption)
                             .fontWeight(.medium)
@@ -247,7 +247,7 @@ struct CommentThreadView: View {
                     .foregroundColor(.white.opacity(0.7))
                 }
                 .padding(.leading, 48)
-                
+
                 if showReplies {
                     VStack(alignment: .leading, spacing: 12) {
                         ForEach(thread.replies) { reply in
@@ -274,7 +274,7 @@ struct CommentThreadView: View {
         content: "Just had an amazing meditation session!",
         type: .reflection
     )
-    
+
     let currentUser = SocialUser(
         userId: "current-user",
         displayName: "Test User",
@@ -282,6 +282,6 @@ struct CommentThreadView: View {
         soulUrgeNumber: 2,
         expressionNumber: 8
     )
-    
+
     CommentsView(post: samplePost, currentUser: currentUser)
-} 
+}

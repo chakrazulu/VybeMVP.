@@ -12,7 +12,7 @@ struct JournalListView: View {
     @State private var searchText = ""
     @State private var selectedMood: JournalMood?
     @State private var selectedFocusNumber: Int?
-    
+
     var body: some View {
         NavigationView {
             List {
@@ -22,7 +22,7 @@ struct JournalListView: View {
                         selectedMood = nil
                         selectedFocusNumber = nil
                     }
-                    
+
                     NavigationLink("By Focus Number") {
                         List(1...9, id: \.self) { number in
                             Button {
@@ -35,7 +35,7 @@ struct JournalListView: View {
                         }
                         .navigationTitle("Focus Numbers")
                     }
-                    
+
                     NavigationLink("By Mood") {
                         List(JournalMood.allCases, id: \.rawValue) { mood in
                             Button {
@@ -53,7 +53,7 @@ struct JournalListView: View {
                         .navigationTitle("Moods")
                     }
                 }
-                
+
                 // Entries Section
                 Section {
                     ForEach(filteredEntries) { entry in
@@ -69,28 +69,28 @@ struct JournalListView: View {
         }
         .searchable(text: $searchText)
     }
-    
+
     private var filteredEntries: [JournalEntry] {
         let request = JournalEntry.fetchRequest()
         var predicates: [NSPredicate] = []
-        
+
         if !searchText.isEmpty {
-            predicates.append(NSPredicate(format: "title CONTAINS[cd] %@ OR content CONTAINS[cd] %@", 
+            predicates.append(NSPredicate(format: "title CONTAINS[cd] %@ OR content CONTAINS[cd] %@",
                                        searchText, searchText))
         }
-        
+
         if let mood = selectedMood {
             predicates.append(NSPredicate(format: "moodEmoji == %@", mood.rawValue))
         }
-        
+
         if let focusNumber = selectedFocusNumber {
             predicates.append(NSPredicate(format: "focusNumber == %d", focusNumber))
         }
-        
+
         if !predicates.isEmpty {
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         }
-        
+
         do {
             return try viewContext.fetch(request)
         } catch {
@@ -106,19 +106,19 @@ struct FilterView: View {
         case focusNumber
         case mood
     }
-    
+
     let type: FilterType
     @Binding var selectedNumber: Int?
     @Binding var selectedMood: JournalMood?
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     init(type: FilterType, selectedNumber: Binding<Int?> = .constant(nil), selectedMood: Binding<JournalMood?> = .constant(nil)) {
         self.type = type
         _selectedNumber = selectedNumber
         _selectedMood = selectedMood
     }
-    
+
     var body: some View {
         List {
             switch type {
@@ -131,7 +131,7 @@ struct FilterView: View {
                         Text("\(number)")
                     }
                 }
-                
+
             case .mood:
                 ForEach(JournalMood.allCases, id: \.self) { mood in
                     Button {
@@ -148,4 +148,4 @@ struct FilterView: View {
         }
         .navigationTitle(type == .focusNumber ? "Focus Numbers" : "Moods")
     }
-} 
+}

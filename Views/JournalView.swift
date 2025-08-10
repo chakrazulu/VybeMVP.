@@ -3,7 +3,7 @@ import SwiftUI
 struct JournalView: View {
     @EnvironmentObject var journalManager: JournalManager
     @State private var showingNewEntry = false
-    
+
     var body: some View {
         NavigationView {
             JournalListView()
@@ -29,4 +29,4 @@ struct JournalView: View {
 #Preview {
     JournalView()
         .environmentObject(JournalManager())
-} 
+}

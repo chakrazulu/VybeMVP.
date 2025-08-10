@@ -11,29 +11,29 @@ struct ReactionPickerView: View {
     let post: Post
     let currentUser: SocialUser
     let onReaction: (ReactionType) -> Void
-    
+
     @Environment(\.dismiss) private var dismiss
     @State private var selectedReaction: ReactionType?
     @State private var animateIn = false
-    
+
     var body: some View {
         NavigationView {
             ZStack {
                 // Cosmic background
                 CosmicBackgroundView()
                     .ignoresSafeArea()
-                
+
                 ScrollView {
                     VStack(spacing: 30) {
                         // Header
                         headerSection
-                        
+
                         // Reaction options
                         reactionGrid
-                        
+
                         // Current cosmic signature
                         cosmicSignatureSection
-                        
+
                         // Add some bottom padding for better scrolling
                         Spacer(minLength: 50)
                     }
@@ -49,7 +49,7 @@ struct ReactionPickerView: View {
                     }
                     .foregroundColor(.white)
                 }
-                
+
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if let selectedReaction = selectedReaction {
                         Button(action: {
@@ -80,16 +80,16 @@ struct ReactionPickerView: View {
             }
         }
     }
-    
+
     // MARK: - View Sections
-    
+
     private var headerSection: some View {
         VStack(spacing: 15) {
             Text("How does this post resonate with your energy?")
                 .font(.headline)
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
-            
+
             // Post preview
             VStack(spacing: 12) {
                 HStack {
@@ -112,15 +112,15 @@ struct ReactionPickerView: View {
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
                         )
-                    
+
                     Text(post.authorName)
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundColor(.white)
-                    
+
                     Spacer()
                 }
-                
+
                 Text(post.content)
                     .font(.body)
                     .foregroundColor(.white.opacity(0.9))
@@ -141,13 +141,13 @@ struct ReactionPickerView: View {
         .opacity(animateIn ? 1.0 : 0.0)
         .animation(.easeOut(duration: 0.6), value: animateIn)
     }
-    
+
     private var reactionGrid: some View {
         VStack(spacing: 20) {
             Text("Choose your energetic response")
                 .font(.subheadline)
                 .foregroundColor(.white.opacity(0.8))
-            
+
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 16) {
                 ForEach(Array(ReactionType.allCases.enumerated()), id: \.element) { index, reactionType in
                     ReactionButton(
@@ -168,14 +168,14 @@ struct ReactionPickerView: View {
             }
         }
     }
-    
+
     private var cosmicSignatureSection: some View {
         VStack(spacing: 12) {
             Text("Your Current Cosmic State")
                 .font(.subheadline)
                 .fontWeight(.semibold)
                 .foregroundColor(.white.opacity(0.9))
-            
+
             HStack(spacing: 16) {
                 // Focus number
                 VStack(spacing: 4) {
@@ -198,12 +198,12 @@ struct ReactionPickerView: View {
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
                         )
-                    
+
                     Text("Focus")
                         .font(.caption2)
                         .foregroundColor(.white.opacity(0.7))
                 }
-                
+
                 // Chakra
                 VStack(spacing: 4) {
                     Circle()
@@ -224,12 +224,12 @@ struct ReactionPickerView: View {
                                 .font(.title3)
                                 .foregroundColor(.white)
                         )
-                    
+
                     Text("Heart")
                         .font(.caption2)
                         .foregroundColor(.white.opacity(0.7))
                 }
-                
+
                 // Life Path
                 VStack(spacing: 4) {
                     Circle()
@@ -251,7 +251,7 @@ struct ReactionPickerView: View {
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
                         )
-                    
+
                     Text("Life Path")
                         .font(.caption2)
                         .foregroundColor(.white.opacity(0.7))
@@ -271,18 +271,18 @@ struct ReactionPickerView: View {
         .opacity(animateIn ? 1.0 : 0.0)
         .animation(.easeOut(duration: 0.6).delay(0.4), value: animateIn)
     }
-    
+
     // MARK: - Actions
-    
+
     private func sendReaction(_ reaction: ReactionType) {
         print("🎯 Sending reaction: \(reaction.rawValue)")
-        
+
         onReaction(reaction)
-        
+
         // Haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
         impactFeedback.impactOccurred()
-        
+
         // Dismiss the sheet
         dismiss()
     }
@@ -294,7 +294,7 @@ struct ReactionButton: View {
     let reactionType: ReactionType
     let isSelected: Bool
     let action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             VStack(spacing: 12) {
@@ -322,13 +322,13 @@ struct ReactionButton: View {
                         x: 0,
                         y: isSelected ? 5 : 0
                     )
-                
+
                 VStack(spacing: 4) {
                     Text(reactionType.displayName)
                         .font(.caption)
                         .fontWeight(.semibold)
                         .foregroundColor(.white)
-                    
+
                     Text(reactionType.description)
                         .font(.caption2)
                         .foregroundColor(.white.opacity(0.7))
@@ -362,7 +362,7 @@ struct ReactionButton: View {
             realmNumber: 7
         )
     )
-    
+
     let currentUser = SocialUser(
         userId: "current-user",
         displayName: "Test User",
@@ -370,10 +370,10 @@ struct ReactionButton: View {
         soulUrgeNumber: 2,
         expressionNumber: 8
     )
-    
+
     ReactionPickerView(
         post: samplePost,
         currentUser: currentUser,
         onReaction: { _ in }
     )
-} 
+}

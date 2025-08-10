@@ -16,21 +16,21 @@ import Foundation
 struct PreparedInsight: Identifiable {
     /// Unique identifier for this instance of a prepared insight.
     let id = UUID()
-    
+
     /// The date for which this insight is relevant (typically the current day).
     let date: Date
-    
+
     /// The Life Path Number of the user for whom this insight was prepared.
     /// This helps in contextualizing or displaying information related to the insight.
     let lifePathNumber: Int
-    
+
     /// The actual text of the insight to be displayed to the user.
     let text: String
-    
+
     /// The current moon phase when this insight was generated (to be integrated later).
     /// Now uses SwiftData MoonPhase class instead of enum
     var moonPhase: String = "unknown" // Will integrate with SwiftData MoonPhase class
-    
+
     /// Optional: Information about how this insight was selected (for logging or AI training).
     var source: InsightSource?
 }
@@ -51,22 +51,22 @@ struct PreparedInsight: Identifiable {
 struct InsightSource: Codable {
     /// The ID of the `InsightTemplate` that was used.
     let templateID: String
-    
+
     /// The user's Life Path Number that was matched.
     let matchedLifePath: Int
-    
+
     /// The user's spiritual mode that was matched.
     let matchedSpiritualMode: String
-    
+
     /// The user's insight tone that was matched.
     let matchedTone: String
-    
+
     /// The specific focus tags from the user's profile that intersected with the template's themes.
     let matchedFocusTags: [String]
-    
+
     /// The calculated match score for this template against the user's profile.
     let score: Int
-    
+
     /// Indicates if this insight was chosen as part of a fallback strategy.
     let isFallback: Bool
-} 
+}

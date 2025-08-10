@@ -2,82 +2,82 @@
  * ========================================
  * 🔄 BACKGROUND MANAGER - LIFECYCLE COORDINATOR
  * ========================================
- * 
+ *
  * CORE PURPOSE:
  * Comprehensive background task orchestration managing app lifecycle transitions,
  * background refresh scheduling, notification delivery, and coordinated updates
  * between realm and focus number managers for continuous cosmic monitoring.
- * 
+ *
  * BACKGROUND TASK SYSTEM:
  * - BGAppRefreshTask Integration: iOS background app refresh for realm calculations
  * - Task Scheduling: 15-minute intervals with proper iOS background limits
  * - Expiration Handling: 25-second timeout with graceful task completion
  * - Battery Optimization: Timer tolerance (30s) for efficient power usage
  * - State Persistence: Maintains manager states across app lifecycle changes
- * 
+ *
  * NOTIFICATION MANAGEMENT:
  * - UNUserNotificationCenter Integration: Local notification delivery system
  * - Permission Handling: Authorization request flow with status monitoring
  * - Badge Management: Automatic badge clearing on app activation
  * - Category System: "MATCH_NOTIFICATION" category for cosmic matches
  * - Delegate Pattern: UNUserNotificationCenterDelegate for notification responses
- * 
+ *
  * APP LIFECYCLE COORDINATION:
  * - Foreground Updates: 5-minute active timer with tolerance optimization
  * - Background Updates: 15-minute background refresh scheduling
  * - State Transitions: Seamless manager coordination during app state changes
  * - Memory Management: Proper timer cleanup and weak reference patterns
  * - Notification Cleanup: Badge and delivered notification clearing
- * 
+ *
  * MANAGER INTEGRATION:
  * - RealmNumberManager: Weak reference for realm calculation coordination
  * - FocusNumberManager: Weak reference for match detection integration
  * - Combine Integration: Reactive updates via manager subscriptions
  * - State Synchronization: Ensures managers are active during updates
  * - Dependency Injection: Clean manager reference setup via setManagers()
- * 
+ *
  * PERFORMANCE OPTIMIZATIONS:
  * - Reduced Update Frequency: 5-minute foreground (down from 1-minute)
  * - Timer Tolerance: 30-second tolerance for battery efficiency
  * - Weak References: Prevents retain cycles with manager dependencies
  * - Batch Operations: NotificationBatch for efficient notification updates
  * - Background Queue: Non-blocking background task execution
- * 
+ *
  * UPDATE COORDINATION FLOW:
  * 1. performUpdate() triggers RealmNumberManager calculation
  * 2. Combine subscription in FocusNumberManager detects realm changes
  * 3. Automatic match detection via reactive programming
  * 4. Notification delivery handled by FocusNumberManager
  * 5. Background task completion with success status
- * 
+ *
  * NOTIFICATION SYSTEM:
  * - Authorization Flow: Proper permission request with status checking
  * - Settings Monitoring: Tracks alert, sound, and badge permissions
  * - Foreground Presentation: Shows notifications even when app is active
  * - Response Handling: Processes user notification interactions
  * - Badge Synchronization: Automatic badge count management
- * 
+ *
  * ERROR HANDLING & RESILIENCE:
  * - Task Expiration: Graceful handling of iOS background time limits
  * - Manager Validation: Guards against nil manager references
  * - Permission Failures: Robust handling of notification denials
  * - Timer Failures: Proper cleanup and restart mechanisms
  * - Background Failures: Fallback strategies for background task issues
- * 
+ *
  * SINGLETON ARCHITECTURE:
  * - Shared Instance: App-wide access via BackgroundManager.shared
  * - Thread Safety: Main queue operations for UI-related updates
  * - Lifecycle Management: Proper initialization and cleanup
  * - Observer Pattern: UIApplication lifecycle notification handling
  * - Memory Safety: Automatic cleanup in deinit with observer removal
- * 
+ *
  * TECHNICAL SPECIFICATIONS:
  * - Active Update Interval: 300 seconds (5 minutes) with 30s tolerance
  * - Background Update Interval: 900 seconds (15 minutes)
  * - Task Timeout: 25 seconds for background operations
  * - Task Identifier: "com.infinitiesinn.vybe.backgroundUpdate"
  * - Notification Categories: MATCH_NOTIFICATION with custom actions
- * 
+ *
  * DEBUGGING & MONITORING:
  * - Comprehensive Logging: Detailed status updates for all operations
  * - Timer Status: Active/stopped state tracking with success confirmation
@@ -88,9 +88,9 @@
 
 /**
  * Filename: BackgroundManager.swift
- * 
- * Purpose: Manages background tasks, notifications, and scheduled updates 
- * for the app, ensuring proper functioning when the app is in both foreground 
+ *
+ * Purpose: Manages background tasks, notifications, and scheduled updates
+ * for the app, ensuring proper functioning when the app is in both foreground
  * and background states.
  *
  * Key responsibilities:
@@ -99,7 +99,7 @@
  * - Coordinate updates between various managers when in background
  * - Manage app lifecycle transitions (active/background)
  * - Clear notification badges when app becomes active
- * 
+ *
  * This manager is critical for ensuring the app continues to function
  * properly when not in active use, maintaining the realm number updates
  * and detecting matches even when the app is not in the foreground.
@@ -128,31 +128,31 @@ import CoreData  // For CoreData operations if needed
 class BackgroundManager: NSObject, ObservableObject {
     /// Shared singleton instance for app-wide access
     static let shared = BackgroundManager()
-    
+
     /// Identifier for the background refresh task registration
     private let backgroundTaskIdentifier = "com.infinitiesinn.vybe.backgroundUpdate"
-    
+
     /// Reference to the realm number manager (weak to avoid retain cycles)
     private weak var realmNumberManager: RealmNumberManager?
-    
+
     /// Reference to the focus number manager (weak to avoid retain cycles)
     private weak var focusNumberManager: FocusNumberManager?
-    
+
     /// Timer for scheduling updates when app is active
     private var activeTimer: Timer?
-    
+
     /// Update frequency when app is in the foreground (REDUCED from 1 minute to 5 minutes for performance)
     private let activeUpdateInterval: TimeInterval = 300  // 5 minutes
-    
+
     /// Update frequency when app is in the background (15 minutes)
     private let backgroundUpdateInterval: TimeInterval = 15 * 60
-    
+
     /// Tolerance for timer scheduling to optimize battery life (10% of 5 minutes)
     private let timerTolerance: TimeInterval = 0.1 * 300  // 30 seconds
-    
+
     /// Currently executing background task
     private var backgroundTask: BGAppRefreshTask?
-    
+
     /**
      * Private initializer to enforce singleton pattern.
      *
@@ -165,10 +165,10 @@ class BackgroundManager: NSObject, ObservableObject {
         super.init()
         print("🔄 Initializing BackgroundManager...")
         setupNotifications()
-        
+
         // Clear badge count when app starts
         clearBadgeCount()
-        
+
         // Register for app lifecycle notifications using weak self
         NotificationCenter.default.addObserver(
             self,
@@ -177,7 +177,7 @@ class BackgroundManager: NSObject, ObservableObject {
             object: nil
         )
     }
-    
+
     /**
      * Cleanup when the manager is deallocated.
      *
@@ -192,7 +192,7 @@ class BackgroundManager: NSObject, ObservableObject {
         backgroundTask?.setTaskCompleted(success: true)
         backgroundTask = nil
     }
-    
+
     /**
      * Handles app becoming active in the foreground.
      *
@@ -204,7 +204,7 @@ class BackgroundManager: NSObject, ObservableObject {
         clearBadgeCount()
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
     }
-    
+
     /**
      * Resets the app's badge count to zero.
      *
@@ -220,7 +220,7 @@ class BackgroundManager: NSObject, ObservableObject {
             }
         }
     }
-    
+
     /**
      * Sets up notification categories and delegates.
      *
@@ -232,7 +232,7 @@ class BackgroundManager: NSObject, ObservableObject {
     private func setupNotifications() {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.delegate = self
-        
+
         // Define notification categories and actions
         let matchCategory = UNNotificationCategory(
             identifier: "MATCH_NOTIFICATION",
@@ -240,11 +240,11 @@ class BackgroundManager: NSObject, ObservableObject {
             intentIdentifiers: [],
             options: [.customDismissAction]
         )
-        
+
         notificationCenter.setNotificationCategories([matchCategory])
         registerForNotifications()
     }
-    
+
     /**
      * Sets the manager references for coordinated updates.
      *
@@ -260,11 +260,11 @@ class BackgroundManager: NSObject, ObservableObject {
         self.realmNumberManager = realm
         self.focusNumberManager = focus
         print("✅ Managers set successfully")
-        
+
         // Start active updates immediately
         startActiveUpdates()
     }
-    
+
     /**
      * Comprehensive method to start all monitoring systems in the app.
      *
@@ -279,24 +279,24 @@ class BackgroundManager: NSObject, ObservableObject {
      */
     func startMonitoring() {
         print("\n🔄 Starting comprehensive monitoring...")
-        
+
         // Request notification permissions if needed
         registerForNotifications()
-        
+
         // Start active updates
         startActiveUpdates()
-        
+
         // Schedule background task
         scheduleBackgroundTask()
-        
+
         // Ensure realm and focus managers are active
         if let realmManager = realmNumberManager, realmManager.currentState == .stopped {
             realmManager.startUpdates()
         }
-        
+
         print("✅ Comprehensive monitoring started successfully")
     }
-    
+
     /**
      * Begins frequent updates when the app is in the foreground.
      *
@@ -309,25 +309,25 @@ class BackgroundManager: NSObject, ObservableObject {
         print("\n⚡️ Starting active updates...")
         print("   Update interval: \(activeUpdateInterval) seconds")
         print("   Timer tolerance: \(timerTolerance) seconds")
-        
+
         stopActiveUpdates() // Clear any existing timer
-        
+
         // Perform initial update
         performUpdate()
-        
+
         // Set up timer for frequent updates with tolerance
         activeTimer = Timer.scheduledTimer(withTimeInterval: activeUpdateInterval, repeats: true) { [weak self] _ in
             self?.performUpdate()
         }
         activeTimer?.tolerance = timerTolerance
-        
+
         if activeTimer != nil {
             print("✅ Active timer started successfully")
         } else {
             print("❌ Failed to start active timer")
         }
     }
-    
+
     // Stop frequent updates with proper cleanup
     func stopActiveUpdates() {
         print("\n🛑 Stopping active updates")
@@ -337,7 +337,7 @@ class BackgroundManager: NSObject, ObservableObject {
             print("✅ Active timer stopped successfully")
         }
     }
-    
+
     /**
      * Performs a combined update of realm number calculation, relying on FocusNumberManager for match checks.
      *
@@ -384,18 +384,18 @@ class BackgroundManager: NSObject, ObservableObject {
 
         print("✅ BackgroundManager update initiated. FocusNumberManager will handle match check via Combine.")
     }
-    
+
     func handleBackgroundTask(_ task: BGAppRefreshTask) {
         print("\n🔄 Handling background task...")
         backgroundTask = task
-        
+
         // Set up task expiration
         task.expirationHandler = { [weak self] in
             print("⚠️ Background task expired")
             self?.stopActiveUpdates()
             task.setTaskCompleted(success: false)
         }
-        
+
         // Perform update with timeout
         let taskTimeout = DispatchTime.now() + .seconds(25) // 25 second timeout
         DispatchQueue.global().asyncAfter(deadline: taskTimeout) { [weak self] in
@@ -405,7 +405,7 @@ class BackgroundManager: NSObject, ObservableObject {
                 task.setTaskCompleted(success: false)
             }
         }
-        
+
         // Make sure managers are running before attempting operations
         if let realmManager = realmNumberManager, realmManager.currentState == .stopped {
             print("🔄 Starting RealmNumberManager for background processing")
@@ -459,12 +459,12 @@ class BackgroundManager: NSObject, ObservableObject {
             print("✅ Background task completed successfully")
         }
     }
-    
+
     func scheduleBackgroundTask() {
         print("📅 Scheduling next background task...")
         let request = BGAppRefreshTaskRequest(identifier: backgroundTaskIdentifier)
         request.earliestBeginDate = Date(timeIntervalSinceNow: backgroundUpdateInterval)
-        
+
         do {
             try BGTaskScheduler.shared.submit(request)
             print("✅ Background task scheduled successfully")
@@ -472,10 +472,10 @@ class BackgroundManager: NSObject, ObservableObject {
             print("❌ Could not schedule background task: \(error)")
         }
     }
-    
+
     private func registerForNotifications() {
         print("\n🔔 Requesting notification permissions...")
-        
+
         // First check current authorization status
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             print("📱 Current notification settings:")
@@ -483,7 +483,7 @@ class BackgroundManager: NSObject, ObservableObject {
             print("   Alert Setting: \(settings.alertSetting.rawValue)")
             print("   Sound Setting: \(settings.soundSetting.rawValue)")
             print("   Badge Setting: \(settings.badgeSetting.rawValue)")
-            
+
             // If not determined, request authorization
             if settings.authorizationStatus == .notDetermined {
                 self.requestNotificationPermissions()
@@ -494,7 +494,7 @@ class BackgroundManager: NSObject, ObservableObject {
             }
         }
     }
-    
+
     private func requestNotificationPermissions() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             if granted {
@@ -507,34 +507,34 @@ class BackgroundManager: NSObject, ObservableObject {
             }
         }
     }
-    
+
     // MARK: - Notification Management
     private final class NotificationBatch {
         private var operations: [() -> Void] = []
         private var completion: (() -> Void)?
-        
+
         init(capacity: Int = 2) {
             operations.reserveCapacity(capacity)
         }
-        
+
         func add(_ operation: @escaping () -> Void) {
             operations.append(operation)
         }
-        
+
         func setCompletion(_ completion: (() -> Void)?) {
             self.completion = completion
         }
-        
+
         func execute() {
             guard !operations.isEmpty else { return }
-            
+
             DispatchQueue.main.async { [operations, completion] in
                 operations.forEach { $0() }
                 completion?()
             }
         }
     }
-    
+
     private func batchNotificationUpdates(_ updates: (NotificationBatch) -> Void) {
         let batch = NotificationBatch()
         updates(batch)
@@ -550,11 +550,11 @@ extension BackgroundManager: UNUserNotificationCenterDelegate {
         // Show notification even when app is in foreground
         completionHandler([.banner, .sound, .badge])
     }
-    
+
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                               didReceive response: UNNotificationResponse,
                               withCompletionHandler completionHandler: @escaping () -> Void) {
         // Handle notification response
         completionHandler()
     }
-} 
+}

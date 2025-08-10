@@ -92,4 +92,3 @@ enum Planet: String, Codable {
 ## Summary
 
 This model is the backbone of Vybe's personalized insight system. It carries the user's soul blueprint and drives everything from archetype displays to daily messages, matches, cards, and future social dynamics.
-

@@ -1,6 +1,6 @@
 /**
  * Filename: ActivityView.swift
- * 
+ *
  * 🎯 ENHANCED COSMIC ACTIVITY VIEW - UNIFIED SPIRITUAL TIMELINE
  *
  * === CORE PURPOSE ===
@@ -74,7 +74,7 @@ enum ActivityTimeFilter: String, CaseIterable {
     case week = "7D"
     case month = "30D"
     case allTime = "All"
-    
+
     var icon: String {
         switch self {
         case .today: return "sun.max.fill"
@@ -83,7 +83,7 @@ enum ActivityTimeFilter: String, CaseIterable {
         case .allTime: return "infinity.circle.fill"
         }
     }
-    
+
     var color: Color {
         switch self {
         case .today: return .yellow
@@ -92,7 +92,7 @@ enum ActivityTimeFilter: String, CaseIterable {
         case .allTime: return .white
         }
     }
-    
+
     func filterDate() -> Date? {
         let calendar = Calendar.current
         switch self {
@@ -123,7 +123,7 @@ extension PersistedInsightLog: TimelineItem {
     var timelineTimestamp: Date {
         return self.timestamp ?? Date()
     }
-    
+
     var timelineId: UUID {
         return self.id ?? UUID()
     }
@@ -134,7 +134,7 @@ extension VybeMatch: TimelineItem {
     var timelineTimestamp: Date {
         return self.timestamp
     }
-    
+
     var timelineId: UUID {
         return self.id
     }
@@ -142,36 +142,36 @@ extension VybeMatch: TimelineItem {
 
 /**
  * ActivityView: Cosmic activity feed showing persisted insight logs
- * 
+ *
  * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
- * 
+ *
  * === SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points) ===
  * • NavigationView: Standard iOS navigation
  * • Title: "Cosmic Activity" - navigation title style
  * • Background: Full screen CosmicBackgroundView
  * • ScrollView: Vertical, full width
  * • Content padding: 20pts all sides
- * 
+ *
  * === EMPTY STATE ===
  * • Text: "No activity or insights recorded yet."
  * • Font: Headline (~17pt)
  * • Color: Secondary (system gray)
  * • Alignment: Center horizontally and vertically
  * • Padding: Standard system padding
- * 
+ *
  * === INSIGHT LIST ===
  * • Container: LazyVStack for performance
  * • Spacing: 20pts between cards
  * • Sort order: Newest first (by timestamp)
  * • Animation: Default Core Data animation
- * 
+ *
  * === FULL INSIGHT CARD ===
  * • Container padding: 20pts all sides
  * • Corner radius: 16pts
  * • Border: 2pt gradient stroke
  * • Shadow 1: Sacred color 30%, 15pt blur, 8pt Y offset
  * • Shadow 2: Black 20%, 5pt blur, 2pt Y offset
- * 
+ *
  * === CARD HEADER ===
  * • Title font: Title2 (~22pt), bold
  * • Title gradient: White→Sacred color(90%)
@@ -180,13 +180,13 @@ extension VybeMatch: TimelineItem {
  * • Number badge: 50×50pt circle
  * • Badge gradient: Radial, sacred color 80%→40%
  * • Badge number: 24pt bold rounded, white
- * 
+ *
  * === CARD CONTENT ===
  * • Divider: 2pt height, gradient sacred color
  * • Body text: Body font (~17pt), 95% white
  * • Line spacing: 6pts
  * • Text alignment: Leading (left)
- * 
+ *
  * === TAGS SECTION ===
  * • Icon: tag.fill, caption size
  * • Tag text: Caption2 font (~11pt)
@@ -194,7 +194,7 @@ extension VybeMatch: TimelineItem {
  * • Tag background: Capsule, sacred color 20%
  * • Tag border: 1pt, sacred color 40%
  * • Section margin: 8pt top
- * 
+ *
  * === SACRED COLOR SYSTEM ===
  * 1. Red - Creation/Fire 🔥
  * 2. Orange - Partnership/Balance ⚖️
@@ -205,7 +205,7 @@ extension VybeMatch: TimelineItem {
  * 7. Purple - Spirituality/Wisdom 🔮
  * 8. Gold (#FFD700) - Abundance/Prosperity 💰
  * 9. White - Completion/Universal ⚪
- * 
+ *
  * === GRADIENT SYSTEM ===
  * • Card background: 4 stops
  *   - Sacred color 80%
@@ -213,13 +213,13 @@ extension VybeMatch: TimelineItem {
  *   - Sacred color 30%
  *   - Black 40%
  * • Direction: Top-left to bottom-right
- * 
+ *
  * === PERFORMANCE OPTIMIZATIONS ===
  * • LazyVStack: Only renders visible cards
  * • Core Data fetch: Automatic batching
  * • AI refresh: Deferred by 1.0s on appear
  * • Navigation highlight: Efficient filtering
- * 
+ *
  * === STATE MANAGEMENT ===
  * • managedObjectContext: Core Data context
  * • insightLogs: FetchedResults from Core Data
@@ -233,7 +233,7 @@ struct ActivityView: View {
     @StateObject private var vybeMatchManager = VybeMatchManager()
 
     // MARK: - State Properties
-    
+
     @State private var selectedFilter: ActivityTimeFilter = .week
 
     // FetchRequest to load PersistedInsightLog entries, sorted by timestamp descending
@@ -243,11 +243,11 @@ struct ActivityView: View {
     private var insightLogs: FetchedResults<PersistedInsightLog>
 
     var body: some View {
-        NavigationView { 
+        NavigationView {
             VStack(spacing: 0) {
                 // MARK: - Filter Bar
                 filterBar
-                
+
                 // MARK: - Timeline Content
             ScrollView {
                     if filteredTimelineItems.isEmpty {
@@ -273,10 +273,10 @@ struct ActivityView: View {
         }
         .onAppear {
             // PERFORMANCE FIX: Defer heavy AI insights refresh to prevent tab loading delays
-            
+
             // Clear any previously set insightToView when the tab appears
             // activityNavigationManager.insightToView = nil
-            
+
             // Defer AI insights refresh by 1 second to prevent blocking
             // Claude: SWIFT 6 COMPLIANCE - Use Task for async method call
             Task {
@@ -286,9 +286,9 @@ struct ActivityView: View {
             }
         }
     }
-    
+
     // MARK: - Filter Bar
-    
+
     private var filterBar: some View {
         HStack(spacing: 12) {
             ForEach(ActivityTimeFilter.allCases, id: \.self) { filter in
@@ -314,27 +314,27 @@ struct ActivityView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
             }
-            
+
             Spacer()
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .background(Color.black.opacity(0.2))
     }
-    
+
     // MARK: - Empty State
-    
+
     private var emptyStateView: some View {
         VStack(spacing: 20) {
             Image(systemName: "sparkles.rectangle.stack")
                 .font(.system(size: 60))
                 .foregroundColor(.white.opacity(0.6))
-            
+
             Text("No Cosmic Activity")
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(.white)
-            
+
             Text("Your spiritual journey will appear here as you align with cosmic frequencies and receive insights.")
                 .font(.body)
                 .foregroundColor(.white.opacity(0.8))
@@ -343,34 +343,34 @@ struct ActivityView: View {
         }
         .padding(.top, 100)
     }
-    
+
     // MARK: - Timeline Data Processing
-    
+
     private var filteredTimelineItems: [any TimelineItem] {
         var items: [any TimelineItem] = []
-        
+
         // Add filtered insights
         let filteredInsights = insightLogs.filter { insight in
             guard let filterDate = selectedFilter.filterDate() else { return true }
             return insight.timestamp ?? Date() >= filterDate
         }
         items.append(contentsOf: filteredInsights)
-        
+
         // Add filtered cosmic matches
         let filteredMatches = vybeMatchManager.recentMatches.filter { match in
             guard let filterDate = selectedFilter.filterDate() else { return true }
             return match.timestamp >= filterDate
         }
         items.append(contentsOf: filteredMatches)
-        
+
         // Sort by timestamp (most recent first)
         return items.sorted { item1, item2 in
             item1.timelineTimestamp > item2.timelineTimestamp
         }
     }
-    
+
     // MARK: - Timeline Item View Builder
-    
+
     @ViewBuilder
     private func timelineItemView(for item: any TimelineItem) -> some View {
         if let insight = item as? PersistedInsightLog {
@@ -379,14 +379,14 @@ struct ActivityView: View {
             CosmicMatchCard(match: match)
         }
     }
-    
+
     // MARK: - Refresh Function
-    
+
     private func refreshActivityData() async {
         // Refresh AI insights
         // Claude: SWIFT 6 COMPLIANCE - Use await for async method
         await aiInsightManager.refreshInsightIfNeeded()
-        
+
         // VybeMatchManager data is already live, no refresh needed
         print("🔄 Activity data refreshed")
     }
@@ -394,7 +394,7 @@ struct ActivityView: View {
 
 struct FullInsightCard: View {
     let logEntry: PersistedInsightLog // Changed from MatchedInsightData to PersistedInsightLog
-    
+
     // Get the sacred color for this number
     private var primaryColor: Color {
         switch logEntry.number {
@@ -410,7 +410,7 @@ struct FullInsightCard: View {
         default: return .white
         }
     }
-    
+
     // Create complementary gradient colors
     private var gradientColors: [Color] {
         [
@@ -420,7 +420,7 @@ struct FullInsightCard: View {
             Color.black.opacity(0.4)
         ]
     }
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             HStack {
@@ -436,13 +436,13 @@ struct FullInsightCard: View {
                             )
                         )
                         .shadow(color: primaryColor.opacity(0.4), radius: 3, x: 0, y: 1)
-                    
+
                     Text("Received: \(logEntry.timestamp ?? Date(), style: .date) at \(logEntry.timestamp ?? Date(), style: .time)")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.8))
                 }
                 Spacer()
-                
+
                 // Number badge with sacred color
                 ZStack {
                     Circle()
@@ -456,14 +456,14 @@ struct FullInsightCard: View {
                         )
                         .frame(width: 50, height: 50)
                         .shadow(color: primaryColor.opacity(0.6), radius: 8, x: 0, y: 0)
-                    
+
                     Text("\(logEntry.number)")
                         .font(.system(size: 24, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                         .shadow(color: .black.opacity(0.5), radius: 2, x: 0, y: 1)
                 }
             }
-            
+
             Divider()
                 .background(
                     LinearGradient(
@@ -473,20 +473,20 @@ struct FullInsightCard: View {
                     )
                 )
                 .frame(height: 2)
-            
+
             Text(logEntry.text ?? "Insight text not available.")
                 .font(.body)
                 .foregroundColor(.white.opacity(0.95))
                 .lineSpacing(6)
                 .multilineTextAlignment(.leading)
-            
+
             if let tags = logEntry.tags, !tags.isEmpty {
                 HStack(spacing: 8) {
                     Image(systemName: "tag.fill")
                         .font(.caption)
                         .foregroundColor(primaryColor.opacity(0.8))
                         .shadow(color: primaryColor.opacity(0.4), radius: 2)
-                    
+
                     Text(tags)
                         .font(.caption2)
                         .foregroundColor(.white.opacity(0.8))
@@ -531,7 +531,7 @@ struct FullInsightCard: View {
 
 struct CosmicMatchCard: View {
     let match: VybeMatch
-    
+
     // Get the sacred color for this number
     private var primaryColor: Color {
         switch match.number {
@@ -547,7 +547,7 @@ struct CosmicMatchCard: View {
         default: return .white
         }
     }
-    
+
     // Create complementary gradient colors
     private var gradientColors: [Color] {
         [
@@ -557,7 +557,7 @@ struct CosmicMatchCard: View {
             Color.black.opacity(0.5)
         ]
     }
-    
+
     // Sacred number meanings
     private var sacredMeaning: String {
         switch match.number {
@@ -573,7 +573,7 @@ struct CosmicMatchCard: View {
         default: return "Sacred Alignment"
         }
     }
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             HStack {
@@ -583,7 +583,7 @@ struct CosmicMatchCard: View {
                             .font(.title2)
                             .foregroundColor(primaryColor)
                             .shadow(color: primaryColor.opacity(0.6), radius: 4)
-                        
+
                         Text("Cosmic Alignment")
                             .font(.title2)
                             .fontWeight(.bold)
@@ -596,13 +596,13 @@ struct CosmicMatchCard: View {
                             )
                             .shadow(color: primaryColor.opacity(0.4), radius: 3, x: 0, y: 1)
                     }
-                    
+
                     Text("Achieved: \(match.timestamp, style: .date) at \(match.timestamp, style: .time)")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.8))
                 }
                 Spacer()
-                
+
                 // Number badge with cosmic styling
                 ZStack {
                     Circle()
@@ -620,14 +620,14 @@ struct CosmicMatchCard: View {
                             Circle()
                                 .stroke(primaryColor.opacity(0.6), lineWidth: 2)
                         )
-                    
+
                     Text("\(match.number)")
                         .font(.system(size: 28, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                         .shadow(color: .black.opacity(0.5), radius: 2, x: 0, y: 1)
                 }
             }
-            
+
             Divider()
                 .background(
                     LinearGradient(
@@ -637,31 +637,31 @@ struct CosmicMatchCard: View {
                     )
                 )
                 .frame(height: 2)
-            
+
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     Image(systemName: "heart.circle.fill")
                         .font(.title3)
                         .foregroundColor(.pink.opacity(0.8))
-                    
+
                     Text("Sacred Meaning: \(sacredMeaning)")
                         .font(.headline)
                         .fontWeight(.semibold)
                         .foregroundColor(.white.opacity(0.95))
                 }
-                
+
                 Text("Focus Number and Realm Number achieved perfect cosmic alignment at \(Int(match.heartRate)) BPM. This synchronicity represents a moment of spiritual harmony where your chosen path aligns with universal frequencies.")
                     .font(.body)
                     .foregroundColor(.white.opacity(0.9))
                     .lineSpacing(6)
                     .multilineTextAlignment(.leading)
-                
+
                 HStack(spacing: 16) {
                     HStack(spacing: 6) {
                         Image(systemName: "heart.fill")
                             .font(.caption)
                             .foregroundColor(.pink.opacity(0.8))
-                        
+
                         Text("\(Int(match.heartRate)) BPM")
                             .font(.caption)
                             .fontWeight(.medium)
@@ -677,12 +677,12 @@ struct CosmicMatchCard: View {
                                     .stroke(Color.pink.opacity(0.4), lineWidth: 1)
                             )
                     )
-                    
+
                     HStack(spacing: 6) {
                         Image(systemName: "waveform.path.ecg")
                             .font(.caption)
                             .foregroundColor(primaryColor.opacity(0.8))
-                        
+
                         Text("Cosmic Match")
                             .font(.caption)
                             .fontWeight(.medium)
@@ -698,7 +698,7 @@ struct CosmicMatchCard: View {
                                     .stroke(primaryColor.opacity(0.4), lineWidth: 1)
                             )
                     )
-                    
+
                     Spacer()
                 }
             }
@@ -756,4 +756,4 @@ struct ActivityView_Previews: PreviewProvider {
                 }
             }
     }
-} 
+}

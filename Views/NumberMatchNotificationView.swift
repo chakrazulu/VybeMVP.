@@ -1,6 +1,6 @@
 /**
  * Filename: NumberMatchNotificationView.swift
- * 
+ *
  * Purpose: Displays detailed information about a number match notification.
  * Shows the matched number, insight title, detailed explanation, and provides
  * actions for the user to take based on the match.
@@ -27,12 +27,12 @@ struct NumberMatchNotificationView: View {
     let matchNumber: Int
     let categoryName: String
     let messageContent: String
-    
+
     /// Optional callback when user dismisses the view
     var onDismiss: (() -> Void)?
-    
+
     // Claude: Updated to use SwiftData SpiritualDataController instead of NumberMeaningManager
-    @EnvironmentObject private var spiritualDataController: SpiritualDataController 
+    @EnvironmentObject private var spiritualDataController: SpiritualDataController
 
     var body: some View {
         ScrollView {
@@ -42,17 +42,17 @@ struct NumberMatchNotificationView: View {
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.top)
-                
+
                 // Divider
                 Divider().padding(.vertical)
-                
+
                 // Display the specific message content from the notification
                 Text(messageContent)
                     .font(.body)
                     .lineSpacing(5)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal)
-                
+
                 // TODO: Implement async NumberMeaning loading with SwiftData
                 // Optional: Keep the "About Number" section using spiritualDataController
                 // Note: getNumberMeaning is async, need to restructure this section
@@ -62,18 +62,18 @@ struct NumberMatchNotificationView: View {
                         Text("About Number \(matchNumber)")
                             .font(.headline)
                             .padding(.top)
-                        
+
                         HStack(alignment: .top) {
                             Text("\(matchNumber)")
                                 .font(.system(size: 42, weight: .bold))
                                 .foregroundColor(.primary.opacity(0.8))
                                 .frame(width: 60)
-                            
+
                             VStack(alignment: .leading, spacing: 8) {
                                 Text(meaning.title)
                                     .font(.title3)
                                     .bold()
-                                
+
                                 Text(meaning.essence)
                                     .font(.subheadline)
                                     .fixedSize(horizontal: false, vertical: true)
@@ -88,7 +88,7 @@ struct NumberMatchNotificationView: View {
                     .padding(.horizontal)
                 }
                 */
-                
+
                 // Action buttons (These might need context later)
                 MatchActionButtons(matchNumber: matchNumber)
                     .padding(.top)
@@ -118,13 +118,13 @@ struct NumberMatchNotificationView: View {
  */
 struct MatchActionButtons: View {
     let matchNumber: Int
-    
+
     var body: some View {
         VStack(spacing: 16) {
             Text("Actions")
                 .font(.headline)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             // Journal button
             ActionButton(
                 title: "Create Journal Entry",
@@ -134,7 +134,7 @@ struct MatchActionButtons: View {
                 // TODO: Navigate to journal creation with prefilled match info
                 print("Create journal for match \(matchNumber)")
             }
-            
+
             // Share button
             ActionButton(
                 title: "Share This Insight",
@@ -144,7 +144,7 @@ struct MatchActionButtons: View {
                 // TODO: Implement sharing functionality
                 print("Share match \(matchNumber)")
             }
-            
+
             // Reminder button
             ActionButton(
                 title: "Set a Reminder",
@@ -174,7 +174,7 @@ struct ActionButton: View {
     let icon: String
     let color: Color
     let action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             HStack {
@@ -186,12 +186,12 @@ struct ActionButton: View {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(color)
                     )
-                
+
                 Text(title)
                     .foregroundColor(.primary)
-                
+
                 Spacer()
-                
+
                 Image(systemName: "chevron.right")
                     .foregroundColor(.secondary)
                     .font(.footnote)
@@ -215,4 +215,4 @@ struct ActionButton: View {
             messageContent: "This is a sample insight message for number 7. Embrace introspection and seek deeper truths today. Solitude can be a powerful teacher."
         )
     }
-} 
+}

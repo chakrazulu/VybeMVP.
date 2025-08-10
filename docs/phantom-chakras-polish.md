@@ -10,7 +10,7 @@ This update focuses on improving the audio quality and visual experience of the 
 #### Harmonic Frequency System
 - **Musical Scale**: Changed from Solfeggio frequencies to C major pentatonic scale
   - Root: C4 (261.63 Hz) - fundamental
-  - Sacral: D4 (293.66 Hz) - major second  
+  - Sacral: D4 (293.66 Hz) - major second
   - Solar Plexus: E4 (329.63 Hz) - major third
   - Heart: G4 (392.00 Hz) - perfect fifth
   - Throat: A4 (440.00 Hz) - major sixth
@@ -20,7 +20,7 @@ This update focuses on improving the audio quality and visual experience of the 
 
 #### Safe Lofi Effects Re-introduction
 - **Reverb**: Medium hall preset with 25% wet mix for spaciousness
-- **EQ**: 
+- **EQ**:
   - Low shelf boost at 200Hz (+3dB) for warmth
   - High shelf cut at 4kHz (-12dB) for lofi character
 - **Safety**: Effects are connected after engine is confirmed running with a 200ms delay
@@ -61,11 +61,11 @@ This update focuses on improving the audio quality and visual experience of the 
 
 #### Improved Volume Slider
 - **Gradient Track**: Three-color gradient matching chakra color
-- **Circular Handle**: 
+- **Circular Handle**:
   - 20×20 circle with white border
   - Glow effect that intensifies when dragging
   - Haptic feedback during adjustment
-- **Better Styling**: 
+- **Better Styling**:
   - Rounded rectangle background
   - Subtle shadow effect
   - Increased size for easier interaction
@@ -120,4 +120,4 @@ This update focuses on improving the audio quality and visual experience of the 
 - All changes maintain backward compatibility
 - Audio effects can be disabled via configuration if needed
 - Visual enhancements respect the cosmic theme
-- Ready for user testing and feedback 
+- Ready for user testing and feedback

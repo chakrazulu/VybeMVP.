@@ -2,49 +2,49 @@
  * ========================================
  * 🌌 COSMIC SNAPSHOT VIEW - ENTERPRISE CELESTIAL INTELLIGENCE
  * ========================================
- * 
+ *
  * CORE PURPOSE:
  * Revolutionary cosmic data display component featuring modular architecture,
  * real-time SwiftAA calculations, and premium AI personalization capabilities.
  * Serves as the primary cosmic interface in RealmNumberView with expandable
  * detail sheets providing deep astrological insights.
- * 
+ *
  * ARCHITECTURE OVERVIEW:
  * - Data Layer: CosmicDataRepository (background SwiftAA calculations)
  * - Business Layer: CosmicSnapshotViewModel (UI state & data transformation)
  * - Presentation Layer: CosmicSnapshotView (pure UI rendering)
  * - Performance: 60fps maintained, TaskGroup concurrent processing
- * 
+ *
  * MONETIZATION STRATEGY:
  * - FREE TIER: Template-based interpretations using SwiftAA positions
  * - PREMIUM TIER: KASPER AI-powered personalized readings with natal integration
  * - FUTURE: On-device Apple Intelligence/MLX enhancement capabilities
- * 
+ *
  * CURRENT IMPLEMENTATION:
  * - Real astronomical data via SwiftAA Swiss Ephemeris
  * - Template spiritual interpretations (same for all users)
  * - Background performance optimization
  * - Element-coded visual hierarchy
- * 
+ *
  * PREMIUM UPGRADE PATH:
  * - Integration with existing natal chart data (sanctum view)
  * - KASPER AI analysis of aspects, degrees, transits
  * - Weather/location/timing contextual enhancement
  * - Personalized guidance based on individual birth chart
- * 
+ *
  * TECHNICAL FEATURES:
  * - Daily Trinity: Moon (emotions), Sun (identity), Mercury (communication)
  * - 10-planet comprehensive coverage with retrograde indicators
  * - Element color coding (Fire=Red, Earth=Brown, Air=Yellow, Water=Blue)
  * - Real-time cosmic guidance generation
  * - Smooth expand/collapse animations with namespace transitions
- * 
+ *
  * PERFORMANCE ARCHITECTURE:
  * - Background TaskGroup calculations prevent main thread blocking
  * - Smart 10-minute caching reduces computational overhead
  * - Progressive loading: basic data first, enhancement second
  * - Error boundaries with graceful fallbacks
- * 
+ *
  * ACCESSIBILITY & UX:
  * - VoiceOver complete cosmic narration
  * - Dynamic Type scalable elements
@@ -157,7 +157,7 @@ struct PlanetaryInfo {
 ///
 /// **Key Features:**
 /// - **Complete Planetary Coverage**: All 10 major celestial bodies with real-time positioning
-/// - **Interactive Planet Details**: Tap any planet for comprehensive spiritual and astronomical information  
+/// - **Interactive Planet Details**: Tap any planet for comprehensive spiritual and astronomical information
 /// - **Real-Time Cosmic Flow**: Live retrograde detection, void-of-course Moon, planetary aspects
 /// - **Accurate Calculations**: Enhanced ephemeris algorithms with J2000.0 epoch precision
 /// - **Traditional Astrology**: Authentic aspect interpretations with proper orbs and meanings
@@ -182,30 +182,30 @@ struct PlanetaryInfo {
 /// - **Performance**: Lightweight local calculations with professional-grade accuracy
 /// - **Worldwide Support**: Location-specific coordinate transformations for global users
 struct CosmicSnapshotView: View {
-    
+
     // MARK: - Properties
-    
+
     /// Sacred gradient based on current realm number
     let realmNumber: Int
-    
+
     // MARK: - Dependencies
-    
+
     @EnvironmentObject var cosmicService: CosmicService
     @StateObject private var viewModel: CosmicSnapshotViewModel
-    
+
     // MARK: - Initialization
-    
+
     init(realmNumber: Int) {
         self.realmNumber = realmNumber
         // Initialize with a dummy repository - will be replaced with real one in onAppear
         self._viewModel = StateObject(wrappedValue: CosmicSnapshotViewModel(repository: DummyCosmicRepository()))
     }
-    
+
     /// Animation namespace for smooth transitions
     @Namespace private var cosmicNamespace
-    
+
     // MARK: - Body
-    
+
     var body: some View {
         Group {
             if viewModel.isExpanded {
@@ -234,9 +234,9 @@ struct CosmicSnapshotView: View {
             .environmentObject(cosmicService)
         }
     }
-    
+
     // MARK: - Compact View
-    
+
     private var compactView: some View {
         VStack(spacing: 16) {
             compactHeader
@@ -253,7 +253,7 @@ struct CosmicSnapshotView: View {
         .accessibilityLabel(accessibilityLabel)
         .accessibilityHint("Tap to view detailed cosmic information")
     }
-    
+
     private var compactHeader: some View {
         HStack {
             Text("✦ Cosmic Snapshot ✦")
@@ -265,15 +265,15 @@ struct CosmicSnapshotView: View {
                         endPoint: .trailing
                     )
                 )
-            
+
             Spacer()
-            
+
             /// Claude: Enhanced cosmic data refresh with professional validation
-            /// 
+            ///
             /// This refresh button triggers the enhanced cosmic engine to recalculate
             /// all planetary positions using SwiftAA Swiss Ephemeris algorithms.
             /// Provides real-time updates with professional astronomy accuracy.
-            /// 
+            ///
             /// Technical Implementation:
             /// - Uses CosmicService.fetchTodaysCosmicData() for enhanced calculations
             /// - Incorporates orbital perturbations for improved planetary positions
@@ -287,7 +287,7 @@ struct CosmicSnapshotView: View {
                     .imageScale(.medium)
             }
             .disabled(viewModel.isLoading)
-            
+
             if viewModel.isLoading {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: .white))
@@ -299,7 +299,7 @@ struct CosmicSnapshotView: View {
             }
         }
     }
-    
+
     private var compactContent: some View {
         Group {
             if viewModel.shouldShowLoadingState {
@@ -315,19 +315,19 @@ struct CosmicSnapshotView: View {
             }
         }
     }
-    
+
     private func cosmicDataGrid(cosmic: CosmicData) -> some View {
         VStack(spacing: 16) {
             // Header explaining the significance
             Text("Your Daily Trinity")
                 .font(.system(size: 14, weight: .semibold, design: .rounded))
                 .foregroundColor(.white.opacity(0.8))
-            
+
             Text("Moon • Sun • Mercury - Your core daily influences")
                 .font(.system(size: 11, weight: .medium, design: .rounded))
                 .foregroundColor(.white.opacity(0.6))
                 .padding(.bottom, 8)
-            
+
             // Primary cosmic data row - Moon, Sun, Mercury
             HStack(spacing: 20) {
                 // Moon Phase
@@ -346,14 +346,14 @@ struct CosmicSnapshotView: View {
                         .font(.system(size: 12, weight: .medium, design: .rounded))
                         .foregroundColor(.white.opacity(0.9))
                         .multilineTextAlignment(.center)
-                    
+
                     // Show illumination
                     if let illumination = cosmic.moonIllumination {
                         Text("\(Int(illumination))%")
                             .font(.system(size: 10, weight: .medium, design: .rounded))
                             .foregroundColor(.white.opacity(0.7))
                     }
-                    
+
                     if cosmic.isVoidOfCoursePeriod {
                         Text("VoC")
                             .font(.system(size: 8, weight: .bold, design: .rounded))
@@ -365,12 +365,12 @@ struct CosmicSnapshotView: View {
                 .onTapGesture {
                     viewModel.selectPlanet("Moon")
                 }
-                
+
                 // Divider
                 Rectangle()
                     .fill(SwiftUI.Color.white.opacity(0.15))
                     .frame(width: 1, height: 60)
-                
+
                 // Sun Sign
                 VStack(spacing: 6) {
                     Text(cosmic.sunSignEmoji)
@@ -387,12 +387,12 @@ struct CosmicSnapshotView: View {
                 .onTapGesture {
                     viewModel.selectPlanet("Sun")
                 }
-                
+
                 // Divider
                 Rectangle()
                     .fill(SwiftUI.Color.white.opacity(0.15))
                     .frame(width: 1, height: 60)
-                
+
                 // Mercury (Communication)
                 VStack(spacing: 6) {
                     if let mercurySign = cosmic.planetaryZodiacSign(for: "Mercury") {
@@ -419,19 +419,19 @@ struct CosmicSnapshotView: View {
                     viewModel.selectPlanet("Mercury")
                 }
             }
-            
+
             // All other planets in a comprehensive grid
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 12) {
                 ForEach(getAllPlanetaryData(cosmic: cosmic), id: \.planet) { planetData in
                     enhancedPlanetCard(planetData, cosmic: cosmic)
                 }
             }
-            
+
             // Personalized cosmic guidance
             personalizedCosmicGuidance(cosmic: cosmic)
         }
     }
-    
+
     /// Claude: Personalized cosmic guidance based on current planetary positions
     private func personalizedCosmicGuidance(cosmic: CosmicData) -> some View {
         VStack(spacing: 12) {
@@ -442,7 +442,7 @@ struct CosmicSnapshotView: View {
                     .font(.system(size: 14, weight: .semibold, design: .rounded))
                     .foregroundColor(.white)
             }
-            
+
             Text(generatePersonalizedGuidance(cosmic: cosmic))
                 .font(.system(size: 12, weight: .medium, design: .rounded))
                 .foregroundColor(.white.opacity(0.9))
@@ -462,11 +462,11 @@ struct CosmicSnapshotView: View {
         )
         .padding(.top, 8)
     }
-    
+
     /// Claude: Generate personalized guidance based on cosmic conditions
     private func generatePersonalizedGuidance(cosmic: CosmicData) -> String {
         var guidance: [String] = []
-        
+
         // Moon phase guidance
         if cosmic.moonPhase.contains("New") {
             guidance.append("New beginnings await - plant seeds for future growth.")
@@ -477,7 +477,7 @@ struct CosmicSnapshotView: View {
         } else if cosmic.moonPhase.contains("Waning") {
             guidance.append("Release what no longer serves - make space for the new.")
         }
-        
+
         // Sun sign guidance
         let sunElement = getSignElement(cosmic.sunSign)
         switch sunElement {
@@ -492,12 +492,12 @@ struct CosmicSnapshotView: View {
         default:
             guidance.append("Universal energy guides your path forward.")
         }
-        
+
         // Mercury retrograde warning
         if cosmic.isRetrograde("Mercury") {
             guidance.append("Mercury retrograde: Double-check communications and travel plans.")
         }
-        
+
         // Venus guidance
         if let venusSign = cosmic.planetaryZodiacSign(for: "Venus") {
             let venusElement = getSignElement(venusSign)
@@ -507,7 +507,7 @@ struct CosmicSnapshotView: View {
                 guidance.append("Passionate expression leads to romantic breakthroughs.")
             }
         }
-        
+
         // Combine guidance into meaningful message
         if guidance.count >= 2 {
             return guidance.prefix(2).joined(separator: " ")
@@ -517,17 +517,17 @@ struct CosmicSnapshotView: View {
             return "The universe conspires to support your highest good. Trust the cosmic flow."
         }
     }
-    
-    
+
+
     // MARK: - Helper Methods
-    
+
     /// Claude: Get all planetary data for comprehensive display
     private func getAllPlanetaryData(cosmic: CosmicData) -> [PlanetaryInfo] {
         let planets = ["Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
-        
+
         return planets.compactMap { planet in
             guard let sign = cosmic.planetaryZodiacSign(for: planet) else { return nil }
-            
+
             return PlanetaryInfo(
                 planet: planet,
                 sign: sign,
@@ -539,7 +539,7 @@ struct CosmicSnapshotView: View {
             )
         }
     }
-    
+
     /// Claude: Enhanced planet card with rich information
     private func enhancedPlanetCard(_ planetData: PlanetaryInfo, cosmic: CosmicData) -> some View {
         VStack(spacing: 4) {
@@ -554,12 +554,12 @@ struct CosmicSnapshotView: View {
                         .offset(x: -2, y: -6)
                 }
             }
-            
+
             // Planet name
             Text(planetData.planet)
                 .font(.system(size: 9, weight: .semibold, design: .rounded))
                 .foregroundColor(.white.opacity(0.9))
-            
+
             // Current sign with element color
             Text(planetData.sign)
                 .font(.system(size: 10, weight: .medium, design: .rounded))
@@ -570,7 +570,7 @@ struct CosmicSnapshotView: View {
                     RoundedRectangle(cornerRadius: 4)
                         .fill(getElementColor(planetData.element).opacity(0.2))
                 )
-            
+
             // Key influence
             Text(planetData.influence)
                 .font(.system(size: 7, weight: .medium, design: .rounded))
@@ -593,7 +593,7 @@ struct CosmicSnapshotView: View {
             viewModel.selectPlanet(planetData.planet)
         }
     }
-    
+
     private func planetDisplayCard(_ planetData: PlanetDisplayData) -> some View {
         VStack(spacing: 6) {
             HStack(spacing: 2) {
@@ -606,12 +606,12 @@ struct CosmicSnapshotView: View {
                         .offset(x: -4, y: -8)
                 }
             }
-            
+
             Text(planetData.currentSign)
                 .font(.system(size: 12, weight: .medium, design: .rounded))
                 .foregroundColor(.white.opacity(0.9))
                 .multilineTextAlignment(.center)
-            
+
             Text(planetData.nextTransit)
                 .font(.system(size: 10, weight: .semibold, design: .rounded))
                 .foregroundColor(.cyan.opacity(0.9))
@@ -623,7 +623,7 @@ struct CosmicSnapshotView: View {
             viewModel.selectPlanet(planetData.planet)
         }
     }
-    
+
     private func loadingPlanetCard(_ planet: String, _ emoji: String) -> some View {
         VStack(spacing: 6) {
             Text(emoji)
@@ -634,31 +634,31 @@ struct CosmicSnapshotView: View {
         }
         .frame(maxWidth: .infinity)
     }
-    
+
     private var loadingView: some View {
         VStack(spacing: 12) {
             ProgressView()
                 .progressViewStyle(CircularProgressViewStyle(tint: .white))
                 .scaleEffect(1.2)
-            
+
             Text("Loading cosmic data...")
                 .font(.system(size: 14, weight: .medium, design: .rounded))
                 .foregroundColor(.white.opacity(0.7))
         }
         .frame(maxWidth: .infinity, minHeight: 80)
     }
-    
+
     private var errorView: some View {
         VStack(spacing: 12) {
             Image(systemName: "exclamationmark.triangle")
                 .font(.system(size: 24))
                 .foregroundColor(.orange)
-            
+
             Text(viewModel.errorMessage ?? "Unknown error")
                 .font(.system(size: 14, weight: .medium, design: .rounded))
                 .foregroundColor(.white.opacity(0.7))
                 .multilineTextAlignment(.center)
-            
+
             Button("Retry") {
                 viewModel.refreshData()
             }
@@ -666,7 +666,7 @@ struct CosmicSnapshotView: View {
         }
         .frame(maxWidth: .infinity, minHeight: 80)
     }
-    
+
     private var expandedView: some View {
         ScrollView {
             VStack(spacing: 20) {
@@ -681,16 +681,16 @@ struct CosmicSnapshotView: View {
                                 endPoint: .trailing
                             )
                         )
-                    
+
                     Spacer()
-                    
+
                     Button("Collapse") {
                         viewModel.toggleExpanded()
                     }
                     .foregroundColor(.blue)
                 }
                 .padding(.horizontal)
-                
+
                 // Main cosmic data
                 if let cosmic = cosmicService.todaysCosmic {
                     cosmicDataGrid(cosmic: cosmic)
@@ -698,14 +698,14 @@ struct CosmicSnapshotView: View {
                     Text("Loading cosmic data...")
                         .foregroundColor(.white.opacity(0.7))
                 }
-                
+
                 // Additional planetary info
                 if !viewModel.outerPlanets.isEmpty {
                     VStack(spacing: 16) {
                         Text("Outer Planets")
                             .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.white)
-                        
+
                         LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 16) {
                             ForEach(viewModel.outerPlanets, id: \.id) { planetData in
                                 planetDisplayCard(planetData)
@@ -714,7 +714,7 @@ struct CosmicSnapshotView: View {
                     }
                     .padding(.horizontal)
                 }
-                
+
                 // Update timestamp
                 Text(viewModel.formatLastUpdate())
                     .font(.system(size: 12))
@@ -727,14 +727,14 @@ struct CosmicSnapshotView: View {
             viewModel.toggleExpanded()
         }
     }
-    
+
     private var accessibilityLabel: String {
         if let moonData = viewModel.moonDisplayData, let sunData = viewModel.sunDisplayData {
             return "Cosmic snapshot: Moon in \(moonData.currentSign), Sun in \(sunData.currentSign), \(viewModel.planetDisplayData.count) planets"
         }
         return "Cosmic snapshot loading"
     }
-    
+
     private var cosmicBackground: some View {
         RoundedRectangle(cornerRadius: 20)
             .fill(.ultraThinMaterial)
@@ -753,11 +753,11 @@ struct CosmicSnapshotView: View {
                     )
             )
     }
-    
+
     private func getRealmColor(for number: Int) -> SwiftUI.Color {
         switch number {
         case 1: return SwiftUI.Color.red
-        case 2: return SwiftUI.Color.orange  
+        case 2: return SwiftUI.Color.orange
         case 3: return SwiftUI.Color.yellow
         case 4: return SwiftUI.Color.green
         case 5: return SwiftUI.Color.blue
@@ -777,26 +777,26 @@ struct DetailedPlanetaryView: View {
     let planet: String
     let cosmic: CosmicData
     let realmNumber: Int
-    
+
     @EnvironmentObject var cosmicService: CosmicService
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 24) {
                     // Header with planet info
                     planetHeader
-                    
+
                     // Current cosmic state
                     currentCosmicState
-                    
+
                     // Spiritual meaning section
                     spiritualMeaning
-                    
+
                     // MegaCorpus wisdom
                     megaCorpusWisdom
-                    
+
                     // Transit information
                     transitInfo
                 }
@@ -825,17 +825,17 @@ struct DetailedPlanetaryView: View {
             }
         }
     }
-    
+
     private var currentSign: String {
         cosmic.planetaryZodiacSign(for: planet) ?? "Unknown"
     }
-    
+
     private var planetHeader: some View {
         VStack(spacing: 12) {
             HStack(spacing: 8) {
                 Text(getPlanetEmoji(planet))
                     .font(.system(size: 60))
-                
+
                 if cosmic.isRetrograde(planet) {
                     VStack {
                         Text("℞")
@@ -847,24 +847,24 @@ struct DetailedPlanetaryView: View {
                     }
                 }
             }
-            
+
             Text(planet)
                 .font(.system(size: 32, weight: .bold, design: .rounded))
                 .foregroundColor(.white)
-            
+
             Text(getPlanetInfluence(planet))
                 .font(.headline)
                 .foregroundColor(.white.opacity(0.8))
         }
     }
-    
+
     private var currentCosmicState: some View {
         VStack(spacing: 16) {
             Text("Current Cosmic State")
                 .font(.title2)
                 .fontWeight(.semibold)
                 .foregroundColor(.white)
-            
+
             HStack(spacing: 20) {
                 // Sign info
                 VStack {
@@ -876,11 +876,11 @@ struct DetailedPlanetaryView: View {
                         .fontWeight(.semibold)
                         .foregroundColor(getElementColor(getSignElement(currentSign)))
                 }
-                
+
                 Divider()
                     .background(Color.white.opacity(0.3))
                     .frame(height: 40)
-                
+
                 // Element
                 VStack {
                     Text("Element")
@@ -891,11 +891,11 @@ struct DetailedPlanetaryView: View {
                         .fontWeight(.semibold)
                         .foregroundColor(getElementColor(getSignElement(currentSign)))
                 }
-                
+
                 Divider()
                     .background(Color.white.opacity(0.3))
                     .frame(height: 40)
-                
+
                 // Quality
                 VStack {
                     Text("Quality")
@@ -914,14 +914,14 @@ struct DetailedPlanetaryView: View {
             )
         }
     }
-    
+
     private var spiritualMeaning: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Spiritual Meaning")
                 .font(.title2)
                 .fontWeight(.semibold)
                 .foregroundColor(.white)
-            
+
             Text(getSpiritualMeaning(planet: planet, sign: currentSign))
                 .font(.body)
                 .foregroundColor(.white.opacity(0.9))
@@ -934,14 +934,14 @@ struct DetailedPlanetaryView: View {
                 .fill(.ultraThinMaterial)
         )
     }
-    
+
     private var megaCorpusWisdom: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Ancient Wisdom")
                 .font(.title2)
                 .fontWeight(.semibold)
                 .foregroundColor(.white)
-            
+
             Text(getMegaCorpusWisdom(planet: planet, sign: currentSign))
                 .font(.body)
                 .foregroundColor(.white.opacity(0.9))
@@ -954,14 +954,14 @@ struct DetailedPlanetaryView: View {
                 .fill(.ultraThinMaterial)
         )
     }
-    
+
     private var transitInfo: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Current Transits")
                 .font(.title2)
                 .fontWeight(.semibold)
                 .foregroundColor(.white)
-            
+
             Text(getTransitInfo(planet: planet, sign: currentSign))
                 .font(.body)
                 .foregroundColor(.white.opacity(0.9))
@@ -974,83 +974,83 @@ struct DetailedPlanetaryView: View {
                 .fill(.ultraThinMaterial)
         )
     }
-    
+
     // MARK: - Helper Functions
-    
+
     private func getSpiritualMeaning(planet: String, sign: String) -> String {
         // Get additional SwiftAA data for deeper personalization
         let isRetrograde = cosmic.isRetrograde(planet)
         let element = getSignElement(sign)
         let quality = getSignQuality(sign)
-        
+
         switch planet {
         case "Sun":
             let seasonality = getSunSeasonality(sign: sign)
             let retrogradeNote = isRetrograde ? " During this rare retrograde period, you're called to deeply examine your authentic self." : ""
             return "Your core identity radiates \(sign) energy, bringing \(seasonality) to your life purpose. As a \(quality.lowercased()) \(element.lowercased()) sign, \(sign) empowers you with \(getSignTraits(sign: sign)). This placement illuminates your natural leadership style and creative expression.\(retrogradeNote)"
-            
+
         case "Moon":
             let moonPhaseInsight = getMoonPhaseInsight()
             let retrogradeNote = isRetrograde ? " \(getRetrogradeMeaning(planet: "Moon"))" : ""
             return "Your emotional core resonates with \(sign) energy, expressing \(getSignTraits(sign: sign)). \(moonPhaseInsight) Your instinctual responses and security needs align with \(quality.lowercased()) \(element.lowercased()) energy, making you naturally attuned to \(getElementalWisdom(element)).\(retrogradeNote)"
-            
+
         case "Mercury":
             let retrogradeNote = isRetrograde ? " \(getRetrogradeMeaning(planet: "Mercury"))" : ""
             return "Your mental processes and communication style flow through \(sign)'s \(getSignTraits(sign: sign)). This \(quality.lowercased()) \(element.lowercased()) placement shapes how you think, learn, and express ideas. Your intellectual approach naturally aligns with \(getElementalWisdom(element)), making you particularly skilled at \(getMercuryTalents(sign: sign)).\(retrogradeNote)"
-            
+
         case "Venus":
             return "Your approach to love, beauty, and values is expressed through \(sign) energy. This influences what you find attractive, how you show affection, and what brings you pleasure. Your heart resonates with \(sign)'s aesthetic and romantic qualities."
-            
+
         case "Mars":
             return "Your drive, ambition, and approach to action are channeled through \(sign) energy. This affects how you pursue goals, handle conflict, and express your will. Your inner warrior embodies \(sign)'s action-oriented qualities."
-            
+
         case "Jupiter":
             return "Your growth, wisdom, and expansion are guided by \(sign) energy. This influences your philosophical outlook, learning style, and areas of natural abundance. Your spiritual development follows \(sign)'s path to wisdom."
-            
+
         case "Saturn":
             return "Your lessons, responsibilities, and structural growth are taught through \(sign) energy. This represents areas where you're building mastery, facing challenges, and developing discipline. Your life's work is shaped by \(sign)'s teachings."
-            
+
         case "Uranus":
             return "Your innovation, rebellion, and unique contributions are expressed through \(sign) energy. This influences how you break free from limitations and bring revolutionary change. Your originality manifests through \(sign)'s transformative power."
-            
+
         case "Neptune":
             return "Your dreams, intuition, and spiritual connection are channeled through \(sign) energy. This affects your imagination, psychic abilities, and connection to the divine. Your soul's vision is colored by \(sign)'s mystical qualities."
-            
+
         case "Pluto":
             return "Your transformation, power, and regeneration are directed by \(sign) energy. This represents your deepest psychological processes and potential for rebirth. Your shadow work and empowerment follow \(sign)'s transformative path."
-            
+
         default:
             return "This celestial body carries profound spiritual significance in your cosmic blueprint."
         }
     }
-    
+
     private func getMegaCorpusWisdom(planet: String, sign: String) -> String {
         // This would integrate with your MegaCorpus data
         let ancientWisdom = [
             "Mercury": "The ancient Hermetic traditions teach that Mercury governs the sacred art of communication between worlds. In \(sign), your mental faculties become a bridge between the material and spiritual realms.",
-            
+
             "Venus": "The mystery schools of Venus reveal that love is the fundamental force of creation. Through \(sign), you channel this divine love into manifestation, bringing beauty and harmony to the earthly plane.",
-            
+
             "Mars": "The warrior traditions honor Mars as the force of divine will in action. In \(sign), your spiritual warrior awakens, using conflict as a path to higher consciousness and purposeful action.",
-            
+
             "Jupiter": "The ancient philosophers recognized Jupiter as the great teacher and guide. Through \(sign), you access cosmic wisdom and expand your understanding of universal truths and higher meaning.",
-            
+
             "Saturn": "The initiatory traditions see Saturn as the wise teacher who structures spiritual growth. In \(sign), you encounter the sacred challenges that forge your soul's strength and spiritual mastery.",
-            
+
             "Uranus": "The revolutionary mystics understand Uranus as the lightning of awakening consciousness. Through \(sign), you receive downloads of future wisdom and innovative spiritual insights.",
-            
+
             "Neptune": "The oceanic mysteries of Neptune dissolve the boundaries between self and cosmos. In \(sign), your psychic abilities and spiritual vision are enhanced, connecting you to divine inspiration.",
-            
+
             "Pluto": "The underworld traditions know Pluto as the transformer of souls. Through \(sign), you undergo profound spiritual alchemy, emerging reborn with deeper power and wisdom."
         ]
-        
+
         return ancientWisdom[planet] ?? "Ancient wisdom flows through this planetary placement, offering profound insights for your spiritual journey."
     }
-    
+
     private func getTransitInfo(planet: String, sign: String) -> String {
         let transitSpeed = [
             "Sun": "about 30 days",
-            "Moon": "about 2.5 days", 
+            "Moon": "about 2.5 days",
             "Mercury": "about 15-60 days",
             "Venus": "about 23 days to 9 months",
             "Mars": "about 45 days to 7 months",
@@ -1060,14 +1060,14 @@ struct DetailedPlanetaryView: View {
             "Neptune": "about 14 years",
             "Pluto": "about 15-30 years"
         ]
-        
+
         let speed = transitSpeed[planet] ?? "varies"
-        
+
         return "\(planet) typically spends \(speed) in each zodiac sign. This current placement in \(sign) represents a significant period for integrating \(planet)'s energy through \(sign)'s qualities. Use this time to fully embody the lessons and gifts this combination offers."
     }
-    
+
     // MARK: - Enhanced Personalization Helpers
-    
+
     private func getSunSeasonality(sign: String) -> String {
         switch sign {
         case "Aries", "Leo", "Sagittarius": return "dynamic fire energy and pioneering courage"
@@ -1077,7 +1077,7 @@ struct DetailedPlanetaryView: View {
         default: return "universal cosmic energy"
         }
     }
-    
+
     private func getSignTraits(sign: String) -> String {
         switch sign {
         case "Aries": return "bold initiative, leadership courage, and pioneering spirit"
@@ -1095,7 +1095,7 @@ struct DetailedPlanetaryView: View {
         default: return "unique cosmic gifts"
         }
     }
-    
+
     private func getMoonPhaseInsight() -> String {
         let moonPhase = cosmic.moonPhase
         switch true {
@@ -1119,7 +1119,7 @@ struct DetailedPlanetaryView: View {
             return "Current lunar energy influences your emotional and intuitive nature."
         }
     }
-    
+
     private func getRetrogradeMeaning(planet: String) -> String {
         switch planet {
         case "Mercury":
@@ -1136,7 +1136,7 @@ struct DetailedPlanetaryView: View {
             return "This retrograde period offers valuable opportunities for internal growth and spiritual evolution."
         }
     }
-    
+
     private func getElementalWisdom(_ element: String) -> String {
         switch element {
         case "Fire": return "dynamic action, creative inspiration, and passionate self-expression"
@@ -1146,7 +1146,7 @@ struct DetailedPlanetaryView: View {
         default: return "universal cosmic wisdom"
         }
     }
-    
+
     private func getMercuryTalents(sign: String) -> String {
         switch sign {
         case "Aries": return "direct, decisive communication and quick thinking"
@@ -1180,11 +1180,11 @@ class DummyCosmicRepository: CosmicDataRepositoryProtocol {
             error: nil
         )
     }
-    
+
     @MainActor var snapshotPublisher: AnyPublisher<CosmicSnapshot, Never> {
         Just(currentSnapshot).eraseToAnyPublisher()
     }
-    
+
     func refreshData() async {}
     func getDetailedPlanetaryInfo(for planet: String) async -> PlanetaryData? { nil }
 }

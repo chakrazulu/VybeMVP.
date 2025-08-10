@@ -12,19 +12,19 @@ import SwiftUI
 // This ensures widgets show the same data as Dynamic Island and main app
 
 struct Provider: AppIntentTimelineProvider {
-    
+
     // Claude: Create live cosmic data entry using App Groups or UserDefaults for data sync
     // This ensures consistency with Dynamic Island and main app without importing managers
     private func createLiveEntry(date: Date, configuration: ConfigurationAppIntent) -> SimpleEntry {
         // Get live data from UserDefaults (shared between app and widget)
         let userDefaults = UserDefaults(suiteName: "group.com.infinitiesinn.vybe.VybeMVP") ?? UserDefaults.standard
-        
+
         // Get live data with fallbacks (same as main app would store)
         let rulerNumber = userDefaults.object(forKey: "CosmicHUD_RulerNumber") as? Int ?? getLiveRulerNumber()
         let realmNumber = userDefaults.object(forKey: "CosmicHUD_RealmNumber") as? Int ?? getLiveRealmNumber()
         let dominantAspect = userDefaults.string(forKey: "CosmicHUD_DominantAspect") ?? "☉ △ ☽"
         let element = userDefaults.string(forKey: "CosmicHUD_Element") ?? getElementEmoji(for: rulerNumber)
-        
+
         return SimpleEntry(
             date: date,
             configuration: configuration,
@@ -34,21 +34,21 @@ struct Provider: AppIntentTimelineProvider {
             element: element
         )
     }
-    
+
     // Claude: Calculate live ruler number independently (simplified calculation)
     private func getLiveRulerNumber() -> Int {
         let dayOfYear = Calendar.current.dayOfYear(for: Date()) ?? 1
         let hour = Calendar.current.component(.hour, from: Date())
         return ((dayOfYear + hour) % 9) + 1 // Returns 1-9
     }
-    
+
     // Claude: Calculate live realm number independently (simplified calculation)
     private func getLiveRealmNumber() -> Int {
         let minute = Calendar.current.component(.minute, from: Date())
         let second = Calendar.current.component(.second, from: Date())
         return ((minute + second) % 9) + 1 // Returns 1-9
     }
-    
+
     // Claude: Get element emoji based on ruler number (same logic as CosmicHUDManager)
     private func getElementEmoji(for rulerNumber: Int) -> String {
         let dayOfYear = Calendar.current.dayOfYear(for: Date()) ?? 1
@@ -56,7 +56,7 @@ struct Provider: AppIntentTimelineProvider {
         let index = (dayOfYear + rulerNumber) % elements.count
         return elements[index]
     }
-    
+
     func placeholder(in context: Context) -> SimpleEntry {
         return createLiveEntry(date: Date(), configuration: ConfigurationAppIntent())
     }
@@ -64,14 +64,14 @@ struct Provider: AppIntentTimelineProvider {
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
         return createLiveEntry(date: Date(), configuration: configuration)
     }
-    
+
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
         var entries: [SimpleEntry] = []
 
         // Claude: Generate timeline with live cosmic data updates
         // More frequent updates now that we have NSSupportsLiveActivitiesFrequentUpdates enabled
         let currentDate = Date()
-        
+
         // Create entries every 15 minutes for more responsive cosmic updates
         for minuteOffset in stride(from: 0, to: 240, by: 15) { // 4 hours of entries, every 15 minutes
             let entryDate = Calendar.current.date(byAdding: .minute, value: minuteOffset, to: currentDate)!
@@ -92,7 +92,7 @@ struct Provider: AppIntentTimelineProvider {
 struct SimpleEntry: TimelineEntry {
     let date: Date
     let configuration: ConfigurationAppIntent
-    
+
     // Claude: Live cosmic data for consistent display across all widgets
     let rulerNumber: Int
     let realmNumber: Int
@@ -123,7 +123,7 @@ struct CosmicHUDWidgetEntryView : View {
             cosmicHazeBackground
         }
     }
-    
+
     // MARK: - Small Widget (Square)
     /// Claude: Compact square widget showing essential cosmic data
     private var smallWidgetView: some View {
@@ -135,13 +135,13 @@ struct CosmicHUDWidgetEntryView : View {
                     .font(.title)
                     .fontWeight(.bold)
             }
-            
+
             Text("Ruler")
                 .font(.caption)
                 .foregroundColor(.secondary)
-            
+
             Divider()
-            
+
             Text("🔮 \(entry.realmNumber)") // Claude: Now uses live realm number
                 .font(.headline)
             Text("Realm")
@@ -150,7 +150,7 @@ struct CosmicHUDWidgetEntryView : View {
         }
         .padding()
     }
-    
+
     // MARK: - Medium Widget (Rectangle)
     /// Claude: Wider widget showing ruler, realm, and active aspect with brief insight
     private var mediumWidgetView: some View {
@@ -170,10 +170,10 @@ struct CosmicHUDWidgetEntryView : View {
                         .font(.caption2)
                         .foregroundColor(.secondary)
                 }
-                
+
                 Divider()
                     .frame(height: 30)
-                
+
                 // Realm section
                 VStack(spacing: 2) {
                     HStack {
@@ -187,10 +187,10 @@ struct CosmicHUDWidgetEntryView : View {
                         .font(.caption2)
                         .foregroundColor(.secondary)
                 }
-                
+
                 Divider()
                     .frame(height: 30)
-                
+
                 // Aspect section
                 VStack(spacing: 2) {
                     Text(entry.dominantAspect) // Claude: Now uses live aspect data
@@ -201,7 +201,7 @@ struct CosmicHUDWidgetEntryView : View {
                         .foregroundColor(.secondary)
                 }
             }
-            
+
             // Brief insight for medium widget - optimized to prevent cutoff
             Text(getInsightText(rulerNumber: entry.rulerNumber, aspectType: "live", widgetSize: .medium)) // Claude: Now uses live data
                 .font(.caption2)
@@ -213,7 +213,7 @@ struct CosmicHUDWidgetEntryView : View {
         }
         .padding(12)
     }
-    
+
     // MARK: - Large Widget (Big Square)
     /// Claude: Full cosmic dashboard with all spiritual data
     private var largeWidgetView: some View {
@@ -222,7 +222,7 @@ struct CosmicHUDWidgetEntryView : View {
             Text("🌌 Cosmic Awareness")
                 .font(.subheadline)
                 .fontWeight(.semibold)
-            
+
             // Numbers and Element row - more compact
             HStack(spacing: 16) {
                 VStack(spacing: 2) {
@@ -237,10 +237,10 @@ struct CosmicHUDWidgetEntryView : View {
                         .font(.caption2)
                         .foregroundColor(.secondary)
                 }
-                
+
                 Divider()
                     .frame(height: 40)
-                
+
                 VStack(spacing: 2) {
                     HStack {
                         Text("🔮")
@@ -253,10 +253,10 @@ struct CosmicHUDWidgetEntryView : View {
                         .font(.caption2)
                         .foregroundColor(.secondary)
                 }
-                
+
                 Divider()
                     .frame(height: 40)
-                
+
                 VStack(spacing: 2) {
                     Text(entry.element) // Claude: Now uses live element
                         .font(.title3)
@@ -265,13 +265,13 @@ struct CosmicHUDWidgetEntryView : View {
                         .foregroundColor(.secondary)
                 }
             }
-            
+
             // Thin divider
             Rectangle()
                 .fill(Color.gray.opacity(0.3))
                 .frame(height: 1)
                 .padding(.horizontal)
-            
+
             // Aspect section - more compact
             VStack(spacing: 4) {
                 Text(entry.dominantAspect) // Claude: Now uses live aspect data
@@ -281,13 +281,13 @@ struct CosmicHUDWidgetEntryView : View {
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
-            
+
             // Comprehensive insight using template system
             VStack(spacing: 6) {
                 Text(getInsightTitle(for: entry.rulerNumber)) // Claude: Now uses live ruler number
                     .font(.body)
                     .fontWeight(.semibold)
-                
+
                 Text(getInsightText(rulerNumber: entry.rulerNumber, aspectType: "live", widgetSize: .large)) // Claude: Now uses live data
                     .font(.caption)
                     .foregroundColor(.secondary)
@@ -299,7 +299,7 @@ struct CosmicHUDWidgetEntryView : View {
         }
         .padding(12)
     }
-    
+
     // MARK: - Rectangular Widget (Lock Screen)
     /// Claude: Lock screen widget - ultra compact
     private var rectangularWidgetView: some View {
@@ -307,13 +307,13 @@ struct CosmicHUDWidgetEntryView : View {
             Text("👑\(entry.rulerNumber)") // Claude: Now uses live ruler number
                 .font(.body)
                 .fontWeight(.semibold)
-            
+
             Text("🔮\(entry.realmNumber)") // Claude: Now uses live realm number
                 .font(.body)
                 .fontWeight(.semibold)
-            
+
             Spacer()
-            
+
             Text(entry.dominantAspect.replacingOccurrences(of: " ", with: "")) // Claude: Now uses live aspect data (compact)
                 .font(.caption)
                 .fontWeight(.medium)
@@ -321,7 +321,7 @@ struct CosmicHUDWidgetEntryView : View {
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
     }
-    
+
     // MARK: - Cosmic Haze Background
     /// Claude: Elegant cosmic haze effect that creates floating parallax illusion - fills entire widget
     /// Opacity balanced for subtle visibility while maintaining elegance
@@ -372,14 +372,14 @@ struct CosmicHUDWidgetEntryView : View {
             )
             .clipped()
     }
-    
+
     // MARK: - Template-Based Insight Generation
     /// Claude: Generate insights using widget-specific templates to prevent cutoff
-    
+
     private func getInsightTitle(for rulerNumber: Int) -> String {
         let titles: [Int: String] = [
             1: "Lead boldly",
-            2: "Harmonize deeply", 
+            2: "Harmonize deeply",
             3: "Create freely",
             4: "Build steadily",
             5: "Explore freely",
@@ -390,7 +390,7 @@ struct CosmicHUDWidgetEntryView : View {
         ]
         return titles[rulerNumber] ?? "Channel cosmos"
     }
-    
+
     private func getInsightText(rulerNumber: Int, aspectType: String, widgetSize: WidgetSize) -> String {
         return WidgetInsightTemplates.generateInsight(
             rulerNumber: rulerNumber,
@@ -398,20 +398,20 @@ struct CosmicHUDWidgetEntryView : View {
             widgetSize: widgetSize
         )
     }
-    
+
     // MARK: - Helper Functions for Live Data Display
-    
+
     /// Claude: Get element name from emoji for display
     private func getElementName(_ emoji: String) -> String {
         switch emoji {
         case "🔥": return "Fire"
-        case "🌍": return "Earth"  
+        case "🌍": return "Earth"
         case "💨": return "Air"
         case "💧": return "Water"
         default: return "Element"
         }
     }
-    
+
     /// Claude: Format aspect display for readable explanation
     private func formatAspectExplanation(_ aspectDisplay: String) -> String {
         let symbolMap: [String: String] = [
@@ -419,24 +419,24 @@ struct CosmicHUDWidgetEntryView : View {
             "♂": "Mars", "♃": "Jupiter", "♄": "Saturn", "♅": "Uranus",
             "♆": "Neptune", "♇": "Pluto"
         ]
-        
+
         let aspectMap: [String: String] = [
             "☌": "conjunct", "☍": "opposite", "△": "trine",
             "□": "square", "⚹": "sextile", "⚻": "quincunx"
         ]
-        
+
         var explanation = aspectDisplay
-        
+
         // Replace planet symbols
         for (symbol, name) in symbolMap {
             explanation = explanation.replacingOccurrences(of: symbol, with: name)
         }
-        
-        // Replace aspect symbols  
+
+        // Replace aspect symbols
         for (symbol, name) in aspectMap {
             explanation = explanation.replacingOccurrences(of: symbol, with: name)
         }
-        
+
         return explanation.isEmpty ? "Active Aspect" : explanation
     }
 }
@@ -460,7 +460,7 @@ extension ConfigurationAppIntent {
         intent.favoriteEmoji = "😀"
         return intent
     }
-    
+
     fileprivate static var starEyes: ConfigurationAppIntent {
         let intent = ConfigurationAppIntent()
         intent.favoriteEmoji = "🤩"

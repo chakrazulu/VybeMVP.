@@ -1,17 +1,17 @@
 /**
  * Shimmer Loading View - Spiritual AI Loading Animation
- * 
+ *
  * A mystical shimmer effect designed specifically for KASPER MLX insight generation.
  * Creates an ethereal, flowing animation that communicates spiritual AI processing
  * while maintaining Vybe's sacred aesthetic standards.
- * 
+ *
  * Key Features:
  * • Smooth gradient-based shimmer animation
  * • Spiritual color palette (purple, gold, cyan)
  * • Customizable content shape and speed
  * • Performance optimized for 60fps
  * • Accessibility support with reduced motion
- * 
+ *
  * Usage:
  * ```swift
  * ShimmerLoadingView(
@@ -30,10 +30,10 @@ struct ShimmerLoadingView: View {
     let width: CGFloat
     let height: CGFloat
     let animationSpeed: Double
-    
+
     @State private var shimmerOffset: CGFloat = -1.0
     @AccessibilityFocusState private var isAccessibilityFocused: Bool
-    
+
     init(
         text: String = "Consulting the cosmic wisdom...",
         width: CGFloat = 280,
@@ -45,7 +45,7 @@ struct ShimmerLoadingView: View {
         self.height = height
         self.animationSpeed = animationSpeed
     }
-    
+
     var body: some View {
         VStack(spacing: 12) {
             // Shimmer content area
@@ -100,7 +100,7 @@ struct ShimmerLoadingView: View {
                             lineWidth: 1
                         )
                 )
-            
+
             // Loading text with subtle pulse
             Text(text)
                 .font(.body)
@@ -117,12 +117,12 @@ struct ShimmerLoadingView: View {
         .accessibilityHint(text)
         .accessibilityAddTraits(.updatesFrequently)
     }
-    
+
     /// Claude: Start the shimmer animation with reduced motion support
     private func startShimmerAnimation() {
         // Check if user prefers reduced motion
         let reduceMotion = UIAccessibility.isReduceMotionEnabled
-        
+
         if reduceMotion {
             // Simple fade animation for accessibility
             withAnimation(.easeInOut(duration: 1.0).repeatForever()) {
@@ -142,21 +142,21 @@ struct ShimmerLoadingView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.black.ignoresSafeArea()
-            
+
             VStack(spacing: 30) {
                 ShimmerLoadingView(
                     text: "Consulting the cosmic wisdom...",
                     width: 300,
                     height: 80
                 )
-                
+
                 ShimmerLoadingView(
                     text: "Generating spiritual insight...",
                     width: 250,
                     height: 60,
                     animationSpeed: 1.5
                 )
-                
+
                 ShimmerLoadingView(
                     text: "Aligning with universal energies...",
                     width: 320,

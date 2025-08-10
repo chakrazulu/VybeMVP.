@@ -199,7 +199,7 @@ make build
 make test
 
 # Structural tests only (required for CI)
-make test-structural  
+make test-structural
 
 # Heuristic quality tests only
 make test-heuristic

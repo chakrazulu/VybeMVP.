@@ -31,13 +31,13 @@ extension Logger {
 
     /// Logger for data management operations, including local caching, CoreData, and data transformations.
     static let data = Logger(subsystem: loggerSubsystem, category: "DataManagement")
-    
+
     /// Logger for numerology specific calculations, data loading, and services.
     static let numerology = Logger(subsystem: loggerSubsystem, category: "Numerology")
-    
+
     /// Logger for AI Insight generation, template matching, and related processes.
     static let ai = Logger(subsystem: loggerSubsystem, category: "AIInsightEngine")
-    
+
     /// Logger for general service-level operations not covered by more specific categories.
     static let services = Logger(subsystem: loggerSubsystem, category: "AppServices")
 

@@ -12,22 +12,22 @@ struct CommentCardView: View {
     let currentUser: SocialUser
     let onReply: (Comment) -> Void
     let isReply: Bool
-    
+
     @State private var showingActions = false
     @State private var animateIn = false
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             // Author's focus number avatar
             avatarView
-            
+
             VStack(alignment: .leading, spacing: 8) {
                 // Header with author info
                 headerSection
-                
+
                 // Comment content
                 contentSection
-                
+
                 // Actions row
                 actionsSection
             }
@@ -55,9 +55,9 @@ struct CommentCardView: View {
             }
         }
     }
-    
+
     // MARK: - View Components
-    
+
     private var avatarView: some View {
         Circle()
             .fill(
@@ -85,21 +85,21 @@ struct CommentCardView: View {
                 y: 2
             )
     }
-    
+
     private var headerSection: some View {
         HStack(spacing: 8) {
             Text(comment.authorName)
                 .font(.subheadline)
                 .fontWeight(.semibold)
                 .foregroundColor(.white)
-            
+
             // Cosmic context
             Text("• \(comment.cosmicContext)")
                 .font(.caption)
                 .foregroundColor(getSacredColor(for: comment.cosmicSignature.focusNumber).opacity(0.8))
-            
+
             Spacer()
-            
+
             // Time and edit indicator
             HStack(spacing: 4) {
                 if comment.isEdited {
@@ -107,14 +107,14 @@ struct CommentCardView: View {
                         .font(.caption2)
                         .foregroundColor(.white.opacity(0.5))
                 }
-                
+
                 Text(comment.timeAgo)
                     .font(.caption2)
                     .foregroundColor(.white.opacity(0.5))
             }
         }
     }
-    
+
     private var contentSection: some View {
         Text(comment.content)
             .font(.body)
@@ -123,7 +123,7 @@ struct CommentCardView: View {
             .lineLimit(nil)
             .multilineTextAlignment(.leading)
     }
-    
+
     private var actionsSection: some View {
         HStack(spacing: 20) {
             // Reply button
@@ -140,7 +140,7 @@ struct CommentCardView: View {
                     .foregroundColor(.white.opacity(0.6))
                 }
             }
-            
+
             // Reaction count (if any)
             if comment.totalReactions > 0 {
                 HStack(spacing: 4) {
@@ -151,9 +151,9 @@ struct CommentCardView: View {
                 }
                 .foregroundColor(.pink.opacity(0.8))
             }
-            
+
             Spacer()
-            
+
             // More actions (for comment author)
             if comment.authorId == currentUser.userId && !comment.isDeleted {
                 Menu {
@@ -162,7 +162,7 @@ struct CommentCardView: View {
                     }) {
                         Label("Edit", systemImage: "pencil")
                     }
-                    
+
                     Button(role: .destructive, action: {
                         // TODO: Implement delete
                     }) {
@@ -208,7 +208,7 @@ private func getSacredColor(for number: Int) -> Color {
             realmNumber: 7
         )
     )
-    
+
     let currentUser = SocialUser(
         userId: "current-user",
         displayName: "Test User",
@@ -216,7 +216,7 @@ private func getSacredColor(for number: Int) -> Color {
         soulUrgeNumber: 2,
         expressionNumber: 8
     )
-    
+
     CommentCardView(
         comment: sampleComment,
         currentUser: currentUser,
@@ -225,4 +225,4 @@ private func getSacredColor(for number: Int) -> Color {
     )
     .padding()
     .background(Color.black)
-} 
+}

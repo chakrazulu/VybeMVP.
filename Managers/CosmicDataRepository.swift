@@ -1,15 +1,15 @@
 /**
  * CosmicDataRepository.swift
- * 
+ *
  * 🏗️ PROPER ARCHITECTURE - DATA LAYER SEPARATION
- * 
- * SINGLE RESPONSIBILITY: 
+ *
+ * SINGLE RESPONSIBILITY:
  * Handle all expensive SwiftAA calculations, caching, and background processing
  * separate from UI concerns.
- * 
+ *
  * SIMILAR TO SANCTUM PATTERN:
  * Clean separation between data layer and presentation layer with focused interfaces.
- * 
+ *
  * PERFORMANCE STRATEGY:
  * - Background pre-calculation of all planetary data
  * - Smart caching with invalidation
@@ -48,7 +48,7 @@ struct CosmicSnapshot {
 protocol CosmicDataRepositoryProtocol: AnyObject {
     @MainActor var currentSnapshot: CosmicSnapshot { get }
     @MainActor var snapshotPublisher: AnyPublisher<CosmicSnapshot, Never> { get }
-    
+
     func refreshData() async
     func getDetailedPlanetaryInfo(for planet: String) async -> PlanetaryData?
 }
@@ -57,34 +57,34 @@ protocol CosmicDataRepositoryProtocol: AnyObject {
 
 @MainActor
 class CosmicDataRepository: ObservableObject, CosmicDataRepositoryProtocol {
-    
+
     // MARK: - Published Properties
-    
+
     @Published private var _currentSnapshot: CosmicSnapshot
-    
+
     var currentSnapshot: CosmicSnapshot { _currentSnapshot }
-    
+
     var snapshotPublisher: AnyPublisher<CosmicSnapshot, Never> {
         $_currentSnapshot.eraseToAnyPublisher()
     }
-    
+
     // MARK: - Private Properties
-    
+
     private let cosmicService: CosmicService
     private var backgroundTask: Task<Void, Never>?
     private var cancellables = Set<AnyCancellable>()
-    
+
     // MARK: - Cache Properties
-    
+
     private var planetaryCache: [String: PlanetaryData] = [:]
     private var lastCacheUpdate: Date = Date.distantPast
     private let cacheValidityDuration: TimeInterval = 600 // 10 minutes
-    
+
     // MARK: - Initialization
-    
+
     init(cosmicService: CosmicService) {
         self.cosmicService = cosmicService
-        
+
         // Initialize with loading state
         self._currentSnapshot = CosmicSnapshot(
             moonData: Self.loadingPlanetaryData(for: "Moon"),
@@ -95,34 +95,34 @@ class CosmicDataRepository: ObservableObject, CosmicDataRepositoryProtocol {
             isLoading: true,
             error: nil
         )
-        
+
         setupBackgroundDataRefresh()
         startInitialDataLoad()
     }
-    
+
     deinit {
         backgroundTask?.cancel()
     }
-    
+
     // MARK: - Public Methods
-    
+
     func refreshData() async {
         await performDataRefresh(force: true)
     }
-    
+
     func getDetailedPlanetaryInfo(for planet: String) async -> PlanetaryData? {
         // First check cache
         if let cached = planetaryCache[planet],
            Date().timeIntervalSince(cached.lastUpdated) < cacheValidityDuration {
             return cached
         }
-        
+
         // Calculate if not cached or expired
         return await calculatePlanetaryData(for: planet)
     }
-    
+
     // MARK: - Private Methods
-    
+
     private func setupBackgroundDataRefresh() {
         // Refresh data every 10 minutes in background
         Timer.publish(every: 600, on: .main, in: .common)
@@ -134,24 +134,24 @@ class CosmicDataRepository: ObservableObject, CosmicDataRepositoryProtocol {
             }
             .store(in: &cancellables)
     }
-    
+
     private func startInitialDataLoad() {
         backgroundTask = Task {
             await performDataRefresh(force: true)
         }
     }
-    
+
     private func performDataRefresh(force: Bool) async {
         let now = Date()
-        
+
         // Check if refresh is needed
         if !force && now.timeIntervalSince(lastCacheUpdate) < cacheValidityDuration {
             return
         }
-        
+
         // Update loading state
         await updateLoadingState(isLoading: true, error: nil)
-        
+
         do {
             // Get cosmic data from service
             var cosmic = cosmicService.todaysCosmic
@@ -162,10 +162,10 @@ class CosmicDataRepository: ObservableObject, CosmicDataRepositoryProtocol {
                     throw CosmicDataError.noDataAvailable
                 }
             }
-            
+
             // Calculate planetary data in background
             let planetaryData = await calculateAllPlanetaryData(cosmic: cosmic!)
-            
+
             // Create snapshot
             let snapshot = CosmicSnapshot(
                 moonData: planetaryData.first { $0.planet == "Moon" } ?? Self.loadingPlanetaryData(for: "Moon"),
@@ -176,27 +176,27 @@ class CosmicDataRepository: ObservableObject, CosmicDataRepositoryProtocol {
                 isLoading: false,
                 error: nil
             )
-            
+
             // Update cache and state
             lastCacheUpdate = now
             _currentSnapshot = snapshot
-            
+
             // Cache individual planetary data
             for data in planetaryData {
                 planetaryCache[data.planet] = data
             }
-            
+
             print("🚀 Cosmic data repository updated successfully")
-            
+
         } catch {
             await updateLoadingState(isLoading: false, error: error.localizedDescription)
             print("❌ Failed to update cosmic data: \(error)")
         }
     }
-    
+
     private func calculateAllPlanetaryData(cosmic: CosmicData) async -> [PlanetaryData] {
         let planets = ["Moon", "Sun", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
-        
+
         // Use TaskGroup for concurrent calculations
         return await withTaskGroup(of: PlanetaryData?.self) { group in
             for planet in planets {
@@ -204,7 +204,7 @@ class CosmicDataRepository: ObservableObject, CosmicDataRepositoryProtocol {
                     await self.calculatePlanetaryData(for: planet, cosmic: cosmic)
                 }
             }
-            
+
             var results: [PlanetaryData] = []
             for await result in group {
                 if let data = result {
@@ -214,17 +214,17 @@ class CosmicDataRepository: ObservableObject, CosmicDataRepositoryProtocol {
             return results
         }
     }
-    
+
     private func calculatePlanetaryData(for planet: String, cosmic: CosmicData? = nil) async -> PlanetaryData? {
         let workingCosmic = cosmic ?? cosmicService.todaysCosmic
         guard let cosmicData = workingCosmic else { return nil }
-        
+
         let currentSign = cosmicData.planetaryZodiacSign(for: planet) ?? "Unknown"
         let isRetrograde = cosmicData.isRetrograde(planet)
         let nextTransit = await calculateNextTransit(for: planet)
         let position = cosmicData.position(for: planet)
         let emoji = Self.getPlanetEmoji(planet)
-        
+
         return PlanetaryData(
             planet: planet,
             currentSign: currentSign,
@@ -235,7 +235,7 @@ class CosmicDataRepository: ObservableObject, CosmicDataRepositoryProtocol {
             lastUpdated: Date()
         )
     }
-    
+
     private func calculateNextTransit(for planet: String) async -> String? {
         // Perform expensive SwiftAA calculation on background thread
         return await withCheckedContinuation { continuation in
@@ -253,12 +253,12 @@ class CosmicDataRepository: ObservableObject, CosmicDataRepositoryProtocol {
                     "Neptune": "→ Aries",
                     "Pluto": "→ Aquarius"
                 ]
-                
+
                 continuation.resume(returning: mockTransits[planet])
             }
         }
     }
-    
+
     private func updateLoadingState(isLoading: Bool, error: String?) async {
         _currentSnapshot = CosmicSnapshot(
             moonData: _currentSnapshot.moonData,
@@ -270,9 +270,9 @@ class CosmicDataRepository: ObservableObject, CosmicDataRepositoryProtocol {
             error: error
         )
     }
-    
+
     // MARK: - Helper Methods
-    
+
     private static func loadingPlanetaryData(for planet: String) -> PlanetaryData {
         PlanetaryData(
             planet: planet,
@@ -284,7 +284,7 @@ class CosmicDataRepository: ObservableObject, CosmicDataRepositoryProtocol {
             lastUpdated: Date()
         )
     }
-    
+
     private static func getPlanetEmoji(_ planet: String) -> String {
         switch planet {
         case "Mercury": return "☿"
@@ -300,7 +300,7 @@ class CosmicDataRepository: ObservableObject, CosmicDataRepositoryProtocol {
         default: return "⭐"
         }
     }
-    
+
     private func getCurrentSeason(sunSign: String) -> String {
         switch sunSign {
         case "Aries", "Taurus", "Gemini": return "Spring"
@@ -318,7 +318,7 @@ enum CosmicDataError: Error, LocalizedError {
     case noDataAvailable
     case calculationFailed
     case cacheCorrupted
-    
+
     var errorDescription: String? {
         switch self {
         case .noDataAvailable:

@@ -2,19 +2,19 @@
  * ========================================
  * 📖 JOURNAL ENTRY DETAIL VIEW - SACRED REFLECTION DISPLAY
  * ========================================
- * 
+ *
  * CORE PURPOSE:
  * Comprehensive display interface for viewing journal entries with voice playback,
  * numerology integration, and mystical aesthetics. Provides a sacred space for
  * reflecting on past spiritual insights and experiences.
- * 
+ *
  * SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points):
  * • NavigationView: "Sacred Reflection" title with inline display
  * • CosmicBackgroundView: Full-screen space travel animation
  * • Cosmic Number Overlay: Animated focus number display
  * • ScrollView: Main content with 24pt spacing
  * • Multiple Sections: Header, badges, voice, content, metadata
- * 
+ *
  * UI COMPONENTS:
  * • Sacred Header: Entry title with gradient styling and timestamp
  * • Numerology Badges: Focus and Realm number displays
@@ -22,7 +22,7 @@
  * • Content Display: Journal entry text content
  * • Metadata Section: Entry details and mood information
  * • Action Menu: Edit and delete options
- * 
+ *
  * FEATURES:
  * • Voice Playback: Audio recording playback with VoiceRecordingManager
  * • Numerology Display: Focus and Realm number badges
@@ -30,20 +30,20 @@
  * • Entry Management: Edit and delete capabilities
  * • Timestamp Display: Creation date and time information
  * • Mood Tracking: Emotional state display
- * 
+ *
  * STATE MANAGEMENT:
  * • Environment Objects: JournalManager for data access
  * • State Objects: VoiceRecordingManager, UI state
  * • Entry Data: JournalEntry model with all entry information
  * • Animation State: Pulse animations for mystical effects
- * 
+ *
  * INTEGRATION POINTS:
  * • JournalManager: Entry data access and deletion
  * • VoiceRecordingManager: Audio playback functionality
  * • EditJournalEntryView: Modal editing interface
  * • CosmicBackgroundView: Space travel animation
  * • Navigation system: Standard iOS navigation patterns
- * 
+ *
  * USER EXPERIENCE:
  * • Immersive cosmic environment for reflection
  * • Voice and text content display
@@ -57,7 +57,7 @@ import AVFoundation
 
 /**
  * JournalEntryDetailView: Sacred journal entry display interface
- * 
+ *
  * Provides a comprehensive, mystical interface for viewing
  * journal entries with voice playback, numerology integration,
  * and cosmic aesthetics for spiritual reflection.
@@ -66,51 +66,51 @@ struct JournalEntryDetailView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var journalManager: JournalManager
     @StateObject private var voiceManager = VoiceRecordingManager.shared
-    
+
     // MARK: - Properties
-    
+
     /// Journal entry to display
     let entry: JournalEntry
-    
+
     // MARK: - State Properties
-    
+
     /// Controls delete confirmation alert visibility
     @State private var showingDeleteAlert = false
-    
+
     /// Controls edit sheet modal visibility
     @State private var showingEditSheet = false
-    
+
     /// Controls pulse animation for mystical effects
     @State private var pulseAnimation = false
-    
+
     // MARK: - Body
-    
+
     var body: some View {
         ZStack {
             // MARK: - Cosmic Background Layer
             CosmicBackgroundView()
                 .ignoresSafeArea()
-            
+
             // MARK: - Sacred Floating Number Overlay
             cosmicNumberOverlay
-            
+
             // MARK: - Main Content ScrollView
             ScrollView {
                 VStack(spacing: 24) {
                     // MARK: - Sacred Header Section
                     sacredHeaderSection
-                    
+
                     // MARK: - Numerology Badges Section
                     numerologyBadgesSection
-                    
+
                     // MARK: - Voice Recording Section (if exists)
                     if let voiceFilename = entry.voiceRecordingFilename {
                         voicePlaybackSection(filename: voiceFilename)
                     }
-                    
+
                     // MARK: - Content Section
                     contentSection
-                    
+
                     // MARK: - Metadata Section
                     metadataSection
                 }
@@ -130,9 +130,9 @@ struct JournalEntryDetailView: View {
                     }) {
                         Label("Edit", systemImage: "pencil")
                     }
-                    
+
                     Divider()
-                    
+
                     Button(role: .destructive) {
                         showingDeleteAlert = true
                     } label: {
@@ -167,9 +167,9 @@ struct JournalEntryDetailView: View {
             }
         }
     }
-    
+
     // MARK: - Cosmic Number Overlay
-    
+
     private var cosmicNumberOverlay: some View {
         ZStack {
             Text("\(entry.focusNumber)")
@@ -181,9 +181,9 @@ struct JournalEntryDetailView: View {
                 .offset(x: -100, y: -150)
         }
     }
-    
+
     // MARK: - Sacred Header Section
-    
+
     private var sacredHeaderSection: some View {
         VStack(spacing: 12) {
             Text("✨ \(entry.title ?? "Sacred Reflection") ✨")
@@ -197,7 +197,7 @@ struct JournalEntryDetailView: View {
                     )
                 )
                 .multilineTextAlignment(.center)
-            
+
             if let timestamp = entry.timestamp {
                 Text("Captured on \(timestamp, style: .date) at \(timestamp, style: .time)")
                     .font(.caption)
@@ -223,9 +223,9 @@ struct JournalEntryDetailView: View {
         )
         .shadow(color: .purple.opacity(0.3), radius: 10, x: 0, y: 5)
     }
-    
+
     // MARK: - Numerology Badges Section
-    
+
     private var numerologyBadgesSection: some View {
         HStack(spacing: 20) {
             // Focus Number Badge
@@ -235,7 +235,7 @@ struct JournalEntryDetailView: View {
                 subtitle: "Your chosen path",
                 color: sacredNumberColor(for: Int(entry.focusNumber))
             )
-            
+
             // Realm Number Badge (if available)
             if entry.realmNumber > 0 {
                 NumerologyBadge(
@@ -248,16 +248,16 @@ struct JournalEntryDetailView: View {
         }
         .padding(.horizontal)
     }
-    
+
     // MARK: - Voice Playback Section
-    
+
     private func voicePlaybackSection(filename: String) -> some View {
         VStack(spacing: 16) {
             Text("🎙️ Sacred Voice")
                 .font(.headline)
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             HStack(spacing: 16) {
                 // Play/Pause Button
                 Button(action: {
@@ -275,33 +275,33 @@ struct JournalEntryDetailView: View {
                                 endPoint: .bottomTrailing
                             ))
                             .frame(width: 60, height: 60)
-                        
+
                         Image(systemName: voiceManager.isPlaying ? "pause.fill" : "play.fill")
                             .font(.title2)
                             .foregroundColor(.white)
                     }
                 }
                 .buttonStyle(PlainButtonStyle())
-                
+
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Sacred Voice Reflection")
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundColor(.white)
-                    
+
                     if let duration = voiceManager.getRecordingDuration(filename: filename) {
                         Text(formatDuration(duration))
                             .font(.caption)
                             .foregroundColor(.white.opacity(0.7))
                     }
-                    
+
                     if voiceManager.isPlaying {
                         ProgressView(value: voiceManager.playbackProgress)
                             .progressViewStyle(LinearProgressViewStyle(tint: .cyan))
                             .frame(height: 4)
                     }
                 }
-                
+
                 Spacer()
             }
             .padding()
@@ -325,16 +325,16 @@ struct JournalEntryDetailView: View {
         )
         .shadow(color: .cyan.opacity(0.3), radius: 8, x: 0, y: 4)
     }
-    
+
     // MARK: - Content Section
-    
+
     private var contentSection: some View {
         VStack(spacing: 16) {
             Text("📝 Sacred Words")
                 .font(.headline)
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             if let content = entry.content, !content.isEmpty {
                 Text(content)
                     .font(.body)
@@ -369,9 +369,9 @@ struct JournalEntryDetailView: View {
         )
         .shadow(color: .blue.opacity(0.3), radius: 8, x: 0, y: 4)
     }
-    
+
     // MARK: - Metadata Section
-    
+
     private var metadataSection: some View {
         VStack(spacing: 12) {
             if let mood = entry.moodEmoji, !mood.isEmpty {
@@ -380,32 +380,32 @@ struct JournalEntryDetailView: View {
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundColor(.white)
-                    
+
                     Text(mood)
                         .font(.title2)
-                    
+
                     Spacer()
                 }
             }
-            
+
             // Location info if available
             if entry.latitude != 0 && entry.longitude != 0 {
                 HStack(spacing: 12) {
                     Image(systemName: "location.circle.fill")
                         .font(.title2)
                         .foregroundColor(.green)
-                    
+
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Sacred Location")
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .foregroundColor(.white)
-                        
+
                         Text("Lat: \(entry.latitude, specifier: "%.4f"), Lon: \(entry.longitude, specifier: "%.4f")")
                             .font(.caption)
                             .foregroundColor(.white.opacity(0.7))
                     }
-                    
+
                     Spacer()
                 }
             }
@@ -421,19 +421,19 @@ struct JournalEntryDetailView: View {
         )
         .shadow(color: .orange.opacity(0.3), radius: 8, x: 0, y: 4)
     }
-    
+
     // MARK: - Helper Methods
-    
+
     private func deleteEntry() {
         // Clean up voice recording if it exists
         if let voiceFilename = entry.voiceRecordingFilename {
             voiceManager.deleteRecording(filename: voiceFilename)
         }
-        
+
         journalManager.deleteEntry(entry)
         dismiss()
     }
-    
+
     private func sacredNumberColor(for number: Int) -> Color {
         switch number {
         case 1: return .red
@@ -448,11 +448,11 @@ struct JournalEntryDetailView: View {
         default: return .gray
         }
     }
-    
+
     private func formatDuration(_ duration: TimeInterval) -> String {
         guard duration.isFinite && !duration.isNaN else { return "0:00" }
         let minutes = Int(duration) / 60
         let seconds = Int(duration) % 60
         return String(format: "%d:%02d", minutes, seconds)
     }
-} 
+}

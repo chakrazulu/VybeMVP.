@@ -150,18 +150,18 @@ We organize the checklist file by sprint or milestone. Each sprint can be a sect
 ```
 ## Sprint 5 – New Insight Feature and UI Polish
 
-- [ ] **Task:** Implement Chakra Alignment Animation  
-  **Owner:** Jane Doe  
-  **Date Assigned:** 2025-07-01  
-  **Related:** `ChakraView.swift` (UI)  
-  **Sprint:** 5  
+- [ ] **Task:** Implement Chakra Alignment Animation
+  **Owner:** Jane Doe
+  **Date Assigned:** 2025-07-01
+  **Related:** `ChakraView.swift` (UI)
+  **Sprint:** 5
   **Verification Log:** _(pending testing)_
 
-- [x] **Task:** Refactor Numerology Engine for Master Numbers  
-  **Owner:** John Smith  
-  **Date Assigned:** 2025-06-25  
-  **Related:** `NumerologyEngine.swift`  
-  **Sprint:** 5  
+- [x] **Task:** Refactor Numerology Engine for Master Numbers
+  **Owner:** John Smith
+  **Date Assigned:** 2025-06-25
+  **Related:** `NumerologyEngine.swift`
+  **Sprint:** 5
   **Verification Log:** Tested on iPhone 12 (2025-06-28), all master numbers preserved. ✅
 ```
 

@@ -14,7 +14,7 @@ import FirebaseFirestore
  */
 struct Report: Codable, Identifiable {
     @DocumentID var id: String?
-    
+
     let reporterId: String          // Firebase UID of user making the report
     let reporterName: String        // Display name of reporter
     let reportedContentId: String   // ID of the reported content (post, comment, etc.)
@@ -29,7 +29,7 @@ struct Report: Codable, Identifiable {
     let reviewedBy: String?         // Admin who reviewed the report
     let reviewedAt: Date?           // When the report was reviewed
     let resolution: String?         // What action was taken
-    
+
     init(
         reporterId: String,
         reporterName: String,
@@ -66,7 +66,7 @@ enum ReportContentType: String, CaseIterable, Codable {
     case comment = "comment"
     case user = "user"
     case reaction = "reaction"
-    
+
     var displayName: String {
         switch self {
         case .post:
@@ -93,7 +93,7 @@ enum ReportReason: String, CaseIterable, Codable {
     case impersonation = "impersonation"
     case violatesTerms = "violates_terms"
     case other = "other"
-    
+
     var displayName: String {
         switch self {
         case .spam:
@@ -114,7 +114,7 @@ enum ReportReason: String, CaseIterable, Codable {
             return "Other"
         }
     }
-    
+
     var description: String {
         switch self {
         case .spam:
@@ -145,7 +145,7 @@ enum ReportStatus: String, CaseIterable, Codable {
     case reviewing = "reviewing"
     case resolved = "resolved"
     case dismissed = "dismissed"
-    
+
     var displayName: String {
         switch self {
         case .pending:
@@ -158,7 +158,7 @@ enum ReportStatus: String, CaseIterable, Codable {
             return "Dismissed"
         }
     }
-    
+
     var color: String {
         switch self {
         case .pending:
@@ -171,4 +171,4 @@ enum ReportStatus: String, CaseIterable, Codable {
             return "gray"
         }
     }
-} 
+}

@@ -29,12 +29,12 @@ echo ""
 take_screenshot() {
     local name=$1
     local description=$2
-    
+
     echo -e "${BLUE}📸 $description${NC}"
     echo "   Position the app for: $name"
     echo "   Press ENTER when ready..."
     read
-    
+
     xcrun simctl io booted screenshot "${OUTPUT_DIR}/${TIMESTAMP}_${name}.png"
     echo -e "${GREEN}   ✅ Saved: ${name}.png${NC}"
     echo ""

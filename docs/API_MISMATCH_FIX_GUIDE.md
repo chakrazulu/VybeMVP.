@@ -14,13 +14,13 @@ For each test file, we need to check the actual class APIs:
 # Check PostManager actual methods
 grep -n "func " /Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP/Features/Social/SocialManagers/PostManager.swift
 
-# Check AuthenticationManager 
+# Check AuthenticationManager
 grep -n "func \|var \|init" /Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP/Managers/AuthenticationManager.swift
 
 # Check BackgroundManager
 grep -n "func \|var \|init" /Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP/Utilities/BackgroundManager.swift
 
-# Check RealmNumberManager  
+# Check RealmNumberManager
 grep -n "func " /Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP/Managers/RealmNumberManager.swift
 ```
 
@@ -34,7 +34,7 @@ Let's start with the easiest - **PostManager**:
 grep -A 10 "func createPost" /Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP/Features/Social/SocialManagers/PostManager.swift
 ```
 
-#### **B. Check PostManager Initialization** 
+#### **B. Check PostManager Initialization**
 ```bash
 # See how PostManager is really initialized
 grep -A 5 -B 5 "class PostManager" /Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP/Features/Social/SocialManagers/PostManager.swift
@@ -49,11 +49,11 @@ Based on what we find, update the test file to match real APIs.
 
 ### **Issue 1: Private Initializers**
 ```swift
-// Problem: 
+// Problem:
 let manager = SomeManager() // ❌ Private init
 
 // Solution: Use shared instance or factory method
-let manager = SomeManager.shared // ✅ 
+let manager = SomeManager.shared // ✅
 // OR
 let manager = SomeManager.createForTesting() // ✅
 ```
@@ -66,7 +66,7 @@ func testSomething() {
 }
 
 // Solution: Use @MainActor or async
-@MainActor 
+@MainActor
 func testSomething() {
     manager.someMethod() // ✅
 }
@@ -142,7 +142,7 @@ PostType.text // ✅ Use what actually exists
    ```swift
    // Change from:
    class MockHealthKitManager // ❌ Conflicts
-   
+
    // Change to:
    class RealmTestMockHealthKitManager // ✅ Unique name
    ```
@@ -175,7 +175,7 @@ grep -n "func \|var \|@Published" /Users/Maniac_Magee/Documents/XcodeProjects/Vy
 grep -n "@MainActor" /Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP/Features/Social/SocialManagers/PostManager.swift
 ```
 
-### **AuthenticationManager Discovery** 
+### **AuthenticationManager Discovery**
 ```bash
 # Check initialization and key methods
 grep -n "init\|shared\|func \|var " /Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP/Managers/AuthenticationManager.swift | head -15
@@ -183,7 +183,7 @@ grep -n "init\|shared\|func \|var " /Users/Maniac_Magee/Documents/XcodeProjects/
 
 ### **BackgroundManager Discovery**
 ```bash
-# Check accessibility 
+# Check accessibility
 grep -n "private\|public\|internal\|init" /Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP/Utilities/BackgroundManager.swift
 ```
 
@@ -215,7 +215,7 @@ grep -n "func calculate\|func reduce\|init" /Users/Maniac_Magee/Documents/XcodeP
    ```swift
    // Replace our assumed API:
    postManager.createPost(content: "test", privacy: .global) // ❌
-   
+
    // With the real API (whatever we discover):
    postManager.createPost(authorName: "Test", content: "test", type: .text) // ✅
    ```
@@ -227,7 +227,7 @@ grep -n "func calculate\|func reduce\|init" /Users/Maniac_Magee/Documents/XcodeP
 Fix in this order (easiest to hardest):
 
 1. **RealmNumberManagerTests** - Fix mock name conflicts
-2. **PostManagerTests** - Update method signatures  
+2. **PostManagerTests** - Update method signatures
 3. **AuthenticationManagerTests** - Fix initialization
 4. **BackgroundManagerTests** - Handle private access
 

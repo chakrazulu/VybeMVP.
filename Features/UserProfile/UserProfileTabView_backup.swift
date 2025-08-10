@@ -17,11 +17,11 @@ func loadMegaCorpusData() -> [String: Any] {
     if let cachedData = MegaCorpusCache.shared.data {
         return cachedData
     }
-    
+
     // Load all MegaCorpus JSON files
     let fileNames = ["Signs", "Planets", "Houses", "Aspects", "Elements", "Modes", "MoonPhases", "ApparentMotion"]
     var megaData: [String: Any] = [:]
-    
+
     for fileName in fileNames {
         // Try multiple paths to find the file
         let paths = [
@@ -29,7 +29,7 @@ func loadMegaCorpusData() -> [String: Any] {
             Bundle.main.path(forResource: fileName, ofType: "json"),
             Bundle.main.path(forResource: "MegaCorpus/\(fileName)", ofType: "json")
         ]
-        
+
         for path in paths.compactMap({ $0 }) {
             if let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
                let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
@@ -38,7 +38,7 @@ func loadMegaCorpusData() -> [String: Any] {
             }
         }
     }
-    
+
     // Cache the data
     MegaCorpusCache.shared.data = megaData
     return megaData
@@ -46,32 +46,32 @@ func loadMegaCorpusData() -> [String: Any] {
 
 /**
  * UserProfileTabView - The Sacred Digital Altar
- * 
+ *
  * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
- * 
+ *
  * === CORE PURPOSE ===
  * User's permanent spiritual sanctuary displaying their complete cosmic profile.
  * This is the most complex view in the app with multiple interactive components.
- * 
+ *
  * === SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points) ===
  * • NavigationView: Large title "My Sanctum"
  * • Background: Full screen CosmicBackgroundView
  * • ScrollView: Vertical, 16pt horizontal padding
  * • Edit button: Top-right toolbar, purple color
- * 
+ *
  * === MAIN SECTIONS ===
  * 1. Divine Triangle (Numerology Trinity)
  * 2. Complete Archetype Codex (4 cards)
  * 3. Action Buttons (3 buttons)
  * 4. Profile Summary (personal info)
- * 
+ *
  * === DIVINE TRIANGLE SECTION ===
  * • Container: Black 40% opacity, 20pt corner radius
  * • Border: 1.5pt gradient stroke (purple→blue→indigo)
  * • Shadow: Purple 50%, 20pt blur, 8pt Y offset
  * • Title: "✦ The Divine Triangle ✦" - Title2 bold
  * • Subtitle: Caption font, 80% white
- * 
+ *
  * === LIFE PATH CARD (Primary) ===
  * • Size: Full width, ~140pt height
  * • Background: Gradient (primary color→black)
@@ -79,19 +79,19 @@ func loadMegaCorpusData() -> [String: Any] {
  * • Title: Title3 bold, gradient text
  * • Description: Body font, 95% white
  * • Tap action: Opens LifePathDetailView
- * 
+ *
  * === SOUL URGE & EXPRESSION CARDS ===
  * • Layout: Side by side, equal width
  * • Spacing: 16pt between cards
  * • Height: ~120pt each
  * • Number: 36pt medium
  * • Similar styling to Life Path
- * 
+ *
  * === ARCHETYPE CODEX SECTION ===
  * • Container: Same as Divine Triangle
  * • 4 full-width cards, 16pt spacing
  * • Each card is tappable
- * 
+ *
  * === ARCHETYPE CARD SPECS ===
  * • Height: ~100pt
  * • Layout: HStack with icon left, content right
@@ -99,49 +99,49 @@ func loadMegaCorpusData() -> [String: Any] {
  * • Title: Headline font, gradient
  * • Description: 3 lines max, footnote
  * • Tap feedback: UIImpactFeedbackGenerator.medium
- * 
+ *
  * === ACTION BUTTONS ===
  * • Layout: 3 buttons in HStack
  * • Spacing: 12pt between buttons
  * • Height: 50pt each
  * • Style: Gradient background, 12pt radius
  * • Icons: SF Symbols, 20pt size
- * 
+ *
  * === PROFILE SUMMARY ===
  * • Container: Same styling as other sections
  * • Content: Name, birthdate, birth time, location
  * • Font: Body for labels, headline for values
  * • Layout: VStack with 12pt spacing
- * 
+ *
  * === ANIMATIONS ===
  * • Life Path pulse: 2s duration, forever
  * • Archetype glow: 3s duration, forever
  * • Card hover: Scale 1.02, shadow increase
  * • Tap: Scale 0.98, then back
- * 
+ *
  * === LOADING SEQUENCE ===
  * • 0.2s: Cache check
  * • 1.0s: Full profile load
  * • 2.0s: Archetype generation
  * • Prevents tab switching lag
- * 
+ *
  * === COLOR SYSTEM ===
  * • Zodiac: Blue/Cyan
  * • Elements: Fire(Red), Earth(Brown), Air(Yellow), Water(Cyan)
  * • Planets: Orange/Yellow (primary), Indigo/Purple (shadow)
  * • Numbers: Sacred color system (1-9)
- * 
+ *
  * === SHEET PRESENTATIONS ===
  * • Edit Profile: Full screen sheet
  * • Archetype Detail: Modal with close button
  * • Sigil View: Placeholder for future
- * 
+ *
  * === STATE MANAGEMENT ===
  * • userProfile: Current user data
  * • archetypeManager: Singleton for archetype
  * • selectedArchetypeDetail: Sheet navigation
  * • Animation states: Pulse and glow booleans
- * 
+ *
  * This is the user's permanent spiritual sanctuary where they can:
  * - View their complete spiritual archetype
  * - Interact with archetypal components for deeper understanding
@@ -155,7 +155,7 @@ func loadMegaCorpusData() -> [String: Any] {
 // Claude: Life Path Descriptions using MegaCorpus Numerology data for KASPER AI integration
 func lifePathDescription(for number: Int, isMaster: Bool) -> String {
     let cosmicData = loadMegaCorpusData()
-    
+
     if isMaster {
         // Load from MegaCorpus masterNumbers section
         if let numerology = cosmicData["numerology"] as? [String: Any],
@@ -166,7 +166,7 @@ func lifePathDescription(for number: Int, isMaster: Bool) -> String {
             let keywordString = keywords.prefix(3).joined(separator: " • ")
             return "The \(name) • \(keywordString) • Divine Spiritual Mission"
         }
-        
+
         // Fallback for master numbers (maintaining spiritual quality)
         switch number {
         case 11: return "The Intuitive Illuminator • Master of Spiritual Insight • Channel for Divine Wisdom"
@@ -184,7 +184,7 @@ func lifePathDescription(for number: Int, isMaster: Bool) -> String {
             let keywordString = keywords.prefix(3).joined(separator: " • ")
             return "\(archetype) • \(keywordString) • Sacred Soul Path"
         }
-        
+
         // Fallback descriptions (maintaining existing spiritual quality)
         switch number {
         case 1: return "The Pioneer • Natural born leader with incredible drive and innovation"
@@ -203,7 +203,7 @@ func lifePathDescription(for number: Int, isMaster: Bool) -> String {
 
 // MARK: - MegaCorpus Data Loading System
 /// Claude: Comprehensive spiritual data loading system using organized MegaCorpus files
-/// 
+///
 /// **Architecture Overview:**
 /// - **Modular Design**: Separate JSON files for Signs, Elements, Planets, Houses
 /// - **Performance Optimization**: Static caching prevents repeated file I/O operations
@@ -214,7 +214,7 @@ func lifePathDescription(for number: Int, isMaster: Bool) -> String {
 /// ```
 /// NumerologyData/MegaCorpus/
 /// ├── Signs.json      - Zodiac sign archetypes and keywords
-/// ├── Elements.json   - Fire, Earth, Air, Water spiritual energies  
+/// ├── Elements.json   - Fire, Earth, Air, Water spiritual energies
 /// ├── Planets.json    - Planetary symbolism and rulerships
 /// ├── Houses.json     - 12-house life area meanings
 /// ├── Aspects.json    - Planetary aspect interpretations
@@ -223,7 +223,7 @@ func lifePathDescription(for number: Int, isMaster: Bool) -> String {
 /// ```
 
 /// Claude: Load spiritual data from organized MegaCorpus with intelligent caching
-/// 
+///
 /// **Performance Benefits:**
 /// - First call loads and caches all MegaCorpus data
 /// - Subsequent calls return cached data instantly
@@ -240,7 +240,7 @@ func lifePathDescription(for number: Int, isMaster: Bool) -> String {
 // MARK: - Enhanced Archetype Descriptions (Using Mega Corpus)
 // Zodiac Descriptions
 /// Claude: Enhanced zodiac description using MegaCorpus data
-/// 
+///
 /// **Spiritual Data Integration:**
 /// - Loads zodiac archetypes from MegaCorpus/Signs.json
 /// - Combines archetype, element, mode, and keywords for rich descriptions
@@ -250,24 +250,24 @@ func lifePathDescription(for number: Int, isMaster: Bool) -> String {
 /// **Example:** "The Pioneer • Fire Cardinal • Initiative • Leadership • Courage"
 func detailedZodiacDescription(for sign: ZodiacSign) -> String {
     let cosmicData = loadMegaCorpusData()
-    
+
     // Try to load from mega corpus first - fix nested structure access
     if let signsFile = cosmicData["signs"] as? [String: Any],
        let signs = signsFile["signs"] as? [String: Any] {
         let signKey = sign.rawValue.lowercased()
-        
+
         if let signData = signs[signKey] as? [String: Any] {
             // Extract data from the actual JSON structure for rich description
             let name = signData["name"] as? String ?? sign.rawValue
             let description = signData["description"] as? String ?? ""
             let keyTraits = signData["keyTraits"] as? [String] ?? []
-            
+
             // Create rich description format like other detailed views
             if !description.isEmpty {
                 let traitsText = keyTraits.prefix(3).map { trait in
                     trait.components(separatedBy: ":").first?.trimmingCharacters(in: .whitespaces) ?? trait
                 }.joined(separator: " • ")
-                
+
                 let richDescription = "\(description)\n\nCore Traits: \(traitsText)"
                 return richDescription
             } else {
@@ -277,12 +277,12 @@ func detailedZodiacDescription(for sign: ZodiacSign) -> String {
                 let traitsText = keyTraits.prefix(3).map { trait in
                     trait.components(separatedBy: ":").first?.trimmingCharacters(in: .whitespaces) ?? trait
                 }.joined(separator: " • ")
-                
+
                 return "\(name) • \(element) \(mode) • \(traitsText)"
             }
         }
     }
-    
+
     print("⚠️ Using fallback zodiac description for \(sign.rawValue)")
     // Fallback to original descriptions
     switch sign {
@@ -303,7 +303,7 @@ func detailedZodiacDescription(for sign: ZodiacSign) -> String {
 
 // Element Descriptions (Enhanced with MegaCorpus)
 /// Claude: Enhanced element description using MegaCorpus spiritual data
-/// 
+///
 /// **Sacred Element Integration:**
 /// - Loads elemental energies from MegaCorpus/Elements.json
 /// - Combines archetype, core description, and key traits
@@ -313,17 +313,17 @@ func detailedZodiacDescription(for sign: ZodiacSign) -> String {
 /// **Example:** "The Nurturing Builder • Earth grounds spirit into form... • Core Traits: Practical Wisdom • Steadfast Endurance"
 func detailedElementDescription(for element: Element) -> String {
     let cosmicData = loadMegaCorpusData()
-    
+
     // Try to load from mega corpus first - fix nested structure access
     if let elementsFile = cosmicData["elements"] as? [String: Any],
        let elements = elementsFile["elements"] as? [String: Any] {
         let elementKey = element.rawValue.lowercased()
-        
+
         if let elementData = elements[elementKey] as? [String: Any] {
             if let description = elementData["description"] as? String,
                let archetype = elementData["archetype"] as? String,
                let keyTraits = elementData["keyTraits"] as? [String] {
-                
+
                 let traitsText = keyTraits.prefix(2).map { trait in
                     trait.components(separatedBy: ":").first?.trimmingCharacters(in: .whitespaces) ?? trait
                 }.joined(separator: " • ")
@@ -332,7 +332,7 @@ func detailedElementDescription(for element: Element) -> String {
             }
         }
     }
-    
+
     print("⚠️ Using fallback description for \(element.rawValue)")
     // Fallback to original descriptions
     switch element {
@@ -345,7 +345,7 @@ func detailedElementDescription(for element: Element) -> String {
 
 // Planet Descriptions (Enhanced with MegaCorpus)
 /// Claude: Enhanced planetary description using MegaCorpus astrological data
-/// 
+///
 /// **Planetary Archetype Integration:**
 /// - Loads planetary symbolism from MegaCorpus/Planets.json
 /// - Combines planetary archetype with core keywords
@@ -355,17 +355,17 @@ func detailedElementDescription(for element: Element) -> String {
 /// **Example:** "The Teacher • Expansion • Wisdom • Growth"
 func detailedPlanetDescription(for planet: Planet) -> String {
     let cosmicData = loadMegaCorpusData()
-    
-    // Try to load from mega corpus first - fix nested structure access  
+
+    // Try to load from mega corpus first - fix nested structure access
     if let planetsFile = cosmicData["planets"] as? [String: Any],
        let planets = planetsFile["planets"] as? [String: Any] {
         let planetKey = planet.rawValue.lowercased()
-        
+
         if let planetData = planets[planetKey] as? [String: Any] {
             if let archetype = planetData["archetype"] as? String,
                let description = planetData["description"] as? String,
                let keyTraits = planetData["keyTraits"] as? [String] {
-                
+
                 let traitsText = keyTraits.prefix(2).map { trait in
                     trait.components(separatedBy: ":").first?.trimmingCharacters(in: .whitespaces) ?? trait
                 }.joined(separator: " • ")
@@ -374,7 +374,7 @@ func detailedPlanetDescription(for planet: Planet) -> String {
             }
         }
     }
-    
+
     // Fallback to original descriptions
     switch planet {
     case .sun: return "Central life force • Core identity radiator • Creative heart that illuminates your essential self and vital purpose in this lifetime"
@@ -394,27 +394,27 @@ func detailedPlanetDescription(for planet: Planet) -> String {
 // Shadow Planet Descriptions (Enhanced with Mega Corpus)
 func detailedShadowPlanetDescription(for planet: Planet) -> String {
     let cosmicData = loadMegaCorpusData()
-    
+
     // Try to load shadow aspects from mega corpus - fix nested structure access
     if let planetsFile = cosmicData["planets"] as? [String: Any],
        let planets = planetsFile["planets"] as? [String: Any] {
         let planetKey = planet.rawValue.lowercased()
-        
+
         if let planetData = planets[planetKey] as? [String: Any],
            let description = planetData["description"] as? String,
            let archetype = planetData["archetype"] as? String,
            let keyTraits = planetData["keyTraits"] as? [String] {
-            
+
             // Create shadow interpretation
             let shadowTraits = keyTraits.prefix(2).map { trait in
                 let baseTrait = trait.components(separatedBy: ":").first?.trimmingCharacters(in: .whitespaces) ?? trait
                 return "Shadow \(baseTrait)"
             }.joined(separator: " • ")
-            
+
             return "Shadow \(archetype) • Unconscious expression of \(description.lowercased()) • \(shadowTraits)"
         }
     }
-    
+
     // Fallback shadow descriptions
     switch planet {
     case .sun: return "Ego inflation and pride • Arrogance overshadowing authentic self • Identity crises and excessive need for recognition and validation"
@@ -434,7 +434,7 @@ func detailedShadowPlanetDescription(for planet: Planet) -> String {
 // Claude: Soul Urge and Expression Descriptions using MegaCorpus Numerology data
 func soulUrgeDescription(for number: Int) -> String {
     let cosmicData = loadMegaCorpusData()
-    
+
     // Try to load from MegaCorpus focusNumbers section for soul desires
     if let numerology = cosmicData["numerology"] as? [String: Any],
        let focusNumbers = numerology["focusNumbers"] as? [String: Any],
@@ -444,7 +444,7 @@ func soulUrgeDescription(for number: Int) -> String {
         let keywordString = keywords.prefix(2).joined(separator: " and ")
         return "Your soul craves \(keywordString.lowercased()) as \(archetype) • Deep inner yearning for authentic expression"
     }
-    
+
     // Fallback descriptions (maintaining spiritual quality)
     switch number {
     case 1: return "You desire to lead, innovate, and be recognized for your unique contributions"
@@ -462,7 +462,7 @@ func soulUrgeDescription(for number: Int) -> String {
 
 func expressionDescription(for number: Int) -> String {
     let cosmicData = loadMegaCorpusData()
-    
+
     // Try to load from MegaCorpus focusNumbers section for natural expression
     if let numerology = cosmicData["numerology"] as? [String: Any],
        let focusNumbers = numerology["focusNumbers"] as? [String: Any],
@@ -472,7 +472,7 @@ func expressionDescription(for number: Int) -> String {
         let strengthString = strengths.prefix(2).joined(separator: " and ")
         return "You naturally express \(strengthString.lowercased()) as \(archetype) • Innate gifts flow through your being"
     }
-    
+
     // Fallback descriptions (maintaining spiritual quality)
     switch number {
     case 1: return "You naturally express leadership, originality, and pioneering spirit"
@@ -627,35 +627,35 @@ struct UserProfileTabView: View {
     @State private var showingShareSheet = false
     @State private var selectedArchetypeDetail: ArchetypeDetailType?
     @State private var archetypeRetryCount = 0
-    
+
     // Animation states
     @State private var lifePathPulse: Bool = false
     @State private var archetypeGlow: Bool = false
-    
+
     // Claude: Phase 12A.1 - Natal Chart Accordion States
     @State private var housesAccordionExpanded: Bool = false
     @State private var aspectsAccordionExpanded: Bool = false
     @State private var glyphMapAccordionExpanded: Bool = false
-    
+
     // Claude: Phase 12A.1 Enhancement - Interactive house details and view modes (Fixed for immediate loading)
     @State private var selectedHouseForSheet: IdentifiableInt? = nil
     @State private var sanctumViewMode: SanctumViewMode = .birthChart
-    
+
     // Claude: Detail sheets for tappable planetary positions and aspects (Fixed for immediate loading)
     @State private var selectedPlanet: PlanetaryPosition?
     @State private var selectedAspect: NatalAspect?
-    
+
     enum SanctumViewMode: String, CaseIterable {
         case birthChart = "Birth Chart"
         case liveTransits = "Live Transits"
-        
+
         var icon: String {
             switch self {
             case .birthChart: return "person.circle.fill"
             case .liveTransits: return "globe.americas.fill"
             }
         }
-        
+
         var description: String {
             switch self {
             case .birthChart: return "Your natal chart at birth"
@@ -663,24 +663,24 @@ struct UserProfileTabView: View {
             }
         }
     }
-    
+
     var body: some View {
         NavigationView {
             ZStack {
                 // Cosmic Background
                 CosmicBackgroundView()
                     .allowsHitTesting(false)
-                
+
                 ScrollView {
                     VStack(spacing: 16) {
                         // Show content based on profile state
                         if let profile = userProfile {
                             // The Divine Triangle - Complete Numerological Trinity
                             theDivineTriangleSection(profile)
-                            
+
                             // Claude: Phase 12A.1 - Your Natal Chart Section
                             natalChartSection(profile)
-                        
+
                         // Complete Spiritual Archetype
                         if let userArchetype = archetypeManager.currentArchetype ?? archetypeManager.storedArchetype {
                             completeArchetypeCodex(userArchetype)
@@ -688,10 +688,10 @@ struct UserProfileTabView: View {
                             // Show loading state for archetype
                             archetypeLoadingView
                         }
-                        
+
                         // Action Buttons Section
                         actionButtonsSection
-                        
+
                         // Profile Summary
                             profileSummarySection(profile)
                         } else {
@@ -716,7 +716,7 @@ struct UserProfileTabView: View {
             }
             .onAppear {
                 // PERFORMANCE FIX: Defer heavy operations to prevent tab loading delays
-                
+
                 // Immediate: Start animations (lightweight)
                 withAnimation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true)) {
                     lifePathPulse = true
@@ -724,18 +724,18 @@ struct UserProfileTabView: View {
                 withAnimation(.easeInOut(duration: 3.0).repeatForever(autoreverses: true)) {
                     archetypeGlow = true
                 }
-                
+
                 // Step 1: Quick cache check (0.2s delay)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     loadUserProfileFromCache()
                 }
-                
+
                 // Step 2: Full profile loading (1.0s delay)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     loadUserProfile()
                 }
-                
-                // Step 3: Archetype loading (2.0s delay) 
+
+                // Step 3: Archetype loading (2.0s delay)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     loadArchetype()
                 }
@@ -768,13 +768,13 @@ struct UserProfileTabView: View {
             }
         }
     }
-    
+
     // MARK: - Phase 12A.1: Natal Chart Section
-    
+
     /// Claude: Your Natal Chart section with progressive disclosure accordions
     ///
     /// **🌌 Phase 12A.1: Sanctum Natal Chart Integration**
-    /// 
+    ///
     /// This section transforms the Sanctum into a comprehensive cosmic data center by adding
     /// interactive natal chart information using the Phase 11A birth chart foundation.
     /// Implements progressive disclosure to prevent information overload while providing
@@ -782,7 +782,7 @@ struct UserProfileTabView: View {
     ///
     /// **🏗️ Accordion Architecture:**
     /// - **Houses Accordion**: 12 astrological houses with planetary cusps
-    /// - **Aspects Accordion**: Major natal aspects table with orbs and meanings  
+    /// - **Aspects Accordion**: Major natal aspects table with orbs and meanings
     /// - **Glyph Map Accordion**: Visual ecliptic wheel with planetary positions
     ///
     /// **📱 UX Design:**
@@ -811,9 +811,9 @@ struct UserProfileTabView: View {
                             )
                         )
                         .shadow(color: .cyan.opacity(0.5), radius: 5)
-                    
+
                     Spacer()
-                    
+
                     // View Mode Toggle
                     Picker("View Mode", selection: $sanctumViewMode) {
                         ForEach(SanctumViewMode.allCases, id: \.self) { mode in
@@ -824,12 +824,12 @@ struct UserProfileTabView: View {
                     .pickerStyle(SegmentedPickerStyle())
                     .scaleEffect(0.8)
                 }
-                
+
                 Text(sanctumViewMode.description)
                     .font(.caption)
                     .foregroundColor(.white.opacity(0.8))
                     .italic()
-                
+
                 if let birthplace = profile.birthplaceName {
                     Text("📍 \(birthplace)")
                         .font(.caption2)
@@ -846,12 +846,12 @@ struct UserProfileTabView: View {
                         )
                 }
             }
-            
+
             // Claude: Phase 12A.1 Enhancement - Birth Chart Summary
             if !getPlanetaryPositions(profile: profile, mode: sanctumViewMode).isEmpty {
                 birthChartSummary(profile)
             }
-            
+
             VStack(spacing: 16) {
                 // Houses Accordion
                 natalChartAccordion(
@@ -862,8 +862,8 @@ struct UserProfileTabView: View {
                         housesAccordionContent(profile)
                     }
                 )
-                
-                // Aspects Accordion  
+
+                // Aspects Accordion
                 natalChartAccordion(
                     title: "⭐ Major Aspects",
                     subtitle: "Planetary Relationships & Orbs",
@@ -872,7 +872,7 @@ struct UserProfileTabView: View {
                         aspectsAccordionContent(profile)
                     }
                 )
-                
+
                 // Planetary Map Accordion
                 natalChartAccordion(
                     title: "🌌 Planetary Map",
@@ -902,45 +902,45 @@ struct UserProfileTabView: View {
         )
         .shadow(color: .cyan.opacity(0.3), radius: 15, x: 0, y: 8)
     }
-    
+
     /// Creates the birth chart summary section displaying planetary positions in a responsive grid layout
-    /// 
+    ///
     /// This function renders the main planetary positions section with a 3-column LazyVGrid layout,
     /// displaying each planet's position in its zodiac sign with elemental information. Added in Phase 12A.1
     /// and enhanced in Phase 15 with improved MegaCorpus integration and fixed card heights.
-    /// 
+    ///
     /// **Phase History:**
     /// - Phase 12A.1: Initial planetary positions grid implementation
     /// - Phase 15: Enhanced with MegaCorpus data integration and uniform card sizing
-    /// 
+    ///
     /// **UI Design Decisions:**
     /// - Uses LazyVGrid with 3 flexible columns for optimal space utilization on all device sizes
     /// - Fixed card height of 120pt ensures uniform appearance across all planetary position cards
     /// - Purple gradient background maintains cosmic theme consistency
     /// - Birth time validation shows precise calculation status to users
-    /// 
+    ///
     /// **MegaCorpus Integration:**
     /// - Planetary positions sourced from CosmicData calculations
     /// - Element colors and correspondences loaded from Signs.json MegaCorpus data
     /// - Spiritual significance preserved through archetypal descriptions
-    /// 
+    ///
     /// **Spiritual Significance:**
     /// - Each planet represents archetypal energies in the user's cosmic blueprint
     /// - Elemental associations (Fire, Earth, Air, Water) show fundamental life force expressions
     /// - Birth time precision affects house cusps and angles calculation accuracy
-    /// 
+    ///
     /// - Parameter profile: UserProfile containing birth data and cosmic information
     /// - Returns: SwiftUI View displaying the planetary positions grid with birth time status
-    /// 
+    ///
     /// **Dependencies:**
     /// - getPlanetaryPositions(): Calculates planetary positions from birth data
     /// - planetPositionCard(): Renders individual planet position cards
     /// - loadMegaCorpusData(): Accesses spiritual correspondence data
-    /// 
+    ///
     /// **Performance Notes:**
     /// - LazyVGrid renders only visible cards for memory efficiency
     /// - Fixed heights prevent layout calculations during scrolling
-    /// 
+    ///
     /// Claude: Phase 12A.1 Enhancement - Birth Chart Summary Section
     private func birthChartSummary(_ profile: UserProfile) -> some View {
         VStack(spacing: 12) {
@@ -950,16 +950,16 @@ struct UserProfileTabView: View {
                         .font(.headline)
                         .fontWeight(.semibold)
                         .foregroundColor(.white)
-                    
+
                     Spacer()
                 }
-                
+
                 Text("Each planet carries archetypal wisdom and elemental energy that shapes your cosmic blueprint")
                     .font(.caption)
                     .foregroundColor(.white.opacity(0.7))
                     .italic()
             }
-            
+
             let positions = getPlanetaryPositions(profile: profile, mode: sanctumViewMode)
             LazyVGrid(columns: [
                 GridItem(.flexible(), spacing: 8),
@@ -971,7 +971,7 @@ struct UserProfileTabView: View {
                         .frame(height: 120) // Claude: Fixed height for uniform cards
                 }
             }
-            
+
             // Claude: Check actual birth time data instead of hasBirthTime flag
             if let hour = profile.birthTimeHour, let minute = profile.birthTimeMinute {
                 Text("✨ Calculated with exact birth time for precision (\(hour):\(String(format: "%02d", minute)))")
@@ -989,7 +989,7 @@ struct UserProfileTabView: View {
                     .onAppear {
                         print("🕐 DEBUG: No birth time - Hour: \(profile.birthTimeHour?.description ?? "nil"), Minute: \(profile.birthTimeMinute?.description ?? "nil"), hasBirthTime flag: \(profile.hasBirthTime)")
                     }
-                
+
                 // TEMPORARY: Button to fix birth data
                 Button(action: {
                     print("🎯 FIXING BIRTH DATA...")
@@ -1021,45 +1021,45 @@ struct UserProfileTabView: View {
                 )
         )
     }
-    
+
     /// Renders an individual planetary position card with uniform sizing and comprehensive astrological information
-    /// 
+    ///
     /// Creates a tappable card displaying a planet's position in its zodiac sign, including planetary glyph,
     /// elemental association, and archetypal description. This function ensures uniform card appearance
     /// through fixed heights and prevents text overlap issues present in earlier phases.
-    /// 
+    ///
     /// **Phase History:**
     /// - Phase 12A.1: Initial planet card implementation with basic information
     /// - Phase 15: Major enhancement with fixed heights, improved text layout, and MegaCorpus integration
-    /// 
+    ///
     /// **UI Design Decisions:**
     /// - Fixed height of 120pt matches birthChartSummary grid requirements for visual uniformity
     /// - Header fixed at 24pt height to accommodate planet glyph and info icon consistently
     /// - Planet name allocated 16pt height, sign text 14pt, description 20pt for consistent spacing
     /// - Element badge positioned at bottom with Spacer() ensuring consistent placement
     /// - Gradient border combines planet and sign colors for visual hierarchy
-    /// 
+    ///
     /// **MegaCorpus Integration:**
     /// - Planet colors sourced from standardized cosmic color correspondence system
     /// - Sign colors derived from elemental associations in Signs.json MegaCorpus data
     /// - Element information (Fire, Earth, Air, Water) loaded from MegaCorpus Signs data
     /// - Archetypal descriptions from planetary wisdom traditions
-    /// 
+    ///
     /// **Spiritual Significance:**
     /// - Planet glyph represents archetypal symbol recognized across astrological traditions
     /// - Sign placement shows the filter through which planetary energy expresses
     /// - Element badge indicates fundamental life force quality (Fire=action, Earth=structure, Air=thought, Water=emotion)
     /// - Mini descriptions provide accessible spiritual insights without overwhelming novice users
-    /// 
+    ///
     /// **Text Layout Engineering:**
     /// - lineLimit(1) on planet name and sign prevents overflow in narrow cards
     /// - lineLimit(2) on description provides essential info while preventing card height variations
     /// - multilineTextAlignment(.center) ensures balanced appearance in grid layout
     /// - All text heights are explicitly set to prevent dynamic sizing issues
-    /// 
+    ///
     /// - Parameter position: PlanetaryPosition containing planet name, zodiac sign, and calculated data
     /// - Returns: SwiftUI Button view that opens detailed planet information when tapped
-    /// 
+    ///
     /// **Dependencies:**
     /// - getPlanetGlyph(): Returns Unicode astrological symbol for planet
     /// - getPlanetColor(): Returns thematic color for visual identification
@@ -1067,12 +1067,12 @@ struct UserProfileTabView: View {
     /// - getSignElement(): Retrieves elemental association from MegaCorpus
     /// - getPlanetMiniDescription(): Provides concise archetypal description
     /// - getElementColor(): Returns color for Fire/Earth/Air/Water elements
-    /// 
+    ///
     /// **Interactive Behavior:**
     /// - Tapping sets selectedPlanet state to trigger detailed planetary information sheet
     /// - PlainButtonStyle prevents default button styling from interfering with custom design
     /// - Info icon provides visual cue that additional details are available
-    /// 
+    ///
     /// Claude: Enhanced planetary position card with uniform sizing and no text overlap
     /// Claude: Phase 15 Enhancement - Fixed uniform card heights and improved text layout
     private func planetPositionCard(position: PlanetaryPosition) -> some View {
@@ -1088,13 +1088,13 @@ struct UserProfileTabView: View {
                             .foregroundColor(getPlanetColor(position.planet))
                         Spacer()
                     }
-                    
+
                     Image(systemName: "info.circle.fill")
                         .font(.caption2)
                         .foregroundColor(.white.opacity(0.6))
                 }
                 .frame(height: 24) // Claude: Fixed header height
-                
+
                 // Claude: Planet name - fixed space
                 Text(position.planet)
                     .font(.caption)
@@ -1102,14 +1102,14 @@ struct UserProfileTabView: View {
                     .foregroundColor(.white.opacity(0.9))
                     .lineLimit(1)
                     .frame(height: 16)
-                
+
                 // Claude: Sign text - fixed space
                 Text("in \(position.sign)")
                     .font(.caption2)
                     .foregroundColor(getSignColor(position.sign))
                     .lineLimit(1)
                     .frame(height: 14)
-                
+
                 // Claude: Description - controlled space
                 Text(getPlanetMiniDescription(position.planet))
                     .font(.system(size: 9, weight: .medium))
@@ -1118,9 +1118,9 @@ struct UserProfileTabView: View {
                     .lineLimit(2)
                     .frame(height: 20)
                     .padding(.horizontal, 2)
-                
+
                 Spacer() // Claude: Push element to bottom
-                
+
                 // Claude: Element indicator - always at bottom
                 if let element = getSignElement(position.sign) {
                     Text(element.uppercased())
@@ -1158,152 +1158,152 @@ struct UserProfileTabView: View {
         }
         .buttonStyle(PlainButtonStyle())
     }
-    
+
     /// Retrieves the classical element (Fire, Earth, Air, Water) for a zodiac sign from MegaCorpus Signs.json data
-    /// 
+    ///
     /// This function accesses the MegaCorpus astrological database to determine the elemental association
     /// of each zodiac sign, representing the fundamental life force energy that governs the sign's expression.
     /// The four elements form the cornerstone of astrological understanding, representing different approaches
     /// to experiencing and interacting with the world based on ancient philosophical traditions.
-    /// 
+    ///
     /// **Phase History:**
     /// - Phase 12A.1: Basic element retrieval for planetary position cards
     /// - Phase 15: Enhanced integration with house system and expanded usage throughout UI
-    /// 
+    ///
     /// **Classical Element System:**
     /// The four elements represent fundamental energetic patterns in mystical tradition:
-    /// 
+    ///
     /// **Fire Signs:** Aries, Leo, Sagittarius
     /// - Energy: Active, initiating, inspirational
     /// - Nature: Spontaneous action, leadership, enthusiasm
     /// - Spiritual Quality: Divine spark, creative force, will to manifest
-    /// 
-    /// **Earth Signs:** Taurus, Virgo, Capricorn  
+    ///
+    /// **Earth Signs:** Taurus, Virgo, Capricorn
     /// - Energy: Stable, practical, materializing
     /// - Nature: Structure, persistence, tangible results
     /// - Spiritual Quality: Grounding force, manifestation, sacred matter
-    /// 
+    ///
     /// **Air Signs:** Gemini, Libra, Aquarius
     /// - Energy: Mental, communicative, connecting
     /// - Nature: Ideas, relationships, intellectual exploration
     /// - Spiritual Quality: Breath of life, consciousness, divine thought
-    /// 
+    ///
     /// **Water Signs:** Cancer, Scorpio, Pisces
     /// - Energy: Emotional, intuitive, flowing
     /// - Nature: Feeling, depth, psychic sensitivity
     /// - Spiritual Quality: Sacred waters, emotional wisdom, soul connection
-    /// 
+    ///
     /// **MegaCorpus Integration:**
     /// - Sources authentic elemental data from Signs.json in MegaCorpus database
     /// - Uses lowercase sign name for consistent JSON key matching
     /// - Maintains traditional correspondences from classical astrology
     /// - Provides graceful fallback if data is unavailable
-    /// 
+    ///
     /// **Spiritual Significance:**
     /// - Elements reveal the soul's fundamental approach to life experience
     /// - Shows the primary energy through which consciousness expresses
     /// - Indicates natural affinities and challenges in personal development
     /// - Forms the basis for understanding compatibility and growth patterns
-    /// 
+    ///
     /// - Parameter sign: String name of the zodiac sign (case-insensitive)
     /// - Returns: Optional String containing element name ("fire", "earth", "air", "water"), or nil if unavailable
-    /// 
+    ///
     /// **Usage Throughout UI:**
     /// - planetPositionCard(): Creates element badges for planetary positions
     /// - houseCard(): Shows natural sign element influence on house domains
     /// - Element badges provide quick visual identification of energetic quality
     /// - Color coding through getElementColor() creates consistent visual language
-    /// 
+    ///
     /// **Dependencies:**
     /// - loadMegaCorpusData(): Core function for accessing spiritual correspondence data
     /// - Signs.json: MegaCorpus file containing complete zodiac sign attributes
     /// - getElementColor(): Converts element names to visual colors
-    /// 
+    ///
     /// **Performance Notes:**
     /// - Lightweight JSON lookup with minimal processing
     /// - Case-insensitive matching for robust data retrieval
     /// - Cached MegaCorpus data prevents repeated file access
-    /// 
+    ///
     /// Claude: Get sign element from MegaCorpus data
     private func getSignElement(_ sign: String) -> String? {
         let cosmicData = loadMegaCorpusData()
-        
+
         if let signs = cosmicData["signs"] as? [String: Any],
            let signData = signs[sign.lowercased()] as? [String: Any],
            let element = signData["element"] as? String {
             return element
         }
-        
+
         return nil
     }
-    
+
     /// Returns the corresponding SwiftUI Color for each classical astrological element with spiritual significance
-    /// 
+    ///
     /// This function translates element names into visually meaningful colors that maintain the spiritual
     /// correspondence system throughout the Vybe app. Each color choice reflects both traditional
     /// astrological associations and modern UI accessibility, creating an intuitive visual language
     /// that helps users immediately recognize elemental energies in their cosmic profile.
-    /// 
+    ///
     /// **Phase History:**
     /// - Phase 12A.1: Basic element color mapping for planetary cards
     /// - Phase 15: Enhanced usage across house cards and expanded UI elements
-    /// 
+    ///
     /// **Color-Element Correspondences:**
     /// **Fire → Red**
     /// - Traditional: Mars energy, action, passion, dynamic force
     /// - Visual Psychology: Stimulating, energizing, calls attention to active energy
     /// - Spiritual Meaning: Divine spark, creative fire, will to manifest
-    /// 
-    /// **Earth → Brown**  
+    ///
+    /// **Earth → Brown**
     /// - Traditional: Grounding, stability, material manifestation
     /// - Visual Psychology: Stable, reliable, connected to natural world
     /// - Spiritual Meaning: Sacred matter, crystallized consciousness, foundation
-    /// 
+    ///
     /// **Air → Cyan**
     /// - Traditional: Mental clarity, communication, breath of life
-    /// - Visual Psychology: Open, expansive, intellectual stimulation  
+    /// - Visual Psychology: Open, expansive, intellectual stimulation
     /// - Spiritual Meaning: Divine thought, consciousness, connecting principle
-    /// 
+    ///
     /// **Water → Blue**
     /// - Traditional: Emotional depth, intuition, psychic sensitivity
     /// - Visual Psychology: Calming, profound, invites introspection
     /// - Spiritual Meaning: Sacred waters, soul connection, emotional wisdom
-    /// 
+    ///
     /// **Default → White**
     /// - Fallback for invalid or missing element data
     /// - Maintains UI consistency when data is unavailable
     /// - Neutral presence that doesn't mislead users
-    /// 
+    ///
     /// **UI Integration Strategy:**
     /// - Creates consistent visual vocabulary across all astrological displays
     /// - Works with opacity variations for subtle background applications
     /// - Provides sufficient contrast for accessibility in both light and cosmic themes
     /// - Harmonizes with Vybe's overall purple-cyan cosmic color palette
-    /// 
+    ///
     /// **Spiritual Design Philosophy:**
     /// - Colors chosen to invoke the authentic energetic feeling of each element
     /// - Maintains reverence for traditional astrological color symbolism
     /// - Supports meditative recognition of elemental qualities in user's chart
     /// - Enhances intuitive understanding of cosmic forces in daily life
-    /// 
+    ///
     /// - Parameter element: String name of the classical element (case-insensitive)
     /// - Returns: SwiftUI Color corresponding to the element's traditional association
-    /// 
+    ///
     /// **Usage Throughout UI:**
     /// - Element badges in planetPositionCard() and houseCard()
     /// - Background tints for element-themed sections
     /// - Border colors that reflect elemental signatures
     /// - Opacity variations for subtle elemental theming
-    /// 
+    ///
     /// **Dependencies:**
     /// - SwiftUI Color system for cross-platform compatibility
     /// - Case-insensitive element matching for robust color assignment
-    /// 
+    ///
     /// **Performance Notes:**
     /// - Simple switch statement provides O(1) lookup time
     /// - No external data dependencies - entirely self-contained
     /// - Lightweight operation suitable for frequent UI updates
-    /// 
+    ///
     /// Claude: Get element color for visual distinction
     private func getElementColor(_ element: String) -> Color {
         switch element.lowercased() {
@@ -1314,98 +1314,98 @@ struct UserProfileTabView: View {
         default: return .white
         }
     }
-    
+
     /// Returns the traditional astrological color for each planet based on spiritual correspondences and visual theming
-    /// 
+    ///
     /// This function provides color associations for the ten primary celestial bodies used in modern astrology,
     /// drawing from centuries of astrological tradition, alchemical correspondences, and practical UI design.
     /// Each color choice reflects both the mythological associations of planetary deities and the visual
     /// characteristics needed for clear identification in cosmic interface design.
-    /// 
+    ///
     /// **Phase History:**
     /// - Phase 12A.1: Initial planetary color system for position cards
     /// - Phase 15: Enhanced integration with gradient borders and expanded UI theming
-    /// 
+    ///
     /// **Traditional Planetary Color Correspondences:**
     /// **Sun → Yellow**
     /// - Traditional: Solar gold, life force, divine consciousness
     /// - Mythology: Apollo's golden chariot, solar deity associations
     /// - Spiritual Meaning: Core identity, creative power, vital essence
-    /// 
+    ///
     /// **Moon → Silver**
-    /// - Traditional: Lunar silver, reflection, feminine receptivity  
+    /// - Traditional: Lunar silver, reflection, feminine receptivity
     /// - Mythology: Diana's silver bow, nocturnal goddess symbolism
     /// - Spiritual Meaning: Emotional nature, intuitive wisdom, cyclic rhythms
-    /// 
+    ///
     /// **Mercury → Blue**
     /// - Traditional: Quicksilver, mental agility, communication
     /// - Mythology: Hermes' caduceus, messenger deity speed
     /// - Spiritual Meaning: Thought processes, learning ability, information exchange
-    /// 
+    ///
     /// **Venus → Green**
     /// - Traditional: Copper green, love, natural beauty, harmony
     /// - Mythology: Aphrodite's emerald, goddess of love and beauty
     /// - Spiritual Meaning: Aesthetic values, relationships, attraction principles
-    /// 
+    ///
     /// **Mars → Red**
     /// - Traditional: Iron red, action, passion, warrior energy
     /// - Mythology: Ares' red armor, god of war symbolism
     /// - Spiritual Meaning: Desire nature, assertiveness, courage to act
-    /// 
+    ///
     /// **Jupiter → Orange**
     /// - Traditional: Expansive warmth, wisdom, benefic influence
     /// - Mythology: Zeus' royal orange, king of gods majesty
     /// - Spiritual Meaning: Higher wisdom, philosophical growth, abundance
-    /// 
+    ///
     /// **Saturn → Brown**
     /// - Traditional: Lead brown, structure, time, limitation
     /// - Mythology: Cronos' earthen restraint, father time symbolism
     /// - Spiritual Meaning: Discipline, life lessons, karmic responsibility
-    /// 
+    ///
     /// **Uranus → Cyan**
     /// - Traditional: Electric blue-green, innovation, awakening
     /// - Modern: Discovery era electrical associations, sudden insights
     /// - Spiritual Meaning: Revolutionary change, individualism, higher consciousness
-    /// 
+    ///
     /// **Neptune → Purple**
     /// - Traditional: Mystical violet, spirituality, illusion
     /// - Modern: Ocean depths, transcendent experiences
     /// - Spiritual Meaning: Spiritual idealism, psychic sensitivity, dissolution of boundaries
-    /// 
+    ///
     /// **Pluto → Gray**
     /// - Traditional: Underworld darkness, transformation, hidden power
     /// - Modern: Atomic gray, plutonium associations
     /// - Spiritual Meaning: Death-rebirth cycles, shadow work, profound transformation
-    /// 
+    ///
     /// **Default → White**
     /// - Fallback for unrecognized planetary names or calculation errors
     /// - Maintains visual consistency when data is incomplete
     /// - Neutral presence that doesn't convey false astrological meaning
-    /// 
+    ///
     /// - Parameter planet: String name of the celestial body (case-insensitive)
     /// - Returns: SwiftUI Color corresponding to traditional planetary associations
-    /// 
+    ///
     /// **Usage Throughout UI:**
     /// - Primary identification color in planetPositionCard() headers
     /// - Gradient border components blending with sign colors
     /// - Thematic backgrounds for detailed planetary information sheets
     /// - Visual hierarchy establishment in planetary aspect displays
-    /// 
+    ///
     /// **Design Philosophy:**
     /// - Honors traditional astrological color symbolism for spiritual authenticity
     /// - Provides sufficient contrast for accessibility in cosmic dark themes
     /// - Creates intuitive associations between color and planetary archetype
     /// - Supports meditative recognition of planetary energies in user's chart
-    /// 
+    ///
     /// **Dependencies:**
     /// - SwiftUI Color system for cross-platform compatibility
     /// - Case-insensitive planet matching for robust color assignment
-    /// 
+    ///
     /// **Performance Notes:**
     /// - Efficient switch statement for O(1) color lookup
     /// - No external data dependencies - entirely self-contained
     /// - Suitable for frequent UI updates without performance impact
-    /// 
+    ///
     /// Claude: Get planet color for theming
     private func getPlanetColor(_ planet: String) -> Color {
         switch planet.lowercased() {
@@ -1422,7 +1422,7 @@ struct UserProfileTabView: View {
         default: return .white
         }
     }
-    
+
     /// Claude: Reusable accordion component for natal chart sections
     private func natalChartAccordion<Content: View>(
         title: String,
@@ -1436,7 +1436,7 @@ struct UserProfileTabView: View {
                 // Claude: Single animation to prevent double dropdown glitch
                 // Remove withAnimation wrapper to prevent conflict with rotationEffect animation
                 isExpanded.wrappedValue.toggle()
-                
+
                 // Haptic feedback
                 let impactFeedback = UIImpactFeedbackGenerator(style: .light)
                 impactFeedback.impactOccurred()
@@ -1448,15 +1448,15 @@ struct UserProfileTabView: View {
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
                             .multilineTextAlignment(.leading)
-                        
+
                         Text(subtitle)
                             .font(.caption)
                             .foregroundColor(.cyan.opacity(0.8))
                             .multilineTextAlignment(.leading)
                     }
-                    
+
                     Spacer()
-                    
+
                     Image(systemName: isExpanded.wrappedValue ? "chevron.up.circle.fill" : "chevron.down.circle.fill")
                         .font(.title2)
                         .foregroundColor(.cyan)
@@ -1474,7 +1474,7 @@ struct UserProfileTabView: View {
                 )
             }
             .buttonStyle(PlainButtonStyle())
-            
+
             // Accordion Content (Expandable)
             if isExpanded.wrappedValue {
                 content()
@@ -1486,7 +1486,7 @@ struct UserProfileTabView: View {
             }
         }
     }
-    
+
     /// Claude: Houses accordion content with life areas and planetary cusps
     private func housesAccordionContent(_ profile: UserProfile) -> some View {
         VStack(spacing: 12) {
@@ -1496,7 +1496,7 @@ struct UserProfileTabView: View {
                 .italic()
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
-            
+
             LazyVGrid(columns: [
                 GridItem(.flexible(), spacing: 12),
                 GridItem(.flexible(), spacing: 12)
@@ -1506,7 +1506,7 @@ struct UserProfileTabView: View {
                         .frame(minHeight: 80) // Claude: Ensure consistent card heights
                 }
             }
-            
+
             // Claude: Fix birth time detection - check for actual birth time data
             if profile.birthTimeHour == nil || profile.birthTimeMinute == nil {
                 Text("⏰ House positions are approximate without exact birth time. Add your birth time in settings for precise house cusps.")
@@ -1536,53 +1536,53 @@ struct UserProfileTabView: View {
                 )
         )
     }
-    
+
     /// Renders an astrological house card with natural zodiac sign influences and comprehensive life area information
-    /// 
+    ///
     /// Creates a detailed house card showing the traditional zodiac correspondence, natural ruling sign,
     /// elemental associations, modes, and life area themes. Each house represents a specific domain
     /// of human experience in astrological tradition, enhanced with MegaCorpus spiritual data.
-    /// 
+    ///
     /// **Phase History:**
     /// - Phase 12A.1: Basic house information with life areas
     /// - Phase 15: Major enhancement with natural sign influences, element/mode badges, and MegaCorpus keywords
-    /// 
+    ///
     /// **Astrological House System:**
     /// - Houses 1-12 represent life themes from identity (1st) through transcendence (12th)
     /// - Each house naturally corresponds to a zodiac sign (1st=Aries, 2nd=Taurus, etc.)
     /// - Natural sign provides elemental quality and mode that colors the house's expression
     /// - Actual cusp sign may differ from natural sign based on birth time and location
-    /// 
+    ///
     /// **UI Design Decisions:**
     /// - Fixed height of 120pt ensures uniform grid appearance matching planetary cards
     /// - Header displays house number prominently with natural sign glyph and name
     /// - Life area description positioned in middle section for easy scanning
     /// - Element and mode badges at bottom provide quick visual reference
     /// - Gradient border blends house color with natural sign color for visual hierarchy
-    /// 
+    ///
     /// **MegaCorpus Integration:**
     /// - House keywords loaded from Houses.json MegaCorpus data for authentic astrological meaning
     /// - Natural sign element and mode retrieved from Signs.json for consistent correspondences
     /// - Life area descriptions sourced from traditional astrological house meanings
     /// - Color associations maintain spiritual correspondence system
-    /// 
+    ///
     /// **Spiritual Significance:**
     /// - Each house represents a sacred domain of human spiritual development
     /// - Natural sign influence shows the archetypal energy coloring that life domain
     /// - Element badges indicate the fundamental life force quality (Fire=action, Earth=structure, Air=thought, Water=emotion)
     /// - Mode badges show the expression style (Cardinal=initiating, Fixed=sustaining, Mutable=adapting)
     /// - Keywords provide concentrated wisdom about each house's spiritual purpose
-    /// 
+    ///
     /// **Information Hierarchy:**
     /// 1. House number and natural sign (primary identification)
     /// 2. Life area and keyword (functional meaning)
     /// 3. Element and mode (energetic qualities)
     /// 4. Actual cusp sign if different (personal chart variation)
-    /// 
+    ///
     /// - Parameter houseNumber: Integer 1-12 representing the astrological house
     /// - Parameter profile: UserProfile containing birth chart calculation data
     /// - Returns: SwiftUI Button view that opens detailed house information when tapped
-    /// 
+    ///
     /// **Dependencies:**
     /// - getHouseNaturalSign(): Returns the traditional zodiac sign for each house
     /// - getHouseKeyword(): Retrieves spiritual keyword from MegaCorpus Houses data
@@ -1593,12 +1593,12 @@ struct UserProfileTabView: View {
     /// - getSignGlyph(): Returns Unicode astrological symbol for signs
     /// - getSignColor(): Returns thematic color for visual identification
     /// - getElementColor(): Returns color for Fire/Earth/Air/Water elements
-    /// 
+    ///
     /// **Interactive Behavior:**
     /// - Tapping sets selectedHouseForSheet to trigger detailed house information sheet
     /// - PlainButtonStyle prevents default styling from interfering with custom design
     /// - Info icon indicates additional astrological details are available
-    /// 
+    ///
     /// Claude: Enhanced house card with zodiac influences and comprehensive MegaCorpus data
     /// Claude: Phase 15 Enhancement - Rich house information with natural sign influences
     private func houseCard(houseNumber: Int, profile: UserProfile) -> some View {
@@ -1613,7 +1613,7 @@ struct UserProfileTabView: View {
                             .font(.headline)
                             .fontWeight(.bold)
                             .foregroundColor(.cyan)
-                        
+
                         // Claude: Show natural ruling sign and glyph
                         if let naturalSign = getHouseNaturalSign(houseNumber: houseNumber) {
                             HStack(spacing: 4) {
@@ -1627,17 +1627,17 @@ struct UserProfileTabView: View {
                             }
                         }
                     }
-                    
+
                     Spacer()
-                    
+
                     // Claude: Info icon with house element color
                     Image(systemName: "info.circle.fill")
                         .font(.caption)
                         .foregroundColor(.cyan.opacity(0.6))
                 }
-                
+
                 Spacer()
-                
+
                 // Claude: House life area with archetypal keyword
                 VStack(alignment: .leading, spacing: 3) {
                     Text(getHouseLifeAreaShort(houseNumber: houseNumber))
@@ -1645,7 +1645,7 @@ struct UserProfileTabView: View {
                         .foregroundColor(.white.opacity(0.9))
                         .fontWeight(.semibold)
                         .lineLimit(1)
-                    
+
                     // Claude: Add house keyword from MegaCorpus
                     if let keyword = getHouseKeyword(houseNumber: houseNumber) {
                         Text("• \(keyword)")
@@ -1654,7 +1654,7 @@ struct UserProfileTabView: View {
                             .italic()
                     }
                 }
-                
+
                 // Claude: Element and mode from natural sign
                 if let naturalSign = getHouseNaturalSign(houseNumber: houseNumber),
                    let element = getSignElement(naturalSign),
@@ -1670,7 +1670,7 @@ struct UserProfileTabView: View {
                                 Capsule()
                                     .fill(getElementColor(element).opacity(0.2))
                             )
-                        
+
                         // Mode badge
                         Text(mode.uppercased())
                             .font(.system(size: 8, weight: .bold))
@@ -1681,11 +1681,11 @@ struct UserProfileTabView: View {
                                 Capsule()
                                     .fill(Color.white.opacity(0.1))
                             )
-                        
+
                         Spacer()
                     }
                 }
-                
+
                 // Claude: Show actual ruling sign if different from natural
                 if let rulingSign = getHouseRulingSign(houseNumber: houseNumber, profile: profile) {
                     Text("Cusp: \(rulingSign)")
@@ -1717,7 +1717,7 @@ struct UserProfileTabView: View {
         }
         .buttonStyle(PlainButtonStyle())
     }
-    
+
     /// Claude: Aspects accordion content with major planetary relationships
     private func aspectsAccordionContent(_ profile: UserProfile) -> some View {
         VStack(spacing: 12) {
@@ -1727,23 +1727,23 @@ struct UserProfileTabView: View {
                 .italic()
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
-            
+
             VStack(spacing: 8) {
                 // Major aspects from Phase 11A data
                 ForEach(getMajorAspects(profile: profile), id: \.id) { aspect in
                     aspectRow(aspect: aspect)
                 }
-                
+
                 if getMajorAspects(profile: profile).isEmpty {
                     VStack(spacing: 8) {
                         Image(systemName: "hourglass")
                             .font(.title2)
                             .foregroundColor(.orange)
-                        
+
                         Text("⏳ Aspect calculations in progress")
                             .font(.subheadline)
                             .foregroundColor(.orange)
-                        
+
                         Text("Your natal aspects will appear here once your complete birth chart has been calculated using your birth location and time.")
                             .font(.caption)
                             .foregroundColor(.white.opacity(0.6))
@@ -1764,7 +1764,7 @@ struct UserProfileTabView: View {
                 )
         )
     }
-    
+
     /// Claude: Individual aspect row showing planetary relationship (now tappable)
     private func aspectRow(aspect: NatalAspect) -> some View {
         Button(action: {
@@ -1780,15 +1780,15 @@ struct UserProfileTabView: View {
                         .fontWeight(.medium)
                 }
                 .foregroundColor(.white.opacity(0.8))
-                
+
                 Spacer()
-                
+
                 Text(getAspectSymbol(for: aspect.type))
                     .font(.headline)
                     .foregroundColor(getAspectColor(for: aspect.type))
-                
+
                 Spacer()
-                
+
                 HStack(spacing: 4) {
                     Text(aspect.planet2)
                         .font(.caption2)
@@ -1797,13 +1797,13 @@ struct UserProfileTabView: View {
                         .font(.caption)
                 }
                 .foregroundColor(.white.opacity(0.8))
-                
+
                 Spacer()
-                
+
                 Text("\(String(format: "%.1f", aspect.orb))°")
                     .font(.caption2)
                     .foregroundColor(.white.opacity(0.6))
-                
+
                 // Tap indicator
                 Image(systemName: "info.circle")
                     .font(.caption2)
@@ -1818,7 +1818,7 @@ struct UserProfileTabView: View {
         }
         .buttonStyle(PlainButtonStyle())
     }
-    
+
     /// Claude: Enhanced Planetary Map accordion content with rich MegaCorpus descriptions
     private func glyphMapAccordionContent(_ profile: UserProfile) -> some View {
         VStack(spacing: 16) {
@@ -1827,7 +1827,7 @@ struct UserProfileTabView: View {
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundColor(.cyan)
-                
+
                 Text("Each planetary placement reveals an archetypal energy expressing through a specific zodiacal quality. Tap any planet to explore its deeper spiritual significance in your cosmic blueprint.")
                     .font(.caption)
                     .foregroundColor(.white.opacity(0.8))
@@ -1835,26 +1835,26 @@ struct UserProfileTabView: View {
                     .lineSpacing(2)
                     .padding(.horizontal)
             }
-            
+
             // Claude: Simple list view instead of complex circular chart
             VStack(spacing: 8) {
                 ForEach(getPlanetaryPositions(profile: profile, mode: sanctumViewMode), id: \.planet) { position in
                     planetListRow(position: position)
                 }
-                
+
                 // Show rising sign if available
                 if let risingSign = profile.risingSign {
                     planetListRow(
                         position: PlanetaryPosition(
-                            planet: "Ascendant", 
-                            sign: risingSign, 
+                            planet: "Ascendant",
+                            sign: risingSign,
                             degree: 0,
                             houseNumber: 1 // Ascendant is always the 1st house cusp
                         )
                     )
                 }
             }
-            
+
             if profile.birthplaceName == nil {
                 Text("📍 Add your birth location in settings for precise planetary positions.")
                     .font(.caption2)
@@ -1875,7 +1875,7 @@ struct UserProfileTabView: View {
                 )
         )
     }
-    
+
     /// Claude: Individual planet row for list view
     /// Claude: Individual planet row for list view with rich descriptions
     private func planetListRow(position: PlanetaryPosition) -> some View {
@@ -1887,7 +1887,7 @@ struct UserProfileTabView: View {
                 Text(getPlanetGlyph(position.planet))
                     .font(.title2)
                     .foregroundColor(getPlanetColor(position.planet))
-                
+
                 // Planet info with mini description
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 4) {
@@ -1895,24 +1895,24 @@ struct UserProfileTabView: View {
                             .font(.subheadline)
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
-                        
+
                         Text("in")
                             .font(.caption)
                             .foregroundColor(.white.opacity(0.6))
-                        
+
                         Text(position.sign)
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .foregroundColor(getSignColor(position.sign))
                     }
-                    
+
                     // Enhanced archetype with sign combination
                     VStack(alignment: .leading, spacing: 2) {
                         Text(getPlanetMiniDescription(position.planet))
                             .font(.caption2)
                             .foregroundColor(.white.opacity(0.8))
                             .fontWeight(.medium)
-                        
+
                         if let element = getSignElement(position.sign) {
                             Text("\(element.capitalized) energy")
                                 .font(.system(size: 9, weight: .medium))
@@ -1920,9 +1920,9 @@ struct UserProfileTabView: View {
                         }
                     }
                 }
-                
+
                 Spacer()
-                
+
                 // Degree and tap indicator
                 VStack(alignment: .trailing, spacing: 2) {
                     if position.degree > 0 {
@@ -1930,7 +1930,7 @@ struct UserProfileTabView: View {
                             .font(.caption)
                             .foregroundColor(.white.opacity(0.6))
                     }
-                    
+
                     Image(systemName: "chevron.right")
                         .font(.caption2)
                         .foregroundColor(.white.opacity(0.4))
@@ -1959,18 +1959,18 @@ struct UserProfileTabView: View {
         }
         .buttonStyle(PlainButtonStyle())
     }
-    
-    
+
+
     /// Get mini planet description for list view
     private func getPlanetMiniDescription(_ planet: String) -> String {
         let cosmicData = loadMegaCorpusData()
-        
+
         if let planets = cosmicData["planets"] as? [String: Any],
            let planetData = planets[planet.lowercased()] as? [String: Any],
            let archetype = planetData["archetype"] as? String {
             return archetype
         }
-        
+
         // Fallback mini descriptions
         switch planet.lowercased() {
         case "sun": return "The Luminary"
@@ -1987,15 +1987,15 @@ struct UserProfileTabView: View {
         default: return "Celestial Body"
         }
     }
-    
+
     /// Get sign color for visual distinction
     private func getSignColor(_ sign: String) -> Color {
         let cosmicData = loadMegaCorpusData()
-        
+
         if let signs = cosmicData["signs"] as? [String: Any],
            let signData = signs[sign.lowercased()] as? [String: Any],
            let element = signData["element"] as? String {
-            
+
             switch element.lowercased() {
             case "fire": return .orange
             case "earth": return .brown
@@ -2004,12 +2004,12 @@ struct UserProfileTabView: View {
             default: return .white
             }
         }
-        
+
         return .white.opacity(0.8)
     }
-    
+
     // MARK: - Complete Archetype Codex
-    
+
     private func completeArchetypeCodex(_ archetype: UserArchetype) -> some View {
         VStack(spacing: 24) {
             // Section Header
@@ -2025,13 +2025,13 @@ struct UserProfileTabView: View {
                         )
                     )
                     .shadow(color: .purple.opacity(0.5), radius: 5)
-                
+
                 Text("The cosmic blueprint of your soul's essence")
                     .font(.caption)
                     .foregroundColor(.white.opacity(0.8))
                     .italic()
             }
-            
+
             VStack(spacing: 16) {
                 // Zodiac Sign Card - Full Width
                 Button(action: {
@@ -2049,7 +2049,7 @@ struct UserProfileTabView: View {
                     )
                 }
                 .buttonStyle(PlainButtonStyle())
-                
+
                 // Element Card - Full Width
                 Button(action: {
                     selectedArchetypeDetail = .element(archetype.element)
@@ -2066,7 +2066,7 @@ struct UserProfileTabView: View {
                     )
                 }
                 .buttonStyle(PlainButtonStyle())
-                
+
                 // Primary Planet Card - Full Width
                 Button(action: {
                     selectedArchetypeDetail = .primaryPlanet(archetype.primaryPlanet)
@@ -2083,7 +2083,7 @@ struct UserProfileTabView: View {
                     )
                 }
                 .buttonStyle(PlainButtonStyle())
-                
+
                 // Shadow Planet Card - Full Width
                 Button(action: {
                     selectedArchetypeDetail = .shadowPlanet(archetype.subconsciousPlanet)
@@ -2111,8 +2111,8 @@ struct UserProfileTabView: View {
                         .stroke(
                             LinearGradient(
                                 gradient: Gradient(colors: [
-                                    .purple.opacity(archetypeGlow ? 0.8 : 0.6), 
-                                    .blue.opacity(archetypeGlow ? 0.6 : 0.4), 
+                                    .purple.opacity(archetypeGlow ? 0.8 : 0.6),
+                                    .blue.opacity(archetypeGlow ? 0.6 : 0.4),
                                     .indigo.opacity(archetypeGlow ? 0.5 : 0.3)
                                 ]),
                                 startPoint: .topLeading,
@@ -2123,13 +2123,13 @@ struct UserProfileTabView: View {
                 )
         )
         .shadow(
-            color: .purple.opacity(archetypeGlow ? 0.5 : 0.3), 
-            radius: archetypeGlow ? 20 : 15, 
-            x: 0, 
+            color: .purple.opacity(archetypeGlow ? 0.5 : 0.3),
+            radius: archetypeGlow ? 20 : 15,
+            x: 0,
             y: 8
         )
     }
-    
+
     private func spiritualArchetypeCard(icon: String, title: String, subtitle: String, description: String, color: Color, accentColor: Color) -> some View {
         HStack(spacing: 16) {
             // Icon Section (Left)
@@ -2137,7 +2137,7 @@ struct UserProfileTabView: View {
                 Text(icon)
                     .font(.system(size: 40))
                     .shadow(color: color.opacity(0.6), radius: 5)
-                
+
                 Text(subtitle)
                     .font(.caption2)
                     .foregroundColor(accentColor)
@@ -2147,14 +2147,14 @@ struct UserProfileTabView: View {
                     .multilineTextAlignment(.center)
             }
             .frame(width: 80)
-            
+
             // Content Section (Center)
             VStack(alignment: .leading, spacing: 8) {
                 Text(title)
                     .font(.title3)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                
+
                 Text(description)
                     .font(.subheadline)
                     .foregroundColor(.white.opacity(0.85))
@@ -2163,7 +2163,7 @@ struct UserProfileTabView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             // Tap Indicator (Right)
             VStack {
                 Image(systemName: "chevron.right.circle.fill")
@@ -2205,26 +2205,26 @@ struct UserProfileTabView: View {
         .scaleEffect(1.0)
         .animation(.easeInOut(duration: 0.2), value: color)
     }
-    
+
     // MARK: - Archetype Loading View
-    
+
     private var archetypeLoadingView: some View {
         VStack(spacing: 20) {
             ProgressView()
                 .scaleEffect(1.5)
                 .progressViewStyle(CircularProgressViewStyle(tint: .purple))
-            
+
             VStack(spacing: 8) {
                 Text("✨ Calculating Your Spiritual Archetype ✨")
                     .font(.headline)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
-                
+
                 Text("Aligning zodiac, element, and planetary influences...")
                     .font(.subheadline)
                     .foregroundColor(.white.opacity(0.7))
                     .multilineTextAlignment(.center)
-                
+
                 // Debug information
                 if let profile = userProfile {
                     Text("Birth Date: \(DateFormatter.localizedString(from: profile.birthdate, dateStyle: .medium, timeStyle: .none))")
@@ -2232,7 +2232,7 @@ struct UserProfileTabView: View {
                         .foregroundColor(.white.opacity(0.5))
                         .padding(.top, 8)
                 }
-                
+
                 // Manual retry button
                 Button(action: {
                     print("🔄 Manual archetype refresh triggered")
@@ -2275,9 +2275,9 @@ struct UserProfileTabView: View {
             }
         }
     }
-    
+
     // MARK: - Hero Life Path Section
-    
+
     private func heroLifePathSection(_ profile: UserProfile) -> some View {
         VStack(spacing: 20) {
             // Life Path Number - Massive and Glowing
@@ -2299,7 +2299,7 @@ struct UserProfileTabView: View {
                     .frame(width: 200, height: 200)
                     .scaleEffect(lifePathPulse ? 1.1 : 1.0)
                     .animation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true), value: lifePathPulse)
-                
+
                 // Number display
                 Text("\(profile.lifePathNumber)")
                     .font(.system(size: 80, weight: .bold, design: .rounded))
@@ -2312,13 +2312,13 @@ struct UserProfileTabView: View {
                     )
                     .shadow(color: .yellow.opacity(0.5), radius: 10, x: 0, y: 0)
             }
-            
+
             VStack(spacing: 12) {
                 Text("Life Path \(profile.lifePathNumber)")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                
+
                 if profile.isMasterNumber {
                     Text("✨ Master Number ✨")
                         .font(.subheadline)
@@ -2335,7 +2335,7 @@ struct UserProfileTabView: View {
                                 )
                         )
                 }
-                
+
                 Text(lifePathDescription(for: profile.lifePathNumber, isMaster: profile.isMasterNumber))
                     .font(.body)
                     .foregroundColor(.white.opacity(0.9))
@@ -2362,9 +2362,9 @@ struct UserProfileTabView: View {
         )
         .shadow(color: .yellow.opacity(0.3), radius: 20, x: 0, y: 10)
     }
-    
+
     // MARK: - Action Buttons Section
-    
+
     private var actionButtonsSection: some View {
         HStack(spacing: 20) {
             // View Sigil Button
@@ -2392,7 +2392,7 @@ struct UserProfileTabView: View {
                 .cornerRadius(12)
                 .shadow(color: .purple.opacity(0.3), radius: 8, x: 0, y: 4)
             }
-            
+
             // Share Card Button
             Button(action: {
                 showingShareSheet = true
@@ -2420,16 +2420,16 @@ struct UserProfileTabView: View {
             }
         }
     }
-    
+
     // MARK: - Profile Summary Section
-    
+
     private func profileSummarySection(_ profile: UserProfile) -> some View {
         VStack(spacing: 16) {
             Text("Spiritual Preferences")
                 .font(.headline)
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             VStack(spacing: 12) {
                 ProfileSummaryRow(
                     icon: "heart.circle.fill",
@@ -2437,21 +2437,21 @@ struct UserProfileTabView: View {
                     value: profile.spiritualMode,
                     color: .purple
                 )
-                
+
                 ProfileSummaryRow(
                     icon: "message.circle.fill",
                     title: "Insight Tone",
                     value: profile.insightTone,
                     color: .blue
                 )
-                
+
                 ProfileSummaryRow(
                     icon: "tag.circle.fill",
                     title: "Focus Areas",
                     value: profile.focusTags.joined(separator: ", "),
                     color: .green
                 )
-                
+
                 ProfileSummaryRow(
                     icon: "moon.stars.fill",
                     title: "Cosmic Preference",
@@ -2470,9 +2470,9 @@ struct UserProfileTabView: View {
                 )
         )
     }
-    
+
     // MARK: - Profile Setup Needed View
-    
+
     private var profileSetupNeededView: some View {
         VStack(spacing: 30) {
             // Sacred symbol
@@ -2495,18 +2495,18 @@ struct UserProfileTabView: View {
                     Circle()
                         .stroke(Color.white.opacity(0.3), lineWidth: 2)
                 )
-            
+
             VStack(spacing: 16) {
                 Text("✨ Welcome to Your Sanctum ✨")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
-                
+
                 Text("Your Sacred Space Awaits")
                     .font(.title3)
                     .foregroundColor(.white.opacity(0.8))
-                
+
                 Text("It looks like your spiritual profile is still being prepared. This sacred space will contain your complete numerological archetype, spiritual insights, and cosmic alignments.")
                     .font(.body)
                     .foregroundColor(.white.opacity(0.7))
@@ -2514,7 +2514,7 @@ struct UserProfileTabView: View {
                     .lineSpacing(4)
                     .padding(.horizontal)
             }
-            
+
             // Helpful guidance
             VStack(spacing: 20) {
                 VStack(spacing: 12) {
@@ -2522,7 +2522,7 @@ struct UserProfileTabView: View {
                         .font(.headline)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    
+
                     VStack(spacing: 8) {
                         HStack {
                             Text("1.")
@@ -2533,7 +2533,7 @@ struct UserProfileTabView: View {
                                 .foregroundColor(.white.opacity(0.8))
                             Spacer()
                         }
-                        
+
                         HStack {
                             Text("2.")
                                 .fontWeight(.bold)
@@ -2543,7 +2543,7 @@ struct UserProfileTabView: View {
                                 .foregroundColor(.white.opacity(0.8))
                             Spacer()
                         }
-                        
+
                         HStack {
                             Text("3.")
                                 .fontWeight(.bold)
@@ -2564,7 +2564,7 @@ struct UserProfileTabView: View {
                                 .stroke(Color.blue.opacity(0.5), lineWidth: 1)
                         )
                 )
-                
+
                 // Quick action button
                 NavigationLink(destination: JournalView()) {
                     HStack {
@@ -2606,9 +2606,9 @@ struct UserProfileTabView: View {
         )
         .shadow(color: .purple.opacity(0.2), radius: 15, x: 0, y: 8)
     }
-    
+
     // MARK: - The Divine Triangle Section (Complete Numerological Trinity)
-    
+
     private func theDivineTriangleSection(_ profile: UserProfile) -> some View {
         VStack(spacing: 24) {
             // Section Header
@@ -2624,18 +2624,18 @@ struct UserProfileTabView: View {
                         )
                     )
                     .shadow(color: .yellow.opacity(0.5), radius: 5)
-                
+
                 Text("Your Sacred Numerological Trinity")
                     .font(.subheadline)
                     .foregroundColor(.white.opacity(0.8))
                     .italic()
-                
+
                 Text("The complete blueprint of your soul's journey")
                     .font(.caption)
                     .foregroundColor(.white.opacity(0.6))
                     .italic()
             }
-            
+
             VStack(spacing: 20) {
                 // Life Path Number (Primary - Larger Display)
                 Button(action: {
@@ -2655,7 +2655,7 @@ struct UserProfileTabView: View {
                     )
                 }
                 .buttonStyle(PlainButtonStyle())
-                
+
                 // Soul Urge Number (Heart's Desire)
                 if let soulUrge = profile.soulUrgeNumber {
                     Button(action: {
@@ -2676,7 +2676,7 @@ struct UserProfileTabView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
-                
+
                 // Expression Number (Life's Purpose)
                 if let expression = profile.expressionNumber {
                     Button(action: {
@@ -2686,7 +2686,7 @@ struct UserProfileTabView: View {
                     }) {
                         divineTriangleCard(
                             number: expression,
-                            title: "Expression Number", 
+                            title: "Expression Number",
                             subtitle: "Natural Talents & Gifts",
                             description: expressionDescription(for: expression),
                             icon: "star.fill",
@@ -2697,7 +2697,7 @@ struct UserProfileTabView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
-                
+
                 // Master Number Badge (if applicable)
                 if profile.isMasterNumber {
                     HStack {
@@ -2742,20 +2742,20 @@ struct UserProfileTabView: View {
         )
         .shadow(color: .yellow.opacity(0.3), radius: 15, x: 0, y: 8)
     }
-    
+
     // MARK: - Helper Functions
-    
+
     /// Load MegaCorpus data with caching
     private func loadMegaCorpusData() -> [String: Any] {
         // Use singleton cache
         if let cachedData = MegaCorpusCache.shared.data {
             return cachedData
         }
-        
+
         // Load all MegaCorpus JSON files
         let fileNames = ["Signs", "Planets", "Houses", "Aspects", "Elements", "Modes", "MoonPhases", "ApparentMotion"]
         var megaData: [String: Any] = [:]
-        
+
         for fileName in fileNames {
             // Try multiple paths to find the JSON files
             let paths = [
@@ -2764,24 +2764,24 @@ struct UserProfileTabView: View {
                 Bundle.main.path(forResource: fileName, ofType: "json"),
                 Bundle.main.path(forResource: "MegaCorpus/\(fileName)", ofType: "json")
             ]
-            
+
             var loaded = false
             for path in paths.compactMap({ $0 }) {
                 if let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
                    let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                    
+
                     // Extract the main data section from each file (skip metadata)
                     if let mainKey = json.keys.first(where: { $0 != "metadata" }),
                        let mainData = json[mainKey] {
                         megaData[mainKey] = mainData
-                        
+
                         // Also add individual entries for easier access
                         if let dataDict = mainData as? [String: Any] {
                             for (key, value) in dataDict {
                                 megaData[key] = value
                             }
                         }
-                        
+
                         loaded = true
                         print("✅ Loaded MegaCorpus \(fileName) -> \(mainKey) from: \(path)")
                         break
@@ -2794,16 +2794,16 @@ struct UserProfileTabView: View {
                     }
                 }
             }
-            
+
             if !loaded {
                 print("❌ Failed to load MegaCorpus \(fileName)")
             }
         }
-        
+
         MegaCorpusCache.shared.data = megaData
         return megaData
     }
-    
+
     /**
      * PERFORMANCE FIX: Quick cache check to load profile immediately if available
      */
@@ -2818,12 +2818,12 @@ struct UserProfileTabView: View {
         }
         print("⚡ No cached profile available, will need to fetch from network")
     }
-    
+
     private func loadUserProfile() {
         // First check if we have a userID in UserDefaults
         if let userID = UserDefaults.standard.string(forKey: "userID") {
             print("✅ UserProfileTabView: Found userID in UserDefaults: \(userID)")
-            
+
             UserProfileService.shared.fetchUserProfile(for: userID) { profile, error in
                 DispatchQueue.main.async {
                     if let error = error {
@@ -2837,7 +2837,7 @@ struct UserProfileTabView: View {
                         }
                         return
                     }
-                    
+
                     if let profile = profile {
                         print("✅ Successfully loaded profile from Firestore for userID: \(userID)")
                     self.userProfile = profile
@@ -2865,10 +2865,10 @@ struct UserProfileTabView: View {
             }
         }
     }
-    
+
     private func loadArchetype() {
         print("🔍 loadArchetype() called - checking archetype status... (retry: \(archetypeRetryCount))")
-        
+
         // PERFORMANCE FIX: Always try cached first (main thread, fast)
         let cachedArchetype = archetypeManager.loadCachedArchetype()
         if let cachedArchetype = cachedArchetype {
@@ -2876,34 +2876,34 @@ struct UserProfileTabView: View {
             archetypeRetryCount = 0 // Reset retry count on success
             return
         }
-        
+
         // PERFORMANCE FIX: Check storage (main thread, fast)
         if UserArchetypeManager.shared.hasStoredArchetype() {
             print("✅ Archetype exists in storage, using loadCachedArchetype()")
             let _ = archetypeManager.loadCachedArchetype()
             return
         }
-        
+
         // PERFORMANCE FIX: Defer expensive calculation to background queue
         if let profile = userProfile {
             print("📅 No cached archetype found, calculating from user profile birthdate: \(profile.birthdate)")
-            
+
             DispatchQueue.global(qos: .userInitiated).async {
                 let calculatedArchetype = self.archetypeManager.calculateArchetype(from: profile.birthdate)
             print("✨ Calculated new archetype: \(calculatedArchetype.zodiacSign.rawValue) \(calculatedArchetype.element.rawValue)")
-            
+
                 DispatchQueue.main.async {
                     self.archetypeRetryCount = 0 // Reset retry count on success
                 }
             }
         } else {
             print("❌ No cached archetype and no user profile available - will retry when profile loads")
-            
+
             // PERFORMANCE FIX: Only retry if profile is still loading, not indefinitely
             if archetypeRetryCount < 2 && userProfile == nil {
                 archetypeRetryCount += 1
                 print("🔄 Will retry archetype when profile loads (attempt \(archetypeRetryCount)/2)")
-                
+
                 // Retry once profile is available
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                     if self.userProfile != nil {
@@ -2915,7 +2915,7 @@ struct UserProfileTabView: View {
             }
         }
     }
-    
+
     private func divineTriangleCard(number: Int, title: String, subtitle: String, description: String, icon: String, color: Color, glowColor: Color, isPrimary: Bool) -> some View {
         HStack(spacing: 20) {
             // Number Circle (larger for primary)
@@ -2935,12 +2935,12 @@ struct UserProfileTabView: View {
                     )
                     .frame(width: isPrimary ? 100 : 80, height: isPrimary ? 100 : 80)
                     .shadow(color: glowColor.opacity(0.6), radius: isPrimary ? 15 : 10)
-                
+
                 VStack(spacing: 2) {
                     Image(systemName: icon)
                         .font(isPrimary ? .title2 : .title3)
                         .foregroundColor(.white)
-                    
+
                     Text("\(number)")
                         .font(isPrimary ? .largeTitle : .title)
                         .fontWeight(.bold)
@@ -2948,7 +2948,7 @@ struct UserProfileTabView: View {
                         .shadow(color: glowColor.opacity(0.8), radius: 3)
                 }
             }
-            
+
             // Description
             VStack(alignment: .leading, spacing: 8) {
                 VStack(alignment: .leading, spacing: 4) {
@@ -2956,20 +2956,20 @@ struct UserProfileTabView: View {
                         .font(isPrimary ? .title3 : .headline)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                    
+
                     Text(subtitle)
                         .font(isPrimary ? .subheadline : .caption)
                         .foregroundColor(color)
                         .fontWeight(.medium)
                 }
-                
+
                 Text(description)
                     .font(.caption)
                     .foregroundColor(.white.opacity(0.8))
                     .lineLimit(nil)
                     .multilineTextAlignment(.leading)
             }
-            
+
             // Tap indicator
             VStack {
                 Image(systemName: "chevron.right")
@@ -2989,11 +2989,11 @@ struct UserProfileTabView: View {
         )
         .shadow(color: color.opacity(0.3), radius: isPrimary ? 12 : 8, x: 0, y: isPrimary ? 6 : 4)
     }
-    
+
     // MARK: - Helper Functions
-    
+
     /// Claude: Enhanced zodiac description using MegaCorpus data
-    /// 
+    ///
     /// **Spiritual Data Integration:**
     /// - Loads zodiac archetypes from MegaCorpus/Signs.json
     /// - Combines archetype, element, mode, and keywords for rich descriptions
@@ -3003,28 +3003,28 @@ struct UserProfileTabView: View {
     /// **Example:** "The Pioneer • Fire Cardinal • Initiative • Leadership • Courage"
     private func detailedZodiacDescription(for sign: ZodiacSign) -> String {
         let cosmicData = loadMegaCorpusData()
-        
+
         // Try to load from mega corpus first - fix nested structure access
         if let signsFile = cosmicData["signs"] as? [String: Any],
            let signs = signsFile["signs"] as? [String: Any] {
             let signKey = sign.rawValue.lowercased()
-            
+
             if let signData = signs[signKey] as? [String: Any] {
                 // Extract data from the actual JSON structure for rich description
                 let name = signData["name"] as? String ?? sign.rawValue
                 let _ = signData["description"] as? String ?? ""
                 let keyTraits = signData["keyTraits"] as? [String] ?? []
-                
+
                 // Get element and mode data
                 let element = signData["element"] as? String ?? ""
                 let mode = signData["mode"] as? String ?? ""
-                
+
                 // Combine element and mode for archetype description
                 let archetypePart = "\(element.capitalized) \(mode.capitalized)"
-                
+
                 // Create rich description with traits
                 let traitsText = keyTraits.prefix(3).joined(separator: " • ")
-                
+
                 return "The \(name) • \(archetypePart) • \(traitsText)"
             } else {
                 // Fallback to basic structured approach if specific sign data missing
@@ -3034,7 +3034,7 @@ struct UserProfileTabView: View {
             // Final fallback with curated descriptions if MegaCorpus unavailable
             switch sign {
             case .aries: return "The Pioneer • Fire Cardinal • Initiative • Leadership • Courage"
-            case .taurus: return "The Builder • Earth Fixed • Stability • Patience • Strength" 
+            case .taurus: return "The Builder • Earth Fixed • Stability • Patience • Strength"
             case .gemini: return "The Communicator • Air Mutable • Curiosity • Adaptability • Connection"
             case .cancer: return "The Nurturer • Water Cardinal • Intuition • Care • Protection"
             case .leo: return "The Creator • Fire Fixed • Confidence • Creativity • Generosity"
@@ -3048,9 +3048,9 @@ struct UserProfileTabView: View {
             }
         }
     }
-    
+
     /// Claude: Enhanced element description using MegaCorpus data
-    /// 
+    ///
     /// **Spiritual Data Integration:**
     /// - Loads element archetypes from MegaCorpus/Elements.json
     /// - Combines archetype, spiritual essence, and core traits for rich descriptions
@@ -3060,20 +3060,20 @@ struct UserProfileTabView: View {
     /// **Example:** "The Nurturing Builder • Earth grounds spirit into form... • Core Traits: Practical Wisdom • Steadfast Endurance"
     private func detailedElementDescription(for element: Element) -> String {
         let cosmicData = loadMegaCorpusData()
-        
+
         // Try to load from mega corpus first
         if let elementsFile = cosmicData["elements"] as? [String: Any],
            let elements = elementsFile["elements"] as? [String: Any] {
             let elementKey = element.rawValue.lowercased()
-            
+
             if let elementData = elements[elementKey] as? [String: Any] {
                 let name = elementData["name"] as? String ?? element.rawValue.capitalized
                 let description = elementData["description"] as? String ?? ""
                 let traits = elementData["traits"] as? [String] ?? []
-                
+
                 // Create rich description with traits
                 let traitsText = traits.prefix(2).map { "• \($0)" }.joined(separator: " ")
-                
+
                 return "The \(name) Element • \(description) • Core Traits: \(traitsText)"
             } else {
                 return "The \(element.rawValue.capitalized) Element • Cosmic Force • Core Traits: • Power • Wisdom"
@@ -3082,15 +3082,15 @@ struct UserProfileTabView: View {
             // Fallback descriptions if MegaCorpus unavailable
             switch element {
             case .fire: return "The Vital Spark • Fire ignites passion and drives action... • Core Traits: • Dynamic Energy • Creative Force"
-            case .earth: return "The Nurturing Builder • Earth grounds spirit into form... • Core Traits: • Practical Wisdom • Steadfast Endurance" 
+            case .earth: return "The Nurturing Builder • Earth grounds spirit into form... • Core Traits: • Practical Wisdom • Steadfast Endurance"
             case .air: return "The Mental Connector • Air carries thoughts and communication... • Core Traits: • Intellectual Clarity • Social Harmony"
             case .water: return "The Emotional Healer • Water flows with intuition and feeling... • Core Traits: • Emotional Depth • Psychic Sensitivity"
             }
         }
     }
-    
+
     /// Claude: Enhanced planet description using MegaCorpus data
-    /// 
+    ///
     /// **Spiritual Data Integration:**
     /// - Loads planetary archetypes from MegaCorpus/Planets.json
     /// - Combines archetype, spiritual function, and keywords for rich descriptions
@@ -3100,20 +3100,20 @@ struct UserProfileTabView: View {
     /// **Example:** "The Teacher • Expansion • Wisdom • Growth"
     private func detailedPlanetDescription(for planet: Planet) -> String {
         let cosmicData = loadMegaCorpusData()
-        
+
         // Try to load from mega corpus first
         if let planetsFile = cosmicData["planets"] as? [String: Any],
            let planets = planetsFile["planets"] as? [String: Any] {
             let planetKey = planet.rawValue.lowercased()
-            
+
             if let planetData = planets[planetKey] as? [String: Any] {
                 let _ = planetData["name"] as? String ?? planet.rawValue.capitalized
                 let archetype = planetData["archetype"] as? String ?? "Cosmic Force"
                 let keywords = planetData["keywords"] as? [String] ?? []
-                
+
                 // Create rich description with keywords
                 let keywordsText = keywords.prefix(3).joined(separator: " • ")
-                
+
                 return "The \(archetype) • \(keywordsText)"
             } else {
                 return "The \(planet.rawValue.capitalized) • Cosmic Force • Power • Wisdom • Purpose"
@@ -3135,9 +3135,9 @@ struct UserProfileTabView: View {
             }
         }
     }
-    
+
     // MARK: - Missing Helper Functions
-    
+
     private func getPlanetaryPositions(profile: UserProfile, mode: SanctumViewMode) -> [PlanetaryPosition] {
         switch mode {
         case .birthChart:
@@ -3146,16 +3146,16 @@ struct UserProfileTabView: View {
             return getCurrentPlanetaryPositions()
         }
     }
-    
+
     private func getBirthChartPositions(profile: UserProfile) -> [PlanetaryPosition] {
         print("🌌 CALCULATING BIRTH CHART with Swiss Ephemeris precision")
-        
+
         // Create precise birth date with exact time
         var birthDate = profile.birthdate
-        
+
         // Use precise birth time if available
-        if profile.hasBirthTime, 
-           let hour = profile.birthTimeHour, 
+        if profile.hasBirthTime,
+           let hour = profile.birthTimeHour,
            let minute = profile.birthTimeMinute {
             let calendar = Calendar.current
             let components = calendar.dateComponents([.year, .month, .day], from: profile.birthdate)
@@ -3166,13 +3166,13 @@ struct UserProfileTabView: View {
             dateComponents.hour = hour
             dateComponents.minute = minute
             dateComponents.timeZone = TimeZone(identifier: profile.birthTimezone ?? "UTC")
-            
+
             if let preciseDate = calendar.date(from: dateComponents) {
                 birthDate = preciseDate
                 print("✅ Using precise birth time: \(hour):\(String(format: "%02d", minute))")
             }
         }
-        
+
         // Validate birth location data
         guard let latitude = profile.birthplaceLatitude,
               let longitude = profile.birthplaceLongitude else {
@@ -3180,7 +3180,7 @@ struct UserProfileTabView: View {
             // Return fallback calculation
             return getFallbackBirthChartPositions(profile: profile)
         }
-        
+
         // Calculate birth chart using Swiss Ephemeris
         let timezone = TimeZone(identifier: profile.birthTimezone ?? "UTC")
         let birthChart = SwissEphemerisCalculator.calculateBirthChart(
@@ -3189,10 +3189,10 @@ struct UserProfileTabView: View {
             longitude: longitude,
             timezone: timezone
         )
-        
+
         // Convert Swiss Ephemeris positions to UI format
         var positions: [PlanetaryPosition] = []
-        
+
         for swissPosition in birthChart.planets {
             positions.append(PlanetaryPosition(
                 planet: swissPosition.planet,
@@ -3201,37 +3201,37 @@ struct UserProfileTabView: View {
                 houseNumber: swissPosition.houseNumber
             ))
         }
-        
+
         print("✅ SWISS EPHEMERIS: Birth chart calculated with \(positions.count) planets")
         return positions
     }
-    
+
     /// Fallback calculation for users missing complete birth data
     private func getFallbackBirthChartPositions(profile: UserProfile) -> [PlanetaryPosition] {
         print("⚠️ CRITICAL: Missing birth location data - cannot calculate accurate birth chart")
         print("   User needs to complete birth location setup for accurate astrological readings")
-        
+
         // Claude: Return error indication instead of incorrect calculations
         // Using wrong coordinates would provide completely inaccurate spiritual guidance
         return [
             PlanetaryPosition(
-                planet: "Error", 
-                sign: "Complete birth location required", 
-                degree: 0, 
+                planet: "Error",
+                sign: "Complete birth location required",
+                degree: 0,
                 houseNumber: nil
             )
         ]
     }
-    
+
     private func getCurrentPlanetaryPositions() -> [PlanetaryPosition] {
         print("🌌 CALCULATING CURRENT POSITIONS with Swiss Ephemeris precision")
-        
+
         // Use Swiss Ephemeris for current planetary positions
         let swissPositions = SwissEphemerisCalculator.calculateCurrentPositions()
-        
+
         // Convert Swiss Ephemeris positions to UI format
         var positions: [PlanetaryPosition] = []
-        
+
         for swissPosition in swissPositions {
             positions.append(PlanetaryPosition(
                 planet: swissPosition.planet,
@@ -3240,33 +3240,33 @@ struct UserProfileTabView: View {
                 houseNumber: swissPosition.houseNumber // nil for transits
             ))
         }
-        
+
         print("✅ SWISS EPHEMERIS: Current positions calculated with \(positions.count) planets")
         return positions
     }
-    
+
     /// Convert ecliptic longitude to zodiac sign and degree within sign
     private func eclipticLongitudeToZodiacInfo(longitude: Double) -> (sign: String, degree: Double) {
         // Normalize longitude to 0-360 range
         let normalizedLongitude = longitude.truncatingRemainder(dividingBy: 360)
         let positiveLongitude = normalizedLongitude < 0 ? normalizedLongitude + 360 : normalizedLongitude
-        
+
         // Each zodiac sign spans 30 degrees
         let signIndex = Int(positiveLongitude / 30)
         let degreeInSign = positiveLongitude.truncatingRemainder(dividingBy: 30)
-        
-        let signs = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", 
+
+        let signs = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
                     "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"]
-        
+
         let zodiacSign = (signIndex >= 0 && signIndex < signs.count) ? signs[signIndex] : "Aries"
-        
+
         return (sign: zodiacSign, degree: degreeInSign)
     }
-    
+
     // MARK: - Removed placeholder functions - now using Swiss Ephemeris precision
     // calculateMoonSign, getNextSign, getPreviousSign removed
     // These are replaced by SwissEphemerisCalculator for universal accuracy
-    
+
     private func getAspectSymbol(for type: AspectType) -> String {
         switch type {
         case .conjunction: return "☌"
@@ -3277,7 +3277,7 @@ struct UserProfileTabView: View {
         case .quincunx: return "⚻"
         }
     }
-    
+
     private func getAspectColor(for type: AspectType) -> Color {
         switch type {
         case .conjunction: return .yellow
@@ -3298,20 +3298,20 @@ struct InteractiveArchetypeCard: View {
     let subtitle: String
     let description: String
     let color: Color
-    
+
     var body: some View {
         VStack(spacing: 12) {
             VStack(spacing: 8) {
                 Text(icon)
                     .font(.system(size: 32))
-                
+
                 VStack(spacing: 4) {
                     Text(title)
                         .font(.headline)
                         .fontWeight(.semibold)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
-                    
+
                     Text(subtitle)
                         .font(.caption)
                         .foregroundColor(color)
@@ -3319,7 +3319,7 @@ struct InteractiveArchetypeCard: View {
                         .tracking(0.5)
                 }
             }
-            
+
             Text(description)
                 .font(.caption)
                 .foregroundColor(.white.opacity(0.8))
@@ -3346,26 +3346,26 @@ struct ProfileSummaryRow: View {
     let title: String
     let value: String
     let color: Color
-    
+
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.title3)
                 .foregroundColor(color)
                 .frame(width: 24)
-            
+
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(.subheadline)
                     .fontWeight(.medium)
                     .foregroundColor(.white)
-                
+
                 Text(value)
                     .font(.caption)
                     .foregroundColor(.white.opacity(0.7))
                     .lineLimit(2)
             }
-            
+
             Spacer()
         }
         .padding(.vertical, 8)
@@ -3376,23 +3376,23 @@ struct ProfileSummaryRow: View {
 
 struct SigilPlaceholderView: View {
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
         NavigationView {
             VStack(spacing: 30) {
                 Image(systemName: "hexagon.fill")
                     .font(.system(size: 80))
                     .foregroundColor(.purple)
-                
+
                 VStack(spacing: 16) {
                     Text("Your Sacred Sigil")
                         .font(.title)
                         .fontWeight(.bold)
-                    
+
                     Text("Coming Soon")
                         .font(.title3)
                         .foregroundColor(.secondary)
-                    
+
                     Text("Your personalized sigil will be generated based on your unique numerological and astrological profile, creating a sacred symbol of your spiritual identity.")
                         .font(.body)
                         .foregroundColor(.secondary)
@@ -3416,23 +3416,23 @@ struct SigilPlaceholderView: View {
 struct ProfileEditView: View {
     @Binding var userProfile: UserProfile?
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
         NavigationView {
             VStack(spacing: 30) {
                 Image(systemName: "person.circle.fill")
                     .font(.system(size: 80))
                     .foregroundColor(.blue)
-                
+
                 VStack(spacing: 16) {
                     Text("Edit Profile")
                         .font(.title)
                         .fontWeight(.bold)
-                    
+
                     Text("Coming Soon")
                         .font(.title3)
                         .foregroundColor(.secondary)
-                    
+
                     Text("You'll be able to edit your name, birth information, and spiritual preferences while preserving your core archetypal identity.")
                         .font(.body)
                         .foregroundColor(.secondary)
@@ -3469,7 +3469,7 @@ enum ArchetypeDetailType: Identifiable {
     case lifePathNumber(Int)
     case soulUrgeNumber(Int)
     case expressionNumber(Int)
-    
+
     var id: String {
         switch self {
         case .zodiacSign(let sign): return "zodiac_\(sign.rawValue)"
@@ -3487,7 +3487,7 @@ struct ArchetypeDetailView: View {
     let detailType: ArchetypeDetailType
     let archetype: UserArchetype?
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
         NavigationView {
             ScrollView {
@@ -3508,7 +3508,7 @@ struct ArchetypeDetailView: View {
             }
         }
     }
-    
+
     private var detailContent: some View {
         VStack(spacing: 24) {
             // Icon and Number Display
@@ -3524,12 +3524,12 @@ struct ArchetypeDetailView: View {
                             )
                         )
                         .frame(width: 120, height: 120)
-                    
+
                     VStack(spacing: 8) {
                         Image(systemName: detailIcon)
                             .font(.title)
                             .foregroundColor(.white)
-                        
+
                         if case let .soulUrgeNumber(number) = detailType {
                             Text("\(number)")
                                 .font(.largeTitle)
@@ -3549,13 +3549,13 @@ struct ArchetypeDetailView: View {
                     }
                 }
                 .shadow(color: detailColor.opacity(0.5), radius: 10)
-                
+
                 Text(detailTitle)
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
             }
-            
+
             // Detailed Description
             VStack(spacing: 16) {
                 Text(detailDescription)
@@ -3563,13 +3563,13 @@ struct ArchetypeDetailView: View {
                     .foregroundColor(.primary)
                 .multilineTextAlignment(.center)
                     .padding(.horizontal)
-                
+
                 if let guidance = detailGuidance {
                     VStack(spacing: 12) {
                         Text("🌟 Spiritual Guidance")
                             .font(.headline)
                             .foregroundColor(detailColor)
-                        
+
                         Text(guidance)
                             .font(.body)
                 .foregroundColor(.secondary)
@@ -3585,7 +3585,7 @@ struct ArchetypeDetailView: View {
             }
         }
     }
-    
+
     private var detailColor: Color {
         switch detailType {
         case .soulUrgeNumber: return .pink
@@ -3597,7 +3597,7 @@ struct ArchetypeDetailView: View {
         case .lifePathNumber: return .yellow
         }
     }
-    
+
     private var detailIcon: String {
         switch detailType {
         case .soulUrgeNumber: return "heart.fill"
@@ -3609,7 +3609,7 @@ struct ArchetypeDetailView: View {
         case .lifePathNumber: return "star.circle.fill"
         }
     }
-    
+
     private var detailDescription: String {
         switch detailType {
         case .soulUrgeNumber(let number):
@@ -3628,7 +3628,7 @@ struct ArchetypeDetailView: View {
             return lifePathDescription(for: number, isMaster: false)
         }
     }
-    
+
     private var detailGuidance: String? {
         switch detailType {
         case .soulUrgeNumber(let number):
@@ -3641,7 +3641,7 @@ struct ArchetypeDetailView: View {
             return nil
         }
     }
-    
+
     private var detailTitle: String {
         switch detailType {
         case .zodiacSign(let sign): return sign.rawValue.capitalized
@@ -3653,7 +3653,7 @@ struct ArchetypeDetailView: View {
         case .lifePathNumber(let number): return "Life Path \(number)"
         }
     }
-    
+
 }
 
 // MARK: - Phase 12A.1: Natal Chart Helper Functions & Data Structures
@@ -3684,7 +3684,7 @@ struct PlanetaryPosition: Identifiable {
     let sign: String
     let degree: Int
     let houseNumber: Int? // Placidus house number (1-12), nil for transits
-    
+
     /// Formatted display with house number (like Co-Star)
     var formattedWithHouse: String {
         if let house = houseNumber {
@@ -3724,7 +3724,7 @@ private func getHouseLifeAreaShort(houseNumber: Int) -> String {
 
 /// Claude: Phase 12A.1 Enhancement - Full house descriptions from mega corpus
 /// Claude: Enhanced house descriptions using MegaCorpus astrological data
-/// 
+///
 /// **Astrological House Integration:**
 /// - Loads house meanings from MegaCorpus/Houses.json
 /// - Provides comprehensive life area interpretations
@@ -3734,26 +3734,26 @@ private func getHouseLifeAreaShort(houseNumber: Int) -> String {
 /// **Example:** "First House\n\nThe house of self-expression...\n\nKey Themes: Identity, Appearance, First Impressions, Personal Initiative"
 private func getHouseLifeAreaFull(houseNumber: Int) -> String {
     let cosmicData = loadMegaCorpusData()
-    
+
     // Convert house number to word key (1 -> "first", 2 -> "second", etc.)
-    let houseKeys = ["", "first", "second", "third", "fourth", "fifth", "sixth", 
+    let houseKeys = ["", "first", "second", "third", "fourth", "fifth", "sixth",
                      "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth"]
-    
+
     guard houseNumber >= 1 && houseNumber <= 12 else {
         return "Invalid house number"
     }
-    
+
     let houseKey = houseKeys[houseNumber]
-    
+
     // Try to load from mega corpus first - fix nested structure access
     if let housesFile = cosmicData["houses"] as? [String: Any],
        let houses = housesFile["houses"] as? [String: Any],
        let houseData = houses[houseKey] as? [String: Any] {
-        
+
         if let name = houseData["name"] as? String,
            let description = houseData["description"] as? String,
            let keyTraits = houseData["keyTraits"] as? [String] {
-            
+
             let traitsText = keyTraits.prefix(4).map { trait in
                 trait.components(separatedBy: ":").first?.trimmingCharacters(in: .whitespaces) ?? trait
             }.joined(separator: ", ")
@@ -3789,7 +3789,7 @@ private func getHouseRulingSign(houseNumber: Int, profile: UserProfile) -> Strin
         print("🏠 PLACIDUS: Missing birth data for house calculation - Hour: \(profile.birthTimeHour?.description ?? "nil"), Minute: \(profile.birthTimeMinute?.description ?? "nil"), Lat: \(profile.birthplaceLatitude?.description ?? "nil"), Lon: \(profile.birthplaceLongitude?.description ?? "nil")")
         return nil
     }
-    
+
     // Create precise birth date with time for professional calculation
     let calendar = Calendar.current
     let components = calendar.dateComponents([.year, .month, .day], from: profile.birthdate)
@@ -3800,12 +3800,12 @@ private func getHouseRulingSign(houseNumber: Int, profile: UserProfile) -> Strin
     dateComponents.hour = hour
     dateComponents.minute = minute
     dateComponents.timeZone = TimeZone(identifier: profile.birthTimezone ?? "UTC")
-    
+
     guard let preciseBirthDate = calendar.date(from: dateComponents) else {
         print("🏠 PLACIDUS: Could not create precise birth date")
         return nil
     }
-    
+
     // Claude: Use professional Placidus house system for accurate calculations
     print("🏠 PLACIDUS: Calculating house \(houseNumber) cusp using professional system")
     let houseCalculation = AstrologyHouseCalculator.calculateHouses(
@@ -3814,27 +3814,27 @@ private func getHouseRulingSign(houseNumber: Int, profile: UserProfile) -> Strin
         longitude: longitude,
         system: .placidus
     )
-    
+
     // Find the specific house cusp
     guard let house = houseCalculation.houses.first(where: { $0.houseNumber == houseNumber }) else {
         print("🏠 PLACIDUS: Could not find house \(houseNumber) in calculation")
         return nil
     }
-    
+
     let result = house.zodiacSign
     print("🏠 PLACIDUS: House \(houseNumber) cusp = \(house.formattedCusp) (\(result))")
-    
+
     return result
 }
 
 /// Claude: Get major aspects from Phase 11A birth chart data
 private func getMajorAspects(profile: UserProfile) -> [NatalAspect] {
     var aspects: [NatalAspect] = []
-    
+
     // Claude: Always show sample aspects for now (debugging Phase 11A data pipeline)
     // TODO: Fix Phase 11A birth chart data not being saved to profile
     if true { // Always show aspects until data pipeline is fixed
-        
+
         // Major beneficial aspects
         aspects.append(NatalAspect(
             planet1: "Sun",
@@ -3842,21 +3842,21 @@ private func getMajorAspects(profile: UserProfile) -> [NatalAspect] {
             type: .sextile,
             orb: 3.2
         ))
-        
+
         aspects.append(NatalAspect(
             planet1: "Venus",
             planet2: "Jupiter",
             type: .trine,
             orb: 4.1
         ))
-        
+
         aspects.append(NatalAspect(
             planet1: "Sun",
             planet2: "Mercury",
             type: .conjunction,
             orb: 2.1
         ))
-        
+
         // Challenging aspects for growth
         aspects.append(NatalAspect(
             planet1: "Moon",
@@ -3864,7 +3864,7 @@ private func getMajorAspects(profile: UserProfile) -> [NatalAspect] {
             type: .square,
             orb: 5.3
         ))
-        
+
         aspects.append(NatalAspect(
             planet1: "Mars",
             planet2: "Pluto",
@@ -3872,7 +3872,7 @@ private func getMajorAspects(profile: UserProfile) -> [NatalAspect] {
             orb: 6.8
         ))
     }
-    
+
     return aspects
 }
 
@@ -3899,7 +3899,7 @@ private func getQualityName(quality: String) -> String {
         "fixed": ["name": "Fixed", "description": "Stability, determination, persistence"],
         "mutable": ["name": "Mutable", "description": "Adaptable, flexible, transitional"]
     ]
-    
+
     if let qualityData = qualities[quality.lowercased()],
        let name = qualityData["name"] {
         return name
@@ -3912,7 +3912,7 @@ private func getQualityName(quality: String) -> String {
 /// Enhanced house detail view with MegaCorpus data
 struct HouseDetailView: View {
     let houseNumber: Int
-    
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
@@ -3920,35 +3920,35 @@ struct HouseDetailView: View {
                 VStack(spacing: 12) {
                     Text(getHouseSymbol(houseNumber))
                         .font(.system(size: 60))
-                    
+
                     Text("House \(houseNumber)")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                    
+
                     Text(getHouseName(houseNumber))
                         .font(.title2)
                         .foregroundColor(.secondary)
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.bottom)
-                
+
                 // House Description from MegaCorpus
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Spiritual Meaning")
                         .font(.headline)
                         .fontWeight(.semibold)
-                    
+
                     Text(getHouseDescription(houseNumber))
                         .font(.body)
                         .lineSpacing(4)
                 }
-                
+
                 // House Keywords
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Key Themes")
                         .font(.headline)
                         .fontWeight(.semibold)
-                    
+
                     LazyVGrid(columns: [
                         GridItem(.flexible()),
                         GridItem(.flexible())
@@ -3964,7 +3964,7 @@ struct HouseDetailView: View {
                         }
                     }
                 }
-                
+
                 Spacer()
             }
             .padding()
@@ -3972,39 +3972,39 @@ struct HouseDetailView: View {
         .navigationTitle("House \(houseNumber)")
         .navigationBarTitleDisplayMode(.inline)
     }
-    
+
     private func getHouseSymbol(_ house: Int) -> String {
         let symbols = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"]
         return symbols[safe: house - 1] ?? "○"
     }
-    
+
     private func getHouseName(_ house: Int) -> String {
         let megaData = loadMegaCorpusData()
-        
+
         if let housesFile = megaData["houses"] as? [String: Any],
            let houses = housesFile["houses"] as? [String: Any],
            let houseData = houses["house\(house)"] as? [String: Any],
            let name = houseData["name"] as? String {
             return name
         }
-        
+
         // Fallback names
-        let names = ["Self & Identity", "Resources & Values", "Communication", "Home & Family", 
+        let names = ["Self & Identity", "Resources & Values", "Communication", "Home & Family",
                     "Creativity & Romance", "Health & Service", "Partnerships", "Transformation",
                     "Philosophy & Travel", "Career & Reputation", "Community & Dreams", "Spirituality & Subconscious"]
         return names[safe: house - 1] ?? "House \(house)"
     }
-    
+
     private func getHouseDescription(_ house: Int) -> String {
         let megaData = loadMegaCorpusData()
-        
+
         if let housesFile = megaData["houses"] as? [String: Any],
            let houses = housesFile["houses"] as? [String: Any],
            let houseData = houses["house\(house)"] as? [String: Any],
            let description = houseData["description"] as? String {
             return description
         }
-        
+
         // Fallback descriptions with spiritual context
         let descriptions = [
             "The First House represents your essential self, your identity, and how you present to the world. It's your spiritual mask and the energy you radiate.",
@@ -4022,17 +4022,17 @@ struct HouseDetailView: View {
         ]
         return descriptions[safe: house - 1] ?? "This house represents important life themes and spiritual lessons."
     }
-    
+
     private func getHouseKeywords(_ house: Int) -> [String] {
         let megaData = loadMegaCorpusData()
-        
+
         if let housesFile = megaData["houses"] as? [String: Any],
            let houses = housesFile["houses"] as? [String: Any],
            let houseData = houses["house\(house)"] as? [String: Any],
            let keywords = houseData["keywords"] as? [String] {
             return keywords
         }
-        
+
         // Fallback keywords
         let keywordSets = [
             ["Identity", "Self", "Appearance", "First Impressions"],
@@ -4050,52 +4050,52 @@ struct HouseDetailView: View {
         ]
         return keywordSets[safe: house - 1] ?? ["Spiritual Growth", "Life Lessons"]
     }
-    
+
     // MARK: - Phase 15 Enhancement: House Zodiac Influence Helper Functions
-    
+
     /// Claude: Get the natural ruling sign for each house (traditional correspondence)
     private func getHouseNaturalSign(houseNumber: Int) -> String? {
         let naturalSigns = [
             1: "Aries", 2: "Taurus", 3: "Gemini", 4: "Cancer",
-            5: "Leo", 6: "Virgo", 7: "Libra", 8: "Scorpio", 
+            5: "Leo", 6: "Virgo", 7: "Libra", 8: "Scorpio",
             9: "Sagittarius", 10: "Capricorn", 11: "Aquarius", 12: "Pisces"
         ]
         return naturalSigns[houseNumber]
     }
-    
+
     /// Claude: Get house keyword from MegaCorpus Houses.json data
     private func getHouseKeyword(houseNumber: Int) -> String? {
         let cosmicData = loadMegaCorpusData()
-        
+
         // Convert house number to word key (1 -> "first", 2 -> "second", etc.)
-        let houseKeys = ["", "first", "second", "third", "fourth", "fifth", "sixth", 
+        let houseKeys = ["", "first", "second", "third", "fourth", "fifth", "sixth",
                          "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth"]
-        
+
         guard houseNumber >= 1 && houseNumber <= 12 else { return nil }
         let houseKey = houseKeys[houseNumber]
-        
+
         if let houses = cosmicData["houses"] as? [String: Any],
            let houseData = houses[houseKey] as? [String: Any],
            let keyword = houseData["keyword"] as? String {
             return keyword
         }
-        
+
         return nil
     }
-    
+
     /// Claude: Get zodiac sign mode from MegaCorpus Signs.json data
     private func getSignMode(_ sign: String) -> String? {
         let cosmicData = loadMegaCorpusData()
-        
+
         if let signs = cosmicData["signs"] as? [String: Any],
            let signData = signs[sign.lowercased()] as? [String: Any],
            let mode = signData["mode"] as? String {
             return mode
         }
-        
+
         return nil
     }
-    
+
     /// Claude: Get zodiac sign glyph (Unicode astrological symbol)
     private func getSignGlyph(_ sign: String) -> String {
         let glyphs = [
@@ -4111,7 +4111,7 @@ struct HouseDetailView: View {
 /// Enhanced planet detail view with MegaCorpus data
 struct PlanetDetailView: View {
     let planet: String
-    
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
@@ -4119,35 +4119,35 @@ struct PlanetDetailView: View {
                 VStack(spacing: 12) {
                     Text(getPlanetSymbol(planet))
                         .font(.system(size: 60))
-                    
+
                     Text(planet)
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                    
+
                     Text(getPlanetArchetype(planet))
                         .font(.title2)
                         .foregroundColor(.secondary)
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.bottom)
-                
+
                 // Planet Description from MegaCorpus
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Spiritual Essence")
                         .font(.headline)
                         .fontWeight(.semibold)
-                    
+
                     Text(getPlanetDescription(planet))
                         .font(.body)
                         .lineSpacing(4)
                 }
-                
+
                 // Planet Keywords
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Key Energies")
                         .font(.headline)
                         .fontWeight(.semibold)
-                    
+
                     LazyVGrid(columns: [
                         GridItem(.flexible()),
                         GridItem(.flexible())
@@ -4163,13 +4163,13 @@ struct PlanetDetailView: View {
                         }
                     }
                 }
-                
+
                 // Spiritual Guidance
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Spiritual Guidance")
                         .font(.headline)
                         .fontWeight(.semibold)
-                    
+
                     Text(getPlanetGuidance(planet))
                         .font(.body)
                         .lineSpacing(4)
@@ -4177,7 +4177,7 @@ struct PlanetDetailView: View {
                         .background(Color.purple.opacity(0.1))
                         .cornerRadius(12)
                 }
-                
+
                 Spacer()
             }
             .padding()
@@ -4185,7 +4185,7 @@ struct PlanetDetailView: View {
         .navigationTitle(planet)
         .navigationBarTitleDisplayMode(.inline)
     }
-    
+
     private func getPlanetSymbol(_ planet: String) -> String {
         let symbols = [
             "sun": "☉", "moon": "☽", "mercury": "☿", "venus": "♀", "mars": "♂",
@@ -4193,17 +4193,17 @@ struct PlanetDetailView: View {
         ]
         return symbols[planet.lowercased()] ?? "●"
     }
-    
+
     private func getPlanetArchetype(_ planet: String) -> String {
         let megaData = loadMegaCorpusData()
-        
+
         if let planetsFile = megaData["planets"] as? [String: Any],
            let planets = planetsFile["planets"] as? [String: Any],
            let planetData = planets[planet.lowercased()] as? [String: Any],
            let archetype = planetData["archetype"] as? String {
             return archetype
         }
-        
+
         // Fallback archetypes
         let archetypes = [
             "sun": "The Life Giver", "moon": "The Emotional Guide", "mercury": "The Messenger",
@@ -4213,17 +4213,17 @@ struct PlanetDetailView: View {
         ]
         return archetypes[planet.lowercased()] ?? "Cosmic Force"
     }
-    
+
     private func getPlanetDescription(_ planet: String) -> String {
         let megaData = loadMegaCorpusData()
-        
+
         if let planetsFile = megaData["planets"] as? [String: Any],
            let planets = planetsFile["planets"] as? [String: Any],
            let planetData = planets[planet.lowercased()] as? [String: Any],
            let description = planetData["description"] as? String {
             return description
         }
-        
+
         // Fallback descriptions with spiritual context
         let descriptions = [
             "sun": "The radiant core of your being, representing your essential self, vitality, and divine spark. The Sun illuminates your path and shows how you shine your unique light in the world.",
@@ -4239,17 +4239,17 @@ struct PlanetDetailView: View {
         ]
         return descriptions[planet.lowercased()] ?? "This celestial body influences your spiritual journey in profound ways."
     }
-    
+
     private func getPlanetKeywords(_ planet: String) -> [String] {
         let megaData = loadMegaCorpusData()
-        
+
         if let planetsFile = megaData["planets"] as? [String: Any],
            let planets = planetsFile["planets"] as? [String: Any],
            let planetData = planets[planet.lowercased()] as? [String: Any],
            let keywords = planetData["keywords"] as? [String] {
             return keywords
         }
-        
+
         // Fallback keywords
         let keywordSets = [
             "sun": ["Identity", "Vitality", "Leadership", "Confidence"],
@@ -4265,7 +4265,7 @@ struct PlanetDetailView: View {
         ]
         return keywordSets[planet.lowercased()] ?? ["Divine Energy", "Cosmic Influence"]
     }
-    
+
     private func getPlanetGuidance(_ planet: String) -> String {
         let guidanceMap = [
             "sun": "Embrace your authentic self and let your unique light shine. Your core essence is meant to illuminate not just your own path, but to inspire others.",
@@ -4281,7 +4281,7 @@ struct PlanetDetailView: View {
         ]
         return guidanceMap[planet.lowercased()] ?? "This planet brings divine lessons and opportunities for spiritual growth."
     }
-    
+
     private func getPlanetUIColor(_ planet: String) -> Color {
         let colors = [
             "sun": Color.yellow, "moon": Color.blue, "mercury": Color.orange,
@@ -4296,7 +4296,7 @@ struct PlanetDetailView: View {
 /// Enhanced aspect detail view with MegaCorpus data
 struct AspectDetailView: View {
     let aspect: NatalAspect
-    
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
@@ -4304,36 +4304,36 @@ struct AspectDetailView: View {
                 VStack(spacing: 12) {
                     Text(getAspectSymbol(aspect.type))
                         .font(.system(size: 60))
-                    
+
                     Text("\(aspect.planet1) \(aspect.type.rawValue) \(aspect.planet2)")
                         .font(.title2)
                         .fontWeight(.bold)
                         .multilineTextAlignment(.center)
-                    
+
                     Text("Orb: \(aspect.orb, specifier: "%.1f")°")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.bottom)
-                
+
                 // Aspect Description from MegaCorpus
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Spiritual Significance")
                         .font(.headline)
                         .fontWeight(.semibold)
-                    
+
                     Text(getAspectDescription(aspect.type, planet1: aspect.planet1, planet2: aspect.planet2))
                         .font(.body)
                         .lineSpacing(4)
                 }
-                
+
                 // Aspect Keywords
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Key Qualities")
                         .font(.headline)
                         .fontWeight(.semibold)
-                    
+
                     LazyVGrid(columns: [
                         GridItem(.flexible()),
                         GridItem(.flexible())
@@ -4349,13 +4349,13 @@ struct AspectDetailView: View {
                         }
                     }
                 }
-                
+
                 // Spiritual Guidance
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Spiritual Integration")
                         .font(.headline)
                         .fontWeight(.semibold)
-                    
+
                     Text(getAspectGuidance(aspect.type, planet1: aspect.planet1, planet2: aspect.planet2))
                         .font(.body)
                         .lineSpacing(4)
@@ -4363,7 +4363,7 @@ struct AspectDetailView: View {
                         .background(getAspectUIColor(aspect.type).opacity(0.1))
                         .cornerRadius(12)
                 }
-                
+
                 Spacer()
             }
             .padding()
@@ -4371,7 +4371,7 @@ struct AspectDetailView: View {
         .navigationTitle("Aspect Details")
         .navigationBarTitleDisplayMode(.inline)
     }
-    
+
     private func getAspectSymbol(_ type: AspectType) -> String {
         switch type {
         case .conjunction: return "☌"
@@ -4382,22 +4382,22 @@ struct AspectDetailView: View {
         case .quincunx: return "⚻"
         }
     }
-    
+
     private func getAspectDescription(_ type: AspectType, planet1: String, planet2: String) -> String {
         let megaData = loadMegaCorpusData()
-        
+
         if let aspectsFile = megaData["aspects"] as? [String: Any],
            let aspects = aspectsFile["aspects"] as? [String: Any],
            let aspectData = aspects[type.rawValue.lowercased()] as? [String: Any],
            let description = aspectData["description"] as? String {
             return description
         }
-        
+
         // Fallback descriptions with spiritual context
         let baseDescription = getBaseAspectDescription(type)
         return "\(planet1) and \(planet2) in \(type.rawValue.lowercased()): \(baseDescription)"
     }
-    
+
     private func getBaseAspectDescription(_ type: AspectType) -> String {
         switch type {
         case .conjunction:
@@ -4414,17 +4414,17 @@ struct AspectDetailView: View {
             return "These energies require constant adjustment and conscious integration. This aspect represents the need for flexibility and creative adaptation."
         }
     }
-    
+
     private func getAspectKeywords(_ type: AspectType) -> [String] {
         let megaData = loadMegaCorpusData()
-        
+
         if let aspectsFile = megaData["aspects"] as? [String: Any],
            let aspects = aspectsFile["aspects"] as? [String: Any],
            let aspectData = aspects[type.rawValue.lowercased()] as? [String: Any],
            let keywords = aspectData["keywords"] as? [String] {
             return keywords
         }
-        
+
         // Fallback keywords
         switch type {
         case .conjunction: return ["Unity", "Fusion", "Intensity", "Power"]
@@ -4435,7 +4435,7 @@ struct AspectDetailView: View {
         case .quincunx: return ["Adjustment", "Flexibility", "Adaptation", "Mystery"]
         }
     }
-    
+
     private func getAspectGuidance(_ type: AspectType, planet1: String, planet2: String) -> String {
         let guidance = switch type {
         case .conjunction:
@@ -4451,10 +4451,10 @@ struct AspectDetailView: View {
         case .quincunx:
             "Trust the process of constant adjustment. This aspect teaches you to remain flexible and open to divine guidance in unexpected forms."
         }
-        
+
         return "With \(planet1) and \(planet2): \(guidance)"
     }
-    
+
     private func getAspectUIColor(_ type: AspectType) -> Color {
         switch type {
         case .conjunction: return .yellow
@@ -4465,28 +4465,28 @@ struct AspectDetailView: View {
         case .quincunx: return .orange
         }
     }
-    
+
     // MARK: - Phase 15 Enhancement: House Zodiac Influence Helper Functions
-    
+
     /// Returns the natural ruling zodiac sign for each astrological house based on traditional correspondences
-    /// 
+    ///
     /// This function provides the fundamental zodiac sign association for each of the 12 astrological houses,
     /// representing the archetypal energy that naturally governs each life domain. These correspondences
     /// are based on millennia of astrological tradition where the 1st house aligns with Aries (cardinal fire),
     /// 2nd with Taurus (fixed earth), and so forth through the zodiac wheel.
-    /// 
+    ///
     /// **Phase History:**
     /// - Phase 15: Added as part of house enhancement system for natural sign influences
-    /// 
+    ///
     /// **Astrological Foundation:**
     /// - Based on the natural wheel where Aries=1st house, Taurus=2nd house, etc.
     /// - These correspondences provide the baseline energetic quality for each house
     /// - Natural signs differ from actual cusp signs which depend on birth time/location
     /// - Used to determine elemental and modal influences on house meanings
-    /// 
+    ///
     /// **Traditional House-Sign Correspondences:**
     /// 1st House = Aries (Cardinal Fire - Identity, Self-Expression)
-    /// 2nd House = Taurus (Fixed Earth - Resources, Values) 
+    /// 2nd House = Taurus (Fixed Earth - Resources, Values)
     /// 3rd House = Gemini (Mutable Air - Communication, Learning)
     /// 4th House = Cancer (Cardinal Water - Home, Roots)
     /// 5th House = Leo (Fixed Fire - Creativity, Joy)
@@ -4497,64 +4497,64 @@ struct AspectDetailView: View {
     /// 10th House = Capricorn (Cardinal Earth - Career, Authority)
     /// 11th House = Aquarius (Fixed Air - Community, Innovation)
     /// 12th House = Pisces (Mutable Water - Spirituality, Transcendence)
-    /// 
+    ///
     /// **Spiritual Significance:**
     /// - Natural signs provide the soul's intended lesson for each life domain
     /// - Element shows the fundamental life force expression in that area
     /// - Mode indicates the developmental approach (Cardinal=initiate, Fixed=sustain, Mutable=adapt)
     /// - These archetypal patterns influence how we naturally approach each house's themes
-    /// 
+    ///
     /// - Parameter houseNumber: Integer 1-12 representing the astrological house
     /// - Returns: Optional String containing the zodiac sign name, or nil for invalid house numbers
-    /// 
+    ///
     /// **Usage in UI:**
     /// - Used by houseCard() to display natural sign glyphs and colors
     /// - Provides element and mode information for house badge display
     /// - Influences gradient borders that blend house and sign energies
     /// - Enables comparison between natural and actual cusp signs
-    /// 
+    ///
     /// **Dependencies:**
     /// - None - uses static correspondence table for reliability
     /// - Independent of birth chart calculations or MegaCorpus data
-    /// 
+    ///
     /// Claude: Get the natural ruling sign for each house (traditional correspondence)
     private func getHouseNaturalSign(houseNumber: Int) -> String? {
         let naturalSigns = [
             1: "Aries", 2: "Taurus", 3: "Gemini", 4: "Cancer",
-            5: "Leo", 6: "Virgo", 7: "Libra", 8: "Scorpio", 
+            5: "Leo", 6: "Virgo", 7: "Libra", 8: "Scorpio",
             9: "Sagittarius", 10: "Capricorn", 11: "Aquarius", 12: "Pisces"
         ]
         return naturalSigns[houseNumber]
     }
-    
+
     /// Retrieves the essential spiritual keyword for each astrological house from MegaCorpus Houses.json data
-    /// 
+    ///
     /// This function accesses the MegaCorpus repository of astrological wisdom to extract the core
     /// archetypal keyword that captures each house's essential spiritual meaning. These keywords
     /// distill centuries of astrological tradition into concentrated wisdom phrases that immediately
     /// convey each house's primary life theme and developmental purpose.
-    /// 
+    ///
     /// **Phase History:**
     /// - Phase 15: Added as part of enhanced house information system with MegaCorpus integration
-    /// 
+    ///
     /// **MegaCorpus Integration:**
     /// - Sources data from Houses.json in the MegaCorpus astrological database
     /// - Uses house word keys ("first", "second", etc.) to match JSON structure
     /// - Maintains authentic astrological terminology and spiritual significance
     /// - Provides fallback gracefully if data is unavailable or corrupted
-    /// 
+    ///
     /// **Data Structure:**
     /// - Converts numeric house (1-12) to English word keys for JSON lookup
     /// - Accesses nested structure: houses[houseKey]["keyword"]
     /// - Returns single concentrated keyword that embodies house essence
     /// - Validates house number range to prevent invalid lookups
-    /// 
+    ///
     /// **Spiritual Significance:**
     /// - Keywords represent the soul's learning objective in each life domain
     /// - Each word carries archetypal weight from astrological tradition
     /// - Provides immediate spiritual context for house meaning
     /// - Enables quick identification of primary house themes in UI
-    /// 
+    ///
     /// **Example Keywords by House:**
     /// - 1st House: "Identity" - the self we present to the world
     /// - 2nd House: "Resources" - our relationship with material security
@@ -4562,132 +4562,132 @@ struct AspectDetailView: View {
     /// - 4th House: "Roots" - our foundation and emotional security
     /// - 5th House: "Creativity" - our self-expression and joy
     /// - 6th House: "Service" - our daily work and health practices
-    /// 
+    ///
     /// - Parameter houseNumber: Integer 1-12 representing the astrological house
     /// - Returns: Optional String containing the spiritual keyword, or nil if unavailable
-    /// 
+    ///
     /// **Error Handling:**
     /// - Returns nil for house numbers outside 1-12 range
     /// - Returns nil if MegaCorpus data is unavailable or malformed
     /// - Returns nil if specific house data is missing from JSON
     /// - UI gracefully handles nil values by hiding keyword display
-    /// 
+    ///
     /// **Usage in UI:**
     /// - Displayed in houseCard() with bullet point formatting
     /// - Provides quick spiritual context alongside life area descriptions
     /// - Italicized cyan text for mystical emphasis in house cards
     /// - Enhanced discoverability of house meanings for users
-    /// 
+    ///
     /// **Dependencies:**
     /// - loadMegaCorpusData(): Core function for accessing spiritual correspondence data
     /// - Houses.json: MegaCorpus file containing authentic house keywords and meanings
-    /// 
+    ///
     /// **Performance Notes:**
     /// - MegaCorpus data loaded once per app session for efficiency
     /// - Lightweight string lookup with minimal processing overhead
     /// - No network calls required - data embedded in app bundle
-    /// 
+    ///
     /// Claude: Get house keyword from MegaCorpus Houses.json data
     private func getHouseKeyword(houseNumber: Int) -> String? {
         let cosmicData = loadMegaCorpusData()
-        
+
         // Convert house number to word key (1 -> "first", 2 -> "second", etc.)
-        let houseKeys = ["", "first", "second", "third", "fourth", "fifth", "sixth", 
+        let houseKeys = ["", "first", "second", "third", "fourth", "fifth", "sixth",
                          "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth"]
-        
+
         guard houseNumber >= 1 && houseNumber <= 12 else { return nil }
         let houseKey = houseKeys[houseNumber]
-        
+
         if let houses = cosmicData["houses"] as? [String: Any],
            let houseData = houses[houseKey] as? [String: Any],
            let keyword = houseData["keyword"] as? String {
             return keyword
         }
-        
+
         return nil
     }
-    
+
     /// Retrieves the astrological mode (Cardinal, Fixed, Mutable) for a zodiac sign from MegaCorpus Signs.json data
-    /// 
+    ///
     /// This function accesses the MegaCorpus astrological database to determine the modal quality
     /// of each zodiac sign, which represents the fundamental approach to action and change.
     /// The three modes form a sacred triad that governs how signs initiate, sustain, and adapt
     /// to life circumstances, providing essential insight into behavioral patterns and spiritual development.
-    /// 
+    ///
     /// **Phase History:**
     /// - Phase 15: Added as part of enhanced house card system for complete astrological context
-    /// 
+    ///
     /// **Astrological Mode System:**
     /// The three modes represent the eternal cycle of manifestation in mystical tradition:
-    /// 
+    ///
     /// **Cardinal Signs (Initiating Energy):**
     /// - Aries, Cancer, Libra, Capricorn
     /// - Begin new cycles, take action, pioneer change
     /// - Associated with solstices and equinoxes (seasonal turning points)
     /// - Leadership qualities, initiative, but may lack follow-through
-    /// 
+    ///
     /// **Fixed Signs (Sustaining Energy):**
-    /// - Taurus, Leo, Scorpio, Aquarius  
+    /// - Taurus, Leo, Scorpio, Aquarius
     /// - Maintain, stabilize, resist change
     /// - Associated with mid-season stability and concentration
     /// - Persistence, loyalty, but may be stubborn or inflexible
-    /// 
+    ///
     /// **Mutable Signs (Adapting Energy):**
     /// - Gemini, Virgo, Sagittarius, Pisces
     /// - Transform, communicate, bridge differences
     /// - Associated with seasonal transitions and preparation
     /// - Flexibility, versatility, but may lack direction or consistency
-    /// 
+    ///
     /// **MegaCorpus Integration:**
     /// - Sources authentic mode data from Signs.json in MegaCorpus database
     /// - Uses lowercase sign name for consistent JSON key matching
     /// - Maintains traditional astrological correspondences
     /// - Provides graceful fallback if data is unavailable
-    /// 
+    ///
     /// **Spiritual Significance:**
     /// - Modes reveal the soul's preferred approach to growth and change
     /// - Cardinal = the initiator's path of leadership and new beginnings
     /// - Fixed = the sustainer's path of dedication and mastery
     /// - Mutable = the adapter's path of wisdom and synthesis
     /// - Understanding mode helps interpret how sign energy manifests behaviorally
-    /// 
+    ///
     /// - Parameter sign: String name of the zodiac sign (case-insensitive)
     /// - Returns: Optional String containing mode ("Cardinal", "Fixed", or "Mutable"), or nil if unavailable
-    /// 
+    ///
     /// **Error Handling:**
     /// - Returns nil if MegaCorpus data is unavailable or malformed
     /// - Returns nil if specific sign data is missing from JSON
     /// - Returns nil for invalid sign names
     /// - UI gracefully handles nil by hiding mode badge in house cards
-    /// 
+    ///
     /// **Usage in UI:**
     /// - Displayed as uppercase badge in houseCard() function
     /// - Provides modal context for natural house sign influences
     /// - Helps users understand the energetic approach of each house domain
     /// - Styled with subtle white opacity for balanced visual hierarchy
-    /// 
+    ///
     /// **Dependencies:**
     /// - loadMegaCorpusData(): Core function for accessing spiritual correspondence data
     /// - Signs.json: MegaCorpus file containing complete zodiac sign attributes
-    /// 
+    ///
     /// **Performance Notes:**
     /// - Case-insensitive sign matching for robust data retrieval
     /// - Minimal processing overhead with direct JSON key lookup
     /// - MegaCorpus data cached in memory for session duration
-    /// 
+    ///
     /// Claude: Get zodiac sign mode from MegaCorpus Signs.json data
     private func getSignMode(_ sign: String) -> String? {
         let cosmicData = loadMegaCorpusData()
-        
+
         if let signs = cosmicData["signs"] as? [String: Any],
            let signData = signs[sign.lowercased()] as? [String: Any],
            let mode = signData["mode"] as? String {
             return mode
         }
-        
+
         return nil
     }
-    
+
     /// Claude: Get zodiac sign glyph (Unicode astrological symbol)
     private func getSignGlyph(_ sign: String) -> String {
         let glyphs = [
@@ -4697,7 +4697,7 @@ struct AspectDetailView: View {
         ]
         return glyphs[sign.lowercased()] ?? "✦"
     }
-    
+
 } // End of UserProfileTabView struct
 
 // MARK: - Preview

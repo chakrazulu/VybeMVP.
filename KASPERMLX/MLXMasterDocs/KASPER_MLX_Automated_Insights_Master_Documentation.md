@@ -43,7 +43,7 @@ The KASPER MLX Automated Insights System leverages the existing sophisticated KA
 class KASPERGPTOSSJudge: ObservableObject {
     private let modelPath = "/Users/[you]/Models/gpt-oss-20b"
     private var model: MLXModel?
-    
+
     func evaluateInsight(_ insight: KASPERInsight) async -> QualityScore {
         // Use GPT OSS 20B for quality evaluation
         // Runs entirely locally on M1 Max
@@ -112,34 +112,34 @@ import Foundation
 class GPTOSSEvaluator {
     private let modelPath = URL(fileURLWithPath: "~/Models/gpt-oss-20b-4bit")
     private var model: LLMModel?
-    
+
     init() async throws {
         // Load the 20B model using MLX-Swift
         self.model = try await LLMModel.load(from: modelPath, quantization: .int4)
     }
-    
+
     func evaluateInsight(_ insight: String) async throws -> InsightQuality {
         let prompt = """
         Evaluate this spiritual insight for quality, authenticity, and safety.
-        
+
         Insight: \(insight)
-        
+
         Score each criterion 0-10:
         1. Spiritual Authenticity
-        2. Clarity and Coherence  
+        2. Clarity and Coherence
         3. Practical Value
         4. Safety (no harmful advice)
         5. Originality
-        
+
         Format: JSON with scores and brief reasoning
         """
-        
+
         let response = try await model?.generate(
             prompt: prompt,
             maxTokens: 200,
             temperature: 0.3  // Low temperature for consistent evaluation
         )
-        
+
         return parseQualityResponse(response)
     }
 }
@@ -172,7 +172,7 @@ extension KASPERMLXTestView {
 // Add to existing KASPERMLXTestView
 func generateTrainingBatch() async {
     var batch: [KASPERInsight] = []
-    
+
     for focusNumber in 1...9 {
         for feature in KASPERFeature.allCases {
             for persona in ["Oracle", "Mentor", "Guide", "Mystic", "Sage"] {
@@ -180,22 +180,22 @@ func generateTrainingBatch() async {
                     focusNumber: focusNumber,
                     persona: persona
                 )
-                
+
                 let insight = await mlxEngine.generateInsight(
                     feature: feature,
                     context: context
                 )
-                
+
                 // Auto-evaluate with GPT OSS 20B
                 let quality = await gptJudge.evaluate(insight)
-                
+
                 if quality.score > 0.8 {
                     batch.append(insight)
                 }
             }
         }
     }
-    
+
     // Save to existing training data manager
     trainingDataManager.saveBatch(batch)
 }
@@ -206,11 +206,11 @@ func generateTrainingBatch() async {
 // Enhance existing KASPERFeedbackAnalyticsView
 struct EnhancedAnalyticsView: View {
     @StateObject var analytics = KASPERAnalytics.shared
-    
+
     var body: some View {
         VStack {
             // Your existing analytics...
-            
+
             // Add GPT OSS evaluation metrics
             Section("GPT OSS Quality Metrics") {
                 MetricRow("Insights Generated", value: analytics.totalGenerated)
@@ -230,7 +230,7 @@ struct EnhancedAnalyticsView: View {
 // Simple automation using existing Timer/Combine
 class KASPERAutomation: ObservableObject {
     private var timer: Timer?
-    
+
     func startDailyGeneration() {
         // Run every 24 hours
         timer = Timer.scheduledTimer(withTimeInterval: 86400, repeats: true) { _ in
@@ -239,18 +239,18 @@ class KASPERAutomation: ObservableObject {
             }
         }
     }
-    
+
     private func runDailyPipeline() async {
         // Generate 100 insights
         for _ in 0..<100 {
             let insight = await generateInsight()
             let quality = await evaluateWithGPTOSS(insight)
-            
+
             if quality.approved {
                 await saveToTrainingData(insight)
             }
         }
-        
+
         // Update analytics
         await updateDashboard()
     }
@@ -263,7 +263,7 @@ class KASPERAutomation: ObservableObject {
 extension KASPERTrainingDataManager {
     func exportForMLXTraining() -> URL {
         let approved = fetchApprovedInsights()
-        
+
         // Format for MLX fine-tuning
         let trainingData = approved.map { insight in
             [
@@ -272,22 +272,22 @@ extension KASPERTrainingDataManager {
                 "output": insight.content
             ]
         }
-        
+
         // Save to Documents (no external SSD needed!)
         let documentsURL = FileManager.default.urls(
             for: .documentDirectory,
             in: .userDomainMask
         ).first!
-        
+
         let exportURL = documentsURL.appendingPathComponent(
             "kasper_training_\(Date().timeIntervalSince1970).jsonl"
         )
-        
+
         // Write JSONL format
         let jsonLines = trainingData.map { try! JSONEncoder().encode($0) }
         let data = jsonLines.joined(separator: "\n".data(using: .utf8)!)
         try! data.write(to: exportURL)
-        
+
         return exportURL
     }
 }
@@ -308,7 +308,7 @@ extension KASPERMLXTrainingManager {
     func trainWithGeneratedData() async {
         // Export training data
         let trainingDataURL = trainingDataManager.exportForMLXTraining()
-        
+
         // Use existing MLX training pipeline
         let config = MLXTrainingConfig(
             baseModel: "llama-3.2-3b",  // Start small
@@ -317,7 +317,7 @@ extension KASPERMLXTrainingManager {
             epochs: 3,
             learningRate: 1e-5
         )
-        
+
         // Train using existing infrastructure
         await startTraining(config: config)
     }
@@ -332,9 +332,9 @@ extension KASPERMLXTrainingManager {
 extension KASPERMLXEngine {
     enum ModelTier {
         case lite    // 1B parameters, 300-400MB (iPhone capable)
-        case standard // 3B parameters, 1-1.5GB (iPhone Pro/iPad)  
+        case standard // 3B parameters, 1-1.5GB (iPhone Pro/iPad)
         case pro     // 7B+ parameters, 3-5GB (Mac/Server only)
-        
+
         var modelPath: String {
             switch self {
             case .lite: return "kasper-1b-q4"
@@ -357,7 +357,7 @@ extension KASPERMLXEngine {
 struct NumerologyInvariants {
     static func validate(_ insight: KASPERInsight) -> ValidationResult {
         var errors: [String] = []
-        
+
         // Check digital root calculations
         if let numberRef = extractNumberReference(from: insight.content) {
             let digitalRoot = calculateDigitalRoot(numberRef)
@@ -365,19 +365,19 @@ struct NumerologyInvariants {
                 errors.append("Incorrect digital root calculation")
             }
         }
-        
+
         // Verify Focus Number properties
         if insight.focusNumber == 1 && insight.content.contains("cooperation") {
             errors.append("Focus 1 should emphasize independence, not cooperation")
         }
-        
+
         // Check Master Number preservation
         if [11, 22, 33, 44].contains(insight.focusNumber) {
             if insight.content.contains("reduces to") {
                 errors.append("Master numbers should never be reduced")
             }
         }
-        
+
         return errors.isEmpty ? .passed : .failed(errors)
     }
 }
@@ -390,23 +390,23 @@ struct NumerologyInvariants {
 class NoveltyFilter {
     private var embeddingCache: [String: [Float]] = [:]
     private let similarityThreshold: Float = 0.85
-    
+
     func checkNovelty(_ insight: String) -> Bool {
         let embedding = generateEmbedding(insight)
-        
+
         for (_, existingEmbedding) in embeddingCache {
             let similarity = cosineSimilarity(embedding, existingEmbedding)
             if similarity > similarityThreshold {
                 return false // Too similar to existing
             }
         }
-        
+
         // Add to cache if novel
         let hash = SHA256(insight)
         embeddingCache[hash] = embedding
         return true
     }
-    
+
     private func generateEmbedding(_ text: String) -> [Float] {
         // Use small local model like sentence-transformers
         // or Apple's NLEmbedding for fast similarity checks
@@ -424,16 +424,16 @@ struct GoldenSeedSet {
         "Focus 7: Seven breaths deep, where wisdom meets the void...",
         // ... 198 more carefully crafted examples
     ]
-    
+
     static func compareToGolden(_ insight: String) -> Float {
         // Ensure new insights match the tone/quality of golden set
         let goldenEmbeddings = goldenInsights.map { embed($0) }
         let insightEmbedding = embed(insight)
-        
-        let similarities = goldenEmbeddings.map { 
-            cosineSimilarity($0, insightEmbedding) 
+
+        let similarities = goldenEmbeddings.map {
+            cosineSimilarity($0, insightEmbedding)
         }
-        
+
         return similarities.max() ?? 0.0
     }
 }
@@ -450,7 +450,7 @@ struct ProvenanceRecord: Codable {
     let promptSignature: String
     let humanReviewed: Bool
     let approvalPath: ApprovalPath
-    
+
     enum ApprovalPath {
         case autoApproved(score: Float)
         case fastJudge(score: Float)
@@ -460,7 +460,7 @@ struct ProvenanceRecord: Codable {
 }
 
 class ProvenanceManager {
-    func recordApproval(_ insight: KASPERInsight, 
+    func recordApproval(_ insight: KASPERInsight,
                        scores: QualityScores,
                        judge: String) {
         let record = ProvenanceRecord(
@@ -472,7 +472,7 @@ class ProvenanceManager {
             humanReviewed: false,
             approvalPath: determineApprovalPath(scores)
         )
-        
+
         // Save to persistent store
         saveRecord(record)
     }
@@ -485,12 +485,12 @@ class ProvenanceManager {
 struct SafetyGates {
     static func checkSafety(_ content: String) -> SafetyResult {
         // Run BEFORE any AI evaluation
-        
+
         // Check for PII
         if containsPII(content) {
             return .failed("Contains personal information")
         }
-        
+
         // Check for medical/legal advice
         let dangerousTerms = ["medication", "diagnosis", "lawsuit", "medical"]
         for term in dangerousTerms {
@@ -498,12 +498,12 @@ struct SafetyGates {
                 return .flagged("Potential medical/legal content")
             }
         }
-        
+
         // Check for harmful content
         if containsHarmfulContent(content) {
             return .failed("Harmful content detected")
         }
-        
+
         return .passed
     }
 }
@@ -521,20 +521,20 @@ func evaluateInsight(_ insight: KASPERInsight) async -> EvaluationResult {
     if case .failed(let errors) = invariants {
         return .rejected(reason: "Numerology errors: \(errors)")
     }
-    
+
     let safety = SafetyGates.checkSafety(insight.content)
     if case .failed(let reason) = safety {
         return .rejected(reason: reason)
     }
-    
+
     // Stage 2: Novelty Check
     if !NoveltyFilter.shared.checkNovelty(insight.content) {
         return .rejected(reason: "Too similar to existing insight")
     }
-    
+
     // Stage 3: AI Evaluation (Tiered)
     let fastScore = await FastJudge.evaluate(insight) // 7B model
-    
+
     if fastScore < 0.75 {
         return .rejected(reason: "Low quality score: \(fastScore)")
     } else if fastScore < 0.85 {
@@ -544,16 +544,16 @@ func evaluateInsight(_ insight: KASPERInsight) async -> EvaluationResult {
             return .rejected(reason: "Failed deep evaluation")
         }
     }
-    
+
     // Stage 4: Golden Set Comparison
     let goldenSimilarity = GoldenSeedSet.compareToGolden(insight.content)
     if goldenSimilarity < 0.6 {
         return .needsReview(reason: "Low similarity to golden set")
     }
-    
+
     // Stage 5: Record Provenance
     ProvenanceManager.shared.recordApproval(insight, scores: scores, judge: "FastJudge-7B")
-    
+
     return .approved(score: fastScore)
 }
 ```
@@ -568,7 +568,7 @@ struct SpiritualQualityMetrics {
     let safety: Float           // No harmful content
     let originality: Float      // Not generic/repetitive
     let practicalValue: Float   // Actionable guidance
-    
+
     var overallScore: Float {
         // Weighted average
         return (authenticity * 0.25 +
@@ -578,7 +578,7 @@ struct SpiritualQualityMetrics {
                 originality * 0.10 +
                 practicalValue * 0.10)
     }
-    
+
     var isApproved: Bool {
         return overallScore >= 0.8 && safety >= 0.9
     }
@@ -607,7 +607,7 @@ Rate each 0-10 and provide brief reasoning:
    - Contains genuine spiritual wisdom (not generic self-help)
    - Respects sacred traditions
 
-2. CLARITY & COHERENCE  
+2. CLARITY & COHERENCE
    - Message is clear and well-structured
    - Language is accessible yet profound
    - No rambling or confusion
@@ -759,12 +759,12 @@ struct PerformanceTargets {
     let tokensPerSecond = 15-20        // GPT OSS 20B
     let insightGenTime = 3-5           // seconds per insight
     let batchOf100Time = 5-8           // minutes
-    
+
     // Memory Usage
     let modelMemory = 40               // GB for 20B model
     let availableMemory = 24           // GB remaining
     let swapUsage = 0                  // No swap needed!
-    
+
     // Quality Metrics
     let approvalRate = 0.85            // 85% pass rate
     let avgQualityScore = 8.5          // Out of 10
@@ -814,28 +814,28 @@ struct DailyMetrics {
 class QualityCalibration {
     private var approvalThreshold: Float = 0.80
     private let targetApprovalRate: Float = 0.15 // Only 15% should pass
-    
+
     func weeklyCalibration() {
         // Sample last week's approvals
         let recentApprovals = fetchLastWeekApprovals()
         let humanSample = recentApprovals.randomSample(100)
-        
+
         // Human review
         let humanScores = humanSample.map { insight in
             presentForHumanReview(insight) // You manually score
         }
-        
+
         // Calculate drift
         let avgAIScore = humanSample.map { $0.aiScore }.average()
         let avgHumanScore = humanScores.average()
         let drift = abs(avgAIScore - avgHumanScore)
-        
+
         // Adjust threshold if needed
         if drift > 0.1 {
             print("⚠️ Quality drift detected: \(drift)")
             adjustThreshold(basedOn: humanScores)
         }
-        
+
         // Check approval rate
         let currentApprovalRate = Float(recentApprovals.count) / Float(totalEvaluated)
         if currentApprovalRate > 0.20 {
@@ -857,14 +857,14 @@ extension QualityCalibration {
         // Find the threshold that would give us 15% approval rate
         let sortedScores = humanScores.sorted(by: >)
         let targetIndex = Int(Float(sortedScores.count) * targetApprovalRate)
-        
+
         if targetIndex < sortedScores.count {
             let newThreshold = sortedScores[targetIndex]
-            
+
             // Smooth adjustment (don't change too drastically)
             let adjustment = (newThreshold - approvalThreshold) * 0.3
             approvalThreshold += adjustment
-            
+
             print("📊 Threshold adjusted: \(approvalThreshold)")
         }
     }
@@ -968,12 +968,12 @@ After integrating ChatGPT's excellent corrections, here's the final approach:
 
 ### **Why This Wins (Updated)**
 
-✅ **Builds on your existing Swift infrastructure**  
-✅ **Realistic performance expectations (7B primary, 20B secondary)**  
-✅ **Comprehensive safeguards prevent quality drift**  
-✅ **Maintains spiritual authenticity through golden seeds**  
-✅ **Provenance tracking for full audit capability**  
-✅ **Weekly calibration keeps quality consistent**  
+✅ **Builds on your existing Swift infrastructure**
+✅ **Realistic performance expectations (7B primary, 20B secondary)**
+✅ **Comprehensive safeguards prevent quality drift**
+✅ **Maintains spiritual authenticity through golden seeds**
+✅ **Provenance tracking for full audit capability**
+✅ **Weekly calibration keeps quality consistent**
 ✅ **99% local processing (optional 1% GPT-4 for edge cases)**
 
 ### **Implementation Priority**
@@ -1009,7 +1009,7 @@ You already have **hundreds of high-quality insights** from Claude and Grok! Thi
 ```markdown
 # ClaudeRich1 - Number 1 Deep Analysis
 - Mystical significance and sacred geometry
-- Life path personality profiles  
+- Life path personality profiles
 - Spiritual correspondences and alignments
 - Modern applications and cultural expressions
 - Meditation practices and rituals
@@ -1021,7 +1021,7 @@ You already have **hundreds of high-quality insights** from Claude and Grok! Thi
 {
   "number": 7,
   "insight": ["180 spiritual guidance messages"],
-  "reflection": ["18 introspective prompts"], 
+  "reflection": ["18 introspective prompts"],
   "contemplation": ["18 meditation practices"],
   "manifestation": ["18 action-oriented practices"],
   "challenge": ["18 growth opportunities"],
@@ -1079,31 +1079,31 @@ struct GrokInsightCategories: Codable {
 struct NumberMeaningView: View {
     @State private var selectedNumber: Int = 1
     @State private var selectedCategory: ContentCategory = .overview
-    
+
     enum ContentCategory: String, CaseIterable {
         case overview = "Overview"
-        case insight = "Daily Insights" 
+        case insight = "Daily Insights"
         case reflection = "Reflection"
         case meditation = "Meditation"
         case practical = "Practical"
         case shadow = "Shadow Work"
         case energy = "Energy Check"
     }
-    
+
     var body: some View {
         ScrollView {
             // Number selector (1-9 + master numbers)
             NumberSelector(selection: $selectedNumber)
-            
+
             // Category tabs
             CategorySelector(selection: $selectedCategory)
-            
+
             // Content display based on your existing data
             ContentDisplayView(
                 number: selectedNumber,
                 category: selectedCategory,
                 content: NumberMeaningDataManager.shared.getContent(
-                    for: selectedNumber, 
+                    for: selectedNumber,
                     category: selectedCategory
                 )
             )
@@ -1118,10 +1118,10 @@ struct NumberMeaningView: View {
 extension NumberMeaningDataManager {
     func generateKASPERTrainingData() -> [KASPERTrainingPair] {
         var trainingPairs: [KASPERTrainingPair] = []
-        
+
         for number in 1...9 {
             let content = getExistingContent(for: number)
-            
+
             // Create training pairs from existing insights
             for insight in content.grokContent.insight {
                 let pair = KASPERTrainingPair(
@@ -1136,7 +1136,7 @@ extension NumberMeaningDataManager {
                 )
                 trainingPairs.append(pair)
             }
-            
+
             // Create pairs for each category
             for reflection in content.grokContent.reflection {
                 let pair = KASPERTrainingPair(
@@ -1149,7 +1149,7 @@ extension NumberMeaningDataManager {
             }
             // ... continue for all categories
         }
-        
+
         return trainingPairs
     }
 }
@@ -1175,7 +1175,7 @@ KASPERMLX/MLXData/ExistingContent/
 │   └── ... (for each number)
 ├── Grok/
 │   ├── GrokInsights1.json
-│   ├── GrokInsights7.json  
+│   ├── GrokInsights7.json
 │   └── ... (for each number)
 └── Combined/
     ├── NumberMeaning1.json
@@ -1192,10 +1192,10 @@ class ContentImporter {
         for number in 1...9 {
             // Import Claude content
             let claudeContent = await importClaudeContent(for: number)
-            
-            // Import Grok content  
+
+            // Import Grok content
             let grokContent = await importGrokContent(for: number)
-            
+
             // Combine and process
             let combined = NumberMeaningContent(
                 number: number,
@@ -1203,23 +1203,23 @@ class ContentImporter {
                 grokContent: grokContent,
                 combinedSummary: generateSummary(claude: claudeContent, grok: grokContent)
             )
-            
+
             // Save to app bundle
             await saveToApp(combined)
-            
+
             // Generate KASPER training pairs
             let trainingPairs = generateTrainingPairs(from: combined)
             await KASPERTrainingDataManager.shared.importPairs(trainingPairs)
         }
-        
+
         print("✅ Imported \(totalInsights) insights across \(numbers.count) numbers")
     }
-    
+
     private static func importClaudeContent(for number: Int) async -> ClaudeInsight {
         // Parse markdown files like ClaudeRich1.md
         let filePath = Bundle.main.path(forResource: "ClaudeRich\(number)", ofType: "md")
         let content = try! String(contentsOfFile: filePath!)
-        
+
         return ClaudeInsight(
             coreEssence: extractSection(content, "core_essence"),
             mysticalSignificance: extractSection(content, "mystical_significance"),
@@ -1230,7 +1230,7 @@ class ContentImporter {
             // ... extract all sections
         )
     }
-    
+
     private static func importGrokContent(for number: Int) async -> GrokInsightCategories {
         // Parse JSON files like your number 7 example
         let filePath = Bundle.main.path(forResource: "GrokInsights\(number)", ofType: "json")
@@ -1249,11 +1249,11 @@ struct NumberMeaningView: View {
     @State private var selectedNumber: Int = 1
     @State private var selectedCategory: ContentCategory = .overview
     @State private var isLoading = false
-    
+
     enum ContentCategory: String, CaseIterable {
         case overview = "Overview"
         case dailyInsight = "Daily Insight"
-        case reflection = "Reflection" 
+        case reflection = "Reflection"
         case contemplation = "Contemplation"
         case manifestation = "Manifestation"
         case challenge = "Challenge"
@@ -1265,7 +1265,7 @@ struct NumberMeaningView: View {
         case astrologicalContext = "Astrological Context"
         case mentalWellness = "Mental Wellness"
     }
-    
+
     var body: some View {
         NavigationView {
             VStack {
@@ -1287,7 +1287,7 @@ struct NumberMeaningView: View {
                                 .frame(width: 60, height: 60)
                                 .background(
                                     Circle()
-                                        .fill(selectedNumber == number ? 
+                                        .fill(selectedNumber == number ?
                                               Color.blue : Color.gray.opacity(0.2))
                                 )
                                 .foregroundColor(selectedNumber == number ? .white : .primary)
@@ -1296,7 +1296,7 @@ struct NumberMeaningView: View {
                     }
                     .padding(.horizontal)
                 }
-                
+
                 // Category picker
                 Picker("Category", selection: $selectedCategory) {
                     ForEach(ContentCategory.allCases, id: \.self) { category in
@@ -1305,7 +1305,7 @@ struct NumberMeaningView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding()
-                
+
                 // Content area
                 ScrollView {
                     if let content = contentManager.getContent(for: selectedNumber) {
@@ -1326,11 +1326,11 @@ struct NumberMeaningView: View {
             .navigationTitle("Sacred Numbers")
         }
     }
-    
+
     private func getNumberName(_ number: Int) -> String {
         switch number {
         case 1: return "Leader"
-        case 2: return "Harmony" 
+        case 2: return "Harmony"
         case 3: return "Creative"
         case 4: return "Foundation"
         case 5: return "Freedom"
@@ -1350,7 +1350,7 @@ struct NumberMeaningView: View {
 struct ContentDisplayView: View {
     let content: NumberMeaningContent
     let category: NumberMeaningView.ContentCategory
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             switch category {
@@ -1358,21 +1358,21 @@ struct ContentDisplayView: View {
                 Text(content.claudeContent.coreEssence)
                     .font(.body)
                     .padding()
-                
+
             case .dailyInsight:
                 LazyVStack(spacing: 8) {
                     ForEach(content.grokContent.insight, id: \.self) { insight in
                         InsightCard(insight: insight)
                     }
                 }
-                
+
             case .reflection:
                 LazyVStack(spacing: 8) {
                     ForEach(content.grokContent.reflection, id: \.self) { reflection in
                         ReflectionCard(reflection: reflection)
                     }
                 }
-                
+
             // ... continue for all categories
             default:
                 Text("Content coming soon for \(category.rawValue)")
@@ -1385,13 +1385,13 @@ struct ContentDisplayView: View {
 
 struct InsightCard: View {
     let insight: String
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(insight)
                 .font(.body)
                 .multilineTextAlignment(.leading)
-            
+
             HStack {
                 Spacer()
                 Button(action: {
@@ -1437,7 +1437,7 @@ struct KASPERNumerologyInvariants {
         ),
         // ... continue for 2-9 and master numbers 11,22,33,44
     ]
-    
+
     static func validate(_ insight: KASPERInsight) -> ValidationResult {
         // Digital root checks, master number preservation
         // Focus/realm contradiction detection
@@ -1448,7 +1448,7 @@ struct KASPERNumerologyInvariants {
 struct SafetyGates {
     static let dangerTerms = ["medication", "diagnosis", "lawsuit", "suicide"]
     static let piiPatterns = [/* regex patterns */]
-    
+
     static func checkSafety(_ content: String) -> SafetyResult {
         // PII detection, harmful content screening
         // Medical/legal advice flags
@@ -1500,28 +1500,28 @@ extension KASPERTrainingDataManager {
 class EmbeddingNoveltyFilter {
     private let similarityThreshold: Float = 0.84  // ChatGPT's recommendation
     private var embeddingCache: [String: [Float]] = [:]
-    
+
     func checkNovelty(_ insight: String) -> Bool {
         let embedding = generateEmbedding(insight)
-        
+
         for (_, existingEmbedding) in embeddingCache {
             let similarity = cosine(embedding, existingEmbedding)
             if similarity > similarityThreshold {
                 return false // Too similar
             }
         }
-        
+
         let hash = SHA256(insight)
         embeddingCache[hash] = embedding
         return true
     }
-    
+
     private func generateEmbedding(_ text: String) -> [Float] {
         // Use Apple's NLEmbedding (English) averaging words → sentence vector
         let embedding = NLEmbedding.wordEmbedding(for: .english)
         // Simple average-of-words approach
     }
-    
+
     private func cosine(_ a: [Float], _ b: [Float]) -> Float {
         let dot = zip(a,b).reduce(0) { $0 + $1.0*$1.1 }
         let na = sqrt(a.reduce(0) { $0 + $1*$1 })
@@ -1547,7 +1547,7 @@ class FastJudge: KASPERJudge {
         attributes: .concurrent
     )
     private let semaphore = DispatchSemaphore(value: 2) // Max 2 parallel - ChatGPT's rec
-    
+
     private let config = MLXGenerationConfig(
         temperature: 0.3,  // FIXED - deterministic judging
         topP: 0.95,       // FIXED
@@ -1564,7 +1564,7 @@ class DeepJudge: KASPERJudge {
 class TieredEvaluationSystem {
     func evaluate(_ insight: KASPERInsight) async -> EvaluationResult {
         let fastScore = await FastJudge.evaluate(insight)
-        
+
         if fastScore.score < 0.75 {
             return .rejected("Low fast score")
         } else if fastScore.score >= 0.85 {
@@ -1587,14 +1587,14 @@ extension KASPERMLXTestView {
     @State private var batchSize = 100
     @State private var isRunningBatch = false
     @State private var batchResults: BatchResults?
-    
+
     var batchRunnerSection: some View {
         VStack {
             Button("Warm Up Models") { warmUpJudges() }
             Button("Run \(batchSize) Batch") { runBatch() }
             Button("Export JSONL") { exportTrainingData() }
             Button("Review Last 50") { showRecentResults() }
-            
+
             // Tiny dashboard - ChatGPT's recommendation
             if let results = batchResults {
                 VStack(alignment: .leading) {
@@ -1629,13 +1629,13 @@ class DocumentationCodeTests: XCTestCase {
         // Verify they compile without errors
         // Prevents documentation from becoming stale
     }
-    
+
     func testInvariantsNeverRegress() {
         // 50 test cases that must always pass
         // Digital root calculations, focus number rules
         // Master number preservation
     }
-    
+
     func testSchemaVersioning() {
         // Fail if KASPERTrainingPair structure changes
         // Without a "migration note" in the commit
@@ -1674,19 +1674,19 @@ class WeeklyCalibration {
     func performCalibration() {
         // 1. Sample last week's 100 approvals
         let sample = fetchRandomApprovals(count: 100)
-        
+
         // 2. Present for human review (you score them)
         let humanScores = presentReviewInterface(sample)
-        
+
         // 3. Calculate drift
         let aiAvg = sample.map(\.aiScore).average()
         let humanAvg = humanScores.average()
         let drift = abs(aiAvg - humanAvg)
-        
+
         if drift > 0.1 {
             adjustThresholds(based: humanScores)
         }
-        
+
         // 4. Check approval rate (target: 15%)
         adjustApprovalRate()
     }
@@ -1722,12 +1722,12 @@ import MLX
 class KASPERGPTOSSJudge: ObservableObject {
     @Published var isLoaded = false
     @Published var isEvaluating = false
-    
+
     private var model: LLMModel?
-    
+
     func loadModel() async {
         guard !isLoaded else { return }
-        
+
         do {
             model = try await LLMModel.load(
                 from: "~/Models/gpt-oss-20b",
@@ -1738,23 +1738,23 @@ class KASPERGPTOSSJudge: ObservableObject {
             print("Failed to load GPT OSS: \(error)")
         }
     }
-    
+
     func evaluate(_ insight: KASPERInsight) async -> SpiritualQualityMetrics {
         guard let model = model else {
             await loadModel()
             return SpiritualQualityMetrics.default
         }
-        
+
         isEvaluating = true
         defer { isEvaluating = false }
-        
+
         let prompt = createEvaluationPrompt(for: insight)
         let response = try? await model.generate(
             prompt: prompt,
             maxTokens: 200,
             temperature: 0.3
         )
-        
+
         return parseResponse(response ?? "{}")
     }
 }
@@ -1787,6 +1787,6 @@ You've got this! 🚀
 
 ---
 
-*Documentation Version: 2.0 - Simplified Swift-Native Approach*  
-*Last Updated: August 2025*  
+*Documentation Version: 2.0 - Simplified Swift-Native Approach*
+*Last Updated: August 2025*
 *Author: Claude (with love for the existing KASPER MLX architecture)*

@@ -127,7 +127,7 @@ if user.isPremium {
 ### Data Flow:
 ```swift
 // Fetch current data
-let rulerNumber = HUDManager.getRulerNumber() 
+let rulerNumber = HUDManager.getRulerNumber()
 let majorAspects = AspectCalculator.fetchMajorAspects()
 let dominantAspect = majorAspects.sorted { $0.orb < $1.orb }.first
 let element = ElementCalculator.getTodayElement()
@@ -148,7 +148,7 @@ Text(element.emoji)
 
 ## 🧠 Evolution Roadmap
 
-### Phase 1 (Launch): 
+### Phase 1 (Launch):
 - 👑 Ruler Number • Major Aspect • Element
 - Tap for expanded view with mini insights
 - Hold for App Intents ring
@@ -171,7 +171,7 @@ enum HUDSlot3Content {
     case element        // 🔥 💧 🌱 💨
     case planetOfDay    // ☉ ☽ ♂ ♀ ☿ ♃ ♄
     case chakra         // 🔴 🟠 🟡 🟢 🔵 🟣
-    
+
     func next() -> HUDSlot3Content {
         // Rotate based on time of day or user preference
     }
@@ -200,11 +200,11 @@ struct HUDGlyphMapper {
         case .air: return "💨"
         }
     }
-    
+
     static func planet(for planet: Planet) -> String {
         return planet.symbol // SwiftAA provides this
     }
-    
+
     static func aspect(for aspect: Aspect) -> String {
         return aspect.symbol // SwiftAA provides this
     }

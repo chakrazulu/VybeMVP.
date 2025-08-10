@@ -81,4 +81,3 @@ The **Archetype Card** is a beautiful, visually rich identity object that summar
 ## Summary
 
 The Archetype Card is Vybe’s way of giving the user a visual soul-token — something beautiful, symbolic, and uniquely theirs. It connects their numerology, astrology, and chosen focus into a single shareable identity.
-

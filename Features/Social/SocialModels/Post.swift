@@ -15,39 +15,39 @@ import SwiftUI
  */
 struct Post: Identifiable, Codable {
     @DocumentID var id: String?
-    
+
     // Author information
     let authorId: String
     let authorName: String
-    
+
     // Content
     var content: String
     let type: PostType
-    
+
     // Metadata
     let timestamp: Date
     let isPublic: Bool
-    
+
     // Spiritual context
     let tags: [String]
-    
+
     // Social interactions
     var reactions: [String: Int] // reactionType -> count
     var commentCount: Int
-    
+
     // Optional attachments
     let imageURL: String?
     let sightingNumber: Int?
     let chakraType: String?
     let journalExcerpt: String?
-    
+
     // Cosmic signature of the author at time of posting
     let cosmicSignature: CosmicSignature?
-    
+
     // Custom decoding to handle legacy posts
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         self.authorId = try container.decode(String.self, forKey: .authorId)
         // Handle legacy posts that might not have authorName
         self.authorName = try container.decodeIfPresent(String.self, forKey: .authorName) ?? "Anonymous User"
@@ -64,13 +64,13 @@ struct Post: Identifiable, Codable {
         self.journalExcerpt = try container.decodeIfPresent(String.self, forKey: .journalExcerpt)
         self.cosmicSignature = try container.decodeIfPresent(CosmicSignature.self, forKey: .cosmicSignature)
     }
-    
+
     // Coding keys for decoding
     private enum CodingKeys: String, CodingKey {
         case authorId, authorName, content, type, timestamp, isPublic, tags, reactions, commentCount
         case imageURL, sightingNumber, chakraType, journalExcerpt, cosmicSignature
     }
-    
+
     init(
         authorId: String,
         authorName: String,
@@ -112,7 +112,7 @@ enum PostType: String, Codable, CaseIterable {
     case reflection = "reflection"
     case manifestation = "manifestation"
     case gratitude = "gratitude"
-    
+
     var displayName: String {
         switch self {
         case .text: return "Text Share"
@@ -124,7 +124,7 @@ enum PostType: String, Codable, CaseIterable {
         case .gratitude: return "Gratitude"
         }
     }
-    
+
     var icon: String {
         switch self {
         case .text: return "text.bubble"
@@ -136,7 +136,7 @@ enum PostType: String, Codable, CaseIterable {
         case .gratitude: return "heart.fill"
         }
     }
-    
+
     var color: Color {
         switch self {
         case .text: return .blue
@@ -148,7 +148,7 @@ enum PostType: String, Codable, CaseIterable {
         case .gratitude: return .pink
         }
     }
-    
+
     var description: String {
         switch self {
         case .text: return "Share your thoughts and insights"
@@ -172,7 +172,7 @@ struct CosmicSignature: Codable {
     let realmNumber: Int
     let mood: String?
     let intention: String?
-    
+
     init(
         focusNumber: Int,
         currentChakra: String,
@@ -205,7 +205,7 @@ extension Post {
             return type.color
         }
     }
-    
+
     /**
      * Returns a formatted display of the cosmic signature for UI
      */
@@ -213,7 +213,7 @@ extension Post {
         guard let signature = cosmicSignature else { return "" }
         return "Focus \(signature.focusNumber) • \(signature.currentChakra.capitalized) Chakra • Life Path \(signature.lifePathNumber)"
     }
-    
+
     /**
      * Returns the total reaction count across all reaction types
      */
@@ -238,4 +238,4 @@ private func getSacredColor(for number: Int) -> Color {
     case 9: return .white
     default: return .gray
     }
-} 
+}

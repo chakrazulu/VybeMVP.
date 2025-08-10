@@ -1,6 +1,6 @@
 /**
  * Core Data class for FocusMatch entity
- * 
+ *
  * REALM NUMBER ANALYTICS ENHANCEMENT:
  * Updated equality and hashing to include realmNumber field for proper
  * data integrity and comparison logic in analytics processing.
@@ -19,7 +19,7 @@ public class FocusMatch: NSManagedObject, Hashable {
         lhs.locationLatitude == rhs.locationLatitude &&
         lhs.locationLongitude == rhs.locationLongitude
     }
-    
+
     public func hash(into hasher: inout Hasher) {
         hasher.combine(timestamp)
         hasher.combine(chosenNumber)
@@ -28,4 +28,4 @@ public class FocusMatch: NSManagedObject, Hashable {
         hasher.combine(locationLatitude)
         hasher.combine(locationLongitude)
     }
-} 
+}

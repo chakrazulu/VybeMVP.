@@ -1,6 +1,6 @@
 /**
  * Filename: FocusMatch+Helper.swift
- * 
+ *
  * Purpose: Provides helper methods and computed properties for the FocusMatch entity.
  *
  * This file extends the FocusMatch class with convenience methods for creating new
@@ -49,7 +49,7 @@ extension FocusMatch {
         match.locationLongitude = longitude
         return match
     }
-    
+
     /**
      * Returns a formatted string representation of the match timestamp
      *
@@ -62,7 +62,7 @@ extension FocusMatch {
         formatter.timeStyle = .short
         return formatter.string(from: timestamp)
     }
-    
+
     /**
      * Returns the match location as a CLLocationCoordinate2D
      *
@@ -72,4 +72,4 @@ extension FocusMatch {
     var locationCoordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: locationLatitude, longitude: locationLongitude)
     }
-} 
+}

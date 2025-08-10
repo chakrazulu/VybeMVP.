@@ -8,10 +8,10 @@ struct OnboardingInsightToneView: View {
             VStack(spacing: 30) {
                 // Header Section
                 headerSection
-                
+
                 // Selection Cards
                 selectionSection
-                
+
                 // Description Section
                 descriptionSection
             }
@@ -20,7 +20,7 @@ struct OnboardingInsightToneView: View {
             .padding(.bottom, 40)
         }
     }
-    
+
     private var headerSection: some View {
         VStack(spacing: 20) {
             // Icon
@@ -34,12 +34,12 @@ struct OnboardingInsightToneView: View {
                         )
                     )
                     .frame(width: 100, height: 100)
-                
+
                 Image(systemName: "message.circle.fill")
                     .font(.system(size: 40, weight: .light))
                     .foregroundColor(.blue)
             }
-            
+
             VStack(spacing: 12) {
                 Text("Tone of Insights")
                     .font(.largeTitle)
@@ -51,13 +51,13 @@ struct OnboardingInsightToneView: View {
                             endPoint: .trailing
                         )
                     )
-                
+
                 Text("How would you like Vybe to communicate its insights to you? Your choice here shapes the voice of your experience.")
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                     .lineLimit(nil)
-                
+
                 // Add clear instruction for multiple selection
                 Text("✨ Select up to 3 that resonate")
                     .font(.subheadline)
@@ -78,7 +78,7 @@ struct OnboardingInsightToneView: View {
         }
         .padding(.top, 20)
     }
-    
+
     private var selectionSection: some View {
         VStack(spacing: 16) {
             ForEach(viewModel.insightToneOptions, id: \.self) { option in
@@ -96,7 +96,7 @@ struct OnboardingInsightToneView: View {
             }
         }
     }
-    
+
     private func toggleInsightToneSelection(_ option: String) {
         if let index = viewModel.selectedInsightTones.firstIndex(of: option) {
             viewModel.selectedInsightTones.remove(at: index)
@@ -104,7 +104,7 @@ struct OnboardingInsightToneView: View {
             viewModel.selectedInsightTones.append(option)
         }
     }
-    
+
     private var descriptionSection: some View {
         VStack(spacing: 16) {
             HStack {
@@ -114,7 +114,7 @@ struct OnboardingInsightToneView: View {
                     .font(.headline)
                 Spacer()
             }
-            
+
             Text("This selection will tailor the language style of daily affirmations, journal prompts, and AI-driven reflections to resonate best with you.")
                 .font(.body)
                 .foregroundColor(.secondary)
@@ -137,7 +137,7 @@ struct InsightToneCard: View {
     let isSelected: Bool
     let isDisabled: Bool
     let action: () -> Void
-    
+
     private var toneDescription: String {
         switch title {
         case "Poetic":
@@ -154,7 +154,7 @@ struct InsightToneCard: View {
             return "Personalized communication style"
         }
     }
-    
+
     private var toneIcon: String {
         switch title {
         case "Poetic":
@@ -171,7 +171,7 @@ struct InsightToneCard: View {
             return "message.circle.fill"
         }
     }
-    
+
     private var toneColor: Color {
         switch title {
         case "Poetic":
@@ -188,7 +188,7 @@ struct InsightToneCard: View {
             return .blue
         }
     }
-    
+
     var body: some View {
         Button(action: action) {
             HStack(spacing: 16) {
@@ -196,21 +196,21 @@ struct InsightToneCard: View {
                 Image(systemName: toneIcon)
                     .font(.title2)
                     .foregroundColor(isSelected ? .white : (isDisabled ? toneColor.opacity(0.4) : toneColor))
-                
+
                 // Content
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
                         .font(.headline)
                         .fontWeight(.semibold)
                         .foregroundColor(isSelected ? .white : (isDisabled ? .secondary : .primary))
-                    
+
                     Text(toneDescription)
                         .font(.caption)
                         .foregroundColor(isSelected ? .white.opacity(0.8) : (isDisabled ? .secondary.opacity(0.6) : .secondary))
                 }
-                
+
                 Spacer()
-                
+
                 // Selection indicator
                 Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
                     .font(.title3)
@@ -220,7 +220,7 @@ struct InsightToneCard: View {
             .background(
                 RoundedRectangle(cornerRadius: 16)
                     .fill(
-                        isSelected 
+                        isSelected
                         ? LinearGradient(
                             gradient: Gradient(colors: [toneColor, toneColor.opacity(0.8)]),
                             startPoint: .leading,
@@ -256,4 +256,4 @@ struct OnboardingInsightToneView_Previews: PreviewProvider {
         OnboardingInsightToneView(viewModel: viewModel)
             .padding()
     }
-} 
+}

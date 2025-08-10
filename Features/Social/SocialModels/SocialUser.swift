@@ -16,22 +16,22 @@ struct SocialUser: Identifiable, Codable {
     let id: String
     let userId: String
     let displayName: String
-    
+
     // Core numerological profile
     let lifePathNumber: Int
     let soulUrgeNumber: Int
     let expressionNumber: Int
     let currentFocusNumber: Int
-    
+
     // Optional spiritual preferences
     let preferredChakras: [String]?
     let spiritualInterests: [String]?
     let cosmicPreferences: [String]?
-    
+
     // Profile metadata
     let joinDate: Date
     let isPublic: Bool
-    
+
     init(
         userId: String,
         displayName: String,
@@ -73,37 +73,37 @@ extension SocialUser {
             realmNumber: getCurrentRealmNumber()
         )
     }
-    
+
     /**
      * Returns the user's primary sacred color based on life path number
      */
     var primarySacredColor: Color {
         return getSacredColor(for: lifePathNumber)
     }
-    
+
     /**
      * Returns the user's focus color based on current focus number
      */
     var focusColor: Color {
         return getSacredColor(for: currentFocusNumber)
     }
-    
+
     /**
      * Returns a formatted display of the user's numerological profile
      */
     var numerologicalProfile: String {
         return "Life Path \(lifePathNumber) • Soul Urge \(soulUrgeNumber) • Expression \(expressionNumber)"
     }
-    
+
     /**
      * Returns a short display of key numbers
      */
     var shortProfile: String {
         return "LP\(lifePathNumber) • Focus\(currentFocusNumber)"
     }
-    
+
     // MARK: - Private Helper Methods
-    
+
     /**
      * Gets the user's current active chakra (simplified logic)
      */
@@ -114,7 +114,7 @@ extension SocialUser {
         let index = min(max(currentFocusNumber - 1, 0), chakras.count - 1)
         return chakras[index]
     }
-    
+
     /**
      * Gets the current realm number (would integrate with RealmNumberManager)
      */
@@ -161,7 +161,7 @@ extension SocialUser {
             cosmicPreferences: ["moon-phases", "planetary-alignments"]
         )
     }
-    
+
     /**
      * Creates the current user profile (mock data)
      */
@@ -178,4 +178,4 @@ extension SocialUser {
             cosmicPreferences: ["numerology", "synchronicity"]
         )
     }
-} 
+}

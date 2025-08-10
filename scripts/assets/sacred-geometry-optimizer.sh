@@ -53,7 +53,7 @@ INVALID_NAMES=0
 
 find "$SVG_DIR" -name "*.svg" | while read -r file; do
     basename=$(basename "$file")
-    
+
     # Check if follows pattern: category_name.svg
     if [[ ! $basename =~ ^[a-z]+_[a-z_]+\.svg$ ]]; then
         echo -e "${YELLOW}   ⚠️  Non-standard name: $basename${NC}"

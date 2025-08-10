@@ -2,17 +2,17 @@
 
 # 🧠 VybeMVP Memory Leak Detection & Performance Profiling
 # Automates xctrace (modern Instruments) memory profiling for leak detection and performance analysis
-# 
+#
 # DEVICE TARGETING OPTIONS:
 # - Physical Device (Wireless): Set DEVICE to your actual device name like "iPhone 14 Pro Max"
 # - Simulator: Set DEVICE to "iPhone 16 Pro Max" (only simulator installed)
-# 
+#
 # REQUIREMENTS FOR PHYSICAL DEVICE:
 # - Device on same WiFi as Mac (for wireless profiling)
 # - OR device plugged in via USB cable
 # - Developer mode enabled on device
 # - Device trusted/paired with Xcode
-# 
+#
 # FUTURE AI CONTEXT:
 # - This script was enhanced during Performance Optimization Sprint (Post-Phase 18)
 # - Targets user's personal iPhone 14 Pro Max for real-world performance data
@@ -32,7 +32,7 @@ echo "================================================="
 # Configuration - Modify these for different targets
 SCHEME="com.infinitiesinn.vybe.VybeMVP"  # Bundle identifier for app launch
 # DEVICE OPTIONS:
-# For physical device: "Maniac's iPhone" (user's actual iPhone 14 Pro Max)  
+# For physical device: "Maniac's iPhone" (user's actual iPhone 14 Pro Max)
 # For simulator: "iPhone 16 Pro Max" (only simulator available)
 DEVICE="00008120-001E4CD914D8201E"  # Maniac's iPhone UDID (from device list)
 FALLBACK_DEVICE="8F2E9D10-58E4-4F19-8CAA-3C3236EEC7FE"  # iPhone 16 Pro Max Simulator (18.5) UDID
@@ -58,7 +58,7 @@ echo -e "${YELLOW}🎯 Profiling Strategy:${NC}"
 echo "1. Let app fully launch and load"
 echo "2. Navigate through all main tabs"
 echo "3. Test cosmic animations and sacred geometry"
-echo "4. Scroll timeline, create/view posts" 
+echo "4. Scroll timeline, create/view posts"
 echo "5. Open profile/sanctum views"
 echo "6. Stress test: rapid navigation, scrolling"
 echo ""

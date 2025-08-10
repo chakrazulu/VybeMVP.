@@ -2,14 +2,14 @@
  * ========================================
  * 🎯 ACTION BUTTONS SECTION COMPONENT
  * ========================================
- * 
+ *
  * FUNCTIONAL PURPOSE:
  * Interactive action buttons for key user operations within the Sanctum view.
  * Provides quick access to viewing sigil graphics and sharing spiritual profile.
  *
  * COMPONENT FEATURES:
  * - View My Sigil button with purple-indigo gradient
- * - Share Card button with teal-blue gradient  
+ * - Share Card button with teal-blue gradient
  * - Haptic feedback for enhanced user experience
  * - Consistent button styling with shadow effects
  *
@@ -30,11 +30,11 @@ import SwiftUI
 
 /// Claude: Action Buttons Section component for profile interactions
 struct ActionButtonsSection: View {
-    
+
     // MARK: - Properties
     @Binding var showingSigilView: Bool
     @Binding var showingShareSheet: Bool
-    
+
     // MARK: - Body
     var body: some View {
         HStack(spacing: 20) {
@@ -54,7 +54,7 @@ struct ActionButtonsSection: View {
                     shadowColor: .purple
                 )
             }
-            
+
             // Share Card Button
             Button(action: {
                 showingShareSheet = true
@@ -73,7 +73,7 @@ struct ActionButtonsSection: View {
             }
         }
     }
-    
+
     // MARK: - Action Button Style
     private func actionButton(
         icon: String,
@@ -94,9 +94,9 @@ struct ActionButtonsSection: View {
         .cornerRadius(12)
         .shadow(color: shadowColor.opacity(0.3), radius: 8, x: 0, y: 4)
     }
-    
+
     // MARK: - Helper Functions
-    
+
     /// Claude: Provide haptic feedback for button interactions
     private func provideFeedback() {
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
@@ -109,7 +109,7 @@ struct ActionButtonsSection: View {
     ZStack {
         // Dark background for proper preview context
         Color.black.ignoresSafeArea()
-        
+
         ActionButtonsSection(
             showingSigilView: .constant(false),
             showingShareSheet: .constant(false)

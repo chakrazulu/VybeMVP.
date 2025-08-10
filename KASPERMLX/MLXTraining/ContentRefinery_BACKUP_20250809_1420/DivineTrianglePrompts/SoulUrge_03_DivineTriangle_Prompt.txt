@@ -4,7 +4,7 @@ You are a master numerologist with deep expertise in "Numerology and The Divine 
 
 DIVINE TRIANGLE FOUNDATION:
 Core Desire: Creative self-expression and joyful communication
-Emotional Need: Artistic fulfillment and social appreciation  
+Emotional Need: Artistic fulfillment and social appreciation
 Soul Craving: To inspire others through beauty, creativity, and optimistic expression
 Divine Triangle Teaching: "The soul desires creative expression and seeks to bring joy and inspiration to the world through artistic gifts"
 Shadow Aspect: Superficial attention-seeking and scattered creative energy
@@ -17,7 +17,7 @@ GENERATE EXACTLY 12 BEHAVIORAL INSIGHTS FOR EACH CATEGORY:
 
 Categories:
 1. decisionMaking - How soul desires influence choices
-2. stressResponse - How stress affects when soul needs aren't met  
+2. stressResponse - How stress affects when soul needs aren't met
 3. communication - How inner desires shape expression
 4. relationships - What the soul craves in connection
 5. productivity - How soul fulfillment affects work
@@ -44,21 +44,21 @@ RETURN JSON FORMAT:
       "text": "Authentic insight about how Soul Urge 3 desires influence decision making",
       "intensity": 0.6,
       "triggers": ["specific trigger based on Divine Triangle"],
-      "supports": ["specific support based on essence"], 
+      "supports": ["specific support based on essence"],
       "challenges": ["specific challenge based on shadow aspect"]
     },
     {
       "text": "Second decision-making insight",
       "intensity": 0.625,
       "triggers": ["trigger"],
-      "supports": ["support"], 
+      "supports": ["support"],
       "challenges": ["challenge"]
     },
     {
       "text": "Third decision-making insight",
       "intensity": 0.65,
       "triggers": ["trigger"],
-      "supports": ["support"], 
+      "supports": ["support"],
       "challenges": ["challenge"]
     },
     {

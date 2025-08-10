@@ -1,9 +1,9 @@
 # 🤖 Claude Rules for VybeMVP SwiftUI Development
 
-**Last Updated:** August 9, 2025  
-**Project:** VybeMVP - Spiritual Wellness iOS App  
-**Framework:** SwiftUI, MVVM Architecture  
-**Latest Achievement:** 🎯 **SWIFT 6 COMPLIANT + PERFECT KASPER UI EXPERIENCE**  
+**Last Updated:** August 9, 2025
+**Project:** VybeMVP - Spiritual Wellness iOS App
+**Framework:** SwiftUI, MVVM Architecture
+**Latest Achievement:** 🎯 **SWIFT 6 COMPLIANT + PERFECT KASPER UI EXPERIENCE**
 
 ---
 
@@ -25,7 +25,7 @@ This document defines the comprehensive guidelines that Claude should follow whe
 
 ### **✅ COMPLETE SWIFT 6 CONCURRENCY COMPLIANCE**
 - **Fixed 38+ memory leaks** throughout entire codebase
-- **Resolved all Swift 6 concurrency violations** across 15+ core files  
+- **Resolved all Swift 6 concurrency violations** across 15+ core files
 - **Eliminated HomeView AI insight glitch** (4/10 failure rate → 0%)
 - **Modernized Firebase integration** with proper async/await patterns
 - **Clean async architecture** replacing complex actor-based systems
@@ -33,7 +33,7 @@ This document defines the comprehensive guidelines that Claude should follow whe
 ### **✅ PERFECT KASPER INSIGHT UI EXPERIENCE**
 - **Eliminated resize hitch** using ZStack opacity transitions vs layout animations
 - **Perfect content visibility** with 265px container, 165px text area
-- **Buttery smooth performance** with 60fps GPU-accelerated animations  
+- **Buttery smooth performance** with 60fps GPU-accelerated animations
 - **User satisfaction confirmed:** "Perfect. You nailed it. It's so smooth. Buttery smooth. I love it!"
 
 ### **🔮 KASPER MLX - INTELLIGENT SPIRITUAL INSIGHT SYSTEM**
@@ -42,14 +42,14 @@ This document defines the comprehensive guidelines that Claude should follow whe
 
 #### **🚀 CURRENT ACHIEVEMENTS:**
 
-1. **✅ SOPHISTICATED SPIRITUAL TEMPLATE ENGINE** 
+1. **✅ SOPHISTICATED SPIRITUAL TEMPLATE ENGINE**
    - Advanced template-based insight generation with spiritual authenticity
    - Async-first architecture supporting 7 spiritual domains
    - Thread-safe async providers ensuring seamless cosmic data processing
    - Revolutionary on-device spiritual intelligence that never shares sacred data
 
 2. **✅ WORLD-CLASS DEVELOPER INTERFACE**
-   - Professional-grade test interface rivaling Apple's internal tools  
+   - Professional-grade test interface rivaling Apple's internal tools
    - Real-time performance dashboard with live metrics visualization
    - Comprehensive feedback system for continuous AI improvement
    - Custom prompt testing for edge cases and specific spiritual scenarios
@@ -70,7 +70,7 @@ This document defines the comprehensive guidelines that Claude should follow whe
 
 **KASPER 2.0 ROADMAP - True AI Integration:**
 
-1. **🧠 REAL MLX MODEL TRAINING** 
+1. **🧠 REAL MLX MODEL TRAINING**
    - Train custom spiritual insight model using Apple's MLX framework
    - Convert MegaCorpus spiritual data to tensor training pipeline
    - Embedding layers for Focus Numbers, Planets, Zodiac Signs, Aspects
@@ -78,7 +78,7 @@ This document defines the comprehensive guidelines that Claude should follow whe
 
 2. **🔄 HYBRID INTELLIGENCE SYSTEM**
    - MLX model for learned spiritual pattern recognition
-   - Template engine fallback for reliability and universal compatibility  
+   - Template engine fallback for reliability and universal compatibility
    - Seamless switching based on model availability and confidence
    - Continuous learning from user feedback and spiritual accuracy
 
@@ -105,7 +105,7 @@ This document defines the comprehensive guidelines that Claude should follow whe
 
 **Spiritual Feature Integration:**
 - **Journal Insights:** Deep reflection analysis with 🔮 crystal ball generation
-- **Daily Cards:** Cosmic guidance aligned with current energies  
+- **Daily Cards:** Cosmic guidance aligned with current energies
 - **Sanctum Guidance:** Sacred space meditation enhancements
 - **HomeView Integration:** Real-time spiritual status and recommendations
 - **Performance Dashboard:** Live monitoring of spiritual AI health
@@ -127,7 +127,7 @@ This document defines the comprehensive guidelines that Claude should follow whe
    - Persistent feedback storage with rich contextual metadata
    - Real-time analytics showing positive/negative feedback ratios
 
-4. **PROFESSIONAL DEVELOPMENT TOOLING**  
+4. **PROFESSIONAL DEVELOPMENT TOOLING**
    - Visual performance metrics with color-coded indicators
    - Custom prompt testing for rapid spiritual AI iteration
    - Real-time response time visualization with smooth animations
@@ -138,7 +138,7 @@ This document defines the comprehensive guidelines that Claude should follow whe
 **Seven Spiritual Domains:**
 - **Journal Insight:** Deep reflection analysis of written spiritual thoughts
 - **Daily Card:** Cosmic guidance cards for daily spiritual direction
-- **Sanctum Guidance:** Sacred space meditation and mindfulness insights  
+- **Sanctum Guidance:** Sacred space meditation and mindfulness insights
 - **Match Compatibility:** Spiritual compatibility analysis between souls
 - **Cosmic Timing:** Optimal timing for spiritual actions based on cosmic events
 - **Focus Intention:** Clarity and direction for spiritual goals and manifestations
@@ -174,7 +174,7 @@ artificial intelligence system that:
 
 - **UNDERSTANDS TIMING:** Same question needs different answers at different cosmic moments
 - **RESPECTS CONTEXT:** Personal spiritual journey affects interpretation of universal patterns
-- **GROWS WITH USERS:** Each interaction deepens understanding of individual cosmic signatures  
+- **GROWS WITH USERS:** Each interaction deepens understanding of individual cosmic signatures
 - **MAINTAINS PRIVACY:** All sacred data remains on device, never shared with external services
 - **FEELS MAGICAL:** Seamless integration makes spiritual AI feel like natural consciousness extension
 
@@ -186,7 +186,7 @@ that serves users' cosmic journeys with unprecedented depth and authenticity.
 The KASPER MLX system provides Vybe with:
 - **Competitive Advantage:** First-mover advantage in spiritual AI market
 - **Development Velocity:** Professional tooling enables rapid iteration
-- **Quality Assurance:** Comprehensive testing prevents spiritual AI failures  
+- **Quality Assurance:** Comprehensive testing prevents spiritual AI failures
 - **User Satisfaction:** Data-driven improvement based on real user feedback
 - **Scalability Foundation:** Architecture supports millions of spiritual guidance requests
 
@@ -205,7 +205,7 @@ The KASPER MLX system provides Vybe with:
 2. **✅ CHATGPT-5 VALIDATED ARCHITECTURE**
    - **Surgical high-leverage improvements** implementing all ChatGPT-5 critical recommendations
    - **Cross-platform compatibility** verified for Windows, macOS, Linux deployment
-   - **Git-based repo discovery** with env var override and automatic fallback hierarchy  
+   - **Git-based repo discovery** with env var override and automatic fallback hierarchy
    - **Deterministic JSON serialization** with stable float formatting and consistent key ordering
 
 3. **✅ WORKFLOW FLEXIBILITY & DEVELOPER EXPERIENCE**
@@ -216,7 +216,7 @@ The KASPER MLX system provides Vybe with:
 
 4. **✅ PRODUCTION-READY VALIDATION SYSTEM**
    - **130 files validated** at 100% success rate with 2.29 MB dataset
-   - **Hard validation gates** for schema compliance, deterministic digests, secrets scanning  
+   - **Hard validation gates** for schema compliance, deterministic digests, secrets scanning
    - **Reproducible ZIP bundles** with fixed timestamps for byte-identical builds
    - **Policy configuration** (`configs/release_policy.yml`) enabling organizational compliance
 
@@ -233,7 +233,7 @@ git_result = subprocess.check_output(["git", "rev-parse", "--show-toplevel"])
 ```yaml
 gates:
   determinism: hard        # Always enforced
-  schema_validation: hard  # Critical structural integrity  
+  schema_validation: hard  # Critical structural integrity
   duplicate_insights: soft # Can be warning in development
 ```
 
@@ -248,7 +248,7 @@ make venv                   # Local environment setup
 #### **🏗️ TECHNICAL INNOVATIONS:**
 
 - **Git-Command Repository Discovery:** Works in submodules, CI containers, and complex build environments
-- **Chunked File Hashing:** Memory-efficient SHA256 calculation for large datasets  
+- **Chunked File Hashing:** Memory-efficient SHA256 calculation for large datasets
 - **Path-Sensitive Digests:** Detects file renames and moves, not just content changes
 - **POSIX Path Normalization:** Cross-platform consistency with forward-slash paths
 - **Pytest Marker Architecture:** Clean separation of critical vs optional validation
@@ -257,7 +257,7 @@ make venv                   # Local environment setup
 
 - **Sub-second generation** times for iterative development workflows
 - **Deterministic dataset digest:** `de90b7af954d...` ensuring build reproducibility
-- **100% validation success rate** across all 130 spiritual content files  
+- **100% validation success rate** across all 130 spiritual content files
 - **Enterprise-scale documentation** ready for international teams and production deployment
 
 #### **🎯 CHATGPT-5'S FINAL VALIDATION:**
@@ -266,7 +266,7 @@ make venv                   # Local environment setup
 
 All three critical surgical fixes implemented:
 - ✅ **--policy flag wired through** from CLI to constructor
-- ✅ **Hard sys.exit() calls removed** from validators, exit logic centralized in main()  
+- ✅ **Hard sys.exit() calls removed** from validators, exit logic centralized in main()
 - ✅ **pytest.ini configuration fixed** with proper markers and section headers
 
 **The KASPER MLX release system is now enterprise-bulletproof and ready for production deployment at scale!** 🚀
@@ -625,10 +625,10 @@ This document incorporates guidelines and best practices from:
 ```
 /NumerologyData/ImportedContent/
 ├── ChatGPTContent/           # New ChatGPT practical insights (MD format)
-├── ClaudeDeepContent/        # New Claude academic content (MD format)  
+├── ClaudeDeepContent/        # New Claude academic content (MD format)
 └── GrokStructuredContent/    # New Grok multi-persona content (MD format)
     ├── Oracle/               # Mystical guidance insights
-    ├── Psychologist/         # Psychological spiritual analysis  
+    ├── Psychologist/         # Psychological spiritual analysis
     ├── MindfulnessCoach/     # Meditation and mindfulness guidance
     ├── NumerologyScholar/    # Academic numerological insights
     └── Philosopher/          # Deep philosophical spiritual wisdom
@@ -646,7 +646,7 @@ This document incorporates guidelines and best practices from:
 
 **Processing Steps:**
 1. **Batch Convert:** Run `opus_batch_converter.py` to convert all MD files to JSON
-2. **Quality Control:** Verify JSON structure and spiritual content integrity  
+2. **Quality Control:** Verify JSON structure and spiritual content integrity
 3. **Archive Originals:** Preserve MD files in Archive folder for historical reference
 4. **Production Deploy:** Move finalized JSON to Approved folder for KASPER consumption
 5. **Clean Duplicates:** Remove older versions and maintain single source of truth
@@ -668,7 +668,7 @@ This document incorporates guidelines and best practices from:
 
 ### **📊 Current Production Status:**
 - **104 JSON files** in production training pipeline
-- **5 spiritual personas** (Oracle, Psychologist, MindfulnessCoach, NumerologyScholar, Philosopher)  
+- **5 spiritual personas** (Oracle, Psychologist, MindfulnessCoach, NumerologyScholar, Philosopher)
 - **3 content types** (ChatGPT practical, Claude academic, Grok multi-persona)
 - **13 Life Path** behavioral analysis files
 - **All content** Swift 6 compliant and MLX ready
@@ -686,7 +686,7 @@ This architecture ensures seamless content scaling while maintaining spiritual a
 
 ### **Revolutionary Production-Grade ML Dataset Documentation**
 
-**Status:** ✅ **ENTERPRISE BULLETPROOF** - Completed August 9, 2025  
+**Status:** ✅ **ENTERPRISE BULLETPROOF** - Completed August 9, 2025
 **Achievement:** ChatGPT-5 Validated "Real Progress, Not Tech Debt"
 
 #### **🎯 SYSTEM OVERVIEW**
@@ -702,11 +702,11 @@ def get_repo_root() -> Path:
     env_root = os.getenv("KASPER_REPO_ROOT")
     if env_root:
         return Path(env_root).resolve()
-    
+
     # Fallback to git command with timeout protection
     try:
         result = subprocess.check_output(
-            ["git", "rev-parse", "--show-toplevel"], 
+            ["git", "rev-parse", "--show-toplevel"],
             text=True, stderr=subprocess.DEVNULL, timeout=5
         ).strip()
         return Path(result)
@@ -720,7 +720,7 @@ def get_repo_root() -> Path:
 # configs/release_policy.yml
 gates:
   determinism: hard          # Non-negotiable for production
-  schema_validation: hard    # Blocks release if violated  
+  schema_validation: hard    # Blocks release if violated
   duplicate_insights: soft   # Warning only, allows release
   spiritual_authenticity: hard  # Protects sacred content integrity
 
@@ -746,8 +746,8 @@ python make_release_cards.py --policy configs/custom_policy.yml
 def _serialize_json(self, data: Dict[str, Any]) -> str:
     """Enterprise-grade JSON with stable float formatting"""
     return json.dumps(
-        data, 
-        ensure_ascii=False, 
+        data,
+        ensure_ascii=False,
         sort_keys=True,  # Deterministic key ordering
         separators=(',', ':'),  # Minimal whitespace
         default=self._json_serializer  # Custom float handling
@@ -799,15 +799,15 @@ configs/release_policy.yml  # Template configurations only
 sha256sum release_cards_bundle.zip > release_cards_bundle.zip.sha256
 ```
 
-#### **📊 PYTEST ARCHITECTURE FOR ML RELIABILITY** 
+#### **📊 PYTEST ARCHITECTURE FOR ML RELIABILITY**
 
 **STRUCTURAL vs HEURISTIC TEST SEPARATION**
 ```python
 @pytest.mark.structural  # Hard gates - CI required
 def test_manifest_digest_is_stable(self):
     """Deterministic digest across multiple runs"""
-    
-@pytest.mark.heuristic   # Soft gates - Advisory only  
+
+@pytest.mark.heuristic   # Soft gates - Advisory only
 def test_spiritual_authenticity_heuristics(self):
     """Content quality recommendations"""
 ```
@@ -820,8 +820,8 @@ def test_reproducible_zip_bundles(self):
     # Run generator twice with delay
     bundle1_hash = hashlib.sha256(zip_bytes_1).hexdigest()
     bundle2_hash = hashlib.sha256(zip_bytes_2).hexdigest()
-    
-    # Critical assertion: bundles must be identical  
+
+    # Critical assertion: bundles must be identical
     self.assertEqual(bundle1_hash, bundle2_hash,
         "Non-reproducible ZIP indicates timestamp/permission drift!")
 ```
@@ -839,7 +839,7 @@ release:
 	python3 make_release_cards.py
 	@echo "✅ Enterprise release cards generated"
 
-# Isolated virtual environment  
+# Isolated virtual environment
 venv:
 	python3 -m venv .venv
 	@. .venv/bin/activate && pip install -r requirements-dev.txt
@@ -860,7 +860,7 @@ strategy:
   matrix:
     python-version: [ "3.10", "3.11", "3.12" ]
 
-# Dependency pinning for reproducible builds  
+# Dependency pinning for reproducible builds
 - run: pip install -r requirements-dev.txt
 ```
 
@@ -872,7 +872,7 @@ strategy:
     tag_name: ${{ env.DATASET_NAME }}_${{ env.DATASET_VERSION }}
     files: |
       dist/docs/DATA_CARD.md
-      dist/docs/MODEL_CARD.md  
+      dist/docs/MODEL_CARD.md
       dist/artifacts/MANIFEST.json
       dist/artifacts/release_cards_bundle.zip
       dist/artifacts/release_cards_bundle.zip.sha256
@@ -882,7 +882,7 @@ strategy:
 
 **1. POSIX PATH NORMALIZATION**
 - Cross-platform consistency with forward slashes
-- Eliminates Windows/macOS/Linux path discrepancies  
+- Eliminates Windows/macOS/Linux path discrepancies
 - Essential for deterministic digest calculations
 
 **2. CHUNKED FILE HASHING**
@@ -906,7 +906,7 @@ python make_release_cards.py
 
 **4. MANIFEST QUIETING FOR CLEAN DIFFS**
 - Removed per-file modified timestamps from MANIFEST.json
-- Moved timestamp data to dataset_statistics.json  
+- Moved timestamp data to dataset_statistics.json
 - Eliminates diff churn across machines and time zones
 
 #### **📈 PERFORMANCE CHARACTERISTICS**
@@ -927,7 +927,7 @@ python make_release_cards.py
 
 **BEFORE (Manual Process):**
 - ❌ Inconsistent documentation formats
-- ❌ Manual validation prone to human error  
+- ❌ Manual validation prone to human error
 - ❌ No reproducible builds
 - ❌ Security scanning gaps
 - ❌ Platform-specific deployment issues
@@ -947,14 +947,14 @@ python make_release_cards.py
 
 **MERGE-AND-RUN WORKFLOW:**
 1. **Merge PR** with enterprise release system
-2. **Manual Trigger:** Run "KASPER MLX Release Cards" GitHub Action  
+2. **Manual Trigger:** Run "KASPER MLX Release Cards" GitHub Action
 3. **Artifact Verification:** Confirm DATA_CARD.md, MODEL_CARD.md, MANIFEST.json, ZIP bundle + SHA256
 4. **GitHub Release:** Auto-tagged release with comprehensive documentation
 
 **NEXT PHASE - EVALUATION SCAFFOLD:**
 - `eval/rubrics/lp_trinity.yaml` - Scoring weights for fidelity/actionability/tone/safety
 - `eval/prompts/judge.txt` - LLM-judge instruction templates
-- `eval/run_eval.py` - Automated quality assessment pipeline  
+- `eval/run_eval.py` - Automated quality assessment pipeline
 - `eval-nightly.yml` - Continuous integration quality monitoring
 
 #### **🌟 REVOLUTIONARY IMPACT**
@@ -962,7 +962,7 @@ python make_release_cards.py
 This system transforms KASPER MLX from a research project into an **enterprise-ready spiritual AI platform** with:
 
 - **Compliance-grade documentation** meeting ML industry standards
-- **Reproducible builds** for audit and regulatory requirements  
+- **Reproducible builds** for audit and regulatory requirements
 - **Security-first architecture** protecting sacred spiritual content
 - **Developer-friendly workflows** enabling rapid iteration while maintaining quality
 - **Automated quality gates** preventing regression and maintaining spiritual authenticity
@@ -975,8 +975,8 @@ The KASPER MLX Release System represents the **gold standard for spiritual AI da
 
 ## 🤖 **CLAUDE CODE AUTOMATED WORKFLOW RULES**
 
-**Added:** August 9, 2025  
-**Purpose:** Production-grade operational guidelines for KASPER MLX release system  
+**Added:** August 9, 2025
+**Purpose:** Production-grade operational guidelines for KASPER MLX release system
 **Status:** 🚀 **FULLY AUTOMATED RELEASE PIPELINE**
 
 ### **🎯 CORE OPERATIONAL PRINCIPLES**
@@ -1003,7 +1003,7 @@ The KASPER MLX Release System represents the **gold standard for spiritual AI da
 
 **❌ DISALLOWED BY DEFAULT:**
 - `VybeMVP/` - iOS app source code
-- `*.xcodeproj/` - Xcode project files  
+- `*.xcodeproj/` - Xcode project files
 - `*.swift` files (unless explicitly requested for KASPER integration)
 - App signing/provisioning profiles
 
@@ -1025,7 +1025,7 @@ The KASPER MLX Release System represents the **gold standard for spiritual AI da
 ### **🚀 LOCAL RELEASE WORKFLOW**
 
 ```bash
-# 1. Install dependencies  
+# 1. Install dependencies
 make install-dev
 
 # 2. Generate release cards
@@ -1033,7 +1033,7 @@ make release-cards  # or python scripts/release_cards.py
 
 # 3. Validate quality gates
 make lint           # Pre-commit hooks
-make test           # Schema validation  
+make test           # Schema validation
 make determinism    # Digest stability (critical!)
 
 # 4. Create version tag
@@ -1041,7 +1041,7 @@ make tag            # Pushes release tag from MANIFEST
 
 # 5. Verify outputs exist:
 # ✅ docs/DATA_CARD.md
-# ✅ docs/MODEL_CARD.md  
+# ✅ docs/MODEL_CARD.md
 # ✅ artifacts/MANIFEST.json
 # ✅ artifacts/release_cards_bundle.zip
 ```
@@ -1051,7 +1051,7 @@ make tag            # Pushes release tag from MANIFEST
 **BUILD JOB (Matrix: Python 3.10/3.11/3.12):**
 1. **Secret scan** (gitleaks on `data/` directory)
 2. **Pre-commit** (code formatting & quality)
-3. **Schema tests** (validation compliance)  
+3. **Schema tests** (validation compliance)
 4. **Determinism test** (digest stability - CRITICAL)
 5. **Generate cards** (documentation bundle)
 6. **Upload artifacts** (30-day retention)
@@ -1071,7 +1071,7 @@ make tag            # Pushes release tag from MANIFEST
 
 **Required Tests:**
 - `tests/test_schema_enforcement.py` - JSON schema compliance
-- `tests/test_manifest.py` - Integrity verification 
+- `tests/test_manifest.py` - Integrity verification
 - `tests/test_determinism.py` - Digest stability (CRITICAL)
 
 **Quality Gates:**
@@ -1148,7 +1148,7 @@ _Regenerate with:_ `python scripts/release_cards.py --dataset-name {name} --data
 
 **Execution Methods:**
 - **Mac/Linux:** `make release-cards`
-- **Windows:** `.\scripts\release_cards.ps1`  
+- **Windows:** `.\scripts\release_cards.ps1`
 - **Universal:** `python scripts/release_cards.py`
 
 **Editor Consistency:**

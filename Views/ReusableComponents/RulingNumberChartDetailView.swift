@@ -2,69 +2,69 @@
  * ========================================
  * 📊 RULING NUMBER CHART DETAIL VIEW - SACRED PATTERN ANALYTICS
  * ========================================
- * 
+ *
  * CORE PURPOSE:
  * Advanced sacred pattern visualization system providing comprehensive ruling number
  * analytics with time-range controls, mystical percentage calculations, and deep
  * spiritual insights through interactive charts and cosmic pattern recognition.
  * Core component for understanding numerical synchronicities and sacred cycles.
- * 
+ *
  * UI SPECIFICATIONS:
  * - Background: Multi-layer cosmic gradient with animated particles
  * - Header: 80×80pt ruling number circle with radial gradient and crown icon
  * - Time Range Picker: 4-button segmented control (1D, 7D, 14D, 30D)
  * - Chart Area: 320pt height with rounded 16pt corners and gradient borders
  * - Sacred Pattern Cards: 20pt padding with percentage bars and cosmic icons
- * 
+ *
  * CHART VISUALIZATION SYSTEM:
  * - Daily Histogram: Horizontal scrolling bars for numbers 1-9
  * - Time Series: Multi-day ruling number progression charts
  * - Progress Bars: Animated height-based visualization with sacred colors
  * - Interactive Selection: Tap-to-select with haptic feedback and detail overlays
  * - Animation System: 1.0s ease-in-out with staggered chart animations
- * 
+ *
  * SACRED PATTERN ANALYSIS:
  * - Seven-Day Harmony: Spiritual completion cycle tracking (7-day patterns)
  * - Golden Flow: Divine proportion (1.618) alignment analysis
  * - Fibonacci Spiral: Sacred sequence emergence in numerical patterns
  * - Trinity Flow: Tesla's 3-6-9 universal energy key detection
  * - Lunar Sync: 28-day mystical rhythm synchronization (30-day view only)
- * 
+ *
  * PERCENTAGE CALCULATION SYSTEM:
  * - Pattern Values: Pre-calculated sacred pattern percentages (0-100%)
  * - Intensity Scoring: 0.0-1.0 range with 0.5 minimum threshold
  * - Strength Labels: "COSMIC MASTERY" (80%+), "STRONG ALIGNMENT" (60-80%), etc.
  * - Progress Visualization: Geometric width-based percentage bars
  * - Real-time Updates: Dynamic recalculation based on time range selection
- * 
+ *
  * STATE MANAGEMENT:
  * - @StateObject sampleManager: RealmSampleManager.shared for data access
  * - @State patternValues: Pre-calculated sacred pattern percentages cache
  * - @State patternsCalculated: Boolean flag for calculation completion
  * - @State selectedTimeRange: Current chart time range (1D/7D/14D/30D)
  * - @State selectedSacredPattern: Current pattern for detail overlay
- * 
+ *
  * PERFORMANCE OPTIMIZATIONS:
  * - Pattern Pre-calculation: Background calculation prevents UI blocking
  * - Animation Phases: chartAnimationPhase controls staggered animations
  * - Cached Values: patternValues dictionary prevents repeated calculations
  * - Lazy Loading: Patterns calculated only when needed
  * - Memory Management: Proper cleanup and resource management
- * 
+ *
  * INTEGRATION POINTS:
  * - RealmSampleManager: Core data source for ruling number calculations
  * - FocusNumberManager: Focus number highlighting and interaction
  * - RealmNumberManager: Real-time realm number integration
  * - NumberDetailOverlay: Full-screen number analysis with statistics
  * - UltraMinimalPatternOverlay: Sacred pattern detail exploration
- * 
+ *
  * CHART INTERACTION SYSTEM:
  * - Number Selection: Tap individual bars for detailed analysis
  * - Pattern Exploration: Tap sacred pattern cards for full-screen details
  * - Time Range Control: Segmented picker for temporal analysis
  * - Haptic Feedback: Medium impact feedback on interactions
  * - Visual Feedback: Scale effects and color changes on selection
- * 
+ *
  * SACRED COLOR MAPPING:
  * - Number 1: Red (Creation/Fire)
  * - Number 2: Orange (Partnership/Balance)
@@ -75,55 +75,55 @@
  * - Number 7: Purple (Spirituality/Wisdom)
  * - Number 8: Gold (#FFD700) (Abundance/Prosperity)
  * - Number 9: White (Completion/Universal)
- * 
+ *
  * CHART TYPES:
  * - Daily Histogram: Vertical bars showing number frequency distribution
  * - Time Series: Multi-day ruling number progression over time
  * - Progress Bars: Height-animated bars with sacred color gradients
  * - Interactive Elements: Crown icons for ruling numbers, target for focus
  * - Statistics Summary: Total count, ruling number, and frequency display
- * 
+ *
  * SACRED PATTERN CARD DESIGN:
  * - Left Section: 60×60pt pattern icon circle with sacred color
  * - Percentage Display: Large percentage text with pattern color
  * - Right Section: Pattern title, description, and progress bar
  * - Progress Bar: Geometric width calculation based on pattern value
  * - Gradient Borders: Pattern-specific color gradients with opacity
- * 
+ *
  * ANIMATION SPECIFICATIONS:
  * - Chart Animation: 1.0s ease-in-out for initial load
  * - Sacred Cycle Highlight: 3.0s repeat forever with auto-reverse
  * - Ruling Bar Pulse: 2.5s repeat forever for crown highlighting
  * - Selection Animation: 0.4s spring response with 0.8 damping
  * - Pattern Animation: 2.5s ease-out with 0.5s delay
- * 
+ *
  * TIME RANGE ANALYSIS:
  * - One Day: Detailed hourly distribution histogram
  * - Seven Days: Weekly spiritual completion cycle analysis
  * - Fourteen Days: Bi-weekly trend analysis with spiritual/material balance
  * - Thirty Days: Monthly cosmic pattern recognition with lunar sync
- * 
+ *
  * PATTERN DETAIL OVERLAY SYSTEM:
  * - Ultra-Minimal Design: Zero-delay fullscreen presentation
  * - Pre-calculated Data: Uses cached values for instant display
  * - Scrollable Content: Full pattern descriptions with sacred wisdom
  * - Strength Indicators: Visual dot indicators for pattern intensity
  * - Educational Content: Complete spiritual meaning and guidance
- * 
+ *
  * ERROR HANDLING & RESILIENCE:
  * - Empty Data Handling: Graceful fallbacks for missing chart data
  * - Calculation Guards: Prevents division by zero and invalid ranges
  * - Animation Safety: Proper cleanup prevents memory leaks
  * - State Validation: Ensures consistent UI state across interactions
  * - Background Calculation: Non-blocking pattern analysis
- * 
+ *
  * TECHNICAL SPECIFICATIONS:
  * - Chart Height: 320pt for all chart types
  * - Bar Width: 20pt for progress bars, 40pt for histogram bars
  * - Animation Duration: 1.0s for charts, 2.5s for patterns
  * - Percentage Range: 0-100% display with 0.0-1.0 internal calculation
  * - Color Opacity: 0.9 primary, 0.6 secondary for gradient effects
- * 
+ *
  * DEBUGGING & MONITORING:
  * - Pattern Calculation Logging: Detailed background calculation tracking
  * - Selection Feedback: Console logging for user interaction validation
@@ -134,7 +134,7 @@
 
 /**
  * Filename: RulingNumberChartDetailView.swift
- * 
+ *
  * Purpose: Full-screen detailed view of the ruling number chart with time-range controls
  * Provides deep insights into ruling number patterns and sacred cycles
  */
@@ -148,7 +148,7 @@ struct RulingNumberChartDetailView: View {
     @StateObject private var sampleManager = RealmSampleManager.shared
     @EnvironmentObject var focusNumberManager: FocusNumberManager
     @EnvironmentObject var realmNumberManager: RealmNumberManager
-    
+
     @State private var selectedTimeRange: ChartTimeRange = .oneDay
     @State private var selectedDataPoint: ChartDataPoint? = nil
     @State private var showingTooltip = false
@@ -157,48 +157,48 @@ struct RulingNumberChartDetailView: View {
     @State private var rulingBarPulse = false
     @State private var showingSacredPatternDetail = false
     @State private var selectedSacredPattern: SacredPatternType?
-    
+
     // PERFORMANCE FIX: Pre-calculate all pattern values once to prevent simultaneous expensive calculations
     @State private var patternValues: [SacredPatternType: Double] = [:]
     @State private var patternsCalculated = false
-    
+
     @Binding var isPresented: Bool
-    
+
     // State for number selection and detail view
     @State private var selectedNumber: Int? = nil
     @State private var showingNumberDetail = false
-    
+
     var chartData: [ChartDataPoint] {
         sampleManager.getChartData(for: selectedTimeRange)
     }
-    
+
     // Access to today's samples for enhanced functionality
     private var todaySamples: [RealmSample] {
         sampleManager.todaySamples
     }
-    
+
     var body: some View {
         NavigationView {
             ZStack {
                 // Cosmic background
                 cosmicBackground
-                
+
                 ScrollView {
                     VStack(spacing: selectedTimeRange == .oneDay ? 40 : 32) {
                         // Header with time range picker
                         headerSection
-                        
+
                         // Main chart area
                         chartSection
-                        
+
                         // Sacred cycles section
                         if selectedTimeRange != .oneDay {
                             sacredCyclesSection
                         }
-                        
+
                         // Insights section
                         insightsSection
-                        
+
                         Spacer(minLength: 120)
                     }
                     .padding(.horizontal, 24)
@@ -221,7 +221,7 @@ struct RulingNumberChartDetailView: View {
         .onAppear {
             startChartAnimations()
             configureNavigationAppearance()
-            
+
             // Check if patterns are already pre-calculated from app startup
             if !patternsCalculated {
                 // If not calculated yet, start calculation immediately
@@ -236,9 +236,9 @@ struct RulingNumberChartDetailView: View {
         }
         .preferredColorScheme(.dark)
     }
-    
+
     // MARK: - Background
-    
+
     private var cosmicBackground: some View {
         ZStack {
             // Base cosmic background
@@ -252,7 +252,7 @@ struct RulingNumberChartDetailView: View {
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
-            
+
             // Subtle moving particles
             ForEach(0..<20, id: \.self) { _ in
                 Circle()
@@ -271,9 +271,9 @@ struct RulingNumberChartDetailView: View {
         }
         .ignoresSafeArea()
     }
-    
+
     // MARK: - Header Section
-    
+
     private var headerSection: some View {
         VStack(spacing: 28) {
             // Current ruling number display
@@ -294,27 +294,27 @@ struct RulingNumberChartDetailView: View {
                         .frame(width: 80, height: 80)
                         .scaleEffect(sacredCycleHighlight ? 1.1 : 1.0)
                         .shadow(color: getSacredColor(for: sampleManager.rulingNumber).opacity(0.6), radius: 15)
-                    
+
                     Text("\(sampleManager.rulingNumber)")
                         .font(.system(size: 36, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                 }
-                
+
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Current Ruling Number")
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                    
+
                     Text(getRulingDescription(sampleManager.rulingNumber))
                         .font(.subheadline)
                         .foregroundColor(.white.opacity(0.8))
                         .lineLimit(3)
                         .fixedSize(horizontal: false, vertical: true)
                 }
-                
+
                 Spacer()
-                
+
                 // Trophy if it's the ruling number
                 if sampleManager.getCount(for: sampleManager.rulingNumber) > 0 {
                     Image(systemName: "crown.fill")
@@ -325,14 +325,14 @@ struct RulingNumberChartDetailView: View {
                 }
             }
             .padding(.horizontal, 8)
-            
+
             // Time range picker
             VStack(alignment: .leading, spacing: 12) {
                 Text("Time Range")
                     .font(.headline)
                     .foregroundColor(.white.opacity(0.9))
                     .padding(.horizontal, 8)
-                
+
                 HStack(spacing: 4) {
                     ForEach(ChartTimeRange.allCases, id: \.self) { range in
                         Button(action: {
@@ -344,7 +344,7 @@ struct RulingNumberChartDetailView: View {
                                 Text(range.rawValue)
                                     .font(.system(size: 14, weight: .bold))
                                     .foregroundColor(selectedTimeRange == range ? .black : .white.opacity(0.7))
-                                
+
                                 Text(range.title)
                                     .font(.caption)
                                     .foregroundColor(selectedTimeRange == range ? .black.opacity(0.7) : .white.opacity(0.5))
@@ -353,8 +353,8 @@ struct RulingNumberChartDetailView: View {
                             .padding(.vertical, 14)
                             .background(
                                 RoundedRectangle(cornerRadius: 10)
-                                    .fill(selectedTimeRange == range ? 
-                                          Color.white.opacity(0.9) : 
+                                    .fill(selectedTimeRange == range ?
+                                          Color.white.opacity(0.9) :
                                           Color.white.opacity(0.1))
                             )
                         }
@@ -368,16 +368,16 @@ struct RulingNumberChartDetailView: View {
             }
         }
     }
-    
+
     // MARK: - Chart Section
-    
+
     private var chartSection: some View {
         VStack(spacing: 24) {
             Text("✧ \(selectedTimeRange.title) Pattern ✧")
                 .font(.title3)
                 .fontWeight(.bold)
                 .foregroundColor(.white)
-            
+
             Group {
                 switch selectedTimeRange {
                 case .oneDay:
@@ -408,9 +408,9 @@ struct RulingNumberChartDetailView: View {
         .padding(.horizontal, 4)
         .padding(.bottom, 16)
     }
-    
+
     // MARK: - Daily Histogram (1D view) - ENHANCED with horizontal scrolling and interaction
-    
+
     private var dailyHistogramChart: some View {
         VStack(spacing: 16) {
             // Enhanced horizontal scrolling histogram - clean and focused
@@ -425,7 +425,7 @@ struct RulingNumberChartDetailView: View {
             }
             .frame(height: 220)
             .clipped()
-            
+
             // Compact stats summary
             HStack(spacing: 16) {
                 VStack(spacing: 1) {
@@ -437,11 +437,11 @@ struct RulingNumberChartDetailView: View {
                         .font(.caption2)
                         .foregroundColor(.white.opacity(0.7))
                 }
-                
+
                 Divider()
                     .frame(height: 20)
                     .background(Color.white.opacity(0.3))
-                
+
                 VStack(spacing: 1) {
                     Text("\(sampleManager.rulingNumber)")
                         .font(.headline)
@@ -451,11 +451,11 @@ struct RulingNumberChartDetailView: View {
                         .font(.caption2)
                         .foregroundColor(.white.opacity(0.7))
                 }
-                
+
                 Divider()
                     .frame(height: 20)
                     .background(Color.white.opacity(0.3))
-                
+
                 VStack(spacing: 1) {
                     Text("\(sampleManager.getCount(for: sampleManager.rulingNumber))")
                         .font(.headline)
@@ -489,7 +489,7 @@ struct RulingNumberChartDetailView: View {
             }
         }
         }
-    
+
     // Individual number bar component with enhanced interactivity
     private func individualNumberBar(for number: Int) -> some View {
                     let count = sampleManager.getCount(for: number)
@@ -498,7 +498,7 @@ struct RulingNumberChartDetailView: View {
                     let isRuling = number == sampleManager.rulingNumber && count > 0
                     let isFocus = number == focusNumberManager.selectedFocusNumber
         let isSelected = selectedNumber == number
-                    
+
         return VStack(spacing: 6) {
             // Number circle with enhanced visual feedback
                         ZStack {
@@ -508,7 +508,7 @@ struct RulingNumberChartDetailView: View {
                                 .overlay(
                                     Circle()
                                         .stroke(
-                                            isRuling ? Color.yellow : 
+                                            isRuling ? Color.yellow :
                                 isFocus ? Color.cyan :
                                 isSelected ? Color.white : Color.clear,
                                 lineWidth: isRuling || isFocus || isSelected ? 3 : 0
@@ -518,13 +518,13 @@ struct RulingNumberChartDetailView: View {
                         color: getSacredColor(for: number).opacity(isSelected ? 0.8 : 0.5),
                         radius: isSelected ? 10 : 6
                     )
-                            
+
                             Text("\(number)")
                     .font(.system(size: isSelected ? 18 : 16, weight: .bold))
                                 .foregroundColor(.white)
                         }
             .scaleEffect(isSelected ? 1.1 : (isRuling && sacredCycleHighlight ? 1.05 : 1.0))
-                        
+
             // Vertical progress bar
             VStack(spacing: 0) {
                 ZStack(alignment: .bottom) {
@@ -532,7 +532,7 @@ struct RulingNumberChartDetailView: View {
                      RoundedRectangle(cornerRadius: 6)
                          .fill(Color.white.opacity(0.2))
                          .frame(width: 20, height: 80)
-                                
+
                                 // Progress bar
                     RoundedRectangle(cornerRadius: 6)
                                     .fill(
@@ -564,13 +564,13 @@ struct RulingNumberChartDetailView: View {
                                     )
                 }
                             }
-                            
+
             // Count label
                                 Text("\(count)")
                 .font(.system(size: 14, weight: isRuling ? .bold : .medium))
                                     .foregroundColor(isRuling ? .yellow : .white)
                 .frame(minWidth: 22)
-                                
+
             // Status indicators
             HStack(spacing: 2) {
                                     if isRuling {
@@ -605,21 +605,21 @@ struct RulingNumberChartDetailView: View {
         .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isSelected)
         .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isRuling)
     }
-    
+
     // Enhanced number tap handler with detailed information
     private func handleEnhancedNumberTap(_ number: Int) {
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
         impactFeedback.impactOccurred()
-        
+
         // Set selection and show detail
         selectedNumber = number
         showingNumberDetail = true
-        
+
         print("📊 Enhanced: User selected number \(number) for detailed analysis")
     }
-    
+
     // MARK: - Time Series Chart (7D, 14D, 30D views)
-    
+
     // Extract complex calculations to avoid compiler issues
     private var processedChartData: (dates: [Date], maxValue: Int) {
         let sortedData = chartData.sorted { $0.date < $1.date }
@@ -627,61 +627,61 @@ struct RulingNumberChartDetailView: View {
         let maxValue = max(chartData.map { $0.value }.max() ?? 1, 1)
         return (uniqueDates, maxValue)
     }
-    
+
     private func getDayData(for date: Date) -> [ChartDataPoint] {
         let sortedData = chartData.sorted { $0.date < $1.date }
         return sortedData.filter { Calendar.current.isDate($0.date, inSameDayAs: date) }
     }
-    
+
     private func getRulingNumber(for dayData: [ChartDataPoint]) -> Int {
         return dayData.max(by: { $0.value < $1.value })?.number ?? 1
     }
-    
+
     private func getMaxDayValue(for dayData: [ChartDataPoint]) -> Int {
         return dayData.map { $0.value }.max() ?? 0
     }
-    
+
     private var timeSeriesChart: some View {
         let processedData = processedChartData
-        
+
         return VStack(spacing: 16) {
             // Synchronized scrollable bar chart
             ScrollView(.horizontal, showsIndicators: true) {
                 VStack(spacing: 12) {
                     // Number labels that scroll with the data
                     chartHeaderView(dates: processedData.dates)
-                    
+
                     // Vertical bar chart
                     chartBarsView(dates: processedData.dates, maxValue: processedData.maxValue)
                 }
                 .padding(.vertical, 16)
             }
             .frame(height: 220)
-            
+
             // Legend for number colors
             chartLegendView
         }
     }
-    
+
     private func chartHeaderView(dates: [Date]) -> some View {
         HStack(alignment: .bottom, spacing: 0) {
             ForEach(dates.indices, id: \.self) { dateIndex in
                 let date = dates[dateIndex]
                 let dayData = getDayData(for: date)
                 let rulingNumber = getRulingNumber(for: dayData)
-                
+
                 VStack(spacing: 8) {
                     // Date label
                     Text(formatDateLabel(date))
                         .font(.caption2)
                         .foregroundColor(.white.opacity(0.6))
-                    
+
                     // Ruling number circle
                     ZStack {
                             Circle()
                             .fill(getSacredColor(for: rulingNumber).opacity(0.8))
                             .frame(width: 24, height: 24)
-                        
+
                         Text("\(rulingNumber)")
                                 .font(.caption)
                             .fontWeight(.bold)
@@ -693,7 +693,7 @@ struct RulingNumberChartDetailView: View {
                 }
                 .padding(.horizontal, 20)
             }
-            
+
     private func chartBarsView(dates: [Date], maxValue: Int) -> some View {
         HStack(alignment: .bottom, spacing: 0) {
             ForEach(dates.indices, id: \.self) { dateIndex in
@@ -701,7 +701,7 @@ struct RulingNumberChartDetailView: View {
                 let dayData = getDayData(for: date)
                 let rulingNumber = getRulingNumber(for: dayData)
                 let maxDayValue = getMaxDayValue(for: dayData)
-                
+
                 individualBarView(
                     rulingNumber: rulingNumber,
                     maxDayValue: maxDayValue,
@@ -712,7 +712,7 @@ struct RulingNumberChartDetailView: View {
         }
         .padding(.horizontal, 20)
     }
-    
+
     private func individualBarView(rulingNumber: Int, maxDayValue: Int, maxValue: Int, dayData: [ChartDataPoint]) -> some View {
         VStack(spacing: 4) {
             // Bar
@@ -721,7 +721,7 @@ struct RulingNumberChartDetailView: View {
                 RoundedRectangle(cornerRadius: 6)
                     .fill(Color.white.opacity(0.1))
                     .frame(width: 40, height: 140)
-                    
+
                 // Data bar
                 RoundedRectangle(cornerRadius: 6)
                     .fill(
@@ -744,7 +744,7 @@ struct RulingNumberChartDetailView: View {
                             )
                     .shadow(color: getSacredColor(for: rulingNumber).opacity(0.4), radius: 4)
                     }
-                    
+
             // Value label
             Text("\(maxDayValue)")
                 .font(.caption2)
@@ -759,7 +759,7 @@ struct RulingNumberChartDetailView: View {
             }
         }
     }
-    
+
     private var chartLegendView: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
@@ -783,16 +783,16 @@ struct RulingNumberChartDetailView: View {
             .padding(.horizontal, 16)
         }
     }
-    
+
     // Helper function to format date labels
     private func formatDateLabel(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd"
         return formatter.string(from: date)
     }
-    
+
     // MARK: - Sacred Cycles Section
-    
+
     private var sacredCyclesSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("✧ Sacred Patterns ✧")
@@ -800,21 +800,21 @@ struct RulingNumberChartDetailView: View {
                 .fontWeight(.bold)
                 .foregroundColor(.white)
                 .padding(.horizontal, 8)
-            
+
             VStack(spacing: 12) {
                 if patternsCalculated {
                 // Seven-day harmony
                 enhancedSacredPatternCard(.sevenDay)
-                
+
                 // Golden flow (divine proportion)
                 enhancedSacredPatternCard(.goldenFlow)
-                
+
                 // Fibonacci spiral (always show for multi-day views)
                 enhancedSacredPatternCard(.fibonacciSpiral)
-                
+
                 // Trinity flow (3-6-9 pattern)
                 enhancedSacredPatternCard(.trinityFlow)
-                
+
                 // Lunar sync (only for 30-day view)
                 if selectedTimeRange == .thirtyDays {
                     enhancedSacredPatternCard(.lunarSync)
@@ -856,12 +856,12 @@ struct RulingNumberChartDetailView: View {
             }
         }
     }
-    
+
     private func enhancedSacredPatternCard(_ patternType: SacredPatternType) -> some View {
         // PERFORMANCE FIX: Use pre-calculated values instead of calculating individually
         let value = patternValues[patternType] ?? 0.0  // Use cached value or default to 0
         let percentage = Int(value * 100)
-        
+
         return HStack(spacing: 16) {
             // Left side - Icon and percentage
             VStack(spacing: 8) {
@@ -870,21 +870,21 @@ struct RulingNumberChartDetailView: View {
                         .fill(patternType.color.opacity(0.3))
                         .frame(width: 60, height: 60)
                         .scaleEffect(showingSacredPatternDetail ? 1.0 : (sacredCycleHighlight ? 1.05 : 1.0))
-                    
+
                     Image(systemName: patternType.icon)
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(patternType.color)
                         .shadow(color: patternType.color.opacity(0.6), radius: 4)
                 }
-                
+
                 Text("\(percentage)%")
                     .font(.title3)
                     .fontWeight(.bold)
                     .foregroundColor(patternType.color)
             }
             .frame(width: 80)
-            
+
             // Right side - Content
             VStack(alignment: .leading, spacing: 12) {
                 // Title and description
@@ -893,14 +893,14 @@ struct RulingNumberChartDetailView: View {
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                    
+
                     Text(patternType.shortDescription)
                         .font(.subheadline)
                         .foregroundColor(.white.opacity(0.85))
                         .lineLimit(2)
                         .fixedSize(horizontal: false, vertical: true)
                 }
-                
+
                 // Progress bar
                 VStack(alignment: .leading, spacing: 6) {
                     HStack {
@@ -914,13 +914,13 @@ struct RulingNumberChartDetailView: View {
                             .foregroundColor(.white.opacity(0.5))
                             .italic()
                     }
-                    
+
                     GeometryReader { geometry in
                         ZStack(alignment: .leading) {
                             RoundedRectangle(cornerRadius: 6)
                                 .fill(Color.white.opacity(0.1))
                                 .frame(height: 8)
-                            
+
                             RoundedRectangle(cornerRadius: 6)
                                 .fill(patternType.color.opacity(0.7))
                                 .frame(width: geometry.size.width * value, height: 8)
@@ -938,7 +938,7 @@ struct RulingNumberChartDetailView: View {
                     .frame(height: 8)
                 }
             }
-            
+
             Spacer()
         }
         .padding(20)
@@ -974,18 +974,18 @@ struct RulingNumberChartDetailView: View {
         .onTapGesture {
             // PERFORMANCE FIX: Pause expensive animations before showing overlay
             chartAnimationPhase = 1.0  // Complete any pending animations
-            
+
             print("⚡ Sacred Pattern Tapped: \(patternType.title) - Requesting overlay...")
-            
+
             selectedSacredPattern = patternType
             showingSacredPatternDetail = true
-            
+
             // Haptic feedback
             let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
             impactFeedback.impactOccurred()
         }
     }
-    
+
     // Helper function for strength labels
     private func getStrengthLabel(for value: Double) -> String {
         switch value {
@@ -996,9 +996,9 @@ struct RulingNumberChartDetailView: View {
         default: return "DORMANT POTENTIAL"
         }
     }
-    
+
     // MARK: - Insights Section
-    
+
     private var insightsSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("✧ Mystical Insights ✧")
@@ -1006,7 +1006,7 @@ struct RulingNumberChartDetailView: View {
                 .fontWeight(.bold)
                 .foregroundColor(.white)
                 .padding(.horizontal, 8)
-            
+
             VStack(spacing: 16) {
                 // Trend analysis
                 insightCard(
@@ -1015,7 +1015,7 @@ struct RulingNumberChartDetailView: View {
                     description: sampleManager.getTrendAnalysis(for: selectedTimeRange),
                     color: .blue
                 )
-                
+
                 // Focus alignment
                 if focusNumberManager.selectedFocusNumber == sampleManager.rulingNumber {
                     insightCard(
@@ -1025,7 +1025,7 @@ struct RulingNumberChartDetailView: View {
                         color: .green
                     )
                 }
-                
+
                 // Sacred number emergence
                 insightCard(
                     icon: "sparkles",
@@ -1038,25 +1038,25 @@ struct RulingNumberChartDetailView: View {
         }
         .padding(.top, 16)
     }
-    
+
     private func insightCard(icon: String, title: String, description: String, color: Color) -> some View {
         HStack(spacing: 16) {
             Image(systemName: icon)
                 .font(.title2)
                 .foregroundColor(color)
                 .frame(width: 40)
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(.headline)
                     .foregroundColor(.white)
-                
+
                 Text(description)
                     .font(.subheadline)
                     .foregroundColor(.white.opacity(0.8))
                     .lineLimit(nil)
             }
-            
+
             Spacer()
         }
         .padding(16)
@@ -1070,31 +1070,31 @@ struct RulingNumberChartDetailView: View {
         )
         .shadow(color: color.opacity(0.2), radius: 5)
     }
-    
+
     // MARK: - Helper Methods
-    
+
     private func startChartAnimations() {
         // PERFORMANCE FIX: Reduce animation complexity to prevent UI blocking
         withAnimation(.easeInOut(duration: 1.0)) {
             chartAnimationPhase = 1.0
         }
-        
+
         // Gentler animations that won't block Sacred Pattern overlays
         withAnimation(.easeInOut(duration: 3.0).repeatForever(autoreverses: true)) {
             sacredCycleHighlight = true
         }
-        
+
         withAnimation(.easeInOut(duration: 2.5).repeatForever(autoreverses: true)) {
             rulingBarPulse = true
         }
     }
-    
+
     // MARK: - Legacy method - replaced by handleEnhancedNumberTap
-    
+
     private func getRulingDescription(_ number: Int) -> String {
         let descriptions = [
             "Genesis energy dominates your cosmic field. New beginnings and leadership emerge.",
-            "Duality and balance create harmony. Cooperation and partnerships flourish.", 
+            "Duality and balance create harmony. Cooperation and partnerships flourish.",
             "Creative expression flows freely. Communication and artistic endeavors prosper.",
             "Foundation energy anchors your reality. Stability and systematic growth prevail.",
             "Freedom and change surge through your experience. Adventure and liberation call.",
@@ -1103,11 +1103,11 @@ struct RulingNumberChartDetailView: View {
             "Abundance and infinite cycles manifest. Material success and karmic completion arrive.",
             "Universal completion and unity reign supreme. Highest wisdom and humanitarian service."
         ]
-        
+
         let index = max(0, min(number - 1, descriptions.count - 1))
         return descriptions[index]
     }
-    
+
     private func getSacredColor(for number: Int) -> Color {
         switch number {
         case 1: return .red
@@ -1122,7 +1122,7 @@ struct RulingNumberChartDetailView: View {
         default: return .white
         }
     }
-    
+
     private func configureNavigationAppearance() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
@@ -1130,24 +1130,24 @@ struct RulingNumberChartDetailView: View {
             .foregroundColor: UIColor.white,
             .font: UIFont.systemFont(ofSize: 18, weight: .bold)
         ]
-        
+
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
-    
+
     // PERFORMANCE: Extract pattern calculation into reusable function
     private func calculatePatternsInBackground() {
         DispatchQueue.global(qos: .userInitiated).async {
             let allPatterns: [SacredPatternType] = [.sevenDay, .goldenFlow, .fibonacciSpiral, .trinityFlow, .lunarSync]
             var calculatedValues: [SacredPatternType: Double] = [:]
-            
+
             print("🚀 EARLY PATTERN CALCULATION: Starting background calculation...")
-            
+
             for pattern in allPatterns {
                 calculatedValues[pattern] = pattern.getValue(from: sampleManager)
                 print("✅ Calculated \(pattern.title): \(Int(calculatedValues[pattern]! * 100))%")
             }
-            
+
             DispatchQueue.main.async {
                 self.patternValues = calculatedValues
                 self.patternsCalculated = true
@@ -1164,13 +1164,13 @@ struct UltraMinimalPatternOverlay: View {
     let sampleManager: RealmSampleManager
     @Binding var isPresented: Bool
     let precalculatedValue: Double // PERFORMANCE: Pre-calculated data - no delays!
-    
+
     var body: some View {
         // PERFORMANCE: Ultra-minimal fullscreen overlay with ScrollView for text
             ZStack {
             // Instant black background
             Color.black.ignoresSafeArea()
-            
+
             VStack(spacing: 0) {
                 // Fixed header - instant load
                 HStack {
@@ -1182,31 +1182,31 @@ struct UltraMinimalPatternOverlay: View {
                     .foregroundColor(.white)
                     .padding()
                 }
-                
+
                 // SCROLLABLE CONTENT - Fixed scrolling issue
                 ScrollView {
                     VStack(spacing: 20) {
                         // Top spacing
                         Spacer(minLength: 40)
-                        
+
                         // Core content - minimal but complete
                         VStack(spacing: 20) {
                             // Pattern icon
                 Image(systemName: pattern.icon)
                                 .font(.system(size: 60, weight: .bold))
                     .foregroundColor(pattern.color)
-            
+
                             // PERFORMANCE: Use pre-calculated value - instant display
                             let percentage = Int(precalculatedValue * 100)
             Text("\(percentage)%")
                                 .font(.system(size: 50, weight: .bold, design: .rounded))
                 .foregroundColor(pattern.color)
-            
+
                             Text(pattern.title)
                                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundColor(.white)
-            
+
                             // Essential content in minimal layout
                             VStack(spacing: 16) {
                                 Text(pattern.shortDescription)
@@ -1214,7 +1214,7 @@ struct UltraMinimalPatternOverlay: View {
                 .foregroundColor(.white.opacity(0.9))
                                     .multilineTextAlignment(.center)
                                     .padding(.horizontal, 30)
-            
+
                                 // Minimal progress indicator
                                 HStack(spacing: 3) {
                                     ForEach(0..<10, id: \.self) { index in
@@ -1223,7 +1223,7 @@ struct UltraMinimalPatternOverlay: View {
                                             .frame(width: 8, height: 8)
                                     }
                                 }
-                                
+
                                 Text(getStrengthLabel(for: precalculatedValue))
                                     .font(.caption)
                                     .fontWeight(.bold)
@@ -1231,7 +1231,7 @@ struct UltraMinimalPatternOverlay: View {
                                     .padding(.top, 8)
     }
                         }
-                        
+
                         // Sacred wisdom section - now properly scrollable
                         VStack(spacing: 12) {
             Text("✧ Sacred Wisdom ✧")
@@ -1239,7 +1239,7 @@ struct UltraMinimalPatternOverlay: View {
                 .fontWeight(.bold)
                 .foregroundColor(.white)
                                 .padding(.top, 20)
-            
+
             Text(pattern.fullDescription)
                 .font(.body)
                                 .foregroundColor(.white.opacity(0.8))
@@ -1247,7 +1247,7 @@ struct UltraMinimalPatternOverlay: View {
                                 .padding(.horizontal, 20)
                                 .multilineTextAlignment(.leading)
                         }
-                        
+
                         // Bottom spacing
                         Spacer(minLength: 60)
                     }
@@ -1261,7 +1261,7 @@ struct UltraMinimalPatternOverlay: View {
             print("   SCROLLABLE OVERLAY - PERFORMANCE OPTIMIZED!")
         }
     }
-    
+
     private func getStrengthLabel(for value: Double) -> String {
         switch value {
         case 0.8...: return "COSMIC MASTERY"
@@ -1281,9 +1281,9 @@ enum SacredPatternType: String, CaseIterable {
     case lunarSync = "Lunar Sync"
     case trinityFlow = "Trinity Flow"
     case fibonacciSpiral = "Fibonacci Spiral"
-    
+
     var title: String { rawValue }
-    
+
     var shortDescription: String {
         switch self {
         case .sevenDay:
@@ -1298,58 +1298,58 @@ enum SacredPatternType: String, CaseIterable {
             return "Sacred sequence emergence in nature's design"
         }
     }
-    
+
     var fullDescription: String {
         switch self {
         case .sevenDay:
             return """
-            The sacred seven represents spiritual completion and divine perfection. This pattern tracks your alignment with the seven-day creation cycle, seven chakras, and seven heavenly bodies known to ancient wisdom. 
-            
+            The sacred seven represents spiritual completion and divine perfection. This pattern tracks your alignment with the seven-day creation cycle, seven chakras, and seven heavenly bodies known to ancient wisdom.
+
             When this pattern is strong, you're experiencing spiritual completion cycles that enhance your connection to higher consciousness and divine timing.
-            
+
             Numbers 3, 6, 7, and 9 carry the highest spiritual frequencies in this pattern.
             """
-            
+
         case .goldenFlow:
             return """
             The Golden Ratio (φ = 1.618) is nature's perfect proportion, found in galaxies, flowers, shells, and human DNA. This divine proportion creates harmony and beauty throughout the universe.
-            
+
             Your alignment with this pattern indicates natural flow and organic growth in your life. When strong, manifestations unfold with divine timing and perfect proportions.
-            
+
             Numbers 1, 5, and 8 resonate most powerfully with this golden frequency.
             """
-            
+
         case .lunarSync:
             return """
             The lunar cycle governs tides, emotions, and mystical rhythms across 28 days. This pattern tracks your synchronization with lunar wisdom and feminine divine energy.
-            
+
             Strong lunar alignment enhances intuition, emotional balance, and receptive wisdom. Your cycles become harmonized with natural rhythms.
-            
+
             Numbers 2, 6, and 9 carry the strongest lunar resonance and feminine divine frequencies.
             """
-            
+
         case .trinityFlow:
             return """
             Nikola Tesla declared: "If you only knew the magnificence of 3, 6, and 9, then you would have a key to the universe." These numbers form the divine triangle of creation.
-            
+
             3 = Creative expression and divine trinity
-            6 = Perfect harmony and divine love  
+            6 = Perfect harmony and divine love
             9 = Universal completion and highest wisdom
-            
+
             When this pattern activates, you access universal energy keys and accelerated manifestation power.
             """
-            
+
         case .fibonacciSpiral:
             return """
             The Fibonacci sequence (1,1,2,3,5,8,13...) appears throughout nature: flower petals, pine cones, nautilus shells, and galaxy spirals. Each number is the sum of the two preceding ones.
-            
+
             This pattern reveals natural growth, organic expansion, and divine mathematical harmony in your realm samples. When active, your life unfolds with natural perfection.
-            
+
             Sequences like 1→2→3, 2→3→5, or 3→5→8 indicate powerful Fibonacci activation in your cosmic field.
             """
         }
     }
-    
+
     var color: Color {
         switch self {
         case .sevenDay: return .purple
@@ -1359,7 +1359,7 @@ enum SacredPatternType: String, CaseIterable {
         case .fibonacciSpiral: return .orange
         }
     }
-    
+
     var icon: String {
         switch self {
         case .sevenDay: return "star.fill"
@@ -1369,7 +1369,7 @@ enum SacredPatternType: String, CaseIterable {
         case .fibonacciSpiral: return "tornado"
         }
     }
-    
+
     func getValue(from manager: RealmSampleManager) -> Double {
         switch self {
         case .sevenDay: return manager.getSevenDayPattern()
@@ -1398,34 +1398,34 @@ struct NumberDetailOverlay: View {
     let sampleManager: RealmSampleManager
     let focusNumberManager: FocusNumberManager
     @Binding var isPresented: Bool
-    
+
     private var todayCount: Int {
         sampleManager.getCount(for: number)
     }
-    
+
     private var weeklyCount: Int {
         let weeklyData = sampleManager.getChartData(for: .sevenDays)
         return weeklyData.filter { $0.number == number }.map { $0.value }.reduce(0, +)
     }
-    
+
     private var monthlyCount: Int {
         let monthlyData = sampleManager.getChartData(for: .thirtyDays)
         return monthlyData.filter { $0.number == number }.map { $0.value }.reduce(0, +)
     }
-    
+
     private var isRuling: Bool {
         number == sampleManager.rulingNumber && todayCount > 0
     }
-    
+
     private var isFocus: Bool {
         number == focusNumberManager.selectedFocusNumber
     }
-    
+
     var body: some View {
         ZStack {
             // Cosmic background
             Color.black.ignoresSafeArea()
-            
+
             VStack(spacing: 0) {
                 // Header with close button
                 HStack {
@@ -1437,13 +1437,13 @@ struct NumberDetailOverlay: View {
                     .foregroundColor(.white)
                     .padding()
                 }
-                
+
                 // Scrollable content
                 ScrollView {
                     VStack(spacing: 24) {
                         // Top spacing
                         Spacer(minLength: 20)
-                        
+
                         // Number header
                         VStack(spacing: 16) {
                             ZStack {
@@ -1469,12 +1469,12 @@ struct NumberDetailOverlay: View {
                                             )
                                     )
                                     .shadow(color: getSacredColor(for: number).opacity(0.6), radius: 20)
-                                
+
                                 Text("\(number)")
                                     .font(.system(size: 48, weight: .bold, design: .rounded))
                                     .foregroundColor(.white)
                             }
-                            
+
                             // Status badges
                                                          HStack(spacing: 12) {
                                  if isRuling {
@@ -1493,14 +1493,14 @@ struct NumberDetailOverlay: View {
                                  }
                              }
                         }
-                        
+
                         // Statistics section
                         VStack(spacing: 16) {
                             Text("✧ Statistics ✧")
                                 .font(.title2)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
-                            
+
                                                          HStack(spacing: 16) {
                                  NumberStatCard(
                                      title: "Today",
@@ -1508,14 +1508,14 @@ struct NumberDetailOverlay: View {
                                      subtitle: todayCount == 1 ? "occurrence" : "occurrences",
                                      color: getSacredColor(for: number)
                                  )
-                                 
+
                                  NumberStatCard(
                                      title: "This Week",
                                      value: "\(weeklyCount)",
                                      subtitle: "total appearances",
                                      color: getSacredColor(for: number).opacity(0.8)
                                  )
-                                 
+
                                  NumberStatCard(
                                      title: "This Month",
                                      value: "\(monthlyCount)",
@@ -1524,14 +1524,14 @@ struct NumberDetailOverlay: View {
                                  )
                              }
                         }
-                        
+
                         // Sacred insights
                         VStack(spacing: 16) {
                             Text("✧ Sacred Wisdom ✧")
                                 .font(.title2)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
-                            
+
                                                          VStack(spacing: 12) {
                                  NumberInsightCard(
                                      title: "Numerical Essence",
@@ -1539,14 +1539,14 @@ struct NumberDetailOverlay: View {
                                      icon: "sparkles",
                                      color: getSacredColor(for: number)
                                  )
-                                 
+
                                  NumberInsightCard(
                                      title: "Spiritual Meaning",
                                      content: getSpiritualMeaning(for: number),
                                      icon: "star.circle",
                                      color: getSacredColor(for: number)
                                  )
-                                 
+
                                  NumberInsightCard(
                                      title: "Life Guidance",
                                      content: getLifeGuidance(for: number),
@@ -1555,7 +1555,7 @@ struct NumberDetailOverlay: View {
                                  )
                              }
                         }
-                        
+
                         // Frequency analysis
                         if todayCount > 0 {
                             VStack(spacing: 16) {
@@ -1563,7 +1563,7 @@ struct NumberDetailOverlay: View {
                                     .font(.title2)
                                     .fontWeight(.bold)
                                     .foregroundColor(.white)
-                                
+
                                                                  NumberFrequencyCard(
                                      number: number,
                                      count: todayCount,
@@ -1572,7 +1572,7 @@ struct NumberDetailOverlay: View {
                                  )
                             }
                         }
-                        
+
                         // Bottom spacing
                         Spacer(minLength: 60)
                     }
@@ -1585,7 +1585,7 @@ struct NumberDetailOverlay: View {
             print("   Today: \(todayCount) | Week: \(weeklyCount) | Month: \(monthlyCount)")
         }
     }
-    
+
     // Helper function to get sacred color (if not defined in main view)
     private func getSacredColor(for number: Int) -> Color {
         switch number {
@@ -1601,7 +1601,7 @@ struct NumberDetailOverlay: View {
         default: return .white
         }
     }
-    
+
     // Sacred wisdom content
     private func getNumericalEssence(for number: Int) -> String {
         switch number {
@@ -1617,7 +1617,7 @@ struct NumberDetailOverlay: View {
         default: return "Each number carries sacred frequency and divine purpose in the cosmic symphony of existence."
         }
     }
-    
+
     private func getSpiritualMeaning(for number: Int) -> String {
         switch number {
         case 1: return "Divine unity consciousness. You are both the creator and the created, holding the power to manifest reality through focused intention and will."
@@ -1632,7 +1632,7 @@ struct NumberDetailOverlay: View {
         default: return "Every number contains sacred frequencies that guide us toward our highest spiritual potential and divine purpose."
         }
     }
-    
+
     private func getLifeGuidance(for number: Int) -> String {
         switch number {
         case 1: return "Trust your instincts and take initiative. Leadership opportunities are presenting themselves. Your original ideas and pioneering spirit are needed now."
@@ -1655,7 +1655,7 @@ struct NumberStatusBadge: View {
     let icon: String
     let text: String
     let color: Color
-    
+
     var body: some View {
         HStack(spacing: 6) {
             Image(systemName: icon)
@@ -1684,19 +1684,19 @@ struct NumberStatCard: View {
     let value: String
     let subtitle: String
     let color: Color
-    
+
     var body: some View {
         VStack(spacing: 6) {
             Text(title)
                 .font(.caption)
                 .fontWeight(.medium)
                 .foregroundColor(.white.opacity(0.8))
-            
+
             Text(value)
                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundColor(color)
-            
+
             Text(subtitle)
                 .font(.caption2)
                 .foregroundColor(.white.opacity(0.6))
@@ -1720,22 +1720,22 @@ struct NumberInsightCard: View {
     let content: String
     let icon: String
     let color: Color
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 8) {
                 Image(systemName: icon)
                     .font(.title3)
                     .foregroundColor(color)
-                
+
                 Text(title)
                     .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                
+
                 Spacer()
             }
-            
+
             Text(content)
                 .font(.body)
                 .foregroundColor(.white.opacity(0.85))
@@ -1759,12 +1759,12 @@ struct NumberFrequencyCard: View {
     let count: Int
     let totalSamples: Int
     let isRuling: Bool
-    
+
     private var percentage: Double {
         guard totalSamples > 0 else { return 0 }
         return Double(count) / Double(totalSamples) * 100
     }
-    
+
     private var frequencyDescription: String {
         switch percentage {
         case 30...: return "Dominant cosmic influence - exceptionally strong presence"
@@ -1775,7 +1775,7 @@ struct NumberFrequencyCard: View {
         default: return "Rare appearance - precious spiritual moment"
         }
     }
-    
+
     var body: some View {
         VStack(spacing: 12) {
             HStack {
@@ -1784,14 +1784,14 @@ struct NumberFrequencyCard: View {
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                    
+
                     Text("\(String(format: "%.1f", percentage))% of all manifestations")
                         .font(.subheadline)
                         .foregroundColor(.white.opacity(0.8))
                 }
-                
+
                 Spacer()
-                
+
                 VStack(spacing: 4) {
                     Text("\(count)")
                         .font(.title)
@@ -1802,14 +1802,14 @@ struct NumberFrequencyCard: View {
                         .foregroundColor(.white.opacity(0.6))
                 }
             }
-            
+
             // Progress bar
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
                     RoundedRectangle(cornerRadius: 6)
                         .fill(Color.white.opacity(0.2))
                         .frame(height: 8)
-                    
+
                     RoundedRectangle(cornerRadius: 6)
                         .fill(
                             LinearGradient(
@@ -1825,7 +1825,7 @@ struct NumberFrequencyCard: View {
                 }
             }
             .frame(height: 8)
-            
+
             Text(frequencyDescription)
                 .font(.subheadline)
                 .foregroundColor(.white.opacity(0.7))
@@ -1842,7 +1842,7 @@ struct NumberFrequencyCard: View {
                 )
         )
     }
-    
+
     private func getSacredColor(for number: Int) -> Color {
         switch number {
         case 1: return .red
@@ -1857,4 +1857,4 @@ struct NumberFrequencyCard: View {
         default: return .white
         }
     }
-} 
+}

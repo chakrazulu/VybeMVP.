@@ -34,7 +34,7 @@ declare -A RENAMES=(
     ["Sacred Geometry_One Line_18.imageset"]="void_star_matrix.imageset:Sacred Geometry_One Line_18.svg"
     ["Sacred Geometry_One Line_27.imageset"]="void_akashic_grid.imageset:Sacred Geometry_One Line_27.svg"
     ["Sacred Geometry_One Line_9.imageset"]="void_crystal.imageset:Sacred Geometry_One Line_9.svg"
-    
+
     # 1 - UNITY & DIVINE SPARK
     ["Sacred Geometry_One Line_1.imageset"]="unity_merkaba.imageset:Sacred Geometry_One Line_1.svg"
     ["Sacred Geometry_One Line_10.imageset"]="unity_solar.imageset:Sacred Geometry_One Line_10.svg"
@@ -43,7 +43,7 @@ declare -A RENAMES=(
     ["Sacred Geometry_One Line_37.imageset"]="unity_alpha.imageset:Sacred Geometry_One Line_37.svg"
     ["Sacred Geometry_One Line_46.imageset"]="unity_consciousness.imageset:Sacred Geometry_One Line_46.svg"
     ["Sacred Geometry_One Line_55.imageset"]="unity_spark.imageset:Sacred Geometry_One Line_55.svg"
-    
+
     # 2 - DUALITY & COSMIC POLARITY
     ["Sacred Geometry_One Line_2.imageset"]="duality_vesica.imageset:Sacred Geometry_One Line_2.svg"
     ["Sacred Geometry_One Line_11.imageset"]="duality_lunar.imageset:Sacred Geometry_One Line_11.svg"
@@ -52,7 +52,7 @@ declare -A RENAMES=(
     ["Sacred Geometry_One Line_38.imageset"]="duality_divine.imageset:Sacred Geometry_One Line_38.svg"
     ["Sacred Geometry_One Line_47.imageset"]="duality_twins.imageset:Sacred Geometry_One Line_47.svg"
     ["Sacred Geometry_One Line_56.imageset"]="duality_mirror.imageset:Sacred Geometry_One Line_56.svg"
-    
+
     # 3 - TRINITY & DIVINE CREATIVITY
     ["Sacred Geometry_One Line_3.imageset"]="trinity_mandala.imageset:Sacred Geometry_One Line_3.svg"
     ["Sacred Geometry_One Line_12.imageset"]="trinity_triangle.imageset:Sacred Geometry_One Line_12.svg"
@@ -61,7 +61,7 @@ declare -A RENAMES=(
     ["Sacred Geometry_One Line_39.imageset"]="trinity_gate.imageset:Sacred Geometry_One Line_39.svg"
     ["Sacred Geometry_One Line_48.imageset"]="trinity_expression.imageset:Sacred Geometry_One Line_48.svg"
     ["Sacred Geometry_One Line_57.imageset"]="trinity_logos.imageset:Sacred Geometry_One Line_57.svg"
-    
+
     # 4 - FOUNDATION & MATERIAL MANIFESTATION
     ["Sacred Geometry_One Line_4.imageset"]="foundation_cube.imageset:Sacred Geometry_One Line_4.svg"
     ["Sacred Geometry_One Line_13.imageset"]="foundation_cross.imageset:Sacred Geometry_One Line_13.svg"
@@ -70,7 +70,7 @@ declare -A RENAMES=(
     ["Sacred Geometry_One Line_40.imageset"]="foundation_grid.imageset:Sacred Geometry_One Line_40.svg"
     ["Sacred Geometry_One Line_49.imageset"]="foundation_matrix.imageset:Sacred Geometry_One Line_49.svg"
     ["Sacred Geometry_One Line_58.imageset"]="foundation_blessing.imageset:Sacred Geometry_One Line_58.svg"
-    
+
     # 5 - QUINTESSENCE & DIVINE WILL
     ["Sacred Geometry_One Line_5.imageset"]="will_pentagram.imageset:Sacred Geometry_One Line_5.svg"
     ["Sacred Geometry_One Line_14.imageset"]="will_golden_spiral.imageset:Sacred Geometry_One Line_14.svg"
@@ -79,7 +79,7 @@ declare -A RENAMES=(
     ["Sacred Geometry_One Line_41.imageset"]="will_power.imageset:Sacred Geometry_One Line_41.svg"
     ["Sacred Geometry_One Line_50.imageset"]="will_star.imageset:Sacred Geometry_One Line_50.svg"
     ["Sacred Geometry_One Line_59.imageset"]="will_command.imageset:Sacred Geometry_One Line_59.svg"
-    
+
     # 6 - HARMONY & COSMIC LOVE
     ["Sacred Geometry_One Line_6.imageset"]="harmony_star_david.imageset:Sacred Geometry_One Line_6.svg"
     ["Sacred Geometry_One Line_15.imageset"]="harmony_flower_life.imageset:Sacred Geometry_One Line_15.svg"
@@ -88,7 +88,7 @@ declare -A RENAMES=(
     ["Sacred Geometry_One Line_42.imageset"]="harmony_universal.imageset:Sacred Geometry_One Line_42.svg"
     ["Sacred Geometry_One Line_51.imageset"]="harmony_marriage.imageset:Sacred Geometry_One Line_51.svg"
     ["Sacred Geometry_One Line_60.imageset"]="harmony_beauty.imageset:Sacred Geometry_One Line_60.svg"
-    
+
     # 7 - MYSTERY & SPIRITUAL MASTERY
     ["Sacred Geometry_One Line_7.imageset"]="mystery_seed_life.imageset:Sacred Geometry_One Line_7.svg"
     ["Sacred Geometry_One Line_16.imageset"]="mystery_seals.imageset:Sacred Geometry_One Line_16.svg"
@@ -97,7 +97,7 @@ declare -A RENAMES=(
     ["Sacred Geometry_One Line_43.imageset"]="mystery_wisdom.imageset:Sacred Geometry_One Line_43.svg"
     ["Sacred Geometry_One Line_52.imageset"]="mystery_magic.imageset:Sacred Geometry_One Line_52.svg"
     ["Sacred Geometry_One Line_61.imageset"]="mystery_gnosis.imageset:Sacred Geometry_One Line_61.svg"
-    
+
     # 8 - RENEWAL & INFINITE CYCLES
     ["Sacred Geometry_One Line_8.imageset"]="renewal_octagon.imageset:Sacred Geometry_One Line_8.svg"
     ["Sacred Geometry_One Line_17.imageset"]="renewal_infinity.imageset:Sacred Geometry_One Line_17.svg"
@@ -106,7 +106,7 @@ declare -A RENAMES=(
     ["Sacred Geometry_One Line_44.imageset"]="renewal_justice.imageset:Sacred Geometry_One Line_44.svg"
     ["Sacred Geometry_One Line_53.imageset"]="renewal_scales.imageset:Sacred Geometry_One Line_53.svg"
     ["Sacred Geometry_One Line_62.imageset"]="renewal_matrix.imageset:Sacred Geometry_One Line_62.svg"
-    
+
     # 9 - COMPLETION & UNIVERSAL WISDOM
     ["Sacred Geometry_One Line.imageset"]="wisdom_enneagram.imageset:Sacred Geometry_One Line.svg"
     ["Sacred_Geometry_One_Line_1.imageset"]="wisdom_completion.imageset:Sacred Geometry_One Line_1.svg"
@@ -123,30 +123,30 @@ for original in "${!RENAMES[@]}"; do
     count=$((count + 1))
     IFS=':' read -r new_name old_svg <<< "${RENAMES[$original]}"
     new_svg="${new_name%.*}.svg"
-    
+
     original_path="$ASSETS_DIR/$original"
     new_path="$ASSETS_DIR/$new_name"
-    
+
     echo "[$count/$total] 🔄 $original → $new_name"
-    
+
     if [ -d "$original_path" ]; then
         # Rename the imageset folder
         mv "$original_path" "$new_path"
-        
+
         # Update Contents.json to reference new SVG name
         contents_file="$new_path/Contents.json"
         if [ -f "$contents_file" ]; then
             # Replace the filename in Contents.json
             sed -i "" "s/\"$old_svg\"/\"$new_svg\"/g" "$contents_file"
         fi
-        
+
         # Rename the SVG file inside
         old_svg_path="$new_path/$old_svg"
         new_svg_path="$new_path/$new_svg"
         if [ -f "$old_svg_path" ]; then
             mv "$old_svg_path" "$new_svg_path"
         fi
-        
+
         echo "  ✅ Renamed folder, SVG, and updated Contents.json"
     else
         echo "  ⚠️  Original imageset not found: $original_path"
@@ -167,4 +167,4 @@ echo "   - Right-click Assets.xcassets → 'Show in Finder'"
 echo "   - Drag the renamed imagesets back into Xcode"
 echo "5. Update any hardcoded asset names in your Swift code"
 echo ""
-echo "🔮 Your assets now have mystical technical names!" 
+echo "🔮 Your assets now have mystical technical names!"

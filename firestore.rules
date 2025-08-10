@@ -1,10 +1,10 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    
+
     // SECURITY: All rules now require authentication
     // Users must be signed in with Apple ID to access any data
-    
+
     // ============================================
     // USER PROFILES - Private to each user
     // ============================================
@@ -12,180 +12,180 @@ service cloud.firestore {
       // Users can only read/write their own profile
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
-    
+
     // ============================================
     // SOCIAL POSTS - Public read, controlled write
     // ============================================
     match /posts/{postId} {
       // Anyone authenticated can read posts (public social feed)
       allow read: if request.auth != null;
-      
+
       // Only authenticated users can create posts, and only with their own authorId
-      allow create: if request.auth != null 
+      allow create: if request.auth != null
         && request.auth.uid == request.resource.data.authorId
         && request.resource.data.keys().hasAll(['authorId', 'authorName', 'content', 'timestamp', 'type']);
-      
+
       // Users can only update their own posts, and only specific fields
-      allow update: if request.auth != null 
+      allow update: if request.auth != null
         && request.auth.uid == resource.data.authorId
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['content', 'tags', 'reactions', 'commentCount']);
-      
+
       // Users can only delete their own posts
       allow delete: if request.auth != null && request.auth.uid == resource.data.authorId;
     }
-    
+
     // ============================================
     // REACTIONS - Controlled creation and deletion
     // ============================================
     match /reactions/{reactionId} {
       // Anyone authenticated can read reactions (to display counts)
       allow read: if request.auth != null;
-      
+
       // Users can only create reactions with their own userId
-      allow create: if request.auth != null 
+      allow create: if request.auth != null
         && request.auth.uid == request.resource.data.userId
         && request.resource.data.keys().hasAll(['postId', 'userId', 'userDisplayName', 'reactionType', 'timestamp']);
-      
+
       // Users can only delete their own reactions
       allow delete: if request.auth != null && request.auth.uid == resource.data.userId;
-      
+
       // No updates allowed - reactions are create/delete only
     }
-    
+
     // ============================================
     // COMMENTS - Threaded comments with ownership
     // ============================================
     match /comments/{commentId} {
       // Anyone authenticated can read comments
       allow read: if request.auth != null;
-      
+
       // Users can only create comments with their own authorId
-      allow create: if request.auth != null 
+      allow create: if request.auth != null
         && request.auth.uid == request.resource.data.authorId
         && request.resource.data.keys().hasAll(['postId', 'authorId', 'authorName', 'content', 'timestamp']);
-      
+
       // Users can only update their own comments (for editing)
-      allow update: if request.auth != null 
+      allow update: if request.auth != null
         && request.auth.uid == resource.data.authorId
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['content', 'isEdited', 'editedAt']);
-      
+
       // Users can delete their own comments, OR post authors can delete comments on their posts
-      allow delete: if request.auth != null 
-        && (request.auth.uid == resource.data.authorId 
+      allow delete: if request.auth != null
+        && (request.auth.uid == resource.data.authorId
             || request.auth.uid == get(/databases/$(database)/documents/posts/$(resource.data.postId)).data.authorId);
     }
-    
+
     // ============================================
     // JOURNALS - Completely private to each user
     // ============================================
     match /journals/{userId} {
       // Users can only access their own journal data
       allow read, write: if request.auth != null && request.auth.uid == userId;
-      
+
       // Nested journal entries
       match /entries/{entryId} {
         allow read, write: if request.auth != null && request.auth.uid == userId;
       }
     }
-    
+
     // ============================================
     // SIGHTINGS - Private to each user
     // ============================================
     match /sightings/{userId} {
       // Users can only access their own sightings
       allow read, write: if request.auth != null && request.auth.uid == userId;
-      
+
       // Nested sighting entries
       match /entries/{sightingId} {
         allow read, write: if request.auth != null && request.auth.uid == userId;
       }
     }
-    
+
     // ============================================
     // INSIGHTS - Private to each user
     // ============================================
     match /insights/{userId} {
       // Users can only access their own AI insights
       allow read, write: if request.auth != null && request.auth.uid == userId;
-      
+
       // Nested insight entries
       match /entries/{insightId} {
         allow read, write: if request.auth != null && request.auth.uid == userId;
       }
     }
-    
+
     // ============================================
     // MATCHES - Private to each user
     // ============================================
     match /matches/{userId} {
       // Users can only access their own numerology matches
       allow read, write: if request.auth != null && request.auth.uid == userId;
-      
+
       // Nested match entries
       match /entries/{matchId} {
         allow read, write: if request.auth != null && request.auth.uid == userId;
       }
     }
-    
+
     // ============================================
     // ADMIN COLLECTIONS - Super restricted
     // ============================================
     match /admin/{document=**} {
       // Only allow access to specific admin users (add your admin UIDs here)
-      allow read, write: if request.auth != null 
+      allow read, write: if request.auth != null
         && request.auth.uid in ['YOUR_ADMIN_UID_HERE'];
     }
-    
+
     // ============================================
     // REPORTS - For content moderation
     // ============================================
     match /reports/{reportId} {
       // Users can create reports
-      allow create: if request.auth != null 
+      allow create: if request.auth != null
         && request.auth.uid == request.resource.data.reporterId
         && request.resource.data.keys().hasAll(['reporterId', 'reportedContentId', 'reportedUserId', 'reason', 'timestamp']);
-      
+
       // Users can read their own reports
       allow read: if request.auth != null && request.auth.uid == resource.data.reporterId;
-      
+
       // No updates or deletes - reports are permanent
     }
-    
+
     // ============================================
     // BLOCKED USERS - For user safety
     // ============================================
     match /blockedUsers/{userId} {
       // Users can only manage their own blocked list
       allow read, write: if request.auth != null && request.auth.uid == userId;
-      
+
       match /blocked/{blockedUserId} {
         allow read, write: if request.auth != null && request.auth.uid == userId;
       }
     }
-    
+
     // ============================================
     // HELPER FUNCTIONS
     // ============================================
-    
+
     // Function to check if user is authenticated
     function isAuthenticated() {
       return request.auth != null;
     }
-    
+
     // Function to check if user owns the resource
     function isOwner(userId) {
       return request.auth != null && request.auth.uid == userId;
     }
-    
+
     // Function to check if user is the author of a post
     function isPostAuthor(postId) {
-      return request.auth != null 
+      return request.auth != null
         && request.auth.uid == get(/databases/$(database)/documents/posts/$(postId)).data.authorId;
     }
-    
+
     // Deny all other access patterns
     match /{document=**} {
       allow read, write: if false;
     }
   }
-} 
+}

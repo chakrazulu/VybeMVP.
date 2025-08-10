@@ -239,7 +239,7 @@
 
 ## 🎯 **STRATEGIC FONT DEPLOYMENT PLAN**
 
-### **Navigation Bar Evolution** 
+### **Navigation Bar Evolution**
 ```swift
 // Current: System font
 // Future: Optima Nova with liquid glass backing
@@ -249,7 +249,7 @@
 ### **Insight Cards**
 ```swift
 // Headers: Avenir Next Condensed
-// Body: Source Sans Pro  
+// Body: Source Sans Pro
 // Accent: Brandon Grotesque
 // Comment: /* iOS26: Hero transitions will make font choices more impactful */
 ```

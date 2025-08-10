@@ -5,7 +5,7 @@
 ### 📊 **What's New: 10,000+ Insights for AI Training**
 Your SwiftData system now contains:
 - **🔢 NumberMeaning**: 10+ insight categories per number (0-9, master numbers)
-- **🎯 PersonalizedInsightTemplate**: Life Path-based template system  
+- **🎯 PersonalizedInsightTemplate**: Life Path-based template system
 - **⭐ AstrologicalAspect**: Planetary aspect interpretations
 - **🏠 AstrologicalHouse**: 12-house system meanings
 - **🌍 AstrologicalPlanet**: Planetary archetypal data
@@ -59,10 +59,10 @@ WindowGroup {
 - **Progress tracking**: Watch migration status in UI
 
 ### 4️⃣ **Verify KASPER MLX Migration Worked**
-Check console for: 
+Check console for:
 ```
 ✅ Migrated Number 1: 309 total insights
-✅ Migrated 121 personalized insight templates  
+✅ Migrated 121 personalized insight templates
 ✅ Migrated 12 astrological aspects
 ✅ Migrated 12 astrological houses
 ✅ Migrated 10 astrological planets
@@ -97,7 +97,7 @@ Your spiritual AI system now has:
 ```swift
 // Get a manifestation affirmation for number 1
 let insight = try await spiritualDataController.getRandomInsight(
-    number: 1, 
+    number: 1,
     category: .manifestation
 )
 ```
@@ -152,7 +152,7 @@ let venus = try await spiritualDataController.getPlanet("Venus")
 Your spiritual database now contains the richest, most comprehensive spiritual AI training dataset ever assembled:
 
 - **NumberMessages_Complete_0-9.json**: Fully migrated with 11 insight categories
-- **personalized_insight_templates.json**: Template system for contextual responses  
+- **personalized_insight_templates.json**: Template system for contextual responses
 - **All MegaCorpus data**: Aspects, houses, planets, elements, modes, moon phases, motion
 - **Performance optimized**: Instant queries, minimal memory usage
 - **AI-friendly**: Categorized, searchable, scalable

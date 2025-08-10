@@ -2,16 +2,16 @@
 
 ## What
 <!-- Brief description of changes -->
-- 
+-
 
 ## Why
 <!-- Reason for this change -->
-- 
+-
 
 ## Type of Change
 <!-- Check all that apply -->
 - [ ] 🐛 Bug fix
-- [ ] ✨ New feature  
+- [ ] ✨ New feature
 - [ ] 🔧 Improvement/enhancement
 - [ ] 📚 Documentation
 - [ ] 🧪 Tests
@@ -52,7 +52,7 @@
 ## Testing
 <!-- How was this tested? -->
 - [ ] Unit tests
-- [ ] Integration tests  
+- [ ] Integration tests
 - [ ] Manual testing on iPhone 16 Pro Max simulator
 - [ ] Real device testing (if UI changes)
 
@@ -74,9 +74,9 @@
 <!-- Auto-populated sections for context -->
 
 **Build Status:** <!-- CI will update this -->
-- Schema: ✅/❌ 
-- Tests: ✅/❌  
-- Determinism: ✅/❌ 
+- Schema: ✅/❌
+- Tests: ✅/❌
+- Determinism: ✅/❌
 - Secrets: ✅/❌
 - Pre-commit: ✅/❌
 

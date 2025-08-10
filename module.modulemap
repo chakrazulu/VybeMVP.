@@ -1,6 +1,6 @@
 framework module VybeMVP {
     umbrella header "VybeMVP.h"
-    
+
     export *
     module * { export * }
-} 
+}

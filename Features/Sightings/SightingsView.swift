@@ -13,12 +13,12 @@ struct SightingsView: View {
     @State private var showingNewSighting = false
     @State private var selectedFilter: SightingFilter = .all
     @State private var animateIn = false
-    
+
     private enum SightingFilter: String, CaseIterable {
         case all = "All"
         case recent = "Recent"
         case favorites = "Favorites"
-        
+
         var filterDescription: String {
             switch self {
             case .all: return "All sightings"
@@ -27,10 +27,10 @@ struct SightingsView: View {
             }
         }
     }
-    
+
     private var filteredSightings: [Sighting] {
         let allSightings = sightingsManager.sightings
-        
+
         switch selectedFilter {
         case .all:
             return allSightings
@@ -43,28 +43,28 @@ struct SightingsView: View {
             return allSightings.filter { $0.imageData != nil }
         }
     }
-    
+
     var body: some View {
         NavigationView {
             ZStack {
                 // Cosmic background
                 CosmicBackgroundView()
                     .ignoresSafeArea()
-                
+
                 ScrollView {
                     LazyVStack(spacing: 25) {
                         // Statistics section
                         statisticsSection
-                        
+
                         // Filter section
                         filterSection
-                        
+
                         // Sightings list
                         sightingsSection
                     }
                     .padding()
                 }
-                
+
                 // Floating action button
                 VStack {
                     Spacer()
@@ -80,12 +80,12 @@ struct SightingsView: View {
             .navigationBarTitleDisplayMode(.large)
             .onAppear {
                 // PERFORMANCE FIX: Defer heavy operations to prevent tab loading delays
-                
+
                 // Start animations immediately (lightweight)
                 withAnimation(.easeOut(duration: 0.8)) {
                     animateIn = true
                 }
-                
+
                 // Defer sightings loading by 0.8 seconds to prevent blocking
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     sightingsManager.loadSightings()
@@ -97,9 +97,9 @@ struct SightingsView: View {
             NewSightingView()
         }
     }
-    
+
     // MARK: - View Sections
-    
+
     private var statisticsSection: some View {
         VStack(spacing: 20) {
             HStack {
@@ -109,7 +109,7 @@ struct SightingsView: View {
                     .foregroundColor(.white)
                 Spacer()
             }
-            
+
             LazyVGrid(columns: [
                 GridItem(.flexible()),
                 GridItem(.flexible()),
@@ -121,14 +121,14 @@ struct SightingsView: View {
                     icon: "eye.fill",
                     color: .blue
                 )
-                
+
                 StatCard(
                     title: "This Week",
                     value: "\(getWeeklyCount())",
                     icon: "calendar.circle.fill",
                     color: .green
                 )
-                
+
                 StatCard(
                     title: "With Photos",
                     value: "\(getPhotoCount())",
@@ -141,7 +141,7 @@ struct SightingsView: View {
         .opacity(animateIn ? 1.0 : 0.0)
         .animation(.easeOut(duration: 0.6).delay(0.2), value: animateIn)
     }
-    
+
     private var filterSection: some View {
         VStack(spacing: 15) {
             HStack {
@@ -150,7 +150,7 @@ struct SightingsView: View {
                     .foregroundColor(.white)
                 Spacer()
             }
-            
+
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
                     ForEach(SightingFilter.allCases, id: \.self) { filter in
@@ -173,7 +173,7 @@ struct SightingsView: View {
         .opacity(animateIn ? 1.0 : 0.0)
         .animation(.easeOut(duration: 0.6).delay(0.4), value: animateIn)
     }
-    
+
     private var sightingsSection: some View {
         VStack(spacing: 20) {
             HStack {
@@ -185,7 +185,7 @@ struct SightingsView: View {
                     .font(.subheadline)
                     .foregroundColor(.white.opacity(0.8))
             }
-            
+
             if filteredSightings.isEmpty {
                 emptyStateView
             } else {
@@ -203,23 +203,23 @@ struct SightingsView: View {
         .opacity(animateIn ? 1.0 : 0.0)
         .animation(.easeOut(duration: 0.6).delay(0.6), value: animateIn)
     }
-    
+
     private var emptyStateView: some View {
         VStack(spacing: 20) {
             Image(systemName: "eye.slash")
                 .font(.system(size: 60))
                 .foregroundColor(.white.opacity(0.4))
-            
+
             Text("No sightings yet")
                 .font(.title2)
                 .fontWeight(.semibold)
                 .foregroundColor(.white)
-            
+
             Text("Start capturing the synchronicities around you")
                 .font(.body)
                 .foregroundColor(.white.opacity(0.8))
                 .multilineTextAlignment(.center)
-            
+
             Button(action: {
                 showingNewSighting = true
             }) {
@@ -248,7 +248,7 @@ struct SightingsView: View {
                 )
         )
     }
-    
+
     private var newSightingButton: some View {
         VStack(spacing: 8) {
             Button(action: {
@@ -265,14 +265,14 @@ struct SightingsView: View {
                         )
                         .frame(width: 66, height: 66)
                         .shadow(color: .purple.opacity(0.5), radius: 15, x: 0, y: 8)
-                    
+
                     Image(systemName: "plus")
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                 }
             }
-            
+
             Text("Add Sighting")
                 .font(.caption)
                 .fontWeight(.medium)
@@ -282,20 +282,20 @@ struct SightingsView: View {
         .scaleEffect(animateIn ? 1.0 : 0.0)
         .animation(.spring(response: 0.5, dampingFraction: 0.6).delay(0.3), value: animateIn)
     }
-    
+
     // MARK: - Helper Methods
-    
+
     private func getWeeklyCount() -> Int {
         let weekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
         return sightingsManager.sightings.filter { sighting in
             sighting.timestamp ?? Date() >= weekAgo
         }.count
     }
-    
+
     private func getPhotoCount() -> Int {
         return sightingsManager.sightings.filter { $0.imageData != nil }.count
     }
-    
+
     private func getSacredColor(for number: Int) -> Color {
         switch number {
         case 1: return .red
@@ -319,7 +319,7 @@ struct FilterChip: View {
     let isSelected: Bool
     var color: Color = .blue
     let action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             Text(title)
@@ -342,7 +342,7 @@ struct FilterChip: View {
 
 struct SightingCard: View {
     let sighting: Sighting
-    
+
     private var sacredColor: Color {
         switch sighting.numberSpotted {
         case 1: return .red
@@ -357,7 +357,7 @@ struct SightingCard: View {
         default: return .gray
         }
     }
-    
+
     var body: some View {
         HStack(spacing: 16) {
             // Number badge
@@ -375,39 +375,39 @@ struct SightingCard: View {
                         )
                     )
                     .frame(width: 50, height: 50)
-                
+
                 Text("\(sighting.numberSpotted)")
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
             }
-            
+
             // Content
             VStack(alignment: .leading, spacing: 6) {
                 Text(sighting.title ?? "Sighting")
                     .font(.headline)
                     .foregroundColor(.white)
-                
+
                 if let note = sighting.note, !note.isEmpty {
                     Text(note)
                         .font(.subheadline)
                         .foregroundColor(.white.opacity(0.8))
                         .lineLimit(2)
                 }
-                
+
                 HStack(spacing: 12) {
                     if sighting.imageData != nil {
                         Label("Photo", systemImage: "camera.fill")
                             .font(.caption)
                             .foregroundColor(sacredColor.opacity(0.8))
                     }
-                    
+
                     if let timestamp = sighting.timestamp {
                         Text(timestamp, style: .relative)
                             .font(.caption)
                             .foregroundColor(.white.opacity(0.6))
                     }
-                    
+
                     if sighting.locationName != nil {
                         Label(sighting.locationName ?? "", systemImage: "location.fill")
                             .font(.caption)
@@ -416,9 +416,9 @@ struct SightingCard: View {
                     }
                 }
             }
-            
+
             Spacer()
-            
+
             // Arrow
             Image(systemName: "chevron.right")
                 .font(.caption)
@@ -439,4 +439,4 @@ struct SightingCard: View {
 #Preview {
     SightingsView()
         .environmentObject(FocusNumberManager.shared)
-} 
+}

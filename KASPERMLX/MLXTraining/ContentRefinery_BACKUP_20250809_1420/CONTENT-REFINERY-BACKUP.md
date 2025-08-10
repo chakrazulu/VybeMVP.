@@ -4,12 +4,12 @@
 
 ## 📁 **Workflow Structure**
 
-### **Incoming** 
+### **Incoming**
 - Raw content from ChatGPT, Grok, Claude
 - New generation attempts
 - External spiritual content to evaluate
 
-### **Processing**  
+### **Processing**
 - Files under Claude's analysis and refinement
 - Quality audits in progress
 - Schema validation and formatting
@@ -31,7 +31,7 @@
 1. **Drop files in Incoming/** - ChatGPT/Grok output, dedupe results, etc.
 2. **Claude Opus Intensive Analysis:**
    - **READ EVERY SINGLE INSIGHT** - No skipping, full comprehension
-   - **GREP THE FUCK OUT OF DOCUMENTS** - Deep pattern analysis  
+   - **GREP THE FUCK OUT OF DOCUMENTS** - Deep pattern analysis
    - **JUDGE EACH LINE** - Quality assessment per insight
    - **SORT BY QUALITY**:
      - 🔥 **GREAT insights** → **Approved/** (A+ grade, ready for production)
@@ -42,7 +42,7 @@
 
 **QUALITY STANDARDS:**
 - **Spiritual Authenticity**: Respects traditional wisdom
-- **Practical Applicability**: Actionable daily guidance  
+- **Practical Applicability**: Actionable daily guidance
 - **Voice Consistency**: Maintains AI persona integrity
 - **Zero Hallucinations**: Fact-checked historical/spiritual references
 - **Unique Value**: No redundancy, every insight adds something

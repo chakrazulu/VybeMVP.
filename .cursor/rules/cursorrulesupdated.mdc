@@ -1,6 +1,6 @@
 ---
-description: 
-globs: 
+description:
+globs:
 alwaysApply: true
 ---
 Vybe Development Assistant Guidelines
@@ -99,18 +99,18 @@ We organize the checklist file by sprint or milestone. Each sprint can be a sect
 
 ## Sprint 5 – New Insight Feature and UI Polish
 
-- [ ] **Task:** Implement Chakra Alignment Animation  
-  **Owner:** Jane Doe  
-  **Date Assigned:** 2025-07-01  
-  **Related:** `ChakraView.swift` (UI)  
-  **Sprint:** 5  
+- [ ] **Task:** Implement Chakra Alignment Animation
+  **Owner:** Jane Doe
+  **Date Assigned:** 2025-07-01
+  **Related:** `ChakraView.swift` (UI)
+  **Sprint:** 5
   **Verification Log:** _(pending testing)_
 
-- [x] **Task:** Refactor Numerology Engine for Master Numbers  
-  **Owner:** John Smith  
-  **Date Assigned:** 2025-06-25  
-  **Related:** `NumerologyEngine.swift`  
-  **Sprint:** 5  
+- [x] **Task:** Refactor Numerology Engine for Master Numbers
+  **Owner:** John Smith
+  **Date Assigned:** 2025-06-25
+  **Related:** `NumerologyEngine.swift`
+  **Sprint:** 5
   **Verification Log:** Tested on iPhone 12 (2025-06-28), all master numbers preserved. ✅
 
 In the above example, tasks are grouped under “Sprint 5”. Each task entry provides a description and all relevant info. We use bold labels for the metadata to make it scannable. The second task is marked [x] (completed) and even includes a brief note in Verification Log that it was tested on a device and what the outcome was.

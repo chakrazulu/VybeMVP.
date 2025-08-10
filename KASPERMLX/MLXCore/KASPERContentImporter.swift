@@ -1,19 +1,19 @@
 /**
  * KASPERContentImporter.swift
- * 
+ *
  * 🎯 PHASE 0: CONTENT IMPORT SYSTEM
- * 
+ *
  * ✅ PURPOSE: Import existing Claude Rich and Grok content for KASPER training and NumberMeaningView
  * ✅ ARCHITECTURE: Bridge between existing spiritual content and KASPER MLX ecosystem
  * ✅ INTEGRATION: Feeds NumberMeaningView and KASPERTrainingExporter
- * 
+ *
  * CONTENT SOURCES:
  * - Claude Rich (CR1-CR44): Deep academic spiritual analysis (~10,000 words per number)
  * - Grok Structured: JSON with 180+ insights across 12 categories per number
- * 
+ *
  * DATA FLOW:
  * ImportedContent → ContentImporter → NumberMeaningContent → UI Display + MLX Training
- * 
+ *
  * WHY THIS IS REVOLUTIONARY:
  * - Instant access to 4,500+ existing spiritual insights
  * - Bootstrap KASPER training with high-quality content
@@ -35,7 +35,7 @@ public enum KASPERContentSource: String, CaseIterable, Codable {
     case grokNumerologyScholar = "grok_numerology_scholar"
     case kasperGenerated = "kasper_generated"
     case userFeedback = "user_feedback"
-    
+
     var displayName: String {
         switch self {
         case .claudeRich: return "Claude Academic Analysis"
@@ -48,7 +48,7 @@ public enum KASPERContentSource: String, CaseIterable, Codable {
         case .userFeedback: return "User Enhanced Content"
         }
     }
-    
+
     var spiritualVoice: String {
         switch self {
         case .claudeRich: return "Academic Scholar"
@@ -70,7 +70,7 @@ public enum GrokPersona: String, CaseIterable, Codable {
     case mindfulnessCoach = "MindfulnessCoach"
     case philosopher = "Philosopher"
     case numerologyScholar = "NumerologyScholar"
-    
+
     var contentSource: KASPERContentSource {
         switch self {
         case .oracle: return .grokOracle
@@ -80,7 +80,7 @@ public enum GrokPersona: String, CaseIterable, Codable {
         case .numerologyScholar: return .grokNumerologyScholar
         }
     }
-    
+
     var folderName: String {
         return rawValue
     }
@@ -93,22 +93,22 @@ public struct NumberMeaningContent: Codable, Identifiable {
     public let sources: [KASPERContentSource]
     public let createdDate: Date
     public let lastUpdated: Date
-    
+
     /// Claude: Rich academic content from Claude
     public let claudeContent: ClaudeRichContent?
-    
+
     /// Claude: Multi-persona insights from Grok
     public let grokPersonaContent: [GrokPersona: GrokStructuredContent]
-    
+
     /// Claude: Combined summary for quick access
     public let combinedSummary: String
-    
+
     /// Claude: Ready-to-display categorized content
     public let displayContent: NumberDisplayContent
-    
+
     /// Claude: Training-ready pairs for MLX
     public let trainingPairs: [KASPERTrainingPair]
-    
+
     public init(
         id: UUID = UUID(),
         number: Int,
@@ -146,7 +146,7 @@ public struct ClaudeRichContent: Codable {
     public let healingJourney: String
     public let cosmicConnection: String
     public let practicalApplication: String
-    
+
     /// Claude: Extract key themes for display
     public var keyThemes: [String] {
         // Will extract main themes from each section
@@ -168,7 +168,7 @@ public struct GrokStructuredContent: Codable {
     public let creativity: [String]        // Creative expression
     public let spirituality: [String]      // Sacred practices
     public let wisdom: [String]            // Ancient knowledge
-    
+
     /// Claude: Total content count across all categories
     public var totalContentCount: Int {
         insights.count + reflections.count + contemplations.count + manifestations.count +
@@ -187,7 +187,7 @@ public struct NumberDisplayContent: Codable {
     public let affirmation: String         // Powerful manifestation statement
     public let challenge: String           // Growth opportunity
     public let gift: String               // Natural talent to develop
-    
+
     /// Claude: For UI preview and quick access
     public var preview: String {
         "\(title): \(essence)"
@@ -202,7 +202,7 @@ public struct KASPERTrainingPair: Codable, Identifiable {
     public let source: KASPERContentSource
     public let quality: Float       // Quality score (0.0-1.0)
     public let domain: String       // Spiritual domain (insight, reflection, etc.)
-    
+
     public init(
         id: UUID = UUID(),
         context: String,
@@ -222,69 +222,69 @@ public struct KASPERTrainingPair: Codable, Identifiable {
 
 /**
  * KASPER CONTENT IMPORTER
- * 
+ *
  * Orchestrates the import and processing of existing spiritual content
  * from Claude Rich files and Grok structured JSON into KASPER-ready format.
  */
 @MainActor
 public final class KASPERContentImporter: ObservableObject {
-    
+
     // MARK: - Singleton
-    
+
     public static let shared = KASPERContentImporter()
-    
+
     // MARK: - Published Properties
-    
+
     @Published public private(set) var isImporting: Bool = false
     @Published public private(set) var importProgress: Float = 0.0
     @Published public private(set) var importedNumbers: Set<Int> = []
     @Published public private(set) var availableContent: [Int: NumberMeaningContent] = [:]
     @Published public private(set) var importErrors: [ImportError] = []
-    
+
     // MARK: - Private Properties
-    
+
     private let logger = Logger(subsystem: "com.VybeMVP.KASPERContentImporter", category: "import")
-    
+
     /// Claude: File system paths
     private let importedContentURL: URL
     private let claudeRichURL: URL
     private let grokStructuredURL: URL
-    
+
     /// Claude: Persona-specific URLs
     private let grokOracleURL: URL
     private let grokPsychologistURL: URL
     private let grokMindfulnessCoachURL: URL
     private let grokPhilosopherURL: URL
     private let grokNumerologyScholarURL: URL
-    
+
     /// Claude: Content cache for performance
     private var contentCache: [Int: NumberMeaningContent] = [:]
-    
+
     // MARK: - Initialization
-    
+
     private init() {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let projectURL = documentsURL.appendingPathComponent("../../../Documents/XcodeProjects/VybeMVP", isDirectory: true)
-        
+
         self.importedContentURL = projectURL.appendingPathComponent("NumerologyData/ImportedContent")
         self.claudeRichURL = importedContentURL.appendingPathComponent("ClaudeRichContent")
         self.grokStructuredURL = importedContentURL.appendingPathComponent("GrokStructuredContent")
-        
+
         // Persona-specific paths
         self.grokOracleURL = grokStructuredURL.appendingPathComponent("Oracle")
         self.grokPsychologistURL = grokStructuredURL.appendingPathComponent("Psychologist")
         self.grokMindfulnessCoachURL = grokStructuredURL.appendingPathComponent("MindfulnessCoach")
         self.grokPhilosopherURL = grokStructuredURL.appendingPathComponent("Philosopher")
         self.grokNumerologyScholarURL = grokStructuredURL.appendingPathComponent("NumerologyScholar")
-        
+
         logger.info("🎯 KASPERContentImporter initialized with multi-persona support")
-        
+
         // Load any existing imported content
         loadExistingContent()
     }
-    
+
     // MARK: - Public Import Interface
-    
+
     /**
      * Import all available content from Claude Rich and Grok files
      */
@@ -292,74 +292,74 @@ public final class KASPERContentImporter: ObservableObject {
         guard !isImporting else {
             throw ImportError.importAlreadyActive
         }
-        
+
         logger.info("🎯 Starting complete content import...")
-        
+
         isImporting = true
         importProgress = 0.0
         importErrors.removeAll()
-        
+
         do {
             // Import Claude Rich content (CR1-CR44)
             try await importClaudeRichContent()
-            
+
             // Import Grok structured content (when available)
             try await importGrokStructuredContent()
-            
+
             // Generate combined content and training pairs
             try await generateCombinedContent()
-            
+
             importProgress = 1.0
             logger.info("🎯 Content import completed successfully")
-            
+
         } catch {
             logger.error("🎯 Content import failed: \(error.localizedDescription)")
             importErrors.append(ImportError.importFailed(error.localizedDescription))
             throw error
         }
-        
+
         isImporting = false
     }
-    
+
     /**
      * Import content for a specific number
      */
     public func importContent(for number: Int) async throws -> NumberMeaningContent {
         logger.info("🎯 Importing content for number \(number)")
-        
+
         // Check cache first
         if let cachedContent = contentCache[number] {
             return cachedContent
         }
-        
+
         // Import from files
         let claudeContent = try await loadClaudeRichContent(for: number)
         let grokPersonaContent = try await loadAllGrokPersonaContent(for: number)
-        
+
         // Generate display content
         let displayContent = try await generateDisplayContent(
             number: number,
             claudeContent: claudeContent,
             grokPersonaContent: grokPersonaContent
         )
-        
+
         // Generate training pairs
         let trainingPairs = try await generateTrainingPairs(
             number: number,
             claudeContent: claudeContent,
             grokPersonaContent: grokPersonaContent
         )
-        
+
         // Create combined content
         let combinedSummary = generateCombinedSummary(
             claudeContent: claudeContent,
             grokPersonaContent: grokPersonaContent
         )
-        
+
         var sources: [KASPERContentSource] = []
         if claudeContent != nil { sources.append(.claudeRich) }
         sources.append(contentsOf: grokPersonaContent.keys.map { $0.contentSource })
-        
+
         let content = NumberMeaningContent(
             number: number,
             sources: sources,
@@ -369,16 +369,16 @@ public final class KASPERContentImporter: ObservableObject {
             displayContent: displayContent,
             trainingPairs: trainingPairs
         )
-        
+
         // Cache and store
         contentCache[number] = content
         availableContent[number] = content
         importedNumbers.insert(number)
-        
+
         logger.info("🎯 Successfully imported content for number \(number)")
         return content
     }
-    
+
     /**
      * Get content for NumberMeaningView display
      */
@@ -386,57 +386,57 @@ public final class KASPERContentImporter: ObservableObject {
         if let existingContent = availableContent[number] {
             return existingContent.displayContent
         }
-        
+
         let content = try await importContent(for: number)
         return content.displayContent
     }
-    
+
     /**
      * Get training pairs for KASPER MLX training
      */
     public func getTrainingPairs() -> [KASPERTrainingPair] {
         return availableContent.values.flatMap { $0.trainingPairs }
     }
-    
+
     // MARK: - Private Implementation
-    
+
     /**
      * Import all Claude Rich files (CR1-CR44)
      */
     private func importClaudeRichContent() async throws {
         logger.info("🎯 Importing Claude Rich content...")
-        
+
         let claudeFiles = try FileManager.default.contentsOfDirectory(at: claudeRichURL, includingPropertiesForKeys: nil)
         let crFiles = claudeFiles.filter { $0.lastPathComponent.hasPrefix("CR") && $0.pathExtension == "md" }
-        
+
         for (index, file) in crFiles.enumerated() {
             // Extract number from filename (CR1.md, CR2.md, etc.)
             let filename = file.lastPathComponent
             let numberString = filename.replacingOccurrences(of: "CR", with: "").replacingOccurrences(of: ".md", with: "")
-            
+
             if let number = Int(numberString) {
                 _ = try await importContent(for: number)
                 importProgress = Float(index + 1) / Float(crFiles.count) * 0.5 // First 50% for Claude
             }
         }
-        
+
         logger.info("🎯 Claude Rich content imported: \(crFiles.count) files")
     }
-    
+
     /**
      * Import all Grok persona-structured JSON files
      */
     private func importGrokStructuredContent() async throws {
         logger.info("🎯 Importing Grok multi-persona structured content...")
-        
+
         guard FileManager.default.fileExists(atPath: grokStructuredURL.path) else {
             logger.info("🎯 Grok structured content directory not found - skipping")
             return
         }
-        
+
         var totalFiles = 0
         var processedFiles = 0
-        
+
         // Count total files across all personas
         for persona in GrokPersona.allCases {
             let personaURL = grokStructuredURL.appendingPathComponent(persona.folderName)
@@ -445,52 +445,52 @@ public final class KASPERContentImporter: ObservableObject {
                 totalFiles += files.filter { $0.pathExtension == "json" || $0.pathExtension == "md" }.count
             }
         }
-        
+
         // Process each persona's content
         for persona in GrokPersona.allCases {
             let personaURL = grokStructuredURL.appendingPathComponent(persona.folderName)
-            
+
             guard FileManager.default.fileExists(atPath: personaURL.path) else {
                 logger.info("🎯 \(persona.rawValue) directory not found - skipping")
                 continue
             }
-            
+
             let personaFiles = try FileManager.default.contentsOfDirectory(at: personaURL, includingPropertiesForKeys: nil)
             let contentFiles = personaFiles.filter { $0.pathExtension == "json" || $0.pathExtension == "md" }
-            
+
             for _ in contentFiles {
                 // Process individual persona content files (JSON or MD)
                 processedFiles += 1
                 importProgress = 0.5 + (Float(processedFiles) / Float(totalFiles) * 0.5) // Second 50% for Grok
             }
-            
+
             logger.info("🎯 \(persona.rawValue) content imported: \(contentFiles.count) files")
         }
-        
+
         logger.info("🎯 Total Grok structured content imported: \(processedFiles) files across \(GrokPersona.allCases.count) personas")
     }
-    
+
     /**
      * Load Claude Rich content for a specific number
      */
     private func loadClaudeRichContent(for number: Int) async throws -> ClaudeRichContent? {
         let crFile = claudeRichURL.appendingPathComponent("CR\(number).md")
-        
+
         guard FileManager.default.fileExists(atPath: crFile.path) else {
             return nil
         }
-        
+
         let content = try String(contentsOf: crFile, encoding: .utf8)
         return try await parseClaudeRichMarkdown(content)
     }
-    
+
     /**
      * Parse Claude Rich markdown into structured content
      */
     private func parseClaudeRichMarkdown(_ markdown: String) async throws -> ClaudeRichContent {
         // This will parse the markdown sections into structured content
         // For now, we'll create a basic structure
-        
+
         return ClaudeRichContent(
             coreEssence: extractSection(from: markdown, header: "# Core Essence") ?? "",
             mysticalSignificance: extractSection(from: markdown, header: "# Mystical Significance") ?? "",
@@ -506,7 +506,7 @@ public final class KASPERContentImporter: ObservableObject {
             practicalApplication: extractSection(from: markdown, header: "# Practical Application") ?? ""
         )
     }
-    
+
     /**
      * Extract section content from markdown
      */
@@ -514,7 +514,7 @@ public final class KASPERContentImporter: ObservableObject {
         let lines = markdown.components(separatedBy: .newlines)
         var inSection = false
         var sectionContent: [String] = []
-        
+
         for line in lines {
             if line.starts(with: header) {
                 inSection = true
@@ -525,35 +525,35 @@ public final class KASPERContentImporter: ObservableObject {
                 sectionContent.append(line)
             }
         }
-        
+
         return sectionContent.isEmpty ? nil : sectionContent.joined(separator: "\n").trimmingCharacters(in: .whitespacesAndNewlines)
     }
-    
+
     /**
      * Load all Grok persona content for a specific number
      */
     private func loadAllGrokPersonaContent(for number: Int) async throws -> [GrokPersona: GrokStructuredContent] {
         var personaContent: [GrokPersona: GrokStructuredContent] = [:]
-        
+
         for persona in GrokPersona.allCases {
             if let content = try await loadGrokPersonaContent(for: number, persona: persona) {
                 personaContent[persona] = content
             }
         }
-        
+
         return personaContent
     }
-    
+
     /**
      * Load Grok content for a specific persona and number
      */
     private func loadGrokPersonaContent(for number: Int, persona: GrokPersona) async throws -> GrokStructuredContent? {
         let personaURL = grokStructuredURL.appendingPathComponent(persona.folderName)
-        
+
         // Try both .md and .json extensions
         let mdFile = personaURL.appendingPathComponent("\(persona.rawValue)_Number_\(number).md")
         let jsonFile = personaURL.appendingPathComponent("\(persona.rawValue)_Number_\(number).json")
-        
+
         if FileManager.default.fileExists(atPath: mdFile.path) {
             let content = try String(contentsOf: mdFile, encoding: .utf8)
             return try await parseGrokMarkdown(content, persona: persona)
@@ -561,17 +561,17 @@ public final class KASPERContentImporter: ObservableObject {
             let data = try Data(contentsOf: jsonFile)
             return try JSONDecoder().decode(GrokStructuredContent.self, from: data)
         }
-        
+
         return nil
     }
-    
+
     /**
      * Parse Grok persona markdown into structured content
      */
     private func parseGrokMarkdown(_ markdown: String, persona: GrokPersona) async throws -> GrokStructuredContent {
         // Parse the 12-category structure from Grok markdown
         // This will extract insights, reflections, contemplations, etc. based on your format
-        
+
         let insights = extractGrokSection(from: markdown, category: "insight") ?? []
         let reflections = extractGrokSection(from: markdown, category: "reflection") ?? []
         let contemplations = extractGrokSection(from: markdown, category: "contemplation") ?? []
@@ -584,7 +584,7 @@ public final class KASPERContentImporter: ObservableObject {
         let creativity = extractGrokSection(from: markdown, category: "creativity") ?? []
         let spirituality = extractGrokSection(from: markdown, category: "spirituality") ?? []
         let wisdom = extractGrokSection(from: markdown, category: "wisdom") ?? []
-        
+
         return GrokStructuredContent(
             insights: insights,
             reflections: reflections,
@@ -600,7 +600,7 @@ public final class KASPERContentImporter: ObservableObject {
             wisdom: wisdom
         )
     }
-    
+
     /**
      * Extract specific category content from Grok markdown
      */
@@ -608,7 +608,7 @@ public final class KASPERContentImporter: ObservableObject {
         let lines = markdown.components(separatedBy: .newlines)
         var inSection = false
         var sectionContent: [String] = []
-        
+
         // Look for category headers (flexible matching)
         let categoryHeaders = [
             "# \(category.capitalized)",
@@ -618,10 +618,10 @@ public final class KASPERContentImporter: ObservableObject {
             "## \(category)s",
             "### \(category)s"
         ]
-        
+
         for line in lines {
             let trimmedLine = line.trimmingCharacters(in: .whitespacesAndNewlines)
-            
+
             // Check if we're entering our target section
             if categoryHeaders.contains(where: { trimmedLine.lowercased().contains($0.lowercased()) }) {
                 inSection = true
@@ -646,10 +646,10 @@ public final class KASPERContentImporter: ObservableObject {
                 }
             }
         }
-        
+
         return sectionContent.isEmpty ? nil : sectionContent
     }
-    
+
     /**
      * Generate display content for NumberMeaningView
      */
@@ -658,17 +658,17 @@ public final class KASPERContentImporter: ObservableObject {
         claudeContent: ClaudeRichContent?,
         grokPersonaContent: [GrokPersona: GrokStructuredContent]
     ) async throws -> NumberDisplayContent {
-        
+
         // Generate from available content
         let title = getTitleForNumber(number)
         let essence = claudeContent?.coreEssence.prefix(200).appending("...") ?? "Spiritual essence of number \(number)"
-        
+
         // Combine insights from all personas
         var allInsights: [String] = []
         for content in grokPersonaContent.values {
             allInsights.append(contentsOf: content.insights)
         }
-        
+
         var keyInsights = Array(allInsights.prefix(5))
         if keyInsights.isEmpty {
             // Fallback insights
@@ -680,13 +680,13 @@ public final class KASPERContentImporter: ObservableObject {
                 "Embrace your authentic path"
             ]
         }
-        
+
         // Get content from different personas for variety
         let oracleContent = grokPersonaContent[.oracle]
         let mindfulnessContent = grokPersonaContent[.mindfulnessCoach]
         let psychologistContent = grokPersonaContent[.psychologist]
         let philosopherContent = grokPersonaContent[.philosopher]
-        
+
         return NumberDisplayContent(
             title: title,
             essence: String(essence),
@@ -698,7 +698,7 @@ public final class KASPERContentImporter: ObservableObject {
             gift: philosopherContent?.gifts.first ?? "Your authentic self is your greatest gift"
         )
     }
-    
+
     /**
      * Generate training pairs for MLX learning
      */
@@ -707,14 +707,14 @@ public final class KASPERContentImporter: ObservableObject {
         claudeContent: ClaudeRichContent?,
         grokPersonaContent: [GrokPersona: GrokStructuredContent]
     ) async throws -> [KASPERTrainingPair] {
-        
+
         var pairs: [KASPERTrainingPair] = []
-        
+
         // Generate pairs from each Grok persona
         for (persona, content) in grokPersonaContent {
             let source = persona.contentSource
             let voice = source.spiritualVoice
-            
+
             // Add insights with persona context
             for insight in content.insights.prefix(5) {
                 pairs.append(KASPERTrainingPair(
@@ -724,7 +724,7 @@ public final class KASPERContentImporter: ObservableObject {
                     domain: "insight"
                 ))
             }
-            
+
             // Add reflections
             for reflection in content.reflections.prefix(3) {
                 pairs.append(KASPERTrainingPair(
@@ -734,7 +734,7 @@ public final class KASPERContentImporter: ObservableObject {
                     domain: "reflection"
                 ))
             }
-            
+
             // Add contemplations
             for contemplation in content.contemplations.prefix(2) {
                 pairs.append(KASPERTrainingPair(
@@ -744,7 +744,7 @@ public final class KASPERContentImporter: ObservableObject {
                     domain: "contemplation"
                 ))
             }
-            
+
             // Add manifestations/affirmations
             for manifestation in content.manifestations.prefix(2) {
                 pairs.append(KASPERTrainingPair(
@@ -755,7 +755,7 @@ public final class KASPERContentImporter: ObservableObject {
                 ))
             }
         }
-        
+
         // Generate pairs from Claude content with academic voice
         if let claudeContent = claudeContent {
             pairs.append(KASPERTrainingPair(
@@ -764,14 +764,14 @@ public final class KASPERContentImporter: ObservableObject {
                 source: .claudeRich,
                 domain: "essence"
             ))
-            
+
             pairs.append(KASPERTrainingPair(
                 context: "What are the mystical aspects of number \(number)?",
                 response: claudeContent.mysticalSignificance,
                 source: .claudeRich,
                 domain: "mystical"
             ))
-            
+
             pairs.append(KASPERTrainingPair(
                 context: "How does number \(number) influence relationships?",
                 response: claudeContent.relationshipDynamics,
@@ -779,10 +779,10 @@ public final class KASPERContentImporter: ObservableObject {
                 domain: "relationships"
             ))
         }
-        
+
         return pairs
     }
-    
+
     /**
      * Generate combined summary
      */
@@ -791,27 +791,27 @@ public final class KASPERContentImporter: ObservableObject {
         grokPersonaContent: [GrokPersona: GrokStructuredContent]
     ) -> String {
         var summary = ""
-        
+
         if let claudeContent = claudeContent {
             summary += "🎓 Academic Analysis: \(claudeContent.coreEssence.prefix(100))...\n\n"
         }
-        
+
         if !grokPersonaContent.isEmpty {
             summary += "🎭 Multi-Persona Insights:\n"
-            
+
             var totalContent = 0
             for (persona, content) in grokPersonaContent {
                 let count = content.totalContentCount
                 totalContent += count
                 summary += "• \(persona.contentSource.spiritualVoice): \(count) insights\n"
             }
-            
+
             summary += "\n📊 Total: \(totalContent) structured spiritual guidance messages across \(grokPersonaContent.count) personas"
         }
-        
+
         return summary
     }
-    
+
     /**
      * Get title for number
      */
@@ -833,7 +833,7 @@ public final class KASPERContentImporter: ObservableObject {
         default: return "The Guide"
         }
     }
-    
+
     /**
      * Load any existing imported content
      */
@@ -841,7 +841,7 @@ public final class KASPERContentImporter: ObservableObject {
         // Implementation for loading previously imported content
         logger.info("🎯 Loading existing imported content...")
     }
-    
+
     /**
      * Generate combined content from all sources
      */
@@ -859,7 +859,7 @@ public enum ImportError: LocalizedError, Identifiable {
     case fileNotFound(String)
     case parseError(String)
     case importFailed(String)
-    
+
     public var id: String {
         switch self {
         case .importAlreadyActive: return "import_active"
@@ -868,7 +868,7 @@ public enum ImportError: LocalizedError, Identifiable {
         case .importFailed(let error): return "import_failed_\(error)"
         }
     }
-    
+
     public var errorDescription: String? {
         switch self {
         case .importAlreadyActive:

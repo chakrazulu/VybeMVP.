@@ -1,9 +1,9 @@
 /**
  * Filename: MandalaBackgroundView.swift
- * 
+ *
  * Purpose: Displays dynamic sacred geometry backgrounds using the new SacredGeometryAsset system
  * with aesthetic-first design and mystical significance hidden beneath beautiful visuals.
- * 
+ *
  * Design pattern: SwiftUI view component with sacred geometry integration
  * Dependencies: SwiftUI, SacredGeometryAssets
  * EDIT TEST: Tool is working! ✅
@@ -18,15 +18,15 @@ import SwiftUI
 struct MandalaBackgroundView: View {
     let number: Int
     let size: CGFloat
-    
+
     // Realm number for advanced calculations (optional)
     var realmNumber: Int = 0
-    
+
     // Animation and variation state
     @State private var rotationAngle: Double = 0
     @State private var pulseScale: Double = 1.0
     @State private var sessionSeed: Int = Int.random(in: 1...1000)
-    
+
     // Sacred geometry selection
     private var selectedAsset: SacredGeometryAsset {
         if realmNumber > 0 {
@@ -40,23 +40,23 @@ struct MandalaBackgroundView: View {
             // Simple focus number selection
             let assets = SacredGeometryAsset.assets(for: number)
             guard !assets.isEmpty else { return .wisdomEnneagram }
-            
+
             // Session-based variation (same mandala for the session)
             let index = (sessionSeed + number) % assets.count
             return assets[index]
         }
     }
-    
+
     // Complementary asset for layering
     private var layerAsset: SacredGeometryAsset? {
         let assets = SacredGeometryAsset.assets(for: number)
         guard assets.count > 1 else { return nil }
-        
+
         // Select different asset from same number group for layering
         let index = (sessionSeed + number + 1) % assets.count
         return assets[index]
     }
-    
+
     var body: some View {
         // Simple single sacred geometry image
         selectedAsset.image
@@ -73,26 +73,26 @@ struct MandalaBackgroundView: View {
                 sessionSeed = Int.random(in: 1...1000)
             }
     }
-    
+
     // MARK: - Animation and Effects
-    
+
     private func startSubtleAnimations() {
         // Gentle rotation based on sacred timing
         let timing = selectedAsset.sacredTiming
         let rotationSpeed = timing.bestHours.first ?? 12
-        
+
         withAnimation(.linear(duration: Double(rotationSpeed * 10)).repeatForever(autoreverses: false)) {
             rotationAngle = 360
         }
-        
+
         // Subtle breathing pulse
         withAnimation(.easeInOut(duration: 4.0).repeatForever(autoreverses: true)) {
             pulseScale = 1.05
         }
     }
-    
+
     // MARK: - Sacred Color System
-    
+
     private func getSacredColor(for number: Int) -> Color {
         switch number {
         case 0: return Color.purple // Void/infinite potential
@@ -108,13 +108,13 @@ struct MandalaBackgroundView: View {
         default: return Color.white
         }
     }
-    
+
     // MARK: - Contextual Helpers
-    
+
     private func getCurrentIntention() -> SacredGeometryAsset.SacredIntention {
         // Could be enhanced to read user's current intention from UserDefaults or state
         let hour = Calendar.current.component(.hour, from: Date())
-        
+
         switch hour {
         case 5...8: return .manifestation    // Morning - creative energy
         case 9...11: return .wisdom          // Late morning - learning
@@ -138,7 +138,7 @@ struct SacredGeometryLayerView: View {
     let opacity: Double
     let size: CGFloat
     let blendMode: BlendMode
-    
+
     var body: some View {
         asset.image
             .resizable()
@@ -159,7 +159,7 @@ extension MandalaBackgroundView {
         self.realmNumber = realmNumber
         self.size = size
     }
-    
+
     /// Initialize with just focus number for simple calculation
     init(number: Int, size: CGFloat) {
         self.number = number
@@ -177,10 +177,10 @@ struct MandalaBackgroundView_Previews: PreviewProvider {
             VStack(spacing: 30) {
                 // Simple focus number
                 MandalaBackgroundView(number: 6, size: 300)
-                
+
                 // Advanced with focus + realm
                 MandalaBackgroundView(focusNumber: 3, realmNumber: 7, size: 200)
             }
         }
     }
-} 
+}

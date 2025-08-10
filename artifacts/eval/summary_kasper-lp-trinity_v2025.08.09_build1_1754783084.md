@@ -1,13 +1,13 @@
 # KASPER MLX Evaluation Summary
 
-**Release:** kasper-lp-trinity_v2025.08.09_build1  
-**Timestamp:** 1754783084  
-**Evaluated:** 39/39 samples  
+**Release:** kasper-lp-trinity_v2025.08.09_build1
+**Timestamp:** 1754783084
+**Evaluated:** 39/39 samples
 
 ## Results
 
-**Average Score:** 89.25/100  
-**Threshold:** 90/100  
+**Average Score:** 89.25/100
+**Threshold:** 90/100
 **Verdict:** FAIL ❌
 
 ## Score Breakdown
@@ -16,13 +16,13 @@
 |-----------|--------|-----------|
 | Fidelity | 35% | 88.0 |
 | Actionability | 25% | 85.0 |
-| Tone | 20% | 92.0 |  
+| Tone | 20% | 92.0 |
 | Safety | 20% | 94.0 |
 
 ## Judge Configuration
 
-**Mode:** stub  
-**Sampling Seed:** 42  
+**Mode:** stub
+**Sampling Seed:** 42
 **Sample Size:** 60
 
 ---

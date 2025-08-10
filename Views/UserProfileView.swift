@@ -1,6 +1,6 @@
 /**
  * Filename: UserProfileView.swift
- * 
+ *
  * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
  *
  * === PHASE 3C-3 ENHANCEMENT: PROFILE DATA CONNECTION ===
@@ -72,13 +72,13 @@ import Combine
 
 /**
  * UserProfileView: Modern Twitter-style social profile interface
- * 
+ *
  * Purpose:
  * - Display user's social profile with clean Twitter-style layout
  * - Provide access to social features and profile editing
  * - Show user stats and content in organized tabs
  * - Foundation for future social features (friends, posts, etc.)
- * 
+ *
  * Design Philosophy:
  * - Twitter-inspired layout with cosmic theming
  * - Clean, modern interface focused on usability
@@ -86,14 +86,14 @@ import Combine
  * - Extensible foundation for social feature expansion
  */
 struct UserProfileView: View {
-    
+
     // MARK: - Navigation Properties
-    
+
     /// Tab selection binding for navigation to other tabs
     @Binding var selectedTab: Int
-    
+
     // MARK: - Environment Objects for Data Access
-    
+
     /// Access to focus number and match data
     @EnvironmentObject var focusNumberManager: FocusNumberManager
     /// Access to social posts and timeline
@@ -102,36 +102,36 @@ struct UserProfileView: View {
     @EnvironmentObject var aiInsightManager: AIInsightManager
     /// Access to user authentication and profile data
     @EnvironmentObject var signInViewModel: SignInViewModel
-    
+
     // MARK: - State Properties
-    
+
     /// User's profile data (loaded from user's actual profile setup)
     @State private var displayName: String = ""
     @State private var username: String = ""
     @State private var bio: String = ""
     @State private var avatarImage: UIImage?
-    
+
     /// Social stats (future integration with social managers)
     @State private var friendsCount: Int = 42
     @State private var matchesCount: Int = 108
     @State private var xpLevel: Int = 7
     @State private var insightsCount: Int = 23
-    
+
     /// UI state
     @State private var selectedContentTab: ContentTab = .posts
     @State private var showingEditProfile = false
     @State private var showingSettings = false
-    
+
     /// Track if user has created their first post
     @State private var hasCreatedFirstPost = false
-    
+
     // MARK: - Content Tab Types
-    
+
     enum ContentTab: String, CaseIterable {
         case posts = "Posts"
         case insights = "Insights"
         case activity = "Activity"
-        
+
         var icon: String {
             switch self {
             case .posts: return "doc.text"
@@ -140,7 +140,7 @@ struct UserProfileView: View {
             }
         }
     }
-    
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -152,21 +152,21 @@ struct UserProfileView: View {
                             profileHeaderSection
                                 .padding(.horizontal, 16)
                                 .padding(.top, 16)
-                            
+
                             // Action Buttons Section
                             actionButtonsSection
                                 .padding(.horizontal, 16)
                                 .padding(.top, 16)
-                            
+
                             // Stats Row Section
                             statsRowSection
                                 .padding(.horizontal, 16)
                                 .padding(.top, 20)
-                            
+
                             // Content Tabs Section
                             contentTabsSection
                                 .padding(.top, 24)
-                            
+
                             // Content Display Section
                             contentDisplaySection
                                 .padding(.horizontal, 16)
@@ -199,13 +199,13 @@ struct UserProfileView: View {
                 // PHASE 3C-1 FIX: Update post button state when user creates first post
                 // Triggered by PostComposerView after successful post creation
                 hasCreatedFirstPost = true
-                
+
                 // PERSISTENCE: Save state to UserDefaults for app restart persistence
                 // This ensures button text persists between app launches
                 UserDefaults.standard.set(true, forKey: "hasCreatedFirstPost")
-                
+
                 print("📝 User created first post - updating button text and persisting state")
-                
+
                 // HAPTIC FEEDBACK: Provide tactile confirmation of state change
                 let impactFeedback = UIImpactFeedbackGenerator(style: .light)
                 impactFeedback.impactOccurred()
@@ -221,40 +221,40 @@ struct UserProfileView: View {
             }
         }
     }
-    
+
     // MARK: - Helper Functions
-    
+
     /**
      * Check if user has created posts before
-     * 
+     *
      * IMPLEMENTATION DETAILS:
      * - Uses UserDefaults for persistent state across app launches
      * - Key: "hasCreatedFirstPost" stores boolean value
      * - Called on view appearance to restore previous state
      * - Future enhancement: Integrate with PostManager for real-time data
-     * 
+     *
      * PERSISTENCE STRATEGY:
      * - UserDefaults provides immediate local storage
      * - State survives app restarts and view reloads
      * - Compatible with future Firebase/CoreData integration
-     * 
+     *
      * @see UserDefaults.standard.set() in NotificationCenter listener
      * @see PostManager.shared.posts for future real-time checking
      */
     private func checkForExistingPosts() {
         // Check UserDefaults for persistent state
         hasCreatedFirstPost = UserDefaults.standard.bool(forKey: "hasCreatedFirstPost")
-        
+
         // Future: Could also check PostManager.shared.posts for current user
         // let userPosts = PostManager.shared.posts.filter { $0.authorName == displayName }
         // hasCreatedFirstPost = !userPosts.isEmpty
-        
+
         print("🔍 UserProfileView: Checked existing posts - hasCreatedFirstPost: \(hasCreatedFirstPost)")
     }
-    
+
     /**
      * Load user's profile data from UserDefaults
-     * 
+     *
      * Loads the profile data saved during ProfileSetupView completion.
      * Falls back to default values if no profile data is found.
      */
@@ -268,12 +268,12 @@ struct UserProfileView: View {
             }
             return
         }
-        
+
         print("🔍 Loading profile data for Firebase UID: \(userID)")
-        
+
         // Claude: PHASE 6 MIGRATION - Load with fallback to legacy Apple Sign-In ID
         var foundData = false
-        
+
         // STEP 1: Try to load with new Firebase UID key
         if let profileData = UserDefaults.standard.dictionary(forKey: "socialProfile_\(userID)") {
             displayName = profileData["displayName"] as? String ?? ""
@@ -290,12 +290,12 @@ struct UserProfileView: View {
             bio = profileData["bio"] as? String ?? ""
             foundData = true
             print("✅ Loaded profile data with legacy Apple ID: \(legacyUserID)")
-            
+
             // MIGRATION: Copy data to new Firebase UID key
             UserDefaults.standard.set(profileData, forKey: "socialProfile_\(userID)")
             print("🔄 Migrated profile data from Apple ID to Firebase UID key")
         }
-        
+
         if !foundData {
             print("ℹ️ No profile data found for Firebase UID: \(userID) - using defaults")
             // Set minimal defaults if no profile setup completed
@@ -307,12 +307,12 @@ struct UserProfileView: View {
             print("   Username: \(username)")
             print("   Bio: \(bio)")
         }
-        
+
         // TODO: Load avatar image from Documents directory or Firebase Storage
     }
-    
+
     // MARK: - Profile Header Section
-    
+
     private var profileHeaderSection: some View {
         VStack(spacing: 16) {
             // Avatar with Cosmic Glow
@@ -332,7 +332,7 @@ struct UserProfileView: View {
                         )
                     )
                     .frame(width: 140, height: 140)
-                
+
                 // Avatar Circle
                 Group {
                     if let avatarImage = avatarImage {
@@ -350,7 +350,7 @@ struct UserProfileView: View {
                                         endPoint: .bottomTrailing
                                     )
                                 )
-                            
+
                             Image(systemName: "person.circle.fill")
                                 .font(.system(size: 60))
                                 .foregroundColor(.white.opacity(0.8))
@@ -365,7 +365,7 @@ struct UserProfileView: View {
                 )
                 .shadow(color: .purple.opacity(0.5), radius: 10, x: 0, y: 5)
             }
-            
+
             // User Identity
             VStack(spacing: 8) {
                 // Display Name
@@ -374,13 +374,13 @@ struct UserProfileView: View {
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
-                
+
                 // Username display (creation moved to settings)
                 Text(username)
                     .font(.subheadline)
                     .foregroundColor(.purple)
                     .fontWeight(.medium)
-                
+
                 // Bio
                 if !bio.isEmpty {
                     Text(bio)
@@ -394,9 +394,9 @@ struct UserProfileView: View {
             }
         }
     }
-    
+
     // MARK: - Action Buttons Section
-    
+
     private var actionButtonsSection: some View {
         HStack(spacing: 12) {
             // Edit Profile Button
@@ -423,7 +423,7 @@ struct UserProfileView: View {
                 )
                 .foregroundColor(.white)
             }
-            
+
             // Settings Button
             Button(action: {
                 showingSettings = true
@@ -445,9 +445,9 @@ struct UserProfileView: View {
             }
         }
     }
-    
+
     // MARK: - Stats Row Section
-    
+
     private var statsRowSection: some View {
         HStack(spacing: 0) {
             // Friends Stat
@@ -464,12 +464,12 @@ struct UserProfileView: View {
                 )
             }
             .buttonStyle(PlainButtonStyle())
-            
+
             Divider()
                 .background(Color.white.opacity(0.2))
                 .frame(height: 40)
-            
-            // Matches Stat  
+
+            // Matches Stat
             Button(action: {
                 // Navigate to Analytics tab for nested analytics view (cosmic matches)
                 selectedTab = 8
@@ -484,11 +484,11 @@ struct UserProfileView: View {
                 )
             }
             .buttonStyle(PlainButtonStyle())
-            
+
             Divider()
                 .background(Color.white.opacity(0.2))
                 .frame(height: 40)
-            
+
             // XP Level Stat
             Button(action: {
                 // TODO: Navigate to XP/achievements (future feature)
@@ -503,11 +503,11 @@ struct UserProfileView: View {
                 )
             }
             .buttonStyle(PlainButtonStyle())
-            
+
             Divider()
                 .background(Color.white.opacity(0.2))
                 .frame(height: 40)
-            
+
             // Insights Stat
             Button(action: {
                 // Navigate to Activity tab (insights view)
@@ -534,14 +534,14 @@ struct UserProfileView: View {
                 )
         )
     }
-    
+
     private func statCard(number: Int, label: String, color: Color) -> some View {
         VStack(spacing: 4) {
             Text("\(number)")
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(color)
-            
+
             Text(label)
                 .font(.caption)
                 .foregroundColor(.white.opacity(0.7))
@@ -550,9 +550,9 @@ struct UserProfileView: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 8)
     }
-    
+
     // MARK: - Content Tabs Section
-    
+
     private var contentTabsSection: some View {
         VStack(spacing: 16) {
             // Tab Selector
@@ -593,9 +593,9 @@ struct UserProfileView: View {
         }
         .padding(.horizontal, 16)
     }
-    
+
     // MARK: - Content Display Section
-    
+
     private var contentDisplaySection: some View {
         VStack(spacing: 20) {
             switch selectedContentTab {
@@ -619,20 +619,20 @@ struct UserProfileView: View {
                 )
         )
     }
-    
+
     // MARK: - Content Views
-    
+
     /// **POSTS TAB CONTENT - SOCIAL MEDIA INTEGRATION**
-    /// 
+    ///
     /// **Phase 3C-3 Enhancement:** Connected to real social posts from PostManager
     /// instead of static placeholder content. Displays user's posts with full
     /// reaction system support and dynamic empty state transitions.
-    /// 
+    ///
     /// **Data Flow:**
     /// - PostManager.posts: All social posts in the system
     /// - AuthenticationManager.shared.userID: Current user authentication ID (Firebase UID)
     /// - userPosts computed property: Filtered posts by current user
-    /// 
+    ///
     /// **User Experience:**
     /// - Empty state with "Create First Post" call-to-action
     /// - Post list with engagement features (reactions, comments)
@@ -649,39 +649,39 @@ struct UserProfileView: View {
             }
         }
     }
-    
+
     // MARK: - User Posts Computed Property
-    
+
     /// **USER POSTS DATA SOURCE**
-    /// 
+    ///
     /// **Phase 3C-3 Implementation:** Filters PostManager.posts to show only
     /// posts authored by the current authenticated user. Uses AuthenticationManager.shared.userID
     /// for proper authentication-based filtering (Firebase UID consistency).
-    /// 
+    ///
     /// **Returns:** Array of Post objects authored by current user
     /// **Memory Safe:** Uses computed property to prevent memory leaks
     private var userPosts: [Post] {
         guard let currentUserId = AuthenticationManager.shared.userID else { return [] }
         return postManager.posts.filter { $0.authorId == currentUserId }
     }
-    
+
     // MARK: - Posts Content Views
-    
+
     private var emptyPostsState: some View {
         VStack(spacing: 16) {
             Image(systemName: "doc.text")
                 .font(.system(size: 40))
                 .foregroundColor(.purple.opacity(0.6))
-            
+
             Text("No Posts Yet")
                 .font(.headline)
                 .foregroundColor(.white)
-            
+
             Text("Share your spiritual journey with the Vybe community")
                 .font(.subheadline)
                 .foregroundColor(.white.opacity(0.7))
                 .multilineTextAlignment(.center)
-            
+
             Button(action: {
                 navigateToCreatePost()
             }) {
@@ -701,7 +701,7 @@ struct UserProfileView: View {
             }
         }
     }
-    
+
     private var userPostsList: some View {
         VStack(spacing: 16) {
             // Header with post count and create button
@@ -709,9 +709,9 @@ struct UserProfileView: View {
                 Text("\(userPosts.count) Posts")
                     .font(.headline)
                     .foregroundColor(.white)
-                
+
                 Spacer()
-                
+
                 Button(action: {
                     navigateToCreatePost()
                 }) {
@@ -730,7 +730,7 @@ struct UserProfileView: View {
                     )
                 }
             }
-            
+
             // Posts list
             LazyVStack(spacing: 12) {
                 ForEach(userPosts) { post in
@@ -755,34 +755,34 @@ struct UserProfileView: View {
             }
         }
     }
-    
+
     // MARK: - Helper Methods
-    
+
     private func navigateToCreatePost() {
         // Navigate to Timeline tab (tag 2) for post composition
         selectedTab = 2
-        
+
         // Pass user information to fix username vs birth name issue
         let userInfo = [
             "authorName": username,
             "authorDisplayName": displayName
         ]
         NotificationCenter.default.post(
-            name: Notification.Name("TriggerPostComposer"), 
-            object: nil, 
+            name: Notification.Name("TriggerPostComposer"),
+            object: nil,
             userInfo: userInfo
         )
         print("📝 Navigating to Timeline tab and triggering post composer")
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
         impactFeedback.impactOccurred()
     }
-    
+
     private func getCurrentSocialUser() -> SocialUser {
         // Claude: REAL USER DATA INTEGRATION - Load actual numerology from UserProfileService
         // This fixes the hardcoded 3,5,7 placeholder issue identified in data audit
-        
+
         let userID = AuthenticationManager.shared.userID ?? "unknown"
-        
+
         // Load real user profile data from UserProfileService cache
         if let userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID) {
             // Use real numerology data from user's onboarding profile
@@ -807,13 +807,13 @@ struct UserProfileView: View {
             )
         }
     }
-    
+
     private func getCurrentCosmicSignature() -> CosmicSignature {
         // Claude: REAL USER DATA INTEGRATION - Load actual numerology from UserProfileService
         // This fixes hardcoded placeholder values for cosmic signature calculations
-        
+
         let userID = AuthenticationManager.shared.userID ?? "unknown"
-        
+
         // Load real user profile data for cosmic signature
         if let userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID) {
             return CosmicSignature(
@@ -833,19 +833,19 @@ struct UserProfileView: View {
             )
         }
     }
-    
+
     /// **INSIGHTS TAB CONTENT - AI INSIGHT INTEGRATION**
-    /// 
+    ///
     /// **Phase 3C-3 Enhancement:** Connected to real AI insights from AIInsightManager
     /// instead of static placeholder content. Displays personalized daily insights
     /// with score indicators, spiritual tags, and share functionality.
-    /// 
+    ///
     /// **Data Flow:**
     /// - AIInsightManager.personalizedDailyInsight: Current insight content
     /// - AIInsightManager.isInsightReady: Loading state management
     /// - PreparedInsight.source.score: AI confidence percentage (0-10 scale)
     /// - PreparedInsight.source.matchedFocusTags: Spiritual categorization tags
-    /// 
+    ///
     /// **User Experience:**
     /// - Loading states with progress indicators
     /// - Share to timeline pre-populating post composer
@@ -862,20 +862,20 @@ struct UserProfileView: View {
             }
         }
     }
-    
+
     // MARK: - Insights Display Views
-    
+
     /// **TODAY'S INSIGHT DISPLAY - COMPREHENSIVE AI INSIGHT PRESENTATION**
-    /// 
+    ///
     /// **Phase 3C-3 Implementation:** Complete insight display with AI metadata,
     /// spiritual tags, and interactive action buttons for user engagement.
-    /// 
+    ///
     /// **Components:**
     /// - Header: Date and AI confidence score indicator
     /// - Content: Full insight text with proper line spacing
     /// - Tags: Spiritual focus tags from AI matching algorithm
     /// - Actions: View All (Activity tab) and Share (Timeline) buttons
-    /// 
+    ///
     /// **Technical Details:**
     /// - Score calculation: (insight.source?.score ?? 0) * 10 for percentage display
     /// - Tag source: insight.source?.matchedFocusTags for spiritual categorization
@@ -889,20 +889,20 @@ struct UserProfileView: View {
                     Text("Today's Spiritual Insight")
                         .font(.headline)
                         .foregroundColor(.yellow)
-                    
+
                     Text(Date(), style: .date)
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.7))
                 }
-                
+
                 Spacer()
-                
+
                                   // Insight score indicator
                   VStack(spacing: 2) {
                       Text("Score")
                           .font(.caption2)
                           .foregroundColor(.white.opacity(0.6))
-                      
+
                       Text("\(Int((insight.source?.score ?? 0) * 10))%")
                           .font(.caption)
                           .fontWeight(.bold)
@@ -915,7 +915,7 @@ struct UserProfileView: View {
                         .fill(Color.yellow.opacity(0.2))
                 )
             }
-            
+
             // Insight content
             VStack(spacing: 12) {
                 Text(insight.text)
@@ -924,7 +924,7 @@ struct UserProfileView: View {
                     .multilineTextAlignment(.leading)
                     .lineSpacing(4)
                     .fixedSize(horizontal: false, vertical: true)
-                
+
                                   // Tags if available
                   if let tags = insight.source?.matchedFocusTags, !tags.isEmpty {
                       HStack {
@@ -952,7 +952,7 @@ struct UserProfileView: View {
                             .stroke(Color.yellow.opacity(0.3), lineWidth: 1)
                     )
             )
-            
+
             // Action buttons
             HStack(spacing: 12) {
                 Button(action: {
@@ -976,7 +976,7 @@ struct UserProfileView: View {
                             .fill(Color.yellow.opacity(0.3))
                     )
                 }
-                
+
                 Button(action: {
                     // Share insight to timeline
                     navigateToShareInsight(insight: insight)
@@ -995,12 +995,12 @@ struct UserProfileView: View {
                             .fill(Color.purple.opacity(0.4))
                     )
                 }
-                
+
                 Spacer()
             }
         }
     }
-    
+
     private var insightsLoadingState: some View {
         VStack(spacing: 16) {
             if aiInsightManager.isInsightReady {
@@ -1008,11 +1008,11 @@ struct UserProfileView: View {
                 Image(systemName: "lightbulb")
                     .font(.system(size: 40))
                     .foregroundColor(.yellow.opacity(0.6))
-                
+
                 Text("No Insights Today")
                     .font(.headline)
                     .foregroundColor(.white)
-                
+
                 Text("Your personalized insights are being prepared. Check back soon!")
                     .font(.subheadline)
                     .foregroundColor(.white.opacity(0.7))
@@ -1022,17 +1022,17 @@ struct UserProfileView: View {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: .yellow))
                     .scaleEffect(1.2)
-                
+
                 Text("Preparing Your Insight...")
                     .font(.headline)
                     .foregroundColor(.white)
-                
+
                 Text("Analyzing your cosmic profile for personalized wisdom")
                     .font(.subheadline)
                     .foregroundColor(.white.opacity(0.7))
                     .multilineTextAlignment(.center)
             }
-            
+
             Button(action: {
                 // Navigate to Activity tab for all insights
                 selectedTab = 4
@@ -1056,43 +1056,43 @@ struct UserProfileView: View {
             }
         }
     }
-    
+
     private func navigateToShareInsight(insight: PreparedInsight) {
         // Navigate to Timeline and pre-populate post with insight
         selectedTab = 2
-        
+
         // Create insight-based post content
         let insightContent = "🌟 Today's Insight: \"\(insight.text.prefix(200))\"\n\n#CosmicWisdom #SpiritualGrowth"
-        
+
         // Pass both user info and insight content
         let userInfo = [
             "authorName": username,
             "authorDisplayName": displayName,
             "prefilledContent": String(insightContent)
         ]
-        
+
         NotificationCenter.default.post(
-            name: Notification.Name("TriggerPostComposer"), 
-            object: nil, 
+            name: Notification.Name("TriggerPostComposer"),
+            object: nil,
             userInfo: userInfo
         )
-        
+
         print("✨ Sharing insight to timeline")
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
         impactFeedback.impactOccurred()
     }
-    
+
     /// **ACTIVITY TAB CONTENT - PERSONAL TIMELINE INTEGRATION**
-    /// 
+    ///
     /// **Phase 3C-3 Enhancement:** Connected to real user activity data including
     /// cosmic matches, AI insights, and social posts. Displays comprehensive
     /// personal timeline with color-coded sections and quick navigation.
-    /// 
+    ///
     /// **Data Sources:**
     /// - FocusNumberManager.matchLogs: Recent cosmic number matches
     /// - AIInsightManager: Personalized daily insights availability
     /// - PostManager: User's social posts and engagement
-    /// 
+    ///
     /// **UI Components:**
     /// - Empty state with call-to-action for new users
     /// - Activity timeline with sectioned content display
@@ -1108,26 +1108,26 @@ struct UserProfileView: View {
             }
         }
     }
-    
+
     // MARK: - Activity Data
-    
+
     /// **RECENT MATCHES DATA SOURCE**
-    /// 
+    ///
     /// **Phase 3C-3 Implementation:** Connects to FocusNumberManager.matchLogs
     /// to display the user's latest 5 cosmic number matches with timestamps.
     /// Used for Recent Matches section in activity timeline.
-    /// 
+    ///
     /// **Returns:** Array of FocusMatch Core Data entities
     private var recentMatches: [FocusMatch] {
         return Array(focusNumberManager.matchLogs.prefix(5))
     }
-    
+
     /// **RECENT INSIGHTS DATA SOURCE**
-    /// 
+    ///
     /// **Phase 3C-3 Implementation:** Simplified insight availability indicator
     /// that checks if today's AI insight is ready for display. Future enhancement
     /// could expand to show actual insight history from Core Data.
-    /// 
+    ///
     /// **Returns:** Array of insight status strings for timeline display
     private var recentInsights: [String] {
         // Future enhancement: Could show actual insight history from PersistedInsightLog
@@ -1136,24 +1136,24 @@ struct UserProfileView: View {
         }
         return []
     }
-    
+
     // MARK: - Activity Views
-    
+
     private var activityEmptyState: some View {
         VStack(spacing: 16) {
             Image(systemName: "chart.bar")
                 .font(.system(size: 40))
                 .foregroundColor(.cyan.opacity(0.6))
-            
+
             Text("No Activity Yet")
                 .font(.headline)
                 .foregroundColor(.white)
-            
+
             Text("Start your spiritual journey to see cosmic matches and insights here")
                 .font(.subheadline)
                 .foregroundColor(.white.opacity(0.7))
                 .multilineTextAlignment(.center)
-            
+
             Button(action: {
                 // Navigate to Home tab to start generating activity
                 selectedTab = 0
@@ -1177,7 +1177,7 @@ struct UserProfileView: View {
             }
         }
     }
-    
+
     private var activityTimelineView: some View {
         VStack(spacing: 20) {
             // Header
@@ -1185,9 +1185,9 @@ struct UserProfileView: View {
                 Text("Activity Timeline")
                     .font(.headline)
                     .foregroundColor(.white)
-                
+
                 Spacer()
-                
+
                 Button(action: {
                     // Navigate to full Activity tab
                     selectedTab = 4
@@ -1210,7 +1210,7 @@ struct UserProfileView: View {
                     )
                 }
             }
-            
+
             VStack(spacing: 12) {
                 // Recent Matches Section
                 if !recentMatches.isEmpty {
@@ -1225,7 +1225,7 @@ struct UserProfileView: View {
                         }
                     }
                 }
-                
+
                 // Recent Insights Section
                 if !recentInsights.isEmpty {
                     activitySection(
@@ -1239,7 +1239,7 @@ struct UserProfileView: View {
                         }
                     }
                 }
-                
+
                 // Posts Activity if user has posts
                 if !userPosts.isEmpty {
                     activitySection(
@@ -1256,7 +1256,7 @@ struct UserProfileView: View {
             }
         }
     }
-    
+
     private func activitySection<Content: View>(
         title: String,
         icon: String,
@@ -1268,14 +1268,14 @@ struct UserProfileView: View {
             HStack {
                 Image(systemName: icon)
                     .foregroundColor(color)
-                
+
                 Text(title)
                     .font(.subheadline)
                     .fontWeight(.medium)
                     .foregroundColor(.white)
-                
+
                 Spacer()
-                
+
                 Text("\(count)")
                     .font(.caption)
                     .padding(.horizontal, 6)
@@ -1286,7 +1286,7 @@ struct UserProfileView: View {
                     )
                     .foregroundColor(.white)
             }
-            
+
             content()
         }
         .padding(12)
@@ -1299,7 +1299,7 @@ struct UserProfileView: View {
                 )
         )
     }
-    
+
     private func activityMatchRow(match: FocusMatch) -> some View {
         HStack {
             Text("#\(Int(match.matchedNumber))")
@@ -1307,51 +1307,51 @@ struct UserProfileView: View {
                 .fontWeight(.bold)
                 .foregroundColor(.purple)
                 .frame(width: 30)
-            
+
             Text(match.timestamp, style: .relative)
                 .font(.caption)
                 .foregroundColor(.white.opacity(0.8))
-            
+
             Spacer()
-            
+
             Text(match.timestamp, style: .time)
                 .font(.caption2)
                 .foregroundColor(.white.opacity(0.6))
         }
         .padding(.vertical, 4)
     }
-    
+
     private func activityInsightRow(insight: String) -> some View {
         HStack {
             Image(systemName: "sparkles")
                 .font(.caption)
                 .foregroundColor(.yellow)
-            
+
             Text(insight)
                 .font(.caption)
                 .foregroundColor(.white.opacity(0.8))
-            
+
             Spacer()
-            
+
             Text("Today")
                 .font(.caption2)
                 .foregroundColor(.white.opacity(0.6))
         }
         .padding(.vertical, 4)
     }
-    
+
     private func activityPostRow(post: Post) -> some View {
         HStack {
             Image(systemName: post.type.icon)
                 .font(.caption)
                 .foregroundColor(.blue)
-            
+
             Text(post.content.prefix(30) + (post.content.count > 30 ? "..." : ""))
                 .font(.caption)
                 .foregroundColor(.white.opacity(0.8))
-            
+
             Spacer()
-            
+
             Text(post.timestamp, style: .relative)
                 .font(.caption2)
                 .foregroundColor(.white.opacity(0.6))
@@ -1367,13 +1367,13 @@ struct EditProfileSheet: View {
     @Binding var username: String
     @Binding var bio: String
     @Binding var avatarImage: UIImage?
-    
+
     @Environment(\.dismiss) private var dismiss
     @State private var editingDisplayName: String = ""
     @State private var editingUsername: String = ""
     @State private var editingBio: String = ""
     @State private var showingImagePicker = false
-    
+
     var body: some View {
         NavigationView {
             Form {
@@ -1399,7 +1399,7 @@ struct EditProfileSheet: View {
                                                         endPoint: .bottomTrailing
                                                     )
                                                 )
-                                            
+
                                             Image(systemName: "person.circle.fill")
                                                 .font(.system(size: 30))
                                                 .foregroundColor(.white.opacity(0.8))
@@ -1412,7 +1412,7 @@ struct EditProfileSheet: View {
                                     Circle()
                                         .stroke(Color.gray.opacity(0.3), lineWidth: 1)
                                 )
-                                
+
                                 // Camera overlay
                                 VStack {
                                     Spacer()
@@ -1431,21 +1431,21 @@ struct EditProfileSheet: View {
                     }
                     .padding(.vertical, 8)
                 }
-                
+
                 Section("Basic Information") {
                     TextField("Display Name", text: $editingDisplayName)
-                    
+
                     HStack {
                         Text("@")
                             .foregroundColor(.secondary)
                         TextField("username", text: $editingUsername)
                     }
                 }
-                
+
                 Section("Bio") {
                     TextField("Tell the world about your spiritual journey...", text: $editingBio, axis: .vertical)
                         .lineLimit(5)
-                    
+
                     HStack {
                         Spacer()
                         Text("\(editingBio.count)/160")
@@ -1462,7 +1462,7 @@ struct EditProfileSheet: View {
                         dismiss()
                     }
                 }
-                
+
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save") {
                         saveProfile()
@@ -1482,12 +1482,12 @@ struct EditProfileSheet: View {
             ImagePicker(image: $avatarImage, sourceType: .photoLibrary)
         }
     }
-    
+
     private func saveProfile() {
         displayName = editingDisplayName
         username = "@\(editingUsername)"
         bio = editingBio
-        
+
         // Save to UserDefaults for persistence
         if let userID = AuthenticationManager.shared.userID {
             let profileData = [
@@ -1499,7 +1499,7 @@ struct EditProfileSheet: View {
             UserDefaults.standard.synchronize()
             print("💾 Profile saved to UserDefaults for user: \(userID)")
         }
-        
+
         // TODO: Save to UserProfileService and sync with Firebase
         print("💾 Saving profile: \(displayName), \(username)")
     }
@@ -1509,7 +1509,7 @@ struct SettingsSheet: View {
     @Binding var username: String
     @Environment(\.dismiss) private var dismiss
     @State private var showingUsernameCreation = false
-    
+
     var body: some View {
         NavigationView {
             VStack(spacing: 24) {
@@ -1518,33 +1518,33 @@ struct SettingsSheet: View {
                     Image(systemName: "gear")
                         .font(.system(size: 60))
                         .foregroundColor(.gray)
-                    
+
                     Text("Profile Settings")
                         .font(.title2)
                         .fontWeight(.bold)
                 }
-                
+
                 // Username Section
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Username")
                         .font(.headline)
                         .foregroundColor(.primary)
-                    
+
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Current: \(username)")
                                 .font(.body)
                                 .foregroundColor(.secondary)
-                            
+
                             if username == "@cosmic_wanderer" {
                                 Text("Default username - tap to customize")
                                     .font(.caption)
                                     .foregroundColor(.orange)
                             }
                         }
-                        
+
                         Spacer()
-                        
+
                         Button(action: {
                             showingUsernameCreation = true
                         }) {
@@ -1562,13 +1562,13 @@ struct SettingsSheet: View {
                 .padding()
                 .background(Color(.systemGray6))
                 .cornerRadius(12)
-                
+
                 // Coming Soon Section
                 VStack(spacing: 12) {
                     Text("Additional Settings")
                         .font(.headline)
                         .foregroundColor(.primary)
-                    
+
                     Text("Privacy controls, notifications, and spiritual preferences coming soon...")
                         .font(.body)
                         .foregroundColor(.secondary)
@@ -1577,7 +1577,7 @@ struct SettingsSheet: View {
                 .padding()
                 .background(Color(.systemGray6))
                 .cornerRadius(12)
-                
+
                 Spacer()
             }
             .padding()
@@ -1605,13 +1605,13 @@ struct SettingsSheet: View {
 
 struct UsernameCreationSheet: View {
     @Binding var username: String
-    
+
     @Environment(\.dismiss) private var dismiss
     @State private var newUsername: String = ""
     @State private var isCheckingAvailability = false
     @State private var isAvailable = true
     @State private var errorMessage = ""
-    
+
     var body: some View {
         NavigationView {
             VStack(spacing: 24) {
@@ -1620,19 +1620,19 @@ struct UsernameCreationSheet: View {
                     Image(systemName: "at.circle.fill")
                         .font(.system(size: 60))
                         .foregroundColor(.purple)
-                    
+
                     Text("Choose Your Username")
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(.primary)
-                    
+
                     Text("This will be your public identity in the Vybe community")
                         .font(.body)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal)
                 }
-                
+
                 // Username Input
                 VStack(spacing: 8) {
                     HStack {
@@ -1640,7 +1640,7 @@ struct UsernameCreationSheet: View {
                             .font(.title2)
                             .foregroundColor(.secondary)
                             .fontWeight(.medium)
-                        
+
                         TextField("username", text: $newUsername)
                             .font(.title2)
                             .textFieldStyle(PlainTextFieldStyle())
@@ -1655,29 +1655,29 @@ struct UsernameCreationSheet: View {
                         RoundedRectangle(cornerRadius: 12)
                             .fill(Color(.systemGray6))
                     )
-                    
+
                     // Validation Status
                     if !newUsername.isEmpty {
                         HStack {
                             Image(systemName: isAvailable ? "checkmark.circle.fill" : "xmark.circle.fill")
                                 .foregroundColor(isAvailable ? .green : .red)
-                            
+
                             Text(isAvailable ? "Username available" : errorMessage)
                                 .font(.caption)
                                 .foregroundColor(isAvailable ? .green : .red)
-                            
+
                             Spacer()
                         }
                         .padding(.horizontal)
                     }
                 }
-                
+
                 // Username Guidelines
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Username Guidelines:")
                         .font(.headline)
                         .foregroundColor(.primary)
-                    
+
                     VStack(alignment: .leading, spacing: 4) {
                         guidelineRow("4-15 characters long")
                         guidelineRow("Letters, numbers, and underscores only")
@@ -1690,9 +1690,9 @@ struct UsernameCreationSheet: View {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color(.systemGray6))
                 )
-                
+
                 Spacer()
-                
+
                 // Action Buttons
                 VStack(spacing: 12) {
                     Button(action: {
@@ -1711,7 +1711,7 @@ struct UsernameCreationSheet: View {
                             )
                     }
                     .disabled(!isValidUsername)
-                    
+
                     Button(action: {
                         dismiss()
                     }) {
@@ -1741,23 +1741,23 @@ struct UsernameCreationSheet: View {
             }
         }
     }
-    
+
     private var isValidUsername: Bool {
         let usernameRegex = "^[a-zA-Z][a-zA-Z0-9_]{3,14}$"
         return newUsername.range(of: usernameRegex, options: .regularExpression) != nil && isAvailable
     }
-    
+
     private func validateUsername() {
         // Remove any invalid characters
         newUsername = newUsername.replacingOccurrences(of: "[^a-zA-Z0-9_]",
                                                       with: "",
                                                       options: .regularExpression)
-        
+
         // Check length
         if newUsername.count > 15 {
             newUsername = String(newUsername.prefix(15))
         }
-        
+
         // Validate format
         if newUsername.isEmpty {
             isAvailable = true
@@ -1774,19 +1774,19 @@ struct UsernameCreationSheet: View {
             errorMessage = ""
         }
     }
-    
+
     private func guidelineRow(_ text: String) -> some View {
         HStack(spacing: 8) {
             Image(systemName: "checkmark.circle.fill")
                 .font(.caption)
                 .foregroundColor(.green)
-            
+
             Text(text)
                 .font(.caption)
                 .foregroundColor(.secondary)
         }
     }
-    
+
     private func saveUsername() {
         username = "@\(newUsername)"
         // TODO: Save to UserProfileService and sync with Firebase

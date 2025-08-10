@@ -32,7 +32,7 @@ ZStack {
         CosmicBackgroundView(date: timeline.date)
     }
 
-    ScrollView { 
+    ScrollView {
         VStack { ...content... }
     }
 }
@@ -372,4 +372,4 @@ Found NumberMessages_Complete_7.json in app bundle root.
 ### Debug Warnings to Monitor:
 - `onChange(of: CGFloat) action tried to update multiple times per frame` - Animation optimization needed
 - `Warning: Could not find NumberMessages_Complete_X.json` - File path resolution
-- `Hang detected: X.XXs (debugger attached, not reporting)` - Performance bottlenecks 
+- `Hang detected: X.XXs (debugger attached, not reporting)` - Performance bottlenecks

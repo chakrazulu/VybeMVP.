@@ -11,4 +11,4 @@ class MyOSLogTest {
             os_log("This is a test log message (old API).", log: log, type: .info)
         }
     }
-} 
+}

@@ -12,16 +12,16 @@
 
 ## 🌌 Introducing K.A.S.P.E.R.
 
-**KASPER** stands for **Knowledge‑Activated Spiritual Pattern & Expression Renderer**  
+**KASPER** stands for **Knowledge‑Activated Spiritual Pattern & Expression Renderer**
 Vybe’s forthcoming oracle engine—an AI framework that generates sacred insights, guided affirmations, and vibrational prompts in real time using numerology, astrology, biometrics, and symbolic logic.
 
-**Data Ingestion:**  
-- User profile data: Life Path, Expression, Soul Urge  
-- State preference: Spiritual tone (e.g., Manifestation, Reflection)  
-- Daily sacred numerology (Focus & Realm)  
-- Chakra state and BPM (from HealthKit)  
-- Cosmic overlays: Lunar phases, astrological positions  
-- Proximity matches  
+**Data Ingestion:**
+- User profile data: Life Path, Expression, Soul Urge
+- State preference: Spiritual tone (e.g., Manifestation, Reflection)
+- Daily sacred numerology (Focus & Realm)
+- Chakra state and BPM (from HealthKit)
+- Cosmic overlays: Lunar phases, astrological positions
+- Proximity matches
 - Dream journaling (future)
 
 _All current onboarding and sacred data flows are being piped and primed for KASPER so that once it goes live, no retroactive refactoring is required._

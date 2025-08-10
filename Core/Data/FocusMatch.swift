@@ -1,6 +1,6 @@
 /**
  * Filename: FocusMatch.swift
- * 
+ *
  * Purpose: Defines the Core Data model for focus number matches in the application.
  *
  * This file contains the FocusMatch class which represents instances when a user's
@@ -29,20 +29,20 @@ import CoreData
 public class FocusMatch: NSManagedObject {
     /// Date and time when the match occurred
     @NSManaged public var timestamp: Date
-    
+
     /// The focus number chosen by the user (1-9)
     @NSManaged public var chosenNumber: Int16
-    
+
     /// The realm number that matched with the user's focus number (1-9)
     @NSManaged public var matchedNumber: Int16
-    
+
     /// REALM NUMBER ANALYTICS ENHANCEMENT: The realm number (1-9) active when this match occurred
     /// Enables analytics of which spiritual states correlate with synchronicity events
     @NSManaged public var realmNumber: Int16
-    
+
     /// Geographical latitude where the match occurred
     @NSManaged public var locationLatitude: Double
-    
+
     /// Geographical longitude where the match occurred
     @NSManaged public var locationLongitude: Double
 }
@@ -59,4 +59,4 @@ extension FocusMatch {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<FocusMatch> {
         return NSFetchRequest<FocusMatch>(entityName: "FocusMatch")
     }
-} 
+}

@@ -5,19 +5,19 @@ extension JournalEntry {
     var wrappedTitle: String {
         title ?? "Untitled"
     }
-    
+
     var wrappedContent: String {
         content ?? ""
     }
-    
+
     var wrappedTimestamp: Date {
         timestamp ?? Date()
     }
-    
+
     var wrappedMoodEmoji: String {
         moodEmoji ?? ""
     }
-    
+
     static func create(in context: NSManagedObjectContext,
                       title: String,
                       content: String,
@@ -32,4 +32,4 @@ extension JournalEntry {
         entry.timestamp = Date()
         return entry
     }
-} 
+}

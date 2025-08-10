@@ -14,17 +14,17 @@ import SwiftUI
  */
 struct Reaction: Identifiable, Codable {
     @DocumentID var id: String?
-    
+
     // Core reaction data
     let postId: String
     let userId: String
     let userDisplayName: String
     let reactionType: ReactionType
     let timestamp: Date
-    
+
     // Cosmic context of the user when they reacted
     let cosmicSignature: CosmicSignature
-    
+
     init(
         postId: String,
         userId: String,
@@ -53,7 +53,7 @@ enum ReactionType: String, Codable, CaseIterable {
     case manifestation = "manifestation"
     case protection = "protection"
     case clarity = "clarity"
-    
+
     var displayName: String {
         switch self {
         case .resonance: return "Resonance"
@@ -66,7 +66,7 @@ enum ReactionType: String, Codable, CaseIterable {
         case .clarity: return "Clarity"
         }
     }
-    
+
     var emoji: String {
         switch self {
         case .resonance: return "🌊"
@@ -79,7 +79,7 @@ enum ReactionType: String, Codable, CaseIterable {
         case .clarity: return "💎"
         }
     }
-    
+
     var color: Color {
         switch self {
         case .resonance: return .blue
@@ -92,7 +92,7 @@ enum ReactionType: String, Codable, CaseIterable {
         case .clarity: return .white
         }
     }
-    
+
     var description: String {
         switch self {
         case .resonance: return "This resonates with my energy"
@@ -117,14 +117,14 @@ extension Reaction {
         let signature = cosmicSignature
         return "\(userDisplayName) reacted with \(reactionType.emoji) \(reactionType.displayName) while channeling \(signature.currentChakra.capitalized) Chakra energy, Focus Number \(signature.focusNumber)"
     }
-    
+
     /**
      * Returns a short cosmic signature for compact display
      */
     var shortCosmicDisplay: String {
         return "Focus \(cosmicSignature.focusNumber) • \(cosmicSignature.currentChakra.capitalized)"
     }
-    
+
     /**
      * Returns the sacred color for this reaction's cosmic signature
      */
@@ -149,4 +149,4 @@ private func getSacredColor(for number: Int) -> Color {
     case 9: return .white
     default: return .gray
     }
-} 
+}

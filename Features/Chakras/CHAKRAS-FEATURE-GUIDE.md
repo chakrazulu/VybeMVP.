@@ -159,13 +159,13 @@ To test the feature:
   - Reduced overall volume and harmonics
   - Added subtle analog noise for vintage character
   - Soft limiting to prevent harshness
-  
+
 - **Heart Rate Synchronized Haptics**
   - Haptics now pulse at your actual heart rate BPM
   - Creates a meditative heartbeat rhythm
   - Lub-dub pattern for more natural feel
   - Gentler haptic intensity for relaxation
-  
+
 - **Audio Effects Chain**
   - Player → Reverb → EQ → Output
   - Creates warm, spacious meditation atmosphere
@@ -177,17 +177,17 @@ To test the feature:
   - Implemented smooth attack/decay envelope
   - Added subtle vibrato for organic feel
   - Reduced harshness when multiple chakras play together
-  
+
 - **Individual Volume Control**
   - Volume slider appears when chakra is harmonizing
   - Each chakra can have its own volume level
   - Volume settings persist during session
-  
+
 - **Enhanced Meditation Mode**
   - Active chakras continue playing during meditation
   - Volumes automatically reduced by 50% for meditation
   - Original volumes restored when meditation ends
-  
+
 - **Haptic Engine Improvements**
   - Added automatic restart handlers
   - Better error recovery
@@ -197,4 +197,4 @@ To test the feature:
 - Initial implementation
 - Basic chakra interface
 - Simple sine wave tones
-- Basic haptic feedback 
+- Basic haptic feedback

@@ -3,7 +3,7 @@ import SwiftData
 
 /**
  * ZodiacMeaning - SwiftData Model
- * 
+ *
  * Represents zodiac sign data from MegaCorpus Signs.json
  * Maps directly to your existing JSON structure for seamless migration
  */
@@ -11,7 +11,7 @@ import SwiftData
 final class ZodiacMeaning {
     // Primary identifier
     @Attribute(.unique) var name: String
-    
+
     // Basic sign data (from your Signs.json)
     var glyph: String
     var dateRange: String
@@ -22,24 +22,24 @@ final class ZodiacMeaning {
     var mode: String
     var keyword: String
     var signDescription: String
-    
+
     // Numerology data (nested object in your JSON)
     var signOrderNumber: Int
     var rulerVibration: Int
     var elementNumber: Int
     var modeNumber: Int
     var resonantNumbers: [Int]
-    
+
     // Key traits and spiritual guidance
     var keyTraits: [String]
     var spiritualGuidance: String?
     var challenges: [String]
     var strengths: [String]
-    
+
     // Timestamps
     var createdAt: Date
     var updatedAt: Date
-    
+
     init(
         name: String,
         glyph: String,
@@ -92,17 +92,17 @@ extension ZodiacMeaning {
     var capitalizedName: String {
         name.capitalized
     }
-    
+
     /// Returns key traits as a formatted string
     var keyTraitsString: String {
         keyTraits.joined(separator: " • ")
     }
-    
+
     /// Checks if this sign is a Fire sign
     var isFireSign: Bool {
         element.lowercased() == "fire"
     }
-    
+
     /// Checks if this sign is a Cardinal sign
     var isCardinalSign: Bool {
         mode.lowercased() == "cardinal"

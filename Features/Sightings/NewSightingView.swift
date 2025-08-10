@@ -14,7 +14,7 @@ struct NewSightingView: View {
     @StateObject private var sightingsManager = SightingsManager.shared
     @StateObject private var locationManager = LocationManager.shared
     @EnvironmentObject var focusNumberManager: FocusNumberManager
-    
+
     // Form state
     @State private var numberText: String = ""
     @State private var title = ""
@@ -23,41 +23,41 @@ struct NewSightingView: View {
     @State private var capturedImage: UIImage?
     @State private var useCurrentLocation = true
     @State private var locationName = ""
-    
+
     // UI state
     @State private var showingImagePicker = false
     @State private var showingCamera = false
     @State private var imageSourceType: UIImagePickerController.SourceType = .photoLibrary
     @State private var isSaving = false
     @State private var keyboardHeight: CGFloat = 0
-    
+
     // Initialize with focus number if available
     init() {
         let focusNumber = FocusNumberManager.shared.selectedFocusNumber
         _numberText = State(initialValue: focusNumber > 0 ? String(focusNumber) : "")
     }
-    
+
     var body: some View {
         NavigationView {
             ZStack {
                 // Cosmic background
                 CosmicBackgroundView()
                     .ignoresSafeArea()
-                
+
                 ScrollView {
                     VStack(spacing: 25) {
                         // Number selector
                         numberSelectorSection
-                        
+
                         // Photo section
                         photoSection
-                        
+
                         // Details form
                         detailsSection
-                        
+
                         // Location section
                         locationSection
-                        
+
                         // Save button
                         saveButton
                     }
@@ -92,20 +92,20 @@ struct NewSightingView: View {
             }
         }
     }
-    
+
     // MARK: - View Sections
-    
+
     private var numberSelectorSection: some View {
         VStack(spacing: 15) {
             Text("What number did you spot?")
                 .font(.headline)
                 .foregroundColor(.white)
-            
+
             Text("Enter any number sequence you saw")
                 .font(.subheadline)
                 .foregroundColor(.white.opacity(0.7))
                 .multilineTextAlignment(.center)
-            
+
             TextField("e.g., 11:11, 222, 1139, 7", text: $numberText)
                 .textFieldStyle(CosmicTextFieldStyle())
                 .keyboardType(.numberPad)
@@ -123,13 +123,13 @@ struct NewSightingView: View {
                 )
         )
     }
-    
+
     private var photoSection: some View {
         VStack(spacing: 15) {
             Text("Capture the moment")
                 .font(.headline)
                 .foregroundColor(.white)
-            
+
             if let image = capturedImage {
                 // Show captured image
                 Image(uiImage: image)
@@ -167,7 +167,7 @@ struct NewSightingView: View {
                             showingImagePicker = true
                         }
                     )
-                    
+
                     PhotoCaptureButton(
                         title: "Library",
                         icon: "photo.fill",
@@ -189,7 +189,7 @@ struct NewSightingView: View {
                 )
         )
     }
-    
+
     private var detailsSection: some View {
         VStack(spacing: 20) {
             // Title field
@@ -197,17 +197,17 @@ struct NewSightingView: View {
                 Text("Title (optional)")
                     .font(.subheadline)
                     .foregroundColor(.white.opacity(0.8))
-                
+
                 TextField("e.g., License plate magic", text: $title)
                     .textFieldStyle(CosmicTextFieldStyle())
             }
-            
+
             // Note field
             VStack(alignment: .leading, spacing: 8) {
                 Text("Note (optional)")
                     .font(.subheadline)
                     .foregroundColor(.white.opacity(0.8))
-                
+
                 TextEditor(text: $note)
                     .frame(height: 80)
                     .padding(10)
@@ -220,19 +220,19 @@ struct NewSightingView: View {
                     .foregroundColor(.white)
                     .scrollContentBackground(.hidden)
             }
-            
+
             // Significance field
             VStack(alignment: .leading, spacing: 8) {
                 Text("What made this special? (optional)")
                     .font(.subheadline)
                     .foregroundColor(.white.opacity(0.8))
-                
+
                 TextField("e.g., Saw it right after thinking about...", text: $significance)
                     .textFieldStyle(CosmicTextFieldStyle())
             }
         }
     }
-    
+
     private var locationSection: some View {
         VStack(spacing: 15) {
             Toggle(isOn: $useCurrentLocation) {
@@ -241,7 +241,7 @@ struct NewSightingView: View {
                     .foregroundColor(.white)
             }
             .toggleStyle(SwitchToggleStyle(tint: .purple))
-            
+
             if !useCurrentLocation {
                 TextField("Location name", text: $locationName)
                     .textFieldStyle(CosmicTextFieldStyle())
@@ -278,7 +278,7 @@ struct NewSightingView: View {
             locationManager.requestLocationPermission()
         }
     }
-    
+
     private var saveButton: some View {
         Button(action: saveSighting) {
             HStack {
@@ -308,23 +308,23 @@ struct NewSightingView: View {
         .disabled(isSaving)
         .padding(.top, 10)
     }
-    
+
     // MARK: - Actions
-    
+
     private func saveSighting() {
         isSaving = true
-        
+
         // Haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
         impactFeedback.impactOccurred()
-        
+
         // Get location if enabled
         let location = useCurrentLocation ? locationManager.currentLocation : nil
         let finalLocationName = useCurrentLocation ? nil : (locationName.isEmpty ? nil : locationName)
-        
+
         // Process number: store raw text but derive a numeric value for analysis
         let processedNumber = extractSingleDigit(from: numberText)
-        
+
         // Create sighting
         sightingsManager.createSighting(
             number: processedNumber,
@@ -335,7 +335,7 @@ struct NewSightingView: View {
             location: location,
             locationName: finalLocationName
         )
-        
+
         // Success feedback and dismiss
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             let successFeedback = UINotificationFeedbackGenerator()
@@ -343,24 +343,24 @@ struct NewSightingView: View {
             dismiss()
         }
     }
-    
+
     /// Extracts a single digit from a complex number string using numerological reduction
     private func extractSingleDigit(from text: String) -> Int {
         // Remove all non-numeric characters
         let digits = text.compactMap { $0.wholeNumberValue }
-        
+
         if digits.isEmpty {
             return 0
         }
-        
+
         // Sum all digits
         var sum = digits.reduce(0, +)
-        
+
         // Reduce to single digit (except master numbers 11, 22, 33)
         while sum > 9 && sum != 11 && sum != 22 && sum != 33 {
             sum = String(sum).compactMap { $0.wholeNumberValue }.reduce(0, +)
         }
-        
+
         return sum
     }
 }
@@ -371,14 +371,14 @@ struct PhotoCaptureButton: View {
     let title: String
     let icon: String
     let action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             VStack(spacing: 10) {
                 Image(systemName: icon)
                     .font(.title)
                     .foregroundColor(.white)
-                
+
                 Text(title)
                     .font(.caption)
                     .foregroundColor(.white.opacity(0.8))
@@ -403,7 +403,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     @Binding var image: UIImage?
     let sourceType: UIImagePickerController.SourceType
     @Environment(\.dismiss) private var dismiss
-    
+
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
@@ -411,20 +411,20 @@ struct ImagePicker: UIViewControllerRepresentable {
         picker.allowsEditing = true
         return picker
     }
-    
+
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
-    
+
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
-    
+
     class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
         let parent: ImagePicker
-        
+
         init(_ parent: ImagePicker) {
             self.parent = parent
         }
-        
+
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let editedImage = info[.editedImage] as? UIImage {
                 parent.image = editedImage
@@ -433,7 +433,7 @@ struct ImagePicker: UIViewControllerRepresentable {
             }
             parent.dismiss()
         }
-        
+
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             parent.dismiss()
         }
@@ -443,4 +443,4 @@ struct ImagePicker: UIViewControllerRepresentable {
 #Preview {
     NewSightingView()
         .environmentObject(FocusNumberManager.shared)
-} 
+}

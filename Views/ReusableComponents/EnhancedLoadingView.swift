@@ -1,6 +1,6 @@
 /**
  * Filename: EnhancedLoadingView.swift
- * 
+ *
  * Purpose: Enhanced loading view with timeout and retry mechanisms
  * Fixes cold-start splash screen hanging issues
  */
@@ -17,12 +17,12 @@ struct EnhancedLoadingView: View {
     let timeoutDuration: TimeInterval
     let onTimeout: () -> Void
     let onRetry: () -> Void
-    
+
     @State private var hasTimedOut = false
     @State private var showRetryOption = false
     @State private var pulseAnimation = false
     @State private var rotationAnimation = false
-    
+
     init(
         title: String = "Vybe",
         subtitle: String = "Checking authentication...",
@@ -36,12 +36,12 @@ struct EnhancedLoadingView: View {
         self.onTimeout = onTimeout
         self.onRetry = onRetry
     }
-    
+
     var body: some View {
         ZStack {
             Color(UIColor.systemBackground)
                 .edgesIgnoringSafeArea(.all)
-            
+
             VStack(spacing: 30) {
                 // App icon with animation
                 ZStack {
@@ -58,20 +58,20 @@ struct EnhancedLoadingView: View {
                         )
                         .frame(width: 120, height: 120)
                         .scaleEffect(pulseAnimation ? 1.1 : 1.0)
-                    
+
                     Image(systemName: "sparkles")
                         .font(.system(size: 60, weight: .light))
                         .foregroundColor(.purple)
                         .rotationEffect(.degrees(rotationAnimation ? 360 : 0))
                 }
-                
+
                 // Title and subtitle
                 VStack(spacing: 12) {
                     Text(title)
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundColor(.primary)
-                    
+
                     if !hasTimedOut {
                         Text(subtitle)
                             .font(.caption)
@@ -79,7 +79,7 @@ struct EnhancedLoadingView: View {
                             .multilineTextAlignment(.center)
                     }
                 }
-                
+
                 // Loading indicator or timeout message
                 if hasTimedOut {
                     timeoutContent
@@ -93,50 +93,50 @@ struct EnhancedLoadingView: View {
             startTimeout()
         }
     }
-    
+
     // MARK: - Loading Content
-    
+
     private var loadingContent: some View {
         VStack(spacing: 16) {
             ProgressView()
                 .scaleEffect(1.2)
                 .progressViewStyle(CircularProgressViewStyle(tint: .purple))
-            
+
             Text("Initializing cosmic systems...")
                 .font(.caption2)
                 .foregroundColor(.secondary)
                 .opacity(0.7)
         }
     }
-    
+
     // MARK: - Timeout Content
-    
+
     private var timeoutContent: some View {
         VStack(spacing: 20) {
             Image(systemName: "exclamationmark.triangle")
                 .font(.system(size: 40))
                 .foregroundColor(.orange)
-            
+
             VStack(spacing: 8) {
                 Text("Loading Taking Longer Than Expected")
                     .font(.headline)
                     .foregroundColor(.primary)
                     .multilineTextAlignment(.center)
-                
+
                 Text("The cosmic alignment may be experiencing interference. You can wait a bit longer or try refreshing.")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 20)
             }
-            
+
             HStack(spacing: 16) {
                 Button("Wait Longer") {
                     hasTimedOut = false
                     startTimeout()
                 }
                 .buttonStyle(SecondaryButtonStyle())
-                
+
                 Button("Retry") {
                     hasTimedOut = false
                     onRetry()
@@ -146,19 +146,19 @@ struct EnhancedLoadingView: View {
             }
         }
     }
-    
+
     // MARK: - Animation and Timeout Logic
-    
+
     private func startAnimations() {
         withAnimation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true)) {
             pulseAnimation = true
         }
-        
+
         withAnimation(.linear(duration: 8.0).repeatForever(autoreverses: false)) {
             rotationAnimation = true
         }
     }
-    
+
     private func startTimeout() {
         DispatchQueue.main.asyncAfter(deadline: .now() + timeoutDuration) {
             if !hasTimedOut {
@@ -220,7 +220,7 @@ extension EnhancedLoadingView {
             onRetry: onRetry
         )
     }
-    
+
     /// Profile loading view
     static func profile(onTimeout: @escaping () -> Void = {}, onRetry: @escaping () -> Void = {}) -> EnhancedLoadingView {
         EnhancedLoadingView(
@@ -231,7 +231,7 @@ extension EnhancedLoadingView {
             onRetry: onRetry
         )
     }
-    
+
     /// Archetype calculation loading view
     static func archetype(onTimeout: @escaping () -> Void = {}, onRetry: @escaping () -> Void = {}) -> EnhancedLoadingView {
         EnhancedLoadingView(
@@ -251,10 +251,10 @@ struct EnhancedLoadingView_Previews: PreviewProvider {
         Group {
             // Default loading
             EnhancedLoadingView()
-            
+
             // Authentication loading
             EnhancedLoadingView.authentication()
-            
+
             // With timeout triggered
             EnhancedLoadingView()
                 .onAppear {
@@ -262,4 +262,4 @@ struct EnhancedLoadingView_Previews: PreviewProvider {
                 }
         }
     }
-} 
+}

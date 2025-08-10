@@ -1,6 +1,6 @@
 /**
  * Filename: NumerologyMessage.swift
- * 
+ *
  * Purpose: Defines the model for loading and accessing numerology message content
  * from JSON files in the NumerologyData directory. The content is organized by
  * number (0-9) and category (insight, reflection, manifestation, etc.).
@@ -20,13 +20,13 @@ import os
 struct NumerologyMessage: Identifiable {
     /// Unique identifier for the message
     var id = UUID()
-    
+
     /// The number (0-9) associated with this message
     let number: Int
-    
+
     /// The category this message belongs to
     let category: NumerologyCategory
-    
+
     /// The message text content
     let content: String
 }
@@ -44,7 +44,7 @@ enum NumerologyCategory: String, CaseIterable {
     case energy_check
     case numerical_context
     case astrological
-    
+
     /// Display-friendly name for the category
     var displayName: String {
         switch self {
@@ -83,13 +83,13 @@ enum NumerologyCategory: String, CaseIterable {
 class NumerologyMessageManager {
     /// Shared singleton instance for app-wide access
     static let shared = NumerologyMessageManager()
-    
+
     /// Dictionary storing all loaded messages, organized by number and category
     private var messagesByNumberAndCategory: [Int: [NumerologyCategory: [NumerologyMessage]]] = [:]
-    
+
     /// Logger for debugging and tracking
     private let logger = os.Logger(subsystem: "com.vybemvp", category: "NumerologyMessageManager")
-    
+
     /// Private initializer to enforce singleton pattern
     private init() {
         // Don't load automatically here anymore
@@ -108,7 +108,7 @@ class NumerologyMessageManager {
         }
         loadAllMessages()
     }
-    
+
     /**
      * Loads all numerology messages from JSON files in the NumerologyData directory
      *
@@ -120,25 +120,25 @@ class NumerologyMessageManager {
     private func loadAllMessages() {
         // REMOVE Bundle Path and Contents Diagnostics
         // if let resourcePath = Bundle.main.resourcePath { ... }
-        
+
         // Simplified startup log
         print("📚 Loading numerology insights...")
-        
+
         // Initialize storage for all numbers (0-9)
         for number in 0...9 {
             messagesByNumberAndCategory[number] = [:]
-            
+
             // Initialize each category for this number
             for category in NumerologyCategory.allCases {
                 messagesByNumberAndCategory[number]?[category] = []
             }
         }
-        
+
         // Loop through numbers 0-9 to load each JSON file
         for number in 0...9 {
             loadMessagesForNumber(number)
         }
-        
+
         // Log summary of loaded messages (simplified)
         var totalMessages = 0
         for (_, categories) in messagesByNumberAndCategory {
@@ -146,10 +146,10 @@ class NumerologyMessageManager {
                 totalMessages += messages.count
             }
         }
-        
+
         print("✅ Loaded a total of \(totalMessages) numerology messages")
     }
-    
+
     /**
      * Loads messages for a specific number from its JSON file
      *
@@ -160,14 +160,14 @@ class NumerologyMessageManager {
             logger.error("Invalid number: \(number), must be between 0-9")
             return
         }
-        
+
         // Construct the file path for the number's JSON file
-        guard let fileURL = Bundle.main.url(forResource: "NumberMessages_Complete_\(number)", 
+        guard let fileURL = Bundle.main.url(forResource: "NumberMessages_Complete_\(number)",
                                            withExtension: "json") else {
             print("⚠️ Could not find JSON file for number \(number) in bundle root.")
             return
         }
-        
+
         do {
             // Read and parse the JSON data
             let jsonData = try Data(contentsOf: fileURL)
@@ -176,29 +176,29 @@ class NumerologyMessageManager {
                 print("⚠️ Invalid JSON structure for number \(number)")
                 return
             }
-            
+
             // Process each category in the JSON
             for category in NumerologyCategory.allCases {
                 guard let messages = numberDict[category.rawValue] as? [String] else {
                     print("⚠️ No messages found for number \(number), category \(category.rawValue)")
                     continue
                 }
-                
+
                 // Create NumerologyMessage objects for each message in this category
                 let numerologyMessages = messages.map { content in
                     NumerologyMessage(number: number, category: category, content: content)
                 }
-                
+
                 // Store the messages
                 messagesByNumberAndCategory[number]?[category] = numerologyMessages
             }
-            
+
             // Removed individual number logging to reduce console spam
         } catch {
             print("❌ Error loading messages for number \(number): \(error.localizedDescription)")
         }
     }
-    
+
     /**
      * Gets all messages for a specific number and category
      *
@@ -210,7 +210,7 @@ class NumerologyMessageManager {
         guard number >= 0 && number <= 9 else { return [] }
         return messagesByNumberAndCategory[number]?[category] ?? []
     }
-    
+
     /**
      * Gets a random message for a specific number and category
      *
@@ -222,7 +222,7 @@ class NumerologyMessageManager {
         let messages = getMessages(forNumber: number, category: category)
         return messages.randomElement()
     }
-    
+
     /**
      * Gets a random message for a specific number from any category
      *
@@ -231,17 +231,17 @@ class NumerologyMessageManager {
      */
     func getRandomMessage(forNumber number: Int) -> NumerologyMessage? {
         // Get a random category that has messages for this number
-        guard let categories = messagesByNumberAndCategory[number]?.keys.filter({ 
+        guard let categories = messagesByNumberAndCategory[number]?.keys.filter({
             !(messagesByNumberAndCategory[number]?[$0]?.isEmpty ?? true)
-        }), 
+        }),
         !categories.isEmpty,
         let randomCategory = categories.randomElement() else {
             return nil
         }
-        
+
         return getRandomMessage(forNumber: number, category: randomCategory)
     }
-    
+
     /**
      * Gets a set of random messages for a specific number, one from each category
      *
@@ -250,16 +250,16 @@ class NumerologyMessageManager {
      */
     func getRandomMessagesForAllCategories(forNumber number: Int) -> [NumerologyCategory: NumerologyMessage] {
         var result: [NumerologyCategory: NumerologyMessage] = [:]
-        
+
         for category in NumerologyCategory.allCases {
             if let message = getRandomMessage(forNumber: number, category: category) {
                 result[category] = message
             }
         }
-        
+
         return result
     }
-    
+
     /**
      * Refreshes all messages by reloading them from JSON files
      * Useful for debugging or after content updates
@@ -268,4 +268,4 @@ class NumerologyMessageManager {
         messagesByNumberAndCategory.removeAll()
         loadAllMessages()
     }
-} 
+}

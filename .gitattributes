@@ -14,7 +14,7 @@
 *.scss text
 *.sql text
 
-# Configuration files  
+# Configuration files
 *.json text
 *.yml text
 *.yaml text

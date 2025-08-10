@@ -1,6 +1,6 @@
 /**
  * Filename: JournalMood.swift
- * 
+ *
  * Purpose: Defines the mood options available for journal entries within the app.
  *
  * This file contains the JournalMood enum which represents the different emotional
@@ -28,13 +28,13 @@ import Foundation
  * ```
  * // Access a specific mood
  * let happyMood = JournalMood.happy
- * 
+ *
  * // Get the emoji representation
  * let emoji = JournalMood.happy.rawValue  // Returns "😊"
- * 
+ *
  * // Get the text description
  * let description = JournalMood.happy.description  // Returns "Happy"
- * 
+ *
  * // Iterate through all moods
  * for mood in JournalMood.allCases {
  *     print("\(mood.rawValue) - \(mood.description)")
@@ -54,7 +54,7 @@ public enum JournalMood: String, CaseIterable {
     case anxious = "😰"
     /// Excited mood represented by 🤩
     case excited = "🤩"
-    
+
     /**
      * The text description of the mood
      *

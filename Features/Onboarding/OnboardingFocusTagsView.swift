@@ -8,10 +8,10 @@ struct OnboardingFocusTagsView: View {
             VStack(spacing: 30) {
                 // Header Section
                 headerSection
-                
+
                 // Selection Cards
                 selectionSection
-                
+
                 // Description Section
                 descriptionSection
             }
@@ -20,7 +20,7 @@ struct OnboardingFocusTagsView: View {
             .padding(.bottom, 40)
         }
     }
-    
+
     private var headerSection: some View {
         VStack(spacing: 20) {
             // Icon
@@ -34,12 +34,12 @@ struct OnboardingFocusTagsView: View {
                         )
                     )
                     .frame(width: 100, height: 100)
-                
+
                 Image(systemName: "tag.circle.fill")
                     .font(.system(size: 40, weight: .light))
                     .foregroundColor(.green)
             }
-            
+
             VStack(spacing: 12) {
                 Text("Focus Tags")
                     .font(.largeTitle)
@@ -51,13 +51,13 @@ struct OnboardingFocusTagsView: View {
                             endPoint: .trailing
                         )
                     )
-                
+
                 Text("Select tags that resonate with your current life focus. These help tailor insights and content to your journey.")
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                     .lineLimit(nil)
-                
+
                 // Add clear instruction for multiple selection
                 Text("✨ Select all that apply")
                     .font(.subheadline)
@@ -78,7 +78,7 @@ struct OnboardingFocusTagsView: View {
         }
         .padding(.top, 20)
     }
-    
+
     private var selectionSection: some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 16) {
             ForEach(viewModel.focusTagOptions, id: \.self) { option in
@@ -99,7 +99,7 @@ struct OnboardingFocusTagsView: View {
             }
         }
     }
-    
+
     private var descriptionSection: some View {
         VStack(spacing: 16) {
             HStack {
@@ -109,7 +109,7 @@ struct OnboardingFocusTagsView: View {
                     .font(.headline)
                 Spacer()
             }
-            
+
             Text("Choose as many as you like. These tags help us filter and suggest relevant themes for your daily insights and journal prompts.")
                 .font(.body)
                 .foregroundColor(.secondary)
@@ -131,7 +131,7 @@ struct FocusTagCard: View {
     let title: String
     let isSelected: Bool
     let action: () -> Void
-    
+
     private var tagDescription: String {
         switch title {
         case "Purpose":
@@ -154,7 +154,7 @@ struct FocusTagCard: View {
             return "Focus on what matters most to you"
         }
     }
-    
+
     private var tagIcon: String {
         switch title {
         case "Purpose":
@@ -177,7 +177,7 @@ struct FocusTagCard: View {
             return "circle.fill"
         }
     }
-    
+
     private var tagColor: Color {
         switch title {
         case "Purpose":
@@ -200,7 +200,7 @@ struct FocusTagCard: View {
             return .teal
         }
     }
-    
+
     var body: some View {
         Button(action: action) {
             VStack(alignment: .leading, spacing: 16) {
@@ -209,14 +209,14 @@ struct FocusTagCard: View {
                     Image(systemName: tagIcon)
                         .font(.title2)
                         .foregroundColor(isSelected ? .white : tagColor)
-                    
+
                     Spacer()
-                    
+
                     Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
                         .font(.title3)
                         .foregroundColor(isSelected ? .white : .gray)
                 }
-                
+
                 // Title and description with proper spacing
                 VStack(alignment: .leading, spacing: 8) {
                     Text(title)
@@ -225,7 +225,7 @@ struct FocusTagCard: View {
                         .foregroundColor(isSelected ? .white : .primary)
                         .multilineTextAlignment(.leading)
                         .lineLimit(1)
-                    
+
                     Text(tagDescription)
                         .font(.subheadline)
                         .foregroundColor(isSelected ? .white.opacity(0.9) : .secondary)
@@ -240,7 +240,7 @@ struct FocusTagCard: View {
             .background(
                 RoundedRectangle(cornerRadius: 16)
                     .fill(
-                        isSelected 
+                        isSelected
                         ? LinearGradient(
                             gradient: Gradient(colors: [tagColor, tagColor.opacity(0.8)]),
                             startPoint: .leading,
@@ -276,4 +276,4 @@ struct OnboardingFocusTagsView_Previews: PreviewProvider {
         return OnboardingFocusTagsView(viewModel: viewModel)
             .padding()
     }
-} 
+}

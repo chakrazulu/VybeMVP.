@@ -2,43 +2,43 @@
  * ========================================
  * ✏️ EDIT JOURNAL ENTRY VIEW - SACRED REFLECTION EDITOR
  * ========================================
- * 
+ *
  * CORE PURPOSE:
  * Modal interface for editing existing journal entries with mystical aesthetics
  * and spiritual context preservation. Provides a sacred space for refining
  * spiritual reflections while maintaining the original entry's cosmic context.
- * 
+ *
  * SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points):
  * • NavigationView: "Edit Sacred Reflection" title with inline display
  * • Subtle Cosmic Background: Non-interactive gradient for mystical atmosphere
  * • ScrollView: Main content with 24pt spacing
  * • Multiple Sections: Header, edit form, metadata display
- * 
+ *
  * UI COMPONENTS:
  * • Sacred Header: Edit title with original creation timestamp
  * • Edit Form: Title, content, and mood input fields
  * • Sacred Numbers: Display of original focus and realm numbers
  * • Navigation: Cancel and Save buttons with purple styling
- * 
+ *
  * FEATURES:
  * • Text Editing: Title and content modification with validation
  * • Mood Tracking: Emoji-based emotional state editing
  * • Metadata Preservation: Original focus/realm numbers display
  * • Cosmic Aesthetics: Subtle background with mystical styling
  * • Form Validation: Ensures content integrity before saving
- * 
+ *
  * STATE MANAGEMENT:
  * • ObservedObject: JournalEntry for reactive updates
  * • State Properties: Form field values for editing
  * • Environment Objects: Managed object context and dismiss
  * • Initialization: Pre-populates form with existing entry data
- * 
+ *
  * INTEGRATION POINTS:
  * • JournalEntryDetailView: Source of entry data
  * • Core Data: Entry persistence and updates
  * • JournalManager: Entry management and validation
  * • Navigation system: Modal presentation and dismissal
- * 
+ *
  * USER EXPERIENCE:
  * • Sacred editing environment for spiritual content
  * • Preserved cosmic context and numerology
@@ -50,7 +50,7 @@ import SwiftUI
 
 /**
  * EditJournalEntryView: Sacred journal entry editing interface
- * 
+ *
  * Provides a mystical environment for editing existing journal
  * entries while preserving their spiritual context and cosmic
  * numerology associations.
@@ -59,20 +59,20 @@ struct EditJournalEntryView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var entry: JournalEntry
-    
+
     // MARK: - State Properties
-    
+
     /// Journal entry title for editing
     @State private var title: String
-    
+
     /// Journal entry content for editing
     @State private var content: String
-    
+
     /// Selected mood emoji for emotional tracking
     @State private var selectedMoodEmoji: String
-    
+
     // MARK: - Initialization
-    
+
     /// Initializes the view with existing journal entry data
     /// Pre-populates all form fields with current entry values
     init(entry: JournalEntry) {
@@ -81,9 +81,9 @@ struct EditJournalEntryView: View {
         _content = State(initialValue: entry.content ?? "")
         _selectedMoodEmoji = State(initialValue: entry.moodEmoji ?? "")
     }
-    
+
     // MARK: - Body
-    
+
     var body: some View {
         ZStack {
             // MARK: - Subtle Cosmic Background (non-interactive)
@@ -99,16 +99,16 @@ struct EditJournalEntryView: View {
             )
             .ignoresSafeArea()
             .allowsHitTesting(false)
-            
+
             // MARK: - Main Content ScrollView
             ScrollView {
                 VStack(spacing: 24) {
                     // MARK: - Sacred Header Section
                     sacredHeaderSection
-                    
+
                     // MARK: - Edit Form Section
                     editFormSection
-                    
+
                     // MARK: - Sacred Numbers Section
                     metadataSection
                 }
@@ -122,8 +122,8 @@ struct EditJournalEntryView: View {
         .toolbar {
             // MARK: - Cancel Button
             ToolbarItem(placement: .navigationBarLeading) {
-                Button("Cancel") { 
-                    dismiss() 
+                Button("Cancel") {
+                    dismiss()
                 }
                 .foregroundColor(.purple)
             }
@@ -137,9 +137,9 @@ struct EditJournalEntryView: View {
             }
         }
     }
-    
+
     // MARK: - Sacred Header Section
-    
+
     private var sacredHeaderSection: some View {
         VStack(spacing: 12) {
             Text("✨ Edit Sacred Reflection ✨")
@@ -153,7 +153,7 @@ struct EditJournalEntryView: View {
                     )
                 )
                 .multilineTextAlignment(.center)
-            
+
             if let timestamp = entry.timestamp {
                 Text("Originally created on \(timestamp, style: .date)")
                     .font(.caption)
@@ -179,16 +179,16 @@ struct EditJournalEntryView: View {
         )
         .shadow(color: .purple.opacity(0.3), radius: 10, x: 0, y: 5)
     }
-    
+
     // MARK: - Edit Form Section
-    
+
     private var editFormSection: some View {
         VStack(spacing: 20) {
             Text("📝 Edit Your Sacred Words")
                 .font(.headline)
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             VStack(spacing: 16) {
                 // Title Field
                 VStack(alignment: .leading, spacing: 8) {
@@ -196,20 +196,20 @@ struct EditJournalEntryView: View {
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundColor(.white)
-                    
+
                     TextField("Give your reflection a sacred title...", text: $title)
                         .textFieldStyle(.roundedBorder)
                         .background(Color.white)
                         .cornerRadius(8)
                 }
-                
+
                 // Content Field
                 VStack(alignment: .leading, spacing: 8) {
                     Text("📜 Sacred Content")
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundColor(.white)
-                    
+
                     TextEditor(text: $content)
                         .frame(minHeight: 150)
                         .background(Color.white)
@@ -219,14 +219,14 @@ struct EditJournalEntryView: View {
                                 .stroke(Color.purple.opacity(0.3), lineWidth: 1)
                         )
                 }
-                
+
                 // Mood Field
                 VStack(alignment: .leading, spacing: 8) {
                     Text("🌙 Sacred Mood")
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundColor(.white)
-                    
+
                     TextField("Express your mood with an emoji...", text: $selectedMoodEmoji)
                         .textFieldStyle(.roundedBorder)
                         .background(Color.white)
@@ -252,16 +252,16 @@ struct EditJournalEntryView: View {
         )
         .shadow(color: .blue.opacity(0.3), radius: 8, x: 0, y: 4)
     }
-    
+
     // MARK: - Sacred Numbers Section
-    
+
     private var metadataSection: some View {
         VStack(spacing: 16) {
             Text("🔢 Your Sacred Numbers")
                 .font(.headline)
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             HStack(spacing: 20) {
                 // Focus Number Badge
                 VStack(spacing: 8) {
@@ -269,7 +269,7 @@ struct EditJournalEntryView: View {
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.7))
                         .fontWeight(.medium)
-                    
+
                     ZStack {
                         Circle()
                             .fill(RadialGradient(
@@ -279,19 +279,19 @@ struct EditJournalEntryView: View {
                                 endRadius: 30
                             ))
                             .frame(width: 60, height: 60)
-                        
+
                         Text("\(entry.focusNumber)")
                             .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                     }
-                    
+
                     Text("Your chosen path")
                         .font(.caption2)
                         .foregroundColor(.white.opacity(0.6))
                         .multilineTextAlignment(.center)
                 }
-                
+
                 if entry.realmNumber > 0 {
                     // Realm Number Badge
                     VStack(spacing: 8) {
@@ -299,7 +299,7 @@ struct EditJournalEntryView: View {
                             .font(.caption)
                             .foregroundColor(.white.opacity(0.7))
                             .fontWeight(.medium)
-                        
+
                         ZStack {
                             Circle()
                                 .fill(RadialGradient(
@@ -309,13 +309,13 @@ struct EditJournalEntryView: View {
                                     endRadius: 30
                                 ))
                                 .frame(width: 60, height: 60)
-                            
+
                             Text("\(entry.realmNumber)")
                                 .font(.title)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
                         }
-                        
+
                         Text("Cosmic frequency")
                             .font(.caption2)
                             .foregroundColor(.white.opacity(0.6))
@@ -343,15 +343,15 @@ struct EditJournalEntryView: View {
         )
         .shadow(color: .green.opacity(0.3), radius: 8, x: 0, y: 4)
     }
-    
+
     // MARK: - Helper Methods
-    
+
     /**
      * Returns the sacred color for a given numerology number
-     * 
+     *
      * Maps numbers 1-9 to their corresponding sacred colors
      * used throughout the app for spiritual consistency.
-     * 
+     *
      * @param number The numerology number (1-9)
      * @return The sacred color for the number
      */
@@ -369,10 +369,10 @@ struct EditJournalEntryView: View {
         default: return .gray
         }
     }
-    
+
     /**
      * Saves the edited journal entry changes to Core Data
-     * 
+     *
      * Updates the entry with new title, content, and mood values,
      * then persists the changes to the managed object context.
      * Dismisses the view upon successful save.
@@ -381,14 +381,14 @@ struct EditJournalEntryView: View {
         entry.title = title
         entry.content = content
         entry.moodEmoji = selectedMoodEmoji.isEmpty ? nil : selectedMoodEmoji
-        
+
         do {
             try viewContext.save()
             print("✅ Successfully updated journal entry")
         } catch {
             print("❌ Failed to save changes: \(error.localizedDescription)")
         }
-        
+
         dismiss()
     }
-} 
+}

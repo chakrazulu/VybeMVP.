@@ -8,12 +8,12 @@ struct JournalEntryView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var entry: JournalEntry
     @FocusState private var focusedField: Field?
-    
+
     private enum Field: Hashable {
         case title
         case content
     }
-    
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
@@ -39,7 +39,7 @@ struct JournalEntryView: View {
                     }
                     .padding(.horizontal)
                 }
-                
+
                 // Title field
                 TextField("Title", text: Binding(
                     get: { entry.title ?? "" },
@@ -54,7 +54,7 @@ struct JournalEntryView: View {
                 .onSubmit {
                     focusedField = .content
                 }
-                
+
                 // Content field
                 TextEditor(text: Binding(
                     get: { entry.content ?? "" },
@@ -87,10 +87,10 @@ struct JournalEntryView: View {
             }
         }
     }
-    
+
     private func saveIfNeeded() {
         guard viewContext.hasChanges else { return }
-        
+
         do {
             try viewContext.save()
         } catch {
@@ -107,10 +107,10 @@ struct JournalEntryView_Previews: PreviewProvider {
         entry.title = "Sample Entry"
         entry.content = "Sample content"
         entry.timestamp = Date()
-        
+
         return NavigationView {
             JournalEntryView(entry: entry)
         }
         .environment(\.managedObjectContext, context)
     }
-} 
+}

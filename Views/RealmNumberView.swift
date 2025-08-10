@@ -1,6 +1,6 @@
 /**
  * Filename: RealmNumberView.swift
- * 
+ *
  * 🎯 PIXEL-PERFECT UI REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
  *
  * === SCREEN LAYOUT (iPhone 14 Pro Max: 430×932 points) ===
@@ -96,17 +96,17 @@ struct RealmNumberView: View {
     @EnvironmentObject var focusNumberManager: FocusNumberManager
     @EnvironmentObject var healthKitManager: HealthKitManager
     @EnvironmentObject var cosmicService: CosmicService
-    
+
     @State private var glowIntensity: Double = 0.5
     @State private var rotationAngle: Double = 0
     @State private var isRotationStarted: Bool = false
-    
+
     // Claude: Phase 8 - Track current mandala asset for authentic SVG path tracing
     @State private var currentMandalaAsset: SacredGeometryAsset = .wisdomEnneagram
-    
+
     // Timer to sync with mandala rotation (every 30 seconds to match DynamicAssetMandalaView)
     private let assetSyncTimer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
-    
+
     var body: some View {
         ZStack {
             // Purple gradient cosmic background (matches HomeView)
@@ -121,7 +121,7 @@ struct RealmNumberView: View {
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
-            
+
             // Wrap the content with scroll-safe cosmic animations
             ScrollSafeCosmicView {
                 // Main content
@@ -139,21 +139,21 @@ struct RealmNumberView: View {
                         )
                         .shadow(color: .white.opacity(0.3), radius: 5, x: 0, y: 2)
                         .padding(.top, 50)
-                    
+
                     // Enhanced glowing realm number display (FIXED - removed outer circle)
                     mysticalRealmNumberDisplay
-                    
+
                     // Sacred realm description
                     mysticalRealmDescription
-                    
+
                     // REPLACED: Ruling Number Chart (replaces cosmic factors)
                     RulingNumberChartView(realmNumber: realmNumberManager.currentRealmNumber)
                         .environmentObject(focusNumberManager)
                         .environmentObject(realmNumberManager)
-                    
+
                     // Claude: Phase 10B - Cosmic Snapshot Integration
                     CosmicSnapshotView(realmNumber: realmNumberManager.currentRealmNumber)
-                    
+
                     Spacer(minLength: 100)
                 }
                 .padding(.horizontal, 20)
@@ -175,22 +175,22 @@ struct RealmNumberView: View {
             updateCurrentMandalaAsset()
         }
     }
-    
+
     // MARK: - Mystical Realm Number Display (FIXED)
-    
+
     private var mysticalRealmNumberDisplay: some View {
         NavigationLink(destination: NumberMeaningView(initialSelectedNumber: realmNumberManager.currentRealmNumber)) {
             ZStack {
                 // REMOVED: Outer cosmic ring that conflicted with sacred geometry
                 // Using only the sacred geometry background now
-                
+
                 // Enhanced Dynamic Sacred Geometry Background with Rotation
                 DynamicAssetMandalaView(
                     number: realmNumberManager.currentRealmNumber,
                     size: 350
                 )
                 .rotationEffect(.degrees(rotationAngle))
-                
+
                 // PHASE 8I REVOLUTIONARY: Number-specific geometric pattern neon tracer
                 NeonTracerView(
                     realmNumber: realmNumberManager.currentRealmNumber,
@@ -199,7 +199,7 @@ struct RealmNumberView: View {
                     size: CGSize(width: 320, height: 320)
                 )
                 .frame(width: 320, height: 320)
-                
+
                 // Large Realm Number - FONT SIZE MATCHED TO HOME TAB
                 Text("\(realmNumberManager.currentRealmNumber)")
                     .font(.system(size: 140, weight: .bold, design: .rounded)) // Matches HomeView exactly
@@ -210,7 +210,7 @@ struct RealmNumberView: View {
                     .shadow(color: getRealmNumberColor().opacity(0.4), radius: 10)
                     .shadow(color: .white.opacity(0.3), radius: 5)
                     .shadow(color: .black.opacity(0.8), radius: 8, x: 3, y: 3)
-                
+
                 // Subtle indication that this is tappable
                 VStack {
                     Spacer()
@@ -225,9 +225,9 @@ struct RealmNumberView: View {
         }
         .buttonStyle(PlainButtonStyle()) // Prevents default button styling
     }
-    
+
     // MARK: - Sacred Realm Description
-    
+
     private var mysticalRealmDescription: some View {
         VStack(spacing: 16) {
             Text(getRealmDescription())
@@ -241,13 +241,13 @@ struct RealmNumberView: View {
                 )
                 .multilineTextAlignment(.center)
                 .shadow(color: getRealmNumberColor().opacity(0.4), radius: 8, x: 0, y: 2)
-            
+
             Text(getRealmMysticDescription())
                 .font(.system(size: 16, weight: .medium, design: .rounded))
                 .foregroundColor(.white.opacity(0.8))
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
-            
+
             // Cosmic exploration invitation
             Text("✦ Tap the Realm Number above to explore its sacred meanings ✦")
                 .font(.system(size: 14, weight: .medium, design: .rounded))
@@ -281,24 +281,24 @@ struct RealmNumberView: View {
         )
         .shadow(color: getRealmNumberColor().opacity(0.3), radius: 15, x: 0, y: 8)
     }
-    
+
     // MARK: - Helper Methods
-    
+
     private func startMysticalAnimations() {
         // Set static glow intensity
         glowIntensity = 0.8
     }
-    
+
     private func startMandalaRotation() {
         // Prevent multiple rotation animations from starting
         guard !isRotationStarted else { return }
         isRotationStarted = true
-        
+
         print("🔄 Starting mandala rotation (60-second cycle)")
-        
+
         // Reset to 0 and start continuous rotation
         rotationAngle = 0
-        
+
         // Start continuous rotation after a brief delay
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             withAnimation(.linear(duration: 60).repeatForever(autoreverses: false)) {
@@ -306,14 +306,14 @@ struct RealmNumberView: View {
             }
         }
     }
-    
+
     // Claude: Phase 8 - Update current mandala asset for authentic SVG path tracing
     private func updateCurrentMandalaAsset() {
         // Get the current asset that DynamicAssetMandalaView would select
         currentMandalaAsset = SacredGeometryAsset.selectSmartAsset(for: realmNumberManager.currentRealmNumber)
         print("🌟 PHASE 8: Updated mandala asset to \(currentMandalaAsset.displayName) for realm number \(realmNumberManager.currentRealmNumber)")
     }
-    
+
     private func getRealmNumberColor() -> Color {
         switch realmNumberManager.currentRealmNumber {
         case 1: return .red
@@ -328,14 +328,14 @@ struct RealmNumberView: View {
         default: return .white
         }
     }
-    
+
     /**
      * Returns a descriptive name for the current realm number.
      */
     private func getRealmDescription() -> String {
         let descriptions = [
             "Realm of Creation",
-            "Realm of Partnership", 
+            "Realm of Partnership",
             "Realm of Expression",
             "Realm of Foundation",
             "Realm of Freedom",
@@ -344,11 +344,11 @@ struct RealmNumberView: View {
             "Realm of Abundance",
             "Realm of Completion"
         ]
-        
+
         let index = max(0, min(realmNumberManager.currentRealmNumber - 1, descriptions.count - 1))
         return descriptions[index]
     }
-    
+
     /**
      * Returns mystical description for each realm number.
      */
@@ -359,39 +359,39 @@ struct RealmNumberView: View {
             "Creative expression illuminates the universe, where joy and inspiration manifest through sacred communication.",
             "The foundation of reality anchors all existence, providing stability and structure for cosmic manifestation.",
             "Liberation energy courses through dimensions, breaking barriers and expanding consciousness beyond limits.",
-            "Love's resonance creates perfect harmony, nurturing souls and healing the cosmic fabric of existence.", 
+            "Love's resonance creates perfect harmony, nurturing souls and healing the cosmic fabric of existence.",
             "Mystical wisdom opens the gateway to higher realms, where spiritual truth and cosmic knowledge converge.",
             "Infinite abundance flows from the cosmic source, manifesting prosperity and material-spiritual alignment.",
             "Universal completion encompasses all cycles, where wisdom culminates and new cosmic chapters begin."
         ]
-        
+
         let index = max(0, min(realmNumberManager.currentRealmNumber - 1, descriptions.count - 1))
         return descriptions[index]
     }
-    
+
     // MARK: - Sacred Path Creation for NeonTracerView
-    
+
     private func createSacredPath(for number: Int) -> CGPath {
         let path = CGMutablePath()
         let centerX: CGFloat = 160
         let centerY: CGFloat = 160
-        
+
         switch number {
         case 1: // Simple circle for unity
             let radius: CGFloat = 120
             path.addEllipse(in: CGRect(x: centerX - radius, y: centerY - radius, width: radius * 2, height: radius * 2))
-            
+
         case 2: // Star of David pattern
             let outerRadius: CGFloat = 140
             let innerRadius: CGFloat = 70
-            
+
             // Create a 12-pointed star path that traces the outer edges of the mandala
             for i in 0..<12 {
                 let angle = (CGFloat(i) * 2.0 * .pi) / 12.0 - .pi / 2
                 let radius = i % 2 == 0 ? outerRadius : innerRadius
                 let x = centerX + radius * cos(angle)
                 let y = centerY + radius * sin(angle)
-                
+
                 if i == 0 {
                     path.move(to: CGPoint(x: x, y: y))
                 } else {
@@ -399,14 +399,14 @@ struct RealmNumberView: View {
                 }
             }
             path.closeSubpath()
-            
+
         case 3: // Triangle
             let radius: CGFloat = 130
             for i in 0..<3 {
                 let angle = (CGFloat(i) * 2.0 * .pi) / 3.0 - .pi / 2
                 let x = centerX + radius * cos(angle)
                 let y = centerY + radius * sin(angle)
-                
+
                 if i == 0 {
                     path.move(to: CGPoint(x: x, y: y))
                 } else {
@@ -414,14 +414,14 @@ struct RealmNumberView: View {
                 }
             }
             path.closeSubpath()
-            
+
         case 4: // Square
             let radius: CGFloat = 120
             for i in 0..<4 {
                 let angle = (CGFloat(i) * 2.0 * .pi) / 4.0 - .pi / 4
                 let x = centerX + radius * cos(angle)
                 let y = centerY + radius * sin(angle)
-                
+
                 if i == 0 {
                     path.move(to: CGPoint(x: x, y: y))
                 } else {
@@ -429,14 +429,14 @@ struct RealmNumberView: View {
                 }
             }
             path.closeSubpath()
-            
+
         case 5: // Pentagon
             let radius: CGFloat = 125
             for i in 0..<5 {
                 let angle = (CGFloat(i) * 2.0 * .pi) / 5.0 - .pi / 2
                 let x = centerX + radius * cos(angle)
                 let y = centerY + radius * sin(angle)
-                
+
                 if i == 0 {
                     path.move(to: CGPoint(x: x, y: y))
                 } else {
@@ -444,14 +444,14 @@ struct RealmNumberView: View {
                 }
             }
             path.closeSubpath()
-            
+
         case 6: // Hexagon/Star of David
             let radius: CGFloat = 130
             for i in 0..<6 {
                 let angle = (CGFloat(i) * 2.0 * .pi) / 6.0 - .pi / 2
                 let x = centerX + radius * cos(angle)
                 let y = centerY + radius * sin(angle)
-                
+
                 if i == 0 {
                     path.move(to: CGPoint(x: x, y: y))
                 } else {
@@ -459,14 +459,14 @@ struct RealmNumberView: View {
                 }
             }
             path.closeSubpath()
-            
+
         case 7: // Heptagon
             let radius: CGFloat = 125
             for i in 0..<7 {
                 let angle = (CGFloat(i) * 2.0 * .pi) / 7.0 - .pi / 2
                 let x = centerX + radius * cos(angle)
                 let y = centerY + radius * sin(angle)
-                
+
                 if i == 0 {
                     path.move(to: CGPoint(x: x, y: y))
                 } else {
@@ -474,14 +474,14 @@ struct RealmNumberView: View {
                 }
             }
             path.closeSubpath()
-            
+
         case 8: // Octagon
             let radius: CGFloat = 130
             for i in 0..<8 {
                 let angle = (CGFloat(i) * 2.0 * .pi) / 8.0 - .pi / 4
                 let x = centerX + radius * cos(angle)
                 let y = centerY + radius * sin(angle)
-                
+
                 if i == 0 {
                     path.move(to: CGPoint(x: x, y: y))
                 } else {
@@ -489,16 +489,16 @@ struct RealmNumberView: View {
                 }
             }
             path.closeSubpath()
-            
+
         case 9: // Circle for completion
             let radius: CGFloat = 135
             path.addEllipse(in: CGRect(x: centerX - radius, y: centerY - radius, width: radius * 2, height: radius * 2))
-            
+
         default: // Default circle
             let radius: CGFloat = 120
             path.addEllipse(in: CGRect(x: centerX - radius, y: centerY - radius, width: radius * 2, height: radius * 2))
         }
-        
+
         return path
     }
 }
@@ -508,7 +508,7 @@ struct RealmNumberView: View {
 
 struct StaticSacredGeometryView: View {
     let number: Int
-    
+
     var body: some View {
         ZStack {
             // Background energy field (static)
@@ -522,7 +522,7 @@ struct StaticSacredGeometryView: View {
                 startRadius: 30,
                 endRadius: 200
             )
-            
+
             // Static Sacred Geometry Pattern (NO ROTATION)
             getSacredGeometryShape(for: number)
                 .stroke(
@@ -542,9 +542,9 @@ struct StaticSacredGeometryView: View {
                 // NO ROTATION ANIMATION - completely static
         }
     }
-    
+
     // MARK: - Sacred Geometry Shapes (Static)
-    
+
     private func getSacredGeometryShape(for number: Int) -> some Shape {
         switch number {
         case 1:
@@ -569,9 +569,9 @@ struct StaticSacredGeometryView: View {
             return AnyShape(UnityCircleShape())
         }
     }
-    
+
     // MARK: - Sacred Color System
-    
+
     private func getSacredColor(for number: Int) -> Color {
         switch number {
         case 1: return .red

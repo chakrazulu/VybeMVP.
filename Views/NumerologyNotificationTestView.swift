@@ -1,6 +1,6 @@
 /**
  * Filename: NumerologyNotificationTestView.swift
- * 
+ *
  * Purpose: Provides a developer test UI for verifying numerology notification functionality.
  * This view allows developers to trigger various types of numerology notifications
  * to test the integration between the JSON data files and notification system.
@@ -24,19 +24,19 @@ import SwiftUI
 struct NumerologyNotificationTestView: View {
     /// Access to the notification tester singleton
     @ObservedObject private var tester = NumerologyNotificationTester.shared
-    
+
     /// Selected number for testing (0-9)
     @State private var selectedNumber = 7
-    
+
     /// Selected category for testing
     @State private var selectedCategory = NumerologyCategory.insight
-    
+
     /// Current focus number for testing
     @State private var focusNumber = FocusNumberManager.shared.selectedFocusNumber
-    
+
     /// Whether to show advanced options
     @State private var showAdvancedOptions = false
-    
+
     var body: some View {
         NavigationView {
             ScrollView {
@@ -45,14 +45,14 @@ struct NumerologyNotificationTestView: View {
                     Text("Numerology Notification Testing")
                         .font(.headline)
                         .padding(.horizontal)
-                    
+
                     // Basic test section
                     Section {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Basic Test")
                                 .font(.subheadline)
                                 .fontWeight(.medium)
-                            
+
                             HStack {
                                 Text("Number:")
                                 Picker("Number", selection: $selectedNumber) {
@@ -62,9 +62,9 @@ struct NumerologyNotificationTestView: View {
                                 }
                                 .pickerStyle(MenuPickerStyle())
                                 .frame(width: 80)
-                                
+
                                 Spacer()
-                                
+
                                 Text("Category:")
                                 Picker("Category", selection: $selectedCategory) {
                                     ForEach(NumerologyCategory.allCases, id: \.self) { category in
@@ -74,7 +74,7 @@ struct NumerologyNotificationTestView: View {
                                 .pickerStyle(MenuPickerStyle())
                                 .frame(width: 150)
                             }
-                            
+
                             Button(action: {
                                 tester.testNumerologyNotification(
                                     forNumber: selectedNumber,
@@ -95,7 +95,7 @@ struct NumerologyNotificationTestView: View {
                         .cornerRadius(12)
                     }
                     .padding(.horizontal)
-                    
+
                     // Advanced tests section
                     DisclosureGroup("Advanced Tests", isExpanded: $showAdvancedOptions) {
                         VStack(spacing: 16) {
@@ -110,7 +110,7 @@ struct NumerologyNotificationTestView: View {
                                 .frame(maxWidth: .infinity)
                             }
                             .buttonStyle(.bordered)
-                            
+
                             // Test all categories for selected number
                             Button(action: {
                                 tester.testAllCategories(forNumber: selectedNumber)
@@ -122,13 +122,13 @@ struct NumerologyNotificationTestView: View {
                                 .frame(maxWidth: .infinity)
                             }
                             .buttonStyle(.bordered)
-                            
+
                             // Focus number section
                             VStack(alignment: .leading, spacing: 12) {
                                 Text("Focus Number Tests")
                                     .font(.subheadline)
                                     .fontWeight(.medium)
-                                
+
                                 HStack {
                                     Text("Focus Number:")
                                     Picker("Focus Number", selection: $focusNumber) {
@@ -138,9 +138,9 @@ struct NumerologyNotificationTestView: View {
                                     }
                                     .pickerStyle(MenuPickerStyle())
                                     .frame(width: 80)
-                                    
+
                                     Spacer()
-                                    
+
                                     Button(action: {
                                         FocusNumberManager.shared.setFocusNumber(focusNumber, sendNotification: true)
                                     }) {
@@ -148,7 +148,7 @@ struct NumerologyNotificationTestView: View {
                                     }
                                     .buttonStyle(.bordered)
                                 }
-                                
+
                                 Button(action: {
                                     tester.testDailyNumerologyMessage(forFocusNumber: focusNumber)
                                 }) {
@@ -167,7 +167,7 @@ struct NumerologyNotificationTestView: View {
                         .padding(.top, 8)
                     }
                     .padding(.horizontal)
-                    
+
                     // Test results section
                     if !tester.testResults.isEmpty {
                         Section {
@@ -175,7 +175,7 @@ struct NumerologyNotificationTestView: View {
                                 Text("Test Results")
                                     .font(.subheadline)
                                     .fontWeight(.medium)
-                                
+
                                 Text(tester.testResults)
                                     .font(.system(.body, design: .monospaced))
                                     .padding()
@@ -188,7 +188,7 @@ struct NumerologyNotificationTestView: View {
                         }
                         .padding(.horizontal)
                     }
-                    
+
                     Spacer()
                 }
                 .padding(.vertical)
@@ -212,4 +212,4 @@ struct NumerologyNotificationTestView_Previews: PreviewProvider {
     static var previews: some View {
         NumerologyNotificationTestView()
     }
-} 
+}

@@ -24,18 +24,18 @@ rename_asset() {
     local new_name="$2"
     local svg_old="$3"
     local svg_new="$4"
-    
+
     if [ -d "$old_name" ]; then
         echo "✅ $old_name → $new_name"
-        
+
         # Rename folder
         mv "$old_name" "$new_name"
-        
+
         # Update Contents.json
         if [ -f "$new_name/Contents.json" ]; then
             sed -i '' "s/$svg_old/$svg_new/g" "$new_name/Contents.json"
         fi
-        
+
         # Rename SVG file
         if [ -f "$new_name/$svg_old" ]; then
             mv "$new_name/$svg_old" "$new_name/$svg_new"
@@ -135,4 +135,4 @@ echo "🎉 Sacred Geometry Renaming Complete!"
 echo "💾 Backup created at: $BACKUP_DIR"
 echo ""
 echo "🔮 Your sacred geometry assets now have mystical technical names!"
-echo "✨ Next: Clean Build Folder in Xcode (Cmd+Shift+K)" 
+echo "✨ Next: Clean Build Folder in Xcode (Cmd+Shift+K)"

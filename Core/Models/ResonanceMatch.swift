@@ -20,22 +20,22 @@ import SwiftAA  // For Planet type
 struct ResonanceMatch: Identifiable, Codable {
     /// Unique identifier for this resonance match
     let id: UUID
-    
+
     /// Type of resonance detected
     let type: ResonanceType
-    
+
     /// Descriptive details about the match
     let matchDetails: String
-    
+
     /// When this resonance was detected
     let timestamp: Date
-    
+
     /// Strength of the resonance (0.0 to 1.0)
     let intensity: Double
-    
+
     /// Current numbers involved in the resonance
     let involvedNumbers: [Int]
-    
+
     /// User's archetype at time of match (if relevant)
     let archetypeContext: ArchetypeContext?
 }
@@ -46,28 +46,28 @@ struct ResonanceMatch: Identifiable, Codable {
 enum ResonanceType: String, CaseIterable, Codable {
     /// User's focus number matches their realm number
     case focusRealmAlignment = "focus_realm_alignment"
-    
+
     /// Multiple numbers in the user's experience align
     case numericalHarmony = "numerical_harmony"
-    
+
     /// User's archetype aligns with current cosmic timing
     case archetypeActivation = "archetype_activation"
-    
+
     /// User is experiencing elemental balance
     case elementalSync = "elemental_sync"
-    
+
     /// Planetary influences align with user's archetype
     case planetaryResonance = "planetary_resonance"
-    
+
     /// User maintains consistent spiritual practice
     case practiceFlow = "practice_flow"
-    
+
     /// Sequential numbers or meaningful patterns
     case sequentialMagic = "sequential_magic"
-    
+
     /// User's insight streaks and spiritual momentum
     case spiritualMomentum = "spiritual_momentum"
-    
+
     /// Human-readable description
     var description: String {
         switch self {
@@ -89,7 +89,7 @@ enum ResonanceType: String, CaseIterable, Codable {
             return "Spiritual Momentum"
         }
     }
-    
+
     /// Emoji representation for UI
     var emoji: String {
         switch self {
@@ -111,7 +111,7 @@ enum ResonanceType: String, CaseIterable, Codable {
             return "🚀"
         }
     }
-    
+
     /// Color theme for UI display
     var color: String {
         switch self {
@@ -141,16 +141,16 @@ enum ResonanceType: String, CaseIterable, Codable {
 struct ArchetypeContext: Codable, Equatable {
     /// User's life path number
     let lifePath: Int
-    
-    /// Current elemental influence  
+
+    /// Current elemental influence
     let element: Element
-    
+
     /// Primary planetary archetype
     let primaryPlanet: Planet
-    
+
     /// Whether this is a master number
     let isMasterNumber: Bool
-    
+
     /// Current zodiac season relevance
     let zodiacRelevance: String?
 }
@@ -170,7 +170,7 @@ extension ResonanceMatch {
             archetypeContext: nil
         )
     }
-    
+
     /// Creates a numerical harmony match
     static func numericalHarmony(numbers: [Int], pattern: String, intensity: Double = 0.8) -> ResonanceMatch {
         ResonanceMatch(
@@ -183,7 +183,7 @@ extension ResonanceMatch {
             archetypeContext: nil
         )
     }
-    
+
     /// Creates an archetype activation match
     static func archetypeActivation(archetype: UserArchetype, description: String, intensity: Double = 0.9) -> ResonanceMatch {
         let context = ArchetypeContext(
@@ -193,7 +193,7 @@ extension ResonanceMatch {
             isMasterNumber: [11, 22, 33].contains(archetype.lifePath),
             zodiacRelevance: archetype.zodiacSign.rawValue
         )
-        
+
         return ResonanceMatch(
             id: UUID(),
             type: .archetypeActivation,
@@ -204,7 +204,7 @@ extension ResonanceMatch {
             archetypeContext: context
         )
     }
-    
+
     /// Creates a sequential magic match for meaningful number sequences
     static func sequentialMagic(sequence: [Int], meaning: String, intensity: Double = 0.7) -> ResonanceMatch {
         ResonanceMatch(
@@ -217,7 +217,7 @@ extension ResonanceMatch {
             archetypeContext: nil
         )
     }
-    
+
     /// Creates a spiritual momentum match for streaks and consistency
     static func spiritualMomentum(streakDays: Int, practiceType: String, intensity: Double = 0.6) -> ResonanceMatch {
         ResonanceMatch(
@@ -256,7 +256,7 @@ extension ResonanceMatch {
             return "Spiritual Flow"
         }
     }
-    
+
     /// Short subtitle for the match
     var subtitle: String {
         switch type {
@@ -278,23 +278,23 @@ extension ResonanceMatch {
             return "\(involvedNumbers.first ?? 0) days"
         }
     }
-    
+
     /// Intensity as a percentage string
     var intensityPercentage: String {
         return "\(Int(intensity * 100))%"
     }
-    
+
     /// Formatted timestamp
     var formattedTime: String {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         return formatter.string(from: timestamp)
     }
-    
+
     /// Formatted date
     var formattedDate: String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         return formatter.string(from: timestamp)
     }
-} 
+}

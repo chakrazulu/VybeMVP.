@@ -3,7 +3,7 @@ import SwiftUI
 /// Sacred Geometry Assets - Mystical Classification System
 /// Auto-generated enum for easy asset access with numerological mapping
 enum SacredGeometryAsset: String, CaseIterable {
-    
+
     // MARK: - 0 - VOID & INFINITE POTENTIAL
     case voidTriquetra = "void_triquetra"
     case voidCosmicWomb = "void_cosmic_womb"
@@ -12,7 +12,7 @@ enum SacredGeometryAsset: String, CaseIterable {
     case voidStarMatrix = "void_star_matrix"
     case voidAkashicGrid = "void_akashic_grid"
     case voidCrystal = "void_crystal"
-    
+
     // MARK: - 1 - UNITY & DIVINE SPARK
     case unitySolar = "unity_solar"
     case unityCrown = "unity_crown"
@@ -20,7 +20,7 @@ enum SacredGeometryAsset: String, CaseIterable {
     case unityAlpha = "unity_alpha"
     case unityConsciousness = "unity_consciousness"
     case unitySpark = "unity_spark"
-    
+
     // MARK: - 2 - DUALITY & COSMIC POLARITY
     case dualityVesica = "duality_vesica"
     case dualityLunar = "duality_lunar"
@@ -29,7 +29,7 @@ enum SacredGeometryAsset: String, CaseIterable {
     case dualityDivine = "duality_divine"
     case dualityTwins = "duality_twins"
     case dualityMirror = "duality_mirror"
-    
+
     // MARK: - 3 - TRINITY & DIVINE CREATIVITY
     case trinityMandala = "trinity_mandala"
     case trinityTriangle = "trinity_triangle"
@@ -38,7 +38,7 @@ enum SacredGeometryAsset: String, CaseIterable {
     case trinityGate = "trinity_gate"
     case trinityExpression = "trinity_expression"
     case trinityLogos = "trinity_logos"
-    
+
     // MARK: - 4 - FOUNDATION & MATERIAL MANIFESTATION
     case foundationCube = "foundation_cube"
     case foundationCross = "foundation_cross"
@@ -47,7 +47,7 @@ enum SacredGeometryAsset: String, CaseIterable {
     case foundationGrid = "foundation_grid"
     case foundationMatrix = "foundation_matrix"
     case foundationBlessing = "foundation_blessing"
-    
+
     // MARK: - 5 - QUINTESSENCE & DIVINE WILL
     case willPentagram = "will_pentagram"
     case willGoldenSpiral = "will_golden_spiral"
@@ -56,7 +56,7 @@ enum SacredGeometryAsset: String, CaseIterable {
     case willPower = "will_power"
     case willStar = "will_star"
     case willCommand = "will_command"
-    
+
     // MARK: - 6 - HARMONY & COSMIC LOVE
     case harmonyStarDavid = "harmony_star_david"
     case harmonyFlowerLife = "harmony_flower_life"
@@ -65,7 +65,7 @@ enum SacredGeometryAsset: String, CaseIterable {
     case harmonyUniversal = "harmony_universal"
     case harmonyMarriage = "harmony_marriage"
     case harmonyBeauty = "harmony_beauty"
-    
+
     // MARK: - 7 - MYSTERY & SPIRITUAL MASTERY
     case mysterySeedLife = "mystery_seed_life"
     case mysterySeals = "mystery_seals"
@@ -74,7 +74,7 @@ enum SacredGeometryAsset: String, CaseIterable {
     case mysteryWisdom = "mystery_wisdom"
     case mysteryMagic = "mystery_magic"
     case mysteryGnosis = "mystery_gnosis"
-    
+
     // MARK: - 8 - RENEWAL & INFINITE CYCLES
     case renewalOctagon = "renewal_octagon"
     case renewalInfinity = "renewal_infinity"
@@ -83,13 +83,13 @@ enum SacredGeometryAsset: String, CaseIterable {
     case renewalJustice = "renewal_justice"
     case renewalScales = "renewal_scales"
     case renewalMatrix = "renewal_matrix"
-    
+
     // MARK: - 9 - COMPLETION & UNIVERSAL WISDOM
     case wisdomEnneagram = "wisdom_enneagram"
     case wisdomCompletion = "wisdom_completion"
-    
+
     // MARK: - Computed Properties
-    
+
     /// Display name for UI
     var displayName: String {
         switch self {
@@ -101,7 +101,7 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .voidStarMatrix: return "Void Star Matrix"
         case .voidAkashicGrid: return "Akashic Record Grid"
         case .voidCrystal: return "Primordial Crystal"
-            
+
         // 1 - UNITY & DIVINE SPARK
         case .unitySolar: return "Solar Genesis"
         case .unityCrown: return "Crown of Creation"
@@ -109,7 +109,7 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .unityAlpha: return "Alpha Point"
         case .unityConsciousness: return "Unity Consciousness"
         case .unitySpark: return "Divine Spark"
-            
+
         // 2 - DUALITY & COSMIC POLARITY
         case .dualityVesica: return "Vesica Piscis Gateway"
         case .dualityLunar: return "Lunar Reflection"
@@ -118,7 +118,7 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .dualityDivine: return "Divine Duality"
         case .dualityTwins: return "Cosmic Twins"
         case .dualityMirror: return "Mirror of Eternity"
-            
+
         // 3 - TRINITY & DIVINE CREATIVITY
         case .trinityMandala: return "Trinity Mandala Supreme"
         case .trinityTriangle: return "Sacred Triangle"
@@ -127,7 +127,7 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .trinityGate: return "Trinity Gate"
         case .trinityExpression: return "Divine Expression"
         case .trinityLogos: return "Logos Manifestation"
-            
+
         // 4 - FOUNDATION & MATERIAL MANIFESTATION
         case .foundationCube: return "Cube of Foundation"
         case .foundationCross: return "Cardinal Cross"
@@ -136,7 +136,7 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .foundationGrid: return "Manifestation Grid"
         case .foundationMatrix: return "Stability Matrix"
         case .foundationBlessing: return "Material Blessing"
-            
+
         // 5 - QUINTESSENCE & DIVINE WILL
         case .willPentagram: return "Pentagram of Will"
         case .willGoldenSpiral: return "Golden Ratio Spiral"
@@ -145,7 +145,7 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .willPower: return "Will to Power"
         case .willStar: return "Quintessential Star"
         case .willCommand: return "Divine Command"
-            
+
         // 6 - HARMONY & COSMIC LOVE
         case .harmonyStarDavid: return "Star of David Harmony"
         case .harmonyFlowerLife: return "Flower of Life"
@@ -154,7 +154,7 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .harmonyUniversal: return "Universal Harmony"
         case .harmonyMarriage: return "Sacred Marriage"
         case .harmonyBeauty: return "Beauty Embodied"
-            
+
         // 7 - MYSTERY & SPIRITUAL MASTERY
         case .mysterySeedLife: return "Seed of Life"
         case .mysterySeals: return "Seven Seals"
@@ -163,7 +163,7 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .mysteryWisdom: return "Hidden Wisdom"
         case .mysteryMagic: return "Divine Magic"
         case .mysteryGnosis: return "Gnosis Gateway"
-            
+
         // 8 - RENEWAL & INFINITE CYCLES
         case .renewalOctagon: return "Octagon of Renewal"
         case .renewalInfinity: return "Infinity Symbol"
@@ -172,13 +172,13 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .renewalJustice: return "Justice Scale"
         case .renewalScales: return "Cosmic Scales"
         case .renewalMatrix: return "Phoenix rebirth power"
-            
+
         // 9 - COMPLETION & UNIVERSAL WISDOM
         case .wisdomEnneagram: return "Enneagram Supreme"
         case .wisdomCompletion: return "Completion Merkaba"
         }
     }
-    
+
     /// Numerological value (0-9)
     var numerologicalValue: Int {
         switch self {
@@ -204,7 +204,7 @@ enum SacredGeometryAsset: String, CaseIterable {
             return 9
         }
     }
-    
+
     /// Chakra association
     var chakra: String {
         switch numerologicalValue {
@@ -221,7 +221,7 @@ enum SacredGeometryAsset: String, CaseIterable {
         default: return "Unknown"
         }
     }
-    
+
     /// Mystical significance
     var mysticalSignificance: String {
         switch self {
@@ -232,14 +232,14 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .voidStarMatrix: return "Hidden knowledge gateway"
         case .voidAkashicGrid: return "Cosmic memory patterns"
         case .voidCrystal: return "First light crystallization"
-            
+
         case .unitySolar: return "Birth of consciousness"
         case .unityCrown: return "Divine authority manifest"
         case .unityMonad: return "Individual soul essence"
         case .unityAlpha: return "First movement of creation"
         case .unityConsciousness: return "Oneness awareness"
         case .unitySpark: return "Pure divine essence"
-            
+
         case .dualityVesica: return "Sacred feminine portal"
         case .dualityLunar: return "Intuitive wisdom"
         case .dualityYinYang: return "Cosmic balance"
@@ -247,7 +247,7 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .dualityDivine: return "Above/below reflection"
         case .dualityTwins: return "Soul mate energies"
         case .dualityMirror: return "Eternal duality dance"
-            
+
         case .trinityMandala: return "Divine creative matrix"
         case .trinityTriangle: return "Father-Mother-Child"
         case .trinityWisdom: return "Understanding made manifest"
@@ -255,7 +255,7 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .trinityGate: return "Access to higher realms"
         case .trinityExpression: return "Truth spoken into being"
         case .trinityLogos: return "Divine speech crystallized"
-            
+
         case .foundationCube: return "Stability and order"
         case .foundationCross: return "Material plane anchor"
         case .foundationTemple: return "Divine dwelling place"
@@ -263,7 +263,7 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .foundationGrid: return "Dreams made real"
         case .foundationMatrix: return "Unshakeable foundation"
         case .foundationBlessing: return "Physical world grace"
-            
+
         case .willPentagram: return "Divine will in action"
         case .willGoldenSpiral: return "Universal growth pattern"
         case .willShield: return "Spiritual warrior strength"
@@ -271,7 +271,7 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .willPower: return "Personal mastery"
         case .willStar: return "Spirit over matter"
         case .willCommand: return "Authority of the divine"
-            
+
         case .harmonyStarDavid: return "Divine masculine/feminine"
         case .harmonyFlowerLife: return "Universal life pattern"
         case .harmonyHeart: return "Unconditional love embodied"
@@ -279,7 +279,7 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .harmonyUniversal: return "All creation in balance"
         case .harmonyMarriage: return "Hieros gamos achieved"
         case .harmonyBeauty: return "Divine beauty manifest"
-            
+
         case .mysterySeedLife: return "Hidden center revealed"
         case .mysterySeals: return "Apocalyptic revelation"
         case .mysteryRose: return "Divine feminine mystery"
@@ -287,7 +287,7 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .mysteryWisdom: return "Secret teachings encoded"
         case .mysteryMagic: return "Will made manifest"
         case .mysteryGnosis: return "Enlightenment portal"
-            
+
         case .renewalOctagon: return "Death-rebirth cycles"
         case .renewalInfinity: return "Endless renewal"
         case .renewalKarmic: return "Action and consequence"
@@ -295,12 +295,12 @@ enum SacredGeometryAsset: String, CaseIterable {
         case .renewalJustice: return "Divine justice manifest"
         case .renewalScales: return "Truth and measurement"
         case .renewalMatrix: return "Phoenix rebirth power"
-            
+
         case .wisdomEnneagram: return "All knowledge unified"
         case .wisdomCompletion: return "Master pattern template"
         }
     }
-    
+
     /// SwiftUI Image helper
     var image: Image {
         Image(self.rawValue)
@@ -310,21 +310,21 @@ enum SacredGeometryAsset: String, CaseIterable {
 // MARK: - Convenience Functions
 
 extension SacredGeometryAsset {
-    
+
     /// Get assets for a specific numerological value
     static func assets(for number: Int) -> [SacredGeometryAsset] {
         return SacredGeometryAsset.allCases.filter { $0.numerologicalValue == number }
     }
-    
+
     /// Get asset for combined Focus + Realm numbers
     static func asset(focusNumber: Int, realmNumber: Int, selectionMethod: AssetSelectionMethod = .primary) -> SacredGeometryAsset {
         let focusReduced = reduceToSingleDigit(focusNumber)
         let realmReduced = reduceToSingleDigit(realmNumber)
         let combined = reduceToSingleDigit(focusReduced + realmReduced)
-        
+
         let assets = self.assets(for: combined)
         guard !assets.isEmpty else { return .wisdomEnneagram }
-        
+
         switch selectionMethod {
         case .primary:
             return assets.first!
@@ -334,14 +334,14 @@ extension SacredGeometryAsset {
             return assets.randomElement()!
         }
     }
-    
+
     /// Numerological reduction helper
     private static func reduceToSingleDigit(_ number: Int) -> Int {
         // Preserve master numbers
         if [11, 22, 33, 44].contains(number) {
             return number
         }
-        
+
         var result = abs(number)
         while result >= 10 {
             result = String(result).compactMap { Int(String($0)) }.reduce(0, +)
@@ -369,75 +369,75 @@ extension Array {
 // MARK: - PHASE 7: Weighted Preference System for Spiritual Authenticity
 
 extension SacredGeometryAsset {
-    
+
     /**
      * PHASE 7 WEIGHTED MANDALA SELECTION SYSTEM
-     * 
+     *
      * REVOLUTIONARY SPIRITUAL ARCHITECTURE:
-     * This system replaces rigid number-to-asset restrictions with spiritually authentic 
+     * This system replaces rigid number-to-asset restrictions with spiritually authentic
      * weighted preferences that honor both numerological correspondences and universal
      * sacred geometry accessibility. Each number now has:
-     * 
+     *
      * - Primary assets (60% probability): Strong spiritual resonance
-     * - Secondary assets (25% probability): Compatible spiritual energy  
+     * - Secondary assets (25% probability): Compatible spiritual energy
      * - Universal assets (15% probability): Sacred geometries that resonate with all numbers
-     * 
+     *
      * SPIRITUAL RESEARCH FINDINGS (July 10, 2025):
      * - Flower of Life, Merkaba, Enneagram are universal geometries accessible to all
      * - Sacred geometry works through resonance patterns, not rigid categorical restrictions
      * - Numbers have spiritual preferences but benefit from accessing any geometry for growth
      * - Dynamic selection enhances spiritual engagement vs. static repetitive assignment
      * - Every cross-number selection provides legitimate spiritual justification
-     * 
+     *
      * PERFORMANCE OPTIMIZATION:
      * - Weighted collections cached per number for sub-millisecond selection
      * - Set-based O(1) lookup for recent asset exclusion
      * - Smart asset selection prevents immediate repeats while maintaining variety
-     * 
+     *
      * USER EXPERIENCE TRANSFORMATION:
      * - Before: Number 6 limited to 7 "harmony" mandalas only
      * - After: Number 6 prefers harmony but can access Flower of Life, Enneagram, etc.
      * - Result: Authentic spiritual expansion while maintaining numerological integrity
      */
-    
+
     /// PHASE 7C: Performance-optimized weighted asset cache
     private static var weightedAssetCache: [Int: [SacredGeometryAsset]] = [:]
-    
+
     /// Clear weighted asset cache (for memory management if needed)
     static func clearWeightedAssetCache() {
         weightedAssetCache.removeAll()
         print("🧹 PHASE 7C: Cleared weighted asset cache for memory optimization")
     }
-    
+
     /// Get weighted asset selection for a number (cached for performance)
     static func weightedAssets(for number: Int) -> [SacredGeometryAsset] {
         // Claude: PHASE 7C PERFORMANCE - Cache weighted collections to avoid repeated expensive operations
         if let cached = weightedAssetCache[number] {
             return cached.shuffled() // Only shuffle the cached result for variety
         }
-        
+
         let primaryAssets = primaryAssets(for: number)
-        let secondaryAssets = secondaryAssets(for: number) 
+        let secondaryAssets = secondaryAssets(for: number)
         let universalAssets = universalAssets()
-        
+
         // Create weighted collection: 60% primary, 25% secondary, 15% universal
         var weightedCollection: [SacredGeometryAsset] = []
-        
+
         // Add primary assets (60% - higher frequency)
         weightedCollection.append(contentsOf: Array(repeating: primaryAssets, count: 6).flatMap { $0 })
-        
+
         // Add secondary assets (25% - medium frequency)
         weightedCollection.append(contentsOf: Array(repeating: secondaryAssets, count: 3).flatMap { $0 })
-        
+
         // Add universal assets (15% - lower frequency but always accessible)
         weightedCollection.append(contentsOf: Array(repeating: universalAssets, count: 2).flatMap { $0 })
-        
+
         // Cache the result for future use
         weightedAssetCache[number] = weightedCollection
-        
+
         return weightedCollection.shuffled()
     }
-    
+
     /// Primary assets with strongest spiritual resonance for each number
     private static func primaryAssets(for number: Int) -> [SacredGeometryAsset] {
         switch number {
@@ -454,13 +454,13 @@ extension SacredGeometryAsset {
         default: return [.wisdomEnneagram]
         }
     }
-    
+
     /// Secondary assets with compatible spiritual energy
     private static func secondaryAssets(for number: Int) -> [SacredGeometryAsset] {
         switch number {
         case 0: // Void - connects to mystery and renewal
             return [.mysterySeedLife, .renewalInfinity, .voidStarMatrix, .mysteryGnosis]
-        case 1: // Unity - connects to trinity and completion  
+        case 1: // Unity - connects to trinity and completion
             return [.trinityMandala, .wisdomCompletion, .unitySpark, .harmonyChrist]
         case 2: // Duality - connects to harmony and foundation
             return [.harmonyStarDavid, .foundationMatrix, .dualityTwins, .harmonyMarriage]
@@ -481,7 +481,7 @@ extension SacredGeometryAsset {
         default: return []
         }
     }
-    
+
     /// Universal assets that resonate with all numbers (sacred geometries accessible to all)
     private static func universalAssets() -> [SacredGeometryAsset] {
         return [
@@ -496,24 +496,24 @@ extension SacredGeometryAsset {
             .foundationMatrix      // Sacred Matrix - underlying structure
         ]
     }
-    
+
     /// PHASE 7C: Performance-optimized smart asset selection
     static func selectSmartAsset(for number: Int, excludeRecent: [SacredGeometryAsset] = []) -> SacredGeometryAsset {
         let weightedAssets = weightedAssets(for: number)
-        
+
         // Claude: PHASE 7C PERFORMANCE - Early return for empty exclusion list
         guard !excludeRecent.isEmpty else {
             return weightedAssets.randomElement() ?? .wisdomEnneagram
         }
-        
+
         // Claude: PHASE 7C PERFORMANCE - Use Set for O(1) lookup instead of O(n) contains
         let excludeSet = Set(excludeRecent)
         let availableAssets = weightedAssets.filter { !excludeSet.contains($0) }
-        
+
         // Return random selection from available pool, fallback to any asset if needed
         return availableAssets.randomElement() ?? weightedAssets.randomElement() ?? .wisdomEnneagram
     }
-    
+
     /// Get spiritual justification for why an asset works with a number
     func getResonanceReason(for number: Int) -> String {
         // Claude: Provide spiritual explanation for cross-number asset usage
@@ -532,12 +532,12 @@ extension SacredGeometryAsset {
 // MARK: - Advanced Mystical Properties
 
 extension SacredGeometryAsset {
-    
+
     /// Planetary correspondence (traditional & modern astrology)
     var planetaryCorrespondence: (traditional: String, modern: String) {
         switch numerologicalValue {
         case 0: return ("Uranus", "Pluto")        // Void/Transformation
-        case 1: return ("Sun", "Sun")             // Unity/Leadership  
+        case 1: return ("Sun", "Sun")             // Unity/Leadership
         case 2: return ("Moon", "Moon")           // Duality/Intuition
         case 3: return ("Jupiter", "Jupiter")     // Expansion/Wisdom
         case 4: return ("Saturn", "Earth")        // Structure/Foundation
@@ -549,7 +549,7 @@ extension SacredGeometryAsset {
         default: return ("Unknown", "Unknown")
         }
     }
-    
+
     /// Kabbalistic Tree of Life correspondence
     var kabbalalisticSephirah: String {
         switch numerologicalValue {
@@ -566,7 +566,7 @@ extension SacredGeometryAsset {
         default: return "Malkuth (Kingdom)"
         }
     }
-    
+
     /// Hermetic principle alignment
     var hermeticPrinciple: String {
         switch numerologicalValue {
@@ -583,7 +583,7 @@ extension SacredGeometryAsset {
         default: return "The Principle of Unity"
         }
     }
-    
+
     /// Tarot Major Arcana correspondence
     var tarotCorrespondence: String {
         switch numerologicalValue {
@@ -600,7 +600,7 @@ extension SacredGeometryAsset {
         default: return "The World (XXI) - Completion"
         }
     }
-    
+
     /// Elemental correspondence (classical elements + quintessence)
     var elementalCorrespondence: String {
         switch numerologicalValue {
@@ -617,7 +617,7 @@ extension SacredGeometryAsset {
         default: return "Elemental Chaos"
         }
     }
-    
+
     /// Sacred geometry mathematical properties
     var geometricProperties: (sides: Int, angles: String, ratio: String) {
         switch numerologicalValue {
@@ -634,29 +634,29 @@ extension SacredGeometryAsset {
         default: return (0, "0°", "0:0")
         }
     }
-    
+
     /// Advanced numerological reduction with master numbers
     static func advancedNumerologicalReduction(_ numbers: Int...) -> (primary: Int, secondary: [Int], isMaster: Bool) {
         let total = numbers.reduce(0, +)
-        
+
         // Check for master numbers first
         let masterNumbers = [11, 22, 33, 44, 55, 66, 77, 88, 99]
         if masterNumbers.contains(total) {
             return (total, numbers, true)
         }
-        
+
         // Reduce to single digit
         var working = total
         var reductionSteps: [Int] = []
-        
+
         while working >= 10 {
             reductionSteps.append(working)
             working = String(working).compactMap { Int(String($0)) }.reduce(0, +)
         }
-        
+
         return (working, reductionSteps, false)
     }
-    
+
     /// Get optimal sacred geometry based on advanced calculation
     static func advancedAssetSelection(
         focusNumber: Int,
@@ -665,10 +665,10 @@ extension SacredGeometryAsset {
         currentDate: Date = Date(),
         userIntention: SacredIntention = .balance
     ) -> SacredGeometryAsset {
-        
+
         let reduction = advancedNumerologicalReduction(focusNumber, realmNumber)
         var baseNumber = reduction.primary
-        
+
         // Apply birth date influence if provided
         if let birth = birthDate {
             let birthInfluence = Calendar.current.component(.day, from: birth) % 9
@@ -676,17 +676,17 @@ extension SacredGeometryAsset {
                 baseNumber = (baseNumber + birthInfluence - 1) % 9 + 1
             }
         }
-        
+
         // Apply current lunar phase influence
         let lunarInfluence = calculateLunarPhaseInfluence(currentDate)
         baseNumber = (baseNumber + lunarInfluence) % 10
-        
+
         // Apply intention modifier
         baseNumber = applyIntentionModifier(baseNumber, intention: userIntention)
-        
+
         let availableAssets = assets(for: baseNumber)
         guard !availableAssets.isEmpty else { return .wisdomEnneagram }
-        
+
         // Select based on advanced criteria
         let selectionIndex = calculateOptimalAssetIndex(
             from: availableAssets,
@@ -694,10 +694,10 @@ extension SacredGeometryAsset {
             realmNumber: realmNumber,
             date: currentDate
         )
-        
+
         return availableAssets[safe: selectionIndex] ?? availableAssets.first!
     }
-    
+
     /// Sacred intention for asset selection
     enum SacredIntention: String, CaseIterable {
         case balance = "Universal Balance"
@@ -710,7 +710,7 @@ extension SacredGeometryAsset {
         case enlightenment = "Spiritual Enlightenment"
         case abundance = "Material Abundance"
     }
-    
+
     /// Calculate lunar phase influence (0-8)
     private static func calculateLunarPhaseInfluence(_ date: Date) -> Int {
         // Simplified lunar calculation (you can enhance with astronomical precision)
@@ -718,7 +718,7 @@ extension SacredGeometryAsset {
         let lunarCycle = dayOfYear % 29 // Approximate lunar month
         return lunarCycle % 9
     }
-    
+
     /// Apply intention modifier to base number
     private static func applyIntentionModifier(_ baseNumber: Int, intention: SacredIntention) -> Int {
         let modifier: Int
@@ -735,7 +735,7 @@ extension SacredGeometryAsset {
         }
         return (baseNumber + modifier) % 10
     }
-    
+
     /// Calculate optimal asset index within number group
     private static func calculateOptimalAssetIndex(
         from assets: [SacredGeometryAsset],
@@ -746,12 +746,12 @@ extension SacredGeometryAsset {
         let combinedHash = abs(focusNumber.hashValue ^ realmNumber.hashValue ^ date.hashValue)
         return combinedHash % assets.count
     }
-    
+
     /// Get sacred timing recommendations
     var sacredTiming: (bestHours: [Int], bestDays: [String], planetaryHour: String) {
         switch numerologicalValue {
         case 0: return ([0, 12], ["Sunday", "Monday"], "Moon")
-        case 1: return ([6, 12, 18], ["Sunday"], "Sun")  
+        case 1: return ([6, 12, 18], ["Sunday"], "Sun")
         case 2: return ([9, 21], ["Monday"], "Moon")
         case 3: return ([9, 15], ["Thursday"], "Jupiter")
         case 4: return ([14, 22], ["Saturday"], "Saturn")
@@ -763,7 +763,7 @@ extension SacredGeometryAsset {
         default: return ([12], ["Any"], "Sun")
         }
     }
-    
+
     /// Complete mystical profile for the asset
     var mysticalProfile: String {
         """
@@ -783,15 +783,15 @@ extension SacredGeometryAsset {
 // MARK: - Phase 8: SVG Path Extraction Extensions
 
 extension SacredGeometryAsset {
-    
+
     /// Claude: Phase 8 enhancement - Get authentic SVG path for neon tracing
     /// Replaces predefined geometric shapes with real mandala geometry
     var svgPath: CGPath? {
         return SVGPathExtractor.extractPath(from: self)
     }
-    
+
     /// Get SVG path with custom size
     func svgPath(size: CGSize) -> CGPath? {
         return SVGPathExtractor.extractPath(from: self, targetSize: size)
     }
-} 
+}

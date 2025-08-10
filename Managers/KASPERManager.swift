@@ -1,19 +1,19 @@
 /**
  * Filename: KASPERManager.swift
- * 
+ *
  * 🎯 COMPREHENSIVE MANAGER REFERENCE GUIDE FOR FUTURE AI ASSISTANTS 🎯
- * 
+ *
  * === CORE PURPOSE ===
  * Central orchestration manager for KASPER (Knowledge-Activated Spiritual Pattern & Expression Renderer).
  * Aggregates spiritual, biometric, and cosmic data from all VybeMVP sources into unified payload
  * for AI-powered oracle insights, affirmations, and spiritual guidance generation.
- * 
+ *
  * === KASPER ORACLE ENGINE INTEGRATION ===
  * This manager serves as the primary data bridge between VybeMVP's spiritual ecosystem
  * and the forthcoming KASPER AI oracle engine (Phase 11). It ensures all mystical
  * calculations, biometric data, and cosmic timing are properly formatted and validated
  * for intelligent spiritual guidance generation.
- * 
+ *
  * === KEY RESPONSIBILITIES ===
  * • Aggregate data from all spiritual managers (Realm, Focus, Health, etc.)
  * • Generate comprehensive KASPERPrimingPayload structures with validation
@@ -21,114 +21,114 @@
  * • Maintain spiritual integrity with numerological accuracy and mystical correspondences
  * • Cache and optimize payload generation for performance
  * • Integrate with future astrology and proximity systems (Phases 8-9)
- * 
+ *
  * === ARCHITECTURE PATTERN ===
  * • Design: Singleton with dependency injection support
  * • Threading: Main thread for UI updates, background for data aggregation
  * • Storage: Memory caching with optional persistence
  * • Communication: Combine publishers for reactive payload updates
- * 
+ *
  * === PUBLISHED PROPERTIES ===
  * • currentPayload: Latest generated KASPER payload for oracle consumption
  * • isPayloadReady: Boolean flag indicating complete data availability
  * • lastPayloadGenerationTime: Timestamp for payload freshness validation
  * • dataSourceHealth: Status indicator for all integrated spiritual data sources
- * 
+ *
  * === DATA SOURCE INTEGRATION ===
- * 
+ *
  * NUMEROLOGICAL CORE (UserProfile):
  * • Life Path Number: Primary spiritual identity calculation
  * • Soul Urge Number: Heart's desire from birth name vowels
  * • Expression Number: Destiny calculation from complete birth name
  * • Spiritual Tone: User-selected mode (Manifestation, Reflection, etc.)
- * 
+ *
  * BIOMETRIC DATA (HealthKitManager):
  * • Heart Rate: Real-time BPM with simulation fallback
  * • Chakra State: Future integration with meditation tracking
- * 
+ *
  * COSMIC CALCULATIONS (RealmNumberManager, FocusNumberManager):
  * • Realm Number: Environmental cosmic state calculation
  * • Focus Number: User-selected daily intention
- * 
+ *
  * FUTURE INTEGRATIONS (Phases 8-9):
  * • Lunar Phase: Moon cycle timing for cosmic alignment
  * • Planetary Influence: Dominant celestial body calculations
  * • Proximity Score: Location-based spiritual resonance matching
- * 
+ *
  * === PAYLOAD GENERATION METHODS ===
- * 
+ *
  * REAL-TIME GENERATION:
  * • generateCurrentPayload(): Immediate payload with latest data
  * • refreshPayload(): Update payload with current spiritual state
- * 
+ *
  * USER-SPECIFIC GENERATION:
  * • generatePayloadForUser(userID:): Targeted payload for specific user
  * • generatePayloadWithProfile(_:): Payload from provided UserProfile
- * 
+ *
  * TESTING & VALIDATION:
  * • generateTestPayload(): Mock payload for development and testing
  * • validatePayload(_:): Comprehensive spiritual data validation
- * 
+ *
  * === PERFORMANCE OPTIMIZATIONS ===
- * 
+ *
  * CACHING SYSTEM:
  * • Payload caching with 5-minute freshness validation
  * • Data source health monitoring to prevent stale data
  * • Background refresh scheduling for proactive payload updates
- * 
+ *
  * EFFICIENCY MEASURES:
  * • Lazy loading of expensive calculations
  * • Batch data fetching from multiple sources
  * • Memory management with automatic cache cleanup
  * • Throttling to prevent excessive payload generation
- * 
+ *
  * === ERROR HANDLING & FALLBACKS ===
- * 
+ *
  * DATA UNAVAILABILITY:
  * • Graceful degradation when optional sources unavailable
  * • Default values for missing cosmic/astrology data
  * • Simulation fallbacks for HealthKit restrictions
- * 
+ *
  * VALIDATION FAILURES:
  * • Comprehensive validation with specific error reporting
  * • Automatic correction of out-of-range values
  * • Logging and monitoring for data integrity issues
- * 
+ *
  * === FUTURE PHASE INTEGRATION ===
- * 
+ *
  * PHASE 7 (Sacred Geometry):
  * • Mandala selection based on payload spiritual state
  * • Dynamic sacred symbol integration with number patterns
- * 
+ *
  * PHASE 8 (Astrology Engine):
  * • Real-time lunar phase integration from NASA APIs
  * • Planetary position calculations for dominant influence
  * • Zodiac alignment with user birth data
- * 
+ *
  * PHASE 9 (Proximity Matching):
  * • Location-based spiritual resonance calculation
  * • Multi-user cosmic compatibility scoring
  * • Privacy-controlled proximity data integration
- * 
+ *
  * PHASE 11 (KASPER Oracle):
  * • Direct payload streaming to AI interpretation layer
  * • Real-time oracle response generation
  * • Personalized insight and affirmation delivery
- * 
+ *
  * === SPIRITUAL INTEGRITY GUARANTEES ===
  * • Master Number Preservation: 11, 22, 33, 44 never reduced
  * • Numerological Accuracy: Authentic calculation methods maintained
  * • Cosmic Timing Respect: Lunar and planetary influences honored
  * • Sacred Correspondences: Color, chakra, and element mappings preserved
- * 
+ *
  * === CONFIGURATION REQUIREMENTS ===
  * IMPORTANT: KASPERManager requires configuration with RealmNumberManager dependency.
  * Call configure(with:) method during app initialization with the RealmNumberManager
  * instance from VybeMVPApp to ensure proper cosmic number integration.
- * 
+ *
  * Example:
  * KASPERManager.shared.configure(with: realmNumberManager)
- * 
+ *
  * === AI ASSISTANT INTEGRATION NOTES ===
  * This manager is designed for seamless AI assistant interaction. All methods
  * include comprehensive documentation, error handling, and validation to ensure
@@ -146,132 +146,132 @@ import UIKit
 
 /**
  * KASPERManager: Legacy compatibility layer for KASPER MLX
- * 
+ *
  * ⚠️ DEPRECATED: This manager is replaced by KASPERMLXManager
- * 
+ *
  * This class now serves as a compatibility layer that redirects
  * calls to the new KASPER MLX async architecture. New code should
  * use KASPERMLXManager directly for modern async/await patterns.
- * 
+ *
  * The old synchronous payload approach has been replaced with
  * lightweight, feature-specific insight generation.
  */
 class KASPERManager: ObservableObject {
-    
+
     // MARK: - Singleton Instance
-    
+
     /// Shared singleton instance for app-wide KASPER coordination
     static let shared = KASPERManager()
-    
+
     // MARK: - Published Properties
-    
+
     /// Current KASPER payload with latest spiritual and biometric data
     @Published private(set) var currentPayload: KASPERPrimingPayload?
-    
+
     /// Boolean indicating if payload is ready for oracle consumption
     @Published private(set) var isPayloadReady: Bool = false
-    
+
     /// Timestamp of last successful payload generation
     @Published private(set) var lastPayloadGenerationTime: Date?
-    
+
     /// Health status of all integrated data sources
     @Published private(set) var dataSourceHealth: DataSourceHealth = DataSourceHealth()
-    
+
     // MARK: - Private Properties
-    
+
     /// Payload cache for performance optimization
     private var payloadCache: PayloadCache?
-    
+
     /// Combine cancellables for reactive subscriptions
     private var cancellables = Set<AnyCancellable>()
-    
+
     /// Logger for KASPER operations and debugging
     private let logger = Logger(subsystem: "com.infinitiesinn.vybe", category: "KASPERManager")
-    
+
     /// Payload generation throttle timer
     private var payloadThrottleTimer: Timer?
-    
+
     // MARK: - Data Source References
-    
+
     /// Reference to RealmNumberManager for cosmic calculations (injected dependency)
     private weak var realmNumberManager: RealmNumberManager?
-    
+
     /// Reference to CosmicDataRepository for real-time transit data (injected dependency)
     private weak var cosmicDataRepository: CosmicDataRepositoryProtocol?
-    
+
     /// Reference to FocusNumberManager for intention tracking
     private var focusNumberManager: FocusNumberManager {
         return FocusNumberManager.shared
     }
-    
+
     /// Reference to HealthKitManager for biometric data
     private var healthKitManager: HealthKitManager {
         return HealthKitManager.shared
     }
-    
+
     /// Reference to UserProfileService for spiritual identity
     private var userProfileService: UserProfileService {
         return UserProfileService.shared
     }
-    
+
     /// Reference to SanctumDataManager for MegaCorpus spiritual interpretations
     @MainActor private var sanctumDataManager: SanctumDataManager {
         return SanctumDataManager.shared
     }
-    
+
     // MARK: - Initialization
-    
+
     private init() {
         logger.info("🔮 KASPERManager: Initializing spiritual data orchestration")
         setupDataSourceSubscriptions()
         schedulePayloadRefresh()
     }
-    
+
     deinit {
         payloadThrottleTimer?.invalidate()
         cancellables.removeAll()
     }
-    
+
     // MARK: - Configuration Methods
-    
+
     /**
      * Configure KASPERManager with required dependencies
-     * 
+     *
      * ⚠️ DEPRECATED: This method is replaced by KASPERMLXManager.configure()
-     * 
+     *
      * Legacy compatibility method that redirects to the new KASPER MLX system.
      * The new system handles configuration automatically during app initialization.
-     * 
+     *
      * Parameters:
      *   - realmManager: The RealmNumberManager instance (forwarded to KASPER MLX)
      *   - cosmicRepository: The CosmicDataRepository instance (not used in new system)
      */
     func configure(with realmManager: RealmNumberManager, cosmicRepository: CosmicDataRepositoryProtocol? = nil) {
         logger.info("🔧 KASPER Legacy: Configuration called - KASPER MLX handles this automatically")
-        
+
         // Store references for legacy compatibility
         self.realmNumberManager = realmManager
         self.cosmicDataRepository = cosmicRepository
-        
+
         // Note: KASPER MLX is configured separately in VybeMVPApp
         logger.info("🔧 KASPER Legacy: Configuration complete (KASPER MLX handles actual setup)")
     }
-    
+
     // MARK: - Public Payload Generation Methods
-    
+
     /**
      * Generate current KASPER payload with latest spiritual and biometric data
-     * 
+     *
      * ⚠️ DEPRECATED: This method is replaced by KASPERMLXManager.generateQuickInsight()
-     * 
+     *
      * This legacy method now redirects to the new KASPER MLX architecture.
      * For new code, use KASPERMLXManager directly with async/await patterns.
-     * 
+     *
      * Returns: String indicating legacy mode (old payload system discontinued)
      */
     func generateCurrentPayload() -> KASPERPrimingPayload? {
         logger.info("🔮 KASPER Legacy: Payload method called - redirecting to KASPER MLX")
-        
+
         // Redirect to new KASPER MLX system
         Task { @MainActor in
             do {
@@ -285,44 +285,44 @@ class KASPERManager: ObservableObject {
                 logger.error("🔮 KASPER MLX: Legacy compatibility failed: \(error)")
             }
         }
-        
+
         // Return nil to indicate legacy mode (old payload system discontinued)
         logger.warning("🔮 KASPER Legacy: Returning nil - use KASPERMLXManager for new insights")
         return nil
     }
-    
+
     /**
      * Generate KASPER payload for specific user ID
-     * 
+     *
      * Creates a targeted payload for a specific user, useful for batch processing
      * or multi-user spiritual analysis scenarios.
-     * 
+     *
      * Parameter userID: Target user identifier
      * Returns: KASPERPrimingPayload for specified user, nil if user data unavailable
      */
     func generatePayloadForUser(_ userID: String) -> KASPERPrimingPayload? {
         logger.info("🔮 Generating KASPER payload for user: \(userID)")
-        
+
         guard let userProfile = getUserProfile(for: userID) else {
             logger.error("❌ Failed to fetch profile for user: \(userID)")
             return nil
         }
-        
+
         return generatePayloadWithProfile(userProfile)
     }
-    
+
     /**
      * Generate KASPER payload from provided UserProfile
-     * 
+     *
      * Core payload generation method that creates complete spiritual data payload
      * from a provided UserProfile and current environmental/biometric data.
-     * 
+     *
      * Parameter profile: UserProfile containing numerological and preference data
      * Returns: KASPERPrimingPayload with complete spiritual state
      */
     func generatePayloadWithProfile(_ profile: UserProfile) -> KASPERPrimingPayload? {
         logger.info("🔮 Generating KASPER payload with profile for user: \(profile.id)")
-        
+
         // Claude: DEBUG - Check what data is available in the profile
         print("🔍 KASPER DEBUG - UserProfile data:")
         print("   • Sun: \(profile.natalSunSign ?? "nil")")
@@ -330,40 +330,40 @@ class KASPERManager: ObservableObject {
         print("   • Rising: \(profile.risingSign ?? "nil")")
         print("   • Has Birth Time: \(profile.hasBirthTime)")
         print("   • Dominant Element: \(profile.dominantElement ?? "nil")")
-        
+
         // Gather numerological core data
         let lifePathNumber = profile.lifePathNumber
         let soulUrgeNumber = profile.soulUrgeNumber ?? generateFallbackSoulUrge(from: profile)
         let expressionNumber = profile.expressionNumber ?? generateFallbackExpression(from: profile)
         let userTonePreference = profile.insightTone
-        
+
         // Gather biometric data
         let currentBPM = healthKitManager.currentHeartRate
         let chakraState = getChakraState() // Future implementation
-        
+
         // Gather cosmic data
         let realmNumber = realmNumberManager?.currentRealmNumber ?? 1 // Default to 1 if not configured
         let focusNumber = focusNumberManager.selectedFocusNumber
         let lunarPhase = getLunarPhase() // Future Phase 8 implementation
         let dominantPlanet = getDominantPlanet() // Future Phase 8 implementation
-        
+
         // Gather social data
         let proximityScore = getProximityMatchScore() // Future Phase 9 implementation
-        
+
         // Generate enhanced natal chart and transit data
         // Claude: FIXED - Use live SwiftAA data instead of empty UserProfile natal data
         print("🔍 KASPER: About to generate natal chart data...")
         let natalChartData = generateLiveNatalChartData(from: profile)
-        
+
         print("🔍 KASPER: About to get current transit data...")
         let currentTransitData = getCurrentTransitData()
-        
+
         print("🔍 KASPER: About to create environmental context...")
         let environmentalContextData = EnvironmentalContext()
-        
+
         print("🔍 KASPER: About to extract MegaCorpus data...")
         let megaCorpusExtract = extractRelevantMegaCorpusData(natalChart: natalChartData, transits: currentTransitData)
-        
+
         // Create enhanced payload with validation
         let payload = KASPERPrimingPayload(
             lifePathNumber: lifePathNumber,
@@ -382,7 +382,7 @@ class KASPERManager: ObservableObject {
             environmentalContext: environmentalContextData,
             megaCorpusData: megaCorpusExtract
         )
-        
+
         // Validate payload integrity
         guard payload.isValid else {
             logger.error("❌ Generated payload failed validation")
@@ -398,7 +398,7 @@ class KASPERManager: ObservableObject {
             print("   • Realm Number: \(payload.realmNumber) (valid range: 1-9)")
             print("   • Focus Number: \(payload.focusNumber) (valid range: 1-9)")
             print("   • Proximity Score: \(payload.proximityMatchScore) (valid range: 0-1)")
-            
+
             // Test each validation component individually
             let bpmValid = payload.bpm >= 40 && payload.bpm <= 200
             let lifePathValid = isValidNumerologyNumber(payload.lifePathNumber)
@@ -410,7 +410,7 @@ class KASPERManager: ObservableObject {
             let realmValid = payload.realmNumber >= 1 && payload.realmNumber <= 9
             let focusValid = payload.focusNumber >= 1 && payload.focusNumber <= 9
             let proximityValid = payload.proximityMatchScore >= 0.0 && payload.proximityMatchScore <= 1.0
-            
+
             print("   • BPM Valid: \(bpmValid)")
             print("   • Life Path Valid: \(lifePathValid)")
             print("   • Soul Urge Valid: \(soulUrgeValid)")
@@ -421,7 +421,7 @@ class KASPERManager: ObservableObject {
             print("   • Realm Valid: \(realmValid)")
             print("   • Focus Valid: \(focusValid)")
             print("   • Proximity Valid: \(proximityValid)")
-            
+
             // Check system state
             print("   • HealthKit BPM: \(HealthKitManager.shared.currentHeartRate)")
             print("   • RealmManager Available: \(realmNumberManager != nil)")
@@ -433,28 +433,28 @@ class KASPERManager: ObservableObject {
             #else
             print("   • Is Simulator: false")
             #endif
-            
+
             return nil
         }
-        
+
         // Helper function for numerology validation
         func isValidNumerologyNumber(_ number: Int) -> Bool {
             return (number >= 1 && number <= 9) || number == 11 || number == 22 || number == 33 || number == 44
         }
-        
+
         // Cache successful payload
         cachePayload(payload)
         updatePayloadState(payload)
-        
+
         logger.info("✅ Successfully generated KASPER payload")
         logger.debug("\(payload.debugDescription)")
-        
+
         return payload
     }
-    
+
     /**
      * Refresh current payload with latest data
-     * 
+     *
      * Forces regeneration of the current payload with the most up-to-date
      * spiritual, biometric, and cosmic data. Useful for real-time updates.
      */
@@ -462,7 +462,7 @@ class KASPERManager: ObservableObject {
         logger.info("🔄 Refreshing KASPER payload")
         clearPayloadCache()
         currentPayload = generateCurrentPayload()
-        
+
         // Claude: FIXED - Debug payload whenever it refreshes (especially on realm number changes)
         if let payload = currentPayload {
             print("🔮 KASPER PAYLOAD REFRESHED:")
@@ -471,23 +471,23 @@ class KASPERManager: ObservableObject {
             print("❌ KASPER PAYLOAD GENERATION FAILED")
         }
     }
-    
+
     /**
      * Generate test payload for development and debugging
-     * 
+     *
      * Creates a mock payload with realistic spiritual data for testing
      * KASPER integration and oracle functionality without real user data.
-     * 
+     *
      * Returns: KASPERPrimingPayload with test data
      */
     @available(iOS 13.0, *)
     func generateTestPayload() -> KASPERPrimingPayload {
         logger.info("🧪 Generating test KASPER payload")
-        
+
         // Create test natal chart data
         let testNatalChart = NatalChartData(
             sunSign: "Leo",
-            moonSign: "Scorpio", 
+            moonSign: "Scorpio",
             risingSign: "Aquarius",
             midheavenSign: "Sagittarius",
             mercurySign: "Virgo",
@@ -506,16 +506,16 @@ class KASPERManager: ObservableObject {
             birthLocation: "New York, NY",
             calculatedAt: Date()
         )
-        
+
         // Create test transit data
         let testTransitData = getCurrentTransitData() // Use our current method
-        
+
         // Create test environmental context
         let testEnvironmentalContext = EnvironmentalContext()
-        
+
         // Create test MegaCorpus extract
         let testMegaCorpusExtract = createTestMegaCorpusExtract()
-        
+
         return KASPERPrimingPayload(
             lifePathNumber: 7,
             soulUrgeNumber: 11,
@@ -534,16 +534,16 @@ class KASPERManager: ObservableObject {
             megaCorpusData: testMegaCorpusExtract
         )
     }
-    
+
     // MARK: - Private Helper Methods
-    
+
     /**
      * Setup reactive subscriptions to data sources
      */
     private func setupDataSourceSubscriptions() {
         // Clear existing subscriptions
         cancellables.removeAll()
-        
+
         // Subscribe to realm number changes (if manager is available)
         if let realmManager = realmNumberManager {
             realmManager.$currentRealmNumber
@@ -553,7 +553,7 @@ class KASPERManager: ObservableObject {
                 }
                 .store(in: &cancellables)
         }
-        
+
         // Subscribe to cosmic data changes (if repository is available)
         if let cosmicRepository = cosmicDataRepository {
             Task { @MainActor in
@@ -564,14 +564,14 @@ class KASPERManager: ObservableObject {
                     .store(in: &cancellables)
             }
         }
-        
+
         // Subscribe to focus number changes
         focusNumberManager.$selectedFocusNumber
             .sink { [weak self] _ in
                 self?.schedulePayloadRefresh()
             }
             .store(in: &cancellables)
-        
+
         // Subscribe to heart rate changes
         healthKitManager.$currentHeartRate
             .sink { [weak self] _ in
@@ -579,7 +579,7 @@ class KASPERManager: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
+
     /**
      * Schedule throttled payload refresh
      */
@@ -591,7 +591,7 @@ class KASPERManager: ObservableObject {
             }
         }
     }
-    
+
     /**
      * Get current user ID from authentication system
      */
@@ -605,18 +605,18 @@ class KASPERManager: ObservableObject {
             logger.info("🔍 Retrieved user ID from AuthenticationManager: \(userID)")
             return userID
         }
-        
+
         logger.warning("⚠️ No user ID available from AuthenticationManager")
         return nil
     }
-    
+
     /**
      * Fetch user profile for given user ID
      */
     private func getUserProfile(for userID: String) -> UserProfile? {
         return userProfileService.getCurrentUserProfileFromUserDefaults(for: userID)
     }
-    
+
     /**
      * Generate fallback Soul Urge number from Life Path
      */
@@ -626,7 +626,7 @@ class KASPERManager: ObservableObject {
         logger.info("📋 Generated fallback Soul Urge: \(fallback)")
         return fallback
     }
-    
+
     /**
      * Generate fallback Expression number from Life Path
      */
@@ -636,7 +636,7 @@ class KASPERManager: ObservableObject {
         logger.info("📋 Generated fallback Expression: \(fallback)")
         return fallback
     }
-    
+
     /**
      * Get current chakra state (future implementation)
      */
@@ -644,7 +644,7 @@ class KASPERManager: ObservableObject {
         // Placeholder for Phase 7 chakra tracking integration
         return nil
     }
-    
+
     /**
      * Get current lunar phase (future Phase 8 implementation)
      */
@@ -653,7 +653,7 @@ class KASPERManager: ObservableObject {
         let moonPhase = MoonPhaseCalculator.moonPhase(for: Date())
         return moonPhase.rawValue
     }
-    
+
     /**
      * Get dominant planet (future Phase 8 implementation)
      */
@@ -662,14 +662,14 @@ class KASPERManager: ObservableObject {
         let cosmicData = MainActor.assumeIsolated {
             CosmicService.shared.todaysCosmic
         }
-        
+
         if cosmicData != nil {
             // Analyze planetary data to find dominant influence
             // Use Sun during day, Moon at night as basic logic
             let hour = Calendar.current.component(.hour, from: Date())
             return (hour >= 6 && hour < 18) ? "Sun" : "Moon"
         }
-        
+
         // Fallback: Use CosmicDataRepository if CosmicService unavailable
         if let cosmicRepository = cosmicDataRepository {
             _ = MainActor.assumeIsolated {
@@ -679,12 +679,12 @@ class KASPERManager: ObservableObject {
             let hour = Calendar.current.component(.hour, from: Date())
             return (hour >= 6 && hour < 18) ? "Sun" : "Moon"
         }
-        
+
         // Final fallback based on time of day
         let hour = Calendar.current.component(.hour, from: Date())
         return (hour >= 6 && hour < 18) ? "Sun" : "Moon"
     }
-    
+
     /**
      * Get proximity match score (future Phase 9 implementation)
      */
@@ -692,10 +692,10 @@ class KASPERManager: ObservableObject {
         // Placeholder for location-based matching
         return 0.0
     }
-    
+
     /**
      * Get current transit data from CosmicDataRepository
-     * 
+     *
      * This bridges the gap between the cosmic snapshot view and KASPER by providing
      * real-time planetary positions and transit information for personalized insights.
      */
@@ -708,12 +708,12 @@ class KASPERManager: ObservableObject {
             logger.info("🌌 Using real cosmic data from CosmicDataRepository")
             return TransitData(from: currentSnapshot)
         }
-        
+
         // Fallback to placeholder data if repository not configured
         logger.info("📊 CosmicDataRepository not configured, using development placeholder transit data")
-        
+
         let now = Date()
-        
+
         // Create placeholder transit data for development/testing
         let fallbackCosmicSnapshot = CosmicSnapshot(
             moonData: PlanetaryData(
@@ -747,10 +747,10 @@ class KASPERManager: ObservableObject {
             isLoading: false,
             error: nil
         )
-        
+
         return TransitData(from: fallbackCosmicSnapshot)
     }
-    
+
     /**
      * Get current season based on current date
      */
@@ -763,25 +763,25 @@ class KASPERManager: ObservableObject {
         default: return "Winter"
         }
     }
-    
+
     /**
      * Generate live natal chart data using current SwiftAA calculations
      * Claude: CRITICAL FIX - This bridges the gap between Sanctum's live data and KASPER payload
      */
     private func generateLiveNatalChartData(from profile: UserProfile) -> NatalChartData? {
         print("🔍 KASPER: generateLiveNatalChartData called")
-        
+
         // Claude: LIGHTWEIGHT FIX - Use already calculated cosmic data instead of recalculating
         guard let cosmicData = getExistingCosmicData() else {
             print("⚠️ KASPER: No existing cosmic data available - skipping natal chart generation")
             return nil
         }
-        
+
         // Use UserProfile natal data if available, otherwise use current positions as placeholder
         let sunSign = profile.natalSunSign ?? cosmicData.sunSign
         let moonSign = profile.natalMoonSign ?? cosmicData.zodiacSign(for: "Moon") ?? "Unknown"
         let risingSign = profile.risingSign // Keep as is (user input required)
-        
+
         // Extract current planetary positions from live cosmic data using existing methods
         let mercurySign = cosmicData.zodiacSign(for: "Mercury") ?? "Unknown"
         let venusSign = cosmicData.zodiacSign(for: "Venus") ?? "Unknown"
@@ -791,7 +791,7 @@ class KASPERManager: ObservableObject {
         let uranusSign = cosmicData.zodiacSign(for: "Uranus")
         let neptuneSign = cosmicData.zodiacSign(for: "Neptune")
         let plutoSign = cosmicData.zodiacSign(for: "Pluto")
-        
+
         print("🔮 KASPER: Using live SwiftAA data for natal chart:")
         print("   • Sun: \(sunSign) (from \(profile.natalSunSign != nil ? "profile" : "live SwiftAA"))")
         print("   • Moon: \(moonSign) (from \(profile.natalMoonSign != nil ? "profile" : "live SwiftAA"))")
@@ -800,7 +800,7 @@ class KASPERManager: ObservableObject {
         print("   • Mars: \(marsSign) (live SwiftAA)")
         print("   • Rising: \(risingSign ?? "Unknown") (requires user input)")
         print("   • Has Birth Time: \(profile.hasBirthTime)")
-        
+
         return NatalChartData(
             sunSign: sunSign,
             moonSign: moonSign,
@@ -823,7 +823,7 @@ class KASPERManager: ObservableObject {
             calculatedAt: Date()
         )
     }
-    
+
     /**
      * Get dominant element from current cosmic data
      */
@@ -842,7 +842,7 @@ class KASPERManager: ObservableObject {
             return nil
         }
     }
-    
+
     /**
      * Get existing cosmic data without triggering new calculations
      * Claude: LIGHTWEIGHT - Reuses data already calculated by Sanctum/CosmicService
@@ -855,35 +855,35 @@ class KASPERManager: ObservableObject {
             print("🔮 KASPER: Using existing cosmic data from CosmicService")
             return existingData
         }
-        
+
         // Fallback: Use the same method as getCurrentTransitData()
         print("🔮 KASPER: No cached CosmicService data, falling back to repository")
-        
+
         // Only calculate if absolutely no data exists (shouldn't happen in normal flow)
         print("⚠️ KASPER: No existing cosmic data found - this shouldn't happen in normal flow")
         return nil
     }
-    
+
     /**
      * Extract relevant MegaCorpus data based on natal chart and current transits
-     * 
+     *
      * This method analyzes the user's natal chart and current planetary transits
      * to extract the most relevant spiritual wisdom and interpretations from the
      * MegaCorpus database for personalized KASPER insights.
      */
     private func extractRelevantMegaCorpusData(natalChart: NatalChartData?, transits: TransitData?) -> MegaCorpusExtract? {
         logger.info("📚 Extracting relevant MegaCorpus data for KASPER")
-        
+
         // Check if MegaCorpus data is available
         let (isDataLoaded, megaCorpusData) = MainActor.assumeIsolated {
             (sanctumDataManager.isDataLoaded, sanctumDataManager.megaCorpusData)
         }
-        
+
         // Claude: DEBUG - Check MegaCorpus loading status
         print("🔍 KASPER DEBUG - MegaCorpus status:")
         print("   • Is Data Loaded: \(isDataLoaded)")
         print("   • MegaCorpus top-level keys: \(megaCorpusData.keys.sorted())")
-        
+
         if let signsData = megaCorpusData["signs"] as? [String: Any] {
             print("   • Signs data structure keys: \(signsData.keys.sorted())")
             if let signs = signsData["signs"] as? [String: Any] {
@@ -902,16 +902,16 @@ class KASPERManager: ObservableObject {
                 print("   • Focus numbers available: \(focusNumbers.keys.count) - \(Array(focusNumbers.keys.prefix(3)))")
             }
         }
-        
+
         guard isDataLoaded else {
             logger.warning("⚠️ MegaCorpus data not loaded, attempting to load data...")
-            
+
             // Claude: FIXED - Try to load the data if it's not loaded yet
             Task { @MainActor in
                 sanctumDataManager.loadMegaCorpusData()
                 logger.info("📚 SanctumDataManager data loading attempted")
             }
-            
+
             // For now, return minimal extract with what we have
             return MegaCorpusExtract()
         }
@@ -920,7 +920,7 @@ class KASPERManager: ObservableObject {
         var elementalGuidance: [String: ElementalGuidance] = [:]
         // Claude: FIXED - Extract numerological insights from MegaCorpus
         var numerologicalInsights: [String: NumerologicalInsight] = [:]
-        
+
         // Extract sign interpretations for natal chart
         if let natalChart = natalChart {
             let relevantSigns = [
@@ -931,7 +931,7 @@ class KASPERManager: ObservableObject {
                 natalChart.venusSign,
                 natalChart.marsSign
             ].compactMap { $0 }
-            
+
             // Claude: FIXED - Check correct data structure path
             if let signsData = megaCorpusData["signs"] as? [String: Any],
                let signsDict = signsData["signs"] as? [String: Any] {
@@ -949,11 +949,11 @@ class KASPERManager: ObservableObject {
                 }
             }
         }
-        
+
         // Extract planetary meanings for current transits
         if let transits = transits {
             let activePlanets = ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn"]
-            
+
             // Claude: FIXED - Check correct data structure path for planets
             if let planetsData = megaCorpusData["planets"] as? [String: Any],
                let planetsDict = planetsData["planets"] as? [String: Any] {
@@ -970,7 +970,7 @@ class KASPERManager: ObservableObject {
                 }
             }
         }
-        
+
         // Extract elemental guidance
         if let natalChart = natalChart, let dominantElement = natalChart.dominantElement {
             if let elementsData = megaCorpusData["elements"] as? [String: Any],
@@ -983,12 +983,12 @@ class KASPERManager: ObservableObject {
                 )
             }
         }
-        
-        // Claude: FIXED - Extract numerological insights from MegaCorpus  
+
+        // Claude: FIXED - Extract numerological insights from MegaCorpus
         if let numerologyData = megaCorpusData["numerology"] as? [String: Any],
            let numbersData = numerologyData["focusNumbers"] as? [String: Any] {
             let relevantNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33, 44] // All possible numerological numbers
-            
+
             for number in relevantNumbers {
                 let numberKey = String(number)
                 if let numberData = numbersData[numberKey] as? [String: Any] {
@@ -1001,10 +1001,10 @@ class KASPERManager: ObservableObject {
                 }
             }
         }
-        
+
         // Extract lunar phase wisdom
         let lunarPhaseWisdom = extractLunarPhaseWisdom(transits: transits)
-        
+
         let extract = MegaCorpusExtract(
             signInterpretations: signInterpretations,
             planetaryMeanings: planetaryMeanings,
@@ -1014,7 +1014,7 @@ class KASPERManager: ObservableObject {
             aspectInterpretations: [], // TODO: Implement aspect interpretations
             extractedAt: Date()
         )
-        
+
         // Claude: DEBUG - Show what we actually extracted
         print("🔮 KASPER MegaCorpus Extract Results:")
         print("   • Sign Interpretations: \(signInterpretations.count)")
@@ -1022,10 +1022,10 @@ class KASPERManager: ObservableObject {
         print("   • Elemental Guidance: \(elementalGuidance.count)")
         print("   • Numerological Insights: \(numerologicalInsights.count)")
         print("   • Lunar Phase Wisdom: \(lunarPhaseWisdom != nil ? "Yes" : "No")")
-        
+
         return extract
     }
-    
+
     /**
      * Generate current relevance for a planet based on transits
      */
@@ -1040,20 +1040,20 @@ class KASPERManager: ObservableObject {
             return "Active in current cosmic conditions"
         }
     }
-    
+
     /**
      * Extract lunar phase wisdom from MegaCorpus
      */
     private func extractLunarPhaseWisdom(transits: TransitData?) -> LunarPhaseWisdom? {
         guard let transits = transits else { return nil }
-        
+
         let megaCorpusData = MainActor.assumeIsolated {
             sanctumDataManager.megaCorpusData
         }
-        
+
         if let moonPhasesData = megaCorpusData["moonphases"] as? [String: Any],
            let phaseData = moonPhasesData[transits.lunarPhase] as? [String: Any] {
-            
+
             return LunarPhaseWisdom(
                 phase: transits.lunarPhase,
                 energy: phaseData["energy"] as? String ?? "Unknown",
@@ -1061,10 +1061,10 @@ class KASPERManager: ObservableObject {
                 ritualSuggestions: phaseData["ritual_suggestions"] as? String ?? "Unknown"
             )
         }
-        
+
         return nil
     }
-    
+
     /**
      * Create test MegaCorpus extract for development and testing
      */
@@ -1088,7 +1088,7 @@ class KASPERManager: ObservableObject {
                 spiritualMeaning: "The path of deep transformation and spiritual rebirth"
             )
         ]
-        
+
         // Create test planetary meanings
         let testPlanetaryMeanings = [
             "Sun": PlanetaryMeaning(
@@ -1106,7 +1106,7 @@ class KASPERManager: ObservableObject {
                 currentRelevance: "Currently in Cancer, enhancing emotional sensitivity"
             )
         ]
-        
+
         // Create test elemental guidance
         let testElementalGuidance = [
             "Fire": ElementalGuidance(
@@ -1116,7 +1116,7 @@ class KASPERManager: ObservableObject {
                 balancingElements: ["Water", "Earth"]
             )
         ]
-        
+
         // Create test numerological insights
         let testNumerologicalInsights = [
             "7": NumerologicalInsight(
@@ -1132,7 +1132,7 @@ class KASPERManager: ObservableObject {
                 guidanceMessage: "You are here to inspire and uplift others with your vision"
             )
         ]
-        
+
         // Create test lunar phase wisdom
         let testLunarPhaseWisdom = LunarPhaseWisdom(
             phase: "Full Moon",
@@ -1140,7 +1140,7 @@ class KASPERManager: ObservableObject {
             guidance: "This is the time to release what no longer serves and celebrate your achievements",
             ritualSuggestions: "Moon bathing, gratitude ceremony, energy cleansing"
         )
-        
+
         return MegaCorpusExtract(
             signInterpretations: testSignInterpretations,
             planetaryMeanings: testPlanetaryMeanings,
@@ -1151,13 +1151,13 @@ class KASPERManager: ObservableObject {
             extractedAt: Date()
         )
     }
-    
+
     /**
      * Generate anonymous payload for users without profile
      */
     private func generateAnonymousPayload() -> KASPERPrimingPayload? {
         logger.info("🔮 Generating anonymous KASPER payload")
-        
+
         return KASPERPrimingPayload(
             lifePathNumber: 1, // Default life path
             soulUrgeNumber: 1, // Default soul urge
@@ -1176,9 +1176,9 @@ class KASPERManager: ObservableObject {
             megaCorpusData: createTestMegaCorpusExtract() // Provide spiritual wisdom even for anonymous users
         )
     }
-    
+
     // MARK: - Caching Methods
-    
+
     /**
      * Get cached payload if still fresh
      */
@@ -1189,21 +1189,21 @@ class KASPERManager: ObservableObject {
         }
         return cache.payload
     }
-    
+
     /**
      * Cache payload for performance optimization
      */
     private func cachePayload(_ payload: KASPERPrimingPayload) {
         payloadCache = PayloadCache(payload: payload, timestamp: Date())
     }
-    
+
     /**
      * Clear payload cache to force regeneration
      */
     private func clearPayloadCache() {
         payloadCache = nil
     }
-    
+
     /**
      * Update published payload state
      */
@@ -1224,10 +1224,10 @@ class KASPERManager: ObservableObject {
 private struct PayloadCache {
     let payload: KASPERPrimingPayload
     let timestamp: Date
-    
+
     /// Cache validity duration (5 minutes)
     private let validityDuration: TimeInterval = 300
-    
+
     /// Check if cache is still valid
     func isValid() -> Bool {
         return Date().timeIntervalSince(timestamp) < validityDuration
@@ -1244,7 +1244,7 @@ struct DataSourceHealth {
     var userProfileHealthy: Bool = true
     var astrologyHealthy: Bool = false // Future Phase 8
     var proximityHealthy: Bool = false // Future Phase 9
-    
+
     /// Overall health status
     var isHealthy: Bool {
         return realmManagerHealthy && focusManagerHealthy && healthKitHealthy && userProfileHealthy

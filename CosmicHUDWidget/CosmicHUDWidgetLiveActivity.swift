@@ -21,14 +21,14 @@ struct CosmicHUDWidgetLiveActivity: Widget {
             // MARK: - Lock Screen View
             /// Claude: Lock screen and notification banner display
             lockScreenView(context: context)
-            
+
         } dynamicIsland: { context in
-            // MARK: - Dynamic Island Configuration  
+            // MARK: - Dynamic Island Configuration
             /// Claude: The revolutionary omnipresent spiritual awareness display
             DynamicIsland {
                 // MARK: - Expanded State Regions
                 /// Claude: When user taps to expand the Dynamic Island
-                
+
                 DynamicIslandExpandedRegion(.leading) {
                     VStack(alignment: .leading, spacing: 2) {
                         HStack(spacing: 4) {
@@ -39,13 +39,13 @@ struct CosmicHUDWidgetLiveActivity: Widget {
                                 .fontWeight(.bold)
                                 .foregroundColor(.primary)
                         }
-                        
+
                         Text("Ruler")
                             .font(.caption2)
                             .foregroundColor(.secondary)
                     }
                 }
-                
+
                 DynamicIslandExpandedRegion(.trailing) {
                     VStack(alignment: .trailing, spacing: 2) {
                         HStack {
@@ -55,13 +55,13 @@ struct CosmicHUDWidgetLiveActivity: Widget {
                                 .fontWeight(.bold)
                                 .foregroundColor(.primary)
                         }
-                        
+
                         Text("Realm")
                             .font(.caption2)
                             .foregroundColor(.secondary)
                     }
                 }
-                
+
                 DynamicIslandExpandedRegion(.center) {
                     VStack(spacing: 6) {
                         // Just show the colorful aspect symbols - no redundant text
@@ -73,7 +73,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
                                     .foregroundColor(component.color)
                             }
                         }
-                        
+
                         // Claude: CRITICAL FIX - Use formatAspectExplanation() to show actual planetary aspects
                         // instead of hardcoded "Active Aspect" text that was reported in user feedback
                         Text(formatAspectExplanation(context.state.aspectDisplay))
@@ -82,7 +82,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
                             .opacity(0.7)
                     }
                 }
-                
+
                 DynamicIslandExpandedRegion(.bottom) {
                     VStack(spacing: 4) {
                         // More meaningful spiritual guidance with more room now
@@ -101,7 +101,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
                     }
                     .padding(.horizontal, 8)
                 }
-                
+
             } compactLeading: {
                 // MARK: - Compact Leading (Crown + Ruler + Aspects)
                 HStack(spacing: 2) {
@@ -114,7 +114,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
                             .fontWeight(.bold)
                             .foregroundColor(getNumberColor(context.state.rulerNumber))
                     }
-                    
+
                     ForEach(parseAspectForColors(context.state.aspectDisplay), id: \.self) { component in
                         Text(component.symbol)
                             .font(.title3) // Bigger than .body
@@ -123,14 +123,14 @@ struct CosmicHUDWidgetLiveActivity: Widget {
                             .baselineOffset(0) // Ensure same baseline as ruler number
                     }
                 }
-                
+
             } compactTrailing: {
-                // MARK: - Compact Trailing (Realm Number for more numerology focus)  
+                // MARK: - Compact Trailing (Realm Number for more numerology focus)
                 Text("🔮\(context.state.realmNumber)")
                     .font(.body)
                     .fontWeight(.bold)
                     .foregroundColor(.purple)
-                
+
             } minimal: {
                 // MARK: - Minimal State (Crown + Ruler)
                 Text("👑\(context.state.rulerNumber)")
@@ -141,7 +141,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
             .keylineTint(Color.purple)
         }
     }
-    
+
     // MARK: - Lock Screen View
     /// Claude: Lock screen and notification banner display
     @ViewBuilder
@@ -152,14 +152,14 @@ struct CosmicHUDWidgetLiveActivity: Widget {
                 Text("🌌 Cosmic Awareness")
                     .font(.headline)
                     .fontWeight(.semibold)
-                
+
                 Spacer()
-                
+
                 Text(formatUpdateTime(context.state.lastUpdate))
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
-            
+
             // Main content
             HStack(spacing: 12) {
                 // Ruler number
@@ -174,10 +174,10 @@ struct CosmicHUDWidgetLiveActivity: Widget {
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
-                
+
                 Divider()
                     .frame(height: 30)
-                
+
                 // Realm number
                 VStack(spacing: 4) {
                     HStack {
@@ -190,10 +190,10 @@ struct CosmicHUDWidgetLiveActivity: Widget {
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
-                
+
                 Divider()
                     .frame(height: 30)
-                
+
                 // Active aspect
                 VStack(spacing: 4) {
                     Text(context.state.aspectDisplay)
@@ -203,10 +203,10 @@ struct CosmicHUDWidgetLiveActivity: Widget {
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
-                
+
                 Divider()
                     .frame(height: 30)
-                
+
                 // Element
                 VStack(spacing: 4) {
                     Text(context.state.element)
@@ -215,17 +215,17 @@ struct CosmicHUDWidgetLiveActivity: Widget {
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
-                
+
                 Spacer()
             }
-            
+
             // Comprehensive Lock Screen Insight - we have more space here!
             VStack(spacing: 2) {
                 Text("✨ Personal Cosmic Guidance")
                     .font(.caption2)
                     .foregroundColor(.secondary)
                     .fontWeight(.semibold)
-                
+
                 Text(generateLockScreenInsight(
                     ruler: context.state.rulerNumber,
                     realm: context.state.realmNumber,
@@ -244,32 +244,32 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         .activityBackgroundTint(Color.black)
         .activitySystemActionForegroundColor(Color.white)
     }
-    
+
     // MARK: - Helper Methods
-    
+
     /// Claude: Formats the last update time for display
     private func formatUpdateTime(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         return formatter.string(from: date)
     }
-    
+
     /// Claude: CRITICAL FUNCTION - Converts planet symbols to readable names for aspect explanation
     /// This function solves the Dynamic Island expanded view showing "Active Aspect" issue
     /// by converting symbolic display like "☉ ☍ ☿" to readable "Sun opposite Mercury"
     private func formatAspectExplanation(_ aspectDisplay: String) -> String {
         // Simple symbol to name mapping for common planets
         let symbolMap: [String: String] = [
-            "☉": "Sun", "☽": "Moon", "☿": "Mercury", "♀": "Venus", 
+            "☉": "Sun", "☽": "Moon", "☿": "Mercury", "♀": "Venus",
             "♂": "Mars", "♃": "Jupiter", "♄": "Saturn", "♅": "Uranus",
             "♆": "Neptune", "♇": "Pluto"
         ]
-        
+
         let aspectMap: [String: String] = [
-            "☌": "conjunct", "☍": "opposite", "△": "trine", 
+            "☌": "conjunct", "☍": "opposite", "△": "trine",
             "□": "square", "⚹": "sextile", "⚻": "quincunx"
         ]
-        
+
         var explanation = aspectDisplay
         for (symbol, name) in symbolMap {
             explanation = explanation.replacingOccurrences(of: symbol, with: name)
@@ -277,26 +277,26 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         for (symbol, name) in aspectMap {
             explanation = explanation.replacingOccurrences(of: symbol, with: name)
         }
-        
+
         return explanation.isEmpty ? "Cosmic alignment" : explanation
     }
-    
+
     /// Claude: Generates comprehensive insight combining numerology, astrology, and elements
     private func generateComprehensiveInsight(ruler: Int, aspect: String, element: String) -> String {
         let rulerInsight = getRulerInsight(ruler)
         let elementInsight = getElementInsight(element)
-        
+
         return "Ruler \(ruler) \(rulerInsight) while \(elementInsight)"
     }
-    
+
     /// Claude: More compact insight for Dynamic Island space constraints
     private func generateCompactInsight(ruler: Int, element: String) -> String {
         let rulerAction = getCompactRulerAction(ruler)
         let elementFlow = getCompactElementFlow(element)
-        
+
         return "\(rulerAction) • \(elementFlow)"
     }
-    
+
     private func getCompactRulerAction(_ number: Int) -> String {
         switch number {
         case 1: return "Leading with power"
@@ -311,7 +311,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "Channeling cosmos"
         }
     }
-    
+
     private func getCompactElementFlow(_ element: String) -> String {
         switch element {
         case "🔥": return "Fire transforms"
@@ -321,21 +321,21 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "Elements align"
         }
     }
-    
+
     /// Claude: Generate meaningful integrated insight for Dynamic Island
     private func generateStructuredInsight(ruler: Int, realm: Int, aspect: String, element: String) -> String {
         // Extract the aspect type and planets for deeper insight
         let aspectType = extractAspectTypeFromDisplay(aspect)
         let planets = extractPlanetsFromDisplay(aspect)
-        
+
         // Build integrated numerology + astrology guidance
         let rulerEssence = getRulerEssence(ruler)
         let numerologyAstrology = getCombinedNumerologyAstrology(ruler, aspectType, planets: planets)
-        
+
         // Create integrated spiritual guidance in exactly 2 lines
         return "\(rulerEssence)\n\(numerologyAstrology)"
     }
-    
+
     private func getRulerEssence(_ number: Int) -> String {
         switch number {
         case 1: return "Lead boldly"
@@ -350,7 +350,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "Channel cosmos"
         }
     }
-    
+
     private func getAspectMeaning(_ type: String, planets: [String]) -> String {
         switch type {
         case "trine": return "harmonious flow"
@@ -362,12 +362,12 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "cosmic alignment"
         }
     }
-    
+
     private func getAspectMeaningWithPlanets(_ type: String, planets: [String]) -> String {
         // Get the first two planets for the aspect description
         let planet1 = planets.first ?? "cosmic"
         let planet2 = planets.count > 1 ? planets[1] : "energy"
-        
+
         switch type {
         case "trine": return "\(planet1) harmonizes \(planet2)"
         case "square": return "\(planet1) challenges \(planet2)"
@@ -378,7 +378,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "\(planet1) aligns \(planet2)"
         }
     }
-    
+
     private func getElementalWisdom(_ element: String) -> String {
         switch element {
         case "🔥": return "with fire"
@@ -388,7 +388,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "with balance"
         }
     }
-    
+
     private func extractAspectTypeFromDisplay(_ display: String) -> String {
         if display.contains("△") { return "trine" }
         if display.contains("□") { return "square" }
@@ -398,7 +398,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         if display.contains("⚻") { return "quincunx" }
         return "unknown"
     }
-    
+
     private func extractPlanetsFromDisplay(_ display: String) -> [String] {
         var planets: [String] = []
         if display.contains("☉") { planets.append("Sun") }
@@ -413,9 +413,9 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         if display.contains("♇") { planets.append("Pluto") }
         return planets
     }
-    
+
     // MARK: - Enhanced Insight Functions
-    
+
     private func getSpecificRulerAction(_ number: Int) -> String {
         switch number {
         case 1: return "Leadership breakthrough unfolds"
@@ -430,34 +430,34 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "Cosmic energy flows"
         }
     }
-    
+
     private func getSpecificPlanetaryGuidance(_ aspectType: String, planets: [String]) -> String {
         guard planets.count >= 2 else {
             return "Cosmic energies support your path"
         }
-        
+
         let planet1 = planets[0]
         let planet2 = planets[1]
-        
+
         // Use proper astrological aspect terminology
         switch aspectType {
-        case "trine": 
+        case "trine":
             return "\(planet1) trine \(planet2) creates flowing energy"
-        case "square": 
+        case "square":
             return "\(planet1) square \(planet2) builds dynamic tension"
-        case "conjunction": 
+        case "conjunction":
             return "\(planet1) conjunct \(planet2) unites their powers"
-        case "opposition": 
+        case "opposition":
             return "\(planet1) opposite \(planet2) seeks perfect balance"
-        case "sextile": 
+        case "sextile":
             return "\(planet1) sextile \(planet2) opens opportunities"
-        case "quincunx": 
+        case "quincunx":
             return "\(planet1) quincunx \(planet2) requires adjustment"
-        default: 
+        default:
             return "\(planet1) aspects \(planet2) in cosmic harmony"
         }
     }
-    
+
     private func getElementalApplication(_ element: String) -> String {
         switch element {
         case "🔥": return "Apply passionate fire energy to your goals"
@@ -467,35 +467,35 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "Balance all elemental energies"
         }
     }
-    
+
     private func getCombinedPlanetaryElemental(_ aspectType: String, planets: [String], element: String) -> String {
         guard planets.count >= 2 else {
             return "Cosmic \(getElementName(element)) energy flows"
         }
-        
+
         let planet1 = planets[0]
         let planet2 = planets[1]
         let elementName = getElementName(element)
-        
+
         // Keep it super short to prevent cutoffs
         switch aspectType {
-        case "trine": 
+        case "trine":
             return "\(planet1) trine \(planet2) flows \(elementName)"
-        case "square": 
+        case "square":
             return "\(planet1) square \(planet2) transforms \(elementName)"
-        case "conjunction": 
+        case "conjunction":
             return "\(planet1) conjunct \(planet2) powers \(elementName)"
-        case "opposition": 
+        case "opposition":
             return "\(planet1) opposite \(planet2) balances \(elementName)"
-        case "sextile": 
+        case "sextile":
             return "\(planet1) sextile \(planet2) opens \(elementName)"
-        case "quincunx": 
+        case "quincunx":
             return "\(planet1) quincunx \(planet2) adjusts \(elementName)"
-        default: 
+        default:
             return "\(planet1) aspects \(planet2) with \(elementName)"
         }
     }
-    
+
     private func getElementName(_ element: String) -> String {
         switch element {
         case "🔥": return "fire"
@@ -505,22 +505,22 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "cosmic"
         }
     }
-    
+
     private func getCombinedNumerologyAstrology(_ ruler: Int, _ aspectType: String, planets: [String]) -> String {
         guard planets.count >= 2 else {
             return "\(ruler) channels cosmic wisdom"
         }
-        
+
         let planet1 = planets[0]
         let planet2 = planets[1]
         let planet1Energy = getPlanetEnergy(planet1)
         let planet2Energy = getPlanetEnergy(planet2)
         let aspectEnergy = getAspectEnergy(aspectType)
-        
+
         // Make it more compact but keep meaning
         return "\(ruler) \(aspectEnergy) \(planet1Energy) & \(planet2Energy)"
     }
-    
+
     private func getRulerWord(_ number: Int) -> String {
         switch number {
         case 1: return "One"
@@ -535,14 +535,14 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "Cosmic"
         }
     }
-    
+
     private func getPlanetaryMeaning(_ planet1: String, _ planet2: String, _ aspectType: String) -> String {
         // Ultra-concise for space constraints
         let aspectEnergy = getAspectEnergy(aspectType)
-        
+
         return "\(aspectEnergy) \(planet1)-\(planet2) energy"
     }
-    
+
     private func getPlanetEnergy(_ planet: String) -> String {
         switch planet {
         case "Sun": return "core identity"
@@ -558,7 +558,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "cosmic flow"
         }
     }
-    
+
     private func getAspectEnergy(_ aspectType: String) -> String {
         switch aspectType {
         case "trine": return "harmonizes"
@@ -570,7 +570,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "connects"
         }
     }
-    
+
     private func getRulerNumerologyMeaning(_ number: Int) -> String {
         switch number {
         case 1: return "leads breakthrough"
@@ -585,27 +585,27 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "channels energy"
         }
     }
-    
+
     /// Claude: Generate comprehensive insight for lock screen with exactly 2 lines
     private func generateLockScreenInsight(ruler: Int, realm: Int, aspect: String, element: String) -> String {
         let aspectType = extractAspectTypeFromDisplay(aspect)
         let planets = extractPlanetsFromDisplay(aspect)
-        
+
         // Create 2-line lock screen guidance that integrates numerology
         let rulerGuidance = getDetailedRulerGuidance(ruler)
         let numerologyAstrologyGuidance = getLockScreenNumerologyAstrology(ruler, aspectType, planets: planets)
-        
+
         return "\(rulerGuidance)\n\(numerologyAstrologyGuidance)"
     }
-    
+
     private func getPlanetaryInfluence(_ planets: [String], aspectType: String) -> String {
         guard planets.count >= 2 else {
             return "Cosmic forces align"
         }
-        
+
         let planet1 = planets[0]
         let planet2 = planets[1]
-        
+
         switch aspectType {
         case "trine": return "\(planet1)'s energy flows harmoniously with \(planet2)."
         case "square": return "\(planet1)'s tension with \(planet2) sparks growth."
@@ -616,7 +616,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "\(planet1) and \(planet2) dance together."
         }
     }
-    
+
     private func getElementAdvice(_ element: String) -> String {
         switch element {
         case "🔥": return "Let fire transform"
@@ -626,9 +626,9 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "Find balance"
         }
     }
-    
+
     // MARK: - Detailed Lock Screen Functions
-    
+
     private func getDetailedRulerGuidance(_ number: Int) -> String {
         switch number {
         case 1: return "Your leadership energy is at its peak."
@@ -643,33 +643,33 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "Cosmic forces amplify your potential."
         }
     }
-    
+
     private func getDetailedPlanetaryMessage(_ aspectType: String, planets: [String]) -> String {
         guard planets.count >= 2 else {
             return "Universal energies support your journey."
         }
-        
+
         let planet1 = planets[0]
         let planet2 = planets[1]
-        
+
         switch aspectType {
-        case "trine": 
+        case "trine":
             return "\(planet1) and \(planet2) create harmonious opportunities for growth."
-        case "square": 
+        case "square":
             return "\(planet1)'s challenge with \(planet2) builds character and strength."
-        case "conjunction": 
+        case "conjunction":
             return "\(planet1) merges with \(planet2) to amplify their combined power."
-        case "opposition": 
+        case "opposition":
             return "\(planet1) and \(planet2) seek perfect balance in your life."
-        case "sextile": 
+        case "sextile":
             return "\(planet1) gently supports \(planet2)'s beneficial influence."
-        case "quincunx": 
+        case "quincunx":
             return "\(planet1) makes subtle adjustments to align with \(planet2)'s wisdom."
-        default: 
+        default:
             return "\(planet1) and \(planet2) dance together in cosmic harmony."
         }
     }
-    
+
     private func getDetailedElementalAction(_ element: String) -> String {
         switch element {
         case "🔥": return "Channel fire's transformative power into passionate action."
@@ -679,35 +679,35 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "Balance all elements for complete spiritual harmony."
         }
     }
-    
+
     private func getCombinedCosmicGuidance(_ aspectType: String, planets: [String], element: String) -> String {
         guard planets.count >= 2 else {
             return "Cosmic \(getElementName(element)) energy supports you."
         }
-        
+
         let planet1 = planets[0]
         let planet2 = planets[1]
         let elementAction = getShortElementAction(element)
-        
+
         // Keep it shorter for lock screen
         switch aspectType {
-        case "trine": 
+        case "trine":
             return "\(planet1) trine \(planet2) flows. \(elementAction)"
-        case "square": 
+        case "square":
             return "\(planet1) square \(planet2) builds. \(elementAction)"
-        case "conjunction": 
+        case "conjunction":
             return "\(planet1) conjunct \(planet2) powers. \(elementAction)"
-        case "opposition": 
+        case "opposition":
             return "\(planet1) opposite \(planet2) balances. \(elementAction)"
-        case "sextile": 
+        case "sextile":
             return "\(planet1) sextile \(planet2) opens. \(elementAction)"
-        case "quincunx": 
+        case "quincunx":
             return "\(planet1) quincunx \(planet2) adjusts. \(elementAction)"
-        default: 
+        default:
             return "\(planet1) aspects \(planet2). \(elementAction)"
         }
     }
-    
+
     private func getShortElementAction(_ element: String) -> String {
         switch element {
         case "🔥": return "Let fire transform you."
@@ -717,22 +717,22 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "Find elemental balance."
         }
     }
-    
+
     private func getLockScreenNumerologyAstrology(_ ruler: Int, _ aspectType: String, planets: [String]) -> String {
         guard planets.count >= 2 else {
             return "\(ruler) channels cosmic wisdom today."
         }
-        
+
         let planet1 = planets[0]
         let planet2 = planets[1]
         let planet1Energy = getPlanetEnergy(planet1)
         let planet2Energy = getPlanetEnergy(planet2)
         let aspectEnergy = getAspectEnergy(aspectType)
-        
+
         // Match the expanded view format for consistency
         return "\(ruler) \(aspectEnergy) \(planet1Energy) & \(planet2Energy)."
     }
-    
+
     private func getRulerPath(_ number: Int) -> String {
         switch number {
         case 1: return "leadership path"
@@ -747,7 +747,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "cosmic path"
         }
     }
-    
+
     private func getCosmicAdvice(_ ruler: Int, aspectType: String, element: String) -> String {
         let elementAdvice = switch element {
             case "🔥": "Let passion guide transformation"
@@ -756,7 +756,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
             case "💧": "Trust intuitive emotional flow"
             default: "Balance all elemental forces"
         }
-        
+
         let aspectAdvice = switch aspectType {
             case "trine": "Flow with cosmic harmony"
             case "square": "Embrace growth through challenge"
@@ -764,10 +764,10 @@ struct CosmicHUDWidgetLiveActivity: Widget {
             case "quincunx": "Adjust your spiritual compass"
             default: "Align with universal rhythm"
         }
-        
+
         return "\(aspectAdvice). \(elementAdvice)."
     }
-    
+
     private func getUltraCompactRuler(_ number: Int) -> String {
         switch number {
         case 1: return "Leading"
@@ -782,7 +782,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "Channeling"
         }
     }
-    
+
     private func getUltraCompactElement(_ element: String) -> String {
         switch element {
         case "🔥": return "with fire"
@@ -792,11 +792,11 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "with cosmos"
         }
     }
-    
+
     private func getRulerInsight(_ number: Int) -> String {
         switch number {
         case 1: return "ignites leadership energy"
-        case 2: return "harmonizes relationships" 
+        case 2: return "harmonizes relationships"
         case 3: return "amplifies creative expression"
         case 4: return "builds solid foundations"
         case 5: return "seeks freedom and adventure"
@@ -807,31 +807,31 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         default: return "channels cosmic power"
         }
     }
-    
+
     private func getElementInsight(_ element: String) -> String {
         switch element {
         case "🔥": return "fire energy fuels transformation"
         case "🌱": return "earth energy grounds your vision"
-        case "💨": return "air energy expands consciousness"  
+        case "💨": return "air energy expands consciousness"
         case "💧": return "water energy flows with intuition"
         default: return "elemental forces guide you"
         }
     }
-    
-    
+
+
     /// Claude: Parse aspect display into colored components
     private func parseAspectForColors(_ aspectDisplay: String) -> [AspectComponent] {
         var components: [AspectComponent] = []
-        
+
         for char in aspectDisplay {
             let symbol = String(char)
             let color = getSymbolColor(symbol)
             components.append(AspectComponent(symbol: symbol, color: color))
         }
-        
+
         return components
     }
-    
+
     /// Claude: Get traditional astrological colors for symbols
     private func getSymbolColor(_ symbol: String) -> Color {
         switch symbol {
@@ -846,7 +846,7 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         case "♅": return .cyan        // Uranus - Electric cyan
         case "♆": return .purple      // Neptune - Mystical purple
         case "♇": return .indigo      // Pluto - Transformation indigo
-        
+
         // Aspects
         case "☌": return .white       // Conjunction - Unity white
         case "☍": return .red         // Opposition - Tension red
@@ -854,13 +854,13 @@ struct CosmicHUDWidgetLiveActivity: Widget {
         case "□": return .orange      // Square - Challenge orange
         case "⚹": return .blue        // Sextile - Opportunity blue
         case "⚻": return .purple      // Quincunx - Adjustment purple
-        
+
         // Spaces and other
         case " ": return .clear
         default: return .primary
         }
     }
-    
+
     /// Claude: Get the proper Vybe color for each number (matches focus number system)
     private func getNumberColor(_ number: Int) -> Color {
         switch number {
@@ -904,13 +904,13 @@ extension CosmicHUDWidgetAttributes.ContentState {
             lastUpdate: Date()
         )
     }
-    
+
     fileprivate static var sample2: CosmicHUDWidgetAttributes.ContentState {
         CosmicHUDWidgetAttributes.ContentState(
             rulerNumber: 3,
             realmNumber: 5,
             aspectDisplay: "☽ ☌ ♆",
-            element: "💧", 
+            element: "💧",
             lastUpdate: Date()
         )
     }

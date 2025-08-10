@@ -26,10 +26,10 @@ struct OnboardingNotificationsView: View {
             VStack(spacing: 30) {
                 // Header Section
                 headerSection
-                
+
                 // Notification Settings
                 settingsSection
-                
+
                 // Description Section
                 descriptionSection
             }
@@ -38,7 +38,7 @@ struct OnboardingNotificationsView: View {
             .padding(.bottom, 40)
         }
     }
-    
+
     private var headerSection: some View {
         VStack(spacing: 20) {
             // Icon
@@ -52,12 +52,12 @@ struct OnboardingNotificationsView: View {
                         )
                     )
                     .frame(width: 100, height: 100)
-                
+
                 Image(systemName: "bell.circle.fill")
                     .font(.system(size: 40, weight: .light))
                     .foregroundColor(.mint)
             }
-            
+
             VStack(spacing: 12) {
                 Text("Notification Preferences")
                     .font(.largeTitle)
@@ -69,7 +69,7 @@ struct OnboardingNotificationsView: View {
                             endPoint: .trailing
                         )
                     )
-                
+
                 Text("Configure how and when you receive gentle reminders or insights from Vybe.")
                     .font(.body)
                     .foregroundColor(.secondary)
@@ -79,7 +79,7 @@ struct OnboardingNotificationsView: View {
         }
         .padding(.top, 20)
     }
-    
+
     private var settingsSection: some View {
         VStack(spacing: 20) {
             // Timed Whispers Card
@@ -88,27 +88,27 @@ struct OnboardingNotificationsView: View {
                     Image(systemName: "clock.circle.fill")
                         .font(.title2)
                         .foregroundColor(.mint)
-                    
+
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Timed Whispers")
                             .font(.headline)
                             .fontWeight(.semibold)
-                        
+
                         Text("Receive gentle insights at your preferred time")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
-                    
+
                     Spacer()
-                    
+
                     Toggle("", isOn: $viewModel.doesWantWhispers)
                         .toggleStyle(SwitchToggleStyle(tint: .mint))
                 }
-                
+
                 if viewModel.doesWantWhispers {
                     Divider()
                         .background(Color.mint.opacity(0.3))
-                    
+
                     VStack(spacing: 12) {
                         HStack {
                             Image(systemName: "sun.and.horizon.circle.fill")
@@ -118,7 +118,7 @@ struct OnboardingNotificationsView: View {
                                 .fontWeight(.medium)
                             Spacer()
                         }
-                        
+
                         Picker("Preferred Hour for Whispers", selection: $viewModel.selectedPreferredHour) {
                             ForEach(hourOptions, id: \.self) { hour in
                                 Text(formatHour(hour)).tag(hour)
@@ -145,7 +145,7 @@ struct OnboardingNotificationsView: View {
             .shadow(color: Color.mint.opacity(0.1), radius: 8, x: 0, y: 4)
         }
     }
-    
+
     private var descriptionSection: some View {
         VStack(spacing: 16) {
             HStack {
@@ -155,7 +155,7 @@ struct OnboardingNotificationsView: View {
                     .font(.headline)
                 Spacer()
             }
-            
+
             VStack(alignment: .leading, spacing: 12) {
                 HStack(spacing: 12) {
                     Image(systemName: "sparkles")
@@ -164,7 +164,7 @@ struct OnboardingNotificationsView: View {
                         .font(.body)
                         .foregroundColor(.secondary)
                 }
-                
+
                 HStack(spacing: 12) {
                     Image(systemName: "heart.circle")
                         .foregroundColor(.pink)
@@ -172,7 +172,7 @@ struct OnboardingNotificationsView: View {
                         .font(.body)
                         .foregroundColor(.secondary)
                 }
-                
+
                 HStack(spacing: 12) {
                     Image(systemName: "moon.circle")
                         .foregroundColor(.indigo)
@@ -202,4 +202,4 @@ struct OnboardingNotificationsView_Previews: PreviewProvider {
         return OnboardingNotificationsView(viewModel: viewModel)
             .padding()
     }
-} 
+}
