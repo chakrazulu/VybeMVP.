@@ -84,6 +84,7 @@
 		4D55BE792E3AD37C00F7BE5B /* CosmicHUDWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4D55BE642E3AD37B00F7BE5B /* CosmicHUDWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4D55BE7F2E3AD4AD00F7BE5B /* CosmicHUDTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE5E2E3AC55400F7BE5B /* CosmicHUDTypes.swift */; };
 		4D5926A72E48EDDB002625DE /* KASPERMLXRuntimeBundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D5926A62E48EDDB002625DE /* KASPERMLXRuntimeBundle */; };
+		4D5926CC2E490D7D002625DE /* RouterDiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5926CA2E490D7D002625DE /* RouterDiagnosticsView.swift */; };
 		4D5BEAF52E35A7AD00B56575 /* PostEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF22E35A7AD00B56575 /* PostEntity+CoreDataClass.swift */; };
 		4D5BEAF72E35A7E900B56575 /* PostEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF62E35A7E900B56575 /* PostEntity+CoreDataProperties.swift */; };
 		4D5BEAF92E35A81400B56575 /* HybridPostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF82E35A81400B56575 /* HybridPostRepository.swift */; };
@@ -635,6 +636,7 @@
 		4D55BE652E3AD37B00F7BE5B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		4D55BE672E3AD37B00F7BE5B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		4D5926A62E48EDDB002625DE /* KASPERMLXRuntimeBundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KASPERMLXRuntimeBundle; sourceTree = "<group>"; };
+		4D5926CA2E490D7D002625DE /* RouterDiagnosticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterDiagnosticsView.swift; sourceTree = "<group>"; };
 		4D5BEAF22E35A7AD00B56575 /* PostEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4D5BEAF62E35A7E900B56575 /* PostEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4D5BEAF82E35A81400B56575 /* HybridPostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HybridPostRepository.swift; sourceTree = "<group>"; };
@@ -1330,6 +1332,14 @@
 			path = CosmicHUD;
 			sourceTree = "<group>";
 		};
+		4D5926CB2E490D7D002625DE /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				4D5926CA2E490D7D002625DE /* RouterDiagnosticsView.swift */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
 		4D5BEB332E372AC100B56575 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -1887,6 +1897,7 @@
 		4DC602302D34440900B5E4A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4D5926CB2E490D7D002625DE /* Debug */,
 				4DCB386D2E1B050400311D51 /* RecentMatchPopupView.swift */,
 				4DCB386B2E1AAF1C00311D51 /* UserProfileView.swift */,
 				4DB233FC2E11F4CC004EC2BC /* TestCosmicAnimationView.swift */,
@@ -2613,6 +2624,7 @@
 				4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */,
 				4D9396192E07578200955980 /* SacredGeometryView.swift in Sources */,
 				4DE4C37E2DB3918E00BB7572 /* NumerologyMessage.swift in Sources */,
+				4D5926CC2E490D7D002625DE /* RouterDiagnosticsView.swift in Sources */,
 				4DA98FCE2E073D0000FAE5FF /* ReportContentView.swift in Sources */,
 				4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */,
 				4D6C7BB92DE480E4001036E5 /* PreparedInsight.swift in Sources */,
