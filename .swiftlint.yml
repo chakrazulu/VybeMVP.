@@ -1,0 +1,137 @@
+# SwiftLint Configuration for VybeOS Self-Healing Architecture
+# Detects runtime code quality issues before they reach the repository
+# Strategic recommendation from ChatGPT for preventing production problems
+
+# Basic configuration
+line_length: 120
+type_body_length: 400
+file_length: 600
+
+# Directories to analyze
+included:
+  - VybeMVP
+  - KASPERMLX
+  - VybeCore
+  - Views
+  - ViewModels
+  - Managers
+  - Features
+
+# Directories to exclude
+excluded:
+  - VybeMVP.xcodeproj
+  - VybeMVPTests
+  - CosmicHUDWidget
+  - Pods
+  - build
+  - DerivedData
+
+# Self-healing runtime quality rules
+opt_in_rules:
+  # Memory safety and runtime stability
+  - force_unwrapping
+  - weak_delegate
+  
+  # Performance and efficiency  
+  - closure_body_length
+  - function_body_length
+  - cyclomatic_complexity
+  - large_tuple
+  
+  # Code quality and maintainability
+  - unused_parameter
+  - identical_operands
+  - redundant_optional_initialization
+  - redundant_void_return
+  - discouraged_optional_collection
+  
+  # API design consistency
+  - implicit_return
+  - multiline_function_chains
+  - multiline_literal_brackets
+  - multiline_parameters
+  
+  # Security and data validation
+  - empty_string
+  - empty_collection_literal
+  - empty_enum_arguments
+  - fallthrough
+
+# Analyzer-only rules (require 'swiftlint analyze')
+analyzer_rules:
+  - unused_import
+  - unused_declaration
+
+# Custom rules for VybeOS spiritual AI architecture
+custom_rules:
+  # Prevent [weak self] in SwiftUI Views (Swift 6 compliance)
+  no_weak_self_in_views:
+    name: "No [weak self] in SwiftUI Views"
+    regex: 'struct\s+\w+.*:\s+View.*\{[\s\S]*?\[weak\s+self\]'
+    message: "NEVER use [weak self] in SwiftUI Views (structs) - Swift 6 compliance violation"
+    severity: error
+    
+  # Ensure MainActor usage for UI updates
+  mainactor_ui_updates:
+    name: "MainActor for UI Updates"
+    regex: 'DispatchQueue\.main\.async\s*\{'
+    message: "Use 'await MainActor.run {}' instead of DispatchQueue.main.async - Swift 6 compliance"
+    severity: warning
+    
+  # Prevent force unwraps in production code (security hardening)
+  no_force_unwrap_production:
+    name: "No Force Unwraps in Production"
+    regex: '(?<!//.*)\!\s*(?!//)(?![=!<>])'
+    message: "Force unwrapping eliminated in security hardening - use safe unwrapping"
+    severity: error
+    
+  # Ensure proper KASPERContentRouter usage (singleton pattern)
+  kasper_router_singleton:
+    name: "Use KASPERContentRouter.shared"
+    regex: 'KASPERContentRouter\(\)'
+    message: "Always use KASPERContentRouter.shared - singleton pattern required"
+    severity: error
+    
+  # Validate spiritual number ranges (1-9, 11, 22, 33, 44)
+  valid_spiritual_numbers:
+    name: "Valid Spiritual Numbers"
+    regex: 'number.*[:=]\s*(0|10|12|13|14|15|16|17|18|19|20|21|23|24|25|26|27|28|29|30|31|32|34|35|36|37|38|39|4[0-35-9]|[5-9][0-9]|[1-9][0-9][0-9])'
+    message: "Invalid spiritual number - valid ranges: 1-9, 11, 22, 33, 44"
+    severity: warning
+    
+  # Ensure proper Task usage with [weak self] in classes
+  task_weak_self_classes:
+    name: "Task [weak self] in Classes"
+    regex: 'class\s+\w+.*\{[\s\S]*?Task\s*\{[^}]*(?!\[weak\s+self\])'
+    message: "ALWAYS use [weak self] in Task blocks within classes - memory safety"
+    severity: warning
+
+# Rule-specific configurations
+force_unwrapping:
+  severity: error
+  
+weak_delegate:
+  severity: warning
+  
+cyclomatic_complexity:
+  warning: 8
+  error: 12
+  
+function_body_length:
+  warning: 60
+  error: 100
+  
+closure_body_length:
+  warning: 30
+  error: 50
+
+# Violation reporting
+reporter: "xcode"
+
+# Self-healing capabilities
+# This configuration automatically prevents the most common runtime issues:
+# 1. Memory leaks from incorrect weak/strong usage
+# 2. UI thread violations causing frame drops
+# 3. Swift 6 concurrency safety violations
+# 4. Force unwrap crashes in production
+# 5. Incorrect singleton pattern usage

@@ -1,0 +1,363 @@
+# VybeOS Self-Healing Architecture Validation
+# Implements ChatGPT's strategic recommendations for bulletproof spiritual AI system
+# 
+# This workflow ensures the self-healing capabilities function correctly:
+# 1. Content linting and validation
+# 2. SwiftLint code quality gates
+# 3. RuntimeBundle fallback testing
+# 4. Content coverage reporting
+# 5. Behavioral regression detection
+
+name: VybeOS Self-Healing Validation
+
+on:
+  push:
+    branches: [ main, master, 'hardening/*', 'vybeos-*' ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+env:
+  # Python version for content scripts
+  PYTHON_VERSION: '3.13'
+  
+  # Swift/Xcode versions
+  XCODE_VERSION: '15.0'
+  IOS_SIMULATOR: 'iPhone 15 Pro'
+
+jobs:
+  # ===================================================================
+  # CONTENT IMMUNE SYSTEM VALIDATION
+  # Validates the bulletproof content pipeline from v2.1.4/v2.1.5
+  # ===================================================================
+  
+  content-validation:
+    name: 🛡️ Content Immune System
+    runs-on: macos-latest
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Full history for content drift detection
+        
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: 📦 Install Python Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-dev.txt
+        
+    - name: 🔍 Content Linting (13/13 files)
+      run: |
+        echo "🔍 Running KASPER MLX content linter..."
+        python scripts/lint_rich_content.py
+        
+    - name: 🏗️ RuntimeBundle Validation
+      run: |
+        echo "🏗️ Validating RuntimeBundle integrity..."
+        python scripts/validate_runtime_bundle.py
+        
+    - name: 📊 Content Coverage Report
+      id: coverage
+      run: |
+        echo "📊 Generating content coverage report..."
+        python scripts/generate_content_coverage_report.py --format=markdown --output=coverage-report.md
+        
+        # Extract coverage percentage for badge
+        COVERAGE=$(python scripts/generate_content_coverage_report.py --format=json | jq -r '.overall_stats.coverage_percentage')
+        echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
+        
+    - name: 💬 Comment Coverage Report
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const coverage = fs.readFileSync('coverage-report.md', 'utf8');
+          
+          // Find existing coverage comment
+          const comments = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+          
+          const existingComment = comments.data.find(comment => 
+            comment.body.includes('VybeOS Content Coverage Report')
+          );
+          
+          const commentBody = `## 🎯 VybeOS Content Coverage Report\n\n${coverage}`;
+          
+          if (existingComment) {
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: existingComment.id,
+              body: commentBody
+            });
+          } else {
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: commentBody
+            });
+          }
+          
+    - name: 📈 Upload Coverage Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: content-coverage-report
+        path: coverage-report.md
+        
+  # ===================================================================
+  # SWIFT CODE QUALITY GATES
+  # SwiftLint validation with self-healing rules
+  # ===================================================================
+  
+  swift-quality-gates:
+    name: 🏃 Swift Quality Gates
+    runs-on: macos-latest
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+      
+    - name: 🛠️ Install SwiftLint
+      run: |
+        brew install swiftlint
+        swiftlint version
+        
+    - name: 🔍 SwiftLint Self-Healing Validation
+      run: |
+        echo "🔍 Running SwiftLint with self-healing rules..."
+        swiftlint --strict --quiet
+        
+    - name: 📋 SwiftLint Report
+      if: always()
+      run: |
+        echo "📋 Generating SwiftLint report..."
+        swiftlint --reporter json > swiftlint-report.json || true
+        
+        # Count violations
+        VIOLATIONS=$(cat swiftlint-report.json | jq '[.[] | select(.severity == "error")] | length' || echo "0")
+        WARNINGS=$(cat swiftlint-report.json | jq '[.[] | select(.severity == "warning")] | length' || echo "0")
+        
+        echo "SwiftLint Results:"
+        echo "- Errors: $VIOLATIONS"
+        echo "- Warnings: $WARNINGS"
+        
+        # Create summary
+        echo "## 🏃 SwiftLint Quality Report" > swiftlint-summary.md
+        echo "" >> swiftlint-summary.md
+        echo "- **Errors:** $VIOLATIONS" >> swiftlint-summary.md
+        echo "- **Warnings:** $WARNINGS" >> swiftlint-summary.md
+        
+        if [ "$VIOLATIONS" -gt 0 ]; then
+          echo "- **Status:** ❌ Quality gates failed" >> swiftlint-summary.md
+          echo "❌ SwiftLint quality gates failed with $VIOLATIONS errors"
+          exit 1
+        else
+          echo "- **Status:** ✅ Quality gates passed" >> swiftlint-summary.md
+          echo "✅ SwiftLint quality gates passed"
+        fi
+        
+    - name: 📈 Upload SwiftLint Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: swiftlint-report
+        path: |
+          swiftlint-report.json
+          swiftlint-summary.md
+          
+  # ===================================================================
+  # BEHAVIORAL REGRESSION TESTING
+  # Fail-fast tests for RuntimeBundle fallback chain
+  # ===================================================================
+  
+  behavioral-regression:
+    name: 🧠 Behavioral Regression Tests
+    runs-on: macos-latest
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+      
+    - name: 🍎 Setup Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: ${{ env.XCODE_VERSION }}
+        
+    - name: 📱 Boot Simulator
+      run: |
+        xcrun simctl boot "${{ env.IOS_SIMULATOR }}" || true
+        xcrun simctl list devices
+        
+    - name: 🧠 Run RuntimeBundle Fallback Tests
+      run: |
+        echo "🧠 Running RuntimeBundle fallback regression tests..."
+        
+        # Run only the fallback regression tests
+        xcodebuild test \
+          -project VybeMVP.xcodeproj \
+          -scheme VybeMVP \
+          -destination "platform=iOS Simulator,name=${{ env.IOS_SIMULATOR }}" \
+          -only-testing:VybeMVPTests/RuntimeBundleFallbackRegressionTests \
+          -resultBundlePath TestResults.xcresult \
+          | xcpretty --report junit --output junit-results.xml
+          
+    - name: 📊 Test Results Summary
+      if: always()
+      run: |
+        # Extract test results
+        if [ -f junit-results.xml ]; then
+          TESTS=$(xmllint --xpath "//testsuites/@tests" junit-results.xml 2>/dev/null | sed 's/tests="//g' | sed 's/"//g' || echo "0")
+          FAILURES=$(xmllint --xpath "//testsuites/@failures" junit-results.xml 2>/dev/null | sed 's/failures="//g' | sed 's/"//g' || echo "0")
+          
+          echo "Behavioral Regression Test Results:"
+          echo "- Total Tests: $TESTS"
+          echo "- Failures: $FAILURES"
+          
+          # Create summary
+          echo "## 🧠 Behavioral Regression Test Report" > test-summary.md
+          echo "" >> test-summary.md
+          echo "- **Total Tests:** $TESTS" >> test-summary.md
+          echo "- **Failures:** $FAILURES" >> test-summary.md
+          
+          if [ "$FAILURES" -gt 0 ]; then
+            echo "- **Status:** ❌ Regression tests failed" >> test-summary.md
+            echo "❌ Behavioral regression tests failed"
+          else
+            echo "- **Status:** ✅ All regression tests passed" >> test-summary.md
+            echo "✅ All behavioral regression tests passed"
+          fi
+        else
+          echo "⚠️ No test results found"
+        fi
+        
+    - name: 📈 Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: behavioral-test-results
+        path: |
+          TestResults.xcresult
+          junit-results.xml
+          test-summary.md
+          
+  # ===================================================================
+  # SELF-HEALING SYSTEM STATUS
+  # Overall health check and reporting
+  # ===================================================================
+  
+  self-healing-status:
+    name: 🌟 Self-Healing System Status
+    runs-on: macos-latest
+    needs: [content-validation, swift-quality-gates, behavioral-regression]
+    if: always()
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+      
+    - name: 📊 Download All Reports
+      uses: actions/download-artifact@v4
+      with:
+        path: reports/
+        
+    - name: 🌟 Generate System Health Report
+      run: |
+        echo "🌟 VybeOS Self-Healing System Status Report" > system-health.md
+        echo "=========================================" >> system-health.md
+        echo "" >> system-health.md
+        
+        # Content validation status
+        if [ "${{ needs.content-validation.result }}" = "success" ]; then
+          echo "🛡️ **Content Immune System:** ✅ OPERATIONAL" >> system-health.md
+        else
+          echo "🛡️ **Content Immune System:** ❌ COMPROMISED" >> system-health.md
+        fi
+        
+        # Swift quality status
+        if [ "${{ needs.swift-quality-gates.result }}" = "success" ]; then
+          echo "🏃 **Swift Quality Gates:** ✅ OPERATIONAL" >> system-health.md
+        else
+          echo "🏃 **Swift Quality Gates:** ❌ DEGRADED" >> system-health.md
+        fi
+        
+        # Behavioral regression status
+        if [ "${{ needs.behavioral-regression.result }}" = "success" ]; then
+          echo "🧠 **Behavioral Regression Tests:** ✅ OPERATIONAL" >> system-health.md
+        else
+          echo "🧠 **Behavioral Regression Tests:** ❌ FAILING" >> system-health.md
+        fi
+        
+        echo "" >> system-health.md
+        
+        # Overall system status
+        if [ "${{ needs.content-validation.result }}" = "success" ] && \
+           [ "${{ needs.swift-quality-gates.result }}" = "success" ] && \
+           [ "${{ needs.behavioral-regression.result }}" = "success" ]; then
+          echo "## 🎯 OVERALL STATUS: ✅ SELF-HEALING SYSTEM OPERATIONAL" >> system-health.md
+          echo "" >> system-health.md
+          echo "All self-healing capabilities are functioning correctly:" >> system-health.md
+          echo "- Content immune system active" >> system-health.md
+          echo "- Code quality gates enforced" >> system-health.md  
+          echo "- Fallback chain verified" >> system-health.md
+          echo "- Regression protection active" >> system-health.md
+        else
+          echo "## 🚨 OVERALL STATUS: ❌ SELF-HEALING SYSTEM COMPROMISED" >> system-health.md
+          echo "" >> system-health.md
+          echo "⚠️ **IMMEDIATE ACTION REQUIRED**" >> system-health.md
+          echo "" >> system-health.md
+          echo "One or more self-healing subsystems have failed." >> system-health.md
+          echo "The spiritual AI system may be vulnerable to degradation." >> system-health.md
+        fi
+        
+        echo "" >> system-health.md
+        echo "---" >> system-health.md
+        echo "*Generated by VybeOS Self-Healing Architecture*" >> system-health.md
+        echo "*Timestamp: $(date -u '+%Y-%m-%d %H:%M:%S UTC')*" >> system-health.md
+        
+        cat system-health.md
+        
+    - name: 💬 Post System Status
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const systemHealth = fs.readFileSync('system-health.md', 'utf8');
+          
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body: systemHealth
+          });
+          
+    - name: 📈 Upload System Health Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: system-health-report
+        path: system-health.md
+        
+    - name: 🎯 Final Status Check
+      run: |
+        # Fail the workflow if any critical systems are down
+        if [ "${{ needs.content-validation.result }}" != "success" ] || \
+           [ "${{ needs.swift-quality-gates.result }}" != "success" ] || \
+           [ "${{ needs.behavioral-regression.result }}" != "success" ]; then
+          echo "💥 Self-healing system validation failed"
+          echo "Critical subsystems are compromised - blocking merge"
+          exit 1
+        else
+          echo "🌟 Self-healing system fully operational"
+          echo "All validation gates passed - ready for deployment"
+          exit 0
+        fi

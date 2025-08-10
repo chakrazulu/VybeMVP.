@@ -2,7 +2,7 @@
 
 **Project:** VybeMVP - Spiritual Wellness iOS App
 **Framework:** SwiftUI, MVVM, Swift 6
-**Status:** Production Ready - KASPER MLX v2.1.4 ✅ Bulletproof Content Pipeline Complete
+**Status:** Production Ready - Self-Healing Architecture v2.1.6 ✅ Complete
 
 ## 🎯 Critical Rules (MUST FOLLOW)
 
@@ -60,17 +60,33 @@ make content-export      # Generate runtime bundle
 
 ### Current Status: 13/13 files validated ✅
 
+## 🌟 Self-Healing Architecture (NEW v2.1.6)
+
+### Quick Setup
+```bash
+make self-healing-setup     # One-time setup
+make self-healing-validate  # Full system health check
+```
+
+### Self-Healing Features
+- **Pre-push SwiftLint hooks** - Runtime quality gates active
+- **Behavioral regression tests** - RuntimeBundle fallback chain tested
+- **Content coverage CI reports** - Missing files identified automatically
+- **Automated system health monitoring** - Continuous validation
+
 ## ✅ Before Every Commit
 
-1. Clean build: `Cmd+Shift+K`
-2. Build: `Cmd+B` (zero warnings)
-3. Test: `Cmd+U` (all passing)
-4. Run on simulator
-5. Test on device
-6. Get user confirmation
+1. **Self-healing validation**: `make self-healing-validate`
+2. Clean build: `Cmd+Shift+K`
+3. Build: `Cmd+B` (zero warnings)
+4. Test: `Cmd+U` (all passing)
+5. Run on simulator
+6. Test on device
+7. Get user confirmation
 
 ## 📚 Documentation
 
+- **Self-Healing Guide:** [VybeOS/self-healing-architecture-guide.md](./VybeOS/self-healing-architecture-guide.md)
 - **Quick Reference:** [VybeOS/Developer-Onboarding/CLAUDE-REFERENCE-GUIDE.md](./VybeOS/Developer-Onboarding/CLAUDE-REFERENCE-GUIDE.md)
 - **Full Archive:** [VybeOS/Developer-Onboarding/CLAUDE-ARCHIVE.md](./VybeOS/Developer-Onboarding/CLAUDE-ARCHIVE.md)
 - **Sprint Docs:** [docs/8-10-weekend-sprint.md](./docs/8-10-weekend-sprint.md)

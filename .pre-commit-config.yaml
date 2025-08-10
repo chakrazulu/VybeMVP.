@@ -41,3 +41,18 @@ repos:
         language: system
         pass_filenames: false
         stages: [commit]
+    
+    -   id: vybe-swiftlint-pre-push
+        name: vybe swiftlint pre-push quality gates
+        entry: bash -c "if command -v swiftlint >/dev/null 2>&1; then swiftlint --strict --quiet; else echo '⚠️ SwiftLint not installed - install via: brew install swiftlint'; exit 0; fi"
+        language: system
+        files: \.swift$
+        stages: [push]
+        pass_filenames: false
+        
+    -   id: vybe-runtime-bundle-validation
+        name: vybe runtime bundle validation
+        entry: python3 scripts/validate_runtime_bundle.py
+        language: system
+        pass_filenames: false
+        stages: [push]
