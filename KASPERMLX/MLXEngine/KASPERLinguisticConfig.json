@@ -1,34 +1,40 @@
 {
   "version": "2.0",
   "description": "KASPER Linguistic Enhancement Configuration - Production-Grade Language Rules",
-  
+
   "caps": {
     "whitelist": ["Divine", "Source", "Universe", "Creator", "God"],
     "lowercasePronouns": true,
     "comment": "Sacred terms that can remain capitalized mid-sentence"
   },
-  
-  "length": {
-    "mainMin": 12,
-    "mainMax": 22,
+
+  "cadence": {
+    "minTokens": 12,
+    "maxTokens": 22,
+    "maxCommas": 1,
+    "maxSentences": 2,
     "followupMin": 6,
     "followupMax": 10,
-    "comment": "Target token counts for natural cadence"
+    "comment": "Target token counts and sentence structure for natural cadence"
   },
-  
+
   "repetition": {
+    "windowTokens": 12,
+    "maxRatio": 0.12,
+    "stem": true,
     "lemmaWindow": 12,
     "banBigrams": true,
     "banAdjacentTrigrams": true,
+    "customPairs": [["mystic","mystical"],["wisdom","knowing"],["nature","essence"],["spiritual","sacred"]],
     "functionWords": [
       "the", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for",
       "of", "with", "by", "from", "up", "about", "into", "through", "during",
       "is", "are", "was", "were", "be", "been", "being", "have", "has", "had",
       "you", "your", "this", "that", "these", "those", "can", "will", "may"
     ],
-    "comment": "12-token semantic window prevents word repetition"
+    "comment": "12-token semantic window prevents word repetition with stemming"
   },
-  
+
   "synonyms": {
     "mystic": ["mystical", "spiritual", "inner", "sacred", "divine"],
     "nature": ["essence", "spirit", "being", "true self", "authentic self", "soul"],
@@ -41,21 +47,39 @@
     "authentic": ["genuine", "real", "true", "natural", "honest", "original"],
     "divine": ["sacred", "holy", "spiritual", "cosmic", "celestial", "transcendent"]
   },
-  
+
   "intensifiers": {
     "maxPerSentence": 1,
     "moderateList": ["deeply", "beautiful", "powerful", "amazing", "incredible", "profound"],
     "allowList": ["gently", "steadily", "naturally", "quietly", "simply", "softly"],
     "comment": "Prevent intensifier overload, promote gentle language"
   },
-  
+
+  "voice": {
+    "disallow": [
+      "reveals a beautiful opportunity to",
+      "flows from your deepest knowing",
+      "awakening of",
+      "within your being reveals"
+    ],
+    "replace": {
+      "reveals a beautiful opportunity to": "invites you to",
+      "flows from your deepest spiritual knowing": "emerges as a clear next step",
+      "awakening of": "stirring of",
+      "within your being reveals": "suggests"
+    },
+    "comment": "Remove template seams and mechanical phrases"
+  },
+
   "safety": {
-    "blockedTerms": ["guarantee", "guaranteed", "cure", "heal", "fix", "must", "should", "have to"],
+    "blockedTerms": ["guarantee", "guaranteed", "cure", "heal", "fix"],
+    "ban": ["will", "must", "should", "have to"],
+    "invite": ["can", "may", "consider", "invite"],
     "medicalTerms": ["diagnose", "treatment", "disease", "disorder", "syndrome", "condition"],
     "financialTerms": ["money", "wealth", "rich", "investment", "profit", "cash"],
     "replacements": {
       "will": "can",
-      "must": "might", 
+      "must": "might",
       "should": "can",
       "guarantee": "invite",
       "cure": "support",
@@ -63,7 +87,7 @@
     },
     "comment": "Maintain spiritual focus, avoid medical/financial claims"
   },
-  
+
   "actionVerbs": {
     "required": true,
     "list": [
@@ -80,7 +104,7 @@
     ],
     "comment": "Ensure concrete sensory anchoring in all insights"
   },
-  
+
   "personas": {
     "oracle": {
       "mysticalTerms": ["mystical", "cosmic", "divine", "sacred", "spiritual", "universe"],
@@ -96,7 +120,7 @@
       "avoidProphecy": true,
       "comment": "Warm mystical wisdom without future predictions"
     },
-    
+
     "psychologist": {
       "cognitiveVerbs": ["notice", "observe", "recognize", "acknowledge", "label", "reframe"],
       "replacements": {
@@ -110,13 +134,13 @@
       "avoidWoo": ["mystical", "cosmic", "divine", "sacred", "magical"],
       "comment": "Evidence-based language, cognitive clarity"
     },
-    
+
     "mindfulnessCoach": {
       "bodyTerms": ["breath", "breathe", "body", "sensation", "ground", "center"],
       "presentTenseOnly": true,
       "replacements": {
         "will be": "is",
-        "will feel": "feels", 
+        "will feel": "feels",
         "will bring": "brings",
         "you can trust": "you trust",
         "you might notice": "you notice"
@@ -124,14 +148,14 @@
       "requireBodyAwareness": true,
       "comment": "Present-moment awareness with embodied grounding"
     },
-    
+
     "numerologyScholar": {
       "academicTerms": ["pattern", "indicates", "suggests", "structure", "system", "configuration"],
       "requireFactualBasis": true,
       "practicalApplication": true,
       "comment": "Academic precision with practical guidance"
     },
-    
+
     "philosopher": {
       "contrastPairs": [
         ["freedom", "responsibility"],
@@ -147,14 +171,14 @@
       "comment": "Abstract wisdom with dialectical thinking"
     }
   },
-  
+
   "emoji": {
     "maxPerCard": 1,
     "position": "leading",
     "allowed": ["🌟", "🔮", "💫", "🌙", "✨", "⚡", "🎯", "🚀", "💎", "🌊"],
     "comment": "Single leading emoji, no mid-sentence sprinkles"
   },
-  
+
   "typography": {
     "singleSpaceAfterPeriod": true,
     "noEllipses": true,
@@ -165,7 +189,7 @@
     },
     "comment": "Clean, professional typography standards"
   },
-  
+
   "qualityGates": {
     "minScore": 0.84,
     "weights": {
@@ -186,14 +210,14 @@
     "safetyRequired": 1.0,
     "comment": "Objective quality measurement for A/B testing"
   },
-  
+
   "performance": {
     "maxLatencyMs": 3,
     "cacheSize": 1000,
     "telemetryEnabled": true,
     "comment": "On-device performance requirements"
   },
-  
+
   "abTesting": {
     "enabled": true,
     "trafficSplit": 0.2,

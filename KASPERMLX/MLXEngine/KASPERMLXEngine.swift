@@ -877,22 +877,22 @@ class KASPERMLXEngine: ObservableObject {
                 spiritualComponents.append("the energy of \(archetype)")
                 personalReferences.append("your \(archetype.lowercased().replacingOccurrences(of: "the ", with: "")) nature")
 
-                // 🚀 REVOLUTIONARY V2.0: Apply production-grade linguistic enhancement  
+                // 🚀 REVOLUTIONARY V2.0: Apply production-grade linguistic enhancement
                 let enhancementOptions = EnhancementOptions(
                     persona: .oracle, // MegaCorpus content uses Oracle persona
                     allowEmoji: false,
                     targetTokenRange: 12...22,
                     qualityThreshold: 0.84
                 )
-                
+
                 let (enhancedGuidance, linguisticScore) = KASPERLinguisticEnhancerV2.enhance(
                     guidanceTemplate,
                     options: enhancementOptions
                 )
-                
+
                 // Quality gate: Only use high-quality enhanced content
                 if linguisticScore.finalGrade >= enhancementOptions.qualityThreshold {
-                    actionableGuidance.append(enhancedGuidance.lowercased())
+                    actionableGuidance.append(enhancedGuidance)
                     print("🔮 KASPER V2.0: Enhanced MegaCorpus guidance - \(linguisticScore.summary)")
                 } else {
                     print("🔮 KASPER V2.0: MegaCorpus content below threshold - \(linguisticScore.summary)")
@@ -1327,7 +1327,7 @@ class KASPERMLXEngine: ObservableObject {
 
         // Build raw insight from components
         let rawInsight = "\(selectedComponent) flows through \(selectedReference), guiding you to \(selectedGuidance)"
-        
+
         // 🚀 REVOLUTIONARY V2.0: Apply final production-grade enhancement
         let (finalInsight, linguisticScore) = KASPERLinguisticEnhancerV2.enhance(
             rawInsight,
@@ -1675,9 +1675,9 @@ class KASPERMLXEngine: ObservableObject {
 
         return mlxInput
     }
-    
+
     // MARK: - 🎭 V2.0 PERSONA MAPPING SYSTEM
-    
+
     /// Map KASPER feature domain to appropriate spiritual persona
     private func mapDomainToPersona(_ feature: KASPERFeature) -> SpiritualPersona {
         switch feature {
@@ -1697,7 +1697,7 @@ class KASPERMLXEngine: ObservableObject {
             return .philosopher
         }
     }
-    
+
     /// Map insight type to appropriate spiritual persona
     private func mapInsightTypeToPersona(_ type: KASPERInsightType) -> SpiritualPersona {
         switch type {
@@ -1713,7 +1713,7 @@ class KASPERMLXEngine: ObservableObject {
             return .oracle
         }
     }
-    
+
     /// Log telemetry for linguistic enhancement performance
     private func logLinguisticTelemetry(
         original: String,
@@ -1738,7 +1738,7 @@ class KASPERMLXEngine: ObservableObject {
             "fallback_used": fallbackUsed,
             "quality_tier": score.qualityTier
         ]
-        
+
         logger.info("🔮 KASPER V2.0 TELEMETRY: \(telemetry)")
     }
 }
