@@ -329,7 +329,6 @@
 		4DB1B4BC2E4841EF00F1585A /* KASPER-MLX-CORE-SPECS.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4BB2E4841EF00F1585A /* KASPER-MLX-CORE-SPECS.md */; };
 		4DB1B4C42E4850F900F1585A /* KASPERLinguisticEnhancerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C32E4850F900F1585A /* KASPERLinguisticEnhancerV2.swift */; };
 		4DB1B4C62E48517100F1585A /* KASPERLinguisticV2Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C52E48517100F1585A /* KASPERLinguisticV2Demo.swift */; };
-		4DB1B69A2E4853E600F1585A /* KASPERLinguisticV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B6992E4853E600F1585A /* KASPERLinguisticV2Tests.swift */; };
 		4DB1DE972E22A5C2001A9EA5 /* generate-screenshots.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE8F2E22A5C2001A9EA5 /* generate-screenshots.sh */; };
 		4DB1DE982E22A5C2001A9EA5 /* clean-project.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE922E22A5C2001A9EA5 /* clean-project.sh */; };
 		4DB1DE992E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE8C2E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh */; };
@@ -874,7 +873,6 @@
 		4DB1B4BB2E4841EF00F1585A /* KASPER-MLX-CORE-SPECS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "KASPER-MLX-CORE-SPECS.md"; sourceTree = "<group>"; };
 		4DB1B4C32E4850F900F1585A /* KASPERLinguisticEnhancerV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERLinguisticEnhancerV2.swift; sourceTree = "<group>"; };
 		4DB1B4C52E48517100F1585A /* KASPERLinguisticV2Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERLinguisticV2Demo.swift; sourceTree = "<group>"; };
-		4DB1B6992E4853E600F1585A /* KASPERLinguisticV2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERLinguisticV2Tests.swift; sourceTree = "<group>"; };
 		4DB1DE8C2E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "sacred-geometry-optimizer.sh"; sourceTree = "<group>"; };
 		4DB1DE8F2E22A5C2001A9EA5 /* generate-screenshots.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "generate-screenshots.sh"; sourceTree = "<group>"; };
 		4DB1DE902E22A5C2001A9EA5 /* memory-check.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "memory-check.sh"; sourceTree = "<group>"; };
@@ -1707,7 +1705,6 @@
 			isa = PBXGroup;
 			children = (
 				4D5EC43A2E485B3D00BB90C6 /* KASPERLinguisticConfig.json */,
-				4DB1B6992E4853E600F1585A /* KASPERLinguisticV2Tests.swift */,
 				4DB1B4C52E48517100F1585A /* KASPERLinguisticV2Demo.swift */,
 				4DB1B4C32E4850F900F1585A /* KASPERLinguisticEnhancerV2.swift */,
 				4D731D382E4542940083C82C /* KASPERTemplateEnhancer.swift */,
@@ -2590,7 +2587,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DA642652D8122C70047287B /* HealthKitManaging.swift in Sources */,
-				4DB1B69A2E4853E600F1585A /* KASPERLinguisticV2Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

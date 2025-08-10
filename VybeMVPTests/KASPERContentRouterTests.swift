@@ -119,7 +119,7 @@ class KASPERContentRouterTests: XCTestCase {
     /// Ensures fallback events are tracked for system health monitoring
     func testFallbackCounterLogic() async {
         // Get initial fallback count
-        let initialDiagnostics = router.getDiagnostics()
+        let initialDiagnostics = await MainActor.run { router.getDiagnostics() }
         let initialFallbackCount = initialDiagnostics["fallbackCount"] as? Int ?? 0
 
         // Request content for a number that definitely won't exist (999)
@@ -136,7 +136,7 @@ class KASPERContentRouterTests: XCTestCase {
         }
 
         // Get updated diagnostics
-        let updatedDiagnostics = router.getDiagnostics()
+        let updatedDiagnostics = await MainActor.run { router.getDiagnostics() }
         let updatedFallbackCount = updatedDiagnostics["fallbackCount"] as? Int ?? 0
 
         // Verify fallback counter incremented (if fallback logic is active)
@@ -148,8 +148,8 @@ class KASPERContentRouterTests: XCTestCase {
 
     /// Test diagnostic data structure and content
     /// Ensures getDiagnostics() returns expected data for VybeOS monitoring
-    func testDiagnosticDataStructure() {
-        let diagnostics = router.getDiagnostics()
+    func testDiagnosticDataStructure() async {
+        let diagnostics = await MainActor.run { router.getDiagnostics() }
 
         // Verify required diagnostic fields exist
         let requiredFields = [
@@ -181,8 +181,8 @@ class KASPERContentRouterTests: XCTestCase {
 
     /// Test manifest loading status detection
     /// Validates system can detect manifest loading success/failure states
-    func testManifestLoadingStatus() {
-        let diagnostics = router.getDiagnostics()
+    func testManifestLoadingStatus() async {
+        let diagnostics = await MainActor.run { router.getDiagnostics() }
 
         // Verify initialization status
         let isInitialized = diagnostics["initialized"] as? Bool ?? false
@@ -261,7 +261,10 @@ class KASPERContentRouterTests: XCTestCase {
     func testDiagnosticsPerformance() {
         measure {
             // This should be very fast (< 0.001s) since it's just returning a dictionary
-            let _ = router.getDiagnostics()
+            // Using synchronous access since this is a performance test
+            Task {
+                await MainActor.run { let _ = router.getDiagnostics() }
+            }
         }
     }
 
@@ -275,11 +278,13 @@ class KASPERContentRouterTests: XCTestCase {
         for i in 0..<10 {
             DispatchQueue.global(qos: .background).async {
                 let router = KASPERContentRouter.shared
-                let diagnostics = router.getDiagnostics()
+                Task {
+                    let diagnostics = await MainActor.run { router.getDiagnostics() }
 
-                // Verify we got diagnostics without crashes
-                XCTAssertNotNil(diagnostics, "Concurrent access \(i) should return diagnostics")
-                expectation.fulfill()
+                    // Verify we got diagnostics without crashes
+                    XCTAssertNotNil(diagnostics, "Concurrent access \(i) should return diagnostics")
+                    expectation.fulfill()
+                }
             }
         }
 
