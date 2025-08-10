@@ -794,7 +794,7 @@ struct EnhancedCosmicMeaningSection: View {
 }
 
 #Preview {
-    NavigationView {
+    NavigationStack {
         NumberMeaningView()
     }
 }

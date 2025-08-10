@@ -907,7 +907,7 @@ struct SafariView: UIViewControllerRepresentable {
 }
 
 #Preview {
-    NavigationView {
+    NavigationStack {
         SettingsView()
             .environmentObject(HealthKitManager.shared)
             .environmentObject(FocusNumberManager.shared)
