@@ -157,9 +157,26 @@ Never leaves device - complete spiritual privacy guaranteed
 
 ## 🔄 MLX Training Curriculum
 
+### Phase 0: Content Import (CURRENT - IN PROGRESS)
+**Duration**: 2-4 weeks  
+**Data**: Existing multi-AI spiritual content corpus  
+**Goal**: Import and structure 15,000+ existing insights for immediate use  
+**Success Metric**: Complete import of 65+ content files, populate NumberMeaningView
+
+**Content Sources:**
+- **Claude Rich**: 13 files (CR1-CR44) - Academic spiritual analysis
+- **Grok Multi-Persona**: 52 files across 4 personas (Oracle, Psychologist, MindfulnessCoach, Philosopher)
+- **Planned**: ChatGPT-5 content + 6 additional Grok personas
+- **Future Master Numbers**: 55, 66, 77, 88, 99 (reserved)
+
+**File Format Strategy:**
+- **Development**: Markdown (.md) for human readability and debugging
+- **Production**: JSON conversion for optimal parsing performance
+- **Architecture**: ContentImporter supports both formats seamlessly
+
 ### Phase 1: Foundation Training (Template Analysis)
 **Duration**: 2-3 months  
-**Data**: Current template responses with user satisfaction ratings  
+**Data**: Imported content + current template responses with user satisfaction ratings  
 **Goal**: Learn what constitutes high-quality spiritual guidance  
 **Success Metric**: Match or exceed template satisfaction scores
 

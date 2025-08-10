@@ -1,0 +1,965 @@
+{
+  "meta": {
+    "version": "v2.0",
+    "sourceNotes": "Aligned with Faith Javane & Dusty Bunker's Divine Triangle; Expression 8 emphasizes executive presence, stewardship, power-with, and material mastery.",
+    "generationGuidelines": "Focus on results-oriented communication, ethical authority, resource orchestration, and how ambition is expressed as service."
+  },
+  "profiles": [
+    {
+      "number": 8,
+      "context": "expression",
+      "coreEssence": "Expression Number 8 speaks in outcomes—measured, decisive, and persuasive language that converts vision into tangible results.",
+      "lifeLesson": "Build empires that bless. Your work is to pair power with principle so success scales without selling your soul.",
+      "shadowSignature": "Control, hard edges, and win-at-all-costs thinking that corrodes trust. Antidote: transparent metrics, fair play, and shared prosperity.",
+      "planes": {
+        "physical": {
+          "strength": 8,
+          "notes": "Grounded stature and crisp cadence project authority; endurance supports long campaigns."
+        },
+        "mental": {
+          "strength": 8,
+          "notes": "Strategic, numerical, and systems-minded; excels at prioritization and leverage mapping."
+        },
+        "emotional": {
+          "strength": 6,
+          "notes": "Feelings may be functionalized; intimacy grows when vulnerability is spoken plainly."
+        },
+        "intuitive": {
+          "strength": 6,
+          "notes": "Strong timing sense for markets and momentum when quiet time is honored."
+        }
+      },
+      "chartOfInclusion": {
+        "counts": {},
+        "missingNumbers": []
+      },
+      "cycles": [
+        {
+          "label": "First Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Discipline & credibility",
+            "Money literacy",
+            "Boundaries"
+          ],
+          "practices": [
+            "Keep promises small & kept",
+            "Study basic finance",
+            "Say 'no' cleanly"
+          ]
+        },
+        {
+          "label": "Second Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Leadership standards",
+            "Team building",
+            "Capital strategy"
+          ],
+          "practices": [
+            "Write operating principles",
+            "Design scorecards",
+            "Build cash buffers"
+          ]
+        },
+        {
+          "label": "Third Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Stewardship & legacy",
+            "Philanthropy design",
+            "Succession"
+          ],
+          "practices": [
+            "Create owner’s manual",
+            "Endow causes wisely",
+            "Train successors"
+          ]
+        }
+      ],
+      "pinnacles": [
+        {
+          "label": "Pinnacle I",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Personal mastery",
+            "Reputation build"
+          ],
+          "practices": [
+            "Daily discipline",
+            "Public commitments",
+            "Mentor accountability"
+          ]
+        },
+        {
+          "label": "Pinnacle II",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Operational excellence",
+            "Fair power"
+          ],
+          "practices": [
+            "Codify ethics",
+            "Tie bonuses to values",
+            "Use audits"
+          ]
+        },
+        {
+          "label": "Pinnacle III",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Scale with integrity",
+            "Impact compounding"
+          ],
+          "practices": [
+            "Develop leaders",
+            "Share upside",
+            "Measure externalities"
+          ]
+        },
+        {
+          "label": "Pinnacle IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Legacy steward",
+            "Wealth as service"
+          ],
+          "practices": [
+            "Found foundations",
+            "Sponsor ladders up",
+            "Archive playbooks"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "label": "Challenge I",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Impatience",
+            "Harsh tone"
+          ],
+          "practices": [
+            "Slow the cadence",
+            "Ask before tell",
+            "End with appreciation"
+          ]
+        },
+        {
+          "label": "Challenge II",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Work as identity",
+            "Overcontrol"
+          ],
+          "practices": [
+            "Delegate outcomes",
+            "Protect family time",
+            "Take restorative days"
+          ]
+        },
+        {
+          "label": "Challenge III",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Fear-based scarcity",
+            "Zero-sum framing"
+          ],
+          "practices": [
+            "Abundance audits",
+            "Win–win scenarios",
+            "Transparent math"
+          ]
+        },
+        {
+          "label": "Challenge IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Ethical blind spots",
+            "Power drift"
+          ],
+          "practices": [
+            "Independent boards",
+            "Whistle channels",
+            "Impact reviews"
+          ]
+        }
+      ],
+      "astroLinks": {
+        "tarotKeys": [
+          "Strength (VIII)"
+        ],
+        "planetaryCorrespondences": [
+          "Saturn",
+          "Sun"
+        ]
+      },
+      "behavioral": {
+        "decisionMaking": [
+          {
+            "text": "Frame the decision with ROI, risks, and values—profit and principle in one view.",
+            "intensity": 0.88,
+            "triggers": [
+              "capital allocation",
+              "hiring"
+            ],
+            "supports": [
+              "ROI + ethics scorecard"
+            ],
+            "challenges": [
+              "single-metric myopia"
+            ]
+          },
+          {
+            "text": "Choose leverage points first; small hinges should swing big doors.",
+            "intensity": 0.84,
+            "triggers": [
+              "strategy offsites"
+            ],
+            "supports": [
+              "leverage map"
+            ],
+            "challenges": [
+              "busywork drift"
+            ]
+          },
+          {
+            "text": "Set a stop-loss and a review date when taking bold bets."
+          },
+          {
+            "text": "Prefer options that create future optionality, not dead-ends."
+          },
+          {
+            "text": "Write the decision memo: context, options, math, values, call."
+          },
+          {
+            "text": "Invite dissent early; reward the best counterargument."
+          },
+          {
+            "text": "Choose durable advantages over flashy wins."
+          },
+          {
+            "text": "Define 'non-negotiables' to protect ethics under pressure."
+          },
+          {
+            "text": "If tied, pick the path that grows leadership capacity in others."
+          },
+          {
+            "text": "Decide once—avoid reopening without new data."
+          },
+          {
+            "text": "Attach owners, timelines, and leading indicators to every call."
+          },
+          {
+            "text": "Archive decisions in a log to compound organizational memory."
+          }
+        ],
+        "stressResponse": [
+          {
+            "text": "Under stress you push harder; switch to triage: protect people, cash, promises—in that order.",
+            "intensity": 0.86,
+            "triggers": [
+              "crises",
+              "missed targets"
+            ],
+            "supports": [
+              "triage checklist"
+            ],
+            "challenges": [
+              "steamrolling"
+            ]
+          },
+          {
+            "text": "Name fear out loud to shrink it; secrecy inflates panic.",
+            "intensity": 0.8,
+            "triggers": [
+              "market shocks"
+            ],
+            "supports": [
+              "open briefings"
+            ],
+            "challenges": [
+              "opaque control"
+            ]
+          },
+          {
+            "text": "Shorten command loops; daily standups beat all-hands lectures."
+          },
+          {
+            "text": "Replace blame with root-cause and countermeasure owners."
+          },
+          {
+            "text": "Schedule recovery windows; exhausted power turns cruel."
+          },
+          {
+            "text": "Speak numbers and narrative together to steady the room."
+          },
+          {
+            "text": "Ask for help from peers you respect to prevent lone-wolfing."
+          },
+          {
+            "text": "Move the body hard then slow; physical resets clear aggression."
+          },
+          {
+            "text": "Use 'calm is contagious'—model measured tone and pace."
+          },
+          {
+            "text": "Recommit to non-negotiables so expediency doesn’t rot culture."
+          },
+          {
+            "text": "Close loops fast; uncertainty is cost."
+          },
+          {
+            "text": "End tough days with gratitude roll-calls to protect morale."
+          }
+        ],
+        "communication": [
+          {
+            "text": "Lead with the outcome, then the path; keep sentences short and verifiable.",
+            "intensity": 0.84,
+            "triggers": [
+              "briefings",
+              "investor updates"
+            ],
+            "supports": [
+              "one-page memo"
+            ],
+            "challenges": [
+              "powerpoint fog"
+            ]
+          },
+          {
+            "text": "Pair confidence with transparency—show assumptions and error bars.",
+            "intensity": 0.8,
+            "triggers": [
+              "forecasts"
+            ],
+            "supports": [
+              "assumption register"
+            ],
+            "challenges": [
+              "over-certainty"
+            ]
+          },
+          {
+            "text": "Credit the team by name; loyalty compounds when seen."
+          },
+          {
+            "text": "Make asks specific—amounts, dates, definitions of done."
+          },
+          {
+            "text": "Translate board talk into shop-floor language and back."
+          },
+          {
+            "text": "Use stories of customers served to keep profit human."
+          },
+          {
+            "text": "Invite questions before closing; consent increases execution."
+          },
+          {
+            "text": "Hold boundaries firmly without contempt; respect is policy."
+          },
+          {
+            "text": "Record decisions and circulate to prevent rumor-arbitrage."
+          },
+          {
+            "text": "Avoid public dressing-downs; correct in private, praise in public."
+          },
+          {
+            "text": "Speak last when you have the most power to avoid biasing the room."
+          },
+          {
+            "text": "End with one clear next move and who owns it."
+          }
+        ],
+        "relationships": [
+          {
+            "text": "Express love as reliability and protection—then practice softness on purpose.",
+            "intensity": 0.82,
+            "triggers": [
+              "family planning",
+              "stress"
+            ],
+            "supports": [
+              "soft-start scripts"
+            ],
+            "challenges": [
+              "command tone at home"
+            ]
+          },
+          {
+            "text": "Schedule presence; quality time can’t be delegated.",
+            "intensity": 0.78,
+            "triggers": [
+              "busy seasons"
+            ],
+            "supports": [
+              "shared calendar"
+            ],
+            "challenges": [
+              "work-first reflex"
+            ]
+          },
+          {
+            "text": "Discuss money, roles, and expectations openly to reduce power games."
+          },
+          {
+            "text": "Share vulnerability in plain words to deepen trust."
+          },
+          {
+            "text": "Celebrate your partner’s wins as fiercely as your own."
+          },
+          {
+            "text": "Practice fair repair—own impact, name change, and follow through."
+          },
+          {
+            "text": "Keep promises small & kept; grandeur without delivery erodes safety."
+          },
+          {
+            "text": "Use rituals that signal off-duty; let tenderness lead at home."
+          },
+          {
+            "text": "Invite feedback about tone and pacing; power can feel loud."
+          },
+          {
+            "text": "Protect couple time from the empire; boundaries are love."
+          },
+          {
+            "text": "Teach kids/resource-dependents money skills without fear."
+          },
+          {
+            "text": "Practice generosity as a family identity, not a performance."
+          }
+        ],
+        "productivity": [
+          {
+            "text": "Prioritize by leverage and sequencing; do the few moves that move the many.",
+            "intensity": 0.86,
+            "triggers": [
+              "weekly planning"
+            ],
+            "supports": [
+              "ICE or RICE scoring"
+            ],
+            "challenges": [
+              "low-ROI busyness"
+            ]
+          },
+          {
+            "text": "Set quarterly OKRs and review weekly; cadence beats heroics.",
+            "intensity": 0.82,
+            "triggers": [
+              "goal cycles"
+            ],
+            "supports": [
+              "OKR tracker"
+            ],
+            "challenges": [
+              "scope creep"
+            ]
+          },
+          {
+            "text": "Design dashboards with leading indicators you can actually influence."
+          },
+          {
+            "text": "Hire slowly, fire kindly and fairly, and document everything."
+          },
+          {
+            "text": "Delegate outcomes with budgets, constraints, and check-ins."
+          },
+          {
+            "text": "Automate routine approvals; save attention for strategy."
+          },
+          {
+            "text": "Run post-mortems that end with countermeasures and owners."
+          },
+          {
+            "text": "Protect deep work blocks for the one thing only you can do."
+          },
+          {
+            "text": "Publicly retire projects that no longer pay for themselves."
+          },
+          {
+            "text": "Build redundancy for single points of failure—people and systems."
+          },
+          {
+            "text": "Tie celebrations to delivered value, not hours burned."
+          },
+          {
+            "text": "Close weeks with a cash & commitments review."
+          }
+        ],
+        "financial": [
+          {
+            "text": "Operate from a simple, written financial philosophy you can explain to a teenager.",
+            "intensity": 0.84,
+            "triggers": [
+              "planning"
+            ],
+            "supports": [
+              "IPS—investment policy statement"
+            ],
+            "challenges": [
+              "ad-hoc swings"
+            ]
+          },
+          {
+            "text": "Separate operating cash, safety reserves, and risk capital—different rules, different behaviors.",
+            "intensity": 0.82,
+            "triggers": [
+              "cash crunch",
+              "windfalls"
+            ],
+            "supports": [
+              "bucket system"
+            ],
+            "challenges": [
+              "co-mingling"
+            ]
+          },
+          {
+            "text": "Use unit economics and contribution margins to guide scale decisions."
+          },
+          {
+            "text": "Price for value and risk taken, not hours; anchor with outcomes."
+          },
+          {
+            "text": "Avoid debt that buys applause but not capacity."
+          },
+          {
+            "text": "Automate savings, taxes, and owner pay to reduce decision fatigue."
+          },
+          {
+            "text": "Negotiate fairly: win–wins last longer and litigate less."
+          },
+          {
+            "text": "Stress-test plans with conservative scenarios and buffers."
+          },
+          {
+            "text": "Invest in people, processes, and platforms that compound."
+          },
+          {
+            "text": "Track cash conversion cycles; speed up receivables, slow payables ethically."
+          },
+          {
+            "text": "Make philanthropy a line item, not an afterthought."
+          },
+          {
+            "text": "Publish transparent profit-sharing rules to align the tribe."
+          }
+        ],
+        "creative": [
+          {
+            "text": "Design with utility and elegance—form follows cash-flow-friendly function.",
+            "intensity": 0.82,
+            "triggers": [
+              "new products"
+            ],
+            "supports": [
+              "costed design briefs"
+            ],
+            "challenges": [
+              "gold-plating"
+            ]
+          },
+          {
+            "text": "Tell value stories with numbers and human outcomes in the same breath.",
+            "intensity": 0.78,
+            "triggers": [
+              "launches"
+            ],
+            "supports": [
+              "case narratives"
+            ],
+            "challenges": [
+              "feature dumping"
+            ]
+          },
+          {
+            "text": "Turn constraints into commercial creativity—profit-savvy art."
+          },
+          {
+            "text": "Standardize brand assets to scale consistency and trust."
+          },
+          {
+            "text": "Prototype with ROI hypotheses; kill or double-down fast."
+          },
+          {
+            "text": "Collaborate with operators so ideas ship on time and on budget."
+          },
+          {
+            "text": "License IP and create repeatable formats that can be franchised."
+          },
+          {
+            "text": "Use bold, simple language that signals strength without swagger."
+          },
+          {
+            "text": "Archive playbooks so excellence becomes culture, not hero myth."
+          },
+          {
+            "text": "Pair premium aesthetics with durability to justify price."
+          },
+          {
+            "text": "Measure creative impact with leading indicators, not just likes."
+          },
+          {
+            "text": "Teach 'value design' so teams internalize cost-aware craft."
+          }
+        ],
+        "learning": [
+          {
+            "text": "Learn by P&L: run small bets, read the results, and iterate.",
+            "intensity": 0.8,
+            "triggers": [
+              "new domains"
+            ],
+            "supports": [
+              "experiment ledger"
+            ],
+            "challenges": [
+              "theory without tests"
+            ]
+          },
+          {
+            "text": "Study negotiation, finance, and leadership psychology; these multiply every move.",
+            "intensity": 0.78,
+            "triggers": [
+              "curriculum"
+            ],
+            "supports": [
+              "study plan"
+            ],
+            "challenges": [
+              "course hoarding"
+            ]
+          },
+          {
+            "text": "Shadow masters and hire coaches; feedback shortens the path."
+          },
+          {
+            "text": "Write debriefs after wins and losses to turn pain into playbooks."
+          },
+          {
+            "text": "Teach your frameworks to cement mastery and spot holes."
+          },
+          {
+            "text": "Cross-train in ethics to keep power clean."
+          },
+          {
+            "text": "Use spaced repetition for key numbers, laws, and principles."
+          },
+          {
+            "text": "Benchmark against the best in class, not the average."
+          },
+          {
+            "text": "Track mental models you actually used; prune the rest."
+          },
+          {
+            "text": "Build a circle that tells you the truth faster."
+          },
+          {
+            "text": "Convert books and courses into one-page operating rules."
+          },
+          {
+            "text": "Celebrate applied lessons with bonuses or public kudos."
+          }
+        ],
+        "wellness": [
+          {
+            "text": "Treat the body like the asset it is—sleep, strength, and sunlight are your compounding edge.",
+            "intensity": 0.82,
+            "triggers": [
+              "routine design"
+            ],
+            "supports": [
+              "sleep/walk/lift plan"
+            ],
+            "challenges": [
+              "grind culture"
+            ]
+          },
+          {
+            "text": "Schedule decompression after high-stakes pushes; recovery sustains power.",
+            "intensity": 0.78,
+            "triggers": [
+              "deadlines"
+            ],
+            "supports": [
+              "cool-down blocks"
+            ],
+            "challenges": [
+              "victory sprints into burnout"
+            ]
+          },
+          {
+            "text": "Practice soft starts at home; nervous systems need gentleness, not briefings."
+          },
+          {
+            "text": "Eat for steady energy; spikes sabotage judgment."
+          },
+          {
+            "text": "Limit substances and late screens; clarity is a competitive advantage."
+          },
+          {
+            "text": "Train emotional literacy; name feelings before they leak as tone."
+          },
+          {
+            "text": "Keep medicals and checkups current; prevention is cheaper than heroics."
+          },
+          {
+            "text": "Use nature and hobbies to remind you you’re more than your output."
+          },
+          {
+            "text": "Set tech-free zones to honor presence with loved ones."
+          },
+          {
+            "text": "Delegate domestics where possible—buy back time ethically."
+          },
+          {
+            "text": "Track stress indicators and downshift early."
+          },
+          {
+            "text": "Celebrate quiet health wins, not just quarterly ones."
+          }
+        ],
+        "spiritual": [
+          {
+            "text": "Consecrate ambition—make vows about how power will serve life, not eclipse it.",
+            "intensity": 0.8,
+            "triggers": [
+              "goal setting"
+            ],
+            "supports": [
+              "vow statements"
+            ],
+            "challenges": [
+              "means-justify-ends"
+            ]
+          },
+          {
+            "text": "Tithe time or profits to causes that correct the externalities of your industry.",
+            "intensity": 0.78,
+            "triggers": [
+              "profit peaks"
+            ],
+            "supports": [
+              "impact accounting"
+            ],
+            "challenges": [
+              "greenwashing"
+            ]
+          },
+          {
+            "text": "Practice humility rituals that puncture ego without shrinking courage."
+          },
+          {
+            "text": "Pair prayer/meditation with public policy—justice is devotion in action."
+          },
+          {
+            "text": "Hold sabbath space where nothing is optimized and no one is managed."
+          },
+          {
+            "text": "Speak gratitude to teams and unseen labor; reverence makes wealth clean."
+          },
+          {
+            "text": "Study wisdom traditions on stewardship and fair measure."
+          },
+          {
+            "text": "Invite elders or councils to review major moves for moral clarity."
+          },
+          {
+            "text": "Model repair and restitution when harm occurs; integrity compounds."
+          },
+          {
+            "text": "Let generosity be quiet and regular rather than performative."
+          },
+          {
+            "text": "Teach prosperity as responsibility to those who look up to you."
+          },
+          {
+            "text": "End wins with a blessing: name who was helped and how you’ll keep it ethical."
+          }
+        ],
+        "shadow": [
+          {
+            "text": "When dominance rises, switch to questions and shared metrics; control without consent is brittle.",
+            "intensity": 0.82,
+            "triggers": [
+              "missed targets",
+              "conflict"
+            ],
+            "supports": [
+              "shared dashboards"
+            ],
+            "challenges": [
+              "authoritarian reflex"
+            ]
+          },
+          {
+            "text": "Notice when toughness masks fear; tell the truth and ask for help.",
+            "intensity": 0.78,
+            "triggers": [
+              "market pressure"
+            ],
+            "supports": [
+              "peer council"
+            ],
+            "challenges": [
+              "lone-wolfing"
+            ]
+          },
+          {
+            "text": "Replace zero-sum scripts with value-creation maps."
+          },
+          {
+            "text": "Watch contempt; respect is the currency that buys execution."
+          },
+          {
+            "text": "Audit perks and pay for fairness; optics matter because people matter."
+          },
+          {
+            "text": "Don’t let brand eclipse substance; ship results, not slogans."
+          },
+          {
+            "text": "Resist magical thinking; confirm with math and ground truth."
+          },
+          {
+            "text": "Keep promises to self and family; broken inner contracts corrode outer ones."
+          },
+          {
+            "text": "Avoid revenge moves; choose principled exits and legal paths."
+          },
+          {
+            "text": "When greed whispers, read your vows and review impacts."
+          },
+          {
+            "text": "Retire war metaphors; build, don’t burn."
+          },
+          {
+            "text": "Share credit widely; hoarding praise shrinks your empire’s soul."
+          }
+        ],
+        "transitions": [
+          {
+            "text": "Treat pivots like deals: clarify thesis, capital, risks, and people care.",
+            "intensity": 0.82,
+            "triggers": [
+              "reorgs",
+              "exits"
+            ],
+            "supports": [
+              "transition memo"
+            ],
+            "challenges": [
+              "chaotic change"
+            ]
+          },
+          {
+            "text": "Communicate early, often, and truthfully; uncertainty is a tax you can cut.",
+            "intensity": 0.8,
+            "triggers": [
+              "market shifts"
+            ],
+            "supports": [
+              "update cadence"
+            ],
+            "challenges": [
+              "radio silence"
+            ]
+          },
+          {
+            "text": "Phase changes to protect jobs and customers where possible."
+          },
+          {
+            "text": "Set success/failure criteria and preauthor rollback points."
+          },
+          {
+            "text": "Honor the past enterprise with gratitude before you pivot."
+          },
+          {
+            "text": "Retain key culture carriers; transitions are won by people."
+          },
+          {
+            "text": "Secure cash buffers to buy time for smart moves."
+          },
+          {
+            "text": "Offer fair severance and support; ethics earn reputational yield."
+          },
+          {
+            "text": "Publish lessons learned to increase organizational antifragility."
+          },
+          {
+            "text": "Anchor identity beyond title; power re-centers in presence and service."
+          },
+          {
+            "text": "Close with a town hall that takes questions until the room exhales."
+          },
+          {
+            "text": "Document and hand off cleanly so successors can thrive."
+          }
+        ]
+      }
+    }
+  ],
+  "trinity": {
+    "integration_notes": "Expression 8 manifests Life Path and Soul Urge through principled power, resource mastery, and execution that compounds value for the whole.",
+    "calculation": "Sum the numbers of all letters in the full birth name; reduce to a single digit or master number (11, 22, 33, 44).",
+    "relationship_to_life_path": "Life Path is the mission; Expression 8 builds the engine, budget, and scoreboard to deliver it.",
+    "relationship_to_soul_urge": "Soul Urge is the inner drive; Expression 8 turns it into goals, teams, and outcomes.",
+    "behavioral_integration": [
+      "Expression filters how Life Path lessons become strategy, structure, and standards.",
+      "Expression channels Soul Urge desires into measurable value and fair prosperity.",
+      "Alignment yields noble ambition—power that protects and uplifts.",
+      "Tensions appear as control, greed, or image-obsession; transparency and shared upside restore integrity.",
+      "Service lens: wealth and authority stewarded for the common good."
+    ]
+  },
+  "generation_instructions": {
+    "core_principles": [
+      "Describe HOW power, results, and stewardship show up behaviorally.",
+      "Keep guidance concrete: metrics, cadences, roles, and decision rules.",
+      "Center ethics and reciprocity; success must be clean to be sustainable.",
+      "Favor durable advantages over flash; compounding beats spectacle.",
+      "Include verbal and non-verbal cues that communicate calm authority."
+    ],
+    "behavioral_insights": [
+      "Use intensity 0.6–0.9 on key tendencies with triggers/supports/challenges where high leverage.",
+      "Each insight is 1–2 sentences and observable in practice.",
+      "Maintain 12 categories × 12 insights for ingestion consistency.",
+      "Avoid medical/financial absolutes; focus on behavior and governance.",
+      "Write for executives, builders, and stewards across contexts."
+    ],
+    "divine_triangle_alignment": [
+      "Expression derives from the full birth name numerology.",
+      "It represents talents, abilities, and communication style manifested outwardly.",
+      "It bridges inner motive (Soul Urge) and life curriculum (Life Path).",
+      "Growth arc moves from force to rightful authority—firm, fair, and transparent.",
+      "Service lens: shared prosperity, institutional integrity, and just power."
+    ],
+    "categories_to_include": [
+      "decisionMaking - How they express choices",
+      "stressResponse - How stress affects expression",
+      "communication - Core expression patterns",
+      "relationships - How they express in connection",
+      "productivity - How they express through work",
+      "financial - How they express value and abundance",
+      "creative - How they express originality",
+      "learning - How they express curiosity and growth",
+      "wellness - How they express vitality",
+      "spiritual - How they express divine connection",
+      "shadow - Distorted expression patterns",
+      "transitions - How expression evolves through change"
+    ]
+  }
+}

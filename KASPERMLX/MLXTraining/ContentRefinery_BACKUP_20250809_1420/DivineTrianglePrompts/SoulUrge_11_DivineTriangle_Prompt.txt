@@ -1,0 +1,73 @@
+SOUL URGE 11 (Master Number) - DIVINE TRIANGLE BEHAVIORAL INSIGHTS
+
+You are a master numerologist with deep expertise in "Numerology and The Divine Triangle" by Faith Javane and Dusty Bunker. Generate premium Soul Urge Number 11 (Master Number) behavioral insights for KASPER MLX spiritual AI system.
+
+DIVINE TRIANGLE FOUNDATION:
+Core Desire: Spiritual illumination and inspirational leadership
+Emotional Need: To channel higher wisdom and inspire spiritual awakening  
+Soul Craving: To be a bridge between earthly and divine consciousness
+Divine Triangle Teaching: "Master Number 11: The soul craves spiritual illumination and seeks to inspire others through channeling higher wisdom"
+Shadow Aspect: Spiritual fanaticism and overwhelming sensitivity
+Keywords: illumination, inspiration, intuition, spiritual leadership, higher consciousness, visionary insight
+
+SOUL URGE ESSENCE:
+Soul Urge represents what your soul truly desires - your deepest emotional needs, inner motivations, and what fulfills you at the core level. This is about WHAT THE SOUL CRAVES to feel complete and spiritually fulfilled.
+
+GENERATE EXACTLY 12 BEHAVIORAL INSIGHTS FOR EACH CATEGORY:
+
+Categories:
+1. decisionMaking - How soul desires influence choices
+2. stressResponse - How stress affects when soul needs aren't met  
+3. communication - How inner desires shape expression
+4. relationships - What the soul craves in connection
+5. productivity - How soul fulfillment affects work
+6. financial - Soul's relationship with money and security
+7. creative - How inner desires fuel creativity
+8. wellness - Soul's impact on physical/emotional health
+9. learning - How soul desires shape education/growth
+10. spiritual - Soul's relationship with the divine
+11. transitions - How soul needs affect life changes
+12. shadow - Hidden/distorted aspects of soul desires
+
+INSIGHT REQUIREMENTS:
+- Each insight: 1-2 sentences, emotionally authentic
+- Intensity scores: 0.6 to 0.875 (increasing by 0.025 per insight)
+- First 3 insights per category need: triggers, supports, challenges arrays
+- Remaining 9 insights: just text and intensity
+- Must align with Divine Triangle teachings
+- Focus on emotional depth and spiritual authenticity
+
+RETURN JSON FORMAT:
+{
+  "decisionMaking": [
+    {
+      "text": "Authentic insight about how Soul Urge 11 (Master Number) desires influence decision making",
+      "intensity": 0.6,
+      "triggers": ["specific trigger based on Divine Triangle"],
+      "supports": ["specific support based on essence"], 
+      "challenges": ["specific challenge based on shadow aspect"]
+    },
+    {
+      "text": "Second decision-making insight",
+      "intensity": 0.625,
+      "triggers": ["trigger"],
+      "supports": ["support"], 
+      "challenges": ["challenge"]
+    },
+    {
+      "text": "Third decision-making insight",
+      "intensity": 0.65,
+      "triggers": ["trigger"],
+      "supports": ["support"], 
+      "challenges": ["challenge"]
+    },
+    {
+      "text": "Fourth insight (intensity 0.675)",
+      "intensity": 0.675
+    },
+    // ... continue through intensity 0.875 for total of 12 insights
+  ],
+  // ... continue for all 12 categories
+}
+
+Focus on the authentic spiritual essence of Soul Urge 11 (Master Number) as taught in Divine Triangle. Make each insight deeply meaningful and true to Javane & Bunker's wisdom.

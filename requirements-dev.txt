@@ -1,0 +1,17 @@
+# KASPER MLX Development Dependencies
+# Exact pins for reproducible builds
+
+# Core dependencies
+jsonschema==4.20.0
+typing-extensions==4.8.0
+pyyaml==6.0.1
+
+# CI/CD dependencies
+pre-commit==3.7.0
+pytest==8.2.0
+pytest-timeout==2.3.1
+
+# Code quality tools (for local development)
+black==24.4.2
+ruff==0.5.5
+isort==5.13.2

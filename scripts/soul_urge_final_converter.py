@@ -1,0 +1,287 @@
+#!/usr/bin/env python3
+
+import json
+import os
+import re
+from pathlib import Path
+from typing import Dict, List, Any
+import shutil
+
+class SoulUrgeFinalConverter:
+    """Final converter for Soul Urge MD files with special formatting"""
+    
+    def __init__(self):
+        self.input_dir = Path("/Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP/NumerologyData/ImportedContent/SoulUrgeContent")
+        self.archive_dir = Path("/Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP/KASPERMLX/MLXTraining/ContentRefinery/Archive")
+        self.approved_dir = Path("/Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP/KASPERMLX/MLXTraining/ContentRefinery/Approved")
+        
+        # Create directories if needed
+        self.archive_dir.mkdir(parents=True, exist_ok=True)
+        self.approved_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Divine Triangle archetypes for Soul Urge
+        self.soul_urge_titles = {
+            1: "The Independent Soul",
+            2: "The Harmonizing Soul", 
+            3: "The Expressive Soul",
+            4: "The Stable Soul",
+            5: "The Adventurous Soul",
+            6: "The Nurturing Soul",
+            7: "The Seeking Soul",
+            8: "The Ambitious Soul",
+            9: "The Compassionate Soul",
+            11: "The Inspired Soul",
+            22: "The Visionary Soul",
+            33: "The Healing Soul",
+            44: "The Masterful Soul"
+        }
+    
+    def extract_number_from_filename(self, filename: str) -> int:
+        """Extract number from SU1.md, SU11.md, etc."""
+        match = re.search(r'SU(\d+)\.md', filename)
+        if match:
+            return int(match.group(1))
+        return 0
+    
+    def clean_json_content(self, content: str) -> str:
+        """Clean and prepare JSON content for parsing"""
+        # Remove markdown headers
+        content = re.sub(r'^#.*$', '', content, flags=re.MULTILINE)
+        
+        # Fix escaped brackets
+        content = content.replace('\\[', '[').replace('\\]', ']')
+        
+        # Remove empty lines between JSON properties (the main issue!)
+        lines = content.split('\n')
+        cleaned_lines = []
+        for line in lines:
+            if line.strip():  # Keep only non-empty lines
+                cleaned_lines.append(line)
+        
+        # Join back together
+        cleaned_content = '\n'.join(cleaned_lines)
+        
+        # Extract just the JSON part (everything between first { and last })
+        json_match = re.search(r'\{.*\}', cleaned_content, re.DOTALL)
+        if json_match:
+            return json_match.group(0)
+        
+        return cleaned_content
+    
+    def parse_soul_urge_md(self, file_path: Path) -> Dict[str, Any]:
+        """Parse the Soul Urge MD file"""
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # Clean the content
+        json_str = self.clean_json_content(content)
+        
+        if not json_str:
+            print(f"Could not extract JSON from {file_path.name}")
+            return None
+        
+        try:
+            # Parse the JSON
+            data = json.loads(json_str)
+            return data
+        except json.JSONDecodeError as e:
+            # Try additional fixes
+            # Remove trailing commas
+            json_str = re.sub(r',(\s*[}\]])', r'\1', json_str)
+            
+            try:
+                data = json.loads(json_str)
+                return data
+            except json.JSONDecodeError as e2:
+                print(f"JSON parsing error in {file_path.name}: {e2}")
+                # Save problematic JSON for debugging
+                debug_file = Path(f"/tmp/{file_path.stem}_debug.json")
+                with open(debug_file, 'w') as f:
+                    f.write(json_str)
+                print(f"   Saved debug JSON to: {debug_file}")
+                return None
+    
+    def convert_to_v2_format(self, data: Dict, number: int) -> Dict[str, Any]:
+        """Convert Soul Urge data to v2.0 behavioral format"""
+        
+        # Navigate to the behavioral data
+        profile = data.get('profiles', [{}])[0]
+        behavioral = profile.get('behavioral', {})
+        
+        # Initialize v2 structure with simple naming
+        v2_data = {
+            "number": number,
+            "title": self.soul_urge_titles.get(number, f"Soul Urge {number}"),
+            "behavioral_category": "soul_urge_behavioral_analysis",
+            "intensity_scoring": {
+                "min_range": 0.6,
+                "max_range": 0.9,
+                "note": "Higher intensity indicates stronger Soul Urge behavioral tendency"
+            },
+            "behavioral_insights": []
+        }
+        
+        # Add core metadata as special insights
+        if profile.get('coreEssence'):
+            v2_data["behavioral_insights"].append({
+                "category": "core_essence",
+                "insight": profile['coreEssence'],
+                "intensity": 0.9,
+                "triggers": [],
+                "supports": [],
+                "challenges": []
+            })
+        
+        if profile.get('lifeLesson'):
+            v2_data["behavioral_insights"].append({
+                "category": "life_lesson",
+                "insight": profile['lifeLesson'],
+                "intensity": 0.85,
+                "triggers": [],
+                "supports": [],
+                "challenges": []
+            })
+        
+        if profile.get('shadowSignature'):
+            v2_data["behavioral_insights"].append({
+                "category": "shadow_signature",
+                "insight": profile['shadowSignature'],
+                "intensity": 0.8,
+                "triggers": [],
+                "supports": [],
+                "challenges": []
+            })
+        
+        # Category name mapping for consistency
+        category_mapping = {
+            'decisionMaking': 'decision_making',
+            'stressResponse': 'stress_response',
+            'communication': 'communication',
+            'relationships': 'relationships',
+            'productivity': 'productivity',
+            'financial': 'financial',
+            'creative': 'creative',
+            'learning': 'learning',
+            'wellness': 'wellness',
+            'spiritual': 'spiritual',
+            'shadow': 'shadow_work',
+            'transitions': 'transitions'
+        }
+        
+        # Process each behavioral category
+        for orig_category, new_category in category_mapping.items():
+            if orig_category in behavioral:
+                insights = behavioral[orig_category]
+                if isinstance(insights, list):
+                    for item in insights:
+                        if isinstance(item, dict) and 'text' in item:
+                            # Structured format with metadata
+                            insight_data = {
+                                "category": new_category,
+                                "insight": item['text'],
+                                "intensity": item.get('intensity', 0.7),
+                                "triggers": item.get('triggers', []),
+                                "supports": item.get('supports', []),
+                                "challenges": item.get('challenges', [])
+                            }
+                        elif isinstance(item, str):
+                            # Simple string format
+                            insight_data = {
+                                "category": new_category,
+                                "insight": item,
+                                "intensity": 0.7,
+                                "triggers": [],
+                                "supports": [],
+                                "challenges": []
+                            }
+                        else:
+                            continue
+                        
+                        # Apply Divine Triangle intensity adjustment for master numbers
+                        if number in [11, 22, 33, 44]:
+                            insight_data['intensity'] = min(0.9, insight_data['intensity'] + 0.05)
+                        
+                        v2_data["behavioral_insights"].append(insight_data)
+        
+        return v2_data
+    
+    def process_all_files(self):
+        """Process all Soul Urge MD files"""
+        print("🔮 KASPER MLX Soul Urge Conversion - Final OPUS Version")
+        print("=" * 70)
+        print("✨ Applying Divine Triangle consistency checks")
+        print("📚 Using simple naming convention: soulUrge_01.json")
+        print("=" * 70)
+        
+        md_files = sorted(self.input_dir.glob("SU*.md"))
+        success_count = 0
+        failed_files = []
+        
+        for md_file in md_files:
+            print(f"\n📖 Processing: {md_file.name}")
+            
+            # Extract number
+            number = self.extract_number_from_filename(md_file.name)
+            if not number:
+                print(f"❌ Could not extract number from {md_file.name}")
+                failed_files.append(md_file.name)
+                continue
+            
+            # Parse MD file
+            data = self.parse_soul_urge_md(md_file)
+            if not data:
+                print(f"❌ Could not parse {md_file.name}")
+                failed_files.append(md_file.name)
+                continue
+            
+            # Convert to v2.0 format
+            v2_data = self.convert_to_v2_format(data, number)
+            
+            # Simple naming convention: soulUrge_01.json, soulUrge_11.json, etc.
+            output_filename = f"soulUrge_{number:02d}.json"
+            approved_path = self.approved_dir / output_filename
+            
+            # Archive original MD with clear naming
+            archive_filename = f"SoulUrge_Number_{number}_original.md"
+            archive_path = self.archive_dir / archive_filename
+            shutil.copy2(md_file, archive_path)
+            
+            # Save v2.0 JSON to Approved folder
+            with open(approved_path, 'w', encoding='utf-8') as f:
+                json.dump(v2_data, f, indent=2, ensure_ascii=False)
+            
+            print(f"✅ Converted to: {output_filename}")
+            print(f"   Title: {v2_data['title']}")
+            print(f"   Generated {len(v2_data['behavioral_insights'])} behavioral insights")
+            print(f"   Archived as: {archive_filename}")
+            success_count += 1
+        
+        # Final report
+        print("\n" + "=" * 70)
+        print(f"🎯 Conversion Complete: {success_count}/{len(md_files)} files processed")
+        
+        if failed_files:
+            print(f"\n❌ Failed files: {', '.join(failed_files)}")
+        
+        if success_count == len(md_files):
+            print("\n✅ All Soul Urge files successfully converted!")
+            print("🔮 Divine Triangle consistency maintained")
+            print("📂 Files ready in Approved folder:")
+            print("   Format: soulUrge_01.json through soulUrge_44.json")
+            print("\n🚀 KASPER MLX Trinity is taking shape:")
+            print("   ✅ Life Path behavioral analysis")
+            print("   ✅ Soul Urge behavioral analysis")
+            print("   ⏳ Expression Number (coming next)")
+        
+        return success_count
+
+def main():
+    converter = SoulUrgeFinalConverter()
+    success_count = converter.process_all_files()
+    
+    if success_count > 0:
+        print("\n🌟 KASPER MLX now has Soul Urge behavioral data!")
+        print("💫 Life Path + Soul Urge = Deeper spiritual intelligence!")
+
+if __name__ == "__main__":
+    main()

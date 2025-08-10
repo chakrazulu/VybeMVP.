@@ -1,0 +1,1056 @@
+{
+  "dataset_digest": "de90b7af954d5d658b9c67cc251e8a4c40b0533ddc974446173d3c24699abd85",
+  "dataset_name": "kasper-lp-trinity",
+  "dataset_version": "v2025.08.09_build1",
+  "files": [
+    {
+      "bytes": 19049,
+      "category": "chatgpt_original",
+      "filename": "chatgpt_original_01_converted.json",
+      "modified": "2025-08-09T05:27:26.563630",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/chatgpt_original_01_converted.json",
+      "sha256": "f7f41e8ea29493c0625e01103729646123c82eb4455b0ea7a005a80f204a8635"
+    },
+    {
+      "bytes": 17891,
+      "category": "chatgpt_original",
+      "filename": "chatgpt_original_02_converted.json",
+      "modified": "2025-08-09T05:27:26.564388",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/chatgpt_original_02_converted.json",
+      "sha256": "4ea0fc03a04594b2dedfa54b037f122a2c4d0aa6fd4cd4e2c2e0a7a732df8aa7"
+    },
+    {
+      "bytes": 16673,
+      "category": "chatgpt_original",
+      "filename": "chatgpt_original_03_converted.json",
+      "modified": "2025-08-09T05:27:26.565081",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/chatgpt_original_03_converted.json",
+      "sha256": "b4e9c47a4dd4b0e677cc295ccc153701ee512722b743863c3cf6f0ab9d7248b2"
+    },
+    {
+      "bytes": 15723,
+      "category": "chatgpt_original",
+      "filename": "chatgpt_original_04_converted.json",
+      "modified": "2025-08-09T05:27:26.565767",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/chatgpt_original_04_converted.json",
+      "sha256": "8ce9db55c7684798cf185ad80c6db104efd27788a6c044cd13fc8de0cccae159"
+    },
+    {
+      "bytes": 16946,
+      "category": "chatgpt_original",
+      "filename": "chatgpt_original_05_converted.json",
+      "modified": "2025-08-09T05:27:26.566513",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/chatgpt_original_05_converted.json",
+      "sha256": "f38e6a438fce8645c6a08e0236b620f7223822a65f6aa76110296166792e7a1f"
+    },
+    {
+      "bytes": 16563,
+      "category": "chatgpt_original",
+      "filename": "chatgpt_original_06_converted.json",
+      "modified": "2025-08-09T05:27:26.566871",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/chatgpt_original_06_converted.json",
+      "sha256": "b4691aec33c865290cfffcfb2b1228230e9bebefa609b46d8dad2c6d7debb54c"
+    },
+    {
+      "bytes": 15670,
+      "category": "chatgpt_original",
+      "filename": "chatgpt_original_07_converted.json",
+      "modified": "2025-08-09T05:27:26.567213",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/chatgpt_original_07_converted.json",
+      "sha256": "d8fed6fd74ff94cff6e60c27591cf558e32843a44a6989fecbd5dde749c2f059"
+    },
+    {
+      "bytes": 16183,
+      "category": "chatgpt_original",
+      "filename": "chatgpt_original_08_converted.json",
+      "modified": "2025-08-09T05:27:26.567576",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/chatgpt_original_08_converted.json",
+      "sha256": "de205f04acd32c1a85ef7f326ba0212a17d749ea7980cf6f5161179a40a01e3c"
+    },
+    {
+      "bytes": 16389,
+      "category": "chatgpt_original",
+      "filename": "chatgpt_original_09_converted.json",
+      "modified": "2025-08-09T05:27:26.567933",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/chatgpt_original_09_converted.json",
+      "sha256": "aa43b398e5b8b87e146f24f1d5148c65636a30423f1059030bce765e8edc8012"
+    },
+    {
+      "bytes": 16184,
+      "category": "chatgpt_original",
+      "filename": "chatgpt_original_11_converted.json",
+      "modified": "2025-08-09T05:27:26.564015",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/chatgpt_original_11_converted.json",
+      "sha256": "06be05fea14ac85d5cd3a4d349cecf15008fe153440ae98bd6e9a2a3d9ccf952"
+    },
+    {
+      "bytes": 16517,
+      "category": "chatgpt_original",
+      "filename": "chatgpt_original_22_converted.json",
+      "modified": "2025-08-09T05:27:26.564741",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/chatgpt_original_22_converted.json",
+      "sha256": "992fa20e551e80bc565208d4969b8218059adf76896891537ceb78a460a68aaa"
+    },
+    {
+      "bytes": 16543,
+      "category": "chatgpt_original",
+      "filename": "chatgpt_original_33_converted.json",
+      "modified": "2025-08-09T05:27:26.565425",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/chatgpt_original_33_converted.json",
+      "sha256": "bd9099545613c4c8c1d7efcbd8a07bd2592890e5ea0412a82797e94c6ba240d4"
+    },
+    {
+      "bytes": 15479,
+      "category": "chatgpt_original",
+      "filename": "chatgpt_original_44_converted.json",
+      "modified": "2025-08-09T05:27:26.566142",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/chatgpt_original_44_converted.json",
+      "sha256": "9177052da7a70759dc70afea6f00ed60dc091df2d379bb57f8b191ec33ab7980"
+    },
+    {
+      "bytes": 48093,
+      "category": "claude_academic",
+      "filename": "claude_01_academic_converted.json",
+      "modified": "2025-08-09T05:27:26.569439",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/claude_01_academic_converted.json",
+      "sha256": "531f945bf1129d97446609f0e220731c0609a57ddc2de230fe4fa2dbaeeaa480"
+    },
+    {
+      "bytes": 19608,
+      "category": "claude_academic",
+      "filename": "claude_02_academic_converted.json",
+      "modified": "2025-08-09T05:27:26.571983",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/claude_02_academic_converted.json",
+      "sha256": "17cf9bfcfe554b5787ab2dfb7f98ea1f5e9541f2e730061154831ec49be1a6ae"
+    },
+    {
+      "bytes": 33493,
+      "category": "claude_academic",
+      "filename": "claude_03_academic_converted.json",
+      "modified": "2025-08-09T05:27:26.574111",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/claude_03_academic_converted.json",
+      "sha256": "71fd26161a4a6ebc29e10633f60c1179b3b2c0457d351492f56376e465bffee2"
+    },
+    {
+      "bytes": 32107,
+      "category": "claude_academic",
+      "filename": "claude_04_academic_converted.json",
+      "modified": "2025-08-09T05:27:26.575690",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/claude_04_academic_converted.json",
+      "sha256": "1d350a50c7c83655fa06bd071985b24f845ab8505d25025176558e25f6cf5226"
+    },
+    {
+      "bytes": 50711,
+      "category": "claude_academic",
+      "filename": "claude_05_academic_converted.json",
+      "modified": "2025-08-09T05:27:26.578051",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/claude_05_academic_converted.json",
+      "sha256": "5aaa6a583c15553895b4ddb8b77149553a04249aaf18adc5d01091f66eb161fe"
+    },
+    {
+      "bytes": 77493,
+      "category": "claude_academic",
+      "filename": "claude_06_academic_converted.json",
+      "modified": "2025-08-09T05:27:26.580241",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/claude_06_academic_converted.json",
+      "sha256": "27dc38fec0b7af9aa6529f4c030ae7e06a5b493832a1e0dbf0a0ce46c13d0997"
+    },
+    {
+      "bytes": 28090,
+      "category": "claude_academic",
+      "filename": "claude_07_academic_converted.json",
+      "modified": "2025-08-09T05:27:26.581234",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/claude_07_academic_converted.json",
+      "sha256": "b860b68724502018c681d11060b04ea7d7ce41c51bb7190725ae76c393e89f12"
+    },
+    {
+      "bytes": 15776,
+      "category": "claude_academic",
+      "filename": "claude_08_academic_converted.json",
+      "modified": "2025-08-09T05:27:26.581954",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/claude_08_academic_converted.json",
+      "sha256": "1207df4ae399085ee56dc7a0ef5a349e2250e554c9b21fc5c28d7180e2f8b1be"
+    },
+    {
+      "bytes": 61253,
+      "category": "claude_academic",
+      "filename": "claude_09_academic_converted.json",
+      "modified": "2025-08-09T05:27:26.583667",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/claude_09_academic_converted.json",
+      "sha256": "9927b57b06e46087ed14eedbd2096eb020f355b6f68901766660b601f8d59457"
+    },
+    {
+      "bytes": 44744,
+      "category": "claude_academic",
+      "filename": "claude_11_academic_converted.json",
+      "modified": "2025-08-09T05:27:26.570948",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/claude_11_academic_converted.json",
+      "sha256": "c9a99fd6979497ee7fa74650731cb9bc723de6126b2021d83310984d06589530"
+    },
+    {
+      "bytes": 35357,
+      "category": "claude_academic",
+      "filename": "claude_22_academic_converted.json",
+      "modified": "2025-08-09T05:27:26.573142",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/claude_22_academic_converted.json",
+      "sha256": "8d26cfc22a8545a1eefba28fa4f3b59d86d259f37faf07458f9f566d1b7011a8"
+    },
+    {
+      "bytes": 14516,
+      "category": "claude_academic",
+      "filename": "claude_33_academic_converted.json",
+      "modified": "2025-08-09T05:27:26.574785",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/claude_33_academic_converted.json",
+      "sha256": "1d36e1f986c57a33a5b05d593ef1ceafbc42fbcb384c4bc617c55ef6557f5684"
+    },
+    {
+      "bytes": 21423,
+      "category": "claude_academic",
+      "filename": "claude_44_academic_converted.json",
+      "modified": "2025-08-09T05:27:26.576405",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/claude_44_academic_converted.json",
+      "sha256": "c692edee7cd6faf12d91cc3ea343be5457ce2e24988d9458b1ae7675bb0657cf"
+    },
+    {
+      "bytes": 31907,
+      "category": "expression",
+      "filename": "expression_01_converted.json",
+      "modified": "2025-08-09T14:35:48.601688",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_01_converted.json",
+      "sha256": "6044e1ab7093c1e46d068d7269b88818e0126d3391ae766ad702b5d916318c34"
+    },
+    {
+      "bytes": 31846,
+      "category": "expression",
+      "filename": "expression_02_converted.json",
+      "modified": "2025-08-09T14:35:48.602900",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_02_converted.json",
+      "sha256": "dc0d37ba88ec079b4397b7230855b1fd651823ec2096b03bedd8fa66cdbed729"
+    },
+    {
+      "bytes": 32037,
+      "category": "expression",
+      "filename": "expression_03_converted.json",
+      "modified": "2025-08-09T14:35:48.604003",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_03_converted.json",
+      "sha256": "923316245b57b38d645d4514c1a571a9b56694bc858ee3e64b53bc2c17ceb92d"
+    },
+    {
+      "bytes": 32008,
+      "category": "expression",
+      "filename": "expression_04_converted.json",
+      "modified": "2025-08-09T14:35:48.605161",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_04_converted.json",
+      "sha256": "bc0a5eed01c94442848c44886d5d2d3b808f1ce7cee3c663c75fdc5ca20e7695"
+    },
+    {
+      "bytes": 32479,
+      "category": "expression",
+      "filename": "expression_05_converted.json",
+      "modified": "2025-08-09T14:35:48.606513",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_05_converted.json",
+      "sha256": "e35e4757ea5a01e23d28daaf3117c473f50fffcfad25f65ded3d883691cf329a"
+    },
+    {
+      "bytes": 32779,
+      "category": "expression",
+      "filename": "expression_06_converted.json",
+      "modified": "2025-08-09T14:35:48.607713",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_06_converted.json",
+      "sha256": "863fd09ce7e914038129c4d8ca751324e51c429590a499d171101c1305063bfd"
+    },
+    {
+      "bytes": 32178,
+      "category": "expression",
+      "filename": "expression_07_converted.json",
+      "modified": "2025-08-09T14:35:48.609076",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_07_converted.json",
+      "sha256": "09f293452e48e25c1a7e27dedc78e9e66eb916581898f669cd071896bb5d09ce"
+    },
+    {
+      "bytes": 32387,
+      "category": "expression",
+      "filename": "expression_08_converted.json",
+      "modified": "2025-08-09T14:35:48.610278",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_08_converted.json",
+      "sha256": "6bff054260bab76fadf37479ac490ccc72bac071ca3e234476d23b00ba61fb92"
+    },
+    {
+      "bytes": 32459,
+      "category": "expression",
+      "filename": "expression_09_converted.json",
+      "modified": "2025-08-09T14:35:48.611392",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_09_converted.json",
+      "sha256": "644e73d54e90667116ea86d389927edc6a86656a9f1c6ea5a4c67971dbe2abb5"
+    },
+    {
+      "bytes": 32763,
+      "category": "expression",
+      "filename": "expression_11_converted.json",
+      "modified": "2025-08-09T14:35:48.612458",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_11_converted.json",
+      "sha256": "59d783f360b29886be1e23a06d4fdcd5eecbe094dc2a54a26adbb0256f832f53"
+    },
+    {
+      "bytes": 32033,
+      "category": "expression",
+      "filename": "expression_22_converted.json",
+      "modified": "2025-08-09T14:35:48.613591",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_22_converted.json",
+      "sha256": "d13b2d93c8109bbff5e780aa9c99812251f8c9935f2a4f763cc42cdbb67e143a"
+    },
+    {
+      "bytes": 32056,
+      "category": "expression",
+      "filename": "expression_33_converted.json",
+      "modified": "2025-08-09T14:35:48.614710",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_33_converted.json",
+      "sha256": "91c1ca1e49ab24256815a5906b3f1ad7ca8e4bca6232044873abca47ffd10663"
+    },
+    {
+      "bytes": 32764,
+      "category": "expression",
+      "filename": "expression_44_converted.json",
+      "modified": "2025-08-09T14:35:48.615848",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_44_converted.json",
+      "sha256": "e38c87e2e44f7b7bf81825ab4d25a80bb1dd0784e578722e8188ccca1c105cd7"
+    },
+    {
+      "bytes": 6625,
+      "category": "grok_mindfulnesscoach",
+      "filename": "grok_mindfulnesscoach_01_converted.json",
+      "modified": "2025-08-09T05:27:26.604803",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_mindfulnesscoach_01_converted.json",
+      "sha256": "c6074daad8e38f7e153efdb0db6bcaac08c924165411bae6b9b1d0a1c271857f"
+    },
+    {
+      "bytes": 1256,
+      "category": "grok_mindfulnesscoach",
+      "filename": "grok_mindfulnesscoach_02_converted.json",
+      "modified": "2025-08-09T05:27:26.607886",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_mindfulnesscoach_02_converted.json",
+      "sha256": "99de6d8a75434084e9f03c4d847f2470d26d17d5b45ce4e0c28ea2847b79e870"
+    },
+    {
+      "bytes": 6169,
+      "category": "grok_mindfulnesscoach",
+      "filename": "grok_mindfulnesscoach_03_converted.json",
+      "modified": "2025-08-09T05:27:26.609140",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_mindfulnesscoach_03_converted.json",
+      "sha256": "9d17e93bd1c5eac25ea3ef13d047bb7452cc76f2e8b1a0c14ed2c8a1114e859f"
+    },
+    {
+      "bytes": 6215,
+      "category": "grok_mindfulnesscoach",
+      "filename": "grok_mindfulnesscoach_04_converted.json",
+      "modified": "2025-08-09T05:27:26.610652",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_mindfulnesscoach_04_converted.json",
+      "sha256": "3cdb5d4b2921ecfaf4a249480bf82de45f3837dce1b1c517846ec8171e9a0663"
+    },
+    {
+      "bytes": 6561,
+      "category": "grok_mindfulnesscoach",
+      "filename": "grok_mindfulnesscoach_05_converted.json",
+      "modified": "2025-08-09T05:27:26.611877",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_mindfulnesscoach_05_converted.json",
+      "sha256": "f3f2e04a6272dd37a5df51842b9e2fa6bdac289d8c10595a797f6f0349ca5e7d"
+    },
+    {
+      "bytes": 6451,
+      "category": "grok_mindfulnesscoach",
+      "filename": "grok_mindfulnesscoach_06_converted.json",
+      "modified": "2025-08-09T05:27:26.612429",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_mindfulnesscoach_06_converted.json",
+      "sha256": "b98d13257b8054961bdc1f21ec78ea48e61c3468dde148cfe74b1c91eadf7fec"
+    },
+    {
+      "bytes": 6354,
+      "category": "grok_mindfulnesscoach",
+      "filename": "grok_mindfulnesscoach_07_converted.json",
+      "modified": "2025-08-09T05:27:26.613089",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_mindfulnesscoach_07_converted.json",
+      "sha256": "0dba17411feae3a979fb5e6e9c7b7dbdbe273e30a29fecb81b0091fbd52912e2"
+    },
+    {
+      "bytes": 6212,
+      "category": "grok_mindfulnesscoach",
+      "filename": "grok_mindfulnesscoach_08_converted.json",
+      "modified": "2025-08-09T05:27:26.613736",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_mindfulnesscoach_08_converted.json",
+      "sha256": "4b1c04bb28b831016c8bfdec275fa86056690d9e2f5a441565a08a5cdb0549ff"
+    },
+    {
+      "bytes": 6294,
+      "category": "grok_mindfulnesscoach",
+      "filename": "grok_mindfulnesscoach_09_converted.json",
+      "modified": "2025-08-09T05:27:26.614563",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_mindfulnesscoach_09_converted.json",
+      "sha256": "c9fb7dd9bdd50c716772d8fd7875bf86c35fdcf036f16619333d5bf1f937333c"
+    },
+    {
+      "bytes": 6677,
+      "category": "grok_mindfulnesscoach",
+      "filename": "grok_mindfulnesscoach_11_converted.json",
+      "modified": "2025-08-09T05:27:26.605407",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_mindfulnesscoach_11_converted.json",
+      "sha256": "f953699595ec33cfc058b62bb469ff9ea1225ad23ae5d9524595780fd7f3df08"
+    },
+    {
+      "bytes": 6945,
+      "category": "grok_mindfulnesscoach",
+      "filename": "grok_mindfulnesscoach_22_converted.json",
+      "modified": "2025-08-09T05:27:26.608480",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_mindfulnesscoach_22_converted.json",
+      "sha256": "42bb9f35384e0a73b9c93eeeac519bd3ce7f58d5fb17f4bcfd99b96c76c619f3"
+    },
+    {
+      "bytes": 7256,
+      "category": "grok_mindfulnesscoach",
+      "filename": "grok_mindfulnesscoach_33_converted.json",
+      "modified": "2025-08-09T05:27:26.609935",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_mindfulnesscoach_33_converted.json",
+      "sha256": "110d1f8bdaceebad4cd10d468538c75aa5adf14b7a5ca177d1e84ddee704fa07"
+    },
+    {
+      "bytes": 7432,
+      "category": "grok_mindfulnesscoach",
+      "filename": "grok_mindfulnesscoach_44_converted.json",
+      "modified": "2025-08-09T05:27:26.611310",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_mindfulnesscoach_44_converted.json",
+      "sha256": "e323c6e351bd77263052354c22846401ad495f74666488eebfaa63aa46a9f3d4"
+    },
+    {
+      "bytes": 7697,
+      "category": "grok_numerologyscholar",
+      "filename": "grok_numerologyscholar_01_converted.json",
+      "modified": "2025-08-09T05:27:26.623341",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_numerologyscholar_01_converted.json",
+      "sha256": "74cec0374da8c565ceaeca76e4a8d0698c6f88abb929206c5514efb83ed6a4be"
+    },
+    {
+      "bytes": 8019,
+      "category": "grok_numerologyscholar",
+      "filename": "grok_numerologyscholar_02_converted.json",
+      "modified": "2025-08-09T05:27:26.624656",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_numerologyscholar_02_converted.json",
+      "sha256": "cb88b4c6d6ee479d2a59e87dccffb029d552f0ee1431d31c51063645c5786a07"
+    },
+    {
+      "bytes": 7254,
+      "category": "grok_numerologyscholar",
+      "filename": "grok_numerologyscholar_03_converted.json",
+      "modified": "2025-08-09T05:27:26.625867",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_numerologyscholar_03_converted.json",
+      "sha256": "3df87d5e94a10027eea2cea678bed0cad4fb0cbc3889220a7b4559a11fb04f2f"
+    },
+    {
+      "bytes": 1161,
+      "category": "grok_numerologyscholar",
+      "filename": "grok_numerologyscholar_04_converted.json",
+      "modified": "2025-08-09T05:27:26.627083",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_numerologyscholar_04_converted.json",
+      "sha256": "8d19d0b95298d45ea7cbb4ee72547bf42b099667bd607826ebd2aee1917884c4"
+    },
+    {
+      "bytes": 8230,
+      "category": "grok_numerologyscholar",
+      "filename": "grok_numerologyscholar_05_converted.json",
+      "modified": "2025-08-09T05:27:26.628360",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_numerologyscholar_05_converted.json",
+      "sha256": "71a24ac433302466f00df2021be9533c59f91614b743899249969361bcdcc8ee"
+    },
+    {
+      "bytes": 7912,
+      "category": "grok_numerologyscholar",
+      "filename": "grok_numerologyscholar_06_converted.json",
+      "modified": "2025-08-09T05:27:26.629216",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_numerologyscholar_06_converted.json",
+      "sha256": "480b5dc596b825e729f93a2e4bf07ea4b8d3c913fa64ecb654504f47ddf3cb78"
+    },
+    {
+      "bytes": 7396,
+      "category": "grok_numerologyscholar",
+      "filename": "grok_numerologyscholar_07_converted.json",
+      "modified": "2025-08-09T05:27:26.629879",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_numerologyscholar_07_converted.json",
+      "sha256": "358ef3f845d9a6320dc400fe30bcd9dd08aed8352ab35f6560662092f4f00c8c"
+    },
+    {
+      "bytes": 6492,
+      "category": "grok_numerologyscholar",
+      "filename": "grok_numerologyscholar_08_converted.json",
+      "modified": "2025-08-09T05:27:26.630451",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_numerologyscholar_08_converted.json",
+      "sha256": "83bd9dd459fa2f590c636394f3baf2c736470e71efe50cffda9045d98ec97f5f"
+    },
+    {
+      "bytes": 1080,
+      "category": "grok_numerologyscholar",
+      "filename": "grok_numerologyscholar_09_converted.json",
+      "modified": "2025-08-09T05:27:26.631039",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_numerologyscholar_09_converted.json",
+      "sha256": "b2f67aa99960cf5f54cb1271ef1b569ebd55644d8a802824f9227b856d001d6a"
+    },
+    {
+      "bytes": 6430,
+      "category": "grok_numerologyscholar",
+      "filename": "grok_numerologyscholar_11_converted.json",
+      "modified": "2025-08-09T05:27:26.623866",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_numerologyscholar_11_converted.json",
+      "sha256": "1e69d72d548210f5ccef10c15de6dce88ad53f3119c30277df44d75bac172e08"
+    },
+    {
+      "bytes": 6738,
+      "category": "grok_numerologyscholar",
+      "filename": "grok_numerologyscholar_22_converted.json",
+      "modified": "2025-08-09T05:27:26.625276",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_numerologyscholar_22_converted.json",
+      "sha256": "2e9489ef455e6e3fa65eb2a74425829e79e00fe080ae2f6ebb08566f4c48ce86"
+    },
+    {
+      "bytes": 6434,
+      "category": "grok_numerologyscholar",
+      "filename": "grok_numerologyscholar_33_converted.json",
+      "modified": "2025-08-09T05:27:26.626428",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_numerologyscholar_33_converted.json",
+      "sha256": "a6b2c47968605455512db4ba7087c5146696c6279c28db11589f8008d81229cd"
+    },
+    {
+      "bytes": 6505,
+      "category": "grok_numerologyscholar",
+      "filename": "grok_numerologyscholar_44_converted.json",
+      "modified": "2025-08-09T05:27:26.627611",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_numerologyscholar_44_converted.json",
+      "sha256": "224efca8838c9bf598e181508f61f525414c23d1e50d2fa771b5c33c9c2be82e"
+    },
+    {
+      "bytes": 5505,
+      "category": "grok_oracle",
+      "filename": "grok_oracle_01_converted.json",
+      "modified": "2025-08-09T05:27:26.584970",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_oracle_01_converted.json",
+      "sha256": "d51ffc18e35230cb7e66a899dbfd25f1fceb3a0c1f320ebbc7adbbfdc93d16d6"
+    },
+    {
+      "bytes": 5357,
+      "category": "grok_oracle",
+      "filename": "grok_oracle_02_converted.json",
+      "modified": "2025-08-09T05:27:26.586563",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_oracle_02_converted.json",
+      "sha256": "6ededf7d3dc7fce829f8c1bcf7a0bb41f73bae080fe5d25cefe8f1edff369ea5"
+    },
+    {
+      "bytes": 5339,
+      "category": "grok_oracle",
+      "filename": "grok_oracle_03_converted.json",
+      "modified": "2025-08-09T05:27:26.587784",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_oracle_03_converted.json",
+      "sha256": "bef7ada6244e402ab8d1a65f94f90d4779ec2350b89ef97767f9a0eed168136c"
+    },
+    {
+      "bytes": 1067,
+      "category": "grok_oracle",
+      "filename": "grok_oracle_04_converted.json",
+      "modified": "2025-08-09T05:27:26.588997",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_oracle_04_converted.json",
+      "sha256": "aef7cd2c40d058ca0bcd9e96a5e68f57693bf48a1957869b6e94f8929043167d"
+    },
+    {
+      "bytes": 6838,
+      "category": "grok_oracle",
+      "filename": "grok_oracle_05_converted.json",
+      "modified": "2025-08-09T05:27:26.590544",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_oracle_05_converted.json",
+      "sha256": "58e3381c271fcd6f69503d8047241f93e60e665d637ce950058919b8a5278b79"
+    },
+    {
+      "bytes": 6712,
+      "category": "grok_oracle",
+      "filename": "grok_oracle_06_converted.json",
+      "modified": "2025-08-09T05:27:26.591264",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_oracle_06_converted.json",
+      "sha256": "a61d966caec45399140af893f78d1b7735c387624989cd99a88c6f0c3a553d68"
+    },
+    {
+      "bytes": 6623,
+      "category": "grok_oracle",
+      "filename": "grok_oracle_07_converted.json",
+      "modified": "2025-08-09T05:27:26.591964",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_oracle_07_converted.json",
+      "sha256": "a1de80adbbd39f4a21bea7afab58b62dde19d90d71134d324f70c37ca8a3794f"
+    },
+    {
+      "bytes": 6459,
+      "category": "grok_oracle",
+      "filename": "grok_oracle_08_converted.json",
+      "modified": "2025-08-09T05:27:26.592640",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_oracle_08_converted.json",
+      "sha256": "ee65f12e2f62f99f1047ded4bded7066eb4c4942c2f2bac08b1ac066791c0219"
+    },
+    {
+      "bytes": 6657,
+      "category": "grok_oracle",
+      "filename": "grok_oracle_09_converted.json",
+      "modified": "2025-08-09T05:27:26.593312",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_oracle_09_converted.json",
+      "sha256": "4987ea42999a307aba47db7fa4cf5dc18be54809e2b882cecc630f7289517dd7"
+    },
+    {
+      "bytes": 6438,
+      "category": "grok_oracle",
+      "filename": "grok_oracle_11_converted.json",
+      "modified": "2025-08-09T05:27:26.585961",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_oracle_11_converted.json",
+      "sha256": "d92d9dec90030f3a5309461f248d1202b78baccd419d6dc4a1d81bbfe5727c3d"
+    },
+    {
+      "bytes": 6771,
+      "category": "grok_oracle",
+      "filename": "grok_oracle_22_converted.json",
+      "modified": "2025-08-09T05:27:26.587237",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_oracle_22_converted.json",
+      "sha256": "600b0e5b773bed0af273c86c3c965415b5900639111cce396cd5db8b00e5c80a"
+    },
+    {
+      "bytes": 6813,
+      "category": "grok_oracle",
+      "filename": "grok_oracle_33_converted.json",
+      "modified": "2025-08-09T05:27:26.588446",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_oracle_33_converted.json",
+      "sha256": "525c7bbf257d3635648efc6bec734fcce89a94c5511263669123a920a01c72b0"
+    },
+    {
+      "bytes": 6433,
+      "category": "grok_oracle",
+      "filename": "grok_oracle_44_converted.json",
+      "modified": "2025-08-09T05:27:26.589772",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_oracle_44_converted.json",
+      "sha256": "68dcce11959665e3824c7dd9c8142a43f756617d825237402ab80eeb337ebd82"
+    },
+    {
+      "bytes": 5982,
+      "category": "grok_philosopher",
+      "filename": "grok_philosopher_01_converted.json",
+      "modified": "2025-08-09T05:27:26.615414",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_philosopher_01_converted.json",
+      "sha256": "b9ca5243a6aa348c106722eebaf93affc09e006127b1b8e67f4f5e10bd8b23a5"
+    },
+    {
+      "bytes": 7391,
+      "category": "grok_philosopher",
+      "filename": "grok_philosopher_02_converted.json",
+      "modified": "2025-08-09T05:27:26.616734",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_philosopher_02_converted.json",
+      "sha256": "8938a5a743869e17d4984d69bcfa91406b7f20545d1585191c1d22da17612b32"
+    },
+    {
+      "bytes": 6515,
+      "category": "grok_philosopher",
+      "filename": "grok_philosopher_03_converted.json",
+      "modified": "2025-08-09T05:27:26.617844",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_philosopher_03_converted.json",
+      "sha256": "a1f054fab0186231efbdc14beb7a7b181a8e3e0ab6f9a8b7d15e8b6f98522667"
+    },
+    {
+      "bytes": 1053,
+      "category": "grok_philosopher",
+      "filename": "grok_philosopher_04_converted.json",
+      "modified": "2025-08-09T05:27:26.619364",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_philosopher_04_converted.json",
+      "sha256": "c9e07e4e2f751a9abf61e6010643285b93e2546c9a21b1e34b1c943cede5ee03"
+    },
+    {
+      "bytes": 6846,
+      "category": "grok_philosopher",
+      "filename": "grok_philosopher_05_converted.json",
+      "modified": "2025-08-09T05:27:26.620494",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_philosopher_05_converted.json",
+      "sha256": "b5bb2b1aaa76dea49022bd356ca377ae91c45a7a4103454e7226ea3492e57c3f"
+    },
+    {
+      "bytes": 6866,
+      "category": "grok_philosopher",
+      "filename": "grok_philosopher_06_converted.json",
+      "modified": "2025-08-09T05:27:26.621021",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_philosopher_06_converted.json",
+      "sha256": "c8276bbe9acea6aa7dde8c0cfd9e14a6918ff7b0c1a7f7ca076bcd32d431a90b"
+    },
+    {
+      "bytes": 7773,
+      "category": "grok_philosopher",
+      "filename": "grok_philosopher_07_converted.json",
+      "modified": "2025-08-09T05:27:26.621597",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_philosopher_07_converted.json",
+      "sha256": "9ac270f53c9dec02ffd5ac5dc5fedcef115c6153bb5ea1620b1672a1cd932696"
+    },
+    {
+      "bytes": 7358,
+      "category": "grok_philosopher",
+      "filename": "grok_philosopher_08_converted.json",
+      "modified": "2025-08-09T05:27:26.622141",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_philosopher_08_converted.json",
+      "sha256": "62c3fe7f6f3dd1b8b9a0f11c81cdbb3edcbd0409c2afe663e6d1f0175a2a8453"
+    },
+    {
+      "bytes": 6515,
+      "category": "grok_philosopher",
+      "filename": "grok_philosopher_09_converted.json",
+      "modified": "2025-08-09T05:27:26.622653",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_philosopher_09_converted.json",
+      "sha256": "e24ee7ae7f82732fc4e36d208eecf61aebee98ffdf30adab9b7b31c87fbc6c78"
+    },
+    {
+      "bytes": 6598,
+      "category": "grok_philosopher",
+      "filename": "grok_philosopher_11_converted.json",
+      "modified": "2025-08-09T05:27:26.615968",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_philosopher_11_converted.json",
+      "sha256": "fed1766e7341598fb2797c3af4e0a8d021fe72f47a42501d8f61abc549746c16"
+    },
+    {
+      "bytes": 6476,
+      "category": "grok_philosopher",
+      "filename": "grok_philosopher_22_converted.json",
+      "modified": "2025-08-09T05:27:26.617285",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_philosopher_22_converted.json",
+      "sha256": "4e6050b259b6e726d5a396fdae281f8eef90e85d06e69caa1ca1692782870b11"
+    },
+    {
+      "bytes": 6595,
+      "category": "grok_philosopher",
+      "filename": "grok_philosopher_33_converted.json",
+      "modified": "2025-08-09T05:27:26.618374",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_philosopher_33_converted.json",
+      "sha256": "038d445be8bc47d2780bc759b5d2a5cef2e54f9cec10b448f1b2d9b16a1ba4fc"
+    },
+    {
+      "bytes": 6882,
+      "category": "grok_philosopher",
+      "filename": "grok_philosopher_44_converted.json",
+      "modified": "2025-08-09T05:27:26.619935",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_philosopher_44_converted.json",
+      "sha256": "c3789f7cb89e339715628a7ca17813bcd5fbf62bd066fdda10be0a92ebf9cac5"
+    },
+    {
+      "bytes": 7196,
+      "category": "grok_psychologist",
+      "filename": "grok_psychologist_01_converted.json",
+      "modified": "2025-08-09T05:27:26.594073",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_psychologist_01_converted.json",
+      "sha256": "001694181bda597d2b019dcbd7ae66ed906ff7a6a56cbe6cae1b174e11552b42"
+    },
+    {
+      "bytes": 6779,
+      "category": "grok_psychologist",
+      "filename": "grok_psychologist_02_converted.json",
+      "modified": "2025-08-09T05:27:26.595954",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_psychologist_02_converted.json",
+      "sha256": "0979deb19350883d488ee29d8175266028e2d79ac343b735cc34293a94234868"
+    },
+    {
+      "bytes": 6950,
+      "category": "grok_psychologist",
+      "filename": "grok_psychologist_03_converted.json",
+      "modified": "2025-08-09T05:27:26.597827",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_psychologist_03_converted.json",
+      "sha256": "a98fdc4344333349ec6b7c3b2a688a0f20d86b61b96f2ccaccd2cf157e5387a9"
+    },
+    {
+      "bytes": 1084,
+      "category": "grok_psychologist",
+      "filename": "grok_psychologist_04_converted.json",
+      "modified": "2025-08-09T05:27:26.599137",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_psychologist_04_converted.json",
+      "sha256": "21b60f6b0c9adc00accce10943dbc0da8ab302a647e744b0a3ecc9604bf205d4"
+    },
+    {
+      "bytes": 7456,
+      "category": "grok_psychologist",
+      "filename": "grok_psychologist_05_converted.json",
+      "modified": "2025-08-09T05:27:26.600698",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_psychologist_05_converted.json",
+      "sha256": "4323553a256f376aded6740fac52f47faa7e4476865a6fd1d8bc122e5edb732d"
+    },
+    {
+      "bytes": 8011,
+      "category": "grok_psychologist",
+      "filename": "grok_psychologist_06_converted.json",
+      "modified": "2025-08-09T05:27:26.601489",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_psychologist_06_converted.json",
+      "sha256": "61829a9ffefeff910ce31c83d2a31845383179cbc779cd94afc625cbab7394ba"
+    },
+    {
+      "bytes": 7844,
+      "category": "grok_psychologist",
+      "filename": "grok_psychologist_07_converted.json",
+      "modified": "2025-08-09T05:27:26.602143",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_psychologist_07_converted.json",
+      "sha256": "cfbd3f6953bec1b4c6281df666495e37a57ff25fc2a4c61559cba569426da7a1"
+    },
+    {
+      "bytes": 8317,
+      "category": "grok_psychologist",
+      "filename": "grok_psychologist_08_converted.json",
+      "modified": "2025-08-09T05:27:26.602836",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_psychologist_08_converted.json",
+      "sha256": "62a1c7b9e21c6d2d15ca75c92279bf0f4a70c2c41ebf081dccfaae29bfa12f15"
+    },
+    {
+      "bytes": 9883,
+      "category": "grok_psychologist",
+      "filename": "grok_psychologist_09_converted.json",
+      "modified": "2025-08-09T05:27:26.603745",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_psychologist_09_converted.json",
+      "sha256": "bc10ebc9d72a75668c6636677763fc03be1d4f2de19849d886ed67f48f4791a6"
+    },
+    {
+      "bytes": 9293,
+      "category": "grok_psychologist",
+      "filename": "grok_psychologist_11_converted.json",
+      "modified": "2025-08-09T05:27:26.594939",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_psychologist_11_converted.json",
+      "sha256": "79706d9b3d35785a704211c37f33d4997c29e4e00491f2978fefabf7b71d0916"
+    },
+    {
+      "bytes": 9657,
+      "category": "grok_psychologist",
+      "filename": "grok_psychologist_22_converted.json",
+      "modified": "2025-08-09T05:27:26.596884",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_psychologist_22_converted.json",
+      "sha256": "90a11134267bc62407dbc972b417cdd5c7839fd8eb22b074796a998133cb6314"
+    },
+    {
+      "bytes": 9193,
+      "category": "grok_psychologist",
+      "filename": "grok_psychologist_33_converted.json",
+      "modified": "2025-08-09T05:27:26.598803",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_psychologist_33_converted.json",
+      "sha256": "318c919548aef8dc6f41c5177ed89410c51b28983fca73cb7e322b3a07ff25d1"
+    },
+    {
+      "bytes": 9454,
+      "category": "grok_psychologist",
+      "filename": "grok_psychologist_44_converted.json",
+      "modified": "2025-08-09T05:27:26.600006",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/grok_psychologist_44_converted.json",
+      "sha256": "c5a647961aa30b9fa673e2daf9bdae5b8f3e52c90847b6d3a5cf1bafab53e7ef"
+    },
+    {
+      "bytes": 17353,
+      "category": "life_path",
+      "filename": "lifePath_01_v2.0_converted.json",
+      "modified": "2025-08-09T05:39:09.196953",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_01_v2.0_converted.json",
+      "sha256": "0cac2f546e2cc5073011fb40c75f2481dcc3e04fe1291b2bd9e9092858f0712b"
+    },
+    {
+      "bytes": 15507,
+      "category": "life_path",
+      "filename": "lifePath_02_v2.0_converted.json",
+      "modified": "2025-08-09T05:39:09.197428",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_02_v2.0_converted.json",
+      "sha256": "1a99bd1cb2d08ca609659c0d4411b66627aa69486e9da8ac15a9fa767a615594"
+    },
+    {
+      "bytes": 16751,
+      "category": "life_path",
+      "filename": "lifePath_03_v2.0_converted.json",
+      "modified": "2025-08-09T05:39:09.197864",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_03_v2.0_converted.json",
+      "sha256": "17e64fbd0f95bf3beeb1f9d47aa73eeaa2021f42ab2e3580a164350a7189683c"
+    },
+    {
+      "bytes": 33318,
+      "category": "life_path",
+      "filename": "lifePath_04_v2.0_converted.json",
+      "modified": "2025-08-09T06:05:52.457006",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_04_v2.0_converted.json",
+      "sha256": "ce00519f606b1482d16ef2ed6b98cb9245e8f757c16bac5a5f0a301489089758"
+    },
+    {
+      "bytes": 32756,
+      "category": "life_path",
+      "filename": "lifePath_05_v2.0_converted.json",
+      "modified": "2025-08-09T06:05:52.458252",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_05_v2.0_converted.json",
+      "sha256": "7663baa94345935d0df816692e2eac3a71454b2de8307c25c8bd9806db7ad13b"
+    },
+    {
+      "bytes": 34779,
+      "category": "life_path",
+      "filename": "lifePath_06_v2.0_converted.json",
+      "modified": "2025-08-09T06:05:52.459602",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_06_v2.0_converted.json",
+      "sha256": "ccbea220845d0c5d8cfd934f5d7787502f55bd5dacd50c4e4b13e61b552b6aef"
+    },
+    {
+      "bytes": 33275,
+      "category": "life_path",
+      "filename": "lifePath_07_v2.0_converted.json",
+      "modified": "2025-08-09T06:05:52.460998",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_07_v2.0_converted.json",
+      "sha256": "a89c64fad5d3c69e4fce5a2cd829ded0bccfdceb7dfe2b032cdd64de2dab9b6e"
+    },
+    {
+      "bytes": 33429,
+      "category": "life_path",
+      "filename": "lifePath_08_v2.0_converted.json",
+      "modified": "2025-08-09T06:05:52.462210",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_08_v2.0_converted.json",
+      "sha256": "b8f8ef7811206addc8d2716a85c7115d76b4738d88f95153b963291086e9c9e5"
+    },
+    {
+      "bytes": 23898,
+      "category": "life_path",
+      "filename": "lifePath_09_v2.0_converted.json",
+      "modified": "2025-08-09T04:35:07.779737",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_09_v2.0_converted.json",
+      "sha256": "ea317d68739ef23889b49928e7798ba01ce450026455bfeae930f2d91f85cbd5"
+    },
+    {
+      "bytes": 21385,
+      "category": "life_path",
+      "filename": "lifePath_11_v2.0_converted.json",
+      "modified": "2025-08-09T04:36:53.239909",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_11_v2.0_converted.json",
+      "sha256": "cc33a5fd0f29337fe57b30544a3d3d738d8910a1daf4488f47b83e0501efec37"
+    },
+    {
+      "bytes": 18143,
+      "category": "life_path",
+      "filename": "lifePath_22_v2.0_converted.json",
+      "modified": "2025-08-09T04:38:21.980566",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_22_v2.0_converted.json",
+      "sha256": "2e4f4722f4d85532cc098f4a06b1df70f9e406e31b1af93f05730c648093b908"
+    },
+    {
+      "bytes": 13637,
+      "category": "life_path",
+      "filename": "lifePath_33_v2.0_converted.json",
+      "modified": "2025-08-09T05:39:09.198333",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_33_v2.0_converted.json",
+      "sha256": "42a55fd4a24db64d3fc6e60e435ba83a678f46d65708ddb02463b47c49e98b6e"
+    },
+    {
+      "bytes": 13808,
+      "category": "life_path",
+      "filename": "lifePath_44_v2.0_converted.json",
+      "modified": "2025-08-09T05:39:09.198858",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_44_v2.0_converted.json",
+      "sha256": "a231b15e54a54ad66c6bd8826b9470470a54b92cd6abc4f439a42f6947dac89e"
+    },
+    {
+      "bytes": 42493,
+      "category": "soul_urge",
+      "filename": "soulUrge_01_v3.0_converted.json",
+      "modified": "2025-08-09T14:05:08.377448",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_01_v3.0_converted.json",
+      "sha256": "0647ef49a6d5759dadb70983e2599fae969234a17d3f483583c6917942b9059c"
+    },
+    {
+      "bytes": 42541,
+      "category": "soul_urge",
+      "filename": "soulUrge_02_v3.0_converted.json",
+      "modified": "2025-08-09T14:05:08.378905",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_02_v3.0_converted.json",
+      "sha256": "7574cbe9f10753466d197fdaf1dbdc5c7e023fec01f87d1e5df2767decdd949d"
+    },
+    {
+      "bytes": 42457,
+      "category": "soul_urge",
+      "filename": "soulUrge_03_v3.0_converted.json",
+      "modified": "2025-08-09T14:05:08.380208",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_03_v3.0_converted.json",
+      "sha256": "9a4b305100c195b66e7dea49f38497b3818495baaa7a4f8436d59585e56feab8"
+    },
+    {
+      "bytes": 41713,
+      "category": "soul_urge",
+      "filename": "soulUrge_04_v3.0_converted.json",
+      "modified": "2025-08-09T14:05:08.381509",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_04_v3.0_converted.json",
+      "sha256": "273f9e7d1c3b14aaebdcd2b424ecb356a8e55357d595a2d2200b2f753675811a"
+    },
+    {
+      "bytes": 41953,
+      "category": "soul_urge",
+      "filename": "soulUrge_05_v3.0_converted.json",
+      "modified": "2025-08-09T14:05:08.382738",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_05_v3.0_converted.json",
+      "sha256": "e16a809cb80cf2dcae29cc6bed32bf0a0251fd6dacb390b901ccfae60b0fcf84"
+    },
+    {
+      "bytes": 41881,
+      "category": "soul_urge",
+      "filename": "soulUrge_06_v3.0_converted.json",
+      "modified": "2025-08-09T14:05:08.383962",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_06_v3.0_converted.json",
+      "sha256": "e6502ec40c23f012ce814224e210a12d75f778049d826cea7ab45829b762a961"
+    },
+    {
+      "bytes": 41581,
+      "category": "soul_urge",
+      "filename": "soulUrge_07_v3.0_converted.json",
+      "modified": "2025-08-09T14:05:08.385258",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_07_v3.0_converted.json",
+      "sha256": "95cbcc808ae280c29a1bbe25deb8c0fb5c34cd986e7c2c4000c057eccd75fd5f"
+    },
+    {
+      "bytes": 41773,
+      "category": "soul_urge",
+      "filename": "soulUrge_08_v3.0_converted.json",
+      "modified": "2025-08-09T14:05:08.386594",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_08_v3.0_converted.json",
+      "sha256": "5dc680da1256a595f3a2fe32c6c45d1149e79b857d7647e6007f1bf05fad0845"
+    },
+    {
+      "bytes": 41977,
+      "category": "soul_urge",
+      "filename": "soulUrge_09_v3.0_converted.json",
+      "modified": "2025-08-09T14:05:08.387820",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_09_v3.0_converted.json",
+      "sha256": "f388e44c46cb6a3bef259c89eed68b9888bf919d3c20ed616d500a6390aaa675"
+    },
+    {
+      "bytes": 42676,
+      "category": "soul_urge",
+      "filename": "soulUrge_11_v3.0_converted.json",
+      "modified": "2025-08-09T14:05:08.389050",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_11_v3.0_converted.json",
+      "sha256": "752ccc695e0a210fbb3d9238c0d6d8a0b763ea3cd68e12754749882a71e0bbec"
+    },
+    {
+      "bytes": 42652,
+      "category": "soul_urge",
+      "filename": "soulUrge_22_v3.0_converted.json",
+      "modified": "2025-08-09T14:05:08.390288",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_22_v3.0_converted.json",
+      "sha256": "b068aacc14d3923a61a6c4bd402b8c8e8b865e49e268b69c15acf67841b1edf2"
+    },
+    {
+      "bytes": 42148,
+      "category": "soul_urge",
+      "filename": "soulUrge_33_v3.0_converted.json",
+      "modified": "2025-08-09T14:05:08.391511",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_33_v3.0_converted.json",
+      "sha256": "fb8633eaebda0436147edc3389bcce494105917ccd82b9777727513450b7f324"
+    },
+    {
+      "bytes": 42424,
+      "category": "soul_urge",
+      "filename": "soulUrge_44_v3.0_converted.json",
+      "modified": "2025-08-09T14:05:08.392962",
+      "path": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_44_v3.0_converted.json",
+      "sha256": "924f5bfe39dbef191b0c5554d1542f166027acf37f421528be6c2153b1013dfe"
+    }
+  ],
+  "generated_at": "2025-08-09T19:45:21.180954",
+  "manifest_version": "1.0",
+  "release_info": {
+    "build_date": "2025.08.09",
+    "description": "KASPER MLX Spiritual AI Dataset - Professional Release",
+    "release_tag": "kasper-lp-trinity_v2025.08.09_build1"
+  },
+  "total_bytes": 2397252,
+  "total_files": 130
+}

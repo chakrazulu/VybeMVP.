@@ -129,6 +129,155 @@
 		4D731D642E45A7230083C82C /* KASPERAppleFoundationIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D731D5E2E45A7230083C82C /* KASPERAppleFoundationIntegration.swift */; };
 		4D731D652E45A7230083C82C /* KASPERMegaCorpusProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D731D5F2E45A7230083C82C /* KASPERMegaCorpusProcessor.swift */; };
 		4D731D662E45A7230083C82C /* KASPERRLHFSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D731D612E45A7230083C82C /* KASPERRLHFSystem.swift */; };
+		4D731DE22E46D4E20083C82C /* KASPERContentImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D731DE12E46D4E20083C82C /* KASPERContentImporter.swift */; };
+		4D731EB52E4721AE0083C82C /* KASPERLifePathTrinity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D731EB42E4721AE0083C82C /* KASPERLifePathTrinity.swift */; };
+		4D731FCA2E474A0F0083C82C /* lifePath_33_v2.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F2B2E474A0F0083C82C /* lifePath_33_v2.0_converted.json */; };
+		4D731FCC2E474A0F0083C82C /* NumerologyScholar_Number_4_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F832E474A0F0083C82C /* NumerologyScholar_Number_4_original.md */; };
+		4D731FD12E474A0F0083C82C /* CR22_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F702E474A0F0083C82C /* CR22_original.md */; };
+		4D731FD32E474A0F0083C82C /* Oracle_Number_22_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F972E474A0F0083C82C /* Oracle_Number_22_original.md */; };
+		4D731FD42E474A0F0083C82C /* CR2_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F672E474A0F0083C82C /* CR2_original.md */; };
+		4D731FD62E474A0F0083C82C /* CR4_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F692E474A0F0083C82C /* CR4_original.md */; };
+		4D731FD72E474A0F0083C82C /* CR6_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F6B2E474A0F0083C82C /* CR6_original.md */; };
+		4D731FD82E474A0F0083C82C /* lifePath_03_v2.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F2A2E474A0F0083C82C /* lifePath_03_v2.0_converted.json */; };
+		4D731FD92E474A0F0083C82C /* grok_mindfulnesscoach_33_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EF72E474A0F0083C82C /* grok_mindfulnesscoach_33_converted.json */; };
+		4D731FDB2E474A0F0083C82C /* NumerologyScholar_Number_33_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F8B2E474A0F0083C82C /* NumerologyScholar_Number_33_original.md */; };
+		4D731FDD2E474A0F0083C82C /* NumerologyScholar_Number_11_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F892E474A0F0083C82C /* NumerologyScholar_Number_11_original.md */; };
+		4D731FDF2E474A0F0083C82C /* grok_mindfulnesscoach_22_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EF62E474A0F0083C82C /* grok_mindfulnesscoach_22_converted.json */; };
+		4D731FE12E474A0F0083C82C /* grok_philosopher_03_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F122E474A0F0083C82C /* grok_philosopher_03_converted.json */; };
+		4D731FE22E474A0F0083C82C /* claude_44_academic_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EDF2E474A0F0083C82C /* claude_44_academic_converted.json */; };
+		4D731FE32E474A0F0083C82C /* NumerologyScholar_Number_3_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F822E474A0F0083C82C /* NumerologyScholar_Number_3_original.md */; };
+		4D731FE42E474A0F0083C82C /* grok_philosopher_07_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F152E474A0F0083C82C /* grok_philosopher_07_converted.json */; };
+		4D731FE52E474A0F0083C82C /* NumerologyScholar_Number_22_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F8A2E474A0F0083C82C /* NumerologyScholar_Number_22_original.md */; };
+		4D731FE72E474A0F0083C82C /* grok_philosopher_44_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F1B2E474A0F0083C82C /* grok_philosopher_44_converted.json */; };
+		4D731FE82E474A0F0083C82C /* Psychologist_Number_5_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F9F2E474A0F0083C82C /* Psychologist_Number_5_original.md */; };
+		4D731FE92E474A0F0083C82C /* Oracle_Number_11_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F962E474A0F0083C82C /* Oracle_Number_11_original.md */; };
+		4D731FEA2E474A0F0083C82C /* CR5_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F6A2E474A0F0083C82C /* CR5_original.md */; };
+		4D731FED2E474A0F0083C82C /* grok_numerologyscholar_07_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EFE2E474A0F0083C82C /* grok_numerologyscholar_07_converted.json */; };
+		4D731FEE2E474A0F0083C82C /* MindfulnessCoach_Number_44_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F7F2E474A0F0083C82C /* MindfulnessCoach_Number_44_original.md */; };
+		4D731FF12E474A0F0083C82C /* grok_numerologyscholar_08_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EFF2E474A0F0083C82C /* grok_numerologyscholar_08_converted.json */; };
+		4D731FF62E474A0F0083C82C /* claude_09_academic_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EDB2E474A0F0083C82C /* claude_09_academic_converted.json */; };
+		4D731FF92E474A0F0083C82C /* grok_numerologyscholar_02_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EFA2E474A0F0083C82C /* grok_numerologyscholar_02_converted.json */; };
+		4D731FFA2E474A0F0083C82C /* grok_psychologist_11_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F242E474A0F0083C82C /* grok_psychologist_11_converted.json */; };
+		4D731FFD2E474A0F0083C82C /* NumerologyScholar_Number_7_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F862E474A0F0083C82C /* NumerologyScholar_Number_7_original.md */; };
+		4D731FFE2E474A0F0083C82C /* Oracle_Number_3_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F8F2E474A0F0083C82C /* Oracle_Number_3_original.md */; };
+		4D731FFF2E474A0F0083C82C /* claude_04_academic_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731ED62E474A0F0083C82C /* claude_04_academic_converted.json */; };
+		4D7320032E474A0F0083C82C /* lifePath_22_v2.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F3C2E474A0F0083C82C /* lifePath_22_v2.0_converted.json */; };
+		4D7320042E474A0F0083C82C /* grok_philosopher_01_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F102E474A0F0083C82C /* grok_philosopher_01_converted.json */; };
+		4D7320062E474A0F0083C82C /* claude_33_academic_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EDE2E474A0F0083C82C /* claude_33_academic_converted.json */; };
+		4D7320082E474A0F0083C82C /* grok_numerologyscholar_01_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EF92E474A0F0083C82C /* grok_numerologyscholar_01_converted.json */; };
+		4D7320092E474A0F0083C82C /* Oracle_Number_8_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F942E474A0F0083C82C /* Oracle_Number_8_original.md */; };
+		4D73200A2E474A0F0083C82C /* MindfulnessCoach_Number_4_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F762E474A0F0083C82C /* MindfulnessCoach_Number_4_original.md */; };
+		4D73200D2E474A0F0083C82C /* grok_oracle_44_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F0F2E474A0F0083C82C /* grok_oracle_44_converted.json */; };
+		4D73200E2E474A0F0083C82C /* grok_psychologist_06_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F202E474A0F0083C82C /* grok_psychologist_06_converted.json */; };
+		4D73200F2E474A0F0083C82C /* CR9_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F6E2E474A0F0083C82C /* CR9_original.md */; };
+		4D7320102E474A0F0083C82C /* Psychologist_Number_2_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F9C2E474A0F0083C82C /* Psychologist_Number_2_original.md */; };
+		4D7320112E474A0F0083C82C /* grok_philosopher_06_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F142E474A0F0083C82C /* grok_philosopher_06_converted.json */; };
+		4D7320122E474A0F0083C82C /* grok_psychologist_02_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F1D2E474A0F0083C82C /* grok_psychologist_02_converted.json */; };
+		4D7320132E474A0F0083C82C /* grok_oracle_22_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F0D2E474A0F0083C82C /* grok_oracle_22_converted.json */; };
+		4D7320142E474A0F0083C82C /* grok_mindfulnesscoach_08_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EF32E474A0F0083C82C /* grok_mindfulnesscoach_08_converted.json */; };
+		4D7320162E474A0F0083C82C /* NumerologyScholar_Number_44_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F8C2E474A0F0083C82C /* NumerologyScholar_Number_44_original.md */; };
+		4D7320182E474A0F0083C82C /* Oracle_Number_2_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F8E2E474A0F0083C82C /* Oracle_Number_2_original.md */; };
+		4D7320202E474A0F0083C82C /* grok_mindfulnesscoach_09_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EF42E474A0F0083C82C /* grok_mindfulnesscoach_09_converted.json */; };
+		4D7320212E474A0F0083C82C /* claude_07_academic_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731ED92E474A0F0083C82C /* claude_07_academic_converted.json */; };
+		4D7320222E474A0F0083C82C /* CR1_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F662E474A0F0083C82C /* CR1_original.md */; };
+		4D7320242E474A0F0083C82C /* Oracle_Number_9_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F952E474A0F0083C82C /* Oracle_Number_9_original.md */; };
+		4D7320252E474A0F0083C82C /* grok_oracle_11_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F0C2E474A0F0083C82C /* grok_oracle_11_converted.json */; };
+		4D7320262E474A0F0083C82C /* grok_philosopher_09_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F172E474A0F0083C82C /* grok_philosopher_09_converted.json */; };
+		4D7320282E474A0F0083C82C /* NumerologyScholar_Number_9_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F882E474A0F0083C82C /* NumerologyScholar_Number_9_original.md */; };
+		4D73202A2E474A0F0083C82C /* Psychologist_Number_3_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F9D2E474A0F0083C82C /* Psychologist_Number_3_original.md */; };
+		4D73202B2E474A0F0083C82C /* claude_01_academic_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731ED32E474A0F0083C82C /* claude_01_academic_converted.json */; };
+		4D73202E2E474A0F0083C82C /* Psychologist_Number_6_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731FA02E474A0F0083C82C /* Psychologist_Number_6_original.md */; };
+		4D7320322E474A0F0083C82C /* CR3_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F682E474A0F0083C82C /* CR3_original.md */; };
+		4D7320342E474A0F0083C82C /* grok_numerologyscholar_05_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EFC2E474A0F0083C82C /* grok_numerologyscholar_05_converted.json */; };
+		4D7320362E474A0F0083C82C /* MindfulnessCoach_Number_7_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F792E474A0F0083C82C /* MindfulnessCoach_Number_7_original.md */; };
+		4D7320372E474A0F0083C82C /* grok_mindfulnesscoach_11_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EF52E474A0F0083C82C /* grok_mindfulnesscoach_11_converted.json */; };
+		4D7320382E474A0F0083C82C /* NumerologyScholar_Number_6_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F852E474A0F0083C82C /* NumerologyScholar_Number_6_original.md */; };
+		4D73203A2E474A0F0083C82C /* grok_philosopher_22_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F192E474A0F0083C82C /* grok_philosopher_22_converted.json */; };
+		4D73203B2E474A0F0083C82C /* grok_mindfulnesscoach_01_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EED2E474A0F0083C82C /* grok_mindfulnesscoach_01_converted.json */; };
+		4D73203E2E474A0F0083C82C /* CR11_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F6F2E474A0F0083C82C /* CR11_original.md */; };
+		4D73203F2E474A0F0083C82C /* Psychologist_Number_4_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F9E2E474A0F0083C82C /* Psychologist_Number_4_original.md */; };
+		4D7320432E474A0F0083C82C /* CR7_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F6C2E474A0F0083C82C /* CR7_original.md */; };
+		4D7320442E474A0F0083C82C /* lifePath_11_v2.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F3B2E474A0F0083C82C /* lifePath_11_v2.0_converted.json */; };
+		4D7320452E474A0F0083C82C /* Oracle_Number_1_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F8D2E474A0F0083C82C /* Oracle_Number_1_original.md */; };
+		4D7320462E474A0F0083C82C /* MindfulnessCoach_Number_33_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F7E2E474A0F0083C82C /* MindfulnessCoach_Number_33_original.md */; };
+		4D7320472E474A0F0083C82C /* Oracle_Number_44_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F992E474A0F0083C82C /* Oracle_Number_44_original.md */; };
+		4D7320482E474A0F0083C82C /* grok_philosopher_11_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F182E474A0F0083C82C /* grok_philosopher_11_converted.json */; };
+		4D73204A2E474A0F0083C82C /* Oracle_Number_4_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F902E474A0F0083C82C /* Oracle_Number_4_original.md */; };
+		4D73204B2E474A0F0083C82C /* grok_mindfulnesscoach_44_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EF82E474A0F0083C82C /* grok_mindfulnesscoach_44_converted.json */; };
+		4D73204C2E474A0F0083C82C /* claude_05_academic_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731ED72E474A0F0083C82C /* claude_05_academic_converted.json */; };
+		4D73204D2E474A0F0083C82C /* lifePath_02_v2.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F292E474A0F0083C82C /* lifePath_02_v2.0_converted.json */; };
+		4D73204F2E474A0F0083C82C /* Psychologist_Number_22_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731FA52E474A0F0083C82C /* Psychologist_Number_22_original.md */; };
+		4D7320552E474A0F0083C82C /* grok_mindfulnesscoach_06_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EF12E474A0F0083C82C /* grok_mindfulnesscoach_06_converted.json */; };
+		4D7320562E474A0F0083C82C /* grok_oracle_33_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F0E2E474A0F0083C82C /* grok_oracle_33_converted.json */; };
+		4D7320572E474A0F0083C82C /* grok_psychologist_22_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F252E474A0F0083C82C /* grok_psychologist_22_converted.json */; };
+		4D73205A2E474A0F0083C82C /* Oracle_Number_7_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F932E474A0F0083C82C /* Oracle_Number_7_original.md */; };
+		4D73205B2E474A0F0083C82C /* NumerologyScholar_Number_1_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F802E474A0F0083C82C /* NumerologyScholar_Number_1_original.md */; };
+		4D73205C2E474A0F0083C82C /* MindfulnessCoach_Number_5_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F772E474A0F0083C82C /* MindfulnessCoach_Number_5_original.md */; };
+		4D73205D2E474A0F0083C82C /* grok_psychologist_09_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F232E474A0F0083C82C /* grok_psychologist_09_converted.json */; };
+		4D73205F2E474A0F0083C82C /* CR33_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F712E474A0F0083C82C /* CR33_original.md */; };
+		4D7320602E474A0F0083C82C /* grok_numerologyscholar_06_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EFD2E474A0F0083C82C /* grok_numerologyscholar_06_converted.json */; };
+		4D7320612E474A0F0083C82C /* claude_08_academic_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EDA2E474A0F0083C82C /* claude_08_academic_converted.json */; };
+		4D7320622E474A0F0083C82C /* claude_06_academic_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731ED82E474A0F0083C82C /* claude_06_academic_converted.json */; };
+		4D7320632E474A0F0083C82C /* grok_psychologist_08_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F222E474A0F0083C82C /* grok_psychologist_08_converted.json */; };
+		4D7320642E474A0F0083C82C /* grok_oracle_02_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F052E474A0F0083C82C /* grok_oracle_02_converted.json */; };
+		4D7320662E474A0F0083C82C /* NumerologyScholar_Number_5_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F842E474A0F0083C82C /* NumerologyScholar_Number_5_original.md */; };
+		4D7320672E474A0F0083C82C /* grok_numerologyscholar_03_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EFB2E474A0F0083C82C /* grok_numerologyscholar_03_converted.json */; };
+		4D73206A2E474A0F0083C82C /* Psychologist_Number_8_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731FA22E474A0F0083C82C /* Psychologist_Number_8_original.md */; };
+		4D73206C2E474A0F0083C82C /* claude_22_academic_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EDD2E474A0F0083C82C /* claude_22_academic_converted.json */; };
+		4D73206D2E474A0F0083C82C /* grok_philosopher_33_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F1A2E474A0F0083C82C /* grok_philosopher_33_converted.json */; };
+		4D73206E2E474A0F0083C82C /* claude_02_academic_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731ED42E474A0F0083C82C /* claude_02_academic_converted.json */; };
+		4D73206F2E474A0F0083C82C /* MindfulnessCoach_Number_11_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F7C2E474A0F0083C82C /* MindfulnessCoach_Number_11_original.md */; };
+		4D7320702E474A0F0083C82C /* MindfulnessCoach_Number_22_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F7D2E474A0F0083C82C /* MindfulnessCoach_Number_22_original.md */; };
+		4D7320732E474A0F0083C82C /* grok_psychologist_33_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F262E474A0F0083C82C /* grok_psychologist_33_converted.json */; };
+		4D7320742E474A0F0083C82C /* Psychologist_Number_9_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731FA32E474A0F0083C82C /* Psychologist_Number_9_original.md */; };
+		4D7320752E474A0F0083C82C /* Oracle_Number_33_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F982E474A0F0083C82C /* Oracle_Number_33_original.md */; };
+		4D7320762E474A0F0083C82C /* grok_oracle_06_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F082E474A0F0083C82C /* grok_oracle_06_converted.json */; };
+		4D7320792E474A0F0083C82C /* grok_philosopher_02_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F112E474A0F0083C82C /* grok_philosopher_02_converted.json */; };
+		4D73207A2E474A0F0083C82C /* grok_psychologist_07_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F212E474A0F0083C82C /* grok_psychologist_07_converted.json */; };
+		4D73207B2E474A0F0083C82C /* grok_mindfulnesscoach_07_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EF22E474A0F0083C82C /* grok_mindfulnesscoach_07_converted.json */; };
+		4D73207C2E474A0F0083C82C /* grok_numerologyscholar_33_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F022E474A0F0083C82C /* grok_numerologyscholar_33_converted.json */; };
+		4D73207D2E474A0F0083C82C /* grok_oracle_03_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F062E474A0F0083C82C /* grok_oracle_03_converted.json */; };
+		4D73207E2E474A0F0083C82C /* MindfulnessCoach_Number_8_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F7A2E474A0F0083C82C /* MindfulnessCoach_Number_8_original.md */; };
+		4D7320822E474A0F0083C82C /* grok_numerologyscholar_11_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F002E474A0F0083C82C /* grok_numerologyscholar_11_converted.json */; };
+		4D7320832E474A0F0083C82C /* claude_11_academic_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EDC2E474A0F0083C82C /* claude_11_academic_converted.json */; };
+		4D7320842E474A0F0083C82C /* MindfulnessCoach_Number_3_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F752E474A0F0083C82C /* MindfulnessCoach_Number_3_original.md */; };
+		4D7320852E474A0F0083C82C /* lifePath_44_v2.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F2C2E474A0F0083C82C /* lifePath_44_v2.0_converted.json */; };
+		4D7320862E474A0F0083C82C /* NumerologyScholar_Number_8_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F872E474A0F0083C82C /* NumerologyScholar_Number_8_original.md */; };
+		4D7320892E474A0F0083C82C /* grok_mindfulnesscoach_04_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EEF2E474A0F0083C82C /* grok_mindfulnesscoach_04_converted.json */; };
+		4D73208B2E474A0F0083C82C /* CR8_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F6D2E474A0F0083C82C /* CR8_original.md */; };
+		4D73208C2E474A0F0083C82C /* lifePath_01_v2.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F282E474A0F0083C82C /* lifePath_01_v2.0_converted.json */; };
+		4D73208D2E474A0F0083C82C /* grok_psychologist_01_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F1C2E474A0F0083C82C /* grok_psychologist_01_converted.json */; };
+		4D73208E2E474A0F0083C82C /* grok_philosopher_08_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F162E474A0F0083C82C /* grok_philosopher_08_converted.json */; };
+		4D73208F2E474A0F0083C82C /* Psychologist_Number_33_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731FA62E474A0F0083C82C /* Psychologist_Number_33_original.md */; };
+		4D7320902E474A0F0083C82C /* claude_03_academic_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731ED52E474A0F0083C82C /* claude_03_academic_converted.json */; };
+		4D7320912E474A0F0083C82C /* MindfulnessCoach_Number_2_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F742E474A0F0083C82C /* MindfulnessCoach_Number_2_original.md */; };
+		4D7320922E474A0F0083C82C /* grok_mindfulnesscoach_03_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EEE2E474A0F0083C82C /* grok_mindfulnesscoach_03_converted.json */; };
+		4D7320932E474A0F0083C82C /* MindfulnessCoach_Number_6_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F782E474A0F0083C82C /* MindfulnessCoach_Number_6_original.md */; };
+		4D7320942E474A0F0083C82C /* Oracle_Number_5_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F912E474A0F0083C82C /* Oracle_Number_5_original.md */; };
+		4D7320962E474A0F0083C82C /* Psychologist_Number_7_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731FA12E474A0F0083C82C /* Psychologist_Number_7_original.md */; };
+		4D7320972E474A0F0083C82C /* lifePath_09_v2.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F3A2E474A0F0083C82C /* lifePath_09_v2.0_converted.json */; };
+		4D7320982E474A0F0083C82C /* Psychologist_Number_1_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F9B2E474A0F0083C82C /* Psychologist_Number_1_original.md */; };
+		4D7320992E474A0F0083C82C /* grok_numerologyscholar_22_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F012E474A0F0083C82C /* grok_numerologyscholar_22_converted.json */; };
+		4D73209A2E474A0F0083C82C /* Psychologist_Number_44_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731FA72E474A0F0083C82C /* Psychologist_Number_44_original.md */; };
+		4D73209B2E474A0F0083C82C /* grok_mindfulnesscoach_05_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731EF02E474A0F0083C82C /* grok_mindfulnesscoach_05_converted.json */; };
+		4D73209E2E474A0F0083C82C /* grok_oracle_08_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F0A2E474A0F0083C82C /* grok_oracle_08_converted.json */; };
+		4D7320A22E474A0F0083C82C /* grok_oracle_09_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F0B2E474A0F0083C82C /* grok_oracle_09_converted.json */; };
+		4D7320A32E474A0F0083C82C /* NumerologyScholar_Number_2_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F812E474A0F0083C82C /* NumerologyScholar_Number_2_original.md */; };
+		4D7320A52E474A0F0083C82C /* Psychologist_Number_11_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731FA42E474A0F0083C82C /* Psychologist_Number_11_original.md */; };
+		4D7320A62E474A0F0083C82C /* MindfulnessCoach_Number_1_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F732E474A0F0083C82C /* MindfulnessCoach_Number_1_original.md */; };
+		4D7320A82E474A0F0083C82C /* Oracle_Number_6_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F922E474A0F0083C82C /* Oracle_Number_6_original.md */; };
+		4D7320A92E474A0F0083C82C /* grok_psychologist_03_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F1E2E474A0F0083C82C /* grok_psychologist_03_converted.json */; };
+		4D7320AA2E474A0F0083C82C /* CR44_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F722E474A0F0083C82C /* CR44_original.md */; };
+		4D7320AE2E474A0F0083C82C /* grok_psychologist_05_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F1F2E474A0F0083C82C /* grok_psychologist_05_converted.json */; };
+		4D7320AF2E474A0F0083C82C /* grok_philosopher_05_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F132E474A0F0083C82C /* grok_philosopher_05_converted.json */; };
+		4D7320B02E474A0F0083C82C /* grok_psychologist_44_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F272E474A0F0083C82C /* grok_psychologist_44_converted.json */; };
+		4D7320B12E474A0F0083C82C /* grok_oracle_01_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F042E474A0F0083C82C /* grok_oracle_01_converted.json */; };
+		4D7320B22E474A0F0083C82C /* grok_oracle_07_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F092E474A0F0083C82C /* grok_oracle_07_converted.json */; };
+		4D7320B42E474A0F0083C82C /* MindfulnessCoach_Number_9_original.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F7B2E474A0F0083C82C /* MindfulnessCoach_Number_9_original.md */; };
+		4D7320B82E474A0F0083C82C /* grok_numerologyscholar_44_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F032E474A0F0083C82C /* grok_numerologyscholar_44_converted.json */; };
+		4D7320B92E474A0F0083C82C /* grok_oracle_05_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F072E474A0F0083C82C /* grok_oracle_05_converted.json */; };
+		4D7320BE2E47561D0083C82C /* lifePath_04_v2.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D7320BD2E47561D0083C82C /* lifePath_04_v2.0_converted.json */; };
+		4D7320C32E4756600083C82C /* lifePath_06_v2.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D7320C02E4756600083C82C /* lifePath_06_v2.0_converted.json */; };
 		4D80E0FD2D3F1B0B0020F7BB /* NumberMeaningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E0FC2D3F1B0B0020F7BB /* NumberMeaningView.swift */; };
 		4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */; };
 		4D92F48C2D49E9C90001A16E /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F48B2D49E9BF0001A16E /* TestingView.swift */; };
@@ -168,6 +317,10 @@
 		4DA98FCC2E073CDC00FAE5FF /* ReportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98FCB2E073CDC00FAE5FF /* ReportManager.swift */; };
 		4DA98FCE2E073D0000FAE5FF /* ReportContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98FCD2E073D0000FAE5FF /* ReportContentView.swift */; };
 		4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */; };
+		4DB1B4B42E483D9300F1585A /* VYBEOS-DOCUMENTATION-ECOSYSTEM.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4B32E483D9300F1585A /* VYBEOS-DOCUMENTATION-ECOSYSTEM.md */; };
+		4DB1B4B82E48415900F1585A /* KASPER-CORE-REFERENCE.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4B72E48415900F1585A /* KASPER-CORE-REFERENCE.md */; };
+		4DB1B4BA2E48418900F1585A /* NAVIGATION-INDEX.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4B92E48418900F1585A /* NAVIGATION-INDEX.md */; };
+		4DB1B4BC2E4841EF00F1585A /* KASPER-MLX-CORE-SPECS.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4BB2E4841EF00F1585A /* KASPER-MLX-CORE-SPECS.md */; };
 		4DB1DE972E22A5C2001A9EA5 /* generate-screenshots.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE8F2E22A5C2001A9EA5 /* generate-screenshots.sh */; };
 		4DB1DE982E22A5C2001A9EA5 /* clean-project.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE922E22A5C2001A9EA5 /* clean-project.sh */; };
 		4DB1DE992E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE8C2E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh */; };
@@ -270,6 +423,48 @@
 		4DCEE47E2E34339B007CA451 /* NumerologyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCEE47D2E34339B007CA451 /* NumerologyService.swift */; };
 		4DCEE4802E3433CF007CA451 /* AstrologyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCEE47F2E3433CF007CA451 /* AstrologyService.swift */; };
 		4DCEE4842E3438DB007CA451 /* SanctumTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCEE4832E3438DB007CA451 /* SanctumTabView.swift */; };
+		4DDA09ED2E4756C500449F20 /* lifePath_07_v2.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA09EC2E4756C500449F20 /* lifePath_07_v2.0_converted.json */; };
+		4DDA09EF2E47570600449F20 /* lifePath_08_v2.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA09EE2E47570600449F20 /* lifePath_08_v2.0_converted.json */; };
+		4DDA0A142E47C65A00449F20 /* soulUrge_01_v3.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A132E47C65A00449F20 /* soulUrge_01_v3.0_converted.json */; };
+		4DDA0A162E47C67900449F20 /* soulUrge_02_v3.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A152E47C67900449F20 /* soulUrge_02_v3.0_converted.json */; };
+		4DDA0A182E47C69300449F20 /* soulUrge_03_v3.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A172E47C69300449F20 /* soulUrge_03_v3.0_converted.json */; };
+		4DDA0A1A2E47C6AC00449F20 /* soulUrge_04_v3.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A192E47C6AC00449F20 /* soulUrge_04_v3.0_converted.json */; };
+		4DDA0A1C2E47C6C100449F20 /* soulUrge_05_v3.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A1B2E47C6C100449F20 /* soulUrge_05_v3.0_converted.json */; };
+		4DDA0A1E2E47C6D400449F20 /* soulUrge_07_v3.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A1D2E47C6D400449F20 /* soulUrge_07_v3.0_converted.json */; };
+		4DDA0A202E47C6F500449F20 /* soulUrge_06_v3.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A1F2E47C6F500449F20 /* soulUrge_06_v3.0_converted.json */; };
+		4DDA0A222E47C70A00449F20 /* soulUrge_08_v3.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A212E47C70A00449F20 /* soulUrge_08_v3.0_converted.json */; };
+		4DDA0A242E47C72400449F20 /* soulUrge_11_v3.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A232E47C72400449F20 /* soulUrge_11_v3.0_converted.json */; };
+		4DDA0A262E47C74800449F20 /* soulUrge_09_v3.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A252E47C74800449F20 /* soulUrge_09_v3.0_converted.json */; };
+		4DDA0A282E47C75C00449F20 /* soulUrge_22_v3.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A272E47C75C00449F20 /* soulUrge_22_v3.0_converted.json */; };
+		4DDA0A2A2E47C77900449F20 /* soulUrge_33_v3.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A292E47C77900449F20 /* soulUrge_33_v3.0_converted.json */; };
+		4DDA0A2C2E47C78A00449F20 /* soulUrge_44_v3.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A2B2E47C78A00449F20 /* soulUrge_44_v3.0_converted.json */; };
+		4DDA0A2F2E47CBD100449F20 /* expression_01_behavioral.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A2E2E47CBD100449F20 /* expression_01_behavioral.json */; };
+		4DDA0A312E47CBDF00449F20 /* expression_02_behavioral.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A302E47CBDF00449F20 /* expression_02_behavioral.json */; };
+		4DDA0A332E47CBE900449F20 /* expression_03_behavioral.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A322E47CBE900449F20 /* expression_03_behavioral.json */; };
+		4DDA0A352E47CBF900449F20 /* expression_04_behavioral.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A342E47CBF900449F20 /* expression_04_behavioral.json */; };
+		4DDA0A372E47CC0000449F20 /* expression_05_behavioral.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A362E47CC0000449F20 /* expression_05_behavioral.json */; };
+		4DDA0A392E47CC0600449F20 /* expression_06_behavioral.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A382E47CC0600449F20 /* expression_06_behavioral.json */; };
+		4DDA0A3B2E47CC0E00449F20 /* expression_07_behavioral.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A3A2E47CC0E00449F20 /* expression_07_behavioral.json */; };
+		4DDA0A3D2E47CC1400449F20 /* expression_08_behavioral.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A3C2E47CC1400449F20 /* expression_08_behavioral.json */; };
+		4DDA0A3F2E47CC1F00449F20 /* expression_09_behavioral.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A3E2E47CC1F00449F20 /* expression_09_behavioral.json */; };
+		4DDA0A412E47CC2900449F20 /* expression_11_behavioral.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A402E47CC2900449F20 /* expression_11_behavioral.json */; };
+		4DDA0A432E47CC3000449F20 /* expression_22_behavioral.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A422E47CC3000449F20 /* expression_22_behavioral.json */; };
+		4DDA0A452E47CC3800449F20 /* expression_33_behavioral.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A442E47CC3800449F20 /* expression_33_behavioral.json */; };
+		4DDA0A472E47CC3E00449F20 /* expression_44_behavioral.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A462E47CC3E00449F20 /* expression_44_behavioral.json */; };
+		4DDA0A4B2E47CE4B00449F20 /* expression_01_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A4A2E47CE4B00449F20 /* expression_01_converted.json */; };
+		4DDA0A4D2E47CE5B00449F20 /* expression_02_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A4C2E47CE5B00449F20 /* expression_02_converted.json */; };
+		4DDA0A4F2E47CE6900449F20 /* expression_03_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A4E2E47CE6900449F20 /* expression_03_converted.json */; };
+		4DDA0A512E47CE7A00449F20 /* expression_04_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A502E47CE7A00449F20 /* expression_04_converted.json */; };
+		4DDA0A532E47CE8A00449F20 /* expression_05_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A522E47CE8A00449F20 /* expression_05_converted.json */; };
+		4DDA0A552E47CE9900449F20 /* expression_06_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A542E47CE9900449F20 /* expression_06_converted.json */; };
+		4DDA0A572E47CEA600449F20 /* expression_07_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A562E47CEA600449F20 /* expression_07_converted.json */; };
+		4DDA0A592E47CEB300449F20 /* expression_08_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A582E47CEB300449F20 /* expression_08_converted.json */; };
+		4DDA0A5B2E47CEC700449F20 /* expression_09_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A5A2E47CEC700449F20 /* expression_09_converted.json */; };
+		4DDA0A5D2E47CED500449F20 /* expression_22_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A5C2E47CED500449F20 /* expression_22_converted.json */; };
+		4DDA0A5F2E47CEE400449F20 /* expression_33_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A5E2E47CEE400449F20 /* expression_33_converted.json */; };
+		4DDA0A612E47CEF200449F20 /* expression_44_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A602E47CEF200449F20 /* expression_44_converted.json */; };
+		4DDA0A632E47CF9100449F20 /* expression_11_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A622E47CF9100449F20 /* expression_11_converted.json */; };
+		4DDA0A742E48348900449F20 /* SYSTEM_OVERVIEW.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA0A652E48348900449F20 /* SYSTEM_OVERVIEW.md */; };
 		4DDCDFCD2E2C63D9005FDD32 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDCDFCC2E2C63D9005FDD32 /* FriendRequest.swift */; };
 		4DDCDFCF2E2C64B1005FDD32 /* FriendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDCDFCE2E2C64B1005FDD32 /* FriendManager.swift */; };
 		4DDCE0042E31468A005FDD32 /* AstrologyHouseCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDCE0032E31468A005FDD32 /* AstrologyHouseCalculator.swift */; };
@@ -471,6 +666,155 @@
 		4D731D5F2E45A7230083C82C /* KASPERMegaCorpusProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERMegaCorpusProcessor.swift; sourceTree = "<group>"; };
 		4D731D602E45A7230083C82C /* KASPERMLXTrainingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERMLXTrainingManager.swift; sourceTree = "<group>"; };
 		4D731D612E45A7230083C82C /* KASPERRLHFSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERRLHFSystem.swift; sourceTree = "<group>"; };
+		4D731DE12E46D4E20083C82C /* KASPERContentImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERContentImporter.swift; sourceTree = "<group>"; };
+		4D731EB42E4721AE0083C82C /* KASPERLifePathTrinity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERLifePathTrinity.swift; sourceTree = "<group>"; };
+		4D731ED32E474A0F0083C82C /* claude_01_academic_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = claude_01_academic_converted.json; sourceTree = "<group>"; };
+		4D731ED42E474A0F0083C82C /* claude_02_academic_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = claude_02_academic_converted.json; sourceTree = "<group>"; };
+		4D731ED52E474A0F0083C82C /* claude_03_academic_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = claude_03_academic_converted.json; sourceTree = "<group>"; };
+		4D731ED62E474A0F0083C82C /* claude_04_academic_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = claude_04_academic_converted.json; sourceTree = "<group>"; };
+		4D731ED72E474A0F0083C82C /* claude_05_academic_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = claude_05_academic_converted.json; sourceTree = "<group>"; };
+		4D731ED82E474A0F0083C82C /* claude_06_academic_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = claude_06_academic_converted.json; sourceTree = "<group>"; };
+		4D731ED92E474A0F0083C82C /* claude_07_academic_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = claude_07_academic_converted.json; sourceTree = "<group>"; };
+		4D731EDA2E474A0F0083C82C /* claude_08_academic_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = claude_08_academic_converted.json; sourceTree = "<group>"; };
+		4D731EDB2E474A0F0083C82C /* claude_09_academic_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = claude_09_academic_converted.json; sourceTree = "<group>"; };
+		4D731EDC2E474A0F0083C82C /* claude_11_academic_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = claude_11_academic_converted.json; sourceTree = "<group>"; };
+		4D731EDD2E474A0F0083C82C /* claude_22_academic_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = claude_22_academic_converted.json; sourceTree = "<group>"; };
+		4D731EDE2E474A0F0083C82C /* claude_33_academic_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = claude_33_academic_converted.json; sourceTree = "<group>"; };
+		4D731EDF2E474A0F0083C82C /* claude_44_academic_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = claude_44_academic_converted.json; sourceTree = "<group>"; };
+		4D731EED2E474A0F0083C82C /* grok_mindfulnesscoach_01_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_mindfulnesscoach_01_converted.json; sourceTree = "<group>"; };
+		4D731EEE2E474A0F0083C82C /* grok_mindfulnesscoach_03_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_mindfulnesscoach_03_converted.json; sourceTree = "<group>"; };
+		4D731EEF2E474A0F0083C82C /* grok_mindfulnesscoach_04_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_mindfulnesscoach_04_converted.json; sourceTree = "<group>"; };
+		4D731EF02E474A0F0083C82C /* grok_mindfulnesscoach_05_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_mindfulnesscoach_05_converted.json; sourceTree = "<group>"; };
+		4D731EF12E474A0F0083C82C /* grok_mindfulnesscoach_06_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_mindfulnesscoach_06_converted.json; sourceTree = "<group>"; };
+		4D731EF22E474A0F0083C82C /* grok_mindfulnesscoach_07_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_mindfulnesscoach_07_converted.json; sourceTree = "<group>"; };
+		4D731EF32E474A0F0083C82C /* grok_mindfulnesscoach_08_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_mindfulnesscoach_08_converted.json; sourceTree = "<group>"; };
+		4D731EF42E474A0F0083C82C /* grok_mindfulnesscoach_09_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_mindfulnesscoach_09_converted.json; sourceTree = "<group>"; };
+		4D731EF52E474A0F0083C82C /* grok_mindfulnesscoach_11_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_mindfulnesscoach_11_converted.json; sourceTree = "<group>"; };
+		4D731EF62E474A0F0083C82C /* grok_mindfulnesscoach_22_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_mindfulnesscoach_22_converted.json; sourceTree = "<group>"; };
+		4D731EF72E474A0F0083C82C /* grok_mindfulnesscoach_33_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_mindfulnesscoach_33_converted.json; sourceTree = "<group>"; };
+		4D731EF82E474A0F0083C82C /* grok_mindfulnesscoach_44_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_mindfulnesscoach_44_converted.json; sourceTree = "<group>"; };
+		4D731EF92E474A0F0083C82C /* grok_numerologyscholar_01_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_numerologyscholar_01_converted.json; sourceTree = "<group>"; };
+		4D731EFA2E474A0F0083C82C /* grok_numerologyscholar_02_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_numerologyscholar_02_converted.json; sourceTree = "<group>"; };
+		4D731EFB2E474A0F0083C82C /* grok_numerologyscholar_03_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_numerologyscholar_03_converted.json; sourceTree = "<group>"; };
+		4D731EFC2E474A0F0083C82C /* grok_numerologyscholar_05_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_numerologyscholar_05_converted.json; sourceTree = "<group>"; };
+		4D731EFD2E474A0F0083C82C /* grok_numerologyscholar_06_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_numerologyscholar_06_converted.json; sourceTree = "<group>"; };
+		4D731EFE2E474A0F0083C82C /* grok_numerologyscholar_07_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_numerologyscholar_07_converted.json; sourceTree = "<group>"; };
+		4D731EFF2E474A0F0083C82C /* grok_numerologyscholar_08_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_numerologyscholar_08_converted.json; sourceTree = "<group>"; };
+		4D731F002E474A0F0083C82C /* grok_numerologyscholar_11_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_numerologyscholar_11_converted.json; sourceTree = "<group>"; };
+		4D731F012E474A0F0083C82C /* grok_numerologyscholar_22_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_numerologyscholar_22_converted.json; sourceTree = "<group>"; };
+		4D731F022E474A0F0083C82C /* grok_numerologyscholar_33_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_numerologyscholar_33_converted.json; sourceTree = "<group>"; };
+		4D731F032E474A0F0083C82C /* grok_numerologyscholar_44_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_numerologyscholar_44_converted.json; sourceTree = "<group>"; };
+		4D731F042E474A0F0083C82C /* grok_oracle_01_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_oracle_01_converted.json; sourceTree = "<group>"; };
+		4D731F052E474A0F0083C82C /* grok_oracle_02_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_oracle_02_converted.json; sourceTree = "<group>"; };
+		4D731F062E474A0F0083C82C /* grok_oracle_03_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_oracle_03_converted.json; sourceTree = "<group>"; };
+		4D731F072E474A0F0083C82C /* grok_oracle_05_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_oracle_05_converted.json; sourceTree = "<group>"; };
+		4D731F082E474A0F0083C82C /* grok_oracle_06_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_oracle_06_converted.json; sourceTree = "<group>"; };
+		4D731F092E474A0F0083C82C /* grok_oracle_07_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_oracle_07_converted.json; sourceTree = "<group>"; };
+		4D731F0A2E474A0F0083C82C /* grok_oracle_08_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_oracle_08_converted.json; sourceTree = "<group>"; };
+		4D731F0B2E474A0F0083C82C /* grok_oracle_09_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_oracle_09_converted.json; sourceTree = "<group>"; };
+		4D731F0C2E474A0F0083C82C /* grok_oracle_11_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_oracle_11_converted.json; sourceTree = "<group>"; };
+		4D731F0D2E474A0F0083C82C /* grok_oracle_22_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_oracle_22_converted.json; sourceTree = "<group>"; };
+		4D731F0E2E474A0F0083C82C /* grok_oracle_33_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_oracle_33_converted.json; sourceTree = "<group>"; };
+		4D731F0F2E474A0F0083C82C /* grok_oracle_44_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_oracle_44_converted.json; sourceTree = "<group>"; };
+		4D731F102E474A0F0083C82C /* grok_philosopher_01_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_philosopher_01_converted.json; sourceTree = "<group>"; };
+		4D731F112E474A0F0083C82C /* grok_philosopher_02_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_philosopher_02_converted.json; sourceTree = "<group>"; };
+		4D731F122E474A0F0083C82C /* grok_philosopher_03_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_philosopher_03_converted.json; sourceTree = "<group>"; };
+		4D731F132E474A0F0083C82C /* grok_philosopher_05_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_philosopher_05_converted.json; sourceTree = "<group>"; };
+		4D731F142E474A0F0083C82C /* grok_philosopher_06_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_philosopher_06_converted.json; sourceTree = "<group>"; };
+		4D731F152E474A0F0083C82C /* grok_philosopher_07_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_philosopher_07_converted.json; sourceTree = "<group>"; };
+		4D731F162E474A0F0083C82C /* grok_philosopher_08_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_philosopher_08_converted.json; sourceTree = "<group>"; };
+		4D731F172E474A0F0083C82C /* grok_philosopher_09_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_philosopher_09_converted.json; sourceTree = "<group>"; };
+		4D731F182E474A0F0083C82C /* grok_philosopher_11_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_philosopher_11_converted.json; sourceTree = "<group>"; };
+		4D731F192E474A0F0083C82C /* grok_philosopher_22_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_philosopher_22_converted.json; sourceTree = "<group>"; };
+		4D731F1A2E474A0F0083C82C /* grok_philosopher_33_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_philosopher_33_converted.json; sourceTree = "<group>"; };
+		4D731F1B2E474A0F0083C82C /* grok_philosopher_44_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_philosopher_44_converted.json; sourceTree = "<group>"; };
+		4D731F1C2E474A0F0083C82C /* grok_psychologist_01_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_psychologist_01_converted.json; sourceTree = "<group>"; };
+		4D731F1D2E474A0F0083C82C /* grok_psychologist_02_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_psychologist_02_converted.json; sourceTree = "<group>"; };
+		4D731F1E2E474A0F0083C82C /* grok_psychologist_03_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_psychologist_03_converted.json; sourceTree = "<group>"; };
+		4D731F1F2E474A0F0083C82C /* grok_psychologist_05_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_psychologist_05_converted.json; sourceTree = "<group>"; };
+		4D731F202E474A0F0083C82C /* grok_psychologist_06_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_psychologist_06_converted.json; sourceTree = "<group>"; };
+		4D731F212E474A0F0083C82C /* grok_psychologist_07_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_psychologist_07_converted.json; sourceTree = "<group>"; };
+		4D731F222E474A0F0083C82C /* grok_psychologist_08_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_psychologist_08_converted.json; sourceTree = "<group>"; };
+		4D731F232E474A0F0083C82C /* grok_psychologist_09_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_psychologist_09_converted.json; sourceTree = "<group>"; };
+		4D731F242E474A0F0083C82C /* grok_psychologist_11_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_psychologist_11_converted.json; sourceTree = "<group>"; };
+		4D731F252E474A0F0083C82C /* grok_psychologist_22_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_psychologist_22_converted.json; sourceTree = "<group>"; };
+		4D731F262E474A0F0083C82C /* grok_psychologist_33_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_psychologist_33_converted.json; sourceTree = "<group>"; };
+		4D731F272E474A0F0083C82C /* grok_psychologist_44_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = grok_psychologist_44_converted.json; sourceTree = "<group>"; };
+		4D731F282E474A0F0083C82C /* lifePath_01_v2.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lifePath_01_v2.0_converted.json; sourceTree = "<group>"; };
+		4D731F292E474A0F0083C82C /* lifePath_02_v2.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lifePath_02_v2.0_converted.json; sourceTree = "<group>"; };
+		4D731F2A2E474A0F0083C82C /* lifePath_03_v2.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lifePath_03_v2.0_converted.json; sourceTree = "<group>"; };
+		4D731F2B2E474A0F0083C82C /* lifePath_33_v2.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lifePath_33_v2.0_converted.json; sourceTree = "<group>"; };
+		4D731F2C2E474A0F0083C82C /* lifePath_44_v2.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lifePath_44_v2.0_converted.json; sourceTree = "<group>"; };
+		4D731F3A2E474A0F0083C82C /* lifePath_09_v2.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lifePath_09_v2.0_converted.json; sourceTree = "<group>"; };
+		4D731F3B2E474A0F0083C82C /* lifePath_11_v2.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lifePath_11_v2.0_converted.json; sourceTree = "<group>"; };
+		4D731F3C2E474A0F0083C82C /* lifePath_22_v2.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lifePath_22_v2.0_converted.json; sourceTree = "<group>"; };
+		4D731F662E474A0F0083C82C /* CR1_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CR1_original.md; sourceTree = "<group>"; };
+		4D731F672E474A0F0083C82C /* CR2_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CR2_original.md; sourceTree = "<group>"; };
+		4D731F682E474A0F0083C82C /* CR3_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CR3_original.md; sourceTree = "<group>"; };
+		4D731F692E474A0F0083C82C /* CR4_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CR4_original.md; sourceTree = "<group>"; };
+		4D731F6A2E474A0F0083C82C /* CR5_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CR5_original.md; sourceTree = "<group>"; };
+		4D731F6B2E474A0F0083C82C /* CR6_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CR6_original.md; sourceTree = "<group>"; };
+		4D731F6C2E474A0F0083C82C /* CR7_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CR7_original.md; sourceTree = "<group>"; };
+		4D731F6D2E474A0F0083C82C /* CR8_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CR8_original.md; sourceTree = "<group>"; };
+		4D731F6E2E474A0F0083C82C /* CR9_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CR9_original.md; sourceTree = "<group>"; };
+		4D731F6F2E474A0F0083C82C /* CR11_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CR11_original.md; sourceTree = "<group>"; };
+		4D731F702E474A0F0083C82C /* CR22_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CR22_original.md; sourceTree = "<group>"; };
+		4D731F712E474A0F0083C82C /* CR33_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CR33_original.md; sourceTree = "<group>"; };
+		4D731F722E474A0F0083C82C /* CR44_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CR44_original.md; sourceTree = "<group>"; };
+		4D731F732E474A0F0083C82C /* MindfulnessCoach_Number_1_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MindfulnessCoach_Number_1_original.md; sourceTree = "<group>"; };
+		4D731F742E474A0F0083C82C /* MindfulnessCoach_Number_2_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MindfulnessCoach_Number_2_original.md; sourceTree = "<group>"; };
+		4D731F752E474A0F0083C82C /* MindfulnessCoach_Number_3_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MindfulnessCoach_Number_3_original.md; sourceTree = "<group>"; };
+		4D731F762E474A0F0083C82C /* MindfulnessCoach_Number_4_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MindfulnessCoach_Number_4_original.md; sourceTree = "<group>"; };
+		4D731F772E474A0F0083C82C /* MindfulnessCoach_Number_5_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MindfulnessCoach_Number_5_original.md; sourceTree = "<group>"; };
+		4D731F782E474A0F0083C82C /* MindfulnessCoach_Number_6_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MindfulnessCoach_Number_6_original.md; sourceTree = "<group>"; };
+		4D731F792E474A0F0083C82C /* MindfulnessCoach_Number_7_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MindfulnessCoach_Number_7_original.md; sourceTree = "<group>"; };
+		4D731F7A2E474A0F0083C82C /* MindfulnessCoach_Number_8_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MindfulnessCoach_Number_8_original.md; sourceTree = "<group>"; };
+		4D731F7B2E474A0F0083C82C /* MindfulnessCoach_Number_9_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MindfulnessCoach_Number_9_original.md; sourceTree = "<group>"; };
+		4D731F7C2E474A0F0083C82C /* MindfulnessCoach_Number_11_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MindfulnessCoach_Number_11_original.md; sourceTree = "<group>"; };
+		4D731F7D2E474A0F0083C82C /* MindfulnessCoach_Number_22_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MindfulnessCoach_Number_22_original.md; sourceTree = "<group>"; };
+		4D731F7E2E474A0F0083C82C /* MindfulnessCoach_Number_33_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MindfulnessCoach_Number_33_original.md; sourceTree = "<group>"; };
+		4D731F7F2E474A0F0083C82C /* MindfulnessCoach_Number_44_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MindfulnessCoach_Number_44_original.md; sourceTree = "<group>"; };
+		4D731F802E474A0F0083C82C /* NumerologyScholar_Number_1_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NumerologyScholar_Number_1_original.md; sourceTree = "<group>"; };
+		4D731F812E474A0F0083C82C /* NumerologyScholar_Number_2_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NumerologyScholar_Number_2_original.md; sourceTree = "<group>"; };
+		4D731F822E474A0F0083C82C /* NumerologyScholar_Number_3_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NumerologyScholar_Number_3_original.md; sourceTree = "<group>"; };
+		4D731F832E474A0F0083C82C /* NumerologyScholar_Number_4_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NumerologyScholar_Number_4_original.md; sourceTree = "<group>"; };
+		4D731F842E474A0F0083C82C /* NumerologyScholar_Number_5_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NumerologyScholar_Number_5_original.md; sourceTree = "<group>"; };
+		4D731F852E474A0F0083C82C /* NumerologyScholar_Number_6_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NumerologyScholar_Number_6_original.md; sourceTree = "<group>"; };
+		4D731F862E474A0F0083C82C /* NumerologyScholar_Number_7_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NumerologyScholar_Number_7_original.md; sourceTree = "<group>"; };
+		4D731F872E474A0F0083C82C /* NumerologyScholar_Number_8_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NumerologyScholar_Number_8_original.md; sourceTree = "<group>"; };
+		4D731F882E474A0F0083C82C /* NumerologyScholar_Number_9_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NumerologyScholar_Number_9_original.md; sourceTree = "<group>"; };
+		4D731F892E474A0F0083C82C /* NumerologyScholar_Number_11_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NumerologyScholar_Number_11_original.md; sourceTree = "<group>"; };
+		4D731F8A2E474A0F0083C82C /* NumerologyScholar_Number_22_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NumerologyScholar_Number_22_original.md; sourceTree = "<group>"; };
+		4D731F8B2E474A0F0083C82C /* NumerologyScholar_Number_33_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NumerologyScholar_Number_33_original.md; sourceTree = "<group>"; };
+		4D731F8C2E474A0F0083C82C /* NumerologyScholar_Number_44_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NumerologyScholar_Number_44_original.md; sourceTree = "<group>"; };
+		4D731F8D2E474A0F0083C82C /* Oracle_Number_1_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Oracle_Number_1_original.md; sourceTree = "<group>"; };
+		4D731F8E2E474A0F0083C82C /* Oracle_Number_2_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Oracle_Number_2_original.md; sourceTree = "<group>"; };
+		4D731F8F2E474A0F0083C82C /* Oracle_Number_3_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Oracle_Number_3_original.md; sourceTree = "<group>"; };
+		4D731F902E474A0F0083C82C /* Oracle_Number_4_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Oracle_Number_4_original.md; sourceTree = "<group>"; };
+		4D731F912E474A0F0083C82C /* Oracle_Number_5_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Oracle_Number_5_original.md; sourceTree = "<group>"; };
+		4D731F922E474A0F0083C82C /* Oracle_Number_6_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Oracle_Number_6_original.md; sourceTree = "<group>"; };
+		4D731F932E474A0F0083C82C /* Oracle_Number_7_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Oracle_Number_7_original.md; sourceTree = "<group>"; };
+		4D731F942E474A0F0083C82C /* Oracle_Number_8_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Oracle_Number_8_original.md; sourceTree = "<group>"; };
+		4D731F952E474A0F0083C82C /* Oracle_Number_9_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Oracle_Number_9_original.md; sourceTree = "<group>"; };
+		4D731F962E474A0F0083C82C /* Oracle_Number_11_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Oracle_Number_11_original.md; sourceTree = "<group>"; };
+		4D731F972E474A0F0083C82C /* Oracle_Number_22_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Oracle_Number_22_original.md; sourceTree = "<group>"; };
+		4D731F982E474A0F0083C82C /* Oracle_Number_33_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Oracle_Number_33_original.md; sourceTree = "<group>"; };
+		4D731F992E474A0F0083C82C /* Oracle_Number_44_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Oracle_Number_44_original.md; sourceTree = "<group>"; };
+		4D731F9B2E474A0F0083C82C /* Psychologist_Number_1_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Psychologist_Number_1_original.md; sourceTree = "<group>"; };
+		4D731F9C2E474A0F0083C82C /* Psychologist_Number_2_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Psychologist_Number_2_original.md; sourceTree = "<group>"; };
+		4D731F9D2E474A0F0083C82C /* Psychologist_Number_3_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Psychologist_Number_3_original.md; sourceTree = "<group>"; };
+		4D731F9E2E474A0F0083C82C /* Psychologist_Number_4_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Psychologist_Number_4_original.md; sourceTree = "<group>"; };
+		4D731F9F2E474A0F0083C82C /* Psychologist_Number_5_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Psychologist_Number_5_original.md; sourceTree = "<group>"; };
+		4D731FA02E474A0F0083C82C /* Psychologist_Number_6_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Psychologist_Number_6_original.md; sourceTree = "<group>"; };
+		4D731FA12E474A0F0083C82C /* Psychologist_Number_7_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Psychologist_Number_7_original.md; sourceTree = "<group>"; };
+		4D731FA22E474A0F0083C82C /* Psychologist_Number_8_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Psychologist_Number_8_original.md; sourceTree = "<group>"; };
+		4D731FA32E474A0F0083C82C /* Psychologist_Number_9_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Psychologist_Number_9_original.md; sourceTree = "<group>"; };
+		4D731FA42E474A0F0083C82C /* Psychologist_Number_11_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Psychologist_Number_11_original.md; sourceTree = "<group>"; };
+		4D731FA52E474A0F0083C82C /* Psychologist_Number_22_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Psychologist_Number_22_original.md; sourceTree = "<group>"; };
+		4D731FA62E474A0F0083C82C /* Psychologist_Number_33_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Psychologist_Number_33_original.md; sourceTree = "<group>"; };
+		4D731FA72E474A0F0083C82C /* Psychologist_Number_44_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Psychologist_Number_44_original.md; sourceTree = "<group>"; };
+		4D7320BD2E47561D0083C82C /* lifePath_04_v2.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lifePath_04_v2.0_converted.json; sourceTree = "<group>"; };
+		4D7320C02E4756600083C82C /* lifePath_06_v2.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lifePath_06_v2.0_converted.json; sourceTree = "<group>"; };
 		4D80E0FC2D3F1B0B0020F7BB /* NumberMeaningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMeaningView.swift; sourceTree = "<group>"; };
 		4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchAnalyticsView.swift; sourceTree = "<group>"; };
 		4D80E10C2D41E17A0020F7BB /* VybeMVPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VybeMVPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -509,6 +853,10 @@
 		4DA98FCB2E073CDC00FAE5FF /* ReportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportManager.swift; sourceTree = "<group>"; };
 		4DA98FCD2E073D0000FAE5FF /* ReportContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportContentView.swift; sourceTree = "<group>"; };
 		4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusMatch.swift; sourceTree = "<group>"; };
+		4DB1B4B32E483D9300F1585A /* VYBEOS-DOCUMENTATION-ECOSYSTEM.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "VYBEOS-DOCUMENTATION-ECOSYSTEM.md"; sourceTree = "<group>"; };
+		4DB1B4B72E48415900F1585A /* KASPER-CORE-REFERENCE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "KASPER-CORE-REFERENCE.md"; sourceTree = "<group>"; };
+		4DB1B4B92E48418900F1585A /* NAVIGATION-INDEX.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "NAVIGATION-INDEX.md"; sourceTree = "<group>"; };
+		4DB1B4BB2E4841EF00F1585A /* KASPER-MLX-CORE-SPECS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "KASPER-MLX-CORE-SPECS.md"; sourceTree = "<group>"; };
 		4DB1DE8C2E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "sacred-geometry-optimizer.sh"; sourceTree = "<group>"; };
 		4DB1DE8F2E22A5C2001A9EA5 /* generate-screenshots.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "generate-screenshots.sh"; sourceTree = "<group>"; };
 		4DB1DE902E22A5C2001A9EA5 /* memory-check.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "memory-check.sh"; sourceTree = "<group>"; };
@@ -610,6 +958,48 @@
 		4DCEE47D2E34339B007CA451 /* NumerologyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyService.swift; sourceTree = "<group>"; };
 		4DCEE47F2E3433CF007CA451 /* AstrologyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstrologyService.swift; sourceTree = "<group>"; };
 		4DCEE4832E3438DB007CA451 /* SanctumTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SanctumTabView.swift; sourceTree = "<group>"; };
+		4DDA09EC2E4756C500449F20 /* lifePath_07_v2.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lifePath_07_v2.0_converted.json; sourceTree = "<group>"; };
+		4DDA09EE2E47570600449F20 /* lifePath_08_v2.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lifePath_08_v2.0_converted.json; sourceTree = "<group>"; };
+		4DDA0A132E47C65A00449F20 /* soulUrge_01_v3.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = soulUrge_01_v3.0_converted.json; sourceTree = "<group>"; };
+		4DDA0A152E47C67900449F20 /* soulUrge_02_v3.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = soulUrge_02_v3.0_converted.json; sourceTree = "<group>"; };
+		4DDA0A172E47C69300449F20 /* soulUrge_03_v3.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = soulUrge_03_v3.0_converted.json; sourceTree = "<group>"; };
+		4DDA0A192E47C6AC00449F20 /* soulUrge_04_v3.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = soulUrge_04_v3.0_converted.json; sourceTree = "<group>"; };
+		4DDA0A1B2E47C6C100449F20 /* soulUrge_05_v3.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = soulUrge_05_v3.0_converted.json; sourceTree = "<group>"; };
+		4DDA0A1D2E47C6D400449F20 /* soulUrge_07_v3.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = soulUrge_07_v3.0_converted.json; sourceTree = "<group>"; };
+		4DDA0A1F2E47C6F500449F20 /* soulUrge_06_v3.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = soulUrge_06_v3.0_converted.json; sourceTree = "<group>"; };
+		4DDA0A212E47C70A00449F20 /* soulUrge_08_v3.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = soulUrge_08_v3.0_converted.json; sourceTree = "<group>"; };
+		4DDA0A232E47C72400449F20 /* soulUrge_11_v3.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = soulUrge_11_v3.0_converted.json; sourceTree = "<group>"; };
+		4DDA0A252E47C74800449F20 /* soulUrge_09_v3.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = soulUrge_09_v3.0_converted.json; sourceTree = "<group>"; };
+		4DDA0A272E47C75C00449F20 /* soulUrge_22_v3.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = soulUrge_22_v3.0_converted.json; sourceTree = "<group>"; };
+		4DDA0A292E47C77900449F20 /* soulUrge_33_v3.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = soulUrge_33_v3.0_converted.json; sourceTree = "<group>"; };
+		4DDA0A2B2E47C78A00449F20 /* soulUrge_44_v3.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = soulUrge_44_v3.0_converted.json; sourceTree = "<group>"; };
+		4DDA0A2E2E47CBD100449F20 /* expression_01_behavioral.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_01_behavioral.json; sourceTree = "<group>"; };
+		4DDA0A302E47CBDF00449F20 /* expression_02_behavioral.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_02_behavioral.json; sourceTree = "<group>"; };
+		4DDA0A322E47CBE900449F20 /* expression_03_behavioral.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_03_behavioral.json; sourceTree = "<group>"; };
+		4DDA0A342E47CBF900449F20 /* expression_04_behavioral.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_04_behavioral.json; sourceTree = "<group>"; };
+		4DDA0A362E47CC0000449F20 /* expression_05_behavioral.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_05_behavioral.json; sourceTree = "<group>"; };
+		4DDA0A382E47CC0600449F20 /* expression_06_behavioral.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_06_behavioral.json; sourceTree = "<group>"; };
+		4DDA0A3A2E47CC0E00449F20 /* expression_07_behavioral.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_07_behavioral.json; sourceTree = "<group>"; };
+		4DDA0A3C2E47CC1400449F20 /* expression_08_behavioral.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_08_behavioral.json; sourceTree = "<group>"; };
+		4DDA0A3E2E47CC1F00449F20 /* expression_09_behavioral.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_09_behavioral.json; sourceTree = "<group>"; };
+		4DDA0A402E47CC2900449F20 /* expression_11_behavioral.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_11_behavioral.json; sourceTree = "<group>"; };
+		4DDA0A422E47CC3000449F20 /* expression_22_behavioral.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_22_behavioral.json; sourceTree = "<group>"; };
+		4DDA0A442E47CC3800449F20 /* expression_33_behavioral.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_33_behavioral.json; sourceTree = "<group>"; };
+		4DDA0A462E47CC3E00449F20 /* expression_44_behavioral.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_44_behavioral.json; sourceTree = "<group>"; };
+		4DDA0A4A2E47CE4B00449F20 /* expression_01_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_01_converted.json; sourceTree = "<group>"; };
+		4DDA0A4C2E47CE5B00449F20 /* expression_02_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_02_converted.json; sourceTree = "<group>"; };
+		4DDA0A4E2E47CE6900449F20 /* expression_03_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_03_converted.json; sourceTree = "<group>"; };
+		4DDA0A502E47CE7A00449F20 /* expression_04_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_04_converted.json; sourceTree = "<group>"; };
+		4DDA0A522E47CE8A00449F20 /* expression_05_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_05_converted.json; sourceTree = "<group>"; };
+		4DDA0A542E47CE9900449F20 /* expression_06_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_06_converted.json; sourceTree = "<group>"; };
+		4DDA0A562E47CEA600449F20 /* expression_07_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_07_converted.json; sourceTree = "<group>"; };
+		4DDA0A582E47CEB300449F20 /* expression_08_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_08_converted.json; sourceTree = "<group>"; };
+		4DDA0A5A2E47CEC700449F20 /* expression_09_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_09_converted.json; sourceTree = "<group>"; };
+		4DDA0A5C2E47CED500449F20 /* expression_22_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_22_converted.json; sourceTree = "<group>"; };
+		4DDA0A5E2E47CEE400449F20 /* expression_33_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_33_converted.json; sourceTree = "<group>"; };
+		4DDA0A602E47CEF200449F20 /* expression_44_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_44_converted.json; sourceTree = "<group>"; };
+		4DDA0A622E47CF9100449F20 /* expression_11_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = expression_11_converted.json; sourceTree = "<group>"; };
+		4DDA0A652E48348900449F20 /* SYSTEM_OVERVIEW.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SYSTEM_OVERVIEW.md; sourceTree = "<group>"; };
 		4DDCDFCC2E2C63D9005FDD32 /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
 		4DDCDFCE2E2C64B1005FDD32 /* FriendManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendManager.swift; sourceTree = "<group>"; };
 		4DDCE0032E31468A005FDD32 /* AstrologyHouseCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstrologyHouseCalculator.swift; sourceTree = "<group>"; };
@@ -1039,6 +1429,7 @@
 		4D731D622E45A7230083C82C /* MLXTraining */ = {
 			isa = PBXGroup;
 			children = (
+				4D731FC92E474A0F0083C82C /* ContentRefinery */,
 				4D731D5E2E45A7230083C82C /* KASPERAppleFoundationIntegration.swift */,
 				4D731D5F2E45A7230083C82C /* KASPERMegaCorpusProcessor.swift */,
 				4D731D602E45A7230083C82C /* KASPERMLXTrainingManager.swift */,
@@ -1047,9 +1438,230 @@
 			path = MLXTraining;
 			sourceTree = "<group>";
 		};
+		4D731F652E474A0F0083C82C /* Approved */ = {
+			isa = PBXGroup;
+			children = (
+				4D731ED32E474A0F0083C82C /* claude_01_academic_converted.json */,
+				4D731ED42E474A0F0083C82C /* claude_02_academic_converted.json */,
+				4D731ED52E474A0F0083C82C /* claude_03_academic_converted.json */,
+				4D731ED62E474A0F0083C82C /* claude_04_academic_converted.json */,
+				4D731ED72E474A0F0083C82C /* claude_05_academic_converted.json */,
+				4D731ED82E474A0F0083C82C /* claude_06_academic_converted.json */,
+				4D731ED92E474A0F0083C82C /* claude_07_academic_converted.json */,
+				4D731EDA2E474A0F0083C82C /* claude_08_academic_converted.json */,
+				4D731EDB2E474A0F0083C82C /* claude_09_academic_converted.json */,
+				4D731EDC2E474A0F0083C82C /* claude_11_academic_converted.json */,
+				4D731EDD2E474A0F0083C82C /* claude_22_academic_converted.json */,
+				4D731EDE2E474A0F0083C82C /* claude_33_academic_converted.json */,
+				4D731EDF2E474A0F0083C82C /* claude_44_academic_converted.json */,
+				4DDA0A4A2E47CE4B00449F20 /* expression_01_converted.json */,
+				4DDA0A4C2E47CE5B00449F20 /* expression_02_converted.json */,
+				4DDA0A4E2E47CE6900449F20 /* expression_03_converted.json */,
+				4DDA0A502E47CE7A00449F20 /* expression_04_converted.json */,
+				4DDA0A522E47CE8A00449F20 /* expression_05_converted.json */,
+				4DDA0A542E47CE9900449F20 /* expression_06_converted.json */,
+				4DDA0A562E47CEA600449F20 /* expression_07_converted.json */,
+				4DDA0A582E47CEB300449F20 /* expression_08_converted.json */,
+				4DDA0A5A2E47CEC700449F20 /* expression_09_converted.json */,
+				4DDA0A622E47CF9100449F20 /* expression_11_converted.json */,
+				4DDA0A5C2E47CED500449F20 /* expression_22_converted.json */,
+				4DDA0A5E2E47CEE400449F20 /* expression_33_converted.json */,
+				4DDA0A602E47CEF200449F20 /* expression_44_converted.json */,
+				4D731EED2E474A0F0083C82C /* grok_mindfulnesscoach_01_converted.json */,
+				4D731EEE2E474A0F0083C82C /* grok_mindfulnesscoach_03_converted.json */,
+				4D731EEF2E474A0F0083C82C /* grok_mindfulnesscoach_04_converted.json */,
+				4D731EF02E474A0F0083C82C /* grok_mindfulnesscoach_05_converted.json */,
+				4D731EF12E474A0F0083C82C /* grok_mindfulnesscoach_06_converted.json */,
+				4D731EF22E474A0F0083C82C /* grok_mindfulnesscoach_07_converted.json */,
+				4D731EF32E474A0F0083C82C /* grok_mindfulnesscoach_08_converted.json */,
+				4D731EF42E474A0F0083C82C /* grok_mindfulnesscoach_09_converted.json */,
+				4D731EF52E474A0F0083C82C /* grok_mindfulnesscoach_11_converted.json */,
+				4D731EF62E474A0F0083C82C /* grok_mindfulnesscoach_22_converted.json */,
+				4D731EF72E474A0F0083C82C /* grok_mindfulnesscoach_33_converted.json */,
+				4D731EF82E474A0F0083C82C /* grok_mindfulnesscoach_44_converted.json */,
+				4D731EF92E474A0F0083C82C /* grok_numerologyscholar_01_converted.json */,
+				4D731EFA2E474A0F0083C82C /* grok_numerologyscholar_02_converted.json */,
+				4D731EFB2E474A0F0083C82C /* grok_numerologyscholar_03_converted.json */,
+				4D731EFC2E474A0F0083C82C /* grok_numerologyscholar_05_converted.json */,
+				4D731EFD2E474A0F0083C82C /* grok_numerologyscholar_06_converted.json */,
+				4D731EFE2E474A0F0083C82C /* grok_numerologyscholar_07_converted.json */,
+				4D731EFF2E474A0F0083C82C /* grok_numerologyscholar_08_converted.json */,
+				4D731F002E474A0F0083C82C /* grok_numerologyscholar_11_converted.json */,
+				4D731F012E474A0F0083C82C /* grok_numerologyscholar_22_converted.json */,
+				4D731F022E474A0F0083C82C /* grok_numerologyscholar_33_converted.json */,
+				4D731F032E474A0F0083C82C /* grok_numerologyscholar_44_converted.json */,
+				4D731F042E474A0F0083C82C /* grok_oracle_01_converted.json */,
+				4D731F052E474A0F0083C82C /* grok_oracle_02_converted.json */,
+				4D731F062E474A0F0083C82C /* grok_oracle_03_converted.json */,
+				4D731F072E474A0F0083C82C /* grok_oracle_05_converted.json */,
+				4D731F082E474A0F0083C82C /* grok_oracle_06_converted.json */,
+				4D731F092E474A0F0083C82C /* grok_oracle_07_converted.json */,
+				4D731F0A2E474A0F0083C82C /* grok_oracle_08_converted.json */,
+				4D731F0B2E474A0F0083C82C /* grok_oracle_09_converted.json */,
+				4D731F0C2E474A0F0083C82C /* grok_oracle_11_converted.json */,
+				4D731F0D2E474A0F0083C82C /* grok_oracle_22_converted.json */,
+				4D731F0E2E474A0F0083C82C /* grok_oracle_33_converted.json */,
+				4D731F0F2E474A0F0083C82C /* grok_oracle_44_converted.json */,
+				4D731F102E474A0F0083C82C /* grok_philosopher_01_converted.json */,
+				4D731F112E474A0F0083C82C /* grok_philosopher_02_converted.json */,
+				4D731F122E474A0F0083C82C /* grok_philosopher_03_converted.json */,
+				4D731F132E474A0F0083C82C /* grok_philosopher_05_converted.json */,
+				4D731F142E474A0F0083C82C /* grok_philosopher_06_converted.json */,
+				4D731F152E474A0F0083C82C /* grok_philosopher_07_converted.json */,
+				4D731F162E474A0F0083C82C /* grok_philosopher_08_converted.json */,
+				4D731F172E474A0F0083C82C /* grok_philosopher_09_converted.json */,
+				4D731F182E474A0F0083C82C /* grok_philosopher_11_converted.json */,
+				4D731F192E474A0F0083C82C /* grok_philosopher_22_converted.json */,
+				4D731F1A2E474A0F0083C82C /* grok_philosopher_33_converted.json */,
+				4D731F1B2E474A0F0083C82C /* grok_philosopher_44_converted.json */,
+				4D731F1C2E474A0F0083C82C /* grok_psychologist_01_converted.json */,
+				4D731F1D2E474A0F0083C82C /* grok_psychologist_02_converted.json */,
+				4D731F1E2E474A0F0083C82C /* grok_psychologist_03_converted.json */,
+				4D731F1F2E474A0F0083C82C /* grok_psychologist_05_converted.json */,
+				4D731F202E474A0F0083C82C /* grok_psychologist_06_converted.json */,
+				4D731F212E474A0F0083C82C /* grok_psychologist_07_converted.json */,
+				4D731F222E474A0F0083C82C /* grok_psychologist_08_converted.json */,
+				4D731F232E474A0F0083C82C /* grok_psychologist_09_converted.json */,
+				4D731F242E474A0F0083C82C /* grok_psychologist_11_converted.json */,
+				4D731F252E474A0F0083C82C /* grok_psychologist_22_converted.json */,
+				4D731F262E474A0F0083C82C /* grok_psychologist_33_converted.json */,
+				4D731F272E474A0F0083C82C /* grok_psychologist_44_converted.json */,
+				4D731F282E474A0F0083C82C /* lifePath_01_v2.0_converted.json */,
+				4D731F292E474A0F0083C82C /* lifePath_02_v2.0_converted.json */,
+				4D731F2A2E474A0F0083C82C /* lifePath_03_v2.0_converted.json */,
+				4D7320BD2E47561D0083C82C /* lifePath_04_v2.0_converted.json */,
+				4D7320C02E4756600083C82C /* lifePath_06_v2.0_converted.json */,
+				4DDA09EC2E4756C500449F20 /* lifePath_07_v2.0_converted.json */,
+				4DDA09EE2E47570600449F20 /* lifePath_08_v2.0_converted.json */,
+				4D731F3A2E474A0F0083C82C /* lifePath_09_v2.0_converted.json */,
+				4D731F3B2E474A0F0083C82C /* lifePath_11_v2.0_converted.json */,
+				4D731F3C2E474A0F0083C82C /* lifePath_22_v2.0_converted.json */,
+				4D731F2B2E474A0F0083C82C /* lifePath_33_v2.0_converted.json */,
+				4D731F2C2E474A0F0083C82C /* lifePath_44_v2.0_converted.json */,
+				4DDA0A132E47C65A00449F20 /* soulUrge_01_v3.0_converted.json */,
+				4DDA0A152E47C67900449F20 /* soulUrge_02_v3.0_converted.json */,
+				4DDA0A172E47C69300449F20 /* soulUrge_03_v3.0_converted.json */,
+				4DDA0A192E47C6AC00449F20 /* soulUrge_04_v3.0_converted.json */,
+				4DDA0A1B2E47C6C100449F20 /* soulUrge_05_v3.0_converted.json */,
+				4DDA0A1F2E47C6F500449F20 /* soulUrge_06_v3.0_converted.json */,
+				4DDA0A1D2E47C6D400449F20 /* soulUrge_07_v3.0_converted.json */,
+				4DDA0A212E47C70A00449F20 /* soulUrge_08_v3.0_converted.json */,
+				4DDA0A252E47C74800449F20 /* soulUrge_09_v3.0_converted.json */,
+				4DDA0A232E47C72400449F20 /* soulUrge_11_v3.0_converted.json */,
+				4DDA0A272E47C75C00449F20 /* soulUrge_22_v3.0_converted.json */,
+				4DDA0A292E47C77900449F20 /* soulUrge_33_v3.0_converted.json */,
+				4DDA0A2B2E47C78A00449F20 /* soulUrge_44_v3.0_converted.json */,
+			);
+			path = Approved;
+			sourceTree = "<group>";
+		};
+		4D731FA82E474A0F0083C82C /* Archive */ = {
+			isa = PBXGroup;
+			children = (
+				4D731F662E474A0F0083C82C /* CR1_original.md */,
+				4D731F672E474A0F0083C82C /* CR2_original.md */,
+				4D731F682E474A0F0083C82C /* CR3_original.md */,
+				4D731F692E474A0F0083C82C /* CR4_original.md */,
+				4D731F6A2E474A0F0083C82C /* CR5_original.md */,
+				4D731F6B2E474A0F0083C82C /* CR6_original.md */,
+				4D731F6C2E474A0F0083C82C /* CR7_original.md */,
+				4D731F6D2E474A0F0083C82C /* CR8_original.md */,
+				4D731F6E2E474A0F0083C82C /* CR9_original.md */,
+				4D731F6F2E474A0F0083C82C /* CR11_original.md */,
+				4D731F702E474A0F0083C82C /* CR22_original.md */,
+				4D731F712E474A0F0083C82C /* CR33_original.md */,
+				4D731F722E474A0F0083C82C /* CR44_original.md */,
+				4D731F732E474A0F0083C82C /* MindfulnessCoach_Number_1_original.md */,
+				4D731F742E474A0F0083C82C /* MindfulnessCoach_Number_2_original.md */,
+				4D731F752E474A0F0083C82C /* MindfulnessCoach_Number_3_original.md */,
+				4D731F762E474A0F0083C82C /* MindfulnessCoach_Number_4_original.md */,
+				4D731F772E474A0F0083C82C /* MindfulnessCoach_Number_5_original.md */,
+				4D731F782E474A0F0083C82C /* MindfulnessCoach_Number_6_original.md */,
+				4D731F792E474A0F0083C82C /* MindfulnessCoach_Number_7_original.md */,
+				4D731F7A2E474A0F0083C82C /* MindfulnessCoach_Number_8_original.md */,
+				4D731F7B2E474A0F0083C82C /* MindfulnessCoach_Number_9_original.md */,
+				4D731F7C2E474A0F0083C82C /* MindfulnessCoach_Number_11_original.md */,
+				4D731F7D2E474A0F0083C82C /* MindfulnessCoach_Number_22_original.md */,
+				4D731F7E2E474A0F0083C82C /* MindfulnessCoach_Number_33_original.md */,
+				4D731F7F2E474A0F0083C82C /* MindfulnessCoach_Number_44_original.md */,
+				4D731F802E474A0F0083C82C /* NumerologyScholar_Number_1_original.md */,
+				4D731F812E474A0F0083C82C /* NumerologyScholar_Number_2_original.md */,
+				4D731F822E474A0F0083C82C /* NumerologyScholar_Number_3_original.md */,
+				4D731F832E474A0F0083C82C /* NumerologyScholar_Number_4_original.md */,
+				4D731F842E474A0F0083C82C /* NumerologyScholar_Number_5_original.md */,
+				4D731F852E474A0F0083C82C /* NumerologyScholar_Number_6_original.md */,
+				4D731F862E474A0F0083C82C /* NumerologyScholar_Number_7_original.md */,
+				4D731F872E474A0F0083C82C /* NumerologyScholar_Number_8_original.md */,
+				4D731F882E474A0F0083C82C /* NumerologyScholar_Number_9_original.md */,
+				4D731F892E474A0F0083C82C /* NumerologyScholar_Number_11_original.md */,
+				4D731F8A2E474A0F0083C82C /* NumerologyScholar_Number_22_original.md */,
+				4D731F8B2E474A0F0083C82C /* NumerologyScholar_Number_33_original.md */,
+				4D731F8C2E474A0F0083C82C /* NumerologyScholar_Number_44_original.md */,
+				4D731F8D2E474A0F0083C82C /* Oracle_Number_1_original.md */,
+				4D731F8E2E474A0F0083C82C /* Oracle_Number_2_original.md */,
+				4D731F8F2E474A0F0083C82C /* Oracle_Number_3_original.md */,
+				4D731F902E474A0F0083C82C /* Oracle_Number_4_original.md */,
+				4D731F912E474A0F0083C82C /* Oracle_Number_5_original.md */,
+				4D731F922E474A0F0083C82C /* Oracle_Number_6_original.md */,
+				4D731F932E474A0F0083C82C /* Oracle_Number_7_original.md */,
+				4D731F942E474A0F0083C82C /* Oracle_Number_8_original.md */,
+				4D731F952E474A0F0083C82C /* Oracle_Number_9_original.md */,
+				4D731F962E474A0F0083C82C /* Oracle_Number_11_original.md */,
+				4D731F972E474A0F0083C82C /* Oracle_Number_22_original.md */,
+				4D731F982E474A0F0083C82C /* Oracle_Number_33_original.md */,
+				4D731F992E474A0F0083C82C /* Oracle_Number_44_original.md */,
+				4D731F9B2E474A0F0083C82C /* Psychologist_Number_1_original.md */,
+				4D731F9C2E474A0F0083C82C /* Psychologist_Number_2_original.md */,
+				4D731F9D2E474A0F0083C82C /* Psychologist_Number_3_original.md */,
+				4D731F9E2E474A0F0083C82C /* Psychologist_Number_4_original.md */,
+				4D731F9F2E474A0F0083C82C /* Psychologist_Number_5_original.md */,
+				4D731FA02E474A0F0083C82C /* Psychologist_Number_6_original.md */,
+				4D731FA12E474A0F0083C82C /* Psychologist_Number_7_original.md */,
+				4D731FA22E474A0F0083C82C /* Psychologist_Number_8_original.md */,
+				4D731FA32E474A0F0083C82C /* Psychologist_Number_9_original.md */,
+				4D731FA42E474A0F0083C82C /* Psychologist_Number_11_original.md */,
+				4D731FA52E474A0F0083C82C /* Psychologist_Number_22_original.md */,
+				4D731FA62E474A0F0083C82C /* Psychologist_Number_33_original.md */,
+				4D731FA72E474A0F0083C82C /* Psychologist_Number_44_original.md */,
+				4DDA0A2E2E47CBD100449F20 /* expression_01_behavioral.json */,
+				4DDA0A302E47CBDF00449F20 /* expression_02_behavioral.json */,
+				4DDA0A322E47CBE900449F20 /* expression_03_behavioral.json */,
+				4DDA0A342E47CBF900449F20 /* expression_04_behavioral.json */,
+				4DDA0A362E47CC0000449F20 /* expression_05_behavioral.json */,
+				4DDA0A382E47CC0600449F20 /* expression_06_behavioral.json */,
+				4DDA0A3A2E47CC0E00449F20 /* expression_07_behavioral.json */,
+				4DDA0A3C2E47CC1400449F20 /* expression_08_behavioral.json */,
+				4DDA0A3E2E47CC1F00449F20 /* expression_09_behavioral.json */,
+				4DDA0A402E47CC2900449F20 /* expression_11_behavioral.json */,
+				4DDA0A422E47CC3000449F20 /* expression_22_behavioral.json */,
+				4DDA0A442E47CC3800449F20 /* expression_33_behavioral.json */,
+				4DDA0A462E47CC3E00449F20 /* expression_44_behavioral.json */,
+			);
+			path = Archive;
+			sourceTree = "<group>";
+		};
+		4D731FC42E474A0F0083C82C /* Processing */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Processing;
+			sourceTree = "<group>";
+		};
+		4D731FC92E474A0F0083C82C /* ContentRefinery */ = {
+			isa = PBXGroup;
+			children = (
+				4D731F652E474A0F0083C82C /* Approved */,
+				4D731FA82E474A0F0083C82C /* Archive */,
+				4D731FC42E474A0F0083C82C /* Processing */,
+			);
+			path = ContentRefinery;
+			sourceTree = "<group>";
+		};
 		4DA359A02E3F135B0010101F /* MLXCore */ = {
 			isa = PBXGroup;
 			children = (
+				4D731EB42E4721AE0083C82C /* KASPERLifePathTrinity.swift */,
+				4D731DE12E46D4E20083C82C /* KASPERContentImporter.swift */,
 				4DA359B82E3FF6160010101F /* KASPERTrainingDataManager.swift */,
 				4DA3599F2E3F135B0010101F /* KASPERMLXTypes.swift */,
 			);
@@ -1105,6 +1717,7 @@
 		4DA359AE2E3F135B0010101F /* KASPERMLX */ = {
 			isa = PBXGroup;
 			children = (
+				4DB1B4BB2E4841EF00F1585A /* KASPER-MLX-CORE-SPECS.md */,
 				4D731D622E45A7230083C82C /* MLXTraining */,
 				4DA359BD2E3FF6380010101F /* Documentation */,
 				4DA359A02E3F135B0010101F /* MLXCore */,
@@ -1181,6 +1794,7 @@
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
+				4DDA0A712E48348900449F20 /* VybeOS */,
 				4DF7A0942E41822600D5AC19 /* SpiritualDatabase */,
 				4DA359AE2E3F135B0010101F /* KASPERMLX */,
 				4D5BEB332E372AC100B56575 /* ViewModels */,
@@ -1373,6 +1987,97 @@
 				4DCB39392E1F78AE00311D51 /* SVG */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		4DDA0A642E48348900449F20 /* API-Documentation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "API-Documentation";
+			sourceTree = "<group>";
+		};
+		4DDA0A662E48348900449F20 /* Architecture */ = {
+			isa = PBXGroup;
+			children = (
+				4DDA0A652E48348900449F20 /* SYSTEM_OVERVIEW.md */,
+			);
+			path = Architecture;
+			sourceTree = "<group>";
+		};
+		4DDA0A672E48348900449F20 /* Content-Pipeline */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Content-Pipeline";
+			sourceTree = "<group>";
+		};
+		4DDA0A682E48348900449F20 /* Developer-Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Developer-Onboarding";
+			sourceTree = "<group>";
+		};
+		4DDA0A692E48348900449F20 /* Enterprise-Systems */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Enterprise-Systems";
+			sourceTree = "<group>";
+		};
+		4DDA0A6B2E48348900449F20 /* KASPER-MLXCoreDOC */ = {
+			isa = PBXGroup;
+			children = (
+				4DB1B4B72E48415900F1585A /* KASPER-CORE-REFERENCE.md */,
+			);
+			path = "KASPER-MLXCoreDOC";
+			sourceTree = "<group>";
+		};
+		4DDA0A6C2E48348900449F20 /* Scaling-Strategy */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Scaling-Strategy";
+			sourceTree = "<group>";
+		};
+		4DDA0A6D2E48348900449F20 /* Security-Compliance */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Security-Compliance";
+			sourceTree = "<group>";
+		};
+		4DDA0A6E2E48348900449F20 /* Technical-Specs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Technical-Specs";
+			sourceTree = "<group>";
+		};
+		4DDA0A6F2E48348900449F20 /* Testing-QA */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Testing-QA";
+			sourceTree = "<group>";
+		};
+		4DDA0A712E48348900449F20 /* VybeOS */ = {
+			isa = PBXGroup;
+			children = (
+				4DB1B4B92E48418900F1585A /* NAVIGATION-INDEX.md */,
+				4DB1B4B32E483D9300F1585A /* VYBEOS-DOCUMENTATION-ECOSYSTEM.md */,
+				4DDA0A642E48348900449F20 /* API-Documentation */,
+				4DDA0A662E48348900449F20 /* Architecture */,
+				4DDA0A672E48348900449F20 /* Content-Pipeline */,
+				4DDA0A682E48348900449F20 /* Developer-Onboarding */,
+				4DDA0A692E48348900449F20 /* Enterprise-Systems */,
+				4DDA0A6B2E48348900449F20 /* KASPER-MLXCoreDOC */,
+				4DDA0A6C2E48348900449F20 /* Scaling-Strategy */,
+				4DDA0A6D2E48348900449F20 /* Security-Compliance */,
+				4DDA0A6E2E48348900449F20 /* Technical-Specs */,
+				4DDA0A6F2E48348900449F20 /* Testing-QA */,
+			);
+			path = VybeOS;
 			sourceTree = "<group>";
 		};
 		4DF77E4B2E358B2E00B6D45E /* SocialRepositories */ = {
@@ -1577,22 +2282,202 @@
 				4DB1DE972E22A5C2001A9EA5 /* generate-screenshots.sh in Resources */,
 				4DB1DE982E22A5C2001A9EA5 /* clean-project.sh in Resources */,
 				4DB1DE992E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh in Resources */,
+				4DDA0A452E47CC3800449F20 /* expression_33_behavioral.json in Resources */,
 				4DB1DE9A2E22A5C2001A9EA5 /* memory-check.sh in Resources */,
 				4DCB39452E1F78AE00311D51 /* void_crystal.svg in Resources */,
+				4DDA0A2A2E47C77900449F20 /* soulUrge_33_v3.0_converted.json in Resources */,
 				4DCB39462E1F78AE00311D51 /* duality_mirror.svg in Resources */,
 				4DCB39472E1F78AE00311D51 /* foundation_stone.svg in Resources */,
 				4DCB39482E1F78AE00311D51 /* duality_yin_yang.svg in Resources */,
+				4DDA0A352E47CBF900449F20 /* expression_04_behavioral.json in Resources */,
 				4DCB39492E1F78AE00311D51 /* unity_consciousness.svg in Resources */,
 				4DCB394A2E1F78AE00311D51 /* renewal_justice.svg in Resources */,
 				4DCB394B2E1F78AE00311D51 /* will_command.svg in Resources */,
 				4DCB394C2E1F78AE00311D51 /* unity_alpha.svg in Resources */,
 				4DCB394D2E1F78AE00311D51 /* trinity_mandala.svg in Resources */,
+				4D731FCA2E474A0F0083C82C /* lifePath_33_v2.0_converted.json in Resources */,
+				4D731FCC2E474A0F0083C82C /* NumerologyScholar_Number_4_original.md in Resources */,
+				4D731FD12E474A0F0083C82C /* CR22_original.md in Resources */,
+				4D731FD32E474A0F0083C82C /* Oracle_Number_22_original.md in Resources */,
+				4DDA0A3D2E47CC1400449F20 /* expression_08_behavioral.json in Resources */,
+				4D731FD42E474A0F0083C82C /* CR2_original.md in Resources */,
+				4D731FD62E474A0F0083C82C /* CR4_original.md in Resources */,
+				4D731FD72E474A0F0083C82C /* CR6_original.md in Resources */,
+				4D731FD82E474A0F0083C82C /* lifePath_03_v2.0_converted.json in Resources */,
+				4DDA0A592E47CEB300449F20 /* expression_08_converted.json in Resources */,
+				4D731FD92E474A0F0083C82C /* grok_mindfulnesscoach_33_converted.json in Resources */,
+				4D731FDB2E474A0F0083C82C /* NumerologyScholar_Number_33_original.md in Resources */,
+				4D731FDD2E474A0F0083C82C /* NumerologyScholar_Number_11_original.md in Resources */,
+				4D731FDF2E474A0F0083C82C /* grok_mindfulnesscoach_22_converted.json in Resources */,
+				4D731FE12E474A0F0083C82C /* grok_philosopher_03_converted.json in Resources */,
+				4DDA0A2F2E47CBD100449F20 /* expression_01_behavioral.json in Resources */,
+				4D731FE22E474A0F0083C82C /* claude_44_academic_converted.json in Resources */,
+				4D731FE32E474A0F0083C82C /* NumerologyScholar_Number_3_original.md in Resources */,
+				4D731FE42E474A0F0083C82C /* grok_philosopher_07_converted.json in Resources */,
+				4DDA0A472E47CC3E00449F20 /* expression_44_behavioral.json in Resources */,
+				4D731FE52E474A0F0083C82C /* NumerologyScholar_Number_22_original.md in Resources */,
+				4DDA0A4D2E47CE5B00449F20 /* expression_02_converted.json in Resources */,
+				4D731FE72E474A0F0083C82C /* grok_philosopher_44_converted.json in Resources */,
+				4D731FE82E474A0F0083C82C /* Psychologist_Number_5_original.md in Resources */,
+				4D731FE92E474A0F0083C82C /* Oracle_Number_11_original.md in Resources */,
+				4D731FEA2E474A0F0083C82C /* CR5_original.md in Resources */,
+				4D731FED2E474A0F0083C82C /* grok_numerologyscholar_07_converted.json in Resources */,
+				4D731FEE2E474A0F0083C82C /* MindfulnessCoach_Number_44_original.md in Resources */,
+				4D731FF12E474A0F0083C82C /* grok_numerologyscholar_08_converted.json in Resources */,
+				4D731FF62E474A0F0083C82C /* claude_09_academic_converted.json in Resources */,
+				4DDA0A4B2E47CE4B00449F20 /* expression_01_converted.json in Resources */,
+				4D731FF92E474A0F0083C82C /* grok_numerologyscholar_02_converted.json in Resources */,
+				4D731FFA2E474A0F0083C82C /* grok_psychologist_11_converted.json in Resources */,
+				4D731FFD2E474A0F0083C82C /* NumerologyScholar_Number_7_original.md in Resources */,
+				4DDA0A412E47CC2900449F20 /* expression_11_behavioral.json in Resources */,
+				4D731FFE2E474A0F0083C82C /* Oracle_Number_3_original.md in Resources */,
+				4D731FFF2E474A0F0083C82C /* claude_04_academic_converted.json in Resources */,
+				4DDA0A432E47CC3000449F20 /* expression_22_behavioral.json in Resources */,
+				4DDA0A142E47C65A00449F20 /* soulUrge_01_v3.0_converted.json in Resources */,
+				4DDA0A1A2E47C6AC00449F20 /* soulUrge_04_v3.0_converted.json in Resources */,
+				4DDA09EF2E47570600449F20 /* lifePath_08_v2.0_converted.json in Resources */,
+				4DDA0A392E47CC0600449F20 /* expression_06_behavioral.json in Resources */,
+				4DDA0A552E47CE9900449F20 /* expression_06_converted.json in Resources */,
+				4D7320032E474A0F0083C82C /* lifePath_22_v2.0_converted.json in Resources */,
+				4D7320042E474A0F0083C82C /* grok_philosopher_01_converted.json in Resources */,
+				4DDA0A282E47C75C00449F20 /* soulUrge_22_v3.0_converted.json in Resources */,
+				4D7320062E474A0F0083C82C /* claude_33_academic_converted.json in Resources */,
+				4D7320082E474A0F0083C82C /* grok_numerologyscholar_01_converted.json in Resources */,
+				4D7320092E474A0F0083C82C /* Oracle_Number_8_original.md in Resources */,
+				4D73200A2E474A0F0083C82C /* MindfulnessCoach_Number_4_original.md in Resources */,
+				4D73200D2E474A0F0083C82C /* grok_oracle_44_converted.json in Resources */,
+				4D73200E2E474A0F0083C82C /* grok_psychologist_06_converted.json in Resources */,
+				4D73200F2E474A0F0083C82C /* CR9_original.md in Resources */,
+				4DDA0A5F2E47CEE400449F20 /* expression_33_converted.json in Resources */,
+				4D7320102E474A0F0083C82C /* Psychologist_Number_2_original.md in Resources */,
+				4DDA0A1E2E47C6D400449F20 /* soulUrge_07_v3.0_converted.json in Resources */,
+				4D7320112E474A0F0083C82C /* grok_philosopher_06_converted.json in Resources */,
+				4D7320122E474A0F0083C82C /* grok_psychologist_02_converted.json in Resources */,
+				4D7320132E474A0F0083C82C /* grok_oracle_22_converted.json in Resources */,
+				4D7320142E474A0F0083C82C /* grok_mindfulnesscoach_08_converted.json in Resources */,
+				4D7320162E474A0F0083C82C /* NumerologyScholar_Number_44_original.md in Resources */,
+				4D7320182E474A0F0083C82C /* Oracle_Number_2_original.md in Resources */,
+				4DDA0A182E47C69300449F20 /* soulUrge_03_v3.0_converted.json in Resources */,
+				4D7320202E474A0F0083C82C /* grok_mindfulnesscoach_09_converted.json in Resources */,
+				4D7320212E474A0F0083C82C /* claude_07_academic_converted.json in Resources */,
+				4D7320222E474A0F0083C82C /* CR1_original.md in Resources */,
+				4D7320242E474A0F0083C82C /* Oracle_Number_9_original.md in Resources */,
+				4D7320252E474A0F0083C82C /* grok_oracle_11_converted.json in Resources */,
+				4D7320262E474A0F0083C82C /* grok_philosopher_09_converted.json in Resources */,
+				4D7320282E474A0F0083C82C /* NumerologyScholar_Number_9_original.md in Resources */,
+				4D73202A2E474A0F0083C82C /* Psychologist_Number_3_original.md in Resources */,
+				4D73202B2E474A0F0083C82C /* claude_01_academic_converted.json in Resources */,
+				4D73202E2E474A0F0083C82C /* Psychologist_Number_6_original.md in Resources */,
+				4D7320322E474A0F0083C82C /* CR3_original.md in Resources */,
+				4D7320342E474A0F0083C82C /* grok_numerologyscholar_05_converted.json in Resources */,
+				4D7320362E474A0F0083C82C /* MindfulnessCoach_Number_7_original.md in Resources */,
+				4D7320372E474A0F0083C82C /* grok_mindfulnesscoach_11_converted.json in Resources */,
+				4D7320382E474A0F0083C82C /* NumerologyScholar_Number_6_original.md in Resources */,
+				4D73203A2E474A0F0083C82C /* grok_philosopher_22_converted.json in Resources */,
+				4D73203B2E474A0F0083C82C /* grok_mindfulnesscoach_01_converted.json in Resources */,
+				4D73203E2E474A0F0083C82C /* CR11_original.md in Resources */,
+				4D73203F2E474A0F0083C82C /* Psychologist_Number_4_original.md in Resources */,
+				4D7320432E474A0F0083C82C /* CR7_original.md in Resources */,
+				4D7320442E474A0F0083C82C /* lifePath_11_v2.0_converted.json in Resources */,
+				4D7320452E474A0F0083C82C /* Oracle_Number_1_original.md in Resources */,
+				4D7320462E474A0F0083C82C /* MindfulnessCoach_Number_33_original.md in Resources */,
+				4D7320472E474A0F0083C82C /* Oracle_Number_44_original.md in Resources */,
+				4D7320482E474A0F0083C82C /* grok_philosopher_11_converted.json in Resources */,
+				4D73204A2E474A0F0083C82C /* Oracle_Number_4_original.md in Resources */,
+				4D73204B2E474A0F0083C82C /* grok_mindfulnesscoach_44_converted.json in Resources */,
+				4D73204C2E474A0F0083C82C /* claude_05_academic_converted.json in Resources */,
+				4D73204D2E474A0F0083C82C /* lifePath_02_v2.0_converted.json in Resources */,
+				4DDA0A532E47CE8A00449F20 /* expression_05_converted.json in Resources */,
+				4D73204F2E474A0F0083C82C /* Psychologist_Number_22_original.md in Resources */,
+				4DB1B4BA2E48418900F1585A /* NAVIGATION-INDEX.md in Resources */,
+				4DDA09ED2E4756C500449F20 /* lifePath_07_v2.0_converted.json in Resources */,
+				4D7320552E474A0F0083C82C /* grok_mindfulnesscoach_06_converted.json in Resources */,
+				4DDA0A3B2E47CC0E00449F20 /* expression_07_behavioral.json in Resources */,
+				4D7320562E474A0F0083C82C /* grok_oracle_33_converted.json in Resources */,
+				4DDA0A742E48348900449F20 /* SYSTEM_OVERVIEW.md in Resources */,
+				4D7320572E474A0F0083C82C /* grok_psychologist_22_converted.json in Resources */,
+				4D73205A2E474A0F0083C82C /* Oracle_Number_7_original.md in Resources */,
+				4D73205B2E474A0F0083C82C /* NumerologyScholar_Number_1_original.md in Resources */,
+				4D73205C2E474A0F0083C82C /* MindfulnessCoach_Number_5_original.md in Resources */,
+				4DDA0A162E47C67900449F20 /* soulUrge_02_v3.0_converted.json in Resources */,
+				4DDA0A312E47CBDF00449F20 /* expression_02_behavioral.json in Resources */,
+				4D73205D2E474A0F0083C82C /* grok_psychologist_09_converted.json in Resources */,
+				4D73205F2E474A0F0083C82C /* CR33_original.md in Resources */,
+				4D7320602E474A0F0083C82C /* grok_numerologyscholar_06_converted.json in Resources */,
+				4D7320612E474A0F0083C82C /* claude_08_academic_converted.json in Resources */,
+				4D7320622E474A0F0083C82C /* claude_06_academic_converted.json in Resources */,
+				4D7320632E474A0F0083C82C /* grok_psychologist_08_converted.json in Resources */,
+				4D7320642E474A0F0083C82C /* grok_oracle_02_converted.json in Resources */,
+				4D7320662E474A0F0083C82C /* NumerologyScholar_Number_5_original.md in Resources */,
+				4DDA0A222E47C70A00449F20 /* soulUrge_08_v3.0_converted.json in Resources */,
+				4DDA0A632E47CF9100449F20 /* expression_11_converted.json in Resources */,
+				4D7320672E474A0F0083C82C /* grok_numerologyscholar_03_converted.json in Resources */,
+				4D73206A2E474A0F0083C82C /* Psychologist_Number_8_original.md in Resources */,
+				4D73206C2E474A0F0083C82C /* claude_22_academic_converted.json in Resources */,
+				4D73206D2E474A0F0083C82C /* grok_philosopher_33_converted.json in Resources */,
+				4D73206E2E474A0F0083C82C /* claude_02_academic_converted.json in Resources */,
+				4D73206F2E474A0F0083C82C /* MindfulnessCoach_Number_11_original.md in Resources */,
+				4DB1B4BC2E4841EF00F1585A /* KASPER-MLX-CORE-SPECS.md in Resources */,
+				4D7320702E474A0F0083C82C /* MindfulnessCoach_Number_22_original.md in Resources */,
+				4D7320C32E4756600083C82C /* lifePath_06_v2.0_converted.json in Resources */,
+				4D7320732E474A0F0083C82C /* grok_psychologist_33_converted.json in Resources */,
+				4D7320742E474A0F0083C82C /* Psychologist_Number_9_original.md in Resources */,
+				4D7320752E474A0F0083C82C /* Oracle_Number_33_original.md in Resources */,
+				4D7320762E474A0F0083C82C /* grok_oracle_06_converted.json in Resources */,
+				4D7320792E474A0F0083C82C /* grok_philosopher_02_converted.json in Resources */,
+				4D73207A2E474A0F0083C82C /* grok_psychologist_07_converted.json in Resources */,
+				4D73207B2E474A0F0083C82C /* grok_mindfulnesscoach_07_converted.json in Resources */,
+				4D73207C2E474A0F0083C82C /* grok_numerologyscholar_33_converted.json in Resources */,
+				4D73207D2E474A0F0083C82C /* grok_oracle_03_converted.json in Resources */,
+				4D73207E2E474A0F0083C82C /* MindfulnessCoach_Number_8_original.md in Resources */,
+				4D7320822E474A0F0083C82C /* grok_numerologyscholar_11_converted.json in Resources */,
+				4D7320832E474A0F0083C82C /* claude_11_academic_converted.json in Resources */,
+				4D7320842E474A0F0083C82C /* MindfulnessCoach_Number_3_original.md in Resources */,
+				4D7320852E474A0F0083C82C /* lifePath_44_v2.0_converted.json in Resources */,
+				4D7320862E474A0F0083C82C /* NumerologyScholar_Number_8_original.md in Resources */,
+				4D7320892E474A0F0083C82C /* grok_mindfulnesscoach_04_converted.json in Resources */,
+				4D73208B2E474A0F0083C82C /* CR8_original.md in Resources */,
+				4D73208C2E474A0F0083C82C /* lifePath_01_v2.0_converted.json in Resources */,
+				4D73208D2E474A0F0083C82C /* grok_psychologist_01_converted.json in Resources */,
+				4DDA0A5B2E47CEC700449F20 /* expression_09_converted.json in Resources */,
+				4D73208E2E474A0F0083C82C /* grok_philosopher_08_converted.json in Resources */,
+				4D73208F2E474A0F0083C82C /* Psychologist_Number_33_original.md in Resources */,
+				4D7320902E474A0F0083C82C /* claude_03_academic_converted.json in Resources */,
+				4DDA0A3F2E47CC1F00449F20 /* expression_09_behavioral.json in Resources */,
+				4D7320912E474A0F0083C82C /* MindfulnessCoach_Number_2_original.md in Resources */,
+				4D7320922E474A0F0083C82C /* grok_mindfulnesscoach_03_converted.json in Resources */,
+				4D7320932E474A0F0083C82C /* MindfulnessCoach_Number_6_original.md in Resources */,
+				4D7320942E474A0F0083C82C /* Oracle_Number_5_original.md in Resources */,
+				4D7320962E474A0F0083C82C /* Psychologist_Number_7_original.md in Resources */,
+				4D7320972E474A0F0083C82C /* lifePath_09_v2.0_converted.json in Resources */,
+				4D7320982E474A0F0083C82C /* Psychologist_Number_1_original.md in Resources */,
+				4D7320992E474A0F0083C82C /* grok_numerologyscholar_22_converted.json in Resources */,
+				4D73209A2E474A0F0083C82C /* Psychologist_Number_44_original.md in Resources */,
+				4D73209B2E474A0F0083C82C /* grok_mindfulnesscoach_05_converted.json in Resources */,
+				4D73209E2E474A0F0083C82C /* grok_oracle_08_converted.json in Resources */,
+				4D7320A22E474A0F0083C82C /* grok_oracle_09_converted.json in Resources */,
+				4D7320A32E474A0F0083C82C /* NumerologyScholar_Number_2_original.md in Resources */,
+				4D7320A52E474A0F0083C82C /* Psychologist_Number_11_original.md in Resources */,
+				4D7320A62E474A0F0083C82C /* MindfulnessCoach_Number_1_original.md in Resources */,
+				4D7320A82E474A0F0083C82C /* Oracle_Number_6_original.md in Resources */,
+				4D7320A92E474A0F0083C82C /* grok_psychologist_03_converted.json in Resources */,
+				4D7320AA2E474A0F0083C82C /* CR44_original.md in Resources */,
+				4D7320AE2E474A0F0083C82C /* grok_psychologist_05_converted.json in Resources */,
+				4D7320AF2E474A0F0083C82C /* grok_philosopher_05_converted.json in Resources */,
+				4D7320B02E474A0F0083C82C /* grok_psychologist_44_converted.json in Resources */,
+				4D7320B12E474A0F0083C82C /* grok_oracle_01_converted.json in Resources */,
+				4D7320B22E474A0F0083C82C /* grok_oracle_07_converted.json in Resources */,
+				4D7320B42E474A0F0083C82C /* MindfulnessCoach_Number_9_original.md in Resources */,
+				4D7320B82E474A0F0083C82C /* grok_numerologyscholar_44_converted.json in Resources */,
+				4D7320B92E474A0F0083C82C /* grok_oracle_05_converted.json in Resources */,
 				4DCB394E2E1F78AE00311D51 /* trinity_expression.svg in Resources */,
 				4DCB394F2E1F78AE00311D51 /* will_power.svg in Resources */,
 				4DCB39502E1F78AE00311D51 /* foundation_blessing.svg in Resources */,
 				4DCB39512E1F78AE00311D51 /* foundation_matrix.svg in Resources */,
+				4DDA0A332E47CBE900449F20 /* expression_03_behavioral.json in Resources */,
 				4DCB39522E1F78AE00311D51 /* mystery_rose.svg in Resources */,
 				4DCB39532E1F78AE00311D51 /* void_triquetra.svg in Resources */,
+				4DDA0A572E47CEA600449F20 /* expression_07_converted.json in Resources */,
 				4DCB39542E1F78AE00311D51 /* will_star.svg in Resources */,
 				4DCB39552E1F78AE00311D51 /* mystery_wisdom.svg in Resources */,
 				4DB1DE9C2E22A7A9001A9EA5 /* SCRIPTS_GUIDE.md in Resources */,
@@ -1600,24 +2485,35 @@
 				4DA359BF2E3FF6380010101F /* SpiritualInsightSchema.json in Resources */,
 				4DA359C02E3FF6380010101F /* SampleTrainingBatch.json in Resources */,
 				4DCB39572E1F78AE00311D51 /* void_zero_point.svg in Resources */,
+				4DDA0A4F2E47CE6900449F20 /* expression_03_converted.json in Resources */,
 				4DCB39582E1F78AE00311D51 /* foundation_cube.svg in Resources */,
 				4DCB39592E1F78AE00311D51 /* unity_spark.svg in Resources */,
 				4DCB395A2E1F78AE00311D51 /* harmony_beauty.svg in Resources */,
 				4DCB395B2E1F78AE00311D51 /* renewal_time.svg in Resources */,
 				4DCB395C2E1F78AE00311D51 /* harmony_marriage.svg in Resources */,
+				4DDA0A372E47CC0000449F20 /* expression_05_behavioral.json in Resources */,
 				4DCB395D2E1F78AE00311D51 /* unity_solar.svg in Resources */,
 				4DCB395E2E1F78AE00311D51 /* trinity_fire.svg in Resources */,
 				4DCB395F2E1F78AE00311D51 /* trinity_gate.svg in Resources */,
+				4DDA0A612E47CEF200449F20 /* expression_44_converted.json in Resources */,
+				4DDA0A262E47C74800449F20 /* soulUrge_09_v3.0_converted.json in Resources */,
 				4DCB39602E1F78AE00311D51 /* duality_twins.svg in Resources */,
+				4DDA0A202E47C6F500449F20 /* soulUrge_06_v3.0_converted.json in Resources */,
+				4DB1B4B42E483D9300F1585A /* VYBEOS-DOCUMENTATION-ECOSYSTEM.md in Resources */,
 				4DCB39612E1F78AE00311D51 /* harmony_christ.svg in Resources */,
+				4DB1B4B82E48415900F1585A /* KASPER-CORE-REFERENCE.md in Resources */,
 				4DCB39622E1F78AE00311D51 /* trinity_triangle.svg in Resources */,
 				4DCB39632E1F78AE00311D51 /* mystery_gnosis.svg in Resources */,
 				4DCB39642E1F78AE00311D51 /* renewal_matrix.svg in Resources */,
+				4D7320BE2E47561D0083C82C /* lifePath_04_v2.0_converted.json in Resources */,
+				4DDA0A2C2E47C78A00449F20 /* soulUrge_44_v3.0_converted.json in Resources */,
+				4DDA0A5D2E47CED500449F20 /* expression_22_converted.json in Resources */,
 				4DCB39652E1F78AE00311D51 /* duality_pillars.svg in Resources */,
 				4DCB39662E1F78AE00311D51 /* mystery_victory.svg in Resources */,
 				4DCB39672E1F78AE00311D51 /* harmony_heart.svg in Resources */,
 				4DCB39682E1F78AE00311D51 /* unity_crown.svg in Resources */,
 				4DCB39692E1F78AE00311D51 /* unity_monad.svg in Resources */,
+				4DDA0A1C2E47C6C100449F20 /* soulUrge_05_v3.0_converted.json in Resources */,
 				4DCB396A2E1F78AE00311D51 /* harmony_star_david.svg in Resources */,
 				4DCB396B2E1F78AE00311D51 /* will_pentagram.svg in Resources */,
 				4DCB396C2E1F78AE00311D51 /* duality_vesica.svg in Resources */,
@@ -1625,6 +2521,7 @@
 				4DCB396E2E1F78AE00311D51 /* foundation_temple.svg in Resources */,
 				4DCB396F2E1F78AE00311D51 /* void_star_matrix.svg in Resources */,
 				4DCB39702E1F78AE00311D51 /* void_cosmic_womb.svg in Resources */,
+				4DDA0A512E47CE7A00449F20 /* expression_04_converted.json in Resources */,
 				4DCB39712E1F78AE00311D51 /* duality_lunar.svg in Resources */,
 				4DCB39722E1F78AE00311D51 /* foundation_cross.svg in Resources */,
 				4DCB39732E1F78AE00311D51 /* void_akashic_grid.svg in Resources */,
@@ -1632,6 +2529,7 @@
 				4DCB39752E1F78AE00311D51 /* wisdom_enneagram.svg in Resources */,
 				4DCB39762E1F78AE00311D51 /* renewal_scales.svg in Resources */,
 				4DCB39772E1F78AE00311D51 /* harmony_universal.svg in Resources */,
+				4DDA0A242E47C72400449F20 /* soulUrge_11_v3.0_converted.json in Resources */,
 				4DCB39782E1F78AE00311D51 /* renewal_infinity.svg in Resources */,
 				4DCB39792E1F78AE00311D51 /* mystery_seed_life.svg in Resources */,
 				4DCB397A2E1F78AE00311D51 /* will_phoenix.svg in Resources */,
@@ -1787,6 +2685,7 @@
 				4DDCDFCD2E2C63D9005FDD32 /* FriendRequest.swift in Sources */,
 				4D6C7B572DE4546C001036E5 /* ResonanceMatch.swift in Sources */,
 				4D3055E52D3CEDA5009A7BBD /* NewJournalEntryView.swift in Sources */,
+				4D731EB52E4721AE0083C82C /* KASPERLifePathTrinity.swift in Sources */,
 				4D6C7B552DE45441001036E5 /* ArchetypeDisplayView.swift in Sources */,
 				4D3055C32D3CB018009A7BBD /* PersistenceController.swift in Sources */,
 				4DDCDFCF2E2C64B1005FDD32 /* FriendManager.swift in Sources */,
@@ -1847,6 +2746,7 @@
 				4D55BE562E3AC1DB00F7BE5B /* MiniInsightProvider.swift in Sources */,
 				4D55BE572E3AC1DB00F7BE5B /* CosmicHUDManager.swift in Sources */,
 				4D55BE582E3AC1DB00F7BE5B /* HUDGlyphMapper.swift in Sources */,
+				4D731DE22E46D4E20083C82C /* KASPERContentImporter.swift in Sources */,
 				4D55BE592E3AC1DB00F7BE5B /* CosmicHUDIntents.swift in Sources */,
 				4D55BE5A2E3AC1DB00F7BE5B /* CosmicHUDIntegration.swift in Sources */,
 				4D55BE5B2E3AC1DB00F7BE5B /* CosmicHUDView.swift in Sources */,

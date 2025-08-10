@@ -1,0 +1,34 @@
+{
+  "source": "grok_mindfulnesscoach",
+  "number": 2,
+  "persona": "MindfulnessCoach",
+  "content_type": "mystical_insights",
+  "fallback": true,
+  "spiritual_categories": {
+    "primary_insights": [
+      "number",
+      "generation_info",
+      "date",
+      "2025-08-06",
+      "time_context",
+      "universal",
+      "theme",
+      "Master of Transformative Freedom",
+      "batch_size",
+      "insight",
+      "Fifty-five unleashes the whirlwind of liberation, shattering chains that bind the soul to stagnant realms.",
+      "This master number surges as the cosmic liberator, igniting inner revolutions that reshape destinies.",
+      "Fifty-five vibrates with untamed winds, sweeping away illusions to reveal paths of boundless exploration.",
+      "In fifty-five's blaze, freedom becomes a sacred fire, consuming fears to birth empowered flight.",
+      "Fifty-five awakens the eternal wanderer, traversing multidimensional veils in quests for ultimate truth."
+    ],
+    "reflection_questions": [],
+    "contemplation_themes": [],
+    "note": "Fallback conversion - original JSON was malformed"
+  },
+  "intensity_scoring": {
+    "min_range": 0.7,
+    "max_range": 0.9,
+    "note": "MindfulnessCoach content recovered from malformed source"
+  }
+}

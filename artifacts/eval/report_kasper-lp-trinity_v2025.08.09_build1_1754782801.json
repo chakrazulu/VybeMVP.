@@ -1,0 +1,418 @@
+{
+  "aggregate_metrics": {
+    "average_score": 89.25,
+    "sample_count": 39,
+    "threshold": 90,
+    "valid_evaluations": 39,
+    "verdict": "FAIL"
+  },
+  "evaluation_metadata": {
+    "judge_mode": "stub",
+    "rubric_file": "eval/rubrics/lp_trinity.yaml",
+    "tag": "kasper-lp-trinity_v2025.08.09_build1",
+    "timestamp": 1754782801
+  },
+  "individual_results": [
+    {
+      "actionability": 85,
+      "category": "life_path",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_22_v2.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "soul_urge",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_08_v3.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "expression",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_04_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "expression",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_33_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "expression",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_22_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "soul_urge",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_11_v3.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "soul_urge",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_03_v3.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "soul_urge",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_05_v3.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "soul_urge",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_06_v3.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "life_path",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_11_v2.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "soul_urge",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_01_v3.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "life_path",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_09_v2.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "expression",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_44_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "expression",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_05_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "expression",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_11_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "soul_urge",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_09_v3.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "life_path",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_33_v2.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "soul_urge",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_04_v3.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "life_path",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_08_v2.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "life_path",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_44_v2.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "soul_urge",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_22_v3.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "soul_urge",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_02_v3.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "life_path",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_07_v2.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "life_path",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_04_v2.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "soul_urge",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_44_v3.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "soul_urge",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_07_v3.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "expression",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_03_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "expression",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_01_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "soul_urge",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/soulUrge_33_v3.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "life_path",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_01_v2.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "life_path",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_06_v2.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "expression",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_06_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "expression",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_07_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "expression",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_09_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "life_path",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_02_v2.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "life_path",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_03_v2.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "life_path",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/lifePath_05_v2.0_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "expression",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_02_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    },
+    {
+      "actionability": 85,
+      "category": "expression",
+      "fidelity": 88,
+      "file": "KASPERMLX/MLXTraining/ContentRefinery/Approved/expression_08_converted.json",
+      "notes": "Stub evaluation - replace with actual LLM judge",
+      "safety": 94,
+      "tone": 92,
+      "total": 89.25
+    }
+  ],
+  "rubric_config": {
+    "sample_size": 60,
+    "seed": 42,
+    "threshold": 90,
+    "weights": {
+      "actionability": 0.25,
+      "fidelity": 0.35,
+      "safety": 0.2,
+      "tone": 0.2
+    }
+  }
+}

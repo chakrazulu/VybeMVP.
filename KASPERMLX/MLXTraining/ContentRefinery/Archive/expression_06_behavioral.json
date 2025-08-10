@@ -1,0 +1,968 @@
+{
+  "meta": {
+    "version": "v2.0",
+    "sourceNotes": "Faith Javane & Dusty Bunker's Divine Triangle as the north star; Expression 6 focused on devotion, harmony, stewardship, and beauty-in-action.",
+    "generationGuidelines": "Center responsible love, boundary-aware care, and the craft of making people and places flourish."
+  },
+  "profiles": [
+    {
+      "number": 6,
+      "context": "expression",
+      "coreEssence": "Expression Number 6 speaks caregiving fluently—warm, responsible, and aesthetically attuned language that turns values into visible care.",
+      "lifeLesson": "Love with boundaries. Your work is to build havens and hold standards without swallowing your own needs.",
+      "shadowSignature": "Overgiving, control masked as 'help,' and guilt-driven perfectionism. Antidote: consent-based service, shared load, and 'good-enough' grace.",
+      "planes": {
+        "physical": {
+          "strength": 7,
+          "notes": "Grounded, welcoming presence; communicates safety through touch, tone, and space design."
+        },
+        "mental": {
+          "strength": 7,
+          "notes": "Values-centered reasoning; excels at policy, standards, and ethical trade-offs."
+        },
+        "emotional": {
+          "strength": 8,
+          "notes": "Big, steady heart; empathic bandwidth with a tendency to self-neglect without boundaries."
+        },
+        "intuitive": {
+          "strength": 6,
+          "notes": "Strong relational intuition; senses group needs and timing for care."
+        }
+      },
+      "chartOfInclusion": {
+        "counts": {},
+        "missingNumbers": []
+      },
+      "cycles": [
+        {
+          "label": "First Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Self-worth & boundaries",
+            "Skillful care",
+            "Beauty literacy"
+          ],
+          "practices": [
+            "Daily 'yes/no' check",
+            "Learn one care craft",
+            "Declutter & brighten one space"
+          ]
+        },
+        {
+          "label": "Second Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Stewardship",
+            "Community standards",
+            "Family systems"
+          ],
+          "practices": [
+            "Write house agreements",
+            "Host monthly gatherings",
+            "Create a support rota"
+          ]
+        },
+        {
+          "label": "Third Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Legacy care",
+            "Ethical leadership",
+            "Cultural beauty"
+          ],
+          "practices": [
+            "Mentor caregivers",
+            "Fund relief projects",
+            "Codify rituals for continuity"
+          ]
+        }
+      ],
+      "pinnacles": [
+        {
+          "label": "Pinnacle I",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Healthy attachment",
+            "Consent-based help"
+          ],
+          "practices": [
+            "Ask before aiding",
+            "Name limits kindly",
+            "Track energy after yeses"
+          ]
+        },
+        {
+          "label": "Pinnacle II",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Home & standards",
+            "Aesthetic stewardship"
+          ],
+          "practices": [
+            "Define 'tidy enough'",
+            "Create care checklists",
+            "Design calming colorways"
+          ]
+        },
+        {
+          "label": "Pinnacle III",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Community care",
+            "Justice & generosity"
+          ],
+          "practices": [
+            "Organize mutual aid",
+            "Champion fair policies",
+            "Budget for giving"
+          ]
+        },
+        {
+          "label": "Pinnacle IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Elder guardian",
+            "Beauty keeper"
+          ],
+          "practices": [
+            "Archive family lore",
+            "Endow care scholarships",
+            "Tend sacred spaces"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "label": "Challenge I",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "People-pleasing",
+            "Invisible resentment"
+          ],
+          "practices": [
+            "State needs early",
+            "Use 'care contracts'",
+            "Replace assumptions with asks"
+          ]
+        },
+        {
+          "label": "Challenge II",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Perfection traps",
+            "Control as love"
+          ],
+          "practices": [
+            "Define good-enough",
+            "Share ownership",
+            "Schedule imperfection practice"
+          ]
+        },
+        {
+          "label": "Challenge III",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Guilt economy",
+            "Self-neglect"
+          ],
+          "practices": [
+            "Track care given/received",
+            "Plan personal sabbaths",
+            "Practice self-compassion"
+          ]
+        },
+        {
+          "label": "Challenge IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Over-attachment",
+            "Boundary leakage"
+          ],
+          "practices": [
+            "Name separateness",
+            "Limit unsolicited advice",
+            "Use consent check-ins"
+          ]
+        }
+      ],
+      "astroLinks": {
+        "tarotKeys": [
+          "The Lovers (VI)"
+        ],
+        "planetaryCorrespondences": [
+          "Venus",
+          "Moon"
+        ]
+      },
+      "behavioral": {
+        "decisionMaking": [
+          {
+            "text": "Decide by values first, logistics second; name the principle you’re protecting.",
+            "intensity": 0.86,
+            "triggers": [
+              "family choices",
+              "team policies"
+            ],
+            "supports": [
+              "values checklist"
+            ],
+            "challenges": [
+              "people-pleasing overrides"
+            ]
+          },
+          {
+            "text": "Weigh decisions by their impact on wellbeing, not just speed or cost.",
+            "intensity": 0.8,
+            "triggers": [
+              "resource trade-offs"
+            ],
+            "supports": [
+              "wellbeing rubric"
+            ],
+            "challenges": [
+              "short-term fixes"
+            ]
+          },
+          {
+            "text": "Ask consent before volunteering others; service without agreement breeds friction."
+          },
+          {
+            "text": "Translate choices into clear roles so shared care doesn’t become solo labor."
+          },
+          {
+            "text": "Prefer durable solutions that reduce future burden over flashy patches."
+          },
+          {
+            "text": "State your limit alongside your yes to prevent overload."
+          },
+          {
+            "text": "Invite affected voices early; inclusion prevents later repairs."
+          },
+          {
+            "text": "Use calm, factual language when saying no; kindness is clarity."
+          },
+          {
+            "text": "If torn, choose the option that preserves relationship and self-respect."
+          },
+          {
+            "text": "Document care standards so decisions are repeatable, not personal."
+          },
+          {
+            "text": "Close with 'who does what by when' to avoid silent expectations."
+          },
+          {
+            "text": "Review after 30 days: did this reduce stress and increase care?"
+          }
+        ],
+        "stressResponse": [
+          {
+            "text": "Under stress you over-function; pause, ask for help, and let 'good-enough' land.",
+            "intensity": 0.86,
+            "triggers": [
+              "family crisis",
+              "deadlines"
+            ],
+            "supports": [
+              "ask-first rule"
+            ],
+            "challenges": [
+              "martyr mode"
+            ]
+          },
+          {
+            "text": "Name the feeling and the need; guilt dissolves when truth is spoken plainly.",
+            "intensity": 0.8,
+            "triggers": [
+              "conflict",
+              "disappointment"
+            ],
+            "supports": [
+              "feelings/needs list"
+            ],
+            "challenges": [
+              "self-blame"
+            ]
+          },
+          {
+            "text": "Lower visual chaos—tidy a small area to regain calm."
+          },
+          {
+            "text": "Switch from fixing to witnessing; sometimes care is presence, not solutions."
+          },
+          {
+            "text": "Set a timer for rest; caretakers forget they are bodies."
+          },
+          {
+            "text": "Trade criticism for specific requests that others can meet."
+          },
+          {
+            "text": "When tone sharpens, slow your pace and soften your face."
+          },
+          {
+            "text": "Track resentment signals as cues to renegotiate agreements."
+          },
+          {
+            "text": "Use nourishment and hydration to stabilize mood under load."
+          },
+          {
+            "text": "Ask, 'What is truly mine to carry?' and put the rest down."
+          },
+          {
+            "text": "Exit loops by naming the boundary and offering a next review point."
+          },
+          {
+            "text": "Call a mediator when domestic or team roles keep tangling."
+          }
+        ],
+        "communication": [
+          {
+            "text": "Lead with warmth and standards—affirm the bond, then state the boundary.",
+            "intensity": 0.84,
+            "triggers": [
+              "house rules",
+              "team norms"
+            ],
+            "supports": [
+              "boundary scripts"
+            ],
+            "challenges": [
+              "apology padding"
+            ]
+          },
+          {
+            "text": "Use 'care contracts' that specify consent, scope, and timeframes.",
+            "intensity": 0.8,
+            "triggers": [
+              "helping roles"
+            ],
+            "supports": [
+              "simple templates"
+            ],
+            "challenges": [
+              "assumed labor"
+            ]
+          },
+          {
+            "text": "Offer feedback as stewardship: describe impact, name the value, request the shift."
+          },
+          {
+            "text": "Keep tone steady and kind; warmth without wobble earns trust."
+          },
+          {
+            "text": "Translate criticism into improvements, not character judgments."
+          },
+          {
+            "text": "Design spaces and documents that are beautiful, clear, and usable."
+          },
+          {
+            "text": "Celebrate contributions publicly so care labor is visible."
+          },
+          {
+            "text": "Use 'teach-back' to confirm shared understanding of standards."
+          },
+          {
+            "text": "Avoid rescuing in conversation; ask what support is wanted."
+          },
+          {
+            "text": "Close meetings with appreciations to regulate group nervous systems."
+          },
+          {
+            "text": "Say 'no' as a full sentence when needed; brevity is kindness."
+          },
+          {
+            "text": "When emotions run high, summarize needs before discussing fixes."
+          }
+        ],
+        "relationships": [
+          {
+            "text": "Express love through practical care—meals, rides, reminders—and let others reciprocate.",
+            "intensity": 0.84,
+            "triggers": [
+              "daily life"
+            ],
+            "supports": [
+              "reciprocity plan"
+            ],
+            "challenges": [
+              "doing it all"
+            ]
+          },
+          {
+            "text": "Share standards without shaming; invite co-ownership of the home culture.",
+            "intensity": 0.8,
+            "triggers": [
+              "house chores"
+            ],
+            "supports": [
+              "chore matrix"
+            ],
+            "challenges": [
+              "resentful tidying"
+            ]
+          },
+          {
+            "text": "Make requests, not hints; clarity prevents scorekeeping."
+          },
+          {
+            "text": "Create rituals of connection—meals, walks, weekly appreciations."
+          },
+          {
+            "text": "Repair quickly with accountability and gentleness, not self-attack."
+          },
+          {
+            "text": "Schedule dates that restore, not just entertain."
+          },
+          {
+            "text": "Name financial and emotional labor openly so it’s shared fairly."
+          },
+          {
+            "text": "Practice affectionate touch that asks and listens for yes."
+          },
+          {
+            "text": "Honor privacy; care includes space, not surveillance."
+          },
+          {
+            "text": "Protect couple time from caretaking overreach when extended family needs surge."
+          },
+          {
+            "text": "Bless your partner’s independent pursuits; love is not a leash."
+          },
+          {
+            "text": "Teach your boundaries as part of your love language."
+          }
+        ],
+        "productivity": [
+          {
+            "text": "Treat quality as care; define standards that feel humane and sustainable.",
+            "intensity": 0.82,
+            "triggers": [
+              "project kickoff"
+            ],
+            "supports": [
+              "quality rubric"
+            ],
+            "challenges": [
+              "gold-plating"
+            ]
+          },
+          {
+            "text": "Share workload maps so invisible tasks become visible and valued.",
+            "intensity": 0.78,
+            "triggers": [
+              "team planning"
+            ],
+            "supports": [
+              "workload board"
+            ],
+            "challenges": [
+              "hidden labor"
+            ]
+          },
+          {
+            "text": "Batch admin and caretaking tasks to protect maker time."
+          },
+          {
+            "text": "Design processes that reduce stress for downstream roles."
+          },
+          {
+            "text": "Schedule 'care blocks' for birthdays, notes, and check-ins."
+          },
+          {
+            "text": "Pair operations with aesthetics—clear docs that are pleasant to use."
+          },
+          {
+            "text": "Delegate with consent and capacity checks, not assumptions."
+          },
+          {
+            "text": "End weeks with gratitude notes to sustain morale."
+          },
+          {
+            "text": "Use retros focused on what reduced friction and increased wellbeing."
+          },
+          {
+            "text": "Set scope ceilings so kindness to customers doesn’t burn out staff."
+          },
+          {
+            "text": "Build buffers; care work expands—protect timelines from sprawl."
+          },
+          {
+            "text": "Celebrate service milestones as real achievements."
+          }
+        ],
+        "financial": [
+          {
+            "text": "Budget for generosity and for you; giving is sustainable when savings are too.",
+            "intensity": 0.82,
+            "triggers": [
+              "monthly planning"
+            ],
+            "supports": [
+              "giving/savings buckets"
+            ],
+            "challenges": [
+              "self-neglect"
+            ]
+          },
+          {
+            "text": "Price care work fairly; include time for communication and follow-up.",
+            "intensity": 0.78,
+            "triggers": [
+              "service scoping"
+            ],
+            "supports": [
+              "scope templates"
+            ],
+            "challenges": [
+              "unpaid labor"
+            ]
+          },
+          {
+            "text": "Discuss money early in relationships and collaborations to reduce shame."
+          },
+          {
+            "text": "Insure key responsibilities; protection is love in financial form."
+          },
+          {
+            "text": "Avoid debt born of rescuing; help within limits and with consent."
+          },
+          {
+            "text": "Choose purchases that raise quality of life and lower stress long-term."
+          },
+          {
+            "text": "Automate cushions so emergencies don’t derail care roles."
+          },
+          {
+            "text": "Track household labor and set fair exchanges or stipends if needed."
+          },
+          {
+            "text": "Negotiate calmly, using standards and testimonials over guilt or haste."
+          },
+          {
+            "text": "Decline clients who demand 24/7 access; boundaries are part of value."
+          },
+          {
+            "text": "Invest in training for caregiving skills that compound over time."
+          },
+          {
+            "text": "Review subscriptions and donations annually to align with values."
+          }
+        ],
+        "creative": [
+          {
+            "text": "Create beauty that lowers stress—calming palettes, soft edges, human-centered design.",
+            "intensity": 0.84,
+            "triggers": [
+              "new builds",
+              "makeovers"
+            ],
+            "supports": [
+              "style guide"
+            ],
+            "challenges": [
+              "over-perfecting"
+            ]
+          },
+          {
+            "text": "Tell stories of care that dignify helpers and recipients equally.",
+            "intensity": 0.78,
+            "triggers": [
+              "campaigns"
+            ],
+            "supports": [
+              "ethics checklist"
+            ],
+            "challenges": [
+              "savior narratives"
+            ]
+          },
+          {
+            "text": "Use scent, sound, and light as creative tools for nervous-system ease."
+          },
+          {
+            "text": "Design rituals that make ordinary maintenance feel meaningful."
+          },
+          {
+            "text": "Curate spaces that welcome diverse bodies and needs."
+          },
+          {
+            "text": "Create guides and templates others can use to replicate care."
+          },
+          {
+            "text": "Blend craft with hospitality—functional pieces that feel like hugs."
+          },
+          {
+            "text": "Collaborate with service pros to make beauty practical."
+          },
+          {
+            "text": "Keep a materials library that is durable, ethical, and soothing."
+          },
+          {
+            "text": "Let imperfection show life; wabi-sabi over sterile perfection."
+          },
+          {
+            "text": "Archive before/after stories to teach the impact of design on wellbeing."
+          },
+          {
+            "text": "Teach beauty as stewardship, not status."
+          }
+        ],
+        "learning": [
+          {
+            "text": "Learn by caring—apprentice in real contexts where feedback is human and immediate.",
+            "intensity": 0.8,
+            "triggers": [
+              "new roles"
+            ],
+            "supports": [
+              "mentorship"
+            ],
+            "challenges": [
+              "over-responsibility"
+            ]
+          },
+          {
+            "text": "Study ethics, psychology, and design; your edge is humane systems.",
+            "intensity": 0.76,
+            "triggers": [
+              "curriculum planning"
+            ],
+            "supports": [
+              "reading plan"
+            ],
+            "challenges": [
+              "scope bloat"
+            ]
+          },
+          {
+            "text": "Reflect after service moments to convert emotion into wisdom."
+          },
+          {
+            "text": "Use checklists and standards to make learning stick across contexts."
+          },
+          {
+            "text": "Role-play boundary scripts until they feel natural."
+          },
+          {
+            "text": "Alternate giving with receiving: take a class where you are cared for."
+          },
+          {
+            "text": "Teach others to teach; pedagogy multiplies care capacity."
+          },
+          {
+            "text": "Keep a casebook of scenarios and best responses."
+          },
+          {
+            "text": "Track your 'yes' energy over time; learn your sustainable load."
+          },
+          {
+            "text": "Ask for evaluations from those you serve, not just peers."
+          },
+          {
+            "text": "Study inclusive design so help reaches the margins."
+          },
+          {
+            "text": "Document lessons in plain, beautiful formats others want to use."
+          }
+        ],
+        "wellness": [
+          {
+            "text": "Schedule your care like you schedule everyone else’s—non-negotiable blocks.",
+            "intensity": 0.84,
+            "triggers": [
+              "weekly planning"
+            ],
+            "supports": [
+              "calendar holds"
+            ],
+            "challenges": [
+              "self-last habit"
+            ]
+          },
+          {
+            "text": "Choose restorative movement and nourishment that stabilize mood.",
+            "intensity": 0.78,
+            "triggers": [
+              "routine design"
+            ],
+            "supports": [
+              "meal prep",
+              "low-impact training"
+            ],
+            "challenges": [
+              "overextension"
+            ]
+          },
+          {
+            "text": "Practice 'no' as medicine—boundaries protect your health and love."
+          },
+          {
+            "text": "Declutter visual noise; orderly spaces calm your nervous system."
+          },
+          {
+            "text": "Rest before you break; fatigue is not proof of love."
+          },
+          {
+            "text": "Hydrate and breathe slowly before difficult conversations at home."
+          },
+          {
+            "text": "Share care with a circle so illness or travel doesn’t collapse the system."
+          },
+          {
+            "text": "Limit doomscrolling; curate feeds that lift rather than drain."
+          },
+          {
+            "text": "Track energy after social events to tune your social diet."
+          },
+          {
+            "text": "Ask for practical help instead of heroic self-reliance."
+          },
+          {
+            "text": "Use soothing sensory tools—tea, textures, music—to reset quickly."
+          },
+          {
+            "text": "Celebrate small, quiet wins: a nap, a tidy corner, a gentle word."
+          }
+        ],
+        "spiritual": [
+          {
+            "text": "Treat service as prayer; ordinary care is sacred when offered freely and fairly.",
+            "intensity": 0.82,
+            "triggers": [
+              "community need"
+            ],
+            "supports": [
+              "mutual-aid maps"
+            ],
+            "challenges": [
+              "martyr myth"
+            ]
+          },
+          {
+            "text": "Keep altars simple and alive—fresh water, light, gratitude words.",
+            "intensity": 0.78,
+            "triggers": [
+              "seasonal shifts"
+            ],
+            "supports": [
+              "ritual calendar"
+            ],
+            "challenges": [
+              "rote devotion"
+            ]
+          },
+          {
+            "text": "Practice forgiveness that includes yourself; release guilt after repair."
+          },
+          {
+            "text": "Sing or chant to harmonize home energy before gatherings."
+          },
+          {
+            "text": "Let sacred texts shape household ethics into daily practices."
+          },
+          {
+            "text": "Host circles that blend reflection with practical help."
+          },
+          {
+            "text": "Name beauty as a form of reverence; tend it without vanity."
+          },
+          {
+            "text": "Offer blessings over meals and milestones to sanctify the ordinary."
+          },
+          {
+            "text": "Hold compassionate boundaries with dogma that harms."
+          },
+          {
+            "text": "Make sabbath space where no one has to earn rest."
+          },
+          {
+            "text": "Journal gratitudes focused on people who cared for you, too."
+          },
+          {
+            "text": "Close each day with a brief examen: where did love move, where did it need a boundary?"
+          }
+        ],
+        "shadow": [
+          {
+            "text": "Notice when 'help' removes agency; ask what support is wanted before acting.",
+            "intensity": 0.82,
+            "triggers": [
+              "family stress"
+            ],
+            "supports": [
+              "consent check"
+            ],
+            "challenges": [
+              "rescuer role"
+            ]
+          },
+          {
+            "text": "Perfection steals peace; set 'good-enough' and stop at done.",
+            "intensity": 0.78,
+            "triggers": [
+              "hosting",
+              "deliverables"
+            ],
+            "supports": [
+              "done checklist"
+            ],
+            "challenges": [
+              "over-polish"
+            ]
+          },
+          {
+            "text": "Trade guilt narratives for boundaries and repair."
+          },
+          {
+            "text": "Stop scorekeeping; name needs and renegotiate tasks explicitly."
+          },
+          {
+            "text": "Release control of others’ timelines; offer reminders, not surveillance."
+          },
+          {
+            "text": "Refuse martyrdom as identity; wholeness includes you."
+          },
+          {
+            "text": "When jealousy flares, celebrate rather than compare; ask for what you desire."
+          },
+          {
+            "text": "Replace passive-aggressive hints with direct, kind requests."
+          },
+          {
+            "text": "Don’t weaponize standards; invite ownership and support success."
+          },
+          {
+            "text": "Soften 'should' language; prefer invitations that empower choice."
+          },
+          {
+            "text": "Let some mess exist; life happens in lived-in spaces."
+          },
+          {
+            "text": "Retire rescuing that protects dysfunction; choose loving limits."
+          }
+        ],
+        "transitions": [
+          {
+            "text": "Frame change as a re-nesting: announce roles, rhythms, and care agreements.",
+            "intensity": 0.82,
+            "triggers": [
+              "moves",
+              "babies",
+              "blended families"
+            ],
+            "supports": [
+              "transition blueprint"
+            ],
+            "challenges": [
+              "unspoken expectations"
+            ]
+          },
+          {
+            "text": "Pack beauty and comfort first—light, scent, music—to create instant home.",
+            "intensity": 0.78,
+            "triggers": [
+              "relocation",
+              "new jobs"
+            ],
+            "supports": [
+              "comfort kit"
+            ],
+            "challenges": [
+              "chaotic starts"
+            ]
+          },
+          {
+            "text": "Maintain couple/family rituals through the shift to keep bonds steady."
+          },
+          {
+            "text": "Set 'office hours' for caretaking during intense seasons to prevent burnout."
+          },
+          {
+            "text": "Invite support networks early; lone-wolfing breaks the caregiver."
+          },
+          {
+            "text": "Create a shared calendar and chore plan for the first 30 days."
+          },
+          {
+            "text": "Hold a blessing or house-warming ritual to mark the threshold."
+          },
+          {
+            "text": "Document what’s temporary versus the new normal to reduce anxiety."
+          },
+          {
+            "text": "Schedule check-ins to review how the new flow is actually feeling."
+          },
+          {
+            "text": "Keep one personal anchor (walk, prayer, workout) consistent amid change."
+          },
+          {
+            "text": "Archive lessons learned so future transitions are kinder."
+          },
+          {
+            "text": "Close with gratitude for helpers and a clear next rendezvous."
+          }
+        ]
+      }
+    }
+  ],
+  "trinity": {
+    "integration_notes": "Expression 6 manifests Life Path and Soul Urge through responsible love, shared standards, and beauty that lowers stress—care as craft.",
+    "calculation": "Sum the numbers of all letters in the full birth name; reduce to a single digit or master number (11, 22, 33, 44).",
+    "relationship_to_life_path": "Life Path is the journey; Expression 6 makes the road kind, orderly, and humane.",
+    "relationship_to_soul_urge": "Soul Urge is the longing; Expression 6 answers it through devotion with boundaries.",
+    "behavioral_integration": [
+      "Expression filters how Life Path lessons become family, team, and community culture.",
+      "Expression channels Soul Urge desires into rituals, standards, and daily care.",
+      "Alignment yields nourishing steadiness instead of control or collapse.",
+      "Tensions appear as guilt, over-functioning, or aesthetic perfection; consent and limits restore ease.",
+      "Service lens: use beauty and stewardship to make dignity ordinary."
+    ]
+  },
+  "generation_instructions": {
+    "core_principles": [
+      "Describe HOW devotion, stewardship, and beauty translate into outward behaviors.",
+      "Keep guidance consent-based, boundary-aware, and sustainably kind.",
+      "Make standards visible so care scales beyond personality.",
+      "Honor reciprocity—care given and received.",
+      "Include verbal and non-verbal cues that signal safety and dignity."
+    ],
+    "behavioral_insights": [
+      "Use intensity 0.6–0.9 where tendencies are strongest; add triggers/supports/challenges for key coaching points.",
+      "Limit each insight to 1–2 sentences with observable actions.",
+      "Maintain 12 categories × 12 insights for ingestion consistency.",
+      "Avoid medical/financial absolutes; focus on behavior and systems.",
+      "Write for practical coaching in homes, teams, and communities."
+    ],
+    "divine_triangle_alignment": [
+      "Expression derives from the full birth name numerology.",
+      "It represents talents, abilities, and communication style manifested outwardly.",
+      "It bridges inner motive (Soul Urge) and life curriculum (Life Path).",
+      "Growth arc moves from rescuing and perfection to reciprocal, boundaried care.",
+      "Service lens: guardianship that dignifies everyone involved—including you."
+    ],
+    "categories_to_include": [
+      "decisionMaking - How they express choices",
+      "stressResponse - How stress affects expression",
+      "communication - Core expression patterns",
+      "relationships - How they express in connection",
+      "productivity - How they express through work",
+      "financial - How they express value and abundance",
+      "creative - How they express originality",
+      "learning - How they express curiosity and growth",
+      "wellness - How they express vitality",
+      "spiritual - How they express divine connection",
+      "shadow - Distorted expression patterns",
+      "transitions - How expression evolves through change"
+    ]
+  }
+}

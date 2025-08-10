@@ -1,0 +1,970 @@
+{
+  "meta": {
+    "version": "v2.0",
+    "sourceNotes": "Divine Triangle tradition + Pythagorean numerology; behavioral insights tuned for Expression Number manifestation patterns",
+    "generationGuidelines": "Focus on how the person expresses themselves in the world, their natural talents, and how they communicate their inner truth"
+  },
+  "profiles": [
+    {
+      "number": 1,
+      "context": "expression",
+      "coreEssence": "Expression Number 1 shows up as trailblazing speech, decisive action-language, and a signature 'first-mover' voice that energizes others to begin.",
+      "lifeLesson": "Lead without bulldozing. Your work is to voice bold direction while welcoming co-authorship, turning solo vision into shared momentum.",
+      "shadowSignature": "Command-and-control tone, impatience with process, and mistaking loudness for leadership. Antidote: paced clarity, listening first, and turning statements into empowering invitations.",
+      "planes": {
+        "physical": {
+          "strength": 7,
+          "notes": "Kinetic communicator; posture, pace, and gesture amplify the message."
+        },
+        "mental": {
+          "strength": 8,
+          "notes": "Lightning synthesis; excels at executive framing but needs perspective diversity."
+        },
+        "emotional": {
+          "strength": 5,
+          "notes": "Runs cool under pressure; intimacy grows when feelings are named plainly."
+        },
+        "intuitive": {
+          "strength": 6,
+          "notes": "Strong first-instinct reads; clearest when acting on clean gut signals."
+        }
+      },
+      "chartOfInclusion": {
+        "counts": {},
+        "missingNumbers": []
+      },
+      "cycles": [
+        {
+          "label": "First Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Claiming your voice",
+            "Courage reps",
+            "Prototype leadership"
+          ],
+          "practices": [
+            "Daily 60‑second talks",
+            "Write a one‑page manifesto each month",
+            "Lead a micro‑project end‑to‑end"
+          ]
+        },
+        {
+          "label": "Second Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Platform building",
+            "Message refinement",
+            "Audience stewardship"
+          ],
+          "practices": [
+            "Publish consistently",
+            "Design a signature framework",
+            "Mentor one new voice per quarter"
+          ]
+        },
+        {
+          "label": "Third Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Legacy codification",
+            "Succession",
+            "Culture shaping"
+          ],
+          "practices": [
+            "Document principles",
+            "Train your replacements",
+            "Build durable communication systems"
+          ]
+        }
+      ],
+      "pinnacles": [
+        {
+          "label": "Pinnacle I",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Voice development",
+            "Risk tolerance",
+            "Presence training"
+          ],
+          "practices": [
+            "Join a speaking group",
+            "Ship weekly",
+            "Practice assertiveness with warmth"
+          ]
+        },
+        {
+          "label": "Pinnacle II",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Platform expansion",
+            "Clarity craft",
+            "Network influence"
+          ],
+          "practices": [
+            "Host salons",
+            "Refine a talk into a workshop",
+            "Codify decision playbooks"
+          ]
+        },
+        {
+          "label": "Pinnacle III",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Movement making",
+            "Innovation leadership",
+            "Impact compounding"
+          ],
+          "practices": [
+            "Launch initiatives",
+            "Teach leaders",
+            "Model courageous iteration"
+          ]
+        },
+        {
+          "label": "Pinnacle IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Elder voice",
+            "Wisdom transmission",
+            "Stewardship"
+          ],
+          "practices": [
+            "Archive teachings",
+            "Sponsor emerging pioneers",
+            "Preserve institutional memory"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "label": "Challenge I",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Harsh delivery",
+            "Listening gaps"
+          ],
+          "practices": [
+            "Reflective listening drills",
+            "Count to five before speaking",
+            "Ask two clarifying questions first"
+          ]
+        },
+        {
+          "label": "Challenge II",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Ego over service",
+            "Credit hoarding"
+          ],
+          "practices": [
+            "Name three contributors before self",
+            "Rotate spotlight",
+            "Invite dissent openly"
+          ]
+        },
+        {
+          "label": "Challenge III",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Impatience",
+            "All‑or‑nothing pushes"
+          ],
+          "practices": [
+            "Set interim milestones",
+            "Time‑box debates",
+            "Schedule decision reviews"
+          ]
+        },
+        {
+          "label": "Challenge IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Overextension",
+            "Voice fatigue"
+          ],
+          "practices": [
+            "Silent hours on calendar",
+            "Delegate comms lanes",
+            "Practice restorative stillness"
+          ]
+        }
+      ],
+      "astroLinks": {
+        "tarotKeys": [
+          "The Magician (I)"
+        ],
+        "planetaryCorrespondences": [
+          "Sun",
+          "Mercury"
+        ]
+      },
+      "behavioral": {
+        "decisionMaking": [
+          {
+            "text": "State the decision, the why, and the first concrete move in one breath.",
+            "intensity": 0.88,
+            "triggers": [
+              "kickoffs",
+              "deadlines"
+            ],
+            "supports": [
+              "one‑page briefs"
+            ],
+            "challenges": [
+              "rambling rationales"
+            ]
+          },
+          {
+            "text": "Lead with a draft decision, then invite upgrades to the plan.",
+            "intensity": 0.85,
+            "triggers": [
+              "team forums"
+            ],
+            "supports": [
+              "time‑boxed feedback"
+            ],
+            "challenges": [
+              "defensiveness"
+            ]
+          },
+          {
+            "text": "Name the success criteria aloud before choosing between options."
+          },
+          {
+            "text": "Translate choices into visible experiments rather than long debates."
+          },
+          {
+            "text": "Own the decision publicly and the learnings transparently."
+          },
+          {
+            "text": "Use decisive language—short verbs, clear timelines, named owners."
+          },
+          {
+            "text": "Show flexibility by revising decisions when better data appears."
+          },
+          {
+            "text": "Broadcast the decision path so others can replicate the thinking."
+          },
+          {
+            "text": "When stakes are high, narrate your risk trade‑offs in plain speech."
+          },
+          {
+            "text": "Turn complex decisions into a 3‑bullet story: aim, approach, action."
+          },
+          {
+            "text": "If misaligned, restate the decision as a question to reopen inquiry."
+          },
+          {
+            "text": "Close decisively with a documented next step and check‑back date."
+          }
+        ],
+        "stressResponse": [
+          {
+            "text": "Under strain your volume rises—drop your pace by half and cede the floor first.",
+            "intensity": 0.87,
+            "triggers": [
+              "conflict",
+              "time pressure"
+            ],
+            "supports": [
+              "breath count",
+              "speaking tokens"
+            ],
+            "challenges": [
+              "dominance moves"
+            ]
+          },
+          {
+            "text": "Move the body before you move the mouth to drain reactive charge.",
+            "intensity": 0.83,
+            "triggers": [
+              "frustration"
+            ],
+            "supports": [
+              "walks",
+              "pushups"
+            ],
+            "challenges": [
+              "explosive tone"
+            ]
+          },
+          {
+            "text": "Write the tough message, sleep on it, then shorten by 50% before sending."
+          },
+          {
+            "text": "Name your state: 'I’m heated; give me two minutes,' then re‑enter clean."
+          },
+          {
+            "text": "Aim critiques at the process, not the person."
+          },
+          {
+            "text": "Front‑load appreciation; end with one clear request."
+          },
+          {
+            "text": "Use structured check‑ins to express concerns early, not at a boil."
+          },
+          {
+            "text": "Replace commands with choices to reduce resistance."
+          },
+          {
+            "text": "Keep your posture open; closed arms signal closed mind."
+          },
+          {
+            "text": "Channel urgency into a short sprint instead of a long tirade."
+          },
+          {
+            "text": "Say less, ask better: one question can vent a room safely."
+          },
+          {
+            "text": "Exit gracefully when flooded; re‑schedule the conversation."
+          }
+        ],
+        "communication": [
+          {
+            "text": "Open with vision, close with assignment; leave the middle for collaboration.",
+            "intensity": 0.85,
+            "triggers": [
+              "presentations",
+              "all‑hands"
+            ],
+            "supports": [
+              "facilitation cues"
+            ],
+            "challenges": [
+              "monologues"
+            ]
+          },
+          {
+            "text": "Speak in frameworks that others can teach when you’re not in the room.",
+            "intensity": 0.82,
+            "triggers": [
+              "strategy talks"
+            ],
+            "supports": [
+              "simple models"
+            ],
+            "challenges": [
+              "jargon drift"
+            ]
+          },
+          {
+            "text": "Prefer verbs over adjectives; action clarifies meaning."
+          },
+          {
+            "text": "Disagree without contempt—pair critique with an alternative."
+          },
+          {
+            "text": "Let enthusiasm lift, not flood; modulate to audience capacity."
+          },
+          {
+            "text": "Set deadlines and define done; ambiguity is the enemy of momentum."
+          },
+          {
+            "text": "Credit others before adding your piece; it buys true attention."
+          },
+          {
+            "text": "Give feedback with examples, impact, and a next experiment."
+          },
+          {
+            "text": "Hold boundaries cleanly—no apology, no excess justification."
+          },
+          {
+            "text": "Ask laddering questions that elevate thinking, not corner it."
+          },
+          {
+            "text": "Compress complexity into memorable metaphors or diagrams."
+          },
+          {
+            "text": "Project authority through clarity and calm, not volume."
+          }
+        ],
+        "relationships": [
+          {
+            "text": "Lead with protection and provision, then practice equal receiving.",
+            "intensity": 0.8,
+            "triggers": [
+              "intimacy",
+              "family planning"
+            ],
+            "supports": [
+              "shared rituals"
+            ],
+            "challenges": [
+              "over‑functioning"
+            ]
+          },
+          {
+            "text": "State your needs directly; trading hints for clarity deepens trust.",
+            "intensity": 0.78,
+            "triggers": [
+              "unmet needs"
+            ],
+            "supports": [
+              "I‑statement scripts"
+            ],
+            "challenges": [
+              "mind‑reading myths"
+            ]
+          },
+          {
+            "text": "Champion your partner’s goals as fiercely as your own."
+          },
+          {
+            "text": "Praise out loud, correct in private, and only on behavior."
+          },
+          {
+            "text": "Co‑author a relationship purpose and revisit it quarterly."
+          },
+          {
+            "text": "Show commitment with consistent acts, not dramatic speeches."
+          },
+          {
+            "text": "Argue to solve, not to win; measure success by repair speed."
+          },
+          {
+            "text": "Balance autonomy with rituals that anchor connection."
+          },
+          {
+            "text": "Name vulnerability as courage to make it safe to share."
+          },
+          {
+            "text": "Celebrate your partner’s independent expression without envy."
+          },
+          {
+            "text": "Say 'thank you' for the small, daily leadership you receive."
+          },
+          {
+            "text": "Create shared adventures to keep the bond dynamic."
+          }
+        ],
+        "productivity": [
+          {
+            "text": "Start new lanes; Expression 1 is most alive building what didn’t exist.",
+            "intensity": 0.84,
+            "triggers": [
+              "planning cycles"
+            ],
+            "supports": [
+              "innovation blocks"
+            ],
+            "challenges": [
+              "maintenance fatigue"
+            ]
+          },
+          {
+            "text": "Paint the big picture first, then delegate brushwork to specialists.",
+            "intensity": 0.8,
+            "triggers": [
+              "roadmapping"
+            ],
+            "supports": [
+              "role clarity"
+            ],
+            "challenges": [
+              "micromanaging"
+            ]
+          },
+          {
+            "text": "State the project’s 'why' before assigning the 'what'."
+          },
+          {
+            "text": "Prototype quickly; let reality answer theoretical debates."
+          },
+          {
+            "text": "Define success metrics and review them on a cadence."
+          },
+          {
+            "text": "Delegate outcomes with timelines, not tasks with guesses."
+          },
+          {
+            "text": "Protect maker time; decline nice‑to‑have meetings."
+          },
+          {
+            "text": "Block recurring time to systemize repeatable work."
+          },
+          {
+            "text": "Signal progress with visible milestones and brief demos."
+          },
+          {
+            "text": "Say no cleanly to keep the yeses powerful."
+          },
+          {
+            "text": "Document handoffs so momentum survives your absence."
+          },
+          {
+            "text": "Close projects with a retro and a public 'done' note."
+          }
+        ],
+        "financial": [
+          {
+            "text": "Negotiate from value: anchor on outcomes and proof, not hours.",
+            "intensity": 0.82,
+            "triggers": [
+              "pricing",
+              "offers"
+            ],
+            "supports": [
+              "case studies"
+            ],
+            "challenges": [
+              "undervaluing"
+            ]
+          },
+          {
+            "text": "State bold financial targets and pair them with weekly leading indicators.",
+            "intensity": 0.78,
+            "triggers": [
+              "annual planning"
+            ],
+            "supports": [
+              "scorecards"
+            ],
+            "challenges": [
+              "wishful thinking"
+            ]
+          },
+          {
+            "text": "Invest where your leadership creates asymmetric upside."
+          },
+          {
+            "text": "Design multiple income streams that reflect your trailblazer brand."
+          },
+          {
+            "text": "Draw money boundaries early with collaborators and family."
+          },
+          {
+            "text": "Fundraising works best when you narrate a vivid future state."
+          },
+          {
+            "text": "Price premium when you deliver category‑defining value."
+          },
+          {
+            "text": "Explain risk/reward in plain language before committing."
+          },
+          {
+            "text": "Set goals that fund both freedom and resilience."
+          },
+          {
+            "text": "Practice generosity strategically—seed the ecosystems you lead."
+          },
+          {
+            "text": "Define exit ramps before entering major deals."
+          },
+          {
+            "text": "Model transparent money talk to normalize abundance."
+          }
+        ],
+        "creative": [
+          {
+            "text": "Break molds on purpose; create work that resets the category standard.",
+            "intensity": 0.86,
+            "triggers": [
+              "new projects"
+            ],
+            "supports": [
+              "blank‑page time"
+            ],
+            "challenges": [
+              "derivative drift"
+            ]
+          },
+          {
+            "text": "Hold a strong point of view and still invite brilliant edits.",
+            "intensity": 0.82,
+            "triggers": [
+              "collabs"
+            ],
+            "supports": [
+              "clear roles"
+            ],
+            "challenges": [
+              "control reflex"
+            ]
+          },
+          {
+            "text": "Ship sketches early to learn where the energy is."
+          },
+          {
+            "text": "Develop a signature style others can recognize in seconds."
+          },
+          {
+            "text": "Narrate your process to spark others’ courage to create."
+          },
+          {
+            "text": "Write a short creative manifesto and revisit it yearly."
+          },
+          {
+            "text": "Cross‑pollinate disciplines to unlock novel forms."
+          },
+          {
+            "text": "Publish before perfect; iterate in public with humility."
+          },
+          {
+            "text": "Pitch with one killer image or line that captures the arc."
+          },
+          {
+            "text": "Refuse safe formulas; let originality be the metric."
+          },
+          {
+            "text": "Lead creative communities that raise the bar for all."
+          },
+          {
+            "text": "Teach your craft to cement mastery and multiply impact."
+          }
+        ],
+        "learning": [
+          {
+            "text": "Teach what you’re learning to cement it and spread momentum.",
+            "intensity": 0.78,
+            "triggers": [
+              "skill sprints"
+            ],
+            "supports": [
+              "lightweight workshops"
+            ],
+            "challenges": [
+              "performing expertise"
+            ]
+          },
+          {
+            "text": "Ask disruptive questions that reframe the field without belittling peers.",
+            "intensity": 0.76,
+            "triggers": [
+              "seminars"
+            ],
+            "supports": [
+              "debate formats"
+            ],
+            "challenges": [
+              "showy contrarianism"
+            ]
+          },
+          {
+            "text": "State learning goals publicly to create accountability gravity."
+          },
+          {
+            "text": "Synthesize sources into original frameworks instead of quoting endlessly."
+          },
+          {
+            "text": "Test understanding by building a tiny working example."
+          },
+          {
+            "text": "When stuck, switch mediums—speak it, sketch it, or demo it."
+          },
+          {
+            "text": "Curate a reading list that tracks your frontier, not the consensus."
+          },
+          {
+            "text": "Show progress through demos, not promises."
+          },
+          {
+            "text": "Name what you don’t know; it attracts the right teachers."
+          },
+          {
+            "text": "Explain complex ideas in everyday language."
+          },
+          {
+            "text": "Design a personal curriculum with quarterly themes."
+          },
+          {
+            "text": "Tell stories that connect data to meaning and action."
+          }
+        ],
+        "wellness": [
+          {
+            "text": "Choose active practices that let the body speak the message.",
+            "intensity": 0.8,
+            "triggers": [
+              "routine design"
+            ],
+            "supports": [
+              "movement stack"
+            ],
+            "challenges": [
+              "sedentary stretches"
+            ]
+          },
+          {
+            "text": "Advocate for your care with clear requests and measurable protocols.",
+            "intensity": 0.76,
+            "triggers": [
+              "appointments"
+            ],
+            "supports": [
+              "prep notes"
+            ],
+            "challenges": [
+              "downplaying symptoms"
+            ]
+          },
+          {
+            "text": "Turn goals into challenges with visible scoreboards."
+          },
+          {
+            "text": "Feed vitality with foods that keep energy steady, not spiky."
+          },
+          {
+            "text": "Listen to energy changes as signals, not inconveniences."
+          },
+          {
+            "text": "Hold boundaries around rest as performance hygiene."
+          },
+          {
+            "text": "Lead friends into movement; make wellness social."
+          },
+          {
+            "text": "Name rest as an investment when declining extra work."
+          },
+          {
+            "text": "Choose nutrition that fuels clarity and presence."
+          },
+          {
+            "text": "Discharge stress physically before serious talks."
+          },
+          {
+            "text": "Share wellness wins to lift your circle’s health norms."
+          },
+          {
+            "text": "Integrate body, breath, and focus in daily practice."
+          }
+        ],
+        "spiritual": [
+          {
+            "text": "Model direct connection—practice what awakens you and share the trail.",
+            "intensity": 0.78,
+            "triggers": [
+              "seeking seasons"
+            ],
+            "supports": [
+              "original ritual"
+            ],
+            "challenges": [
+              "institutional friction"
+            ]
+          },
+          {
+            "text": "Speak to the Divine in your own words; authenticity carries power.",
+            "intensity": 0.76,
+            "triggers": [
+              "community spaces"
+            ],
+            "supports": [
+              "first‑person prayer"
+            ],
+            "challenges": [
+              "authority wounds"
+            ]
+          },
+          {
+            "text": "Translate mystical insight into practical service."
+          },
+          {
+            "text": "Take leadership in circles that crave courageous sincerity."
+          },
+          {
+            "text": "Use plain language to keep spiritual truth accessible."
+          },
+          {
+            "text": "Demonstrate faith through action more than argument."
+          },
+          {
+            "text": "Let transformation be visible; testimony teaches."
+          },
+          {
+            "text": "Ask big questions that free others to wonder too."
+          },
+          {
+            "text": "Name purpose in the grammar of daily work."
+          },
+          {
+            "text": "Practice gratitude publicly to normalize reverence."
+          },
+          {
+            "text": "Hold boundaries kindly with dogma that dims aliveness."
+          },
+          {
+            "text": "Express the ineffable through art when words thin out."
+          }
+        ],
+        "shadow": [
+          {
+            "text": "When applause swells the ego, return to service and share the mic.",
+            "intensity": 0.82,
+            "triggers": [
+              "public wins"
+            ],
+            "supports": [
+              "gratitude practice"
+            ],
+            "challenges": [
+              "superiority myth"
+            ]
+          },
+          {
+            "text": "Transmute control into facilitation—guide the flow, don’t choke it.",
+            "intensity": 0.78,
+            "triggers": [
+              "group dynamics"
+            ],
+            "supports": [
+              "turn‑taking rules"
+            ],
+            "challenges": [
+              "conversation hogging"
+            ]
+          },
+          {
+            "text": "Notice when certainty outruns evidence and re‑engage curiosity."
+          },
+          {
+            "text": "Swap dismissiveness for a sincere summary of the other view."
+          },
+          {
+            "text": "Convert competition into collaboration by naming shared wins."
+          },
+          {
+            "text": "Watch independence curdle into isolation; invite counsel early."
+          },
+          {
+            "text": "Catch impatience and practice generous pacing with beginners."
+          },
+          {
+            "text": "Switch harsh critique to coaching with examples and options."
+          },
+          {
+            "text": "Spot performative speeches; choose plain truth instead."
+          },
+          {
+            "text": "End the interruption habit by taking notes while others speak."
+          },
+          {
+            "text": "Trade debate victories for discovery dialogues."
+          },
+          {
+            "text": "Let connection matter more than being right in low‑stakes moments."
+          }
+        ],
+        "transitions": [
+          {
+            "text": "Name the new direction out loud; public declarations summon allies.",
+            "intensity": 0.8,
+            "triggers": [
+              "career pivots",
+              "moves"
+            ],
+            "supports": [
+              "accountability circles"
+            ],
+            "challenges": [
+              "lone‑wolfing"
+            ]
+          },
+          {
+            "text": "Ask directly for the resources you need to cross the bridge.",
+            "intensity": 0.76,
+            "triggers": [
+              "major shifts"
+            ],
+            "supports": [
+              "clear requests"
+            ],
+            "challenges": [
+              "silent struggling"
+            ]
+          },
+          {
+            "text": "Sketch a simple narrative: what ended, what begins, what’s next."
+          },
+          {
+            "text": "Make one bold move early to anchor the change."
+          },
+          {
+            "text": "Tell the truth about fear without letting it drive."
+          },
+          {
+            "text": "Refresh your visual identity to embody the new chapter."
+          },
+          {
+            "text": "Share lessons in public to turn change into service."
+          },
+          {
+            "text": "Honor what was; thank it explicitly before stepping on."
+          },
+          {
+            "text": "Publish a flexible timeline with review points."
+          },
+          {
+            "text": "Mark the passage with ritual—letters, objects, or acts."
+          },
+          {
+            "text": "Close cycles with celebration and clean handoffs."
+          },
+          {
+            "text": "Archive insights so others can navigate similar crossings."
+          }
+        ]
+      }
+    }
+  ],
+  "trinity": {
+    "integration_notes": "Expression Number is HOW you manifest your Life Path (WHO you are) and Soul Urge (WHAT pulls you) in public behavior. It paints the sound of your voice and the shape of your contribution.",
+    "calculation": "Sum the numbers of all letters in the full birth name; reduce to a single digit or master number (11, 22, 33, 44).",
+    "relationship_to_life_path": "Life Path is the road; Expression is the vehicle and driving style.",
+    "relationship_to_soul_urge": "Soul Urge is the inner magnet; Expression is the outward motion that makes it real.",
+    "behavioral_integration": [
+      "Expression filters how Life Path lessons are voiced, practiced, and taught.",
+      "Expression channels Soul Urge desires into visible behaviors and outputs.",
+      "Alignment among the three yields authentic, sustainable expression.",
+      "Tensions among numbers highlight growth edges and integration work.",
+      "Master Expression numbers often teach, catalyze, or heal through their gift."
+    ]
+  },
+  "generation_instructions": {
+    "core_principles": [
+      "Describe HOW the person expresses, not what they think or feel privately.",
+      "Emphasize talents, communication style, and externally visible habits.",
+      "Prioritize manifestation behaviors over interior states.",
+      "Honor each number’s distinct contribution pattern.",
+      "Include verbal and non‑verbal expression cues."
+    ],
+    "behavioral_insights": [
+      "Each insight is 1–2 sentences, concrete and observable.",
+      "Use intensity scores between 0.6–0.9 on key items; include triggers/supports/challenges where most impactful.",
+      "Write action‑first guidance that names both gifts and growth edges.",
+      "Keep language practical, respectful, and spiritually attuned.",
+      "Maintain consistent structure for machine learning ingestion."
+    ],
+    "divine_triangle_alignment": [
+      "Expression derives from the full birth name numerology.",
+      "It represents talents, abilities, and communication style.",
+      "It bridges inner motive (Soul Urge) and life curriculum (Life Path).",
+      "Note evolution from raw talent to mastered gift across cycles.",
+      "Frame mastery as service: gifts become vehicles for uplift."
+    ],
+    "categories_to_include": [
+      "decisionMaking - How they express choices",
+      "stressResponse - How stress affects expression",
+      "communication - Core expression patterns",
+      "relationships - How they express in connection",
+      "productivity - How they express through work",
+      "financial - How they express value and abundance",
+      "creative - How they express originality",
+      "learning - How they express curiosity and growth",
+      "wellness - How they express vitality",
+      "spiritual - How they express divine connection",
+      "shadow - Distorted expression patterns",
+      "transitions - How expression evolves through change"
+    ]
+  }
+}

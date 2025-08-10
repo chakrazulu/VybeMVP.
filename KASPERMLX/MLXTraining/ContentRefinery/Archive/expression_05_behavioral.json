@@ -1,0 +1,970 @@
+{
+  "meta": {
+    "version": "v2.0",
+    "sourceNotes": "Faith Javane & Dusty Bunker's Divine Triangle as primary lens; Expression 5 tuned for freedom, change, adaptability, and persuasive communication.",
+    "generationGuidelines": "Focus on mobility, flexibility, experiment-first behavior, and how novelty-seeking becomes constructive expression."
+  },
+  "profiles": [
+    {
+      "number": 5,
+      "context": "expression",
+      "coreEssence": "Expression Number 5 speaks movement—curious, persuasive, and adaptive language that turns change into an adventure others want to join.",
+      "lifeLesson": "Channel freedom into mastery. Your work is to harness variety and speed into ethical, skillful experiments that actually ship.",
+      "shadowSignature": "Impulsivity, scattered commitments, and overindulgence disguised as 'living fully.' Antidote: constraints that protect freedom, sober truth-telling, and finish-lines you can celebrate.",
+      "planes": {
+        "physical": {
+          "strength": 7,
+          "notes": "Restless vitality; communicates with pace, gesture, and rapid shifts."
+        },
+        "mental": {
+          "strength": 7,
+          "notes": "Quick, associative mind; excels at pitch, reframing, and learning on the fly."
+        },
+        "emotional": {
+          "strength": 6,
+          "notes": "Big feelings, fast cycles; steadies with honest naming and grounding rituals."
+        },
+        "intuitive": {
+          "strength": 6,
+          "notes": "Strong hunches in motion; clarity often appears while traveling or switching contexts."
+        }
+      },
+      "chartOfInclusion": {
+        "counts": {},
+        "missingNumbers": []
+      },
+      "cycles": [
+        {
+          "label": "First Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Exploration reps",
+            "Skill sampling",
+            "Ethical risk practice"
+          ],
+          "practices": [
+            "Try-one-thing-per-week",
+            "Keep a curiosity log",
+            "Set boundaries for vices"
+          ]
+        },
+        {
+          "label": "Second Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Platform through variety",
+            "Mobility as method",
+            "Experiment portfolios"
+          ],
+          "practices": [
+            "Run monthly experiments",
+            "Publish travel-learned insights",
+            "Design constraints that fit you"
+          ]
+        },
+        {
+          "label": "Third Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Freedom in devotion",
+            "Teaching adaptability",
+            "Cultural bridgework"
+          ],
+          "practices": [
+            "Mentor improvisation skills",
+            "Codify change playbooks",
+            "Model sober, joyful living"
+          ]
+        }
+      ],
+      "pinnacles": [
+        {
+          "label": "Pinnacle I",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Healthy risk",
+            "Exploration with edges"
+          ],
+          "practices": [
+            "Define red lines",
+            "Travel with purpose",
+            "Track experiments by learning"
+          ]
+        },
+        {
+          "label": "Pinnacle II",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Persuasion craft",
+            "Platform agility"
+          ],
+          "practices": [
+            "Study copy & pitch",
+            "Practice improv",
+            "Rotate mediums quarterly"
+          ]
+        },
+        {
+          "label": "Pinnacle III",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Ethical influence",
+            "Change leadership"
+          ],
+          "practices": [
+            "Teach experimentation",
+            "Write adaptation manuals",
+            "Host culture-crossing salons"
+          ]
+        },
+        {
+          "label": "Pinnacle IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Elder traveler",
+            "Freedom as stewardship"
+          ],
+          "practices": [
+            "Fund safe adventures",
+            "Sponsor exchange programs",
+            "Archive travel wisdom"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "label": "Challenge I",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Impulsivity",
+            "Overpromising"
+          ],
+          "practices": [
+            "24-hour rule for big yeses",
+            "Scope before hype",
+            "Add accountability buddies"
+          ]
+        },
+        {
+          "label": "Challenge II",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Overindulgence",
+            "Escapism"
+          ],
+          "practices": [
+            "Set consumption caps",
+            "Replace with nourishing thrills",
+            "Track triggers honestly"
+          ]
+        },
+        {
+          "label": "Challenge III",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Inconsistency",
+            "Finish-line avoidance"
+          ],
+          "practices": [
+            "Define 'done' clearly",
+            "Time-box sprints",
+            "Celebrate completions publicly"
+          ]
+        },
+        {
+          "label": "Challenge IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Commitment phobia",
+            "Drama-chasing"
+          ],
+          "practices": [
+            "Choose one anchor per season",
+            "Schedule calm thrills",
+            "Practice repair after missteps"
+          ]
+        }
+      ],
+      "astroLinks": {
+        "tarotKeys": [
+          "The Hierophant (V)"
+        ],
+        "planetaryCorrespondences": [
+          "Mercury"
+        ]
+      },
+      "behavioral": {
+        "decisionMaking": [
+          {
+            "text": "Choose reversible options first so you can learn fast without heavy regret.",
+            "intensity": 0.86,
+            "triggers": [
+              "uncertainty",
+              "new ideas"
+            ],
+            "supports": [
+              "two-way door test"
+            ],
+            "challenges": [
+              "analysis dodge via novelty"
+            ]
+          },
+          {
+            "text": "Name the thrill and the risk; pick the path that is exciting and ethical.",
+            "intensity": 0.82,
+            "triggers": [
+              "temptations"
+            ],
+            "supports": [
+              "values checklist"
+            ],
+            "challenges": [
+              "impulse bias"
+            ]
+          },
+          {
+            "text": "Limit choices to three; abundance of options can paralyze momentum."
+          },
+          {
+            "text": "Translate decisions into experiments with a start, stop, and success signal."
+          },
+          {
+            "text": "If bored, define a constraint rather than changing the goal."
+          },
+          {
+            "text": "Invite a grounded friend to sanity-check scope before announcing."
+          },
+          {
+            "text": "Time-box exploration, then lock a route and sprint it."
+          },
+          {
+            "text": "Write a one-line story for each option and pick the one that grows you."
+          },
+          {
+            "text": "Avoid 'forever' language; commit for a season and review."
+          },
+          {
+            "text": "Prefer options that increase future optionality, not just adrenaline."
+          },
+          {
+            "text": "Close decisions out loud to resist last-minute detours."
+          },
+          {
+            "text": "Celebrate the choice with a small ritual to anchor commitment."
+          }
+        ],
+        "stressResponse": [
+          {
+            "text": "Under stress you bolt or binge; pause for five breaths and move your body before choosing an outlet.",
+            "intensity": 0.86,
+            "triggers": [
+              "conflict",
+              "boredom",
+              "overwhelm"
+            ],
+            "supports": [
+              "breath counter",
+              "walks"
+            ],
+            "challenges": [
+              "flight patterns"
+            ]
+          },
+          {
+            "text": "Channel restlessness into a short, intense task that restores agency.",
+            "intensity": 0.8,
+            "triggers": [
+              "deadline panic"
+            ],
+            "supports": [
+              "10-minute wins"
+            ],
+            "challenges": [
+              "doom-scrolling"
+            ]
+          },
+          {
+            "text": "Name cravings and swap for a healthier stimulation (cold water, music, sprints)."
+          },
+          {
+            "text": "Switch mediums—talk, walk, sketch—to discharge excess energy."
+          },
+          {
+            "text": "Speak boundaries clearly when drama bait appears."
+          },
+          {
+            "text": "Sleep and hydration blunt the swinginess of your mood."
+          },
+          {
+            "text": "Use public check-ins to prevent disappearing when things get tough."
+          },
+          {
+            "text": "Avoid spicy messaging; draft, cool off, then edit for respect."
+          },
+          {
+            "text": "Ask for novelty in safe forms—new route, new playlist, new cafe."
+          },
+          {
+            "text": "Ground with five senses: name sights, sounds, textures, tastes, smells."
+          },
+          {
+            "text": "If you want to run, schedule the return time before stepping out."
+          },
+          {
+            "text": "Track triggers to learn patterns and plan buffers ahead."
+          }
+        ],
+        "communication": [
+          {
+            "text": "Use vivid, sensory language; your words should feel like motion others can step into.",
+            "intensity": 0.84,
+            "triggers": [
+              "pitches",
+              "social content"
+            ],
+            "supports": [
+              "story beats"
+            ],
+            "challenges": [
+              "style over substance"
+            ]
+          },
+          {
+            "text": "Promise less, deliver more; let results be the punchline.",
+            "intensity": 0.8,
+            "triggers": [
+              "launch hype"
+            ],
+            "supports": [
+              "scope lock"
+            ],
+            "challenges": [
+              "overpromising"
+            ]
+          },
+          {
+            "text": "Keep messages punchy—short lines, clear verbs, single asks."
+          },
+          {
+            "text": "Tell travelers’ tales: what changed you and what others can do today."
+          },
+          {
+            "text": "Use questions that open doors: 'What would feel freer and still responsible?'"
+          },
+          {
+            "text": "Modulate pace; speed is spice, not the whole meal."
+          },
+          {
+            "text": "Translate jargon into street language across different audiences."
+          },
+          {
+            "text": "Invite demos over debates; show the new thing and let people try."
+          },
+          {
+            "text": "Acknowledge risks transparently to build trust in your enthusiasm."
+          },
+          {
+            "text": "Use humor to ease tension without minimizing impact."
+          },
+          {
+            "text": "Close with a clear next action; novelty needs a runway."
+          },
+          {
+            "text": "Retire buzzwords that promise everything and deliver fog."
+          }
+        ],
+        "relationships": [
+          {
+            "text": "Name your need for novelty and design it together so love doesn’t compete with freedom.",
+            "intensity": 0.82,
+            "triggers": [
+              "routine fatigue"
+            ],
+            "supports": [
+              "shared adventure list"
+            ],
+            "challenges": [
+              "secret seeking"
+            ]
+          },
+          {
+            "text": "Practice radical honesty—truth told kindly prevents dramatic exits.",
+            "intensity": 0.78,
+            "triggers": [
+              "temptation",
+              "boredom"
+            ],
+            "supports": [
+              "truth scripts"
+            ],
+            "challenges": [
+              "avoidance"
+            ]
+          },
+          {
+            "text": "Create weekly adventures to feed connection and curiosity."
+          },
+          {
+            "text": "Anchor with rituals—check-ins, dates, tech-off time—to balance spontaneity."
+          },
+          {
+            "text": "Own mistakes quickly; repair beats running."
+          },
+          {
+            "text": "Ask for space directly instead of picking fights to get it."
+          },
+          {
+            "text": "Celebrate your partner’s independence as part of the bond."
+          },
+          {
+            "text": "Keep flirtation kind and contained; respect is non-negotiable."
+          },
+          {
+            "text": "Name boundaries around substances and social scenes."
+          },
+          {
+            "text": "Listen fully; fast minds can miss quiet cues."
+          },
+          {
+            "text": "Plan trips with recovery days to protect tenderness."
+          },
+          {
+            "text": "Track shared goals so play also moves life forward."
+          }
+        ],
+        "productivity": [
+          {
+            "text": "Work in sprints with visible finishes; variety fuels you when containers are clear.",
+            "intensity": 0.84,
+            "triggers": [
+              "project kickoff"
+            ],
+            "supports": [
+              "kanban",
+              "sprint boards"
+            ],
+            "challenges": [
+              "half-done pileups"
+            ]
+          },
+          {
+            "text": "Batch outreach, research, and making to ride momentum waves.",
+            "intensity": 0.78,
+            "triggers": [
+              "weekly planning"
+            ],
+            "supports": [
+              "time blocking"
+            ],
+            "challenges": [
+              "context switching"
+            ]
+          },
+          {
+            "text": "Use travel or location changes to spark creativity strategically."
+          },
+          {
+            "text": "Keep a parking lot for shiny ideas and review it weekly."
+          },
+          {
+            "text": "Protect deep work with short, intense intervals (Pomodoro-plus-walks)."
+          },
+          {
+            "text": "Automate repetitive tasks so attention stays on exploration."
+          },
+          {
+            "text": "Define 'done' with demoable outputs, not vibes."
+          },
+          {
+            "text": "Pair with operations partners to ground your speed."
+          },
+          {
+            "text": "Rotate roles on teams so boredom doesn’t breed chaos."
+          },
+          {
+            "text": "Schedule 'novelty blocks' to explore without derailing priorities."
+          },
+          {
+            "text": "Close loops daily with a 10-minute tidy of tools and notes."
+          },
+          {
+            "text": "Celebrate completions to train your brain to love finishing."
+          }
+        ],
+        "financial": [
+          {
+            "text": "Design multiple income streams that match your mobility and appetite for variety.",
+            "intensity": 0.82,
+            "triggers": [
+              "career design"
+            ],
+            "supports": [
+              "portfolio mapping"
+            ],
+            "challenges": [
+              "income whiplash"
+            ]
+          },
+          {
+            "text": "Set a 'freedom fund' so spontaneous opportunities are safe to seize.",
+            "intensity": 0.78,
+            "triggers": [
+              "windfalls",
+              "bonuses"
+            ],
+            "supports": [
+              "auto-savings"
+            ],
+            "challenges": [
+              "spend surges"
+            ]
+          },
+          {
+            "text": "Cap impulse buys with a 24-hour cool-off before checkout."
+          },
+          {
+            "text": "Use transparent contracts; charm isn’t legal protection."
+          },
+          {
+            "text": "Budget for travel, learning, and play—planned novelty prevents blowouts."
+          },
+          {
+            "text": "Track variable income with rolling averages to smooth decisions."
+          },
+          {
+            "text": "Price for flexibility and speed, not just hours."
+          },
+          {
+            "text": "Limit speculative bets; use a pre-set risk slice only."
+          },
+          {
+            "text": "Automate bill pay to avoid late fees during adventures."
+          },
+          {
+            "text": "Negotiate upgrades (not freebies) that improve experience and output."
+          },
+          {
+            "text": "Build credit with punctuality; freedom loves good terms."
+          },
+          {
+            "text": "Review subscriptions quarterly; prune to keep optionality high."
+          }
+        ],
+        "creative": [
+          {
+            "text": "Favor improvisation and mixed media; let curiosity pick the tool.",
+            "intensity": 0.84,
+            "triggers": [
+              "new projects"
+            ],
+            "supports": [
+              "rapid prototyping"
+            ],
+            "challenges": [
+              "unfinished trails"
+            ]
+          },
+          {
+            "text": "Create series instead of one-offs so play accrues into a body of work.",
+            "intensity": 0.8,
+            "triggers": [
+              "ideation"
+            ],
+            "supports": [
+              "series template"
+            ],
+            "challenges": [
+              "novelty addiction"
+            ]
+          },
+          {
+            "text": "Steal hours while moving—field recordings, sketches, photo walks."
+          },
+          {
+            "text": "Collaborate across cultures to expand palette and audience."
+          },
+          {
+            "text": "Use constraints (word counts, palettes, time limits) to refine output."
+          },
+          {
+            "text": "Publish 'road notes'—short, frequent drops that build narrative."
+          },
+          {
+            "text": "Keep a motifs bank from travels and conversations."
+          },
+          {
+            "text": "Practice live performance to strengthen persuasive timing."
+          },
+          {
+            "text": "Let humor and surprise carry serious truths."
+          },
+          {
+            "text": "Document process on the go; portability matters."
+          },
+          {
+            "text": "Rotate mediums quarterly to stay fresh while finishing sets."
+          },
+          {
+            "text": "Teach spontaneity as a discipline, not chaos."
+          }
+        ],
+        "learning": [
+          {
+            "text": "Learn by immersion—travel, internships, and fieldwork lock knowledge in your body.",
+            "intensity": 0.82,
+            "triggers": [
+              "new topics"
+            ],
+            "supports": [
+              "field kits"
+            ],
+            "challenges": [
+              "course hopping"
+            ]
+          },
+          {
+            "text": "Use micro-challenges and public logs to keep momentum honest.",
+            "intensity": 0.78,
+            "triggers": [
+              "skill sprints"
+            ],
+            "supports": [
+              "learning journals"
+            ],
+            "challenges": [
+              "quiet quitting on courses"
+            ]
+          },
+          {
+            "text": "Alternate short bursts of intake with hands-on demos."
+          },
+          {
+            "text": "Switch environments to refresh attention when stuck."
+          },
+          {
+            "text": "Ask 'what can I try today?' to avoid theory hoarding."
+          },
+          {
+            "text": "Study persuasion and languages; communication is your edge."
+          },
+          {
+            "text": "Teach back quickly—explain the concept in one minute."
+          },
+          {
+            "text": "Track experiments with hypotheses and outcomes."
+          },
+          {
+            "text": "Pair with a finisher friend to close the loop on projects."
+          },
+          {
+            "text": "Use spaced repetition on essentials, not everything."
+          },
+          {
+            "text": "Collect mentors from diverse backgrounds to widen maps."
+          },
+          {
+            "text": "Reflect after trips to convert experience into frameworks."
+          }
+        ],
+        "wellness": [
+          {
+            "text": "Choose dynamic movement—cycling, dance, HIIT—so exercise feeds your need for motion.",
+            "intensity": 0.8,
+            "triggers": [
+              "routine setup"
+            ],
+            "supports": [
+              "movement menu"
+            ],
+            "challenges": [
+              "sedentary streaks"
+            ]
+          },
+          {
+            "text": "Practice moderation: caps on sugar, screens, and stimulants keep freedom free.",
+            "intensity": 0.78,
+            "triggers": [
+              "late nights",
+              "parties"
+            ],
+            "supports": [
+              "caps & counters"
+            ],
+            "challenges": [
+              "overindulgence"
+            ]
+          },
+          {
+            "text": "Sleep and hydration stabilize mood swings and decision quality."
+          },
+          {
+            "text": "Pack travel wellness kits so novelty doesn’t derail care."
+          },
+          {
+            "text": "Schedule decompression after high-adrenaline events."
+          },
+          {
+            "text": "Use breathwork or cold exposure to reset nervous system quickly."
+          },
+          {
+            "text": "Eat for steady energy on the move—portable protein, fiber, and fruit."
+          },
+          {
+            "text": "Name urges without shame; choose safer thrills consciously."
+          },
+          {
+            "text": "Set screen curfews to protect dopamine and attention."
+          },
+          {
+            "text": "Build social circles that play hard and recover well."
+          },
+          {
+            "text": "Track a few metrics—steps, sleep, mood—to catch drift early."
+          },
+          {
+            "text": "Celebrate sober fun regularly to expand your freedom menu."
+          }
+        ],
+        "spiritual": [
+          {
+            "text": "Seek the sacred in motion—pilgrimage, service trips, and living parables.",
+            "intensity": 0.8,
+            "triggers": [
+              "restlessness",
+              "transition"
+            ],
+            "supports": [
+              "rituals on the road"
+            ],
+            "challenges": [
+              "rootlessness"
+            ]
+          },
+          {
+            "text": "Speak truth in plain, lively language; the Divine doesn’t need jargon.",
+            "intensity": 0.76,
+            "triggers": [
+              "community talks"
+            ],
+            "supports": [
+              "story frames"
+            ],
+            "challenges": [
+              "performative zeal"
+            ]
+          },
+          {
+            "text": "Let freedom be disciplined: choose vows that protect your aliveness."
+          },
+          {
+            "text": "Turn temptations into teachers by naming the need beneath them."
+          },
+          {
+            "text": "Practice gratitude for safe passage after each journey."
+          },
+          {
+            "text": "Use music, chant, or drumming to focus scattered energy."
+          },
+          {
+            "text": "Host circles where doubt and wonder travel together."
+          },
+          {
+            "text": "Study sacred texts across cultures to become a bridge."
+          },
+          {
+            "text": "Offer your gift of levity to soften rigid dogma."
+          },
+          {
+            "text": "Mark seasons with movement rituals—walks, swims, sunrises."
+          },
+          {
+            "text": "Serve at thresholds: newcomers, travelers, and those in flux."
+          },
+          {
+            "text": "Close with humility; freedom without reverence becomes noise."
+          }
+        ],
+        "shadow": [
+          {
+            "text": "Notice when 'freedom' masks avoidance; name the task and do one tiny slice now.",
+            "intensity": 0.82,
+            "triggers": [
+              "boredom",
+              "hard conversations"
+            ],
+            "supports": [
+              "2-minute rule"
+            ],
+            "challenges": [
+              "escape loops"
+            ]
+          },
+          {
+            "text": "Cap intensity—what thrills you can also burn bridges; slow the pace before you speak.",
+            "intensity": 0.78,
+            "triggers": [
+              "hype rooms"
+            ],
+            "supports": [
+              "pace cue"
+            ],
+            "challenges": [
+              "overselling"
+            ]
+          },
+          {
+            "text": "Replace thrill-seeking with skill-seeking when cravings rise."
+          },
+          {
+            "text": "Track broken promises; renegotiate or recommit explicitly."
+          },
+          {
+            "text": "Avoid triangulation and ghosting; choose direct repair."
+          },
+          {
+            "text": "Turn gossip into gratitude or feedback to the right person."
+          },
+          {
+            "text": "When envy hits, convert it into a micro-experiment, not a self-judgment."
+          },
+          {
+            "text": "Limit substances during decision windows to protect judgment."
+          },
+          {
+            "text": "Don’t hijack meetings with new ideas; park them and finish the agenda."
+          },
+          {
+            "text": "Balance charisma with listening so others feel seen, not sold."
+          },
+          {
+            "text": "Watch for identity built on chaos; cultivate quiet competence."
+          },
+          {
+            "text": "Let boredom be a coach; choose depth instead of detonating."
+          }
+        ],
+        "transitions": [
+          {
+            "text": "Announce pivots as pilots with dates and criteria; freedom thrives with scaffolding.",
+            "intensity": 0.82,
+            "triggers": [
+              "career shifts",
+              "moves"
+            ],
+            "supports": [
+              "pilot plan"
+            ],
+            "challenges": [
+              "perpetual pivoting"
+            ]
+          },
+          {
+            "text": "Pack lightly—physically and emotionally—to move with less drag.",
+            "intensity": 0.78,
+            "triggers": [
+              "travel",
+              "relocations"
+            ],
+            "supports": [
+              "essentials checklist"
+            ],
+            "challenges": [
+              "cluttered exits"
+            ]
+          },
+          {
+            "text": "Tell the truth about why you’re leaving and what you’re seeking."
+          },
+          {
+            "text": "Keep one anchor—practice, mentor, or place—through big changes."
+          },
+          {
+            "text": "Schedule celebration and recovery around takeoffs and landings."
+          },
+          {
+            "text": "Create a 'hello' ritual that orients you in new environments."
+          },
+          {
+            "text": "Offer updates to your circle; disappearing erodes trust."
+          },
+          {
+            "text": "Close chapters with gratitude notes and clean handoffs."
+          },
+          {
+            "text": "Use maps and calendars visibly to tame chaos into flow."
+          },
+          {
+            "text": "Document lessons from each move to compound adaptability."
+          },
+          {
+            "text": "Avoid burning bridges; leave doors open with respect."
+          },
+          {
+            "text": "After the rush, re-center with stillness to hear the next right step."
+          }
+        ]
+      }
+    }
+  ],
+  "trinity": {
+    "integration_notes": "Expression 5 manifests Life Path and Soul Urge through movement, variety, and persuasion—turning experience into story and story into action.",
+    "calculation": "Sum the numbers of all letters in the full birth name; reduce to a single digit or master number (11, 22, 33, 44).",
+    "relationship_to_life_path": "Life Path is the trail; Expression 5 explores side paths and brings back maps.",
+    "relationship_to_soul_urge": "Soul Urge is the longing; Expression 5 pursues it boldly and invites others along.",
+    "behavioral_integration": [
+      "Expression filters how Life Path lessons are discovered through experiment and travel.",
+      "Expression channels Soul Urge desires into persuasive acts and adaptive systems.",
+      "Alignment yields agile mastery rather than scattered motion.",
+      "Tensions appear as overindulgence or commitment drift; constraints and rituals restore integrity.",
+      "Service lens: use mobility and communication to connect cultures and spread useful change."
+    ]
+  },
+  "generation_instructions": {
+    "core_principles": [
+      "Describe HOW freedom, novelty, and adaptability express outwardly.",
+      "Keep guidance concrete and experiment-friendly with visible finishes.",
+      "Honor pleasure without enabling harm; moderation and boundaries matter.",
+      "Translate speed into service by finishing and teaching others to adapt.",
+      "Include verbal and non-verbal cues that signal movement and persuasion."
+    ],
+    "behavioral_insights": [
+      "Use intensity 0.6–0.9 for key tendencies; add triggers/supports/challenges where impact is high.",
+      "Limit each insight to 1–2 sentences with observable behaviors.",
+      "Balance gifts with growth edges; avoid moralizing.",
+      "Maintain 12 categories × 12 insights for ML consistency.",
+      "Phrase for coaching and real-time nudges, not abstract theory."
+    ],
+    "divine_triangle_alignment": [
+      "Expression derives from the full birth name numerology.",
+      "It represents talents, abilities, and communication style manifested outwardly.",
+      "It bridges inner motive (Soul Urge) and life curriculum (Life Path).",
+      "Growth arc moves from thrill-chasing to freedom-with-skill.",
+      "Service lens: ethical influence, cultural bridges, and mobility that heals."
+    ],
+    "categories_to_include": [
+      "decisionMaking - How they express choices",
+      "stressResponse - How stress affects expression",
+      "communication - Core expression patterns",
+      "relationships - How they express in connection",
+      "productivity - How they express through work",
+      "financial - How they express value and abundance",
+      "creative - How they express originality",
+      "learning - How they express curiosity and growth",
+      "wellness - How they express vitality",
+      "spiritual - How they express divine connection",
+      "shadow - Distorted expression patterns",
+      "transitions - How expression evolves through change"
+    ]
+  }
+}

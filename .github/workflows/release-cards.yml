@@ -1,0 +1,103 @@
+name: KASPER MLX Release Cards
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write  # needed to create a Release
+
+concurrency:
+  group: release-cards-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.10", "3.11", "3.12" ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: pip install -r requirements-dev.txt
+      - name: Secret scan (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          args: detect --no-git -v --source=. --report-format=json --report-path=gitleaks.json
+      - name: Fail on secrets
+        run: |
+          if [ -s gitleaks.json ]; then
+            echo "❌ Secrets detected in repository!"
+            echo "This blocks production releases for security."
+            cat gitleaks.json
+            exit 1
+          else
+            echo "✅ No secrets detected in dataset"
+          fi
+      - name: Lint & format (pre-commit)
+        run: |
+          pip install pre-commit==3.7.0
+          pre-commit run --all-files
+      - name: Tests
+        run: |
+          pip install pytest==8.2.0
+          python -m pytest -q tests/test_schema_enforcement.py tests/test_manifest.py
+      - name: Determinism test (critical for production)
+        run: |
+          python -m pytest -q tests/test_determinism.py
+      - name: Generate release cards
+        run: python scripts/release_cards.py
+      - name: Generate SHA256 checksums for verification
+        run: |
+          cd artifacts
+          sha256sum release_cards_bundle.zip > release_cards_bundle.zip.sha256
+          echo "✅ SHA256 checksum generated for bundle verification"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cards-${{ matrix.python-version }}
+          retention-days: 30
+          path: |
+            docs/DATA_CARD.md
+            docs/MODEL_CARD.md
+            artifacts/MANIFEST.json
+            artifacts/release_cards_bundle.zip
+            artifacts/release_cards_bundle.zip.sha256
+
+  release:
+    needs: build
+    if: ${{ needs.build.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: cards-*
+          path: dist
+          merge-multiple: true
+      - name: Extract dataset name/version
+        id: meta
+        run: |
+          python - <<'PY'
+          import json, os
+          m = json.load(open('dist/artifacts/MANIFEST.json'))
+          print(f"DATASET_NAME={m.get('dataset_name','kasper-lp-trinity')}")
+          print(f"DATASET_VERSION={m.get('dataset_version','v0.0')}")
+          PY >> $GITHUB_ENV
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.DATASET_NAME }}_${{ env.DATASET_VERSION }}
+          name: ${{ env.DATASET_NAME }} ${{ env.DATASET_VERSION }}
+          body: |
+            Automated docs bundle for ${{ env.DATASET_NAME }} ${{ env.DATASET_VERSION }}.
+            See DATA_CARD.md and MODEL_CARD.md for counts, validation, and provenance.
+          files: |
+            dist/docs/DATA_CARD.md
+            dist/docs/MODEL_CARD.md
+            dist/artifacts/MANIFEST.json
+            dist/artifacts/release_cards_bundle.zip
+            dist/artifacts/release_cards_bundle.zip.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

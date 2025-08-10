@@ -1,0 +1,970 @@
+{
+  "meta": {
+    "version": "v2.0",
+    "sourceNotes": "Primary source: Faith Javane & Dusty Bunker's 'Numerology and The Divine Triangle'. Expression 33 is a Master Number (higher octave of 6): spiritualized service, compassionate creativity, and healing through example.",
+    "generationGuidelines": "Focus on devotional communication, consent-based care, scalable compassion, and turning inspiration into repeatable practices that nourish communities."
+  },
+  "profiles": [
+    {
+      "number": 33,
+      "context": "expression",
+      "coreEssence": "Expression Number 33 is consecrated care—artful words and deeds that soothe, teach, and lift many at once.",
+      "lifeLesson": "Serve without self-erasure. Your work is to pair boundless compassion with boundaries and craft so love scales cleanly.",
+      "shadowSignature": "Martyrdom, moral pressure disguised as kindness, and rescuing that removes agency. Antidote: consent, co-creation, and 'good‑enough' grace.",
+      "planes": {
+        "physical": {
+          "strength": 7,
+          "notes": "Warm, welcoming presence; signals safety through tone, touch, and space design."
+        },
+        "mental": {
+          "strength": 7,
+          "notes": "Values-centered synthesis; turns ideals into frameworks and rituals."
+        },
+        "emotional": {
+          "strength": 9,
+          "notes": "Vast empathy; needs rituals to replenish and release."
+        },
+        "intuitive": {
+          "strength": 8,
+          "notes": "Heart-led intuition with symbolic flashes; steadies when grounded in practice."
+        }
+      },
+      "chartOfInclusion": {
+        "counts": {},
+        "missingNumbers": []
+      },
+      "cycles": [
+        {
+          "label": "First Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Self-worth & boundaries",
+            "Care craft",
+            "Creative devotion"
+          ],
+          "practices": [
+            "Daily yes/no body check",
+            "Learn a healing/art skill",
+            "Close small loops each day"
+          ]
+        },
+        {
+          "label": "Second Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Platform of service",
+            "Teaching clarity",
+            "Community stewardship"
+          ],
+          "practices": [
+            "Publish simple guides",
+            "Host rituals",
+            "Create shared agreements"
+          ]
+        },
+        {
+          "label": "Third Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Mentorship",
+            "Institutions of care",
+            "Legacy of beauty"
+          ],
+          "practices": [
+            "Train successors",
+            "Codify standards",
+            "Endow support for helpers"
+          ]
+        }
+      ],
+      "pinnacles": [
+        {
+          "label": "Pinnacle I",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Healthy attachment",
+            "Consent-based help"
+          ],
+          "practices": [
+            "Ask before aiding",
+            "Name limits kindly",
+            "Track energy balance"
+          ]
+        },
+        {
+          "label": "Pinnacle II",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Teaching voice",
+            "Aesthetic stewardship"
+          ],
+          "practices": [
+            "Edit for clarity",
+            "Design soothing spaces",
+            "Make templates others can use"
+          ]
+        },
+        {
+          "label": "Pinnacle III",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Community care systems",
+            "Justice with mercy"
+          ],
+          "practices": [
+            "Mutual-aid rotas",
+            "Policy for fair access",
+            "Transparent impact notes"
+          ]
+        },
+        {
+          "label": "Pinnacle IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Elder guide",
+            "Beauty & blessing"
+          ],
+          "practices": [
+            "Apprentice teachers",
+            "Archive rituals",
+            "Bless endings and beginnings"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "label": "Challenge I",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "People-pleasing",
+            "Invisible resentment"
+          ],
+          "practices": [
+            "Make clear requests",
+            "Share load maps",
+            "Practice small 'no's"
+          ]
+        },
+        {
+          "label": "Challenge II",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Perfectionism",
+            "Control-as-care"
+          ],
+          "practices": [
+            "Define good-enough",
+            "Co-own standards",
+            "Allow others’ style"
+          ]
+        },
+        {
+          "label": "Challenge III",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Overexposure",
+            "Compassion fatigue"
+          ],
+          "practices": [
+            "Limit public access",
+            "Schedule sabbaths",
+            "Rotate caregivers"
+          ]
+        },
+        {
+          "label": "Challenge IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Savior complex",
+            "Boundary leaks"
+          ],
+          "practices": [
+            "Consent checks",
+            "Capacity caps",
+            "Repair protocols"
+          ]
+        }
+      ],
+      "astroLinks": {
+        "tarotKeys": [
+          "The Lovers (VI) amplified",
+          "The Empress (III) resonance"
+        ],
+        "planetaryCorrespondences": [
+          "Venus",
+          "Moon",
+          "Neptune"
+        ]
+      },
+      "behavioral": {
+        "decisionMaking": [
+          {
+            "text": "Decide by dignity first—who is helped and how will consent be honored?",
+            "intensity": 0.88,
+            "triggers": [
+              "service design",
+              "policies"
+            ],
+            "supports": [
+              "consent & dignity rubric"
+            ],
+            "challenges": [
+              "nice over respectful"
+            ]
+          },
+          {
+            "text": "Scope by sustainability; love that lasts beats heroic sprints.",
+            "intensity": 0.84,
+            "triggers": [
+              "program planning"
+            ],
+            "supports": [
+              "capacity calculator"
+            ],
+            "challenges": [
+              "overcommitment"
+            ]
+          },
+          {
+            "text": "Translate ideals into one clear, teachable practice."
+          },
+          {
+            "text": "Invite impacted voices early; co-create instead of prescribing."
+          },
+          {
+            "text": "Choose options that distribute power and skill, not just aid."
+          },
+          {
+            "text": "Set 'good-enough' criteria to prevent perfection stalls."
+          },
+          {
+            "text": "If torn, pick the path that heals without erasing you."
+          },
+          {
+            "text": "Write decisions as care standards so others can replicate."
+          },
+          {
+            "text": "Prefer reversible pilots before public promises."
+          },
+          {
+            "text": "Define success in human terms and measurable signals."
+          },
+          {
+            "text": "Close with owners, timelines, and feedback channels."
+          },
+          {
+            "text": "Archive lessons to compound community wisdom."
+          }
+        ],
+        "stressResponse": [
+          {
+            "text": "Under stress you over-function; pause, ask for help, and let 'good-enough' land.",
+            "intensity": 0.88,
+            "triggers": [
+              "family/community crises"
+            ],
+            "supports": [
+              "ask-first rule"
+            ],
+            "challenges": [
+              "martyr mode"
+            ]
+          },
+          {
+            "text": "Name the feeling, need, and boundary before taking action.",
+            "intensity": 0.82,
+            "triggers": [
+              "conflict",
+              "urgency"
+            ],
+            "supports": [
+              "feelings/needs list"
+            ],
+            "challenges": [
+              "self-silencing"
+            ]
+          },
+          {
+            "text": "Switch from fixing to witnessing; being seen often heals most."
+          },
+          {
+            "text": "Tidy a small area; visual order calms the system."
+          },
+          {
+            "text": "Schedule decompression after heavy service or teaching."
+          },
+          {
+            "text": "Shorten loops: brief check-ins beat long lectures when flooded."
+          },
+          {
+            "text": "Use nourishment, water, and breath to stabilize mood."
+          },
+          {
+            "text": "Move the body gently; stretching and walking discharge tension."
+          },
+          {
+            "text": "Limit outrage media; protect your empathic bandwidth."
+          },
+          {
+            "text": "Share load through rotas; 'together' prevents collapse."
+          },
+          {
+            "text": "State limits kindly and revisit later with more capacity."
+          },
+          {
+            "text": "End hard days with gratitude for small mercies."
+          }
+        ],
+        "communication": [
+          {
+            "text": "Lead with warmth and boundary—affirm the bond, then state the request or limit.",
+            "intensity": 0.86,
+            "triggers": [
+              "house norms",
+              "team culture"
+            ],
+            "supports": [
+              "boundary scripts"
+            ],
+            "challenges": [
+              "apology padding"
+            ]
+          },
+          {
+            "text": "Teach in simple steps; translate inspiration into doable actions.",
+            "intensity": 0.82,
+            "triggers": [
+              "workshops",
+              "posts"
+            ],
+            "supports": [
+              "lesson templates"
+            ],
+            "challenges": [
+              "over-poetic"
+            ]
+          },
+          {
+            "text": "Tell stories that dignify everyone involved; avoid savior narratives."
+          },
+          {
+            "text": "Use inclusive language and accessible formats."
+          },
+          {
+            "text": "Ask consent before offering advice, touch, or prayer."
+          },
+          {
+            "text": "Credit helpers and lineage so praise flows wider than you."
+          },
+          {
+            "text": "Keep cadence calm; your tone should lower the room’s pulse."
+          },
+          {
+            "text": "When wrong, repair publicly with humility and specifics."
+          },
+          {
+            "text": "Close talks with one small practice to try today."
+          },
+          {
+            "text": "Publish clear standards for community spaces and events."
+          },
+          {
+            "text": "Summarize agreements in writing to avoid emotional guesswork."
+          },
+          {
+            "text": "Celebrate quiet labor as loudly as visible wins."
+          }
+        ],
+        "relationships": [
+          {
+            "text": "Express love through practical care and shared agreements—then let others reciprocate.",
+            "intensity": 0.84,
+            "triggers": [
+              "daily life"
+            ],
+            "supports": [
+              "reciprocity plan"
+            ],
+            "challenges": [
+              "doing it all"
+            ]
+          },
+          {
+            "text": "Make requests, not hints; kindness without clarity breeds resentment.",
+            "intensity": 0.8,
+            "triggers": [
+              "needs"
+            ],
+            "supports": [
+              "request scripts"
+            ],
+            "challenges": [
+              "scorekeeping"
+            ]
+          },
+          {
+            "text": "Protect couple/family time from service overreach."
+          },
+          {
+            "text": "Practice affectionate check-ins that aren’t just logistics."
+          },
+          {
+            "text": "Repair with specificity—impact, change, and timeline."
+          },
+          {
+            "text": "Design rituals of connection that restore rather than perform."
+          },
+          {
+            "text": "Share emotional and financial labor maps to keep equity visible."
+          },
+          {
+            "text": "Honor privacy; stories shared in trust stay in trust."
+          },
+          {
+            "text": "Bless your partner’s path even when different from yours."
+          },
+          {
+            "text": "Limit unsolicited advice; ask what support is wanted."
+          },
+          {
+            "text": "Use humor gently; never punch down in the name of 'truth'."
+          },
+          {
+            "text": "Let others lead at home; follow with delight."
+          }
+        ],
+        "productivity": [
+          {
+            "text": "Treat quality as care; define humane standards that lower stress for everyone downstream.",
+            "intensity": 0.84,
+            "triggers": [
+              "kickoffs"
+            ],
+            "supports": [
+              "quality rubric"
+            ],
+            "challenges": [
+              "gold-plating"
+            ]
+          },
+          {
+            "text": "Batch caretaking/admin so creative teaching gets real time.",
+            "intensity": 0.8,
+            "triggers": [
+              "weekly planning"
+            ],
+            "supports": [
+              "time blocks"
+            ],
+            "challenges": [
+              "context switching"
+            ]
+          },
+          {
+            "text": "Build templates—lesson plans, rituals, and checklists others can reuse."
+          },
+          {
+            "text": "Delegate with consent and capacity checks, not assumptions."
+          },
+          {
+            "text": "Set scope ceilings so kindness to clients doesn’t burn out staff."
+          },
+          {
+            "text": "Use retros that ask: what reduced stress and increased dignity?"
+          },
+          {
+            "text": "Protect deep work mornings; schedule outreach later."
+          },
+          {
+            "text": "Retire offerings that don’t truly help, even if popular."
+          },
+          {
+            "text": "Close loops daily with a 10-minute tidy of tools and notes."
+          },
+          {
+            "text": "Tie celebrations to benefit delivered, not hours burned."
+          },
+          {
+            "text": "Archive processes so care survives staff turnover."
+          },
+          {
+            "text": "Teach your method to multiply helpers."
+          }
+        ],
+        "financial": [
+          {
+            "text": "Price for sustainability; martyr math collapses missions.",
+            "intensity": 0.82,
+            "triggers": [
+              "scoping",
+              "launches"
+            ],
+            "supports": [
+              "pricing rubric"
+            ],
+            "challenges": [
+              "undercharging"
+            ]
+          },
+          {
+            "text": "Separate charity from business; be clear which hat you’re wearing.",
+            "intensity": 0.78,
+            "triggers": [
+              "requests"
+            ],
+            "supports": [
+              "policy page"
+            ],
+            "challenges": [
+              "boundary guilt"
+            ]
+          },
+          {
+            "text": "Automate cushions so cycles of giving don’t deplete basics."
+          },
+          {
+            "text": "Publish terms, refunds, and expectations in plain language."
+          },
+          {
+            "text": "Fund training, supervision, and rest—care requires skilled, rested people."
+          },
+          {
+            "text": "Vet partners for aligned ethics; decline prestige that costs integrity."
+          },
+          {
+            "text": "Track in-kind labor transparently; name the true cost of care."
+          },
+          {
+            "text": "Create scholarships with criteria instead of ad-hoc discounts."
+          },
+          {
+            "text": "Plan for maintenance and access, not just launch moments."
+          },
+          {
+            "text": "Design fair pay bands; equity is part of compassion."
+          },
+          {
+            "text": "Tithe quietly and consistently where impact is clear."
+          },
+          {
+            "text": "Review giving and pricing annually for real outcomes."
+          }
+        ],
+        "creative": [
+          {
+            "text": "Make beauty that heals—colors, textures, and sounds that calm nervous systems.",
+            "intensity": 0.86,
+            "triggers": [
+              "events",
+              "content"
+            ],
+            "supports": [
+              "sensory checklist"
+            ],
+            "challenges": [
+              "aesthetic over function"
+            ]
+          },
+          {
+            "text": "Turn teachings into repeatable forms—chants, scripts, worksheets, and stories.",
+            "intensity": 0.82,
+            "triggers": [
+              "curriculum"
+            ],
+            "supports": [
+              "template library"
+            ],
+            "challenges": [
+              "one-off performances"
+            ]
+          },
+          {
+            "text": "Design accessibility from the first sketch; welcome many bodies and minds."
+          },
+          {
+            "text": "Use consent and context when sharing tender stories."
+          },
+          {
+            "text": "Co-create with artists and healers for multi-sensory impact."
+          },
+          {
+            "text": "Prototype rituals small before large gatherings."
+          },
+          {
+            "text": "Blend metaphor with plain instruction so anyone can follow."
+          },
+          {
+            "text": "Archive motifs and blessings to build a recognizable lineage."
+          },
+          {
+            "text": "Measure creative success by relief, inclusion, and courage sparked."
+          },
+          {
+            "text": "Guard sacred elements from commodification; share wisely."
+          },
+          {
+            "text": "Let humor and gentleness carry serious truths."
+          },
+          {
+            "text": "Teach creation as stewardship, not performance."
+          }
+        ],
+        "learning": [
+          {
+            "text": "Study pedagogy, psychology, and sacred texts; your craft is compassionate teaching.",
+            "intensity": 0.82,
+            "triggers": [
+              "curriculum planning"
+            ],
+            "supports": [
+              "reading tracks"
+            ],
+            "challenges": [
+              "course hoarding"
+            ]
+          },
+          {
+            "text": "Pair study with practice—teach back quickly to cement learning.",
+            "intensity": 0.78,
+            "triggers": [
+              "new skills"
+            ],
+            "supports": [
+              "teach-back sessions"
+            ],
+            "challenges": [
+              "theory without use"
+            ]
+          },
+          {
+            "text": "Collect feedback from those served, not just peers."
+          },
+          {
+            "text": "Keep error logs and repair notes; humility accelerates mastery."
+          },
+          {
+            "text": "Apprentice with elders; lineage protects both people and teachings."
+          },
+          {
+            "text": "Cross-train in trauma-informed facilitation and accessibility."
+          },
+          {
+            "text": "Use spaced repetition for scripts and standards you teach often."
+          },
+          {
+            "text": "Document methods in plain, beautiful formats others want to use."
+          },
+          {
+            "text": "Limit concurrent projects; finish with an artifact others can reuse."
+          },
+          {
+            "text": "Host peer circles that separate critique from care."
+          },
+          {
+            "text": "Map your biases and set tripwires to catch them."
+          },
+          {
+            "text": "Celebrate knowledge that becomes kindness, not just cleverness."
+          }
+        ],
+        "wellness": [
+          {
+            "text": "Schedule your care like you schedule everyone else’s—non‑negotiable blocks.",
+            "intensity": 0.84,
+            "triggers": [
+              "weekly planning"
+            ],
+            "supports": [
+              "calendar holds"
+            ],
+            "challenges": [
+              "self-last habit"
+            ]
+          },
+          {
+            "text": "Choose restorative movement and nourishment that stabilize mood.",
+            "intensity": 0.8,
+            "triggers": [
+              "routine setup"
+            ],
+            "supports": [
+              "meal prep",
+              "low-impact training"
+            ],
+            "challenges": [
+              "overextension"
+            ]
+          },
+          {
+            "text": "Use breath, music, and light to reset between sessions."
+          },
+          {
+            "text": "Set tech-off windows to cool the nervous system."
+          },
+          {
+            "text": "Keep grief rituals; unprocessed sorrow leaks as irritability."
+          },
+          {
+            "text": "Share care plans with allies so you can step away sometimes."
+          },
+          {
+            "text": "Track early signs of compassion fatigue and downshift early."
+          },
+          {
+            "text": "Name boundaries aloud before resentment builds."
+          },
+          {
+            "text": "Plan joy—art, friends, nature—so devotion doesn’t flatten into duty."
+          },
+          {
+            "text": "Hydrate and breathe before difficult conversations."
+          },
+          {
+            "text": "Protect sleep like a sacred appointment."
+          },
+          {
+            "text": "Celebrate small, quiet wins daily."
+          }
+        ],
+        "spiritual": [
+          {
+            "text": "Treat service as sacrament; ordinary care, done kindly, is holy.",
+            "intensity": 0.86,
+            "triggers": [
+              "daily life"
+            ],
+            "supports": [
+              "micro-service list"
+            ],
+            "challenges": [
+              "performative virtue"
+            ]
+          },
+          {
+            "text": "Hold consent and justice as spiritual pillars; compassion includes fairness.",
+            "intensity": 0.82,
+            "triggers": [
+              "policy",
+              "platform use"
+            ],
+            "supports": [
+              "ethics charter"
+            ],
+            "challenges": [
+              "nice over just"
+            ]
+          },
+          {
+            "text": "Begin in silence, end in gratitude; bookend practices keep the heart clear."
+          },
+          {
+            "text": "Fast from attention periodically to test attachment to praise."
+          },
+          {
+            "text": "Bless thresholds—doors, meals, meetings—with brief, inclusive rituals."
+          },
+          {
+            "text": "Credit Source and lineage; humility keeps the current clean."
+          },
+          {
+            "text": "Invite community prayer/meditation with opt-in, not pressure."
+          },
+          {
+            "text": "Let forgiveness include accountability and repair."
+          },
+          {
+            "text": "Use beauty—flowers, music, light—as gentle theology."
+          },
+          {
+            "text": "Study compassion traditions across cultures for universality."
+          },
+          {
+            "text": "Guard mysteries from spectacle; some things are for private altars."
+          },
+          {
+            "text": "Teach devotion as joy, not grind."
+          }
+        ],
+        "shadow": [
+          {
+            "text": "When savior energy rises, switch to questions and consent; co-create rather than rescue.",
+            "intensity": 0.84,
+            "triggers": [
+              "urgent pleas"
+            ],
+            "supports": [
+              "consent scripts"
+            ],
+            "challenges": [
+              "overreach"
+            ]
+          },
+          {
+            "text": "Perfection steals peace; set 'done' and stop at done.",
+            "intensity": 0.8,
+            "triggers": [
+              "hosting",
+              "deliverables"
+            ],
+            "supports": [
+              "done checklist"
+            ],
+            "challenges": [
+              "over-polish"
+            ]
+          },
+          {
+            "text": "Retire guilt economics; replace with clear asks and limits."
+          },
+          {
+            "text": "Don’t weaponize 'love and light'; name harm and repair concretely."
+          },
+          {
+            "text": "Avoid public martyr stories; seek help privately and early."
+          },
+          {
+            "text": "Respect others’ timelines; care is not control."
+          },
+          {
+            "text": "Limit praise exposure; pedestal dynamics distort truth."
+          },
+          {
+            "text": "Keep confidences; tender stories require consent to share."
+          },
+          {
+            "text": "Watch tone; kindness without condescension builds trust."
+          },
+          {
+            "text": "Release 'I’ll do it all'; train and trust the team."
+          },
+          {
+            "text": "Retire rules that no longer serve; love is alive, not static."
+          },
+          {
+            "text": "Let humor soften intensity without minimizing pain."
+          }
+        ],
+        "transitions": [
+          {
+            "text": "Announce changes with empathy, resources, and a blessing; sacred exits are part of sacred work.",
+            "intensity": 0.86,
+            "triggers": [
+              "program shifts",
+              "moves"
+            ],
+            "supports": [
+              "transition script"
+            ],
+            "challenges": [
+              "abrupt pivots"
+            ]
+          },
+          {
+            "text": "Carry one anchor ritual through the change to stabilize hearts.",
+            "intensity": 0.8,
+            "triggers": [
+              "role changes"
+            ],
+            "supports": [
+              "anchor practice"
+            ],
+            "challenges": [
+              "drift"
+            ]
+          },
+          {
+            "text": "Phase changes; give bodies and communities time to adapt."
+          },
+          {
+            "text": "Document what is temporary vs. the new normal to reduce anxiety."
+          },
+          {
+            "text": "Invite feedback and adjust openly; humility keeps trust intact."
+          },
+          {
+            "text": "Hold town halls or circles so questions have a safe home."
+          },
+          {
+            "text": "Protect sabbath space during transitions; recovery preserves kindness."
+          },
+          {
+            "text": "Honor the past with gratitude before building the next thing."
+          },
+          {
+            "text": "Set review dates (30/60/90) and celebrate stability milestones."
+          },
+          {
+            "text": "Train successors early; continuity is an act of love."
+          },
+          {
+            "text": "Archive rituals, scripts, and lessons for those who follow."
+          },
+          {
+            "text": "Close with a communal gesture—song, silence, or shared vow."
+          }
+        ]
+      }
+    }
+  ],
+  "trinity": {
+    "integration_notes": "Expression 33 manifests Life Path and Soul Urge through scaled compassion—teaching, art, and care systems that dignify many while protecting the giver.",
+    "calculation": "Sum the numbers of all letters in the full birth name; master numbers (11, 22, 33, 44) are not reduced when they appear.",
+    "relationship_to_life_path": "Life Path is the journey; Expression 33 turns it into loving standards and shared practices.",
+    "relationship_to_soul_urge": "Soul Urge is the longing; Expression 33 answers with devotion that includes consent and rest.",
+    "behavioral_integration": [
+      "Expression filters how Life Path lessons become rituals, curricula, and culture of care.",
+      "Expression channels Soul Urge desires into creative service that nourishes without rescuing.",
+      "Alignment yields radiant steadiness—beauty that heals and systems that last.",
+      "Tensions appear as martyrdom and control; boundaries and co-ownership restore grace.",
+      "Service lens: make dignity ordinary at scale, starting at home."
+    ]
+  },
+  "generation_instructions": {
+    "core_principles": [
+      "Anchor in Divine Triangle while writing plainly for modern seekers.",
+      "Describe HOW compassion, beauty, and teaching become actions and systems.",
+      "Keep consent, boundaries, and accessibility central to care.",
+      "Favor repeatable practices over personality-driven heroics.",
+      "Include verbal/non-verbal cues that signal safety and joy."
+    ],
+    "behavioral_insights": [
+      "Use intensity 0.6–0.9 selectively; add triggers/supports/challenges for high-leverage items.",
+      "Keep each insight 1–2 sentences, observable, and coachable.",
+      "Maintain 12 categories × 12 insights to fit schema and training needs.",
+      "Avoid medical/financial absolutes; focus on behaviors and governance.",
+      "Model repair, reciprocity, and rest as parts of devotion."
+    ],
+    "divine_triangle_alignment": [
+      "Expression derives from the full birth name numerology (master 33 is not reduced).",
+      "It represents talents, abilities, and communication style manifested outwardly.",
+      "It bridges inner motive (Soul Urge) and life curriculum (Life Path).",
+      "Growth arc moves from rescuing and perfection to scalable, reciprocal care.",
+      "Service lens: creative devotion that uplifts many without erasing the self."
+    ],
+    "categories_to_include": [
+      "decisionMaking - How they express choices",
+      "stressResponse - How stress affects expression",
+      "communication - Core expression patterns",
+      "relationships - How they express in connection",
+      "productivity - How they express through work",
+      "financial - How they express value and abundance",
+      "creative - How they express originality",
+      "learning - How they express curiosity and growth",
+      "wellness - How they express vitality",
+      "spiritual - How they express divine connection",
+      "shadow - Distorted expression patterns",
+      "transitions - How expression evolves through change"
+    ]
+  }
+}

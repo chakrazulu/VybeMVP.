@@ -1,0 +1,69 @@
+name: KASPER Eval Nightly
+
+on:
+  schedule:
+    - cron: "0 7 * * *"  # Daily at 7:00 UTC
+  workflow_dispatch:     # Manual trigger for testing
+
+permissions:
+  contents: read
+
+concurrency:
+  group: eval-nightly-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    env:
+      KASPER_JUDGE_MODE: stub  # Use stub mode for now, upgrade to local/cloud later
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          
+      - name: Install dependencies
+        run: |
+          pip install -r requirements-dev.txt
+          pip install pyyaml  # For rubric loading
+          
+      - name: Generate release cards (ensure artifacts exist)
+        run: |
+          python scripts/release_cards.py
+          echo "✅ Release cards generated for evaluation"
+          
+      - name: Run KASPER evaluation
+        run: |
+          python eval/run_eval.py
+          echo "🔮 Evaluation pipeline completed"
+          
+      - name: Upload evaluation artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: kasper-eval-report-${{ github.run_number }}
+          retention-days: 90
+          path: |
+            artifacts/eval/*.json
+            artifacts/eval/*.md
+            
+      - name: Check evaluation results
+        run: |
+          # This step runs regardless of eval script exit code
+          # Allows us to see results even if evaluation fails
+          if [ -f artifacts/eval/summary_*.md ]; then
+            echo "📊 Evaluation Summary:"
+            cat artifacts/eval/summary_*.md
+          else
+            echo "⚠️ No evaluation summary found"
+          fi
+        continue-on-error: true
+        
+      # Note: This workflow is designed to be non-blocking
+      # It will report results but not fail the main branch
+      # Individual eval runs may fail, but that's recorded in artifacts

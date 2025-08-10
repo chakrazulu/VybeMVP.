@@ -1,0 +1,489 @@
+{
+  "meta": {
+    "version": "v2.0",
+    "sourceNotes": "Divine Triangle tradition + Pythagorean numerology; behavioral insights based on Expression Number manifestation patterns",
+    "generationGuidelines": "Focus on how the person expresses themselves in the world, their natural talents, and how they communicate their inner truth"
+  },
+  "profiles": [
+    {
+      "number": 1,
+      "context": "expression",
+      "coreEssence": "Expression Number 1 manifests as natural leadership, pioneering communication, and innovative self-expression. They articulate vision with clarity and inspire others through original thinking.",
+      "lifeLesson": "Learn to express leadership with collaboration. Your expression asks you to voice bold ideas while remaining open to feedback, and to pioneer paths that others can follow.",
+      "shadowSignature": "Dominating conversations, dismissive communication, and ego-driven expression. When reactive, Expression 1 steamrolls dialogue or confuses volume with clarity. The remedy is inclusive leadership and collaborative innovation.",
+      "planes": {
+        "physical": { 
+          "strength": 7, 
+          "notes": "Dynamic physical expression; benefits from movement-based communication and kinetic learning styles" 
+        },
+        "mental": { 
+          "strength": 8, 
+          "notes": "Quick, decisive mental processing; excels at executive thinking but needs input diversity" 
+        },
+        "emotional": { 
+          "strength": 5, 
+          "notes": "Contained emotional expression; learns to share vulnerability as strength not weakness" 
+        },
+        "intuitive": { 
+          "strength": 6, 
+          "notes": "Strong gut instincts in communication; clearest when acting on first impressions" 
+        }
+      },
+      "chartOfInclusion": {
+        "counts": {},
+        "missingNumbers": []
+      },
+      "cycles": [
+        {
+          "label": "First Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": ["Finding your voice", "Leadership emergence", "Original expression"],
+          "practices": ["Daily speaking practice", "Write personal manifestos", "Lead small group initiatives"]
+        },
+        {
+          "label": "Second Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": ["Influence expansion", "Thought leadership", "Innovation platforms"],
+          "practices": ["Publish original ideas regularly", "Build speaker platforms", "Mentor emerging voices"]
+        },
+        {
+          "label": "Third Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": ["Legacy voice", "Wisdom transmission", "Leadership succession"],
+          "practices": ["Document leadership philosophy", "Train future pioneers", "Create lasting communication systems"]
+        }
+      ],
+      "pinnacles": [
+        {
+          "label": "Pinnacle I",
+          "startAge": null,
+          "endAge": null,
+          "themes": ["Voice development", "Confidence building", "Expression courage"],
+          "practices": ["Public speaking training", "Create content daily", "Practice assertive communication"]
+        },
+        {
+          "label": "Pinnacle II",
+          "startAge": null,
+          "endAge": null,
+          "themes": ["Platform building", "Message refinement", "Audience growth"],
+          "practices": ["Establish thought leadership", "Develop signature frameworks", "Build communication channels"]
+        },
+        {
+          "label": "Pinnacle III",
+          "startAge": null,
+          "endAge": null,
+          "themes": ["Influence mastery", "Cultural impact", "Expression innovation"],
+          "practices": ["Launch movements", "Shape industry dialogue", "Pioneer new expression forms"]
+        },
+        {
+          "label": "Pinnacle IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": ["Elder statesperson", "Wisdom keeper", "Voice of experience"],
+          "practices": ["Archive knowledge", "Guide next generation", "Preserve communication wisdom"]
+        }
+      ],
+      "challenges": [
+        {
+          "label": "Challenge I",
+          "startAge": null,
+          "endAge": null,
+          "themes": ["Aggressive expression", "Listening deficits"],
+          "practices": ["Practice active listening", "Count to five before responding", "Seek feedback on communication style"]
+        },
+        {
+          "label": "Challenge II",
+          "startAge": null,
+          "endAge": null,
+          "themes": ["Ego in expression", "Dismissive patterns"],
+          "practices": ["Acknowledge others' ideas first", "Practice collaborative dialogue", "Monitor interruption habits"]
+        },
+        {
+          "label": "Challenge III",
+          "startAge": null,
+          "endAge": null,
+          "themes": ["Impatience with process", "Rush to conclusion"],
+          "practices": ["Slow down delivery", "Ask clarifying questions", "Practice patience in dialogue"]
+        },
+        {
+          "label": "Challenge IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": ["Burnout from over-expression", "Voice exhaustion"],
+          "practices": ["Schedule silence periods", "Delegate communication tasks", "Practice restorative quiet"]
+        }
+      ],
+      "astroLinks": {
+        "tarotKeys": ["The Magician (I)"],
+        "planetaryCorrespondences": ["Sun", "Mercury"]
+      },
+      "behavioral": {
+        "decisionMaking": [
+          { 
+            "text": "Express decisions with clarity and conviction while inviting collaborative input", 
+            "intensity": 0.88, 
+            "triggers": ["leadership moments"], 
+            "supports": ["clear frameworks"], 
+            "challenges": ["consultation resistance"] 
+          },
+          { 
+            "text": "Voice your vision first, then actively seek diverse perspectives for refinement", 
+            "intensity": 0.85, 
+            "triggers": ["project launches"], 
+            "supports": ["structured feedback"], 
+            "challenges": ["confirmation bias"] 
+          },
+          { "text": "Communicate decisions with executive summaries: what, why, and first step" },
+          { "text": "Express choices through action demonstrations rather than lengthy explanations" },
+          { "text": "Articulate the pioneering aspect of each decision to inspire buy-in" },
+          { "text": "Voice unpopular but necessary decisions with courage and clarity" },
+          { "text": "Express flexibility by publicly adjusting course when new data emerges" },
+          { "text": "Communicate decision criteria upfront to prevent misunderstanding" },
+          { "text": "Voice decisions in ways that empower others to take ownership" },
+          { "text": "Express confidence without closing door to iteration" },
+          { "text": "Articulate decisions through stories that inspire action" },
+          { "text": "Voice commitment by putting skin in the game visibly" }
+        ],
+        "stressResponse": [
+          { 
+            "text": "Under pressure you may dominate conversation; pause, breathe, invite others to speak first", 
+            "intensity": 0.87, 
+            "triggers": ["conflict", "urgency"], 
+            "supports": ["structured dialogue"], 
+            "challenges": ["verbal steamrolling"] 
+          },
+          { 
+            "text": "Express stress through movement before verbal processing to avoid harsh delivery", 
+            "intensity": 0.83, 
+            "triggers": ["frustration"], 
+            "supports": ["physical release"], 
+            "challenges": ["explosive expression"] 
+          },
+          { "text": "Channel stress into written expression before verbal confrontation" },
+          { "text": "Use 'I need a moment' to prevent reactive expression" },
+          { "text": "Express concerns with solution focus rather than blame" },
+          { "text": "Voice stress signals early before they become explosive" },
+          { "text": "Articulate boundaries clearly when feeling overwhelmed" },
+          { "text": "Express needs directly rather than through aggressive demands" },
+          { "text": "Voice appreciation before addressing problems" },
+          { "text": "Communicate stress through structured check-ins" },
+          { "text": "Express vulnerability as strength during challenging times" },
+          { "text": "Articulate requests for support without commanding" }
+        ],
+        "communication": [
+          { 
+            "text": "Lead conversations with bold vision while creating space for others' voices", 
+            "intensity": 0.85, 
+            "triggers": ["meetings", "presentations"], 
+            "supports": ["facilitation skills"], 
+            "challenges": ["monologuing"] 
+          },
+          { 
+            "text": "Express original ideas with confidence while remaining open to refinement", 
+            "intensity": 0.82, 
+            "triggers": ["brainstorming"], 
+            "supports": ["structured formats"], 
+            "challenges": ["idea attachment"] 
+          },
+          { "text": "Articulate complex visions in simple, actionable language" },
+          { "text": "Voice disagreement with respect and alternative solutions" },
+          { "text": "Express enthusiasm in ways that energize rather than overwhelm" },
+          { "text": "Communicate deadlines with clarity and reasonable flexibility" },
+          { "text": "Voice recognition for others' contributions before adding your own" },
+          { "text": "Express feedback with specific examples and forward focus" },
+          { "text": "Articulate boundaries without apology or over-explanation" },
+          { "text": "Voice questions that elevate rather than interrogate" },
+          { "text": "Express complex ideas through memorable frameworks" },
+          { "text": "Communicate authority through expertise not volume" }
+        ],
+        "relationships": [
+          { 
+            "text": "Express love through acts of leadership and protection while allowing reciprocal care", 
+            "intensity": 0.80, 
+            "triggers": ["intimacy"], 
+            "supports": ["vulnerability practice"], 
+            "challenges": ["receiving help"] 
+          },
+          { 
+            "text": "Voice relationship needs directly rather than expecting mind-reading", 
+            "intensity": 0.78, 
+            "triggers": ["unmet needs"], 
+            "supports": ["clear requests"], 
+            "challenges": ["indirect expression"] 
+          },
+          { "text": "Express affection through empowering your partner's dreams" },
+          { "text": "Voice appreciation for your partner's unique expression style" },
+          { "text": "Articulate relationship vision while co-creating the path" },
+          { "text": "Express commitment through consistent actions not just words" },
+          { "text": "Voice conflicts with focus on resolution not winning" },
+          { "text": "Articulate boundaries that protect both autonomy and connection" },
+          { "text": "Express vulnerability as invitation for deeper intimacy" },
+          { "text": "Voice support for partner's independent expression" },
+          { "text": "Articulate love through champion-level belief in them" },
+          { "text": "Express relationship growth through shared adventures" }
+        ],
+        "productivity": [
+          { 
+            "text": "Express productivity through pioneering initiatives that create new paradigms", 
+            "intensity": 0.84, 
+            "triggers": ["work planning"], 
+            "supports": ["innovation time"], 
+            "challenges": ["routine tasks"] 
+          },
+          { 
+            "text": "Articulate work priorities with bold strokes rather than microdetails", 
+            "intensity": 0.80, 
+            "triggers": ["task management"], 
+            "supports": ["delegation systems"], 
+            "challenges": ["detail overwhelm"] 
+          },
+          { "text": "Voice project vision before diving into execution details" },
+          { "text": "Express productivity through rapid prototyping and iteration" },
+          { "text": "Articulate clear success metrics for every initiative" },
+          { "text": "Voice delegation needs with specific outcomes and deadlines" },
+          { "text": "Express focus by saying no to non-essential requests" },
+          { "text": "Articulate work boundaries to protect creative expression time" },
+          { "text": "Voice progress through visible milestones and celebrations" },
+          { "text": "Express efficiency through systemization of repeated tasks" },
+          { "text": "Articulate the why behind every major time investment" },
+          { "text": "Voice completion with clear handoffs and documentation" }
+        ],
+        "financial": [
+          { 
+            "text": "Express financial goals through bold vision backed by strategic action", 
+            "intensity": 0.82, 
+            "triggers": ["money planning"], 
+            "supports": ["clear targets"], 
+            "challenges": ["conservative thinking"] 
+          },
+          { 
+            "text": "Articulate value proposition with confidence when negotiating rates", 
+            "intensity": 0.78, 
+            "triggers": ["pricing discussions"], 
+            "supports": ["value documentation"], 
+            "challenges": ["undervaluing"] 
+          },
+          { "text": "Voice investment strategies that align with pioneering vision" },
+          { "text": "Express financial independence through multiple revenue streams" },
+          { "text": "Articulate money boundaries with partners and family" },
+          { "text": "Voice fundraising needs with compelling vision stories" },
+          { "text": "Express value through premium positioning not discounting" },
+          { "text": "Articulate financial decisions with clear risk/reward analysis" },
+          { "text": "Voice money goals that fund both security and adventure" },
+          { "text": "Express abundance mindset through strategic generosity" },
+          { "text": "Articulate exit strategies before entering financial commitments" },
+          { "text": "Voice financial leadership through transparent communication" }
+        ],
+        "creative": [
+          { 
+            "text": "Express creativity through original works that challenge conventions", 
+            "intensity": 0.86, 
+            "triggers": ["creative projects"], 
+            "supports": ["unlimited canvas"], 
+            "challenges": ["derivative work"] 
+          },
+          { 
+            "text": "Voice artistic vision with conviction while remaining open to collaboration", 
+            "intensity": 0.82, 
+            "triggers": ["creative partnerships"], 
+            "supports": ["clear roles"], 
+            "challenges": ["creative control"] 
+          },
+          { "text": "Articulate creative breakthroughs through bold experimentation" },
+          { "text": "Express artistic voice through signature style development" },
+          { "text": "Voice creative process to inspire others' expression" },
+          { "text": "Articulate artistic philosophy through manifesto writing" },
+          { "text": "Express innovation through cross-pollination of disciplines" },
+          { "text": "Voice creative courage by sharing work before perfection" },
+          { "text": "Articulate creative vision through compelling pitch decks" },
+          { "text": "Express originality by breaking from traditional forms" },
+          { "text": "Voice creative leadership through movement building" },
+          { "text": "Articulate creative legacy through teaching and mentorship" }
+        ],
+        "learning": [
+          { 
+            "text": "Express learning through teaching others while you master new domains", 
+            "intensity": 0.78, 
+            "triggers": ["skill development"], 
+            "supports": ["teach-to-learn"], 
+            "challenges": ["student mindset"] 
+          },
+          { 
+            "text": "Voice questions that challenge conventional understanding", 
+            "intensity": 0.76, 
+            "triggers": ["classroom settings"], 
+            "supports": ["debate formats"], 
+            "challenges": ["passive reception"] 
+          },
+          { "text": "Articulate learning goals through public commitment" },
+          { "text": "Express mastery through original synthesis of knowledge" },
+          { "text": "Voice understanding by creating new frameworks" },
+          { "text": "Articulate insights through thought leadership content" },
+          { "text": "Express curiosity through pioneering research questions" },
+          { "text": "Voice learning progress through visible demonstrations" },
+          { "text": "Articulate knowledge gaps without shame or pretense" },
+          { "text": "Express expertise through accessible explanation" },
+          { "text": "Voice learning philosophy through personal curriculum design" },
+          { "text": "Articulate wisdom through stories not just facts" }
+        ],
+        "wellness": [
+          { 
+            "text": "Express wellness through active, dynamic practices that energize expression", 
+            "intensity": 0.80, 
+            "triggers": ["health routines"], 
+            "supports": ["movement variety"], 
+            "challenges": ["passive recovery"] 
+          },
+          { 
+            "text": "Voice health needs assertively to medical providers and support systems", 
+            "intensity": 0.76, 
+            "triggers": ["health challenges"], 
+            "supports": ["self-advocacy"], 
+            "challenges": ["minimizing needs"] 
+          },
+          { "text": "Articulate wellness goals through measurable challenges" },
+          { "text": "Express vitality through adventurous physical pursuits" },
+          { "text": "Voice body wisdom by listening to energy signals" },
+          { "text": "Articulate health boundaries without apology" },
+          { "text": "Express wellness through inspiring others to move" },
+          { "text": "Voice rest needs as strategic performance investment" },
+          { "text": "Articulate nutrition choices that fuel expression" },
+          { "text": "Express stress through physical release before verbal" },
+          { "text": "Voice wellness victories to inspire community health" },
+          { "text": "Articulate mind-body connection through integrated practices" }
+        ],
+        "spiritual": [
+          { 
+            "text": "Express spirituality through pioneering practices that inspire others' awakening", 
+            "intensity": 0.78, 
+            "triggers": ["spiritual seeking"], 
+            "supports": ["original practices"], 
+            "challenges": ["dogma resistance"] 
+          },
+          { 
+            "text": "Voice divine connection through personal revelation rather than inherited tradition", 
+            "intensity": 0.76, 
+            "triggers": ["spiritual community"], 
+            "supports": ["direct experience"], 
+            "challenges": ["authority issues"] 
+          },
+          { "text": "Articulate spiritual insights through accessible language" },
+          { "text": "Express devotion through spiritual leadership roles" },
+          { "text": "Voice prayers with personal authentic language" },
+          { "text": "Articulate faith through action more than doctrine" },
+          { "text": "Express spiritual growth through visible transformation" },
+          { "text": "Voice spiritual questions that challenge assumptions" },
+          { "text": "Articulate divine purpose through worldly service" },
+          { "text": "Express gratitude through public acknowledgment" },
+          { "text": "Voice spiritual boundaries with religious institutions" },
+          { "text": "Articulate mystical experiences through creative expression" }
+        ],
+        "shadow": [
+          { 
+            "text": "When ego inflates expression, return to service-oriented communication", 
+            "intensity": 0.82, 
+            "triggers": ["praise", "success"], 
+            "supports": ["humility practices"], 
+            "challenges": ["superiority complex"] 
+          },
+          { 
+            "text": "Transform dominating expression into empowering facilitation", 
+            "intensity": 0.78, 
+            "triggers": ["group dynamics"], 
+            "supports": ["listening practices"], 
+            "challenges": ["conversation monopoly"] 
+          },
+          { "text": "Notice when volume replaces substance in expression" },
+          { "text": "Catch dismissive patterns and practice curious engagement" },
+          { "text": "Transform competitive expression into collaborative creation" },
+          { "text": "Notice when independence becomes isolation in expression" },
+          { "text": "Catch impatience and practice generous pacing" },
+          { "text": "Transform harsh critique into constructive guidance" },
+          { "text": "Notice when expression becomes performance over authenticity" },
+          { "text": "Catch interruption habits and practice full listening" },
+          { "text": "Transform aggressive debate into exploratory dialogue" },
+          { "text": "Notice when being right matters more than connection" }
+        ],
+        "transitions": [
+          { 
+            "text": "Express transition courage by publicly declaring new directions", 
+            "intensity": 0.80, 
+            "triggers": ["life changes"], 
+            "supports": ["public accountability"], 
+            "challenges": ["private processing"] 
+          },
+          { 
+            "text": "Voice transition needs clearly to mobilize support systems", 
+            "intensity": 0.76, 
+            "triggers": ["major shifts"], 
+            "supports": ["direct requests"], 
+            "challenges": ["solo struggling"] 
+          },
+          { "text": "Articulate transition vision before all details are clear" },
+          { "text": "Express change through bold action rather than tentative steps" },
+          { "text": "Voice transition challenges without victim narrative" },
+          { "text": "Articulate new identity through updated expression styles" },
+          { "text": "Express transition wisdom through teaching others" },
+          { "text": "Voice gratitude for past while embracing future" },
+          { "text": "Articulate transition timeline with flexibility built in" },
+          { "text": "Express rebirth through symbolic gestures and rituals" },
+          { "text": "Voice transition completion through celebration and integration" },
+          { "text": "Articulate lessons learned to guide others' transitions" }
+        ]
+      }
+    }
+  ],
+  "trinity": {
+    "integration_notes": "Expression Number represents HOW you manifest your Life Path (WHO you are) and Soul Urge (WHAT you desire) in the world. It's your natural communication style, talents, and the way you share your gifts.",
+    "calculation": "Sum of all letters in full birth name, reduced to single digit or master number",
+    "relationship_to_life_path": "Life Path is the journey, Expression is the vehicle you use to travel it",
+    "relationship_to_soul_urge": "Soul Urge is the inner desire, Expression is how you manifest that desire externally",
+    "behavioral_integration": [
+      "Expression colors how Life Path lessons are learned and communicated",
+      "Expression shapes how Soul Urge desires become manifest reality",
+      "Harmony between all three creates authentic self-expression",
+      "Conflicts between numbers show areas for integration work",
+      "Master numbers in Expression indicate teaching/healing gifts"
+    ]
+  },
+  "generation_instructions": {
+    "core_principles": [
+      "Focus on HOW the person expresses, not WHAT they express",
+      "Include communication styles, talents, and natural abilities",
+      "Emphasize external manifestation vs internal experience",
+      "Show how each number has unique gifts to share with world",
+      "Include both verbal and non-verbal expression patterns"
+    ],
+    "behavioral_insights": [
+      "Each insight should be 1-2 sentences maximum",
+      "Include intensity scores between 0.6-0.9",
+      "Add triggers, supports, and challenges for key behaviors",
+      "Focus on observable, actionable expression patterns",
+      "Balance between natural gifts and growth edges"
+    ],
+    "divine_triangle_alignment": [
+      "Expression Number = Full birth name numerology",
+      "Represents talents, abilities, and communication style",
+      "Bridge between inner world (Soul Urge) and life purpose (Life Path)",
+      "Include how expression changes across life cycles",
+      "Show evolution from raw talent to mastered gift"
+    ],
+    "categories_to_include": [
+      "decisionMaking - How they express choices",
+      "stressResponse - How stress affects expression",
+      "communication - Core expression patterns",
+      "relationships - How they express in connection",
+      "productivity - How they express through work",
+      "financial - How they express value and abundance",
+      "creative - How they express originality",
+      "learning - How they express curiosity and growth",
+      "wellness - How they express vitality",
+      "spiritual - How they express divine connection",
+      "shadow - Distorted expression patterns",
+      "transitions - How expression evolves through change"
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+# VybeMVP Git Attributes
+# Ensures consistent line endings and proper file handling across platforms
+
+# Auto-detect text files and normalize line endings
+* text=auto eol=lf
+
+# Source code files
+*.swift text
+*.py text
+*.js text
+*.ts text
+*.html text
+*.css text
+*.scss text
+*.sql text
+
+# Configuration files  
+*.json text
+*.yml text
+*.yaml text
+*.toml text
+*.ini text
+*.conf text
+*.config text
+Makefile text
+*.mk text
+
+# Documentation
+*.md text
+*.txt text
+*.rst text
+
+# Shell scripts
+*.sh text eol=lf
+*.bash text eol=lf
+*.zsh text eol=lf
+
+# KASPER MLX Dataset files (critical for spiritual AI)
+/data/**/*.json text
+/schemas/**/*.json text
+/artifacts/**/*.json text
+
+# Xcode project files
+*.pbxproj text
+*.xcconfig text
+*.plist text
+*.strings text
+*.stringsdict text
+
+# Images (binary)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text
+
+# Archives (binary)
+*.zip binary
+*.tar binary
+*.tar.gz binary
+*.tar.bz2 binary
+*.7z binary
+
+# Fonts (binary)
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+
+# Audio/Video (binary)
+*.mp3 binary
+*.mp4 binary
+*.mov binary
+*.avi binary
+*.wav binary
+
+# Documents (binary)
+*.pdf binary
+*.doc binary
+*.docx binary
+
+# Python specific
+*.pkl binary
+*.pyc binary
+*.pyo binary
+
+# Exclude from export
+.gitattributes export-ignore
+.gitignore export-ignore
+.editorconfig export-ignore
+tests/ export-ignore
+*.test.* export-ignore

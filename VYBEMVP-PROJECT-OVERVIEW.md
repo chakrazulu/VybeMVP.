@@ -143,14 +143,93 @@ Working on enhancing the JournalView with:
 - Dynamic sigil generation
 - Cosmic particle effects
 
+## 🔮 KASPER MLX - Revolutionary Spiritual AI Dataset
+
+[![KASPER MLX Release Cards](https://github.com/VybeMVP/VybeMVP/actions/workflows/release-cards.yml/badge.svg)](https://github.com/VybeMVP/VybeMVP/actions/workflows/release-cards.yml)
+
+**Version:** 2.0 | **Dataset Size:** 130 files (2.29 MB) | **Status:** Production Ready
+
+VybeMVP now includes the world's first professionally documented spiritual AI dataset, specifically designed for Apple's MLX framework. KASPER MLX contains 130 professionally curated JSON files with 4,606+ behavioral insights across multiple spiritual wisdom traditions.
+
+### Quick Start - Generate Release Documentation
+
+```bash
+# Production release (hard validation)
+make release-cards
+
+# Development-friendly (soft validation - warnings only)
+make soft
+
+# Custom configuration
+python make_release_cards.py --soft --name my-dataset --version v2.1
+
+# Cross-platform PowerShell (Windows)
+.\scripts\release_cards.ps1
+```
+
+### Documentation Links
+
+- 📋 **[DATA_CARD.md](docs/DATA_CARD.md)** - Comprehensive dataset documentation
+- 🤖 **[MODEL_CARD.md](docs/MODEL_CARD.md)** - ML model specifications and ethics
+- 🔐 **[MANIFEST.json](artifacts/MANIFEST.json)** - Dataset integrity verification
+
+### Advanced Workflow
+
+```bash
+# Install development environment
+make install-dev
+
+# Generate release cards with policy-driven validation
+make release-cards
+
+# Test deterministic dataset digest (critical for production)
+make determinism
+
+# Run structural validation tests only (CI-compatible)
+make test-structural
+
+# Complete build pipeline
+make build
+```
+
+### Testing & Validation
+
+```bash
+# Run all validation tests
+make test
+
+# Structural tests only (required for CI)
+make test-structural  
+
+# Heuristic quality tests only
+make test-heuristic
+
+# Test dataset digest determinism
+make determinism
+
+# Manual pytest execution
+python -m pytest tests/ -m structural --verbose
+```
+
+### Policy-Driven Configuration
+
+Release validation is controlled by `configs/release_policy.yml`:
+
+```yaml
+gates:
+  determinism: hard        # Always enforced
+  schema_validation: hard  # Critical structural integrity
+  duplicate_insights: soft # Can be warning in development
+```
+
 ## 🔮 Future Roadmap
 
 1. **Enhanced Sacred Geometry**: Dynamic geometry based on numerological attributes
 2. **Cloud Sync**: CloudKit integration for cross-device synchronization
-3. **Advanced AI**: More sophisticated cosmic insight generation
+3. **KASPER MLX Training**: Native Apple MLX spiritual AI model training
 4. **Social Features**: Sacred number matching and cosmic community
 5. **Apple Watch**: Numerology notifications and quick reflections
 
 ---
 
-*"In the sacred dance of numbers, we find our cosmic truth."* ✨🌌🔢
+**VybeMVP Development Team** - *Bridging Ancient Wisdom with Revolutionary AI* 🔮✨🌌

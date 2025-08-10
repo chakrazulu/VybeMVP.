@@ -1,0 +1,981 @@
+{
+  "meta": {
+    "version": "v2.0",
+    "sourceNotes": "Divine Triangle tradition + Pythagorean numerology; behavioral insights based on Expression Number manifestation patterns",
+    "generationGuidelines": "Focus on how the person expresses themselves in the world, their natural talents, and how they communicate their inner truth",
+    "id": "expression_22",
+    "numerologyType": "expression",
+    "number": 22,
+    "title": "Expression Number 22",
+    "description": "Communication style and natural talents for Expression 22",
+    "context": "expression",
+    "lastUpdated": "2025-08-09T14:35:48.612793",
+    "sourceType": "chatgpt_behavioral",
+    "conversionVersion": "v1.0"
+  },
+  "profiles": [
+    {
+      "number": 22,
+      "context": "expression",
+      "coreEssence": "Expression Number 1 manifests as natural leadership, pioneering communication, and innovative self-expression. They articulate vision with clarity and inspire others through original thinking.",
+      "lifeLesson": "Learn to express leadership with collaboration. Your expression asks you to voice bold ideas while remaining open to feedback, and to pioneer paths that others can follow.",
+      "shadowSignature": "Dominating conversations, dismissive communication, and ego-driven expression. When reactive, Expression 1 steamrolls dialogue or confuses volume with clarity. The remedy is inclusive leadership and collaborative innovation.",
+      "planes": {
+        "physical": {
+          "strength": 7,
+          "notes": "Dynamic physical expression; benefits from movement-based communication and kinetic learning styles"
+        },
+        "mental": {
+          "strength": 8,
+          "notes": "Quick, decisive mental processing; excels at executive thinking but needs input diversity"
+        },
+        "emotional": {
+          "strength": 5,
+          "notes": "Contained emotional expression; learns to share vulnerability as strength not weakness"
+        },
+        "intuitive": {
+          "strength": 6,
+          "notes": "Strong gut instincts in communication; clearest when acting on first impressions"
+        }
+      },
+      "chartOfInclusion": {
+        "counts": {},
+        "missingNumbers": []
+      },
+      "cycles": [
+        {
+          "label": "First Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Finding your voice",
+            "Leadership emergence",
+            "Original expression"
+          ],
+          "practices": [
+            "Daily speaking practice",
+            "Write personal manifestos",
+            "Lead small group initiatives"
+          ]
+        },
+        {
+          "label": "Second Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Influence expansion",
+            "Thought leadership",
+            "Innovation platforms"
+          ],
+          "practices": [
+            "Publish original ideas regularly",
+            "Build speaker platforms",
+            "Mentor emerging voices"
+          ]
+        },
+        {
+          "label": "Third Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Legacy voice",
+            "Wisdom transmission",
+            "Leadership succession"
+          ],
+          "practices": [
+            "Document leadership philosophy",
+            "Train future pioneers",
+            "Create lasting communication systems"
+          ]
+        }
+      ],
+      "pinnacles": [
+        {
+          "label": "Pinnacle I",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Voice development",
+            "Confidence building",
+            "Expression courage"
+          ],
+          "practices": [
+            "Public speaking training",
+            "Create content daily",
+            "Practice assertive communication"
+          ]
+        },
+        {
+          "label": "Pinnacle II",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Platform building",
+            "Message refinement",
+            "Audience growth"
+          ],
+          "practices": [
+            "Establish thought leadership",
+            "Develop signature frameworks",
+            "Build communication channels"
+          ]
+        },
+        {
+          "label": "Pinnacle III",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Influence mastery",
+            "Cultural impact",
+            "Expression innovation"
+          ],
+          "practices": [
+            "Launch movements",
+            "Shape industry dialogue",
+            "Pioneer new expression forms"
+          ]
+        },
+        {
+          "label": "Pinnacle IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Elder statesperson",
+            "Wisdom keeper",
+            "Voice of experience"
+          ],
+          "practices": [
+            "Archive knowledge",
+            "Guide next generation",
+            "Preserve communication wisdom"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "label": "Challenge I",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Aggressive expression",
+            "Listening deficits"
+          ],
+          "practices": [
+            "Practice active listening",
+            "Count to five before responding",
+            "Seek feedback on communication style"
+          ]
+        },
+        {
+          "label": "Challenge II",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Ego in expression",
+            "Dismissive patterns"
+          ],
+          "practices": [
+            "Acknowledge others' ideas first",
+            "Practice collaborative dialogue",
+            "Monitor interruption habits"
+          ]
+        },
+        {
+          "label": "Challenge III",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Impatience with process",
+            "Rush to conclusion"
+          ],
+          "practices": [
+            "Slow down delivery",
+            "Ask clarifying questions",
+            "Practice patience in dialogue"
+          ]
+        },
+        {
+          "label": "Challenge IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Burnout from over-expression",
+            "Voice exhaustion"
+          ],
+          "practices": [
+            "Schedule silence periods",
+            "Delegate communication tasks",
+            "Practice restorative quiet"
+          ]
+        }
+      ],
+      "astroLinks": {
+        "tarotKeys": [
+          "The Magician (I)"
+        ],
+        "planetaryCorrespondences": [
+          "Sun",
+          "Mercury"
+        ]
+      },
+      "behavioral": {
+        "decisionMaking": [
+          {
+            "text": "Frame choices with mission, risk, cost, and care—no decision passes unless it serves people and lasts.",
+            "intensity": 0.88,
+            "triggers": [
+              "strategy",
+              "capital moves"
+            ],
+            "supports": [
+              "mission/risk/care scorecard"
+            ],
+            "challenges": [
+              "single-metric bias"
+            ]
+          },
+          {
+            "text": "Prefer designs that scale and maintain; pick the simplest architecture that survives reality.",
+            "intensity": 0.84,
+            "triggers": [
+              "systems design"
+            ],
+            "supports": [
+              "Simplicity tests"
+            ],
+            "challenges": [
+              "overengineering"
+            ]
+          },
+          {
+            "text": "Define non-negotiables (safety, ethics, solvency) before debating options."
+          },
+          {
+            "text": "Pilot small, measure honestly, then roll out in phases."
+          },
+          {
+            "text": "Weight durability and maintainability over novelty."
+          },
+          {
+            "text": "Invite cross-functional dissent early to find blind spots."
+          },
+          {
+            "text": "Choose reversible decisions fast, irreversible ones slow."
+          },
+          {
+            "text": "Set success and rollback criteria with dates and owners."
+          },
+          {
+            "text": "Document rationale for institutional memory and accountability."
+          },
+          {
+            "text": "When tied, pick the path that builds capacity in others."
+          },
+          {
+            "text": "Avoid pet projects; demand user evidence and lifecycle costings."
+          },
+          {
+            "text": "Close with owners, budgets, dependencies, and review cadence."
+          }
+        ],
+        "stressResponse": [
+          {
+            "text": "Under stress you tighten the screws; shift to triage—protect people, integrity, and cash in that order.",
+            "intensity": 0.86,
+            "triggers": [
+              "incidents",
+              "delays"
+            ],
+            "supports": [
+              "triage playbook"
+            ],
+            "challenges": [
+              "command-and-control"
+            ]
+          },
+          {
+            "text": "Shorten loops; daily standups and clear lanes beat long lectures.",
+            "intensity": 0.8,
+            "triggers": [
+              "crunch time"
+            ],
+            "supports": [
+              "kanban"
+            ],
+            "challenges": [
+              "bottlenecking"
+            ]
+          },
+          {
+            "text": "Name the risk, owner, and countermeasure instead of venting."
+          },
+          {
+            "text": "Lower voice, slow pace; calm transmits stability to teams."
+          },
+          {
+            "text": "Ask for help explicitly; heroics break systems."
+          },
+          {
+            "text": "Insert recovery blocks; exhausted builders make brittle calls."
+          },
+          {
+            "text": "Move your body to bleed off pressure before key meetings."
+          },
+          {
+            "text": "Post transparent updates with facts and next steps."
+          },
+          {
+            "text": "Recenter on non-negotiables when shortcut temptations appear."
+          },
+          {
+            "text": "Exit the loop when flooded; return with a written plan."
+          },
+          {
+            "text": "Thank effort publicly; morale is infrastructure."
+          },
+          {
+            "text": "Close crises with post-mortems and implemented countermeasures."
+          }
+        ],
+        "communication": [
+          {
+            "text": "Speak in architecture: context → constraints → design → safety/ethics → execution.",
+            "intensity": 0.84,
+            "triggers": [
+              "briefings",
+              "reviews"
+            ],
+            "supports": [
+              "design docs"
+            ],
+            "challenges": [
+              "over-detailing"
+            ]
+          },
+          {
+            "text": "Translate board talk to shop floor and back; clarity at every layer.",
+            "intensity": 0.8,
+            "triggers": [
+              "all-hands"
+            ],
+            "supports": [
+              "one-page memos"
+            ],
+            "challenges": [
+              "jargon walls"
+            ]
+          },
+          {
+            "text": "Define terms and acceptance criteria so 'done' means the same thing."
+          },
+          {
+            "text": "Use diagrams and RACI maps to prevent ownership fog."
+          },
+          {
+            "text": "Invite counterarguments and record decisions visibly."
+          },
+          {
+            "text": "Credit unseen labor; loyalty compounds when builders are seen."
+          },
+          {
+            "text": "Separate opinion from standard; label what is policy."
+          },
+          {
+            "text": "Keep tone steady; urgency lives in the plan, not the voice."
+          },
+          {
+            "text": "Ask for teach-back to confirm shared understanding."
+          },
+          {
+            "text": "Publish FAQs for big changes to reduce rumor load."
+          },
+          {
+            "text": "Set comms cadences; predictability lowers anxiety."
+          },
+          {
+            "text": "End with one crisp next action per owner."
+          }
+        ],
+        "relationships": [
+          {
+            "text": "Express love through reliability and protection—and schedule softness so home isn’t a project site.",
+            "intensity": 0.82,
+            "triggers": [
+              "busy seasons"
+            ],
+            "supports": [
+              "soft-start rituals"
+            ],
+            "challenges": [
+              "manager tone at home"
+            ]
+          },
+          {
+            "text": "Share plans and feelings; partners need your roadmap and your heart.",
+            "intensity": 0.78,
+            "triggers": [
+              "life changes"
+            ],
+            "supports": [
+              "shared calendar"
+            ],
+            "challenges": [
+              "withholding"
+            ]
+          },
+          {
+            "text": "Co-create household systems that share load fairly."
+          },
+          {
+            "text": "Make clear requests instead of assuming mind-reading."
+          },
+          {
+            "text": "Keep criticism behavior-specific with repair plans."
+          },
+          {
+            "text": "Protect couple/family time from endless duty."
+          },
+          {
+            "text": "Use rituals to shift from foreman to friend/lover."
+          },
+          {
+            "text": "Celebrate small progress; not every win is monumental."
+          },
+          {
+            "text": "Practice saying 'I was wrong' quickly; humility builds safety."
+          },
+          {
+            "text": "Keep privacy; don’t turn loved ones into case studies."
+          },
+          {
+            "text": "Honor your partner’s projects with the same respect you want."
+          },
+          {
+            "text": "Let others lead at home; follow with grace."
+          }
+        ],
+        "productivity": [
+          {
+            "text": "Sequence for leverage; do the few moves that unblock the many.",
+            "intensity": 0.86,
+            "triggers": [
+              "planning"
+            ],
+            "supports": [
+              "critical path map"
+            ],
+            "challenges": [
+              "low-ROI busyness"
+            ]
+          },
+          {
+            "text": "Lock standards and templates; reuse beats reinvention.",
+            "intensity": 0.82,
+            "triggers": [
+              "scale-up"
+            ],
+            "supports": [
+              "SOP library"
+            ],
+            "challenges": [
+              "custom one-offs"
+            ]
+          },
+          {
+            "text": "Batch similar tasks and guard deep-work blocks."
+          },
+          {
+            "text": "Define quality gates and 'done-done' before building."
+          },
+          {
+            "text": "Automate handoffs and status to reduce coordination drag."
+          },
+          {
+            "text": "Retire processes that no longer earn their keep."
+          },
+          {
+            "text": "Staff for redundancy; remove single points of failure."
+          },
+          {
+            "text": "Tie celebrations to delivered value, not hours burned."
+          },
+          {
+            "text": "End weeks with review → risks → adjustments → next scaffold."
+          },
+          {
+            "text": "Keep a decisions log to prevent circular debates."
+          },
+          {
+            "text": "Use checklists for critical operations; memory isn’t a system."
+          },
+          {
+            "text": "Teach your method; scale via trained builders, not heroics."
+          }
+        ],
+        "financial": [
+          {
+            "text": "Operate with a written financial philosophy—buckets for operating, reserves, and risk; ethics across all.",
+            "intensity": 0.84,
+            "triggers": [
+              "budget cycles"
+            ],
+            "supports": [
+              "IPS document"
+            ],
+            "challenges": [
+              "ad-hoc swings"
+            ]
+          },
+          {
+            "text": "Model lifecycle costs; choose options that win over years, not weeks.",
+            "intensity": 0.8,
+            "triggers": [
+              "capex"
+            ],
+            "supports": [
+              "TCO analysis"
+            ],
+            "challenges": [
+              "short-termism"
+            ]
+          },
+          {
+            "text": "Use conservative underwriting and buffers on bold bets."
+          },
+          {
+            "text": "Negotiate fair contracts; aim for longevity and low litigation."
+          },
+          {
+            "text": "Automate cushions for payroll, taxes, and maintenance."
+          },
+          {
+            "text": "Track unit economics; scale only what is truly profitable."
+          },
+          {
+            "text": "Share upside transparently; profit-sharing builds trust."
+          },
+          {
+            "text": "Audit vendors for ethics and quality; align the supply chain."
+          },
+          {
+            "text": "Separate philanthropy from marketing; publish impact reports."
+          },
+          {
+            "text": "Avoid debt that buys prestige but not capacity."
+          },
+          {
+            "text": "Maintain emergency and opportunity funds to stay agile."
+          },
+          {
+            "text": "Teach financial literacy across the org; clarity reduces fear."
+          }
+        ],
+        "creative": [
+          {
+            "text": "Design for human use at scale—beauty that lowers stress and improves flow.",
+            "intensity": 0.84,
+            "triggers": [
+              "new builds"
+            ],
+            "supports": [
+              "human-centered design"
+            ],
+            "challenges": [
+              "monument over people"
+            ]
+          },
+          {
+            "text": "Prototype low-fidelity, test with users, then invest in polish.",
+            "intensity": 0.8,
+            "triggers": [
+              "ideation"
+            ],
+            "supports": [
+              "rapid prototyping"
+            ],
+            "challenges": [
+              "sunk-cost rigidity"
+            ]
+          },
+          {
+            "text": "Codify style guides so many hands produce one coherent whole."
+          },
+          {
+            "text": "Use materials and metaphors that age well—choose classic over fad."
+          },
+          {
+            "text": "Host critiques with clear rubrics to separate taste from function."
+          },
+          {
+            "text": "Include accessibility from the first sketch; retrofits cost more."
+          },
+          {
+            "text": "Balance precision with one playful element per piece to keep soul."
+          },
+          {
+            "text": "Archive versions and rationale to teach future builders."
+          },
+          {
+            "text": "Collaborate with operators early so ideas ship on time."
+          },
+          {
+            "text": "Measure creative success by user outcomes, not just applause."
+          },
+          {
+            "text": "Protect IP ethically and license to expand impact responsibly."
+          },
+          {
+            "text": "Teach apprenticeships; craftsmanship scales through lineage."
+          }
+        ],
+        "learning": [
+          {
+            "text": "Learn by building; small pilots with post-mortems beat theory hoarding.",
+            "intensity": 0.82,
+            "triggers": [
+              "new domains"
+            ],
+            "supports": [
+              "experiment ledger"
+            ],
+            "challenges": [
+              "analysis paralysis"
+            ]
+          },
+          {
+            "text": "Study codes, standards, and case studies; know why rules exist.",
+            "intensity": 0.78,
+            "triggers": [
+              "compliance"
+            ],
+            "supports": [
+              "standards library"
+            ],
+            "challenges": [
+              "rule worship"
+            ]
+          },
+          {
+            "text": "Shadow masters and then teach back to cement skill."
+          },
+          {
+            "text": "Use spaced repetition for formulas, laws, and safety steps."
+          },
+          {
+            "text": "Host peer reviews; truth emerges in structured dialogue."
+          },
+          {
+            "text": "Cross-train in finance, ops, and people systems for range."
+          },
+          {
+            "text": "Track mistakes and root causes; upgrade the method, not the blame."
+          },
+          {
+            "text": "Finish courses with artifacts—checklists, templates, or models."
+          },
+          {
+            "text": "Keep a 'retire/replace' list to avoid legacy drag."
+          },
+          {
+            "text": "Invite user communities to co-educate the builders."
+          },
+          {
+            "text": "Balance rigor with curiosity days to prevent calcification."
+          },
+          {
+            "text": "Archive learning in searchable, shared repositories."
+          }
+        ],
+        "wellness": [
+          {
+            "text": "Treat stamina as a project asset—sleep, strength, and sunlight drive durable leadership.",
+            "intensity": 0.82,
+            "triggers": [
+              "routine design"
+            ],
+            "supports": [
+              "sleep/lift/walk plan"
+            ],
+            "challenges": [
+              "grind culture"
+            ]
+          },
+          {
+            "text": "Schedule true sabbaths; recovery keeps systems humane.",
+            "intensity": 0.78,
+            "triggers": [
+              "heavy seasons"
+            ],
+            "supports": [
+              "rest cadence"
+            ],
+            "challenges": [
+              "martyr work"
+            ]
+          },
+          {
+            "text": "Use breath and posture to signal calm under pressure."
+          },
+          {
+            "text": "Eat for steady energy; spikes produce brittle decisions."
+          },
+          {
+            "text": "Limit screens late; leaders think clearer when rested."
+          },
+          {
+            "text": "Share the load—rotas, backups, and boundaries prevent collapse."
+          },
+          {
+            "text": "Move daily; walking meetings unlock stuck thinking."
+          },
+          {
+            "text": "Name stress early and adjust scope before cracks widen."
+          },
+          {
+            "text": "Keep low-drama circles; stability is health infrastructure."
+          },
+          {
+            "text": "Track a few biomarkers to guide tweaks, not obsession."
+          },
+          {
+            "text": "Cultivate hobbies that have no KPI—soul maintenance."
+          },
+          {
+            "text": "Celebrate quiet health wins as seriously as big launches."
+          }
+        ],
+        "spiritual": [
+          {
+            "text": "Consecrate building—treat standards, safety, and fairness as sacred practices.",
+            "intensity": 0.82,
+            "triggers": [
+              "kickoffs"
+            ],
+            "supports": [
+              "ethics charter"
+            ],
+            "challenges": [
+              "corner-cutting"
+            ]
+          },
+          {
+            "text": "Let humility chair the table; credit Source, teams, and predecessors.",
+            "intensity": 0.78,
+            "triggers": [
+              "milestones"
+            ],
+            "supports": [
+              "gratitude roll-calls"
+            ],
+            "challenges": [
+              "ego creep"
+            ]
+          },
+          {
+            "text": "Design spaces and systems that reduce harm and increase dignity."
+          },
+          {
+            "text": "Practice service that hides your name and highlights the work."
+          },
+          {
+            "text": "Hold silence before big calls; wisdom arrives when noise drops."
+          },
+          {
+            "text": "Repair publicly and promptly when harm occurs."
+          },
+          {
+            "text": "Tithe profit/time to maintain commons that support many."
+          },
+          {
+            "text": "Study stewardship traditions—how elders kept things fair."
+          },
+          {
+            "text": "Honor cycles—plant, build, maintain, retire—with ritual."
+          },
+          {
+            "text": "Teach the next generation; legacy is a spiritual act."
+          },
+          {
+            "text": "Avoid purity theater; quiet fairness beats loud virtue."
+          },
+          {
+            "text": "End projects with blessings that thank all hands."
+          }
+        ],
+        "shadow": [
+          {
+            "text": "When control spikes, switch to questions, pilots, and shared metrics; consent creates durable power.",
+            "intensity": 0.82,
+            "triggers": [
+              "misses",
+              "conflict"
+            ],
+            "supports": [
+              "shared dashboards"
+            ],
+            "challenges": [
+              "authoritarian reflex"
+            ]
+          },
+          {
+            "text": "Notice when 'standards' mask perfectionism; define 'good-enough' and ship.",
+            "intensity": 0.78,
+            "triggers": [
+              "delays"
+            ],
+            "supports": [
+              "done criteria"
+            ],
+            "challenges": [
+              "gold-plating"
+            ]
+          },
+          {
+            "text": "Retire vanity builds; measure outcomes, not optics."
+          },
+          {
+            "text": "Trade suspicion for verification—trust then test, don’t smother."
+          },
+          {
+            "text": "Mind tone; respect is the fuel that runs big systems."
+          },
+          {
+            "text": "Watch scarcity scripts; abundance comes from capacity, not pace."
+          },
+          {
+            "text": "Set fair pay and perks; unjust gaps rot culture."
+          },
+          {
+            "text": "Avoid revenge architecture; dismantle harm quietly and legally."
+          },
+          {
+            "text": "Don’t erase feelings; body and team signals are data."
+          },
+          {
+            "text": "Share credit widely; hoarding glory shrinks followership."
+          },
+          {
+            "text": "Limit identity to role; you are more than your infrastructure."
+          },
+          {
+            "text": "Release obsolete rules; tradition serves people, not the reverse."
+          }
+        ],
+        "transitions": [
+          {
+            "text": "Treat change as a program—scope, phases, owners, budgets, and ethics checks.",
+            "intensity": 0.84,
+            "triggers": [
+              "reorgs",
+              "migrations"
+            ],
+            "supports": [
+              "transition plan"
+            ],
+            "challenges": [
+              "big-bang failures"
+            ]
+          },
+          {
+            "text": "Communicate early and honestly; uncertainty is a tax you can cut.",
+            "intensity": 0.8,
+            "triggers": [
+              "market shifts"
+            ],
+            "supports": [
+              "update cadence"
+            ],
+            "challenges": [
+              "rumor mills"
+            ]
+          },
+          {
+            "text": "Migrate in slices with rollback points; keep service alive while you move."
+          },
+          {
+            "text": "Protect jobs and users where possible; design humane buffers."
+          },
+          {
+            "text": "Carry one anchor ritual through the shift to stabilize morale."
+          },
+          {
+            "text": "Retire the old with gratitude; archive so successors can learn."
+          },
+          {
+            "text": "Secure cash and attention buffers before the pivot."
+          },
+          {
+            "text": "Invite external review for fairness and safety during upheaval."
+          },
+          {
+            "text": "Track leading indicators and adjust publicly with humility."
+          },
+          {
+            "text": "Hold town halls that take questions until the room exhales."
+          },
+          {
+            "text": "Celebrate stability milestones—first week incident-free, first successful handoff."
+          },
+          {
+            "text": "Close with a plain-language summary of lessons and next steps."
+          }
+        ]
+      }
+    }
+  ],
+  "trinity": {
+    "integration_notes": "Expression Number represents HOW you manifest your Life Path (WHO you are) and Soul Urge (WHAT you desire) in the world. It's your natural communication style, talents, and the way you share your gifts.",
+    "calculation": "Sum all letters of the full birth name; reduce to a single digit or master number",
+    "relationship_to_life_path": "Life Path is the journey, Expression is the vehicle you use to travel it",
+    "relationship_to_soul_urge": "Soul Urge is the inner desire, Expression is how you manifest that desire externally",
+    "behavioral_integration": [
+      "Expression colors how Life Path lessons are learned and communicated",
+      "Expression shapes how Soul Urge desires become manifest reality",
+      "Harmony between all three creates authentic self-expression",
+      "Conflicts between numbers show areas for integration work",
+      "Master numbers in Expression indicate teaching/healing gifts"
+    ],
+    "meaning": "Represents your natural communication style, talents, and how you express yourself in the world",
+    "resonance": "mental"
+  },
+  "generation_instructions": {
+    "core_principles": [
+      "Focus on HOW the person expresses, not WHAT they express",
+      "Include communication styles, talents, and natural abilities",
+      "Emphasize external manifestation vs internal experience",
+      "Show how each number has unique gifts to share with world",
+      "Include both verbal and non-verbal expression patterns"
+    ],
+    "behavioral_insights": [
+      "Each insight should be 1-2 sentences maximum",
+      "Include intensity scores between 0.6-0.9",
+      "Add triggers, supports, and challenges for key behaviors",
+      "Focus on observable, actionable expression patterns",
+      "Balance between natural gifts and growth edges"
+    ],
+    "divine_triangle_alignment": [
+      "Expression Number = Full birth name numerology",
+      "Represents talents, abilities, and communication style",
+      "Bridge between inner world (Soul Urge) and life purpose (Life Path)",
+      "Include how expression changes across life cycles",
+      "Show evolution from raw talent to mastered gift"
+    ],
+    "categories_to_include": [
+      "decisionMaking - How they express choices",
+      "stressResponse - How stress affects expression",
+      "communication - Core expression patterns",
+      "relationships - How they express in connection",
+      "productivity - How they express through work",
+      "financial - How they express value and abundance",
+      "creative - How they express originality",
+      "learning - How they express curiosity and growth",
+      "wellness - How they express vitality",
+      "spiritual - How they express divine connection",
+      "shadow - Distorted expression patterns",
+      "transitions - How expression evolves through change"
+    ],
+    "context": "expression",
+    "focus": "Natural communication style, talents, and self-expression in the world",
+    "model": "chatgpt-4"
+  }
+}

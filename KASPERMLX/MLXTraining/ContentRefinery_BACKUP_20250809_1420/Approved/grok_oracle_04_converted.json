@@ -1,0 +1,34 @@
+{
+  "source": "grok_oracle",
+  "number": 4,
+  "persona": "Oracle",
+  "content_type": "mystical_insights",
+  "fallback": true,
+  "spiritual_categories": {
+    "primary_insights": [
+      "number",
+      "generation_info",
+      "date",
+      "2025-08-05",
+      "time_context",
+      "universal",
+      "theme",
+      "foundation_building",
+      "batch_size",
+      "insight",
+      "The Builder's hands mold earth's essence—craft stability from chaos's raw clay.",
+      "In Four's soil, foundations deepen; anchor your spirit in enduring stone.",
+      "Order emerges from methodical toil—align your labors with cosmic design.",
+      "Patience is the oracle's stone; polish it to reveal mastery’s gleam.",
+      "Hard work forges the soul's temple—build it brick by sacred brick."
+    ],
+    "reflection_questions": [],
+    "contemplation_themes": [],
+    "note": "Fallback conversion - original JSON was malformed"
+  },
+  "intensity_scoring": {
+    "min_range": 0.7,
+    "max_range": 0.9,
+    "note": "Oracle content recovered from malformed source"
+  }
+}

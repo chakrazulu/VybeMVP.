@@ -1,0 +1,34 @@
+{
+  "source": "grok_numerologyscholar",
+  "number": 9,
+  "persona": "NumerologyScholar",
+  "content_type": "mystical_insights",
+  "fallback": true,
+  "spiritual_categories": {
+    "primary_insights": [
+      "number",
+      "generation_info",
+      "date",
+      "2025-08-08",
+      "time_context",
+      "universal",
+      "theme",
+      "Completion and Universal Compassion",
+      "batch_size",
+      "insight",
+      "Embrace Mars' fiery resolve; 9 ignites passion for global healing.",
+      "Culminate cycles wisely; 9 transforms endings into enlightened dawns.",
+      "Channel humanitarian zeal; 9 weaves compassion into world's fabric.",
+      "Awaken old soul wisdom; 9 unveils lifetimes of accumulated truth.",
+      "Surrender to divine flow; 9 dissolves ego in universal oneness."
+    ],
+    "reflection_questions": [],
+    "contemplation_themes": [],
+    "note": "Fallback conversion - original JSON was malformed"
+  },
+  "intensity_scoring": {
+    "min_range": 0.7,
+    "max_range": 0.9,
+    "note": "NumerologyScholar content recovered from malformed source"
+  }
+}

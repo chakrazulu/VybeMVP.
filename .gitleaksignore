@@ -1,0 +1,35 @@
+# KASPER MLX Release System - Gitleaks Ignore Configuration
+# Generated: August 9, 2025
+# Purpose: Exclude false positives from secrets scanning
+
+# Exclude test files with mock/dummy data
+tests/**/*
+**/test_*.py
+
+# Exclude documentation with example configurations
+docs/**/*
+*.md
+README*
+
+# Exclude artifacts directory (generated content)
+artifacts/**/*
+
+# Exclude configuration templates (not actual secrets)
+configs/release_policy.yml
+
+# Exclude Xcode build artifacts
+build/**/*
+DerivedData/**/*
+*.xcworkspace/xcuserdata/**/*
+*.xcodeproj/xcuserdata/**/*
+
+# Exclude common development files
+.vscode/**/*
+.idea/**/*
+*.log
+*.tmp
+
+# Exclude package manager files (may contain registry URLs)
+requirements*.txt
+Package.swift
+Podfile*

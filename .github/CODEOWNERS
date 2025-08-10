@@ -1,0 +1,40 @@
+# VybeMVP Code Ownership
+# Ensures proper review for different parts of the codebase
+
+# Global fallback - all files
+* @Maniac_Magee
+
+# KASPER MLX Dataset & AI Infrastructure
+/data/ @Maniac_Magee
+/schemas/ @Maniac_Magee  
+/scripts/ @Maniac_Magee
+/eval/ @Maniac_Magee
+/KASPERMLX/ @Maniac_Magee
+
+# Documentation & Release System
+/docs/ @Maniac_Magee
+/artifacts/ @Maniac_Magee
+make_release_cards.py @Maniac_Magee
+/requirements*.txt @Maniac_Magee
+
+# CI/CD & Workflow
+/.github/ @Maniac_Magee
+/tests/ @Maniac_Magee
+Makefile @Maniac_Magee
+.pre-commit-config.yaml @Maniac_Magee
+
+# Project Configuration
+CLAUDE.md @Maniac_Magee
+README.md @Maniac_Magee
+CHANGELOG.md @Maniac_Magee
+
+# iOS/Swift Core (requiring iOS expertise)
+*.swift @Maniac_Magee
+*.xcodeproj/ @Maniac_Magee
+*.xcworkspace/ @Maniac_Magee
+VybeMVP.xcodeproj/ @Maniac_Magee
+
+# Sensitive Configuration (extra scrutiny)
+/.vscode/ @Maniac_Magee
+.gitignore @Maniac_Magee
+.python-version @Maniac_Magee

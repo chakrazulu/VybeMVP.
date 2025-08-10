@@ -1,0 +1,1278 @@
+{
+  "number": 5,
+  "title": "The Explorer",
+  "behavioral_category": "life_path_behavioral_analysis",
+  "intensity_scoring": {
+    "min_range": 0.6,
+    "max_range": 0.9,
+    "note": "Higher intensity indicates stronger behavioral tendency"
+  },
+  "behavioral_insights": [
+    {
+      "category": "decisionMaking",
+      "insight": "Use the 5-point check: safety, values, learning, joy, upside; proceed if 3+ are strong.",
+      "intensity": 0.75,
+      "triggers": [
+        "shiny options"
+      ],
+      "supports": [
+        "scorecard"
+      ],
+      "challenges": [
+        "impulse"
+      ]
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "Prefer pilots over promises; commit to a two-week test, then expand.",
+      "intensity": 0.75,
+      "triggers": [
+        "big choices"
+      ],
+      "supports": [
+        "pilot plan"
+      ],
+      "challenges": [
+        "overcommit"
+      ]
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "Name the core value you're protecting-freedom, not avoidance.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "If it requires secrecy, it's a no; freedom breathes in daylight.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "Rank options by expected learning per unit risk.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "Flip coins only after writing the rationale; the reaction reveals truth.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "If bored, choose the path that builds a portable skill.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "Limit choices to five minutes for small stakes; conserve energy.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "Ask what future flexibility each option creates.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "Set a reversible-by date to lower fear and move.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "When anxious, walk while deciding; motion clears noise.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "Write the failure plan; if you can recover, greenlight.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Stress drives you to escape; swap flight with a brisk 10-minute walk and water.",
+      "intensity": 0.85,
+      "triggers": [
+        "overwhelm"
+      ],
+      "supports": [
+        "movement reset"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Use sensory grounding: five things you see, four feel, three hear, two smell, one taste.",
+      "intensity": 0.8,
+      "triggers": [
+        "panic"
+      ],
+      "supports": [
+        "5-4-3-2-1"
+      ],
+      "challenges": [
+        "dissociation"
+      ]
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Triage with do, delay, delegate; close one loop fast.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Reduce stimulation: one tab, low light, quiet track.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Name the urge; set a 20-minute timer before indulging it.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Protein snack, then decide; blood sugar mimics crisis.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Call a grounded friend for a five-minute co-regulate chat.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Schedule joy after hard tasks to retrain your brain.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Sleep non-negotiable on travel weeks; fatigue fuels reactivity.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "After conflict, write a truth-and-ask script before replying.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Set boundaries with apps; uninstall repeat traps.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Use cold water on wrists and a long exhale to reset.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "Open with a vivid example, then state the clear ask in one line.",
+      "intensity": 0.7,
+      "triggers": [
+        "presentations"
+      ],
+      "supports": [
+        "example + ask"
+      ],
+      "challenges": [
+        "rambling"
+      ]
+    },
+    {
+      "category": "communication",
+      "insight": "Replace hype with metrics and outcomes; credibility fuels freedom.",
+      "intensity": 0.7,
+      "triggers": [
+        "pitches"
+      ],
+      "supports": [
+        "proof points"
+      ],
+      "challenges": [
+        "oversell"
+      ]
+    },
+    {
+      "category": "communication",
+      "insight": "Confirm scope and limits; clarity prevents renegotiation midstream.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "Use time-boxed brainstorms; then switch to decisions.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "Ask one curiosity question before offering solutions.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "Avoid shock value humor in tense rooms; choose respect.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "Summarize agreements with owners, dates, and review points.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "Make space for quieter voices; freedom includes access.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "Share travel or change plans early to reduce ripple stress.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "Record decisions where the team can find them later.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "When you pivot, explain the data behind the turn.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "Credit sources; ethical agility keeps doors open.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Name your need for novelty and how you'll keep reliability intact.",
+      "intensity": 0.75,
+      "triggers": [
+        "routine ruts"
+      ],
+      "supports": [
+        "novelty plan"
+      ],
+      "challenges": [
+        "inconsistency"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Plan micro-adventures that fit within shared calendars.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Text updates when plans change; spontaneity can still be considerate.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Practice honest desires; don't flirt with chaos for stimulation.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Create rituals that travel-connection doesn't need a fixed place.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Repair quickly after impulsive words; own, apologize, and adjust.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Rotate who leads plans to balance pace and preferences.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Keep promises about time; freedom thrives with trust.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Discuss boundaries with substances and screens openly.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Express appreciation with sensory detail to make it land.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Share your change logic so partners don't feel blindsided.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Choose conflict channels that allow movement: walk-and-talks.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Work in travel-ready sprints: define scope, ship, debrief, rest.",
+      "intensity": 0.75,
+      "triggers": [
+        "busy travel"
+      ],
+      "supports": [
+        "sprint loop"
+      ],
+      "challenges": [
+        "drift"
+      ]
+    },
+    {
+      "category": "productivity",
+      "insight": "Theme your days to reduce context switching and boredom.",
+      "intensity": 0.7,
+      "triggers": [
+        "scattered tasks"
+      ],
+      "supports": [
+        "theme days"
+      ],
+      "challenges": [
+        "switching"
+      ]
+    },
+    {
+      "category": "productivity",
+      "insight": "Use a portable setup checklist so momentum survives moves.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Start with a 10-minute burst to break inertia, then extend.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Schedule novelty blocks to prevent impulsive detours.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Batch communication; mute apps during deep work.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Translate ideas into next actions immediately.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Log lessons after experiments; keep a change journal.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Cap meetings; short, decisive huddles beat long drift.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Create templates for recurring tasks to save willpower.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Use public checkpoints to keep commitments honest.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Close the day by planning tomorrow's first move.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Stabilize freedom with a runway; automate transfers on paydays.",
+      "intensity": 0.75,
+      "triggers": [
+        "variable income"
+      ],
+      "supports": [
+        "auto-save"
+      ],
+      "challenges": [
+        "inconsistency"
+      ]
+    },
+    {
+      "category": "financial",
+      "insight": "Set a fun budget so joy doesn't raid essentials.",
+      "intensity": 0.7,
+      "triggers": [
+        "impulse buys"
+      ],
+      "supports": [
+        "caps"
+      ],
+      "challenges": [
+        "overspend"
+      ]
+    },
+    {
+      "category": "financial",
+      "insight": "Favor experiences with lasting learning over fleeting thrills.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Use travel points with rules; avoid carrying balances.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Build portable income streams: courses, licenses, royalties.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Price on outcomes; publish scope to prevent scope creep.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Insurance and backups protect your mobile lifestyle.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Quarterly subscription audit to stop silent leaks.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Diversify clients across industries to buffer change.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Use sinking funds for big trips or gear to avoid debt.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Negotiate with give-and-get framing for mutual wins.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Give to causes that expand access and freedom responsibly.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Turn wanderlust into work: field notes, photos, and stories each trip.",
+      "intensity": 0.7,
+      "triggers": [
+        "travel"
+      ],
+      "supports": [
+        "capture kit"
+      ],
+      "challenges": [
+        "losing threads"
+      ]
+    },
+    {
+      "category": "creative",
+      "insight": "Use constraints: one-take videos, 500-word vignettes, limited palettes.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Schedule jam sessions to spark novelty, then refine solo.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Translate sensory moments into concrete details on the page.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Create an idea vault; tag by place, mood, and theme.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Ship micro pieces often to build a rhythm and audience.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Study storytelling beats to give freedom a spine.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Try new mediums quarterly to refresh your voice.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Record voice notes on walks when insights strike.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Collaborate across cultures to widen your palette.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Balance novelty with a signature through recurring motifs.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Archive processes; your path can teach others later.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Prefer field learning: experiments, interviews, travel, then synthesis.",
+      "intensity": 0.7,
+      "triggers": [
+        "new topics"
+      ],
+      "supports": [
+        "fieldwork"
+      ],
+      "challenges": [
+        "theory-only"
+      ]
+    },
+    {
+      "category": "learning",
+      "insight": "Teach back quickly; expression locks in lessons.",
+      "intensity": 0.7,
+      "triggers": [
+        "fresh insight"
+      ],
+      "supports": [
+        "teach-back"
+      ],
+      "challenges": [
+        "forgetting"
+      ]
+    },
+    {
+      "category": "learning",
+      "insight": "Cycle modalities: read, watch, do, reflect.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Keep a portable reading kit for transit time.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Limit concurrent courses to two to keep coherence.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Set a demo date for each skill to force integration.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Use spaced repetition for languages and names on the road.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Shadow practitioners in different settings to widen context.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Log errors without shame; adjust the process, not identity.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Pair with a finisher-type to convert insight into artifacts.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Curate a personal map of places that teach you best.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Quarterly retrospective: what change taught you most?",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Anchor sleep and meals even when traveling; freedom needs a base rhythm.",
+      "intensity": 0.85,
+      "triggers": [
+        "travel fatigue"
+      ],
+      "supports": [
+        "anchors"
+      ],
+      "challenges": [
+        "jet lag"
+      ]
+    },
+    {
+      "category": "wellness",
+      "insight": "Choose movement that explores: hikes, cycling, dance, intervals.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Hydrate, salt, and protein to stabilize energy on the go.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Set tech curfews; overstimulation steals tomorrow's spark.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Mind your gut; pack simple foods that agree with you.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Practice breathwork before bed to downshift travel buzz.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Sunlight on waking; circadian resets fast in new places.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Carry a reset kit: earplugs, mask, band, electrolyte.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Schedule decompression after intense novelty days.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Limit stimulants when anxiety runs high; switch to tea.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Track mood vs habits; find the levers that calm restlessness.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Keep medical basics handy; freedom respects preparedness.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Make movement a prayer; walk with a question and return with one action.",
+      "intensity": 0.75,
+      "triggers": [
+        "uncertainty"
+      ],
+      "supports": [
+        "walking prayer"
+      ],
+      "challenges": [
+        "rumination"
+      ]
+    },
+    {
+      "category": "spiritual",
+      "insight": "Create travel rituals: arrive, bless the room, set an intention.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Practice truth-telling as liberation; say the clean line kindly.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Fast from excess inputs weekly to hear inner signals.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Dedicate journeys to service; let learning benefit others.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Study ethics of freedom; power is responsibility in motion.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Keep a gratitude map of places and people who shaped you.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Breath-led meditation pairs well with your kinetic nature.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Mark thresholds-departures and returns-with simple rites.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Bless your senses; savoring turns appetite into reverence.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Forgive fast and set firmer boundaries next time.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Offer hospitality; travelers know the gift of welcome.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "Notice thrill-chasing; ask what value you're avoiding and face it.",
+      "intensity": 0.8,
+      "triggers": [
+        "boredom"
+      ],
+      "supports": [
+        "value check"
+      ],
+      "challenges": [
+        "escapism"
+      ]
+    },
+    {
+      "category": "shadow",
+      "insight": "If you ghost, repair with honesty and better agreements.",
+      "intensity": 0.75,
+      "triggers": [
+        "overwhelm"
+      ],
+      "supports": [
+        "repair script"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "shadow",
+      "insight": "Replace all-or-nothing with sprints and review dates.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "Track substances and screens; set rules you can keep.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "Don't romanticize chaos; build systems that travel.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "If envy rises, turn it into a field study and a practice plan.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "Name consequences before you leap; choose eyes-open risk.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "Apologize without stories; then show the new pattern.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "Avoid triangulation; tell the person, not the crowd.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "Limit sarcasm; clarity protects trust better than wit.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "Keep a 'not now' list; park temptations with dates.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "Reward discipline with freedom to keep the loop healthy.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Create a move kit: checklists, routines, and first-day rituals.",
+      "intensity": 0.75,
+      "triggers": [
+        "relocations"
+      ],
+      "supports": [
+        "move kit"
+      ],
+      "challenges": [
+        "disarray"
+      ]
+    },
+    {
+      "category": "transitions",
+      "insight": "During job shifts, craft a 30-60-90 travel-ready plan.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "After endings, take a short pilgrimage to reset identity.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Use bridge projects to translate old skills into new arenas.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Protect anchors-sleep, food, movement-through change.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Meet neighbors and local helpers early to weave safety nets.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Document new routines until they run on rails.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Schedule novelty modestly at first to avoid overwhelm.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Set decision review dates so pivots feel safe, not flaky.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Celebrate firsts in new places to claim the ground.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Keep exit interviews honest; closure frees momentum.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Archive your journey; memory turns change into meaning.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    }
+  ]
+}
