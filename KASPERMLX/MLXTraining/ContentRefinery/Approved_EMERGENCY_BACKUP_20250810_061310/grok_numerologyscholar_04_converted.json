@@ -1,0 +1,34 @@
+{
+  "source": "grok_numerologyscholar",
+  "number": 4,
+  "persona": "NumerologyScholar",
+  "content_type": "mystical_insights",
+  "fallback": true,
+  "spiritual_categories": {
+    "primary_insights": [
+      "number",
+      "generation_info",
+      "date",
+      "2025-08-08",
+      "time_context",
+      "universal",
+      "theme",
+      "Stable Foundation",
+      "batch_size",
+      "insight",
+      "In the earth's unyielding core, forge your spirit's fortress, anchoring dreams in solid stone.",
+      "Channel Saturn's stern gaze, building bridges of discipline across chaos's chasm.",
+      "As the square's steadfast form, embody resilience, turning trials into timeless pillars.",
+      "Whisper to ancient foundations, awakening the builder within to craft eternal legacies.",
+      "Harmonize the four winds, weaving stability into your soul's evolving tapestry."
+    ],
+    "reflection_questions": [],
+    "contemplation_themes": [],
+    "note": "Fallback conversion - original JSON was malformed"
+  },
+  "intensity_scoring": {
+    "min_range": 0.7,
+    "max_range": 0.9,
+    "note": "NumerologyScholar content recovered from malformed source"
+  }
+}

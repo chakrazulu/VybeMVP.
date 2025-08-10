@@ -18,14 +18,14 @@ struct FocusNumberHelper {
         // Extract date components
         let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: date)
         print("📅 Date Components:")
-        print("   Year: \(components.year!)")
-        print("   Month: \(components.month!)")
-        print("   Day: \(components.day!)")
-        print("   Military Time: \(String(format: "%02d%02d", components.hour!, components.minute!))")  // Shows as HHMM format
+        print("   Year: \(components.year ?? 0)")
+        print("   Month: \(components.month ?? 0)")
+        print("   Day: \(components.day ?? 0)")
+        print("   Military Time: \(String(format: "%02d%02d", components.hour ?? 0, components.minute ?? 0))")  // Shows as HHMM format
 
         // Break down the calculation step by step
-        let dateOnlySum = components.year! + components.month! + components.day!
-        let militaryTime = Int(String(format: "%02d%02d", components.hour!, components.minute!))!
+        let dateOnlySum = (components.year ?? 0) + (components.month ?? 0) + (components.day ?? 0)
+        let militaryTime = Int(String(format: "%02d%02d", components.hour ?? 0, components.minute ?? 0)) ?? 0
         let timeDigits = String(militaryTime).compactMap { Int(String($0)) }
         let timeSum = timeDigits.reduce(0, +)
         let dateSum = dateOnlySum + timeSum

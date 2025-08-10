@@ -145,6 +145,7 @@
 import Foundation
 
 // Claude: Import SanctumDataManager for MegaCorpus data access
+// Claude: Import FocusNumberManager for accessing current focus number
 
 final class MegaCorpusDataProvider: SpiritualDataProvider {
 
@@ -156,6 +157,13 @@ final class MegaCorpusDataProvider: SpiritualDataProvider {
 
     // Reference to SwiftData spiritual controller
     private weak var spiritualDataController: SpiritualDataController?
+
+    // 🆕 V2.1: Content importer for rich Claude/Grok content (lazy access for MainActor isolation)
+    private var contentImporter: KASPERContentImporter {
+        get async {
+            await MainActor.run { KASPERContentImporter.shared }
+        }
+    }
 
     // MARK: - Thread-Safe Cache Actor
     private actor CacheActor {
@@ -218,6 +226,15 @@ final class MegaCorpusDataProvider: SpiritualDataProvider {
 
     // MARK: - Private Methods
 
+    // 🆕 V2.1: Helper to extract current focus number
+    private func extractFocusNumber() async -> Int {
+        // Get from FocusNumberManager shared instance
+        let focusNumber = await MainActor.run { FocusNumberManager.shared.selectedFocusNumber }
+
+        // Claude: Ensure valid focus number, default to 7 (seeker) if uninitialized
+        return focusNumber > 0 ? focusNumber : 7
+    }
+
 
     private func buildContext(for feature: KASPERFeature) async throws -> ProviderContext {
         // Ensure controller is initialized before use
@@ -250,7 +267,26 @@ final class MegaCorpusDataProvider: SpiritualDataProvider {
             data["spiritualThemes"] = extractSpiritualThemes(from: megaCorpusData)
 
         case .dailyCard:
-            // Daily card needs focus number interpretations and daily wisdom using SwiftData
+            // 🆕 V2.1: Use rich imported content from Claude/Grok
+            let focusNumber = await extractFocusNumber()
+            print("🔮 KASPER V2.1: MegaCorpusDataProvider loading daily card for focus number: \(focusNumber)")
+
+            // Try to load rich content first
+            let importer = await contentImporter
+            do {
+                let richContent = try await importer.importContent(for: focusNumber)
+                let oracleInsights = richContent.grokPersonaContent[.oracle]?.insights ?? []
+                data["richInsights"] = oracleInsights
+                data["reflections"] = richContent.grokPersonaContent[.philosopher]?.reflections ?? []
+                data["affirmations"] = richContent.grokPersonaContent[.mindfulnessCoach]?.manifestations ?? []
+                data["claudeEssence"] = richContent.claudeContent?.coreEssence ?? ""
+                data["displayContent"] = richContent.displayContent
+                print("🔮 KASPER V2.1: ✅ Rich content loaded - Oracle insights: \(oracleInsights.count)")
+            } catch {
+                print("🔮 KASPER V2.1: ❌ Rich content import failed: \(error.localizedDescription)")
+            }
+
+            // Fallback to SwiftData if rich content unavailable
             data["focusNumberWisdom"] = await extractSwiftDataFocusWisdomSafe(controller: spiritualController)
             data["zodiacWisdom"] = await extractSwiftDataZodiacWisdomSafe(controller: spiritualController)
             data["numerologyInsights"] = await extractSwiftDataNumerologyInsightsSafe(controller: spiritualController)

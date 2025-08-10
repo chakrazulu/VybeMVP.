@@ -266,9 +266,11 @@ public final class KASPERContentImporter: ObservableObject {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let projectURL = documentsURL.appendingPathComponent("../../../Documents/XcodeProjects/VybeMVP", isDirectory: true)
 
-        self.importedContentURL = projectURL.appendingPathComponent("NumerologyData/ImportedContent")
-        self.claudeRichURL = importedContentURL.appendingPathComponent("ClaudeRichContent")
-        self.grokStructuredURL = importedContentURL.appendingPathComponent("GrokStructuredContent")
+        // 🆕 V2.1: Use the Approved folder with all converted JSON content!
+        let contentRefineryURL = projectURL.appendingPathComponent("KASPERMLX/MLXTraining/ContentRefinery")
+        self.importedContentURL = contentRefineryURL.appendingPathComponent("Approved")
+        self.claudeRichURL = importedContentURL  // All Claude JSON files are in Approved
+        self.grokStructuredURL = importedContentURL  // All Grok JSON files are in Approved
 
         // Persona-specific paths
         self.grokOracleURL = grokStructuredURL.appendingPathComponent("Oracle")
@@ -398,7 +400,81 @@ public final class KASPERContentImporter: ObservableObject {
         return availableContent.values.flatMap { $0.trainingPairs }
     }
 
-    // MARK: - Private Implementation
+    // MARK: - Unified Insight Decoder
+
+    /// Claude: Unified structure for parsing all JSON formats
+    private struct RawInsight: Codable {
+        let category: String?
+        let insight: String?
+        let intensity: Double?
+        let triggers: [String]?
+        let supports: [String]?
+        let challenges: [String]?
+    }
+
+    /// Claude: Single parser to handle all JSON formats - behavioral_insights, spiritual_categories, legacy insights
+    private func decodeBehavioralInsights(from data: Data, sourceTag: String) -> [RawInsight] {
+        // Try fast path via JSONSerialization to verify keys + log shape
+        guard let obj = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any] else {
+            logger.error("🚑 KASPER V2.1: ❌ JSON not a top-level object (\(sourceTag))")
+            return []
+        }
+
+        // 💡 Canonical path: behavioral_insights (post-conversion format)
+        if let arr = obj["behavioral_insights"] as? [[String: Any]] {
+            let items: [RawInsight] = arr.compactMap { dict in
+                RawInsight(
+                    category: dict["category"] as? String,
+                    insight: dict["insight"] as? String,
+                    intensity: (dict["intensity"] as? NSNumber)?.doubleValue,
+                    triggers: dict["triggers"] as? [String],
+                    supports: dict["supports"] as? [String],
+                    challenges: dict["challenges"] as? [String]
+                )
+            }
+            logger.info("🚀 KASPER V2.1: ✅ behavioral_insights count=\(items.count) [\(sourceTag)]")
+            return items
+        }
+
+        // 🔥 Legacy Grok fallback (kept for safety; should rarely run now)
+        if let sc = obj["spiritual_categories"] as? [String: Any] {
+            let prim = (sc["primary_insights"] as? [String]) ?? []
+            let items = prim
+                .filter { $0.count > 20 && !$0.lowercased().contains("batch_size") }
+                .map { RawInsight(category: "spiritual_guidance", insight: $0, intensity: 0.7, triggers: nil, supports: nil, challenges: nil) }
+            logger.warning("🚑 KASPER V2.1: ⚠️ legacy spiritual_categories used; count=\(items.count) [\(sourceTag)]")
+            return items
+        }
+
+        // 🚑 Old "insights" shape (final belt & suspenders)
+        if let arr = obj["insights"] as? [[String: Any]] {
+            let items: [RawInsight] = arr.compactMap { d in
+                let text = (d["insight"] as? String) ?? (d["content"] as? String)
+                return RawInsight(
+                    category: d["category"] as? String ?? "personal_growth",
+                    insight: text,
+                    intensity: (d["intensity"] as? NSNumber)?.doubleValue,
+                    triggers: d["triggers"] as? [String],
+                    supports: d["supports"] as? [String],
+                    challenges: d["challenges"] as? [String]
+                )
+            }
+            logger.warning("🚑 KASPER V2.1: ⚠️ legacy insights[] used; count=\(items.count) [\(sourceTag)]")
+            return items
+        }
+
+        // 🔍 Debug: show top-level keys so we can see why it failed
+        logger.error("🚑 KASPER V2.1: ❌ No behavioral_insights/legacy keys found. keys=\(Array(obj.keys)) [\(sourceTag)]")
+        return []
+    }
+
+    /// Claude: Safe insight text extractor with bounds checking
+    private func insightText(_ insights: [RawInsight], _ index: Int) -> String {
+        guard insights.indices.contains(index), let text = insights[index].insight else { return "" }
+        return text
+    }
+
+// MARK: - Private Implementation
 
     /**
      * Import all Claude Rich files (CR1-CR44)
@@ -474,14 +550,46 @@ public final class KASPERContentImporter: ObservableObject {
      * Load Claude Rich content for a specific number
      */
     private func loadClaudeRichContent(for number: Int) async throws -> ClaudeRichContent? {
-        let crFile = claudeRichURL.appendingPathComponent("CR\(number).md")
+        // 🆕 V2.1: Load from converted JSON files in Approved folder
+        let paddedNumber = String(format: "%02d", number)
+        let jsonFile = claudeRichURL.appendingPathComponent("claude_\(paddedNumber)_academic_converted.json")
 
-        guard FileManager.default.fileExists(atPath: crFile.path) else {
-            return nil
+        guard FileManager.default.fileExists(atPath: jsonFile.path) else {
+            // Try without padding
+            let jsonFileNoPad = claudeRichURL.appendingPathComponent("claude_\(number)_academic_converted.json")
+            guard FileManager.default.fileExists(atPath: jsonFileNoPad.path) else {
+                return nil
+            }
+            let data = try Data(contentsOf: jsonFileNoPad)
+            return try await parseClaudeJSON(data)
         }
 
-        let content = try String(contentsOf: crFile, encoding: .utf8)
-        return try await parseClaudeRichMarkdown(content)
+        let data = try Data(contentsOf: jsonFile)
+        return try await parseClaudeJSON(data)
+    }
+
+    /**
+     * Parse Claude JSON content using unified decoder
+     */
+    private func parseClaudeJSON(_ data: Data) async throws -> ClaudeRichContent {
+        // 🚀 Use unified decoder for all Claude content
+        let insights = decodeBehavioralInsights(from: data, sourceTag: "Claude")
+
+        // Use different insights for different sections with safe bounds checking
+        return ClaudeRichContent(
+            coreEssence: insightText(insights, 0),
+            mysticalSignificance: insightText(insights, 1),
+            archetypes: insightText(insights, 2),
+            lifePathPersonality: insightText(insights, 3),
+            spiritualLessons: insightText(insights, 4),
+            shadowAspects: insightText(insights, 5),
+            manifestationPower: insightText(insights, 6),
+            relationshipDynamics: insightText(insights, 7),
+            careerGuidance: insightText(insights, 8),
+            healingJourney: insightText(insights, 9),
+            cosmicConnection: insightText(insights, 10),
+            practicalApplication: insightText(insights, 11)
+        )
     }
 
     /**
@@ -548,21 +656,101 @@ public final class KASPERContentImporter: ObservableObject {
      * Load Grok content for a specific persona and number
      */
     private func loadGrokPersonaContent(for number: Int, persona: GrokPersona) async throws -> GrokStructuredContent? {
-        let personaURL = grokStructuredURL.appendingPathComponent(persona.folderName)
+        // 🆕 V2.1: Load from converted JSON files in Approved folder
+        let paddedNumber = String(format: "%02d", number)
+        let personaPrefix = "grok_\(persona.rawValue.lowercased())"
+        let jsonFile = grokStructuredURL.appendingPathComponent("\(personaPrefix)_\(paddedNumber)_converted.json")
 
-        // Try both .md and .json extensions
-        let mdFile = personaURL.appendingPathComponent("\(persona.rawValue)_Number_\(number).md")
-        let jsonFile = personaURL.appendingPathComponent("\(persona.rawValue)_Number_\(number).json")
-
-        if FileManager.default.fileExists(atPath: mdFile.path) {
-            let content = try String(contentsOf: mdFile, encoding: .utf8)
-            return try await parseGrokMarkdown(content, persona: persona)
-        } else if FileManager.default.fileExists(atPath: jsonFile.path) {
+        if FileManager.default.fileExists(atPath: jsonFile.path) {
             let data = try Data(contentsOf: jsonFile)
-            return try JSONDecoder().decode(GrokStructuredContent.self, from: data)
+            return try await parseGrokJSON(data)
+        }
+
+        // Try without padding
+        let jsonFileNoPad = grokStructuredURL.appendingPathComponent("\(personaPrefix)_\(number)_converted.json")
+        if FileManager.default.fileExists(atPath: jsonFileNoPad.path) {
+            let data = try Data(contentsOf: jsonFileNoPad)
+            return try await parseGrokJSON(data)
         }
 
         return nil
+    }
+
+    /**
+     * Parse Grok JSON content using unified decoder
+     */
+    private func parseGrokJSON(_ data: Data) async throws -> GrokStructuredContent {
+        // 🚀 Use unified decoder for all Grok content
+        let rawInsights = decodeBehavioralInsights(from: data, sourceTag: "Grok")
+
+        // Sort insights into appropriate categories based on KASPER category names
+        var allInsights: [String] = []
+        var reflections: [String] = []
+        var contemplations: [String] = []
+        var manifestations: [String] = []
+        var challenges: [String] = []
+        var gifts: [String] = []
+        var relationships: [String] = []
+        var career: [String] = []
+        var health: [String] = []
+        var creativity: [String] = []
+        var spirituality: [String] = []
+        var wisdom: [String] = []
+
+        for rawInsight in rawInsights {
+            guard let content = rawInsight.insight, !content.isEmpty,
+                  let category = rawInsight.category else { continue }
+
+            switch category.lowercased() {
+            case "spiritual_guidance", "insight", "guidance":
+                allInsights.append(content)
+            case "inner_wisdom", "reflection":
+                reflections.append(content)
+            case "contemplation", "meditation":
+                contemplations.append(content)
+            case "manifestation", "affirmation":
+                manifestations.append(content)
+            case "challenges", "challenge", "growth":
+                challenges.append(content)
+            case "gifts", "gift", "talent":
+                gifts.append(content)
+            case "relationships", "relationship", "connection":
+                relationships.append(content)
+            case "career_path", "career", "purpose":
+                career.append(content)
+            case "healing", "health", "wellness":
+                health.append(content)
+            case "creativity", "creative", "expression":
+                creativity.append(content)
+            case "spirituality", "spiritual":
+                spirituality.append(content)
+            case "wisdom", "knowledge":
+                wisdom.append(content)
+            case "personal_growth":
+                allInsights.append(content) // Map personal_growth to insights
+            case "life_purpose":
+                allInsights.append(content) // Map life_purpose to insights
+            case "service":
+                spirituality.append(content) // Map service to spirituality
+            default:
+                allInsights.append(content) // Default to insights
+            }
+        }
+
+        return GrokStructuredContent(
+            insights: allInsights,
+            reflections: reflections,
+            contemplations: contemplations,
+            manifestations: manifestations,
+            challenges: challenges,
+            gifts: gifts,
+            relationships: relationships,
+            career: career,
+            health: health,
+            creativity: creativity,
+            spirituality: spirituality,
+            wisdom: wisdom
+        )
     }
 
     /**
@@ -650,6 +838,49 @@ public final class KASPERContentImporter: ObservableObject {
         return sectionContent.isEmpty ? nil : sectionContent
     }
 
+    /// Claude: Centralized rich content availability check with detailed logging
+    private func validateRichContentAvailability(
+        number: Int,
+        claudeContent: ClaudeRichContent?,
+        grokPersonaContent: [GrokPersona: GrokStructuredContent]
+    ) -> Int {
+        var totalInsights = 0
+
+        // Count Claude insights
+        var claudeInsights = 0
+        if let claude = claudeContent {
+            let sections = [claude.coreEssence, claude.mysticalSignificance, claude.archetypes,
+                           claude.lifePathPersonality, claude.spiritualLessons, claude.shadowAspects,
+                           claude.manifestationPower, claude.relationshipDynamics, claude.careerGuidance,
+                           claude.healingJourney, claude.cosmicConnection, claude.practicalApplication]
+            claudeInsights = sections.filter { !$0.isEmpty }.count
+            totalInsights += claudeInsights
+        }
+
+        // Count Grok persona insights
+        var grokTotals: [String: Int] = [:]
+        for (persona, content) in grokPersonaContent {
+            let count = content.totalContentCount
+            grokTotals[persona.rawValue] = count
+            totalInsights += count
+        }
+
+        // 🚀 Log detailed availability for debugging
+        if totalInsights == 0 {
+            logger.error("🚨 KASPER V2.1: ❌ NO rich content available - falling back to templates [Number \(number)]")
+            logger.info("   Claude insights: \(claudeInsights)")
+            logger.info("   Grok totals: \(grokTotals)")
+        } else {
+            logger.info("🚀 KASPER V2.1: ✅ Using RICH content - insights available: \(totalInsights) [Number \(number)]")
+            logger.info("   Claude insights: \(claudeInsights)")
+            for (persona, count) in grokTotals {
+                logger.info("   \(persona): \(count) insights")
+            }
+        }
+
+        return totalInsights
+    }
+
     /**
      * Generate display content for NumberMeaningView
      */
@@ -658,6 +889,13 @@ public final class KASPERContentImporter: ObservableObject {
         claudeContent: ClaudeRichContent?,
         grokPersonaContent: [GrokPersona: GrokStructuredContent]
     ) async throws -> NumberDisplayContent {
+
+        // 🔍 Validate and log rich content availability
+        let totalInsights = validateRichContentAvailability(
+            number: number,
+            claudeContent: claudeContent,
+            grokPersonaContent: grokPersonaContent
+        )
 
         // Generate from available content
         let title = getTitleForNumber(number)

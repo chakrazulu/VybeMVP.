@@ -1,0 +1,1302 @@
+{
+  "number": 4,
+  "title": "The Builder",
+  "behavioral_category": "life_path_behavioral_analysis",
+  "intensity_scoring": {
+    "min_range": 0.6,
+    "max_range": 0.9,
+    "note": "Higher intensity indicates stronger behavioral tendency"
+  },
+  "behavioral_insights": [
+    {
+      "category": "decisionMaking",
+      "insight": "Define the problem in one sentence, then set acceptance criteria before solutions.",
+      "intensity": 0.75,
+      "triggers": [
+        "scope creep"
+      ],
+      "supports": [
+        "criteria sheet"
+      ],
+      "challenges": [
+        "over-detailing"
+      ]
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "Use a simple ROI table: effort, risk, durability; choose the most durable win.",
+      "intensity": 0.75,
+      "triggers": [
+        "competing projects"
+      ],
+      "supports": [
+        "ROI grid"
+      ],
+      "challenges": [
+        "analysis paralysis"
+      ]
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "Prefer reversible steps with a review date; commit after evidence.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "If stuck, reduce to the next brick: the smallest measurable action.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "Make one-way-door decisions in daylight hours and write the why.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "Invite one challenger to stress-test assumptions for 10 minutes.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "Rank options by maintenance burden; low upkeep wins ties.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "When emotions rise, pause and check facts, constraints, and values.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "Document decision owners and fail-safes to prevent drift.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "If perfection delays, cap prep time and build a working draft.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "Choose standards you can inspect, not vibes you hope for.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "decisionMaking",
+      "insight": "Review past decisions monthly to refine your rules of thumb.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "You clamp down under stress; switch to box breathing and loosen your shoulders.",
+      "intensity": 0.8,
+      "triggers": [
+        "deadline crush"
+      ],
+      "supports": [
+        "breath + stretch"
+      ],
+      "challenges": [
+        "rigidity"
+      ]
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Do a 5-minute tidy and checklist pass; order calms your system.",
+      "intensity": 0.75,
+      "triggers": [
+        "visual clutter"
+      ],
+      "supports": [
+        "reset ritual"
+      ],
+      "challenges": [
+        "overload"
+      ]
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Name top three tasks and park the rest in a backlog you trust.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Walk outside for 7 minutes to discharge tension before replying.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Eat protein and hydrate; low fuel mimics crisis.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Replace catastrophizing with a plan A/B/C matrix.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Limit news and notifications; open only at set windows.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "After intense work, schedule a decompression block.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Ask for clear requirements; ambiguity, not effort, drains you.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Use a done-for-today line to stop cleanly and rest.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "If you micromanage, replace checks with dashboards.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "stressResponse",
+      "insight": "Sleep on big conflicts; your tone steadies after rest.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "State the goal, the constraint, and the deadline in the first paragraph.",
+      "intensity": 0.7,
+      "triggers": [
+        "project kickoff"
+      ],
+      "supports": [
+        "brief template"
+      ],
+      "challenges": [
+        "burying the lede"
+      ]
+    },
+    {
+      "category": "communication",
+      "insight": "Use numbers and examples; precision builds trust.",
+      "intensity": 0.7,
+      "triggers": [
+        "status updates"
+      ],
+      "supports": [
+        "metrics"
+      ],
+      "challenges": [
+        "vagueness"
+      ]
+    },
+    {
+      "category": "communication",
+      "insight": "Confirm definitions before debating; alignment saves hours.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "Summarize decisions and owners at meeting end.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "Ask one clarifying question before offering fixes.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "Swap long threads for a 10-minute live call when stakes are high.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "Document processes with screenshots and a success checklist.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "When giving feedback, cite the standard and the delta.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "Acknowledge effort publicly; correct privately with steps.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "Avoid absolutist language; show ranges and tolerances.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "If tone is blunt, add warmth with why and appreciation.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "communication",
+      "insight": "Keep archives searchable; future you is your audience.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Reliability is love in your dialect; communicate delays early.",
+      "intensity": 0.7,
+      "triggers": [
+        "schedule slips"
+      ],
+      "supports": [
+        "early heads-up"
+      ],
+      "challenges": [
+        "silent grinding"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Share your planning brain as a gift, not a rulebook.",
+      "intensity": 0.7,
+      "triggers": [
+        "joint plans"
+      ],
+      "supports": [
+        "collab plan"
+      ],
+      "challenges": [
+        "control"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Trade chore charts for agreements that include rest and fun.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Practice flexible plans; leave room for your partner's spontaneity.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Name needs directly; hints create pressure you resent.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Schedule regular check-ins to prevent buildup and assumptions.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Celebrate small milestones; stability deserves applause.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Ask how your structure feels to others and adjust tolerances.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Repair by owning impact and proposing a concrete fix.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Protect couple time from work creep with device-free blocks.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Share budgets and goals transparently to reduce tension.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Let others organize sometimes; trust different methods.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Design a weekly template: focus days, admin blocks, maintenance slots.",
+      "intensity": 0.8,
+      "triggers": [
+        "scattered weeks"
+      ],
+      "supports": [
+        "time template"
+      ],
+      "challenges": [
+        "context switching"
+      ]
+    },
+    {
+      "category": "productivity",
+      "insight": "Use a kanban board; move one card at a time to done.",
+      "intensity": 0.75,
+      "triggers": [
+        "too many tasks"
+      ],
+      "supports": [
+        "kanban"
+      ],
+      "challenges": [
+        "overload"
+      ]
+    },
+    {
+      "category": "productivity",
+      "insight": "Chunk work into 50-80 minute deep blocks with clear outcomes.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Define done with acceptance criteria before starting.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Batch similar tasks; protect mornings for deep work.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Automate recurring chores and calendar them.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Close loops daily; leave a handoff note to tomorrow's you.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Schedule maintenance: backups, updates, and cleanups.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Kill zombie projects monthly; free capacity for winners.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Track lead measures you control, not just lag results.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Use checklists for critical paths to reduce errors.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "productivity",
+      "insight": "Document once, reuse often; templates are your leverage.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Build a 3-6 month runway; stability unlocks better choices.",
+      "intensity": 0.75,
+      "triggers": [
+        "income dips"
+      ],
+      "supports": [
+        "emergency fund"
+      ],
+      "challenges": [
+        "scarcity stress"
+      ]
+    },
+    {
+      "category": "financial",
+      "insight": "Automate saving, investing, and bill pay to reduce mental load.",
+      "intensity": 0.7,
+      "triggers": [
+        "admin fatigue"
+      ],
+      "supports": [
+        "auto-transfer"
+      ],
+      "challenges": [
+        "forgetting"
+      ]
+    },
+    {
+      "category": "financial",
+      "insight": "Budget for maintenance; repairs cost less than replacements.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Diversify income with one reliable, systemized offering.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Use envelopes or categories to cap discretionary spend.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Review subscriptions quarterly; cut low-value drains.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Insure essentials and document inventories for claims.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Price based on scope and standards, not hours alone.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Compare total cost of ownership, not sticker price.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Schedule money dates; talk calmly about goals and risk.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Invest in tools that reduce errors or save time.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "financial",
+      "insight": "Give consistently within a planned percentage.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Set constraints: size, time, tools; structure fuels output.",
+      "intensity": 0.7,
+      "triggers": [
+        "blank page"
+      ],
+      "supports": [
+        "constraint box"
+      ],
+      "challenges": [
+        "overwhelm"
+      ]
+    },
+    {
+      "category": "creative",
+      "insight": "Create repeatable rituals: same start song, same desk, same cue.",
+      "intensity": 0.7,
+      "triggers": [
+        "inertia"
+      ],
+      "supports": [
+        "ritual"
+      ],
+      "challenges": [
+        "starting"
+      ]
+    },
+    {
+      "category": "creative",
+      "insight": "Break big pieces into milestones with review gates.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Track versions and decisions to keep momentum.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Study craft fundamentals weekly; basics compound.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Use templates, then customize; never reinvent needlessly.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Schedule critique with standards to avoid vague notes.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Protect maker time from meetings; defend the calendar.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Archive references with tags; retrieval is half the craft.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Finish small pieces often to strengthen completion muscle.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Measure progress by shipped artifacts, not hours spent.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creative",
+      "insight": "Rest deliberately; fatigue ruins craftsmanship.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Learn by building; each module ends with a working artifact.",
+      "intensity": 0.7,
+      "triggers": [
+        "theory overload"
+      ],
+      "supports": [
+        "project-based"
+      ],
+      "challenges": [
+        "abstract drift"
+      ]
+    },
+    {
+      "category": "learning",
+      "insight": "Use spaced repetition for definitions, formulas, and procedures.",
+      "intensity": 0.7,
+      "triggers": [
+        "memory slips"
+      ],
+      "supports": [
+        "SRS"
+      ],
+      "challenges": [
+        "forgetting"
+      ]
+    },
+    {
+      "category": "learning",
+      "insight": "Follow a syllabus with checkpoints and simple exams.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Shadow experts to absorb tacit steps and edge cases.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Write step-by-step guides for future you after learning.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Limit active courses to two; depth beats scatter.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Teach back in 5 minutes; clarity reveals gaps.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Track errors; fix root causes, not symptoms.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Alternate study and practice in tight loops.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Record setups and configs to prevent rework.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Maintain a glossary so teams speak the same language.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "learning",
+      "insight": "Schedule review days to consolidate knowledge.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Anchor sleep and meals at consistent times; routine steadies mood.",
+      "intensity": 0.8,
+      "triggers": [
+        "irregular days"
+      ],
+      "supports": [
+        "fixed times"
+      ],
+      "challenges": [
+        "energy dips"
+      ]
+    },
+    {
+      "category": "wellness",
+      "insight": "Lift, walk, stretch; strength plus mobility supports long projects.",
+      "intensity": 0.7,
+      "triggers": [
+        "stiffness"
+      ],
+      "supports": [
+        "SWS trio"
+      ],
+      "challenges": [
+        "sedentary work"
+      ]
+    },
+    {
+      "category": "wellness",
+      "insight": "Hydrate and prioritize protein to sustain focus and recovery.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Schedule rest blocks like appointments; do not skip.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Downshift after work: light, breath, and a short tidy ritual.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Protect eyes and wrists; ergonomics is compounding health.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Use nature breaks to reset perspective and stress load.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Keep caffeine earlier; avoid late-day spikes.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Track key habits; small daily wins beat occasional binges.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Practice body scans to detect tension before it hardens.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Plan vacations; builders need full resets to stay humane.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "wellness",
+      "insight": "Seek preventive care; maintenance reduces costly fixes.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Treat order as devotion; sweep, center, and begin with intention.",
+      "intensity": 0.7,
+      "triggers": [
+        "scattered mind"
+      ],
+      "supports": [
+        "order ritual"
+      ],
+      "challenges": [
+        "restlessness"
+      ]
+    },
+    {
+      "category": "spiritual",
+      "insight": "Build a simple altar; return daily for three breaths and a value you'll live.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Practice integrity audits: where actions and values misalign, adjust one step.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Mark work as service; dedicate the build to the common good.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Honor sabbath time; rest is structural to meaning.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Study wisdom on discipline and humility; apply one rule a week.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Walk a steady path in nature to remember patient growth.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Use gratitude for tools and teachers; lineage matters.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Release what is no longer functional with a small letting-go rite.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Practice flexibility: one plan you're willing to change when truth updates.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Keep promises to yourself; self-trust is sacred architecture.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual",
+      "insight": "Close the day by noting one repair you made to the world.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "Notice when rules serve fear; keep the rule only if it serves outcomes.",
+      "intensity": 0.75,
+      "triggers": [
+        "policy debates"
+      ],
+      "supports": [
+        "purpose check"
+      ],
+      "challenges": [
+        "dogma"
+      ]
+    },
+    {
+      "category": "shadow",
+      "insight": "If you micromanage, write standards and inspection points, then step back.",
+      "intensity": 0.75,
+      "triggers": [
+        "handoffs"
+      ],
+      "supports": [
+        "SOP + QC"
+      ],
+      "challenges": [
+        "control"
+      ]
+    },
+    {
+      "category": "shadow",
+      "insight": "Replace harsh self-talk with a neutral postmortem: facts, causes, fix.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "When scarcity speaks, inventory assets and options in writing.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "If perfection stalls you, set a 48-hour rule to ship a draft.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "Practice saying 'I don't know yet' and find the data.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "Question zero-sum assumptions; look for mutually beneficial designs.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "Avoid moralizing preferences; label them as preferences.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "Stop rescuing via overwork; ask for shared responsibility.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "If you dread change, run a small pilot to gather proof.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "Release grudges with a repair or a boundary; don't stew.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "shadow",
+      "insight": "Schedule play; rigidity softens when joy is regular.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "During moves or new roles, set up your systems first: calendar, lists, workspace.",
+      "intensity": 0.7,
+      "triggers": [
+        "big changes"
+      ],
+      "supports": [
+        "systems first"
+      ],
+      "challenges": [
+        "disarray"
+      ]
+    },
+    {
+      "category": "transitions",
+      "insight": "Use a 30-60-90 plan with clear outputs and learning goals.",
+      "intensity": 0.7,
+      "triggers": [
+        "onboarding"
+      ],
+      "supports": [
+        "plan"
+      ],
+      "challenges": [
+        "aimless start"
+      ]
+    },
+    {
+      "category": "transitions",
+      "insight": "Close chapters with checklists and a brief retrospective.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Keep one anchor habit through upheaval to stabilize identity.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Map stakeholders early; align on definitions and success metrics.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Simplify belongings and tools; clutter slows adaptation.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Schedule buffer days to integrate and rest after milestones.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Document new routines until muscle memory forms.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Name risks and mitigations; confidence rises with plans.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Celebrate firsts and secure quick wins to build momentum.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Update boundaries as responsibilities shift; avoid quiet resentment.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "transitions",
+      "insight": "Archive the old with gratitude; clear space invites the new.",
+      "intensity": 0.7,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    }
+  ]
+}

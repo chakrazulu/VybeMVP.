@@ -1,0 +1,34 @@
+{
+  "source": "grok_psychologist",
+  "number": 4,
+  "persona": "Psychologist",
+  "content_type": "mystical_insights",
+  "fallback": true,
+  "spiritual_categories": {
+    "primary_insights": [
+      "number",
+      "generation_info",
+      "date",
+      "2025-08-05",
+      "time_context",
+      "universal",
+      "theme",
+      "structure and stability",
+      "batch_size",
+      "insight",
+      "Four is the sacred builder, crafting stability from the chaos of dreams.",
+      "This number anchors spirit in form, grounding visions into reality.",
+      "Four vibrates with discipline, teaching that effort is a holy practice.",
+      "Embrace Four’s energy to create systems that sustain your soul’s purpose.",
+      "The essence of Four is the square, offering balance and enduring strength."
+    ],
+    "reflection_questions": [],
+    "contemplation_themes": [],
+    "note": "Fallback conversion - original JSON was malformed"
+  },
+  "intensity_scoring": {
+    "min_range": 0.7,
+    "max_range": 0.9,
+    "note": "Psychologist content recovered from malformed source"
+  }
+}

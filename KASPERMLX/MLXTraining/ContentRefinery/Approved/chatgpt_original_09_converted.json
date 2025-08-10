@@ -1,172 +1,2181 @@
 {
-  "source": "chatgpt_original",
   "number": 9,
-  "content_type": "practical_guidance",
-  "title": "ChatGPT Insights for Number 9",
-  "guidance_sections": {
-    "core_essence": [
-      "Number 9 is completion with a heartbeat—wisdom distilled, love extended, and endings handled with grace. It’s the wide-view lens that asks, “What serves the whole?” and then acts with courage and compassion. If 8 stewards power, 9 stewards meaning, turning personal growth into collective good.",
-      "This number teaches forgiveness, generosity, and the art of finishing well. Healthy 9 energy doesn’t martyr itself; it circulates care, lets go cleanly, and evolves without dragging yesterday’s luggage into tomorrow’s flight."
-    ],
-    "daily_practical_guidance": [
-      "Start with a compassion check-in: one person to bless, one boundary to hold, one thing to release today.",
-      "Use the 9-minute closure rule—spend nine focused minutes finishing or filing something unfinished before starting anything new.",
-      "Practice “light hands” decluttering—remove nine small items (emails, tabs, objects) each day to keep life breathable.",
-      "Before responding, ask, “Will this heal, help, or escalate?” Choose the words that lower the temperature and lift the tone.",
-      "Schedule a brief act of service daily—share a resource, introduce two allies, tip generously, or leave a kind review.",
-      "Turn hard feelings into motion: walk for nine minutes, breathe for nine counts, then speak from the settled place.",
-      "Create a gratitude chain—write one thank-you and reference the person who helped that helper; let appreciation ripple outward.",
-      "Use a “no rescue before request” policy; compassion without consent becomes control. Wait for the ask or offer cleanly.",
-      "Add a “why it matters” line to your to-dos; purpose fuels follow-through, especially for 9 energy.",
-      "Practice one generous assumption per day—assume positive intent once where you’d usually brace.",
-      "End the day with a release sentence: “I return what isn’t mine to carry and keep only what teaches love.”",
-      "Keep a small donation jar or giving envelope; aim to give a little every week so generosity is a rhythm, not an event.",
-      "Protect sanctity windows—first 30 minutes after waking, last 30 before sleep—with gentle inputs only."
-    ],
-    "relationship_wisdom": [
-      "Lead with tenderness, not telepathy; ask directly instead of assuming you know their story.",
-      "Replace generalized apologies with specific repairs—name the moment, the impact, and the new pattern you’ll try.",
-      "When you overextend, own it: “I gave beyond my capacity; I’m resetting so I can love you better, not less.”",
-      "Schedule “us-and-the-world” dates—volunteer together, donate together, build something for someone else together.",
-      "Practice compassionate confrontation: “I love you, and this behavior doesn’t fit our values. Here’s what I need instead.”",
-      "Let love be mutual aid, not martyrdom; design care systems both of you can sustain on hard weeks.",
-      "Create a monthly “close the loop” ritual—thank-yous sent, loose ends tied, grudges aired and cleared.",
-      "If you absorb moods, install pauses—“I’m noticing heaviness; is this mine or yours?”—then respond accordingly.",
-      "Use stories to bridge conflict—share the recent memory that made you sensitive to this moment; context softens edges.",
-      "Honor endings with dignity; if a relationship must change shape, bless the past and set clean new terms.",
-      "Keep a “we-help” list of causes you both care about; shared service deepens intimacy for 9 energy.",
-      "Celebrate quiet kindness as much as flashy romance; longevity is made of small mercies repeated."
-    ],
-    "career_&_purpose_alignment": [
-      "Aim your work where impact lives—education, healthcare, social innovation, design for good, community building, or ethical leadership.",
-      "Define your “north star metric” in human terms (lives improved, hours saved, burden reduced) and track it like revenue.",
-      "Convert empathy into process: write intake forms, escalation paths, and follow-up scripts that honor human dignity.",
-      "Design feedback loops with beneficiaries; ask the people you serve what actually helped and adjust accordingly.",
-      "Create sunset plans for projects—criteria for completion, knowledge handoff, and celebration of contributors.",
-      "Write narratives alongside numbers; brief stakeholders with both outcomes and stories that show the change.",
-      "Build bridge roles—translator, community liaison, ethics reviewer—that align decisions with values in real time.",
-      "Schedule a monthly “mission audit”: what stayed aligned, what drifted, what needs to be retired with gratitude.",
-      "If burnout stalks you, rotate through roles that mix outreach, creation, and reflection; 9 needs variety that still serves.",
-      "Mentor generously and guard your bandwidth; teach frameworks, not dependence.",
-      "Negotiate for impact time—hours reserved for pro bono, mentoring, or internal culture work that aligns with your heart.",
-      "Choose employers or clients who treat humans as stakeholders, not obstacles; integrity is non-negotiable fuel for 9."
-    ],
-    "personal_growth_challenges": [
-      "Beware savior mode; helping without boundaries breeds resentment—compassion requires capacity planning.",
-      "Guilt is not guidance; measure choices against values and bandwidth, not shame.",
-      "Release attachment to being the “good one”; choose true over tidy when truth heals better than performance.",
-      "If endings haunt you, practice mini-completions daily so closure becomes muscle memory, not melodrama.",
-      "Watch for emotional leakage—sarcasm, martyr jokes, overexplaining; speak the need plainly instead.",
-      "Turn vague overwhelm into lists: what to forgive, what to fix, what to finish, what to forget.",
-      "When anger rises, bless it as boundary energy; channel it into a clean ask or a firm no.",
-      "Stop editing yourself into invisibility; your perspective is medicine—offer it without sermonizing.",
-      "If you absorb collective pain, limit doom-feeds and increase direct action; doing restores dignity faster than scrolling.",
-      "Trade “I should” for “I choose” to reclaim agency; obligation language drains 9 strength.",
-      "Practice “compassion with consequences”: love people and still enforce agreements.",
-      "Let yourself be helped; receiving is part of the circulation you preach."
-    ],
-    "spiritual_gifts_&_talents": [
-      "You alchemize endings into blessings—rooms feel cleaner and hearts feel lighter after your presence.",
-      "You are fluent in meaning; you connect dots across time and help people make peace with their story.",
-      "You sense the need under the noise and offer the right kindness at the right scale.",
-      "You carry global empathy and can widen a group’s lens beyond self-interest without shaming them.",
-      "You’re a closure architect; you design rituals and processes that finish chapters with honor.",
-      "You transmute grief into purpose and invite others into that sacred work.",
-      "You hold moral gravity—people rise to their better selves around you.",
-      "You’re a patron of the commons; you protect shared spaces, shared knowledge, and shared dignity.",
-      "You can forgive without forgetting lessons; your boundaries are kind and memorable.",
-      "You translate big ideals into daily gestures that ordinary people can actually do.",
-      "You bless anonymously when needed; your ego doesn’t need a sticker on every gift.",
-      "You remember the ancestors and include the yet-to-come; your circle is truly round."
-    ],
-    "healing_&_wellness": [
-      "Balance big-heartedness with big hydration and big sleep; compassion runs on electrolytes and REM too.",
-      "Sweat regularly—sauna, run, cycle, dance—to metabolize empathy fatigue and clear emotional fog.",
-      "Practice “body charity”—gentle stretching, hip openers, and chest expansion to counter hunching from care work.",
-      "Eat colorful, fiber-rich meals to stabilize mood; the gut-brain axis loves 9’s mission when nourished.",
-      "Protect morning light exposure and evening dimness; circadian stability preserves tenderness.",
-      "Use tapping (EFT) or bilateral stimulation to process heavy stories without storing them.",
-      "Schedule grief hygiene—journaling, therapy, or ritual—so sorrow has a lane and doesn’t flood the house.",
-      "Keep a comfort kit—rescue remedy, warm tea, cozy socks, soft playlist—for quick nervous-system kindness.",
-      "Limit caffeine on emotionally intense days; choose calm clarity over wired compassion.",
-      "Supplement with magnesium glycinate and omega-3s (with pro guidance) to buffer stress without numbing.",
-      "Take “awe walks”—notice the sky, trees, faces; wonder restores spiritual vitamins depleted by outrage.",
-      "Block white-space hours weekly; empty time is medicinal for a system that holds multitudes."
-    ],
-    "creative_expression": [
-      "Tell redemption stories—not just the fall, but the turn and the return; 9 writes with mercy and memory.",
-      "Create “legacy pieces”—letters, albums, zines—that future-you or future-others will be grateful to find.",
-      "Use found objects and recycled materials; upcycling mirrors 9’s gift of turning leftovers into beauty.",
-      "Compose with crescendos and soft landings; your art knows how to finish without crashing.",
-      "Curate community anthologies—collect voices around a theme and bind them into a shared artifact.",
-      "Design altars of remembrance—small corners with photos, candles, and symbols—then teach others how to do the same.",
-      "Photograph hands, wrinkles, thresholds; your eye honors the sacred ordinary.",
-      "Record oral histories with elders; rescue wisdom from evaporation.",
-      "Write thank-you notes publicly when safe; gratitude models the world you’re building.",
-      "Host closing ceremonies for community projects; acknowledge names, lessons, and next stewards.",
-      "Pair your pieces with causes—prints that fund relief, shows that support shelters—so art travels as aid.",
-      "Let your mistakes become motifs of repair; visible mending is a 9 aesthetic."
-    ],
-    "meditation_&_mindfulness": [
-      "Practice tonglen: breathe in suffering (imaginal soot), breathe out relief (imaginal light) for yourself and others.",
-      "Use metta (loving-kindness) with inclusive phrasing: “May all beings be safe—including me.”",
-      "Sit with a bowl or candle and place names or situations into it mentally; release them to something larger for a time.",
-      "Do forgiveness practice—picture the person, name the wound, affirm your boundary, and wish them freedom.",
-      "Walk a gratitude labyrinth—three circles out naming gifts, three circles in naming what you offer back.",
-      "Try “soft eyes” meditation; broaden your visual field until your jaw unclenches and your breath deepens.",
-      "Use breath 4-7-8 to downshift when emotions spike; long exhales signal safety to your system.",
-      "End each sit with a sending ritual—“May what steadied me ripple to those who need it.”",
-      "Practice mindful generosity—give time or attention without multitasking, as if it’s the only thing you own.",
-      "Journal a daily mercy: where you were kinder than your fear wanted you to be.",
-      "Do body scans that ask, “Where am I carrying someone else’s story?” and set it down gently.",
-      "Hold silence as medicine; let quiet do some of the healing you keep trying to perform alone."
-    ],
-    "shadow_work_&_integration": [
-      "Name your martyr narratives and replace them with mature boundaries; love doesn’t require self-erasure.",
-      "Interrogate “nice”; sometimes it’s truth avoidance—risk honest kindness over polite distance.",
-      "Own rescue fantasies; return people to their agency with tools and timeframes, not takeover plans.",
-      "If you hoard grief, share it in safe containers; secret sorrow becomes cynicism.",
-      "Stop spiritualizing burnout; exhaustion is not a badge of holiness—rest is an ethical practice.",
-      "Watch for covert superiority in service; humility means listening to the people you’re “helping.”",
-      "Let anger teach you what you value; bless it for the message and enforce the boundary without theatrics.",
-      "Repair where pity leaked into condescension; apologize and recommit to partnership.",
-      "Release perfection in closure; some endings are clean, some are kind, some are simply done—accept the form you get.",
-      "Convert vague guilt into concrete amends or release it; rumination isn’t repentance.",
-      "Practice equal dignity toward your own needs; you’re part of “all beings,” not an exception.",
-      "Integrate joy without apology; happiness doesn’t betray the suffering—it fuels the stamina to keep serving."
-    ],
-    "manifestation_power": [
-      "Write impact-forward intentions: “I intend to create X that benefits Y by Z,” then list the first three actions.",
-      "Bless money as a messenger; let it carry compassion through your budgets, contracts, and donations.",
-      "Set aside a “tithe of time” weekly for mentoring, pro bono, or neighborly help; be specific so it happens.",
-      "Call in aligned collaborators by naming values out loud; the right people can hear you when you’re precise.",
-      "Use release rituals to clear space—burn a list, delete a stale doc, recycle old plans—then invite the next right thing.",
-      "Track ripple effects—messages from people your work touched, secondary wins—and let that data grow your faith.",
-      "Ask for resources with purpose; funders and friends move faster when they see the human why.",
-      "Create a giving flywheel—small recurring gifts, matching campaigns, shared fundraisers—so generosity compounds.",
-      "Anchor launches to meaningful dates (solstices, anniversaries, the 9th/19th/29th) to deepen your commitment.",
-      "Visualize outcomes that include community benefits; the universe loves a bigger circle.",
-      "Close each cycle with a harvest tally—what came in, what went out, what stayed—and say thank you aloud.",
-      "Trust that when you let go of what’s complete, what’s truly yours arrives with less drag."
-    ],
-    "life_transitions_&_timing": [
-      "Treat endings as thresholds, not failures; design a small rite to mark what’s closing and what quality you’re carrying forward.",
-      "In breakups or job exits, write a dignity letter you never send; say the truths, take the lessons, release the rest.",
-      "During grief, choose gentle cadence over isolation—three touchpoints a week with safe people, minimum sunlight daily.",
-      "When moving, visit the old place once, bless it, and don’t loiter; clean goodbyes make clean hellos.",
-      "For career pivots, gather references, archive wins, and write a “why I’m leaving” for yourself; clarity prevents backsliding.",
-      "Use 9-week arcs for learning projects—study, practice, share—then decide to deepen or release.",
-      "Schedule “compassion audits” during big changes: who needs reassurance, what needs boundaries, what needs closure.",
-      "Time difficult conversations after rest and food; compassion without glucose is a fragile ideal.",
-      "On birthdays ending in 9, plan a review-and-release retreat; you’re closing a cycle and seeding the next.",
-      "In personal year 9 cycles, prioritize forgiveness, completion, and generous exits; travel light into the next decade of your life.",
-      "Let milestones include community—invite witnesses to celebrate, mourn, or bless with you; love likes to be seen.",
-      "Remember: finishing is a form of love—do it cleanly, do it kindly, and then walk forward."
-    ]
-  },
+  "title": "The ChatGPTAnalyst",
+  "source": "chatgpt",
+  "persona": "ChatGPTAnalyst",
+  "behavioral_category": "spiritual_insights",
   "intensity_scoring": {
     "min_range": 0.6,
-    "max_range": 0.85,
-    "note": "Practical life guidance with spiritual wisdom"
+    "max_range": 0.9,
+    "note": "ChatGPTAnalyst insights with universal intensity range"
+  },
+  "behavioral_insights": [
+    {
+      "category": "spiritual_guidance",
+      "insight": "Number 9 is completion with a heartbeat—wisdom distilled, love extended, and endings handled with grace. It’s the wide-view lens that asks, “What serves the whole?” and then acts with courage and compassion. If 8 stewards power, 9 stewards meaning, turning personal growth into collective good.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "This number teaches forgiveness, generosity, and the art of finishing well. Healthy 9 energy doesn’t martyr itself; it circulates care, lets go cleanly, and evolves without dragging yesterday’s luggage into tomorrow’s flight.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Start with a compassion check-in: one person to bless, one boundary to hold, one thing to release today.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Use the 9-minute closure rule—spend nine focused minutes finishing or filing something unfinished before starting anything new.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Practice “light hands” decluttering—remove nine small items (emails, tabs, objects) each day to keep life breathable.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Before responding, ask, “Will this heal, help, or escalate?” Choose the words that lower the temperature and lift the tone.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Schedule a brief act of service daily—share a resource, introduce two allies, tip generously, or leave a kind review.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Turn hard feelings into motion: walk for nine minutes, breathe for nine counts, then speak from the settled place.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Create a gratitude chain—write one thank-you and reference the person who helped that helper; let appreciation ripple outward.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Use a “no rescue before request” policy; compassion without consent becomes control. Wait for the ask or offer cleanly.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Add a “why it matters” line to your to-dos; purpose fuels follow-through, especially for 9 energy.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Practice one generous assumption per day—assume positive intent once where you’d usually brace.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "End the day with a release sentence: “I return what isn’t mine to carry and keep only what teaches love.”",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Keep a small donation jar or giving envelope; aim to give a little every week so generosity is a rhythm, not an event.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Protect sanctity windows—first 30 minutes after waking, last 30 before sleep—with gentle inputs only.",
+      "intensity": 0.89,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Lead with tenderness, not telepathy; ask directly instead of assuming you know their story.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Replace generalized apologies with specific repairs—name the moment, the impact, and the new pattern you’ll try.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "When you overextend, own it: “I gave beyond my capacity; I’m resetting so I can love you better, not less.”",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Schedule “us-and-the-world” dates—volunteer together, donate together, build something for someone else together.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Practice compassionate confrontation: “I love you, and this behavior doesn’t fit our values. Here’s what I need instead.”",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Let love be mutual aid, not martyrdom; design care systems both of you can sustain on hard weeks.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Create a monthly “close the loop” ritual—thank-yous sent, loose ends tied, grudges aired and cleared.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "If you absorb moods, install pauses—“I’m noticing heaviness; is this mine or yours?”—then respond accordingly.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Use stories to bridge conflict—share the recent memory that made you sensitive to this moment; context softens edges.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Honor endings with dignity; if a relationship must change shape, bless the past and set clean new terms.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Keep a “we-help” list of causes you both care about; shared service deepens intimacy for 9 energy.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Celebrate quiet kindness as much as flashy romance; longevity is made of small mercies repeated.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Aim your work where impact lives—education, healthcare, social innovation, design for good, community building, or ethical leadership.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Define your “north star metric” in human terms (lives improved, hours saved, burden reduced) and track it like revenue.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Convert empathy into process: write intake forms, escalation paths, and follow-up scripts that honor human dignity.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Design feedback loops with beneficiaries; ask the people you serve what actually helped and adjust accordingly.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Create sunset plans for projects—criteria for completion, knowledge handoff, and celebration of contributors.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Write narratives alongside numbers; brief stakeholders with both outcomes and stories that show the change.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Build bridge roles—translator, community liaison, ethics reviewer—that align decisions with values in real time.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Schedule a monthly “mission audit”: what stayed aligned, what drifted, what needs to be retired with gratitude.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "If burnout stalks you, rotate through roles that mix outreach, creation, and reflection; 9 needs variety that still serves.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Mentor generously and guard your bandwidth; teach frameworks, not dependence.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Negotiate for impact time—hours reserved for pro bono, mentoring, or internal culture work that aligns with your heart.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Choose employers or clients who treat humans as stakeholders, not obstacles; integrity is non-negotiable fuel for 9.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Beware savior mode; helping without boundaries breeds resentment—compassion requires capacity planning.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Guilt is not guidance; measure choices against values and bandwidth, not shame.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Release attachment to being the “good one”; choose true over tidy when truth heals better than performance.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "If endings haunt you, practice mini-completions daily so closure becomes muscle memory, not melodrama.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Watch for emotional leakage—sarcasm, martyr jokes, overexplaining; speak the need plainly instead.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Turn vague overwhelm into lists: what to forgive, what to fix, what to finish, what to forget.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "When anger rises, bless it as boundary energy; channel it into a clean ask or a firm no.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Stop editing yourself into invisibility; your perspective is medicine—offer it without sermonizing.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "If you absorb collective pain, limit doom-feeds and increase direct action; doing restores dignity faster than scrolling.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Trade “I should” for “I choose” to reclaim agency; obligation language drains 9 strength.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Practice “compassion with consequences”: love people and still enforce agreements.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Let yourself be helped; receiving is part of the circulation you preach.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You alchemize endings into blessings—rooms feel cleaner and hearts feel lighter after your presence.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You are fluent in meaning; you connect dots across time and help people make peace with their story.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You sense the need under the noise and offer the right kindness at the right scale.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You carry global empathy and can widen a group’s lens beyond self-interest without shaming them.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You’re a closure architect; you design rituals and processes that finish chapters with honor.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You transmute grief into purpose and invite others into that sacred work.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You hold moral gravity—people rise to their better selves around you.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You’re a patron of the commons; you protect shared spaces, shared knowledge, and shared dignity.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You can forgive without forgetting lessons; your boundaries are kind and memorable.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You translate big ideals into daily gestures that ordinary people can actually do.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You bless anonymously when needed; your ego doesn’t need a sticker on every gift.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You remember the ancestors and include the yet-to-come; your circle is truly round.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Balance big-heartedness with big hydration and big sleep; compassion runs on electrolytes and REM too.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Sweat regularly—sauna, run, cycle, dance—to metabolize empathy fatigue and clear emotional fog.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Practice “body charity”—gentle stretching, hip openers, and chest expansion to counter hunching from care work.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Eat colorful, fiber-rich meals to stabilize mood; the gut-brain axis loves 9’s mission when nourished.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Protect morning light exposure and evening dimness; circadian stability preserves tenderness.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Use tapping (EFT) or bilateral stimulation to process heavy stories without storing them.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Schedule grief hygiene—journaling, therapy, or ritual—so sorrow has a lane and doesn’t flood the house.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Keep a comfort kit—rescue remedy, warm tea, cozy socks, soft playlist—for quick nervous-system kindness.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Limit caffeine on emotionally intense days; choose calm clarity over wired compassion.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Supplement with magnesium glycinate and omega-3s (with pro guidance) to buffer stress without numbing.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Take “awe walks”—notice the sky, trees, faces; wonder restores spiritual vitamins depleted by outrage.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Block white-space hours weekly; empty time is medicinal for a system that holds multitudes.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Tell redemption stories—not just the fall, but the turn and the return; 9 writes with mercy and memory.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Create “legacy pieces”—letters, albums, zines—that future-you or future-others will be grateful to find.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Use found objects and recycled materials; upcycling mirrors 9’s gift of turning leftovers into beauty.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Compose with crescendos and soft landings; your art knows how to finish without crashing.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Curate community anthologies—collect voices around a theme and bind them into a shared artifact.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Design altars of remembrance—small corners with photos, candles, and symbols—then teach others how to do the same.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Photograph hands, wrinkles, thresholds; your eye honors the sacred ordinary.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Record oral histories with elders; rescue wisdom from evaporation.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Write thank-you notes publicly when safe; gratitude models the world you’re building.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Host closing ceremonies for community projects; acknowledge names, lessons, and next stewards.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Pair your pieces with causes—prints that fund relief, shows that support shelters—so art travels as aid.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Let your mistakes become motifs of repair; visible mending is a 9 aesthetic.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Practice tonglen: breathe in suffering (imaginal soot), breathe out relief (imaginal light) for yourself and others.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Use metta (loving-kindness) with inclusive phrasing: “May all beings be safe—including me.”",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Sit with a bowl or candle and place names or situations into it mentally; release them to something larger for a time.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Do forgiveness practice—picture the person, name the wound, affirm your boundary, and wish them freedom.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Walk a gratitude labyrinth—three circles out naming gifts, three circles in naming what you offer back.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Try “soft eyes” meditation; broaden your visual field until your jaw unclenches and your breath deepens.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Use breath 4-7-8 to downshift when emotions spike; long exhales signal safety to your system.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "End each sit with a sending ritual—“May what steadied me ripple to those who need it.”",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Practice mindful generosity—give time or attention without multitasking, as if it’s the only thing you own.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Journal a daily mercy: where you were kinder than your fear wanted you to be.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Do body scans that ask, “Where am I carrying someone else’s story?” and set it down gently.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Hold silence as medicine; let quiet do some of the healing you keep trying to perform alone.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Name your martyr narratives and replace them with mature boundaries; love doesn’t require self-erasure.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Interrogate “nice”; sometimes it’s truth avoidance—risk honest kindness over polite distance.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Own rescue fantasies; return people to their agency with tools and timeframes, not takeover plans.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "If you hoard grief, share it in safe containers; secret sorrow becomes cynicism.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Stop spiritualizing burnout; exhaustion is not a badge of holiness—rest is an ethical practice.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Watch for covert superiority in service; humility means listening to the people you’re “helping.”",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Let anger teach you what you value; bless it for the message and enforce the boundary without theatrics.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Repair where pity leaked into condescension; apologize and recommit to partnership.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Release perfection in closure; some endings are clean, some are kind, some are simply done—accept the form you get.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Convert vague guilt into concrete amends or release it; rumination isn’t repentance.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Practice equal dignity toward your own needs; you’re part of “all beings,” not an exception.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Integrate joy without apology; happiness doesn’t betray the suffering—it fuels the stamina to keep serving.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Write impact-forward intentions: “I intend to create X that benefits Y by Z,” then list the first three actions.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Bless money as a messenger; let it carry compassion through your budgets, contracts, and donations.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Set aside a “tithe of time” weekly for mentoring, pro bono, or neighborly help; be specific so it happens.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Call in aligned collaborators by naming values out loud; the right people can hear you when you’re precise.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Use release rituals to clear space—burn a list, delete a stale doc, recycle old plans—then invite the next right thing.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Track ripple effects—messages from people your work touched, secondary wins—and let that data grow your faith.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Ask for resources with purpose; funders and friends move faster when they see the human why.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Create a giving flywheel—small recurring gifts, matching campaigns, shared fundraisers—so generosity compounds.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Anchor launches to meaningful dates (solstices, anniversaries, the 9th/19th/29th) to deepen your commitment.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Visualize outcomes that include community benefits; the universe loves a bigger circle.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Close each cycle with a harvest tally—what came in, what went out, what stayed—and say thank you aloud.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Trust that when you let go of what’s complete, what’s truly yours arrives with less drag.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Treat endings as thresholds, not failures; design a small rite to mark what’s closing and what quality you’re carrying forward.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "In breakups or job exits, write a dignity letter you never send; say the truths, take the lessons, release the rest.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "During grief, choose gentle cadence over isolation—three touchpoints a week with safe people, minimum sunlight daily.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "When moving, visit the old place once, bless it, and don’t loiter; clean goodbyes make clean hellos.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "For career pivots, gather references, archive wins, and write a “why I’m leaving” for yourself; clarity prevents backsliding.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Use 9-week arcs for learning projects—study, practice, share—then decide to deepen or release.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Schedule “compassion audits” during big changes: who needs reassurance, what needs boundaries, what needs closure.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Time difficult conversations after rest and food; compassion without glucose is a fragile ideal.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "On birthdays ending in 9, plan a review-and-release retreat; you’re closing a cycle and seeding the next.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "In personal year 9 cycles, prioritize forgiveness, completion, and generous exits; travel light into the next decade of your life.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Let milestones include community—invite witnesses to celebrate, mourn, or bless with you; love likes to be seen.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Remember: finishing is a form of love—do it cleanly, do it kindly, and then walk forward.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    }
+  ],
+  "generation_info": {
+    "conversion_date": "2025-08-10T10:36:01.471545",
+    "conversion_type": "chatgpt_original_to_behavioral_insights",
+    "original_structure": "chatgpt_original_to_behavioral_insights",
+    "converted_insights_count": 135,
+    "conversion_tool": "UniversalKASPERConverter_v2.0"
   }
 }

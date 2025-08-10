@@ -1,0 +1,47 @@
+{
+  "version": "2.1.2",
+  "generated": "2025-08-10T10:54:53.152336",
+  "bundle_hash": "1b555f0cc230eddc5606c637c37c79ceccd0bd1f3c8af48a4ca98c88c4a16fef",
+  "domains": {
+    "numbers": {
+      "rich": "NumberMeanings/{id}_rich.json",
+      "behavioral": {
+        "lifePath": "Behavioral/lifePath_{id}_v2.0_converted.json",
+        "expression": "Behavioral/expression_{id}_converted.json",
+        "soulUrge": "Behavioral/soulUrge_{id}_v3.0_converted.json"
+      },
+      "personas": {
+        "oracle": "Behavioral/oracle/grok_oracle_{id}_converted.json",
+        "psychologist": "Behavioral/psychologist/grok_psychologist_{id}_converted.json",
+        "mindfulnesscoach": "Behavioral/mindfulnesscoach/grok_mindfulnesscoach_{id}_converted.json",
+        "numerologyscholar": "Behavioral/numerologyscholar/grok_numerologyscholar_{id}_converted.json",
+        "philosopher": "Behavioral/philosopher/grok_philosopher_{id}_converted.json"
+      }
+    }
+  },
+  "fallback_strategy": "behavioral_then_template",
+  "validation": {
+    "schema_version": "3.0",
+    "required_coverage": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "11",
+      "22",
+      "33",
+      "44"
+    ],
+    "missing_numbers": []
+  },
+  "statistics": {
+    "behavioral_files": 104,
+    "rich_files": 13,
+    "total_size_kb": 1587.3
+  }
+}

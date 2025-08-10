@@ -969,7 +969,8 @@ class KASPERMLXEngine: ObservableObject {
             personalReferences: personalReferences,
             actionableGuidance: actionableGuidance,
             type: type,
-            constraints: constraints
+            constraints: constraints,
+            megaCorpusContext: megaCorpusContext
         )
     }
 
@@ -1254,7 +1255,28 @@ class KASPERMLXEngine: ObservableObject {
 
     /// Generate final insight by combining all components
     /// Claude: ENHANCED - Uses new template system for natural, flowing spiritual language
-    private func generateFinalInsight(spiritualComponents: [String], personalReferences: [String], actionableGuidance: [String], type: KASPERInsightType, constraints: InsightConstraints?) -> String {
+    private func generateFinalInsight(spiritualComponents: [String], personalReferences: [String], actionableGuidance: [String], type: KASPERInsightType, constraints: InsightConstraints?, megaCorpusContext: ProviderContext? = nil) -> String {
+
+        // 🆕 V2.1: Check for rich content first
+        if let richInsights = megaCorpusContext?.data["richInsights"] as? [String], !richInsights.isEmpty {
+            let selectedInsight = richInsights.randomElement() ?? richInsights[0]
+            print("🔮 KASPER V2.1: ✅ Using RICH content - insights available: \(richInsights.count)")
+            print("🔮 KASPER V2.1: Selected insight (raw): \(selectedInsight.prefix(80))...")
+            // Apply V2.1 linguistic enhancement to the rich content
+            let (enhanced, score) = KASPERLinguisticEnhancerV2.enhance(
+                selectedInsight,
+                options: EnhancementOptions(persona: mapDomainToPersona(.dailyCard), allowEmoji: false, qualityThreshold: 0.84)
+            )
+            print("🔮 KASPER V2.1: Enhanced insight: \(enhanced.prefix(80))... (Score: \(score.finalGrade))")
+            return enhanced
+        } else {
+            print("🔮 KASPER V2.1: ❌ NO rich content available - falling back to templates")
+            if let megaCorpus = megaCorpusContext?.data {
+                print("🔮 KASPER V2.1: MegaCorpus keys available: \(Array(megaCorpus.keys))")
+            } else {
+                print("🔮 KASPER V2.1: No MegaCorpus context available")
+            }
+        }
 
         // Claude: FIXED PERSONALIZATION ISSUE - Prioritize focus-specific content by selecting from focus components first
         // Instead of random selection, use focus-specific content when available

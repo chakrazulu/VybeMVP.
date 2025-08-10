@@ -1,176 +1,2245 @@
 {
-  "source": "chatgpt_original",
   "number": 1,
-  "content_type": "practical_guidance",
-  "title": "ChatGPT Insights for Number 1",
-  "guidance_sections": {
-    "core_essence": [
-      "Number 1 is the spark before the flame—the moment you decide, “I’m in,” and momentum answers back. It’s the vibe of fresh starts, clean slates, and brave first steps. When you’re channeling 1, you lead from inner truth, not from the need for permission.",
-      "This number teaches self-trust, decisive action, and the courage to go first even when the path isn’t lit yet. It’s bold, solar, and forward—yet healthy 1 energy pairs confidence with humility, so your leadership creates more leaders, not just followers."
-    ],
-    "daily_practical_guidance": [
-      "Start the day with a single brave action in the first 10 minutes—send the email, make the call, press “publish,” then ride that momentum.",
-      "Create a one-page plan for the day with one must-ship outcome, three supporting tasks, and a hard stop time to celebrate completion.",
-      "Use the 90-second activation rule: if an action takes under 90 seconds to start, initiate it immediately before your brain negotiates you out of it.",
-      "Choose a “power color” (red, gold, or white) and wear or carry it when you need courage to begin or speak up.",
-      "Replace “someday” with a date; if a goal matters, schedule a micro-milestone within 48 hours to anchor it in reality.",
-      "Practice “one-thing focus” blocks of 25–50 minutes where distractions are off and the first domino gets handled.",
-      "Start before you feel ready; commit to the messy first draft or rough prototype and iterate publicly for built-in accountability.",
-      "Use “micro-dares” daily—tiny, edgy actions that stretch your comfort zone without overwhelming your nervous system.",
-      "End every workday by naming tomorrow’s first move; place the tool you’ll need where you’ll see it first thing.",
-      "Adopt a “First-Move Window (AM), Command Window (PM)” rhythm: create in the morning when willpower is high, then meet and manage later.",
-      "Build a two-sentence personal mantra that starts with “I am” and ends with a clear action, like “I am decisive; I move the first piece.”",
-      "When stuck, flip a coin not to decide for you but to reveal your preference—notice your gut reaction as the true instruction.",
-      "Choose one area to lead each week (project, meeting, ritual at home) so your leadership muscle stays warm without burning out.",
-      "Use a “done list” to record completions and train your brain to associate leadership with satisfaction, not just strain."
-    ],
-    "relationship_wisdom": [
-      "Lead with directness and care: say what you want in “I” statements, then invite your partner’s truth to sit beside it.",
-      "Schedule solo time without apology, then return on purpose—independence fuels intimacy when it’s shared with intention.",
-      "Turn your drive into generosity by planning one meaningful initiative for your partner each week (a date, a task, a surprise that lifts weight).",
-      "Swap competition for collaboration by asking, “What’s our win here?” and building a joint scoreboard you both enjoy updating.",
-      "Practice the three-beat repair: own your impact, offer a plan to do better next time, and invite feedback on what would help.",
-      "When emotions run hot, step outside or change posture before you speak; 60 seconds of movement can prevent 60 minutes of cleanup.",
-      "Make room for your partner’s leadership days; consciously choose to follow and appreciate their style without editing it.",
-      "Create a “decision lane” system—who decides quickly on what—so speed in one area doesn’t trample voice in another.",
-      "During conflict, argue for the other person’s point for one minute; it softens edges and reveals new bridges.",
-      "Celebrate your partner’s firsts—new habits, risks, or roles—so the relationship becomes a launchpad, not a tug-of-war rope.",
-      "Replace fixing with curiosity; ask one more question than you give advice to keep respect higher than urgency.",
-      "If you fear dependency, practice safe receiving—say “yes” to help on small things to build trust in mutuality.",
-      "Name the season you’re in as a team (build, stabilize, heal, explore) and choose matching rituals so your energy aligns."
-    ],
-    "career_&_purpose_alignment": [
-      "Write a one-sentence mission you can say out loud without cringing; decisions get easier when they serve a sentence, not a mood.",
-      "Create a weekly “ship ritual” where something leaves your desk every Friday—a deliverable, demo, or decision—so progress has a heartbeat.",
-      "Prototype before you pitch; a tangible mockup beats a thousand words and reduces decision friction for stakeholders.",
-      "Block two hours of “CEO time” weekly—even if you’re not a CEO—to think, plan, and make the calls you’ve been avoiding.",
-      "Build a personal board of three people: a challenger, a cheerleader, and a chess-player; ask each for one clear next step.",
-      "Reduce decision debt by setting simple rules: if opportunity fits mission, takes <8 hours, and teaches you something, it’s a yes.",
-      "Lead meetings with a single question that matters; end with who does what by when, written where humans can find it.",
-      "Practice visible leadership in low-stakes ways—run the standup, host the retro, demo the rough cut—so confidence compounds.",
-      "Schedule courage sprints: 30 minutes to make bold asks (introductions, pitches, promotions) with a playful scorecard.",
-      "Delegate for impact, not relief; give away outcomes with clear success criteria, not just tasks you dislike.",
-      "Use quarterly “quit lists” to drop projects that block your best work; space creates signal for your true calling.",
-      "Design your role around your strongest 10% and automate or outsource the rest; excellence loves focus.",
-      "Share learnings in public once a week; teaching your path turns your leadership into community gravity."
-    ],
-    "personal_growth_challenges": [
-      "Perfectionism wastes 1 energy; set a “good enough” threshold upfront and honor it like a contract with your future self.",
-      "Watch for lone-wolf spirals; leadership includes convening allies, not just carrying loads—ask for help before it’s dramatic.",
-      "Impatience can scorch trust; choose one relationship where you practice slow timing and let outcomes ripen without force.",
-      "Notice control dressed as care; if you’re “just helping,” check whether you’re crowding someone else’s growth curve.",
-      "Build a practice of receiving—a compliment, support, or feedback—without deflection; strength includes openness.",
-      "Swap comparison for creation by using envy as a compass: what you admire is pointing toward your next brave move.",
-      "If anger is your default accelerator, map your triggers and create an alternative start routine (breath, water, walk, then speak).",
-      "Calibrate ambition with recovery; schedule rest like a deliverable and defend it with the same intensity you defend goals.",
-      "When you hit a wall, choose smaller walls; shrink the goal until momentum returns, then expand responsibly.",
-      "Practice “two-way doors”—reversible decisions you can test fast—so progress doesn’t wait on mythical certainty.",
-      "Name your season honestly: build, learn, integrate, or harvest; mismatched pacing is a hidden source of burnout.",
-      "Replace self-critique with post-game reviews; ask, “What worked? What changed me? What’s the next tiny upgrade?”",
-      "Let someone else go first once a day to remember that leadership is listening, too."
-    ],
-    "spiritual_gifts_&_talents": [
-      "You carry pioneer energy—use it to open safe paths where others can walk, not just to prove you can survive the thorns.",
-      "Your superpower is decisive clarity; practice asking, “What’s the first clean action?” and taking it without drama.",
-      "You’re a natural activator; be the person who moves a room from talk to task with one grounded sentence and a deadline.",
-      "You sense the moment to begin; honor that timing by preparing light frameworks so inspiration has somewhere to land.",
-      "Your presence encourages courage; host “first step” circles where everyone commits to one scary, public action.",
-      "You can cut through noise; offer clear summaries and simple choices to reduce overwhelm for the people you serve.",
-      "You teach by example; let your imperfect starts be visible so others learn that progress outruns polish.",
-      "You read destiny through preference; notice what you can’t stop initiating—that’s a trailhead, not a distraction.",
-      "You’re built for thresholds; bless openings—new jobs, homes, habits—with small rituals that dignify beginnings.",
-      "You carry lighthouse frequency; stand tall, stay consistent, and trust that your steady beam calls the right ships.",
-      "Your gift is naming; give ideas their true titles and they’ll become easier to share, fund, and finish.",
-      "You’re a pattern starter; leave clean handoffs so others can continue with pride and clarity."
-    ],
-    "healing_&_wellness": [
-      "Feed your solar plexus with morning sunlight, warm water with minerals, and a breakfast that includes protein before caffeine.",
-      "Use power movement—intervals, kettlebells, boxing—to metabolize stress, then follow with a slow walk to downshift your system.",
-      "Schedule “white space” buffers around big pushes so your nervous system can return to neutral and your creativity can reset.",
-      "Adopt a pre-sleep landing routine: dim lights, stretch your hip flexors, journal three wins, then park tomorrow’s first step on paper.",
-      "Hydrate like it’s your job; strong leaders crash from simple dehydration more than they admit.",
-      "If you grind your teeth or clench your jaw, place the tongue on the roof of the mouth and exhale longer than you inhale to signal safety.",
-      "Keep a “pressure valve” practice—voice notes, boxing combos, or primal yells in the car—to release heat without collateral damage.",
-      "Choose one non-negotiable health metric to track (sleep hours, steps, HRV) and let data nudge, not shame, your choices.",
-      "Eat for steady fuel; prioritize single-ingredient foods on heavy decision days so your willpower isn’t competing with blood sugar dips.",
-      "Honor recovery days like training days; leadership grows in the rest phase where integration happens.",
-      "Use scent anchors (citrus to energize, lavender to soften) to shift states quickly when your schedule turns on a dime.",
-      "If headaches visit after big pushes, check posture, water, blue-light exposure, and magnesium before grabbing more caffeine."
-    ],
-    "creative_expression": [
-      "Make your creations loud and simple—bold lines, short hooks, single ideas—so your message hits before attention wanders.",
-      "Treat first drafts as field notes; publish refined versions but never stop collecting raw sparks in voice memos and sticky notes.",
-      "Build a “one-take” practice—songs, reels, sketches—to train spontaneity and lower the cost of sharing your work.",
-      "Design a personal icon or logo that captures your vibe; a clear mark helps people recognize your leadership at a glance.",
-      "Curate a “starter kit” for your medium—pre-set templates, palettes, or chords—so beginning is frictionless.",
-      "Host 60-minute sprints with friends where everyone starts and ships something tiny; collective energy amplifies courage.",
-      "Turn your story into a signature talk with three scenes and one takeaway; perform it until it fits like skin.",
-      "Use photography with leading lines or a strong subject centered—visually echoing the 1 archetype of focus and direction.",
-      "Score your projects with an activation playlist; music sets tempo and helps you finish when motivation dips.",
-      "Create a ritual of first stroke/first sentence/first note at the same time daily so your muse knows when to meet you.",
-      "Practice radical subtraction; remove one element from every piece to let the core idea stand with confidence.",
-      "Offer your art as a beginning for others—templates, prompts, stems—so your starts become their starts too."
-    ],
-    "meditation_&_mindfulness": [
-      "Try one-point focus: gaze at a candle flame or dot on the wall and bring your attention back gently each time it wanders.",
-      "Use a three-breath reset before big moments—inhale confidence, hold clarity, exhale hesitation—then step in.",
-      "Walk a “first step” meditation by repeating “begin” with each step for five minutes, then take a real-world action immediately after.",
-      "Whisper “I am” on the inhale and “here” on the exhale for two minutes to unify presence and purpose.",
-      "Practice mirror gazing with a soft half-smile, name one true quality you see, and set a matching action for the day.",
-      "Do task meditation: choose one chore (dishes, sweeping) and complete it with full attention as training for focused leadership.",
-      "Try box breathing (4-4-4-4) to steady intensity; lengthen the exhale when your engine runs too hot.",
-      "Sit at sunrise weekly, palms open, and let the light touch your face while you set a single clear intention.",
-      "Add micro-pauses at thresholds—doorways, elevator doors, meeting links—to arrive as the most grounded version of you.",
-      "Use mantra walking with “step—decide” for five minutes before making a tough call; the body will help you choose.",
-      "End the day with a three-line review: what I began, what I advanced, what I release until tomorrow.",
-      "Practice “first sip” mindfulness with your coffee or tea; taste it fully and give thanks for another day to begin again."
-    ],
-    "shadow_work_&_integration": [
-      "Notice where confidence turns into steamrolling; pause, ask one more question, and reflect back what you heard before you decide.",
-      "If you avoid vulnerability by over-performing, practice one honest “I don’t know” each day and let someone else contribute the answer.",
-      "Track where you outrun support; write the names of people who could help and invite one to co-own a small piece with you.",
-      "When control shows up, give yourself a constrained sandbox—three rules and a deadline—so structure serves daring, not fear.",
-      "Apologize in full sentences without “but”; then state your new behavior so people can trust your growth.",
-      "Practice “follow days” where you intentionally take direction from someone you respect to soften lone-wolf habits.",
-      "Name the fear under the push—rejection, insignificance, losing momentum—and give it a gentler plan than domination.",
-      "Trade urgency for clarity; a clear brief calms a frantic team more than speed ever will.",
-      "If self-worth rides on wins, schedule efforts where outcome is uncertain and celebrate the attempt, not just the result.",
-      "Shift from proving to serving by asking, “Who benefits if I’m brave today?” and aim your action there.",
-      "Let endings be clean; close projects with a debrief and gratitude so you don’t drag old energy into new beginnings.",
-      "Keep a humility practice: weekly note three times you learned from others and what changed because you listened."
-    ],
-    "manifestation_power": [
-      "Choose one intention per month and give it a verb; then write a weekly action that proves you mean it to yourself.",
-      "Pair declarations with demonstrations—say it in the morning and take a matching action before noon to lock in alignment.",
-      "Use the “first domino” method: identify the smallest action that makes other actions easier or unnecessary and do that first.",
-      "Create a bold-ask calendar with twelve invitations you’ll make this year; the universe meets clear, courageous requests.",
-      "Anchor your intention somatically—touch your heart, stand tall, breathe down to your belly—then speak your ask out loud.",
-      "Write a future-self email from 90 days ahead describing what you began, then follow those breadcrumbs this week.",
-      "Record a one-minute voice memo daily stating your intention and the next micro-step; momentum loves repetition.",
-      "Design a “single-focus week” once per quarter where everything else is maintenance and one initiative gets your best hours.",
-      "Practice energetic tidying—clean your desk, inbox, and calendar—to make room for the thing you say you want.",
-      "Use a signature cue (ring, song, scent) to enter “creator mode” on command; pavlov your bravery.",
-      "Collect proof instead of waiting for faith; keep a log of tiny wins so belief grows from evidence, not hype.",
-      "End with gratitude for the chance to begin again tomorrow; thank-you energy keeps doors opening."
-    ],
-    "life_transitions_&_timing": [
-      "Treat new moons, Mondays, and birthdays as natural 1 portals; choose one action that makes the fresh start tangible.",
-      "When starting a new job or project, craft a first-90-days plan with three themes, clear success signals, and weekly check-ins.",
-      "Moving homes? Pack light, label by room and “first day essentials,” and bless the threshold as you cross it.",
-      "If you’re launching something, pick a date with personal meaning and plan a simple ritual that declares, “It has begun.”",
-      "During transitions, reduce choice overload by pre-deciding meals, outfits, and morning routines for two weeks.",
-      "Name the chapter you’re in—like “Becoming Visible” or “Building Roots”—and let that inform your boundaries and calendar.",
-      "When ending something, write a brief closing note to yourself: what you learned, what you’re keeping, and what you’re releasing.",
-      "Handle identity shifts with wardrobe anchors—one item that helps you embody the new role each time you wear it.",
-      "Time big asks for when your energy peaks (late morning for many) and after small wins; momentum compounds momentum.",
-      "If fear spikes before beginnings, create a “start script” you can read; confidence arrives faster when you don’t have to ad-lib.",
-      "Set a reminder for day 1, day 11, and day 21 of a new habit; those checkpoints catch natural drop-off points.",
-      "In personal year 1 cycles, prune old obligations ruthlessly and seed new projects that excite you for the next nine-year arc."
-    ]
-  },
+  "title": "The ChatGPTAnalyst",
+  "source": "chatgpt",
+  "persona": "ChatGPTAnalyst",
+  "behavioral_category": "spiritual_insights",
   "intensity_scoring": {
     "min_range": 0.6,
-    "max_range": 0.85,
-    "note": "Practical life guidance with spiritual wisdom"
+    "max_range": 0.9,
+    "note": "ChatGPTAnalyst insights with universal intensity range"
+  },
+  "behavioral_insights": [
+    {
+      "category": "spiritual_guidance",
+      "insight": "Number 1 is the spark before the flame—the moment you decide, “I’m in,” and momentum answers back. It’s the vibe of fresh starts, clean slates, and brave first steps. When you’re channeling 1, you lead from inner truth, not from the need for permission.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "This number teaches self-trust, decisive action, and the courage to go first even when the path isn’t lit yet. It’s bold, solar, and forward—yet healthy 1 energy pairs confidence with humility, so your leadership creates more leaders, not just followers.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Start the day with a single brave action in the first 10 minutes—send the email, make the call, press “publish,” then ride that momentum.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Create a one-page plan for the day with one must-ship outcome, three supporting tasks, and a hard stop time to celebrate completion.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Use the 90-second activation rule: if an action takes under 90 seconds to start, initiate it immediately before your brain negotiates you out of it.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Choose a “power color” (red, gold, or white) and wear or carry it when you need courage to begin or speak up.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Replace “someday” with a date; if a goal matters, schedule a micro-milestone within 48 hours to anchor it in reality.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Practice “one-thing focus” blocks of 25–50 minutes where distractions are off and the first domino gets handled.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Start before you feel ready; commit to the messy first draft or rough prototype and iterate publicly for built-in accountability.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Use “micro-dares” daily—tiny, edgy actions that stretch your comfort zone without overwhelming your nervous system.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "End every workday by naming tomorrow’s first move; place the tool you’ll need where you’ll see it first thing.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Adopt a “First-Move Window (AM), Command Window (PM)” rhythm: create in the morning when willpower is high, then meet and manage later.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Build a two-sentence personal mantra that starts with “I am” and ends with a clear action, like “I am decisive; I move the first piece.”",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "When stuck, flip a coin not to decide for you but to reveal your preference—notice your gut reaction as the true instruction.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Choose one area to lead each week (project, meeting, ritual at home) so your leadership muscle stays warm without burning out.",
+      "intensity": 0.89,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Use a “done list” to record completions and train your brain to associate leadership with satisfaction, not just strain.",
+      "intensity": 0.9,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Lead with directness and care: say what you want in “I” statements, then invite your partner’s truth to sit beside it.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Schedule solo time without apology, then return on purpose—independence fuels intimacy when it’s shared with intention.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Turn your drive into generosity by planning one meaningful initiative for your partner each week (a date, a task, a surprise that lifts weight).",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Swap competition for collaboration by asking, “What’s our win here?” and building a joint scoreboard you both enjoy updating.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Practice the three-beat repair: own your impact, offer a plan to do better next time, and invite feedback on what would help.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "When emotions run hot, step outside or change posture before you speak; 60 seconds of movement can prevent 60 minutes of cleanup.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Make room for your partner’s leadership days; consciously choose to follow and appreciate their style without editing it.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Create a “decision lane” system—who decides quickly on what—so speed in one area doesn’t trample voice in another.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "During conflict, argue for the other person’s point for one minute; it softens edges and reveals new bridges.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Celebrate your partner’s firsts—new habits, risks, or roles—so the relationship becomes a launchpad, not a tug-of-war rope.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Replace fixing with curiosity; ask one more question than you give advice to keep respect higher than urgency.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "If you fear dependency, practice safe receiving—say “yes” to help on small things to build trust in mutuality.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Name the season you’re in as a team (build, stabilize, heal, explore) and choose matching rituals so your energy aligns.",
+      "intensity": 0.89,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Write a one-sentence mission you can say out loud without cringing; decisions get easier when they serve a sentence, not a mood.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Create a weekly “ship ritual” where something leaves your desk every Friday—a deliverable, demo, or decision—so progress has a heartbeat.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Prototype before you pitch; a tangible mockup beats a thousand words and reduces decision friction for stakeholders.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Block two hours of “CEO time” weekly—even if you’re not a CEO—to think, plan, and make the calls you’ve been avoiding.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Build a personal board of three people: a challenger, a cheerleader, and a chess-player; ask each for one clear next step.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Reduce decision debt by setting simple rules: if opportunity fits mission, takes <8 hours, and teaches you something, it’s a yes.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Lead meetings with a single question that matters; end with who does what by when, written where humans can find it.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Practice visible leadership in low-stakes ways—run the standup, host the retro, demo the rough cut—so confidence compounds.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Schedule courage sprints: 30 minutes to make bold asks (introductions, pitches, promotions) with a playful scorecard.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Delegate for impact, not relief; give away outcomes with clear success criteria, not just tasks you dislike.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Use quarterly “quit lists” to drop projects that block your best work; space creates signal for your true calling.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Design your role around your strongest 10% and automate or outsource the rest; excellence loves focus.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Share learnings in public once a week; teaching your path turns your leadership into community gravity.",
+      "intensity": 0.89,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Perfectionism wastes 1 energy; set a “good enough” threshold upfront and honor it like a contract with your future self.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Watch for lone-wolf spirals; leadership includes convening allies, not just carrying loads—ask for help before it’s dramatic.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Impatience can scorch trust; choose one relationship where you practice slow timing and let outcomes ripen without force.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Notice control dressed as care; if you’re “just helping,” check whether you’re crowding someone else’s growth curve.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Build a practice of receiving—a compliment, support, or feedback—without deflection; strength includes openness.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Swap comparison for creation by using envy as a compass: what you admire is pointing toward your next brave move.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "If anger is your default accelerator, map your triggers and create an alternative start routine (breath, water, walk, then speak).",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Calibrate ambition with recovery; schedule rest like a deliverable and defend it with the same intensity you defend goals.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "When you hit a wall, choose smaller walls; shrink the goal until momentum returns, then expand responsibly.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Practice “two-way doors”—reversible decisions you can test fast—so progress doesn’t wait on mythical certainty.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Name your season honestly: build, learn, integrate, or harvest; mismatched pacing is a hidden source of burnout.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Replace self-critique with post-game reviews; ask, “What worked? What changed me? What’s the next tiny upgrade?”",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Let someone else go first once a day to remember that leadership is listening, too.",
+      "intensity": 0.89,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You carry pioneer energy—use it to open safe paths where others can walk, not just to prove you can survive the thorns.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "Your superpower is decisive clarity; practice asking, “What’s the first clean action?” and taking it without drama.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You’re a natural activator; be the person who moves a room from talk to task with one grounded sentence and a deadline.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You sense the moment to begin; honor that timing by preparing light frameworks so inspiration has somewhere to land.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "Your presence encourages courage; host “first step” circles where everyone commits to one scary, public action.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You can cut through noise; offer clear summaries and simple choices to reduce overwhelm for the people you serve.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You teach by example; let your imperfect starts be visible so others learn that progress outruns polish.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You read destiny through preference; notice what you can’t stop initiating—that’s a trailhead, not a distraction.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You’re built for thresholds; bless openings—new jobs, homes, habits—with small rituals that dignify beginnings.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You carry lighthouse frequency; stand tall, stay consistent, and trust that your steady beam calls the right ships.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "Your gift is naming; give ideas their true titles and they’ll become easier to share, fund, and finish.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "You’re a pattern starter; leave clean handoffs so others can continue with pride and clarity.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Feed your solar plexus with morning sunlight, warm water with minerals, and a breakfast that includes protein before caffeine.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Use power movement—intervals, kettlebells, boxing—to metabolize stress, then follow with a slow walk to downshift your system.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Schedule “white space” buffers around big pushes so your nervous system can return to neutral and your creativity can reset.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Adopt a pre-sleep landing routine: dim lights, stretch your hip flexors, journal three wins, then park tomorrow’s first step on paper.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Hydrate like it’s your job; strong leaders crash from simple dehydration more than they admit.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "If you grind your teeth or clench your jaw, place the tongue on the roof of the mouth and exhale longer than you inhale to signal safety.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Keep a “pressure valve” practice—voice notes, boxing combos, or primal yells in the car—to release heat without collateral damage.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Choose one non-negotiable health metric to track (sleep hours, steps, HRV) and let data nudge, not shame, your choices.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Eat for steady fuel; prioritize single-ingredient foods on heavy decision days so your willpower isn’t competing with blood sugar dips.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Honor recovery days like training days; leadership grows in the rest phase where integration happens.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Use scent anchors (citrus to energize, lavender to soften) to shift states quickly when your schedule turns on a dime.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "If headaches visit after big pushes, check posture, water, blue-light exposure, and magnesium before grabbing more caffeine.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Make your creations loud and simple—bold lines, short hooks, single ideas—so your message hits before attention wanders.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Treat first drafts as field notes; publish refined versions but never stop collecting raw sparks in voice memos and sticky notes.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Build a “one-take” practice—songs, reels, sketches—to train spontaneity and lower the cost of sharing your work.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Design a personal icon or logo that captures your vibe; a clear mark helps people recognize your leadership at a glance.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Curate a “starter kit” for your medium—pre-set templates, palettes, or chords—so beginning is frictionless.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Host 60-minute sprints with friends where everyone starts and ships something tiny; collective energy amplifies courage.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Turn your story into a signature talk with three scenes and one takeaway; perform it until it fits like skin.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Use photography with leading lines or a strong subject centered—visually echoing the 1 archetype of focus and direction.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Score your projects with an activation playlist; music sets tempo and helps you finish when motivation dips.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Create a ritual of first stroke/first sentence/first note at the same time daily so your muse knows when to meet you.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Practice radical subtraction; remove one element from every piece to let the core idea stand with confidence.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Offer your art as a beginning for others—templates, prompts, stems—so your starts become their starts too.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Try one-point focus: gaze at a candle flame or dot on the wall and bring your attention back gently each time it wanders.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Use a three-breath reset before big moments—inhale confidence, hold clarity, exhale hesitation—then step in.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Walk a “first step” meditation by repeating “begin” with each step for five minutes, then take a real-world action immediately after.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Whisper “I am” on the inhale and “here” on the exhale for two minutes to unify presence and purpose.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Practice mirror gazing with a soft half-smile, name one true quality you see, and set a matching action for the day.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Do task meditation: choose one chore (dishes, sweeping) and complete it with full attention as training for focused leadership.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Try box breathing (4-4-4-4) to steady intensity; lengthen the exhale when your engine runs too hot.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Sit at sunrise weekly, palms open, and let the light touch your face while you set a single clear intention.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Add micro-pauses at thresholds—doorways, elevator doors, meeting links—to arrive as the most grounded version of you.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Use mantra walking with “step—decide” for five minutes before making a tough call; the body will help you choose.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "End the day with a three-line review: what I began, what I advanced, what I release until tomorrow.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Practice “first sip” mindfulness with your coffee or tea; taste it fully and give thanks for another day to begin again.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Notice where confidence turns into steamrolling; pause, ask one more question, and reflect back what you heard before you decide.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "If you avoid vulnerability by over-performing, practice one honest “I don’t know” each day and let someone else contribute the answer.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Track where you outrun support; write the names of people who could help and invite one to co-own a small piece with you.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "When control shows up, give yourself a constrained sandbox—three rules and a deadline—so structure serves daring, not fear.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Apologize in full sentences without “but”; then state your new behavior so people can trust your growth.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Practice “follow days” where you intentionally take direction from someone you respect to soften lone-wolf habits.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Name the fear under the push—rejection, insignificance, losing momentum—and give it a gentler plan than domination.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Trade urgency for clarity; a clear brief calms a frantic team more than speed ever will.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "If self-worth rides on wins, schedule efforts where outcome is uncertain and celebrate the attempt, not just the result.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Shift from proving to serving by asking, “Who benefits if I’m brave today?” and aim your action there.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Let endings be clean; close projects with a debrief and gratitude so you don’t drag old energy into new beginnings.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Keep a humility practice: weekly note three times you learned from others and what changed because you listened.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Choose one intention per month and give it a verb; then write a weekly action that proves you mean it to yourself.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Pair declarations with demonstrations—say it in the morning and take a matching action before noon to lock in alignment.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Use the “first domino” method: identify the smallest action that makes other actions easier or unnecessary and do that first.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Create a bold-ask calendar with twelve invitations you’ll make this year; the universe meets clear, courageous requests.",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Anchor your intention somatically—touch your heart, stand tall, breathe down to your belly—then speak your ask out loud.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Write a future-self email from 90 days ahead describing what you began, then follow those breadcrumbs this week.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Record a one-minute voice memo daily stating your intention and the next micro-step; momentum loves repetition.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Design a “single-focus week” once per quarter where everything else is maintenance and one initiative gets your best hours.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Practice energetic tidying—clean your desk, inbox, and calendar—to make room for the thing you say you want.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Use a signature cue (ring, song, scent) to enter “creator mode” on command; pavlov your bravery.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Collect proof instead of waiting for faith; keep a log of tiny wins so belief grows from evidence, not hype.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "End with gratitude for the chance to begin again tomorrow; thank-you energy keeps doors opening.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Treat new moons, Mondays, and birthdays as natural 1 portals; choose one action that makes the fresh start tangible.",
+      "intensity": 0.65,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "When starting a new job or project, craft a first-90-days plan with three themes, clear success signals, and weekly check-ins.",
+      "intensity": 0.67,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Moving homes? Pack light, label by room and “first day essentials,” and bless the threshold as you cross it.",
+      "intensity": 0.6900000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "If you’re launching something, pick a date with personal meaning and plan a simple ritual that declares, “It has begun.”",
+      "intensity": 0.71,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "During transitions, reduce choice overload by pre-deciding meals, outfits, and morning routines for two weeks.",
+      "intensity": 0.73,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Name the chapter you’re in—like “Becoming Visible” or “Building Roots”—and let that inform your boundaries and calendar.",
+      "intensity": 0.75,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "When ending something, write a brief closing note to yourself: what you learned, what you’re keeping, and what you’re releasing.",
+      "intensity": 0.77,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Handle identity shifts with wardrobe anchors—one item that helps you embody the new role each time you wear it.",
+      "intensity": 0.79,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Time big asks for when your energy peaks (late morning for many) and after small wins; momentum compounds momentum.",
+      "intensity": 0.81,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "If fear spikes before beginnings, create a “start script” you can read; confidence arrives faster when you don’t have to ad-lib.",
+      "intensity": 0.8300000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Set a reminder for day 1, day 11, and day 21 of a new habit; those checkpoints catch natural drop-off points.",
+      "intensity": 0.8500000000000001,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "In personal year 1 cycles, prune old obligations ruthlessly and seed new projects that excite you for the next nine-year arc.",
+      "intensity": 0.87,
+      "triggers": [
+        "chatgpt_guidance"
+      ],
+      "supports": [
+        "daily_practice",
+        "mindful_application"
+      ],
+      "challenges": [
+        "consistency",
+        "integration"
+      ]
+    }
+  ],
+  "generation_info": {
+    "conversion_date": "2025-08-10T10:36:01.469160",
+    "conversion_type": "chatgpt_original_to_behavioral_insights",
+    "original_structure": "chatgpt_original_to_behavioral_insights",
+    "converted_insights_count": 139,
+    "conversion_tool": "UniversalKASPERConverter_v2.0"
   }
 }

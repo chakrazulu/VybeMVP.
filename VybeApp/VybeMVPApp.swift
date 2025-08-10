@@ -293,6 +293,7 @@ struct VybeMVPApp: App {
                                 healthManager: self.healthKitManager
                             )
                             print("🔮 KASPER MLX configured with app managers")
+
                         }
 
                         // Claude: SAFE - Re-enable background tasks now that MiniInsightProvider issue is fixed

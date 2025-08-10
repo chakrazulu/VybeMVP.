@@ -26,7 +26,7 @@ final class KASPERLinguisticV2Tests: XCTestCase {
         // Test the exact problematic input from user feedback
         let input = "The awakening of Mystical wisdom energy within Your mystic nature reveals a beautiful opportunity to Trust your mystic nature..."
 
-        let (enhanced, score) = KASPERLinguisticEnhancerV2.enhance(
+        let (enhanced, _) = KASPERLinguisticEnhancerV2.enhance(
             input,
             options: EnhancementOptions(
                 persona: .oracle,
@@ -56,7 +56,7 @@ final class KASPERLinguisticV2Tests: XCTestCase {
     func testEnhancer_EmojiPolicyAndCadence() {
         let input = "Awakening mystical language flows through your spiritual nature..."
 
-        let (enhanced, score) = KASPERLinguisticEnhancerV2.enhance(
+        let (enhanced, _) = KASPERLinguisticEnhancerV2.enhance(
             input,
             options: EnhancementOptions(
                 persona: .oracle,
@@ -92,7 +92,7 @@ final class KASPERLinguisticV2Tests: XCTestCase {
     func testPersona_Oracle_MysticalLanguage() {
         let input = "Trust your inner knowing and embrace spiritual wisdom"
 
-        let (enhanced, score) = KASPERLinguisticEnhancerV2.enhance(
+        let (enhanced, _) = KASPERLinguisticEnhancerV2.enhance(
             input,
             options: EnhancementOptions(persona: .oracle, qualityThreshold: 0.80)
         )
@@ -110,7 +110,7 @@ final class KASPERLinguisticV2Tests: XCTestCase {
     func testPersona_Psychologist_CognitiveLanguage() {
         let input = "Feel the mystical divine cosmic energy flowing through your sacred being"
 
-        let (enhanced, score) = KASPERLinguisticEnhancerV2.enhance(
+        let (enhanced, _) = KASPERLinguisticEnhancerV2.enhance(
             input,
             options: EnhancementOptions(persona: .psychologist, qualityThreshold: 0.80)
         )
@@ -129,7 +129,7 @@ final class KASPERLinguisticV2Tests: XCTestCase {
     func testPersona_MindfulnessCoach_PresentTenseAndBodyAwareness() {
         let input = "You will feel spiritual energy and you will be able to trust your wisdom"
 
-        let (enhanced, score) = KASPERLinguisticEnhancerV2.enhance(
+        let (enhanced, _) = KASPERLinguisticEnhancerV2.enhance(
             input,
             options: EnhancementOptions(persona: .mindfulnessCoach, qualityThreshold: 0.80)
         )
@@ -155,7 +155,7 @@ final class KASPERLinguisticV2Tests: XCTestCase {
         ]
 
         for input in problematicInputs {
-            let (enhanced, score) = KASPERLinguisticEnhancerV2.enhance(
+            let (enhanced, _) = KASPERLinguisticEnhancerV2.enhance(
                 input,
                 options: EnhancementOptions(qualityThreshold: 0.84)
             )
@@ -173,7 +173,7 @@ final class KASPERLinguisticV2Tests: XCTestCase {
     func testQualityGate_RejectsLowQualityContent() {
         let lowQualityInput = "bad bad bad grammar trust your the the nature trust"
 
-        let (enhanced, score) = KASPERLinguisticEnhancerV2.enhance(
+        let (enhanced, _) = KASPERLinguisticEnhancerV2.enhance(
             lowQualityInput,
             options: EnhancementOptions(qualityThreshold: 0.90) // High threshold
         )
@@ -212,7 +212,7 @@ final class KASPERLinguisticV2Tests: XCTestCase {
         let personas: [SpiritualPersona] = [.oracle, .psychologist, .mindfulnessCoach, .numerologyScholar, .philosopher]
 
         for persona in personas {
-            let (enhanced, score) = KASPERLinguisticEnhancerV2.enhance(
+            let (enhanced, _) = KASPERLinguisticEnhancerV2.enhance(
                 testInput,
                 options: EnhancementOptions(persona: persona, qualityThreshold: 0.75)
             )
@@ -233,7 +233,7 @@ final class KASPERLinguisticV2Tests: XCTestCase {
         let edgeCases = ["", "Hi", "Trust", "The mystical"]
 
         for input in edgeCases {
-            let (enhanced, score) = KASPERLinguisticEnhancerV2.enhance(
+            let (enhanced, _) = KASPERLinguisticEnhancerV2.enhance(
                 input,
                 options: EnhancementOptions(qualityThreshold: 0.70)
             )
@@ -281,7 +281,7 @@ extension KASPERLinguisticV2Tests {
         for (name, input) in testCases {
             let startTime = CFAbsoluteTimeGetCurrent()
 
-            let (enhanced, score) = KASPERLinguisticEnhancerV2.enhance(
+            let (enhanced, _) = KASPERLinguisticEnhancerV2.enhance(
                 input,
                 options: EnhancementOptions(persona: .oracle, qualityThreshold: 0.84)
             )

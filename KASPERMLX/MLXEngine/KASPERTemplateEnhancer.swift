@@ -129,9 +129,21 @@ public struct KASPERTemplateEnhancer {
     public static func generateGuidanceInsight(
         component: String,
         reference: String,
-        guidance: String
+        guidance: String,
+        context: [String: Any]? = nil
     ) -> String {
-        // ENHANCED: Use V2.0 linguistic enhancer for professional grammar and flow
+        // 🆕 V2.1: Check for rich content first
+        if let richInsights = context?["richInsights"] as? [String], !richInsights.isEmpty {
+            // Use actual rich content from Claude/Grok
+            let selectedInsight = richInsights.randomElement() ?? richInsights[0]
+            let (enhancedInsight, _) = KASPERLinguisticEnhancerV2.enhance(
+                selectedInsight,
+                options: EnhancementOptions(persona: .oracle, allowEmoji: false, qualityThreshold: 0.80)
+            )
+            return "🌟 " + enhancedInsight
+        }
+
+        // Fallback to template if no rich content
         let naturalInsight = "\(component) stirs within \(reference), inviting you to \(guidance) with gentle certainty."
         let (enhancedInsight, _) = KASPERLinguisticEnhancerV2.enhance(
             naturalInsight,

@@ -62,6 +62,10 @@ struct NumberMeaningView: View {
     @State private var selectedNumber: Int
     // Claude: Updated to use SwiftData SpiritualDataController instead of NumberMeaningManager
     @EnvironmentObject private var spiritualDataController: SpiritualDataController
+    // Claude: KASPER v2.1.2 - RuntimeBundle integration for rich spiritual content
+    @ObservedObject private var contentRouter = KASPERContentRouter.shared
+    @State private var richContent: [String: Any]? = nil
+    @State private var isLoadingContent = false
 
     // Animation states
     @State private var titlePulse: CGFloat = 1.0
@@ -92,26 +96,38 @@ struct NumberMeaningView: View {
                     // Enhanced cosmic number selector
                     enhancedCosmicNumberSelector
 
-                // TODO: Implement async SwiftData NumberMeaning loading
-                // Temporarily showing number only until SwiftData integration complete
+                // Claude: Loading rich content from RuntimeBundle
                 VStack(spacing: 20) {
-                    Text("Number \(selectedNumber)")
-                        .font(.system(size: 24, weight: .bold, design: .rounded))
-                        .foregroundStyle(
-                            LinearGradient(
-                                gradient: Gradient(colors: [
-                                    sacredColor(for: selectedNumber),
-                                    sacredColor(for: selectedNumber).opacity(0.7)
-                                ]),
-                                startPoint: .leading,
-                                endPoint: .trailing
+                    if isLoadingContent {
+                        ProgressView("Loading spiritual knowledge...")
+                            .foregroundColor(.white)
+                            .padding()
+                    } else if let content = richContent {
+                        // Display rich content from RuntimeBundle
+                        richContentDisplay(content)
+                    } else {
+                        // Fallback display
+                        Text("Number \(selectedNumber)")
+                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            .foregroundStyle(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [
+                                        sacredColor(for: selectedNumber),
+                                        sacredColor(for: selectedNumber).opacity(0.7)
+                                    ]),
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
                             )
-                        )
 
-                    Text("SwiftData integration coming soon...")
-                        .font(.body)
-                        .foregroundColor(.white.opacity(0.7))
-                        .italic()
+                        Text("Tap to load spiritual insights...")
+                            .font(.body)
+                            .foregroundColor(.white.opacity(0.7))
+                            .italic()
+                    }
+                }
+                .task(id: selectedNumber) {
+                    await loadRichContent()
                 }
                 .padding()
                 .background(
@@ -566,6 +582,92 @@ struct NumberMeaningView: View {
             "The Harmony Heart", "The Mystic Eye", "The Power Crown", "The Universal Circle"
         ]
         return essences[number]
+    }
+
+    // MARK: - Content Loading Methods
+
+    // Claude: Load rich content from RuntimeBundle
+    private func loadRichContent() async {
+        isLoadingContent = true
+        defer { isLoadingContent = false }
+
+        // Load rich content from RuntimeBundle
+        if let content = await contentRouter.getRichContent(for: selectedNumber) {
+            await MainActor.run {
+                richContent = content
+                print("✅ Loaded rich content for number \(selectedNumber)")
+            }
+        } else {
+            // Try fallback to behavioral content
+            if let behavioral = await contentRouter.getBehavioralInsights(
+                context: "lifePath",
+                number: selectedNumber
+            ) {
+                await MainActor.run {
+                    richContent = behavioral
+                    print("⚠️ Using behavioral content as fallback for number \(selectedNumber)")
+                }
+            } else {
+                await MainActor.run {
+                    richContent = nil
+                    print("❌ No content found for number \(selectedNumber)")
+                }
+            }
+        }
+    }
+
+    // Claude: Display rich content from RuntimeBundle
+    @ViewBuilder
+    private func richContentDisplay(_ content: [String: Any]) -> some View {
+        VStack(alignment: .leading, spacing: 20) {
+            // Display primary meaning
+            if let meanings = content["meanings"] as? [String: Any],
+               let primary = meanings["primary"] as? String {
+                Text("Primary Meaning")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                Text(primary)
+                    .font(.body)
+                    .foregroundColor(.white.opacity(0.9))
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(sacredColor(for: selectedNumber).opacity(0.2))
+                    )
+            }
+
+            // Display symbolism
+            if let symbolism = content["symbolism"] as? [String] {
+                Text("Symbolism")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                ForEach(symbolism, id: \.self) { symbol in
+                    HStack {
+                        Image(systemName: "sparkle")
+                            .foregroundColor(sacredColor(for: selectedNumber))
+                        Text(symbol)
+                            .font(.body)
+                            .foregroundColor(.white.opacity(0.9))
+                    }
+                }
+            }
+
+            // Display applications
+            if let applications = content["applications"] as? [String] {
+                Text("Applications")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                ForEach(applications, id: \.self) { app in
+                    HStack {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(sacredColor(for: selectedNumber))
+                        Text(app)
+                            .font(.body)
+                            .foregroundColor(.white.opacity(0.9))
+                    }
+                }
+            }
+        }
     }
 
     // MARK: - Sacred Color System

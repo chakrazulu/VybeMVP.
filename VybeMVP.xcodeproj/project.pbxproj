@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		4D0AF68F2E348B7D003E4838 /* SanctumDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0AF68E2E348B7D003E4838 /* SanctumDataStructures.swift */; };
 		4D0CA8D12DE69F4600D4A6D6 /* NumerologyRainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CA8D02DE69F4600D4A6D6 /* NumerologyRainView.swift */; };
+		4D1AB5F42E48CC2700E6982A /* KASPERContentRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1AB5F32E48CC2700E6982A /* KASPERContentRouter.swift */; };
+		4D1AB6ED2E48DCA300E6982A /* KASPERRuntimeBundleDebug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1AB6EC2E48DCA300E6982A /* KASPERRuntimeBundleDebug.swift */; };
+		4D1AB6EF2E48E02800E6982A /* KASPERBundleCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1AB6EE2E48E02800E6982A /* KASPERBundleCheck.swift */; };
 		4D2CC6F02E079B6D00BDF100 /* SacredGeometry3DView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC6EF2E079B6D00BDF100 /* SacredGeometry3DView.swift */; };
 		4D2CC6F22E08680400BDF100 /* MandalaBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC6F12E08680400BDF100 /* MandalaBackgroundView.swift */; };
 		4D2CC6F42E08688000BDF100 /* MandalaAssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2CC6F32E08688000BDF100 /* MandalaAssetManager.swift */; };
@@ -80,11 +83,13 @@
 		4D55BE682E3AD37B00F7BE5B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D55BE672E3AD37B00F7BE5B /* SwiftUI.framework */; };
 		4D55BE792E3AD37C00F7BE5B /* CosmicHUDWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4D55BE642E3AD37B00F7BE5B /* CosmicHUDWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4D55BE7F2E3AD4AD00F7BE5B /* CosmicHUDTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE5E2E3AC55400F7BE5B /* CosmicHUDTypes.swift */; };
+		4D5926A72E48EDDB002625DE /* KASPERMLXRuntimeBundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D5926A62E48EDDB002625DE /* KASPERMLXRuntimeBundle */; };
 		4D5BEAF52E35A7AD00B56575 /* PostEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF22E35A7AD00B56575 /* PostEntity+CoreDataClass.swift */; };
 		4D5BEAF72E35A7E900B56575 /* PostEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF62E35A7E900B56575 /* PostEntity+CoreDataProperties.swift */; };
 		4D5BEAF92E35A81400B56575 /* HybridPostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF82E35A81400B56575 /* HybridPostRepository.swift */; };
 		4D5BEB312E372A5E00B56575 /* CosmicDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEB302E372A5E00B56575 /* CosmicDataRepository.swift */; };
 		4D5BEB342E372AC100B56575 /* CosmicSnapshotViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEB322E372AC100B56575 /* CosmicSnapshotViewModel.swift */; };
+		4D5EC43B2E485B3D00BB90C6 /* KASPERLinguisticConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D5EC43A2E485B3D00BB90C6 /* KASPERLinguisticConfig.json */; };
 		4D6308DA2DFFCB2C00FD32E9 /* ReactionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D62DFFCB2C00FD32E9 /* ReactionPickerView.swift */; };
 		4D6308DB2DFFCB2C00FD32E9 /* Reaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D12DFFCB2C00FD32E9 /* Reaction.swift */; };
 		4D6308DC2DFFCB2C00FD32E9 /* PostComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D52DFFCB2C00FD32E9 /* PostComposerView.swift */; };
@@ -554,6 +559,9 @@
 /* Begin PBXFileReference section */
 		4D0AF68E2E348B7D003E4838 /* SanctumDataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SanctumDataStructures.swift; sourceTree = "<group>"; };
 		4D0CA8D02DE69F4600D4A6D6 /* NumerologyRainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyRainView.swift; sourceTree = "<group>"; };
+		4D1AB5F32E48CC2700E6982A /* KASPERContentRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERContentRouter.swift; sourceTree = "<group>"; };
+		4D1AB6EC2E48DCA300E6982A /* KASPERRuntimeBundleDebug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERRuntimeBundleDebug.swift; sourceTree = "<group>"; };
+		4D1AB6EE2E48E02800E6982A /* KASPERBundleCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERBundleCheck.swift; sourceTree = "<group>"; };
 		4D2CC6EF2E079B6D00BDF100 /* SacredGeometry3DView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SacredGeometry3DView.swift; sourceTree = "<group>"; };
 		4D2CC6F12E08680400BDF100 /* MandalaBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalaBackgroundView.swift; sourceTree = "<group>"; };
 		4D2CC6F32E08688000BDF100 /* MandalaAssetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalaAssetManager.swift; sourceTree = "<group>"; };
@@ -626,11 +634,13 @@
 		4D55BE642E3AD37B00F7BE5B /* CosmicHUDWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CosmicHUDWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D55BE652E3AD37B00F7BE5B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		4D55BE672E3AD37B00F7BE5B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		4D5926A62E48EDDB002625DE /* KASPERMLXRuntimeBundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KASPERMLXRuntimeBundle; sourceTree = "<group>"; };
 		4D5BEAF22E35A7AD00B56575 /* PostEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4D5BEAF62E35A7E900B56575 /* PostEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4D5BEAF82E35A81400B56575 /* HybridPostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HybridPostRepository.swift; sourceTree = "<group>"; };
 		4D5BEB302E372A5E00B56575 /* CosmicDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicDataRepository.swift; sourceTree = "<group>"; };
 		4D5BEB322E372AC100B56575 /* CosmicSnapshotViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicSnapshotViewModel.swift; sourceTree = "<group>"; };
+		4D5EC43A2E485B3D00BB90C6 /* KASPERLinguisticConfig.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = KASPERLinguisticConfig.json; sourceTree = "<group>"; };
 		4D6308D02DFFCB2C00FD32E9 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		4D6308D12DFFCB2C00FD32E9 /* Reaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reaction.swift; sourceTree = "<group>"; };
 		4D6308D22DFFCB2C00FD32E9 /* SocialUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialUser.swift; sourceTree = "<group>"; };
@@ -1686,6 +1696,7 @@
 		4DA359A42E3F135B0010101F /* MLXEngine */ = {
 			isa = PBXGroup;
 			children = (
+				4D5EC43A2E485B3D00BB90C6 /* KASPERLinguisticConfig.json */,
 				4DB1B6992E4853E600F1585A /* KASPERLinguisticV2Tests.swift */,
 				4DB1B4C52E48517100F1585A /* KASPERLinguisticV2Demo.swift */,
 				4DB1B4C32E4850F900F1585A /* KASPERLinguisticEnhancerV2.swift */,
@@ -1698,6 +1709,9 @@
 		4DA359A82E3F135B0010101F /* MLXIntegration */ = {
 			isa = PBXGroup;
 			children = (
+				4D1AB6EE2E48E02800E6982A /* KASPERBundleCheck.swift */,
+				4D1AB6EC2E48DCA300E6982A /* KASPERRuntimeBundleDebug.swift */,
+				4D1AB5F32E48CC2700E6982A /* KASPERContentRouter.swift */,
 				4DA359A52E3F135B0010101F /* KASPERFeedbackAnalyticsView.swift */,
 				4DA359A62E3F135B0010101F /* KASPERMLXManager.swift */,
 				4DA359A72E3F135B0010101F /* KASPERMLXTestView.swift */,
@@ -1803,6 +1817,7 @@
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
+				4D5926A62E48EDDB002625DE /* KASPERMLXRuntimeBundle */,
 				4DDA0A712E48348900449F20 /* VybeOS */,
 				4DF7A0942E41822600D5AC19 /* SpiritualDatabase */,
 				4DA359AE2E3F135B0010101F /* KASPERMLX */,
@@ -2277,6 +2292,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D5926A72E48EDDB002625DE /* KASPERMLXRuntimeBundle in Resources */,
 				4DA01CB42D8537FB0070309D /* GoogleService-Info.plist in Resources */,
 				4DCB393B2E1F78AE00311D51 /* Sacred Geometry_One Line_1.svg in Resources */,
 				4DCB393C2E1F78AE00311D51 /* foundation_grid.svg in Resources */,
@@ -2331,6 +2347,7 @@
 				4D731FE92E474A0F0083C82C /* Oracle_Number_11_original.md in Resources */,
 				4D731FEA2E474A0F0083C82C /* CR5_original.md in Resources */,
 				4D731FED2E474A0F0083C82C /* grok_numerologyscholar_07_converted.json in Resources */,
+				4D5EC43B2E485B3D00BB90C6 /* KASPERLinguisticConfig.json in Resources */,
 				4D731FEE2E474A0F0083C82C /* MindfulnessCoach_Number_44_original.md in Resources */,
 				4D731FF12E474A0F0083C82C /* grok_numerologyscholar_08_converted.json in Resources */,
 				4D731FF62E474A0F0083C82C /* claude_09_academic_converted.json in Resources */,
@@ -2562,6 +2579,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DA642652D8122C70047287B /* HealthKitManaging.swift in Sources */,
+				4DB1B69A2E4853E600F1585A /* KASPERLinguisticV2Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2676,7 +2694,6 @@
 				4DF7A09C2E41822600D5AC19 /* AstrologicalPlanet.swift in Sources */,
 				4DF7A09D2E41822600D5AC19 /* MoonPhase.swift in Sources */,
 				4DF7A09E2E41822600D5AC19 /* AstrologicalHouse.swift in Sources */,
-				4DB1B69A2E4853E600F1585A /* KASPERLinguisticV2Tests.swift in Sources */,
 				4D6308DC2DFFCB2C00FD32E9 /* PostComposerView.swift in Sources */,
 				4DCEE47E2E34339B007CA451 /* NumerologyService.swift in Sources */,
 				4DB233F62E1169CD004EC2BC /* VybeMatchOverlay.swift in Sources */,
@@ -2701,6 +2718,7 @@
 				4D3055C32D3CB018009A7BBD /* PersistenceController.swift in Sources */,
 				4DDCDFCF2E2C64B1005FDD32 /* FriendManager.swift in Sources */,
 				4D3055CA2D3CB981009A7BBD /* FocusMatch+Helper.swift in Sources */,
+				4D1AB6EF2E48E02800E6982A /* KASPERBundleCheck.swift in Sources */,
 				4DC602422D34652600B5E4A9 /* AboutView.swift in Sources */,
 				4D3056002D3D9245009A7BBD /* JournalEntryView.swift in Sources */,
 				4D2CC7182E0C70F600BDF100 /* TwinklingDigitsBackground.swift in Sources */,
@@ -2765,7 +2783,9 @@
 				4D3055E32D3CEADA009A7BBD /* JournalEntry+CoreDataHelpers.swift in Sources */,
 				4D3055E12D3CE90C009A7BBD /* FocusNumberContent.swift in Sources */,
 				4DF7A0772E41754000D5AC19 /* SpiritualDataController.swift in Sources */,
+				4D1AB6ED2E48DCA300E6982A /* KASPERRuntimeBundleDebug.swift in Sources */,
 				4DCB386C2E1AAF1C00311D51 /* UserProfileView.swift in Sources */,
+				4D1AB5F42E48CC2700E6982A /* KASPERContentRouter.swift in Sources */,
 				4D2CC70C2E08EAD200BDF100 /* StaticAssetMandalaView.swift in Sources */,
 				4D2CC6F02E079B6D00BDF100 /* SacredGeometry3DView.swift in Sources */,
 				4DDCE0082E3146DC005FDD32 /* NumberPatternGenerator.swift in Sources */,

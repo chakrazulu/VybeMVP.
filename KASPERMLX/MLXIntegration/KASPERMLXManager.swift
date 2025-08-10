@@ -111,6 +111,7 @@ class KASPERMLXManager: ObservableObject {
     // MARK: - Private Properties
 
     private let engine: KASPERMLXEngine
+    private let contentRouter = KASPERContentRouter.shared  // Claude: Use shared instance to avoid multiple initializations
     private let logger = Logger(subsystem: "com.vybe.kaspermlx", category: "Manager")
     private var cancellables = Set<AnyCancellable>()
 
@@ -338,6 +339,43 @@ class KASPERMLXManager: ObservableObject {
         var cacheHit = false
 
         do {
+            // Claude: First try to get behavioral content from RuntimeBundle
+            if let behavioral = await contentRouter.getBehavioralInsights(
+                context: "lifePath",
+                number: focusNumber
+            ) {
+                logger.info("🔮 KASPER MLX: Using behavioral content from RuntimeBundle for number \(focusNumber)")
+                // Convert behavioral content to insight using the engine with the loaded content
+                let enrichedRequest = InsightRequest(
+                    feature: request.feature,
+                    type: request.type,
+                    priority: request.priority,
+                    context: InsightContext(
+                        primaryData: contextData.merging(["behavioralContent": behavioral]) { _, new in new },
+                        userQuery: context.userQuery,
+                        constraints: context.constraints
+                    )
+                )
+                let insight = try await engine.generateInsight(for: enrichedRequest)
+                success = true
+                cacheHit = false
+                lastInsight = insight
+
+                // Record performance metrics
+                let responseTime = Date().timeIntervalSince(startTime)
+                performanceMetrics.recordResponse(
+                    responseTime: responseTime,
+                    feature: .dailyCard,
+                    success: success,
+                    cacheHit: false
+                )
+
+                logger.info("🔮 KASPER MLX: Daily card insight generated from behavioral content in \(String(format: "%.3f", responseTime))s")
+                return insight
+            }
+
+            // Claude: Fallback to template generation if no behavioral content
+            logger.info("🔮 KASPER MLX: No behavioral content found, using template generation")
             let insight = try await engine.generateInsight(for: request)
             success = true
             cacheHit = insight.metadata.cacheHit

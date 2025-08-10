@@ -1,0 +1,984 @@
+{
+  "meta": {
+    "version": "v2.0",
+    "sourceNotes": "Divine Triangle tradition + Pythagorean numerology; behavioral insights based on Expression Number manifestation patterns",
+    "generationGuidelines": "Focus on how the person expresses themselves in the world, their natural talents, and how they communicate their inner truth",
+    "id": "expression_03",
+    "numerologyType": "expression",
+    "number": 3,
+    "title": "Expression Number 3",
+    "description": "Communication style and natural talents for Expression 3",
+    "context": "expression",
+    "lastUpdated": "2025-08-09T14:35:48.603227",
+    "sourceType": "chatgpt_behavioral",
+    "conversionVersion": "v1.0"
+  },
+  "profiles": [
+    {
+      "number": 3,
+      "context": "expression",
+      "coreEssence": "Expression Number 1 manifests as natural leadership, pioneering communication, and innovative self-expression. They articulate vision with clarity and inspire others through original thinking.",
+      "lifeLesson": "Learn to express leadership with collaboration. Your expression asks you to voice bold ideas while remaining open to feedback, and to pioneer paths that others can follow.",
+      "shadowSignature": "Dominating conversations, dismissive communication, and ego-driven expression. When reactive, Expression 1 steamrolls dialogue or confuses volume with clarity. The remedy is inclusive leadership and collaborative innovation.",
+      "planes": {
+        "physical": {
+          "strength": 7,
+          "notes": "Dynamic physical expression; benefits from movement-based communication and kinetic learning styles"
+        },
+        "mental": {
+          "strength": 8,
+          "notes": "Quick, decisive mental processing; excels at executive thinking but needs input diversity"
+        },
+        "emotional": {
+          "strength": 5,
+          "notes": "Contained emotional expression; learns to share vulnerability as strength not weakness"
+        },
+        "intuitive": {
+          "strength": 6,
+          "notes": "Strong gut instincts in communication; clearest when acting on first impressions"
+        }
+      },
+      "chartOfInclusion": {
+        "counts": {},
+        "missingNumbers": []
+      },
+      "cycles": [
+        {
+          "label": "First Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Finding your voice",
+            "Leadership emergence",
+            "Original expression"
+          ],
+          "practices": [
+            "Daily speaking practice",
+            "Write personal manifestos",
+            "Lead small group initiatives"
+          ]
+        },
+        {
+          "label": "Second Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Influence expansion",
+            "Thought leadership",
+            "Innovation platforms"
+          ],
+          "practices": [
+            "Publish original ideas regularly",
+            "Build speaker platforms",
+            "Mentor emerging voices"
+          ]
+        },
+        {
+          "label": "Third Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Legacy voice",
+            "Wisdom transmission",
+            "Leadership succession"
+          ],
+          "practices": [
+            "Document leadership philosophy",
+            "Train future pioneers",
+            "Create lasting communication systems"
+          ]
+        }
+      ],
+      "pinnacles": [
+        {
+          "label": "Pinnacle I",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Voice development",
+            "Confidence building",
+            "Expression courage"
+          ],
+          "practices": [
+            "Public speaking training",
+            "Create content daily",
+            "Practice assertive communication"
+          ]
+        },
+        {
+          "label": "Pinnacle II",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Platform building",
+            "Message refinement",
+            "Audience growth"
+          ],
+          "practices": [
+            "Establish thought leadership",
+            "Develop signature frameworks",
+            "Build communication channels"
+          ]
+        },
+        {
+          "label": "Pinnacle III",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Influence mastery",
+            "Cultural impact",
+            "Expression innovation"
+          ],
+          "practices": [
+            "Launch movements",
+            "Shape industry dialogue",
+            "Pioneer new expression forms"
+          ]
+        },
+        {
+          "label": "Pinnacle IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Elder statesperson",
+            "Wisdom keeper",
+            "Voice of experience"
+          ],
+          "practices": [
+            "Archive knowledge",
+            "Guide next generation",
+            "Preserve communication wisdom"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "label": "Challenge I",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Aggressive expression",
+            "Listening deficits"
+          ],
+          "practices": [
+            "Practice active listening",
+            "Count to five before responding",
+            "Seek feedback on communication style"
+          ]
+        },
+        {
+          "label": "Challenge II",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Ego in expression",
+            "Dismissive patterns"
+          ],
+          "practices": [
+            "Acknowledge others' ideas first",
+            "Practice collaborative dialogue",
+            "Monitor interruption habits"
+          ]
+        },
+        {
+          "label": "Challenge III",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Impatience with process",
+            "Rush to conclusion"
+          ],
+          "practices": [
+            "Slow down delivery",
+            "Ask clarifying questions",
+            "Practice patience in dialogue"
+          ]
+        },
+        {
+          "label": "Challenge IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Burnout from over-expression",
+            "Voice exhaustion"
+          ],
+          "practices": [
+            "Schedule silence periods",
+            "Delegate communication tasks",
+            "Practice restorative quiet"
+          ]
+        }
+      ],
+      "astroLinks": {
+        "tarotKeys": [
+          "The Magician (I)"
+        ],
+        "planetaryCorrespondences": [
+          "Sun",
+          "Mercury"
+        ]
+      },
+      "behavioral": {
+        "decisionMaking": [
+          {
+            "text": "Talk choices out loud to hear the story you’re choosing to live.",
+            "intensity": 0.82,
+            "triggers": [
+              "forks in the road",
+              "creative pivots"
+            ],
+            "supports": [
+              "voice notes"
+            ],
+            "challenges": [
+              "analysis by chatter"
+            ]
+          },
+          {
+            "text": "Draft three headlines for each option; pick the one that feels alive and aligns with values.",
+            "intensity": 0.8,
+            "triggers": [
+              "strategy"
+            ],
+            "supports": [
+              "headline test"
+            ],
+            "challenges": [
+              "shiny-object bias"
+            ]
+          },
+          {
+            "text": "Translate decisions into scenes: who, where, when, what’s the beat?"
+          },
+          {
+            "text": "Choose the path that keeps momentum and meaning, not just attention."
+          },
+          {
+            "text": "Limit inputs—three trusted advisors beat ten conflicting opinions."
+          },
+          {
+            "text": "If emotions surge, name them, then decide after a short reset."
+          },
+          {
+            "text": "Commit publicly in one crisp line to reduce second-guessing."
+          },
+          {
+            "text": "Time-box choice-making; pick, test, and revise with data."
+          },
+          {
+            "text": "When torn, select the option that improves the story you can tell later."
+          },
+          {
+            "text": "Use a 'joy vs. impact' grid to prevent fun-only decisions."
+          },
+          {
+            "text": "Define 'done' in concrete outputs, not vibes."
+          },
+          {
+            "text": "Close with a celebratory micro-ritual to anchor the new direction."
+          }
+        ],
+        "stressResponse": [
+          {
+            "text": "Under stress you may joke to dodge pain; acknowledge the sting before you lighten the room.",
+            "intensity": 0.86,
+            "triggers": [
+              "conflict",
+              "public pressure"
+            ],
+            "supports": [
+              "feeling words list"
+            ],
+            "challenges": [
+              "avoidant humor"
+            ]
+          },
+          {
+            "text": "When overwhelmed, narrow to one small expressive act to restore agency.",
+            "intensity": 0.8,
+            "triggers": [
+              "deadline crush"
+            ],
+            "supports": [
+              "tiny task list"
+            ],
+            "challenges": [
+              "freeze via options"
+            ]
+          },
+          {
+            "text": "Breathe low and slow to settle the voice before speaking."
+          },
+          {
+            "text": "Write the messy version privately, then share the respectful version."
+          },
+          {
+            "text": "Trade sarcasm for specificity; say what would help now."
+          },
+          {
+            "text": "Channel nervous energy into movement or singing for release."
+          },
+          {
+            "text": "Ask for mirroring—let someone reflect what they heard you need."
+          },
+          {
+            "text": "Protect sleep; creativity collapses when exhaustion spikes."
+          },
+          {
+            "text": "Use color and light (walks, sun) to reset mood chemistry."
+          },
+          {
+            "text": "Declutter your visual field; sensory calm lowers reactivity."
+          },
+          {
+            "text": "Name one truth, one boundary, one next step when tempers rise."
+          },
+          {
+            "text": "Exit online back-and-forth; move tender talks to voice."
+          }
+        ],
+        "communication": [
+          {
+            "text": "Lead with imagery and metaphor; paint it so others can stand inside the idea.",
+            "intensity": 0.84,
+            "triggers": [
+              "pitches",
+              "presentations"
+            ],
+            "supports": [
+              "visual aids"
+            ],
+            "challenges": [
+              "style over clarity"
+            ]
+          },
+          {
+            "text": "Keep humor kind; laugh with, never at.",
+            "intensity": 0.78,
+            "triggers": [
+              "banter",
+              "crowd work"
+            ],
+            "supports": [
+              "tone checks"
+            ],
+            "challenges": [
+              "snark creep"
+            ]
+          },
+          {
+            "text": "Edit for rhythm—short/long sentence interplay keeps attention."
+          },
+          {
+            "text": "Use names and sensory detail to make messages memorable."
+          },
+          {
+            "text": "Ask vivid questions that invite stories, not yes/no."
+          },
+          {
+            "text": "Summarize before shifting topics; your quick mind can leave others behind."
+          },
+          {
+            "text": "Credit collaborators publicly; celebration is your native tongue."
+          },
+          {
+            "text": "Create catchphrases or taglines that distill complex ideas."
+          },
+          {
+            "text": "Modulate volume and pace; dynamics are your instrument."
+          },
+          {
+            "text": "Keep call-to-actions concrete—who does what by when."
+          },
+          {
+            "text": "Use emojis or formatting sparingly to support, not distract."
+          },
+          {
+            "text": "End with one resonant line that carries the point home."
+          }
+        ],
+        "relationships": [
+          {
+            "text": "Express love through enthusiasm, celebration, and playful attention.",
+            "intensity": 0.82,
+            "triggers": [
+              "milestones",
+              "daily wins"
+            ],
+            "supports": [
+              "shared joy rituals"
+            ],
+            "challenges": [
+              "spotlight hogging"
+            ]
+          },
+          {
+            "text": "Share real feelings beneath the jokes so intimacy can deepen.",
+            "intensity": 0.8,
+            "triggers": [
+              "hurt feelings"
+            ],
+            "supports": [
+              "feelings wheel"
+            ],
+            "challenges": [
+              "emotional dodge"
+            ]
+          },
+          {
+            "text": "Schedule undistracted time; your social sparkle can mask neglect."
+          },
+          {
+            "text": "Co-create adventures that feed mutual inspiration."
+          },
+          {
+            "text": "Offer compliments with specifics to make them land."
+          },
+          {
+            "text": "Listen fully before riffing; let partners finish the verse."
+          },
+          {
+            "text": "Repair quickly with honest acknowledgment, not just charm."
+          },
+          {
+            "text": "Respect quieter rhythms; not every moment needs performance."
+          },
+          {
+            "text": "Keep private jokes kind; avoid humor that isolates others."
+          },
+          {
+            "text": "Celebrate your partner’s creativity as loudly as your own."
+          },
+          {
+            "text": "Share credit at gatherings; name the unseen labor."
+          },
+          {
+            "text": "Design rituals that anchor joy—date nights, art nights, gratitude notes."
+          }
+        ],
+        "productivity": [
+          {
+            "text": "Batch creative sprints when energy peaks, then rest to refuel the muse.",
+            "intensity": 0.82,
+            "triggers": [
+              "planning"
+            ],
+            "supports": [
+              "energy mapping"
+            ],
+            "challenges": [
+              "boom-bust cycles"
+            ]
+          },
+          {
+            "text": "Protect focus with a simple capture system for ideas-on-fire.",
+            "intensity": 0.8,
+            "triggers": [
+              "inspiration hits"
+            ],
+            "supports": [
+              "inbox for sparks"
+            ],
+            "challenges": [
+              "idea sprawl"
+            ]
+          },
+          {
+            "text": "Define outcomes in audience terms—what will they feel, know, do?"
+          },
+          {
+            "text": "Use checklists for production steps to tame chaos."
+          },
+          {
+            "text": "Schedule edits as a separate session from drafting."
+          },
+          {
+            "text": "Limit simultaneous projects to preserve finish energy."
+          },
+          {
+            "text": "Create reusable templates for recurring content."
+          },
+          {
+            "text": "Demo progress visually; show, don’t just tell."
+          },
+          {
+            "text": "Pair with an operations partner to ground momentum."
+          },
+          {
+            "text": "Time-block social engagement to avoid endless scroll."
+          },
+          {
+            "text": "Celebrate finished pieces publicly to close loops."
+          },
+          {
+            "text": "Archive experiments with notes to accelerate future work."
+          }
+        ],
+        "financial": [
+          {
+            "text": "Monetize through narratives—tell the transformation your work delivers.",
+            "intensity": 0.8,
+            "triggers": [
+              "offers",
+              "launches"
+            ],
+            "supports": [
+              "case stories"
+            ],
+            "challenges": [
+              "hype drift"
+            ]
+          },
+          {
+            "text": "Price for value and joy; premium is earned by distinct voice and results.",
+            "intensity": 0.76,
+            "triggers": [
+              "pricing"
+            ],
+            "supports": [
+              "value ladder"
+            ],
+            "challenges": [
+              "discount reflex"
+            ]
+          },
+          {
+            "text": "Diversify income with creative bundles, licenses, and appearances."
+          },
+          {
+            "text": "Track time vs. returns to avoid underpaid passion projects."
+          },
+          {
+            "text": "Automate royalties and rights management for IP you create."
+          },
+          {
+            "text": "Negotiate with warmth and receipts—numbers plus narrative."
+          },
+          {
+            "text": "Budget play money to keep inspiration funded."
+          },
+          {
+            "text": "Build a runway so you can decline misaligned gigs."
+          },
+          {
+            "text": "Turn audience goodwill into memberships or patronage."
+          },
+          {
+            "text": "Document scope crisply; charm isn’t a substitute for contracts."
+          },
+          {
+            "text": "Plan taxes and cushions; feast-famine cycles need smoothing."
+          },
+          {
+            "text": "Invest in skills and tools that amplify your unique style."
+          }
+        ],
+        "creative": [
+          {
+            "text": "Ship joy: prioritize work that sparks delight and meaning for others.",
+            "intensity": 0.86,
+            "triggers": [
+              "new projects"
+            ],
+            "supports": [
+              "joy rubric"
+            ],
+            "challenges": [
+              "novelty chasing"
+            ]
+          },
+          {
+            "text": "Develop a motif bank—phrases, patterns, palettes—to sustain a signature voice.",
+            "intensity": 0.82,
+            "triggers": [
+              "style building"
+            ],
+            "supports": [
+              "motif library"
+            ],
+            "challenges": [
+              "inconsistent tone"
+            ]
+          },
+          {
+            "text": "Treat constraints as creative choreography; dance within a form."
+          },
+          {
+            "text": "Practice 'morning pages' or free riffs to unstick flow."
+          },
+          {
+            "text": "Use audience feedback to tune timing, not to dilute vision."
+          },
+          {
+            "text": "Collaborate with editors who love both your glitter and your grit."
+          },
+          {
+            "text": "Rotate mediums to stay fresh: write, speak, film, design."
+          },
+          {
+            "text": "Keep a 'cuts' folder; killing darlings feeds future pieces."
+          },
+          {
+            "text": "Rehearse delivery; performance is part of the art."
+          },
+          {
+            "text": "Curate references that uplift rather than overwhelm."
+          },
+          {
+            "text": "Make space for silence so punchlines and pauses land."
+          },
+          {
+            "text": "Teach your process to transform self-expression into community expression."
+          }
+        ],
+        "learning": [
+          {
+            "text": "Learn through play and performance—teach back quickly to lock it in.",
+            "intensity": 0.78,
+            "triggers": [
+              "workshops",
+              "courses"
+            ],
+            "supports": [
+              "teach-back drills"
+            ],
+            "challenges": [
+              "spectator mode"
+            ]
+          },
+          {
+            "text": "Turn concepts into analogies and sketches to speed comprehension.",
+            "intensity": 0.76,
+            "triggers": [
+              "reading"
+            ],
+            "supports": [
+              "sketch notes"
+            ],
+            "challenges": [
+              "over-noting"
+            ]
+          },
+          {
+            "text": "Set themes for each quarter to focus your curiosity."
+          },
+          {
+            "text": "Record summaries aloud; your ear learns as fast as your eye."
+          },
+          {
+            "text": "Alternate input days with output days to prevent knowledge bloat."
+          },
+          {
+            "text": "Ask charismatic peers to co-study; energy begets retention."
+          },
+          {
+            "text": "Create flash stories for key facts; memory loves narrative."
+          },
+          {
+            "text": "Use spaced repetition with playful prompts and rewards."
+          },
+          {
+            "text": "Invite critique on your explanations to strengthen clarity."
+          },
+          {
+            "text": "Cross-train in seemingly unrelated arts to spark leaps."
+          },
+          {
+            "text": "Reflect on failures with humor and a list of next experiments."
+          },
+          {
+            "text": "Keep curiosity journals that capture questions, not just answers."
+          }
+        ],
+        "wellness": [
+          {
+            "text": "Expressive movement—dance, singing, playful sport—keeps your mood buoyant and voice clear.",
+            "intensity": 0.8,
+            "triggers": [
+              "routine"
+            ],
+            "supports": [
+              "music cues"
+            ],
+            "challenges": [
+              "sedentary slumps"
+            ]
+          },
+          {
+            "text": "Guard sugar/caffeine spikes; stable energy sustains creativity.",
+            "intensity": 0.76,
+            "triggers": [
+              "late nights"
+            ],
+            "supports": [
+              "steady snacks"
+            ],
+            "challenges": [
+              "boom-crash cycles"
+            ]
+          },
+          {
+            "text": "Schedule solitude for emotional digestion after big social bursts."
+          },
+          {
+            "text": "Hydrate the voice; your instrument is literal."
+          },
+          {
+            "text": "Use sunlight and color therapy to brighten gray days."
+          },
+          {
+            "text": "Sleep is sacred to recover sparkle and wit."
+          },
+          {
+            "text": "Journal to process feelings before public posts."
+          },
+          {
+            "text": "Breathwork before shows; exhale longer than inhale for calm."
+          },
+          {
+            "text": "Keep a joy toolkit—songs, scents, images—for quick resets."
+          },
+          {
+            "text": "Practice honest tears; sadness unclogs creativity."
+          },
+          {
+            "text": "Limit doomscrolling; protect the imagination’s garden."
+          },
+          {
+            "text": "Celebrate body milestones, not just aesthetic ones."
+          }
+        ],
+        "spiritual": [
+          {
+            "text": "Treat joy as devotion—your art is a prayer others can hear.",
+            "intensity": 0.8,
+            "triggers": [
+              "creative ritual"
+            ],
+            "supports": [
+              "altar of tools"
+            ],
+            "challenges": [
+              "performing for approval"
+            ]
+          },
+          {
+            "text": "Speak to the Divine with gratitude lists and spontaneous praise.",
+            "intensity": 0.76,
+            "triggers": [
+              "mood dips"
+            ],
+            "supports": [
+              "gratitude practice"
+            ],
+            "challenges": [
+              "toxic positivity"
+            ]
+          },
+          {
+            "text": "Tell true stories of transformation; testimony transmits faith."
+          },
+          {
+            "text": "Honor muses with consistent practice so inspiration trusts you."
+          },
+          {
+            "text": "Use beauty as a bridge—design spaces that lift spirits."
+          },
+          {
+            "text": "Let humor soften shame so healing words can land."
+          },
+          {
+            "text": "Create communal rituals—song circles, readings, open mics."
+          },
+          {
+            "text": "Name your gift as service, not self-display."
+          },
+          {
+            "text": "Make offerings of time and talent to causes that sing to you."
+          },
+          {
+            "text": "Hold paradox with play; levity can carry heavy truths."
+          },
+          {
+            "text": "Practice silence to hear the line beneath the noise."
+          },
+          {
+            "text": "Close creations with thanks; credit Source in your way."
+          }
+        ],
+        "shadow": [
+          {
+            "text": "When criticism bites, resist the clapback; ask for one actionable suggestion instead.",
+            "intensity": 0.82,
+            "triggers": [
+              "public feedback"
+            ],
+            "supports": [
+              "edit request frame"
+            ],
+            "challenges": [
+              "defensive riffing"
+            ]
+          },
+          {
+            "text": "Gossip drains muse power; replace stories about people with stories that help people.",
+            "intensity": 0.78,
+            "triggers": [
+              "social buzz"
+            ],
+            "supports": [
+              "no-gossip rule"
+            ],
+            "challenges": [
+              "attention chasing"
+            ]
+          },
+          {
+            "text": "Notice when charm hides avoidance; name the hard thing simply."
+          },
+          {
+            "text": "Tame exaggeration—specifics build trust faster than sparkle."
+          },
+          {
+            "text": "Avoid idea-hopping by finishing one small thing daily."
+          },
+          {
+            "text": "Watch for envy masked as critique; return to your lane."
+          },
+          {
+            "text": "Throttle social media; make more than you scroll."
+          },
+          {
+            "text": "Turn sarcasm into wit that uplifts, not wounds."
+          },
+          {
+            "text": "Don’t confuse applause with alignment; check your why."
+          },
+          {
+            "text": "Resist overpromising; set scope your future self can deliver."
+          },
+          {
+            "text": "Name and process jealousy as a compass toward your own desire."
+          },
+          {
+            "text": "Let boredom signal rest or reinvention, not sabotage."
+          }
+        ],
+        "transitions": [
+          {
+            "text": "Narrate change as a compelling arc; give your community a role in the next chapter.",
+            "intensity": 0.8,
+            "triggers": [
+              "rebrands",
+              "moves"
+            ],
+            "supports": [
+              "transition story map"
+            ],
+            "challenges": [
+              "announcement fatigue"
+            ]
+          },
+          {
+            "text": "Mark endings with gratitude posts and small showcases.",
+            "intensity": 0.76,
+            "triggers": [
+              "project wrap"
+            ],
+            "supports": [
+              "closing ritual"
+            ],
+            "challenges": [
+              "ghosting exits"
+            ]
+          },
+          {
+            "text": "Prototype the new identity visually—colors, fonts, motifs—to embody the shift."
+          },
+          {
+            "text": "Set a countdown and teaser series to pace attention ethically."
+          },
+          {
+            "text": "Invite feedback on tone while keeping core direction intact."
+          },
+          {
+            "text": "Carry over one beloved element to give continuity amid change."
+          },
+          {
+            "text": "Schedule buffer days; transitions tax your nervous system."
+          },
+          {
+            "text": "Host a live Q&A to humanize the change and answer concerns."
+          },
+          {
+            "text": "Keep scope realistic; don’t relaunch everything at once."
+          },
+          {
+            "text": "Track the first 30 days of signals and adjust the story."
+          },
+          {
+            "text": "Celebrate early adopters; make them part of the lore."
+          },
+          {
+            "text": "Archive the journey so others can model brave reinvention."
+          }
+        ]
+      }
+    }
+  ],
+  "trinity": {
+    "integration_notes": "Expression Number represents HOW you manifest your Life Path (WHO you are) and Soul Urge (WHAT you desire) in the world. It's your natural communication style, talents, and the way you share your gifts.",
+    "calculation": "Sum all letters of the full birth name; reduce to a single digit or master number",
+    "relationship_to_life_path": "Life Path is the journey, Expression is the vehicle you use to travel it",
+    "relationship_to_soul_urge": "Soul Urge is the inner desire, Expression is how you manifest that desire externally",
+    "behavioral_integration": [
+      "Expression colors how Life Path lessons are learned and communicated",
+      "Expression shapes how Soul Urge desires become manifest reality",
+      "Harmony between all three creates authentic self-expression",
+      "Conflicts between numbers show areas for integration work",
+      "Master numbers in Expression indicate teaching/healing gifts"
+    ],
+    "meaning": "Represents your natural communication style, talents, and how you express yourself in the world",
+    "resonance": "mental"
+  },
+  "generation_instructions": {
+    "core_principles": [
+      "Focus on HOW the person expresses, not WHAT they express",
+      "Include communication styles, talents, and natural abilities",
+      "Emphasize external manifestation vs internal experience",
+      "Show how each number has unique gifts to share with world",
+      "Include both verbal and non-verbal expression patterns"
+    ],
+    "behavioral_insights": [
+      "Each insight should be 1-2 sentences maximum",
+      "Include intensity scores between 0.6-0.9",
+      "Add triggers, supports, and challenges for key behaviors",
+      "Focus on observable, actionable expression patterns",
+      "Balance between natural gifts and growth edges"
+    ],
+    "divine_triangle_alignment": [
+      "Expression Number = Full birth name numerology",
+      "Represents talents, abilities, and communication style",
+      "Bridge between inner world (Soul Urge) and life purpose (Life Path)",
+      "Include how expression changes across life cycles",
+      "Show evolution from raw talent to mastered gift"
+    ],
+    "categories_to_include": [
+      "decisionMaking - How they express choices",
+      "stressResponse - How stress affects expression",
+      "communication - Core expression patterns",
+      "relationships - How they express in connection",
+      "productivity - How they express through work",
+      "financial - How they express value and abundance",
+      "creative - How they express originality",
+      "learning - How they express curiosity and growth",
+      "wellness - How they express vitality",
+      "spiritual - How they express divine connection",
+      "shadow - Distorted expression patterns",
+      "transitions - How expression evolves through change"
+    ],
+    "context": "expression",
+    "focus": "Natural communication style, talents, and self-expression in the world",
+    "model": "chatgpt-4"
+  }
+}

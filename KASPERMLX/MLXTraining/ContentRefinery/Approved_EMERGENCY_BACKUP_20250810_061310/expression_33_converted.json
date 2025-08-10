@@ -1,0 +1,986 @@
+{
+  "meta": {
+    "version": "v2.0",
+    "sourceNotes": "Divine Triangle tradition + Pythagorean numerology; behavioral insights based on Expression Number manifestation patterns",
+    "generationGuidelines": "Focus on how the person expresses themselves in the world, their natural talents, and how they communicate their inner truth",
+    "id": "expression_33",
+    "numerologyType": "expression",
+    "number": 33,
+    "title": "Expression Number 33",
+    "description": "Communication style and natural talents for Expression 33",
+    "context": "expression",
+    "lastUpdated": "2025-08-09T14:35:48.613940",
+    "sourceType": "chatgpt_behavioral",
+    "conversionVersion": "v1.0"
+  },
+  "profiles": [
+    {
+      "number": 33,
+      "context": "expression",
+      "coreEssence": "Expression Number 1 manifests as natural leadership, pioneering communication, and innovative self-expression. They articulate vision with clarity and inspire others through original thinking.",
+      "lifeLesson": "Learn to express leadership with collaboration. Your expression asks you to voice bold ideas while remaining open to feedback, and to pioneer paths that others can follow.",
+      "shadowSignature": "Dominating conversations, dismissive communication, and ego-driven expression. When reactive, Expression 1 steamrolls dialogue or confuses volume with clarity. The remedy is inclusive leadership and collaborative innovation.",
+      "planes": {
+        "physical": {
+          "strength": 7,
+          "notes": "Dynamic physical expression; benefits from movement-based communication and kinetic learning styles"
+        },
+        "mental": {
+          "strength": 8,
+          "notes": "Quick, decisive mental processing; excels at executive thinking but needs input diversity"
+        },
+        "emotional": {
+          "strength": 5,
+          "notes": "Contained emotional expression; learns to share vulnerability as strength not weakness"
+        },
+        "intuitive": {
+          "strength": 6,
+          "notes": "Strong gut instincts in communication; clearest when acting on first impressions"
+        }
+      },
+      "chartOfInclusion": {
+        "counts": {},
+        "missingNumbers": []
+      },
+      "cycles": [
+        {
+          "label": "First Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Finding your voice",
+            "Leadership emergence",
+            "Original expression"
+          ],
+          "practices": [
+            "Daily speaking practice",
+            "Write personal manifestos",
+            "Lead small group initiatives"
+          ]
+        },
+        {
+          "label": "Second Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Influence expansion",
+            "Thought leadership",
+            "Innovation platforms"
+          ],
+          "practices": [
+            "Publish original ideas regularly",
+            "Build speaker platforms",
+            "Mentor emerging voices"
+          ]
+        },
+        {
+          "label": "Third Cycle",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Legacy voice",
+            "Wisdom transmission",
+            "Leadership succession"
+          ],
+          "practices": [
+            "Document leadership philosophy",
+            "Train future pioneers",
+            "Create lasting communication systems"
+          ]
+        }
+      ],
+      "pinnacles": [
+        {
+          "label": "Pinnacle I",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Voice development",
+            "Confidence building",
+            "Expression courage"
+          ],
+          "practices": [
+            "Public speaking training",
+            "Create content daily",
+            "Practice assertive communication"
+          ]
+        },
+        {
+          "label": "Pinnacle II",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Platform building",
+            "Message refinement",
+            "Audience growth"
+          ],
+          "practices": [
+            "Establish thought leadership",
+            "Develop signature frameworks",
+            "Build communication channels"
+          ]
+        },
+        {
+          "label": "Pinnacle III",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Influence mastery",
+            "Cultural impact",
+            "Expression innovation"
+          ],
+          "practices": [
+            "Launch movements",
+            "Shape industry dialogue",
+            "Pioneer new expression forms"
+          ]
+        },
+        {
+          "label": "Pinnacle IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Elder statesperson",
+            "Wisdom keeper",
+            "Voice of experience"
+          ],
+          "practices": [
+            "Archive knowledge",
+            "Guide next generation",
+            "Preserve communication wisdom"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "label": "Challenge I",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Aggressive expression",
+            "Listening deficits"
+          ],
+          "practices": [
+            "Practice active listening",
+            "Count to five before responding",
+            "Seek feedback on communication style"
+          ]
+        },
+        {
+          "label": "Challenge II",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Ego in expression",
+            "Dismissive patterns"
+          ],
+          "practices": [
+            "Acknowledge others' ideas first",
+            "Practice collaborative dialogue",
+            "Monitor interruption habits"
+          ]
+        },
+        {
+          "label": "Challenge III",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Impatience with process",
+            "Rush to conclusion"
+          ],
+          "practices": [
+            "Slow down delivery",
+            "Ask clarifying questions",
+            "Practice patience in dialogue"
+          ]
+        },
+        {
+          "label": "Challenge IV",
+          "startAge": null,
+          "endAge": null,
+          "themes": [
+            "Burnout from over-expression",
+            "Voice exhaustion"
+          ],
+          "practices": [
+            "Schedule silence periods",
+            "Delegate communication tasks",
+            "Practice restorative quiet"
+          ]
+        }
+      ],
+      "astroLinks": {
+        "tarotKeys": [
+          "The Magician (I)"
+        ],
+        "planetaryCorrespondences": [
+          "Sun",
+          "Mercury"
+        ]
+      },
+      "behavioral": {
+        "decisionMaking": [
+          {
+            "text": "Decide by dignity first—who is helped and how will consent be honored?",
+            "intensity": 0.88,
+            "triggers": [
+              "service design",
+              "policies"
+            ],
+            "supports": [
+              "consent & dignity rubric"
+            ],
+            "challenges": [
+              "nice over respectful"
+            ]
+          },
+          {
+            "text": "Scope by sustainability; love that lasts beats heroic sprints.",
+            "intensity": 0.84,
+            "triggers": [
+              "program planning"
+            ],
+            "supports": [
+              "capacity calculator"
+            ],
+            "challenges": [
+              "overcommitment"
+            ]
+          },
+          {
+            "text": "Translate ideals into one clear, teachable practice."
+          },
+          {
+            "text": "Invite impacted voices early; co-create instead of prescribing."
+          },
+          {
+            "text": "Choose options that distribute power and skill, not just aid."
+          },
+          {
+            "text": "Set 'good-enough' criteria to prevent perfection stalls."
+          },
+          {
+            "text": "If torn, pick the path that heals without erasing you."
+          },
+          {
+            "text": "Write decisions as care standards so others can replicate."
+          },
+          {
+            "text": "Prefer reversible pilots before public promises."
+          },
+          {
+            "text": "Define success in human terms and measurable signals."
+          },
+          {
+            "text": "Close with owners, timelines, and feedback channels."
+          },
+          {
+            "text": "Archive lessons to compound community wisdom."
+          }
+        ],
+        "stressResponse": [
+          {
+            "text": "Under stress you over-function; pause, ask for help, and let 'good-enough' land.",
+            "intensity": 0.88,
+            "triggers": [
+              "family/community crises"
+            ],
+            "supports": [
+              "ask-first rule"
+            ],
+            "challenges": [
+              "martyr mode"
+            ]
+          },
+          {
+            "text": "Name the feeling, need, and boundary before taking action.",
+            "intensity": 0.82,
+            "triggers": [
+              "conflict",
+              "urgency"
+            ],
+            "supports": [
+              "feelings/needs list"
+            ],
+            "challenges": [
+              "self-silencing"
+            ]
+          },
+          {
+            "text": "Switch from fixing to witnessing; being seen often heals most."
+          },
+          {
+            "text": "Tidy a small area; visual order calms the system."
+          },
+          {
+            "text": "Schedule decompression after heavy service or teaching."
+          },
+          {
+            "text": "Shorten loops: brief check-ins beat long lectures when flooded."
+          },
+          {
+            "text": "Use nourishment, water, and breath to stabilize mood."
+          },
+          {
+            "text": "Move the body gently; stretching and walking discharge tension."
+          },
+          {
+            "text": "Limit outrage media; protect your empathic bandwidth."
+          },
+          {
+            "text": "Share load through rotas; 'together' prevents collapse."
+          },
+          {
+            "text": "State limits kindly and revisit later with more capacity."
+          },
+          {
+            "text": "End hard days with gratitude for small mercies."
+          }
+        ],
+        "communication": [
+          {
+            "text": "Lead with warmth and boundary—affirm the bond, then state the request or limit.",
+            "intensity": 0.86,
+            "triggers": [
+              "house norms",
+              "team culture"
+            ],
+            "supports": [
+              "boundary scripts"
+            ],
+            "challenges": [
+              "apology padding"
+            ]
+          },
+          {
+            "text": "Teach in simple steps; translate inspiration into doable actions.",
+            "intensity": 0.82,
+            "triggers": [
+              "workshops",
+              "posts"
+            ],
+            "supports": [
+              "lesson templates"
+            ],
+            "challenges": [
+              "over-poetic"
+            ]
+          },
+          {
+            "text": "Tell stories that dignify everyone involved; avoid savior narratives."
+          },
+          {
+            "text": "Use inclusive language and accessible formats."
+          },
+          {
+            "text": "Ask consent before offering advice, touch, or prayer."
+          },
+          {
+            "text": "Credit helpers and lineage so praise flows wider than you."
+          },
+          {
+            "text": "Keep cadence calm; your tone should lower the room’s pulse."
+          },
+          {
+            "text": "When wrong, repair publicly with humility and specifics."
+          },
+          {
+            "text": "Close talks with one small practice to try today."
+          },
+          {
+            "text": "Publish clear standards for community spaces and events."
+          },
+          {
+            "text": "Summarize agreements in writing to avoid emotional guesswork."
+          },
+          {
+            "text": "Celebrate quiet labor as loudly as visible wins."
+          }
+        ],
+        "relationships": [
+          {
+            "text": "Express love through practical care and shared agreements—then let others reciprocate.",
+            "intensity": 0.84,
+            "triggers": [
+              "daily life"
+            ],
+            "supports": [
+              "reciprocity plan"
+            ],
+            "challenges": [
+              "doing it all"
+            ]
+          },
+          {
+            "text": "Make requests, not hints; kindness without clarity breeds resentment.",
+            "intensity": 0.8,
+            "triggers": [
+              "needs"
+            ],
+            "supports": [
+              "request scripts"
+            ],
+            "challenges": [
+              "scorekeeping"
+            ]
+          },
+          {
+            "text": "Protect couple/family time from service overreach."
+          },
+          {
+            "text": "Practice affectionate check-ins that aren’t just logistics."
+          },
+          {
+            "text": "Repair with specificity—impact, change, and timeline."
+          },
+          {
+            "text": "Design rituals of connection that restore rather than perform."
+          },
+          {
+            "text": "Share emotional and financial labor maps to keep equity visible."
+          },
+          {
+            "text": "Honor privacy; stories shared in trust stay in trust."
+          },
+          {
+            "text": "Bless your partner’s path even when different from yours."
+          },
+          {
+            "text": "Limit unsolicited advice; ask what support is wanted."
+          },
+          {
+            "text": "Use humor gently; never punch down in the name of 'truth'."
+          },
+          {
+            "text": "Let others lead at home; follow with delight."
+          }
+        ],
+        "productivity": [
+          {
+            "text": "Treat quality as care; define humane standards that lower stress for everyone downstream.",
+            "intensity": 0.84,
+            "triggers": [
+              "kickoffs"
+            ],
+            "supports": [
+              "quality rubric"
+            ],
+            "challenges": [
+              "gold-plating"
+            ]
+          },
+          {
+            "text": "Batch caretaking/admin so creative teaching gets real time.",
+            "intensity": 0.8,
+            "triggers": [
+              "weekly planning"
+            ],
+            "supports": [
+              "time blocks"
+            ],
+            "challenges": [
+              "context switching"
+            ]
+          },
+          {
+            "text": "Build templates—lesson plans, rituals, and checklists others can reuse."
+          },
+          {
+            "text": "Delegate with consent and capacity checks, not assumptions."
+          },
+          {
+            "text": "Set scope ceilings so kindness to clients doesn’t burn out staff."
+          },
+          {
+            "text": "Use retros that ask: what reduced stress and increased dignity?"
+          },
+          {
+            "text": "Protect deep work mornings; schedule outreach later."
+          },
+          {
+            "text": "Retire offerings that don’t truly help, even if popular."
+          },
+          {
+            "text": "Close loops daily with a 10-minute tidy of tools and notes."
+          },
+          {
+            "text": "Tie celebrations to benefit delivered, not hours burned."
+          },
+          {
+            "text": "Archive processes so care survives staff turnover."
+          },
+          {
+            "text": "Teach your method to multiply helpers."
+          }
+        ],
+        "financial": [
+          {
+            "text": "Price for sustainability; martyr math collapses missions.",
+            "intensity": 0.82,
+            "triggers": [
+              "scoping",
+              "launches"
+            ],
+            "supports": [
+              "pricing rubric"
+            ],
+            "challenges": [
+              "undercharging"
+            ]
+          },
+          {
+            "text": "Separate charity from business; be clear which hat you’re wearing.",
+            "intensity": 0.78,
+            "triggers": [
+              "requests"
+            ],
+            "supports": [
+              "policy page"
+            ],
+            "challenges": [
+              "boundary guilt"
+            ]
+          },
+          {
+            "text": "Automate cushions so cycles of giving don’t deplete basics."
+          },
+          {
+            "text": "Publish terms, refunds, and expectations in plain language."
+          },
+          {
+            "text": "Fund training, supervision, and rest—care requires skilled, rested people."
+          },
+          {
+            "text": "Vet partners for aligned ethics; decline prestige that costs integrity."
+          },
+          {
+            "text": "Track in-kind labor transparently; name the true cost of care."
+          },
+          {
+            "text": "Create scholarships with criteria instead of ad-hoc discounts."
+          },
+          {
+            "text": "Plan for maintenance and access, not just launch moments."
+          },
+          {
+            "text": "Design fair pay bands; equity is part of compassion."
+          },
+          {
+            "text": "Tithe quietly and consistently where impact is clear."
+          },
+          {
+            "text": "Review giving and pricing annually for real outcomes."
+          }
+        ],
+        "creative": [
+          {
+            "text": "Make beauty that heals—colors, textures, and sounds that calm nervous systems.",
+            "intensity": 0.86,
+            "triggers": [
+              "events",
+              "content"
+            ],
+            "supports": [
+              "sensory checklist"
+            ],
+            "challenges": [
+              "aesthetic over function"
+            ]
+          },
+          {
+            "text": "Turn teachings into repeatable forms—chants, scripts, worksheets, and stories.",
+            "intensity": 0.82,
+            "triggers": [
+              "curriculum"
+            ],
+            "supports": [
+              "template library"
+            ],
+            "challenges": [
+              "one-off performances"
+            ]
+          },
+          {
+            "text": "Design accessibility from the first sketch; welcome many bodies and minds."
+          },
+          {
+            "text": "Use consent and context when sharing tender stories."
+          },
+          {
+            "text": "Co-create with artists and healers for multi-sensory impact."
+          },
+          {
+            "text": "Prototype rituals small before large gatherings."
+          },
+          {
+            "text": "Blend metaphor with plain instruction so anyone can follow."
+          },
+          {
+            "text": "Archive motifs and blessings to build a recognizable lineage."
+          },
+          {
+            "text": "Measure creative success by relief, inclusion, and courage sparked."
+          },
+          {
+            "text": "Guard sacred elements from commodification; share wisely."
+          },
+          {
+            "text": "Let humor and gentleness carry serious truths."
+          },
+          {
+            "text": "Teach creation as stewardship, not performance."
+          }
+        ],
+        "learning": [
+          {
+            "text": "Study pedagogy, psychology, and sacred texts; your craft is compassionate teaching.",
+            "intensity": 0.82,
+            "triggers": [
+              "curriculum planning"
+            ],
+            "supports": [
+              "reading tracks"
+            ],
+            "challenges": [
+              "course hoarding"
+            ]
+          },
+          {
+            "text": "Pair study with practice—teach back quickly to cement learning.",
+            "intensity": 0.78,
+            "triggers": [
+              "new skills"
+            ],
+            "supports": [
+              "teach-back sessions"
+            ],
+            "challenges": [
+              "theory without use"
+            ]
+          },
+          {
+            "text": "Collect feedback from those served, not just peers."
+          },
+          {
+            "text": "Keep error logs and repair notes; humility accelerates mastery."
+          },
+          {
+            "text": "Apprentice with elders; lineage protects both people and teachings."
+          },
+          {
+            "text": "Cross-train in trauma-informed facilitation and accessibility."
+          },
+          {
+            "text": "Use spaced repetition for scripts and standards you teach often."
+          },
+          {
+            "text": "Document methods in plain, beautiful formats others want to use."
+          },
+          {
+            "text": "Limit concurrent projects; finish with an artifact others can reuse."
+          },
+          {
+            "text": "Host peer circles that separate critique from care."
+          },
+          {
+            "text": "Map your biases and set tripwires to catch them."
+          },
+          {
+            "text": "Celebrate knowledge that becomes kindness, not just cleverness."
+          }
+        ],
+        "wellness": [
+          {
+            "text": "Schedule your care like you schedule everyone else’s—non‑negotiable blocks.",
+            "intensity": 0.84,
+            "triggers": [
+              "weekly planning"
+            ],
+            "supports": [
+              "calendar holds"
+            ],
+            "challenges": [
+              "self-last habit"
+            ]
+          },
+          {
+            "text": "Choose restorative movement and nourishment that stabilize mood.",
+            "intensity": 0.8,
+            "triggers": [
+              "routine setup"
+            ],
+            "supports": [
+              "meal prep",
+              "low-impact training"
+            ],
+            "challenges": [
+              "overextension"
+            ]
+          },
+          {
+            "text": "Use breath, music, and light to reset between sessions."
+          },
+          {
+            "text": "Set tech-off windows to cool the nervous system."
+          },
+          {
+            "text": "Keep grief rituals; unprocessed sorrow leaks as irritability."
+          },
+          {
+            "text": "Share care plans with allies so you can step away sometimes."
+          },
+          {
+            "text": "Track early signs of compassion fatigue and downshift early."
+          },
+          {
+            "text": "Name boundaries aloud before resentment builds."
+          },
+          {
+            "text": "Plan joy—art, friends, nature—so devotion doesn’t flatten into duty."
+          },
+          {
+            "text": "Hydrate and breathe before difficult conversations."
+          },
+          {
+            "text": "Protect sleep like a sacred appointment."
+          },
+          {
+            "text": "Celebrate small, quiet wins daily."
+          }
+        ],
+        "spiritual": [
+          {
+            "text": "Treat service as sacrament; ordinary care, done kindly, is holy.",
+            "intensity": 0.86,
+            "triggers": [
+              "daily life"
+            ],
+            "supports": [
+              "micro-service list"
+            ],
+            "challenges": [
+              "performative virtue"
+            ]
+          },
+          {
+            "text": "Hold consent and justice as spiritual pillars; compassion includes fairness.",
+            "intensity": 0.82,
+            "triggers": [
+              "policy",
+              "platform use"
+            ],
+            "supports": [
+              "ethics charter"
+            ],
+            "challenges": [
+              "nice over just"
+            ]
+          },
+          {
+            "text": "Begin in silence, end in gratitude; bookend practices keep the heart clear."
+          },
+          {
+            "text": "Fast from attention periodically to test attachment to praise."
+          },
+          {
+            "text": "Bless thresholds—doors, meals, meetings—with brief, inclusive rituals."
+          },
+          {
+            "text": "Credit Source and lineage; humility keeps the current clean."
+          },
+          {
+            "text": "Invite community prayer/meditation with opt-in, not pressure."
+          },
+          {
+            "text": "Let forgiveness include accountability and repair."
+          },
+          {
+            "text": "Use beauty—flowers, music, light—as gentle theology."
+          },
+          {
+            "text": "Study compassion traditions across cultures for universality."
+          },
+          {
+            "text": "Guard mysteries from spectacle; some things are for private altars."
+          },
+          {
+            "text": "Teach devotion as joy, not grind."
+          }
+        ],
+        "shadow": [
+          {
+            "text": "When savior energy rises, switch to questions and consent; co-create rather than rescue.",
+            "intensity": 0.84,
+            "triggers": [
+              "urgent pleas"
+            ],
+            "supports": [
+              "consent scripts"
+            ],
+            "challenges": [
+              "overreach"
+            ]
+          },
+          {
+            "text": "Perfection steals peace; set 'done' and stop at done.",
+            "intensity": 0.8,
+            "triggers": [
+              "hosting",
+              "deliverables"
+            ],
+            "supports": [
+              "done checklist"
+            ],
+            "challenges": [
+              "over-polish"
+            ]
+          },
+          {
+            "text": "Retire guilt economics; replace with clear asks and limits."
+          },
+          {
+            "text": "Don’t weaponize 'love and light'; name harm and repair concretely."
+          },
+          {
+            "text": "Avoid public martyr stories; seek help privately and early."
+          },
+          {
+            "text": "Respect others’ timelines; care is not control."
+          },
+          {
+            "text": "Limit praise exposure; pedestal dynamics distort truth."
+          },
+          {
+            "text": "Keep confidences; tender stories require consent to share."
+          },
+          {
+            "text": "Watch tone; kindness without condescension builds trust."
+          },
+          {
+            "text": "Release 'I’ll do it all'; train and trust the team."
+          },
+          {
+            "text": "Retire rules that no longer serve; love is alive, not static."
+          },
+          {
+            "text": "Let humor soften intensity without minimizing pain."
+          }
+        ],
+        "transitions": [
+          {
+            "text": "Announce changes with empathy, resources, and a blessing; sacred exits are part of sacred work.",
+            "intensity": 0.86,
+            "triggers": [
+              "program shifts",
+              "moves"
+            ],
+            "supports": [
+              "transition script"
+            ],
+            "challenges": [
+              "abrupt pivots"
+            ]
+          },
+          {
+            "text": "Carry one anchor ritual through the change to stabilize hearts.",
+            "intensity": 0.8,
+            "triggers": [
+              "role changes"
+            ],
+            "supports": [
+              "anchor practice"
+            ],
+            "challenges": [
+              "drift"
+            ]
+          },
+          {
+            "text": "Phase changes; give bodies and communities time to adapt."
+          },
+          {
+            "text": "Document what is temporary vs. the new normal to reduce anxiety."
+          },
+          {
+            "text": "Invite feedback and adjust openly; humility keeps trust intact."
+          },
+          {
+            "text": "Hold town halls or circles so questions have a safe home."
+          },
+          {
+            "text": "Protect sabbath space during transitions; recovery preserves kindness."
+          },
+          {
+            "text": "Honor the past with gratitude before building the next thing."
+          },
+          {
+            "text": "Set review dates (30/60/90) and celebrate stability milestones."
+          },
+          {
+            "text": "Train successors early; continuity is an act of love."
+          },
+          {
+            "text": "Archive rituals, scripts, and lessons for those who follow."
+          },
+          {
+            "text": "Close with a communal gesture—song, silence, or shared vow."
+          }
+        ]
+      }
+    }
+  ],
+  "trinity": {
+    "integration_notes": "Expression Number represents HOW you manifest your Life Path (WHO you are) and Soul Urge (WHAT you desire) in the world. It's your natural communication style, talents, and the way you share your gifts.",
+    "calculation": "Sum all letters of the full birth name; reduce to a single digit or master number",
+    "relationship_to_life_path": "Life Path is the journey, Expression is the vehicle you use to travel it",
+    "relationship_to_soul_urge": "Soul Urge is the inner desire, Expression is how you manifest that desire externally",
+    "behavioral_integration": [
+      "Expression colors how Life Path lessons are learned and communicated",
+      "Expression shapes how Soul Urge desires become manifest reality",
+      "Harmony between all three creates authentic self-expression",
+      "Conflicts between numbers show areas for integration work",
+      "Master numbers in Expression indicate teaching/healing gifts"
+    ],
+    "meaning": "Represents your natural communication style, talents, and how you express yourself in the world",
+    "resonance": "mental"
+  },
+  "generation_instructions": {
+    "core_principles": [
+      "Focus on HOW the person expresses, not WHAT they express",
+      "Include communication styles, talents, and natural abilities",
+      "Emphasize external manifestation vs internal experience",
+      "Show how each number has unique gifts to share with world",
+      "Include both verbal and non-verbal expression patterns"
+    ],
+    "behavioral_insights": [
+      "Each insight should be 1-2 sentences maximum",
+      "Include intensity scores between 0.6-0.9",
+      "Add triggers, supports, and challenges for key behaviors",
+      "Focus on observable, actionable expression patterns",
+      "Balance between natural gifts and growth edges"
+    ],
+    "divine_triangle_alignment": [
+      "Expression Number = Full birth name numerology",
+      "Represents talents, abilities, and communication style",
+      "Bridge between inner world (Soul Urge) and life purpose (Life Path)",
+      "Include how expression changes across life cycles",
+      "Show evolution from raw talent to mastered gift"
+    ],
+    "categories_to_include": [
+      "decisionMaking - How they express choices",
+      "stressResponse - How stress affects expression",
+      "communication - Core expression patterns",
+      "relationships - How they express in connection",
+      "productivity - How they express through work",
+      "financial - How they express value and abundance",
+      "creative - How they express originality",
+      "learning - How they express curiosity and growth",
+      "wellness - How they express vitality",
+      "spiritual - How they express divine connection",
+      "shadow - Distorted expression patterns",
+      "transitions - How expression evolves through change"
+    ],
+    "context": "expression",
+    "focus": "Natural communication style, talents, and self-expression in the world",
+    "model": "chatgpt-4"
+  }
+}
