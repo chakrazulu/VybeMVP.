@@ -871,10 +871,39 @@ Verify both rich content and behavioral insights load correctly
 
 ---
 
+## 🎯 Critical Implementation Notes
+
+### 📁 Exact File Locations (from repo root)
+- **Export Script:** `scripts/export_runtime_bundle.py`
+- **Swift Router:** `KASPERMLX/MLXIntegration/KASPERContentRouter.swift`
+- **Runtime Bundle (output):** `VybeMVP/Resources/RuntimeBundle/`
+- **Source Content:** `KASPERMLX/MLXTraining/ContentRefinery/Approved/`
+- **CI Workflow:** `.github/workflows/kasper-runtime-bundle.yml`
+
+### ⚠️ Master Number Handling — DO NOT MODIFY
+For v2.1.2 the export script duplicates master numbers from base single-digits (11→1, 22→2, 33→3, 44→4).
+This is intentional to maintain spiritual-integrity rules and ship immediately.
+Claude should **not** change this unless explicitly requested.
+
+### 🧪 Required Fallback Test
+Intentionally test a missing-content path to verify `behavioral_then_template`:
+1) Temporarily remove one rich content file (e.g., `NumberMeanings/7_rich.json`) → rich should fall back to behavioral.
+2) Temporarily remove the same number's behavioral file → router should fall back to template.
+3) Confirm logs show both fallbacks and the UI remains stable.
+
+### 🧩 NumberMeaningView Hook-Up (UI)
+In `NumberMeaningView.swift`, initialize and use the router for rich content:
+```swift
+@StateObject private var contentRouter = KASPERContentRouter()
+let richContent = await contentRouter.getRichContent(for: selectedNumber)
+```
+
+---
+
 ## 🚀 Next Steps
 
-1. **Immediate:** Implement the RuntimeBundle solution
-2. **Test:** Verify on iPhone that content loads correctly
+1. **Immediate:** Implement the RuntimeBundle solution following exact file locations above
+2. **Test:** Verify on iPhone that content loads correctly, including fallback scenarios
 3. **Ship:** Deploy KASPER v2.1.2 with real content
 4. **Future:** Add planets/zodiacs using same manifest pattern
 
