@@ -877,16 +877,26 @@ class KASPERMLXEngine: ObservableObject {
                 spiritualComponents.append("the energy of \(archetype)")
                 personalReferences.append("your \(archetype.lowercased().replacingOccurrences(of: "the ", with: "")) nature")
 
-                // Claude: ENHANCED - Use professional linguistic enhancement for MegaCorpus content
-                let cleanedGuidance = KASPERLinguisticEnhancer.cleanSpiritualContent(guidanceTemplate)
-                let qualityResult = KASPERLinguisticEnhancer.validateEnhancedContent(cleanedGuidance)
-
-                // Only use MegaCorpus guidance if it meets quality standards
-                if qualityResult.isValid && qualityResult.qualityScore > 70 {
-                    actionableGuidance.append(cleanedGuidance.lowercased())
+                // 🚀 REVOLUTIONARY V2.0: Apply production-grade linguistic enhancement  
+                let enhancementOptions = EnhancementOptions(
+                    persona: .oracle, // MegaCorpus content uses Oracle persona
+                    allowEmoji: false,
+                    targetTokenRange: 12...22,
+                    qualityThreshold: 0.84
+                )
+                
+                let (enhancedGuidance, linguisticScore) = KASPERLinguisticEnhancerV2.enhance(
+                    guidanceTemplate,
+                    options: enhancementOptions
+                )
+                
+                // Quality gate: Only use high-quality enhanced content
+                if linguisticScore.finalGrade >= enhancementOptions.qualityThreshold {
+                    actionableGuidance.append(enhancedGuidance.lowercased())
+                    print("🔮 KASPER V2.0: Enhanced MegaCorpus guidance - \(linguisticScore.summary)")
                 } else {
-                    print("🔮 KASPER DEBUG: Skipping low-quality MegaCorpus guidance: '\(guidanceTemplate)' (Score: \(String(format: "%.0f", qualityResult.qualityScore))%)")
-                    // Template guidance already added above, so we're good
+                    print("🔮 KASPER V2.0: MegaCorpus content below threshold - \(linguisticScore.summary)")
+                    // Template guidance already added above as fallback
                 }
             }
         } else {
@@ -1307,55 +1317,32 @@ class KASPERMLXEngine: ObservableObject {
             selectedGuidance = actionableBackups.randomElement() ?? "trust your path"
         }
 
-        // Claude: ENHANCED - Clean all components before template generation for professional quality
-        let cleanedComponent = KASPERLinguisticEnhancer.cleanSpiritualContent(selectedComponent)
-        let cleanedReference = KASPERLinguisticEnhancer.cleanSpiritualContent(selectedReference)
-        let cleanedGuidance = KASPERLinguisticEnhancer.cleanSpiritualContent(selectedGuidance)
+        // 🚀 REVOLUTIONARY V2.0: Apply production-grade final enhancement
+        let finalEnhancementOptions = EnhancementOptions(
+            persona: mapInsightTypeToPersona(type),
+            allowEmoji: true,
+            targetTokenRange: 15...25, // Slightly longer for final insights
+            qualityThreshold: 0.84
+        )
 
-        // Generate insight using enhanced templates with linguistic processing
-        var finalInsight: String
-        switch type {
-        case .guidance:
-            finalInsight = KASPERTemplateEnhancer.generateGuidanceInsight(
-                component: cleanedComponent,
-                reference: cleanedReference,
-                guidance: cleanedGuidance
-            )
-        case .reflection:
-            finalInsight = KASPERTemplateEnhancer.generateReflectionInsight(
-                component: cleanedComponent,
-                reference: cleanedReference,
-                guidance: cleanedGuidance
-            )
-        case .affirmation:
-            finalInsight = KASPERTemplateEnhancer.generateAffirmationInsight(
-                component: cleanedComponent,
-                reference: cleanedReference,
-                guidance: cleanedGuidance
-            )
-        case .prediction:
-            finalInsight = KASPERTemplateEnhancer.generatePredictionInsight(
-                component: cleanedComponent,
-                reference: cleanedReference,
-                guidance: cleanedGuidance
-            )
-        default:
-            // Default fallback to guidance style for unknown types
-            finalInsight = KASPERTemplateEnhancer.generateGuidanceInsight(
-                component: cleanedComponent,
-                reference: cleanedReference,
-                guidance: cleanedGuidance
-            )
-        }
+        // Build raw insight from components
+        let rawInsight = "\(selectedComponent) flows through \(selectedReference), guiding you to \(selectedGuidance)"
+        
+        // 🚀 REVOLUTIONARY V2.0: Apply final production-grade enhancement
+        let (finalInsight, linguisticScore) = KASPERLinguisticEnhancerV2.enhance(
+            rawInsight,
+            options: finalEnhancementOptions
+        )
 
-        // Final quality validation and enhancement
-        let qualityResult = KASPERLinguisticEnhancer.validateEnhancedContent(finalInsight)
-
-        if qualityResult.qualityScore < 80 {
-            print("🔮 KASPER DEBUG: Generated insight quality could be improved (Score: \(String(format: "%.0f", qualityResult.qualityScore))%): \(finalInsight)")
-            if !qualityResult.issues.isEmpty {
-                print("🔮 KASPER DEBUG: Issues: \(qualityResult.issues)")
-            }
+        // Log quality metrics for continuous improvement
+        if linguisticScore.finalGrade >= 0.90 {
+            print("🔮 KASPER V2.0: ✨ EXCEPTIONAL quality insight - \(linguisticScore.summary)")
+        } else if linguisticScore.finalGrade >= 0.84 {
+            print("🔮 KASPER V2.0: 🌟 EXCELLENT quality insight - \(linguisticScore.summary)")
+        } else {
+            print("🔮 KASPER V2.0: ⚠️ Quality below threshold - \(linguisticScore.summary)")
+            print("🔮 KASPER V2.0: Raw insight: \(rawInsight)")
+            print("🔮 KASPER V2.0: Enhanced: \(finalInsight)")
         }
 
         return finalInsight
@@ -1687,6 +1674,72 @@ class KASPERMLXEngine: ObservableObject {
         mlxInput["user_intent"] = context["user_query"] ?? ""
 
         return mlxInput
+    }
+    
+    // MARK: - 🎭 V2.0 PERSONA MAPPING SYSTEM
+    
+    /// Map KASPER feature domain to appropriate spiritual persona
+    private func mapDomainToPersona(_ feature: KASPERFeature) -> SpiritualPersona {
+        switch feature {
+        case .journalInsight:
+            return .mindfulnessCoach
+        case .dailyCard:
+            return .oracle
+        case .sanctumGuidance:
+            return .mindfulnessCoach
+        case .focusIntention:
+            return .numerologyScholar
+        case .cosmicTiming:
+            return .oracle
+        case .matchCompatibility:
+            return .psychologist
+        case .realmInterpretation:
+            return .philosopher
+        }
+    }
+    
+    /// Map insight type to appropriate spiritual persona
+    private func mapInsightTypeToPersona(_ type: KASPERInsightType) -> SpiritualPersona {
+        switch type {
+        case .guidance:
+            return .oracle
+        case .reflection:
+            return .philosopher
+        case .affirmation:
+            return .mindfulnessCoach
+        case .prediction:
+            return .oracle
+        default:
+            return .oracle
+        }
+    }
+    
+    /// Log telemetry for linguistic enhancement performance
+    private func logLinguisticTelemetry(
+        original: String,
+        enhanced: String,
+        score: LinguisticScore,
+        domain: KASPERFeature,
+        persona: SpiritualPersona,
+        fallbackUsed: Bool
+    ) {
+        let telemetry: [String: Any] = [
+            "original_length": original.count,
+            "enhanced_length": enhanced.count,
+            "quality_score": score.finalGrade,
+            "readability": score.readability,
+            "repetition_ratio": score.repetitionRatio,
+            "cadence_score": score.cadenceScore,
+            "variety_score": score.varietyScore,
+            "persona_adherence": score.personaAdherence,
+            "safety_score": score.safetyScore,
+            "domain": domain.rawValue,
+            "persona": persona.displayName,
+            "fallback_used": fallbackUsed,
+            "quality_tier": score.qualityTier
+        ]
+        
+        logger.info("🔮 KASPER V2.0 TELEMETRY: \(telemetry)")
     }
 }
 

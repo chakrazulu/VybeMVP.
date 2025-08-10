@@ -1,0 +1,207 @@
+{
+  "version": "2.0",
+  "description": "KASPER Linguistic Enhancement Configuration - Production-Grade Language Rules",
+  
+  "caps": {
+    "whitelist": ["Divine", "Source", "Universe", "Creator", "God"],
+    "lowercasePronouns": true,
+    "comment": "Sacred terms that can remain capitalized mid-sentence"
+  },
+  
+  "length": {
+    "mainMin": 12,
+    "mainMax": 22,
+    "followupMin": 6,
+    "followupMax": 10,
+    "comment": "Target token counts for natural cadence"
+  },
+  
+  "repetition": {
+    "lemmaWindow": 12,
+    "banBigrams": true,
+    "banAdjacentTrigrams": true,
+    "functionWords": [
+      "the", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for",
+      "of", "with", "by", "from", "up", "about", "into", "through", "during",
+      "is", "are", "was", "were", "be", "been", "being", "have", "has", "had",
+      "you", "your", "this", "that", "these", "those", "can", "will", "may"
+    ],
+    "comment": "12-token semantic window prevents word repetition"
+  },
+  
+  "synonyms": {
+    "mystic": ["mystical", "spiritual", "inner", "sacred", "divine"],
+    "nature": ["essence", "spirit", "being", "true self", "authentic self", "soul"],
+    "wisdom": ["insight", "knowing", "understanding", "awareness", "consciousness", "clarity"],
+    "energy": ["force", "power", "essence", "vibration", "flow", "presence"],
+    "spiritual": ["sacred", "divine", "mystical", "cosmic", "soulful", "transcendent"],
+    "trust": ["embrace", "honor", "acknowledge", "welcome", "receive", "allow"],
+    "path": ["journey", "way", "direction", "course", "unfolding", "progression"],
+    "inner": ["internal", "deep", "core", "authentic", "true", "essential"],
+    "authentic": ["genuine", "real", "true", "natural", "honest", "original"],
+    "divine": ["sacred", "holy", "spiritual", "cosmic", "celestial", "transcendent"]
+  },
+  
+  "intensifiers": {
+    "maxPerSentence": 1,
+    "moderateList": ["deeply", "beautiful", "powerful", "amazing", "incredible", "profound"],
+    "allowList": ["gently", "steadily", "naturally", "quietly", "simply", "softly"],
+    "comment": "Prevent intensifier overload, promote gentle language"
+  },
+  
+  "safety": {
+    "blockedTerms": ["guarantee", "guaranteed", "cure", "heal", "fix", "must", "should", "have to"],
+    "medicalTerms": ["diagnose", "treatment", "disease", "disorder", "syndrome", "condition"],
+    "financialTerms": ["money", "wealth", "rich", "investment", "profit", "cash"],
+    "replacements": {
+      "will": "can",
+      "must": "might", 
+      "should": "can",
+      "guarantee": "invite",
+      "cure": "support",
+      "fix": "support"
+    },
+    "comment": "Maintain spiritual focus, avoid medical/financial claims"
+  },
+  
+  "actionVerbs": {
+    "required": true,
+    "list": [
+      "breathe", "notice", "feel", "sense", "observe", "allow", "welcome",
+      "receive", "open", "step", "align", "ground", "center", "pause",
+      "soften", "release", "embrace", "trust", "honor", "acknowledge"
+    ],
+    "groundingPhrases": [
+      "Take one slow breath and notice where this lands in your body",
+      "Pause and feel how this resonates within you",
+      "Breathe gently and allow this wisdom to settle",
+      "Notice what shifts as you welcome this insight",
+      "Let this truth ground itself in your awareness"
+    ],
+    "comment": "Ensure concrete sensory anchoring in all insights"
+  },
+  
+  "personas": {
+    "oracle": {
+      "mysticalTerms": ["mystical", "cosmic", "divine", "sacred", "spiritual", "universe"],
+      "replacements": {
+        "understand": "sense",
+        "realize": "recognize",
+        "discover": "unveil",
+        "learn": "remember",
+        "see": "perceive",
+        "know": "feel in your bones"
+      },
+      "maxMetaphors": 1,
+      "avoidProphecy": true,
+      "comment": "Warm mystical wisdom without future predictions"
+    },
+    
+    "psychologist": {
+      "cognitiveVerbs": ["notice", "observe", "recognize", "acknowledge", "label", "reframe"],
+      "replacements": {
+        "mystical": "internal",
+        "cosmic": "deep",
+        "divine": "authentic",
+        "sacred": "meaningful",
+        "feel": "notice",
+        "sense": "observe"
+      },
+      "avoidWoo": ["mystical", "cosmic", "divine", "sacred", "magical"],
+      "comment": "Evidence-based language, cognitive clarity"
+    },
+    
+    "mindfulnessCoach": {
+      "bodyTerms": ["breath", "breathe", "body", "sensation", "ground", "center"],
+      "presentTenseOnly": true,
+      "replacements": {
+        "will be": "is",
+        "will feel": "feels", 
+        "will bring": "brings",
+        "you can trust": "you trust",
+        "you might notice": "you notice"
+      },
+      "requireBodyAwareness": true,
+      "comment": "Present-moment awareness with embodied grounding"
+    },
+    
+    "numerologyScholar": {
+      "academicTerms": ["pattern", "indicates", "suggests", "structure", "system", "configuration"],
+      "requireFactualBasis": true,
+      "practicalApplication": true,
+      "comment": "Academic precision with practical guidance"
+    },
+    
+    "philosopher": {
+      "contrastPairs": [
+        ["freedom", "responsibility"],
+        ["wisdom", "humility"],
+        ["strength", "gentleness"],
+        ["knowing", "mystery"],
+        ["action", "patience"],
+        ["certainty", "wonder"],
+        ["depth", "simplicity"]
+      ],
+      "abstractConcepts": ["truth", "meaning", "essence", "being", "existence"],
+      "maxContrasts": 1,
+      "comment": "Abstract wisdom with dialectical thinking"
+    }
+  },
+  
+  "emoji": {
+    "maxPerCard": 1,
+    "position": "leading",
+    "allowed": ["🌟", "🔮", "💫", "🌙", "✨", "⚡", "🎯", "🚀", "💎", "🌊"],
+    "comment": "Single leading emoji, no mid-sentence sprinkles"
+  },
+  
+  "typography": {
+    "singleSpaceAfterPeriod": true,
+    "noEllipses": true,
+    "maxEmDashesPerInsight": 1,
+    "punctuationRules": {
+      "maxCommasPerSentence": 1,
+      "preferCoordinating": ["and", "so", "while", "as"]
+    },
+    "comment": "Clean, professional typography standards"
+  },
+  
+  "qualityGates": {
+    "minScore": 0.84,
+    "weights": {
+      "readability": 0.20,
+      "repetition": 0.20,
+      "cadence": 0.15,
+      "variety": 0.15,
+      "personaAdherence": 0.15,
+      "safety": 0.15
+    },
+    "readabilityTarget": {
+      "minFleschScore": 60,
+      "maxFleschScore": 80,
+      "gradeLevel": "6.0-9.0"
+    },
+    "repetitionTarget": 0.62,
+    "varietyTarget": 0.8,
+    "safetyRequired": 1.0,
+    "comment": "Objective quality measurement for A/B testing"
+  },
+  
+  "performance": {
+    "maxLatencyMs": 3,
+    "cacheSize": 1000,
+    "telemetryEnabled": true,
+    "comment": "On-device performance requirements"
+  },
+  
+  "abTesting": {
+    "enabled": true,
+    "trafficSplit": 0.2,
+    "successMetrics": {
+      "thumbsUpIncrease": 0.15,
+      "repetitionReduction": 0.30,
+      "safetyMaintenance": 1.0
+    },
+    "comment": "Production rollout configuration"
+  }
+}
