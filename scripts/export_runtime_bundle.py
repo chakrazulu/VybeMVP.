@@ -64,6 +64,9 @@ class RuntimeBundleExporter:
         self.project_root = Path(__file__).parent.parent
         self.approved_dir = self.project_root / "KASPERMLX/MLXTraining/ContentRefinery/Approved"
         self.number_meanings_dir = self.project_root / "NumerologyData/NumberMeanings"
+        self.master_numbers_dir = (
+            self.project_root / "KASPERMLX/MLXTraining/ContentRefinery/MasterNumbers"
+        )
 
         # Destination path - where runtime bundle will be created
         # Claude: Updated to use KASPERMLXRuntimeBundle at root level for clarity
@@ -160,53 +163,67 @@ class RuntimeBundleExporter:
         including symbolism, correspondences, and detailed interpretations.
         Used by NumberMeaningView to display educational content to users.
 
-        MASTER NUMBER HANDLING (v2.1.2):
-        Master numbers (11, 22, 33, 44) currently duplicate their base number
-        content with added metadata. This is intentional for v2.1.2 to ship
-        immediately. Future versions will have distinct master number content.
+        MASTER NUMBER HANDLING (v2.1.3+):
+        Master numbers (11, 22, 33, 44) now prefer explicit master-specific files
+        when available, with graceful fallback to base number duplication.
+        This enables authentic master number content while maintaining compatibility.
         """
         print("\n📚 Exporting Rich Number Meanings...")
 
         # Export the NumberMessages_Complete files (rich content)
+        master_numbers = {"11": "1", "22": "2", "33": "3", "44": "4"}
+
         for number in self.required_numbers:
-            # Handle special case for master numbers
-            # Master numbers use their first digit as base (11→1, 22→2, etc.)
-            file_number = number if len(number) == 1 else number[0]
+            dest_file = self.runtime_bundle_dir / "NumberMeanings" / f"{number}_rich.json"
 
-            source_file = self.number_meanings_dir / f"NumberMessages_Complete_{file_number}.json"
+            # For master numbers, prefer explicit master file if it exists
+            if number in master_numbers:
+                master_specific_file = self.master_numbers_dir / f"master_{number}_rich.json"
+                base_number = master_numbers[number]
+                base_file = self.number_meanings_dir / f"NumberMessages_Complete_{base_number}.json"
 
-            if source_file.exists():
-                # Create a rich content file for each number
-                dest_file = self.runtime_bundle_dir / "NumberMeanings" / f"{number}_rich.json"
-
-                # For master numbers, enhance with metadata
-                if len(number) > 1:  # Master number
-                    # Read source and create master number variant
-                    with open(source_file, "r", encoding="utf-8") as f:
+                if master_specific_file.exists():
+                    # Use authentic master number content
+                    shutil.copy2(master_specific_file, dest_file)
+                    self.stats["rich_files"] += 1
+                    self.stats["total_size_kb"] += master_specific_file.stat().st_size / 1024
+                    print(f"  ✓ Number {number} rich content (authentic master)")
+                elif base_file.exists():
+                    # Fallback to enhanced base number content
+                    with open(base_file, "r", encoding="utf-8") as f:
                         content = json.load(f)
 
-                    # Enhance with master number specifics
-                    # This preserves spiritual integrity while marking it as special
+                    # Enhance with master number metadata
                     content["meta"] = {
                         "number": number,
-                        "type": "master",
-                        "base_number": file_number,
-                        "note": "Master number using enhanced base content for v2.1.2",
+                        "type": "master_fallback",
+                        "base_number": base_number,
+                        "note": "Master number using enhanced base content (fallback mode)",
                     }
 
                     with open(dest_file, "w", encoding="utf-8") as f:
                         json.dump(content, f, indent=2, ensure_ascii=False)
+
+                    self.stats["rich_files"] += 1
+                    self.stats["total_size_kb"] += base_file.stat().st_size / 1024
+                    print(f"  ✓ Number {number} rich content (fallback→{base_number})")
                 else:
-                    # Direct copy for single-digit numbers
-                    shutil.copy2(source_file, dest_file)
-
-                self.stats["rich_files"] += 1
-                self.stats["total_size_kb"] += source_file.stat().st_size / 1024
-
-                print(f"  ✓ Number {number} rich content")
+                    self.stats["missing_numbers"].append(number)
+                    print(
+                        f"  ⚠️ Missing rich content for master number {number} (and base {base_number})"
+                    )
             else:
-                self.stats["missing_numbers"].append(number)
-                print(f"  ⚠️ Missing rich content for number {number}")
+                # Single-digit numbers - direct copy
+                source_file = self.number_meanings_dir / f"NumberMessages_Complete_{number}.json"
+
+                if source_file.exists():
+                    shutil.copy2(source_file, dest_file)
+                    self.stats["rich_files"] += 1
+                    self.stats["total_size_kb"] += source_file.stat().st_size / 1024
+                    print(f"  ✓ Number {number} rich content")
+                else:
+                    self.stats["missing_numbers"].append(number)
+                    print(f"  ⚠️ Missing rich content for number {number}")
 
     def export_persona_content(self):
         """
