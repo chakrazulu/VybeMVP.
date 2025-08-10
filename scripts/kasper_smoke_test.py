@@ -341,7 +341,6 @@ class KASPERSmokeTest:
             has_reference = "RuntimeBundle" in pbxproj_content
 
             # Check for Copy Bundle Resources phase
-            has_copy_phase = "PBXResourcesBuildPhase" in pbxproj_content
 
             if has_reference:
                 self._print_pass("Test 5: RuntimeBundle referenced in Xcode project")
@@ -385,8 +384,8 @@ class KASPERSmokeTest:
             start = time.time()
             try:
                 with open(test_file, "r", encoding="utf-8") as f:
-                    content = json.load(f)
-            except:
+                    json.load(f)
+            except Exception:
                 pass
             load_time = (time.time() - start) * 1000  # Convert to ms
             load_times.append(load_time)

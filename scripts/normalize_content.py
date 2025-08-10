@@ -82,7 +82,6 @@ class ContentNormalizer:
         # Handle special cases first
         special_cases = {
             "11:11": "11_11",
-            "da'at": "daath",  # straight apostrophe
             "da'at": "daath",  # curly apostrophe
             "DNA": "dna",
             "ROI": "roi",
