@@ -103,8 +103,8 @@ final class SpiritualDataController: ObservableObject {
                     // Last resort: create basic container
                     do {
                         self.container = try ModelContainer(for: NumberMeaning.self)
-                    } catch let fatalError {
-                        fatalError("Unable to create ModelContainer - app cannot continue: \(fatalError)")
+                    } catch let containerError {
+                        fatalError("Unable to create ModelContainer - app cannot continue: \(containerError)")
                     }
                 }
             }
