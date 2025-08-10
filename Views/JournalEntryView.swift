@@ -44,7 +44,8 @@ struct JournalEntryView: View {
                 TextField("Title", text: Binding(
                     get: { entry.title ?? "" },
                     set: { newValue in
-                        entry.title = newValue
+                        let trimmed = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                        entry.title = String(trimmed.prefix(200))
                         saveIfNeeded()
                     }
                 ))
@@ -59,7 +60,13 @@ struct JournalEntryView: View {
                 TextEditor(text: Binding(
                     get: { entry.content ?? "" },
                     set: { newValue in
-                        entry.content = newValue
+                        // Sanitize journal content - allow unicode but limit length and remove control chars
+                        let trimmed = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                        let filtered = trimmed.unicodeScalars.filter { scalar in
+                            !scalar.properties.isControl || scalar.value == 10 || scalar.value == 13 || scalar.value == 9
+                        }
+                        let clean = String(String.UnicodeScalarView(filtered))
+                        entry.content = String(clean.prefix(5000))
                         saveIfNeeded()
                     }
                 ))

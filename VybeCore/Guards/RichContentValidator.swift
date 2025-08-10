@@ -102,7 +102,13 @@ struct RichContentValidator {
     private static let validSources: Set<String> = ["single_numbers", "master_numbers", "behavioral"]
 
     /// Snake_case validation regex (lowercase letters, numbers, underscores only)
-    private static let snakeRegex = try! NSRegularExpression(pattern: #"^[a-z0-9_]+$"#)
+    private static let snakeRegex: NSRegularExpression = {
+        do {
+            return try NSRegularExpression(pattern: #"^[a-z0-9_]+$"#)
+        } catch {
+            fatalError("Invalid regex pattern for snake_case validation: \(error)")
+        }
+    }()
 
     // MARK: - Main Validation Entry Point
 

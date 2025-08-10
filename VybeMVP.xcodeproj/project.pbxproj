@@ -105,6 +105,7 @@
 		4D6308E02DFFCB2C00FD32E9 /* SocialTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D72DFFCB2C00FD32E9 /* SocialTimelineView.swift */; };
 		4D6308E12DFFCB2C00FD32E9 /* SocialUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D22DFFCB2C00FD32E9 /* SocialUser.swift */; };
 		4D6308E42DFFCB6F00FD32E9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4D6308E32DFFCB6F00FD32E9 /* FirebaseAuth */; };
+		4D65277A2E493BE800F521E1 /* vybeOS-handoff.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6527792E493BE800F521E1 /* vybeOS-handoff.md */; };
 		4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */; };
 		4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */; };
 		4D6C7B552DE45441001036E5 /* ArchetypeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */; };
@@ -661,6 +662,7 @@
 		4D6308D52DFFCB2C00FD32E9 /* PostComposerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComposerView.swift; sourceTree = "<group>"; };
 		4D6308D62DFFCB2C00FD32E9 /* ReactionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPickerView.swift; sourceTree = "<group>"; };
 		4D6308D72DFFCB2C00FD32E9 /* SocialTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTimelineView.swift; sourceTree = "<group>"; };
+		4D6527792E493BE800F521E1 /* vybeOS-handoff.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "vybeOS-handoff.md"; sourceTree = "<group>"; };
 		4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetype.swift; sourceTree = "<group>"; };
 		4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetypeManager.swift; sourceTree = "<group>"; };
 		4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchetypeDisplayView.swift; sourceTree = "<group>"; };
@@ -2138,6 +2140,7 @@
 		4DDA0A712E48348900449F20 /* VybeOS */ = {
 			isa = PBXGroup;
 			children = (
+				4D6527792E493BE800F521E1 /* vybeOS-handoff.md */,
 				4DB1B4B92E48418900F1585A /* NAVIGATION-INDEX.md */,
 				4DB1B4B32E483D9300F1585A /* VYBEOS-DOCUMENTATION-ECOSYSTEM.md */,
 				4DDA0A642E48348900449F20 /* API-Documentation */,
@@ -2367,6 +2370,7 @@
 				4DDA0A352E47CBF900449F20 /* expression_04_behavioral.json in Resources */,
 				4DCB39492E1F78AE00311D51 /* unity_consciousness.svg in Resources */,
 				4DCB394A2E1F78AE00311D51 /* renewal_justice.svg in Resources */,
+				4D65277A2E493BE800F521E1 /* vybeOS-handoff.md in Resources */,
 				4DCB394B2E1F78AE00311D51 /* will_command.svg in Resources */,
 				4DCB394C2E1F78AE00311D51 /* unity_alpha.svg in Resources */,
 				4DCB394D2E1F78AE00311D51 /* trinity_mandala.svg in Resources */,
