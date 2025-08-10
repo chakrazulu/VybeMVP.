@@ -84,6 +84,9 @@ import Foundation
  * This struct encapsulates the sophisticated spiritual language generation system
  * that creates authentic, flowing, and personally relevant spiritual guidance.
  * All methods are static for performance and thread-safety across the app.
+ *
+ * ENHANCED WITH LINGUISTIC PROCESSING: Now integrates with KASPERLinguisticEnhancer
+ * for professional grammar quality and natural sentence flow.
  */
 public struct KASPERTemplateEnhancer {
 
@@ -128,39 +131,16 @@ public struct KASPERTemplateEnhancer {
         reference: String,
         guidance: String
     ) -> String {
-        let templates = [
-            // Flowing narrative style
-            "🌟 As \(component) awakens within you, \(reference) becomes a beacon of clarity. The universe invites you to \(guidance), allowing this sacred energy to illuminate your path forward.",
+        // ENHANCED: Use linguistic enhancer for professional grammar and flow
+        let enhancedInsight = KASPERLinguisticEnhancer.enhanceSentenceFlow(
+            component: component,
+            reference: reference,
+            guidance: guidance,
+            type: .guidance
+        )
 
-            // Wisdom teacher style
-            "🌟 Today's spiritual landscape reveals \(component) radiating through \(reference). This cosmic alignment suggests that when you \(guidance), profound transformation naturally unfolds.",
-
-            // Mystical oracle style
-            "🌟 The cosmic tapestry weaves \(component) into your awareness, highlighting \(reference) as your spiritual compass. Now is the time to \(guidance) and witness the magic that emerges.",
-
-            // Gentle guide style
-            "🌟 Notice how \(component) gently flows through \(reference), creating sacred space for growth. By choosing to \(guidance), you align with the universe's loving intention for your journey.",
-
-            // Empowering mentor style
-            "🌟 Your spiritual essence channels \(component) through \(reference) with remarkable clarity. This powerful moment calls you to \(guidance), stepping fully into your divine purpose.",
-
-            // Cosmic storyteller style
-            "🌟 Within the grand cosmic dance, \(component) emerges through \(reference) like starlight through crystal. The universe whispers: \(guidance), and watch as synchronicities bloom around you.",
-
-            // Sacred invitation style
-            "🌟 Today brings a sacred invitation as \(component) activates \(reference) within your energy field. Answer this cosmic call to \(guidance), knowing the universe supports every step.",
-
-            // Spiritual architect style
-            "🌟 You're architecting your reality as \(component) builds through \(reference). The cosmic blueprint reveals it's time to \(guidance), constructing a foundation of spiritual abundance.",
-
-            // Divine messenger style
-            "🌟 A message arrives through \(component), delivered via \(reference) straight to your soul. The guidance is clear: \(guidance), and trust the unfolding of divine timing.",
-
-            // Energy weaver style
-            "🌟 Feel how \(component) weaves through \(reference), creating patterns of possibility. As you \(guidance), these energetic threads strengthen into manifestation."
-        ]
-
-        return templates.randomElement() ?? templates[0]
+        // Add spiritual guidance emoji
+        return "🌟 " + enhancedInsight
     }
 
     /// Generate reflection insights with contemplative depth
@@ -169,39 +149,16 @@ public struct KASPERTemplateEnhancer {
         reference: String,
         guidance: String
     ) -> String {
-        let templates = [
-            // Deep contemplation style
-            "🌙 As \(component) illuminates your inner landscape, consider how \(reference) has been guiding you all along. What shifts when you \(guidance) with conscious awareness?",
+        // ENHANCED: Use linguistic enhancer for professional grammar and flow
+        let enhancedInsight = KASPERLinguisticEnhancer.enhanceSentenceFlow(
+            component: component,
+            reference: reference,
+            guidance: guidance,
+            type: .reflection
+        )
 
-            // Mirror of wisdom style
-            "🌙 The mirror of consciousness reflects \(component) through \(reference), revealing hidden truths. Take a moment to \(guidance) and observe what wisdom emerges from stillness.",
-
-            // Journey reflection style
-            "🌙 Your spiritual journey has brought \(component) into focus through \(reference). Reflect on how choosing to \(guidance) might reshape your understanding of this sacred path.",
-
-            // Inner dialogue style
-            "🌙 Within the quiet spaces of your soul, \(component) speaks through \(reference). Listen deeply as you \(guidance), allowing inner wisdom to surface naturally.",
-
-            // Sacred pause style
-            "🌙 This moment of reflection unveils \(component) working through \(reference) in mysterious ways. What happens when you pause to \(guidance) with complete presence?",
-
-            // Wisdom integration style
-            "🌙 Notice the subtle ways \(component) has been expressing through \(reference) recently. As you \(guidance), observe how past experiences suddenly make perfect sense.",
-
-            // Soul questioning style
-            "🌙 Your soul poses a question through \(component), using \(reference) as its voice. How might your life transform if you fully \(guidance) starting from this moment?",
-
-            // Pattern recognition style
-            "🌙 Patterns emerge as \(component) dances with \(reference) in your awareness. Reflect on times when choosing to \(guidance) has brought unexpected blessings.",
-
-            // Inner compass style
-            "🌙 Your inner compass aligns with \(component) through \(reference), pointing toward truth. What direction emerges when you sincerely \(guidance)?",
-
-            // Sacred memory style
-            "🌙 Memories surface as \(component) activates \(reference) within your consciousness. Remember moments when you chose to \(guidance) and felt divinely supported."
-        ]
-
-        return templates.randomElement() ?? templates[0]
+        // Add reflection moon emoji
+        return "🌙 " + enhancedInsight
     }
 
     /// Generate affirmation insights with empowering energy
@@ -210,39 +167,16 @@ public struct KASPERTemplateEnhancer {
         reference: String,
         guidance: String
     ) -> String {
-        let templates = [
-            // Power declaration style
-            "💫 I am a sacred vessel for \(component), expressing magnificently through \(reference). I choose to \(guidance) with unwavering faith in my spiritual power.",
+        // ENHANCED: Use linguistic enhancer for professional grammar and flow
+        let enhancedInsight = KASPERLinguisticEnhancer.enhanceSentenceFlow(
+            component: component,
+            reference: reference,
+            guidance: guidance,
+            type: .affirmation
+        )
 
-            // Divine embodiment style
-            "💫 I embody \(component) as it flows through \(reference) with grace and purpose. Each day I \(guidance), stepping deeper into my divine truth.",
-
-            // Cosmic alignment style
-            "💫 I align perfectly with \(component), allowing \(reference) to guide my every step. I joyfully \(guidance), knowing the universe conspires in my favor.",
-
-            // Sacred commitment style
-            "💫 I commit to honoring \(component) as it expresses through \(reference). With courage and clarity, I \(guidance), trusting my spiritual authority.",
-
-            // Manifestation mastery style
-            "💫 I masterfully channel \(component) through \(reference) into physical reality. As I \(guidance), miracles naturally unfold in my experience.",
-
-            // Divine remembrance style
-            "💫 I remember my true nature as \(component) awakens \(reference) within me. I confidently \(guidance), reclaiming my spiritual sovereignty.",
-
-            // Quantum creator style
-            "💫 I consciously create with \(component), using \(reference) as my divine instrument. When I \(guidance), reality reshapes to match my highest vision.",
-
-            // Soul celebration style
-            "💫 I celebrate as \(component) dances through \(reference) in perfect harmony. I enthusiastically \(guidance), embracing the joy of spiritual expansion.",
-
-            // Infinite potential style
-            "💫 I access infinite potential through \(component), channeled via \(reference). I fearlessly \(guidance), knowing all possibilities exist within me.",
-
-            // Sacred activation style
-            "💫 I activate \(component) through \(reference) with divine intention. As I \(guidance), every cell in my being resonates with spiritual truth."
-        ]
-
-        return templates.randomElement() ?? templates[0]
+        // Add empowerment star emoji
+        return "💫 " + enhancedInsight
     }
 
     /// Generate prediction insights with mystical foresight
@@ -251,39 +185,16 @@ public struct KASPERTemplateEnhancer {
         reference: String,
         guidance: String
     ) -> String {
-        let templates = [
-            // Oracle vision style
-            "🔮 The cosmic winds carry \(component) through \(reference) toward a pivotal moment ahead. As you \(guidance), watch for synchronicities that confirm you're on the right path.",
+        // ENHANCED: Use linguistic enhancer for professional grammar and flow
+        let enhancedInsight = KASPERLinguisticEnhancer.enhanceSentenceFlow(
+            component: component,
+            reference: reference,
+            guidance: guidance,
+            type: .prediction
+        )
 
-            // Timeline glimpse style
-            "🔮 Future timelines converge as \(component) strengthens \(reference) within your field. Those who \(guidance) will find doors opening that seemed permanently closed.",
-
-            // Destiny weaving style
-            "🔮 Destiny weaves \(component) through \(reference), preparing you for what's coming. The cosmos suggests you \(guidance) to align with approaching opportunities.",
-
-            // Prophetic whisper style
-            "🔮 Ancient wisdom speaks: when \(component) flows through \(reference), transformation is imminent. Prepare by choosing to \(guidance) before the cosmic tide turns.",
-
-            // Quantum possibility style
-            "🔮 Quantum fields shift as \(component) activates \(reference) in your reality. The probability increases for positive outcomes when you \(guidance) with intention.",
-
-            // Cosmic forecast style
-            "🔮 The spiritual forecast shows \(component) intensifying through \(reference) in coming cycles. Those who \(guidance) will ride this wave with grace and ease.",
-
-            // Sacred timing style
-            "🔮 Divine timing aligns \(component) with \(reference) for a reason yet to be revealed. Trust that as you \(guidance), perfect orchestration unfolds.",
-
-            // Vision quest style
-            "🔮 Visions arise showing \(component) transforming \(reference) in unexpected ways. The key to navigating this shift: \(guidance) with an open heart.",
-
-            // Karmic preview style
-            "🔮 Karmic patterns reveal \(component) working through \(reference) to complete a cycle. Liberation comes to those who \(guidance) without hesitation.",
-
-            // Stellar alignment style
-            "🔮 Stellar configurations amplify \(component) through \(reference) in the days ahead. Maximum benefit flows to those who \(guidance) during this cosmic window."
-        ]
-
-        return templates.randomElement() ?? templates[0]
+        // Add crystal ball emoji
+        return "🔮 " + enhancedInsight
     }
 
     // MARK: - Enhanced Sentence Endings

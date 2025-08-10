@@ -877,19 +877,15 @@ class KASPERMLXEngine: ObservableObject {
                 spiritualComponents.append("the energy of \(archetype)")
                 personalReferences.append("your \(archetype.lowercased().replacingOccurrences(of: "the ", with: "")) nature")
 
-                // Claude: Clean and validate MegaCorpus guidance to prevent malformed patterns
-                let cleanedGuidance = guidanceTemplate
-                    .replacingOccurrences(of: "Trust your the ", with: "trust your ")
-                    .replacingOccurrences(of: "Trust The ", with: "trust the ")
-                    .replacingOccurrences(of: "Trust your The ", with: "trust your ")
-                    .lowercased()
-                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                // Claude: ENHANCED - Use professional linguistic enhancement for MegaCorpus content
+                let cleanedGuidance = KASPERLinguisticEnhancer.cleanSpiritualContent(guidanceTemplate)
+                let qualityResult = KASPERLinguisticEnhancer.validateEnhancedContent(cleanedGuidance)
 
-                // Only use cleaned guidance if it's reasonable, otherwise fall back to template
-                if !cleanedGuidance.isEmpty && cleanedGuidance.count > 5 && !cleanedGuidance.contains("  ") {
-                    actionableGuidance.append(cleanedGuidance)
+                // Only use MegaCorpus guidance if it meets quality standards
+                if qualityResult.isValid && qualityResult.qualityScore > 70 {
+                    actionableGuidance.append(cleanedGuidance.lowercased())
                 } else {
-                    print("🔮 KASPER DEBUG: Skipping malformed MegaCorpus guidance: '\(guidanceTemplate)'")
+                    print("🔮 KASPER DEBUG: Skipping low-quality MegaCorpus guidance: '\(guidanceTemplate)' (Score: \(String(format: "%.0f", qualityResult.qualityScore))%)")
                     // Template guidance already added above, so we're good
                 }
             }
@@ -1311,40 +1307,58 @@ class KASPERMLXEngine: ObservableObject {
             selectedGuidance = actionableBackups.randomElement() ?? "trust your path"
         }
 
-        // Claude: ENHANCED - Use new natural language templates for flowing spiritual insights
+        // Claude: ENHANCED - Clean all components before template generation for professional quality
+        let cleanedComponent = KASPERLinguisticEnhancer.cleanSpiritualContent(selectedComponent)
+        let cleanedReference = KASPERLinguisticEnhancer.cleanSpiritualContent(selectedReference)
+        let cleanedGuidance = KASPERLinguisticEnhancer.cleanSpiritualContent(selectedGuidance)
+
+        // Generate insight using enhanced templates with linguistic processing
+        var finalInsight: String
         switch type {
         case .guidance:
-            return KASPERTemplateEnhancer.generateGuidanceInsight(
-                component: selectedComponent,
-                reference: selectedReference,
-                guidance: selectedGuidance
+            finalInsight = KASPERTemplateEnhancer.generateGuidanceInsight(
+                component: cleanedComponent,
+                reference: cleanedReference,
+                guidance: cleanedGuidance
             )
         case .reflection:
-            return KASPERTemplateEnhancer.generateReflectionInsight(
-                component: selectedComponent,
-                reference: selectedReference,
-                guidance: selectedGuidance
+            finalInsight = KASPERTemplateEnhancer.generateReflectionInsight(
+                component: cleanedComponent,
+                reference: cleanedReference,
+                guidance: cleanedGuidance
             )
         case .affirmation:
-            return KASPERTemplateEnhancer.generateAffirmationInsight(
-                component: selectedComponent,
-                reference: selectedReference,
-                guidance: selectedGuidance
+            finalInsight = KASPERTemplateEnhancer.generateAffirmationInsight(
+                component: cleanedComponent,
+                reference: cleanedReference,
+                guidance: cleanedGuidance
             )
         case .prediction:
-            return KASPERTemplateEnhancer.generatePredictionInsight(
-                component: selectedComponent,
-                reference: selectedReference,
-                guidance: selectedGuidance
+            finalInsight = KASPERTemplateEnhancer.generatePredictionInsight(
+                component: cleanedComponent,
+                reference: cleanedReference,
+                guidance: cleanedGuidance
             )
         default:
             // Default fallback to guidance style for unknown types
-            return KASPERTemplateEnhancer.generateGuidanceInsight(
-                component: selectedComponent,
-                reference: selectedReference,
-                guidance: selectedGuidance
+            finalInsight = KASPERTemplateEnhancer.generateGuidanceInsight(
+                component: cleanedComponent,
+                reference: cleanedReference,
+                guidance: cleanedGuidance
             )
         }
+
+        // Final quality validation and enhancement
+        let qualityResult = KASPERLinguisticEnhancer.validateEnhancedContent(finalInsight)
+
+        if qualityResult.qualityScore < 80 {
+            print("🔮 KASPER DEBUG: Generated insight quality could be improved (Score: \(String(format: "%.0f", qualityResult.qualityScore))%): \(finalInsight)")
+            if !qualityResult.issues.isEmpty {
+                print("🔮 KASPER DEBUG: Issues: \(qualityResult.issues)")
+            }
+        }
+
+        return finalInsight
     }
 
     // MARK: - MLX Integration Methods
