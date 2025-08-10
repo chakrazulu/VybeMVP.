@@ -1,7 +1,7 @@
 # 🤖 Claude Rules for VybeMVP
 
 **Project:** VybeMVP - Spiritual Wellness iOS App
-**Framework:** SwiftUI, MVVM, Swift 6  
+**Framework:** SwiftUI, MVVM, Swift 6
 **Status:** Production Ready - KASPER MLX v2.1.4 ✅ Authentic Content System
 
 ## 🎯 Critical Rules (MUST FOLLOW)

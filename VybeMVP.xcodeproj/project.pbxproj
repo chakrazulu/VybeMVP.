@@ -89,6 +89,8 @@
 		4D59299A2E4927CB002625DE /* master_33_rich.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D5929962E4927CB002625DE /* master_33_rich.json */; };
 		4D59299B2E4927CB002625DE /* master_11_rich.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D5929942E4927CB002625DE /* master_11_rich.json */; };
 		4D59299C2E4927CB002625DE /* master_44_rich.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D5929972E4927CB002625DE /* master_44_rich.json */; };
+		4D5929AB2E4933BA002625DE /* VybeCore-Overview.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D5929A92E4933BA002625DE /* VybeCore-Overview.md */; };
+		4D5929AC2E4933BA002625DE /* RichContentValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5929A72E4933BA002625DE /* RichContentValidator.swift */; };
 		4D5BEAF52E35A7AD00B56575 /* PostEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF22E35A7AD00B56575 /* PostEntity+CoreDataClass.swift */; };
 		4D5BEAF72E35A7E900B56575 /* PostEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF62E35A7E900B56575 /* PostEntity+CoreDataProperties.swift */; };
 		4D5BEAF92E35A81400B56575 /* HybridPostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF82E35A81400B56575 /* HybridPostRepository.swift */; };
@@ -644,6 +646,8 @@
 		4D5929952E4927CB002625DE /* master_22_rich.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = master_22_rich.json; sourceTree = "<group>"; };
 		4D5929962E4927CB002625DE /* master_33_rich.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = master_33_rich.json; sourceTree = "<group>"; };
 		4D5929972E4927CB002625DE /* master_44_rich.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = master_44_rich.json; sourceTree = "<group>"; };
+		4D5929A72E4933BA002625DE /* RichContentValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichContentValidator.swift; sourceTree = "<group>"; };
+		4D5929A92E4933BA002625DE /* VybeCore-Overview.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "VybeCore-Overview.md"; sourceTree = "<group>"; };
 		4D5BEAF22E35A7AD00B56575 /* PostEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4D5BEAF62E35A7E900B56575 /* PostEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4D5BEAF82E35A81400B56575 /* HybridPostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HybridPostRepository.swift; sourceTree = "<group>"; };
@@ -1357,6 +1361,23 @@
 			path = MasterNumbers;
 			sourceTree = "<group>";
 		};
+		4D5929A82E4933BA002625DE /* Guards */ = {
+			isa = PBXGroup;
+			children = (
+				4D5929A72E4933BA002625DE /* RichContentValidator.swift */,
+			);
+			path = Guards;
+			sourceTree = "<group>";
+		};
+		4D5929AA2E4933BA002625DE /* VybeCore */ = {
+			isa = PBXGroup;
+			children = (
+				4D5929A82E4933BA002625DE /* Guards */,
+				4D5929A92E4933BA002625DE /* VybeCore-Overview.md */,
+			);
+			path = VybeCore;
+			sourceTree = "<group>";
+		};
 		4D5BEB332E372AC100B56575 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -1844,6 +1865,7 @@
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
+				4D5929AA2E4933BA002625DE /* VybeCore */,
 				4D5926A62E48EDDB002625DE /* KASPERMLXRuntimeBundle */,
 				4DDA0A712E48348900449F20 /* VybeOS */,
 				4DF7A0942E41822600D5AC19 /* SpiritualDatabase */,
@@ -2356,6 +2378,7 @@
 				4D731FD42E474A0F0083C82C /* CR2_original.md in Resources */,
 				4D731FD62E474A0F0083C82C /* CR4_original.md in Resources */,
 				4D731FD72E474A0F0083C82C /* CR6_original.md in Resources */,
+				4D5929AB2E4933BA002625DE /* VybeCore-Overview.md in Resources */,
 				4D731FD82E474A0F0083C82C /* lifePath_03_v2.0_converted.json in Resources */,
 				4DDA0A592E47CEB300449F20 /* expression_08_converted.json in Resources */,
 				4D731FD92E474A0F0083C82C /* grok_mindfulnesscoach_33_converted.json in Resources */,
@@ -2733,6 +2756,7 @@
 				4D6308DF2DFFCB2C00FD32E9 /* PostCardView.swift in Sources */,
 				4D2CC6FB2E08BE3700BDF100 /* SacredGeometryAssets.swift in Sources */,
 				4D2F223E2E347C0F0087B052 /* ArchetypeCodexSection.swift in Sources */,
+				4D5929AC2E4933BA002625DE /* RichContentValidator.swift in Sources */,
 				4D2F223F2E347C0F0087B052 /* ProfileSummarySection.swift in Sources */,
 				4D2F22402E347C0F0087B052 /* ActionButtonsSection.swift in Sources */,
 				4D2F22412E347C0F0087B052 /* DivineTriangleSection.swift in Sources */,

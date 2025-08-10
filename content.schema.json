@@ -13,7 +13,7 @@
       "description": "Numerological number (1-9 for singles, 11/22/33/44 for masters)"
     },
     "title": {
-      "type": "string", 
+      "type": "string",
       "pattern": "^(Master )?Number \\d+: The [A-Z][a-zA-Z\\s]+$",
       "description": "Format: 'Number X: The Archetype Name' or 'Master Number X: The Archetype Name'"
     },
@@ -43,7 +43,7 @@
           "description": "Minimum intensity for this number's energy"
         },
         "max_range": {
-          "type": "number", 
+          "type": "number",
           "minimum": 0.0,
           "maximum": 1.0,
           "description": "Maximum intensity for this number's energy"
@@ -95,7 +95,7 @@
           },
           "supports": {
             "type": "array",
-            "minItems": 2, 
+            "minItems": 2,
             "maxItems": 5,
             "items": {
               "type": "string",
@@ -166,7 +166,7 @@
               "items": {"type": "integer", "minimum": 1, "maximum": 44}
             },
             "moderately_compatible": {
-              "type": "array", 
+              "type": "array",
               "items": {"type": "integer", "minimum": 1, "maximum": 44}
             },
             "challenging": {

@@ -35,11 +35,11 @@ OUTPUT STRUCTURE:
 KASPERMLXRuntimeBundle/
 ├── manifest.json           # Routing configuration with fallback strategy
 ├── NumberMeanings/         # Rich content for UI display (authentic preferred)
-│   ├── 1_rich.json → 9_rich.json     # Single numbers (authentic)  
+│   ├── 1_rich.json → 9_rich.json     # Single numbers (authentic)
 │   └── 11_rich.json → 44_rich.json   # Master numbers (authentic)
 ├── Behavioral/             # Behavioral insights for KASPER AI generation
 │   ├── lifePath_*.json     # Primary spiritual journey insights
-│   ├── expression_*.json   # External presentation insights  
+│   ├── expression_*.json   # External presentation insights
 │   ├── soulUrge_*.json     # Inner motivation insights
 │   └── [personas]/         # Oracle, Psychologist, MindfulnessCoach, etc.
 └── Correspondences/        # Future: planet/zodiac mappings
@@ -50,7 +50,7 @@ QUALITY ASSURANCE:
 - Clear reporting: "(authentic single/master)" vs "(legacy fallback)"
 - Size monitoring: Currently 1442.7 KB optimized
 
-Author: KASPER MLX Team  
+Author: KASPER MLX Team
 Date: August 2025
 Version: 2.1.4 - Authentic Content Priority System
 """
@@ -65,8 +65,8 @@ from pathlib import Path
 class RuntimeBundleExporter:
     """
     KASPER MLX Runtime Bundle Exporter v2.1.4 - Main orchestration class.
-    
-    Creates production-ready content bundles for iOS deployment with intelligent 
+
+    Creates production-ready content bundles for iOS deployment with intelligent
     content routing and authentic spiritual content prioritization.
 
     CORE RESPONSIBILITIES:
@@ -83,13 +83,13 @@ class RuntimeBundleExporter:
     - Prioritizes authentic master numbers (11/22/33/44) from /MasterNumbers/
     - Graceful fallback to legacy content when needed
     - Clear reporting of content sources for debugging
-    
+
     QUALITY ASSURANCE:
     - SHA256 bundle integrity verification
-    - Required number coverage validation  
+    - Required number coverage validation
     - File corruption detection
     - Size monitoring and optimization reporting
-    
+
     Usage:
         exporter = RuntimeBundleExporter()
         success = exporter.export()  # Returns True if successful
@@ -98,28 +98,28 @@ class RuntimeBundleExporter:
     def __init__(self):
         """
         Initialize the exporter with all source and destination paths.
-        
-        Sets up the complete content routing architecture for v2.1.4 with 
+
+        Sets up the complete content routing architecture for v2.1.4 with
         intelligent priority systems for authentic spiritual content.
         """
         # PROJECT ROOT: Base directory for all operations
         self.project_root = Path(__file__).parent.parent
-        
+
         # BEHAVIORAL CONTENT SOURCES: Training data for KASPER AI insight generation
         self.approved_dir = self.project_root / "KASPERMLX/MLXTraining/ContentRefinery/Approved"
         # ↳ Contains: lifePath_*.json, expression_*.json, soulUrge_*.json + personas
-        
+
         # AUTHENTIC RICH CONTENT SOURCES: Specialized spiritual content (v2.1.4+)
         self.single_numbers_dir = (
             self.project_root / "KASPERMLX/MLXTraining/ContentRefinery/SingleNumbers"
         )
         # ↳ Contains: single_1_rich.json → single_9_rich.json (20 insights each)
-        
+
         self.master_numbers_dir = (
-            self.project_root / "KASPERMLX/MLXTraining/ContentRefinery/MasterNumbers"  
+            self.project_root / "KASPERMLX/MLXTraining/ContentRefinery/MasterNumbers"
         )
         # ↳ Contains: master_11_rich.json → master_44_rich.json (20 insights each)
-        
+
         # LEGACY FALLBACK SOURCE: Original rich content (compatibility only)
         self.number_meanings_dir = self.project_root / "NumerologyData/NumberMeanings"
         # ↳ Contains: NumberMessages_Complete_1.json → NumberMessages_Complete_9.json
@@ -132,11 +132,11 @@ class RuntimeBundleExporter:
 
         # EXPORT STATISTICS: Real-time metrics for quality monitoring
         self.stats = {
-            "behavioral_files": 0,       # Count: lifePath + expression + soulUrge + personas
-            "rich_files": 0,            # Count: single numbers + master numbers exported
+            "behavioral_files": 0,  # Count: lifePath + expression + soulUrge + personas
+            "rich_files": 0,  # Count: single numbers + master numbers exported
             "correspondence_files": 0,  # Count: future planet/zodiac mappings
-            "total_size_kb": 0,        # Size: cumulative bundle size in kilobytes
-            "missing_numbers": [],      # List: any numbers without rich content (should be empty)
+            "total_size_kb": 0,  # Size: cumulative bundle size in kilobytes
+            "missing_numbers": [],  # List: any numbers without rich content (should be empty)
         }
 
         # VALIDATION REQUIREMENTS: Essential number coverage for spiritual completeness
@@ -144,7 +144,7 @@ class RuntimeBundleExporter:
         self.required_numbers = [
             # SINGLE NUMBERS: Core spiritual archetypes
             "1",  # The Pioneer - Leadership, independence, new beginnings
-            "2",  # The Diplomat - Partnership, cooperation, harmony  
+            "2",  # The Diplomat - Partnership, cooperation, harmony
             "3",  # The Creative Communicator - Artistic expression, joy
             "4",  # The Architect - Structure, reliability, foundation
             "5",  # The Freedom Seeker - Adventure, change, versatility
@@ -152,12 +152,11 @@ class RuntimeBundleExporter:
             "7",  # The Mystic Seeker - Spiritual seeking, wisdom
             "8",  # The Material Master - Worldly success, power
             "9",  # The Universal Humanitarian - Service, completion
-            
-            # MASTER NUMBERS: Advanced spiritual consciousness  
-            "11", # The Illuminator - Intuitive mastery, spiritual insight
-            "22", # The Master Builder - Practical manifestation, legacy
-            "33", # The Master Teacher - Christ consciousness, love
-            "44", # The Master Healer - Planetary healing, cosmic service
+            # MASTER NUMBERS: Advanced spiritual consciousness
+            "11",  # The Illuminator - Intuitive mastery, spiritual insight
+            "22",  # The Master Builder - Practical manifestation, legacy
+            "33",  # The Master Teacher - Christ consciousness, love
+            "44",  # The Master Healer - Planetary healing, cosmic service
         ]
 
     def clean_and_prepare(self):
