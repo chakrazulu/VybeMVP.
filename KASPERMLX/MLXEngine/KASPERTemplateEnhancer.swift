@@ -227,7 +227,7 @@ public struct KASPERTemplateEnhancer {
             ", letting sacred energy flow through you"
         ]
 
-        return cleanGuidance + endings.randomElement()!
+        return cleanGuidance + (endings.randomElement() ?? ".")
     }
 
     // MARK: - Cosmic Timing Integration
@@ -526,10 +526,10 @@ public struct KASPERTemplateEnhancer {
 
 private extension String {
     func lowercaseFirstLetter() -> String {
-        return prefix(1).lowercased() + dropFirst()
+        prefix(1).lowercased() + dropFirst()
     }
 
     func capitalizeFirstLetter() -> String {
-        return prefix(1).uppercased() + dropFirst()
+        prefix(1).uppercased() + dropFirst()
     }
 }

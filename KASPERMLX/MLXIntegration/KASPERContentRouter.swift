@@ -170,7 +170,7 @@ class KASPERContentRouter: ObservableObject {
     private var manifest: RuntimeManifest?
 
     /// Subdirectory in app bundle where RuntimeBundle lives
-    // Claude: Updated to use KASPERMLXRuntimeBundle for clarity
+    /// Updated to use KASPERMLXRuntimeBundle for clarity
     private let bundleSubdirectory = "KASPERMLXRuntimeBundle"
 
     /// Published state for SwiftUI binding
@@ -183,8 +183,8 @@ class KASPERContentRouter: ObservableObject {
 
     private init() {
         // Load manifest asynchronously on initialization
-        Task {
-            await loadManifest()
+        Task { [weak self] in
+            await self?.loadManifest()
         }
     }
 
@@ -447,7 +447,8 @@ class KASPERContentRouter: ObservableObject {
             "note": "RuntimeBundle content not available for this number/context",
             "behavioral_insights": [
                 [
-                    "text": "Trust your inner wisdom as you navigate this \(context) journey with the energy of number \(number).",
+                    "text": "Trust your inner wisdom as you navigate this \(context) " +
+                        "journey with the energy of number \(number).",
                     "intensity": 0.75
                 ]
             ]
@@ -459,7 +460,7 @@ class KASPERContentRouter: ObservableObject {
     /// Get diagnostic information for debugging and monitoring
     /// - Returns: Dictionary with router status and statistics
     func getDiagnostics() -> [String: Any] {
-        return [
+        [
             "initialized": isInitialized,
             "manifestLoaded": manifest != nil,
             "version": manifest?.version ?? "none",

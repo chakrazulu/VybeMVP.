@@ -20,7 +20,7 @@ import Foundation
 
 // TEMPORARILY DISABLED - IMPORT ISSUES WITH KASPERMLX ENGINE
 // These tests need proper Xcode target configuration to access KASPERLinguisticEnhancerV2
-// TODO: Fix imports and re-enable after VybeOS PR-3 completion
+// Re-enable after VybeOS PR-3 completion - fixing imports
 
 /*
 final class KASPERLinguisticV2Tests: XCTestCase {
@@ -29,7 +29,8 @@ final class KASPERLinguisticV2Tests: XCTestCase {
 
     func testEnhancer_RemovesRedundancyAndFixesCaps() {
         // Test the exact problematic input from user feedback
-        let input = "The awakening of Mystical wisdom energy within Your mystic nature reveals a beautiful opportunity to Trust your mystic nature..."
+        let input = "The awakening of Mystical wisdom energy within Your mystic nature " +
+            "reveals a beautiful opportunity to Trust your mystic nature..."
 
         let (enhanced, _) = KASPERLinguisticEnhancerV2.enhance(
             input,
@@ -42,8 +43,10 @@ final class KASPERLinguisticV2Tests: XCTestCase {
         )
 
         // Core redundancy fixes
-        XCTAssertFalse(enhanced.contains("mystic nature"), "Repeated phrase 'mystic nature' should be eliminated")
-        XCTAssertFalse(enhanced.contains("mystical") && enhanced.contains("mystic"), "Stemmed redundancy (mystic/mystical) should be resolved")
+        XCTAssertFalse(enhanced.contains("mystic nature"),
+                       "Repeated phrase 'mystic nature' should be eliminated")
+        XCTAssertFalse(enhanced.contains("mystical") && enhanced.contains("mystic"),
+                       "Stemmed redundancy (mystic/mystical) should be resolved")
 
         // Mid-sentence capitalization fixes
         XCTAssertFalse(enhanced.contains("Your "), "Mid-sentence 'Your' should be lowercase")
@@ -262,9 +265,10 @@ final class KASPERLinguisticV2Tests: XCTestCase {
             results.append(enhanced)
         }
 
-        // Results should be consistent (allowing for random variation in synonyms)
+        // Results should be consistent (allow random variation in synonyms)
         let uniqueResults = Set(results)
-        XCTAssertLessThanOrEqual(uniqueResults.count, 3, "Results should be relatively stable with controlled variation")
+        XCTAssertLessThanOrEqual(uniqueResults.count, 3,
+                                  "Results should be relatively stable with controlled variation")
     }
 }
 
@@ -280,7 +284,10 @@ extension KASPERLinguisticV2Tests {
         let testCases = [
             ("Short insight", "Trust your inner wisdom"),
             ("Medium insight", "The mystical energy within your spiritual nature reveals opportunities for growth"),
-            ("Long insight", "The awakening of divine cosmic consciousness within your authentic spiritual being reveals a beautiful sacred opportunity to trust your mystical nature and embrace the flowing wisdom that emerges from your deepest spiritual knowing through divine connection")
+            ("Long insight", "The awakening of divine cosmic consciousness within your authentic " +
+                "spiritual being reveals a beautiful sacred opportunity to trust your mystical nature " +
+                "and embrace the flowing wisdom that emerges from your deepest spiritual knowing " +
+                "through divine connection")
         ]
 
         for (name, input) in testCases {
