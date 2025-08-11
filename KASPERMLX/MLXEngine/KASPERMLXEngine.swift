@@ -20,17 +20,25 @@ class KASPERMLXEngine: ObservableObject {
 
     // MARK: - Configuration Constants
 
+    /// Swift 6 Concurrency Notes:
+    /// These static constants are marked `nonisolated` because the enclosing type is `@MainActor`.
+    /// This allows safe access from nonisolated contexts (e.g., nested types like `KASPERMLXStubModel`)
+    /// without requiring a MainActor hop or `await`.
+
     /// MLX inference confidence score for stub model results
-    private static let MLX_STUB_CONFIDENCE: Double = 0.92
+    nonisolated private static let MLX_STUB_CONFIDENCE: Double = 0.92
 
     /// Model initialization delay to simulate realistic loading time
-    private static let MODEL_INIT_DELAY_NS: UInt64 = 500_000_000 // 500ms
+    nonisolated private static let MODEL_INIT_DELAY_NS: UInt64 = 500_000_000 // 500ms
 
     /// Number of harmonic variations available for content selection
-    private static let HARMONIC_VARIATION_COUNT: Int = 7
+    nonisolated private static let HARMONIC_VARIATION_COUNT: Int = 7
 
     /// Session-unique randomizer to ensure different content per app launch
-    private static let SESSION_RANDOMIZER: Int = Int.random(in: 1...999)
+    /// - Concurrency: `nonisolated` so nested types and background tasks can read it without
+    ///   MainActor isolation.
+    /// - Stability: Randomized once at process start and then immutable.
+    nonisolated private static let SESSION_RANDOMIZER: Int = Int.random(in: 1...999)
 
     // MARK: - 🌟 Published Properties for SwiftUI Integration
 
@@ -1904,15 +1912,18 @@ class KASPERMLXEngine: ObservableObject {
             let millisecondVariation = Int(Date().timeIntervalSince1970 * 1000) % 1000 // High frequency variation
 
             // Combine ALL sources of variation for maximum randomness
+            // Swift 6: Accessing `KASPERMLXEngine.SESSION_RANDOMIZER` instead of `Self.SESSION_RANDOMIZER`
+            // from this nested, nonisolated context avoids MainActor isolation errors.
             let harmonicSeed = (focusNumber * 11 + realmNumber * 7) +
                              Int(moonPhase * 137) + Int(planetaryEnergy * 89) +
                              hourlyVariation + minuteVariation + secondVariation + millisecondVariation +
-                             Self.SESSION_RANDOMIZER // Ensures different content per app launch
+                             KASPERMLXEngine.SESSION_RANDOMIZER // Ensures different content per app launch
             let harmonicIndex = abs(harmonicSeed) % 7
 
             logger.info("🔮 KASPER MLX: 🎵 Harmonic signature generated: Index \(harmonicIndex) (Seed: \(harmonicSeed))")
             logger.info("🔮 KASPER MLX: ⏰ Temporal factors - Hour: \(hourlyVariation), Min: \(minuteVariation), Sec: \(secondVariation), MS: \(millisecondVariation)")
-            logger.info("🔮 KASPER MLX: 🎲 Session randomizer: \(Self.SESSION_RANDOMIZER)")
+            // Swift 6: Explicitly namespaced static access keeps this log call nonisolated-safe.
+            logger.info("🔮 KASPER MLX: 🎲 Session randomizer: \(KASPERMLXEngine.SESSION_RANDOMIZER)")
             logger.info("🔮 KASPER MLX: 🚀 MLX INFERENCE COMPLETE - Personalized spiritual tensor ready!")
 
             return [
