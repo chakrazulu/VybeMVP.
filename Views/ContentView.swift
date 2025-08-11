@@ -258,7 +258,7 @@ struct ContentView: View {
                         .tag(8) // Adjusted tag
 
                     NavigationView {
-                        NumberMeaningView()
+                        NumberMeaningsView()
                     }
                     .tabItem {
                         Image(systemName: "number.circle.fill")
