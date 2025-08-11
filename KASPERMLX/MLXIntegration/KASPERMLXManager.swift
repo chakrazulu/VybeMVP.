@@ -602,7 +602,7 @@ class KASPERMLXManager: ObservableObject {
                 _ = try await self.generateQuickInsight(for: .sanctumGuidance)
                 self.logger.info("🔮 KASPER MLX: Legacy payload generated as insight")
             } catch {
-                self.logger.error("🔮 KASPER MLX: Legacy payload generation failed: \\(error)")
+                self.logger.error("🔮 KASPER MLX: Legacy payload generation failed: \(error.localizedDescription)")
             }
         }
 
@@ -671,7 +671,7 @@ struct KASPERInsightModifier: ViewModifier {
         do {
             insight = try await manager.generateQuickInsight(for: feature)
         } catch {
-            print("🔮 KASPER MLX: Failed to load insight: \\(error)")
+            print("🔮 KASPER MLX: Failed to load insight: \(error.localizedDescription)")
         }
     }
 }

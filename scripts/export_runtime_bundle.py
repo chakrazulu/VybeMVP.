@@ -34,7 +34,7 @@ python3 scripts/export_runtime_bundle.py
 OUTPUT STRUCTURE:
 KASPERMLXRuntimeBundle/
 ├── manifest.json           # Routing configuration with fallback strategy
-├── NumberMeanings/         # Rich content for UI display (authentic preferred)
+├── RichNumberMeanings/     # Rich content for UI display (authentic preferred)
 │   ├── 1_rich.json → 9_rich.json     # Single numbers (authentic)
 │   └── 11_rich.json → 44_rich.json   # Master numbers (authentic)
 ├── Behavioral/             # Behavioral insights for KASPER AI generation
@@ -172,7 +172,7 @@ class RuntimeBundleExporter:
 
         # Create directory structure for organized content
         self.runtime_bundle_dir.mkdir(parents=True, exist_ok=True)
-        (self.runtime_bundle_dir / "NumberMeanings").mkdir(exist_ok=True)
+        (self.runtime_bundle_dir / "RichNumberMeanings").mkdir(exist_ok=True)
         (self.runtime_bundle_dir / "Behavioral").mkdir(exist_ok=True)
         (self.runtime_bundle_dir / "Correspondences").mkdir(exist_ok=True)
 
@@ -236,7 +236,7 @@ class RuntimeBundleExporter:
         single_numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
         for number in self.required_numbers:
-            dest_file = self.runtime_bundle_dir / "NumberMeanings" / f"{number}_rich.json"
+            dest_file = self.runtime_bundle_dir / "RichNumberMeanings" / f"{number}_rich.json"
 
             # For single numbers, prefer explicit single-specific files
             if number in single_numbers:
@@ -358,7 +358,7 @@ class RuntimeBundleExporter:
             "domains": {
                 "numbers": {
                     # Rich content for UI display
-                    "rich": "NumberMeanings/{id}_rich.json",
+                    "rich": "RichNumberMeanings/{id}_rich.json",
                     # Behavioral content for KASPER insights
                     "behavioral": {
                         "lifePath": "Behavioral/lifePath_{id}_v2.0_converted.json",
@@ -448,7 +448,7 @@ class RuntimeBundleExporter:
                 issues.append(f"Missing lifePath behavioral for number {number}")
 
             # Check rich content
-            rich_file = self.runtime_bundle_dir / "NumberMeanings" / f"{number}_rich.json"
+            rich_file = self.runtime_bundle_dir / "RichNumberMeanings" / f"{number}_rich.json"
             if not rich_file.exists() and number not in self.stats["missing_numbers"]:
                 issues.append(f"Missing rich content for number {number}")
 

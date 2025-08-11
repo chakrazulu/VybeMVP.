@@ -213,10 +213,10 @@ class RuntimeBundleValidator:
 
     def _validate_rich_content(self) -> bool:
         """Validate rich content JSON structure."""
-        rich_dir = self.bundle_path / "NumberMeanings"
+        rich_dir = self.bundle_path / "RichNumberMeanings"
 
         if not rich_dir.exists():
-            self.warnings.append("NumberMeanings directory not found")
+            self.warnings.append("RichNumberMeanings directory not found")
             return True
 
         rich_files = list(rich_dir.glob("*_rich.json"))

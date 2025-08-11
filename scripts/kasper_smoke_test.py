@@ -130,7 +130,7 @@ class KASPERSmokeTest:
             file_count = len(list(self.runtime_bundle.rglob("*.json")))
 
             # Check expected subdirectories
-            expected_dirs = ["NumberMeanings", "Behavioral", "Correspondences"]
+            expected_dirs = ["RichNumberMeanings", "Behavioral", "Correspondences"]
             dirs_exist = all((self.runtime_bundle / d).exists() for d in expected_dirs)
 
             if dirs_exist and file_count > 0:
@@ -242,7 +242,7 @@ class KASPERSmokeTest:
                 missing_behavioral.append(num)
 
             # Check rich content
-            rich_path = self.runtime_bundle / f"NumberMeanings/{num}_rich.json"
+            rich_path = self.runtime_bundle / f"RichNumberMeanings/{num}_rich.json"
             if not rich_path.exists():
                 # Master numbers might be missing (using base content)
                 if num in ["11", "22", "33", "44"]:
@@ -367,7 +367,7 @@ class KASPERSmokeTest:
         test_name = "Performance"
 
         # Pick a test file (number 3 rich content)
-        test_file = self.runtime_bundle / "NumberMeanings/3_rich.json"
+        test_file = self.runtime_bundle / "RichNumberMeanings/3_rich.json"
 
         if not test_file.exists():
             # Try behavioral content as fallback

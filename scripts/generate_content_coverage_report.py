@@ -104,7 +104,7 @@ class ContentCoverageAnalyzer:
 
             # Collect missing files
             if not coverage.rich_content_exists:
-                missing_files.append(f"NumberMeanings/{number}_rich.json")
+                missing_files.append(f"RichNumberMeanings/{number}_rich.json")
 
             for context in coverage.missing_contexts:
                 # Handle different file naming conventions
@@ -176,7 +176,7 @@ class ContentCoverageAnalyzer:
 
     def _check_rich_content_exists(self, number: int) -> bool:
         """Check if rich content exists for number."""
-        rich_path = self.bundle_path / "NumberMeanings" / f"{number}_rich.json"
+        rich_path = self.bundle_path / "RichNumberMeanings" / f"{number}_rich.json"
         return rich_path.exists()
 
     def _check_behavioral_content_exists(self, number: int, context: str) -> bool:

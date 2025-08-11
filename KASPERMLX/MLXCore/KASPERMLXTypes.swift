@@ -1075,6 +1075,9 @@ enum KASPERMLXError: LocalizedError, Equatable {
     /// Claude: AI model isn't loaded or available for spiritual intelligence processing
     /// Recovery: Use template-based spiritual guidance as fallback (seamless to user)
     case modelNotLoaded
+    /// Claude: MLX inference is disabled by configuration
+    /// Recovery: Use template-based spiritual guidance as fallback
+    case inferenceDisabled
 
     /// Claude: The provided spiritual context is malformed, incomplete, or invalid
     /// Recovery: Use default context parameters, generate basic spiritual insight
@@ -1098,6 +1101,8 @@ enum KASPERMLXError: LocalizedError, Equatable {
             return "KASPER MLX: Insight generation timeout - optimizing for faster spiritual guidance"
         case .modelNotLoaded:
             return "KASPER MLX: AI model not loaded - using template-based spiritual guidance"
+        case .inferenceDisabled:
+            return "KASPER MLX: MLX inference disabled - using template-based spiritual guidance"
         case .invalidContext:
             return "KASPER MLX: Invalid spiritual context - generating guidance with available data"
         case .cacheMiss:

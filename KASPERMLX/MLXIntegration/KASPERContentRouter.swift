@@ -71,6 +71,13 @@ struct RuntimeManifest: Codable {
     /// Bundle statistics for monitoring
     let statistics: Statistics
 
+    // MARK: - Coding Keys for snake_case JSON
+    enum CodingKeys: String, CodingKey {
+        case version, generated, bundleHash = "bundle_hash", domains
+        case fallbackStrategy = "fallback_strategy"
+        case validation, statistics
+    }
+
     // MARK: - Nested Types
 
     /// Container for all content domains
@@ -137,6 +144,12 @@ struct RuntimeManifest: Codable {
 
         /// Numbers missing from bundle (for logging)
         let missingNumbers: [String]
+
+        enum CodingKeys: String, CodingKey {
+            case schemaVersion = "schema_version"
+            case requiredCoverage = "required_coverage"
+            case missingNumbers = "missing_numbers"
+        }
     }
 
     /// Bundle statistics for monitoring and debugging
@@ -149,6 +162,12 @@ struct RuntimeManifest: Codable {
 
         /// Total bundle size in kilobytes
         let totalSizeKb: Double
+
+        enum CodingKeys: String, CodingKey {
+            case behavioralFiles = "behavioral_files"
+            case richFiles = "rich_files"
+            case totalSizeKb = "total_size_kb"
+        }
     }
 }
 
@@ -201,9 +220,9 @@ class KASPERContentRouter: ObservableObject {
         if let bundleURL = Bundle.main.resourceURL {
             let contents = (try? FileManager.default.contentsOfDirectory(atPath: bundleURL.path)) ?? []
             logger.info("📦 Bundle root contents: \(contents.joined(separator: ", "))")
-            let rb = bundleURL.appendingPathComponent(bundleSubdirectory)
+            let rb = bundleURL.appendingPathComponent(self.bundleSubdirectory)
             let rbContents = (try? FileManager.default.contentsOfDirectory(atPath: rb.path)) ?? []
-            logger.info("📦 \(bundleSubdirectory) contents: \(rbContents.joined(separator: ", "))")
+            logger.info("📦 \(self.bundleSubdirectory) contents: \(rbContents.joined(separator: ", "))")
         }
 
         // Locate manifest in app bundle
@@ -222,7 +241,11 @@ class KASPERContentRouter: ObservableObject {
 
         do {
             // Load and decode manifest
+            logger.info("📄 Found manifest at: \(manifestURL.path)")
             let data = try Data(contentsOf: manifestURL)
+            logger.info("📄 Manifest data loaded: \(data.count) bytes")
+
+            // Try to decode
             self.manifest = try JSONDecoder().decode(RuntimeManifest.self, from: data)
 
             // Log successful load with statistics
@@ -242,7 +265,11 @@ class KASPERContentRouter: ObservableObject {
 
         } catch {
             logger.error("❌ Failed to load manifest: \(error.localizedDescription)")
-            logger.error("   This usually means the manifest.json file is corrupted")
+            logger.error("   Full error: \(error)")
+            if let decodingError = error as? DecodingError {
+                logger.error("   Decoding error details: \(decodingError.localizedDescription)")
+            }
+            logger.error("   This usually means the manifest.json file is corrupted or has wrong structure")
             self.manifest = nil
             self.isInitialized = true
         }

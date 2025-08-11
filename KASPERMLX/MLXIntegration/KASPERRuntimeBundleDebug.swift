@@ -37,10 +37,10 @@ class KASPERRuntimeBundleDebug {
         }
 
         // Check sample rich content
-        if let richURL = Bundle.main.url(forResource: "1_rich", withExtension: "json", subdirectory: "KASPERMLXRuntimeBundle/NumberMeanings") {
+        if let richURL = Bundle.main.url(forResource: "1_rich", withExtension: "json", subdirectory: "KASPERMLXRuntimeBundle/RichNumberMeanings") {
             logger.info("✅ Found rich content for 1 at: \(richURL.lastPathComponent)")
         } else {
-            logger.error("❌ Missing NumberMeanings/1_rich.json")
+            logger.error("❌ Missing RichNumberMeanings/1_rich.json")
         }
 
         // Check sample behavioral content

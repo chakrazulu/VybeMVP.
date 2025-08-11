@@ -107,6 +107,7 @@
 		4D6308E42DFFCB6F00FD32E9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4D6308E32DFFCB6F00FD32E9 /* FirebaseAuth */; };
 		4D65277A2E493BE800F521E1 /* vybeOS-handoff.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6527792E493BE800F521E1 /* vybeOS-handoff.md */; };
 		4D6528672E4944EB00F521E1 /* Sanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528662E4944EB00F521E1 /* Sanitizer.swift */; };
+		4D6528732E49781400F521E1 /* RuntimeBundleDiagnostic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528722E49781400F521E1 /* RuntimeBundleDiagnostic.swift */; };
 		4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */; };
 		4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */; };
 		4D6C7B552DE45441001036E5 /* ArchetypeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */; };
@@ -665,6 +666,7 @@
 		4D6308D72DFFCB2C00FD32E9 /* SocialTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTimelineView.swift; sourceTree = "<group>"; };
 		4D6527792E493BE800F521E1 /* vybeOS-handoff.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "vybeOS-handoff.md"; sourceTree = "<group>"; };
 		4D6528662E4944EB00F521E1 /* Sanitizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sanitizer.swift; sourceTree = "<group>"; };
+		4D6528722E49781400F521E1 /* RuntimeBundleDiagnostic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeBundleDiagnostic.swift; sourceTree = "<group>"; };
 		4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetype.swift; sourceTree = "<group>"; };
 		4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetypeManager.swift; sourceTree = "<group>"; };
 		4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchetypeDisplayView.swift; sourceTree = "<group>"; };
@@ -1878,6 +1880,7 @@
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
+				4D6528722E49781400F521E1 /* RuntimeBundleDiagnostic.swift */,
 				4D5929AA2E4933BA002625DE /* VybeCore */,
 				4D5926A62E48EDDB002625DE /* KASPERMLXRuntimeBundle */,
 				4DDA0A712E48348900449F20 /* VybeOS */,
@@ -2710,6 +2713,7 @@
 				4DA98FCA2E073CB100FAE5FF /* Report.swift in Sources */,
 				4D2DB4822DFF43390003353E /* ChakraManager.swift in Sources */,
 				4D2DB4842DFF43B10003353E /* ContentView.swift in Sources */,
+				4D6528732E49781400F521E1 /* RuntimeBundleDiagnostic.swift in Sources */,
 				4D2CC6F42E08688000BDF100 /* MandalaAssetManager.swift in Sources */,
 				4D2CC6F22E08680400BDF100 /* MandalaBackgroundView.swift in Sources */,
 				4D3055EB2D3CF492009A7BBD /* NumberCell.swift in Sources */,

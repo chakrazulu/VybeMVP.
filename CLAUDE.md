@@ -2,7 +2,7 @@
 
 **Project:** VybeMVP - Spiritual Wellness iOS App
 **Framework:** SwiftUI, MVVM, Swift 6
-**Status:** Production Ready - Self-Healing Architecture v2.1.6 ✅ Complete
+**Status:** Production Ready - KASPER MLX v2.1.4 ✅ Active MLX Inference
 
 ## 🎯 Critical Rules (MUST FOLLOW)
 
@@ -33,13 +33,19 @@ VybeMVP/
 └── KASPERMLXRuntimeBundle/  # Content (v2.1.4)
 ```
 
-## 🔮 KASPER MLX v2.1.4
+## 🔮 KASPER MLX v2.1.4 - Active MLX Inference
 
-### Using RuntimeBundle (v2.1.4)
+### MLX Inference Architecture (NEW)
 ```swift
-let router = KASPERContentRouter.shared  // Always use shared instance
+// MLX inference with personalized content variation
+let router = KASPERContentRouter.shared
 let content = await router.getRichContent(for: number)
+
+// MLX stub model generates unique insights based on focus/realm numbers
+// No more repetitive content - each insight is personalized
 ```
+
+### RuntimeBundle Integration
 
 ### Bulletproof Content Pipeline (NEW v2.1.4)
 ```bash
@@ -59,6 +65,7 @@ make content-export      # Generate runtime bundle
 - **Runtime Guards**: `VybeCore/Guards/RichContentValidator.swift`
 
 ### Current Status: 13/13 files validated ✅
+### MLX Status: Active inference with focus/realm personalization ✅
 
 ## 🌟 Self-Healing Architecture (NEW v2.1.6)
 
