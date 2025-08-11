@@ -1,8 +1,8 @@
 # 🔮 KASPER MLX - Core Spiritual AI Documentation
 
-**Last Updated:** August 9, 2025
-**Version:** 2.0 - Production Enterprise Architecture
-**Status:** Live Production System with 130+ Training Files
+**Last Updated:** August 11, 2025
+**Version:** 2.1.5 - Hot-Swappable Provider Architecture
+**Status:** Live Production System with Provider Abstraction Framework
 
 ---
 
@@ -25,23 +25,57 @@ Unlike traditional chatbots, KASPER is designed as a **spiritual consciousness s
 ### **Core Components Stack:**
 
 ```
-KASPER MLX Engine
-├── MLXCore/                  # Apple MLX integration & model management
-│   ├── KASPERMLXTypes.swift     # Foundation spiritual AI types
-│   └── KASPERLifePathTrinity.swift # Advanced numerological processing
-├── MLXEngine/                # Inference engine & template processing
-│   └── KASPERMLXEngine.swift    # Core spiritual intelligence engine
-├── MLXIntegration/           # iOS app integration & testing
-│   ├── KASPERMLXManager.swift   # System orchestration layer
-│   └── KASPERMLXTestView.swift  # Professional development interface
-├── MLXProviders/             # Contextual data providers
-│   ├── CosmicDataProvider.swift    # Planetary & lunar data
-│   ├── BiometricProvider.swift     # HealthKit integration
-│   └── NumerologyProvider.swift    # Sacred number calculations
-└── MLXTraining/              # Content pipeline & model training
-    ├── ContentRefinery/         # Production content processing
-    └── KASPERContentImporter.swift # Training data ingestion
+KASPER MLX Engine v2.1.5
+├── MLXCore/                     # Protocol abstraction & core types
+│   ├── KASPERInferenceProvider.swift  # Provider protocol + strategy enum
+│   ├── KASPERMLXTypes.swift           # Foundation spiritual AI types
+│   └── KASPERLifePathTrinity.swift    # Advanced numerological processing
+├── MLXProviders/                # Hot-swappable AI backends
+│   ├── KASPERTemplateProvider.swift   # Deterministic fallback (45% confidence)
+│   ├── KASPERStubProvider.swift       # RuntimeBundle stub (92% confidence)
+│   ├── CosmicDataProvider.swift       # Planetary & lunar data
+│   ├── BiometricProvider.swift        # HealthKit integration
+│   └── NumerologyProvider.swift       # Sacred number calculations
+├── MLXIntegration/              # Orchestration & routing
+│   ├── KASPEROrchestrator.swift       # Strategy management + fallback chains
+│   ├── KASPERContentRouter.swift      # RuntimeBundle content routing
+│   └── KASPERMLXTestView.swift        # Professional development interface
+├── MLXEngine/                   # Core inference engine
+│   └── KASPERMLXEngine.swift          # Provider-aware spiritual intelligence
+└── MLXTraining/                 # Content pipeline & model training
+    ├── ContentRefinery/               # Production content processing
+    └── KASPERContentImporter.swift     # Training data ingestion
 ```
+
+### **🔄 HOT-SWAPPABLE PROVIDER ARCHITECTURE**
+
+**Core Innovation:** KASPER 2.1.5 introduces provider abstraction that enables seamless switching between AI backends without any UI changes or business logic modifications.
+
+#### **Available Provider Strategies:**
+
+| Strategy | Provider | Confidence | Status | Description |
+|----------|----------|------------|--------|-------------|
+| `automatic` | Best Available | Variable | ✅ Active | Auto-selects optimal provider based on availability |
+| `mlxStub` | Stub Provider | 92% | ✅ Current | RuntimeBundle + aggressive randomization |
+| `template` | Template Provider | 45% | ✅ Fallback | Deterministic template-based insights |
+| `mlxLocal` | Future MLX | TBD | 🚧 Planned | On-device ML inference (Phase 2) |
+| `gptHybrid` | Future GPT | TBD | 🚧 Planned | Cloud-enhanced AI with privacy controls |
+
+#### **Provider Selection Flow:**
+```
+User Request → KASPERMLXEngine → KASPEROrchestrator → Provider Selection
+                                        ↓
+    Performance Metrics ← Result ← Selected Provider
+                                        ↓
+    Automatic Fallback Chain: MLX Stub → Template → Always Succeeds
+```
+
+#### **Key Architecture Benefits:**
+- **Zero Downtime**: Seamless provider switching during runtime
+- **Automatic Fallback**: Template provider ensures 100% availability
+- **Performance Tracking**: Real-time metrics for each provider
+- **Future-Proof**: Easy integration of new AI backends
+- **Privacy-First**: All providers respect user privacy settings
 
 ### **🎯 SPIRITUAL INTELLIGENCE DOMAINS**
 
@@ -203,12 +237,20 @@ Unlike generic AI assistants, KASPER maintains:
 ### **Professional-Grade Testing Environment**
 
 #### **KASPERMLXTestView Features:**
+- **Provider Strategy Testing:** Live switching between all available providers
 - **Real-Time Performance Dashboard:** Live metrics visualization with color-coded indicators
 - **Custom Prompt Testing:** Rapid iteration for edge cases and specific spiritual scenarios
-- **Response Time Visualization:** Smooth animations showing inference performance
+- **Response Time Visualization:** Smooth animations showing inference performance per provider
+- **Fallback Chain Testing:** Verify automatic fallback behavior under provider failures
 - **Feedback Integration:** Direct testing of thumbs up/down rating systems
 - **Error Diagnostics:** Comprehensive error handling and diagnostic information
 - **Cache Analytics:** Live monitoring of cache hit rates and spiritual insight freshness
+
+#### **KASPERProviderSettingsView Features:**
+- **Strategy Selection Interface:** Real-time provider switching
+- **Performance Metrics Display:** Success rates, response times, usage stats per provider
+- **Debug Mode Controls:** Enable/disable debug logging and cloud providers
+- **Provider Availability Status:** Live monitoring of each provider's availability
 
 #### **Performance Monitoring Metrics:**
 ```swift

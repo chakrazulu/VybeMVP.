@@ -25,6 +25,35 @@
 
 import Foundation
 
+/// Available inference strategies
+public enum KASPERStrategy: String, CaseIterable, Sendable {
+    case mlxStub = "MLX Stub"
+    case template = "Template Only"
+    case mlxLocal = "MLX Local (Future)"
+    case gptHybrid = "GPT Hybrid (Future)"
+    case automatic = "Automatic"
+
+    public var displayName: String {
+        switch self {
+        case .mlxStub: return "Enhanced Stub (Current)"
+        case .template: return "Basic Templates"
+        case .mlxLocal: return "Local MLX Model"
+        case .gptHybrid: return "Cloud-Enhanced AI"
+        case .automatic: return "Auto-Select Best"
+        }
+    }
+
+    public var description: String {
+        switch self {
+        case .mlxStub: return "RuntimeBundle content with randomization"
+        case .template: return "Fast, deterministic templates"
+        case .mlxLocal: return "On-device ML inference (coming soon)"
+        case .gptHybrid: return "Cloud AI with privacy controls (coming soon)"
+        case .automatic: return "Automatically selects the best available provider"
+        }
+    }
+}
+
 /// Common protocol for all KASPER inference providers
 public protocol KASPERInferenceProvider: Sendable {
 

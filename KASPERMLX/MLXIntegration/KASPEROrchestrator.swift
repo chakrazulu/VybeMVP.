@@ -21,34 +21,6 @@
 import Foundation
 import os.log
 
-/// Available inference strategies
-public enum KASPERStrategy: String, CaseIterable, Sendable {
-    case mlxStub = "MLX Stub"
-    case template = "Template Only"
-    case mlxLocal = "MLX Local (Future)"
-    case gptHybrid = "GPT Hybrid (Future)"
-    case automatic = "Automatic"
-
-    public var displayName: String {
-        switch self {
-        case .mlxStub: return "Enhanced Stub (Current)"
-        case .template: return "Basic Templates"
-        case .mlxLocal: return "Local MLX Model"
-        case .gptHybrid: return "Cloud-Enhanced AI"
-        case .automatic: return "Auto-Select Best"
-        }
-    }
-
-    public var description: String {
-        switch self {
-        case .mlxStub: return "RuntimeBundle content with randomization"
-        case .template: return "Fast, deterministic templates"
-        case .mlxLocal: return "On-device ML inference (coming soon)"
-        case .gptHybrid: return "Cloud AI with privacy controls (coming soon)"
-        case .automatic: return "Automatically selects the best available provider"
-        }
-    }
-}
 
 /// Main orchestrator for KASPER inference
 @MainActor
@@ -94,7 +66,7 @@ public final class KASPEROrchestrator: ObservableObject {
 
         // Update active provider name
         if let provider = await getProvider(for: strategy) {
-            activeProvider = await provider.name
+            activeProvider = provider.name
         }
     }
 
@@ -134,8 +106,8 @@ public final class KASPEROrchestrator: ObservableObject {
                 success: true
             )
 
-            activeProvider = await provider.name
-            logger.info("✅ Generated insight using \(await provider.name) in \(String(format: "%.3f", duration))s")
+            activeProvider = provider.name
+            logger.info("✅ Generated insight using \(provider.name) in \(String(format: "%.3f", duration))s")
 
             return insight
 
@@ -189,7 +161,7 @@ public final class KASPEROrchestrator: ObservableObject {
 
     /// Get available strategies based on current configuration
     public func getAvailableStrategies() async -> [KASPERStrategy] {
-        var available: [KASPERStrategy] = [.template, .mlxStub, .automatic]
+        let available: [KASPERStrategy] = [.template, .mlxStub, .automatic]
 
         // Add future providers when implemented
         // if mlxModelExists { available.append(.mlxLocal) }
@@ -241,10 +213,10 @@ public final class KASPEROrchestrator: ObservableObject {
 
         // Set initial active provider
         if let stub = providers[.mlxStub] {
-            activeProvider = await stub.name
+            activeProvider = stub.name
         }
 
-        logger.info("✅ Providers initialized: \(providers.keys.map { $0.rawValue }.joined(separator: ", "))")
+        logger.info("✅ Providers initialized: \(self.providers.keys.map { $0.rawValue }.joined(separator: ", "))")
     }
 
     private func getProvider(for strategy: KASPERStrategy) async -> KASPERInferenceProvider? {
@@ -289,8 +261,8 @@ public final class KASPEROrchestrator: ObservableObject {
                 extras: extras
             )
 
-            activeProvider = await fallback.name
-            logger.info("✅ Fallback succeeded using \(await fallback.name)")
+            activeProvider = fallback.name
+            logger.info("✅ Fallback succeeded using \(fallback.name)")
 
             return insight
         } catch {

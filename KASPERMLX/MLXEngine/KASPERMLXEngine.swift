@@ -94,7 +94,9 @@ class KASPERMLXEngine: ObservableObject {
     /// Future: Trained spiritual intelligence models for personalized guidance
     /// Architecture: Supports seamless transition from templates to true AI
     private var mlxModel: KASPERMLXModelProtocol? // MLX model implementing the spiritual inference protocol
-    private let orchestrator = KASPEROrchestrator.shared // Provider orchestrator for flexible AI backends
+
+    // Provider orchestrator for flexible AI backends - lazy to avoid circular references
+    private lazy var orchestrator = KASPEROrchestrator.shared
 
     // MARK: - 🌟 Singleton Spiritual Intelligence Access Point
 

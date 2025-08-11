@@ -12,7 +12,7 @@ import SwiftAA
 class MiniInsightProvider: ObservableObject {
 
     // MARK: - Dependencies
-    private let kasperMLXManager: KASPERMLXManager
+    private let kasperOrchestrator = KASPEROrchestrator.shared
     private let templateLibrary: CosmicInsightTemplateLibrary
 
     // MARK: - Published Properties
@@ -28,7 +28,6 @@ class MiniInsightProvider: ObservableObject {
     static let shared = MiniInsightProvider()
 
     private init() {
-        self.kasperMLXManager = KASPERMLXManager.shared
         self.templateLibrary = CosmicInsightTemplateLibrary()
     }
 
@@ -246,42 +245,68 @@ class MiniInsightProvider: ObservableObject {
     }
 
     private func generateKASPERInsight(for aspectData: AspectData) async -> String {
-        // Claude: ✨ KASPER MLX ENABLED - Modern async insights without blocking
-        print("✨ KASPER MLX: Generating cosmic timing insight for aspect")
+        // Claude: ✨ KASPER ORCHESTRATOR ENABLED - Modern provider abstraction
+        print("✨ KASPER: Generating cosmic timing insight for aspect")
 
         do {
-            let insight = try await kasperMLXManager.generateCosmicTimingInsight()
-            print("✅ KASPER MLX: Generated insight for aspect: \(aspectData.planet1.rawValue) \(aspectData.aspect.rawValue) \(aspectData.planet2.rawValue)")
-            return insight.content
+            // Use orchestrator with context for cosmic timing
+            let insight = try await kasperOrchestrator.generateInsight(
+                context: "cosmic_timing",
+                focus: 5, // Default focus for cosmic timing
+                realm: 7, // Default realm for cosmic timing
+                extras: [
+                    "aspect": aspectData.aspect.rawValue,
+                    "planet1": aspectData.planet1.rawValue,
+                    "planet2": aspectData.planet2.rawValue
+                ]
+            )
+            print("✅ KASPER: Generated insight for aspect: \(aspectData.planet1.rawValue) \(aspectData.aspect.rawValue) \(aspectData.planet2.rawValue)")
+            return insight
         } catch {
-            print("❌ KASPER MLX: Failed to generate insight: \(error)")
-            // Fallback to template if KASPER MLX fails
+            print("❌ KASPER: Failed to generate insight: \(error)")
+            // Fallback to template if KASPER fails
             return generateEnhancedTemplateInsight(for: aspectData)
         }
     }
 
     private func generateKASPERElementInsight(for element: CosmicElement) async -> String {
-        print("✨ KASPER MLX: Generating cosmic timing insight for element: \(element.rawValue)")
+        print("✨ KASPER: Generating cosmic element insight for: \(element.rawValue)")
 
         do {
-            let insight = try await kasperMLXManager.generateCosmicTimingInsight()
-            print("✅ KASPER MLX: Generated insight for element: \(element.rawValue)")
-            return insight.content
+            let insight = try await kasperOrchestrator.generateInsight(
+                context: "cosmic_element",
+                focus: 4, // Default focus for cosmic elements
+                realm: 1, // Default realm for elements
+                extras: [
+                    "element": element.rawValue,
+                    "element_type": "cosmic"
+                ]
+            )
+            print("✅ KASPER: Generated insight for element: \(element.rawValue)")
+            return insight
         } catch {
-            print("❌ KASPER MLX: Failed to generate element insight: \(error)")
+            print("❌ KASPER: Failed to generate element insight: \(error)")
             return generateTemplateElementInsight(for: element)
         }
     }
 
     private func generateKASPERRulerInsight(for rulerNumber: Int) async -> String {
-        print("✨ KASPER MLX: Generating realm insight for ruler number: \(rulerNumber)")
+        print("✨ KASPER: Generating realm insight for ruler number: \(rulerNumber)")
 
         do {
-            let insight = try await kasperMLXManager.generateRealmInsight()
-            print("✅ KASPER MLX: Generated insight for ruler number: \(rulerNumber)")
-            return insight.content
+            let insight = try await kasperOrchestrator.generateInsight(
+                context: "realm_ruler",
+                focus: rulerNumber,
+                realm: rulerNumber,
+                extras: [
+                    "ruler_number": rulerNumber,
+                    "insight_type": "realm"
+                ]
+            )
+            print("✅ KASPER: Generated insight for ruler number: \(rulerNumber)")
+            return insight
         } catch {
-            print("❌ KASPER MLX: Failed to generate ruler insight: \(error)")
+            print("❌ KASPER: Failed to generate ruler insight: \(error)")
             return generateTemplateRulerInsight(for: rulerNumber)
         }
     }

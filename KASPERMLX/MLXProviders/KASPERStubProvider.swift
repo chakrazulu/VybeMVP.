@@ -24,8 +24,14 @@ public actor KASPERStubProvider: KASPERInferenceProvider {
     public let averageConfidence = 0.92
 
     private let logger = Logger(subsystem: "com.vybe.kasper", category: "StubProvider")
-    private let contentRouter = await KASPERContentRouter.shared
     private let sessionRandomizer = Int.random(in: 1...999)
+
+    // Content router - initialized lazily to avoid await in property initializer
+    private var contentRouter: KASPERContentRouter {
+        get async {
+            return await KASPERContentRouter.shared
+        }
+    }
 
     // Harmonic patterns from RuntimeBundle
     private let harmonicPatterns = [
@@ -51,7 +57,7 @@ public actor KASPERStubProvider: KASPERInferenceProvider {
     // MARK: - Initialization
 
     public init() {
-        logger.info("🔮 MLX Stub Provider initialized with session randomizer: \(sessionRandomizer)")
+        logger.info("🔮 MLX Stub Provider initialized with session randomizer: \(self.sessionRandomizer)")
     }
 
     // MARK: - KASPERInferenceProvider
