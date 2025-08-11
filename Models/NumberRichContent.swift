@@ -86,6 +86,16 @@ struct NumberRichContent: Decodable, Equatable {
         /// Array of trigger words/phrases that activate this insight
         /// Used for contextual display and user experience personalization
         let triggers: [String]?
+
+        /// Array of supportive practices, activities, or contexts that enhance this insight
+        /// e.g., ["meditation_practice", "spiritual_study", "contemplative_activities"]
+        /// Critical for providing actionable spiritual guidance to users
+        let supports: [String]?
+
+        /// Array of challenging situations or obstacles that can hinder this insight
+        /// e.g., ["superficial_interactions", "material_focus", "social_pressure"]
+        /// Essential for helping users recognize and navigate spiritual challenges
+        let challenges: [String]?
     }
 
     // MARK: - Legacy Schema Support (v1.0) - Backward Compatibility

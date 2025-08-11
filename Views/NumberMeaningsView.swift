@@ -1,5 +1,17 @@
 import SwiftUI
 
+/// NumberMeaningsView (PLURAL) - Grid browser for all number meanings
+///
+/// ⚠️ IMPORTANT NAVIGATION DISTINCTION:
+/// - NumberMeaningsView (PLURAL) - THIS FILE - Accessed via ContentView → More tab → Meanings
+/// - NumberMeaningView (SINGULAR) - Different file - Accessed by tapping Realm Number
+///
+/// NAVIGATION PATH TO THIS VIEW:
+/// ContentView → Tab 9 (Meanings) → Shows grid of all numbers → Tap number → NumberRichContentView
+///
+/// PURPOSE:
+/// Provides a grid browser interface for exploring all sacred numbers (1-9 and master numbers).
+/// When a number is selected, navigates to NumberRichContentView for detailed content display.
 struct NumberMeaningsView: View {
     let initialSelectedNumber: Int?
 

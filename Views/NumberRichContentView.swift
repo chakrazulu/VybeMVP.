@@ -509,6 +509,60 @@ struct NumberRichContentView: View {
                     }
                 }
             }
+
+            // MARK: Supportive Practices Display
+            // Show activities, practices, and contexts that enhance this insight
+            // Essential for providing actionable spiritual guidance to users
+            if let supports = insight.supports, !supports.isEmpty {
+                VStack(alignment: .leading, spacing: 6) {
+                    // Support section label with positive green theming
+                    Text("Enhanced by:")
+                        .font(.caption)
+                        .fontWeight(.medium)
+                        .foregroundColor(.green.opacity(0.8))
+
+                    // Adaptive grid for support tags with positive styling
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 6) {
+                        ForEach(supports, id: \.self) { support in
+                            // Individual support tag with positive green styling
+                            Text(support.replacingOccurrences(of: "_", with: " "))
+                                .font(.caption)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(Color.green.opacity(0.2))
+                                .cornerRadius(8)
+                                .foregroundColor(.green)
+                        }
+                    }
+                }
+            }
+
+            // MARK: Challenge Areas Display
+            // Show obstacles and situations that can hinder this insight
+            // Critical for helping users recognize and navigate spiritual challenges
+            if let challenges = insight.challenges, !challenges.isEmpty {
+                VStack(alignment: .leading, spacing: 6) {
+                    // Challenge section label with caution orange theming
+                    Text("Challenged by:")
+                        .font(.caption)
+                        .fontWeight(.medium)
+                        .foregroundColor(.orange.opacity(0.8))
+
+                    // Adaptive grid for challenge tags with caution styling
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 6) {
+                        ForEach(challenges, id: \.self) { challenge in
+                            // Individual challenge tag with caution orange styling
+                            Text(challenge.replacingOccurrences(of: "_", with: " "))
+                                .font(.caption)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(Color.orange.opacity(0.2))
+                                .cornerRadius(8)
+                                .foregroundColor(.orange)
+                        }
+                    }
+                }
+            }
         }
         // Card styling with subtle background and sacred color border
         .padding()

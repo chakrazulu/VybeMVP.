@@ -1,12 +1,19 @@
 /*
  * ========================================
- * 🌌 SACRED NUMEROLOGY ENCYCLOPEDIA VIEW
+ * 🌌 SACRED NUMEROLOGY ENCYCLOPEDIA VIEW (SINGULAR - FROM REALM NUMBER TAP)
  * ========================================
+ *
+ * ⚠️ IMPORTANT NAVIGATION DISTINCTION:
+ * - NumberMeaningView (SINGULAR) - THIS FILE - Accessed by tapping Realm Number
+ * - NumberMeaningsView (PLURAL) - Different file - Accessed via Settings → More → Meanings tab
+ *
+ * NAVIGATION PATH TO THIS VIEW:
+ * RealmNumberView → Tap on realm number → NavigationLink → NumberMeaningView(initialSelectedNumber)
  *
  * CORE PURPOSE:
  * Interactive cosmic encyclopedia displaying deep meanings, symbolism, and spiritual applications
  * for numbers 0-9. Features dynamic sacred color theming, rotating cosmic animations, and
- * comprehensive mystical content presentation.
+ * comprehensive mystical content presentation with FULL RuntimeBundle behavioral insights.
  *
  * UI SPECIFICATIONS:
  * - Screen: Full-screen cosmic experience with CosmicBackgroundView
@@ -616,55 +623,188 @@ struct NumberMeaningView: View {
         }
     }
 
-    // Claude: Display rich content from RuntimeBundle
+    // MARK: - Rich Content Display (CRITICAL - THIS IS WHERE THE MAGIC HAPPENS!)
+
+    /// Displays the FULL rich content from RuntimeBundle including all behavioral insights
+    /// FIXED August 11, 2025: Now properly shows supports/challenges arrays that were missing
+    ///
+    /// - Parameter content: Raw dictionary from KASPERContentRouter.getRichContent()
+    /// - Returns: Formatted view with all spiritual insights, triggers, supports, and challenges
+    ///
+    /// CONTENT STRUCTURE EXPECTED:
+    /// - title: String (e.g., "Number 7: The Mystic Seeker")
+    /// - persona: String (e.g., "NumerologyMaster")
+    /// - behavioral_insights: Array of dictionaries containing:
+    ///   - category: String (e.g., "core_essence")
+    ///   - insight: String (main spiritual text)
+    ///   - intensity: Double (0.0-1.0)
+    ///   - triggers: [String] (what activates this insight)
+    ///   - supports: [String] (practices that enhance - GREEN TAGS)
+    ///   - challenges: [String] (obstacles to navigate - ORANGE TAGS)
     @ViewBuilder
     private func richContentDisplay(_ content: [String: Any]) -> some View {
-        VStack(alignment: .leading, spacing: 20) {
-            // Display primary meaning
-            if let meanings = content["meanings"] as? [String: Any],
-               let primary = meanings["primary"] as? String {
-                Text("Primary Meaning")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                Text(primary)
-                    .font(.body)
-                    .foregroundColor(.white.opacity(0.9))
-                    .padding()
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(sacredColor(for: selectedNumber).opacity(0.2))
-                    )
-            }
-
-            // Display symbolism
-            if let symbolism = content["symbolism"] as? [String] {
-                Text("Symbolism")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                ForEach(symbolism, id: \.self) { symbol in
-                    HStack {
-                        Image(systemName: "sparkle")
-                            .foregroundColor(sacredColor(for: selectedNumber))
-                        Text(symbol)
-                            .font(.body)
-                            .foregroundColor(.white.opacity(0.9))
-                    }
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                // Display title if available
+                if let title = content["title"] as? String {
+                    Text(title)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
+                        .padding(.bottom, 10)
                 }
-            }
 
-            // Display applications
-            if let applications = content["applications"] as? [String] {
-                Text("Applications")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                ForEach(applications, id: \.self) { app in
-                    HStack {
-                        Image(systemName: "star.fill")
-                            .foregroundColor(sacredColor(for: selectedNumber))
-                        Text(app)
-                            .font(.body)
-                            .foregroundColor(.white.opacity(0.9))
+                // Display persona/category
+                if let persona = content["persona"] as? String {
+                    Text("Guided by \(persona)")
+                        .font(.caption)
+                        .fontWeight(.medium)
+                        .foregroundColor(sacredColor(for: selectedNumber).opacity(0.8))
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 4)
+                        .background(sacredColor(for: selectedNumber).opacity(0.2))
+                        .cornerRadius(8)
+                        .frame(maxWidth: .infinity)
+                }
+
+                // Display behavioral insights - THE MAIN RICH CONTENT
+                if let insights = content["behavioral_insights"] as? [[String: Any]] {
+                    Text("Spiritual Insights")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundColor(sacredColor(for: selectedNumber))
+                        .padding(.top, 10)
+
+                    ForEach(Array(insights.prefix(10).enumerated()), id: \.offset) { index, insight in
+                        VStack(alignment: .leading, spacing: 12) {
+                            // Category header
+                            if let category = insight["category"] as? String {
+                                Text(category.replacingOccurrences(of: "_", with: " ").capitalized)
+                                    .font(.headline)
+                                    .foregroundColor(sacredColor(for: selectedNumber))
+                            }
+
+                            // Main insight text
+                            if let insightText = insight["insight"] as? String {
+                                Text(insightText)
+                                    .font(.body)
+                                    .foregroundColor(.white.opacity(0.9))
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
+
+                            // Display intensity
+                            if let intensity = insight["intensity"] as? Double {
+                                HStack {
+                                    Text("Intensity:")
+                                        .font(.caption)
+                                        .foregroundColor(.white.opacity(0.7))
+
+                                    // Visual intensity bar
+                                    GeometryReader { geometry in
+                                        ZStack(alignment: .leading) {
+                                            Rectangle()
+                                                .fill(Color.white.opacity(0.2))
+                                                .frame(height: 6)
+                                                .cornerRadius(3)
+
+                                            Rectangle()
+                                                .fill(sacredColor(for: selectedNumber))
+                                                .frame(width: geometry.size.width * CGFloat(intensity), height: 6)
+                                                .cornerRadius(3)
+                                        }
+                                    }
+                                    .frame(height: 6)
+
+                                    Text("\(Int(intensity * 100))%")
+                                        .font(.caption)
+                                        .foregroundColor(sacredColor(for: selectedNumber))
+                                }
+                                .padding(.top, 4)
+                            }
+
+                            // Display triggers
+                            if let triggers = insight["triggers"] as? [String], !triggers.isEmpty {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Triggered by:")
+                                        .font(.caption)
+                                        .foregroundColor(sacredColor(for: selectedNumber).opacity(0.8))
+
+                                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], spacing: 6) {
+                                        ForEach(triggers.prefix(6), id: \.self) { trigger in
+                                            Text(trigger.replacingOccurrences(of: "_", with: " "))
+                                                .font(.caption)
+                                                .padding(.horizontal, 8)
+                                                .padding(.vertical, 4)
+                                                .background(sacredColor(for: selectedNumber).opacity(0.2))
+                                                .cornerRadius(8)
+                                                .foregroundColor(sacredColor(for: selectedNumber))
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Display supports (NEW - showing the rich content you were missing!)
+                            if let supports = insight["supports"] as? [String], !supports.isEmpty {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Enhanced by:")
+                                        .font(.caption)
+                                        .foregroundColor(.green.opacity(0.8))
+
+                                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], spacing: 6) {
+                                        ForEach(supports.prefix(6), id: \.self) { support in
+                                            Text(support.replacingOccurrences(of: "_", with: " "))
+                                                .font(.caption)
+                                                .padding(.horizontal, 8)
+                                                .padding(.vertical, 4)
+                                                .background(Color.green.opacity(0.2))
+                                                .cornerRadius(8)
+                                                .foregroundColor(.green)
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Display challenges (NEW - showing the rich content you were missing!)
+                            if let challenges = insight["challenges"] as? [String], !challenges.isEmpty {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Challenged by:")
+                                        .font(.caption)
+                                        .foregroundColor(.orange.opacity(0.8))
+
+                                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], spacing: 6) {
+                                        ForEach(challenges.prefix(6), id: \.self) { challenge in
+                                            Text(challenge.replacingOccurrences(of: "_", with: " "))
+                                                .font(.caption)
+                                                .padding(.horizontal, 8)
+                                                .padding(.vertical, 4)
+                                                .background(Color.orange.opacity(0.2))
+                                                .cornerRadius(8)
+                                                .foregroundColor(.orange)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.white.opacity(0.05))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(sacredColor(for: selectedNumber).opacity(0.3), lineWidth: 1)
+                                )
+                        )
                     }
+                } else {
+                    // Fallback if no behavioral insights found
+                    Text("No spiritual insights available for number \(selectedNumber)")
+                        .font(.body)
+                        .foregroundColor(.white.opacity(0.7))
+                        .italic()
+                        .frame(maxWidth: .infinity)
+                        .padding()
                 }
             }
         }

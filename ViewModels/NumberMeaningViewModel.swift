@@ -44,18 +44,39 @@ final class NumberMeaningViewModel: ObservableObject {
         }
 
         state = .loading
+        self.log.info("🔍 Starting to load content for number \(number)")
 
         // Use weak self in Task blocks per CLAUDE.md memory rules
         Task { [weak self] in
             guard let self else { return }
+
+            // DEBUG: Check if RuntimeBundle files are accessible directly
+            if let bundleURL = Bundle.main.url(forResource: "\(number)_rich", withExtension: "json", subdirectory: "KASPERMLXRuntimeBundle/RichNumberMeanings") {
+                self.log.info("🎯 Found direct bundle file for \(number): \(bundleURL.path)")
+
+                do {
+                    let data = try Data(contentsOf: bundleURL)
+                    let decoded = try JSONDecoder().decode(NumberRichContent.self, from: data)
+                    self.cache[number] = decoded
+                    self.state = .loaded(decoded)
+                    self.log.info("✅ Loaded rich content directly for number \(number)")
+                    return
+                } catch {
+                    self.log.error("❌ Direct load failed: \(error.localizedDescription)")
+                }
+            } else {
+                self.log.warning("❌ No direct bundle file found for \(number)_rich.json")
+            }
 
             // Wait for router initialization if needed
             while !self.router.isInitialized {
                 try? await Task.sleep(nanoseconds: 30_000_000)
             }
 
+            self.log.info("🔄 Router initialized, trying router path...")
+
             guard let raw = await self.router.getRichContent(for: number) else {
-                self.log.info("No rich content for \(number) → falling back to live templates")
+                self.log.warning("❌ Router returned nil for number \(number) → falling back to live templates")
                 self.state = .empty
                 return
             }
@@ -65,9 +86,9 @@ final class NumberMeaningViewModel: ObservableObject {
                 let decoded = try JSONDecoder().decode(NumberRichContent.self, from: data)
                 self.cache[number] = decoded
                 self.state = .loaded(decoded)
-                self.log.info("✅ Loaded rich content for number \(number)")
+                self.log.info("✅ Loaded rich content via router for number \(number)")
             } catch {
-                self.log.error("Rich decode failed: \(error.localizedDescription)")
+                self.log.error("❌ Router decode failed: \(error.localizedDescription)")
                 self.state = .error("Couldn't decode rich content")
             }
         }
