@@ -111,6 +111,8 @@
 		4D6528762E49A59300F521E1 /* NumberRichContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528742E49A59300F521E1 /* NumberRichContent.swift */; };
 		4D65287A2E49A5E900F521E1 /* NumberMeaningViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528792E49A5E900F521E1 /* NumberMeaningViewModel.swift */; };
 		4D65287C2E49A60E00F521E1 /* NumberRichContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65287B2E49A60E00F521E1 /* NumberRichContentView.swift */; };
+		4D6528802E49A75100F521E1 /* KASPERInferenceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D65287F2E49A75100F521E1 /* KASPERInferenceProvider.swift */; };
+		4D6528842E49A7AD00F521E1 /* KASPERTemplateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528822E49A7AD00F521E1 /* KASPERTemplateProvider.swift */; };
 		4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */; };
 		4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */; };
 		4D6C7B552DE45441001036E5 /* ArchetypeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */; };
@@ -673,6 +675,8 @@
 		4D6528742E49A59300F521E1 /* NumberRichContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberRichContent.swift; sourceTree = "<group>"; };
 		4D6528792E49A5E900F521E1 /* NumberMeaningViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMeaningViewModel.swift; sourceTree = "<group>"; };
 		4D65287B2E49A60E00F521E1 /* NumberRichContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberRichContentView.swift; sourceTree = "<group>"; };
+		4D65287F2E49A75100F521E1 /* KASPERInferenceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERInferenceProvider.swift; sourceTree = "<group>"; };
+		4D6528822E49A7AD00F521E1 /* KASPERTemplateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERTemplateProvider.swift; sourceTree = "<group>"; };
 		4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetype.swift; sourceTree = "<group>"; };
 		4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetypeManager.swift; sourceTree = "<group>"; };
 		4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchetypeDisplayView.swift; sourceTree = "<group>"; };
@@ -1755,6 +1759,7 @@
 		4DA359A02E3F135B0010101F /* MLXCore */ = {
 			isa = PBXGroup;
 			children = (
+				4D65287F2E49A75100F521E1 /* KASPERInferenceProvider.swift */,
 				4D731EB42E4721AE0083C82C /* KASPERLifePathTrinity.swift */,
 				4D731DE12E46D4E20083C82C /* KASPERContentImporter.swift */,
 				4DA359B82E3FF6160010101F /* KASPERTrainingDataManager.swift */,
@@ -1807,6 +1812,7 @@
 		4DA359AD2E3F135B0010101F /* MLXProviders */ = {
 			isa = PBXGroup;
 			children = (
+				4D6528822E49A7AD00F521E1 /* KASPERTemplateProvider.swift */,
 				4DF7A06F2E40DA3300D5AC19 /* MegaCorpusDataProvider.swift */,
 				4DA359AA2E3F135B0010101F /* BiometricDataProvider.swift */,
 				4DA359AB2E3F135B0010101F /* CosmicDataProvider.swift */,
@@ -2754,6 +2760,7 @@
 				4D2DB4912DFF70E00003353E /* SharedUIComponents.swift in Sources */,
 				4D3055EE2D3CF838009A7BBD /* OldLogger.swift in Sources */,
 				4D2CC7122E0B9EDF00BDF100 /* DynamicAssetMandalaView.swift in Sources */,
+				4D6528842E49A7AD00F521E1 /* KASPERTemplateProvider.swift in Sources */,
 				4D37271C2DE554B700B5A02B /* ActivityView.swift in Sources */,
 				4DB1B4C42E4850F900F1585A /* KASPERLinguisticEnhancerV2.swift in Sources */,
 				4D6C7BAD2DE47F55001036E5 /* AuthService.swift in Sources */,
@@ -2793,6 +2800,7 @@
 				4D6308DE2DFFCB2C00FD32E9 /* Post.swift in Sources */,
 				4D6308DF2DFFCB2C00FD32E9 /* PostCardView.swift in Sources */,
 				4D2CC6FB2E08BE3700BDF100 /* SacredGeometryAssets.swift in Sources */,
+				4D6528802E49A75100F521E1 /* KASPERInferenceProvider.swift in Sources */,
 				4D2F223E2E347C0F0087B052 /* ArchetypeCodexSection.swift in Sources */,
 				4D5929AC2E4933BA002625DE /* RichContentValidator.swift in Sources */,
 				4D2F223F2E347C0F0087B052 /* ProfileSummarySection.swift in Sources */,

@@ -94,6 +94,7 @@ class KASPERMLXEngine: ObservableObject {
     /// Future: Trained spiritual intelligence models for personalized guidance
     /// Architecture: Supports seamless transition from templates to true AI
     private var mlxModel: KASPERMLXModelProtocol? // MLX model implementing the spiritual inference protocol
+    private let orchestrator = KASPEROrchestrator.shared // Provider orchestrator for flexible AI backends
 
     // MARK: - 🌟 Singleton Spiritual Intelligence Access Point
 
@@ -197,6 +198,30 @@ class KASPERMLXEngine: ObservableObject {
         } else {
             logger.warning("🔮 KASPER MLX: Engine not ready - missing dependencies")
         }
+    }
+
+    // MARK: - 🎯 Provider Strategy Management
+
+    /// Set the AI provider strategy for insight generation
+    /// - Parameter strategy: The strategy to use (mlxStub, template, automatic, etc.)
+    public func setProviderStrategy(_ strategy: KASPERStrategy) async {
+        logger.info("🎯 Setting provider strategy to: \(strategy.displayName)")
+        await orchestrator.setStrategy(strategy)
+    }
+
+    /// Get current provider strategy
+    public func getCurrentStrategy() -> KASPERStrategy {
+        orchestrator.currentStrategy
+    }
+
+    /// Get available provider strategies
+    public func getAvailableStrategies() async -> [KASPERStrategy] {
+        await orchestrator.getAvailableStrategies()
+    }
+
+    /// Get performance report for all providers
+    public func getProviderPerformanceReport() -> String {
+        orchestrator.getPerformanceReport()
     }
 
     /// Claude: Generate Personalized Spiritual Insight - The Core Intelligence Method
