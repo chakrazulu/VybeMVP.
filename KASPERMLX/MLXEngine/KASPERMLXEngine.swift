@@ -1893,11 +1893,14 @@ class KASPERMLXEngine: ObservableObject {
             logger.info("🔮 KASPER MLX: ⚡ Calculating spiritual resonance: \(String(format: "%.2f", spiritualResonance))")
             logger.info("🔮 KASPER MLX: 🧠 Consciousness depth computed: \(String(format: "%.3f", consciousnessDepth))")
 
-            // Generate unique harmonic index based on spiritual combination
-            let harmonicSeed = (focusNumber * 7 + realmNumber * 3) + Int(moonPhase * 100)
-            let harmonicIndex = harmonicSeed % 7
+            // Generate unique harmonic index with temporal and session variation
+            let currentTime = Int(Date().timeIntervalSince1970)
+            let hourlyVariation = (currentTime / 3600) % 24 // Changes every hour
+            let minuteVariation = (currentTime / 60) % 60    // Changes every minute for more variation
+            let harmonicSeed = (focusNumber * 7 + realmNumber * 3) + Int(moonPhase * 100) + Int(planetaryEnergy * 50) + hourlyVariation + minuteVariation
+            let harmonicIndex = abs(harmonicSeed) % 7
 
-            logger.info("🔮 KASPER MLX: 🎵 Harmonic signature generated: Index \(harmonicIndex) (Seed: \(harmonicSeed))")
+            logger.info("🔮 KASPER MLX: 🎵 Harmonic signature generated: Index \(harmonicIndex) (Seed: \(harmonicSeed), Hour: \(hourlyVariation), Min: \(minuteVariation))")
             logger.info("🔮 KASPER MLX: 🚀 MLX INFERENCE COMPLETE - Personalized spiritual tensor ready!")
 
             return [
@@ -2016,7 +2019,10 @@ class KASPERMLXEngine: ObservableObject {
         // Try to get RuntimeBundle content for focus number first
         if let richContent = await KASPERContentRouter.shared.getRichContent(for: focusNumber) {
             if let insights = richContent["behavioral_insights"] as? [[String: Any]], !insights.isEmpty {
-                let mlxGuidedIndex = harmonicIndex % insights.count
+                // Add micro-variation to prevent repetition even with same harmonic
+                let microVariation = abs(String(spiritualResonance).hashValue) % 3
+                let mlxGuidedIndex = (harmonicIndex + microVariation) % insights.count
+                logger.info("🔮 KASPER MLX: ✨ Using RuntimeBundle content with MLX tensor guidance (index: \(mlxGuidedIndex)/\(insights.count))")
                 if let content = insights[mlxGuidedIndex]["text"] as? String {
                     return applyMLXSpiritualTransformation(content, harmonics: harmonicIndex)
                 }
