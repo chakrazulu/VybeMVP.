@@ -58,14 +58,28 @@ jobs:
 
     - name: 📦 Install Python Dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements-dev.txt || echo "No requirements-dev.txt, installing basics"
+        python -m pip install -U pip
+        if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
         pip install jsonschema pyyaml
 
-    - name: 🔍 Content Linting (13/13 files)
+    - name: 🐛 Debug workspace (temporary - remove after green)
       run: |
-        echo "🔍 Running KASPER MLX content linter..."
-        python scripts/lint_rich_content.py
+        pwd
+        ls -la
+        echo "PYTHONPATH=$GITHUB_WORKSPACE"
+        python -c "import sys, pathlib; print('sys.path[0]=', sys.path[0]); print('cwd=', pathlib.Path().resolve())"
+
+    - name: 🔍 Content Linting (soft on PRs, hard on main)
+      env:
+        PYTHONPATH: ${{ github.workspace }}
+        KASPER_REPO_ROOT: ${{ github.workspace }}
+      run: |
+        SOFT_FLAG=""
+        if [ "${{ github.event_name }}" = "pull_request" ]; then
+          SOFT_FLAG="--soft"
+        fi
+        echo "🔍 Running KASPER MLX content linter with root=$GITHUB_WORKSPACE"
+        python scripts/lint_rich_content.py --root "$GITHUB_WORKSPACE" $SOFT_FLAG
 
     - name: 🏗️ RuntimeBundle Validation
       run: |

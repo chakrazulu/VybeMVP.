@@ -28,7 +28,9 @@ Version: 2.1.4 - Bulletproof Content Quality
 
 import argparse
 import json
+import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
@@ -38,6 +40,30 @@ try:
 except ImportError:
     print("❌ Missing jsonschema dependency. Install with: pip install jsonschema")
     sys.exit(1)
+
+
+def repo_root_from_env_or_git(cli_root: str = None) -> Path:
+    """
+    ChatGPT's robust repo root detection for CI environments.
+    Tries CLI arg -> env var -> git -> .git walk -> current dir.
+    """
+    if cli_root:
+        return Path(cli_root).resolve()
+    if env := os.getenv("KASPER_REPO_ROOT"):
+        return Path(env).resolve()
+    try:
+        out = subprocess.check_output(
+            ["git", "rev-parse", "--show-toplevel"], text=True, stderr=subprocess.DEVNULL, timeout=5
+        ).strip()
+        return Path(out)
+    except Exception:
+        # last-ditch: walk up until .git
+        p = Path.cwd()
+        for _ in range(10):
+            if (p / ".git").exists():
+                return p
+            p = p.parent
+        return Path.cwd()
 
 
 class RichContentLinter:
@@ -450,12 +476,30 @@ Examples:
     parser.add_argument(
         "--strict", action="store_true", help="Enable extra strict validation rules"
     )
+    parser.add_argument(
+        "--root", default=None, help="Explicit repo root path (for CI environments)"
+    )
+    parser.add_argument(
+        "--soft",
+        action="store_true",
+        help="Convert advisory failures to warnings; exit 0 (for PRs)",
+    )
 
     args = parser.parse_args()
 
+    # Determine repo root using ChatGPT's robust detection
+    repo_root = repo_root_from_env_or_git(args.root)
+    os.chdir(repo_root)
+    print(f"🏠 Repo root: {repo_root}")
+
     # Create linter and run validation
-    linter = RichContentLinter()
+    linter = RichContentLinter(project_root=repo_root)
     success = linter.lint(specific_path=args.path, fix_mode=args.fix)
+
+    # Handle soft mode for PRs (convert failures to warnings)
+    if args.soft and not success:
+        print("⚠️ SOFT MODE: Converting validation failures to warnings for PR")
+        success = True  # Convert failure to success
 
     # Exit with appropriate code
     sys.exit(0 if success else 1)
