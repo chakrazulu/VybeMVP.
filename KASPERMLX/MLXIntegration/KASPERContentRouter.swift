@@ -197,6 +197,15 @@ class KASPERContentRouter: ObservableObject {
     private func loadManifest() async {
         logger.info("🔄 Loading RuntimeBundle manifest...")
 
+        // Debug: Log what's actually in the bundle
+        if let bundleURL = Bundle.main.resourceURL {
+            let contents = (try? FileManager.default.contentsOfDirectory(atPath: bundleURL.path)) ?? []
+            logger.info("📦 Bundle root contents: \(contents.joined(separator: ", "))")
+            let rb = bundleURL.appendingPathComponent(bundleSubdirectory)
+            let rbContents = (try? FileManager.default.contentsOfDirectory(atPath: rb.path)) ?? []
+            logger.info("📦 \(bundleSubdirectory) contents: \(rbContents.joined(separator: ", "))")
+        }
+
         // Locate manifest in app bundle
         guard let manifestURL = Bundle.main.url(
             forResource: "manifest",
