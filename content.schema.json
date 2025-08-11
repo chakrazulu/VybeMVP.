@@ -1,0 +1,200 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://vybe.app/schemas/rich-content-v2.1.4.json",
+  "title": "VybeMVP Rich Content Schema v2.1.4",
+  "description": "Validates authentic spiritual content for single numbers, master numbers, and behavioral insights",
+  "type": "object",
+  "required": ["number", "title", "source", "persona", "behavioral_category", "intensity_scoring", "behavioral_insights", "meta"],
+  "properties": {
+    "number": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 44,
+      "description": "Numerological number (1-9 for singles, 11/22/33/44 for masters)"
+    },
+    "title": {
+      "type": "string",
+      "pattern": "^(Master )?Number \\d+: The [A-Z][a-zA-Z\\s]+$",
+      "description": "Format: 'Number X: The Archetype Name' or 'Master Number X: The Archetype Name'"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["single_numbers", "master_numbers", "behavioral"],
+      "description": "Content source type for routing logic"
+    },
+    "persona": {
+      "type": "string",
+      "enum": ["NumerologyMaster", "MasterTeacher", "Oracle", "Psychologist", "MindfulnessCoach", "NumerologyScholar", "Philosopher"],
+      "description": "AI persona generating this content"
+    },
+    "behavioral_category": {
+      "type": "string",
+      "pattern": "^[a-z_]+$",
+      "description": "Primary behavioral theme (snake_case format)"
+    },
+    "intensity_scoring": {
+      "type": "object",
+      "required": ["min_range", "max_range", "note"],
+      "properties": {
+        "min_range": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Minimum intensity for this number's energy"
+        },
+        "max_range": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Maximum intensity for this number's energy"
+        },
+        "note": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Explanation of this number's intensity characteristics"
+        }
+      },
+      "additionalProperties": false
+    },
+    "behavioral_insights": {
+      "type": "array",
+      "minItems": 20,
+      "maxItems": 20,
+      "description": "Exactly 20 behavioral insights for comprehensive coverage",
+      "items": {
+        "type": "object",
+        "required": ["category", "insight", "intensity", "triggers", "supports", "challenges"],
+        "properties": {
+          "category": {
+            "type": "string",
+            "pattern": "^[a-z_]+$",
+            "description": "Insight category (snake_case format)"
+          },
+          "insight": {
+            "type": "string",
+            "minLength": 50,
+            "maxLength": 1000,
+            "pattern": "^(?!.*oai_citation)(?!.*com/articles/).*$",
+            "description": "Clean insight text without Claude artifacts or broken citations"
+          },
+          "intensity": {
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "description": "Intensity score for this specific insight"
+          },
+          "triggers": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 5,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z_]+$",
+              "description": "Trigger conditions (snake_case format)"
+            }
+          },
+          "supports": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 5,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z_]+$",
+              "description": "Supporting activities (snake_case format)"
+            }
+          },
+          "challenges": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 5,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z_]+$",
+              "description": "Challenge areas (snake_case format)"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": ["type", "archetype", "keywords", "affirmations", "compatibility", "rituals"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["single", "master"],
+          "description": "Number classification"
+        },
+        "archetype": {
+          "type": "string",
+          "pattern": "^[a-z_]+$",
+          "description": "Core archetype name (snake_case format)"
+        },
+        "element": {
+          "type": "string",
+          "pattern": "^[a-z_]+$",
+          "description": "Associated element(s) (snake_case format)"
+        },
+        "keywords": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 15,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z_]+$",
+            "description": "Key descriptive words (snake_case format)"
+          }
+        },
+        "affirmations": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 12,
+          "items": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 200,
+            "description": "Positive affirmations for this number"
+          }
+        },
+        "compatibility": {
+          "type": "object",
+          "required": ["most_compatible", "moderately_compatible", "challenging", "notes"],
+          "properties": {
+            "most_compatible": {
+              "type": "array",
+              "items": {"type": "integer", "minimum": 1, "maximum": 44}
+            },
+            "moderately_compatible": {
+              "type": "array",
+              "items": {"type": "integer", "minimum": 1, "maximum": 44}
+            },
+            "challenging": {
+              "type": "array",
+              "items": {"type": "integer", "minimum": 1, "maximum": 44}
+            },
+            "notes": {
+              "type": "string",
+              "minLength": 20,
+              "description": "Compatibility explanation"
+            }
+          },
+          "additionalProperties": false
+        },
+        "rituals": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 6,
+          "items": {
+            "type": "string",
+            "minLength": 30,
+            "maxLength": 150,
+            "description": "Spiritual practices for this number"
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

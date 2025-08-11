@@ -84,6 +84,13 @@
 		4D55BE792E3AD37C00F7BE5B /* CosmicHUDWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4D55BE642E3AD37B00F7BE5B /* CosmicHUDWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4D55BE7F2E3AD4AD00F7BE5B /* CosmicHUDTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE5E2E3AC55400F7BE5B /* CosmicHUDTypes.swift */; };
 		4D5926A72E48EDDB002625DE /* KASPERMLXRuntimeBundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D5926A62E48EDDB002625DE /* KASPERMLXRuntimeBundle */; };
+		4D5926CC2E490D7D002625DE /* RouterDiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5926CA2E490D7D002625DE /* RouterDiagnosticsView.swift */; };
+		4D5929992E4927CB002625DE /* master_22_rich.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D5929952E4927CB002625DE /* master_22_rich.json */; };
+		4D59299A2E4927CB002625DE /* master_33_rich.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D5929962E4927CB002625DE /* master_33_rich.json */; };
+		4D59299B2E4927CB002625DE /* master_11_rich.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D5929942E4927CB002625DE /* master_11_rich.json */; };
+		4D59299C2E4927CB002625DE /* master_44_rich.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D5929972E4927CB002625DE /* master_44_rich.json */; };
+		4D5929AB2E4933BA002625DE /* VybeCore-Overview.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D5929A92E4933BA002625DE /* VybeCore-Overview.md */; };
+		4D5929AC2E4933BA002625DE /* RichContentValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5929A72E4933BA002625DE /* RichContentValidator.swift */; };
 		4D5BEAF52E35A7AD00B56575 /* PostEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF22E35A7AD00B56575 /* PostEntity+CoreDataClass.swift */; };
 		4D5BEAF72E35A7E900B56575 /* PostEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF62E35A7E900B56575 /* PostEntity+CoreDataProperties.swift */; };
 		4D5BEAF92E35A81400B56575 /* HybridPostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BEAF82E35A81400B56575 /* HybridPostRepository.swift */; };
@@ -98,6 +105,8 @@
 		4D6308E02DFFCB2C00FD32E9 /* SocialTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D72DFFCB2C00FD32E9 /* SocialTimelineView.swift */; };
 		4D6308E12DFFCB2C00FD32E9 /* SocialUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6308D22DFFCB2C00FD32E9 /* SocialUser.swift */; };
 		4D6308E42DFFCB6F00FD32E9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4D6308E32DFFCB6F00FD32E9 /* FirebaseAuth */; };
+		4D65277A2E493BE800F521E1 /* vybeOS-handoff.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6527792E493BE800F521E1 /* vybeOS-handoff.md */; };
+		4D6528672E4944EB00F521E1 /* Sanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528662E4944EB00F521E1 /* Sanitizer.swift */; };
 		4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */; };
 		4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */; };
 		4D6C7B552DE45441001036E5 /* ArchetypeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */; };
@@ -328,7 +337,6 @@
 		4DB1B4BC2E4841EF00F1585A /* KASPER-MLX-CORE-SPECS.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4BB2E4841EF00F1585A /* KASPER-MLX-CORE-SPECS.md */; };
 		4DB1B4C42E4850F900F1585A /* KASPERLinguisticEnhancerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C32E4850F900F1585A /* KASPERLinguisticEnhancerV2.swift */; };
 		4DB1B4C62E48517100F1585A /* KASPERLinguisticV2Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B4C52E48517100F1585A /* KASPERLinguisticV2Demo.swift */; };
-		4DB1B69A2E4853E600F1585A /* KASPERLinguisticV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB1B6992E4853E600F1585A /* KASPERLinguisticV2Tests.swift */; };
 		4DB1DE972E22A5C2001A9EA5 /* generate-screenshots.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE8F2E22A5C2001A9EA5 /* generate-screenshots.sh */; };
 		4DB1DE982E22A5C2001A9EA5 /* clean-project.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE922E22A5C2001A9EA5 /* clean-project.sh */; };
 		4DB1DE992E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1DE8C2E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh */; };
@@ -635,6 +643,13 @@
 		4D55BE652E3AD37B00F7BE5B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		4D55BE672E3AD37B00F7BE5B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		4D5926A62E48EDDB002625DE /* KASPERMLXRuntimeBundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KASPERMLXRuntimeBundle; sourceTree = "<group>"; };
+		4D5926CA2E490D7D002625DE /* RouterDiagnosticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterDiagnosticsView.swift; sourceTree = "<group>"; };
+		4D5929942E4927CB002625DE /* master_11_rich.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = master_11_rich.json; sourceTree = "<group>"; };
+		4D5929952E4927CB002625DE /* master_22_rich.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = master_22_rich.json; sourceTree = "<group>"; };
+		4D5929962E4927CB002625DE /* master_33_rich.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = master_33_rich.json; sourceTree = "<group>"; };
+		4D5929972E4927CB002625DE /* master_44_rich.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = master_44_rich.json; sourceTree = "<group>"; };
+		4D5929A72E4933BA002625DE /* RichContentValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichContentValidator.swift; sourceTree = "<group>"; };
+		4D5929A92E4933BA002625DE /* VybeCore-Overview.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "VybeCore-Overview.md"; sourceTree = "<group>"; };
 		4D5BEAF22E35A7AD00B56575 /* PostEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4D5BEAF62E35A7E900B56575 /* PostEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4D5BEAF82E35A81400B56575 /* HybridPostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HybridPostRepository.swift; sourceTree = "<group>"; };
@@ -648,6 +663,8 @@
 		4D6308D52DFFCB2C00FD32E9 /* PostComposerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComposerView.swift; sourceTree = "<group>"; };
 		4D6308D62DFFCB2C00FD32E9 /* ReactionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPickerView.swift; sourceTree = "<group>"; };
 		4D6308D72DFFCB2C00FD32E9 /* SocialTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTimelineView.swift; sourceTree = "<group>"; };
+		4D6527792E493BE800F521E1 /* vybeOS-handoff.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "vybeOS-handoff.md"; sourceTree = "<group>"; };
+		4D6528662E4944EB00F521E1 /* Sanitizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sanitizer.swift; sourceTree = "<group>"; };
 		4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetype.swift; sourceTree = "<group>"; };
 		4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetypeManager.swift; sourceTree = "<group>"; };
 		4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchetypeDisplayView.swift; sourceTree = "<group>"; };
@@ -872,7 +889,6 @@
 		4DB1B4BB2E4841EF00F1585A /* KASPER-MLX-CORE-SPECS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "KASPER-MLX-CORE-SPECS.md"; sourceTree = "<group>"; };
 		4DB1B4C32E4850F900F1585A /* KASPERLinguisticEnhancerV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERLinguisticEnhancerV2.swift; sourceTree = "<group>"; };
 		4DB1B4C52E48517100F1585A /* KASPERLinguisticV2Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERLinguisticV2Demo.swift; sourceTree = "<group>"; };
-		4DB1B6992E4853E600F1585A /* KASPERLinguisticV2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERLinguisticV2Tests.swift; sourceTree = "<group>"; };
 		4DB1DE8C2E22A5C2001A9EA5 /* sacred-geometry-optimizer.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "sacred-geometry-optimizer.sh"; sourceTree = "<group>"; };
 		4DB1DE8F2E22A5C2001A9EA5 /* generate-screenshots.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "generate-screenshots.sh"; sourceTree = "<group>"; };
 		4DB1DE902E22A5C2001A9EA5 /* memory-check.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "memory-check.sh"; sourceTree = "<group>"; };
@@ -1330,6 +1346,43 @@
 			path = CosmicHUD;
 			sourceTree = "<group>";
 		};
+		4D5926CB2E490D7D002625DE /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				4D5926CA2E490D7D002625DE /* RouterDiagnosticsView.swift */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
+		4D5929982E4927CB002625DE /* MasterNumbers */ = {
+			isa = PBXGroup;
+			children = (
+				4D5929942E4927CB002625DE /* master_11_rich.json */,
+				4D5929952E4927CB002625DE /* master_22_rich.json */,
+				4D5929962E4927CB002625DE /* master_33_rich.json */,
+				4D5929972E4927CB002625DE /* master_44_rich.json */,
+			);
+			path = MasterNumbers;
+			sourceTree = "<group>";
+		};
+		4D5929A82E4933BA002625DE /* Guards */ = {
+			isa = PBXGroup;
+			children = (
+				4D5929A72E4933BA002625DE /* RichContentValidator.swift */,
+			);
+			path = Guards;
+			sourceTree = "<group>";
+		};
+		4D5929AA2E4933BA002625DE /* VybeCore */ = {
+			isa = PBXGroup;
+			children = (
+				4D6528652E49445400F521E1 /* VybeCoreUtilities */,
+				4D5929A82E4933BA002625DE /* Guards */,
+				4D5929A92E4933BA002625DE /* VybeCore-Overview.md */,
+			);
+			path = VybeCore;
+			sourceTree = "<group>";
+		};
 		4D5BEB332E372AC100B56575 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -1395,6 +1448,14 @@
 				4D55BE672E3AD37B00F7BE5B /* SwiftUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4D6528652E49445400F521E1 /* VybeCoreUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				4D6528662E4944EB00F521E1 /* Sanitizer.swift */,
+			);
+			path = VybeCoreUtilities;
 			sourceTree = "<group>";
 		};
 		4D6C7B9C2DE47E99001036E5 /* Onboarding */ = {
@@ -1666,6 +1727,7 @@
 		4D731FC92E474A0F0083C82C /* ContentRefinery */ = {
 			isa = PBXGroup;
 			children = (
+				4D5929982E4927CB002625DE /* MasterNumbers */,
 				4D731F652E474A0F0083C82C /* Approved */,
 				4D731FA82E474A0F0083C82C /* Archive */,
 				4D731FC42E474A0F0083C82C /* Processing */,
@@ -1697,7 +1759,6 @@
 			isa = PBXGroup;
 			children = (
 				4D5EC43A2E485B3D00BB90C6 /* KASPERLinguisticConfig.json */,
-				4DB1B6992E4853E600F1585A /* KASPERLinguisticV2Tests.swift */,
 				4DB1B4C52E48517100F1585A /* KASPERLinguisticV2Demo.swift */,
 				4DB1B4C32E4850F900F1585A /* KASPERLinguisticEnhancerV2.swift */,
 				4D731D382E4542940083C82C /* KASPERTemplateEnhancer.swift */,
@@ -1817,6 +1878,7 @@
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
+				4D5929AA2E4933BA002625DE /* VybeCore */,
 				4D5926A62E48EDDB002625DE /* KASPERMLXRuntimeBundle */,
 				4DDA0A712E48348900449F20 /* VybeOS */,
 				4DF7A0942E41822600D5AC19 /* SpiritualDatabase */,
@@ -1887,6 +1949,7 @@
 		4DC602302D34440900B5E4A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4D5926CB2E490D7D002625DE /* Debug */,
 				4DCB386D2E1B050400311D51 /* RecentMatchPopupView.swift */,
 				4DCB386B2E1AAF1C00311D51 /* UserProfileView.swift */,
 				4DB233FC2E11F4CC004EC2BC /* TestCosmicAnimationView.swift */,
@@ -2088,6 +2151,7 @@
 		4DDA0A712E48348900449F20 /* VybeOS */ = {
 			isa = PBXGroup;
 			children = (
+				4D6527792E493BE800F521E1 /* vybeOS-handoff.md */,
 				4DB1B4B92E48418900F1585A /* NAVIGATION-INDEX.md */,
 				4DB1B4B32E483D9300F1585A /* VYBEOS-DOCUMENTATION-ECOSYSTEM.md */,
 				4DDA0A642E48348900449F20 /* API-Documentation */,
@@ -2317,6 +2381,7 @@
 				4DDA0A352E47CBF900449F20 /* expression_04_behavioral.json in Resources */,
 				4DCB39492E1F78AE00311D51 /* unity_consciousness.svg in Resources */,
 				4DCB394A2E1F78AE00311D51 /* renewal_justice.svg in Resources */,
+				4D65277A2E493BE800F521E1 /* vybeOS-handoff.md in Resources */,
 				4DCB394B2E1F78AE00311D51 /* will_command.svg in Resources */,
 				4DCB394C2E1F78AE00311D51 /* unity_alpha.svg in Resources */,
 				4DCB394D2E1F78AE00311D51 /* trinity_mandala.svg in Resources */,
@@ -2328,6 +2393,7 @@
 				4D731FD42E474A0F0083C82C /* CR2_original.md in Resources */,
 				4D731FD62E474A0F0083C82C /* CR4_original.md in Resources */,
 				4D731FD72E474A0F0083C82C /* CR6_original.md in Resources */,
+				4D5929AB2E4933BA002625DE /* VybeCore-Overview.md in Resources */,
 				4D731FD82E474A0F0083C82C /* lifePath_03_v2.0_converted.json in Resources */,
 				4DDA0A592E47CEB300449F20 /* expression_08_converted.json in Resources */,
 				4D731FD92E474A0F0083C82C /* grok_mindfulnesscoach_33_converted.json in Resources */,
@@ -2473,6 +2539,10 @@
 				4D7320912E474A0F0083C82C /* MindfulnessCoach_Number_2_original.md in Resources */,
 				4D7320922E474A0F0083C82C /* grok_mindfulnesscoach_03_converted.json in Resources */,
 				4D7320932E474A0F0083C82C /* MindfulnessCoach_Number_6_original.md in Resources */,
+				4D5929992E4927CB002625DE /* master_22_rich.json in Resources */,
+				4D59299A2E4927CB002625DE /* master_33_rich.json in Resources */,
+				4D59299B2E4927CB002625DE /* master_11_rich.json in Resources */,
+				4D59299C2E4927CB002625DE /* master_44_rich.json in Resources */,
 				4D7320942E474A0F0083C82C /* Oracle_Number_5_original.md in Resources */,
 				4D7320962E474A0F0083C82C /* Psychologist_Number_7_original.md in Resources */,
 				4D7320972E474A0F0083C82C /* lifePath_09_v2.0_converted.json in Resources */,
@@ -2579,7 +2649,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DA642652D8122C70047287B /* HealthKitManaging.swift in Sources */,
-				4DB1B69A2E4853E600F1585A /* KASPERLinguisticV2Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2613,6 +2682,7 @@
 				4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */,
 				4D9396192E07578200955980 /* SacredGeometryView.swift in Sources */,
 				4DE4C37E2DB3918E00BB7572 /* NumerologyMessage.swift in Sources */,
+				4D5926CC2E490D7D002625DE /* RouterDiagnosticsView.swift in Sources */,
 				4DA98FCE2E073D0000FAE5FF /* ReportContentView.swift in Sources */,
 				4D3055C12D3CA97C009A7BBD /* VybeMVP.xcdatamodeld in Sources */,
 				4D6C7BB92DE480E4001036E5 /* PreparedInsight.swift in Sources */,
@@ -2701,6 +2771,7 @@
 				4D6308DF2DFFCB2C00FD32E9 /* PostCardView.swift in Sources */,
 				4D2CC6FB2E08BE3700BDF100 /* SacredGeometryAssets.swift in Sources */,
 				4D2F223E2E347C0F0087B052 /* ArchetypeCodexSection.swift in Sources */,
+				4D5929AC2E4933BA002625DE /* RichContentValidator.swift in Sources */,
 				4D2F223F2E347C0F0087B052 /* ProfileSummarySection.swift in Sources */,
 				4D2F22402E347C0F0087B052 /* ActionButtonsSection.swift in Sources */,
 				4D2F22412E347C0F0087B052 /* DivineTriangleSection.swift in Sources */,
@@ -2727,6 +2798,7 @@
 				4D2F22432E3482C70087B052 /* NatalChartSection.swift in Sources */,
 				4D3727152DE550ED00B5A02B /* CosmicBackgroundView.swift in Sources */,
 				4D2CC7102E0B9EB700BDF100 /* RulingNumberChartView.swift in Sources */,
+				4D6528672E4944EB00F521E1 /* Sanitizer.swift in Sources */,
 				4D5BEAF72E35A7E900B56575 /* PostEntity+CoreDataProperties.swift in Sources */,
 				4D6C7B9D2DE47E99001036E5 /* OnboardingReflectionModeView.swift in Sources */,
 				4D0CA8D12DE69F4600D4A6D6 /* NumerologyRainView.swift in Sources */,

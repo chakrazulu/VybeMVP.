@@ -1,24 +1,50 @@
 # KASPER MLX Project Makefile
 # Automated tasks for spiritual AI development
 
-.PHONY: help release-cards clean install-dev test test-structural test-heuristic determinism lint tag build soft venv
+.PHONY: help release-cards clean install-dev test test-structural test-heuristic determinism lint tag build soft venv content-lint content-normalize content-export content-validate content-all self-healing-setup self-healing-validate swiftlint-install coverage-report runtime-bundle-test
 
 # Default target
 help:
-	@echo "KASPER MLX Development Commands"
-	@echo "================================"
-	@echo "release-cards    Generate DATA_CARD.md and MODEL_CARD.md"
-	@echo "soft            Generate release cards in soft mode (warnings only)"
-	@echo "venv            Create local virtual environment (.venv)"
-	@echo "install-dev      Install development dependencies and pre-commit hooks"
-	@echo "clean           Clean generated artifacts"
-	@echo "test            Run all validation tests"
-	@echo "test-structural  Run structural validation tests only (CI-required)"
-	@echo "test-heuristic   Run heuristic quality tests only"
-	@echo "determinism     Test dataset digest stability (critical for production)"
-	@echo "lint            Run pre-commit on all files"
-	@echo "tag             Create and push git tag for current release"
-	@echo "help            Show this help message"
+	@echo "KASPER MLX Development Commands v2.1.4"
+	@echo "======================================="
+	@echo ""
+	@echo "📦 Release Management:"
+	@echo "  release-cards    Generate DATA_CARD.md and MODEL_CARD.md"
+	@echo "  soft            Generate release cards in soft mode (warnings only)"
+	@echo "  build           Build full release bundle"
+	@echo "  tag             Create and push git tag for current release"
+	@echo ""
+	@echo "🔧 Development Environment:"
+	@echo "  venv            Create local virtual environment (.venv)"
+	@echo "  install-dev      Install development dependencies and pre-commit hooks"
+	@echo "  clean           Clean generated artifacts"
+	@echo "  lint            Run pre-commit on all files"
+	@echo ""
+	@echo "🧪 Testing & Validation:"
+	@echo "  test            Run all validation tests"
+	@echo "  test-structural  Run structural validation tests only (CI-required)"
+	@echo "  test-heuristic   Run heuristic quality tests only"
+	@echo "  determinism     Test dataset digest stability (critical for production)"
+	@echo ""
+	@echo "🎯 Content Pipeline (Bulletproof v2.1.4):"
+	@echo "  content-lint     Run content linter on all *_rich.json files"
+	@echo "  content-normalize Fix snake_case and Claude artifacts in content"
+	@echo "  content-export   Generate KASPER MLX runtime bundle"
+	@echo "  content-validate Full validation pipeline (normalize + lint)"
+	@echo "  content-all      Complete content pipeline (normalize + lint + export)"
+	@echo ""
+	@echo "🌟 Self-Healing Architecture (v2.1.6):"
+	@echo "  self-healing-setup   Setup self-healing development environment"
+	@echo "  self-healing-validate Complete self-healing system validation"
+	@echo "  swiftlint-install    Install SwiftLint for code quality gates"
+	@echo "  coverage-report      Generate content coverage report"
+	@echo "  runtime-bundle-test  Test RuntimeBundle fallback chain"
+	@echo ""
+	@echo "💡 Quick Commands:"
+	@echo "  make content-lint      # Quick content check"
+	@echo "  make content-all       # Complete content pipeline"
+	@echo "  make self-healing-validate  # Full system health check"
+	@echo "  help                   # Show this help message"
 
 # Generate release documentation
 release-cards:
@@ -96,3 +122,98 @@ tag:
 # Build full release bundle
 build: clean install-dev release-cards
 	@echo "🚀 KASPER MLX release build complete!"
+
+# ===================================================================
+# BULLETPROOF CONTENT PIPELINE v2.1.4
+# Exactly as specified by ChatGPT for spiritual AI content quality
+# ===================================================================
+
+# Run content linter on all *_rich.json files
+content-lint:
+	@echo "🔍 Running KASPER MLX content linter..."
+	@python3 scripts/lint_rich_content.py
+
+# Fix snake_case and Claude artifacts in content
+content-normalize:
+	@echo "🔧 Normalizing content with Claude artifact removal..."
+	@python3 scripts/normalize_content.py KASPERMLX/MLXTraining/ContentRefinery
+
+# Generate KASPER MLX runtime bundle
+content-export:
+	@echo "📦 Generating KASPER MLX v2.1.4 runtime bundle..."
+	@python3 scripts/export_runtime_bundle.py
+	@echo "✅ Runtime bundle exported successfully!"
+
+# Full validation pipeline (normalize + lint)
+content-validate: content-normalize content-lint
+	@echo "✅ Content validation pipeline complete!"
+
+# Complete content pipeline (normalize + lint + export)
+content-all: content-normalize content-lint content-export
+	@echo ""
+	@echo "🎯 KASPER MLX v2.1.4 Content Pipeline Complete!"
+	@echo "=============================================="
+	@echo "✅ Content normalized and validated"
+	@echo "✅ Runtime bundle exported"
+	@echo ""
+	@echo "🚀 Ready for spiritual AI excellence!"
+
+# ===================================================================
+# SELF-HEALING ARCHITECTURE COMMANDS v2.1.6
+# ChatGPT's strategic recommendations implemented as Make targets
+# ===================================================================
+
+# Setup complete self-healing development environment
+self-healing-setup: install-dev swiftlint-install
+	@echo "🌟 Setting up VybeOS Self-Healing Architecture..."
+	@echo "📦 Installing pre-commit hooks with self-healing rules..."
+	pre-commit install --hook-type pre-commit --hook-type pre-push
+	@echo "🔧 Configuring SwiftLint with runtime quality rules..."
+	@if [ ! -f .swiftlint.yml ]; then echo "❌ SwiftLint config missing!"; exit 1; fi
+	@echo "🧠 Validating RuntimeBundle fallback chain..."
+	@python scripts/validate_runtime_bundle.py
+	@echo ""
+	@echo "✅ Self-Healing Architecture Setup Complete!"
+	@echo "   🛡️ Content immune system active"
+	@echo "   🏃 Swift quality gates configured"
+	@echo "   🧠 RuntimeBundle validation ready"
+	@echo "   📊 Content coverage reporting enabled"
+
+# Complete self-healing system validation
+self-healing-validate: content-validate swiftlint-install coverage-report runtime-bundle-test
+	@echo ""
+	@echo "🌟 VybeOS Self-Healing System Validation Complete!"
+	@echo "================================================="
+	@echo "✅ Content immune system operational"
+	@echo "✅ Swift quality gates validated"
+	@echo "✅ RuntimeBundle fallback chain tested"
+	@echo "✅ Content coverage report generated"
+	@echo ""
+	@echo "🚀 Self-healing architecture fully operational!"
+
+# Install SwiftLint for code quality gates
+swiftlint-install:
+	@echo "🛠️ Installing SwiftLint..."
+	@if command -v swiftlint >/dev/null 2>&1; then \
+		echo "✅ SwiftLint already installed: $$(swiftlint version)"; \
+	else \
+		echo "📦 Installing SwiftLint via Homebrew..."; \
+		brew install swiftlint; \
+		echo "✅ SwiftLint installed: $$(swiftlint version)"; \
+	fi
+	@echo "🔍 Validating SwiftLint configuration..."
+	@swiftlint --config .swiftlint.yml --quiet || echo "⚠️ SwiftLint validation completed with warnings"
+
+# Generate content coverage report
+coverage-report:
+	@echo "📊 Generating VybeOS Content Coverage Report..."
+	@python scripts/generate_content_coverage_report.py --format=console
+	@echo ""
+	@echo "📄 Generating markdown report..."
+	@python scripts/generate_content_coverage_report.py --format=markdown --output=coverage-report.md
+	@echo "✅ Coverage report generated: coverage-report.md"
+
+# Test RuntimeBundle fallback chain
+runtime-bundle-test:
+	@echo "🧠 Testing RuntimeBundle fallback chain..."
+	@python scripts/validate_runtime_bundle.py

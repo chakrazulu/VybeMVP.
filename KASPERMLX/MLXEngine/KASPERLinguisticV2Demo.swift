@@ -19,7 +19,9 @@ struct KASPERLinguisticV2Demo {
         print()
 
         // Test the problematic input from user feedback
-        let problematicInput = "The awakening of Mystical wisdom energy within Your mystic nature reveals a beautiful opportunity to Trust your mystic nature, embracing the wisdom that flows from your deepest spiritual knowing."
+        let problematicInput = "The awakening of Mystical wisdom energy within Your mystic nature " +
+            "reveals a beautiful opportunity to Trust your mystic nature, embracing the wisdom " +
+            "that flows from your deepest spiritual knowing."
 
         print("📝 ORIGINAL PROBLEMATIC INPUT:")
         print("--------------------------------")
@@ -37,7 +39,9 @@ struct KASPERLinguisticV2Demo {
         let additionalTests = [
             "Trust your the energy nature trust wisdom",
             "Nature trust wisdom energy trust your the path",
-            "The divine orchestration of mystical energy through your mystical gifts reveals that now is the sacred time to trust your mystical nature, embracing the mystical wisdom that flows"
+            "The divine orchestration of mystical energy through your mystical gifts reveals " +
+                "that now is the sacred time to trust your mystical nature, embracing the mystical " +
+                "wisdom that flows"
         ]
 
         print("\n🧪 ADDITIONAL PATTERN TESTS:")

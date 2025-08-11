@@ -44,7 +44,7 @@ struct JournalEntryView: View {
                 TextField("Title", text: Binding(
                     get: { entry.title ?? "" },
                     set: { newValue in
-                        entry.title = newValue
+                        entry.title = Sanitizer.trimmed(newValue, max: 200)
                         saveIfNeeded()
                     }
                 ))
@@ -59,7 +59,7 @@ struct JournalEntryView: View {
                 TextEditor(text: Binding(
                     get: { entry.content ?? "" },
                     set: { newValue in
-                        entry.content = newValue
+                        entry.content = Sanitizer.journalContent(newValue)
                         saveIfNeeded()
                     }
                 ))

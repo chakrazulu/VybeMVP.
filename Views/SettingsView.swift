@@ -672,6 +672,14 @@ struct SettingsView: View {
                         Text("Asset Debug Viewer (Number 6)")
                     }
                 }
+
+                NavigationLink(destination: RouterDiagnosticsView()) {
+                    HStack {
+                        Image(systemName: "network")
+                            .foregroundColor(.cyan)
+                        Text("🌌 VybeOS Router Diagnostics")
+                    }
+                }
             }
             #endif
         }

@@ -100,8 +100,12 @@ final class SpiritualDataController: ObservableObject {
                     self.container = try ModelContainer(for: NumberMeaning.self, configurations: emptyConfig)
                 } catch {
                     print("❌ Fatal: Cannot create any container: \(error)")
-                    // This should never happen, but create basic container
-                    self.container = try! ModelContainer(for: NumberMeaning.self)
+                    // Last resort: create basic container
+                    do {
+                        self.container = try ModelContainer(for: NumberMeaning.self)
+                    } catch let containerError {
+                        fatalError("Unable to create ModelContainer - app cannot continue: \(containerError)")
+                    }
                 }
             }
         }

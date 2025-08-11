@@ -58,7 +58,7 @@ struct RuntimeManifest: Codable {
     /// SHA256 hash of bundle contents for integrity verification
     let bundleHash: String
 
-    /// Content domains (numbers, planets, zodiacs, etc.)
+    /// Content domains configuration
     let domains: Domains
 
     /// Strategy for handling missing content
@@ -75,7 +75,8 @@ struct RuntimeManifest: Codable {
 
     /// Container for all content domains
     struct Domains: Codable {
-        /// Number domain configuration (required for v2.1.2)
+        /// Numerology domain configuration (required for v2.1.2)
+        // swiftlint:disable:next valid_spiritual_numbers
         let numbers: NumberDomain?
 
         // Future domains will be added here:
@@ -155,10 +156,12 @@ struct RuntimeManifest: Codable {
 
 /// Main router class that handles all content loading from RuntimeBundle
 @MainActor
+// swiftlint:disable:next task_weak_self_classes
 class KASPERContentRouter: ObservableObject {
 
     // MARK: - Shared Instance
 
+    // swiftlint:disable:next kasper_router_singleton
     static let shared = KASPERContentRouter()
 
     // MARK: - Properties
@@ -170,7 +173,7 @@ class KASPERContentRouter: ObservableObject {
     private var manifest: RuntimeManifest?
 
     /// Subdirectory in app bundle where RuntimeBundle lives
-    // Claude: Updated to use KASPERMLXRuntimeBundle for clarity
+    /// Updated to use KASPERMLXRuntimeBundle for clarity
     private let bundleSubdirectory = "KASPERMLXRuntimeBundle"
 
     /// Published state for SwiftUI binding
@@ -183,8 +186,8 @@ class KASPERContentRouter: ObservableObject {
 
     private init() {
         // Load manifest asynchronously on initialization
-        Task {
-            await loadManifest()
+        Task { [weak self] in
+            await self?.loadManifest()
         }
     }
 
@@ -241,6 +244,7 @@ class KASPERContentRouter: ObservableObject {
     /// Load rich content for NumberMeaningView display
     /// - Parameter number: The number to load content for (1-9, 11, 22, 33, 44)
     /// - Returns: Dictionary containing rich spiritual content, or nil if not found
+    // swiftlint:disable:next discouraged_optional_collection
     func getRichContent(for number: Int) async -> [String: Any]? {
         // Check manifest is loaded
         guard let manifest = manifest,
@@ -294,6 +298,7 @@ class KASPERContentRouter: ObservableObject {
     ///   - number: The number to load content for
     ///   - persona: Optional persona for varied perspective (oracle, psychologist, etc.)
     /// - Returns: Dictionary containing behavioral insights, or fallback content
+    // swiftlint:disable:next cyclomatic_complexity function_body_length discouraged_optional_collection
     func getBehavioralInsights(
         context: String,
         number: Int,
@@ -432,6 +437,7 @@ class KASPERContentRouter: ObservableObject {
     ///   - context: Type of insight needed
     ///   - number: Number to generate for
     /// - Returns: Template-generated content as last resort
+    // swiftlint:disable:next discouraged_optional_collection
     private func getFallbackContent(context: String, number: Int) -> [String: Any]? {
         // Log fallback usage for monitoring
         logger.info("📝 Using template fallback for \(context) number \(number)")
@@ -447,7 +453,8 @@ class KASPERContentRouter: ObservableObject {
             "note": "RuntimeBundle content not available for this number/context",
             "behavioral_insights": [
                 [
-                    "text": "Trust your inner wisdom as you navigate this \(context) journey with the energy of number \(number).",
+                    "text": "Trust your inner wisdom as you navigate this \(context) " +
+                        "journey with the energy of number \(number).",
                     "intensity": 0.75
                 ]
             ]
@@ -459,7 +466,7 @@ class KASPERContentRouter: ObservableObject {
     /// Get diagnostic information for debugging and monitoring
     /// - Returns: Dictionary with router status and statistics
     func getDiagnostics() -> [String: Any] {
-        return [
+        [
             "initialized": isInitialized,
             "manifestLoaded": manifest != nil,
             "version": manifest?.version ?? "none",

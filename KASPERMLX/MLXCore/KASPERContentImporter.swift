@@ -891,7 +891,7 @@ public final class KASPERContentImporter: ObservableObject {
     ) async throws -> NumberDisplayContent {
 
         // 🔍 Validate and log rich content availability
-        let totalInsights = validateRichContentAvailability(
+        let _ = validateRichContentAvailability(
             number: number,
             claudeContent: claudeContent,
             grokPersonaContent: grokPersonaContent
