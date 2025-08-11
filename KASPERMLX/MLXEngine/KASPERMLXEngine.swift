@@ -29,6 +29,9 @@ class KASPERMLXEngine: ObservableObject {
     /// Number of harmonic variations available for content selection
     private static let HARMONIC_VARIATION_COUNT: Int = 7
 
+    /// Session-unique randomizer to ensure different content per app launch
+    private static let SESSION_RANDOMIZER: Int = Int.random(in: 1...999)
+
     // MARK: - 🌟 Published Properties for SwiftUI Integration
 
     /// Claude: Whether the spiritual intelligence engine is fully initialized and ready for guidance generation
@@ -1893,14 +1896,23 @@ class KASPERMLXEngine: ObservableObject {
             logger.info("🔮 KASPER MLX: ⚡ Calculating spiritual resonance: \(String(format: "%.2f", spiritualResonance))")
             logger.info("🔮 KASPER MLX: 🧠 Consciousness depth computed: \(String(format: "%.3f", consciousnessDepth))")
 
-            // Generate unique harmonic index with temporal and session variation
+            // Generate highly varied harmonic index with multiple randomization sources
             let currentTime = Int(Date().timeIntervalSince1970)
-            let hourlyVariation = (currentTime / 3600) % 24 // Changes every hour
-            let minuteVariation = (currentTime / 60) % 60    // Changes every minute for more variation
-            let harmonicSeed = (focusNumber * 7 + realmNumber * 3) + Int(moonPhase * 100) + Int(planetaryEnergy * 50) + hourlyVariation + minuteVariation
+            let hourlyVariation = (currentTime / 3600) % 24     // Changes every hour
+            let minuteVariation = (currentTime / 60) % 60        // Changes every minute
+            let secondVariation = currentTime % 60               // Changes every second
+            let millisecondVariation = Int(Date().timeIntervalSince1970 * 1000) % 1000 // High frequency variation
+
+            // Combine ALL sources of variation for maximum randomness
+            let harmonicSeed = (focusNumber * 11 + realmNumber * 7) +
+                             Int(moonPhase * 137) + Int(planetaryEnergy * 89) +
+                             hourlyVariation + minuteVariation + secondVariation + millisecondVariation +
+                             Self.SESSION_RANDOMIZER // Ensures different content per app launch
             let harmonicIndex = abs(harmonicSeed) % 7
 
-            logger.info("🔮 KASPER MLX: 🎵 Harmonic signature generated: Index \(harmonicIndex) (Seed: \(harmonicSeed), Hour: \(hourlyVariation), Min: \(minuteVariation))")
+            logger.info("🔮 KASPER MLX: 🎵 Harmonic signature generated: Index \(harmonicIndex) (Seed: \(harmonicSeed))")
+            logger.info("🔮 KASPER MLX: ⏰ Temporal factors - Hour: \(hourlyVariation), Min: \(minuteVariation), Sec: \(secondVariation), MS: \(millisecondVariation)")
+            logger.info("🔮 KASPER MLX: 🎲 Session randomizer: \(Self.SESSION_RANDOMIZER)")
             logger.info("🔮 KASPER MLX: 🚀 MLX INFERENCE COMPLETE - Personalized spiritual tensor ready!")
 
             return [
