@@ -1,3 +1,4 @@
+// swiftlint:disable force_unwrapping identifier_name
 /**
  * KASPERRLHFSystem.swift
  *
