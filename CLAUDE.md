@@ -33,16 +33,31 @@ VybeMVP/
 └── KASPERMLXRuntimeBundle/  # Content (v2.1.4)
 ```
 
-## 🔮 KASPER MLX v2.1.4 - Active MLX Inference
+## 🔮 KASPER MLX v2.1.5 - Local LLM Integration Active!
 
-### MLX Inference Architecture (NEW)
+### 🤖 Local LLM Setup (Mixtral 26GB)
+```bash
+# One-time setup (already done!)
+brew install ollama
+ollama pull mixtral
+
+# Start server (required before running app)
+ollama serve
+```
+
+### Shadow Mode Competition (NEW)
 ```swift
-// MLX inference with personalized content variation
-let router = KASPERContentRouter.shared
-let content = await router.getRichContent(for: number)
+// Local Mixtral vs RuntimeBundle competition
+// Users see RuntimeBundle while Mixtral learns
+// Automatic quality evaluation and logging
+let shadowMode = KASPERShadowModeManager(localLLMProvider)
+```
 
-// MLX stub model generates unique insights based on focus/realm numbers
-// No more repetitive content - each insight is personalized
+### Quick Test
+```bash
+# Test if Mixtral is working
+curl -X POST http://localhost:11434/api/generate \
+  -d '{"model": "mixtral", "prompt": "Hello", "stream": false}'
 ```
 
 ### RuntimeBundle Integration

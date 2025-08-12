@@ -1914,9 +1914,23 @@ struct HomeView: View {
                     ])
                 }
 
-                // Generate daily card insight with current focus/realm context
+                // Generate daily card insight using shadow mode (ChatGPT vs RuntimeBundle competition)
                 let cardType = "daily_focus_\(self.focusNumberManager.selectedFocusNumber)_realm_\(self.realmNumberManager.currentRealmNumber)"
-                let insight = try await self.kasperMLX.generateDailyCardInsight(cardType: cardType)
+
+                // Try shadow mode first, fallback to standard generation
+                let insight: KASPERInsight
+                if self.kasperMLX.shadowModeActive {
+                    // Use shadow mode for heavyweight ChatGPT vs RuntimeBundle competition
+                    insight = try await self.kasperMLX.generateInsightWithShadowMode(
+                        feature: .dailyCard,
+                        context: ["cardType": cardType]
+                    )
+                    print("🥊 Shadow mode: Generated insight via ChatGPT vs RuntimeBundle competition")
+                } else {
+                    // Fallback to standard RuntimeBundle generation
+                    insight = try await self.kasperMLX.generateDailyCardInsight(cardType: cardType)
+                    print("📚 Standard mode: Generated insight via RuntimeBundle")
+                }
 
                 // Update UI on main thread
                 await MainActor.run {

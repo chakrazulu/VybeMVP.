@@ -125,6 +125,14 @@
 		4D6528A42E4B86D500F521E1 /* KASPERInsightEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528A22E4B86D500F521E1 /* KASPERInsightEvaluator.swift */; };
 		4D6528A52E4B86D500F521E1 /* EvaluationIntegrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528A12E4B86D500F521E1 /* EvaluationIntegrationTest.swift */; };
 		4D6528A82E4B870700F521E1 /* KASPEREvolutionStrategy.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528A62E4B870700F521E1 /* KASPEREvolutionStrategy.md */; };
+		4D6528AE2E4BADF800F521E1 /* ChatGPTIntegrationGuide.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528A92E4BADF800F521E1 /* ChatGPTIntegrationGuide.md */; };
+		4D6528AF2E4BADF800F521E1 /* VybeChatGPTPromptSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528AC2E4BADF800F521E1 /* VybeChatGPTPromptSystem.swift */; };
+		4D6528B02E4BADF800F521E1 /* KASPERChatGPTProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528AA2E4BADF800F521E1 /* KASPERChatGPTProvider.swift */; };
+		4D6528B12E4BADF800F521E1 /* KASPERShadowModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528AB2E4BADF800F521E1 /* KASPERShadowModeManager.swift */; };
+		4D6528B32E4BAF4D00F521E1 /* EnvironmentSetup.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528B22E4BAF4D00F521E1 /* EnvironmentSetup.md */; };
+		4D6528B52E4BB5C300F521E1 /* LocalLLMSetupGuide.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528B42E4BB5C300F521E1 /* LocalLLMSetupGuide.md */; };
+		4D6528BD2E4BE8DF00F521E1 /* LOCAL_LLM_COMPLETE_GUIDE.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528BC2E4BE8DF00F521E1 /* LOCAL_LLM_COMPLETE_GUIDE.md */; };
+		4D6528BF2E4BE92100F521E1 /* TESTING_GUIDE.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528BE2E4BE92100F521E1 /* TESTING_GUIDE.md */; };
 		4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */; };
 		4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */; };
 		4D6C7B552DE45441001036E5 /* ArchetypeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */; };
@@ -697,6 +705,14 @@
 		4D6528A12E4B86D500F521E1 /* EvaluationIntegrationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationIntegrationTest.swift; sourceTree = "<group>"; };
 		4D6528A22E4B86D500F521E1 /* KASPERInsightEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERInsightEvaluator.swift; sourceTree = "<group>"; };
 		4D6528A62E4B870700F521E1 /* KASPEREvolutionStrategy.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = KASPEREvolutionStrategy.md; sourceTree = "<group>"; };
+		4D6528A92E4BADF800F521E1 /* ChatGPTIntegrationGuide.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ChatGPTIntegrationGuide.md; sourceTree = "<group>"; };
+		4D6528AA2E4BADF800F521E1 /* KASPERChatGPTProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERChatGPTProvider.swift; sourceTree = "<group>"; };
+		4D6528AB2E4BADF800F521E1 /* KASPERShadowModeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERShadowModeManager.swift; sourceTree = "<group>"; };
+		4D6528AC2E4BADF800F521E1 /* VybeChatGPTPromptSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VybeChatGPTPromptSystem.swift; sourceTree = "<group>"; };
+		4D6528B22E4BAF4D00F521E1 /* EnvironmentSetup.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = EnvironmentSetup.md; sourceTree = "<group>"; };
+		4D6528B42E4BB5C300F521E1 /* LocalLLMSetupGuide.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LocalLLMSetupGuide.md; sourceTree = "<group>"; };
+		4D6528BC2E4BE8DF00F521E1 /* LOCAL_LLM_COMPLETE_GUIDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LOCAL_LLM_COMPLETE_GUIDE.md; sourceTree = "<group>"; };
+		4D6528BE2E4BE92100F521E1 /* TESTING_GUIDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TESTING_GUIDE.md; sourceTree = "<group>"; };
 		4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetype.swift; sourceTree = "<group>"; };
 		4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetypeManager.swift; sourceTree = "<group>"; };
 		4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchetypeDisplayView.swift; sourceTree = "<group>"; };
@@ -1533,6 +1549,21 @@
 			path = MLXEvolution;
 			sourceTree = "<group>";
 		};
+		4D6528AD2E4BADF800F521E1 /* ChatGPTIntegration */ = {
+			isa = PBXGroup;
+			children = (
+				4D6528BE2E4BE92100F521E1 /* TESTING_GUIDE.md */,
+				4D6528BC2E4BE8DF00F521E1 /* LOCAL_LLM_COMPLETE_GUIDE.md */,
+				4D6528B42E4BB5C300F521E1 /* LocalLLMSetupGuide.md */,
+				4D6528B22E4BAF4D00F521E1 /* EnvironmentSetup.md */,
+				4D6528A92E4BADF800F521E1 /* ChatGPTIntegrationGuide.md */,
+				4D6528AA2E4BADF800F521E1 /* KASPERChatGPTProvider.swift */,
+				4D6528AB2E4BADF800F521E1 /* KASPERShadowModeManager.swift */,
+				4D6528AC2E4BADF800F521E1 /* VybeChatGPTPromptSystem.swift */,
+			);
+			path = ChatGPTIntegration;
+			sourceTree = "<group>";
+		};
 		4D6C7B9C2DE47E99001036E5 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -1867,6 +1898,7 @@
 		4DA359AE2E3F135B0010101F /* KASPERMLX */ = {
 			isa = PBXGroup;
 			children = (
+				4D6528AD2E4BADF800F521E1 /* ChatGPTIntegration */,
 				4D6528A72E4B870700F521E1 /* MLXEvolution */,
 				4D6528A32E4B86D500F521E1 /* MLXEvaluation */,
 				4D65288D2E49A95D00F521E1 /* MLXProviders */,
@@ -2523,10 +2555,12 @@
 				4D7320142E474A0F0083C82C /* grok_mindfulnesscoach_08_converted.json in Resources */,
 				4D7320162E474A0F0083C82C /* NumerologyScholar_Number_44_original.md in Resources */,
 				4D7320182E474A0F0083C82C /* Oracle_Number_2_original.md in Resources */,
+				4D6528B52E4BB5C300F521E1 /* LocalLLMSetupGuide.md in Resources */,
 				4DDA0A182E47C69300449F20 /* soulUrge_03_v3.0_converted.json in Resources */,
 				4D7320202E474A0F0083C82C /* grok_mindfulnesscoach_09_converted.json in Resources */,
 				4D7320212E474A0F0083C82C /* claude_07_academic_converted.json in Resources */,
 				4D7320222E474A0F0083C82C /* CR1_original.md in Resources */,
+				4D6528AE2E4BADF800F521E1 /* ChatGPTIntegrationGuide.md in Resources */,
 				4D7320242E474A0F0083C82C /* Oracle_Number_9_original.md in Resources */,
 				4D7320252E474A0F0083C82C /* grok_oracle_11_converted.json in Resources */,
 				4D7320262E474A0F0083C82C /* grok_philosopher_09_converted.json in Resources */,
@@ -2597,6 +2631,7 @@
 				4D73207C2E474A0F0083C82C /* grok_numerologyscholar_33_converted.json in Resources */,
 				4D73207D2E474A0F0083C82C /* grok_oracle_03_converted.json in Resources */,
 				4D73207E2E474A0F0083C82C /* MindfulnessCoach_Number_8_original.md in Resources */,
+				4D6528B32E4BAF4D00F521E1 /* EnvironmentSetup.md in Resources */,
 				4D7320822E474A0F0083C82C /* grok_numerologyscholar_11_converted.json in Resources */,
 				4D7320832E474A0F0083C82C /* claude_11_academic_converted.json in Resources */,
 				4D7320842E474A0F0083C82C /* MindfulnessCoach_Number_3_original.md in Resources */,
@@ -2620,6 +2655,8 @@
 				4D59299C2E4927CB002625DE /* master_44_rich.json in Resources */,
 				4D7320942E474A0F0083C82C /* Oracle_Number_5_original.md in Resources */,
 				4D7320962E474A0F0083C82C /* Psychologist_Number_7_original.md in Resources */,
+				4D6528BF2E4BE92100F521E1 /* TESTING_GUIDE.md in Resources */,
+				4D6528BD2E4BE8DF00F521E1 /* LOCAL_LLM_COMPLETE_GUIDE.md in Resources */,
 				4D7320972E474A0F0083C82C /* lifePath_09_v2.0_converted.json in Resources */,
 				4D7320982E474A0F0083C82C /* Psychologist_Number_1_original.md in Resources */,
 				4D7320992E474A0F0083C82C /* grok_numerologyscholar_22_converted.json in Resources */,
@@ -2880,6 +2917,9 @@
 				4D0CA8D12DE69F4600D4A6D6 /* NumerologyRainView.swift in Sources */,
 				4D6C7B9E2DE47E99001036E5 /* OnboardingInsightToneView.swift in Sources */,
 				4D6C7BA02DE47E99001036E5 /* OnboardingCosmicRhythmsView.swift in Sources */,
+				4D6528AF2E4BADF800F521E1 /* VybeChatGPTPromptSystem.swift in Sources */,
+				4D6528B02E4BADF800F521E1 /* KASPERChatGPTProvider.swift in Sources */,
+				4D6528B12E4BADF800F521E1 /* KASPERShadowModeManager.swift in Sources */,
 				4D6C7BA12DE47E99001036E5 /* OnboardingView.swift in Sources */,
 				4D6528A02E49B9EC00F521E1 /* NumberMeaningsView.swift in Sources */,
 				4D2DB48D2DFF6AF90003353E /* SightingDetailView.swift in Sources */,

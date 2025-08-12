@@ -303,6 +303,21 @@ final class NumerologyDataProvider: SpiritualDataProvider {
             data["personalMonth"] = getPersonalMonth(userProfile: userProfile)
             data["personalYear"] = getPersonalYear(userProfile: userProfile)
             data["universalYear"] = getUniversalYear()
+
+        case .realmExploration:
+            // Realm exploration uses same data as realm interpretation
+            data["realmNumber"] = realmNumber
+            data["realmArchetype"] = await getRealmArchetype(realmNumber)
+            data["realmChallenges"] = getRealmChallenges(realmNumber)
+            data["realmOpportunities"] = getRealmOpportunities(realmNumber)
+
+        case .mandalaGuidance:
+            // Mandala guidance needs complete numerological profile like sanctum
+            data["realmNumber"] = realmNumber
+            data["focusNumber"] = focusNumber
+            data["masterNumbers"] = getMasterNumbers(userProfile: userProfile)
+            data["karmaNumbers"] = getKarmaNumbers(userProfile: userProfile)
+            data["pinnacleNumbers"] = getPinnacleNumbers(userProfile: userProfile)
         }
 
         // Add common numerological metadata

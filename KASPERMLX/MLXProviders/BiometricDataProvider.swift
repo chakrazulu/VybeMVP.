@@ -395,6 +395,21 @@ final class BiometricDataProvider: SpiritualDataProvider {
             data["adaptationState"] = getAdaptationState(bpm: currentBPM)
             data["environmentalSync"] = getEnvironmentalSync(bpm: currentBPM)
             data["realmResonance"] = getRealmResonance(bpm: currentBPM)
+
+        case .realmExploration:
+            // Realm exploration uses same data as realm interpretation
+            data["currentBPM"] = currentBPM
+            data["adaptationState"] = getAdaptationState(bpm: currentBPM)
+            data["environmentalSync"] = getEnvironmentalSync(bpm: currentBPM)
+            data["realmResonance"] = getRealmResonance(bpm: currentBPM)
+
+        case .mandalaGuidance:
+            // Mandala guidance needs comprehensive biometric profile like sanctum
+            data["currentBPM"] = currentBPM
+            data["restingBPM"] = getRestingBPM(history: heartRateHistory)
+            data["heartRateVariability"] = getHeartRateVariability(history: heartRateHistory)
+            data["autonomicBalance"] = getAutonomicBalance(bpm: currentBPM, history: heartRateHistory)
+            data["chakraAlignment"] = getChakraAlignment(bpm: currentBPM)
         }
 
         // Add common biometric metadata

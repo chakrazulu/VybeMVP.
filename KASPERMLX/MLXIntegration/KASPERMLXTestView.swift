@@ -1500,6 +1500,8 @@ struct FeatureCard: View {
         case .cosmicTiming: return ("clock.fill", .orange)
         case .focusIntention: return ("target", .green)
         case .realmInterpretation: return ("globe", .teal)
+        case .realmExploration: return ("globe", .teal)
+        case .mandalaGuidance: return ("building.columns.fill", .indigo)
         }
     }
 

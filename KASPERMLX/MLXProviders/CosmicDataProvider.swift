@@ -249,6 +249,21 @@ final class CosmicDataProvider: SpiritualDataProvider {
             data["sunSign"] = cosmicData.sunSign
             data["moonPhase"] = cosmicData.moonPhase
             data["cosmicNumber"] = getCosmicNumber(from: cosmicData)
+
+        case .realmExploration:
+            // Realm exploration needs similar data to realm interpretation
+            data["sunSign"] = cosmicData.sunSign
+            data["moonPhase"] = cosmicData.moonPhase
+            data["cosmicNumber"] = getCosmicNumber(from: cosmicData)
+
+        case .mandalaGuidance:
+            // Mandala needs comprehensive cosmic data like sanctum
+            data["sunSign"] = cosmicData.sunSign
+            data["moonSign"] = cosmicData.zodiacSign(for: "Moon") ?? "Unknown"
+            data["mercurySign"] = cosmicData.zodiacSign(for: "Mercury") ?? "Unknown"
+            data["venusSign"] = cosmicData.zodiacSign(for: "Venus") ?? "Unknown"
+            data["marsSign"] = cosmicData.zodiacSign(for: "Mars") ?? "Unknown"
+            data["majorAspects"] = formatMajorAspects(cosmicData.getMajorAspects())
         }
 
         // Add common metadata

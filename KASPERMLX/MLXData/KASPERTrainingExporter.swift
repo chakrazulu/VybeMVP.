@@ -229,6 +229,10 @@ class KASPERTrainingExporter: ObservableObject {
             return "Assess spiritual compatibility between two souls"
         case .realmInterpretation:
             return "Interpret the current spiritual realm energy"
+        case .realmExploration:
+            return "Explore the deeper mysteries of the spiritual realm"
+        case .mandalaGuidance:
+            return "Provide sacred mandala meditation guidance"
         }
     }
 
@@ -312,6 +316,10 @@ class KASPERTrainingExporter: ObservableObject {
             return "💞 These two souls create harmonious heart connection together. Number \(focusNumber) brings \(getNumberGift(focusNumber)), while number \((focusNumber + 4) % 9 + 1) offers \(getNumberGift((focusNumber + 4) % 9 + 1)). This combination suggests \(compatibility) that deepens through conscious spiritual practice."
         case .realmInterpretation:
             return "🔮 The cosmic winds carry \(component) through \(reference) toward a pivotal moment ahead. As you \(guidance), watch for synchronicities that confirm you're on the right path."
+        case .realmExploration:
+            return "🌌 Deep within the realm's essence, \(component) reveals itself through \(reference). As you explore and \(guidance), new spiritual territories open before you."
+        case .mandalaGuidance:
+            return "🕸️ The sacred mandala reveals \(component) at its center, radiating through \(reference). Focus your awareness as you \(guidance), allowing the geometric wisdom to guide you home."
         }
     }
 

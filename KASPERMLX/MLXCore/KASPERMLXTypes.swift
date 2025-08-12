@@ -71,6 +71,32 @@
 
 import Foundation
 
+// MARK: - Error Types
+
+/// KASPER MLX Error definitions
+public enum KASPERError: Error, LocalizedError {
+    case providerNotReady(String)
+    case inferenceError(String)
+    case contentNotFound(String)
+    case networkError(String)
+    case configurationError(String)
+
+    public var errorDescription: String? {
+        switch self {
+        case .providerNotReady(let message):
+            return "Provider not ready: \(message)"
+        case .inferenceError(let message):
+            return "Inference error: \(message)"
+        case .contentNotFound(let message):
+            return "Content not found: \(message)"
+        case .networkError(let message):
+            return "Network error: \(message)"
+        case .configurationError(let message):
+            return "Configuration error: \(message)"
+        }
+    }
+}
+
 // MARK: - 🎯 CORE SPIRITUAL FEATURES
 
 /**
@@ -155,7 +181,7 @@ import Foundation
  * biometric data to provide the most relevant spiritual guidance while maintaining
  * optimal performance and spiritual authenticity.
  */
-enum KASPERFeature: String, CaseIterable, Codable {
+public enum KASPERFeature: String, CaseIterable, Codable {
     case journalInsight = "journal"        // Deep reflection analysis
     case dailyCard = "daily_card"          // Daily cosmic guidance
     case sanctumGuidance = "sanctum"       // Sacred space insights
@@ -163,6 +189,8 @@ enum KASPERFeature: String, CaseIterable, Codable {
     case cosmicTiming = "cosmic"          // Optimal timing guidance
     case focusIntention = "focus"         // Manifestation clarity
     case realmInterpretation = "realm"    // Spiritual growth phase
+    case realmExploration = "realm_exploration"  // Deep realm understanding
+    case mandalaGuidance = "mandala"      // Sacred geometry guidance
 }
 
 /**
@@ -866,7 +894,7 @@ struct InsightConstraints {
  * delivers meaningful spiritual guidance but also continuously improves
  * its ability to serve users' spiritual growth and development.
  */
-struct KASPERInsight {
+public struct KASPERInsight {
     /// Claude: Unique identifier for this specific spiritual insight
     let id: UUID
 

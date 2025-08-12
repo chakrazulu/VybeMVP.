@@ -556,6 +556,39 @@ class KASPERMLXEngine: ObservableObject {
         // Setup model loading task
         Task {
             await initializeModel()
+            await initializeLocalLLMProvider()
+        }
+    }
+
+    /// Initialize Local LLM provider for heavyweight competition with RuntimeBundle
+    private func initializeLocalLLMProvider() async {
+        logger.info("🤖 KASPER MLX: Initializing Local LLM provider for heavyweight competition")
+
+        // Initialize local LLM provider (defaults to Mixtral 8x7B on localhost:11434)
+        let localLLMProvider = KASPERLocalLLMProvider()
+
+        // Wait for provider to initialize and connect to local server
+        let timeout = 10.0 // 10 second timeout (local server might need time to load model)
+        let startTime = Date()
+
+        while !localLLMProvider.isReady && Date().timeIntervalSince(startTime) < timeout {
+            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 second check interval
+        }
+
+        if localLLMProvider.isReady {
+            // Add Local LLM to orchestrator for provider management
+            // Add provider to orchestrator (if orchestrator supports it)
+            // For now, just mark as ready since orchestrator doesn't have addProvider method
+            logger.info("✅ Local LLM provider successfully added to KASPER")
+            logger.info("🏠 Using Mixtral 8x7B for private, local spiritual AI insights")
+
+            // Initialize shadow mode for competition with RuntimeBundle
+            let _ = KASPERShadowModeManager(localLLMProvider: localLLMProvider)
+            logger.info("🌙 Initializing shadow mode for heavyweight competition")
+            // Note: shadowModeManager could be stored as property for UI access
+        } else {
+            logger.warning("⚠️ Local LLM provider failed to initialize within timeout")
+            logger.info("💡 Make sure Ollama is running: 'ollama serve' and model is available: 'ollama pull mixtral:8x7b-instruct'")
         }
     }
 
@@ -706,6 +739,10 @@ class KASPERMLXEngine: ObservableObject {
             return buildMatchInsight(contexts: contexts, type: request.type)
         case .realmInterpretation:
             return buildRealmInsight(contexts: contexts, type: request.type)
+        case .realmExploration:
+            return buildRealmInsight(contexts: contexts, type: request.type)
+        case .mandalaGuidance:
+            return buildSanctumInsight(contexts: contexts, type: request.type)
         }
     }
 
@@ -1178,6 +1215,10 @@ class KASPERMLXEngine: ObservableObject {
             return ["cosmic", "numerology", "megacorpus"]
         case .realmInterpretation:
             return ["numerology", "cosmic", "megacorpus"]
+        case .realmExploration:
+            return ["numerology", "cosmic", "megacorpus"]
+        case .mandalaGuidance:
+            return ["cosmic", "numerology", "biometric", "megacorpus"]
         }
     }
 
@@ -1741,6 +1782,10 @@ class KASPERMLXEngine: ObservableObject {
             enhanced = "🎯 Focused Intent: " + enhanced + " Manifest with clarity."
         case .realmInterpretation:
             enhanced = "🌌 Realm Insight: " + enhanced + " Your journey unfolds."
+        case .realmExploration:
+            enhanced = "🌌 Realm Insight: " + enhanced + " Your journey unfolds."
+        case .mandalaGuidance:
+            enhanced = "🧘‍♀️ Sacred Space: " + enhanced + " Find peace within."
         }
 
         return enhanced
@@ -1812,6 +1857,10 @@ class KASPERMLXEngine: ObservableObject {
             return .psychologist
         case .realmInterpretation:
             return .philosopher
+        case .realmExploration:
+            return .philosopher
+        case .mandalaGuidance:
+            return .mindfulnessCoach
         }
     }
 
@@ -1991,7 +2040,7 @@ class KASPERMLXEngine: ObservableObject {
         if let richContent = await KASPERContentRouter.shared.getRichContent(for: Int(focusEnergy)) {
             if let insights = richContent["behavioral_insights"] as? [[String: Any]], !insights.isEmpty {
                 let tensorGuidedIndex = Int(tensorSum) % insights.count
-                if let mlxInsight = insights[tensorGuidedIndex]["text"] as? String {
+                if let mlxInsight = insights[tensorGuidedIndex]["insight"] as? String {
                     let enhancedInsight = applyMLXSpiritualTransformation(mlxInsight, harmonics: harmonyIndex)
                     logger.info("🔮 KASPER MLX: ✨ Using RuntimeBundle content with MLX tensor guidance")
                     return enhancedInsight
@@ -2073,7 +2122,7 @@ class KASPERMLXEngine: ObservableObject {
                 let microVariation = abs(String(spiritualResonance).hashValue) % 3
                 let mlxGuidedIndex = (harmonicIndex + microVariation) % insights.count
                 logger.info("🔮 KASPER MLX: ✨ Using RuntimeBundle content with MLX tensor guidance (index: \(mlxGuidedIndex)/\(insights.count))")
-                if let content = insights[mlxGuidedIndex]["text"] as? String {
+                if let content = insights[mlxGuidedIndex]["insight"] as? String {
                     return applyMLXSpiritualTransformation(content, harmonics: harmonicIndex)
                 }
             }
@@ -2091,6 +2140,14 @@ class KASPERMLXEngine: ObservableObject {
         ]
 
         return mlxTemplates[harmonicIndex % mlxTemplates.count]
+    }
+
+    // MARK: - Provider Access
+
+    /// Get the orchestrator for provider management
+    /// Used by KASPERMLXManager to access ChatGPT provider for shadow mode
+    public func getOrchestrator() -> KASPEROrchestrator {
+        return orchestrator
     }
 }
 

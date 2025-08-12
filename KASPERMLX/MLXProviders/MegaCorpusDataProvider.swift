@@ -320,6 +320,19 @@ final class MegaCorpusDataProvider: SpiritualDataProvider {
             // Cosmic timing needs temporal and cyclical wisdom
             data["temporalWisdom"] = extractTemporalWisdom(from: megaCorpusData)
             data["cyclicalPatterns"] = extractCyclicalPatterns(from: megaCorpusData)
+
+        case .realmExploration:
+            // Realm exploration uses same data as realm interpretation
+            data["realmArchetypes"] = extractFocusArchetypes(from: megaCorpusData)
+            data["elementalCorrespondences"] = extractElementalCorrespondences(from: megaCorpusData)
+            data["planetaryCorrespondences"] = extractPlanetaryCorrespondences(from: megaCorpusData)
+
+        case .mandalaGuidance:
+            // Mandala guidance needs comprehensive spiritual interpretations like sanctum
+            data["houseInterpretations"] = extractHouseInterpretations(from: megaCorpusData)
+            data["planetaryArchetypes"] = extractPlanetaryArchetypes(from: megaCorpusData)
+            data["elementalWisdom"] = extractElementalWisdom(from: megaCorpusData)
+            data["aspectInterpretations"] = extractAspectInterpretations(from: megaCorpusData)
         }
 
         // Add common metadata
