@@ -108,10 +108,14 @@ class KASPERMLXManager: ObservableObject {
     // Claude: Performance tracking
     @Published private(set) var performanceMetrics: PerformanceMetrics = PerformanceMetrics()
 
+    // Claude: Evaluation system for MLX quality assessment
+    @Published private(set) var evaluationMetrics: InsightEvaluationResult?
+
     // MARK: - Private Properties
 
     private let engine: KASPERMLXEngine
     private let contentRouter = KASPERContentRouter.shared  // Claude: Use shared instance to avoid multiple initializations
+    private let evaluator = KASPERInsightEvaluator()  // Claude: Quality evaluation system
     private let logger = Logger(subsystem: "com.vybe.kaspermlx", category: "Manager")
     private var cancellables = Set<AnyCancellable>()
 
@@ -587,6 +591,46 @@ class KASPERMLXManager: ObservableObject {
         } else {
             return "Ready"
         }
+    }
+
+    // MARK: - Quality Evaluation (ChatGPT Strategy Implementation)
+
+    /// Evaluate insight quality using locked rubric (for MLX evolution)
+    /// This is the "model gate" that determines when MLX is ready for production
+    func evaluateInsightQuality(
+        _ insightText: String,
+        expectedFocus: Int,
+        expectedRealm: Int
+    ) async -> InsightEvaluationResult {
+        logger.info("🔍 Evaluating insight quality: Focus \(expectedFocus), Realm \(expectedRealm)")
+
+        let result = await evaluator.evaluateInsight(
+            insightText,
+            expectedFocus: expectedFocus,
+            expectedRealm: expectedRealm
+        )
+
+        // Update published property for UI reactivity
+        evaluationMetrics = result
+
+        logger.info("✅ Insight evaluation complete: \(result.grade) (\(String(format: "%.2f", result.overallScore)))")
+
+        return result
+    }
+
+    /// Quick evaluation for testing interface
+    func quickEvaluateInsight(
+        _ insightText: String,
+        focus: Int,
+        realm: Int
+    ) async -> String {
+        return await evaluator.quickEvaluation(insightText, focus: focus, realm: realm)
+    }
+
+    /// Generate hard negatives for evaluator calibration
+    /// Used to test if the evaluator properly catches quality issues
+    func getEvaluatorTestCases() -> [String] {
+        return evaluator.generateHardNegatives()
     }
 
     // MARK: - Legacy Compatibility

@@ -179,7 +179,7 @@ struct RealmNumberView: View {
     // MARK: - Mystical Realm Number Display (FIXED)
 
     private var mysticalRealmNumberDisplay: some View {
-        NavigationLink(destination: NumberMeaningView(initialSelectedNumber: realmNumberManager.currentRealmNumber)) {
+        NavigationLink(destination: RealmNumberDetailView(initialSelectedNumber: realmNumberManager.currentRealmNumber)) {
             ZStack {
                 // REMOVED: Outer cosmic ring that conflicted with sacred geometry
                 // Using only the sacred geometry background now

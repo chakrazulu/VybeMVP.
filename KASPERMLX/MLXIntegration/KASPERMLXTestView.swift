@@ -122,6 +122,10 @@ struct KASPERMLXTestView: View {
     @State private var showingFullInsight = false
     @State private var loadingProgress: Double = 0.0
     @State private var currentStatus: String = "Ready"
+
+    // Quality evaluation state
+    @State private var isEvaluating = false
+    @State private var selectedQuickTest: String? = nil  // Track selected quick test scenario
     @State private var providersStatus: [String: Bool] = [:]
     @State private var performanceMetrics: [String: Any] = [:]
     @State private var lastFeedback: FeedbackRating?
@@ -265,7 +269,9 @@ struct KASPERMLXTestView: View {
                     icon: "brain.head.profile",
                     color: .blue,
                     prompt: "I'm feeling anxious about the future and need spiritual guidance",
+                    isSelected: selectedQuickTest == "anxiety",
                     action: {
+                        selectedQuickTest = "anxiety"
                         testQuickScenario(
                             prompt: "I'm feeling anxious about the future and need spiritual guidance",
                             feature: .sanctumGuidance
@@ -278,7 +284,9 @@ struct KASPERMLXTestView: View {
                     icon: "heart.circle",
                     color: .pink,
                     prompt: "I need guidance about my relationship dynamics",
+                    isSelected: selectedQuickTest == "relationship",
                     action: {
+                        selectedQuickTest = "relationship"
                         testQuickScenario(
                             prompt: "I need guidance about my relationship dynamics",
                             feature: .matchCompatibility
@@ -291,7 +299,9 @@ struct KASPERMLXTestView: View {
                     icon: "briefcase.circle",
                     color: .green,
                     prompt: "I'm at a career crossroads and seeking cosmic guidance",
+                    isSelected: selectedQuickTest == "career",
                     action: {
+                        selectedQuickTest = "career"
                         testQuickScenario(
                             prompt: "I'm at a career crossroads and seeking cosmic guidance",
                             feature: .cosmicTiming
@@ -304,7 +314,9 @@ struct KASPERMLXTestView: View {
                     icon: "sunrise.circle",
                     color: .orange,
                     prompt: "I need spiritual motivation to start my day with purpose",
+                    isSelected: selectedQuickTest == "motivation",
                     action: {
+                        selectedQuickTest = "motivation"
                         testQuickScenario(
                             prompt: "I need spiritual motivation to start my day with purpose",
                             feature: .dailyCard
@@ -317,7 +329,9 @@ struct KASPERMLXTestView: View {
                     icon: "compass.drawing",
                     color: .purple,
                     prompt: "I'm searching for my life purpose and spiritual direction",
+                    isSelected: selectedQuickTest == "purpose",
                     action: {
+                        selectedQuickTest = "purpose"
                         testQuickScenario(
                             prompt: "I'm searching for my life purpose and spiritual direction",
                             feature: .focusIntention
@@ -330,7 +344,9 @@ struct KASPERMLXTestView: View {
                     icon: "waveform.circle",
                     color: .teal,
                     prompt: "What is my current energetic state and spiritual frequency?",
+                    isSelected: selectedQuickTest == "energy",
                     action: {
+                        selectedQuickTest = "energy"
                         testQuickScenario(
                             prompt: "What is my current energetic state and spiritual frequency?",
                             feature: .realmInterpretation
@@ -534,6 +550,7 @@ struct KASPERMLXTestView: View {
         VStack(alignment: .leading, spacing: 16) {
             insightTextView(insight)
             insightMetadataGrid(insight)
+            evaluationSection(insight)  // NEW: Quality evaluation display
             feedbackSection(insight)
         }
     }
@@ -687,6 +704,148 @@ struct KASPERMLXTestView: View {
         )
     }
 
+    // MARK: - Quality Evaluation Section (ChatGPT Strategy Implementation)
+
+    /// Professional quality evaluation interface for spiritual insights
+    /// This section implements the "model gate" strategy for MLX evolution:
+    /// - Displays real-time evaluation results with letter grades (A+ to F)
+    /// - Shows detailed rubric breakdown (Fidelity, Actionability, Tone, Safety)
+    /// - Provides pass/fail status for MLX promotion decisions
+    /// - Enables one-tap evaluation of any generated insight
+    /// - Updates reactively via @Published properties from KASPERMLXManager
+    /// - Parameter insight: The spiritual insight to evaluate and display
+    private func evaluationSection(_ insight: KASPERInsight) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("Quality Evaluation")
+                    .font(.headline.weight(.semibold))
+                    .foregroundColor(.primary)
+
+                Spacer()
+
+                // Quick evaluation button
+                Button(action: {
+                    Task {
+                        await evaluateCurrentInsight(insight)
+                    }
+                }) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "checkmark.circle")
+                            .font(.caption.weight(.medium))
+                        Text("Evaluate")
+                            .font(.caption.weight(.medium))
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
+                    .background(.blue.opacity(0.1), in: Capsule())
+                    .foregroundColor(.blue)
+                }
+                .disabled(isEvaluating)
+            }
+
+            if isEvaluating {
+                HStack {
+                    ProgressView()
+                        .scaleEffect(0.8)
+                    Text("Evaluating...")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+            }
+
+            // Display evaluation results
+            if let evaluation = kasperMLX.evaluationMetrics {
+                VStack(spacing: 12) {
+                    // Overall grade display
+                    HStack {
+                        Text("Overall Grade:")
+                            .font(.subheadline.weight(.medium))
+
+                        Spacer()
+
+                        Text(evaluation.grade)
+                            .font(.title2.weight(.bold).monospacedDigit())
+                            .foregroundColor(gradeColor(evaluation.grade))
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(
+                                gradeColor(evaluation.grade).opacity(0.1),
+                                in: RoundedRectangle(cornerRadius: 8)
+                            )
+
+                        Text(String(format: "%.2f", evaluation.overallScore))
+                            .font(.subheadline.weight(.medium).monospacedDigit())
+                            .foregroundColor(.secondary)
+                    }
+
+                    // Rubric breakdown
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 8) {
+                        EvaluationScoreCard(
+                            title: "Fidelity",
+                            score: evaluation.fidelityScore,
+                            icon: "target",
+                            issues: evaluation.fidelityIssues
+                        )
+
+                        EvaluationScoreCard(
+                            title: "Actionability",
+                            score: evaluation.actionabilityScore,
+                            icon: "arrow.right.circle",
+                            issues: evaluation.actionabilityIssues
+                        )
+
+                        EvaluationScoreCard(
+                            title: "Tone",
+                            score: evaluation.toneScore,
+                            icon: "waveform",
+                            issues: evaluation.toneIssues
+                        )
+
+                        EvaluationScoreCard(
+                            title: "Safety",
+                            score: evaluation.safetyScore,
+                            icon: "shield",
+                            issues: evaluation.safetyIssues
+                        )
+                    }
+
+                    // Pass/Fail status
+                    HStack {
+                        Image(systemName: evaluation.passes ? "checkmark.circle.fill" : "xmark.circle.fill")
+                            .foregroundColor(evaluation.passes ? .green : .red)
+
+                        Text(evaluation.passes ? "PASSES Quality Gate" : "NEEDS IMPROVEMENT")
+                            .font(.caption.weight(.semibold))
+                            .foregroundColor(evaluation.passes ? .green : .red)
+
+                        Spacer()
+
+                        Text("v\(evaluation.rubricVersion)")
+                            .font(.caption.monospaced())
+                            .foregroundColor(.secondary)
+                    }
+                }
+                .padding(12)
+                .background(.quaternary.opacity(0.5), in: RoundedRectangle(cornerRadius: 10))
+            }
+        }
+        .padding(16)
+        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(.quaternary, lineWidth: 1)
+        )
+    }
+
+    private func gradeColor(_ grade: String) -> Color {
+        switch grade {
+        case "A+", "A": return .green
+        case "A-", "B+": return .blue
+        case "B", "B-": return .orange
+        default: return .red
+        }
+    }
+
     private var developerToolsSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Developer Tools")
@@ -718,6 +877,27 @@ struct KASPERMLXTestView: View {
                     icon: "star.circle",
                     color: .purple,
                     action: testDailyCard
+                )
+            }
+
+            // Claude: Live Evaluation Test - Test evaluator with real RuntimeBundle content
+            Text("Evaluation Testing")
+                .font(.subheadline.weight(.medium))
+                .foregroundColor(.secondary)
+                .padding(.top, 8)
+
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 12) {
+                KASPERActionButton(
+                    title: "Live Evaluation",
+                    icon: "checkmark.seal",
+                    color: .blue,
+                    action: runLiveEvaluationTest
+                )
+                KASPERActionButton(
+                    title: "Rubric Details",
+                    icon: "list.clipboard",
+                    color: .cyan,
+                    action: showRubricDetails
                 )
             }
         }
@@ -889,6 +1069,32 @@ struct KASPERMLXTestView: View {
 
         // Log for debugging
         print("🧪 Quick Test: \(feature.rawValue) - \(prompt)")
+    }
+
+    // MARK: - Quality Evaluation Methods (ChatGPT Strategy Implementation)
+
+    /// Evaluates the quality of a generated insight using the locked rubric system
+    /// This is the "model gate" that determines MLX promotion readiness
+    /// - Parameter insight: The spiritual insight to evaluate for quality
+    private func evaluateCurrentInsight(_ insight: KASPERInsight) async {
+        isEvaluating = true
+        defer { isEvaluating = false }
+
+        // Extract focus and realm numbers from test configuration
+        // TODO: Make dynamic based on actual test configuration
+        let focus = 7  // Default for testing - could be made dynamic
+        let realm = 3  // Default for testing - could be made dynamic
+
+        // Evaluate the insight quality using the professional rubric system
+        let _ = await kasperMLX.evaluateInsightQuality(
+            insight.content,
+            expectedFocus: focus,
+            expectedRealm: realm
+        )
+
+        // Results automatically update via @Published property in KASPERMLXManager
+        // The UI will reactively update to show the evaluation results
+        print("✅ Insight evaluation complete - UI will update automatically")
     }
 
     /// Claude: Real-Time Engine Status Monitoring with Comprehensive Health Assessment
@@ -1112,6 +1318,66 @@ struct KASPERMLXTestView: View {
 
             isLoading = false
         }
+    }
+
+    /// Claude: Run live evaluation test with real RuntimeBundle content
+    private func runLiveEvaluationTest() {
+        Task {
+            print("🔮 KASPER MLX - Starting Live Evaluation Test")
+            print("=============================================")
+
+            let evaluator = KASPERInsightEvaluator()
+
+            // Test with real Oracle insights from RuntimeBundle
+            let testInsights = [
+                "The Creative's spark leaps from void—birth visions in flames of divine ecstasy.",
+                "Your focus 3 path invites you to practice journaling about your creative ideas before sleep tonight.",
+                "In realm 6 consciousness, try meditating on your 3 expression for 5 minutes this morning."
+            ]
+
+            print("\n📋 Testing Real Spiritual Insights:")
+            for (index, insight) in testInsights.enumerated() {
+                let result = await evaluator.evaluateInsight(insight, expectedFocus: 3, expectedRealm: 6)
+
+                print("   Insight \(index + 1): \(result.grade) (\(String(format: "%.2f", result.overallScore)))")
+                print("     • Fidelity: \(String(format: "%.2f", result.fidelityScore))")
+                print("     • Actionability: \(String(format: "%.2f", result.actionabilityScore))")
+                print("     • Tone: \(String(format: "%.2f", result.toneScore))")
+                print("     • Safety: \(String(format: "%.2f", result.safetyScore))")
+
+                if result.passes {
+                    print("     ✅ PASSES quality threshold!")
+                } else {
+                    print("     ⚠️ Needs improvement")
+                    let allIssues = result.fidelityIssues + result.actionabilityIssues + result.toneIssues + result.safetyIssues
+                    for issue in allIssues.prefix(2) {
+                        print("       • \(issue)")
+                    }
+                }
+                print("")
+            }
+
+            print("🎉 Live Evaluation Test Complete!")
+            print("✨ Check the Xcode console for detailed results")
+        }
+    }
+
+    /// Claude: Show rubric details in console
+    private func showRubricDetails() {
+        let rubric = KASPERInsightRubric()
+        print("🔮 KASPER MLX - Evaluation Rubric Details")
+        print("=======================================")
+        print("Rubric Version: \(rubric.version)")
+        print("Pass Threshold: \(Int(rubric.passThreshold * 100))%")
+        print("")
+        print("📊 Component Weights:")
+        print("• Fidelity: \(Int(rubric.fidelityWeight * 100))% - Content references correct Focus/Realm numbers")
+        print("• Actionability: \(Int(rubric.actionabilityWeight * 100))% - Contains concrete suggestions with 24h scope")
+        print("• Tone: \(Int(rubric.toneWeight * 100))% - Matches 'warm, practical, non-woo jargon' contract")
+        print("• Safety: \(Int(rubric.safetyWeight * 100))% - No absolutes about health/finance")
+        print("")
+        print("🎯 ChatGPT-5's locked rubric ensures consistent quality assessment!")
+        print("📈 This prevents model quality drift and enforces Vybe's spiritual tone.")
     }
 }
 
@@ -1523,41 +1789,182 @@ struct QuickTestButton: View {
     let icon: String
     let color: Color
     let prompt: String
+    let isSelected: Bool
     let action: () -> Void
 
+    @State private var isPressed = false
+
     var body: some View {
-        Button(action: action) {
+        Button(action: {
+            // Animate press
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                isPressed = true
+            }
+
+            // Haptic feedback
+            let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+            impactFeedback.impactOccurred()
+
+            // Perform action
+            action()
+
+            // Reset press state after animation
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                withAnimation(.spring(response: 0.2, dampingFraction: 0.8)) {
+                    isPressed = false
+                }
+            }
+        }) {
             HStack(spacing: 10) {
-                Image(systemName: icon)
-                    .font(.title3.weight(.medium))
-                    .foregroundColor(color)
-                    .frame(width: 24, height: 24)
+                ZStack {
+                    Circle()
+                        .fill(isSelected ? color.opacity(0.2) : Color.clear)
+                        .frame(width: 32, height: 32)
+
+                    Image(systemName: icon)
+                        .font(.title3.weight(.medium))
+                        .foregroundColor(isSelected ? color : color.opacity(0.7))
+                        .scaleEffect(isSelected ? 1.1 : 1.0)
+                }
+                .frame(width: 32, height: 32)
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundColor(.primary)
+                        .font(.subheadline.weight(isSelected ? .bold : .semibold))
+                        .foregroundColor(isSelected ? .primary : .primary.opacity(0.9))
                         .lineLimit(1)
 
-                    Text("Tap to test")
+                    Text(isSelected ? "Selected" : "Tap to test")
+                        .font(.caption2)
+                        .foregroundColor(isSelected ? color : .secondary)
+                }
+
+                Spacer()
+
+                if isSelected {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.body)
+                        .foregroundColor(color)
+                        .transition(.scale.combined(with: .opacity))
+                }
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 10)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(isSelected ? color.opacity(0.15) : Color.secondary.opacity(0.08))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(isSelected ? color : color.opacity(0.3), lineWidth: isSelected ? 2 : 1)
+            )
+            .contentShape(Rectangle())
+            .scaleEffect(isPressed ? 0.95 : 1.0)
+            .shadow(color: isSelected ? color.opacity(0.3) : .clear, radius: 4, x: 0, y: 2)
+        }
+        .buttonStyle(PlainButtonStyle())
+        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isSelected)
+        .animation(.easeInOut(duration: 0.1), value: isPressed)
+    }
+}
+
+// MARK: - Evaluation Score Card Component
+
+struct EvaluationScoreCard: View {
+    let title: String
+    let score: Double
+    let icon: String
+    let issues: [String]
+
+    @State private var showingIssues = false
+
+    private var scoreColor: Color {
+        switch score {
+        case 0.9...: return .green
+        case 0.7..<0.9: return .blue
+        case 0.5..<0.7: return .orange
+        default: return .red
+        }
+    }
+
+    var body: some View {
+        Button(action: {
+            if !issues.isEmpty {
+                showingIssues.toggle()
+            }
+        }) {
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Image(systemName: icon)
+                        .font(.caption.weight(.medium))
+                        .foregroundColor(scoreColor)
+
+                    Text(title)
+                        .font(.caption.weight(.medium))
+                        .foregroundColor(.primary)
+
+                    Spacer()
+
+                    if !issues.isEmpty {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .font(.caption2)
+                            .foregroundColor(.orange)
+                    }
+                }
+
+                HStack {
+                    Text(String(format: "%.2f", score))
+                        .font(.title3.weight(.bold).monospacedDigit())
+                        .foregroundColor(scoreColor)
+
+                    Spacer()
+
+                    Text("\(Int(score * 100))%")
                         .font(.caption2)
                         .foregroundColor(.secondary)
                 }
 
-                Spacer()
+                // Progress bar
+                GeometryReader { geometry in
+                    ZStack(alignment: .leading) {
+                        Rectangle()
+                            .fill(.quaternary)
+                            .frame(height: 3)
+                            .cornerRadius(2)
+
+                        Rectangle()
+                            .fill(scoreColor)
+                            .frame(width: geometry.size.width * score, height: 3)
+                            .cornerRadius(2)
+                    }
+                }
+                .frame(height: 3)
+
+                if showingIssues && !issues.isEmpty {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Issues:")
+                            .font(.caption2.weight(.medium))
+                            .foregroundColor(.orange)
+
+                        ForEach(issues, id: \.self) { issue in
+                            Text("• \(issue)")
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                    .transition(.opacity.combined(with: .scale(scale: 0.95)))
+                }
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
-            .background(Color.secondary.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
+            .padding(8)
+            .background(.quaternary.opacity(0.3), in: RoundedRectangle(cornerRadius: 8))
             .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(color.opacity(0.3), lineWidth: 1)
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(scoreColor.opacity(0.3), lineWidth: 1)
             )
-            .contentShape(Rectangle())
         }
         .buttonStyle(PlainButtonStyle())
-        .scaleEffect(0.98)
-        .animation(.easeInOut(duration: 0.1), value: UUID())
+        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: showingIssues)
     }
 }
 

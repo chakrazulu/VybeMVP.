@@ -189,6 +189,16 @@ struct HomeView: View {
     /// maintains the mystical aesthetic during AI processing periods.
     @State private var isKasperLoading = false
 
+    /// Feedback button animation states for satisfying user interaction
+    @State private var feedbackGiven: String? = nil  // "positive", "negative", or nil
+    @State private var feedbackButtonScale: CGFloat = 1.0
+
+    /// Insight history navigation states
+    @State private var insightHistory: [KASPERInsight] = []
+    @State private var insightHistoryIndex: Int = 0
+    @State private var previousButtonScale: CGFloat = 1.0
+    @State private var nextButtonScale: CGFloat = 1.0
+
     // MARK: - 📊 PERFORMANCE OPTIMIZATION STATE
 
     /// Claude: CACHE FLOOD FIX - Cached UserProfile to prevent repeated Core Data lookups.
@@ -984,13 +994,40 @@ struct HomeView: View {
     private func kasperInsightDisplay(_ insight: KASPERInsight) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             // Claude: DEFINITIVE HITCH FIX - Use fixed height container to prevent resize
-            Text(insight.content)
-                .font(.body)
-                .foregroundColor(.white.opacity(0.9))
-                .multilineTextAlignment(.leading)
-                .lineSpacing(4)
-                .frame(maxWidth: .infinity, minHeight: 180, maxHeight: 300, alignment: .topLeading)  // Comprehensive space for detailed spiritual guidance
-                .clipped()  // Clip overflow to prevent resize
+            // Insight content with navigation arrows
+            HStack(alignment: .top, spacing: 12) {
+                // Previous insight button
+                Button(action: { navigateToPreviousInsight() }) {
+                    Image(systemName: "chevron.left.circle.fill")
+                        .font(.title3)
+                        .foregroundColor(.cyan.opacity(0.7))
+                        .scaleEffect(previousButtonScale)
+                        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: previousButtonScale)
+                }
+                .buttonStyle(PlainButtonStyle())
+                .disabled(insightHistoryIndex <= 0)
+                .opacity(insightHistoryIndex > 0 ? 1.0 : 0.3)
+
+                Text(insight.content)
+                    .font(.body)
+                    .foregroundColor(.white.opacity(0.9))
+                    .multilineTextAlignment(.leading)
+                    .lineSpacing(4)
+                    .frame(maxWidth: .infinity, minHeight: 180, maxHeight: 300, alignment: .topLeading)  // Comprehensive space for detailed spiritual guidance
+                    .clipped()  // Clip overflow to prevent resize
+
+                // Next insight button
+                Button(action: { navigateToNextInsight() }) {
+                    Image(systemName: "chevron.right.circle.fill")
+                        .font(.title3)
+                        .foregroundColor(.cyan.opacity(0.7))
+                        .scaleEffect(nextButtonScale)
+                        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: nextButtonScale)
+                }
+                .buttonStyle(PlainButtonStyle())
+                .disabled(insightHistoryIndex >= insightHistory.count - 1)
+                .opacity(insightHistoryIndex < insightHistory.count - 1 ? 1.0 : 0.3)
+            }
 
             // Insight metadata
             HStack {
@@ -1041,7 +1078,7 @@ struct HomeView: View {
                 }
                 .disabled(isKasperLoading)
 
-                // Enhanced feedback buttons section
+                // Enhanced feedback buttons section with animations
                 HStack(spacing: 20) {
                     Text("Was this helpful?")
                         .font(.caption)
@@ -1051,27 +1088,63 @@ struct HomeView: View {
                     Spacer()
 
                     HStack(spacing: 16) {
-                        // Positive feedback button
-                        Button(action: { provideFeedback(positive: true) }) {
-                            Image(systemName: "hand.thumbsup.fill")
+                        // Positive feedback button with animation (toggleable)
+                        Button(action: {
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                                feedbackButtonScale = 1.3
+                            }
+                            // Toggle logic: if already positive, clear feedback; otherwise set to positive
+                            if feedbackGiven == "positive" {
+                                provideFeedback(positive: nil) // Clear feedback
+                            } else {
+                                provideFeedback(positive: true)
+                            }
+                            // Reset scale after animation
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                withAnimation(.spring(response: 0.2, dampingFraction: 0.8)) {
+                                    feedbackButtonScale = 1.0
+                                }
+                            }
+                        }) {
+                            Image(systemName: feedbackGiven == "positive" ? "hand.thumbsup.fill" : "hand.thumbsup")
                                 .font(.caption)
-                                .foregroundColor(.green)
-                                .scaleEffect(1.1)
-                                .shadow(color: .green.opacity(0.6), radius: 4)
+                                .foregroundColor(feedbackGiven == "positive" ? .green : .green.opacity(0.7))
+                                .scaleEffect(feedbackGiven == "positive" ? feedbackButtonScale * 1.2 : 1.1)
+                                .shadow(color: .green.opacity(feedbackGiven == "positive" ? 0.8 : 0.6), radius: 4)
+                                .rotationEffect(.degrees(feedbackGiven == "positive" ? 10 : 0))
+                                .animation(.spring(response: 0.4, dampingFraction: 0.6), value: feedbackGiven)
                         }
                         .buttonStyle(PlainButtonStyle())
-                        .accessibilityLabel("Rate insight as helpful")
+                        .accessibilityLabel(feedbackGiven == "positive" ? "Remove positive rating" : "Rate insight as helpful")
 
-                        // Negative feedback button
-                        Button(action: { provideFeedback(positive: false) }) {
-                            Image(systemName: "hand.thumbsdown.fill")
+                        // Negative feedback button with animation (toggleable)
+                        Button(action: {
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                                feedbackButtonScale = 1.3
+                            }
+                            // Toggle logic: if already negative, clear feedback; otherwise set to negative
+                            if feedbackGiven == "negative" {
+                                provideFeedback(positive: nil) // Clear feedback
+                            } else {
+                                provideFeedback(positive: false)
+                            }
+                            // Reset scale after animation
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                withAnimation(.spring(response: 0.2, dampingFraction: 0.8)) {
+                                    feedbackButtonScale = 1.0
+                                }
+                            }
+                        }) {
+                            Image(systemName: feedbackGiven == "negative" ? "hand.thumbsdown.fill" : "hand.thumbsdown")
                                 .font(.caption)
-                                .foregroundColor(.red)
-                                .scaleEffect(1.1)
-                                .shadow(color: .red.opacity(0.6), radius: 4)
+                                .foregroundColor(feedbackGiven == "negative" ? .red : .red.opacity(0.7))
+                                .scaleEffect(feedbackGiven == "negative" ? feedbackButtonScale * 1.2 : 1.1)
+                                .shadow(color: .red.opacity(feedbackGiven == "negative" ? 0.8 : 0.6), radius: 4)
+                                .rotationEffect(.degrees(feedbackGiven == "negative" ? -10 : 0))
+                                .animation(.spring(response: 0.4, dampingFraction: 0.6), value: feedbackGiven)
                         }
                         .buttonStyle(PlainButtonStyle())
-                        .accessibilityLabel("Rate insight as not helpful")
+                        .accessibilityLabel(feedbackGiven == "negative" ? "Remove negative rating" : "Rate insight as not helpful")
                     }
                 }
             }
@@ -1809,6 +1882,10 @@ struct HomeView: View {
             return
         }
 
+        // Reset feedback state for new insight
+        feedbackGiven = nil
+        feedbackButtonScale = 1.0
+
         // Claude: SWIFT 6 COMPLIANCE - Removed [weak self] from struct (value type)
         Task {
             let startTime = Date()
@@ -1846,6 +1923,16 @@ struct HomeView: View {
                     self.kasperInsight = insight
                     self.isKasperLoading = false
                     self.kasperError = nil
+
+                    // Add to history and update index
+                    self.insightHistory.append(insight)
+                    self.insightHistoryIndex = self.insightHistory.count - 1
+
+                    // Keep history manageable (max 20 insights)
+                    if self.insightHistory.count > 20 {
+                        self.insightHistory.removeFirst()
+                        self.insightHistoryIndex = self.insightHistory.count - 1
+                    }
                 }
 
                 let responseTime = Date().timeIntervalSince(startTime)
@@ -1874,27 +1961,103 @@ struct HomeView: View {
         }
     }
 
-    /// Claude: Provide user feedback for KASPER insight
-    private func provideFeedback(positive: Bool) {
+    /// Claude: Provide user feedback for KASPER insight with animated response (enhanced with toggle support)
+    private func provideFeedback(positive: Bool?) {
         guard let insight = kasperInsight else { return }
 
-        let feedback = positive ? "👍" : "👎"
-        print("🔮 KASPER MLX: User feedback - \(feedback)")
+        if let positive = positive {
+            // Set feedback state for UI update
+            feedbackGiven = positive ? "positive" : "negative"
 
-        // Record feedback for training
-        kasperFeedback.recordFeedback(
-            for: insight,
-            rating: positive ? .positive : .negative,
-            contextData: [
-                "source": "homeview_daily_card",
-                "focus_number": "\(focusNumberManager.selectedFocusNumber)",
-                "realm_number": "\(realmNumberManager.currentRealmNumber)"
-            ]
-        )
+            let feedback = positive ? "👍" : "👎"
+            print("🔮 KASPER MLX: User feedback - \(feedback)")
+
+            // Record feedback for training
+            kasperFeedback.recordFeedback(
+                for: insight,
+                rating: positive ? .positive : .negative,
+                contextData: [
+                    "source": "homeview_daily_card",
+                    "focus_number": "\(focusNumberManager.selectedFocusNumber)",
+                    "realm_number": "\(realmNumberManager.currentRealmNumber)"
+                ]
+            )
+
+            // Enhanced haptic feedback for satisfying interaction
+            let impactFeedback = UIImpactFeedbackGenerator(style: positive ? .medium : .soft)
+            impactFeedback.prepare()
+            impactFeedback.impactOccurred()
+
+            // Additional light haptic after a moment for feedback confirmation
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                let confirmFeedback = UIImpactFeedbackGenerator(style: .light)
+                confirmFeedback.impactOccurred()
+            }
+        } else {
+            // Clear feedback state (toggle off)
+            feedbackGiven = nil
+            print("🔮 KASPER MLX: Feedback cleared - allowing re-rating")
+
+            // Subtle haptic for clearing feedback
+            let clearFeedback = UIImpactFeedbackGenerator(style: .light)
+            clearFeedback.impactOccurred()
+        }
+    }
+
+    /// Navigate to previous insight in history
+    private func navigateToPreviousInsight() {
+        guard insightHistoryIndex > 0 else { return }
+
+        // Animate button
+        withAnimation(.spring(response: 0.2, dampingFraction: 0.6)) {
+            previousButtonScale = 1.3
+        }
+
+        // Update insight
+        insightHistoryIndex -= 1
+        kasperInsight = insightHistory[insightHistoryIndex]
+        feedbackGiven = nil  // Reset feedback for historical insight
 
         // Haptic feedback
-        let impactFeedback = UIImpactFeedbackGenerator(style: positive ? .light : .soft)
+        let impactFeedback = UIImpactFeedbackGenerator(style: .light)
         impactFeedback.impactOccurred()
+
+        // Reset button scale
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            withAnimation(.spring(response: 0.2, dampingFraction: 0.8)) {
+                previousButtonScale = 1.0
+            }
+        }
+
+        print("📖 Navigated to previous insight: \(insightHistoryIndex + 1)/\(insightHistory.count)")
+    }
+
+    /// Navigate to next insight in history
+    private func navigateToNextInsight() {
+        guard insightHistoryIndex < insightHistory.count - 1 else { return }
+
+        // Animate button
+        withAnimation(.spring(response: 0.2, dampingFraction: 0.6)) {
+            nextButtonScale = 1.3
+        }
+
+        // Update insight
+        insightHistoryIndex += 1
+        kasperInsight = insightHistory[insightHistoryIndex]
+        feedbackGiven = nil  // Reset feedback for historical insight
+
+        // Haptic feedback
+        let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+        impactFeedback.impactOccurred()
+
+        // Reset button scale
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            withAnimation(.spring(response: 0.2, dampingFraction: 0.8)) {
+                nextButtonScale = 1.0
+            }
+        }
+
+        print("📖 Navigated to next insight: \(insightHistoryIndex + 1)/\(insightHistory.count)")
     }
 }
 
