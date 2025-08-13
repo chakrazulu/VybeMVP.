@@ -254,7 +254,7 @@ public class KASPERPersonaTrainingManager: ObservableObject {
         }
 
         let files = try fileManager.contentsOfDirectory(atPath: approvedPath)
-        let approvedFiles = files.filter { $0.hasSuffix("_approved.md") }
+        let approvedFiles = files.filter { $0.hasSuffix("_converted.json") }
 
         logger.info("📄 Found \(approvedFiles.count) approved insight files")
 
@@ -262,31 +262,61 @@ public class KASPERPersonaTrainingManager: ObservableObject {
 
         for file in approvedFiles {
             let filePath = approvedPath + "/" + file
-            let content = try String(contentsOfFile: filePath, encoding: .utf8)
+            let jsonData = try Data(contentsOf: URL(fileURLWithPath: filePath))
 
-            // Parse persona and number from filename
-            // Format: PersonaName_Number_X_approved.md
-            let components = file.replacingOccurrences(of: "_approved.md", with: "").split(separator: "_")
+            do {
+                // Parse the JSON structure
+                let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: [])
+                guard let jsonDict = jsonObject as? [String: Any] else {
+                    logger.warning("⚠️ Invalid JSON structure in \(file)")
+                    continue
+                }
 
-            if components.count >= 3 {
-                let persona = String(components[0])
-                if let number = Int(components[2]) {
+                // Extract metadata from JSON
+                let persona = jsonDict["persona"] as? String ?? "Unknown"
+                let focusNumber = jsonDict["number"] as? Int ?? 0
+
+                // Parse behavioral_insights array
+                guard let behavioralInsights = jsonDict["behavioral_insights"] as? [[String: Any]] else {
+                    logger.warning("⚠️ No behavioral_insights found in \(file)")
+                    continue
+                }
+
+                // Create TrainingInsight for each behavioral insight
+                for (index, insightDict) in behavioralInsights.enumerated() {
+                    guard let insightText = insightDict["insight"] as? String,
+                          let category = insightDict["category"] as? String else {
+                        continue
+                    }
+
+                    let intensity = insightDict["intensity"] as? Double ?? 0.75
+
                     let insight = TrainingInsight(
-                        id: file,
+                        id: "\(file)_insight_\(index)",
                         persona: persona,
-                        focusNumber: number,
-                        realmNumber: nil,  // Extract if available
-                        content: content,
-                        theme: extractTheme(from: content),
-                        qualityScore: 0.9,  // Approved content assumed high quality
-                        metadata: [:]
+                        focusNumber: focusNumber,
+                        realmNumber: nil,  // Could extract from triggers if needed
+                        content: insightText,
+                        theme: category,
+                        qualityScore: intensity,  // Use intensity as quality proxy
+                        metadata: [
+                            "triggers": insightDict["triggers"] as? [String] ?? [],
+                            "supports": insightDict["supports"] as? [String] ?? [],
+                            "challenges": insightDict["challenges"] as? [String] ?? []
+                        ]
                     )
                     approvedInsights.append(insight)
                 }
+
+                logger.info("📚 Loaded \(behavioralInsights.count) insights from \(file) (\(persona), number \(focusNumber))")
+
+            } catch {
+                logger.error("❌ Failed to parse JSON in \(file): \(error.localizedDescription)")
+                continue
             }
         }
 
-        logger.info("✅ Loaded \(self.approvedInsights.count) approved insights")
+        logger.info("✅ Loaded \(self.approvedInsights.count) approved insights total")
     }
 
     /// Organize insights by persona for targeted training

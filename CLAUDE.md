@@ -22,6 +22,7 @@
 - **Run tests** (`Cmd+U`) - must show 434/434 passing
 - **Follow existing patterns** - don't reinvent
 - Before we ever add to git we need to make sure the code is thoroughly commented, up to date and adhering to the architecture
+- You need to ask me before you add to git
 
 ## 📁 Quick Structure
 
