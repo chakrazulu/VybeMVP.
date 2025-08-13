@@ -21,6 +21,7 @@
 - **Test on real device** before commits
 - **Run tests** (`Cmd+U`) - must show 434/434 passing
 - **Follow existing patterns** - don't reinvent
+- Before we ever add to git we need to make sure the code is thoroughly commented, up to date and adhering to the architecture
 
 ## 📁 Quick Structure
 
@@ -104,13 +105,14 @@ make self-healing-validate  # Full system health check
 
 ## ✅ Before Every Commit
 
-1. **Self-healing validation**: `make self-healing-validate`
-2. Clean build: `Cmd+Shift+K`
-3. Build: `Cmd+B` (zero warnings)
-4. Test: `Cmd+U` (all passing)
-5. Run on simulator
-6. Test on device
-7. Get user confirmation
+1. **Ask user**: "Would you like me to review the code to ensure it's thoroughly commented and up to date before adding to git?"
+2. **Self-healing validation**: `make self-healing-validate`
+3. Clean build: `Cmd+Shift+K`
+4. Build: `Cmd+B` (zero warnings)
+5. Test: `Cmd+U` (all passing)
+6. Run on simulator
+7. Test on device
+8. Get user confirmation for commit
 
 ## 📚 Documentation
 

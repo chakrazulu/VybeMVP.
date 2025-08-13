@@ -137,6 +137,8 @@
 		4D6528C52E4C16FB00F521E1 /* LOCAL_LLM_SETUP.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528C22E4C16FB00F521E1 /* LOCAL_LLM_SETUP.md */; };
 		4D6528C62E4C16FB00F521E1 /* LocalLLMConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528C32E4C16FB00F521E1 /* LocalLLMConfiguration.swift */; };
 		4D6528C82E4C242400F521E1 /* APlusRoadmap.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528C72E4C242400F521E1 /* APlusRoadmap.md */; };
+		4D6528CB2E4C478200F521E1 /* KASPERPersonaTrainingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528C92E4C478100F521E1 /* KASPERPersonaTrainingManager.swift */; };
+		4D6528CD2E4C488800F521E1 /* PersonaTrainingIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528CC2E4C488800F521E1 /* PersonaTrainingIntegration.swift */; };
 		4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */; };
 		4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */; };
 		4D6C7B552DE45441001036E5 /* ArchetypeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */; };
@@ -721,6 +723,8 @@
 		4D6528C22E4C16FB00F521E1 /* LOCAL_LLM_SETUP.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LOCAL_LLM_SETUP.md; sourceTree = "<group>"; };
 		4D6528C32E4C16FB00F521E1 /* LocalLLMConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLLMConfiguration.swift; sourceTree = "<group>"; };
 		4D6528C72E4C242400F521E1 /* APlusRoadmap.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = APlusRoadmap.md; sourceTree = "<group>"; };
+		4D6528C92E4C478100F521E1 /* KASPERPersonaTrainingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERPersonaTrainingManager.swift; sourceTree = "<group>"; };
+		4D6528CC2E4C488800F521E1 /* PersonaTrainingIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonaTrainingIntegration.swift; sourceTree = "<group>"; };
 		4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetype.swift; sourceTree = "<group>"; };
 		4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetypeManager.swift; sourceTree = "<group>"; };
 		4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchetypeDisplayView.swift; sourceTree = "<group>"; };
@@ -1582,6 +1586,15 @@
 			path = Configuration;
 			sourceTree = "<group>";
 		};
+		4D6528CA2E4C478100F521E1 /* PersonaTraining */ = {
+			isa = PBXGroup;
+			children = (
+				4D6528CC2E4C488800F521E1 /* PersonaTrainingIntegration.swift */,
+				4D6528C92E4C478100F521E1 /* KASPERPersonaTrainingManager.swift */,
+			);
+			path = PersonaTraining;
+			sourceTree = "<group>";
+		};
 		4D6C7B9C2DE47E99001036E5 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -1916,6 +1929,7 @@
 		4DA359AE2E3F135B0010101F /* KASPERMLX */ = {
 			isa = PBXGroup;
 			children = (
+				4D6528CA2E4C478100F521E1 /* PersonaTraining */,
 				4D6528C72E4C242400F521E1 /* APlusRoadmap.md */,
 				4D6528C42E4C16FB00F521E1 /* Configuration */,
 				4D6528AD2E4BADF800F521E1 /* ChatGPTIntegration */,
@@ -2843,6 +2857,7 @@
 				4D2DB4822DFF43390003353E /* ChakraManager.swift in Sources */,
 				4D2DB4842DFF43B10003353E /* ContentView.swift in Sources */,
 				4D6528732E49781400F521E1 /* RuntimeBundleDiagnostic.swift in Sources */,
+				4D6528CD2E4C488800F521E1 /* PersonaTrainingIntegration.swift in Sources */,
 				4D2CC6F42E08688000BDF100 /* MandalaAssetManager.swift in Sources */,
 				4D2CC6F22E08680400BDF100 /* MandalaBackgroundView.swift in Sources */,
 				4D3055EB2D3CF492009A7BBD /* NumberCell.swift in Sources */,
@@ -2920,6 +2935,7 @@
 				4DA01CB22D8534BF0070309D /* NumberMatchNotificationView.swift in Sources */,
 				4DDCDFCD2E2C63D9005FDD32 /* FriendRequest.swift in Sources */,
 				4D6C7B572DE4546C001036E5 /* ResonanceMatch.swift in Sources */,
+				4D6528CB2E4C478200F521E1 /* KASPERPersonaTrainingManager.swift in Sources */,
 				4D3055E52D3CEDA5009A7BBD /* NewJournalEntryView.swift in Sources */,
 				4D731EB52E4721AE0083C82C /* KASPERLifePathTrinity.swift in Sources */,
 				4D6C7B552DE45441001036E5 /* ArchetypeDisplayView.swift in Sources */,
