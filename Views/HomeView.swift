@@ -1008,13 +1008,50 @@ struct HomeView: View {
                 .disabled(insightHistoryIndex <= 0)
                 .opacity(insightHistoryIndex > 0 ? 1.0 : 0.3)
 
-                Text(insight.content)
-                    .font(.body)
-                    .foregroundColor(.white.opacity(0.9))
-                    .multilineTextAlignment(.leading)
-                    .lineSpacing(4)
-                    .frame(maxWidth: .infinity, minHeight: 180, maxHeight: 300, alignment: .topLeading)  // Comprehensive space for detailed spiritual guidance
-                    .clipped()  // Clip overflow to prevent resize
+                VStack(alignment: .leading, spacing: 8) {
+                    // AI Winner Badge (if shadow mode was active)
+                    if let winner = insight.metadata.shadowModeWinner {
+                        HStack(spacing: 6) {
+                            Image(systemName: winner == "Local LLM" ? "brain.filled.head.profile" : "sparkles")
+                                .font(.caption)
+                                .foregroundColor(winner == "Local LLM" ? .cyan : .purple)
+
+                            Text(winner == "Local LLM" ? "Mixtral 46.7B" : "Curated Content")
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .foregroundColor(winner == "Local LLM" ? .cyan : .purple)
+
+                            Spacer()
+
+                            // Quality badge
+                            Text(winner == "Local LLM" ? "AI Generated" : "Premium")
+                                .font(.caption2)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 3)
+                                .background(
+                                    Capsule()
+                                        .fill((winner == "Local LLM" ? Color.cyan : Color.purple).opacity(0.2))
+                                        .overlay(
+                                            Capsule()
+                                                .stroke(winner == "Local LLM" ? Color.cyan : Color.purple, lineWidth: 1)
+                                        )
+                                )
+                        }
+                        .padding(.bottom, 4)
+                    }
+
+                    // Scrollable content for longer AI-generated insights
+                    ScrollView {
+                        Text(insight.content)
+                            .font(.body)
+                            .foregroundColor(.white.opacity(0.9))
+                            .multilineTextAlignment(.leading)
+                            .lineSpacing(4)
+                            .frame(maxWidth: .infinity, alignment: .topLeading)
+                            .fixedSize(horizontal: false, vertical: true)  // Allow vertical expansion
+                    }
+                    .frame(maxHeight: 300)  // Max height with scrolling for overflow
+                }
 
                 // Next insight button
                 Button(action: { navigateToNextInsight() }) {
@@ -1919,16 +1956,14 @@ struct HomeView: View {
 
                 // Try shadow mode first, fallback to standard generation
                 let insight: KASPERInsight
+
+                // The generateDailyCardInsight now auto-retries shadow mode initialization
+                insight = try await self.kasperMLX.generateDailyCardInsight(cardType: cardType)
+
+                // Check if shadow mode became active during generation
                 if self.kasperMLX.shadowModeActive {
-                    // Use shadow mode for heavyweight ChatGPT vs RuntimeBundle competition
-                    insight = try await self.kasperMLX.generateInsightWithShadowMode(
-                        feature: .dailyCard,
-                        context: ["cardType": cardType]
-                    )
-                    print("🥊 Shadow mode: Generated insight via ChatGPT vs RuntimeBundle competition")
+                    print("🥊 Shadow mode: Generated insight via Local LLM vs RuntimeBundle competition")
                 } else {
-                    // Fallback to standard RuntimeBundle generation
-                    insight = try await self.kasperMLX.generateDailyCardInsight(cardType: cardType)
                     print("📚 Standard mode: Generated insight via RuntimeBundle")
                 }
 

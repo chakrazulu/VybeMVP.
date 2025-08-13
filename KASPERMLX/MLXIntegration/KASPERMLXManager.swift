@@ -202,12 +202,42 @@ class KASPERMLXManager: ObservableObject {
         }
     }
 
+    /// Public method to retry shadow mode initialization
+    /// Call this when you know Ollama is running
+    public func retryShadowModeInitialization() async {
+        logger.info("🔄 Retrying shadow mode initialization...")
+
+        // Only retry if shadow mode is not already active
+        guard !shadowModeActive else {
+            logger.info("✅ Shadow mode already active, no retry needed")
+            return
+        }
+
+        // Try to initialize shadow mode again
+        await initializeShadowMode()
+
+        if shadowModeActive {
+            logger.info("🎉 Shadow mode successfully activated on retry!")
+        } else {
+            logger.warning("⚠️ Shadow mode still unavailable after retry")
+        }
+    }
+
     /// Get Local LLM provider by creating a new instance
     private func getLocalLLMProvider() async -> KASPERLocalLLMProvider? {
         logger.info("🤖 Attempting to create Local LLM provider for shadow mode")
 
         // Create a new Local LLM provider instance
-        let provider = KASPERLocalLLMProvider(serverURL: "http://localhost:11434")
+        // Configuration for Local LLM server endpoint
+        #if DEBUG
+        // Development: Use your Mac's IP or hostname.local for testing
+        let serverURL = "http://192.168.1.159:11434"  // Update this to your Mac's IP
+        #else
+        // Production: Would use a secure, authenticated endpoint
+        let serverURL = "http://localhost:11434"  // Disabled in production for security
+        #endif
+
+        let provider = KASPERLocalLLMProvider(serverURL: serverURL)
 
         // Wait a moment for initialization
         try? await Task.sleep(for: .seconds(2))
@@ -247,7 +277,11 @@ class KASPERMLXManager: ObservableObject {
             // Update stats for UI
             updateShadowModeStats()
 
-            return result.displayedInsight
+            // Add winner info to the insight metadata
+            var winningInsight = result.displayedInsight
+            winningInsight.metadata.shadowModeWinner = result.winner.rawValue
+
+            return winningInsight
         }
 
         // Fallback to standard generation if shadow mode not available
@@ -396,6 +430,22 @@ class KASPERMLXManager: ObservableObject {
         type: KASPERInsightType = .guidance
     ) async throws -> KASPERInsight {
         logger.info("🔮 KASPER MLX: Generating daily card insight")
+
+        // AUTO-RETRY: If shadow mode is not active, try to initialize it now
+        // This handles the case where Ollama was started after the app
+        if !shadowModeActive {
+            logger.info("🔄 Shadow mode not active, attempting to initialize now...")
+            await retryShadowModeInitialization()
+        }
+
+        // If shadow mode is now active, use it!
+        if shadowModeActive {
+            logger.info("🥊 Using shadow mode for daily card generation!")
+            return try await generateInsightWithShadowMode(
+                feature: .dailyCard,
+                context: cardType != nil ? ["cardType": cardType!] : [:]
+            )
+        }
 
         var contextData: [String: Any] = [:]
         if let type = cardType {

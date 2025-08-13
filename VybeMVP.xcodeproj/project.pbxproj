@@ -133,6 +133,7 @@
 		4D6528B52E4BB5C300F521E1 /* LocalLLMSetupGuide.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528B42E4BB5C300F521E1 /* LocalLLMSetupGuide.md */; };
 		4D6528BD2E4BE8DF00F521E1 /* LOCAL_LLM_COMPLETE_GUIDE.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528BC2E4BE8DF00F521E1 /* LOCAL_LLM_COMPLETE_GUIDE.md */; };
 		4D6528BF2E4BE92100F521E1 /* TESTING_GUIDE.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528BE2E4BE92100F521E1 /* TESTING_GUIDE.md */; };
+		4D6528C12E4C0F4F00F521E1 /* LlmVybeCommands.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528C02E4C0F4F00F521E1 /* LlmVybeCommands.md */; };
 		4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */; };
 		4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */; };
 		4D6C7B552DE45441001036E5 /* ArchetypeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */; };
@@ -713,6 +714,7 @@
 		4D6528B42E4BB5C300F521E1 /* LocalLLMSetupGuide.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LocalLLMSetupGuide.md; sourceTree = "<group>"; };
 		4D6528BC2E4BE8DF00F521E1 /* LOCAL_LLM_COMPLETE_GUIDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LOCAL_LLM_COMPLETE_GUIDE.md; sourceTree = "<group>"; };
 		4D6528BE2E4BE92100F521E1 /* TESTING_GUIDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TESTING_GUIDE.md; sourceTree = "<group>"; };
+		4D6528C02E4C0F4F00F521E1 /* LlmVybeCommands.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LlmVybeCommands.md; sourceTree = "<group>"; };
 		4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetype.swift; sourceTree = "<group>"; };
 		4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetypeManager.swift; sourceTree = "<group>"; };
 		4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchetypeDisplayView.swift; sourceTree = "<group>"; };
@@ -1552,6 +1554,7 @@
 		4D6528AD2E4BADF800F521E1 /* ChatGPTIntegration */ = {
 			isa = PBXGroup;
 			children = (
+				4D6528C02E4C0F4F00F521E1 /* LlmVybeCommands.md */,
 				4D6528BE2E4BE92100F521E1 /* TESTING_GUIDE.md */,
 				4D6528BC2E4BE8DF00F521E1 /* LOCAL_LLM_COMPLETE_GUIDE.md */,
 				4D6528B42E4BB5C300F521E1 /* LocalLLMSetupGuide.md */,
@@ -2503,6 +2506,7 @@
 				4D731FD82E474A0F0083C82C /* lifePath_03_v2.0_converted.json in Resources */,
 				4DDA0A592E47CEB300449F20 /* expression_08_converted.json in Resources */,
 				4D731FD92E474A0F0083C82C /* grok_mindfulnesscoach_33_converted.json in Resources */,
+				4D6528C12E4C0F4F00F521E1 /* LlmVybeCommands.md in Resources */,
 				4D731FDB2E474A0F0083C82C /* NumerologyScholar_Number_33_original.md in Resources */,
 				4D731FDD2E474A0F0083C82C /* NumerologyScholar_Number_11_original.md in Resources */,
 				4D731FDF2E474A0F0083C82C /* grok_mindfulnesscoach_22_converted.json in Resources */,

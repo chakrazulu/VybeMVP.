@@ -920,7 +920,7 @@ public struct KASPERInsight {
     let inferenceTime: TimeInterval
 
     /// Claude: Detailed technical and spiritual metadata for quality tracking
-    let metadata: KASPERInsightMetadata
+    var metadata: KASPERInsightMetadata
 
     /// Claude: Create a complete spiritual insight with automatic ID and timestamp generation
     init(
@@ -1017,17 +1017,23 @@ struct KASPERInsightMetadata {
     /// Only populated when detailed logging is enabled - contains technical details
     let debugInfo: [String: Any]?
 
+    /// Shadow mode winner - tracks which AI system generated this insight
+    /// "Local LLM" = Mixtral 46.7B, "RuntimeBundle" = Curated content, nil = No competition
+    var shadowModeWinner: String? = nil
+
     /// Claude: Initialize metadata with intelligent defaults for production use
     init(
         modelVersion: String = "1.0",
         providersUsed: [String] = [],
         cacheHit: Bool = false,
-        debugInfo: [String: Any]? = nil
+        debugInfo: [String: Any]? = nil,
+        shadowModeWinner: String? = nil
     ) {
         self.modelVersion = modelVersion
         self.providersUsed = providersUsed
         self.cacheHit = cacheHit
         self.debugInfo = debugInfo
+        self.shadowModeWinner = shadowModeWinner
     }
 }
 
