@@ -33,11 +33,15 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         // Print FCM token to console for testing
         Messaging.messaging().token { token, error in
             if let token = token {
+                #if DEBUG
                 print("🔥 FCM Registration Token: \(token)")
+                #endif
                 // Save token for later use if needed
                 UserDefaults.standard.set(token, forKey: "FCMToken")
             } else if let error = error {
+                #if DEBUG
                 print("🔥 Error fetching FCM token: \(error)")
+                #endif
             }
         }
 
@@ -85,7 +89,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     // MARK: - Firebase Messaging Delegate
 
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        #if DEBUG
         print("🔥 Firebase registration token refreshed: \(fcmToken ?? "nil")")
+        #endif
 
         // Store this token for sending notifications to this specific device
         if let token = fcmToken {

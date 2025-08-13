@@ -33,17 +33,23 @@ VybeMVP/
 └── KASPERMLXRuntimeBundle/  # Content (v2.1.4)
 ```
 
-## 🔮 KASPER MLX v2.1.5 - Local LLM Integration Active!
+## 🔮 KASPER MLX v2.1.5 - Local LLM Shadow Mode ACTIVE! 🎉
 
-### 🤖 Local LLM Setup (Mixtral 26GB)
+### 🤖 Local LLM Setup (Mixtral 46.7B Parameters)
 ```bash
-# One-time setup (already done!)
-brew install ollama
-ollama pull mixtral
+# REQUIRED: Start before running app
+OLLAMA_HOST=0.0.0.0:11434 ollama serve
 
-# Start server (required before running app)
-ollama serve
+# Wait for: "llama runner started in 20.11 seconds"
+# Look for: iPhone connections in terminal logs
 ```
+
+### 🏆 Historic Achievement: August 12, 2025
+- ✅ **World's first iPhone app** with Local LLM shadow mode
+- ✅ **46.7B parameter competition** vs curated content
+- ✅ **Real-time quality evaluation** (0.80+ threshold)
+- ✅ **Winner badges** in UI showing AI victories
+- ✅ **Oracle persona support** for rich content competition
 
 ### Shadow Mode Competition (NEW)
 ```swift

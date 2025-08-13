@@ -227,15 +227,17 @@ class KASPERMLXManager: ObservableObject {
     private func getLocalLLMProvider() async -> KASPERLocalLLMProvider? {
         logger.info("🤖 Attempting to create Local LLM provider for shadow mode")
 
-        // Create a new Local LLM provider instance
-        // Configuration for Local LLM server endpoint
-        #if DEBUG
-        // Development: Use your Mac's IP or hostname.local for testing
-        let serverURL = "http://192.168.1.159:11434"  // Update this to your Mac's IP
-        #else
-        // Production: Would use a secure, authenticated endpoint
-        let serverURL = "http://localhost:11434"  // Disabled in production for security
-        #endif
+        // Create a new Local LLM provider instance using secure configuration
+        let config = LocalLLMConfiguration.shared
+
+        // Check if Local LLM is enabled and configured
+        guard config.isLocalLLMEnabled else {
+            logger.info("🔒 Local LLM disabled or not configured")
+            return nil
+        }
+
+        let serverURL = config.serverURL
+        logger.info("🔧 Using configured Local LLM endpoint: \(serverURL)")
 
         let provider = KASPERLocalLLMProvider(serverURL: serverURL)
 

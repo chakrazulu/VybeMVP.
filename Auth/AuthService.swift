@@ -87,13 +87,19 @@ class AuthService {
         // Claude: SWIFT 6 COMPLIANCE - Use async versions of Firebase Messaging methods
         do {
             let token = try await Messaging.messaging().token()
+            #if DEBUG
             print("ℹ️ Successfully fetched FCM token before deletion: \(token.prefix(10))...")
+            #endif
 
             // Now, proceed to delete the FCM Token
             try await Messaging.messaging().deleteToken()
+            #if DEBUG
             print("✅ FCM token deleted successfully. User will stop receiving notifications.")
+            #endif
         } catch {
+            #if DEBUG
             print("🔥 Error with FCM token operations: \(error.localizedDescription)")
+            #endif
         }
 
         // 2. Clear Keychain Data (This can run in parallel or after token operations)

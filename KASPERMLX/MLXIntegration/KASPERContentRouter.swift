@@ -374,9 +374,20 @@ class KASPERContentRouter: ObservableObject {
                 path = numberDomain.behavioral.expression.replacingOccurrences(of: "{id}", with: numberStr)
             case "soulurge":
                 path = numberDomain.behavioral.soulUrge.replacingOccurrences(of: "{id}", with: numberStr)
+            case "oracle":
+                // BREAKTHROUGH FIX: Oracle persona support for Shadow Mode competition
+                // This enables rich, mystical oracle content vs simple template fallbacks
+                // allowing fair competition between Local LLM and refined RuntimeBundle insights
+                if let oraclePath = numberDomain.personas.oracle {
+                    path = oraclePath.replacingOccurrences(of: "{id}", with: String(format: "%02d", number))
+                    logger.info("🔮 Using oracle persona content for number \(number)")
+                } else {
+                    logger.warning("Oracle persona path not found in manifest")
+                    return getFallbackContent(context: context, number: number)
+                }
             default:
                 logger.warning("Unknown context: \(context)")
-                logger.warning("   Valid contexts: lifePath, expression, soulUrge")
+                logger.warning("   Valid contexts: lifePath, expression, soulUrge, oracle")
                 return getFallbackContent(context: context, number: number)
             }
         }

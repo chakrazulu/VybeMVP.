@@ -134,6 +134,9 @@
 		4D6528BD2E4BE8DF00F521E1 /* LOCAL_LLM_COMPLETE_GUIDE.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528BC2E4BE8DF00F521E1 /* LOCAL_LLM_COMPLETE_GUIDE.md */; };
 		4D6528BF2E4BE92100F521E1 /* TESTING_GUIDE.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528BE2E4BE92100F521E1 /* TESTING_GUIDE.md */; };
 		4D6528C12E4C0F4F00F521E1 /* LlmVybeCommands.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528C02E4C0F4F00F521E1 /* LlmVybeCommands.md */; };
+		4D6528C52E4C16FB00F521E1 /* LOCAL_LLM_SETUP.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528C22E4C16FB00F521E1 /* LOCAL_LLM_SETUP.md */; };
+		4D6528C62E4C16FB00F521E1 /* LocalLLMConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528C32E4C16FB00F521E1 /* LocalLLMConfiguration.swift */; };
+		4D6528C82E4C242400F521E1 /* APlusRoadmap.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528C72E4C242400F521E1 /* APlusRoadmap.md */; };
 		4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */; };
 		4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */; };
 		4D6C7B552DE45441001036E5 /* ArchetypeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */; };
@@ -715,6 +718,9 @@
 		4D6528BC2E4BE8DF00F521E1 /* LOCAL_LLM_COMPLETE_GUIDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LOCAL_LLM_COMPLETE_GUIDE.md; sourceTree = "<group>"; };
 		4D6528BE2E4BE92100F521E1 /* TESTING_GUIDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TESTING_GUIDE.md; sourceTree = "<group>"; };
 		4D6528C02E4C0F4F00F521E1 /* LlmVybeCommands.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LlmVybeCommands.md; sourceTree = "<group>"; };
+		4D6528C22E4C16FB00F521E1 /* LOCAL_LLM_SETUP.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LOCAL_LLM_SETUP.md; sourceTree = "<group>"; };
+		4D6528C32E4C16FB00F521E1 /* LocalLLMConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLLMConfiguration.swift; sourceTree = "<group>"; };
+		4D6528C72E4C242400F521E1 /* APlusRoadmap.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = APlusRoadmap.md; sourceTree = "<group>"; };
 		4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetype.swift; sourceTree = "<group>"; };
 		4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetypeManager.swift; sourceTree = "<group>"; };
 		4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchetypeDisplayView.swift; sourceTree = "<group>"; };
@@ -1567,6 +1573,15 @@
 			path = ChatGPTIntegration;
 			sourceTree = "<group>";
 		};
+		4D6528C42E4C16FB00F521E1 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				4D6528C22E4C16FB00F521E1 /* LOCAL_LLM_SETUP.md */,
+				4D6528C32E4C16FB00F521E1 /* LocalLLMConfiguration.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
 		4D6C7B9C2DE47E99001036E5 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -1901,6 +1916,8 @@
 		4DA359AE2E3F135B0010101F /* KASPERMLX */ = {
 			isa = PBXGroup;
 			children = (
+				4D6528C72E4C242400F521E1 /* APlusRoadmap.md */,
+				4D6528C42E4C16FB00F521E1 /* Configuration */,
 				4D6528AD2E4BADF800F521E1 /* ChatGPTIntegration */,
 				4D6528A72E4B870700F521E1 /* MLXEvolution */,
 				4D6528A32E4B86D500F521E1 /* MLXEvaluation */,
@@ -2541,6 +2558,7 @@
 				4DDA0A392E47CC0600449F20 /* expression_06_behavioral.json in Resources */,
 				4DDA0A552E47CE9900449F20 /* expression_06_converted.json in Resources */,
 				4D7320032E474A0F0083C82C /* lifePath_22_v2.0_converted.json in Resources */,
+				4D6528C82E4C242400F521E1 /* APlusRoadmap.md in Resources */,
 				4D7320042E474A0F0083C82C /* grok_philosopher_01_converted.json in Resources */,
 				4DDA0A282E47C75C00449F20 /* soulUrge_22_v3.0_converted.json in Resources */,
 				4D7320062E474A0F0083C82C /* claude_33_academic_converted.json in Resources */,
@@ -2696,6 +2714,7 @@
 				4DCB39562E1F78AE00311D51 /* mystery_seals.svg in Resources */,
 				4DA359BF2E3FF6380010101F /* SpiritualInsightSchema.json in Resources */,
 				4DA359C02E3FF6380010101F /* SampleTrainingBatch.json in Resources */,
+				4D6528C52E4C16FB00F521E1 /* LOCAL_LLM_SETUP.md in Resources */,
 				4DCB39572E1F78AE00311D51 /* void_zero_point.svg in Resources */,
 				4DDA0A4F2E47CE6900449F20 /* expression_03_converted.json in Resources */,
 				4DCB39582E1F78AE00311D51 /* foundation_cube.svg in Resources */,
@@ -2886,6 +2905,7 @@
 				4D6308DE2DFFCB2C00FD32E9 /* Post.swift in Sources */,
 				4D6308DF2DFFCB2C00FD32E9 /* PostCardView.swift in Sources */,
 				4D2CC6FB2E08BE3700BDF100 /* SacredGeometryAssets.swift in Sources */,
+				4D6528C62E4C16FB00F521E1 /* LocalLLMConfiguration.swift in Sources */,
 				4D6528802E49A75100F521E1 /* KASPERInferenceProvider.swift in Sources */,
 				4D2F223E2E347C0F0087B052 /* ArchetypeCodexSection.swift in Sources */,
 				4D5929AC2E4933BA002625DE /* RichContentValidator.swift in Sources */,

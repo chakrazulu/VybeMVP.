@@ -186,7 +186,9 @@ struct AuthenticationWrapperView: View {
     private func checkOnboardingStatus() {
         guard let userID = authManager.userID else {
             hasCompletedOnboarding = false
+            #if DEBUG
             print("🔍 No userID available, onboarding incomplete")
+            #endif
             return
         }
 
@@ -196,7 +198,9 @@ struct AuthenticationWrapperView: View {
 
         if hasCompletedViaOnboarding {
             hasCompletedOnboarding = true
+            #if DEBUG
             print("🔍 Found onboarding completion flag for user \(userID), onboarding completed")
+            #endif
 
             // Configure AI insights if we have a profile
             if let userProfile = UserProfileService.shared.getCurrentUserProfileFromUserDefaults(for: userID) {
@@ -206,7 +210,9 @@ struct AuthenticationWrapperView: View {
             }
         } else {
             hasCompletedOnboarding = false
+            #if DEBUG
             print("🔍 No onboarding completion flag found for user \(userID), onboarding needed")
+            #endif
         }
     }
 }

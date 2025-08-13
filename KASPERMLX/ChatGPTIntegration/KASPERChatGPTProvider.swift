@@ -109,8 +109,9 @@ public class KASPERLocalLLMProvider: KASPERInferenceProvider {
 
     // MARK: - Initialization
 
-    public init(serverURL: String = "http://localhost:11434") {
-        self.apiClient = LocalLLMAPIClient(serverURL: serverURL)
+    public init(serverURL: String? = nil) {
+        let configuredURL = serverURL ?? LocalLLMConfiguration.shared.serverURL
+        self.apiClient = LocalLLMAPIClient(serverURL: configuredURL)
 
         Task {
             await initialize()
@@ -328,7 +329,7 @@ private class LocalLLMAPIClient {
 
     @Published private(set) var isConnected: Bool = false
 
-    init(serverURL: String = "http://localhost:11434", modelName: String = "mixtral") {
+    init(serverURL: String, modelName: String = "mixtral") {
         self.serverURL = serverURL
         self.modelName = modelName
     }
@@ -468,8 +469,8 @@ extension KASPERError {
 /**
  * PRODUCTION USAGE EXAMPLE:
  *
- * // Initialize provider (assumes Ollama running on localhost:11434)
- * let localLLMProvider = KASPERLocalLLMProvider(serverURL: "http://localhost:11434")
+ * // Initialize provider (uses secure configuration management)
+ * let localLLMProvider = KASPERLocalLLMProvider()
  *
  * // Add to KASPER engine
  * await kasperEngine.addProvider(localLLMProvider)
