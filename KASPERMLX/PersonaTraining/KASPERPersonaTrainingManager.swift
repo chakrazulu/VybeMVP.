@@ -528,10 +528,10 @@ public class KASPERPersonaTrainingManager: ObservableObject {
             if result.success { successCount += 1 }
         }
 
-        let averageScore = totalScore / Double(trainingResults.count)
+        let averageScore = totalScore / Double(self.trainingResults.count)
         logger.info("\n📈 OVERALL METRICS:")
         logger.info("  Average Score: \(String(format: "%.2f", averageScore))")
-        logger.info("  Success Rate: \(successCount)/\(trainingResults.count)")
+        logger.info("  Success Rate: \(successCount)/\(self.trainingResults.count)")
         logger.info("  Ready for Production: \(averageScore >= 0.85 ? "YES ✅" : "NO ⚠️")")
     }
 
