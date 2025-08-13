@@ -176,10 +176,11 @@ public class KASPERPersonaTrainingManager: ObservableObject {
 
         } catch {
             logger.error("❌ Training failed: \(error.localizedDescription)")
-            throw error
-        } finally {
             isTraining = false
+            throw error
         }
+
+        isTraining = false
     }
 
     /// Train a specific persona using its approved insights
@@ -194,7 +195,7 @@ public class KASPERPersonaTrainingManager: ObservableObject {
         let patterns = analyzePersonaPatterns(persona: persona, insights: insights)
 
         // 2. Select best examples for few-shot learning
-        let trainingExamples = selectBestExamples(from: insights, count: config.examplesPerPersona)
+        var trainingExamples = selectBestExamples(from: insights, count: config.examplesPerPersona)
 
         // 3. Iteratively train and validate
         var validationScore = 0.0
@@ -285,7 +286,7 @@ public class KASPERPersonaTrainingManager: ObservableObject {
             }
         }
 
-        logger.info("✅ Loaded \(approvedInsights.count) approved insights")
+        logger.info("✅ Loaded \(self.approvedInsights.count) approved insights")
     }
 
     /// Organize insights by persona for targeted training
@@ -297,7 +298,7 @@ public class KASPERPersonaTrainingManager: ObservableObject {
                 $0.persona.lowercased() == persona.lowercased()
             }
 
-            logger.info("📊 \(persona): \(personaInsights[persona]?.count ?? 0) insights")
+            logger.info("📊 \(persona): \(self.personaInsights[persona]?.count ?? 0) insights")
         }
     }
 
@@ -511,12 +512,12 @@ public class KASPERPersonaTrainingManager: ObservableObject {
     /// Generate comprehensive training report
     private func generateTrainingReport() {
         logger.info("📊 PERSONA TRAINING REPORT")
-        logger.info("=" + String(repeating: "=", count: 50))
+        logger.info("==================================================")
 
         var totalScore = 0.0
         var successCount = 0
 
-        for (persona, result) in trainingResults {
+        for (persona, result) in self.trainingResults {
             logger.info("\n🎭 \(persona):")
             logger.info("  Score: \(String(format: "%.2f", result.validationScore))")
             logger.info("  Status: \(result.success ? "✅ READY" : "⚠️ NEEDS WORK")")
