@@ -389,17 +389,27 @@ public class KASPERShadowModeManager {
         let _ = feature.rawValue  // Context type for logging
         if let content = await contentRouter.getRichContent(for: focusNumber) {
 
-            // Extract appropriate insight from RuntimeBundle
+            // Extract random insight from RuntimeBundle for variety
+            //
+            // **VARIETY FIX (August 14, 2025):**
+            // Changed from .first to .randomElement() to show different insights
+            // each time instead of always displaying the same first insight.
+            // This provides the variety user requested while maintaining RuntimeBundle quality.
             if let insights = content["behavioral_insights"] as? [[String: Any]],
-               let firstInsight = insights.first,
-               let insightText = firstInsight["insight"] as? String {
+               !insights.isEmpty,
+               let randomInsight = insights.randomElement(),
+               let insightText = randomInsight["insight"] as? String {
 
                 return KASPERInsight(
                     requestId: UUID(),
                     content: insightText,
                     type: .guidance,
                     feature: feature,
-                    confidence: 1.0,
+                    /// **SHADOW MODE CONFIDENCE (August 14, 2025):**
+                    /// Set to 0.95 to ensure RuntimeBundle wins over Local LLM (0.75 confidence).
+                    /// User wants to see curated RuntimeBundle content while Local LLM learns
+                    /// in background. Prepares for Phase 1: Focus + Realm + Persona fusion system.
+                    confidence: 0.95,
                     inferenceTime: 0.001,
                     metadata: KASPERInsightMetadata(
                         modelVersion: "RuntimeBundle-v2.1.4",

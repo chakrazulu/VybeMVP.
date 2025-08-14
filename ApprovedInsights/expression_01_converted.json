@@ -1,0 +1,1325 @@
+{
+  "number": 1,
+  "title": "The ExpressionMaster",
+  "source": "expression",
+  "persona": "ExpressionMaster",
+  "behavioral_category": "spiritual_insights",
+  "intensity_scoring": {
+    "min_range": 0.6,
+    "max_range": 0.9,
+    "note": "ExpressionMaster insights with universal intensity range"
+  },
+  "behavioral_insights": [
+    {
+      "category": "life_purpose",
+      "insight": "State the decision, the why, and the first concrete move in one breath.",
+      "intensity": 0.88,
+      "triggers": [
+        "kickoffs",
+        "deadlines"
+      ],
+      "supports": [
+        "one‑page briefs"
+      ],
+      "challenges": [
+        "rambling rationales"
+      ]
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Lead with a draft decision, then invite upgrades to the plan.",
+      "intensity": 0.85,
+      "triggers": [
+        "team forums"
+      ],
+      "supports": [
+        "time‑boxed feedback"
+      ],
+      "challenges": [
+        "defensiveness"
+      ]
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Name the success criteria aloud before choosing between options.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Translate choices into visible experiments rather than long debates.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Own the decision publicly and the learnings transparently.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Use decisive language—short verbs, clear timelines, named owners.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Show flexibility by revising decisions when better data appears.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Broadcast the decision path so others can replicate the thinking.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "When stakes are high, narrate your risk trade‑offs in plain speech.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Turn complex decisions into a 3‑bullet story: aim, approach, action.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "If misaligned, restate the decision as a question to reopen inquiry.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Close decisively with a documented next step and check‑back date.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Under strain your volume rises—drop your pace by half and cede the floor first.",
+      "intensity": 0.87,
+      "triggers": [
+        "conflict",
+        "time pressure"
+      ],
+      "supports": [
+        "breath count",
+        "speaking tokens"
+      ],
+      "challenges": [
+        "dominance moves"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Move the body before you move the mouth to drain reactive charge.",
+      "intensity": 0.83,
+      "triggers": [
+        "frustration"
+      ],
+      "supports": [
+        "walks",
+        "pushups"
+      ],
+      "challenges": [
+        "explosive tone"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Write the tough message, sleep on it, then shorten by 50% before sending.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Name your state: 'I’m heated; give me two minutes,' then re‑enter clean.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Aim critiques at the process, not the person.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Front‑load appreciation; end with one clear request.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Use structured check‑ins to express concerns early, not at a boil.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Replace commands with choices to reduce resistance.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Keep your posture open; closed arms signal closed mind.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Channel urgency into a short sprint instead of a long tirade.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Say less, ask better: one question can vent a room safely.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Exit gracefully when flooded; re‑schedule the conversation.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Open with vision, close with assignment; leave the middle for collaboration.",
+      "intensity": 0.85,
+      "triggers": [
+        "presentations",
+        "all‑hands"
+      ],
+      "supports": [
+        "facilitation cues"
+      ],
+      "challenges": [
+        "monologues"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Speak in frameworks that others can teach when you’re not in the room.",
+      "intensity": 0.82,
+      "triggers": [
+        "strategy talks"
+      ],
+      "supports": [
+        "simple models"
+      ],
+      "challenges": [
+        "jargon drift"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Prefer verbs over adjectives; action clarifies meaning.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Disagree without contempt—pair critique with an alternative.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Let enthusiasm lift, not flood; modulate to audience capacity.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Set deadlines and define done; ambiguity is the enemy of momentum.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Credit others before adding your piece; it buys true attention.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Give feedback with examples, impact, and a next experiment.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Hold boundaries cleanly—no apology, no excess justification.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Ask laddering questions that elevate thinking, not corner it.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Compress complexity into memorable metaphors or diagrams.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Project authority through clarity and calm, not volume.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Lead with protection and provision, then practice equal receiving.",
+      "intensity": 0.8,
+      "triggers": [
+        "intimacy",
+        "family planning"
+      ],
+      "supports": [
+        "shared rituals"
+      ],
+      "challenges": [
+        "over‑functioning"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "State your needs directly; trading hints for clarity deepens trust.",
+      "intensity": 0.78,
+      "triggers": [
+        "unmet needs"
+      ],
+      "supports": [
+        "I‑statement scripts"
+      ],
+      "challenges": [
+        "mind‑reading myths"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Champion your partner’s goals as fiercely as your own.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Praise out loud, correct in private, and only on behavior.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Co‑author a relationship purpose and revisit it quarterly.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Show commitment with consistent acts, not dramatic speeches.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Argue to solve, not to win; measure success by repair speed.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Balance autonomy with rituals that anchor connection.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Name vulnerability as courage to make it safe to share.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Celebrate your partner’s independent expression without envy.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Say 'thank you' for the small, daily leadership you receive.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Create shared adventures to keep the bond dynamic.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Start new lanes; Expression 1 is most alive building what didn’t exist.",
+      "intensity": 0.84,
+      "triggers": [
+        "planning cycles"
+      ],
+      "supports": [
+        "innovation blocks"
+      ],
+      "challenges": [
+        "maintenance fatigue"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Paint the big picture first, then delegate brushwork to specialists.",
+      "intensity": 0.8,
+      "triggers": [
+        "roadmapping"
+      ],
+      "supports": [
+        "role clarity"
+      ],
+      "challenges": [
+        "micromanaging"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "State the project’s 'why' before assigning the 'what'.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Prototype quickly; let reality answer theoretical debates.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Define success metrics and review them on a cadence.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Delegate outcomes with timelines, not tasks with guesses.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Protect maker time; decline nice‑to‑have meetings.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Block recurring time to systemize repeatable work.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Signal progress with visible milestones and brief demos.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Say no cleanly to keep the yeses powerful.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Document handoffs so momentum survives your absence.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Close projects with a retro and a public 'done' note.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Negotiate from value: anchor on outcomes and proof, not hours.",
+      "intensity": 0.82,
+      "triggers": [
+        "pricing",
+        "offers"
+      ],
+      "supports": [
+        "case studies"
+      ],
+      "challenges": [
+        "undervaluing"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "State bold financial targets and pair them with weekly leading indicators.",
+      "intensity": 0.78,
+      "triggers": [
+        "annual planning"
+      ],
+      "supports": [
+        "scorecards"
+      ],
+      "challenges": [
+        "wishful thinking"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Invest where your leadership creates asymmetric upside.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Design multiple income streams that reflect your trailblazer brand.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Draw money boundaries early with collaborators and family.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Fundraising works best when you narrate a vivid future state.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Price premium when you deliver category‑defining value.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Explain risk/reward in plain language before committing.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Set goals that fund both freedom and resilience.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Practice generosity strategically—seed the ecosystems you lead.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Define exit ramps before entering major deals.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Model transparent money talk to normalize abundance.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Break molds on purpose; create work that resets the category standard.",
+      "intensity": 0.86,
+      "triggers": [
+        "new projects"
+      ],
+      "supports": [
+        "blank‑page time"
+      ],
+      "challenges": [
+        "derivative drift"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Hold a strong point of view and still invite brilliant edits.",
+      "intensity": 0.82,
+      "triggers": [
+        "collabs"
+      ],
+      "supports": [
+        "clear roles"
+      ],
+      "challenges": [
+        "control reflex"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Ship sketches early to learn where the energy is.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Develop a signature style others can recognize in seconds.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Narrate your process to spark others’ courage to create.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Write a short creative manifesto and revisit it yearly.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Cross‑pollinate disciplines to unlock novel forms.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Publish before perfect; iterate in public with humility.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Pitch with one killer image or line that captures the arc.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Refuse safe formulas; let originality be the metric.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Lead creative communities that raise the bar for all.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Teach your craft to cement mastery and multiply impact.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Teach what you’re learning to cement it and spread momentum.",
+      "intensity": 0.78,
+      "triggers": [
+        "skill sprints"
+      ],
+      "supports": [
+        "lightweight workshops"
+      ],
+      "challenges": [
+        "performing expertise"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Ask disruptive questions that reframe the field without belittling peers.",
+      "intensity": 0.76,
+      "triggers": [
+        "seminars"
+      ],
+      "supports": [
+        "debate formats"
+      ],
+      "challenges": [
+        "showy contrarianism"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "State learning goals publicly to create accountability gravity.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Synthesize sources into original frameworks instead of quoting endlessly.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Test understanding by building a tiny working example.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "When stuck, switch mediums—speak it, sketch it, or demo it.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Curate a reading list that tracks your frontier, not the consensus.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Show progress through demos, not promises.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Name what you don’t know; it attracts the right teachers.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Explain complex ideas in everyday language.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Design a personal curriculum with quarterly themes.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Tell stories that connect data to meaning and action.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Choose active practices that let the body speak the message.",
+      "intensity": 0.8,
+      "triggers": [
+        "routine design"
+      ],
+      "supports": [
+        "movement stack"
+      ],
+      "challenges": [
+        "sedentary stretches"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Advocate for your care with clear requests and measurable protocols.",
+      "intensity": 0.76,
+      "triggers": [
+        "appointments"
+      ],
+      "supports": [
+        "prep notes"
+      ],
+      "challenges": [
+        "downplaying symptoms"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Turn goals into challenges with visible scoreboards.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Feed vitality with foods that keep energy steady, not spiky.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Listen to energy changes as signals, not inconveniences.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Hold boundaries around rest as performance hygiene.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Lead friends into movement; make wellness social.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Name rest as an investment when declining extra work.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Choose nutrition that fuels clarity and presence.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Discharge stress physically before serious talks.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Share wellness wins to lift your circle’s health norms.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Integrate body, breath, and focus in daily practice.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Model direct connection—practice what awakens you and share the trail.",
+      "intensity": 0.78,
+      "triggers": [
+        "seeking seasons"
+      ],
+      "supports": [
+        "original ritual"
+      ],
+      "challenges": [
+        "institutional friction"
+      ]
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Speak to the Divine in your own words; authenticity carries power.",
+      "intensity": 0.76,
+      "triggers": [
+        "community spaces"
+      ],
+      "supports": [
+        "first‑person prayer"
+      ],
+      "challenges": [
+        "authority wounds"
+      ]
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Translate mystical insight into practical service.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Take leadership in circles that crave courageous sincerity.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Use plain language to keep spiritual truth accessible.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Demonstrate faith through action more than argument.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Let transformation be visible; testimony teaches.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Ask big questions that free others to wonder too.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Name purpose in the grammar of daily work.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Practice gratitude publicly to normalize reverence.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Hold boundaries kindly with dogma that dims aliveness.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Express the ineffable through art when words thin out.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "When applause swells the ego, return to service and share the mic.",
+      "intensity": 0.82,
+      "triggers": [
+        "public wins"
+      ],
+      "supports": [
+        "gratitude practice"
+      ],
+      "challenges": [
+        "superiority myth"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Transmute control into facilitation—guide the flow, don’t choke it.",
+      "intensity": 0.78,
+      "triggers": [
+        "group dynamics"
+      ],
+      "supports": [
+        "turn‑taking rules"
+      ],
+      "challenges": [
+        "conversation hogging"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Notice when certainty outruns evidence and re‑engage curiosity.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Swap dismissiveness for a sincere summary of the other view.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Convert competition into collaboration by naming shared wins.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Watch independence curdle into isolation; invite counsel early.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Catch impatience and practice generous pacing with beginners.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Switch harsh critique to coaching with examples and options.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Spot performative speeches; choose plain truth instead.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "End the interruption habit by taking notes while others speak.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Trade debate victories for discovery dialogues.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Let connection matter more than being right in low‑stakes moments.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Name the new direction out loud; public declarations summon allies.",
+      "intensity": 0.8,
+      "triggers": [
+        "career pivots",
+        "moves"
+      ],
+      "supports": [
+        "accountability circles"
+      ],
+      "challenges": [
+        "lone‑wolfing"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Ask directly for the resources you need to cross the bridge.",
+      "intensity": 0.76,
+      "triggers": [
+        "major shifts"
+      ],
+      "supports": [
+        "clear requests"
+      ],
+      "challenges": [
+        "silent struggling"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Sketch a simple narrative: what ended, what begins, what’s next.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Make one bold move early to anchor the change.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Tell the truth about fear without letting it drive.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Refresh your visual identity to embody the new chapter.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Share lessons in public to turn change into service.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Honor what was; thank it explicitly before stepping on.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Publish a flexible timeline with review points.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Mark the passage with ritual—letters, objects, or acts.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Close cycles with celebration and clean handoffs.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Archive insights so others can navigate similar crossings.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    }
+  ],
+  "generation_info": {
+    "conversion_date": "2025-08-10T10:33:16.556104",
+    "conversion_type": "profiles_behavioral_to_behavioral_insights",
+    "original_structure": "profiles_behavioral_to_behavioral_insights",
+    "converted_insights_count": 144,
+    "conversion_tool": "UniversalKASPERConverter_v2.0"
+  }
+}

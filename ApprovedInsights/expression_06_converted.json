@@ -1,0 +1,1327 @@
+{
+  "number": 6,
+  "title": "The ExpressionMaster",
+  "source": "expression",
+  "persona": "ExpressionMaster",
+  "behavioral_category": "spiritual_insights",
+  "intensity_scoring": {
+    "min_range": 0.6,
+    "max_range": 0.9,
+    "note": "ExpressionMaster insights with universal intensity range"
+  },
+  "behavioral_insights": [
+    {
+      "category": "life_purpose",
+      "insight": "Decide by values first, logistics second; name the principle you’re protecting.",
+      "intensity": 0.86,
+      "triggers": [
+        "family choices",
+        "team policies"
+      ],
+      "supports": [
+        "values checklist"
+      ],
+      "challenges": [
+        "people-pleasing overrides"
+      ]
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Weigh decisions by their impact on wellbeing, not just speed or cost.",
+      "intensity": 0.8,
+      "triggers": [
+        "resource trade-offs"
+      ],
+      "supports": [
+        "wellbeing rubric"
+      ],
+      "challenges": [
+        "short-term fixes"
+      ]
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Ask consent before volunteering others; service without agreement breeds friction.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Translate choices into clear roles so shared care doesn’t become solo labor.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Prefer durable solutions that reduce future burden over flashy patches.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "State your limit alongside your yes to prevent overload.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Invite affected voices early; inclusion prevents later repairs.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Use calm, factual language when saying no; kindness is clarity.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "If torn, choose the option that preserves relationship and self-respect.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Document care standards so decisions are repeatable, not personal.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Close with 'who does what by when' to avoid silent expectations.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Review after 30 days: did this reduce stress and increase care?",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Under stress you over-function; pause, ask for help, and let 'good-enough' land.",
+      "intensity": 0.86,
+      "triggers": [
+        "family crisis",
+        "deadlines"
+      ],
+      "supports": [
+        "ask-first rule"
+      ],
+      "challenges": [
+        "martyr mode"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Name the feeling and the need; guilt dissolves when truth is spoken plainly.",
+      "intensity": 0.8,
+      "triggers": [
+        "conflict",
+        "disappointment"
+      ],
+      "supports": [
+        "feelings/needs list"
+      ],
+      "challenges": [
+        "self-blame"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Lower visual chaos—tidy a small area to regain calm.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Switch from fixing to witnessing; sometimes care is presence, not solutions.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Set a timer for rest; caretakers forget they are bodies.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Trade criticism for specific requests that others can meet.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "When tone sharpens, slow your pace and soften your face.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Track resentment signals as cues to renegotiate agreements.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Use nourishment and hydration to stabilize mood under load.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Ask, 'What is truly mine to carry?' and put the rest down.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Exit loops by naming the boundary and offering a next review point.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Call a mediator when domestic or team roles keep tangling.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Lead with warmth and standards—affirm the bond, then state the boundary.",
+      "intensity": 0.84,
+      "triggers": [
+        "house rules",
+        "team norms"
+      ],
+      "supports": [
+        "boundary scripts"
+      ],
+      "challenges": [
+        "apology padding"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Use 'care contracts' that specify consent, scope, and timeframes.",
+      "intensity": 0.8,
+      "triggers": [
+        "helping roles"
+      ],
+      "supports": [
+        "simple templates"
+      ],
+      "challenges": [
+        "assumed labor"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Offer feedback as stewardship: describe impact, name the value, request the shift.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Keep tone steady and kind; warmth without wobble earns trust.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Translate criticism into improvements, not character judgments.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Design spaces and documents that are beautiful, clear, and usable.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Celebrate contributions publicly so care labor is visible.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Use 'teach-back' to confirm shared understanding of standards.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Avoid rescuing in conversation; ask what support is wanted.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Close meetings with appreciations to regulate group nervous systems.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Say 'no' as a full sentence when needed; brevity is kindness.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "When emotions run high, summarize needs before discussing fixes.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Express love through practical care—meals, rides, reminders—and let others reciprocate.",
+      "intensity": 0.84,
+      "triggers": [
+        "daily life"
+      ],
+      "supports": [
+        "reciprocity plan"
+      ],
+      "challenges": [
+        "doing it all"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Share standards without shaming; invite co-ownership of the home culture.",
+      "intensity": 0.8,
+      "triggers": [
+        "house chores"
+      ],
+      "supports": [
+        "chore matrix"
+      ],
+      "challenges": [
+        "resentful tidying"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Make requests, not hints; clarity prevents scorekeeping.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Create rituals of connection—meals, walks, weekly appreciations.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Repair quickly with accountability and gentleness, not self-attack.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Schedule dates that restore, not just entertain.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Name financial and emotional labor openly so it’s shared fairly.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Practice affectionate touch that asks and listens for yes.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Honor privacy; care includes space, not surveillance.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Protect couple time from caretaking overreach when extended family needs surge.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Bless your partner’s independent pursuits; love is not a leash.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Teach your boundaries as part of your love language.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Treat quality as care; define standards that feel humane and sustainable.",
+      "intensity": 0.82,
+      "triggers": [
+        "project kickoff"
+      ],
+      "supports": [
+        "quality rubric"
+      ],
+      "challenges": [
+        "gold-plating"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Share workload maps so invisible tasks become visible and valued.",
+      "intensity": 0.78,
+      "triggers": [
+        "team planning"
+      ],
+      "supports": [
+        "workload board"
+      ],
+      "challenges": [
+        "hidden labor"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Batch admin and caretaking tasks to protect maker time.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Design processes that reduce stress for downstream roles.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Schedule 'care blocks' for birthdays, notes, and check-ins.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Pair operations with aesthetics—clear docs that are pleasant to use.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Delegate with consent and capacity checks, not assumptions.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "End weeks with gratitude notes to sustain morale.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Use retros focused on what reduced friction and increased wellbeing.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Set scope ceilings so kindness to customers doesn’t burn out staff.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Build buffers; care work expands—protect timelines from sprawl.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Celebrate service milestones as real achievements.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Budget for generosity and for you; giving is sustainable when savings are too.",
+      "intensity": 0.82,
+      "triggers": [
+        "monthly planning"
+      ],
+      "supports": [
+        "giving/savings buckets"
+      ],
+      "challenges": [
+        "self-neglect"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Price care work fairly; include time for communication and follow-up.",
+      "intensity": 0.78,
+      "triggers": [
+        "service scoping"
+      ],
+      "supports": [
+        "scope templates"
+      ],
+      "challenges": [
+        "unpaid labor"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Discuss money early in relationships and collaborations to reduce shame.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Insure key responsibilities; protection is love in financial form.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Avoid debt born of rescuing; help within limits and with consent.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Choose purchases that raise quality of life and lower stress long-term.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Automate cushions so emergencies don’t derail care roles.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Track household labor and set fair exchanges or stipends if needed.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Negotiate calmly, using standards and testimonials over guilt or haste.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Decline clients who demand 24/7 access; boundaries are part of value.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Invest in training for caregiving skills that compound over time.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Review subscriptions and donations annually to align with values.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Create beauty that lowers stress—calming palettes, soft edges, human-centered design.",
+      "intensity": 0.84,
+      "triggers": [
+        "new builds",
+        "makeovers"
+      ],
+      "supports": [
+        "style guide"
+      ],
+      "challenges": [
+        "over-perfecting"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Tell stories of care that dignify helpers and recipients equally.",
+      "intensity": 0.78,
+      "triggers": [
+        "campaigns"
+      ],
+      "supports": [
+        "ethics checklist"
+      ],
+      "challenges": [
+        "savior narratives"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Use scent, sound, and light as creative tools for nervous-system ease.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Design rituals that make ordinary maintenance feel meaningful.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Curate spaces that welcome diverse bodies and needs.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Create guides and templates others can use to replicate care.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Blend craft with hospitality—functional pieces that feel like hugs.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Collaborate with service pros to make beauty practical.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Keep a materials library that is durable, ethical, and soothing.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Let imperfection show life; wabi-sabi over sterile perfection.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Archive before/after stories to teach the impact of design on wellbeing.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Teach beauty as stewardship, not status.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Learn by caring—apprentice in real contexts where feedback is human and immediate.",
+      "intensity": 0.8,
+      "triggers": [
+        "new roles"
+      ],
+      "supports": [
+        "mentorship"
+      ],
+      "challenges": [
+        "over-responsibility"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Study ethics, psychology, and design; your edge is humane systems.",
+      "intensity": 0.76,
+      "triggers": [
+        "curriculum planning"
+      ],
+      "supports": [
+        "reading plan"
+      ],
+      "challenges": [
+        "scope bloat"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Reflect after service moments to convert emotion into wisdom.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Use checklists and standards to make learning stick across contexts.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Role-play boundary scripts until they feel natural.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Alternate giving with receiving: take a class where you are cared for.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Teach others to teach; pedagogy multiplies care capacity.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Keep a casebook of scenarios and best responses.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Track your 'yes' energy over time; learn your sustainable load.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Ask for evaluations from those you serve, not just peers.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Study inclusive design so help reaches the margins.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Document lessons in plain, beautiful formats others want to use.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Schedule your care like you schedule everyone else’s—non-negotiable blocks.",
+      "intensity": 0.84,
+      "triggers": [
+        "weekly planning"
+      ],
+      "supports": [
+        "calendar holds"
+      ],
+      "challenges": [
+        "self-last habit"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Choose restorative movement and nourishment that stabilize mood.",
+      "intensity": 0.78,
+      "triggers": [
+        "routine design"
+      ],
+      "supports": [
+        "meal prep",
+        "low-impact training"
+      ],
+      "challenges": [
+        "overextension"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Practice 'no' as medicine—boundaries protect your health and love.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Declutter visual noise; orderly spaces calm your nervous system.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Rest before you break; fatigue is not proof of love.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Hydrate and breathe slowly before difficult conversations at home.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Share care with a circle so illness or travel doesn’t collapse the system.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Limit doomscrolling; curate feeds that lift rather than drain.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Track energy after social events to tune your social diet.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Ask for practical help instead of heroic self-reliance.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Use soothing sensory tools—tea, textures, music—to reset quickly.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Celebrate small, quiet wins: a nap, a tidy corner, a gentle word.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Treat service as prayer; ordinary care is sacred when offered freely and fairly.",
+      "intensity": 0.82,
+      "triggers": [
+        "community need"
+      ],
+      "supports": [
+        "mutual-aid maps"
+      ],
+      "challenges": [
+        "martyr myth"
+      ]
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Keep altars simple and alive—fresh water, light, gratitude words.",
+      "intensity": 0.78,
+      "triggers": [
+        "seasonal shifts"
+      ],
+      "supports": [
+        "ritual calendar"
+      ],
+      "challenges": [
+        "rote devotion"
+      ]
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Practice forgiveness that includes yourself; release guilt after repair.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Sing or chant to harmonize home energy before gatherings.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Let sacred texts shape household ethics into daily practices.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Host circles that blend reflection with practical help.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Name beauty as a form of reverence; tend it without vanity.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Offer blessings over meals and milestones to sanctify the ordinary.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Hold compassionate boundaries with dogma that harms.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Make sabbath space where no one has to earn rest.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Journal gratitudes focused on people who cared for you, too.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Close each day with a brief examen: where did love move, where did it need a boundary?",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Notice when 'help' removes agency; ask what support is wanted before acting.",
+      "intensity": 0.82,
+      "triggers": [
+        "family stress"
+      ],
+      "supports": [
+        "consent check"
+      ],
+      "challenges": [
+        "rescuer role"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Perfection steals peace; set 'good-enough' and stop at done.",
+      "intensity": 0.78,
+      "triggers": [
+        "hosting",
+        "deliverables"
+      ],
+      "supports": [
+        "done checklist"
+      ],
+      "challenges": [
+        "over-polish"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Trade guilt narratives for boundaries and repair.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Stop scorekeeping; name needs and renegotiate tasks explicitly.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Release control of others’ timelines; offer reminders, not surveillance.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Refuse martyrdom as identity; wholeness includes you.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "When jealousy flares, celebrate rather than compare; ask for what you desire.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Replace passive-aggressive hints with direct, kind requests.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Don’t weaponize standards; invite ownership and support success.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Soften 'should' language; prefer invitations that empower choice.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Let some mess exist; life happens in lived-in spaces.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Retire rescuing that protects dysfunction; choose loving limits.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Frame change as a re-nesting: announce roles, rhythms, and care agreements.",
+      "intensity": 0.82,
+      "triggers": [
+        "moves",
+        "babies",
+        "blended families"
+      ],
+      "supports": [
+        "transition blueprint"
+      ],
+      "challenges": [
+        "unspoken expectations"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Pack beauty and comfort first—light, scent, music—to create instant home.",
+      "intensity": 0.78,
+      "triggers": [
+        "relocation",
+        "new jobs"
+      ],
+      "supports": [
+        "comfort kit"
+      ],
+      "challenges": [
+        "chaotic starts"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Maintain couple/family rituals through the shift to keep bonds steady.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Set 'office hours' for caretaking during intense seasons to prevent burnout.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Invite support networks early; lone-wolfing breaks the caregiver.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Create a shared calendar and chore plan for the first 30 days.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Hold a blessing or house-warming ritual to mark the threshold.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Document what’s temporary versus the new normal to reduce anxiety.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Schedule check-ins to review how the new flow is actually feeling.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Keep one personal anchor (walk, prayer, workout) consistent amid change.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Archive lessons learned so future transitions are kinder.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Close with gratitude for helpers and a clear next rendezvous.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    }
+  ],
+  "generation_info": {
+    "conversion_date": "2025-08-10T10:33:16.548073",
+    "conversion_type": "profiles_behavioral_to_behavioral_insights",
+    "original_structure": "profiles_behavioral_to_behavioral_insights",
+    "converted_insights_count": 144,
+    "conversion_tool": "UniversalKASPERConverter_v2.0"
+  }
+}

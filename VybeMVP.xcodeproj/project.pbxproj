@@ -83,7 +83,6 @@
 		4D55BE682E3AD37B00F7BE5B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D55BE672E3AD37B00F7BE5B /* SwiftUI.framework */; };
 		4D55BE792E3AD37C00F7BE5B /* CosmicHUDWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4D55BE642E3AD37B00F7BE5B /* CosmicHUDWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4D55BE7F2E3AD4AD00F7BE5B /* CosmicHUDTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE5E2E3AC55400F7BE5B /* CosmicHUDTypes.swift */; };
-		4D5926A72E48EDDB002625DE /* KASPERMLXRuntimeBundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D5926A62E48EDDB002625DE /* KASPERMLXRuntimeBundle */; };
 		4D5926CC2E490D7D002625DE /* RouterDiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5926CA2E490D7D002625DE /* RouterDiagnosticsView.swift */; };
 		4D5929992E4927CB002625DE /* master_22_rich.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D5929952E4927CB002625DE /* master_22_rich.json */; };
 		4D59299A2E4927CB002625DE /* master_33_rich.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D5929962E4927CB002625DE /* master_33_rich.json */; };
@@ -139,6 +138,7 @@
 		4D6528C82E4C242400F521E1 /* APlusRoadmap.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D6528C72E4C242400F521E1 /* APlusRoadmap.md */; };
 		4D6528CB2E4C478200F521E1 /* KASPERPersonaTrainingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528C92E4C478100F521E1 /* KASPERPersonaTrainingManager.swift */; };
 		4D6528CD2E4C488800F521E1 /* PersonaTrainingIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528CC2E4C488800F521E1 /* PersonaTrainingIntegration.swift */; };
+		4D6529D42E4CBC1000F521E1 /* KASPERMLXRuntimeBundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D6529D32E4CBC1000F521E1 /* KASPERMLXRuntimeBundle */; };
 		4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */; };
 		4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */; };
 		4D6C7B552DE45441001036E5 /* ArchetypeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */; };
@@ -725,6 +725,7 @@
 		4D6528C72E4C242400F521E1 /* APlusRoadmap.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = APlusRoadmap.md; sourceTree = "<group>"; };
 		4D6528C92E4C478100F521E1 /* KASPERPersonaTrainingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERPersonaTrainingManager.swift; sourceTree = "<group>"; };
 		4D6528CC2E4C488800F521E1 /* PersonaTrainingIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonaTrainingIntegration.swift; sourceTree = "<group>"; };
+		4D6529D32E4CBC1000F521E1 /* KASPERMLXRuntimeBundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KASPERMLXRuntimeBundle; sourceTree = "<group>"; };
 		4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetype.swift; sourceTree = "<group>"; };
 		4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetypeManager.swift; sourceTree = "<group>"; };
 		4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchetypeDisplayView.swift; sourceTree = "<group>"; };
@@ -2012,6 +2013,7 @@
 		4DC602122D343E8D00B5E4A9 = {
 			isa = PBXGroup;
 			children = (
+				4D6529D32E4CBC1000F521E1 /* KASPERMLXRuntimeBundle */,
 				4D6528752E49A59300F521E1 /* Models */,
 				4D6528722E49781400F521E1 /* RuntimeBundleDiagnostic.swift */,
 				4D5929AA2E4933BA002625DE /* VybeCore */,
@@ -2496,7 +2498,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D5926A72E48EDDB002625DE /* KASPERMLXRuntimeBundle in Resources */,
+				4D6529D42E4CBC1000F521E1 /* KASPERMLXRuntimeBundle in Resources */,
 				4DA01CB42D8537FB0070309D /* GoogleService-Info.plist in Resources */,
 				4DCB393B2E1F78AE00311D51 /* Sacred Geometry_One Line_1.svg in Resources */,
 				4DCB393C2E1F78AE00311D51 /* foundation_grid.svg in Resources */,

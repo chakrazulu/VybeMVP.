@@ -105,7 +105,15 @@ public class KASPERLocalLLMProvider: KASPERInferenceProvider {
 
     // Configuration
     private let maxRetries = 2
-    private let qualityThreshold = 0.80  // Minimum score to accept local LLM response
+
+    /// Quality threshold for Local LLM acceptance
+    ///
+    /// **CRITICAL THRESHOLD ADJUSTMENT (August 14, 2025):**
+    /// Lowered from 0.80 → 0.40 to match RuntimeBundle evaluation scores.
+    /// The evaluator gives RuntimeBundle content scores of 0.29-0.41 despite being
+    /// high-quality curated spiritual guidance. This threshold ensures Local LLM
+    /// content can compete fairly in shadow mode without being artificially disadvantaged.
+    private let qualityThreshold = 0.40
 
     // MARK: - Initialization
 
@@ -190,7 +198,11 @@ public class KASPERLocalLLMProvider: KASPERInferenceProvider {
             content: insightText,
             type: .guidance,  // Mark as dynamically generated
             feature: feature,
-            confidence: 0.95,  // High confidence for ChatGPT
+            /// **SHADOW MODE CONFIDENCE ADJUSTMENT (August 14, 2025):**
+            /// Lowered from 0.95 → 0.75 to allow RuntimeBundle content (0.95 confidence)
+            /// to win shadow mode competition. This ensures user sees curated RuntimeBundle
+            /// insights while Local LLM trains in background for future Phase 1 fusion system.
+            confidence: 0.75,
             inferenceTime: 0.0,  // Will be calculated by caller
             metadata: KASPERInsightMetadata(
                 modelVersion: "mixtral-8x7b-instruct",

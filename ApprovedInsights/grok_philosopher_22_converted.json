@@ -1,0 +1,283 @@
+{
+  "number": 22,
+  "title": "The Philosopher",
+  "source": "grok_philosopher",
+  "persona": "Philosopher",
+  "behavioral_category": "spiritual_insights",
+  "intensity_scoring": {
+    "min_range": 0.75,
+    "max_range": 0.9,
+    "note": "Philosopher spiritual guidance with enhanced intensity"
+  },
+  "behavioral_insights": [
+    {
+      "category": "spiritual_guidance",
+      "insight": "In vision's anvil, 22 hammers dreams; forge resiliently, lest ambition's fire consume virtue.",
+      "intensity": 0.75,
+      "triggers": [
+        "philosopher_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Builder's blueprint etches cosmic plans; execute ethically, manifesting empires of light.",
+      "intensity": 0.75,
+      "triggers": [
+        "philosopher_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Dual mastery fuses spirit and form; balance stoically, creating lasting ethical legacies.",
+      "intensity": 0.75,
+      "triggers": [
+        "philosopher_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Unlimited potential surges in 22's vein; channel it virtuously, building resilient foundations.",
+      "intensity": 0.75,
+      "triggers": [
+        "philosopher_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Old soul's wisdom guides 22's hands; craft with perseverance, turning ideals to stone.",
+      "intensity": 0.75,
+      "triggers": [
+        "philosopher_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Ambition's ladder ascends 22's heights; climb ethically, resilient against ego's slip.",
+      "intensity": 0.75,
+      "triggers": [
+        "philosopher_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Practical inspiration ignites 22's core; fan it stoically, illuminating collective paths.",
+      "intensity": 0.75,
+      "triggers": [
+        "philosopher_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "Overwhelming power tests 22's resolve; wield it virtuously, forging inner steel.",
+      "intensity": 0.75,
+      "triggers": [
+        "philosopher_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Divine architect designs through 22; build resiliently, ethical in every beam.",
+      "intensity": 0.75,
+      "triggers": [
+        "philosopher_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "High vibration hums in 22's essence; attune stoically, manifesting harmonious realities.",
+      "intensity": 0.75,
+      "triggers": [
+        "philosopher_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Visionary leader commands 22's force; direct ethically, resilient in service's burden.",
+      "intensity": 0.75,
+      "triggers": [
+        "philosopher_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "service",
+      "insight": "Material-spiritual bridge spans 22's chasm; cross virtuously, uniting realms stoically.",
+      "intensity": 0.75,
+      "triggers": [
+        "philosopher_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Ponder past visions built; 22 mirrors resilience in ethical constructions standing tall.",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Recall ambitious failures; 22 reflects virtue in rising from collapsed dreams.",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Examine balanced integrations; 22 shows stoic harmony's strengthening role.",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Think on potential channeled; 22 reveals ethical manifestations' rewards.",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Review soul-guided crafts; 22 mirrors perseverance's wise outcomes.",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    }
+  ],
+  "generation_info": {
+    "conversion_date": "2025-08-10T06:14:52.936640",
+    "conversion_type": "spiritual_categories_to_behavioral_insights",
+    "original_insights_count": 18,
+    "converted_insights_count": 17,
+    "conversion_tool": "KASPER_Dataset_Reconstructor_v1.0"
+  }
+}
