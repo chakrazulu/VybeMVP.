@@ -142,6 +142,19 @@ struct HomeView: View {
     /// This achieves 0.85+ quality scores through persona-specific training
     @StateObject private var personaTrainingCoordinator = PersonaTrainingCoordinator()
 
+    // MARK: - 🔮 PHASE 1 FUSION SYSTEM INTEGRATION
+    /// Phase 1: Insight Fusion Manager - Creates 405 unique Focus + Realm + Persona combinations
+    /// Retrieves RuntimeBundle content by persona/number for intelligent fusion
+    @StateObject private var insightFusionManager = InsightFusionManager()
+
+    /// Phase 1: Fusion Evaluator - Quality guardian ensuring A+ spiritual guidance
+    /// Multi-dimensional evaluation system for production-ready synthesis
+    @StateObject private var fusionEvaluator = FusionEvaluator()
+
+    /// Phase 1: Wisdom Synthesizer - Lazy initialization when Local LLM is available
+    /// Intelligently blends RuntimeBundle insights while maintaining persona authenticity
+    @State private var wisdomSynthesizer: WisdomSynthesizer?
+
     // MARK: - 🎨 UI STATE MANAGEMENT FOR SPIRITUAL INTERACTIONS
 
     /// Claude: Legacy focus number picker sheet visibility control.
@@ -192,6 +205,11 @@ struct HomeView: View {
     /// Enables smooth loading animations with crystal ball iconography that
     /// maintains the mystical aesthetic during AI processing periods.
     @State private var isKasperLoading = false
+
+    /// Phase 1: Fusion mode toggle - enables Focus + Realm + Persona fusion
+    /// When enabled, uses InsightFusionManager for 405 unique combinations
+    /// When disabled, uses standard shadow mode (Local LLM vs RuntimeBundle)
+    @State private var fusionModeEnabled: Bool = true // Default to fusion for Phase 1 testing
 
     /// Feedback button animation states for satisfying user interaction
     @State private var feedbackGiven: String? = nil  // "positive", "negative", or nil
@@ -1969,17 +1987,105 @@ struct HomeView: View {
                     ])
                 }
 
-                // Generate daily card insight using shadow mode (ChatGPT vs RuntimeBundle competition)
-                let cardType = "daily_focus_\(self.focusNumberManager.selectedFocusNumber)_realm_\(self.realmNumberManager.currentRealmNumber)"
-
-                // Try shadow mode first, fallback to standard generation
+                // MARK: - 🔮 PHASE 1 INSIGHT FUSION SYSTEM
+                // Revolutionary spiritual guidance system that creates 405 unique combinations
+                // by intelligently fusing RuntimeBundle content with persona voices.
+                // Solves repetitive insight issue while maintaining high spiritual quality.
                 let insight: KASPERInsight
 
-                // The generateDailyCardInsight now auto-retries shadow mode initialization
-                insight = try await self.kasperMLX.generateDailyCardInsight(cardType: cardType)
+                if fusionModeEnabled {
+                    print("🔮 Phase 1 Fusion Mode: Generating AI-fused wisdom")
 
-                // Check if shadow mode became active during generation
-                if self.kasperMLX.shadowModeActive {
+                    // Get current focus and realm numbers
+                    let focusNumber = self.focusNumberManager.selectedFocusNumber
+                    let realmNumber = self.realmNumberManager.currentRealmNumber
+
+                    // Rotate through personas for variety (5 personas = 405 combinations)
+                    let personas = ["Oracle", "Psychologist", "MindfulnessCoach", "NumerologyScholar", "Philosopher"]
+                    let selectedPersona = personas.randomElement() ?? "Oracle"
+
+                    do {
+                        // Generate fused insight using Phase 1 system
+                        let fusedInsight = try await insightFusionManager.generateFusedInsight(
+                            focusNumber: focusNumber,
+                            realmNumber: realmNumber,
+                            persona: selectedPersona,
+                            userContext: [:]
+                        )
+
+                        // Use template fusion result from InsightFusionManager
+                        // Phase 1 focuses on intelligent template fusion with 405 combinations
+                        let finalContent = fusedInsight.fusedContent
+
+                        // Optional: Evaluate fusion quality using FusionEvaluator
+                        do {
+                            let evaluationResult = try await fusionEvaluator.evaluateFusion(
+                                synthesizedContent: finalContent,
+                                originalFocusInsight: fusedInsight.originalFocusInsight,
+                                originalRealmInsight: fusedInsight.originalRealmInsight,
+                                expectedPersona: selectedPersona
+                            )
+
+                            print("🔮 Fusion Quality: \(evaluationResult.grade) (\(String(format: "%.2f", evaluationResult.overallScore)))")
+
+                        } catch {
+                            print("⚠️ Fusion evaluation error: \(error.localizedDescription)")
+                        }
+
+                        // Convert FusedInsight to KASPERInsight for UI compatibility
+                        insight = KASPERInsight(
+                            requestId: UUID(),
+                            content: finalContent,
+                            type: .guidance,
+                            feature: .dailyCard,
+                            confidence: fusedInsight.confidence,
+                            inferenceTime: fusedInsight.fusionTime,
+                            metadata: KASPERInsightMetadata(
+                                modelVersion: "Phase1_FusionSystem_v1.0",
+                                providersUsed: ["InsightFusionManager", selectedPersona],
+                                cacheHit: false,
+                                debugInfo: [
+                                    "fusion_mode": "phase_1_focus_realm_persona",
+                                    "persona": selectedPersona,
+                                    "fusion_technique": fusedInsight.metadata.fusionTechnique,
+                                    "quality_score": fusedInsight.metadata.qualityScore,
+                                    "original_focus_id": fusedInsight.originalFocusInsight.id,
+                                    "original_realm_id": fusedInsight.originalRealmInsight.id,
+                                    "focus_number": focusNumber,
+                                    "realm_number": realmNumber,
+                                    "fusion_time": fusedInsight.fusionTime
+                                ],
+                                shadowModeWinner: "Phase1_Fusion"
+                            )
+                        )
+
+                        print("🎯 Fusion Complete: \(selectedPersona) \(focusNumber)+\(realmNumber) → \(finalContent.count) chars")
+
+                    } catch {
+                        print("❌ Fusion failed, falling back to shadow mode: \(error.localizedDescription)")
+
+                        // Fallback to standard shadow mode generation
+                        let cardType = "daily_focus_\(focusNumber)_realm_\(realmNumber)"
+                        insight = try await self.kasperMLX.generateDailyCardInsight(cardType: cardType)
+                    }
+
+                } else {
+                    // Standard shadow mode (ChatGPT vs RuntimeBundle competition)
+                    print("🥊 Shadow Mode: ChatGPT vs RuntimeBundle competition")
+                    let cardType = "daily_focus_\(self.focusNumberManager.selectedFocusNumber)_realm_\(self.realmNumberManager.currentRealmNumber)"
+                    insight = try await self.kasperMLX.generateDailyCardInsight(cardType: cardType)
+                }
+
+                // Check which generation mode was used
+                if fusionModeEnabled {
+                    if let debugInfo = insight.metadata.debugInfo,
+                       debugInfo["fusion_mode"] as? String == "phase_1_focus_realm_persona" {
+                        let persona = debugInfo["persona"] as? String ?? "Unknown"
+                        print("🔮 Fusion Mode: Generated \(persona) wisdom via Phase 1 system")
+                    } else {
+                        print("🥊 Fusion Fallback: Used shadow mode due to fusion error")
+                    }
+                } else if self.kasperMLX.shadowModeActive {
                     print("🥊 Shadow mode: Generated insight via Local LLM vs RuntimeBundle competition")
                 } else {
                     print("📚 Standard mode: Generated insight via RuntimeBundle")

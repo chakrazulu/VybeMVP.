@@ -139,6 +139,9 @@
 		4D6528CB2E4C478200F521E1 /* KASPERPersonaTrainingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528C92E4C478100F521E1 /* KASPERPersonaTrainingManager.swift */; };
 		4D6528CD2E4C488800F521E1 /* PersonaTrainingIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6528CC2E4C488800F521E1 /* PersonaTrainingIntegration.swift */; };
 		4D6529D42E4CBC1000F521E1 /* KASPERMLXRuntimeBundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D6529D32E4CBC1000F521E1 /* KASPERMLXRuntimeBundle */; };
+		4D6529D72E4D687D00F521E1 /* InsightFusionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6529D52E4D687D00F521E1 /* InsightFusionManager.swift */; };
+		4D6529D92E4D696E00F521E1 /* WisdomSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6529D82E4D696E00F521E1 /* WisdomSynthesizer.swift */; };
+		4D6529DB2E4D6A6300F521E1 /* FusionEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6529DA2E4D6A6300F521E1 /* FusionEvaluator.swift */; };
 		4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */; };
 		4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */; };
 		4D6C7B552DE45441001036E5 /* ArchetypeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */; };
@@ -726,6 +729,9 @@
 		4D6528C92E4C478100F521E1 /* KASPERPersonaTrainingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERPersonaTrainingManager.swift; sourceTree = "<group>"; };
 		4D6528CC2E4C488800F521E1 /* PersonaTrainingIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonaTrainingIntegration.swift; sourceTree = "<group>"; };
 		4D6529D32E4CBC1000F521E1 /* KASPERMLXRuntimeBundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KASPERMLXRuntimeBundle; sourceTree = "<group>"; };
+		4D6529D52E4D687D00F521E1 /* InsightFusionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightFusionManager.swift; sourceTree = "<group>"; };
+		4D6529D82E4D696E00F521E1 /* WisdomSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WisdomSynthesizer.swift; sourceTree = "<group>"; };
+		4D6529DA2E4D6A6300F521E1 /* FusionEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FusionEvaluator.swift; sourceTree = "<group>"; };
 		4D6C7B4C2DE45381001036E5 /* UserArchetype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetype.swift; sourceTree = "<group>"; };
 		4D6C7B502DE453B1001036E5 /* UserArchetypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArchetypeManager.swift; sourceTree = "<group>"; };
 		4D6C7B542DE45441001036E5 /* ArchetypeDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchetypeDisplayView.swift; sourceTree = "<group>"; };
@@ -1596,6 +1602,16 @@
 			path = PersonaTraining;
 			sourceTree = "<group>";
 		};
+		4D6529D62E4D687D00F521E1 /* InsightFusion */ = {
+			isa = PBXGroup;
+			children = (
+				4D6529DA2E4D6A6300F521E1 /* FusionEvaluator.swift */,
+				4D6529D82E4D696E00F521E1 /* WisdomSynthesizer.swift */,
+				4D6529D52E4D687D00F521E1 /* InsightFusionManager.swift */,
+			);
+			path = InsightFusion;
+			sourceTree = "<group>";
+		};
 		4D6C7B9C2DE47E99001036E5 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -1930,6 +1946,7 @@
 		4DA359AE2E3F135B0010101F /* KASPERMLX */ = {
 			isa = PBXGroup;
 			children = (
+				4D6529D62E4D687D00F521E1 /* InsightFusion */,
 				4D6528CA2E4C478100F521E1 /* PersonaTraining */,
 				4D6528C72E4C242400F521E1 /* APlusRoadmap.md */,
 				4D6528C42E4C16FB00F521E1 /* Configuration */,
@@ -2818,6 +2835,7 @@
 				4DC6023E2D34650400B5E4A9 /* HomeView.swift in Sources */,
 				4D6C7B592DE45517001036E5 /* ResonanceEngine.swift in Sources */,
 				4D3055FA2D3D899A009A7BBD /* JournalMood.swift in Sources */,
+				4D6529DB2E4D6A6300F521E1 /* FusionEvaluator.swift in Sources */,
 				4D92F48C2D49E9C90001A16E /* TestingView.swift in Sources */,
 				4DDCE0062E3146B4005FDD32 /* TestConfiguration.swift in Sources */,
 				4DCB38742E1B4CDB00311D51 /* ProfileSetupView.swift in Sources */,
@@ -2831,6 +2849,7 @@
 				4DA642642D8122590047287B /* HealthKitManaging.swift in Sources */,
 				4DB233FF2E121BF7004EC2BC /* PerformanceMonitor.swift in Sources */,
 				4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */,
+				4D6529D72E4D687D00F521E1 /* InsightFusionManager.swift in Sources */,
 				4D9396192E07578200955980 /* SacredGeometryView.swift in Sources */,
 				4DE4C37E2DB3918E00BB7572 /* NumerologyMessage.swift in Sources */,
 				4D5926CC2E490D7D002625DE /* RouterDiagnosticsView.swift in Sources */,
@@ -2939,6 +2958,7 @@
 				4D6C7B572DE4546C001036E5 /* ResonanceMatch.swift in Sources */,
 				4D6528CB2E4C478200F521E1 /* KASPERPersonaTrainingManager.swift in Sources */,
 				4D3055E52D3CEDA5009A7BBD /* NewJournalEntryView.swift in Sources */,
+				4D6529D92E4D696E00F521E1 /* WisdomSynthesizer.swift in Sources */,
 				4D731EB52E4721AE0083C82C /* KASPERLifePathTrinity.swift in Sources */,
 				4D6C7B552DE45441001036E5 /* ArchetypeDisplayView.swift in Sources */,
 				4D3055C32D3CB018009A7BBD /* PersistenceController.swift in Sources */,

@@ -253,7 +253,7 @@ public class KASPERPersonaTrainingManager: ObservableObject {
         logger.info("📂 Loading approved insights from KASPERMLXRuntimeBundle...")
 
         // Use the existing KASPERContentRouter manifest system for production-ready access
-        let router = contentRouter
+        _ = contentRouter
 
         // Get all persona files from the bundle using the manifest
         var allPersonaFiles: [String] = []
@@ -267,7 +267,7 @@ public class KASPERPersonaTrainingManager: ObservableObject {
 
             for number in numbers {
                 let numberStr = String(format: "%02d", number)
-                let fileName = "grok_\(personaKey)_\(numberStr)_converted.json"
+                _ = "grok_\(personaKey)_\(numberStr)_converted.json"
 
                 // Try to find the file in the bundle
                 if let bundleURL = Bundle.main.url(
