@@ -327,6 +327,8 @@
 		4D7320B92E474A0F0083C82C /* grok_oracle_05_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F072E474A0F0083C82C /* grok_oracle_05_converted.json */; };
 		4D7320BE2E47561D0083C82C /* lifePath_04_v2.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D7320BD2E47561D0083C82C /* lifePath_04_v2.0_converted.json */; };
 		4D7320C32E4756600083C82C /* lifePath_06_v2.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D7320C02E4756600083C82C /* lifePath_06_v2.0_converted.json */; };
+		4D7CCC842E4EC8D5001642EF /* RuntimeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7CCC802E4EC8D5001642EF /* RuntimeSelector.swift */; };
+		4D7CCC852E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CCC7F2E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md */; };
 		4D80E0FD2D3F1B0B0020F7BB /* RealmNumberDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E0FC2D3F1B0B0020F7BB /* RealmNumberDetailView.swift */; };
 		4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */; };
 		4D92F48C2D49E9C90001A16E /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92F48B2D49E9BF0001A16E /* TestingView.swift */; };
@@ -912,6 +914,8 @@
 		4D731FA72E474A0F0083C82C /* Psychologist_Number_44_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Psychologist_Number_44_original.md; sourceTree = "<group>"; };
 		4D7320BD2E47561D0083C82C /* lifePath_04_v2.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lifePath_04_v2.0_converted.json; sourceTree = "<group>"; };
 		4D7320C02E4756600083C82C /* lifePath_06_v2.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lifePath_06_v2.0_converted.json; sourceTree = "<group>"; };
+		4D7CCC7F2E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PHASE_1_5_SUMMARY.md; sourceTree = "<group>"; };
+		4D7CCC802E4EC8D5001642EF /* RuntimeSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeSelector.swift; sourceTree = "<group>"; };
 		4D80E0FC2D3F1B0B0020F7BB /* RealmNumberDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberDetailView.swift; sourceTree = "<group>"; };
 		4D80E1032D41DC5E0020F7BB /* MatchAnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchAnalyticsView.swift; sourceTree = "<group>"; };
 		4D80E10C2D41E17A0020F7BB /* VybeMVPTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VybeMVPTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1889,6 +1893,15 @@
 			path = ContentRefinery;
 			sourceTree = "<group>";
 		};
+		4D7CCC822E4EC8D5001642EF /* ContentSelection */ = {
+			isa = PBXGroup;
+			children = (
+				4D7CCC7F2E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md */,
+				4D7CCC802E4EC8D5001642EF /* RuntimeSelector.swift */,
+			);
+			path = ContentSelection;
+			sourceTree = "<group>";
+		};
 		4DA359A02E3F135B0010101F /* MLXCore */ = {
 			isa = PBXGroup;
 			children = (
@@ -1946,6 +1959,7 @@
 		4DA359AE2E3F135B0010101F /* KASPERMLX */ = {
 			isa = PBXGroup;
 			children = (
+				4D7CCC822E4EC8D5001642EF /* ContentSelection */,
 				4D6529D62E4D687D00F521E1 /* InsightFusion */,
 				4D6528CA2E4C478100F521E1 /* PersonaTraining */,
 				4D6528C72E4C242400F521E1 /* APlusRoadmap.md */,
@@ -2661,6 +2675,7 @@
 				4D7320602E474A0F0083C82C /* grok_numerologyscholar_06_converted.json in Resources */,
 				4D7320612E474A0F0083C82C /* claude_08_academic_converted.json in Resources */,
 				4D7320622E474A0F0083C82C /* claude_06_academic_converted.json in Resources */,
+				4D7CCC852E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md in Resources */,
 				4D7320632E474A0F0083C82C /* grok_psychologist_08_converted.json in Resources */,
 				4D7320642E474A0F0083C82C /* grok_oracle_02_converted.json in Resources */,
 				4D7320662E474A0F0083C82C /* NumerologyScholar_Number_5_original.md in Resources */,
@@ -2920,6 +2935,7 @@
 				4DA359B92E3FF6160010101F /* KASPERTrainingDataManager.swift in Sources */,
 				4DCB386E2E1B050400311D51 /* RecentMatchPopupView.swift in Sources */,
 				4D2CC70A2E08CA0C00BDF100 /* TestAdvancedSacredGeometry.swift in Sources */,
+				4D7CCC842E4EC8D5001642EF /* RuntimeSelector.swift in Sources */,
 				4DA98F992E07230500FAE5FF /* CommentManager.swift in Sources */,
 				4DDCE0042E31468A005FDD32 /* AstrologyHouseCalculator.swift in Sources */,
 				4D2CC7032E08C78C00BDF100 /* UserProfile.swift in Sources */,

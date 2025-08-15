@@ -20,6 +20,669 @@ Transform VybeMVP from an already exceptional B+ spiritual iOS app into A+ archi
 
 ---
 
+## 🔮 ON-DEVICE LLM FUSION ROADMAP (IMMEDIATE PRIORITY)
+*Transform Shadow Mode → Production-Ready On-Device Intelligence*
+
+### **Current Reality Check**
+- **Mixtral 46.7B**: Cloud/server only, not viable for iPhone
+- **Shadow Mode Success**: RuntimeBundle (0.95) vs Local LLM (0.75) confidence
+- **5,879 Approved Insights**: Gold standard spiritual content loaded
+- **Goal**: 10,000+ unique insights via intelligent on-device fusion
+
+### **Strategic Architecture: Hybrid On-Device System**
+Your curated RuntimeBundle remains the source of truth, with a tiny on-device LLM as composer/stylist that weaves existing content without hallucination.
+
+---
+
+### **PHASE 1.5: CONTENT SELECTOR SYSTEM**
+*Target: Smart content selection without LLM | Timeline: 1 week | Risk: Low*
+
+#### Objectives
+- Extract relevant sentences from RuntimeBundle based on Focus/Realm/Persona
+- Use Apple's Natural Language framework for semantic similarity
+- Maintain spiritual authenticity by using only your curated content
+
+#### Implementation Checklist
+
+**1.5.1 Create RuntimeSelector Component**
+```swift
+// KASPERMLX/ContentSelection/RuntimeSelector.swift
+import NaturalLanguage
+
+class RuntimeSelector {
+    private let bundleManager: RuntimeBundleManager
+    private let embedding = NLEmbedding.wordEmbedding(for: .english)
+
+    func selectSentences(
+        focus: Int,
+        realm: Int,
+        persona: String,
+        count: Int = 6
+    ) async -> [String] {
+        // 1. Get all approved insights for this combination
+        let insights = await bundleManager.getInsights(
+            focus: focus,
+            realm: realm,
+            persona: persona
+        )
+
+        // 2. Break into sentences and score relevance
+        let sentences = insights.flatMap { splitIntoSentences($0.content) }
+        let scored = sentences.map { sentence in
+            (sentence, calculateRelevanceScore(sentence, focus, realm))
+        }
+
+        // 3. Return top N sentences by relevance
+        return scored
+            .sorted { $0.1 > $1.1 }
+            .prefix(count)
+            .map { $0.0 }
+    }
+
+    private func calculateRelevanceScore(
+        _ sentence: String,
+        _ focus: Int,
+        _ realm: Int
+    ) -> Double {
+        // Use NL.framework for semantic similarity
+        // Score based on numerological keywords
+        // Weight by spiritual depth indicators
+    }
+}
+```
+
+**1.5.2 Integrate with Existing Fusion System**
+- [ ] Replace template generation with RuntimeSelector
+- [ ] Test variety improvement (should see different combinations each time)
+- [ ] Measure quality scores with FusionEvaluator
+- [ ] A/B test against current template approach
+
+**1.5.3 Performance Optimization**
+- [ ] Pre-compute embeddings for all RuntimeBundle content
+- [ ] Cache selection results for common combinations
+- [ ] Implement background prefetching for likely next requests
+
+**Success Metrics:**
+- Unique insight combinations: >1000 (vs 405 current)
+- Quality score maintenance: 0.75+ average
+- Response time: <100ms for selection
+- User-perceived variety: Significantly improved
+
+---
+
+### **PHASE 2.0: ON-DEVICE LLM INTEGRATION**
+*Target: 1-3B model as content composer | Timeline: 2 weeks | Risk: Medium*
+
+#### Technology Stack Selection
+
+**Runtime Options (Choose One):**
+1. **MLC LLM** (Recommended)
+   - Purpose-built for iOS Metal acceleration
+   - Clean Swift integration
+   - Supports 1-3B and 7B-int4 models
+   - Active development and community
+
+2. **llama.cpp with Swift Wrapper**
+   - More control over optimization
+   - Broader model support
+   - Requires more integration work
+
+**Model Selection:**
+```swift
+// KASPERMLX/LocalLLM/ModelConfiguration.swift
+enum LocalLLMModel: String, CaseIterable {
+    case tiny = "phi-2-int4"        // 2.7B, fastest, 1GB RAM
+    case small = "gemma-2b-int4"     // 2B, balanced, 1.2GB RAM
+    case medium = "mistral-7b-int4"  // 7B, quality, 4GB RAM (iPad/Mac only)
+
+    var maxTokens: Int {
+        switch self {
+        case .tiny: return 100   // 3-4 sentences
+        case .small: return 120  // 4-5 sentences
+        case .medium: return 150 // 5-6 sentences
+        }
+    }
+
+    var contextWindow: Int {
+        switch self {
+        case .tiny: return 2048
+        case .small: return 4096
+        case .medium: return 8192
+        }
+    }
+}
+```
+
+#### Implementation Checklist
+
+**2.0.1 MLC LLM Integration**
+```swift
+// KASPERMLX/LocalLLM/LocalComposer.swift
+import MLCSwift
+
+@MainActor
+class LocalComposer: ObservableObject {
+    private var model: MLCLanguageModel?
+    @Published var isModelLoaded = false
+    @Published var generationTime: TimeInterval = 0
+
+    func loadModel(_ modelType: LocalLLMModel) async throws {
+        let config = MLCConfig(
+            modelPath: Bundle.main.path(forResource: modelType.rawValue, ofType: "mlc"),
+            useMetalAcceleration: true,
+            maxBatchSize: 1,
+            temperature: 0.7
+        )
+
+        model = try await MLCLanguageModel(config: config)
+        isModelLoaded = true
+    }
+
+    func composeFusion(
+        persona: String,
+        selectedSentences: [String],
+        maxLength: Int = 80
+    ) async throws -> String {
+        guard let model = model else { throw ComposerError.modelNotLoaded }
+
+        let prompt = buildComposerPrompt(
+            persona: persona,
+            sentences: selectedSentences,
+            maxLength: maxLength
+        )
+
+        let startTime = CFAbsoluteTimeGetCurrent()
+        let result = try await model.generate(
+            prompt: prompt,
+            maxTokens: 100,
+            temperature: 0.7,
+            topP: 0.9
+        )
+        generationTime = CFAbsoluteTimeGetCurrent() - startTime
+
+        return cleanupGeneration(result)
+    }
+
+    private func buildComposerPrompt(
+        persona: String,
+        sentences: [String],
+        maxLength: Int
+    ) -> String {
+        """
+        SYSTEM: You are the \(persona) for Vybe. Rewrite ONLY with the provided lines.
+        Do not invent new claims. Output 3-4 sentences, warm, practical, present tense.
+
+        CONTEXT:
+        - Focus content: \(sentences[0...2].joined(separator: " "))
+        - Realm content: \(sentences[3...5].joined(separator: " "))
+
+        TASK:
+        Fuse the lines into one concise guidance. Keep persona diction.
+        Avoid duplication. Maximum \(maxLength) words.
+
+        OUTPUT:
+        """
+    }
+}
+```
+
+**2.0.2 Fallback Chain Implementation**
+```swift
+// KASPERMLX/Fusion/HybridFusionSystem.swift
+class HybridFusionSystem {
+    private let selector = RuntimeSelector()
+    private let composer = LocalComposer()
+    private let evaluator = FusionEvaluator()
+    private let templateFallback = TemplateFusionGenerator()
+
+    func generateFusion(
+        focus: Int,
+        realm: Int,
+        persona: String
+    ) async throws -> FusionResult {
+        // Step 1: Select sentences from RuntimeBundle
+        let sentences = await selector.selectSentences(
+            focus: focus,
+            realm: realm,
+            persona: persona
+        )
+
+        // Step 2: Try LocalLLM composition
+        if composer.isModelLoaded {
+            do {
+                let llmFusion = try await composer.composeFusion(
+                    persona: persona,
+                    selectedSentences: sentences
+                )
+
+                let score = evaluator.evaluate(llmFusion, persona: persona)
+
+                if score >= 0.70 {
+                    return FusionResult(
+                        content: llmFusion,
+                        method: .localLLM,
+                        score: score,
+                        generationTime: composer.generationTime
+                    )
+                }
+            } catch {
+                logger.warning("LocalLLM failed, falling back: \(error)")
+            }
+        }
+
+        // Step 3: Fallback to template fusion
+        let templateFusion = templateFallback.generate(
+            sentences: sentences,
+            persona: persona
+        )
+
+        return FusionResult(
+            content: templateFusion,
+            method: .template,
+            score: 0.75,
+            generationTime: 0.01
+        )
+    }
+}
+```
+
+**2.0.3 Model Management**
+- [ ] Download models on first launch (with progress indicator)
+- [ ] Store models in app's Documents directory
+- [ ] Implement model switching based on device capabilities
+- [ ] Add model update mechanism for future improvements
+
+**2.0.4 Performance Monitoring**
+```swift
+// KASPERMLX/LocalLLM/PerformanceMonitor.swift
+struct LLMPerformanceMetrics {
+    let modelLoadTime: TimeInterval
+    let averageGenerationTime: TimeInterval
+    let tokensPerSecond: Double
+    let memoryUsage: Int64
+    let batteryImpact: BatteryImpact
+
+    enum BatteryImpact {
+        case minimal   // <1% per hour
+        case moderate  // 1-3% per hour
+        case high      // >3% per hour
+    }
+}
+```
+
+**Success Metrics:**
+- Generation time: <2 seconds for 3-4 sentences
+- Quality score: 0.75+ average (vs templates)
+- Memory usage: <200MB additional
+- Battery impact: <2% per hour of active use
+- Fallback rate: <20% to templates
+
+---
+
+### **PHASE 2.5: FINE-TUNING & OPTIMIZATION**
+*Target: Persona-specific voice training | Timeline: 1 week | Risk: Low*
+
+#### LoRA Adapter Training (Mac-side)
+
+**2.5.1 Training Data Preparation**
+```python
+# scripts/prepare_training_data.py
+import json
+from pathlib import Path
+
+def prepare_persona_dataset(persona: str):
+    """Extract training pairs from approved content"""
+    approved_dir = Path("KASPERMLX/MLXTraining/ContentRefinery/Approved")
+
+    training_pairs = []
+    for file in approved_dir.glob(f"{persona}_*.json"):
+        content = json.loads(file.read_text())
+
+        # Create instruction-response pairs
+        pair = {
+            "instruction": f"As the {persona}, provide guidance on {content['topic']}",
+            "response": content['insight'],
+            "persona_markers": extract_persona_language(content['insight'])
+        }
+        training_pairs.append(pair)
+
+    return training_pairs
+
+def extract_persona_language(text: str) -> list:
+    """Identify persona-specific vocabulary and patterns"""
+    oracle_markers = ["cosmic", "mystical", "divine", "universe speaks"]
+    psychologist_markers = ["research shows", "studies indicate", "emotional"]
+    mindfulness_markers = ["present moment", "breathe", "awareness", "observe"]
+
+    # Return matched patterns for reinforcement
+```
+
+**2.5.2 MLX Fine-tuning Script**
+```python
+# scripts/mlx_finetune.py
+import mlx
+import mlx.nn as nn
+from mlx_lm import load, tune
+
+def finetune_for_persona(
+    base_model: str = "phi-2",
+    persona: str = "Oracle",
+    epochs: int = 3
+):
+    # Load base model
+    model, tokenizer = load(base_model)
+
+    # Prepare LoRA config
+    lora_config = {
+        "r": 8,  # Low rank
+        "alpha": 16,
+        "dropout": 0.05,
+        "target_modules": ["q_proj", "v_proj"]
+    }
+
+    # Load training data
+    dataset = load_persona_dataset(persona)
+
+    # Fine-tune with MLX
+    tuned_model = tune(
+        model=model,
+        tokenizer=tokenizer,
+        dataset=dataset,
+        lora_config=lora_config,
+        learning_rate=3e-4,
+        epochs=epochs,
+        batch_size=4
+    )
+
+    # Export for iOS
+    export_path = f"Models/{persona.lower()}_lora.mlx"
+    tuned_model.save(export_path)
+
+    # Quantize to int4 for mobile
+    quantize_model(export_path, bits=4)
+```
+
+**2.5.3 iOS Integration of Fine-tuned Models**
+```swift
+// KASPERMLX/LocalLLM/PersonaModels.swift
+class PersonaModelManager {
+    private var loadedAdapters: [String: LoRAAdapter] = [:]
+
+    func loadPersonaAdapter(_ persona: String) async throws {
+        let adapterPath = Bundle.main.path(
+            forResource: "\(persona.lowercased())_lora",
+            ofType: "mlx"
+        )
+
+        let adapter = try await LoRAAdapter.load(from: adapterPath)
+        loadedAdapters[persona] = adapter
+    }
+
+    func applyPersonaStyle(
+        baseModel: MLCLanguageModel,
+        persona: String,
+        input: String
+    ) async throws -> String {
+        guard let adapter = loadedAdapters[persona] else {
+            throw PersonaError.adapterNotLoaded
+        }
+
+        // Apply LoRA weights to base model
+        let personalizedModel = baseModel.withAdapter(adapter)
+
+        return try await personalizedModel.generate(
+            prompt: input,
+            maxTokens: 100
+        )
+    }
+}
+```
+
+**Success Metrics:**
+- Persona consistency: 90%+ accuracy in blind tests
+- Voice distinction: Clear differentiation between personas
+- Training time: <30 minutes per persona on M1 Mac
+- Adapter size: <50MB per persona
+- Quality improvement: +0.10 average score
+
+---
+
+### **PHASE 3.0: ADVANCED FEATURES & SCALING**
+*Target: Production optimization and advanced capabilities | Timeline: 2 weeks | Risk: Low*
+
+#### 3.0.1 Context-Aware Generation
+
+**Temporal Awareness**
+```swift
+// KASPERMLX/Context/TemporalContext.swift
+struct TemporalContext {
+    let timeOfDay: TimeOfDay
+    let dayOfWeek: DayOfWeek
+    let season: Season
+    let lunarPhase: LunarPhase
+    let astrologicalEvent: AstrologicalEvent?
+
+    func adjustPrompt(_ basePrompt: String) -> String {
+        var prompt = basePrompt
+
+        // Morning: Energizing, goal-setting tone
+        // Evening: Reflective, calming tone
+        // Full Moon: Heightened intuition emphasis
+        // Mercury Retrograde: Communication awareness
+
+        return prompt + "\nContext: \(contextDescription)"
+    }
+}
+```
+
+**User History Integration**
+```swift
+// KASPERMLX/Context/UserContext.swift
+class UserContextManager {
+    func buildContext(for userID: String) async -> UserContext {
+        let recentJournals = await fetchRecentJournals(userID, days: 7)
+        let frequentNumbers = await analyzeSightingPatterns(userID)
+        let preferredPersonas = await getPersonaPreferences(userID)
+
+        return UserContext(
+            currentThemes: extractThemes(from: recentJournals),
+            numerologicalFocus: frequentNumbers,
+            personaAffinity: preferredPersonas,
+            spiritualJourney: mapJourneyStage(recentJournals)
+        )
+    }
+}
+```
+
+#### 3.0.2 Multi-Model Orchestration
+
+**Device-Adaptive Model Selection**
+```swift
+// KASPERMLX/LocalLLM/AdaptiveModelSelector.swift
+class AdaptiveModelSelector {
+    func selectOptimalModel() -> LocalLLMModel {
+        let device = UIDevice.current
+        let memoryAvailable = ProcessInfo.processInfo.physicalMemory
+        let batteryLevel = device.batteryLevel
+        let thermalState = ProcessInfo.processInfo.thermalState
+
+        // iPhone 15 Pro/Max: Can handle small model
+        // iPhone 14 and below: Tiny model only
+        // iPad Pro M-series: Can handle medium model
+        // Thermal throttling: Downgrade to smaller model
+        // Low battery (<20%): Use tiny model
+
+        if device.userInterfaceIdiom == .pad && memoryAvailable > 8_000_000_000 {
+            return .medium  // 7B model on iPad
+        } else if memoryAvailable > 6_000_000_000 && batteryLevel > 0.5 {
+            return .small   // 2-3B model on Pro phones
+        } else {
+            return .tiny    // 1-2B model as fallback
+        }
+    }
+}
+```
+
+#### 3.0.3 Caching & Prefetching Strategy
+
+**Intelligent Cache System**
+```swift
+// KASPERMLX/Cache/IntelligentCache.swift
+class IntelligentFusionCache {
+    private let cache = NSCache<NSString, CachedFusion>()
+    private let predictor = UsagePredictor()
+
+    func prefetchLikelyFusions(for user: UserProfile) async {
+        let predictions = await predictor.predictNextRequests(
+            user: user,
+            timeWindow: .next6Hours
+        )
+
+        for prediction in predictions.prefix(10) {
+            Task.detached(priority: .background) {
+                let fusion = await self.generateAndCache(
+                    focus: prediction.focus,
+                    realm: prediction.realm,
+                    persona: prediction.persona
+                )
+            }
+        }
+    }
+
+    struct CachedFusion {
+        let content: String
+        let generatedAt: Date
+        let method: FusionMethod
+        let score: Double
+
+        var isValid: Bool {
+            // Cache for 24 hours, unless user's context significantly changes
+            Date().timeIntervalSince(generatedAt) < 86400
+        }
+    }
+}
+```
+
+#### 3.0.4 Quality Assurance System
+
+**Automated Quality Gates**
+```swift
+// KASPERMLX/QA/QualityGates.swift
+class FusionQualityGates {
+    private let validators = [
+        NumerologicalAccuracyValidator(),
+        PersonaConsistencyValidator(),
+        SpiritualAuthenticityValidator(),
+        GrammarValidator(),
+        LengthValidator()
+    ]
+
+    func validate(_ fusion: String, context: FusionContext) -> ValidationResult {
+        var issues: [QualityIssue] = []
+
+        for validator in validators {
+            if let issue = validator.validate(fusion, context: context) {
+                issues.append(issue)
+            }
+        }
+
+        return ValidationResult(
+            passed: issues.isEmpty,
+            score: calculateScore(issues),
+            issues: issues,
+            recommendation: getRecommendation(issues)
+        )
+    }
+}
+```
+
+**Success Metrics for Phase 3:**
+- Context relevance: 85%+ user satisfaction
+- Cache hit rate: 40%+ for prefetched content
+- Device optimization: Optimal model selection 95%+ of time
+- Quality gate pass rate: 90%+ on first generation
+- Battery efficiency: <1% drain per hour of use
+
+---
+
+### **IMPLEMENTATION TIMELINE**
+
+| Phase | Duration | Priority | Risk | Expected Outcome |
+|-------|----------|----------|------|------------------|
+| **1.5: Content Selector** | 1 week | HIGH | Low | 1000+ unique combinations from RuntimeBundle |
+| **2.0: LLM Integration** | 2 weeks | HIGH | Medium | On-device fusion with 1-3B models |
+| **2.5: Fine-tuning** | 1 week | MEDIUM | Low | Persona-specific voice accuracy |
+| **3.0: Advanced Features** | 2 weeks | LOW | Low | Production optimization and scaling |
+
+**Total Timeline:** 6 weeks to full on-device LLM system
+
+---
+
+### **CRITICAL SUCCESS FACTORS**
+
+1. **Maintain Spiritual Authenticity**
+   - Never let LLM generate spiritual claims from scratch
+   - Always source from your curated RuntimeBundle
+   - Preserve persona voices and mystical language
+
+2. **Performance Requirements**
+   - Generation time: <2 seconds
+   - Memory overhead: <200MB
+   - Battery impact: <2% per hour
+   - Fallback reliability: 100%
+
+3. **Quality Thresholds**
+   - Minimum fusion score: 0.70
+   - Persona consistency: 85%+
+   - Zero hallucinations about numerology
+   - Graceful degradation to templates
+
+4. **User Experience**
+   - Seamless model downloading on first launch
+   - Transparent fallback when needed
+   - Variety without sacrificing quality
+   - Consistent performance across devices
+
+---
+
+### **RISK MITIGATION**
+
+| Risk | Mitigation Strategy |
+|------|-------------------|
+| Model too large for device | Multi-tier model selection (tiny/small/medium) |
+| Generation too slow | Aggressive caching + background prefetching |
+| Poor quality output | Template fallback + quality gates |
+| Battery drain | Throttling + low-power mode detection |
+| Inconsistent personas | LoRA fine-tuning + validation |
+
+---
+
+### **IMMEDIATE NEXT STEPS**
+
+1. **Tonight: Start Phase 1.5**
+   ```bash
+   # Create selector infrastructure
+   mkdir -p KASPERMLX/ContentSelection
+   touch KASPERMLX/ContentSelection/RuntimeSelector.swift
+
+   # Test with existing fusion system
+   # Measure variety improvement
+   ```
+
+2. **This Week: Complete Phase 1.5**
+   - Implement RuntimeSelector
+   - Integrate with HomeView
+   - A/B test against templates
+   - Measure quality metrics
+
+3. **Next Week: Begin Phase 2.0**
+   - Research MLC LLM integration
+   - Download and test models
+   - Build LocalComposer class
+   - Implement fallback chain
+
+---
+
 ## 🗺️ PHASE-BY-PHASE IMPLEMENTATION ROADMAP
 
 ### **PHASE 1: ARCHITECTURE POLISH**
