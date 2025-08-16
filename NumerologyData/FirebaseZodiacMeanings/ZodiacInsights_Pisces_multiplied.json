@@ -1,0 +1,104 @@
+{
+  "zodiac_sign": "Pisces",
+  "element": "Water",
+  "modality": "Mutable",
+  "archetype": "The Cosmic Dreamer",
+  "ruling_planet": "Neptune",
+  "total_insights": 68,
+  "categories": {
+    "personality_depths": {
+      "description": "Core archetypal patterns beyond surface traits",
+      "insights": [
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "personality_depths",
+          "insight": "When others lose faith, you become the keeper of dreams. your gift is seeing the divine potential that lives within every broken situation..",
+          "quality_score": 0.87,
+          "tier": "multiplied"
+        }
+      ]
+    },
+    "shadow_integration": {
+      "description": "Working with challenging aspects constructively",
+      "insights": [
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Consciousness Coach",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "shadow_integration",
+          "insight": "Escapism transforms into transcendence when directed toward service. your retreat from harsh reality can become sanctuary for healing..",
+          "quality_score": 0.88,
+          "tier": "multiplied"
+        }
+      ]
+    },
+    "spiritual_gifts": {
+      "description": "Natural talents and consciousness contributions",
+      "insights": [
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "spiritual_gifts",
+          "insight": "Your neptune-ruled intuition accesses wisdom beyond logic. you know things through feeling that others miss through thinking..",
+          "quality_score": 0.86,
+          "tier": "multiplied"
+        }
+      ]
+    },
+    "relationship_dynamics": {
+      "description": "How this sign loves, communicates, connects",
+      "insights": [
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "relationship_dynamics",
+          "insight": "You love with oceanic depth and spiritual devotion. your heart opens to include the divine presence you recognize in every being..",
+          "quality_score": 0.88,
+          "tier": "multiplied"
+        }
+      ]
+    },
+    "career_calling": {
+      "description": "Life purpose and work expression alignment",
+      "insights": []
+    },
+    "seasonal_wisdom": {
+      "description": "How sign energy shifts through cycles",
+      "insights": []
+    },
+    "elemental_connection": {
+      "description": "Deep relationship with elemental nature",
+      "insights": []
+    },
+    "karmic_lessons": {
+      "description": "Soul growth themes and evolution patterns",
+      "insights": []
+    }
+  },
+  "meta": {
+    "type": "zodiac_multiplied",
+    "generation_date": "2025-08-15T20:21:11.912428",
+    "source_file": "ZodiacInsights_Pisces_original.json",
+    "note": "Contains ONLY new multiplied insights - NO originals"
+  }
+}

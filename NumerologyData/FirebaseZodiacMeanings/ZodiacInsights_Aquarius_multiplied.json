@@ -1,0 +1,62 @@
+{
+  "zodiac_sign": "Aquarius",
+  "element": "Air",
+  "modality": "Fixed",
+  "archetype": "The Revolutionary Visionary",
+  "ruling_planet": "Uranus",
+  "total_insights": 36,
+  "categories": {
+    "personality_depths": {
+      "description": "Core archetypal patterns beyond surface traits",
+      "insights": []
+    },
+    "shadow_integration": {
+      "description": "Working with challenging aspects constructively",
+      "insights": []
+    },
+    "spiritual_gifts": {
+      "description": "Natural talents and consciousness contributions",
+      "insights": [
+        {
+          "sign": "Aquarius",
+          "element": "Air",
+          "modality": "Fixed",
+          "context": "Crisis Navigation",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "spiritual_gifts",
+          "insight": "Your gift of humanitarian vision awakens others to their global citizenship. you remind humanity of its interconnected destiny..",
+          "quality_score": 0.89,
+          "tier": "multiplied"
+        }
+      ]
+    },
+    "relationship_dynamics": {
+      "description": "How this sign loves, communicates, connects",
+      "insights": []
+    },
+    "career_calling": {
+      "description": "Life purpose and work expression alignment",
+      "insights": []
+    },
+    "seasonal_wisdom": {
+      "description": "How sign energy shifts through cycles",
+      "insights": []
+    },
+    "elemental_connection": {
+      "description": "Deep relationship with elemental nature",
+      "insights": []
+    },
+    "karmic_lessons": {
+      "description": "Soul growth themes and evolution patterns",
+      "insights": []
+    }
+  },
+  "meta": {
+    "type": "zodiac_multiplied",
+    "generation_date": "2025-08-15T20:21:11.911862",
+    "source_file": "ZodiacInsights_Aquarius_original.json",
+    "note": "Contains ONLY new multiplied insights - NO originals"
+  }
+}

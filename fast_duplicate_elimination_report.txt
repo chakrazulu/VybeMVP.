@@ -1,0 +1,51 @@
+🔍 FAST DUPLICATE ELIMINATION REPORT
+==================================================
+
+📊 RESULTS:
+   📁 Files processed: 97
+   💭 Unique insights tracked: 159130
+   🗑️  Duplicates eliminated: 2655
+   📝 Files modified: 37
+
+📁 MODIFIED FILES:
+   📄 NumberMessages_Complete_0_advanced.json
+   📄 NumberMessages_Complete_1_advanced.json
+   📄 NumberMessages_Complete_2_advanced.json
+   📄 NumberMessages_Complete_3_advanced.json
+   📄 NumberMessages_Complete_4_advanced.json
+   📄 NumberMessages_Complete_5_advanced.json
+   📄 NumberMessages_Complete_6_advanced.json
+   📄 NumberMessages_Complete_7_advanced.json
+   📄 NumberMessages_Complete_8.json
+   📄 NumberMessages_Complete_8_advanced.json
+   📄 NumberMessages_Complete_8_multiplied.json
+   📄 NumberMessages_Complete_9_advanced.json
+   📄 PlanetaryInsights_Jupiter_multiplied.json
+   📄 PlanetaryInsights_Mars_advanced.json
+   📄 PlanetaryInsights_Mars_multiplied.json
+   📄 PlanetaryInsights_Mercury_multiplied.json
+   📄 PlanetaryInsights_Moon_multiplied.json
+   📄 PlanetaryInsights_Neptune_multiplied.json
+   📄 PlanetaryInsights_Pluto_multiplied.json
+   📄 PlanetaryInsights_Saturn_multiplied.json
+   📄 PlanetaryInsights_Sun_multiplied.json
+   📄 PlanetaryInsights_Uranus_multiplied.json
+   📄 PlanetaryInsights_Venus_multiplied.json
+   📄 ZodiacInsights_Aquarius_multiplied.json
+   📄 ZodiacInsights_Aries_advanced.json
+   📄 ZodiacInsights_Aries_multiplied.json
+   📄 ZodiacInsights_Cancer_multiplied.json
+   📄 ZodiacInsights_Capricorn_multiplied.json
+   📄 ZodiacInsights_Gemini_multiplied.json
+   📄 ZodiacInsights_Leo_multiplied.json
+   📄 ZodiacInsights_Libra_multiplied.json
+   📄 ZodiacInsights_Pisces_multiplied.json
+   📄 ZodiacInsights_Sagittarius_multiplied.json
+   📄 ZodiacInsights_Scorpio_advanced.json
+   📄 ZodiacInsights_Scorpio_multiplied.json
+   📄 ZodiacInsights_Taurus_multiplied.json
+   📄 ZodiacInsights_Virgo_multiplied.json
+
+🏆 FINAL UNIQUENESS SCORE: 98.4%
+   💭 Unique insights: 159130
+   🗑️  Duplicates removed: 2655

@@ -1,0 +1,104 @@
+{
+  "zodiac_sign": "Capricorn",
+  "element": "Earth",
+  "modality": "Cardinal",
+  "archetype": "The Sacred Mountain",
+  "ruling_planet": "Saturn",
+  "total_insights": 36,
+  "categories": {
+    "personality_depths": {
+      "description": "Core archetypal patterns beyond surface traits",
+      "insights": [
+        {
+          "sign": "Capricorn",
+          "element": "Earth",
+          "modality": "Cardinal",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "personality_depths",
+          "insight": "Your saturn-blessed nature transforms obstacles into stepping stones. you build lasting structures that serve generations..",
+          "quality_score": 0.86,
+          "tier": "multiplied"
+        }
+      ]
+    },
+    "shadow_integration": {
+      "description": "Working with challenging aspects constructively",
+      "insights": []
+    },
+    "spiritual_gifts": {
+      "description": "Natural talents and consciousness contributions",
+      "insights": [
+        {
+          "sign": "Capricorn",
+          "element": "Earth",
+          "modality": "Cardinal",
+          "context": "Daily Embodiment",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "spiritual_gifts",
+          "insight": "Your gift of strategic wisdom helps others build sustainable success. you see the path from vision to manifestation..",
+          "quality_score": 0.89,
+          "tier": "multiplied"
+        }
+      ]
+    },
+    "relationship_dynamics": {
+      "description": "How this sign loves, communicates, connects",
+      "insights": [
+        {
+          "sign": "Capricorn",
+          "element": "Earth",
+          "modality": "Cardinal",
+          "context": "Celebration Expansion",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "relationship_dynamics",
+          "insight": "You love through commitment and building something lasting together. your devotion shows in long-term investment and faithful presence..",
+          "quality_score": 0.85,
+          "tier": "multiplied"
+        }
+      ]
+    },
+    "career_calling": {
+      "description": "Life purpose and work expression alignment",
+      "insights": []
+    },
+    "seasonal_wisdom": {
+      "description": "How sign energy shifts through cycles",
+      "insights": []
+    },
+    "elemental_connection": {
+      "description": "Deep relationship with elemental nature",
+      "insights": [
+        {
+          "sign": "Capricorn",
+          "element": "Earth",
+          "modality": "Cardinal",
+          "context": "Daily Embodiment",
+          "persona": "Consciousness Coach",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "elemental_connection",
+          "insight": "Earth is your sacred element—teaching structure, endurance, manifestation, and the patience required for authentic mastery..",
+          "quality_score": 0.88,
+          "tier": "multiplied"
+        }
+      ]
+    },
+    "karmic_lessons": {
+      "description": "Soul growth themes and evolution patterns",
+      "insights": []
+    }
+  },
+  "meta": {
+    "type": "zodiac_multiplied",
+    "generation_date": "2025-08-15T20:21:11.911297",
+    "source_file": "ZodiacInsights_Capricorn_original.json",
+    "note": "Contains ONLY new multiplied insights - NO originals"
+  }
+}
