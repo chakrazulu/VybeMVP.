@@ -1,0 +1,271 @@
+{
+  "zodiac_sign": "Leo",
+  "element": "Fire",
+  "modality": "Fixed",
+  "archetype": "The Sovereign Creator",
+  "ruling_planet": "Sun",
+  "total_insights": 1500,
+  "categories": {
+    "personality_depths": {
+      "description": "Core archetypal patterns beyond surface traits",
+      "insights": [
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Morning Awakening",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "personality_depths",
+          "insight": "Your soul radiates like a fixed star—consistent, life-giving, and magnetic. You are the center around which others discover their own light.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Daily Embodiment",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "personality_depths",
+          "insight": "Your authentic power emerges through creative expression and generous leadership. You rule through inspiration, not domination.",
+          "quality_score": 0.91,
+          "tier": "original"
+        },
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Crisis Navigation",
+          "persona": "Consciousness Coach",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "personality_depths",
+          "insight": "When challenges arise, your inner Sun burns away what's false, revealing the golden core of your true nobility.",
+          "quality_score": 0.93,
+          "tier": "original"
+        }
+      ]
+    },
+    "shadow_integration": {
+      "description": "Working with challenging aspects constructively",
+      "insights": [
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Evening Integration",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "shadow_integration",
+          "insight": "Pride transforms into dignity when aligned with service. Your ego becomes a sacred vessel when it carries light for others.",
+          "quality_score": 0.92,
+          "tier": "original"
+        },
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Crisis Navigation",
+          "persona": "Energy Healer",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "shadow_integration",
+          "insight": "Attention-seeking dissolves when you give yourself the recognition you crave. Be your own audience first, then share your gifts.",
+          "quality_score": 0.88,
+          "tier": "original"
+        }
+      ]
+    },
+    "spiritual_gifts": {
+      "description": "Natural talents and consciousness contributions",
+      "insights": [
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Celebration Expansion",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "spiritual_gifts",
+          "insight": "Your Sun-blessed presence illuminates others' potential. You see the royal nature in every soul and help them remember their divinity.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Morning Awakening",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "spiritual_gifts",
+          "insight": "Your gift of creative fire transforms raw experience into art, story, and beauty. You make life worth living through your expressions.",
+          "quality_score": 0.90,
+          "tier": "original"
+        }
+      ]
+    },
+    "relationship_dynamics": {
+      "description": "How this sign loves, communicates, connects",
+      "insights": [
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Daily Embodiment",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "relationship_dynamics",
+          "insight": "You love with theatrical generosity and loyal devotion. Your heart knows no halfway—you give everything or protect your light.",
+          "quality_score": 0.89,
+          "tier": "original"
+        },
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Evening Integration",
+          "persona": "Energy Healer",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "relationship_dynamics",
+          "insight": "True partnership for you means mutual appreciation and shared creative vision. You need equals who celebrate your magnificence.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    },
+    "career_calling": {
+      "description": "Life purpose and work expression alignment",
+      "insights": [
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Morning Awakening",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "career_calling",
+          "insight": "Your calling involves creative leadership and inspiring others to embrace their greatness. You're here to make life more beautiful and meaningful.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Celebration Expansion",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "career_calling",
+          "insight": "Your Sun-ruled gifts shine in performance, arts, leadership, education, or any field where you can influence and inspire others.",
+          "quality_score": 0.91,
+          "tier": "original"
+        }
+      ]
+    },
+    "seasonal_wisdom": {
+      "description": "How sign energy shifts through cycles",
+      "insights": [
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Celebration Expansion",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "seasonal_wisdom",
+          "insight": "High summer is your kingdom—the time of full expression, creative abundance, and the heart's most generous giving.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Evening Integration",
+          "persona": "Mystic Oracle",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "seasonal_wisdom",
+          "insight": "Winter teaches your fire to burn inward, cultivating the inner sun that shines regardless of external circumstances.",
+          "quality_score": 0.88,
+          "tier": "original"
+        }
+      ]
+    },
+    "elemental_connection": {
+      "description": "Deep relationship with elemental nature",
+      "insights": [
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Morning Awakening",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "elemental_connection",
+          "insight": "Fire is your sacred element—teaching confidence, creativity, passion, and the power to illuminate darkness wherever you go.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Daily Embodiment",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "elemental_connection",
+          "insight": "Your fixed fire burns steady and bright—a reliable source of warmth and inspiration that others can count on.",
+          "quality_score": 0.90,
+          "tier": "original"
+        }
+      ]
+    },
+    "karmic_lessons": {
+      "description": "Soul growth themes and evolution patterns",
+      "insights": [
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Evening Integration",
+          "persona": "Consciousness Coach",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "karmic_lessons",
+          "insight": "Your soul came to learn that true kingship serves the highest good. Real power lifts others up rather than keeping them down.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Leo",
+          "element": "Fire",
+          "modality": "Fixed",
+          "context": "Crisis Navigation",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "karmic_lessons",
+          "insight": "Each incarnation, you perfect the art of authentic self-expression. This lifetime, master shining without dimming others' light.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    }
+  }
+}

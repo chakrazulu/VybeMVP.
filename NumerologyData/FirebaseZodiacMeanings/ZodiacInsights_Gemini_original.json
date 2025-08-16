@@ -1,0 +1,570 @@
+{
+  "zodiac_sign": "Gemini",
+  "element": "Air",
+  "modality": "Mutable",
+  "archetype": "The Cosmic Communicator",
+  "ruling_planet": "Mercury",
+  "total_insights": 1500,
+  "categories": {
+    "personality_depths": {
+      "description": "Core archetypal patterns beyond surface traits",
+      "insights": [
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "personality_depths",
+          "insight": "Your mind dances between worlds, translating mysteries into understanding. You are the bridge between thought and expression, idea and reality.",
+          "quality_score": 0.91,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Mystic Oracle",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "personality_depths",
+          "insight": "Within you live many selves, each holding different wisdom. Your multiplicity is not confusion but cosmic completeness in human form.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "personality_depths",
+          "insight": "Your restless spirit seeks not one truth but the kaleidoscope of truths. In your curiosity lies the key to collective evolution.",
+          "quality_score": 0.92,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "personality_depths",
+          "insight": "When chaos strikes, your Mercury-blessed adaptability becomes salvation. You find solutions by thinking differently, not harder.",
+          "quality_score": 0.89,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Celebration Expansion",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "personality_depths",
+          "insight": "Your joy multiplies when shared through story, wit, and connection. You celebrate by weaving others into the tapestry of experience.",
+          "quality_score": 0.88,
+          "tier": "original"
+        }
+      ]
+    },
+    "shadow_integration": {
+      "description": "Working with challenging aspects constructively",
+      "insights": [
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "shadow_integration",
+          "insight": "Scattered energy transforms into versatile wisdom when you honor each interest as sacred exploration. Your variety is not superficiality but depth distributed.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "shadow_integration",
+          "insight": "When anxiety spirals, return to breath—your air element's natural rhythm. Let thoughts flow through you rather than consuming you.",
+          "quality_score": 0.90,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Energy Healer",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "shadow_integration",
+          "insight": "Inconsistency becomes creative flexibility when aligned with authentic curiosity. Trust your need to explore rather than apologizing for it.",
+          "quality_score": 0.87,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "shadow_integration",
+          "insight": "Overthinking dissolves when you remember that not every thought needs action. Some mental adventures are meant for pure exploration.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Celebration Expansion",
+          "persona": "Mystic Oracle",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "shadow_integration",
+          "insight": "Superficiality is depth misunderstood. Your ability to connect diverse ideas creates new understanding, not shallow engagement.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    },
+    "spiritual_gifts": {
+      "description": "Natural talents and consciousness contributions",
+      "insights": [
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "spiritual_gifts",
+          "insight": "You carry the gift of translation—making complex ideas accessible, foreign concepts familiar. Your words build bridges between minds.",
+          "quality_score": 0.91,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Celebration Expansion",
+          "persona": "Consciousness Coach",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "spiritual_gifts",
+          "insight": "Your Mercury-blessed curiosity sparks learning in others. Through your questions, dormant minds awaken to new possibilities.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Soul Psychologist",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "spiritual_gifts",
+          "insight": "Your gift of perspective allows others to see their stories from multiple angles. You free minds from singular thinking.",
+          "quality_score": 0.88,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "spiritual_gifts",
+          "insight": "In chaos, you become the messenger of possibility. Your ability to adapt and communicate offers hope when others see only confusion.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "spiritual_gifts",
+          "insight": "Your mental agility serves collective intelligence. You gather scattered wisdom and weave it into patterns others can understand.",
+          "quality_score": 0.90,
+          "tier": "original"
+        }
+      ]
+    },
+    "relationship_dynamics": {
+      "description": "How this sign loves, communicates, connects",
+      "insights": [
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "relationship_dynamics",
+          "insight": "You love through conversation and mental stimulation. Your heart opens through shared ideas, laughter, and intellectual adventure.",
+          "quality_score": 0.89,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "relationship_dynamics",
+          "insight": "In conflict, you seek understanding through dialogue and perspective-sharing. You heal relationships by changing the conversation.",
+          "quality_score": 0.92,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Celebration Expansion",
+          "persona": "Energy Healer",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "relationship_dynamics",
+          "insight": "Your loyalty expresses through intellectual fidelity—remaining curious about those you love rather than assuming you know them completely.",
+          "quality_score": 0.87,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "relationship_dynamics",
+          "insight": "You communicate through humor, stories, and playful banter. Your love language is shared discovery and mutual mental exploration.",
+          "quality_score": 0.91,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Mystic Oracle",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "relationship_dynamics",
+          "insight": "Partnership for you means growing minds together. You need relationships that evolve, question, and explore rather than stagnate.",
+          "quality_score": 0.94,
+          "tier": "original"
+        }
+      ]
+    },
+    "career_calling": {
+      "description": "Life purpose and work expression alignment",
+      "insights": [
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "career_calling",
+          "insight": "Your calling involves connecting ideas, people, and possibilities. You're here to facilitate understanding and spread information that serves growth.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "career_calling",
+          "insight": "You excel in roles requiring quick thinking, communication skills, and adaptability. Your work thrives on variety and intellectual challenge.",
+          "quality_score": 0.88,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Consciousness Coach",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "career_calling",
+          "insight": "Mental stimulation is essential for your professional happiness. Boring work kills your spirit; complex problems energize your soul.",
+          "quality_score": 0.90,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Celebration Expansion",
+          "persona": "Energy Healer",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "career_calling",
+          "insight": "Your Mercury-ruled gifts shine in writing, teaching, media, technology, or any field involving information exchange and human connection.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "career_calling",
+          "insight": "Your work must allow for intellectual freedom and social interaction. Isolation and routine drain your creative Mercury energy.",
+          "quality_score": 0.89,
+          "tier": "original"
+        }
+      ]
+    },
+    "seasonal_wisdom": {
+      "description": "How sign energy shifts through cycles",
+      "insights": [
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "seasonal_wisdom",
+          "insight": "Late spring is your natural rhythm—the time of communication, pollination, and ideas spreading on warm breezes. You embody nature's networking season.",
+          "quality_score": 0.92,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Soul Psychologist",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "seasonal_wisdom",
+          "insight": "Summer amplifies your social nature but teaches focus. Not every conversation needs depth; some interactions are meant for pure joy.",
+          "quality_score": 0.88,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Energy Healer",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "seasonal_wisdom",
+          "insight": "Autumn invites you to harvest the wisdom of your wanderings. Reflect on what knowledge serves and what merely entertains.",
+          "quality_score": 0.91,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Mystic Oracle",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "seasonal_wisdom",
+          "insight": "Winter quiets your restless mind, creating space for deeper contemplation. Use this stillness to integrate your scattered discoveries.",
+          "quality_score": 0.89,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Celebration Expansion",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "seasonal_wisdom",
+          "insight": "Each season teaches different aspects of communication. You learn when to speak, when to listen, when to question, when to share.",
+          "quality_score": 0.94,
+          "tier": "original"
+        }
+      ]
+    },
+    "elemental_connection": {
+      "description": "Deep relationship with elemental nature",
+      "insights": [
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "elemental_connection",
+          "insight": "Air is your sacred element—teaching movement, breath, connection, and the invisible bonds that link all consciousness together.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "elemental_connection",
+          "insight": "Your mind moves like wind—swift, changeable, carrying seeds of ideas across vast distances. Honor your mental meteorology.",
+          "quality_score": 0.90,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Consciousness Coach",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "elemental_connection",
+          "insight": "When overwhelmed, return to conscious breathing. Let air element remind you that thoughts, like wind, pass through without permanent residence.",
+          "quality_score": 0.88,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "elemental_connection",
+          "insight": "Air element connects you to the realm of ideas and collective consciousness. You breathe the same thoughts as humanity's greatest minds.",
+          "quality_score": 0.92,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Celebration Expansion",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "elemental_connection",
+          "insight": "Through air element, you teach others to think freely and communicate openly. Your presence gives permission to explore intellectual frontiers.",
+          "quality_score": 0.95,
+          "tier": "original"
+        }
+      ]
+    },
+    "karmic_lessons": {
+      "description": "Soul growth themes and evolution patterns",
+      "insights": [
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Energy Healer",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "karmic_lessons",
+          "insight": "Your soul came to learn the balance between curiosity and commitment. True wisdom comes from exploring deeply, not just widely.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "karmic_lessons",
+          "insight": "Scattered attention becomes focused brilliance when aligned with purpose. Your challenge is choosing which thoughts deserve your energy.",
+          "quality_score": 0.90,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Soul Psychologist",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "karmic_lessons",
+          "insight": "Your journey teaches that communication is sacred responsibility. Words carry power to heal or harm; choose them as medicine.",
+          "quality_score": 0.88,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "karmic_lessons",
+          "insight": "Each incarnation, you perfect the art of conscious communication. This lifetime, master speaking truth with both clarity and compassion.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Gemini",
+          "element": "Air",
+          "modality": "Mutable",
+          "context": "Celebration Expansion",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "karmic_lessons",
+          "insight": "Your soul evolution requires integrating your many selves into coherent wholeness. Unity through diversity is your spiritual assignment.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    }
+  }
+}

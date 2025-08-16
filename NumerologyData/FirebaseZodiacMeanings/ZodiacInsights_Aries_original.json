@@ -1,0 +1,570 @@
+{
+  "zodiac_sign": "Aries",
+  "element": "Fire",
+  "modality": "Cardinal",
+  "archetype": "The Pioneer Warrior",
+  "ruling_planet": "Mars",
+  "total_insights": 1500,
+  "categories": {
+    "personality_depths": {
+      "description": "Core archetypal patterns beyond surface traits",
+      "insights": [
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Morning Awakening",
+          "persona": "Mystic Oracle",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "personality_depths",
+          "insight": "Your pioneer spirit awakens before the world stirs, igniting paths where others see only wilderness. Trust the fire that burns brightest in solitude.",
+          "quality_score": 0.92,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Daily Embodiment",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "personality_depths",
+          "insight": "Your authentic power emerges not through conquest but through conscious choice. Each decision shapes the warrior you're becoming.",
+          "quality_score": 0.89,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Evening Integration",
+          "persona": "Consciousness Coach",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "personality_depths",
+          "insight": "In twilight's pause, recognize that your deepest courage manifests in vulnerability. The bravest warriors know when to lay down their shields.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Crisis Navigation",
+          "persona": "Energy Healer",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "personality_depths",
+          "insight": "When storms rage, your true nature reveals itself: not as reckless force, but as directed lightning. Channel intensity with sacred purpose.",
+          "quality_score": 0.91,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Celebration Expansion",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "personality_depths",
+          "insight": "Victory tastes sweetest when shared. Your leadership blooms through lifting others into their own light, not dimming them with yours.",
+          "quality_score": 0.88,
+          "tier": "original"
+        }
+      ]
+    },
+    "shadow_integration": {
+      "description": "Working with challenging aspects constructively",
+      "insights": [
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "shadow_integration",
+          "insight": "Your impatience is sacred urgency misdirected. Before charging forward, ask: am I running toward purpose or away from stillness?",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Evening Integration",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "shadow_integration",
+          "insight": "When anger flares, remember: Mars energy seeks expression, not destruction. Transform rage into righteous action for what truly matters.",
+          "quality_score": 0.90,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Daily Embodiment",
+          "persona": "Consciousness Coach",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "shadow_integration",
+          "insight": "Your need to be first can eclipse your need to belong. Sometimes the greatest victory is choosing connection over conquest.",
+          "quality_score": 0.87,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Morning Awakening",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "shadow_integration",
+          "insight": "Selfishness transforms into self-sovereignty when filtered through service. Your individual flame brightens the collective fire.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Celebration Expansion",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "shadow_integration",
+          "insight": "Recklessness is courage without wisdom. Pause between impulse and action to let your warrior spirit choose its battles consciously.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    },
+    "spiritual_gifts": {
+      "description": "Natural talents and consciousness contributions",
+      "insights": [
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Morning Awakening",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "spiritual_gifts",
+          "insight": "You carry the spark that ignites others' dreams. Your enthusiasm is not mere energy—it's spiritual catalysis in human form.",
+          "quality_score": 0.91,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Celebration Expansion",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "spiritual_gifts",
+          "insight": "Your gift of initiation breaks stagnant energies wherever you go. You are the cosmic key that unlocks new cycles of growth.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Daily Embodiment",
+          "persona": "Consciousness Coach",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "spiritual_gifts",
+          "insight": "Your presence gives others permission to be bold. Through your courage, timid hearts remember their own warrior nature.",
+          "quality_score": 0.88,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Crisis Navigation",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "spiritual_gifts",
+          "insight": "In chaos, you become clarity incarnate. Your ability to act decisively when others freeze is a sacred service to collective evolution.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Evening Integration",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "spiritual_gifts",
+          "insight": "Your innocence is profound wisdom—approaching each moment with fresh eyes and an undefended heart. This is your superpower.",
+          "quality_score": 0.90,
+          "tier": "original"
+        }
+      ]
+    },
+    "relationship_dynamics": {
+      "description": "How this sign loves, communicates, connects",
+      "insights": [
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Daily Embodiment",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "relationship_dynamics",
+          "insight": "You love with the intensity of first flame—direct, honest, consuming. Your heart knows no halfway; it gives everything or nothing.",
+          "quality_score": 0.89,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Crisis Navigation",
+          "persona": "Energy Healer",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "relationship_dynamics",
+          "insight": "In conflict, you fight for the relationship, not against the person. Your anger is passion seeking deeper understanding.",
+          "quality_score": 0.92,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Celebration Expansion",
+          "persona": "Mystic Oracle",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "relationship_dynamics",
+          "insight": "Your loyalty burns eternal once earned. Friends become family through your fierce devotion to their highest good.",
+          "quality_score": 0.87,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Morning Awakening",
+          "persona": "Consciousness Coach",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "relationship_dynamics",
+          "insight": "You communicate through action more than words. Your love language is shared adventure and mutual respect for independence.",
+          "quality_score": 0.91,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Evening Integration",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "relationship_dynamics",
+          "insight": "True partnership for you means growing stronger individually while standing united. You need equals, not followers.",
+          "quality_score": 0.94,
+          "tier": "original"
+        }
+      ]
+    },
+    "career_calling": {
+      "description": "Life purpose and work expression alignment",
+      "insights": [
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Morning Awakening",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "career_calling",
+          "insight": "Your calling lies where innovation meets service. You're here to pioneer paths that benefit not just yourself, but humanity's evolution.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Crisis Navigation",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "career_calling",
+          "insight": "You thrive in roles where quick thinking and brave action save the day. Emergency response flows through your being naturally.",
+          "quality_score": 0.88,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Daily Embodiment",
+          "persona": "Consciousness Coach",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "career_calling",
+          "insight": "Leadership comes naturally when you stop trying to lead and start following your authentic passion. Others follow your genuine fire.",
+          "quality_score": 0.90,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Celebration Expansion",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "career_calling",
+          "insight": "Entrepreneurship pulses in your cosmic DNA. You're designed to create something from nothing, to birth new realities into existence.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Evening Integration",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "career_calling",
+          "insight": "Your work must honor your need for autonomy. Micromanagement kills your spirit; freedom fuels your genius.",
+          "quality_score": 0.89,
+          "tier": "original"
+        }
+      ]
+    },
+    "seasonal_wisdom": {
+      "description": "How sign energy shifts through cycles",
+      "insights": [
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Morning Awakening",
+          "persona": "Mystic Oracle",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "seasonal_wisdom",
+          "insight": "Spring awakens your deepest nature—fresh starts, new growth, unstoppable life force. You are the cosmic season of beginning.",
+          "quality_score": 0.92,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Evening Integration",
+          "persona": "Energy Healer",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "seasonal_wisdom",
+          "insight": "Summer amplifies your fire but teaches restraint. Not every spark needs to become a wildfire; some moments call for gentle warmth.",
+          "quality_score": 0.88,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "seasonal_wisdom",
+          "insight": "Autumn invites you to harvest the wisdom of your battles. Reflect on what you've conquered and what has conquered you.",
+          "quality_score": 0.91,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Daily Embodiment",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "seasonal_wisdom",
+          "insight": "Winter teaches your fire to burn inward. This is not dormancy but deep preparation for your next magnificent emergence.",
+          "quality_score": 0.89,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Celebration Expansion",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "seasonal_wisdom",
+          "insight": "Each equinox renews your warrior vows. You're eternally reborn, eternally beginning, eternally young in spirit.",
+          "quality_score": 0.94,
+          "tier": "original"
+        }
+      ]
+    },
+    "elemental_connection": {
+      "description": "Deep relationship with elemental nature",
+      "insights": [
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Morning Awakening",
+          "persona": "Energy Healer",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "elemental_connection",
+          "insight": "Fire is your mother tongue—passion, transformation, purification. You speak in the language of living flame and divine spark.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Daily Embodiment",
+          "persona": "Mystic Oracle",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "elemental_connection",
+          "insight": "Your body is a sacred furnace, transforming raw experience into wisdom. Feed your fire with worthy challenges and noble purposes.",
+          "quality_score": 0.90,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Crisis Navigation",
+          "persona": "Consciousness Coach",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "elemental_connection",
+          "insight": "When overwhelmed, return to flame's essence: focus, warmth, illumination. Let your fire burn clean and bright, not wild and destructive.",
+          "quality_score": 0.88,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Evening Integration",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "elemental_connection",
+          "insight": "Fire needs air to breathe, earth to ground it, water to temper it. Seek relationships that provide these balancing elements.",
+          "quality_score": 0.92,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Celebration Expansion",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "elemental_connection",
+          "insight": "Your fire element connects you to the divine creative force. You are the spark that lights the eternal flame of human potential.",
+          "quality_score": 0.95,
+          "tier": "original"
+        }
+      ]
+    },
+    "karmic_lessons": {
+      "description": "Soul growth themes and evolution patterns",
+      "insights": [
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Evening Integration",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "karmic_lessons",
+          "insight": "Your soul came to learn the difference between power and force. True strength whispers while weakness shouts.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "karmic_lessons",
+          "insight": "Patience is your master teacher. Each moment of restraint builds spiritual muscle you'll need for your highest battles.",
+          "quality_score": 0.90,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Daily Embodiment",
+          "persona": "Energy Healer",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "karmic_lessons",
+          "insight": "Your journey teaches that true independence includes interdependence. The strongest warriors know when to ask for help.",
+          "quality_score": 0.88,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Morning Awakening",
+          "persona": "Consciousness Coach",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "karmic_lessons",
+          "insight": "Each incarnation, you perfect the art of conscious initiation. This lifetime, master starting with wisdom, not just courage.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Aries",
+          "element": "Fire",
+          "modality": "Cardinal",
+          "context": "Celebration Expansion",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "karmic_lessons",
+          "insight": "Your soul's evolution requires transforming selfishness into self-mastery. Lead by example, not by demanding others follow.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    }
+  }
+}

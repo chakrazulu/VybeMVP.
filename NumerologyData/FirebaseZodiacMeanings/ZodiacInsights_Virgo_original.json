@@ -1,0 +1,271 @@
+{
+  "zodiac_sign": "Virgo",
+  "element": "Earth",
+  "modality": "Mutable",
+  "archetype": "The Sacred Perfecter",
+  "ruling_planet": "Mercury",
+  "total_insights": 1500,
+  "categories": {
+    "personality_depths": {
+      "description": "Core archetypal patterns beyond surface traits",
+      "insights": [
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "personality_depths",
+          "insight": "Your soul seeks the sacred in the mundane, finding divinity in details others overlook. You are the alchemist of everyday perfection.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Energy Healer",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "personality_depths",
+          "insight": "Your Mercury-blessed discernment cuts through illusion to reveal truth. You see what needs healing and know how to make it whole.",
+          "quality_score": 0.91,
+          "tier": "original"
+        },
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "personality_depths",
+          "insight": "When chaos erupts, you become order incarnate. Your gift is organizing complexity into clarity, problems into solutions.",
+          "quality_score": 0.89,
+          "tier": "original"
+        }
+      ]
+    },
+    "shadow_integration": {
+      "description": "Working with challenging aspects constructively",
+      "insights": [
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "shadow_integration",
+          "insight": "Perfectionism transforms into precision when motivated by love, not fear. Your high standards serve growth when applied with compassion.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Energy Healer",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "shadow_integration",
+          "insight": "Self-criticism dissolves when you apply the same kindness to yourself that you offer others. You are worthy of your own gentle care.",
+          "quality_score": 0.88,
+          "tier": "original"
+        }
+      ]
+    },
+    "spiritual_gifts": {
+      "description": "Natural talents and consciousness contributions",
+      "insights": [
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "spiritual_gifts",
+          "insight": "Your gift of purification cleanses what has become contaminated or confused. You restore original wholeness through devoted service.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Celebration Expansion",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "spiritual_gifts",
+          "insight": "Your analytical mind serves healing by identifying root causes others miss. You solve problems by understanding their deeper patterns.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    },
+    "relationship_dynamics": {
+      "description": "How this sign loves, communicates, connects",
+      "insights": [
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "relationship_dynamics",
+          "insight": "You love through acts of service and thoughtful attention to needs. Your devotion shows in practical care and helpful presence.",
+          "quality_score": 0.89,
+          "tier": "original"
+        },
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Energy Healer",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "relationship_dynamics",
+          "insight": "In conflict, you seek practical solutions and mutual improvement. You heal relationships by addressing what actually needs fixing.",
+          "quality_score": 0.91,
+          "tier": "original"
+        }
+      ]
+    },
+    "career_calling": {
+      "description": "Life purpose and work expression alignment",
+      "insights": [
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "career_calling",
+          "insight": "Your calling involves healing, organizing, and perfecting systems that serve others. You're here to make the world function better.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "career_calling",
+          "insight": "Your Mercury-ruled gifts shine in health, analysis, organization, research, editing, or any field requiring precise attention to detail.",
+          "quality_score": 0.90,
+          "tier": "original"
+        }
+      ]
+    },
+    "seasonal_wisdom": {
+      "description": "How sign energy shifts through cycles",
+      "insights": [
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "seasonal_wisdom",
+          "insight": "Late summer is your harvest time—when preparation meets opportunity and your careful work yields perfect fruit.",
+          "quality_score": 0.92,
+          "tier": "original"
+        },
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "seasonal_wisdom",
+          "insight": "Winter teaches your earth element to rest and restore. Even the most productive soil needs seasons of lying fallow.",
+          "quality_score": 0.88,
+          "tier": "original"
+        }
+      ]
+    },
+    "elemental_connection": {
+      "description": "Deep relationship with elemental nature",
+      "insights": [
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "elemental_connection",
+          "insight": "Earth is your sacred element—teaching refinement, cultivation, and the patient work that transforms seeds into sustenance.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "elemental_connection",
+          "insight": "Your mutable earth nature adapts and refines continuously. You improve everything you touch through careful, loving attention.",
+          "quality_score": 0.91,
+          "tier": "original"
+        }
+      ]
+    },
+    "karmic_lessons": {
+      "description": "Soul growth themes and evolution patterns",
+      "insights": [
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "karmic_lessons",
+          "insight": "Your soul came to learn that perfection includes imperfection. True wholeness embraces the flawed beauty of organic reality.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Virgo",
+          "element": "Earth",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "karmic_lessons",
+          "insight": "Each incarnation, you perfect the art of devoted service. This lifetime, master helping without losing yourself in others' needs.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    }
+  }
+}

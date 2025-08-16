@@ -1,0 +1,570 @@
+{
+  "zodiac_sign": "Taurus",
+  "element": "Earth",
+  "modality": "Fixed",
+  "archetype": "The Sacred Builder",
+  "ruling_planet": "Venus",
+  "total_insights": 1500,
+  "categories": {
+    "personality_depths": {
+      "description": "Core archetypal patterns beyond surface traits",
+      "insights": [
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Morning Awakening",
+          "persona": "Energy Healer",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "personality_depths",
+          "insight": "Your soul moves like deep rivers—unhurried yet unstoppable. Beneath your gentle presence flows the power to reshape landscapes through patient persistence.",
+          "quality_score": 0.91,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Daily Embodiment",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "personality_depths",
+          "insight": "You embody the wisdom of seasons—knowing when to plant, tend, and harvest. Your timing aligns with natural law, not human urgency.",
+          "quality_score": 0.89,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Evening Integration",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "personality_depths",
+          "insight": "Your authentic power emerges through rootedness, not resistance. Like ancient trees, you grow stronger by accepting what is while reaching toward light.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "personality_depths",
+          "insight": "When storms rage, you become the shelter others seek. Your stability is not stubbornness but sacred service to collective security.",
+          "quality_score": 0.92,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Celebration Expansion",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "personality_depths",
+          "insight": "Your joy radiates through your senses—the way you savor beauty, touch, taste, and sound creates sacred moments for everyone present.",
+          "quality_score": 0.88,
+          "tier": "original"
+        }
+      ]
+    },
+    "shadow_integration": {
+      "description": "Working with challenging aspects constructively",
+      "insights": [
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Crisis Navigation",
+          "persona": "Energy Healer",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "shadow_integration",
+          "insight": "Stubbornness transforms into sacred commitment when aligned with higher purpose. Ask: am I holding on from fear or love?",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Daily Embodiment",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "shadow_integration",
+          "insight": "Your fear of change often masks deep wisdom about timing. Honor your need for stability while staying open to growth's call.",
+          "quality_score": 0.90,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Evening Integration",
+          "persona": "Consciousness Coach",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "shadow_integration",
+          "insight": "Possessiveness dissolves when you remember that true security comes from within. Release your grip to receive abundance freely.",
+          "quality_score": 0.87,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Morning Awakening",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "shadow_integration",
+          "insight": "Laziness is mislabeled restoration. Your body's wisdom knows when to rest, when to move, when to be productive, when to simply be.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Celebration Expansion",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "shadow_integration",
+          "insight": "Materialism transforms into appreciation when you see the sacred in physical form. Every object holds spirit waiting to be honored.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    },
+    "spiritual_gifts": {
+      "description": "Natural talents and consciousness contributions",
+      "insights": [
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Morning Awakening",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "spiritual_gifts",
+          "insight": "You anchor heaven to earth through your presence. Your gift is making the mystical practical, the spiritual sensual.",
+          "quality_score": 0.91,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Celebration Expansion",
+          "persona": "Energy Healer",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "spiritual_gifts",
+          "insight": "Your Venus-blessed nature transforms spaces into sanctuaries. Beauty flows through your hands, creating healing environments wherever you go.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Daily Embodiment",
+          "persona": "Mystic Oracle",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "spiritual_gifts",
+          "insight": "You teach others to trust the wisdom of the body. Through your example, minds learn to listen to the intelligence of flesh and bone.",
+          "quality_score": 0.88,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "spiritual_gifts",
+          "insight": "Your gift of steadiness creates safety for others' transformation. You hold space while souls shed old skins and emerge renewed.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Evening Integration",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "spiritual_gifts",
+          "insight": "You magnetize abundance through appreciation. Your gratitude becomes a gravitational force that draws resources and opportunities naturally.",
+          "quality_score": 0.90,
+          "tier": "original"
+        }
+      ]
+    },
+    "relationship_dynamics": {
+      "description": "How this sign loves, communicates, connects",
+      "insights": [
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Daily Embodiment",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "relationship_dynamics",
+          "insight": "You love through consistent presence and sensual devotion. Your affection is felt through touch, shared meals, and comfortable silences.",
+          "quality_score": 0.89,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Crisis Navigation",
+          "persona": "Consciousness Coach",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "relationship_dynamics",
+          "insight": "In conflict, you seek resolution through practical solutions and patient understanding. You heal relationships by creating safe ground for truth.",
+          "quality_score": 0.92,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Celebration Expansion",
+          "persona": "Soul Psychologist",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "relationship_dynamics",
+          "insight": "Your loyalty runs as deep as roots in rich soil. Once you commit, you tend relationships with the devotion of a master gardener.",
+          "quality_score": 0.87,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Morning Awakening",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "relationship_dynamics",
+          "insight": "You communicate through creating beauty together—shared gardens, meals, artistic projects. Your love language is collaborative creation.",
+          "quality_score": 0.91,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Evening Integration",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "relationship_dynamics",
+          "insight": "Partnership for you means building something lasting together. You need relationships that grow stronger with time, like fine wine aging.",
+          "quality_score": 0.94,
+          "tier": "original"
+        }
+      ]
+    },
+    "career_calling": {
+      "description": "Life purpose and work expression alignment",
+      "insights": [
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Morning Awakening",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "career_calling",
+          "insight": "Your calling involves making the world more beautiful, stable, or nourishing. You're here to create lasting value that serves future generations.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Crisis Navigation",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "career_calling",
+          "insight": "You excel in roles requiring patience, persistence, and attention to quality. Your work ethic is steady improvement, not frantic productivity.",
+          "quality_score": 0.88,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Daily Embodiment",
+          "persona": "Energy Healer",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "career_calling",
+          "insight": "Financial security matters because it allows you to focus on what truly matters—creating beauty, comfort, and stability for yourself and others.",
+          "quality_score": 0.90,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Celebration Expansion",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "career_calling",
+          "insight": "Your Venus-ruled gifts shine in fields involving beauty, harmony, nature, food, music, or healing. You make life more pleasurable for others.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Evening Integration",
+          "persona": "Mystic Oracle",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "career_calling",
+          "insight": "Your work must honor your values and allow for sustainable pace. You thrive when your labor bears fruit you can see and touch.",
+          "quality_score": 0.89,
+          "tier": "original"
+        }
+      ]
+    },
+    "seasonal_wisdom": {
+      "description": "How sign energy shifts through cycles",
+      "insights": [
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Morning Awakening",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "seasonal_wisdom",
+          "insight": "Spring is your natural domain—the time of planting, budding, and Earth's sensual awakening. You embody the season of fertile possibility.",
+          "quality_score": 0.92,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Evening Integration",
+          "persona": "Consciousness Coach",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "seasonal_wisdom",
+          "insight": "Summer teaches you to enjoy the fruits of your labor. This is your time to bask in beauty and appreciate abundance you've cultivated.",
+          "quality_score": 0.88,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Crisis Navigation",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "seasonal_wisdom",
+          "insight": "Autumn invites you to harvest what serves and release what depletes. Your wisdom lies in knowing which attachments nourish versus drain.",
+          "quality_score": 0.91,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Daily Embodiment",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "seasonal_wisdom",
+          "insight": "Winter grounds your soul in essential values. Stripped of excess, you discover what truly matters and what genuinely sustains you.",
+          "quality_score": 0.89,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Celebration Expansion",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "seasonal_wisdom",
+          "insight": "Each season teaches patience and presence. You honor natural timing, knowing that rushing never improves the quality of growth.",
+          "quality_score": 0.94,
+          "tier": "original"
+        }
+      ]
+    },
+    "elemental_connection": {
+      "description": "Deep relationship with elemental nature",
+      "insights": [
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Morning Awakening",
+          "persona": "Consciousness Coach",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "elemental_connection",
+          "insight": "Earth is your sacred teacher—showing you the power of groundedness, the beauty of slow growth, the strength found in deep roots.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Daily Embodiment",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "elemental_connection",
+          "insight": "Your body is earth incarnate—sensual, fertile, responsive to touch and rhythm. Honor your physical temple as sacred ground.",
+          "quality_score": 0.90,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Crisis Navigation",
+          "persona": "Mystic Oracle",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "elemental_connection",
+          "insight": "When overwhelmed, return to earth's embrace—walk barefoot, tend plants, touch stone. Let the planet's stability restore your center.",
+          "quality_score": 0.88,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Evening Integration",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "elemental_connection",
+          "insight": "Earth element connects you to abundance consciousness. You understand that the planet provides everything needed for thriving, not just surviving.",
+          "quality_score": 0.92,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Celebration Expansion",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "elemental_connection",
+          "insight": "Through earth element, you teach others to inhabit their bodies fully. Your presence gives permission to embrace the sensual sacred.",
+          "quality_score": 0.95,
+          "tier": "original"
+        }
+      ]
+    },
+    "karmic_lessons": {
+      "description": "Soul growth themes and evolution patterns",
+      "insights": [
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Evening Integration",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "karmic_lessons",
+          "insight": "Your soul came to learn the balance between holding on and letting go. True security comes from trusting flow, not controlling outcomes.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Crisis Navigation",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "karmic_lessons",
+          "insight": "Comfort zones become spiritual classrooms. Each time you resist necessary change, life gently but persistently invites growth.",
+          "quality_score": 0.90,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Daily Embodiment",
+          "persona": "Consciousness Coach",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "karmic_lessons",
+          "insight": "Your journey teaches that matter and spirit are one. Healing the separation between material and mystical is your sacred assignment.",
+          "quality_score": 0.88,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Morning Awakening",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "karmic_lessons",
+          "insight": "Each incarnation, you perfect the art of sustainable creation. This lifetime, master building beauty that outlasts your physical presence.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Taurus",
+          "element": "Earth",
+          "modality": "Fixed",
+          "context": "Celebration Expansion",
+          "persona": "Mystic Oracle",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "karmic_lessons",
+          "insight": "Your soul evolution requires transforming possessiveness into appreciation. Love by allowing freedom, not by grasping tightly.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    }
+  }
+}

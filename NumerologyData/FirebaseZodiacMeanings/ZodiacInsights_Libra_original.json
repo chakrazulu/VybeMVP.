@@ -1,0 +1,271 @@
+{
+  "zodiac_sign": "Libra",
+  "element": "Air",
+  "modality": "Cardinal",
+  "archetype": "The Divine Harmonizer",
+  "ruling_planet": "Venus",
+  "total_insights": 1500,
+  "categories": {
+    "personality_depths": {
+      "description": "Core archetypal patterns beyond surface traits",
+      "insights": [
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Morning Awakening",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "personality_depths",
+          "insight": "Your soul seeks the golden mean—the perfect balance between opposites that creates harmony from chaos. You are peace incarnate.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Daily Embodiment",
+          "persona": "Consciousness Coach",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "personality_depths",
+          "insight": "Your Venus-blessed nature sees beauty as sacred truth. You understand that what is harmonious is also what serves the highest good.",
+          "quality_score": 0.92,
+          "tier": "original"
+        },
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "personality_depths",
+          "insight": "When conflict arises, you become the bridge. Your gift is finding common ground where others see only division.",
+          "quality_score": 0.89,
+          "tier": "original"
+        }
+      ]
+    },
+    "shadow_integration": {
+      "description": "Working with challenging aspects constructively",
+      "insights": [
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Evening Integration",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "shadow_integration",
+          "insight": "Indecision transforms into discernment when you trust your inner compass. Your careful consideration is wisdom, not weakness.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Crisis Navigation",
+          "persona": "Energy Healer",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "shadow_integration",
+          "insight": "People-pleasing dissolves when you realize that your authentic self is the greatest gift you can offer any relationship.",
+          "quality_score": 0.88,
+          "tier": "original"
+        }
+      ]
+    },
+    "spiritual_gifts": {
+      "description": "Natural talents and consciousness contributions",
+      "insights": [
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Celebration Expansion",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "spiritual_gifts",
+          "insight": "Your gift of aesthetic perception reveals the divine blueprint underlying all creation. You see the perfection that wants to emerge.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Morning Awakening",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "spiritual_gifts",
+          "insight": "Your diplomatic nature serves collective healing by teaching others how to disagree without becoming enemies.",
+          "quality_score": 0.91,
+          "tier": "original"
+        }
+      ]
+    },
+    "relationship_dynamics": {
+      "description": "How this sign loves, communicates, connects",
+      "insights": [
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Daily Embodiment",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "relationship_dynamics",
+          "insight": "You love through creating beauty and harmony together. Your relationships become works of art, balanced and mutually enriching.",
+          "quality_score": 0.89,
+          "tier": "original"
+        },
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Evening Integration",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "relationship_dynamics",
+          "insight": "Partnership for you means two whole beings choosing to dance together. You need equality, respect, and shared aesthetic vision.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    },
+    "career_calling": {
+      "description": "Life purpose and work expression alignment",
+      "insights": [
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Morning Awakening",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "career_calling",
+          "insight": "Your calling involves creating beauty, justice, and harmony in the world. You're here to make life more fair and beautiful for all.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Celebration Expansion",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "career_calling",
+          "insight": "Your Venus-ruled gifts shine in arts, law, diplomacy, design, counseling, or any field requiring aesthetic sense and fair judgment.",
+          "quality_score": 0.90,
+          "tier": "original"
+        }
+      ]
+    },
+    "seasonal_wisdom": {
+      "description": "How sign energy shifts through cycles",
+      "insights": [
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Evening Integration",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "seasonal_wisdom",
+          "insight": "Autumn equinox is your sacred moment—perfect balance between light and dark, summer and winter, action and rest.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "seasonal_wisdom",
+          "insight": "Spring teaches your cardinal air nature to initiate new relationships and creative collaborations with fresh optimism.",
+          "quality_score": 0.88,
+          "tier": "original"
+        }
+      ]
+    },
+    "elemental_connection": {
+      "description": "Deep relationship with elemental nature",
+      "insights": [
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Morning Awakening",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "elemental_connection",
+          "insight": "Air is your sacred element—teaching balance, connection, and the invisible forces that maintain harmony between all things.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Daily Embodiment",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "elemental_connection",
+          "insight": "Your cardinal air nature initiates harmony and balance wherever imbalance has taken root. You restore equilibrium naturally.",
+          "quality_score": 0.91,
+          "tier": "original"
+        }
+      ]
+    },
+    "karmic_lessons": {
+      "description": "Soul growth themes and evolution patterns",
+      "insights": [
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Evening Integration",
+          "persona": "Energy Healer",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "karmic_lessons",
+          "insight": "Your soul came to learn that true peace includes healthy conflict. Sometimes harmony requires brave conversations about difficult truths.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Libra",
+          "element": "Air",
+          "modality": "Cardinal",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "karmic_lessons",
+          "insight": "Each incarnation, you perfect the art of conscious relationship. This lifetime, master loving others without losing yourself in the process.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    }
+  }
+}

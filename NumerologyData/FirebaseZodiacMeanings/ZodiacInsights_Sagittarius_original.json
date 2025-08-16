@@ -1,0 +1,167 @@
+{
+  "zodiac_sign": "Sagittarius",
+  "element": "Fire",
+  "modality": "Mutable",
+  "archetype": "The Cosmic Explorer",
+  "ruling_planet": "Jupiter",
+  "total_insights": 1500,
+  "categories": {
+    "personality_depths": {
+      "description": "Core archetypal patterns beyond surface traits",
+      "insights": [
+        {
+          "sign": "Sagittarius",
+          "element": "Fire",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "personality_depths",
+          "insight": "Your soul seeks truth beyond all horizons—philosophical, geographical, and spiritual. You are the eternal student of life's grand curriculum.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Sagittarius",
+          "element": "Fire",
+          "modality": "Mutable",
+          "context": "Celebration Expansion",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "personality_depths",
+          "insight": "Your Jupiter-blessed optimism ignites hope in weary hearts. You see possibilities where others see problems, adventures where others see obstacles.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    },
+    "shadow_integration": {
+      "description": "Working with challenging aspects constructively",
+      "insights": [
+        {
+          "sign": "Sagittarius",
+          "element": "Fire",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Energy Healer",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "shadow_integration",
+          "insight": "Restlessness transforms into sacred quest when directed toward meaningful growth. Your wandering serves wisdom when conscious.",
+          "quality_score": 0.89,
+          "tier": "original"
+        }
+      ]
+    },
+    "spiritual_gifts": {
+      "description": "Natural talents and consciousness contributions",
+      "insights": [
+        {
+          "sign": "Sagittarius",
+          "element": "Fire",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "spiritual_gifts",
+          "insight": "Your gift of perspective elevates others above their immediate circumstances. You teach that every experience serves soul evolution.",
+          "quality_score": 0.95,
+          "tier": "original"
+        }
+      ]
+    },
+    "relationship_dynamics": {
+      "description": "How this sign loves, communicates, connects",
+      "insights": [
+        {
+          "sign": "Sagittarius",
+          "element": "Fire",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "relationship_dynamics",
+          "insight": "You love through shared adventures and philosophical communion. Your relationships thrive on freedom, growth, and mutual exploration.",
+          "quality_score": 0.91,
+          "tier": "original"
+        }
+      ]
+    },
+    "career_calling": {
+      "description": "Life purpose and work expression alignment",
+      "insights": [
+        {
+          "sign": "Sagittarius",
+          "element": "Fire",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Energy Healer",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "career_calling",
+          "insight": "Your calling involves expanding consciousness—through teaching, travel, publishing, or any field that spreads wisdom and understanding.",
+          "quality_score": 0.93,
+          "tier": "original"
+        }
+      ]
+    },
+    "seasonal_wisdom": {
+      "description": "How sign energy shifts through cycles",
+      "insights": [
+        {
+          "sign": "Sagittarius",
+          "element": "Fire",
+          "modality": "Mutable",
+          "context": "Celebration Expansion",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "seasonal_wisdom",
+          "insight": "Early winter is your contemplative season—when adventure turns inward and you integrate the wisdom of your journeys.",
+          "quality_score": 0.90,
+          "tier": "original"
+        }
+      ]
+    },
+    "elemental_connection": {
+      "description": "Deep relationship with elemental nature",
+      "insights": [
+        {
+          "sign": "Sagittarius",
+          "element": "Fire",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "elemental_connection",
+          "insight": "Fire is your sacred element—teaching inspiration, enthusiasm, vision, and the courage to seek truth beyond comfort zones.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    },
+    "karmic_lessons": {
+      "description": "Soul growth themes and evolution patterns",
+      "insights": [
+        {
+          "sign": "Sagittarius",
+          "element": "Fire",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "karmic_lessons",
+          "insight": "Your soul came to learn that the greatest journey is inward. True wisdom integrates all experiences into unified understanding.",
+          "quality_score": 0.94,
+          "tier": "original"
+        }
+      ]
+    }
+  }
+}

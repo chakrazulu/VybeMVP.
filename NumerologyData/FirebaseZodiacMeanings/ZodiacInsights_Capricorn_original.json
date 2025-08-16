@@ -1,0 +1,167 @@
+{
+  "zodiac_sign": "Capricorn",
+  "element": "Earth",
+  "modality": "Cardinal",
+  "archetype": "The Sacred Mountain",
+  "ruling_planet": "Saturn",
+  "total_insights": 1500,
+  "categories": {
+    "personality_depths": {
+      "description": "Core archetypal patterns beyond surface traits",
+      "insights": [
+        {
+          "sign": "Capricorn",
+          "element": "Earth",
+          "modality": "Cardinal",
+          "context": "Morning Awakening",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "personality_depths",
+          "insight": "Your soul climbs toward mastery with patient determination. You understand that true achievement requires both vision and endurance.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Capricorn",
+          "element": "Earth",
+          "modality": "Cardinal",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "personality_depths",
+          "insight": "Your Saturn-blessed nature transforms obstacles into stepping stones. You build lasting structures that serve generations.",
+          "quality_score": 0.91,
+          "tier": "original"
+        }
+      ]
+    },
+    "shadow_integration": {
+      "description": "Working with challenging aspects constructively",
+      "insights": [
+        {
+          "sign": "Capricorn",
+          "element": "Earth",
+          "modality": "Cardinal",
+          "context": "Evening Integration",
+          "persona": "Consciousness Coach",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "shadow_integration",
+          "insight": "Rigidity dissolves when you remember that flexibility serves structure. The strongest mountains bend with the wind rather than breaking.",
+          "quality_score": 0.89,
+          "tier": "original"
+        }
+      ]
+    },
+    "spiritual_gifts": {
+      "description": "Natural talents and consciousness contributions",
+      "insights": [
+        {
+          "sign": "Capricorn",
+          "element": "Earth",
+          "modality": "Cardinal",
+          "context": "Daily Embodiment",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "spiritual_gifts",
+          "insight": "Your gift of strategic wisdom helps others build sustainable success. You see the path from vision to manifestation.",
+          "quality_score": 0.94,
+          "tier": "original"
+        }
+      ]
+    },
+    "relationship_dynamics": {
+      "description": "How this sign loves, communicates, connects",
+      "insights": [
+        {
+          "sign": "Capricorn",
+          "element": "Earth",
+          "modality": "Cardinal",
+          "context": "Celebration Expansion",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "relationship_dynamics",
+          "insight": "You love through commitment and building something lasting together. Your devotion shows in long-term investment and faithful presence.",
+          "quality_score": 0.90,
+          "tier": "original"
+        }
+      ]
+    },
+    "career_calling": {
+      "description": "Life purpose and work expression alignment",
+      "insights": [
+        {
+          "sign": "Capricorn",
+          "element": "Earth",
+          "modality": "Cardinal",
+          "context": "Morning Awakening",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "career_calling",
+          "insight": "Your calling involves creating lasting value and responsible leadership. You're here to build foundations that support collective progress.",
+          "quality_score": 0.95,
+          "tier": "original"
+        }
+      ]
+    },
+    "seasonal_wisdom": {
+      "description": "How sign energy shifts through cycles",
+      "insights": [
+        {
+          "sign": "Capricorn",
+          "element": "Earth",
+          "modality": "Cardinal",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "seasonal_wisdom",
+          "insight": "Winter solstice marks your spiritual birthday—when darkness yields to light and steady effort prepares for spring's emergence.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    },
+    "elemental_connection": {
+      "description": "Deep relationship with elemental nature",
+      "insights": [
+        {
+          "sign": "Capricorn",
+          "element": "Earth",
+          "modality": "Cardinal",
+          "context": "Daily Embodiment",
+          "persona": "Consciousness Coach",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "elemental_connection",
+          "insight": "Earth is your sacred element—teaching structure, endurance, manifestation, and the patience required for authentic mastery.",
+          "quality_score": 0.93,
+          "tier": "original"
+        }
+      ]
+    },
+    "karmic_lessons": {
+      "description": "Soul growth themes and evolution patterns",
+      "insights": [
+        {
+          "sign": "Capricorn",
+          "element": "Earth",
+          "modality": "Cardinal",
+          "context": "Evening Integration",
+          "persona": "Energy Healer",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "karmic_lessons",
+          "insight": "Your soul came to learn that true authority serves others' highest good. Real power builds others up rather than keeping them dependent.",
+          "quality_score": 0.94,
+          "tier": "original"
+        }
+      ]
+    }
+  }
+}

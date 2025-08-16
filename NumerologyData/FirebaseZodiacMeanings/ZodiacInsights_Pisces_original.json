@@ -1,0 +1,271 @@
+{
+  "zodiac_sign": "Pisces",
+  "element": "Water",
+  "modality": "Mutable",
+  "archetype": "The Cosmic Dreamer",
+  "ruling_planet": "Neptune",
+  "total_insights": 1500,
+  "categories": {
+    "personality_depths": {
+      "description": "Core archetypal patterns beyond surface traits",
+      "insights": [
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "personality_depths",
+          "insight": "Your soul swims in the cosmic ocean of universal consciousness. You are the bridge between material reality and infinite possibility.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Soul Psychologist",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "personality_depths",
+          "insight": "Your Neptune-blessed compassion dissolves the illusion of separation. You feel what others feel because you know all consciousness is one.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "personality_depths",
+          "insight": "When others lose faith, you become the keeper of dreams. Your gift is seeing the divine potential that lives within every broken situation.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    },
+    "shadow_integration": {
+      "description": "Working with challenging aspects constructively",
+      "insights": [
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Consciousness Coach",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "shadow_integration",
+          "insight": "Escapism transforms into transcendence when directed toward service. Your retreat from harsh reality can become sanctuary for healing.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Energy Healer",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "shadow_integration",
+          "insight": "Boundary confusion dissolves when you remember that loving others includes loving yourself. Compassion flows both ways.",
+          "quality_score": 0.89,
+          "tier": "original"
+        }
+      ]
+    },
+    "spiritual_gifts": {
+      "description": "Natural talents and consciousness contributions",
+      "insights": [
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Celebration Expansion",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "spiritual_gifts",
+          "insight": "Your gift of unconditional love heals the wounds that separate beings from their divine nature. You remind others of their sacred essence.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "spiritual_gifts",
+          "insight": "Your Neptune-ruled intuition accesses wisdom beyond logic. You know things through feeling that others miss through thinking.",
+          "quality_score": 0.91,
+          "tier": "original"
+        }
+      ]
+    },
+    "relationship_dynamics": {
+      "description": "How this sign loves, communicates, connects",
+      "insights": [
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "relationship_dynamics",
+          "insight": "You love with oceanic depth and spiritual devotion. Your heart opens to include the divine presence you recognize in every being.",
+          "quality_score": 0.93,
+          "tier": "original"
+        },
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Consciousness Coach",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "relationship_dynamics",
+          "insight": "Partnership for you means soul communion and mutual spiritual growth. You need relationships that honor both feeling and transcendence.",
+          "quality_score": 0.90,
+          "tier": "original"
+        }
+      ]
+    },
+    "career_calling": {
+      "description": "Life purpose and work expression alignment",
+      "insights": [
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "career_calling",
+          "insight": "Your calling involves healing, creative expression, and spiritual service. You're here to bring heaven's compassion to earth's suffering.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Celebration Expansion",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "career_calling",
+          "insight": "Your Neptune-ruled gifts shine in arts, healing, spirituality, charity work, or any field requiring boundless compassion and imagination.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    },
+    "seasonal_wisdom": {
+      "description": "How sign energy shifts through cycles",
+      "insights": [
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Morning Awakening",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "seasonal_wisdom",
+          "insight": "Late winter is your dissolution season—when boundaries soften, old patterns release, and new life stirs beneath frozen surfaces.",
+          "quality_score": 0.91,
+          "tier": "original"
+        },
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Soul Psychologist",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "seasonal_wisdom",
+          "insight": "Summer teaches your mutable water nature to flow with life's rhythms while maintaining your essential compassionate core.",
+          "quality_score": 0.88,
+          "tier": "original"
+        }
+      ]
+    },
+    "elemental_connection": {
+      "description": "Deep relationship with elemental nature",
+      "insights": [
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "elemental_connection",
+          "insight": "Water is your sacred element—teaching flow, compassion, unity, and the dissolving power that returns all forms to source.",
+          "quality_score": 0.94,
+          "tier": "original"
+        },
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Daily Embodiment",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "elemental_connection",
+          "insight": "Your mutable water nature adapts to every container while maintaining its essential purity. You bring healing wherever you flow.",
+          "quality_score": 0.90,
+          "tier": "original"
+        }
+      ]
+    },
+    "karmic_lessons": {
+      "description": "Soul growth themes and evolution patterns",
+      "insights": [
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Crisis Navigation",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "karmic_lessons",
+          "insight": "Your soul came to learn that compassion includes boundaries. True service requires discernment about when to give and when to receive.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Pisces",
+          "element": "Water",
+          "modality": "Mutable",
+          "context": "Evening Integration",
+          "persona": "Soul Psychologist",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Numerological Intelligence",
+          "category": "karmic_lessons",
+          "insight": "Each incarnation, you perfect the art of conscious sacrifice. This lifetime, master surrendering ego while preserving your essential divine nature.",
+          "quality_score": 0.93,
+          "tier": "original"
+        }
+      ]
+    }
+  }
+}

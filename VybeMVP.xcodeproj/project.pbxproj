@@ -364,6 +364,9 @@
 		4DA98FCA2E073CB100FAE5FF /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98FC92E073CB100FAE5FF /* Report.swift */; };
 		4DA98FCC2E073CDC00FAE5FF /* ReportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98FCB2E073CDC00FAE5FF /* ReportManager.swift */; };
 		4DA98FCE2E073D0000FAE5FF /* ReportContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA98FCD2E073D0000FAE5FF /* ReportContentView.swift */; };
+		4DAAD7442E4EE4FE00B064C1 /* DeployMultiplicationAgents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAAD7412E4EE4FE00B064C1 /* DeployMultiplicationAgents.swift */; };
+		4DAAD7452E4EE4FE00B064C1 /* NumberMultiplicationSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAAD7422E4EE4FE00B064C1 /* NumberMultiplicationSystem.swift */; };
+		4DAAD7472E4EF42F00B064C1 /* FirebaseInsightsMultiplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAAD7462E4EF42F00B064C1 /* FirebaseInsightsMultiplier.swift */; };
 		4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */; };
 		4DB1B4B42E483D9300F1585A /* VYBEOS-DOCUMENTATION-ECOSYSTEM.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4B32E483D9300F1585A /* VYBEOS-DOCUMENTATION-ECOSYSTEM.md */; };
 		4DB1B4B82E48415900F1585A /* KASPER-CORE-REFERENCE.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4B72E48415900F1585A /* KASPER-CORE-REFERENCE.md */; };
@@ -950,6 +953,9 @@
 		4DA98FC92E073CB100FAE5FF /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		4DA98FCB2E073CDC00FAE5FF /* ReportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportManager.swift; sourceTree = "<group>"; };
 		4DA98FCD2E073D0000FAE5FF /* ReportContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportContentView.swift; sourceTree = "<group>"; };
+		4DAAD7412E4EE4FE00B064C1 /* DeployMultiplicationAgents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeployMultiplicationAgents.swift; sourceTree = "<group>"; };
+		4DAAD7422E4EE4FE00B064C1 /* NumberMultiplicationSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMultiplicationSystem.swift; sourceTree = "<group>"; };
+		4DAAD7462E4EF42F00B064C1 /* FirebaseInsightsMultiplier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseInsightsMultiplier.swift; sourceTree = "<group>"; };
 		4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusMatch.swift; sourceTree = "<group>"; };
 		4DB1B4B32E483D9300F1585A /* VYBEOS-DOCUMENTATION-ECOSYSTEM.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "VYBEOS-DOCUMENTATION-ECOSYSTEM.md"; sourceTree = "<group>"; };
 		4DB1B4B72E48415900F1585A /* KASPER-CORE-REFERENCE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "KASPER-CORE-REFERENCE.md"; sourceTree = "<group>"; };
@@ -1959,6 +1965,7 @@
 		4DA359AE2E3F135B0010101F /* KASPERMLX */ = {
 			isa = PBXGroup;
 			children = (
+				4DAAD7432E4EE4FE00B064C1 /* FirebaseInsights */,
 				4D7CCC822E4EC8D5001642EF /* ContentSelection */,
 				4D6529D62E4D687D00F521E1 /* InsightFusion */,
 				4D6528CA2E4C478100F521E1 /* PersonaTraining */,
@@ -1987,6 +1994,16 @@
 				4DA359BB2E3FF6380010101F /* SpiritualInsightSchema.json */,
 			);
 			path = Documentation;
+			sourceTree = "<group>";
+		};
+		4DAAD7432E4EE4FE00B064C1 /* FirebaseInsights */ = {
+			isa = PBXGroup;
+			children = (
+				4DAAD7462E4EF42F00B064C1 /* FirebaseInsightsMultiplier.swift */,
+				4DAAD7412E4EE4FE00B064C1 /* DeployMultiplicationAgents.swift */,
+				4DAAD7422E4EE4FE00B064C1 /* NumberMultiplicationSystem.swift */,
+			);
+			path = FirebaseInsights;
 			sourceTree = "<group>";
 		};
 		4DB1DE8D2E22A5C2001A9EA5 /* assets */ = {
@@ -2863,6 +2880,8 @@
 				4D3055C62D3CB201009A7BBD /* UserPreferences+Helper.swift in Sources */,
 				4DA642642D8122590047287B /* HealthKitManaging.swift in Sources */,
 				4DB233FF2E121BF7004EC2BC /* PerformanceMonitor.swift in Sources */,
+				4DAAD7442E4EE4FE00B064C1 /* DeployMultiplicationAgents.swift in Sources */,
+				4DAAD7452E4EE4FE00B064C1 /* NumberMultiplicationSystem.swift in Sources */,
 				4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */,
 				4D6529D72E4D687D00F521E1 /* InsightFusionManager.swift in Sources */,
 				4D9396192E07578200955980 /* SacredGeometryView.swift in Sources */,
@@ -3032,6 +3051,7 @@
 				4D92F4BB2D4DE1E80001A16E /* JournalManager.swift in Sources */,
 				4D55BE5F2E3AC55400F7BE5B /* CosmicHUDTypes.swift in Sources */,
 				4DE4C3822DB393DA00BB7572 /* NumerologyNotificationTester.swift in Sources */,
+				4DAAD7472E4EF42F00B064C1 /* FirebaseInsightsMultiplier.swift in Sources */,
 				4D6C7B632DE46A33001036E5 /* BirthdateInputView.swift in Sources */,
 				4D731D2C2E44A34F0083C82C /* SpiritualFont.swift in Sources */,
 				4D92F4BC2D4DE1E80001A16E /* RealmNumberManager.swift in Sources */,

@@ -1,0 +1,1036 @@
+{
+  "planet": "Jupiter",
+  "archetype": "The Great Benefactor",
+  "element": "Expansion",
+  "psychological_focus": "Growth patterns, wisdom seeking, expansion methods, belief systems, opportunity recognition",
+  "categories": {
+    "core_archetype": [
+      {
+        "insight": "Jupiter's essence lives in your capacity to see possibility where others see limitation.",
+        "context": "Daily Embodiment",
+        "persona": "Mystic Oracle",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "expansion_consciousness",
+        "integration_practice": "possibility_meditation",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Your Jupiter nature expands through generosity, but wisdom knows when expansion becomes excess.",
+        "context": "Evening Integration",
+        "persona": "Soul Psychologist",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "balanced_growth",
+        "integration_practice": "abundance_reflection",
+        "quality_score": 0.94
+      },
+      {
+        "insight": "Faith is Jupiter's gift to consciousness - not blind belief, but trust in life's inherent intelligence.",
+        "context": "Morning Awakening",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "trust_development",
+        "integration_practice": "morning_faith_practice",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Jupiter teaches that true wealth is measured in wisdom gained, not possessions accumulated.",
+        "context": "Crisis Navigation",
+        "persona": "Consciousness Coach",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "wisdom_accumulation",
+        "integration_practice": "crisis_wisdom_extraction",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Your optimism becomes medicine when grounded in reality rather than escaping from it.",
+        "context": "Celebration Expansion",
+        "persona": "Energy Healer",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "grounded_optimism",
+        "integration_practice": "celebration_grounding",
+        "quality_score": 0.90
+      },
+      {
+        "insight": "Jupiter's laughter heals what Saturn's seriousness cannot touch. Let joy be your teacher too.",
+        "context": "Daily Embodiment",
+        "persona": "Mystic Oracle",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "joy_cultivation",
+        "integration_practice": "laughter_meditation",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Expansion without integration creates chaos. Jupiter wisdom knows when to pause and digest.",
+        "context": "Evening Integration",
+        "persona": "Soul Psychologist",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "integration_pausing",
+        "integration_practice": "evening_digestion_practice",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Your philosophical nature seeks meaning in everything. Sometimes meaning emerges from simply being.",
+        "context": "Morning Awakening",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "meaning_seeking",
+        "integration_practice": "being_meditation",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Jupiter consciousness sees the teacher in every experience, the blessing in every challenge.",
+        "context": "Crisis Navigation",
+        "persona": "Consciousness Coach",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "teaching_recognition",
+        "integration_practice": "challenge_reframing",
+        "quality_score": 0.94
+      },
+      {
+        "insight": "True abundance flows when you become the channel, not the reservoir, of Jupiter's gifts.",
+        "context": "Celebration Expansion",
+        "persona": "Energy Healer",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "abundance_flow",
+        "integration_practice": "generosity_practice",
+        "quality_score": 0.92
+      }
+    ],
+    "daily_manifestation": [
+      {
+        "insight": "Jupiter shows up as the voice saying 'yes' to growth, even when comfort says 'stay'.",
+        "context": "Daily Embodiment",
+        "persona": "Consciousness Coach",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "growth_acceptance",
+        "integration_practice": "daily_yes_practice",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Notice how Jupiter inflates small victories into confidence and minor setbacks into catastrophes.",
+        "context": "Evening Integration",
+        "persona": "Soul Psychologist",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "proportion_awareness",
+        "integration_practice": "perspective_balancing",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Your appetite for more - knowledge, experience, connection - is Jupiter seeking expansion through you.",
+        "context": "Morning Awakening",
+        "persona": "Mystic Oracle",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "appetite_recognition",
+        "integration_practice": "morning_appetite_check",
+        "quality_score": 0.90
+      },
+      {
+        "insight": "Jupiter manifests as the storyteller within, turning experiences into wisdom through narrative.",
+        "context": "Crisis Navigation",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "narrative_creation",
+        "integration_practice": "story_reframing",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Watch how Jupiter makes you a natural teacher, sharing insights before fully understanding them yourself.",
+        "context": "Celebration Expansion",
+        "persona": "Energy Healer",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "teaching_impulse",
+        "integration_practice": "wisdom_integration",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Your tendency to overcommit is Jupiter's enthusiasm forgetting Saturn's limits exist for protection.",
+        "context": "Daily Embodiment",
+        "persona": "Soul Psychologist",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "commitment_balance",
+        "integration_practice": "boundary_checking",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Jupiter appears in your ability to find humor in difficulty, transforming pain through perspective.",
+        "context": "Evening Integration",
+        "persona": "Consciousness Coach",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "humor_alchemy",
+        "integration_practice": "evening_humor_practice",
+        "quality_score": 0.90
+      },
+      {
+        "insight": "Notice Jupiter's presence when strangers become teachers and casual moments become profound.",
+        "context": "Morning Awakening",
+        "persona": "Mystic Oracle",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "synchronicity_awareness",
+        "integration_practice": "morning_openness",
+        "quality_score": 0.94
+      },
+      {
+        "insight": "Your urge to travel - physically, mentally, spiritually - is Jupiter seeking broader horizons.",
+        "context": "Crisis Navigation",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "exploration_urge",
+        "integration_practice": "inner_journey_practice",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Jupiter lives in your capacity to hold multiple truths simultaneously without needing resolution.",
+        "context": "Celebration Expansion",
+        "persona": "Energy Healer",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "paradox_holding",
+        "integration_practice": "truth_expansion",
+        "quality_score": 0.92
+      }
+    ],
+    "behavioral_triggers": [
+      {
+        "insight": "Jupiter activates when life feels too small, pushing you toward expansion even through discomfort.",
+        "context": "Crisis Navigation",
+        "persona": "Soul Psychologist",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "expansion_trigger",
+        "integration_practice": "discomfort_navigation",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Boredom is Jupiter's alarm bell, signaling that your spirit has outgrown its current container.",
+        "context": "Daily Embodiment",
+        "persona": "Consciousness Coach",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "boredom_signal",
+        "integration_practice": "growth_assessment",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Jupiter awakens through inspiration - that sudden knowing that more is possible than you imagined.",
+        "context": "Morning Awakening",
+        "persona": "Mystic Oracle",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "inspiration_activation",
+        "integration_practice": "possibility_opening",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Success triggers Jupiter's shadow - the temptation to believe your own mythology too completely.",
+        "context": "Celebration Expansion",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "success_shadow",
+        "integration_practice": "humility_practice",
+        "quality_score": 0.94
+      },
+      {
+        "insight": "Jupiter fires when someone says 'impossible' - your spirit rebels against arbitrary limitations.",
+        "context": "Evening Integration",
+        "persona": "Energy Healer",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "limitation_rebellion",
+        "integration_practice": "possibility_affirmation",
+        "quality_score": 0.90
+      },
+      {
+        "insight": "Learning something new triggers Jupiter's joy - knowledge as play rather than achievement.",
+        "context": "Daily Embodiment",
+        "persona": "Consciousness Coach",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "learning_joy",
+        "integration_practice": "playful_study",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Jupiter activates in groups, making you either the teacher, the philosopher, or the comedian.",
+        "context": "Morning Awakening",
+        "persona": "Soul Psychologist",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "group_activation",
+        "integration_practice": "role_awareness",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Injustice triggers Jupiter's righteous fire - the part that knows fairness as cosmic law.",
+        "context": "Crisis Navigation",
+        "persona": "Mystic Oracle",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "justice_activation",
+        "integration_practice": "righteous_action",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Jupiter awakens when mentoring others, your wisdom flowing before you knew you had it.",
+        "context": "Celebration Expansion",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "mentoring_activation",
+        "integration_practice": "wisdom_sharing",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Risk triggers Jupiter's gambling nature - the part that bets on growth over security.",
+        "context": "Evening Integration",
+        "persona": "Energy Healer",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "risk_attraction",
+        "integration_practice": "calculated_expansion",
+        "quality_score": 0.90
+      }
+    ],
+    "integration_practices": [
+      {
+        "insight": "Practice 'conscious excess' - occasionally indulge fully to understand your Jupiter nature's edges.",
+        "context": "Celebration Expansion",
+        "persona": "Soul Psychologist",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "excess_exploration",
+        "integration_practice": "conscious_indulgence",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Create a 'wisdom journal' where daily experiences transform into philosophical understanding.",
+        "context": "Evening Integration",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "wisdom_extraction",
+        "integration_practice": "philosophical_journaling",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Practice 'gratitude inflation' - expand small blessings into cosmic appreciation through focus.",
+        "context": "Morning Awakening",
+        "persona": "Energy Healer",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "gratitude_expansion",
+        "integration_practice": "blessing_amplification",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Use 'perspective laddering' - zoom out from problem to life to cosmos until proportion returns.",
+        "context": "Crisis Navigation",
+        "persona": "Consciousness Coach",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "perspective_shifting",
+        "integration_practice": "cosmic_zooming",
+        "quality_score": 0.94
+      },
+      {
+        "insight": "Develop 'teaching moments' - turn every experience into potential wisdom for sharing.",
+        "context": "Daily Embodiment",
+        "persona": "Mystic Oracle",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "wisdom_preparation",
+        "integration_practice": "teaching_readiness",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Practice 'belief flexibility' - hold convictions lightly enough that growth can change them.",
+        "context": "Evening Integration",
+        "persona": "Soul Psychologist",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "belief_evolution",
+        "integration_practice": "conviction_softening",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Create 'expansion rituals' - regular practices that stretch your comfort zone consciously.",
+        "context": "Morning Awakening",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "comfort_stretching",
+        "integration_practice": "expansion_ritual",
+        "quality_score": 0.90
+      },
+      {
+        "insight": "Use 'abundance breathing' - inhale possibility, exhale limitation, expanding energetic capacity.",
+        "context": "Crisis Navigation",
+        "persona": "Energy Healer",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "energetic_expansion",
+        "integration_practice": "abundance_breathwork",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Practice 'philosophical reframing' - find the cosmic humor in personal struggles.",
+        "context": "Celebration Expansion",
+        "persona": "Consciousness Coach",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "humor_finding",
+        "integration_practice": "cosmic_comedy",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Develop 'faith experiments' - test trusting life in small ways to build Jupiter confidence.",
+        "context": "Daily Embodiment",
+        "persona": "Mystic Oracle",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "trust_building",
+        "integration_practice": "faith_testing",
+        "quality_score": 0.93
+      }
+    ],
+    "shadow_expressions": [
+      {
+        "insight": "Jupiter's shadow speaks in promises you can't keep, enthusiasm that forgets follow-through.",
+        "context": "Crisis Navigation",
+        "persona": "Soul Psychologist",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "overcommitment_pattern",
+        "integration_practice": "promise_consciousness",
+        "quality_score": 0.94
+      },
+      {
+        "insight": "Spiritual bypassing is Jupiter avoiding Saturn's necessary limitations through philosophical escape.",
+        "context": "Evening Integration",
+        "persona": "Consciousness Coach",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "avoidance_pattern",
+        "integration_practice": "grounding_practice",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Your know-it-all tendency is Jupiter's shadow, wisdom becoming dogma through unconscious inflation.",
+        "context": "Daily Embodiment",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "dogma_recognition",
+        "integration_practice": "humility_cultivation",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Greed is Jupiter's wounded expression - expansion seeking to fill what only integration can heal.",
+        "context": "Morning Awakening",
+        "persona": "Energy Healer",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "greed_healing",
+        "integration_practice": "enough_meditation",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Exaggeration is Jupiter's shadow art - making stories bigger to make yourself feel larger.",
+        "context": "Celebration Expansion",
+        "persona": "Mystic Oracle",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "exaggeration_awareness",
+        "integration_practice": "truth_telling",
+        "quality_score": 0.90
+      },
+      {
+        "insight": "Blind optimism is Jupiter refusing to see shadows, creating future pain through present denial.",
+        "context": "Crisis Navigation",
+        "persona": "Soul Psychologist",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "denial_pattern",
+        "integration_practice": "reality_integration",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Your preaching mode is Jupiter's shadow - teaching others what you haven't integrated yourself.",
+        "context": "Evening Integration",
+        "persona": "Consciousness Coach",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "projection_teaching",
+        "integration_practice": "embodiment_first",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Restlessness that destroys good things is Jupiter's shadow refusing the discipline of depth.",
+        "context": "Daily Embodiment",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "restless_destruction",
+        "integration_practice": "depth_commitment",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Gambling addiction - literal or metaphorical - is Jupiter's shadow seeking expansion through risk.",
+        "context": "Morning Awakening",
+        "persona": "Energy Healer",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "risk_addiction",
+        "integration_practice": "grounded_growth",
+        "quality_score": 0.90
+      },
+      {
+        "insight": "Self-righteousness is Jupiter's shadow, your truth becoming the only truth through inflation.",
+        "context": "Celebration Expansion",
+        "persona": "Mystic Oracle",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "righteousness_check",
+        "integration_practice": "perspective_humility",
+        "quality_score": 0.93
+      }
+    ],
+    "evolutionary_purpose": [
+      {
+        "insight": "Jupiter exists to ensure consciousness never settles for less than its fullest expression.",
+        "context": "Morning Awakening",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "expansion_imperative",
+        "integration_practice": "fullness_meditation",
+        "quality_score": 0.94
+      },
+      {
+        "insight": "Your Jupiter nature teaches that growth requires both reaching and receiving in equal measure.",
+        "context": "Daily Embodiment",
+        "persona": "Mystic Oracle",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "growth_balance",
+        "integration_practice": "reach_receive_practice",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Jupiter evolves consciousness through optimism - the faith that enables impossible leaps.",
+        "context": "Crisis Navigation",
+        "persona": "Consciousness Coach",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "faith_evolution",
+        "integration_practice": "impossible_possibility",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "The evolutionary gift of Jupiter: transforming experience into wisdom, wisdom into teaching.",
+        "context": "Evening Integration",
+        "persona": "Soul Psychologist",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "wisdom_transformation",
+        "integration_practice": "teaching_preparation",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Jupiter ensures humanity keeps seeking meaning, preventing consciousness from crystallizing into dogma.",
+        "context": "Celebration Expansion",
+        "persona": "Energy Healer",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "meaning_evolution",
+        "integration_practice": "dogma_dissolution",
+        "quality_score": 0.90
+      },
+      {
+        "insight": "Your philosophical nature exists to bridge cultures, beliefs, and worlds through understanding.",
+        "context": "Morning Awakening",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "bridge_building",
+        "integration_practice": "cultural_synthesis",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Jupiter's purpose: ensuring abundance consciousness replaces scarcity programming in human evolution.",
+        "context": "Daily Embodiment",
+        "persona": "Mystic Oracle",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "abundance_programming",
+        "integration_practice": "scarcity_release",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Evolution requires Jupiter's laughter - joy as the fuel for consciousness expansion.",
+        "context": "Crisis Navigation",
+        "persona": "Consciousness Coach",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "joy_fuel",
+        "integration_practice": "laughter_cultivation",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Jupiter exists to prove that more is possible - in love, creativity, consciousness itself.",
+        "context": "Evening Integration",
+        "persona": "Soul Psychologist",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "possibility_proof",
+        "integration_practice": "expansion_evidence",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Your Jupiter mission: spreading hope as a revolutionary act in a world trained for limitation.",
+        "context": "Celebration Expansion",
+        "persona": "Energy Healer",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "hope_revolution",
+        "integration_practice": "hope_spreading",
+        "quality_score": 0.94
+      }
+    ],
+    "relationship_dynamics": [
+      {
+        "insight": "Jupiter in relationship seeks growth partners - souls who expand rather than contain you.",
+        "context": "Daily Embodiment",
+        "persona": "Soul Psychologist",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "growth_partnership",
+        "integration_practice": "expansion_compatibility",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Your generous nature gives freely but must learn that some gifts burden rather than bless.",
+        "context": "Evening Integration",
+        "persona": "Consciousness Coach",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "conscious_giving",
+        "integration_practice": "gift_discernment",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Jupiter attracts through enthusiasm - your excitement becomes others' permission to dream bigger.",
+        "context": "Morning Awakening",
+        "persona": "Mystic Oracle",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "enthusiasm_magnetism",
+        "integration_practice": "dream_activation",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "In love, Jupiter seeks adventure partners - someone to explore consciousness with, not hide within.",
+        "context": "Celebration Expansion",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "adventure_partnership",
+        "integration_practice": "exploration_together",
+        "quality_score": 0.90
+      },
+      {
+        "insight": "Your teaching nature can overwhelm - not everyone wants philosophy with their morning coffee.",
+        "context": "Crisis Navigation",
+        "persona": "Energy Healer",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "teaching_moderation",
+        "integration_practice": "silence_practice",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Jupiter bonds through shared meaning - your deepest connections come through philosophical resonance.",
+        "context": "Daily Embodiment",
+        "persona": "Soul Psychologist",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "meaning_bonding",
+        "integration_practice": "philosophical_intimacy",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Your optimism heals others' pessimism, but only when grounded in their reality first.",
+        "context": "Evening Integration",
+        "persona": "Consciousness Coach",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "grounded_optimism",
+        "integration_practice": "reality_meeting",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Jupiter's shadow in relationship: promising transformation you cannot deliver, selling hope as product.",
+        "context": "Morning Awakening",
+        "persona": "Mystic Oracle",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "promise_integrity",
+        "integration_practice": "honest_offering",
+        "quality_score": 0.94
+      },
+      {
+        "insight": "Freedom needs in relationship aren't fear of intimacy but need for growth within connection.",
+        "context": "Celebration Expansion",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "freedom_intimacy",
+        "integration_practice": "spacious_togetherness",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Your Jupiter nature attracts seekers and students - discern who wants growth from who wants saving.",
+        "context": "Crisis Navigation",
+        "persona": "Energy Healer",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "student_discernment",
+        "integration_practice": "boundary_teaching",
+        "quality_score": 0.91
+      }
+    ],
+    "career_expression": [
+      {
+        "insight": "Jupiter thrives in careers that expand horizons - teaching, publishing, philosophy, international work.",
+        "context": "Morning Awakening",
+        "persona": "Consciousness Coach",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "career_expansion",
+        "integration_practice": "horizon_broadening",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Your professional gift: seeing potential where others see problems, vision where others see void.",
+        "context": "Daily Embodiment",
+        "persona": "Mystic Oracle",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "vision_cultivation",
+        "integration_practice": "potential_recognition",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Jupiter succeeds by inspiring others - your enthusiasm becomes team fuel for impossible projects.",
+        "context": "Crisis Navigation",
+        "persona": "Soul Psychologist",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "team_inspiration",
+        "integration_practice": "enthusiasm_leadership",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Work without meaning kills your Jupiter spirit - purpose matters more than payment.",
+        "context": "Evening Integration",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "purpose_alignment",
+        "integration_practice": "meaning_assessment",
+        "quality_score": 0.90
+      },
+      {
+        "insight": "Your tendency to overcommit professionally comes from Jupiter seeing all possibilities as achievable now.",
+        "context": "Celebration Expansion",
+        "persona": "Energy Healer",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "commitment_reality",
+        "integration_practice": "timeline_grounding",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Jupiter leadership inspires through vision rather than control, possibility rather than protocol.",
+        "context": "Morning Awakening",
+        "persona": "Consciousness Coach",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "visionary_leadership",
+        "integration_practice": "inspiration_management",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Your professional growth comes through teaching - formal or informal, you expand by expanding others.",
+        "context": "Daily Embodiment",
+        "persona": "Mystic Oracle",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "teaching_growth",
+        "integration_practice": "knowledge_sharing",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Jupiter thrives in startup energy - creating something from nothing feeds your expansion nature.",
+        "context": "Crisis Navigation",
+        "persona": "Soul Psychologist",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "creation_energy",
+        "integration_practice": "startup_mindset",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Boredom at work signals Jupiter needs: either expand your role or explore new territories.",
+        "context": "Evening Integration",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "boredom_signal",
+        "integration_practice": "role_expansion",
+        "quality_score": 0.90
+      },
+      {
+        "insight": "Your greatest professional asset: believing in possibilities others haven't imagined yet.",
+        "context": "Celebration Expansion",
+        "persona": "Energy Healer",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "possibility_vision",
+        "integration_practice": "innovation_cultivation",
+        "quality_score": 0.94
+      }
+    ],
+    "spiritual_development": [
+      {
+        "insight": "Jupiter's spiritual path: discovering that true expansion happens within infinite inner space.",
+        "context": "Morning Awakening",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "inner_expansion",
+        "integration_practice": "infinite_meditation",
+        "quality_score": 0.94
+      },
+      {
+        "insight": "Your faith journey moves from believing in something external to knowing something eternal within.",
+        "context": "Evening Integration",
+        "persona": "Mystic Oracle",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "faith_internalization",
+        "integration_practice": "inner_knowing",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Jupiter consciousness expands through gratitude - appreciation as spiritual technology for growth.",
+        "context": "Daily Embodiment",
+        "persona": "Consciousness Coach",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "gratitude_technology",
+        "integration_practice": "appreciation_expansion",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Spiritual bypassing tempts Jupiter nature - transcendence without integration creates shadow inflation.",
+        "context": "Crisis Navigation",
+        "persona": "Soul Psychologist",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "bypass_awareness",
+        "integration_practice": "grounded_transcendence",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Your path includes teaching what you're learning - wisdom emerging through sharing, not hoarding.",
+        "context": "Celebration Expansion",
+        "persona": "Energy Healer",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "wisdom_circulation",
+        "integration_practice": "teaching_learning",
+        "quality_score": 0.90
+      },
+      {
+        "insight": "Jupiter seeks God through expansion - finding divinity in more rather than less, yes rather than no.",
+        "context": "Morning Awakening",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "divine_expansion",
+        "integration_practice": "yes_practice",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Your spiritual gift: transforming suffering into wisdom, wisdom into compassionate teaching.",
+        "context": "Evening Integration",
+        "persona": "Mystic Oracle",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "suffering_alchemy",
+        "integration_practice": "compassion_teaching",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Jupiter enlightenment comes through embracing paradox - holding all truths as partial truths.",
+        "context": "Daily Embodiment",
+        "persona": "Consciousness Coach",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "paradox_embrace",
+        "integration_practice": "truth_flexibility",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Sacred humor is Jupiter's spiritual practice - finding cosmic comedy in human drama.",
+        "context": "Crisis Navigation",
+        "persona": "Soul Psychologist",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "sacred_humor",
+        "integration_practice": "cosmic_laughter",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Your highest spiritual expression: becoming the permission for others to expand beyond limitation.",
+        "context": "Celebration Expansion",
+        "persona": "Energy Healer",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "permission_giving",
+        "integration_practice": "expansion_activation",
+        "quality_score": 0.94
+      }
+    ],
+    "cosmic_timing": [
+      {
+        "insight": "Jupiter peaks every 12 years, offering windows for exponential growth and consciousness leaps.",
+        "context": "Daily Embodiment",
+        "persona": "Mystic Oracle",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "cycle_awareness",
+        "integration_practice": "growth_timing",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Thursday carries Jupiter energy - use this day for expansion, teaching, and philosophical work.",
+        "context": "Morning Awakening",
+        "persona": "Consciousness Coach",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "weekly_rhythm",
+        "integration_practice": "thursday_expansion",
+        "quality_score": 0.90
+      },
+      {
+        "insight": "Jupiter retrograde invites internal expansion - growing wisdom rather than external territory.",
+        "context": "Evening Integration",
+        "persona": "Soul Psychologist",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "retrograde_wisdom",
+        "integration_practice": "inner_growth",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Your Jupiter activates during learning seasons - when life becomes teacher, expansion accelerates.",
+        "context": "Crisis Navigation",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "learning_activation",
+        "integration_practice": "student_mindset",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "Sagittarius season amplifies Jupiter energy - late November through December optimizes expansion.",
+        "context": "Celebration Expansion",
+        "persona": "Energy Healer",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "seasonal_amplification",
+        "integration_practice": "sagittarius_expansion",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Jupiter hours (sunrise and mid-afternoon) favor risk-taking, learning, and philosophical insights.",
+        "context": "Daily Embodiment",
+        "persona": "Mystic Oracle",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "hourly_optimization",
+        "integration_practice": "jupiter_hours",
+        "quality_score": 0.91
+      },
+      {
+        "insight": "New ventures thrive when initiated during Jupiter's forward motion - expansion needs momentum.",
+        "context": "Morning Awakening",
+        "persona": "Consciousness Coach",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Elemental Balance",
+        "behavioral_focus": "timing_ventures",
+        "integration_practice": "momentum_alignment",
+        "quality_score": 0.90
+      },
+      {
+        "insight": "Your faith strengthens during Jupiter transits - cosmic support for leaps into the unknown.",
+        "context": "Evening Integration",
+        "persona": "Soul Psychologist",
+        "intensity": "Whisper Facilitator",
+        "wisdom_focus": "Numerological Intelligence",
+        "behavioral_focus": "transit_faith",
+        "integration_practice": "cosmic_trust",
+        "quality_score": 0.93
+      },
+      {
+        "insight": "Jupiter connects with collective celebrations - holidays and festivals amplify expansion energy.",
+        "context": "Crisis Navigation",
+        "persona": "Spiritual Philosopher",
+        "intensity": "Profound Transformer",
+        "wisdom_focus": "Astrological Wisdom",
+        "behavioral_focus": "collective_celebration",
+        "integration_practice": "festival_expansion",
+        "quality_score": 0.92
+      },
+      {
+        "insight": "Age 24, 36, 48, 60 bring Jupiter returns - major opportunities for wisdom integration and growth.",
+        "context": "Celebration Expansion",
+        "persona": "Energy Healer",
+        "intensity": "Clear Communicator",
+        "wisdom_focus": "Temporal Wisdom",
+        "behavioral_focus": "return_cycles",
+        "integration_practice": "cycle_preparation",
+        "quality_score": 0.94
+      }
+    ]
+  },
+  "meta": {
+    "version": "1.0",
+    "created": "2024-08-16",
+    "total_insights": 100,
+    "quality_average": 0.92,
+    "integration_level": "original",
+    "multiplication_potential": 1000
+  }
+}

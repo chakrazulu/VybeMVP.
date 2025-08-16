@@ -1,0 +1,167 @@
+{
+  "zodiac_sign": "Aquarius",
+  "element": "Air",
+  "modality": "Fixed",
+  "archetype": "The Revolutionary Visionary",
+  "ruling_planet": "Uranus",
+  "total_insights": 1500,
+  "categories": {
+    "personality_depths": {
+      "description": "Core archetypal patterns beyond surface traits",
+      "insights": [
+        {
+          "sign": "Aquarius",
+          "element": "Air",
+          "modality": "Fixed",
+          "context": "Morning Awakening",
+          "persona": "Consciousness Coach",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "personality_depths",
+          "insight": "Your soul channels future frequencies into present reality. You are the lightning rod that brings tomorrow's consciousness to today.",
+          "quality_score": 0.95,
+          "tier": "original"
+        },
+        {
+          "sign": "Aquarius",
+          "element": "Air",
+          "modality": "Fixed",
+          "context": "Celebration Expansion",
+          "persona": "Energy Healer",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "personality_depths",
+          "insight": "Your Uranus-blessed innovation serves collective evolution. You see solutions that transcend current limitations and paradigms.",
+          "quality_score": 0.93,
+          "tier": "original"
+        }
+      ]
+    },
+    "shadow_integration": {
+      "description": "Working with challenging aspects constructively",
+      "insights": [
+        {
+          "sign": "Aquarius",
+          "element": "Air",
+          "modality": "Fixed",
+          "context": "Evening Integration",
+          "persona": "Soul Psychologist",
+          "intensity": "Whisper Facilitator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "shadow_integration",
+          "insight": "Detachment becomes compassionate when tempered with heart wisdom. Your objectivity serves love when consciously applied.",
+          "quality_score": 0.91,
+          "tier": "original"
+        }
+      ]
+    },
+    "spiritual_gifts": {
+      "description": "Natural talents and consciousness contributions",
+      "insights": [
+        {
+          "sign": "Aquarius",
+          "element": "Air",
+          "modality": "Fixed",
+          "context": "Crisis Navigation",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "spiritual_gifts",
+          "insight": "Your gift of humanitarian vision awakens others to their global citizenship. You remind humanity of its interconnected destiny.",
+          "quality_score": 0.94,
+          "tier": "original"
+        }
+      ]
+    },
+    "relationship_dynamics": {
+      "description": "How this sign loves, communicates, connects",
+      "insights": [
+        {
+          "sign": "Aquarius",
+          "element": "Air",
+          "modality": "Fixed",
+          "context": "Daily Embodiment",
+          "persona": "Consciousness Coach",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Elemental Balance",
+          "category": "relationship_dynamics",
+          "insight": "You love through friendship and intellectual equality. Your relationships thrive on mutual respect for individual freedom and growth.",
+          "quality_score": 0.89,
+          "tier": "original"
+        }
+      ]
+    },
+    "career_calling": {
+      "description": "Life purpose and work expression alignment",
+      "insights": [
+        {
+          "sign": "Aquarius",
+          "element": "Air",
+          "modality": "Fixed",
+          "context": "Morning Awakening",
+          "persona": "Energy Healer",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "career_calling",
+          "insight": "Your calling involves humanitarian innovation and social reform. You're here to upgrade systems that serve collective wellbeing.",
+          "quality_score": 0.92,
+          "tier": "original"
+        }
+      ]
+    },
+    "seasonal_wisdom": {
+      "description": "How sign energy shifts through cycles",
+      "insights": [
+        {
+          "sign": "Aquarius",
+          "element": "Air",
+          "modality": "Fixed",
+          "context": "Crisis Navigation",
+          "persona": "Spiritual Philosopher",
+          "intensity": "Clear Communicator",
+          "wisdom_focus": "Temporal Wisdom",
+          "category": "seasonal_wisdom",
+          "insight": "Deep winter is your revolutionary season—when old structures break down and new possibilities crystallize in the cold clarity.",
+          "quality_score": 0.90,
+          "tier": "original"
+        }
+      ]
+    },
+    "elemental_connection": {
+      "description": "Deep relationship with elemental nature",
+      "insights": [
+        {
+          "sign": "Aquarius",
+          "element": "Air",
+          "modality": "Fixed",
+          "context": "Evening Integration",
+          "persona": "Soul Psychologist",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Elemental Balance",
+          "category": "elemental_connection",
+          "insight": "Air is your sacred element—teaching freedom, innovation, connection, and the revolutionary power of new ideas taking flight.",
+          "quality_score": 0.93,
+          "tier": "original"
+        }
+      ]
+    },
+    "karmic_lessons": {
+      "description": "Soul growth themes and evolution patterns",
+      "insights": [
+        {
+          "sign": "Aquarius",
+          "element": "Air",
+          "modality": "Fixed",
+          "context": "Daily Embodiment",
+          "persona": "Mystic Oracle",
+          "intensity": "Profound Transformer",
+          "wisdom_focus": "Astrological Wisdom",
+          "category": "karmic_lessons",
+          "insight": "Your soul came to learn that true revolution begins with self-transformation. You change the world by embodying the future you envision.",
+          "quality_score": 0.95,
+          "tier": "original"
+        }
+      ]
+    }
+  }
+}
