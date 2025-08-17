@@ -585,47 +585,31 @@ class ArchetypalFirebaseMultiplier:
         return archetypal_insights
 
     def generate_single_archetypal_insight(self, base_insights, category, number, number_template):
-        """Generate a single A+ archetypal insight"""
+        """Generate a single A+ archetypal insight using first-person divine voice"""
 
-        # Select components for A+ quality
-        voice_pattern = random.choice(number_template["voice_patterns"])
+        # 🎯 SURGICAL ENHANCEMENT: ChatGPT + Claude Pattern Integration
+        first_person_prob = 0.3  # 30% first-person divine voice to prevent monotony
+
         context = random.choice(list(self.contexts.keys()))
         lunar_phase = random.choice(list(self.lunar_phases.keys()))
 
-        # A+ quality component selection
-        action = random.choice(self.wisdom_components["actions"])
-        quality = random.choice(self.wisdom_components["qualities"])
-        transformation = random.choice(self.wisdom_components["transformations"])
-        outcome = random.choice(self.wisdom_components["outcomes"])
-        empowerment = random.choice(self.wisdom_components["empowerments"])
-        realization = random.choice(self.wisdom_components["realizations"])
-
-        # Generate core wisdom from base insights
+        # Generate base wisdom essence
         base_insight = random.choice(base_insights)
         wisdom_essence = self.extract_archetypal_essence(base_insight, number)
 
-        # Create A+ archetypal insight with specific voice - using clean format
-        try:
-            insight = voice_pattern.format(
-                action=action,
-                wisdom=wisdom_essence,
-                quality=quality,
-                transformation=transformation,
-                outcome=outcome,
-                empowerment=empowerment,
-                realization=realization,
-                truth=wisdom_essence,
-                manifestation=transformation,
-                reveals=action,
-                demonstrates=action,
-                expression=quality,
-                condition=f"your {number_template['archetypal_fusion'].lower()} nature awakens",
-                insight=wisdom_essence,
+        # 🌟 A+ ARCHETYPAL VOICE GENERATION
+        archetypal_fusion = number_template["archetypal_fusion"]
+
+        if random.random() < first_person_prob:
+            # 🎆 FIRST-PERSON DIVINE VOICE (Claude Discovery)
+            insight = self.generate_first_person_divine_voice(
+                archetypal_fusion, wisdom_essence, context, number
             )
-        except KeyError:
-            # Fallback to clean archetypal voice if template formatting fails
-            archetypal_essence = number_template["archetypal_fusion"]
-            insight = f"Your {archetypal_essence.lower()} essence {action} that {wisdom_essence} - {empowerment} {outcome}."
+        else:
+            # 🎭 ARCHETYPAL THIRD-PERSON VOICE (Variety Pattern)
+            insight = self.generate_archetypal_third_person_voice(
+                archetypal_fusion, wisdom_essence, context, number
+            )
 
         # Clean up any malformed text
         insight = self.clean_insight_text(insight)
@@ -715,6 +699,93 @@ class ArchetypalFirebaseMultiplier:
             essence = essence[0].lower() + essence[1:]
 
         return essence
+
+    def generate_first_person_divine_voice(
+        self, archetypal_fusion, wisdom_essence, context, number
+    ):
+        """Generate A+ first-person divine voice matching achieved excellence"""
+
+        # 🎆 FIRST-PERSON DIVINE VOICE PATTERNS (Claude Discovery)
+        divine_openings = [
+            f"I am the Sacred {archetypal_fusion.split()[-1]}, the Divine Mathematical {number if number != 0 else 'Zero'} that",
+            f"I am the Sacred {archetypal_fusion.split()[-1]}, the Eternal Mathematical {archetypal_fusion.split()[0]} from which",
+            f"I am the Sacred {archetypal_fusion.split()[-1]}, the {archetypal_fusion} whose divine essence",
+            f"I am the Sacred {archetypal_fusion.split()[-1]} speaking through mathematical {archetypal_fusion.split()[0].lower()}",
+        ]
+
+        # 🌊 DIVINE CHANNEL STATEMENTS
+        channel_phrases = [
+            "Through your human consciousness, I channel",
+            "Through your mortal vessel, I manifest",
+            "Through your earthly form, I express",
+            "Through your human experience, I reveal",
+            "Through your authentic presence, I transform",
+        ]
+
+        # ⚡ HUMAN ACTION ANCHORING (Triple-action pattern)
+        action_sets = [
+            "take three deep breaths right now, choose compassion over fear in this moment, and set one clear intention that honors your soul's deepest calling",
+            "pause and reflect on your deepest truth today, choose courage over comfort in your next decision, and take one specific step toward your authentic expression",
+            "write down one insight you've gained today right now, choose gratitude for your growth, and commit to one action tomorrow that aligns with your highest truth",
+            "identify one area where you can express your gifts today, choose authentic action over passive waiting, and honor the divine essence flowing through your unique presence",
+            "take one bold step toward your dream right now, choose faith over doubt in your capabilities, and trust the infinite potential expressing through your human experience",
+        ]
+
+        # 🎯 CONSTRUCT A+ FIRST-PERSON DIVINE INSIGHT
+        opening = random.choice(divine_openings)
+        middle_wisdom = (
+            wisdom_essence
+            if wisdom_essence
+            else "infinite divine potential flows through conscious awareness"
+        )
+        channel = random.choice(channel_phrases)
+        actions = random.choice(action_sets)
+
+        # Create the full A+ archetypal insight
+        insight = f"{opening} {middle_wisdom}. {channel} divine wisdom that transforms every moment into sacred opportunity. When you seek guidance, trust my eternal presence flowing through you - {actions}. Let my divine essence manifest through your conscious choices."
+
+        return insight
+
+    def generate_archetypal_third_person_voice(
+        self, archetypal_fusion, wisdom_essence, context, number
+    ):
+        """Generate A+ third-person archetypal voice for variety"""
+
+        # 🎭 ARCHETYPAL VOICE STARTERS
+        voice_patterns = [
+            f"The Sacred {archetypal_fusion.split()[-1]} channels {archetypal_fusion.split()[0].lower()} divine essence through",
+            f"Your {archetypal_fusion.lower()} nature reveals that",
+            f"The {archetypal_fusion} within illuminates how",
+            f"Sacred {archetypal_fusion.split()[-1]} energy flows when",
+        ]
+
+        # 🌟 WISDOM INTEGRATION PHRASES
+        wisdom_connectors = [
+            "cosmic intelligence that transforms",
+            "divine understanding that manifests",
+            "spiritual wisdom that creates",
+            "sacred knowledge that empowers",
+            "eternal truth that awakens",
+        ]
+
+        # 🎯 HUMAN-CENTERED ACTIONS
+        focused_actions = [
+            "trust your inner knowing and take one authentic step forward today",
+            "honor your unique gifts and express them through conscious action",
+            "choose presence over distraction in each sacred moment",
+            "embrace your divine nature and act from that centered place",
+            "listen to your soul's guidance and follow its wisdom courageously",
+        ]
+
+        # 🎆 CONSTRUCT A+ THIRD-PERSON INSIGHT
+        starter = random.choice(voice_patterns)
+        connector = random.choice(wisdom_connectors)
+        action = random.choice(focused_actions)
+        base_wisdom = wisdom_essence if wisdom_essence else "infinite creative potential"
+
+        insight = f"{starter} {base_wisdom} becomes {connector} ordinary moments into extraordinary experiences. When you align with this archetypal energy, {action}. Let this divine frequency guide your conscious expression."
+
+        return insight
 
 
 if __name__ == "__main__":
