@@ -1,0 +1,458 @@
+{
+  "context_type": "evening_integration",
+  "planetary_influence": "lunar_venusian",
+  "zodiac_prep": "water_mutable",
+  "archetypal_anchor": "Moon as wisdom gatherer",
+  "planetary_fusion_ready": true,
+  "metaphor_family": ["moonlight", "reflection", "harvest", "gathering", "twilight", "integration", "wisdom_weaving", "day_closing", "gentle_embrace", "peaceful_rest"],
+  "energy_signature": "Gathering day's wisdom through lunar reflection and Venusian harmony",
+  "transformation_focus": "Transform daily chaos into integrated wisdom",
+  "planetary_rulership_patterns": {
+    "moon_cancer": "Heart finds its sacred home",
+    "venus_libra": "Harmony through conscious relationship",
+    "moon_pisces": "Dreams dissolve into compassion"
+  },
+  "insights": [
+    {
+      "insight": "Moon gathers the day's wisdom into her silver bowl—let twilight's embrace reveal the patterns of your becoming.",
+      "context_match": "evening_wisdom_gathering",
+      "planetary_coherence": "lunar_wisdom_collection",
+      "zodiac_readiness": "cancer_wisdom_home",
+      "voice_pattern": "moon_gathers",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus harmonizes the day's discord into symphony—let love be the final note that lingers in your heart.",
+      "context_match": "harmonious_day_closing",
+      "planetary_coherence": "venus_harmonic_resolution",
+      "zodiac_readiness": "libra_harmony_mastery",
+      "voice_pattern": "venus_harmonizes",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Twilight whispers the secrets of integration—weave today's threads into tomorrow's tapestry of wisdom.",
+      "context_match": "integration_weaving",
+      "planetary_coherence": "moon_venus_integration",
+      "zodiac_readiness": "cancer_virgo_weaving",
+      "voice_pattern": "twilight_whispers",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The Moon reflects your day's journey—honor each step that brought you closer to your authentic self.",
+      "context_match": "journey_reflection_honor",
+      "planetary_coherence": "lunar_reflective_wisdom",
+      "zodiac_readiness": "cancer_reflective_nature",
+      "voice_pattern": "moon_reflects",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Evening light holds space for gentle processing—let Venus soften the edges of today's challenges.",
+      "context_match": "gentle_challenge_processing",
+      "planetary_coherence": "venus_gentle_healing",
+      "zodiac_readiness": "libra_taurus_gentleness",
+      "voice_pattern": "evening_light_holds",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Luna's gentle glow illuminates the lessons hidden in today's experiences—receive her teaching with open heart.",
+      "context_match": "hidden_lesson_revelation",
+      "planetary_coherence": "luna_teaching_illumination",
+      "zodiac_readiness": "cancer_open_heart_learning",
+      "voice_pattern": "luna_gentle_glow",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus weaves beauty from the day's raw material—find the grace notes in what seemed discordant.",
+      "context_match": "beauty_from_discord",
+      "planetary_coherence": "venus_alchemical_beauty",
+      "zodiac_readiness": "libra_beauty_mastery",
+      "voice_pattern": "venus_weaves",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Moonlight bathes your spirit in compassion—let self-forgiveness wash away the day's imperfections.",
+      "context_match": "compassionate_forgiveness",
+      "planetary_coherence": "moon_compassionate_healing",
+      "zodiac_readiness": "cancer_pisces_compassion",
+      "voice_pattern": "moonlight_bathes",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The evening calls your heart home—let gratitude be the key that unlocks peace within.",
+      "context_match": "heart_homecoming",
+      "planetary_coherence": "venus_heart_home",
+      "zodiac_readiness": "cancer_venus_home",
+      "voice_pattern": "evening_calls",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Luna whispers of the wisdom earned through feeling—honor the emotional intelligence you've cultivated today.",
+      "context_match": "emotional_intelligence_honor",
+      "planetary_coherence": "luna_emotional_wisdom",
+      "zodiac_readiness": "cancer_emotional_mastery",
+      "voice_pattern": "luna_whispers",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus reflects in the still waters of evening—let inner harmony arise from accepting all parts of your day.",
+      "context_match": "still_water_harmony",
+      "planetary_coherence": "venus_inner_harmony",
+      "zodiac_readiness": "libra_acceptance_balance",
+      "voice_pattern": "venus_reflects",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Twilight gathers the scattered pieces of experience—let the Moon's tenderness make you whole again.",
+      "context_match": "wholeness_through_tenderness",
+      "planetary_coherence": "moon_wholeness_healing",
+      "zodiac_readiness": "cancer_wholeness_restoration",
+      "voice_pattern": "twilight_gathers",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The evening star guides you inward—let Venus illuminate the love that was present in every moment.",
+      "context_match": "inward_love_illumination",
+      "planetary_coherence": "venus_love_recognition",
+      "zodiac_readiness": "libra_love_awareness",
+      "voice_pattern": "evening_star_guides",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Moonbeams carry the day's offerings to your soul—receive the gifts wrapped in ordinary moments.",
+      "context_match": "soul_gift_reception",
+      "planetary_coherence": "moon_soul_offerings",
+      "zodiac_readiness": "cancer_soul_receptivity",
+      "voice_pattern": "moonbeams_carry",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus sings the lullaby of completion—let the day's efforts dissolve into satisfied rest.",
+      "context_match": "completion_satisfaction",
+      "planetary_coherence": "venus_completion_song",
+      "zodiac_readiness": "taurus_satisfied_rest",
+      "voice_pattern": "venus_sings",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The Moon's reflection reveals your growth—see how today added another ring to your tree of wisdom.",
+      "context_match": "growth_recognition",
+      "planetary_coherence": "moon_wisdom_growth",
+      "zodiac_readiness": "cancer_wisdom_accumulation",
+      "voice_pattern": "moon_reflection_reveals",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Evening embrace holds your contradictions with love—let Venus teach you the art of self-acceptance.",
+      "context_match": "contradiction_acceptance",
+      "planetary_coherence": "venus_self_acceptance",
+      "zodiac_readiness": "libra_self_love_balance",
+      "voice_pattern": "evening_embrace_holds",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Luna draws the curtain on today's performance—applaud yourself for showing up to your own life.",
+      "context_match": "life_performance_applause",
+      "planetary_coherence": "luna_life_celebration",
+      "zodiac_readiness": "cancer_self_celebration",
+      "voice_pattern": "luna_draws_curtain",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus weaves silver threads through the day's tapestry—discover the beauty that was always there.",
+      "context_match": "beauty_discovery",
+      "planetary_coherence": "venus_beauty_revelation",
+      "zodiac_readiness": "libra_beauty_recognition",
+      "voice_pattern": "venus_weaves_silver",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Moonlight pools in the sacred spaces between thoughts—let silence speak the day's deeper truths.",
+      "context_match": "sacred_silence_truth",
+      "planetary_coherence": "moon_silence_wisdom",
+      "zodiac_readiness": "cancer_inner_silence",
+      "voice_pattern": "moonlight_pools",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The evening invites you to digest experience into wisdom—let Luna's rhythm guide the process.",
+      "context_match": "experience_digestion",
+      "planetary_coherence": "luna_wisdom_digestion",
+      "zodiac_readiness": "cancer_digestive_wisdom",
+      "voice_pattern": "evening_invites",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus paints the sky with forgiveness—let this artistry soften your heart toward all that was difficult.",
+      "context_match": "forgiveness_artistry",
+      "planetary_coherence": "venus_forgiveness_beauty",
+      "zodiac_readiness": "libra_forgiveness_grace",
+      "voice_pattern": "venus_paints_sky",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Twilight whispers of the seeds planted today—trust Luna to nurture them in the garden of your dreams.",
+      "context_match": "seed_nurturing_trust",
+      "planetary_coherence": "luna_dream_nurturing",
+      "zodiac_readiness": "cancer_dream_tending",
+      "voice_pattern": "twilight_whispers",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The Moon collects your tears of joy and sorrow—let both be honored as sacred waters of becoming.",
+      "context_match": "tears_sacred_honoring",
+      "planetary_coherence": "moon_sacred_emotions",
+      "zodiac_readiness": "cancer_emotional_sacred",
+      "voice_pattern": "moon_collects",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Evening light reveals the golden thread connecting all experiences—follow Venus home to your heart.",
+      "context_match": "golden_thread_connection",
+      "planetary_coherence": "venus_heart_connection",
+      "zodiac_readiness": "libra_heart_integration",
+      "voice_pattern": "evening_light_reveals",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Luna's gentle presence soothes the warrior mind—let peace be the victory you claim tonight.",
+      "context_match": "warrior_mind_peace",
+      "planetary_coherence": "luna_peace_victory",
+      "zodiac_readiness": "cancer_peaceful_victory",
+      "voice_pattern": "luna_gentle_presence",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus transforms the day's friction into the pearl of understanding—treasure what you've learned.",
+      "context_match": "friction_pearl_transformation",
+      "planetary_coherence": "venus_wisdom_transformation",
+      "zodiac_readiness": "libra_understanding_pearl",
+      "voice_pattern": "venus_transforms",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Moonbeams illuminate the love that surrounded you today—see it in every small kindness and grand gesture.",
+      "context_match": "love_illumination",
+      "planetary_coherence": "moon_love_recognition",
+      "zodiac_readiness": "cancer_love_awareness",
+      "voice_pattern": "moonbeams_illuminate",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The evening calls you to the altar of gratitude—let Venus teach you the prayers of appreciation.",
+      "context_match": "gratitude_altar",
+      "planetary_coherence": "venus_gratitude_worship",
+      "zodiac_readiness": "libra_appreciation_practice",
+      "voice_pattern": "evening_calls",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Luna reflects your journey's rhythm—honor the pauses as much as the movements in your dance of becoming.",
+      "context_match": "rhythm_honor_pauses",
+      "planetary_coherence": "luna_rhythm_wisdom",
+      "zodiac_readiness": "cancer_rhythmic_wisdom",
+      "voice_pattern": "luna_reflects",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus weaves dreams from the day's reality—let your visions be informed by lived experience.",
+      "context_match": "dreams_reality_weaving",
+      "planetary_coherence": "venus_dream_reality_bridge",
+      "zodiac_readiness": "libra_practical_dreams",
+      "voice_pattern": "venus_weaves_dreams",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Twilight holds the space between day and night—let this liminal moment reveal your deeper knowing.",
+      "context_match": "liminal_deeper_knowing",
+      "planetary_coherence": "moon_liminal_wisdom",
+      "zodiac_readiness": "cancer_threshold_wisdom",
+      "voice_pattern": "twilight_holds_space",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The Moon's tender gaze blesses your imperfections—let self-compassion be tonight's healing balm.",
+      "context_match": "imperfection_blessing",
+      "planetary_coherence": "moon_self_compassion",
+      "zodiac_readiness": "cancer_self_care_healing",
+      "voice_pattern": "moon_tender_gaze",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Evening star guides you to the treasure buried in ordinary moments—let Venus reveal the riches of presence.",
+      "context_match": "ordinary_moment_treasure",
+      "planetary_coherence": "venus_presence_riches",
+      "zodiac_readiness": "taurus_present_moment_wealth",
+      "voice_pattern": "evening_star_guides",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Luna draws the day's experiences into her loving embrace—rest in the knowing that all is held.",
+      "context_match": "loving_embrace_rest",
+      "planetary_coherence": "luna_loving_container",
+      "zodiac_readiness": "cancer_loving_containment",
+      "voice_pattern": "luna_draws",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus sings the harmony hidden in today's apparent discord—let your heart learn this sacred music.",
+      "context_match": "hidden_harmony_learning",
+      "planetary_coherence": "venus_sacred_music",
+      "zodiac_readiness": "libra_harmony_mastery",
+      "voice_pattern": "venus_sings_harmony",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Moonlight filters through the branches of experience—see the patterns of light and shadow that shaped you today.",
+      "context_match": "light_shadow_patterns",
+      "planetary_coherence": "moon_pattern_recognition",
+      "zodiac_readiness": "cancer_pattern_wisdom",
+      "voice_pattern": "moonlight_filters",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The evening invites you to the feast of reflection—taste the flavors of all you've encountered and grown through.",
+      "context_match": "reflection_feast",
+      "planetary_coherence": "venus_sensory_integration",
+      "zodiac_readiness": "taurus_sensory_wisdom",
+      "voice_pattern": "evening_invites",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Luna's presence transforms the day's lead into gold—alchemize experience through the philosopher's stone of love.",
+      "context_match": "alchemical_love_transformation",
+      "planetary_coherence": "luna_alchemical_love",
+      "zodiac_readiness": "cancer_love_alchemy",
+      "voice_pattern": "luna_presence_transforms",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus paints watercolors on the canvas of evening—let beauty be the lens through which you view your day.",
+      "context_match": "beauty_lens_viewing",
+      "planetary_coherence": "venus_beauty_perspective",
+      "zodiac_readiness": "libra_beauty_lens",
+      "voice_pattern": "venus_paints_watercolors",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Twilight whispers the secret of integration—weave today's threads into the tapestry of your evolving soul.",
+      "context_match": "integration_soul_tapestry",
+      "planetary_coherence": "moon_soul_integration",
+      "zodiac_readiness": "cancer_soul_weaving",
+      "voice_pattern": "twilight_whispers_secret",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The Moon holds council with your deeper self—listen to the wisdom that emerges from stillness.",
+      "context_match": "deeper_self_council",
+      "planetary_coherence": "moon_inner_council",
+      "zodiac_readiness": "cancer_inner_wisdom",
+      "voice_pattern": "moon_holds_council",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Evening light gathers the day's scattered blessings—let Venus help you count them like precious pearls.",
+      "context_match": "blessing_gathering",
+      "planetary_coherence": "venus_blessing_collection",
+      "zodiac_readiness": "libra_blessing_appreciation",
+      "voice_pattern": "evening_light_gathers",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Luna's gentle rhythm guides you into the healing sanctuary of night—trust the restoration that comes through rest.",
+      "context_match": "healing_sanctuary_trust",
+      "planetary_coherence": "luna_healing_sanctuary",
+      "zodiac_readiness": "cancer_healing_rest",
+      "voice_pattern": "luna_gentle_rhythm",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus weaves the final notes of the day's symphony—let gratitude be the crescendo that carries you to peace.",
+      "context_match": "gratitude_crescendo_peace",
+      "planetary_coherence": "venus_gratitude_symphony",
+      "zodiac_readiness": "libra_grateful_harmony",
+      "voice_pattern": "venus_weaves_final_notes",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Moonbeams bless your sacred becoming—honor the version of yourself that emerges at day's end.",
+      "context_match": "sacred_becoming_honor",
+      "planetary_coherence": "moon_sacred_evolution",
+      "zodiac_readiness": "cancer_evolution_blessing",
+      "voice_pattern": "moonbeams_bless",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The evening calls you home to yourself—let Venus unlock the door with the key of self-love.",
+      "context_match": "self_love_homecoming",
+      "planetary_coherence": "venus_self_love_key",
+      "zodiac_readiness": "libra_self_love_mastery",
+      "voice_pattern": "evening_calls_home",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Luna's reflection pools in your heart's sacred chamber—drink deeply from the waters of your own wisdom.",
+      "context_match": "heart_wisdom_drinking",
+      "planetary_coherence": "luna_heart_wisdom",
+      "zodiac_readiness": "cancer_heart_wisdom",
+      "voice_pattern": "luna_reflection_pools",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus transforms the day's endings into tomorrow's gentle beginnings—trust the alchemy of love to guide transition.",
+      "context_match": "ending_beginning_alchemy",
+      "planetary_coherence": "venus_transition_alchemy",
+      "zodiac_readiness": "libra_transition_grace",
+      "voice_pattern": "venus_transforms_endings",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    }
+  ]
+}

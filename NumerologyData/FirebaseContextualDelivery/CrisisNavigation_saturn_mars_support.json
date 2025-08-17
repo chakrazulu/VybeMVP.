@@ -1,0 +1,440 @@
+{
+  "context_type": "crisis_navigation",
+  "planetary_influence": "saturn_plutonic",
+  "zodiac_prep": "earth_fixed",
+  "archetypal_anchor": "Saturn as foundation builder",
+  "planetary_fusion_ready": true,
+  "metaphor_family": ["mountain", "roots", "foundation", "anchor", "phoenix", "transformation", "bedrock", "resilience", "breakthrough", "rebirth"],
+  "energy_signature": "Grounding through Saturnian structure and Plutonic transformation",
+  "transformation_focus": "Transform overwhelm into grounded strength",
+  "planetary_rulership_patterns": {
+    "saturn_capricorn": "Discipline builds the mountain of dreams",
+    "pluto_scorpio": "Strength through emotional depth",
+    "saturn_aquarius": "Structure serves collective vision"
+  },
+  "insights": [
+    {
+      "insight": "Saturn offers foundation when the ground shakes—plant your feet in the bedrock of what you know to be true.",
+      "context_match": "crisis_grounding",
+      "planetary_coherence": "saturn_foundation_stability",
+      "zodiac_readiness": "capricorn_earth_grounding",
+      "voice_pattern": "saturn_offers",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Pluto transforms challenge into diamond clarity—let pressure create the precious stone of your wisdom.",
+      "context_match": "pressure_diamond_transformation",
+      "planetary_coherence": "pluto_pressure_alchemy",
+      "zodiac_readiness": "scorpio_transformation_mastery",
+      "voice_pattern": "pluto_transforms",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "In the eye of the storm, Saturn builds sanctuary—trust the structure of your inner resilience.",
+      "context_match": "storm_eye_sanctuary",
+      "planetary_coherence": "saturn_inner_structure",
+      "zodiac_readiness": "capricorn_resilience_building",
+      "voice_pattern": "storm_eye_saturn",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Crisis reveals the mountain you're climbing—let each challenge be a step toward your summit.",
+      "context_match": "mountain_climbing_revelation",
+      "planetary_coherence": "saturn_mountain_mastery",
+      "zodiac_readiness": "capricorn_summit_journey",
+      "voice_pattern": "crisis_reveals",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Pluto whispers through the breakdown: 'What dies here makes space for your greater becoming.'",
+      "context_match": "breakdown_becoming_space",
+      "planetary_coherence": "pluto_death_rebirth",
+      "zodiac_readiness": "scorpio_death_mastery",
+      "voice_pattern": "pluto_whispers",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Saturn's steady hand guides you through chaos—lean into the rhythm of one step, one breath, one choice.",
+      "context_match": "steady_guidance_rhythm",
+      "planetary_coherence": "saturn_steady_guidance",
+      "zodiac_readiness": "capricorn_steady_progress",
+      "voice_pattern": "saturn_steady_hand",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "In the furnace of difficulty, your core strength is forged—trust the fire that makes you unbreakable.",
+      "context_match": "core_strength_forging",
+      "planetary_coherence": "pluto_core_forging",
+      "zodiac_readiness": "scorpio_unbreakable_core",
+      "voice_pattern": "furnace_difficulty",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Saturn builds bridges over the chasms of fear—cross toward the solid ground of your deeper knowing.",
+      "context_match": "fear_bridge_building",
+      "planetary_coherence": "saturn_bridge_construction",
+      "zodiac_readiness": "capricorn_bridge_mastery",
+      "voice_pattern": "saturn_builds_bridges",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Crisis calls forth your hidden reserves—discover the wellspring of strength that has always been yours.",
+      "context_match": "hidden_reserves_discovery",
+      "planetary_coherence": "pluto_hidden_power",
+      "zodiac_readiness": "scorpio_hidden_strength",
+      "voice_pattern": "crisis_calls_forth",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Pluto's dark wisdom illuminates what must be released—let go to make space for your phoenix rising.",
+      "context_match": "release_phoenix_rising",
+      "planetary_coherence": "pluto_release_rebirth",
+      "zodiac_readiness": "scorpio_phoenix_mastery",
+      "voice_pattern": "pluto_dark_wisdom",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Saturn offers the anchor when waves rise high—hold fast to your deepest values as the storm passes.",
+      "context_match": "anchor_values_storm",
+      "planetary_coherence": "saturn_value_anchoring",
+      "zodiac_readiness": "capricorn_value_stability",
+      "voice_pattern": "saturn_offers_anchor",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "In the laboratory of crisis, your soul conducts experiments—trust the alchemy that transforms lead to gold.",
+      "context_match": "soul_laboratory_alchemy",
+      "planetary_coherence": "pluto_soul_alchemy",
+      "zodiac_readiness": "scorpio_alchemical_mastery",
+      "voice_pattern": "laboratory_crisis",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Saturn's mountain teaches patience through persistence—each small step builds the monument of your character.",
+      "context_match": "patience_persistence_monument",
+      "planetary_coherence": "saturn_character_building",
+      "zodiac_readiness": "capricorn_character_monument",
+      "voice_pattern": "saturn_mountain_teaches",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Crisis strips away the non-essential—embrace the fierce grace that reveals your unshakeable core.",
+      "context_match": "essential_core_revelation",
+      "planetary_coherence": "pluto_essential_stripping",
+      "zodiac_readiness": "scorpio_core_revelation",
+      "voice_pattern": "crisis_strips_away",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Pluto transforms the soil of suffering into the garden of compassion—let pain teach you to love more deeply.",
+      "context_match": "suffering_compassion_garden",
+      "planetary_coherence": "pluto_compassion_alchemy",
+      "zodiac_readiness": "scorpio_compassion_mastery",
+      "voice_pattern": "pluto_transforms_soil",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Saturn's steady rhythm beats through chaos—synchronize your heartbeat with the cosmic metronome of order.",
+      "context_match": "cosmic_rhythm_synchronization",
+      "planetary_coherence": "saturn_cosmic_order",
+      "zodiac_readiness": "capricorn_cosmic_rhythm",
+      "voice_pattern": "saturn_steady_rhythm",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "In the crucible of challenge, your authentic power is revealed—own the strength that crisis has awakened.",
+      "context_match": "authentic_power_revelation",
+      "planetary_coherence": "pluto_authentic_power",
+      "zodiac_readiness": "scorpio_power_ownership",
+      "voice_pattern": "crucible_challenge",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Saturn builds the fortress of inner security—no external storm can touch what you've built within.",
+      "context_match": "inner_fortress_security",
+      "planetary_coherence": "saturn_inner_fortress",
+      "zodiac_readiness": "capricorn_inner_security",
+      "voice_pattern": "saturn_builds_fortress",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Crisis becomes chrysalis when you surrender to transformation—trust the intelligence of your own becoming.",
+      "context_match": "crisis_chrysalis_transformation",
+      "planetary_coherence": "pluto_chrysalis_wisdom",
+      "zodiac_readiness": "scorpio_transformation_trust",
+      "voice_pattern": "crisis_becomes_chrysalis",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Pluto's depth work requires courage to feel fully—let emotions be the compass that guides you home to truth.",
+      "context_match": "depth_work_emotional_compass",
+      "planetary_coherence": "pluto_emotional_navigation",
+      "zodiac_readiness": "scorpio_emotional_truth",
+      "voice_pattern": "pluto_depth_work",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Saturn's discipline becomes devotion when aligned with purpose—let structure serve your soul's calling.",
+      "context_match": "discipline_devotion_purpose",
+      "planetary_coherence": "saturn_soul_discipline",
+      "zodiac_readiness": "capricorn_soul_service",
+      "voice_pattern": "saturn_discipline_becomes",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "In the eye of breakdown, breakthrough gestates—breathe space around the birth of your new beginning.",
+      "context_match": "breakdown_breakthrough_gestation",
+      "planetary_coherence": "pluto_breakthrough_birth",
+      "zodiac_readiness": "scorpio_breakthrough_mastery",
+      "voice_pattern": "eye_breakdown",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Saturn offers the tools of mastery through challenge—each difficulty sharpens your skills for greater service.",
+      "context_match": "mastery_tools_challenge",
+      "planetary_coherence": "saturn_mastery_building",
+      "zodiac_readiness": "capricorn_mastery_service",
+      "voice_pattern": "saturn_offers_tools",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Crisis reveals the bedrock beliefs that truly sustain you—build your new life on this unshakeable foundation.",
+      "context_match": "bedrock_beliefs_foundation",
+      "planetary_coherence": "saturn_belief_foundation",
+      "zodiac_readiness": "capricorn_unshakeable_base",
+      "voice_pattern": "crisis_reveals_bedrock",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Pluto whispers: 'What feels like ending is evolution'—trust the intelligence of natural cycles.",
+      "context_match": "ending_evolution_cycles",
+      "planetary_coherence": "pluto_evolutionary_cycles",
+      "zodiac_readiness": "scorpio_cycle_mastery",
+      "voice_pattern": "pluto_whispers_ending",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Saturn's mountain climbing teaches the dignity of effort—honor yourself for every step taken in difficulty.",
+      "context_match": "dignity_effort_honor",
+      "planetary_coherence": "saturn_dignified_effort",
+      "zodiac_readiness": "capricorn_effort_dignity",
+      "voice_pattern": "saturn_mountain_climbing",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "In the forge of hardship, your character is tempered—appreciate the steel that emerges from the fire.",
+      "context_match": "character_tempering_steel",
+      "planetary_coherence": "saturn_character_forging",
+      "zodiac_readiness": "capricorn_steel_character",
+      "voice_pattern": "forge_hardship",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Pluto transforms the wound into the gift—discover the medicine you're meant to bring to the world.",
+      "context_match": "wound_gift_medicine",
+      "planetary_coherence": "pluto_wound_healing",
+      "zodiac_readiness": "scorpio_healing_gift",
+      "voice_pattern": "pluto_transforms_wound",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Saturn builds the architecture of resilience—each survived crisis adds another room to your wisdom house.",
+      "context_match": "resilience_architecture_wisdom",
+      "planetary_coherence": "saturn_resilience_building",
+      "zodiac_readiness": "capricorn_wisdom_architecture",
+      "voice_pattern": "saturn_builds_architecture",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Crisis calls you to the council of your deepest resources—gather the allies within that have always been yours.",
+      "context_match": "inner_resource_council",
+      "planetary_coherence": "saturn_inner_council",
+      "zodiac_readiness": "capricorn_resource_mastery",
+      "voice_pattern": "crisis_calls_council",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Pluto's underworld journey reveals buried treasures—what seemed lost returns transformed and more valuable.",
+      "context_match": "underworld_buried_treasures",
+      "planetary_coherence": "pluto_underworld_treasures",
+      "zodiac_readiness": "scorpio_treasure_recovery",
+      "voice_pattern": "pluto_underworld_journey",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Saturn's patient earth energy grounds the lightning of crisis—let stability emerge from the storm's teaching.",
+      "context_match": "earth_grounding_lightning",
+      "planetary_coherence": "saturn_grounding_stability",
+      "zodiac_readiness": "earth_storm_grounding",
+      "voice_pattern": "saturn_patient_earth",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "In the laboratory of limitation, your genius finds new expression—let constraints become the mother of innovation.",
+      "context_match": "limitation_genius_innovation",
+      "planetary_coherence": "saturn_creative_constraint",
+      "zodiac_readiness": "capricorn_innovative_solutions",
+      "voice_pattern": "laboratory_limitation",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Pluto strips away illusion to reveal essence—trust what remains when everything false falls away.",
+      "context_match": "illusion_essence_stripping",
+      "planetary_coherence": "pluto_essence_revelation",
+      "zodiac_readiness": "scorpio_essence_truth",
+      "voice_pattern": "pluto_strips_illusion",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Saturn's slow wisdom builds monuments that last—let patience be your partner in creating something enduring.",
+      "context_match": "slow_wisdom_monuments",
+      "planetary_coherence": "saturn_enduring_creation",
+      "zodiac_readiness": "capricorn_lasting_legacy",
+      "voice_pattern": "saturn_slow_wisdom",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Crisis becomes compost for new growth—let what decomposes nourish the soil of your next chapter.",
+      "context_match": "crisis_compost_growth",
+      "planetary_coherence": "pluto_composting_wisdom",
+      "zodiac_readiness": "scorpio_regenerative_cycle",
+      "voice_pattern": "crisis_becomes_compost",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Pluto's phoenix knows the secret of sacred timing—rise when the ashes are ready to birth wings.",
+      "context_match": "phoenix_sacred_timing",
+      "planetary_coherence": "pluto_phoenix_timing",
+      "zodiac_readiness": "scorpio_timing_mastery",
+      "voice_pattern": "pluto_phoenix_knows",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Saturn builds the cathedral of character one stone at a time—honor the slow sanctification of your soul.",
+      "context_match": "character_cathedral_sanctification",
+      "planetary_coherence": "saturn_soul_building",
+      "zodiac_readiness": "capricorn_soul_architecture",
+      "voice_pattern": "saturn_builds_cathedral",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "In the crucible of difficulty, your authentic voice finds its power—speak the truth that crisis has revealed.",
+      "context_match": "authentic_voice_power",
+      "planetary_coherence": "pluto_voice_empowerment",
+      "zodiac_readiness": "scorpio_authentic_voice",
+      "voice_pattern": "crucible_difficulty",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Saturn's mountain path teaches the wisdom of switchbacks—sometimes moving sideways is the way forward.",
+      "context_match": "mountain_switchback_wisdom",
+      "planetary_coherence": "saturn_strategic_patience",
+      "zodiac_readiness": "capricorn_strategic_wisdom",
+      "voice_pattern": "saturn_mountain_path",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Crisis opens the vault of your hidden strengths—claim the treasures that difficulty has revealed within you.",
+      "context_match": "hidden_strength_vault",
+      "planetary_coherence": "pluto_strength_revelation",
+      "zodiac_readiness": "scorpio_strength_claiming",
+      "voice_pattern": "crisis_opens_vault",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Pluto's deep current carries you to depths where new wisdom springs—trust the underground river of your knowing.",
+      "context_match": "deep_current_wisdom_spring",
+      "planetary_coherence": "pluto_deep_wisdom",
+      "zodiac_readiness": "scorpio_depth_navigation",
+      "voice_pattern": "pluto_deep_current",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Saturn's steady presence anchors you in the eternal—find refuge in what transcends the temporary storm.",
+      "context_match": "eternal_anchor_refuge",
+      "planetary_coherence": "saturn_eternal_anchor",
+      "zodiac_readiness": "capricorn_eternal_refuge",
+      "voice_pattern": "saturn_steady_presence",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "In the alchemy of adversity, your lead becomes gold—appreciate the philosopher's stone of your own experience.",
+      "context_match": "adversity_alchemy_gold",
+      "planetary_coherence": "pluto_adversity_alchemy",
+      "zodiac_readiness": "scorpio_alchemical_gold",
+      "voice_pattern": "alchemy_adversity",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Crisis calls forth the master within—step into the authority that has been earned through your lived experience.",
+      "context_match": "master_authority_emergence",
+      "planetary_coherence": "saturn_mastery_authority",
+      "zodiac_readiness": "capricorn_earned_authority",
+      "voice_pattern": "crisis_calls_forth_master",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Pluto's regenerative force flows through apparent endings—trust the life force that creates anew from what seems destroyed.",
+      "context_match": "regenerative_endings_renewal",
+      "planetary_coherence": "pluto_regenerative_life",
+      "zodiac_readiness": "scorpio_life_regeneration",
+      "voice_pattern": "pluto_regenerative_force",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Saturn builds the bridge between who you were and who you're becoming—honor the construction zone of your evolution.",
+      "context_match": "evolution_bridge_construction",
+      "planetary_coherence": "saturn_evolutionary_bridge",
+      "zodiac_readiness": "capricorn_evolution_building",
+      "voice_pattern": "saturn_builds_bridge",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    }
+  ]
+}

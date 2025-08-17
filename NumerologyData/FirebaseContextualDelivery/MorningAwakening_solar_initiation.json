@@ -1,0 +1,467 @@
+{
+  "context_type": "morning_awakening",
+  "planetary_influence": "solar_martial",
+  "zodiac_prep": "fire_cardinal",
+  "archetypal_anchor": "Sun as daily igniter",
+  "planetary_fusion_ready": true,
+  "metaphor_family": ["dawn", "ignition", "first_flame", "sunrise", "awakening_fire", "morning_star", "solar_activation", "day_birth", "light_emergence", "radiant_beginning"],
+  "energy_signature": "Activating solar courage for purposeful day initiation",
+  "transformation_focus": "Transform sleepiness into purposeful activation",
+  "planetary_rulership_patterns": {
+    "sun_leo": "Radiance from authentic heart-center",
+    "mars_aries": "Courage ignites like first flame",
+    "sun_aries": "Leadership through fearless initiation"
+  },
+  "insights": [
+    {
+      "insight": "As Sol rises, your inner fire awakens—let this Martian courage kindle the day's first sacred action.",
+      "context_match": "morning_energy_activation",
+      "planetary_coherence": "solar_martial_fusion",
+      "zodiac_readiness": "aries_leo_sagittarius",
+      "voice_pattern": "sol_rises",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Solar radiance awakens the warrior within—step forward with the confidence of first light claiming the horizon.",
+      "context_match": "morning_courage_activation",
+      "planetary_coherence": "sun_mars_leadership",
+      "zodiac_readiness": "fire_signs_ready",
+      "voice_pattern": "solar_radiance",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Mars ignites your morning purpose—let bold action be the first prayer you offer to the awakening day.",
+      "context_match": "morning_purpose_ignition",
+      "planetary_coherence": "mars_action_initiation",
+      "zodiac_readiness": "cardinal_fire",
+      "voice_pattern": "mars_ignites",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The Sun calls your authentic self forward—rise today as the radiant leader of your own life.",
+      "context_match": "authentic_leadership_dawn",
+      "planetary_coherence": "sun_leo_authenticity",
+      "zodiac_readiness": "leo_leadership",
+      "voice_pattern": "sun_calls",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Solar fire meets Martian steel—forge this day with the strength of stars and the courage of ancient warriors.",
+      "context_match": "solar_martial_forging",
+      "planetary_coherence": "fire_steel_fusion",
+      "zodiac_readiness": "aries_mars_power",
+      "voice_pattern": "solar_fire_meets",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Dawn whispers your sovereign nature awake—let the first breath activate your divine right to create.",
+      "context_match": "sovereign_awakening",
+      "planetary_coherence": "sun_sovereignty",
+      "zodiac_readiness": "leo_divine_right",
+      "voice_pattern": "dawn_whispers",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Mars kindles the sacred fire in your belly—let this ember guide every choice toward your highest expression.",
+      "context_match": "sacred_fire_guidance",
+      "planetary_coherence": "mars_sacred_fire",
+      "zodiac_readiness": "fire_sign_expression",
+      "voice_pattern": "mars_kindles",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The morning Sun illuminates your unique path—step boldly where only your light can lead.",
+      "context_match": "unique_path_illumination",
+      "planetary_coherence": "sun_path_leadership",
+      "zodiac_readiness": "leo_unique_expression",
+      "voice_pattern": "morning_sun_illuminates",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Solar radiance meets your willing heart—let courage be the first gift you give yourself today.",
+      "context_match": "courageous_heart_opening",
+      "planetary_coherence": "sun_heart_courage",
+      "zodiac_readiness": "leo_heart_center",
+      "voice_pattern": "solar_radiance_meets",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Mars whispers: 'Today calls for the warrior, not the worrier'—answer with your whole being.",
+      "context_match": "warrior_activation",
+      "planetary_coherence": "mars_warrior_calling",
+      "zodiac_readiness": "aries_warrior_spirit",
+      "voice_pattern": "mars_whispers",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "First light activates your inner king—rule this day with wisdom, strength, and radiant purpose.",
+      "context_match": "inner_sovereignty_activation",
+      "planetary_coherence": "sun_divine_kingship",
+      "zodiac_readiness": "leo_royal_nature",
+      "voice_pattern": "first_light_activates",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Solar fire burns away yesterday's doubts—rise today with the confidence of a star born to shine.",
+      "context_match": "doubt_burning_confidence",
+      "planetary_coherence": "sun_purification_confidence",
+      "zodiac_readiness": "fire_sign_purification",
+      "voice_pattern": "solar_fire_burns",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The dawn invites your boldest self forward—let Martian courage answer the Sun's call to greatness.",
+      "context_match": "bold_self_invitation",
+      "planetary_coherence": "mars_courage_sun_greatness",
+      "zodiac_readiness": "cardinal_fire_boldness",
+      "voice_pattern": "dawn_invites",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Morning star energy flows through your veins—let this cosmic electricity activate every cell toward purpose.",
+      "context_match": "cosmic_activation",
+      "planetary_coherence": "venus_sun_morning_star",
+      "zodiac_readiness": "venus_sun_harmony",
+      "voice_pattern": "morning_star_energy",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Solar radiance ignites your creative fire—let today be the canvas where your soul paints its truth.",
+      "context_match": "creative_fire_activation",
+      "planetary_coherence": "sun_creative_expression",
+      "zodiac_readiness": "leo_creative_power",
+      "voice_pattern": "solar_radiance_ignites",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Mars awakens the pioneer within—chart new territory in the landscape of your own becoming.",
+      "context_match": "pioneer_awakening",
+      "planetary_coherence": "mars_pioneer_spirit",
+      "zodiac_readiness": "aries_pathfinder",
+      "voice_pattern": "mars_awakens",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The Sun rises through your heart center—let this radiance illuminate every interaction with divine warmth.",
+      "context_match": "heart_centered_radiance",
+      "planetary_coherence": "sun_heart_illumination",
+      "zodiac_readiness": "leo_heart_wisdom",
+      "voice_pattern": "sun_rises_through",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Dawn breaks the chains of limitation—step into this day as the unlimited being you truly are.",
+      "context_match": "limitation_breaking",
+      "planetary_coherence": "sun_mars_liberation",
+      "zodiac_readiness": "fire_liberation",
+      "voice_pattern": "dawn_breaks",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Solar fire meets your morning intention—forge this day with the heat of stars and the precision of purpose.",
+      "context_match": "intention_forging",
+      "planetary_coherence": "sun_mars_precision",
+      "zodiac_readiness": "fire_earth_integration",
+      "voice_pattern": "solar_fire_meets",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Mars kindles your sacred rebellion—let today be the day you refuse to dim your authentic light.",
+      "context_match": "sacred_rebellion",
+      "planetary_coherence": "mars_authentic_rebellion",
+      "zodiac_readiness": "aries_authenticity",
+      "voice_pattern": "mars_kindles",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The morning Sun calls your leadership forward—guide with the warmth of heart and the strength of will.",
+      "context_match": "leadership_calling",
+      "planetary_coherence": "sun_leadership_balance",
+      "zodiac_readiness": "leo_balanced_leadership",
+      "voice_pattern": "morning_sun_calls",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Solar radiance awakens your inner phoenix—let this day be the rebirth you've been preparing for.",
+      "context_match": "phoenix_rebirth",
+      "planetary_coherence": "sun_transformation_rebirth",
+      "zodiac_readiness": "fire_transformation",
+      "voice_pattern": "solar_radiance_awakens",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Mars whispers of courage earned through action—let your first step activate the warrior's path.",
+      "context_match": "courage_through_action",
+      "planetary_coherence": "mars_action_courage",
+      "zodiac_readiness": "aries_action_path",
+      "voice_pattern": "mars_whispers",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Dawn light penetrates the fog of uncertainty—move forward with solar clarity and Martian determination.",
+      "context_match": "clarity_through_determination",
+      "planetary_coherence": "sun_clarity_mars_determination",
+      "zodiac_readiness": "fire_air_clarity",
+      "voice_pattern": "dawn_light_penetrates",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The Sun ignites your divine blueprint—let this morning activate the design written in your stars.",
+      "context_match": "divine_blueprint_activation",
+      "planetary_coherence": "sun_divine_design",
+      "zodiac_readiness": "leo_divine_expression",
+      "voice_pattern": "sun_ignites",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Solar fire burns in your willing hands—craft this day with the tools of light and love.",
+      "context_match": "crafting_with_light",
+      "planetary_coherence": "sun_venus_creation",
+      "zodiac_readiness": "leo_taurus_manifestation",
+      "voice_pattern": "solar_fire_burns",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Mars awakens the sacred warrior—protect your dreams with the fierce tenderness of divine strength.",
+      "context_match": "sacred_warrior_protection",
+      "planetary_coherence": "mars_protection_strength",
+      "zodiac_readiness": "aries_protective_power",
+      "voice_pattern": "mars_awakens",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Morning light reveals the gold within your being—let this radiance guide every choice toward truth.",
+      "context_match": "inner_gold_revelation",
+      "planetary_coherence": "sun_inner_treasure",
+      "zodiac_readiness": "leo_inner_worth",
+      "voice_pattern": "morning_light_reveals",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Solar radiance meets your morning vow—seal today's intentions with the fire of stars.",
+      "context_match": "intention_sealing",
+      "planetary_coherence": "sun_sacred_commitment",
+      "zodiac_readiness": "fire_sign_commitment",
+      "voice_pattern": "solar_radiance_meets",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The dawn sky holds space for your expansion—let Martian courage fill the vastness with purpose.",
+      "context_match": "expansive_purpose",
+      "planetary_coherence": "mars_jupiter_expansion",
+      "zodiac_readiness": "aries_sagittarius_growth",
+      "voice_pattern": "dawn_sky_holds",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Mars kindles the flame that cannot be extinguished—let this eternal fire light your way home to yourself.",
+      "context_match": "eternal_flame_guidance",
+      "planetary_coherence": "mars_eternal_flame",
+      "zodiac_readiness": "fire_eternal_nature",
+      "voice_pattern": "mars_kindles",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Solar light activates your cellular memory—remember the star you were born to be.",
+      "context_match": "cellular_star_memory",
+      "planetary_coherence": "sun_cellular_activation",
+      "zodiac_readiness": "leo_star_nature",
+      "voice_pattern": "solar_light_activates",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The morning calls your excellence forward—answer with the precision of Mars and the radiance of Sol.",
+      "context_match": "excellence_calling",
+      "planetary_coherence": "mars_precision_sun_radiance",
+      "zodiac_readiness": "virgo_mars_leo_sun",
+      "voice_pattern": "morning_calls",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Dawn breaks open the seed of possibility—let solar warmth nurture what wants to emerge.",
+      "context_match": "possibility_nurturing",
+      "planetary_coherence": "sun_nurturing_growth",
+      "zodiac_readiness": "cancer_sun_nurturing",
+      "voice_pattern": "dawn_breaks_open",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Solar fire burns bright in your morning heart—let this flame illuminate the path of service.",
+      "context_match": "service_illumination",
+      "planetary_coherence": "sun_heart_service",
+      "zodiac_readiness": "leo_virgo_service",
+      "voice_pattern": "solar_fire_burns",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Mars awakens the champion within—let today be the arena where your highest self claims victory.",
+      "context_match": "champion_awakening",
+      "planetary_coherence": "mars_champion_victory",
+      "zodiac_readiness": "aries_competitive_spirit",
+      "voice_pattern": "mars_awakens",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The Sun rises through your sacred purpose—let every action be an offering to the altar of your becoming.",
+      "context_match": "sacred_purpose_offering",
+      "planetary_coherence": "sun_sacred_action",
+      "zodiac_readiness": "leo_sacred_expression",
+      "voice_pattern": "sun_rises_through",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Morning light penetrates the armor of fear—step naked and radiant into the truth of your power.",
+      "context_match": "fear_armor_dissolving",
+      "planetary_coherence": "sun_mars_fearless_power",
+      "zodiac_readiness": "aries_leo_fearlessness",
+      "voice_pattern": "morning_light_penetrates",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Solar radiance ignites your passion project—let this morning be the birthplace of your masterpiece.",
+      "context_match": "passion_project_ignition",
+      "planetary_coherence": "sun_creative_passion",
+      "zodiac_readiness": "leo_creative_mastery",
+      "voice_pattern": "solar_radiance_ignites",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Mars whispers of battles worth fighting—choose today to champion what makes your spirit soar.",
+      "context_match": "worthy_battles_choice",
+      "planetary_coherence": "mars_worthy_conflict",
+      "zodiac_readiness": "aries_spiritual_warrior",
+      "voice_pattern": "mars_whispers",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Dawn sky reflects your limitless nature—expand into the vastness that is your birthright.",
+      "context_match": "limitless_expansion",
+      "planetary_coherence": "sun_jupiter_limitless",
+      "zodiac_readiness": "leo_sagittarius_expansion",
+      "voice_pattern": "dawn_sky_reflects",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The Sun activates your inner alchemist—transform this ordinary morning into gold through conscious presence.",
+      "context_match": "alchemical_transformation",
+      "planetary_coherence": "sun_alchemical_gold",
+      "zodiac_readiness": "leo_transformation_mastery",
+      "voice_pattern": "sun_activates",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Solar fire meets your morning prayer—let devotion be the bridge between earth and heaven.",
+      "context_match": "devotional_bridging",
+      "planetary_coherence": "sun_devotional_fire",
+      "zodiac_readiness": "leo_sagittarius_devotion",
+      "voice_pattern": "solar_fire_meets",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Mars kindles the courage to love boldly—let your heart be the first territory you conquer today.",
+      "context_match": "bold_love_courage",
+      "planetary_coherence": "mars_venus_bold_love",
+      "zodiac_readiness": "aries_libra_heart_courage",
+      "voice_pattern": "mars_kindles",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Morning radiance awakens your inner sun—shine not to impress, but to express the divine through you.",
+      "context_match": "divine_expression_shine",
+      "planetary_coherence": "sun_divine_expression",
+      "zodiac_readiness": "leo_authentic_radiance",
+      "voice_pattern": "morning_radiance_awakens",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The dawn honors your sacred timing—let patience and urgency dance together in perfect rhythm.",
+      "context_match": "sacred_timing_rhythm",
+      "planetary_coherence": "sun_saturn_timing",
+      "zodiac_readiness": "leo_capricorn_patience",
+      "voice_pattern": "dawn_honors",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Solar light illuminates your next evolutionary leap—take the first step with cosmic confidence.",
+      "context_match": "evolutionary_leap",
+      "planetary_coherence": "sun_uranus_evolution",
+      "zodiac_readiness": "leo_aquarius_evolution",
+      "voice_pattern": "solar_light_illuminates",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Mars awakens the spiritual warrior—fight for joy, defend wonder, conquer limitation with love.",
+      "context_match": "spiritual_warrior_mission",
+      "planetary_coherence": "mars_spiritual_warfare",
+      "zodiac_readiness": "aries_spiritual_mission",
+      "voice_pattern": "mars_awakens",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "The morning star guides your highest aspirations—let celestial navigation chart your earthly course.",
+      "context_match": "celestial_navigation",
+      "planetary_coherence": "venus_sun_guidance",
+      "zodiac_readiness": "libra_leo_harmony",
+      "voice_pattern": "morning_star_guides",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Solar fire burns away the masks of conformity—reveal today the face you were born to show the world.",
+      "context_match": "authentic_face_revelation",
+      "planetary_coherence": "sun_authentic_revelation",
+      "zodiac_readiness": "leo_authentic_self",
+      "voice_pattern": "solar_fire_burns",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    }
+  ]
+}

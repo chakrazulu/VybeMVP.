@@ -1,0 +1,449 @@
+{
+  "context_type": "celebration_expansion",
+  "planetary_influence": "jupiter_venusian",
+  "zodiac_prep": "fire_mutable",
+  "archetypal_anchor": "Jupiter as expansion catalyst",
+  "planetary_fusion_ready": true,
+  "metaphor_family": ["expansion", "celebration", "abundance", "gratitude", "joy_multiplication", "blessing_amplification", "success_sharing", "jubilation", "triumph", "golden_harvest"],
+  "energy_signature": "Amplifying joy through Jupiterian expansion and Venusian appreciation",
+  "transformation_focus": "Transform small joy into expanded gratitude",
+  "planetary_rulership_patterns": {
+    "jupiter_sagittarius": "Wisdom expands through bold truth",
+    "venus_taurus": "Beauty emerges from grounded presence",
+    "jupiter_pisces": "Compassion flows without boundaries"
+  },
+  "insights": [
+    {
+      "insight": "Jupiter amplifies your joy like light through a prism—let celebration scatter rainbow blessings across your world.",
+      "context_match": "joy_amplification_prism",
+      "planetary_coherence": "jupiter_joy_multiplication",
+      "zodiac_readiness": "sagittarius_celebration_wisdom",
+      "voice_pattern": "jupiter_amplifies",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Expansive gratitude opens the treasure chest of abundance—let Venus teach you the art of celebration alchemy.",
+      "context_match": "gratitude_abundance_alchemy",
+      "planetary_coherence": "venus_gratitude_abundance",
+      "zodiac_readiness": "taurus_abundance_mastery",
+      "voice_pattern": "expansive_gratitude",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Jupiter whispers: 'Share your victories like seeds on the wind'—let success plant gardens everywhere you go.",
+      "context_match": "victory_sharing_seeds",
+      "planetary_coherence": "jupiter_success_sharing",
+      "zodiac_readiness": "sagittarius_wisdom_sharing",
+      "voice_pattern": "jupiter_whispers",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus paints golden strokes across your celebration—let beauty amplify the sacred artistry of your achievement.",
+      "context_match": "celebration_beauty_artistry",
+      "planetary_coherence": "venus_celebration_beauty",
+      "zodiac_readiness": "libra_celebration_aesthetics",
+      "voice_pattern": "venus_paints_golden",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Success becomes symphony when Jupiter conducts—let every victory note harmonize with gratitude's orchestra.",
+      "context_match": "success_symphony_harmony",
+      "planetary_coherence": "jupiter_harmonic_success",
+      "zodiac_readiness": "sagittarius_harmonic_wisdom",
+      "voice_pattern": "success_becomes_symphony",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Jupiter expands the circle of celebration—invite the universe to dance in the ballroom of your joy.",
+      "context_match": "celebration_circle_expansion",
+      "planetary_coherence": "jupiter_celebration_expansion",
+      "zodiac_readiness": "sagittarius_universal_joy",
+      "voice_pattern": "jupiter_expands_circle",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus transforms triumph into treasure—count each blessing as a precious gem in your crown of gratitude.",
+      "context_match": "triumph_treasure_transformation",
+      "planetary_coherence": "venus_triumph_treasuring",
+      "zodiac_readiness": "taurus_treasure_appreciation",
+      "voice_pattern": "venus_transforms_triumph",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Celebration opens Jupiter's generous gates—let abundance flow through you to bless others with overflow.",
+      "context_match": "generous_gates_overflow",
+      "planetary_coherence": "jupiter_generous_abundance",
+      "zodiac_readiness": "sagittarius_generous_flow",
+      "voice_pattern": "celebration_opens_gates",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Jupiter magnifies gratitude into cosmic appreciation—let thanksgiving echo through the halls of heaven.",
+      "context_match": "gratitude_cosmic_magnification",
+      "planetary_coherence": "jupiter_cosmic_gratitude",
+      "zodiac_readiness": "sagittarius_cosmic_appreciation",
+      "voice_pattern": "jupiter_magnifies",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus weaves golden threads through success—see how beauty and achievement dance together in perfect harmony.",
+      "context_match": "success_beauty_harmony",
+      "planetary_coherence": "venus_success_harmony",
+      "zodiac_readiness": "libra_success_beauty",
+      "voice_pattern": "venus_weaves_golden",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Joy becomes Jupiter's telescope—celebrate to see farther into the landscape of possibility.",
+      "context_match": "joy_possibility_telescope",
+      "planetary_coherence": "jupiter_joy_vision",
+      "zodiac_readiness": "sagittarius_visionary_joy",
+      "voice_pattern": "joy_becomes_telescope",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Jupiter expands the feast of fulfillment—let your table include gratitude for the journey as much as the destination.",
+      "context_match": "fulfillment_feast_journey",
+      "planetary_coherence": "jupiter_fulfillment_expansion",
+      "zodiac_readiness": "sagittarius_journey_appreciation",
+      "voice_pattern": "jupiter_expands_feast",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus adorns your victories with grace—let elegance be the crown that makes achievement truly beautiful.",
+      "context_match": "victory_grace_elegance",
+      "planetary_coherence": "venus_graceful_victory",
+      "zodiac_readiness": "libra_elegant_achievement",
+      "voice_pattern": "venus_adorns_victories",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Celebration becomes Jupiter's laboratory—experiment with how much joy you can generate and share.",
+      "context_match": "celebration_joy_laboratory",
+      "planetary_coherence": "jupiter_joy_experimentation",
+      "zodiac_readiness": "sagittarius_joy_exploration",
+      "voice_pattern": "celebration_becomes_laboratory",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Jupiter whispers of abundance multiplying—let your gratitude be the seed that grows infinite blessings.",
+      "context_match": "abundance_multiplication_seeds",
+      "planetary_coherence": "jupiter_abundance_multiplication",
+      "zodiac_readiness": "sagittarius_infinite_blessing",
+      "voice_pattern": "jupiter_whispers_abundance",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus creates art from appreciation—paint your success story with the brushstrokes of wonder.",
+      "context_match": "appreciation_art_wonder",
+      "planetary_coherence": "venus_appreciation_artistry",
+      "zodiac_readiness": "libra_artistic_appreciation",
+      "voice_pattern": "venus_creates_art",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Jupiter's generous spirit flows through your celebration—become a fountain of joy that refreshes everyone near.",
+      "context_match": "generous_joy_fountain",
+      "planetary_coherence": "jupiter_generous_joy",
+      "zodiac_readiness": "sagittarius_generous_spirit",
+      "voice_pattern": "jupiter_generous_spirit",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Success opens Venus's jewelry box—discover the precious moments that make achievement truly valuable.",
+      "context_match": "success_precious_moments",
+      "planetary_coherence": "venus_precious_success",
+      "zodiac_readiness": "taurus_valuable_achievement",
+      "voice_pattern": "success_opens_jewelry",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Jupiter expands the wingspan of gratitude—let appreciation carry you to heights you've never imagined.",
+      "context_match": "gratitude_wingspan_heights",
+      "planetary_coherence": "jupiter_gratitude_elevation",
+      "zodiac_readiness": "sagittarius_grateful_heights",
+      "voice_pattern": "jupiter_expands_wingspan",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus harmonizes celebration with compassion—let your joy include tender awareness of others' journeys.",
+      "context_match": "celebration_compassion_harmony",
+      "planetary_coherence": "venus_compassionate_joy",
+      "zodiac_readiness": "libra_compassionate_celebration",
+      "voice_pattern": "venus_harmonizes_celebration",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Triumph becomes Jupiter's teaching moment—let success be the classroom where wisdom meets wonder.",
+      "context_match": "triumph_teaching_wisdom",
+      "planetary_coherence": "jupiter_wisdom_triumph",
+      "zodiac_readiness": "sagittarius_teaching_success",
+      "voice_pattern": "triumph_becomes_teaching",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Jupiter ignites the bonfire of belonging—let celebration remind you that success is a community creation.",
+      "context_match": "belonging_community_creation",
+      "planetary_coherence": "jupiter_community_success",
+      "zodiac_readiness": "sagittarius_community_wisdom",
+      "voice_pattern": "jupiter_ignites_bonfire",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus sculpts beauty from breakthrough—appreciate the artistry involved in your evolution into excellence.",
+      "context_match": "breakthrough_beauty_evolution",
+      "planetary_coherence": "venus_evolutionary_beauty",
+      "zodiac_readiness": "libra_evolutionary_aesthetics",
+      "voice_pattern": "venus_sculpts_beauty",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Celebration becomes Jupiter's prayer of expansion—let gratitude stretch the boundaries of what you thought possible.",
+      "context_match": "celebration_prayer_expansion",
+      "planetary_coherence": "jupiter_prayer_expansion",
+      "zodiac_readiness": "sagittarius_spiritual_expansion",
+      "voice_pattern": "celebration_becomes_prayer",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Jupiter amplifies the echo of achievement—let your success reverberate as encouragement through the collective consciousness.",
+      "context_match": "achievement_echo_encouragement",
+      "planetary_coherence": "jupiter_achievement_echo",
+      "zodiac_readiness": "sagittarius_collective_encouragement",
+      "voice_pattern": "jupiter_amplifies_echo",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus weaves celebration into constellation—connect your joy to the greater pattern of cosmic celebration.",
+      "context_match": "celebration_constellation_cosmic",
+      "planetary_coherence": "venus_cosmic_celebration",
+      "zodiac_readiness": "libra_cosmic_connection",
+      "voice_pattern": "venus_weaves_constellation",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Success opens Jupiter's treasure vault—discover the wealth that comes from sharing abundance rather than hoarding it.",
+      "context_match": "success_treasure_sharing",
+      "planetary_coherence": "jupiter_sharing_wealth",
+      "zodiac_readiness": "sagittarius_sharing_wisdom",
+      "voice_pattern": "success_opens_vault",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Jupiter expands gratitude into grace—let appreciation become the atmosphere that surrounds all your achievements.",
+      "context_match": "gratitude_grace_atmosphere",
+      "planetary_coherence": "jupiter_graceful_gratitude",
+      "zodiac_readiness": "sagittarius_graceful_achievement",
+      "voice_pattern": "jupiter_expands_gratitude",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus paints celebration with the colors of connection—let joy be the bridge that brings hearts together.",
+      "context_match": "celebration_connection_bridge",
+      "planetary_coherence": "venus_connection_celebration",
+      "zodiac_readiness": "libra_connecting_joy",
+      "voice_pattern": "venus_paints_celebration",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Triumph becomes Jupiter's telescope into tomorrow—celebrate today to see the magnificent future approaching.",
+      "context_match": "triumph_future_telescope",
+      "planetary_coherence": "jupiter_future_vision",
+      "zodiac_readiness": "sagittarius_future_celebration",
+      "voice_pattern": "triumph_becomes_telescope",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Jupiter whispers: 'Joy multiplied is joy magnified'—let celebration create exponential happiness.",
+      "context_match": "joy_multiplication_exponential",
+      "planetary_coherence": "jupiter_exponential_joy",
+      "zodiac_readiness": "sagittarius_exponential_happiness",
+      "voice_pattern": "jupiter_whispers_joy",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus transforms success into sacred art—let your achievements become offerings on the altar of beauty.",
+      "context_match": "success_sacred_art",
+      "planetary_coherence": "venus_sacred_achievement",
+      "zodiac_readiness": "libra_sacred_beauty",
+      "voice_pattern": "venus_transforms_success",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Celebration opens Jupiter's university—let joy be the curriculum that teaches you about infinite possibility.",
+      "context_match": "celebration_university_possibility",
+      "planetary_coherence": "jupiter_learning_celebration",
+      "zodiac_readiness": "sagittarius_infinite_learning",
+      "voice_pattern": "celebration_opens_university",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Jupiter amplifies appreciation into abundance—let gratitude be the lens that reveals riches everywhere.",
+      "context_match": "appreciation_abundance_lens",
+      "planetary_coherence": "jupiter_abundance_lens",
+      "zodiac_readiness": "sagittarius_abundance_vision",
+      "voice_pattern": "jupiter_amplifies_appreciation",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus orchestrates the symphony of success—let every achievement note harmonize with love's eternal melody.",
+      "context_match": "success_symphony_harmony",
+      "planetary_coherence": "venus_love_symphony",
+      "zodiac_readiness": "libra_harmonic_love",
+      "voice_pattern": "venus_orchestrates_symphony",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Triumph becomes Jupiter's launching pad—use success as the platform for your next leap into greatness.",
+      "context_match": "triumph_launching_greatness",
+      "planetary_coherence": "jupiter_greatness_launching",
+      "zodiac_readiness": "sagittarius_greatness_leap",
+      "voice_pattern": "triumph_becomes_launching",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Jupiter expands the circle of blessing—let your celebration include gratitude for those who supported your journey.",
+      "context_match": "blessing_circle_support",
+      "planetary_coherence": "jupiter_supportive_blessing",
+      "zodiac_readiness": "sagittarius_grateful_support",
+      "voice_pattern": "jupiter_expands_blessing",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus weaves golden moments into eternal memory—let celebration create treasures that time cannot diminish.",
+      "context_match": "golden_moments_eternal",
+      "planetary_coherence": "venus_eternal_treasures",
+      "zodiac_readiness": "taurus_eternal_beauty",
+      "voice_pattern": "venus_weaves_golden",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Success opens Jupiter's fountain of wisdom—drink deeply from the knowledge that flows from accomplished dreams.",
+      "context_match": "success_wisdom_fountain",
+      "planetary_coherence": "jupiter_wisdom_fountain",
+      "zodiac_readiness": "sagittarius_wisdom_flow",
+      "voice_pattern": "success_opens_fountain",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Jupiter ignites celebration like stars across the night sky—let your joy illuminate the darkness for others.",
+      "context_match": "celebration_stars_illumination",
+      "planetary_coherence": "jupiter_star_celebration",
+      "zodiac_readiness": "sagittarius_illuminating_joy",
+      "voice_pattern": "jupiter_ignites_stars",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus paints triumph with the brushstrokes of tenderness—let achievement be softened by love's gentle touch.",
+      "context_match": "triumph_tenderness_love",
+      "planetary_coherence": "venus_tender_triumph",
+      "zodiac_readiness": "libra_loving_achievement",
+      "voice_pattern": "venus_paints_triumph",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Celebration becomes Jupiter's megaphone for gratitude—let appreciation echo across all dimensions of your life.",
+      "context_match": "celebration_gratitude_echo",
+      "planetary_coherence": "jupiter_gratitude_amplification",
+      "zodiac_readiness": "sagittarius_grateful_echo",
+      "voice_pattern": "celebration_becomes_megaphone",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Jupiter expands the vocabulary of victory—discover new words for joy that your success has taught you.",
+      "context_match": "victory_vocabulary_joy",
+      "planetary_coherence": "jupiter_vocabulary_expansion",
+      "zodiac_readiness": "sagittarius_joy_language",
+      "voice_pattern": "jupiter_expands_vocabulary",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus creates the gallery where achievements become art—exhibit your success with pride and grateful wonder.",
+      "context_match": "achievement_art_gallery",
+      "planetary_coherence": "venus_achievement_artistry",
+      "zodiac_readiness": "libra_artistic_pride",
+      "voice_pattern": "venus_creates_gallery",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Triumph opens Jupiter's map of miracles—celebrate to discover what other impossibilities await your transformation.",
+      "context_match": "triumph_miracle_map",
+      "planetary_coherence": "jupiter_miracle_navigation",
+      "zodiac_readiness": "sagittarius_miracle_exploration",
+      "voice_pattern": "triumph_opens_map",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Jupiter whispers through celebration: 'This is just the beginning'—let success be the invitation to even greater expansion.",
+      "context_match": "success_beginning_expansion",
+      "planetary_coherence": "jupiter_expansion_invitation",
+      "zodiac_readiness": "sagittarius_expansion_beginning",
+      "voice_pattern": "jupiter_whispers_beginning",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Venus weaves celebration into the fabric of love—let joy strengthen the bonds that connect you to all life.",
+      "context_match": "celebration_love_bonds",
+      "planetary_coherence": "venus_love_celebration",
+      "zodiac_readiness": "libra_loving_connection",
+      "voice_pattern": "venus_weaves_celebration",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    },
+    {
+      "insight": "Success becomes Jupiter's gift to the future—celebrate knowing your achievement plants seeds for generations to come.",
+      "context_match": "success_future_generations",
+      "planetary_coherence": "jupiter_generational_impact",
+      "zodiac_readiness": "sagittarius_legacy_celebration",
+      "voice_pattern": "success_becomes_gift",
+      "quality_grade": "A+",
+      "fusion_prep_level": "phase_3_ready"
+    }
+  ]
+}
