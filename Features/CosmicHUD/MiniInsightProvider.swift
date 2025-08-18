@@ -33,9 +33,9 @@ class MiniInsightProvider: ObservableObject {
 
     // MARK: - Public Methods
 
-    /// Claude: Core insight generation method that adapts to user tier and available data
-    /// Premium users get KASPER personalization, free users get latest insights or curated templates
-    /// Smart caching prevents redundant API calls and ensures smooth HUD performance
+    /// Claude: Core insight generation method using NumerologyData + KASPER
+    /// Now uses real spiritual insights from 9,483 NumerologyData corpus
+    /// Smart caching prevents redundant generation and ensures smooth HUD performance
     func generateInsight(for aspectData: AspectData) async -> String {
         let cacheKey = createCacheKey(for: aspectData)
 

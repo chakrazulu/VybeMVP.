@@ -28,6 +28,7 @@
 
 import Foundation
 import SwiftUI
+import os.log
 
 // MARK: - Deployment Coordinator
 
@@ -90,7 +91,7 @@ public class MultiplicationDeploymentCoordinator: ObservableObject {
             progress = 1.0
             deploymentState = .completed
 
-            logger.info("✅ DEPLOYMENT COMPLETE - \(results.reduce(0) { $0 + $1.insights.count }) insights generated")
+            logger.info("✅ DEPLOYMENT COMPLETE - \(self.results.reduce(0) { $0 + $1.insights.count }) insights generated")
 
         } catch {
             logger.error("❌ Deployment failed: \(error.localizedDescription)")
@@ -382,10 +383,10 @@ struct DeploymentSummaryCard: View {
                 GridItem(.flexible()),
                 GridItem(.flexible())
             ], spacing: 12) {
-                StatCard(title: "Numbers", value: "\(summary.numbersProcessed)")
-                StatCard(title: "Insights", value: "\(summary.totalInsightsGenerated)")
-                StatCard(title: "Quality", value: "\(Int(summary.averageQuality * 100))%")
-                StatCard(title: "Time", value: "\(String(format: "%.1f", summary.totalGenerationTime))s")
+                DeploymentStatCard(title: "Numbers", value: "\(summary.numbersProcessed)")
+                DeploymentStatCard(title: "Insights", value: "\(summary.totalInsightsGenerated)")
+                DeploymentStatCard(title: "Quality", value: "\(Int(summary.averageQuality * 100))%")
+                DeploymentStatCard(title: "Time", value: "\(String(format: "%.1f", summary.totalGenerationTime))s")
             }
         }
         .padding()
@@ -395,7 +396,7 @@ struct DeploymentSummaryCard: View {
 }
 
 /// Individual stat card
-struct StatCard: View {
+struct DeploymentStatCard: View {
     let title: String
     let value: String
 

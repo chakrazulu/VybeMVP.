@@ -244,9 +244,9 @@ public class NumberMultiplicationSystem: ObservableObject {
         generationStats.totalGenerationTime = totalTime
 
         logger.info("✅ MULTIPLICATION DEPLOYMENT COMPLETE!")
-        logger.info("📊 Generated \(generationStats.totalInsightsGenerated) insights across \(allNumbers.count) numbers")
+        logger.info("📊 Generated \(self.generationStats.totalInsightsGenerated) insights across \(allNumbers.count) numbers")
         logger.info("⏱️ Total time: \(String(format: "%.2f", totalTime))s")
-        logger.info("🎯 Average quality: \(String(format: "%.3f", generationStats.averageQuality))")
+        logger.info("🎯 Average quality: \(String(format: "%.3f", self.generationStats.averageQuality))")
 
         return results
     }

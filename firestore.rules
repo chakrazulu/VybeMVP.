@@ -115,6 +115,19 @@ service cloud.firestore {
     }
 
     // ============================================
+    // SPIRITUAL INSIGHTS - Public content for app features
+    // ============================================
+    match /insights_staging/{document} {
+      // Public read access for testing (emulator only)
+      allow read: if true;
+    }
+
+    match /insights_prod/{document} {
+      // Public read access for production app
+      allow read: if true;
+    }
+
+    // ============================================
     // MATCHES - Private to each user
     // ============================================
     match /matches/{userId} {

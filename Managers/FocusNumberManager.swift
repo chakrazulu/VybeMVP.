@@ -95,6 +95,7 @@ import os.log
 import HealthKit
 import UserNotifications
 import UIKit
+import FirebaseFirestore
 
 // Struct to hold matched insight data
 struct MatchedInsightData: Identifiable {
@@ -329,26 +330,75 @@ class FocusNumberManager: NSObject, ObservableObject {
 
         print("✨ New match confirmed! Recording match between Focus Number \(selectedFocusNumber) and Realm Number \(matchedRealmNumber)")
 
-        // Fetch and store the insight for this new match
-        if let insightText = NumerologyInsightService.shared.fetchInsight(forNumber: matchedRealmNumber, category: InsightCategory.insight.rawValue) {
-            self.latestMatchedInsight = MatchedInsightData(
-                number: matchedRealmNumber,
-                category: InsightCategory.insight.rawValue, // Or dynamically determine if needed
-                text: insightText,
-                timestamp: Date() // Record when this insight was fetched/matched
-            )
-            print("💡 Fetched insight for matched number \(matchedRealmNumber): \(insightText.prefix(50))...")
+        // 🔥 FIREBASE INTEGRATION: Fetch A+ quality insight for this match
+        // IMPLEMENTATION DETAILS (Added August 18, 2025):
+        // - Replaces NumerologyInsightService with bulletproof Firebase repository
+        // - Fetches highest quality insights (0.95+ score) for notifications
+        // - Provides hybrid fallback: Firebase → NumerologyData → Templates
+        // - Stores insights to PersistedInsightLog with quality metadata
+        // - Ensures match notifications always deliver authentic spiritual guidance
+        Task { @MainActor in
+            do {
+                let firebaseRepository = FirebaseInsightRepository()
+                if let firebaseInsight = try await firebaseRepository.fetchMatchNotificationInsight(
+                    matchingNumber: matchedRealmNumber,
+                    context: .daily
+                ) {
+                    self.latestMatchedInsight = MatchedInsightData(
+                        number: matchedRealmNumber,
+                        category: firebaseInsight.category,
+                        text: firebaseInsight.text,
+                        timestamp: Date()
+                    )
+                    print("🔥 Firebase insight delivered for match \(matchedRealmNumber): \(firebaseInsight.text.prefix(50))...")
 
-            // NEW: Save this insight to PersistedInsightLog
-            savePersistedInsight(
-                number: matchedRealmNumber,
-                category: InsightCategory.insight.rawValue, // Or determine dynamically if needed
-                text: insightText,
-                tags: "FocusMatch, RealmTouch" // Example tags
-            )
+                    // Save Firebase insight to PersistedInsightLog
+                    self.savePersistedInsight(
+                        number: matchedRealmNumber,
+                        category: firebaseInsight.category,
+                        text: firebaseInsight.text,
+                        tags: "FocusMatch, RealmTouch, Firebase, A+Quality"
+                    )
+                } else {
+                    print("⚠️ No Firebase insight found for number \(matchedRealmNumber), using fallback...")
+                    // Fallback to existing system if Firebase fails
+                    if let insightText = NumerologyInsightService.shared.fetchInsight(forNumber: matchedRealmNumber, category: InsightCategory.insight.rawValue) {
+                        self.latestMatchedInsight = MatchedInsightData(
+                            number: matchedRealmNumber,
+                            category: InsightCategory.insight.rawValue,
+                            text: insightText,
+                            timestamp: Date()
+                        )
+                        print("💡 Fallback insight used for matched number \(matchedRealmNumber): \(insightText.prefix(50))...")
 
-        } else {
-            print("⚠️ Could not fetch insight for matched number \(matchedRealmNumber).")
+                        self.savePersistedInsight(
+                            number: matchedRealmNumber,
+                            category: InsightCategory.insight.rawValue,
+                            text: insightText,
+                            tags: "FocusMatch, RealmTouch, Fallback"
+                        )
+                    }
+                }
+            } catch {
+                print("❌ Firebase insight fetch failed: \(error.localizedDescription)")
+                // Fallback to existing system
+                if let insightText = NumerologyInsightService.shared.fetchInsight(forNumber: matchedRealmNumber, category: InsightCategory.insight.rawValue) {
+                    self.latestMatchedInsight = MatchedInsightData(
+                        number: matchedRealmNumber,
+                        category: InsightCategory.insight.rawValue,
+                        text: insightText,
+                        timestamp: Date()
+                    )
+                    print("💡 Fallback insight used after Firebase error: \(insightText.prefix(50))...")
+
+                    self.savePersistedInsight(
+                        number: matchedRealmNumber,
+                        category: InsightCategory.insight.rawValue,
+                        text: insightText,
+                        tags: "FocusMatch, RealmTouch, Fallback"
+                    )
+                }
+            }
         }
 
         // Continue with the rest of the existing method

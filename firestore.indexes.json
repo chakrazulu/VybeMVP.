@@ -1,0 +1,163 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "insights_staging",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "number",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "context",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "quality_score",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "insights_staging",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "number",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "category",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "quality_score",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "insights_staging",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "number",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "category",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "context",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "quality_score",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "insights_staging",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "context",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "number",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "quality_score",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "insights_staging",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "quality_score",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "insights_prod",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "number",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "context",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "quality_score",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "insights_prod",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "number",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "category",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "quality_score",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "insights_prod",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "number",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "category",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "context",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "quality_score",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "insights_prod",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "quality_score",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

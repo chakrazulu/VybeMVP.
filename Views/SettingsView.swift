@@ -290,6 +290,11 @@ struct SettingsView: View {
                         .foregroundColor(.blue)
                 }
 
+                NavigationLink(destination: FirebaseInsightTestView()) {
+                    Label("🔥 Test Firebase Insights", systemImage: "flame.fill")
+                        .foregroundColor(.red)
+                }
+
                 /// Claude: Enhanced Cosmic Engine Testing Interface
                 ///
                 /// This button provides comprehensive testing and validation of the enhanced

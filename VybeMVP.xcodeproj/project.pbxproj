@@ -72,6 +72,7 @@
 		4D3727192DE5538A00B5A02B /* NumerologyInsightService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3727182DE5538A00B5A02B /* NumerologyInsightService.swift */; };
 		4D37271C2DE554B700B5A02B /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D37271A2DE554B700B5A02B /* ActivityView.swift */; };
 		4D53BE252DEC151900BAE6AE /* VoiceRecordingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */; };
+		4D5545AB2E52D26900369B4D /* NumerologyDataTemplateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5545AA2E52D26900369B4D /* NumerologyDataTemplateProvider.swift */; };
 		4D55BE562E3AC1DB00F7BE5B /* MiniInsightProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE542E3AC1DB00F7BE5B /* MiniInsightProvider.swift */; };
 		4D55BE572E3AC1DB00F7BE5B /* CosmicHUDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE512E3AC1DB00F7BE5B /* CosmicHUDManager.swift */; };
 		4D55BE582E3AC1DB00F7BE5B /* HUDGlyphMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE532E3AC1DB00F7BE5B /* HUDGlyphMapper.swift */; };
@@ -367,6 +368,8 @@
 		4DAAD7442E4EE4FE00B064C1 /* DeployMultiplicationAgents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAAD7412E4EE4FE00B064C1 /* DeployMultiplicationAgents.swift */; };
 		4DAAD7452E4EE4FE00B064C1 /* NumberMultiplicationSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAAD7422E4EE4FE00B064C1 /* NumberMultiplicationSystem.swift */; };
 		4DAAD7472E4EF42F00B064C1 /* FirebaseInsightsMultiplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAAD7462E4EF42F00B064C1 /* FirebaseInsightsMultiplier.swift */; };
+		4DAADBE82E52890800B064C1 /* FirebaseInsightTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAADBE62E52890800B064C1 /* FirebaseInsightTestView.swift */; };
+		4DAADBEC2E52893C00B064C1 /* FirebaseInsightRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAADBEB2E52893C00B064C1 /* FirebaseInsightRepository.swift */; };
 		4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */; };
 		4DB1B4B42E483D9300F1585A /* VYBEOS-DOCUMENTATION-ECOSYSTEM.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4B32E483D9300F1585A /* VYBEOS-DOCUMENTATION-ECOSYSTEM.md */; };
 		4DB1B4B82E48415900F1585A /* KASPER-CORE-REFERENCE.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB1B4B72E48415900F1585A /* KASPER-CORE-REFERENCE.md */; };
@@ -663,6 +666,7 @@
 		4D3727182DE5538A00B5A02B /* NumerologyInsightService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyInsightService.swift; sourceTree = "<group>"; };
 		4D37271A2DE554B700B5A02B /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordingManager.swift; sourceTree = "<group>"; };
+		4D5545AA2E52D26900369B4D /* NumerologyDataTemplateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyDataTemplateProvider.swift; sourceTree = "<group>"; };
 		4D55BE4F2E3AC1DB00F7BE5B /* CosmicHUDIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicHUDIntegration.swift; sourceTree = "<group>"; };
 		4D55BE502E3AC1DB00F7BE5B /* CosmicHUDIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicHUDIntents.swift; sourceTree = "<group>"; };
 		4D55BE512E3AC1DB00F7BE5B /* CosmicHUDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicHUDManager.swift; sourceTree = "<group>"; };
@@ -951,6 +955,8 @@
 		4DAAD7412E4EE4FE00B064C1 /* DeployMultiplicationAgents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeployMultiplicationAgents.swift; sourceTree = "<group>"; };
 		4DAAD7422E4EE4FE00B064C1 /* NumberMultiplicationSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMultiplicationSystem.swift; sourceTree = "<group>"; };
 		4DAAD7462E4EF42F00B064C1 /* FirebaseInsightsMultiplier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseInsightsMultiplier.swift; sourceTree = "<group>"; };
+		4DAADBE62E52890800B064C1 /* FirebaseInsightTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseInsightTestView.swift; sourceTree = "<group>"; };
+		4DAADBEB2E52893C00B064C1 /* FirebaseInsightRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseInsightRepository.swift; sourceTree = "<group>"; };
 		4DAD1E5C2D610C86005C3C85 /* FocusMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusMatch.swift; sourceTree = "<group>"; };
 		4DB1B4B32E483D9300F1585A /* VYBEOS-DOCUMENTATION-ECOSYSTEM.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "VYBEOS-DOCUMENTATION-ECOSYSTEM.md"; sourceTree = "<group>"; };
 		4DB1B4B72E48415900F1585A /* KASPER-CORE-REFERENCE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "KASPER-CORE-REFERENCE.md"; sourceTree = "<group>"; };
@@ -1125,6 +1131,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4D5545A92E528CC400369B4D /* Exceptions for "NumerologyData" folder in "VybeMVP" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				FirebasePlanetZodiacFusion/_FusionTestSamples/Mars_in_Aries.json,
+				FirebasePlanetZodiacFusion/_FusionTestSamples/Mercury_in_Gemini.json,
+				FirebasePlanetZodiacFusion/_FusionTestSamples/Moon_in_Cancer.json,
+				FirebasePlanetZodiacFusion/_FusionTestSamples/Saturn_in_Capricorn.json,
+				FirebasePlanetZodiacFusion/_FusionTestSamples/Venus_in_Scorpio.json,
+			);
+			target = 4DC6021A2D343E8D00B5E4A9 /* VybeMVP */;
+		};
 		4D55BE7A2E3AD37C00F7BE5B /* Exceptions for "CosmicHUDWidget" folder in "CosmicHUDWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -1160,6 +1177,9 @@
 		};
 		4DE4C3A22DB5C85D00BB7572 /* NumerologyData */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4D5545A92E528CC400369B4D /* Exceptions for "NumerologyData" folder in "VybeMVP" target */,
+			);
 			path = NumerologyData;
 			sourceTree = "<group>";
 		};
@@ -1362,6 +1382,8 @@
 		4D37270F2DE5407100B5A02B /* Insights */ = {
 			isa = PBXGroup;
 			children = (
+				4DAADBEB2E52893C00B064C1 /* FirebaseInsightRepository.swift */,
+				4DAADBE62E52890800B064C1 /* FirebaseInsightTestView.swift */,
 				4D37270E2DE5407100B5A02B /* InsightHistoryView.swift */,
 			);
 			path = Insights;
@@ -1533,6 +1555,7 @@
 		4D65288D2E49A95D00F521E1 /* MLXProviders */ = {
 			isa = PBXGroup;
 			children = (
+				4D5545AA2E52D26900369B4D /* NumerologyDataTemplateProvider.swift */,
 				4D6528872E49A95D00F521E1 /* BiometricDataProvider.swift */,
 				4D6528882E49A95D00F521E1 /* CosmicDataProvider.swift */,
 				4D6528892E49A95D00F521E1 /* KASPERStubProvider.swift */,
@@ -2823,6 +2846,7 @@
 				4DAAD7442E4EE4FE00B064C1 /* DeployMultiplicationAgents.swift in Sources */,
 				4DAAD7452E4EE4FE00B064C1 /* NumberMultiplicationSystem.swift in Sources */,
 				4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */,
+				4D5545AB2E52D26900369B4D /* NumerologyDataTemplateProvider.swift in Sources */,
 				4D6529D72E4D687D00F521E1 /* InsightFusionManager.swift in Sources */,
 				4D9396192E07578200955980 /* SacredGeometryView.swift in Sources */,
 				4DE4C37E2DB3918E00BB7572 /* NumerologyMessage.swift in Sources */,
@@ -2834,6 +2858,7 @@
 				4DDCE00A2E3151D8005FDD32 /* SwissEphemerisCalculator.swift in Sources */,
 				4D2CC7082E08C9ED00BDF100 /* TestSacredGeometry.swift in Sources */,
 				4DB1E05B2E23D597001A9EA5 /* ZodiacSignCalculator.swift in Sources */,
+				4DAADBE82E52890800B064C1 /* FirebaseInsightTestView.swift in Sources */,
 				4D3055CE2D3CC9CA009A7BBD /* FocusNumberPicker.swift in Sources */,
 				4D5BEB342E372AC100B56575 /* CosmicSnapshotViewModel.swift in Sources */,
 				4D2DB47F2DFF43390003353E /* ChakraSymbolView.swift in Sources */,
@@ -2946,6 +2971,7 @@
 				4D2CC7142E0B9EFA00BDF100 /* EnhancedLoadingView.swift in Sources */,
 				4DB233F42E114580004EC2BC /* NeonTracerView.swift in Sources */,
 				4D2F22432E3482C70087B052 /* NatalChartSection.swift in Sources */,
+				4DAADBEC2E52893C00B064C1 /* FirebaseInsightRepository.swift in Sources */,
 				4D3727152DE550ED00B5A02B /* CosmicBackgroundView.swift in Sources */,
 				4D2CC7102E0B9EB700BDF100 /* RulingNumberChartView.swift in Sources */,
 				4D6528672E4944EB00F521E1 /* Sanitizer.swift in Sources */,

@@ -559,7 +559,7 @@ public class FirebaseInsightsMultiplier: ObservableObject {
     /// Collect all generated insights for saving
     private func collectAllGeneratedInsights(from source: NumberMeaningsSource) async throws -> [FirebaseInsight] {
         var allInsights: [FirebaseInsight] = []
-        let originalInsights = Set<String>() // Track original content to avoid duplication
+        let _ = Set<String>() // Track original content to avoid duplication
 
         // Add all original insights to exclusion set
         let allOriginals = source.insight + source.reflection + source.contemplation +

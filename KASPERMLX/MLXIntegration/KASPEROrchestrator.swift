@@ -41,6 +41,7 @@ public final class KASPEROrchestrator: ObservableObject {
     private let logger = Logger(subsystem: "com.vybe.kasper", category: "Orchestrator")
     private var providers: [KASPERStrategy: KASPERInferenceProvider] = [:]
     private let templateProvider = KASPERTemplateProvider()
+    private let numerologyDataProvider = NumerologyDataTemplateProvider()
     private let stubProvider = KASPERStubProvider()
 
     // Settings
@@ -204,7 +205,10 @@ public final class KASPEROrchestrator: ObservableObject {
         logger.info("🚀 Initializing KASPER providers...")
 
         // Register available providers
-        providers[.template] = templateProvider
+        // 🔥 NUMEROLOGY DATA INTEGRATION (August 18, 2025):
+        // Primary template provider now uses authentic 9,483 NumerologyData insights
+        // instead of basic hardcoded templates for enhanced spiritual guidance
+        providers[.template] = numerologyDataProvider  // Real spiritual content foundation
         providers[.mlxStub] = stubProvider
 
         // Future providers will be added here
