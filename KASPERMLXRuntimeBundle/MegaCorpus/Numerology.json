@@ -1,0 +1,120 @@
+{
+  "metadata": {
+    "title": "Numerology Data",
+    "version": "1.0",
+    "description": "Complete numerological correspondences and master number meanings",
+    "lastUpdated": "2025-07-20"
+  },
+  "focusNumbers": {
+    "1": {
+      "archetype": "The Leader",
+      "element": "Fire",
+      "keywords": ["Independence", "Leadership", "Innovation", "Self-reliance"],
+      "planetaryCorrespondence": "Sun",
+      "signCorrespondence": "Aries",
+      "color": "Red",
+      "challenges": ["Selfishness", "Impatience", "Aggression"],
+      "strengths": ["Initiative", "Courage", "Originality"]
+    },
+    "2": {
+      "archetype": "The Diplomat",
+      "element": "Water",
+      "keywords": ["Cooperation", "Harmony", "Sensitivity", "Partnership"],
+      "planetaryCorrespondence": "Moon",
+      "signCorrespondence": "Cancer",
+      "color": "Orange",
+      "challenges": ["Over-sensitivity", "Indecision", "Dependency"],
+      "strengths": ["Diplomacy", "Intuition", "Cooperation"]
+    },
+    "3": {
+      "archetype": "The Communicator",
+      "element": "Air",
+      "keywords": ["Creativity", "Expression", "Communication", "Joy"],
+      "planetaryCorrespondence": "Jupiter",
+      "signCorrespondence": "Sagittarius",
+      "color": "Yellow",
+      "challenges": ["Scattered energy", "Superficiality", "Gossip"],
+      "strengths": ["Creativity", "Optimism", "Communication"]
+    },
+    "4": {
+      "archetype": "The Builder",
+      "element": "Earth",
+      "keywords": ["Stability", "Organization", "Hard work", "Practicality"],
+      "planetaryCorrespondence": "Uranus",
+      "signCorrespondence": "Aquarius",
+      "color": "Green",
+      "challenges": ["Rigidity", "Stubbornness", "Limitation"],
+      "strengths": ["Reliability", "Organization", "Endurance"]
+    },
+    "5": {
+      "archetype": "The Explorer",
+      "element": "Fire",
+      "keywords": ["Freedom", "Adventure", "Change", "Curiosity"],
+      "planetaryCorrespondence": "Mercury",
+      "signCorrespondence": "Gemini",
+      "color": "Blue",
+      "challenges": ["Restlessness", "Impulsiveness", "Inconsistency"],
+      "strengths": ["Adaptability", "Freedom", "Versatility"]
+    },
+    "6": {
+      "archetype": "The Nurturer",
+      "element": "Earth",
+      "keywords": ["Service", "Responsibility", "Compassion", "Healing"],
+      "planetaryCorrespondence": "Venus",
+      "signCorrespondence": "Taurus",
+      "color": "Indigo",
+      "challenges": ["Martyrdom", "Worry", "Perfectionism"],
+      "strengths": ["Nurturing", "Responsibility", "Healing"]
+    },
+    "7": {
+      "archetype": "The Seeker",
+      "element": "Water",
+      "keywords": ["Spirituality", "Analysis", "Intuition", "Wisdom"],
+      "planetaryCorrespondence": "Neptune",
+      "signCorrespondence": "Pisces",
+      "color": "Violet",
+      "challenges": ["Isolation", "Pessimism", "Secretiveness"],
+      "strengths": ["Intuition", "Analysis", "Spirituality"]
+    },
+    "8": {
+      "archetype": "The Executive",
+      "element": "Earth",
+      "keywords": ["Material success", "Power", "Achievement", "Authority"],
+      "planetaryCorrespondence": "Saturn",
+      "signCorrespondence": "Capricorn",
+      "color": "Pink",
+      "challenges": ["Materialism", "Domination", "Workaholism"],
+      "strengths": ["Leadership", "Organization", "Achievement"]
+    },
+    "9": {
+      "archetype": "The Humanitarian",
+      "element": "Fire",
+      "keywords": ["Compassion", "Service", "Completion", "Universal love"],
+      "planetaryCorrespondence": "Mars",
+      "signCorrespondence": "Aries",
+      "color": "Gold",
+      "challenges": ["Emotional extremes", "Impracticality", "Martyrdom"],
+      "strengths": ["Compassion", "Wisdom", "Universal vision"]
+    }
+  },
+  "masterNumbers": {
+    "11": {
+      "name": "Master Intuitive",
+      "reducedTo": 2,
+      "keywords": ["Intuition", "Inspiration", "Spiritual insight", "Illumination"],
+      "description": "The Master Intuitive - channels higher wisdom and spiritual insights"
+    },
+    "22": {
+      "name": "Master Builder",
+      "reducedTo": 4,
+      "keywords": ["Material mastery", "Large-scale building", "Practical idealism"],
+      "description": "The Master Builder - brings spiritual ideals into material reality"
+    },
+    "33": {
+      "name": "Master Teacher",
+      "reducedTo": 6,
+      "keywords": ["Universal love", "Healing", "Teaching", "Service"],
+      "description": "The Master Teacher - embodies universal love and healing service"
+    }
+  }
+}

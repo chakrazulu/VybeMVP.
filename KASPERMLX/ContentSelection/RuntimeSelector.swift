@@ -196,7 +196,31 @@ public class RuntimeSelector: ObservableObject {
         "NumerologyScholar": ["vibrational", "mathematical", "frequency", "numerological significance"],
         "Philosopher": ["existence", "meaning", "truth", "contemplation", "wisdom", "universal"],
         "AlanWatts": ["wu wei", "paradox", "ocean", "wave", "cosmic humor", "play", "effortless", "flow"],
-        "CarlJung": ["unconscious", "archetype", "shadow", "anima", "animus", "individuation", "synchronicity", "Self"]
+        "CarlJung": ["unconscious", "archetype", "shadow", "anima", "animus", "individuation", "synchronicity", "Self"],
+        // Planetary personas
+        "Planetary_Sun": ["vitality", "identity", "authenticity", "leadership", "sovereignty", "radiance"],
+        "Planetary_Moon": ["emotion", "intuition", "reflection", "cycles", "receptivity", "nurturing"],
+        "Planetary_Mercury": ["communication", "thought", "learning", "connection", "information", "agility"],
+        "Planetary_Venus": ["harmony", "beauty", "relationship", "values", "attraction", "creativity"],
+        "Planetary_Mars": ["action", "courage", "determination", "energy", "initiative", "strength"],
+        "Planetary_Jupiter": ["expansion", "wisdom", "abundance", "optimism", "growth", "philosophy"],
+        "Planetary_Saturn": ["structure", "discipline", "responsibility", "maturity", "boundaries", "mastery"],
+        "Planetary_Uranus": ["innovation", "rebellion", "freedom", "breakthrough", "individuality", "revolution"],
+        "Planetary_Neptune": ["imagination", "spirituality", "transcendence", "dreams", "illusion", "compassion"],
+        "Planetary_Pluto": ["transformation", "power", "rebirth", "intensity", "depth", "regeneration"],
+        // Zodiac personas
+        "Zodiac_Aries": ["pioneering", "boldness", "initiation", "leadership", "independence", "courage"],
+        "Zodiac_Taurus": ["stability", "persistence", "sensuality", "security", "patience", "grounding"],
+        "Zodiac_Gemini": ["adaptability", "curiosity", "communication", "versatility", "learning", "connection"],
+        "Zodiac_Cancer": ["nurturing", "protection", "emotion", "intuition", "home", "sensitivity"],
+        "Zodiac_Leo": ["creativity", "expression", "confidence", "generosity", "leadership", "performance"],
+        "Zodiac_Virgo": ["precision", "service", "healing", "analysis", "improvement", "dedication"],
+        "Zodiac_Libra": ["balance", "harmony", "justice", "partnership", "aesthetics", "diplomacy"],
+        "Zodiac_Scorpio": ["intensity", "transformation", "mystery", "depth", "passion", "regeneration"],
+        "Zodiac_Sagittarius": ["exploration", "philosophy", "optimism", "adventure", "truth", "expansion"],
+        "Zodiac_Capricorn": ["ambition", "structure", "achievement", "responsibility", "mastery", "tradition"],
+        "Zodiac_Aquarius": ["innovation", "humanity", "independence", "originality", "progress", "friendship"],
+        "Zodiac_Pisces": ["compassion", "imagination", "spirituality", "empathy", "transcendence", "flow"]
     ]
 
     // MARK: - Initialization
@@ -504,10 +528,21 @@ public class RuntimeSelector: ObservableObject {
         var fileName: String
         var subdirectory: String
 
-        // Handle new persona collections (AlanWatts, CarlJung)
+        // Handle different content types
         if persona == "AlanWatts" || persona == "CarlJung" {
+            // New persona collections
             fileName = "\(persona)Insights_Number_\(number)"
             subdirectory = "NumerologyData/\(persona)NumberInsights"
+        } else if persona.hasPrefix("Planetary_") {
+            // Planetary collections: "Planetary_Sun", "Planetary_Moon", etc.
+            let planetName = String(persona.dropFirst("Planetary_".count))
+            fileName = "PlanetaryInsights_\(planetName)_original"
+            subdirectory = "NumerologyData/FirebasePlanetaryMeanings"
+        } else if persona.hasPrefix("Zodiac_") {
+            // Zodiac collections: "Zodiac_Aries", "Zodiac_Leo", etc.
+            let signName = String(persona.dropFirst("Zodiac_".count))
+            fileName = "ZodiacInsights_\(signName)_original"
+            subdirectory = "NumerologyData/FirebaseZodiacMeanings"
         } else {
             // Legacy personas (grok format)
             fileName = "grok_\(persona.lowercased())_\(numberStr)_converted"
@@ -529,7 +564,7 @@ public class RuntimeSelector: ObservableObject {
 
             var insights: [RuntimeInsight] = []
 
-            if persona == "AlanWatts" || persona == "CarlJung" {
+            if persona == "AlanWatts" || persona == "CarlJung" || persona.hasPrefix("Planetary_") || persona.hasPrefix("Zodiac_") {
                 // Handle new persona schema (categories with arrays of insights)
                 guard let jsonDict = jsonObject as? [String: Any],
                       let categories = jsonDict["categories"] as? [String: Any] else {
@@ -552,6 +587,28 @@ public class RuntimeSelector: ObservableObject {
                                 supports: [],
                                 challenges: [],
                                 metadata: ["schema": "persona_v2", "category": category]
+                            )
+                            insights.append(insight)
+                        }
+                    }
+                }
+            } else if let jsonDict = jsonObject as? [String: Any],
+                      let categories = jsonDict["categories"] as? [String: Any] {
+                // Handle categories_wrapper schema (Planetary/Zodiac files)
+                for (category, categoryContent) in categories {
+                    if let insightArray = categoryContent as? [String] {
+                        for (index, content) in insightArray.enumerated() {
+                            let insight = RuntimeInsight(
+                                id: "\(fileName)_\(category)_\(index)",
+                                persona: persona,
+                                number: number,
+                                content: content,
+                                category: category,
+                                intensity: 0.80,
+                                triggers: [],
+                                supports: [],
+                                challenges: [],
+                                metadata: ["schema": "categories_wrapper", "category": category]
                             )
                             insights.append(insight)
                         }

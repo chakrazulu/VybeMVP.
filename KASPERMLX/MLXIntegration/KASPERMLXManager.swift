@@ -227,9 +227,9 @@ class KASPERMLXManager: ObservableObject {
             context: context
         )
 
-        logger.info("🛡️ A-grade insight delivered: \(String(format: "%.2f", result.finalQualityScore)) via \(result.strategyUsed)")
+        logger.info("🛡️ A-grade insight delivered: \(String(format: "%.2f", result.finalQualityScore)) via \(String(describing: result.strategyUsed))")
 
-        return (insight: result.insight, qualityScore: result.finalQualityScore)
+        return (insight: result.insight, qualityScore: result.finalQualityScore) as (insight: String, qualityScore: Double)
     }
 
     // Helper methods to get dependencies

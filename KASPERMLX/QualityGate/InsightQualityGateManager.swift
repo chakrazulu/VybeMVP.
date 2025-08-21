@@ -1,4 +1,4 @@
-2/**
+/**
  * =================================================================
  * 🛡️ INSIGHT QUALITY GATE MANAGER - A-GRADE GUARANTEE SYSTEM
  * =================================================================
@@ -231,7 +231,7 @@ public class InsightQualityGateManager: ObservableObject {
                 let attemptTime = CFAbsoluteTimeGetCurrent() - attemptStart
 
                 // Evaluate quality
-                let qualityScore = await evaluateInsightQuality(
+                let qualityScore = try await evaluateInsightQuality(
                     insight: generatedInsight,
                     persona: persona,
                     focusNumber: focusNumber,
@@ -422,7 +422,7 @@ public class InsightQualityGateManager: ObservableObject {
         persona: String,
         focusNumber: Int,
         realmNumber: Int
-    ) async -> Double {
+    ) async throws -> Double {
 
         // Create dummy insights for evaluation
         let dummyFocusInsight = RuntimeInsight(
@@ -452,7 +452,7 @@ public class InsightQualityGateManager: ObservableObject {
         )
 
         // Use existing FusionEvaluator to get comprehensive quality score
-        let evaluationResult = await fusionEvaluator.evaluateFusion(
+        let evaluationResult = try await fusionEvaluator.evaluateFusion(
             synthesizedContent: insight,
             originalFocusInsight: dummyFocusInsight,
             originalRealmInsight: dummyRealmInsight,
@@ -489,9 +489,9 @@ public class InsightQualityGateManager: ObservableObject {
             ]
         )
 
-        fallbackBanks["3-1"] = sampleBank
+        self.fallbackBanks["3-1"] = sampleBank
 
-        logger.info("📦 Loaded curated fallback banks: \(fallbackBanks.count) Focus+Realm combinations")
+        logger.info("📦 Loaded curated fallback banks: \(self.fallbackBanks.count) Focus+Realm combinations")
     }
 
     private func getCuratedFallback(

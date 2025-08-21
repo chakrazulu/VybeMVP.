@@ -2036,13 +2036,11 @@ struct HomeView: View {
                                 debugInfo: [
                                     "fusion_mode": "phase_1_focus_realm_persona",
                                     "persona": selectedPersona,
-                                    "fusion_technique": fusedInsight.metadata.fusionTechnique,
-                                    "quality_score": fusedInsight.metadata.qualityScore,
-                                    "original_focus_id": fusedInsight.originalFocusInsight.id,
-                                    "original_realm_id": fusedInsight.originalRealmInsight.id,
+                                    "fusion_technique": "QualityGate_A_Grade_System",
+                                    "quality_score": qualityResult.qualityScore,
                                     "focus_number": focusNumber,
                                     "realm_number": realmNumber,
-                                    "fusion_time": fusedInsight.fusionTime
+                                    "system": "InsightQualityGateManager"
                                 ],
                                 shadowModeWinner: "Phase1_Fusion"
                             )

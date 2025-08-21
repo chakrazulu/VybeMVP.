@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "title": "Astrological Modes Data",
+    "version": "1.0",
+    "description": "Cardinal, Fixed, and Mutable mode energies and spiritual guidance",
+    "lastUpdated": "2025-07-20"
+  },
+  "modes": {
+    "cardinal": {
+      "name": "Cardinal",
+      "glyph": "🛡︎",
+      "essence": "Self-Starter, Catalyst, Leader",
+      "signs": ["Aries", "Cancer", "Libra", "Capricorn"],
+      "resonantRealmNumbers": [1, 4, 7, 1],
+      "color": "Gold",
+      "description": "Cardinal sparks new cycles. It initiates change, rallies intention into action, and leads with visionary drive.",
+      "prompt": "Identify one area begging for fresh momentum—take that first bold step now.",
+      "vybePrompt": "Today marks your starting line—take that inaugural leap and watch the universe rise to meet you."
+    },
+    "fixed": {
+      "name": "Fixed",
+      "glyph": "⏳",
+      "essence": "Resilience, Loyalty, Manifestation",
+      "signs": ["Taurus", "Leo", "Scorpio", "Aquarius"],
+      "resonantRealmNumbers": [2, 5, 8, 2],
+      "color": "Copper",
+      "description": "Fixed anchors energy. It solidifies growth, sustains focus, and embodies the power of steadfast devotion.",
+      "prompt": "Choose one commitment to honour today—show up with unwavering presence.",
+      "vybePrompt": "Root yourself in your purpose—steady persistence now yields the abundant rewards you seek."
+    },
+    "mutable": {
+      "name": "Mutable",
+      "glyph": "🌱",
+      "essence": "Flexibility, Learning, Transition",
+      "signs": ["Gemini", "Virgo", "Sagittarius", "Pisces"],
+      "resonantRealmNumbers": [3, 6, 9, 3],
+      "color": "Silver",
+      "description": "Mutable flows with change. It adapts, pivots, and gracefully transitions from ending to beginning.",
+      "prompt": "Notice one area of life that's shifting—welcome the impermanence and flow with its tide."
+    }
+  }
+}
