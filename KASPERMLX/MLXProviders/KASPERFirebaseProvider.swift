@@ -217,9 +217,9 @@ public class KASPERFirebaseProvider: KASPERInferenceProvider {
         }
 
         // Add planetary context to the insight
-        let planetaryAddition = "The \\(keyAspect.aspectType.rawValue) between \\(keyAspect.planet1.name) and \\(keyAspect.planet2.name) amplifies this energy today."
+        let planetaryAddition = "The \(keyAspect.aspectType.rawValue) between \(keyAspect.planet1) and \(keyAspect.planet2) amplifies this energy today."
 
-        return "\\(baseInsight) \\(planetaryAddition)"
+        return "\(baseInsight) \(planetaryAddition)"
     }
 
     /**
@@ -228,19 +228,19 @@ public class KASPERFirebaseProvider: KASPERInferenceProvider {
     private func generateContextualFallback(context: String, focus: Int, realm: Int) -> String {
         switch context.lowercased() {
         case "lifepath":
-            return "Your spiritual path resonates with number \\(focus), guiding you through profound transformation today."
+            return "Your spiritual path resonates with number \(focus), guiding you through profound transformation today."
         case "expression":
-            return "Express your authentic \\(focus) energy while embracing the wisdom of \\(realm) for balanced growth."
+            return "Express your authentic \(focus) energy while embracing the wisdom of \(realm) for balanced growth."
         case "soulurge":
-            return "Your soul's deepest calling aligns with \\(focus) energy, creating sacred opportunities for spiritual evolution."
+            return "Your soul's deepest calling aligns with \(focus) energy, creating sacred opportunities for spiritual evolution."
         case "dailycard":
-            return "Today's spiritual focus on \\(focus) brings clarity and purpose to your journey."
+            return "Today's spiritual focus on \(focus) brings clarity and purpose to your journey."
         case "sanctum":
-            return "In your sacred space, reflect on how \\(focus) and \\(realm) energies create inner harmony."
+            return "In your sacred space, reflect on how \(focus) and \(realm) energies create inner harmony."
         case "cosmictiming":
-            return "The cosmic timing aligns \\(focus) with \\(realm) for optimal spiritual growth and manifestation."
+            return "The cosmic timing aligns \(focus) with \(realm) for optimal spiritual growth and manifestation."
         default:
-            return "Your spiritual journey with \\(focus) energy opens new pathways for authentic growth and wisdom."
+            return "Your spiritual journey with \(focus) energy opens new pathways for authentic growth and wisdom."
         }
     }
 }
@@ -272,13 +272,13 @@ extension KASPERFirebaseProvider {
             // Add planetary aspect context
             if !planetaryAspects.isEmpty {
                 let aspectText = planetaryAspects.joined(separator: ", ")
-                return "\\(baseInsight) Today's planetary influences (\\(aspectText)) support this cosmic alignment."
+                return "\(baseInsight) Today's planetary influences (\(aspectText)) support this cosmic alignment."
             }
             return baseInsight
         }
 
         // Fallback cosmic insight
-        return "The cosmic energies of \\(realm) align with your \\(focus) essence, creating a powerful portal for spiritual growth and manifestation."
+        return "The cosmic energies of \(realm) align with your \(focus) essence, creating a powerful portal for spiritual growth and manifestation."
     }
 
     /**
@@ -293,6 +293,6 @@ extension KASPERFirebaseProvider {
             context: .daily
         )
 
-        return insight?.text ?? "Sacred alignment achieved! Number \\(matchingNumber) resonates through all dimensions of your spiritual experience today."
+        return insight?.text ?? "Sacred alignment achieved! Number \(matchingNumber) resonates through all dimensions of your spiritual experience today."
     }
 }

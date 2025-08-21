@@ -2004,57 +2004,48 @@ struct HomeView: View {
                     let personas = ["Oracle", "Psychologist", "MindfulnessCoach", "NumerologyScholar", "Philosopher"]
                     let selectedPersona = personas.randomElement() ?? "Oracle"
 
-                    do {
-                        // 🛡️ A-GRADE QUALITY GATE SYSTEM - Guaranteed Excellence
-                        // Revolutionary 4-tier system ensures every insight achieves A-grade quality
-                        print("🛡️ Using A-Grade Quality Gate System for guaranteed excellence")
+                    // 🛡️ A-GRADE QUALITY GATE SYSTEM - Guaranteed Excellence
+                    // Revolutionary 4-tier system ensures every insight achieves A-grade quality
+                    print("🛡️ Using A-Grade Quality Gate System for guaranteed excellence")
 
-                        let qualityResult = await self.kasperMLX.generateGuaranteedAInsight(
-                            focusNumber: focusNumber,
-                            realmNumber: realmNumber,
-                            persona: selectedPersona,
-                            context: "daily"
+                    let qualityResult = await self.kasperMLX.generateGuaranteedAInsight(
+                        focusNumber: focusNumber,
+                        realmNumber: realmNumber,
+                        persona: selectedPersona,
+                        context: "daily"
+                    )
+
+                    let finalContent = qualityResult.insight
+                    let qualityScore = qualityResult.qualityScore
+
+                    print("🔮 A-Grade Insight Delivered: \(String(format: "%.2f", qualityScore)) (\(qualityScore >= 0.90 ? "A+" : qualityScore >= 0.85 ? "A" : "A-"))")
+
+                    // Convert to KASPERInsight for UI compatibility
+                    insight = KASPERInsight(
+                        requestId: UUID(),
+                        content: finalContent,
+                        type: .guidance,
+                        feature: .dailyCard,
+                        confidence: qualityScore,
+                        inferenceTime: 0.05, // Quality Gate optimized timing
+                        metadata: KASPERInsightMetadata(
+                            modelVersion: "QualityGate_v1.0_AgradeGuarantee",
+                            providersUsed: ["InsightFusionManager", selectedPersona],
+                            cacheHit: false,
+                            debugInfo: [
+                                "fusion_mode": "phase_1_focus_realm_persona",
+                                "persona": selectedPersona,
+                                "fusion_technique": "QualityGate_A_Grade_System",
+                                "quality_score": qualityResult.qualityScore,
+                                "focus_number": focusNumber,
+                                "realm_number": realmNumber,
+                                "system": "InsightQualityGateManager"
+                            ],
+                            shadowModeWinner: "Phase1_Fusion"
                         )
+                    )
 
-                        let finalContent = qualityResult.insight
-                        let qualityScore = qualityResult.qualityScore
-
-                        print("🔮 A-Grade Insight Delivered: \(String(format: "%.2f", qualityScore)) (\(qualityScore >= 0.90 ? "A+" : qualityScore >= 0.85 ? "A" : "A-"))")
-
-                        // Convert to KASPERInsight for UI compatibility
-                        insight = KASPERInsight(
-                            requestId: UUID(),
-                            content: finalContent,
-                            type: .guidance,
-                            feature: .dailyCard,
-                            confidence: qualityScore,
-                            inferenceTime: 0.05, // Quality Gate optimized timing
-                            metadata: KASPERInsightMetadata(
-                                modelVersion: "QualityGate_v1.0_AgradeGuarantee",
-                                providersUsed: ["InsightFusionManager", selectedPersona],
-                                cacheHit: false,
-                                debugInfo: [
-                                    "fusion_mode": "phase_1_focus_realm_persona",
-                                    "persona": selectedPersona,
-                                    "fusion_technique": "QualityGate_A_Grade_System",
-                                    "quality_score": qualityResult.qualityScore,
-                                    "focus_number": focusNumber,
-                                    "realm_number": realmNumber,
-                                    "system": "InsightQualityGateManager"
-                                ],
-                                shadowModeWinner: "Phase1_Fusion"
-                            )
-                        )
-
-                        print("🎯 Fusion Complete: \(selectedPersona) \(focusNumber)+\(realmNumber) → \(finalContent.count) chars")
-
-                    } catch {
-                        print("❌ Fusion failed, falling back to shadow mode: \(error.localizedDescription)")
-
-                        // Fallback to standard shadow mode generation
-                        let cardType = "daily_focus_\(focusNumber)_realm_\(realmNumber)"
-                        insight = try await self.kasperMLX.generateDailyCardInsight(cardType: cardType)
-                    }
+                    print("🎯 Fusion Complete: \(selectedPersona) \(focusNumber)+\(realmNumber) → \(finalContent.count) chars")
 
                 } else {
                     // Standard shadow mode (ChatGPT vs RuntimeBundle competition)
