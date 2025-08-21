@@ -42,6 +42,8 @@ public final class KASPEROrchestrator: ObservableObject {
     private var providers: [KASPERStrategy: KASPERInferenceProvider] = [:]
     private let templateProvider = KASPERTemplateProvider()
     private let numerologyDataProvider = NumerologyDataTemplateProvider()
+    private let hybridProvider = KASPERHybridProvider()  // 🔀 NEW: Blends templates + real insights
+    private let firebaseProvider = KASPERFirebaseProvider()  // 🔥 NEW: Live Firebase insights
     private let stubProvider = KASPERStubProvider()
 
     // Settings
@@ -162,7 +164,7 @@ public final class KASPEROrchestrator: ObservableObject {
 
     /// Get available strategies based on current configuration
     public func getAvailableStrategies() async -> [KASPERStrategy] {
-        let available: [KASPERStrategy] = [.template, .mlxStub, .automatic]
+        let available: [KASPERStrategy] = [.firebase, .template, .mlxStub, .automatic]
 
         // Add future providers when implemented
         // if mlxModelExists { available.append(.mlxLocal) }
@@ -205,18 +207,23 @@ public final class KASPEROrchestrator: ObservableObject {
         logger.info("🚀 Initializing KASPER providers...")
 
         // Register available providers
-        // 🔥 NUMEROLOGY DATA INTEGRATION (August 18, 2025):
-        // Primary template provider now uses authentic 9,483 NumerologyData insights
-        // instead of basic hardcoded templates for enhanced spiritual guidance
-        providers[.template] = numerologyDataProvider  // Real spiritual content foundation
-        providers[.mlxStub] = stubProvider
+        // 🔥 FIREBASE KASPER INTEGRATION (August 19, 2025):
+        // Combines 9,900+ Firebase insights with KASPER orchestration
+        // Provides authentic spiritual content with planetary aspects integration
+        providers[.firebase] = firebaseProvider   // 🔥 PRIMARY: Live Firebase insights with cosmic context
+        providers[.template] = hybridProvider     // 🔀 SECONDARY: Blended authentic + template
+        providers[.mlxStub] = stubProvider        // Basic fallback
 
         // Future providers will be added here
         // providers[.mlxLocal] = MLXProvider()
         // providers[.gptHybrid] = GPTProvider()
 
-        // Set initial active provider
-        if let stub = providers[.mlxStub] {
+        // Set initial active provider to Firebase (live insights with cosmic context)
+        if let firebase = providers[.firebase] {
+            activeProvider = firebase.name  // "FirebaseKASPER" - live spiritual insights
+        } else if let hybrid = providers[.template] {
+            activeProvider = hybrid.name  // "HybridKASPER" - blended fallback
+        } else if let stub = providers[.mlxStub] {
             activeProvider = stub.name
         }
 
@@ -226,17 +233,26 @@ public final class KASPEROrchestrator: ObservableObject {
     private func getProvider(for strategy: KASPERStrategy) async -> KASPERInferenceProvider? {
         switch strategy {
         case .automatic:
-            // Auto-select best available provider
-            if let stub = providers[.mlxStub], await stub.isAvailable {
-                return stub
+            // 🔥 FIREBASE FIRST APPROACH: Live insights with cosmic context
+            // Prioritize Firebase provider for 9,900+ A+ quality insights
+            if let firebase = providers[.firebase], await firebase.isAvailable {
+                return firebase  // KASPERFirebaseProvider - live spiritual insights
             }
-            return providers[.template]
+            // Fallback to hybrid provider that blends authentic insights with templates
+            if let hybrid = providers[.template], await hybrid.isAvailable {
+                return hybrid  // KASPERHybridProvider - 70% real insights + 30% enhanced templates
+            }
+            // Final fallback to stub only if others unavailable
+            return providers[.mlxStub]
 
         case .mlxStub:
             return providers[.mlxStub]
 
         case .template:
             return providers[.template]
+
+        case .firebase:
+            return providers[.firebase]
 
         case .mlxLocal, .gptHybrid:
             // Future providers - fallback to stub for now

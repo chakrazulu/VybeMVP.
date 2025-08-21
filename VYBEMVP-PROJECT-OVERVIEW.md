@@ -12,6 +12,7 @@ VybeMVP is a spiritually immersive numerology and transcendental journaling app 
 - 📖 **Sacred Journal**: Private spiritual journaling with encryption
 - 🔊 **Voice Reflections**: Audio recording and playback for journal entries
 - 🧠 **Auto-generated Cosmic Insights**: Resonance matching and sacred notifications
+- 🧘 **Enhanced Wisdom Collections**: Alan Watts Zen philosophy and Carl Jung archetypal psychology
 - 🛸 **Mystical UI Components**: Sacred color logic and animated elements
 
 ## 🏗️ Project Structure

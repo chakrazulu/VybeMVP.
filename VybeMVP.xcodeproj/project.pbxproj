@@ -73,6 +73,8 @@
 		4D37271C2DE554B700B5A02B /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D37271A2DE554B700B5A02B /* ActivityView.swift */; };
 		4D53BE252DEC151900BAE6AE /* VoiceRecordingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */; };
 		4D5545AB2E52D26900369B4D /* NumerologyDataTemplateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5545AA2E52D26900369B4D /* NumerologyDataTemplateProvider.swift */; };
+		4D5545AD2E5412EB00369B4D /* KASPERHybridProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5545AC2E5412EB00369B4D /* KASPERHybridProvider.swift */; };
+		4D5545B02E54219500369B4D /* InsightQualityGateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5545AE2E54219500369B4D /* InsightQualityGateManager.swift */; };
 		4D55BE562E3AC1DB00F7BE5B /* MiniInsightProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE542E3AC1DB00F7BE5B /* MiniInsightProvider.swift */; };
 		4D55BE572E3AC1DB00F7BE5B /* CosmicHUDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE512E3AC1DB00F7BE5B /* CosmicHUDManager.swift */; };
 		4D55BE582E3AC1DB00F7BE5B /* HUDGlyphMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D55BE532E3AC1DB00F7BE5B /* HUDGlyphMapper.swift */; };
@@ -543,6 +545,7 @@
 		4DF7A09C2E41822600D5AC19 /* AstrologicalPlanet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF7A08F2E41822600D5AC19 /* AstrologicalPlanet.swift */; };
 		4DF7A09D2E41822600D5AC19 /* MoonPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF7A0902E41822600D5AC19 /* MoonPhase.swift */; };
 		4DF7A09E2E41822600D5AC19 /* AstrologicalHouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF7A08D2E41822600D5AC19 /* AstrologicalHouse.swift */; };
+		4DF986912E554A1200BD720A /* KASPERFirebaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF986902E554A1200BD720A /* KASPERFirebaseProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -667,6 +670,8 @@
 		4D37271A2DE554B700B5A02B /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		4D53BE242DEC151900BAE6AE /* VoiceRecordingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordingManager.swift; sourceTree = "<group>"; };
 		4D5545AA2E52D26900369B4D /* NumerologyDataTemplateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumerologyDataTemplateProvider.swift; sourceTree = "<group>"; };
+		4D5545AC2E5412EB00369B4D /* KASPERHybridProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERHybridProvider.swift; sourceTree = "<group>"; };
+		4D5545AE2E54219500369B4D /* InsightQualityGateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightQualityGateManager.swift; sourceTree = "<group>"; };
 		4D55BE4F2E3AC1DB00F7BE5B /* CosmicHUDIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicHUDIntegration.swift; sourceTree = "<group>"; };
 		4D55BE502E3AC1DB00F7BE5B /* CosmicHUDIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicHUDIntents.swift; sourceTree = "<group>"; };
 		4D55BE512E3AC1DB00F7BE5B /* CosmicHUDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicHUDManager.swift; sourceTree = "<group>"; };
@@ -1128,6 +1133,7 @@
 		4DF7A0912E41822600D5AC19 /* NumberMeaning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMeaning.swift; sourceTree = "<group>"; };
 		4DF7A0922E41822600D5AC19 /* PersonalizedInsightTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedInsightTemplate.swift; sourceTree = "<group>"; };
 		4DF7A0932E41822600D5AC19 /* ZodiacMeaning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZodiacMeaning.swift; sourceTree = "<group>"; };
+		4DF986902E554A1200BD720A /* KASPERFirebaseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERFirebaseProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -1416,6 +1422,14 @@
 			path = Activity;
 			sourceTree = "<group>";
 		};
+		4D5545AF2E54219500369B4D /* QualityGate */ = {
+			isa = PBXGroup;
+			children = (
+				4D5545AE2E54219500369B4D /* InsightQualityGateManager.swift */,
+			);
+			path = QualityGate;
+			sourceTree = "<group>";
+		};
 		4D55BE552E3AC1DB00F7BE5B /* CosmicHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -1555,6 +1569,8 @@
 		4D65288D2E49A95D00F521E1 /* MLXProviders */ = {
 			isa = PBXGroup;
 			children = (
+				4DF986902E554A1200BD720A /* KASPERFirebaseProvider.swift */,
+				4D5545AC2E5412EB00369B4D /* KASPERHybridProvider.swift */,
 				4D5545AA2E52D26900369B4D /* NumerologyDataTemplateProvider.swift */,
 				4D6528872E49A95D00F521E1 /* BiometricDataProvider.swift */,
 				4D6528882E49A95D00F521E1 /* CosmicDataProvider.swift */,
@@ -1978,6 +1994,7 @@
 		4DA359AE2E3F135B0010101F /* KASPERMLX */ = {
 			isa = PBXGroup;
 			children = (
+				4D5545AF2E54219500369B4D /* QualityGate */,
 				4DAAD7432E4EE4FE00B064C1 /* FirebaseInsights */,
 				4D7CCC822E4EC8D5001642EF /* ContentSelection */,
 				4D6529D62E4D687D00F521E1 /* InsightFusion */,
@@ -2842,6 +2859,7 @@
 				4D80E1042D41DC5E0020F7BB /* MatchAnalyticsView.swift in Sources */,
 				4D3055C62D3CB201009A7BBD /* UserPreferences+Helper.swift in Sources */,
 				4DA642642D8122590047287B /* HealthKitManaging.swift in Sources */,
+				4DF986912E554A1200BD720A /* KASPERFirebaseProvider.swift in Sources */,
 				4DB233FF2E121BF7004EC2BC /* PerformanceMonitor.swift in Sources */,
 				4DAAD7442E4EE4FE00B064C1 /* DeployMultiplicationAgents.swift in Sources */,
 				4DAAD7452E4EE4FE00B064C1 /* NumberMultiplicationSystem.swift in Sources */,
@@ -2895,6 +2913,7 @@
 				4D3055B12D3C9942009A7BBD /* FocusNumberHelper.swift in Sources */,
 				4DA01CAE2D8533F50070309D /* NotificationManager.swift in Sources */,
 				4DB1DF982E23549F001A9EA5 /* CosmicSnapshotView.swift in Sources */,
+				4D5545AD2E5412EB00369B4D /* KASPERHybridProvider.swift in Sources */,
 				4DA6425D2D8113D80047287B /* HeartRateView.swift in Sources */,
 				4D3055BE2D3C9FF0009A7BBD /* FocusNumberView.swift in Sources */,
 				4D2DB4912DFF70E00003353E /* SharedUIComponents.swift in Sources */,
@@ -3020,6 +3039,7 @@
 				4DAAD7472E4EF42F00B064C1 /* FirebaseInsightsMultiplier.swift in Sources */,
 				4D6C7B632DE46A33001036E5 /* BirthdateInputView.swift in Sources */,
 				4D731D2C2E44A34F0083C82C /* SpiritualFont.swift in Sources */,
+				4D5545B02E54219500369B4D /* InsightQualityGateManager.swift in Sources */,
 				4D92F4BC2D4DE1E80001A16E /* RealmNumberManager.swift in Sources */,
 				4D731D392E4542940083C82C /* KASPERTemplateEnhancer.swift in Sources */,
 				4DAD1E5D2D610C86005C3C85 /* FocusMatch.swift in Sources */,

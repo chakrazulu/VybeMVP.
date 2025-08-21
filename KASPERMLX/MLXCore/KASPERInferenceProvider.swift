@@ -29,6 +29,7 @@ import Foundation
 public enum KASPERStrategy: String, CaseIterable, Sendable {
     case mlxStub = "MLX Stub"
     case template = "Template Only"
+    case firebase = "Firebase Live"
     case mlxLocal = "MLX Local (Future)"
     case gptHybrid = "GPT Hybrid (Future)"
     case automatic = "Automatic"
@@ -37,6 +38,7 @@ public enum KASPERStrategy: String, CaseIterable, Sendable {
         switch self {
         case .mlxStub: return "Enhanced Stub (Current)"
         case .template: return "Basic Templates"
+        case .firebase: return "Firebase Live Insights"
         case .mlxLocal: return "Local MLX Model"
         case .gptHybrid: return "Cloud-Enhanced AI"
         case .automatic: return "Auto-Select Best"
@@ -47,6 +49,7 @@ public enum KASPERStrategy: String, CaseIterable, Sendable {
         switch self {
         case .mlxStub: return "RuntimeBundle content with randomization"
         case .template: return "Fast, deterministic templates"
+        case .firebase: return "9,900+ A+ quality Firebase insights with planetary aspects"
         case .mlxLocal: return "On-device ML inference (coming soon)"
         case .gptHybrid: return "Cloud AI with privacy controls (coming soon)"
         case .automatic: return "Automatically selects the best available provider"

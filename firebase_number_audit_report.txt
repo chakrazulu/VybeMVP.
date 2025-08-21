@@ -1,0 +1,40 @@
+
+🚨 FIREBASE NUMBER ACCURACY AUDIT REPORT
+========================================
+
+📊 SUMMARY STATISTICS:
+Total Documents: 6,900
+Correct Mappings: 5,017 (72.7%)
+Incorrect Mappings: 0 (0.0%)
+Undetectable: 1,883 (27.3%)
+
+📈 DOCUMENTS BY STORED NUMBER:
+Number 0: 693 documents
+Number 1: 629 documents
+Number 2: 532 documents
+Number 3: 658 documents
+Number 4: 680 documents
+Number 5: 682 documents
+Number 6: 621 documents
+Number 7: 724 documents
+Number 8: 991 documents
+Number 9: 690 documents
+
+📈 DOCUMENTS BY DETECTED CONTENT:
+Number 0: 562 insights (content analysis)
+Number 1: 308 insights (content analysis)
+Number 2: 168 insights (content analysis)
+Number 3: 465 insights (content analysis)
+Number 4: 505 insights (content analysis)
+Number 5: 565 insights (content analysis)
+Number 6: 400 insights (content analysis)
+Number 7: 512 insights (content analysis)
+Number 8: 868 insights (content analysis)
+Number 9: 664 insights (content analysis)
+
+📊 FIELD USAGE ANALYSIS:
+text: 6,600 documents (95.7%)
+insight: 300 documents (4.3%)
+number: 6,900 documents (100.0%)
+category: 6,600 documents (95.7%)
+quality_score: 6,900 documents (100.0%)

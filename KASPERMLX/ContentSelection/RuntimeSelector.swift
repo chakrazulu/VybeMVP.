@@ -87,6 +87,14 @@ import Foundation
 import NaturalLanguage
 import os.log
 
+// MARK: - String Extension for Regex Matching
+
+extension String {
+    func matches(of regex: NSRegularExpression) -> [NSTextCheckingResult] {
+        return regex.matches(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count))
+    }
+}
+
 // Import the existing RuntimeInsight from InsightFusionManager
 // This ensures we're using the same data model across the system
 
@@ -186,7 +194,9 @@ public class RuntimeSelector: ObservableObject {
         "Psychologist": ["behavioral patterns", "emotional intelligence", "growth", "process", "analysis"],
         "MindfulnessCoach": ["present moment", "awareness", "breath", "observe", "mindful", "peaceful"],
         "NumerologyScholar": ["vibrational", "mathematical", "frequency", "numerological significance"],
-        "Philosopher": ["existence", "meaning", "truth", "contemplation", "wisdom", "universal"]
+        "Philosopher": ["existence", "meaning", "truth", "contemplation", "wisdom", "universal"],
+        "AlanWatts": ["wu wei", "paradox", "ocean", "wave", "cosmic humor", "play", "effortless", "flow"],
+        "CarlJung": ["unconscious", "archetype", "shadow", "anima", "animus", "individuation", "synchronicity", "Self"]
     ]
 
     // MARK: - Initialization
@@ -260,8 +270,10 @@ public class RuntimeSelector: ObservableObject {
         for insight in focusInsights {
             let sentences = extractSentences(from: insight.content)
             for (index, sentence) in sentences.enumerated() {
+                // Apply ChatGPT's preprocessing for MindfulnessCoach
+                let processedSentence = preprocessCandidateSentence(sentence, persona: persona)
                 let score = calculateRelevanceScore(
-                    sentence: sentence,
+                    sentence: processedSentence,
                     focusNumber: focus,
                     realmNumber: realm,
                     persona: persona,
@@ -269,7 +281,7 @@ public class RuntimeSelector: ObservableObject {
                 )
 
                 scoredSentences.append(ScoredSentence(
-                    content: sentence,
+                    content: processedSentence,
                     score: score,
                     source: insight.source,
                     category: insight.category,
@@ -282,8 +294,10 @@ public class RuntimeSelector: ObservableObject {
         for insight in realmInsights {
             let sentences = extractSentences(from: insight.content)
             for (index, sentence) in sentences.enumerated() {
+                // Apply ChatGPT's preprocessing for MindfulnessCoach
+                let processedSentence = preprocessCandidateSentence(sentence, persona: persona)
                 let score = calculateRelevanceScore(
-                    sentence: sentence,
+                    sentence: processedSentence,
                     focusNumber: focus,
                     realmNumber: realm,
                     persona: persona,
@@ -291,7 +305,7 @@ public class RuntimeSelector: ObservableObject {
                 )
 
                 scoredSentences.append(ScoredSentence(
-                    content: sentence,
+                    content: processedSentence,
                     score: score,
                     source: insight.source,
                     category: insight.category,
@@ -343,6 +357,138 @@ public class RuntimeSelector: ObservableObject {
         return result
     }
 
+    // MARK: - ChatGPT Surgical Fixes for MindfulnessCoach
+
+    /// ChatGPT Fix #1: Preprocess candidates with debuzz/trim before scoring
+    private func preprocessCandidateSentence(_ sentence: String, persona: String) -> String {
+        var processed = sentence
+
+        if persona == "MindfulnessCoach" {
+            processed = debuzzPhraseFirst(processed)
+            processed = debuzzWords(processed)
+            processed = compactSyntax(processed)
+            processed = trimToWordLimit(processed, min: 12, max: 22)
+            processed = capTwoSentences(processed)
+        }
+
+        return processed
+    }
+
+    /// ChatGPT Fix #2: Coach scoring bumpers for actionable content
+    private func scoreCoachFeatures(_ sentence: String) -> Double {
+        var score = 0.0
+
+        // +0.15 for action verbs
+        if sentence.range(of: #"\b(notice|choose|try|write|plan|schedule|ask|pick|set|breathe|focus|start|practice)\b"#,
+                          options: .regularExpression) != nil {
+            score += 0.15
+        }
+
+        // +0.10 for time context
+        if sentence.range(of: #"\b(today|this (morning|afternoon|week)|right now|at your own pace|in your (work|relationships|practice))\b"#,
+                          options: .regularExpression) != nil {
+            score += 0.10
+        }
+
+        // +0.10 for specific objects
+        if sentence.range(of: #"\b(one|a|the)\s+(task|step|call|note|message|timer|block|habit|goal)\b"#,
+                          options: .regularExpression) != nil {
+            score += 0.10
+        }
+
+        // -0.20 for "May..." prayer form
+        if sentence.hasPrefix("May ") {
+            score -= 0.20
+        }
+
+        // -0.20 for incense stacking (2+ spiritual buzzwords)
+        let incenseMatches = sentence.matches(of: try! NSRegularExpression(pattern: #"\b(divine|sacred|mystical|universe|loving[- ]kindness)\b"#, options: .caseInsensitive))
+        if incenseMatches.count >= 2 {
+            score -= 0.20
+        }
+
+        // -0.10 per extra sentence beyond 2
+        let sentenceCount = sentence.split(separator: ".").count
+        if sentenceCount > 2 {
+            score -= 0.10 * Double(sentenceCount - 2)
+        }
+
+        return score
+    }
+
+    /// Debuzz phrase mapping (before single words)
+    private func debuzzPhraseFirst(_ text: String) -> String {
+        var processed = text
+        let phraseMap = [
+            "divine timing": "right timing",
+            "sacred space": "quiet space",
+            "spiritual growth": "real growth",
+            "mystical wisdom": "inner knowing",
+            "cosmic energy": "life force",
+            "universal love": "deep love"
+        ]
+
+        for (phrase, replacement) in phraseMap {
+            processed = processed.replacingOccurrences(of: phrase, with: replacement, options: .caseInsensitive)
+        }
+
+        return processed
+    }
+
+    /// Debuzz single words
+    private func debuzzWords(_ text: String) -> String {
+        var processed = text
+        let wordMap = [
+            "mystical": "subtle",
+            "divine": "true",
+            "sacred": "steady",
+            "self-expression": "your voice",
+            "transformation": "change",
+            "manifestation": "creating",
+            "consciousness": "awareness",
+            "enlightenment": "clarity",
+            "spiritual": "inner",
+            "cosmic": "bigger",
+            "universal": "shared"
+        ]
+
+        for (word, replacement) in wordMap {
+            processed = processed.replacingOccurrences(of: "\\b\(word)\\b", with: replacement,
+                                                      options: [.regularExpression, .caseInsensitive])
+        }
+
+        return processed
+    }
+
+    /// Compact syntax (remove fillers)
+    private func compactSyntax(_ text: String) -> String {
+        var processed = text
+        processed = processed.replacingOccurrences(of: #"(?i)\b(in order to|so that|that you may|that you can)\b"#,
+                                                  with: "to", options: .regularExpression)
+        processed = processed.replacingOccurrences(of: #"\s{2,}"#, with: " ", options: .regularExpression)
+        return processed.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    /// Trim to word limit
+    private func trimToWordLimit(_ text: String, min: Int, max: Int) -> String {
+        let words = text.split(whereSeparator: \.isWhitespace)
+        if words.count <= max { return text }
+        let trimmed = words.prefix(max).joined(separator: " ")
+        return trimmed.hasSuffix(".") ? trimmed : trimmed + "."
+    }
+
+    /// Cap to two sentences max
+    private func capTwoSentences(_ text: String) -> String {
+        let sentences = text.split(separator: ".").map { $0.trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty }
+        if sentences.count <= 2 {
+            let result = sentences.joined(separator: ". ")
+            return result.hasSuffix(".") ? result : result + "."
+        }
+        // Pick shortest two for maximum punch
+        let shortestTwo = sentences.sorted { $0.count < $1.count }.prefix(2).joined(separator: ". ")
+        return shortestTwo.hasSuffix(".") ? shortestTwo : shortestTwo + "."
+    }
+
     // MARK: - Content Loading
 
     /// Load insights from RuntimeBundle
@@ -353,16 +499,27 @@ public class RuntimeSelector: ObservableObject {
             return cached
         }
 
-        // Load from RuntimeBundle
+        // Load from RuntimeBundle - check multiple naming conventions
         let numberStr = String(format: "%02d", number)
-        let fileName = "grok_\(persona.lowercased())_\(numberStr)_converted"
+        var fileName: String
+        var subdirectory: String
+
+        // Handle new persona collections (AlanWatts, CarlJung)
+        if persona == "AlanWatts" || persona == "CarlJung" {
+            fileName = "\(persona)Insights_Number_\(number)"
+            subdirectory = "NumerologyData/\(persona)NumberInsights"
+        } else {
+            // Legacy personas (grok format)
+            fileName = "grok_\(persona.lowercased())_\(numberStr)_converted"
+            subdirectory = "KASPERMLXRuntimeBundle/Behavioral/\(persona.lowercased())"
+        }
 
         guard let bundleURL = Bundle.main.url(
             forResource: fileName,
             withExtension: "json",
-            subdirectory: "KASPERMLXRuntimeBundle/Behavioral/\(persona.lowercased())"
+            subdirectory: subdirectory
         ) else {
-            logger.warning("⚠️ RuntimeBundle file not found: \(fileName)")
+            logger.warning("⚠️ RuntimeBundle file not found: \(fileName) in \(subdirectory)")
             return []
         }
 
@@ -370,33 +527,64 @@ public class RuntimeSelector: ObservableObject {
             let jsonData = try Data(contentsOf: bundleURL)
             let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: [])
 
-            guard let jsonDict = jsonObject as? [String: Any],
-                  let behavioralInsights = jsonDict["behavioral_insights"] as? [[String: Any]] else {
-                logger.warning("⚠️ Invalid JSON structure in \(fileName)")
-                return []
-            }
-
             var insights: [RuntimeInsight] = []
 
-            for (index, insightDict) in behavioralInsights.enumerated() {
-                guard let content = insightDict["insight"] as? String,
-                      let category = insightDict["category"] as? String else {
-                    continue
+            if persona == "AlanWatts" || persona == "CarlJung" {
+                // Handle new persona schema (categories with arrays of insights)
+                guard let jsonDict = jsonObject as? [String: Any],
+                      let categories = jsonDict["categories"] as? [String: Any] else {
+                    logger.warning("⚠️ Invalid JSON structure for \(persona) in \(fileName)")
+                    return []
                 }
 
-                let insight = RuntimeInsight(
-                    id: "\(fileName)_\(index)",
-                    persona: persona,
-                    number: number,
-                    content: content,
-                    category: category,
-                    intensity: insightDict["intensity"] as? Double ?? 0.75,
-                    triggers: insightDict["triggers"] as? [String] ?? [],
-                    supports: insightDict["supports"] as? [String] ?? [],
-                    challenges: insightDict["challenges"] as? [String] ?? [],
-                    metadata: insightDict
-                )
-                insights.append(insight)
+                // Extract insights from each category
+                for (category, categoryContent) in categories {
+                    if let insightArray = categoryContent as? [String] {
+                        for (index, content) in insightArray.enumerated() {
+                            let insight = RuntimeInsight(
+                                id: "\(fileName)_\(category)_\(index)",
+                                persona: persona,
+                                number: number,
+                                content: content,
+                                category: category,
+                                intensity: 0.75,
+                                triggers: [],
+                                supports: [],
+                                challenges: [],
+                                metadata: ["schema": "persona_v2", "category": category]
+                            )
+                            insights.append(insight)
+                        }
+                    }
+                }
+            } else {
+                // Handle legacy grok schema (behavioral_insights array)
+                guard let jsonDict = jsonObject as? [String: Any],
+                      let behavioralInsights = jsonDict["behavioral_insights"] as? [[String: Any]] else {
+                    logger.warning("⚠️ Invalid JSON structure in \(fileName)")
+                    return []
+                }
+
+                for (index, insightDict) in behavioralInsights.enumerated() {
+                    guard let content = insightDict["insight"] as? String,
+                          let category = insightDict["category"] as? String else {
+                        continue
+                    }
+
+                    let insight = RuntimeInsight(
+                        id: "\(fileName)_\(index)",
+                        persona: persona,
+                        number: number,
+                        content: content,
+                        category: category,
+                        intensity: insightDict["intensity"] as? Double ?? 0.75,
+                        triggers: insightDict["triggers"] as? [String] ?? [],
+                        supports: insightDict["supports"] as? [String] ?? [],
+                        challenges: insightDict["challenges"] as? [String] ?? [],
+                        metadata: insightDict
+                    )
+                    insights.append(insight)
+                }
             }
 
             // Cache for future use
@@ -558,7 +746,7 @@ public class RuntimeSelector: ObservableObject {
         return min(depthScore / 3.0, 1.0)
     }
 
-    /// Calculate persona voice consistency
+    /// Calculate persona voice consistency with ChatGPT coaching improvements
     private func calculatePersonaConsistency(sentence: String, persona: String) -> Double {
         guard let markers = personaMarkers[persona] else { return 0.5 }
 
@@ -571,8 +759,14 @@ public class RuntimeSelector: ObservableObject {
             }
         }
 
-        // Normalize (presence of 2+ markers = full score)
-        return min(Double(matchCount) / 2.0, 1.0)
+        var score = min(Double(matchCount) / 2.0, 1.0)
+
+        // Apply ChatGPT's coaching-specific scoring
+        if persona == "MindfulnessCoach" {
+            score += scoreCoachFeatures(sentence)
+        }
+
+        return min(score, 1.0)
     }
 
     /// Calculate embedding-based semantic similarity

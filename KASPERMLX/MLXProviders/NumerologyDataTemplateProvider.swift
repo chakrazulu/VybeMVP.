@@ -17,7 +17,7 @@ import os.log
 /**
  * 🔢 NUMEROLOGY DATA TEMPLATE PROVIDER - REAL CONTENT FOUNDATION
  *
- * Replaces hardcoded templates with your actual 9,483 NumerologyData insights.
+ * Replaces hardcoded templates with your actual NumerologyData insights including Alan Watts and Carl Jung collections.
  * KASPER can now use real spiritual content as foundation for personalized generation.
  *
  * PRODUCTION ARCHITECTURE (August 18, 2025):
@@ -107,50 +107,86 @@ public actor NumerologyDataTemplateProvider: KASPERInferenceProvider {
     // MARK: - Data Loading
 
     private func loadNumerologyData() async {
-        logger.info("📂 Loading NumerologyData insights...")
+        logger.info("📂 Loading NumerologyData insights including Alan Watts and Carl Jung collections...")
 
-        let numerologyPath = "/Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP/NumerologyData/FirebaseNumberMeanings"
-
-        guard let filesEnumerator = FileManager.default.enumerator(atPath: numerologyPath) else {
-            logger.error("❌ Could not access NumerologyData path")
+        // Bundle path should be relative for portability
+        guard let bundlePath = Bundle.main.path(forResource: "VybeMVP", ofType: nil) else {
+            logger.error("❌ Could not find bundle path")
             return
         }
 
+        let numerologyBasePath = "\(bundlePath)/../NumerologyData"
+
+        // Collection paths to load from
+        let collectionPaths = [
+            "\(numerologyBasePath)/FirebaseNumberMeanings",
+            "\(numerologyBasePath)/AlanWattsNumberInsights",
+            "\(numerologyBasePath)/CarlJungNumberInsights"
+        ]
+
         var totalInsights = 0
 
-        while let filename = filesEnumerator.nextObject() as? String {
-            guard filename.hasSuffix(".json"),
-                  filename != "personalized_insight_templates.json" else { continue }
+        for collectionPath in collectionPaths {
+            guard let filesEnumerator = FileManager.default.enumerator(atPath: collectionPath) else {
+                logger.warning("⚠️ Could not access path: \(collectionPath)")
+                continue
+            }
 
-            let filePath = "\(numerologyPath)/\(filename)"
+            while let filename = filesEnumerator.nextObject() as? String {
+                guard filename.hasSuffix(".json"),
+                      filename != "personalized_insight_templates.json" else { continue }
 
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: filePath))
-                let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+                let filePath = "\(collectionPath)/\(filename)"
 
-                // Extract insights for each number
-                for (numberStr, content) in json ?? [:] {
-                    guard let number = Int(numberStr),
-                          let contentDict = content as? [String: Any],
-                          let insights = contentDict["insight"] as? [String] else { continue }
+                do {
+                    let data = try Data(contentsOf: URL(fileURLWithPath: filePath))
+                    let collectionName = URL(fileURLWithPath: collectionPath).lastPathComponent
 
-                    // Add to cache
-                    if insightCache[number] == nil {
-                        insightCache[number] = []
+                    // Handle different JSON structures for different collections
+                    if collectionName.contains("AlanWatts") || collectionName.contains("CarlJung") {
+                        // Alan Watts and Carl Jung collections have object structure with nested categories
+                        if let insightDict = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                           let number = insightDict["number"] as? Int,
+                           let categories = insightDict["categories"] as? [String: Any],
+                           let insights = categories["insight"] as? [String] {
+
+                            // Add to cache
+                            if insightCache[number] == nil {
+                                insightCache[number] = []
+                            }
+                            insightCache[number]?.append(contentsOf: insights)
+                            totalInsights += insights.count
+                        }
+                    } else {
+                        // Firebase structure (original format)
+                        let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+
+                        // Extract insights for each number
+                        for (numberStr, content) in json ?? [:] {
+                            guard let number = Int(numberStr),
+                                  let contentDict = content as? [String: Any],
+                                  let insights = contentDict["insight"] as? [String] else { continue }
+
+                            // Add to cache
+                            if insightCache[number] == nil {
+                                insightCache[number] = []
+                            }
+                            insightCache[number]?.append(contentsOf: insights)
+                            totalInsights += insights.count
+                        }
                     }
-                    insightCache[number]?.append(contentsOf: insights)
-                    totalInsights += insights.count
+
+                    logger.info("📁 Loaded \(filename) from \(collectionName)")
+
+                } catch {
+                    logger.error("❌ Error loading \(filename): \(error)")
                 }
-
-                logger.info("📁 Loaded \(filename)")
-
-            } catch {
-                logger.error("❌ Error loading \(filename): \(error)")
             }
         }
 
         isLoaded = true
-        logger.info("✅ NumerologyData loaded: \(totalInsights) insights across \(self.insightCache.keys.count) numbers")
+        logger.info("✅ NumerologyData loaded: \(totalInsights) insights across \(self.insightCache.keys.count) numbers from \(collectionPaths.count) collections")
+        logger.info("🔮 Included collections: Firebase, Alan Watts, Carl Jung")
     }
 
     // MARK: - Insight Selection
@@ -169,9 +205,16 @@ public actor NumerologyDataTemplateProvider: KASPERInferenceProvider {
         let contextFiltered = filterInsightsByContext(insights, context: context)
         let finalInsights = contextFiltered.isEmpty ? insights : contextFiltered
 
-        // Use realm as seed for consistent selection
-        let index = realm % finalInsights.count
-        return finalInsights[index]
+        // Use combination of realm and current time for variety
+        // This ensures different insights even for same number
+        let timeComponent = Int(Date().timeIntervalSince1970 / 60) // Changes every minute
+        let seed = (realm + timeComponent) % finalInsights.count
+
+        // Additional randomization for better variety
+        let shuffled = finalInsights.shuffled()
+        let index = seed % shuffled.count
+
+        return shuffled[index]
     }
 
     private func filterInsightsByContext(_ insights: [String], context: String) -> [String] {

@@ -437,7 +437,10 @@ struct CosmicHUDView: View {
                     context: "cosmictiming",
                     focus: rulerNumber,
                     realm: getCurrentRealmNumber(),
-                    extras: ["cosmic_context": true]
+                    extras: [
+                        "cosmic_context": true,
+                        "cosmic_enhancement": true  // Enable planetary aspects integration
+                    ]
                 )
 
                 await MainActor.run {

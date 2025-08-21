@@ -1,6 +1,6 @@
 {
-  "version": "2.1.4",
-  "generated": "2025-08-10T18:08:04.304637",
+  "version": "2.1.5",
+  "generated": "2025-08-20T16:30:00.000000",
   "bundle_hash": "9ff3b4bcbbfe4251328ebb77d746e55a32c9fb9d8c5ec3bf52b5f2af7ee753da",
   "domains": {
     "numbers": {
@@ -17,6 +17,9 @@
         "numerologyscholar": "Behavioral/numerologyscholar/grok_numerologyscholar_{id}_converted.json",
         "philosopher": "Behavioral/philosopher/grok_philosopher_{id}_converted.json"
       }
+    },
+    "planetary": {
+      "insights": "PlanetaryRuntime/PlanetaryInsights_{id}_original.json"
     }
   },
   "fallback_strategy": "behavioral_then_template",
@@ -42,6 +45,7 @@
   "statistics": {
     "behavioral_files": 104,
     "rich_files": 13,
-    "total_size_kb": 1442.88
+    "planetary_files": 10,
+    "total_size_kb": 1750.88
   }
 }

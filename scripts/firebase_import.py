@@ -67,8 +67,10 @@ class FirebaseInsightImporter:
         # Find all number insight files
         number_files = []
         for filename in os.listdir(data_dir):
-            if filename.startswith("NumberMessages_Complete_") and filename.endswith(
-                "_archetypal.json"
+            if (
+                filename.startswith("NumberMessages_Complete_")
+                and filename.endswith(".json")
+                and not filename.endswith("_archetypal.json")
             ):
                 number_files.append(filename)
 
@@ -83,10 +85,10 @@ class FirebaseInsightImporter:
     def _import_number_file(self, file_path: str, collection) -> None:
         """Import a single number insights file"""
         try:
-            # Extract number from filename: NumberMessages_Complete_5_archetypal.json -> 5
+            # Extract number from filename: NumberMessages_Complete_5.json -> 5
             filename = os.path.basename(file_path)
-            parts = filename.split("_")  # ['NumberMessages', 'Complete', '5', 'archetypal.json']
-            number_str = parts[2]  # Get the '5' part
+            parts = filename.split("_")  # ['NumberMessages', 'Complete', '5.json']
+            number_str = parts[2].split(".")[0]  # Get the '5' part (remove .json)
             number = int(number_str)
 
             print(f"📝 Importing Number {number} insights...")
