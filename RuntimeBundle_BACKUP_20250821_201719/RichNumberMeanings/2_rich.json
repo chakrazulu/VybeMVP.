@@ -1,0 +1,454 @@
+{
+  "number": 2,
+  "title": "Number 2: The Diplomat",
+  "source": "single_numbers",
+  "persona": "NumerologyMaster",
+  "behavioral_category": "cooperation_harmony",
+  "intensity_scoring": {
+    "min_range": 0.5,
+    "max_range": 0.85,
+    "note": "Number 2 operates with gentle, receptive energy focused on harmony and cooperation"
+  },
+  "behavioral_insights": [
+    {
+      "category": "core_essence",
+      "insight": "Number 2 represents **pure receptive force** - the divine feminine principle that receives, nurtures, and harmonizes. As the first even number, it embodies cooperation, sensitivity, and the power of partnership over individual achievement.",
+      "intensity": 0.8,
+      "triggers": [
+        "partnership_opportunities",
+        "harmony_needs",
+        "cooperation_calls"
+      ],
+      "supports": [
+        "collaborative_work",
+        "diplomatic_solutions",
+        "peaceful_environments"
+      ],
+      "challenges": [
+        "conflict_situations",
+        "aggressive_environments",
+        "forced_independence"
+      ]
+    },
+    {
+      "category": "diplomat_archetype",
+      "insight": "The Diplomat archetype embodies **master relationship-building** - one who can find common ground between opposing forces and create bridges of understanding where others see only division.",
+      "intensity": 0.78,
+      "triggers": [
+        "conflict_resolution",
+        "mediation_needs",
+        "relationship_building"
+      ],
+      "supports": [
+        "communication_skills",
+        "empathy_development",
+        "negotiation_abilities"
+      ],
+      "challenges": [
+        "boundary_setting",
+        "people_pleasing",
+        "conflict_avoidance"
+      ]
+    },
+    {
+      "category": "cooperative_mastery",
+      "insight": "Natural **team builders**, 2s understand that collaboration creates exponentially greater results than individual effort. They excel at bringing out the best in others and creating synergistic partnerships.",
+      "intensity": 0.76,
+      "triggers": [
+        "team_formation",
+        "collaborative_projects",
+        "group_dynamics"
+      ],
+      "supports": [
+        "team_building",
+        "consensus_creation",
+        "group_facilitation"
+      ],
+      "challenges": [
+        "leadership_roles",
+        "individual_recognition",
+        "decision_making_alone"
+      ]
+    },
+    {
+      "category": "sensitivity_gift",
+      "insight": "The **emotional sensitivity** of 2s is their superpower - they can read energy, emotions, and unspoken communications with remarkable accuracy, making them natural counselors and healers.",
+      "intensity": 0.82,
+      "triggers": [
+        "emotional_environments",
+        "energy_shifts",
+        "unspoken_communications"
+      ],
+      "supports": [
+        "empathic_abilities",
+        "emotional_intelligence",
+        "healing_presence"
+      ],
+      "challenges": [
+        "emotional_overwhelm",
+        "energy_absorption",
+        "boundary_confusion"
+      ]
+    },
+    {
+      "category": "peacemaker_role",
+      "insight": "2s are **natural peacemakers** who instinctively seek to restore harmony when it's been disrupted. They have an innate understanding of how to soothe tensions and bring opposing sides together.",
+      "intensity": 0.79,
+      "triggers": [
+        "discord",
+        "tension",
+        "conflict_situations"
+      ],
+      "supports": [
+        "mediation_skills",
+        "calming_presence",
+        "harmony_restoration"
+      ],
+      "challenges": [
+        "peace_at_any_cost",
+        "truth_avoidance",
+        "enabling_dysfunction"
+      ]
+    },
+    {
+      "category": "yin_feminine",
+      "insight": "Number 2 embodies **pure Yin energy** - receptive, intuitive, and nurturing. This feminine force receives, processes, and transforms, representing the divine feminine principle in its most essential form.",
+      "intensity": 0.81,
+      "triggers": [
+        "receptive_moments",
+        "intuitive_hits",
+        "nurturing_opportunities"
+      ],
+      "supports": [
+        "receptivity_practices",
+        "intuitive_development",
+        "nurturing_activities"
+      ],
+      "challenges": [
+        "assertiveness_needs",
+        "masculine_integration",
+        "action_orientation"
+      ]
+    },
+    {
+      "category": "lunar_connection",
+      "insight": "Ruled by the **Moon**, 2s operate in cycles and rhythms, highly attuned to emotional tides and subtle energies. Like the Moon, they reflect and amplify the light of others.",
+      "intensity": 0.77,
+      "triggers": [
+        "lunar_cycles",
+        "emotional_tides",
+        "energy_fluctuations"
+      ],
+      "supports": [
+        "lunar_meditation",
+        "cycle_awareness",
+        "emotional_tracking"
+      ],
+      "challenges": [
+        "mood_swings",
+        "energy_instability",
+        "emotional_reactivity"
+      ]
+    },
+    {
+      "category": "supportive_nature",
+      "insight": "The **natural supporter**, 2s excel at helping others achieve their dreams. They find fulfillment in being the power behind the throne, the wind beneath someone else's wings.",
+      "intensity": 0.75,
+      "triggers": [
+        "support_opportunities",
+        "helping_situations",
+        "service_calls"
+      ],
+      "supports": [
+        "supportive_presence",
+        "encouragement_giving",
+        "assistance_providing"
+      ],
+      "challenges": [
+        "recognition_needs",
+        "self_worth_issues",
+        "codependency_patterns"
+      ]
+    },
+    {
+      "category": "cancer_correlation",
+      "insight": "Sharing energy with **Cancer**, 2s possess the crab's protective instincts and emotional depth. They create safe spaces where others can be vulnerable and authentic.",
+      "intensity": 0.8,
+      "triggers": [
+        "protective_instincts",
+        "emotional_safety",
+        "nurturing_needs"
+      ],
+      "supports": [
+        "safe_space_creation",
+        "emotional_support",
+        "protective_presence"
+      ],
+      "challenges": [
+        "overprotectiveness",
+        "emotional_clinging",
+        "security_anxiety"
+      ]
+    },
+    {
+      "category": "patience_mastery",
+      "insight": "2s possess **profound patience** - the ability to wait for the right timing, to allow processes to unfold naturally, and to support growth at its own pace without forcing outcomes.",
+      "intensity": 0.74,
+      "triggers": [
+        "timing_awareness",
+        "natural_processes",
+        "growth_support"
+      ],
+      "supports": [
+        "patience_cultivation",
+        "timing_sensitivity",
+        "process_trust"
+      ],
+      "challenges": [
+        "passivity",
+        "missed_opportunities",
+        "indecision"
+      ]
+    },
+    {
+      "category": "intuitive_wisdom",
+      "insight": "The **intuitive intelligence** of 2s allows them to know things without logical explanation. They trust their gut feelings and can sense the undercurrents of any situation.",
+      "intensity": 0.83,
+      "triggers": [
+        "intuitive_moments",
+        "gut_feelings",
+        "energetic_information"
+      ],
+      "supports": [
+        "intuitive_development",
+        "psychic_abilities",
+        "energy_reading"
+      ],
+      "challenges": [
+        "logic_integration",
+        "decision_confusion",
+        "overwhelming_input"
+      ]
+    },
+    {
+      "category": "detail_orientation",
+      "insight": "2s excel at **attention to detail** - they notice the small things others miss and understand how these details contribute to the larger picture. This makes them excellent at quality control and refinement.",
+      "intensity": 0.72,
+      "triggers": [
+        "detail_work",
+        "quality_control",
+        "refinement_needs"
+      ],
+      "supports": [
+        "meticulous_work",
+        "quality_assurance",
+        "perfectionist_tendencies"
+      ],
+      "challenges": [
+        "big_picture_loss",
+        "perfectionism_paralysis",
+        "nitpicking_tendency"
+      ]
+    },
+    {
+      "category": "shadow_integration",
+      "insight": "The shadow of 2 includes **passive-aggression, martyrdom, and manipulation**. When unintegrated, the cooperative spirit becomes people-pleasing, and sensitivity becomes emotional manipulation.",
+      "intensity": 0.73,
+      "triggers": [
+        "power_struggles",
+        "unmet_needs",
+        "resentment_buildup"
+      ],
+      "supports": [
+        "assertiveness_training",
+        "boundary_work",
+        "direct_communication"
+      ],
+      "challenges": [
+        "indirect_expression",
+        "victim_mentality",
+        "manipulation_tactics"
+      ]
+    },
+    {
+      "category": "relationship_mastery",
+      "insight": "In relationships, 2s are **masters of intimacy** who create deep, meaningful connections. They excel at reading their partner's needs and creating emotional safety for vulnerable sharing.",
+      "intensity": 0.84,
+      "triggers": [
+        "intimacy_opportunities",
+        "emotional_connection",
+        "relationship_deepening"
+      ],
+      "supports": [
+        "emotional_intelligence",
+        "relationship_skills",
+        "intimacy_creation"
+      ],
+      "challenges": [
+        "codependency",
+        "identity_loss",
+        "boundaries_dissolution"
+      ]
+    },
+    {
+      "category": "service_orientation",
+      "insight": "Natural **servants of humanity**, 2s find deep fulfillment in helping others achieve their potential. Their service is motivated by genuine care rather than recognition or reward.",
+      "intensity": 0.76,
+      "triggers": [
+        "service_opportunities",
+        "helping_others",
+        "community_needs"
+      ],
+      "supports": [
+        "service_activities",
+        "community_involvement",
+        "helping_professions"
+      ],
+      "challenges": [
+        "self_neglect",
+        "burnout_risk",
+        "martyrdom_complex"
+      ]
+    },
+    {
+      "category": "artistic_sensitivity",
+      "insight": "The **artistic sensibility** of 2s allows them to create beauty that touches the soul. Their art often focuses on emotional expression, harmony, and the subtle nuances of human experience.",
+      "intensity": 0.78,
+      "triggers": [
+        "aesthetic_appreciation",
+        "artistic_inspiration",
+        "beauty_creation"
+      ],
+      "supports": [
+        "artistic_expression",
+        "aesthetic_development",
+        "creative_sensitivity"
+      ],
+      "challenges": [
+        "criticism_sensitivity",
+        "perfectionism",
+        "commercial_pressure"
+      ]
+    },
+    {
+      "category": "healing_presence",
+      "insight": "2s possess a **natural healing presence** that soothes and restores others. Their empathy and sensitivity make them powerful healers, counselors, and therapeutic allies.",
+      "intensity": 0.81,
+      "triggers": [
+        "healing_opportunities",
+        "others_pain",
+        "therapeutic_needs"
+      ],
+      "supports": [
+        "healing_modalities",
+        "therapeutic_training",
+        "empathic_development"
+      ],
+      "challenges": [
+        "energy_depletion",
+        "emotional_absorption",
+        "healing_addiction"
+      ]
+    },
+    {
+      "category": "balance_seeking",
+      "insight": "2s are **masters of balance** - they instinctively seek equilibrium in all areas of life and can help others find their center when they've been thrown off balance.",
+      "intensity": 0.77,
+      "triggers": [
+        "imbalance_situations",
+        "harmony_disruption",
+        "equilibrium_needs"
+      ],
+      "supports": [
+        "balance_practices",
+        "harmony_creation",
+        "equilibrium_restoration"
+      ],
+      "challenges": [
+        "decision_paralysis",
+        "fence_sitting",
+        "commitment_avoidance"
+      ]
+    },
+    {
+      "category": "gentle_strength",
+      "insight": "The **gentle strength** of 2s demonstrates that power doesn't always have to be forceful. Their quiet influence and persistent support can move mountains through patience and love.",
+      "intensity": 0.79,
+      "triggers": [
+        "gentle_influence",
+        "quiet_power",
+        "persistent_support"
+      ],
+      "supports": [
+        "soft_power_development",
+        "influence_building",
+        "persistent_effort"
+      ],
+      "challenges": [
+        "undervaluation",
+        "invisible_contribution",
+        "recognition_lack"
+      ]
+    },
+    {
+      "category": "ultimate_purpose",
+      "insight": "The ultimate purpose of Number 2 is to **teach humanity the power of cooperation** - to demonstrate that greater harmony, love, and achievement come through partnership, empathy, and the courage to be vulnerable in service of connection.",
+      "intensity": 0.85,
+      "triggers": [
+        "cooperation_opportunities",
+        "harmony_missions",
+        "unity_building"
+      ],
+      "supports": [
+        "cooperation_teaching",
+        "harmony_demonstration",
+        "unity_facilitation"
+      ],
+      "challenges": [
+        "mission_overwhelm",
+        "self_sacrifice",
+        "recognition_absence"
+      ]
+    }
+  ],
+  "meta": {
+    "type": "single",
+    "archetype": "diplomat",
+    "element": "water",
+    "keywords": [
+      "diplomat",
+      "cooperator",
+      "peacemaker",
+      "sensitive",
+      "supportive",
+      "intuitive",
+      "harmonious",
+      "patient",
+      "empathetic",
+      "collaborative"
+    ],
+    "affirmations": [
+      "I am a bridge-builder creating harmony and understanding between all beings.",
+      "My sensitivity is a gift that allows me to heal and support others deeply.",
+      "I trust my intuition and honor the wisdom of my emotional intelligence.",
+      "My cooperative spirit creates win-win solutions for everyone involved.",
+      "I set healthy boundaries while maintaining my caring, supportive nature.",
+      "I am patient with life's timing and trust in the natural flow of events.",
+      "My gentle strength influences positive change more powerfully than force.",
+      "I deserve recognition and appreciation for my valuable contributions.",
+      "I balance caring for others with nurturing my own needs and dreams."
+    ],
+    "compatibility": {
+      "most_compatible": [4, 6, 8],
+      "moderately_compatible": [2, 7, 9],
+      "challenging": [1, 3, 5],
+      "notes": "2s thrive with partners who value their sensitivity and can provide stability and appreciation"
+    },
+    "rituals": [
+      "Full Moon Reflection - Monthly emotional release and intuitive guidance practice",
+      "Partnership Gratitude - Weekly appreciation of all collaborative relationships",
+      "Sensitivity Blessing - Daily practice honoring and protecting emotional gifts",
+      "Harmony Meditation - Regular meditation on creating peace within and without"
+    ]
+  }
+}

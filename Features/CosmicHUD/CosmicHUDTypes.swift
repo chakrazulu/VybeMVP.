@@ -124,6 +124,7 @@ struct HUDData {
     let element: HUDElement
     let lastCalculated: Date
     let allAspects: [AspectData]
+    let vfi: Double  // VFI (Vybe Frequency Index) from Master Consciousness Algorithm
 
     /// Formatted display string for compact HUD
     var compactDisplay: String {
@@ -137,6 +138,50 @@ struct HUDData {
         let aspectChain = "\(aspect.planet1.symbol) \(aspect.aspect.symbol) \(aspect.planet2.symbol)"
 
         return "\(ruler)   \(aspectChain)   \(elem)"
+    }
+
+    /// Formatted VFI display for pill widget
+    var vfiDisplay: String {
+        return "\(Int(vfi)) VHz"
+    }
+
+    /// Consciousness state for VFI
+    var consciousnessState: String {
+        switch vfi {
+        case 20..<100: return "Awakening"
+        case 100..<200: return "Seeking"
+        case 200..<300: return "Growth"
+        case 300..<400: return "Balance"
+        case 400..<500: return "Opening"
+        case 500..<600: return "Love"
+        case 600..<700: return "Joy"
+        case 700..<800: return "Peace"
+        case 800...: return "Unity"
+        default: return "Flow"
+        }
+    }
+
+    /// Sacred number for consciousness state
+    var sacredNumber: Int {
+        switch vfi {
+        case 20..<100: return 1   // New beginning after challenges
+        case 100..<125: return 2  // Seeking partnership/help
+        case 125..<150: return 3  // Creative expression
+        case 150..<175: return 4  // Building foundation
+        case 175..<200: return 5  // Freedom seeking
+        case 200..<250: return 6  // Service through action
+        case 250..<300: return 7  // Spiritual introspection
+        case 300..<350: return 8  // Power to overcome
+        case 350..<400: return 9  // Universal understanding
+        case 400..<500: return 11 // Master awakening
+        case 500..<540: return 22 // Master builder
+        case 540..<600: return 33 // Master teacher
+        case 600..<700: return 44 // Master healer
+        case 700..<800: return 55 // Master freedom
+        case 800..<850: return 66 // Master nurturer
+        case 850...: return 77     // Master mystic
+        default: return 1
+        }
     }
 }
 

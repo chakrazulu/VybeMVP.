@@ -1,0 +1,454 @@
+{
+  "number": 5,
+  "title": "Number 5: The Freedom Seeker",
+  "source": "single_numbers",
+  "persona": "NumerologyMaster",
+  "behavioral_category": "freedom_adventure",
+  "intensity_scoring": {
+    "min_range": 0.65,
+    "max_range": 0.9,
+    "note": "Number 5 operates with dynamic, adventurous energy focused on freedom and experience"
+  },
+  "behavioral_insights": [
+    {
+      "category": "core_essence",
+      "insight": "Number 5 represents **pure freedom energy** - the wild spirit that refuses to be contained by conventional boundaries. As the center of the single digits, it embodies adventure, change, and the eternal quest for new experiences and expanded horizons.",
+      "intensity": 0.85,
+      "triggers": [
+        "freedom_restrictions",
+        "adventure_opportunities",
+        "new_experiences"
+      ],
+      "supports": [
+        "travel_opportunities",
+        "variety_experiences",
+        "independence_maintenance"
+      ],
+      "challenges": [
+        "routine_structures",
+        "commitment_pressure",
+        "freedom_limitations"
+      ]
+    },
+    {
+      "category": "adventurer_archetype",
+      "insight": "The Freedom Seeker archetype embodies **fearless exploration** - one who thrives on discovering new territories, experiences, and possibilities. 5s are the eternal wanderers seeking truth through direct experience.",
+      "intensity": 0.88,
+      "triggers": [
+        "exploration_calls",
+        "unknown_territories",
+        "adventure_beckoning"
+      ],
+      "supports": [
+        "exploration_activities",
+        "adventure_planning",
+        "discovery_pursuits"
+      ],
+      "challenges": [
+        "safety_requirements",
+        "routine_expectations",
+        "stability_demands"
+      ]
+    },
+    {
+      "category": "mercury_communication",
+      "insight": "Ruled by **Mercury**, 5s are natural communicators who can adapt their message to any audience. Their quick wit and versatile expression make them excellent teachers, writers, and speakers.",
+      "intensity": 0.82,
+      "triggers": [
+        "communication_opportunities",
+        "teaching_moments",
+        "information_sharing"
+      ],
+      "supports": [
+        "communication_skills",
+        "adaptable_expression",
+        "information_processing"
+      ],
+      "challenges": [
+        "information_overload",
+        "scattered_communication",
+        "superficial_knowledge"
+      ]
+    },
+    {
+      "category": "change_mastery",
+      "insight": "5s are **masters of change** - they not only adapt quickly to new circumstances but actively seek out transformation. Change energizes them while stagnation depletes their vitality.",
+      "intensity": 0.86,
+      "triggers": [
+        "change_opportunities",
+        "transformation_needs",
+        "growth_requirements"
+      ],
+      "supports": [
+        "adaptation_skills",
+        "change_navigation",
+        "transformation_embrace"
+      ],
+      "challenges": [
+        "stability_needs",
+        "consistency_requirements",
+        "predictability_comfort"
+      ]
+    },
+    {
+      "category": "sensory_experience",
+      "insight": "5s learn through **direct sensory experience** - they need to touch, taste, see, hear, and feel life fully. Their five senses are their primary tools for understanding the world.",
+      "intensity": 0.83,
+      "triggers": [
+        "sensory_stimulation",
+        "experiential_learning",
+        "physical_exploration"
+      ],
+      "supports": [
+        "sensory_experiences",
+        "hands_on_learning",
+        "experiential_education"
+      ],
+      "challenges": [
+        "sensory_overload",
+        "theoretical_learning",
+        "abstract_concepts"
+      ]
+    },
+    {
+      "category": "versatility_gifts",
+      "insight": "The **versatility** of 5s allows them to excel in multiple fields simultaneously. They are multi-talented individuals who can adapt their skills to whatever situation they encounter.",
+      "intensity": 0.8,
+      "triggers": [
+        "diverse_opportunities",
+        "multi_tasking_needs",
+        "skill_variety"
+      ],
+      "supports": [
+        "skill_diversification",
+        "multi_talent_development",
+        "adaptability_training"
+      ],
+      "challenges": [
+        "specialization_pressure",
+        "focus_requirements",
+        "depth_development"
+      ]
+    },
+    {
+      "category": "curiosity_drive",
+      "insight": "Insatiable **curiosity** drives 5s to constantly question, explore, and investigate. They are the eternal students of life, always seeking to understand how things work and why they exist.",
+      "intensity": 0.84,
+      "triggers": [
+        "mystery_encounters",
+        "learning_opportunities",
+        "question_arising"
+      ],
+      "supports": [
+        "research_activities",
+        "investigation_pursuits",
+        "learning_experiences"
+      ],
+      "challenges": [
+        "information_excess",
+        "scattered_interests",
+        "superficial_knowledge"
+      ]
+    },
+    {
+      "category": "progressive_thinking",
+      "insight": "5s are **progressive thinkers** who challenge outdated systems and beliefs. They are often ahead of their time, advocating for changes that society will eventually embrace.",
+      "intensity": 0.79,
+      "triggers": [
+        "outdated_systems",
+        "progressive_causes",
+        "social_change_needs"
+      ],
+      "supports": [
+        "progressive_movements",
+        "social_innovation",
+        "system_reform"
+      ],
+      "challenges": [
+        "conservative_resistance",
+        "tradition_conflicts",
+        "change_opposition"
+      ]
+    },
+    {
+      "category": "restless_energy",
+      "insight": "The **restless energy** of 5s keeps them constantly moving, seeking, and growing. This dynamic force prevents stagnation but requires conscious channeling to avoid burnout.",
+      "intensity": 0.81,
+      "triggers": [
+        "stagnation_feelings",
+        "boredom_states",
+        "routine_repetition"
+      ],
+      "supports": [
+        "energy_channeling",
+        "variety_creation",
+        "movement_practices"
+      ],
+      "challenges": [
+        "exhaustion_risk",
+        "scattered_focus",
+        "commitment_difficulty"
+      ]
+    },
+    {
+      "category": "sagittarius_expansion",
+      "insight": "Connected to **Sagittarius**, 5s possess the archer's aim for distant horizons and philosophical truth. They seek meaning through exploration of different cultures, beliefs, and experiences.",
+      "intensity": 0.78,
+      "triggers": [
+        "philosophical_questions",
+        "cultural_exploration",
+        "meaning_seeking"
+      ],
+      "supports": [
+        "philosophical_study",
+        "cultural_immersion",
+        "meaning_exploration"
+      ],
+      "challenges": [
+        "dogma_resistance",
+        "superficial_philosophy",
+        "commitment_avoidance"
+      ]
+    },
+    {
+      "category": "social_connectivity",
+      "insight": "5s are natural **social connectors** who can relate to people from all walks of life. Their adaptability allows them to fit into diverse social groups while maintaining their authentic self.",
+      "intensity": 0.77,
+      "triggers": [
+        "social_situations",
+        "networking_opportunities",
+        "people_connections"
+      ],
+      "supports": [
+        "social_skills",
+        "networking_abilities",
+        "relationship_building"
+      ],
+      "challenges": [
+        "shallow_connections",
+        "social_exhaustion",
+        "authenticity_maintenance"
+      ]
+    },
+    {
+      "category": "entrepreneurial_spirit",
+      "insight": "The **entrepreneurial spirit** of 5s drives them to create innovative businesses and ventures. They excel at identifying opportunities and adapting quickly to market changes.",
+      "intensity": 0.82,
+      "triggers": [
+        "business_opportunities",
+        "market_changes",
+        "innovation_needs"
+      ],
+      "supports": [
+        "business_creation",
+        "opportunity_recognition",
+        "market_adaptation"
+      ],
+      "challenges": [
+        "long_term_commitment",
+        "routine_management",
+        "detail_attention"
+      ]
+    },
+    {
+      "category": "teaching_gifts",
+      "insight": "5s make excellent **teachers and trainers** because they can present information in multiple ways to reach different learning styles. Their enthusiasm makes learning exciting and memorable.",
+      "intensity": 0.8,
+      "triggers": [
+        "teaching_opportunities",
+        "knowledge_sharing",
+        "learning_facilitation"
+      ],
+      "supports": [
+        "teaching_skills",
+        "presentation_abilities",
+        "learning_design"
+      ],
+      "challenges": [
+        "patience_with_slow_learners",
+        "routine_curriculum",
+        "administrative_requirements"
+      ]
+    },
+    {
+      "category": "shadow_integration",
+      "insight": "The shadow of 5 includes **addiction, escapism, and commitment phobia**. When unintegrated, the freedom drive becomes irresponsible avoidance, and adventure becomes reckless behavior.",
+      "intensity": 0.76,
+      "triggers": [
+        "commitment_pressure",
+        "responsibility_weight",
+        "freedom_threats"
+      ],
+      "supports": [
+        "healthy_boundaries",
+        "commitment_practice",
+        "responsibility_balance"
+      ],
+      "challenges": [
+        "addiction_tendencies",
+        "escapism_patterns",
+        "commitment_fears"
+      ]
+    },
+    {
+      "category": "multi_cultural_awareness",
+      "insight": "5s develop **multicultural awareness** through their travels and experiences with diverse groups. They become bridges between different cultures and worldviews.",
+      "intensity": 0.83,
+      "triggers": [
+        "cultural_encounters",
+        "diversity_exposure",
+        "global_awareness"
+      ],
+      "supports": [
+        "cultural_bridge_building",
+        "diversity_appreciation",
+        "global_citizenship"
+      ],
+      "challenges": [
+        "cultural_appropriation",
+        "identity_confusion",
+        "rootlessness"
+      ]
+    },
+    {
+      "category": "risk_taking_wisdom",
+      "insight": "5s possess **calculated risk-taking ability** - they can assess opportunities quickly and take bold action when others hesitate. This courage opens doors that remain closed to more cautious types.",
+      "intensity": 0.85,
+      "triggers": [
+        "risk_opportunities",
+        "bold_action_needs",
+        "courage_requirements"
+      ],
+      "supports": [
+        "risk_assessment",
+        "courage_building",
+        "opportunity_seizing"
+      ],
+      "challenges": [
+        "reckless_behavior",
+        "consequence_ignoring",
+        "safety_neglect"
+      ]
+    },
+    {
+      "category": "innovation_catalyst",
+      "insight": "5s serve as **innovation catalysts** in organizations and communities, introducing new ideas, methods, and perspectives that stimulate growth and positive change.",
+      "intensity": 0.81,
+      "triggers": [
+        "innovation_needs",
+        "stagnation_situations",
+        "improvement_opportunities"
+      ],
+      "supports": [
+        "innovation_leadership",
+        "change_facilitation",
+        "creative_solutions"
+      ],
+      "challenges": [
+        "resistance_management",
+        "implementation_follow_through",
+        "change_sustainability"
+      ]
+    },
+    {
+      "category": "experience_collector",
+      "insight": "5s are **experience collectors** who believe that life should be fully lived and explored. They accumulate a rich tapestry of experiences that becomes their greatest treasure.",
+      "intensity": 0.78,
+      "triggers": [
+        "experience_opportunities",
+        "life_adventures",
+        "memory_creation"
+      ],
+      "supports": [
+        "experience_seeking",
+        "adventure_planning",
+        "memory_making"
+      ],
+      "challenges": [
+        "experience_addiction",
+        "present_moment_loss",
+        "depth_sacrifice"
+      ]
+    },
+    {
+      "category": "intellectual_freedom",
+      "insight": "5s champion **intellectual freedom** - they resist any attempts to limit thinking, expression, or access to information. They believe knowledge should be free and available to all.",
+      "intensity": 0.84,
+      "triggers": [
+        "censorship_attempts",
+        "thought_control",
+        "information_restriction"
+      ],
+      "supports": [
+        "free_thinking",
+        "information_sharing",
+        "intellectual_rights"
+      ],
+      "challenges": [
+        "authority_conflicts",
+        "system_resistance",
+        "social_pressure"
+      ]
+    },
+    {
+      "category": "ultimate_purpose",
+      "insight": "The ultimate purpose of Number 5 is to **expand human consciousness through exploration** - to push the boundaries of what's possible, challenge limiting beliefs, and show humanity the infinite possibilities available when we embrace freedom and change.",
+      "intensity": 0.9,
+      "triggers": [
+        "consciousness_expansion",
+        "boundary_pushing",
+        "possibility_exploration"
+      ],
+      "supports": [
+        "exploration_leadership",
+        "consciousness_work",
+        "freedom_advocacy"
+      ],
+      "challenges": [
+        "expansion_pressure",
+        "boundary_responsibility",
+        "freedom_overwhelm"
+      ]
+    }
+  ],
+  "meta": {
+    "type": "single",
+    "archetype": "freedom_seeker",
+    "element": "air_fire",
+    "keywords": [
+      "freedom",
+      "adventure",
+      "change",
+      "versatility",
+      "curiosity",
+      "progressive",
+      "communicator",
+      "explorer",
+      "innovative",
+      "dynamic"
+    ],
+    "affirmations": [
+      "I embrace change and adventure as pathways to growth and wisdom.",
+      "My freedom allows me to explore all possibilities life has to offer.",
+      "I adapt quickly to new situations while maintaining my authentic core.",
+      "My curiosity leads me to discoveries that benefit myself and others.",
+      "I balance my need for freedom with healthy commitments and responsibilities.",
+      "My versatility allows me to excel in multiple areas of life.",
+      "I use my communication gifts to bridge differences and share knowledge.",
+      "I take calculated risks that expand my horizons and opportunities.",
+      "I am a catalyst for positive change wherever I go."
+    ],
+    "compatibility": {
+      "most_compatible": [1, 3, 7],
+      "moderately_compatible": [5, 6, 9],
+      "challenging": [2, 4, 8],
+      "notes": "5s thrive with partners who share their love of adventure or can provide stability without restriction"
+    },
+    "rituals": [
+      "Adventure Planning - Monthly ritual for exploring new experiences and territories",
+      "Freedom Meditation - Weekly practice connecting with inner freedom and possibility",
+      "Change Celebration - Regular ritual honoring life transitions and growth",
+      "Curiosity Cultivation - Daily practice of asking questions and seeking knowledge"
+    ]
+  }
+}

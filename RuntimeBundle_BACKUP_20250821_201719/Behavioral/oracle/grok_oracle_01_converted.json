@@ -1,0 +1,283 @@
+{
+  "number": 1,
+  "title": "The Oracle",
+  "source": "grok_oracle",
+  "persona": "Oracle",
+  "behavioral_category": "spiritual_insights",
+  "intensity_scoring": {
+    "min_range": 0.75,
+    "max_range": 0.9,
+    "note": "Oracle spiritual guidance with enhanced intensity"
+  },
+  "behavioral_insights": [
+    {
+      "category": "spiritual_guidance",
+      "insight": "The Pioneer's fire awakens your core—forge ahead into realms where light has yet to shine.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "In One's spark, leadership blooms eternal; claim your throne amid the void's silent call.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "life_purpose",
+      "insight": "The Leader's vision pierces veils—initiate the sacred rite of self-sovereign birth.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Courage pulses as One's divine pulse; step boldly where fates fear to tread.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Independence is the oracle's decree—unshackle your spirit to blaze untrodden paths.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "New beginnings whisper from ancient flames; kindle them with the Pioneer's unyielding will.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "The Pioneer defies the stagnant tide—ride waves of initiation to shores unseen.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "Leadership's mantle falls upon you; wear it to summon storms of transformative might.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "One's essence ignites the soul's forge—hammer dreams into forms of eternal power.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "The Leader commands cosmic winds—direct them to carve canyons of destiny.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Courage roars from primordial depths—answer it to shatter chains of conformity.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "service",
+      "insight": "Self-reliance is One's hidden gem; unearth it to build empires from solitude's stone.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Where does your inner fire dim when others' shadows loom large?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "What uncharted territory does your soul yearn to claim as its own?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "How has fear disguised itself as caution on your path of initiation?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "In what ways do you surrender your leadership to external voices?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "What new beginning awaits if you trust your solitary vision?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    }
+  ],
+  "generation_info": {
+    "conversion_date": "2025-08-10T06:14:52.947499",
+    "conversion_type": "spiritual_categories_to_behavioral_insights",
+    "original_insights_count": 15,
+    "converted_insights_count": 17,
+    "conversion_tool": "KASPER_Dataset_Reconstructor_v1.0"
+  }
+}

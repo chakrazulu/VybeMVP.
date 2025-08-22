@@ -316,12 +316,19 @@ struct HomeView: View {
                             /// Font sizing follows Apple's Human Interface Guidelines:
                             /// - "Vybe" brand: 32pt bold system font for strong brand presence
                             /// - Subtitle: Title2 (22pt) for clear feature identification
-                            VStack(spacing: 8) {
-                                Text("Vybe")
-                                    .font(.system(size: 32, weight: .bold)) // Back to original size
+                            HStack {
+                                VStack(spacing: 8) {
+                                    Text("Vybe")
+                                        .font(.system(size: 32, weight: .bold)) // Back to original size
 
-                                Text("Your Focus Number")
-                                    .font(.title2) // Back to original size
+                                    Text("Your Focus Number")
+                                        .font(.title2) // Back to original size
+                                }
+
+                                Spacer()
+
+                                // VFI Widget in top-right corner
+                                VFIWidget()
                             }
                             .padding(.top, 5) // Move higher towards status bar
 

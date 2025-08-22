@@ -40,7 +40,7 @@ struct ZodiacSignCalculator {
     // MARK: - Zodiac Sign Enum
 
     /// The 12 zodiac signs with comprehensive metadata
-    enum ZodiacSign: String, CaseIterable {
+    enum CalculatorZodiacSign: String, CaseIterable {
         case aries = "Aries"
         case taurus = "Taurus"
         case gemini = "Gemini"
@@ -157,7 +157,7 @@ struct ZodiacSignCalculator {
 
     /// Date range for zodiac sign mapping
     private struct DateRange {
-        let sign: ZodiacSign
+        let sign: CalculatorZodiacSign
         let startMonth: Int
         let startDay: Int
         let endMonth: Int
@@ -210,7 +210,7 @@ struct ZodiacSignCalculator {
      * - Parameter date: Date to calculate zodiac sign for
      * - Returns: Zodiac sign for the date
      */
-    static func zodiacSign(for date: Date) -> ZodiacSign {
+    static func zodiacSign(for date: Date) -> CalculatorZodiacSign {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.month, .day], from: date)
 
@@ -235,7 +235,7 @@ struct ZodiacSignCalculator {
      * - Parameter longitude: Ecliptic longitude in degrees (0-360)
      * - Returns: Zodiac sign for the longitude
      */
-    static func zodiacSign(forLongitude longitude: Double) -> ZodiacSign {
+    static func zodiacSign(forLongitude longitude: Double) -> CalculatorZodiacSign {
         // Normalize longitude to 0-360 range
         let normalizedLongitude = longitude.truncatingRemainder(dividingBy: 360)
         let positiveLongitude = normalizedLongitude < 0 ? normalizedLongitude + 360 : normalizedLongitude
@@ -265,7 +265,7 @@ struct ZodiacSignCalculator {
      * - Parameter date: Date to analyze
      * - Returns: Tuple with sign and additional metadata
      */
-    static func zodiacInfo(for date: Date) -> (sign: ZodiacSign, element: String, quality: String, planet: String) {
+    static func zodiacInfo(for date: Date) -> (sign: CalculatorZodiacSign, element: String, quality: String, planet: String) {
         let sign = zodiacSign(for: date)
         return (sign, sign.element, sign.quality, sign.rulingPlanet)
     }
@@ -275,7 +275,7 @@ struct ZodiacSignCalculator {
      * - Parameter date: Date to check
      * - Returns: Tuple indicating if on cusp and adjacent sign if applicable
      */
-    static func cuspInfo(for date: Date) -> (isOnCusp: Bool, adjacentSign: ZodiacSign?) {
+    static func cuspInfo(for date: Date) -> (isOnCusp: Bool, adjacentSign: CalculatorZodiacSign?) {
         // TODO: Implement cusp detection logic
         return (false, nil)
     }
@@ -287,8 +287,8 @@ struct ZodiacSignCalculator {
      * - Parameter element: Element name (Fire, Earth, Air, Water)
      * - Returns: Array of zodiac signs for that element
      */
-    static func signs(for element: String) -> [ZodiacSign] {
-        return ZodiacSign.allCases.filter { $0.element == element }
+    static func signs(for element: String) -> [CalculatorZodiacSign] {
+        return CalculatorZodiacSign.allCases.filter { $0.element == element }
     }
 
     /**
@@ -298,7 +298,7 @@ struct ZodiacSignCalculator {
      *   - sign2: Second zodiac sign
      * - Returns: Compatibility score (0-100)
      */
-    static func compatibility(between sign1: ZodiacSign, and sign2: ZodiacSign) -> Int {
+    static func compatibility(between sign1: CalculatorZodiacSign, and sign2: CalculatorZodiacSign) -> Int {
         // TODO: Implement compatibility calculation
         // Consider element compatibility, quality harmony, etc.
         return 50

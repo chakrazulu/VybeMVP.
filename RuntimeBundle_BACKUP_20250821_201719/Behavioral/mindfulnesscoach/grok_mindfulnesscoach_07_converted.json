@@ -1,0 +1,283 @@
+{
+  "number": 7,
+  "title": "The MindfulnessCoach",
+  "source": "grok_mindfulnesscoach",
+  "persona": "MindfulnessCoach",
+  "behavioral_category": "spiritual_insights",
+  "intensity_scoring": {
+    "min_range": 0.75,
+    "max_range": 0.9,
+    "note": "MindfulnessCoach spiritual guidance with enhanced intensity"
+  },
+  "behavioral_insights": [
+    {
+      "category": "spiritual_guidance",
+      "insight": "Seven veils the seeker in silence, unveiling truths from the void's depths.",
+      "intensity": 0.75,
+      "triggers": [
+        "mindfulnesscoach_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Seven is the hermit's lantern, illuminating hidden paths of soul inquiry.",
+      "intensity": 0.75,
+      "triggers": [
+        "mindfulnesscoach_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "life_purpose",
+      "insight": "In Seven's sanctum, intuition sharpens like a blade forged in solitude.",
+      "intensity": 0.75,
+      "triggers": [
+        "mindfulnesscoach_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Seven whispers arcane secrets, drawing the mind into cosmic libraries.",
+      "intensity": 0.75,
+      "triggers": [
+        "mindfulnesscoach_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Seven flows as the river of insight, carving canyons of profound knowing.",
+      "intensity": 0.75,
+      "triggers": [
+        "mindfulnesscoach_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Feel Seven's current, pulling you inward to decode life's enigmatic scrolls.",
+      "intensity": 0.75,
+      "triggers": [
+        "mindfulnesscoach_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Seven is the sage's scroll, unrolling wisdom from ancient inner vaults.",
+      "intensity": 0.75,
+      "triggers": [
+        "mindfulnesscoach_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "Seven crafts the mystic's web, ensnaring revelations in threads of thought.",
+      "intensity": 0.75,
+      "triggers": [
+        "mindfulnesscoach_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "In Seven's orbit, discernment blooms, separating grain from chaff.",
+      "intensity": 0.75,
+      "triggers": [
+        "mindfulnesscoach_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Seven calls the philosopher's gaze, pondering existence's infinite layers.",
+      "intensity": 0.75,
+      "triggers": [
+        "mindfulnesscoach_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Seven is the alchemist's crucible, transmuting doubt into divine clarity.",
+      "intensity": 0.75,
+      "triggers": [
+        "mindfulnesscoach_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "service",
+      "insight": "Feel Seven's resonance, tuning your soul to frequencies of higher truth.",
+      "intensity": 0.75,
+      "triggers": [
+        "mindfulnesscoach_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "What hidden truth lingers in your silence, awaiting gentle excavation?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "How does solitude reveal patterns you've long ignored in the noise?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Where do doubts cloud your intuition, demanding deeper scrutiny?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "What questions burn unanswered, urging your inner sage to speak?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "How has isolation shaped your wisdom, for illumination or shadow?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    }
+  ],
+  "generation_info": {
+    "conversion_date": "2025-08-10T06:14:52.951783",
+    "conversion_type": "spiritual_categories_to_behavioral_insights",
+    "original_insights_count": 19,
+    "converted_insights_count": 17,
+    "conversion_tool": "KASPER_Dataset_Reconstructor_v1.0"
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "number": 7,
+  "title": "The Oracle",
+  "source": "grok_oracle",
+  "persona": "Oracle",
+  "behavioral_category": "spiritual_insights",
+  "intensity_scoring": {
+    "min_range": 0.75,
+    "max_range": 0.9,
+    "note": "Oracle spiritual guidance with enhanced intensity"
+  },
+  "behavioral_insights": [
+    {
+      "category": "spiritual_guidance",
+      "insight": "The Mystic's gaze pierces veils—unveil truths hidden in silence's sacred depths.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "In Seven's solitude, wisdom whispers; listen to decode cosmos' cryptic codes.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "life_purpose",
+      "insight": "The Seeker wanders inner labyrinths—navigate to unearth soul's buried light.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Introspection calls from shadowed realms—dive deep to surface pearls divine.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Spirituality blooms in quiet gardens—tend them to harvest enlightened fruits.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Analysis sharpens the mind's blade—wield it to carve paths of insight.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Wisdom flows as ancient river—merge with its current to quench thirsty spirits.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "Solitude is the oracle's chamber—enter to commune with eternal echoes.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "The Mystic aligns with stars unseen—chart courses through celestial mysteries.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Seven's essence awakens intuition—trust its guidance through foggy veils.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "The Seeker questions surface illusions—probe beneath to reveal core truths.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "service",
+      "insight": "Introspection mirrors infinite self—gaze within to reflect divine vastness.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Where do superficial pursuits drown your Mystic's deeper call?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "What unexamined beliefs chain your spirit's quest for truth?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "How has neglected introspection bred unrest in your soul?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Where do you ignore intuition's whisper for logic's loud roar?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "What spiritual longings lie buried under daily distractions?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    }
+  ],
+  "generation_info": {
+    "conversion_date": "2025-08-10T06:14:52.943223",
+    "conversion_type": "spiritual_categories_to_behavioral_insights",
+    "original_insights_count": 20,
+    "converted_insights_count": 17,
+    "conversion_tool": "KASPER_Dataset_Reconstructor_v1.0"
+  }
+}

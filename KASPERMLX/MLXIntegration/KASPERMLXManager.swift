@@ -133,6 +133,7 @@ class KASPERMLXManager: ObservableObject {
     private let engine: KASPERMLXEngine
     private let contentRouter = KASPERContentRouter.shared  // Claude: Use shared instance to avoid multiple initializations
     private let evaluator = KASPERInsightEvaluator()  // Claude: Quality evaluation system
+    private let masterConsciousness: MasterConsciousnessEngine  // 🧠 Master Consciousness Engine for spiritual awareness
     private let logger = Logger(subsystem: "com.vybe.kaspermlx", category: "Manager")
     private var cancellables = Set<AnyCancellable>()
 
@@ -150,8 +151,10 @@ class KASPERMLXManager: ObservableObject {
 
     private init() {
         self.engine = KASPERMLXEngine.shared
+        self.masterConsciousness = MasterConsciousnessEngine()
         setupEngineObservers()
-        logger.info("🔮 KASPER MLX Manager: Initialized")
+        setupConsciousnessObservers()
+        logger.info("🔮 KASPER MLX Manager: Initialized with Master Consciousness")
     }
 
     // MARK: - Configuration
@@ -175,14 +178,21 @@ class KASPERMLXManager: ObservableObject {
             healthManager: healthManager
         )
 
+        // Configure Master Consciousness Engine 🧠
+        await masterConsciousness.configure(
+            realmManager: realmManager,
+            focusManager: focusManager,
+            healthManager: healthManager
+        )
+
         // Initialize shadow mode if ChatGPT provider is available
         await initializeShadowMode()
 
         // Initialize A-Grade Quality Gate System
         await initializeQualityGateSystem()
 
-        engineStatus = "Ready"
-        logger.info("🔮 KASPER MLX Manager: Configuration complete")
+        engineStatus = "Ready - Consciousness Active"
+        logger.info("🔮 KASPER MLX Manager: Configuration complete with Master Consciousness")
     }
 
     // MARK: - 🛡️ A-GRADE QUALITY GATE SYSTEM
@@ -374,6 +384,93 @@ class KASPERMLXManager: ObservableObject {
     /// Get current shadow mode status
     public func getShadowModeStatus() -> [String: Any] {
         return shadowModeStats
+    }
+
+    // MARK: - 🧠 CONSCIOUSNESS-DRIVEN SPIRITUAL GUIDANCE
+
+    /// Generate spiritually conscious insight using Master Consciousness Engine
+    /// This replaces random selection with intelligent awareness of user's spiritual state
+    func generateConsciousInsight(
+        for feature: KASPERFeature,
+        persona: String = "Oracle",
+        context: [String: Any] = [:]
+    ) async throws -> KASPERInsight {
+
+        logger.info("🧠 Generating consciousness-driven insight for \(feature.rawValue)")
+
+        let startTime = Date()
+        isGeneratingInsight = true
+        defer { isGeneratingInsight = false }
+
+        // Get current spiritual context
+        let focusNumber = await MainActor.run { focusNumberManager?.selectedFocusNumber ?? 1 }
+        let realmNumber = await MainActor.run { realmNumberManager?.currentRealmNumber ?? 1 }
+
+        // Use Master Consciousness Engine for intelligent content selection
+        let consciousnessResult = await masterConsciousness.generateSpirituallyConsciousContent(
+            feature: feature,
+            focusNumber: focusNumber,
+            realmNumber: realmNumber,
+            persona: persona,
+            context: context
+        )
+
+        // Create KASPER insight from consciousness result
+        let insightText = consciousnessResult.selectedContent.joined(separator: " ")
+
+        let insight = KASPERInsight(
+            requestId: UUID(),
+            content: insightText.isEmpty ? "Trust your inner wisdom to guide you forward." : insightText,
+            type: .guidance,
+            feature: feature,
+            confidence: consciousnessResult.spiritualRelevanceScore,
+            inferenceTime: 0.0,
+            metadata: KASPERInsightMetadata(
+                modelVersion: "MasterConsciousness-2.1.0",
+                providersUsed: ["MasterConsciousness", "RuntimeSelector"],
+                cacheHit: false,
+                debugInfo: [
+                    "generation_time": Date().timeIntervalSince(startTime),
+                    "focus_number": focusNumber,
+                    "realm_number": realmNumber,
+                    "persona": persona
+                ],
+                spiritualAlignment: consciousnessResult.spiritualRelevanceScore,
+                consciousnessStrategy: String(describing: consciousnessResult.selectionStrategy),
+                personalizedEnhancements: consciousnessResult.personalizedEnhancements,
+                frequencyAlignment: consciousnessResult.consciousnessMetadata.spiritualState.frequencyReading.spiritualAlignment,
+                cosmicAlignment: consciousnessResult.consciousnessMetadata.spiritualState.cosmicContext.alignmentBonus
+            )
+        )
+
+        // Record performance metrics
+        let responseTime = Date().timeIntervalSince(startTime)
+        performanceMetrics.recordResponse(
+            responseTime: responseTime,
+            feature: feature,
+            success: true,
+            cacheHit: false
+        )
+
+        lastInsight = insight
+        logger.info("🧠 Consciousness-driven insight generated in \(String(format: "%.3f", responseTime))s - Alignment: \(String(format: "%.2f", consciousnessResult.spiritualRelevanceScore))")
+
+        return insight
+    }
+
+    /// Get current user's spiritual frequency reading (for home view widget)
+    public func getCurrentFrequencyReading() async -> FrequencyReading {
+        return masterConsciousness.currentSpiritualState.frequencyReading
+    }
+
+    /// Get current spiritual alignment score (0-1) for UI display
+    public func getCurrentSpiritualAlignment() async -> Double {
+        return masterConsciousness.currentSpiritualState.overallAlignment
+    }
+
+    /// Get consciousness statistics for debugging and optimization
+    public func getConsciousnessStats() -> [String: Any] {
+        return masterConsciousness.getConsciousnessStats()
     }
 
     // MARK: - 🤖 SOPHISTICATED SPIRITUAL AI GENERATION INTERFACES
@@ -912,6 +1009,31 @@ class KASPERMLXManager: ObservableObject {
             .store(in: &cancellables)
 
         logger.info("🔮 KASPER MLX Manager: Engine observers configured")
+    }
+
+    /// Setup Master Consciousness Engine observers
+    private func setupConsciousnessObservers() {
+        // Observe consciousness state changes
+        masterConsciousness.$currentSpiritualState
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] spiritualState in
+                self?.logger.info("🧠 Spiritual state updated - Alignment: \(String(format: "%.2f", spiritualState.overallAlignment))")
+            }
+            .store(in: &cancellables)
+
+        // Observe consciousness analysis state
+        masterConsciousness.$isAnalyzing
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isAnalyzing in
+                if isAnalyzing {
+                    self?.engineStatus = "Analyzing Consciousness"
+                } else if self?.isReady == true {
+                    self?.engineStatus = "Ready - Consciousness Active"
+                }
+            }
+            .store(in: &cancellables)
+
+        logger.info("🧠 Master Consciousness Engine: Observers configured")
     }
 }
 

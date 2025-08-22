@@ -163,6 +163,7 @@ make self-healing-validate  # Full system health check
 
 ## 📚 Documentation
 
+- **🧠 Master Algorithm:** [MLXMasterAlgorithm/](./MLXMasterAlgorithm/) - Complete consciousness algorithm documentation
 - **Self-Healing Guide:** [VybeOS/self-healing-architecture-guide.md](./VybeOS/self-healing-architecture-guide.md)
 - **Quick Reference:** [VybeOS/Developer-Onboarding/CLAUDE-REFERENCE-GUIDE.md](./VybeOS/Developer-Onboarding/CLAUDE-REFERENCE-GUIDE.md)
 - **Full Archive:** [VybeOS/Developer-Onboarding/CLAUDE-ARCHIVE.md](./VybeOS/Developer-Onboarding/CLAUDE-ARCHIVE.md)

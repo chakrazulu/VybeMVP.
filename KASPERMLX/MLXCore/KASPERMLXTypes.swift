@@ -1021,19 +1021,37 @@ struct KASPERInsightMetadata {
     /// "Local LLM" = Mixtral 46.7B, "RuntimeBundle" = Curated content, nil = No competition
     var shadowModeWinner: String? = nil
 
+    /// 🧠 Consciousness metadata - tracks spiritual awareness and alignment
+    /// Added for Master Consciousness Engine integration
+    var spiritualAlignment: Double? = nil
+    var consciousnessStrategy: String? = nil
+    var personalizedEnhancements: [String]? = nil
+    var frequencyAlignment: Double? = nil
+    var cosmicAlignment: Double? = nil
+
     /// Claude: Initialize metadata with intelligent defaults for production use
     init(
         modelVersion: String = "1.0",
         providersUsed: [String] = [],
         cacheHit: Bool = false,
         debugInfo: [String: Any]? = nil,
-        shadowModeWinner: String? = nil
+        shadowModeWinner: String? = nil,
+        spiritualAlignment: Double? = nil,
+        consciousnessStrategy: String? = nil,
+        personalizedEnhancements: [String]? = nil,
+        frequencyAlignment: Double? = nil,
+        cosmicAlignment: Double? = nil
     ) {
         self.modelVersion = modelVersion
         self.providersUsed = providersUsed
         self.cacheHit = cacheHit
         self.debugInfo = debugInfo
         self.shadowModeWinner = shadowModeWinner
+        self.spiritualAlignment = spiritualAlignment
+        self.consciousnessStrategy = consciousnessStrategy
+        self.personalizedEnhancements = personalizedEnhancements
+        self.frequencyAlignment = frequencyAlignment
+        self.cosmicAlignment = cosmicAlignment
     }
 }
 

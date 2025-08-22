@@ -1,0 +1,23 @@
+{
+  "export_date": "2025-08-21",
+  "export_type": "essential_collections",
+  "collections": {
+    "PersonaInsights": {
+      "AlanWatts": "14 number-based insights with Wattsian philosophy",
+      "CarlJung": "14 number-based insights with Jungian psychology"
+    },
+    "PlanetaryInsights": "10 planetary archetypes with spiritual guidance",
+    "ZodiacInsights": "12 zodiac signs with astrological wisdom",
+    "EnhancedNumbers": "11 bulletproof multiplier number meanings",
+    "MegaCorpus": "9 core astrological reference files",
+    "Behavioral": "39 legacy persona files (preserved)",
+    "RichNumberMeanings": "13 enhanced number files (preserved)"
+  },
+  "schema_support": [
+    "persona_with_categories",
+    "number_keyed_direct_categories",
+    "categories_wrapper",
+    "behavioral_insights"
+  ],
+  "total_insights_estimate": "50,000+"
+}

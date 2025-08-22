@@ -1,0 +1,454 @@
+{
+  "number": 22,
+  "title": "Master Number 22: The Master Builder",
+  "source": "master_numbers",
+  "persona": "MasterTeacher",
+  "behavioral_category": "master_manifestation",
+  "intensity_scoring": {
+    "min_range": 0.75,
+    "max_range": 0.98,
+    "note": "Master Number 22 operates at the highest practical manifestation frequency"
+  },
+  "behavioral_insights": [
+    {
+      "category": "core_essence",
+      "insight": "Master Number 22 is known as **The Master Builder** - the most powerful of all numbers, combining the intuition of 11 with the ability to manifest dreams into concrete reality. Where 11 sees the vision, 22 builds the cathedral.",
+      "intensity": 0.95,
+      "triggers": [
+        "grand_vision",
+        "legacy_building",
+        "world_service"
+      ],
+      "supports": [
+        "strategic_planning",
+        "resource_management",
+        "team_building"
+      ],
+      "challenges": [
+        "overwhelming_responsibility",
+        "perfectionism",
+        "material_spiritual_balance"
+      ]
+    },
+    {
+      "category": "architect_archetype",
+      "insight": "The Architect of Dreams operates on a **global scale**, designing systems and structures that serve humanity for generations. 22s don't just build buildings - they construct new realities, paradigms, and possibilities.",
+      "intensity": 0.92,
+      "triggers": [
+        "system_design",
+        "infrastructure_creation",
+        "paradigm_shifts"
+      ],
+      "supports": [
+        "visionary_leadership",
+        "systematic_thinking",
+        "long_term_planning"
+      ],
+      "challenges": [
+        "scope_overwhelm",
+        "delegation_difficulty",
+        "burnout_risk"
+      ]
+    },
+    {
+      "category": "practical_mysticism",
+      "insight": "22 represents **practical mysticism** - the rare ability to take the most ethereal spiritual concepts and anchor them into physical form. They are the bridge between the boardroom and the meditation hall.",
+      "intensity": 0.88,
+      "triggers": [
+        "spiritual_business",
+        "conscious_capitalism",
+        "sacred_economics"
+      ],
+      "supports": [
+        "grounded_spirituality",
+        "practical_application",
+        "material_mastery"
+      ],
+      "challenges": [
+        "spiritual_materialism",
+        "value_conflicts",
+        "dual_life_syndrome"
+      ]
+    },
+    {
+      "category": "double_mastery",
+      "insight": "As a **double master number** (11 × 2), 22 carries twice the spiritual voltage of 11, creating an almost overwhelming potential that must be carefully channeled to avoid self-destruction or megalomania.",
+      "intensity": 0.9,
+      "triggers": [
+        "power_activation",
+        "responsibility_calling",
+        "destiny_moments"
+      ],
+      "supports": [
+        "power_management",
+        "ethical_framework",
+        "mentorship"
+      ],
+      "challenges": [
+        "power_corruption",
+        "ego_inflation",
+        "isolation"
+      ]
+    },
+    {
+      "category": "legacy_consciousness",
+      "insight": "22s think in terms of **centuries, not years**. Their projects are designed to outlive them by generations, creating institutions, movements, and structures that continue evolving long after their physical departure.",
+      "intensity": 0.87,
+      "triggers": [
+        "legacy_planning",
+        "generational_thinking",
+        "immortality_projects"
+      ],
+      "supports": [
+        "succession_planning",
+        "institutional_design",
+        "knowledge_preservation"
+      ],
+      "challenges": [
+        "mortality_anxiety",
+        "control_issues",
+        "letting_go"
+      ]
+    },
+    {
+      "category": "material_mastery",
+      "insight": "Unlike other spiritual numbers that may struggle with money, 22s understand that **material resources are spiritual tools** when used correctly. They can amass great wealth not for ego, but for the implementation of their vision.",
+      "intensity": 0.84,
+      "triggers": [
+        "resource_accumulation",
+        "wealth_building",
+        "investment_opportunities"
+      ],
+      "supports": [
+        "financial_literacy",
+        "resource_optimization",
+        "abundance_mindset"
+      ],
+      "challenges": [
+        "money_shadows",
+        "greed_temptation",
+        "resource_hoarding"
+      ]
+    },
+    {
+      "category": "systems_thinking",
+      "insight": "22s see the world as **interconnected systems** rather than isolated components. They understand how changing one element ripples through entire structures, giving them the ability to create massive transformation through strategic intervention.",
+      "intensity": 0.86,
+      "triggers": [
+        "pattern_recognition",
+        "system_analysis",
+        "leverage_points"
+      ],
+      "supports": [
+        "holistic_thinking",
+        "complexity_management",
+        "strategic_intervention"
+      ],
+      "challenges": [
+        "analysis_paralysis",
+        "over_complexity",
+        "perfectionism"
+      ]
+    },
+    {
+      "category": "team_orchestration",
+      "insight": "Master Builders understand they cannot build alone. They possess the rare ability to **inspire and coordinate large teams** toward a shared vision, turning individual talents into symphonic achievement.",
+      "intensity": 0.83,
+      "triggers": [
+        "team_assembly",
+        "collaboration_needs",
+        "delegation_moments"
+      ],
+      "supports": [
+        "leadership_development",
+        "team_synergy",
+        "delegation_skills"
+      ],
+      "challenges": [
+        "control_release",
+        "trust_issues",
+        "micromanagement"
+      ]
+    },
+    {
+      "category": "pressure_dynamics",
+      "insight": "22s experience **immense internal pressure** - like diamonds being formed from coal. This pressure either creates brilliance or breakdown, with little middle ground. They must learn to channel pressure into productivity.",
+      "intensity": 0.89,
+      "triggers": [
+        "deadline_pressure",
+        "high_stakes",
+        "performance_demands"
+      ],
+      "supports": [
+        "stress_management",
+        "pressure_training",
+        "resilience_building"
+      ],
+      "challenges": [
+        "anxiety_disorders",
+        "breakdown_risk",
+        "substance_abuse"
+      ]
+    },
+    {
+      "category": "shadow_manifestation",
+      "insight": "The shadow of 22 includes **destructive building** - creating empires on faulty foundations, building for ego rather than service, or becoming so focused on the goal that human cost is ignored.",
+      "intensity": 0.85,
+      "triggers": [
+        "ambition_overdrive",
+        "win_at_all_costs",
+        "ego_projects"
+      ],
+      "supports": [
+        "ethical_review",
+        "value_alignment",
+        "shadow_work"
+      ],
+      "challenges": [
+        "ruthlessness",
+        "exploitation",
+        "moral_blindness"
+      ]
+    },
+    {
+      "category": "earth_element",
+      "insight": "22 resonates with the **Earth element in its most refined form** - not just soil, but crystals, mountains, and tectonic forces. They work with the planet's own building codes to create structures in harmony with natural law.",
+      "intensity": 0.82,
+      "triggers": [
+        "earth_connection",
+        "natural_building",
+        "sustainability_focus"
+      ],
+      "supports": [
+        "earth_practices",
+        "grounding_work",
+        "environmental_consciousness"
+      ],
+      "challenges": [
+        "rigidity",
+        "inflexibility",
+        "stuck_energy"
+      ]
+    },
+    {
+      "category": "master_teacher_role",
+      "insight": "22s teach through **demonstration rather than instruction**. Their constructions become teaching tools - every building a lesson, every system a curriculum, every success a masterclass in manifestation.",
+      "intensity": 0.87,
+      "triggers": [
+        "mentoring_opportunities",
+        "example_setting",
+        "legacy_teaching"
+      ],
+      "supports": [
+        "embodied_teaching",
+        "practical_wisdom",
+        "skill_transfer"
+      ],
+      "challenges": [
+        "impatience_with_students",
+        "expectation_projection",
+        "teaching_burnout"
+      ]
+    },
+    {
+      "category": "relationship_dynamics",
+      "insight": "In relationships, 22s seek **power couples** who can match their ambition and vision. They need partners who understand that their work is their spiritual practice and who can hold space for their intensity.",
+      "intensity": 0.81,
+      "triggers": [
+        "partnership_formation",
+        "power_dynamics",
+        "shared_vision"
+      ],
+      "supports": [
+        "conscious_partnership",
+        "mutual_ambition",
+        "complementary_skills"
+      ],
+      "challenges": [
+        "work_life_balance",
+        "emotional_availability",
+        "power_struggles"
+      ]
+    },
+    {
+      "category": "global_impact",
+      "insight": "22s are designed for **planetary service**. Their visions naturally expand to global scale - they think in terms of humanity, not just communities. This can feel overwhelming until they learn to build in stages.",
+      "intensity": 0.93,
+      "triggers": [
+        "global_crisis",
+        "humanity_calls",
+        "world_events"
+      ],
+      "supports": [
+        "global_networking",
+        "international_collaboration",
+        "scalable_solutions"
+      ],
+      "challenges": [
+        "scope_paralysis",
+        "resource_limitations",
+        "cultural_complexity"
+      ]
+    },
+    {
+      "category": "sacred_geometry",
+      "insight": "22 embodies the **sacred geometry of the square** - four sides representing the material world perfectly balanced. They understand the divine proportions that make structures both beautiful and enduring.",
+      "intensity": 0.84,
+      "triggers": [
+        "architectural_design",
+        "geometric_patterns",
+        "structural_harmony"
+      ],
+      "supports": [
+        "geometric_study",
+        "proportion_mastery",
+        "aesthetic_development"
+      ],
+      "challenges": [
+        "rigid_thinking",
+        "form_obsession",
+        "creative_limitation"
+      ]
+    },
+    {
+      "category": "time_mastery",
+      "insight": "Master Builders work with **extended time horizons**, understanding that great constructions require patience. They can hold a vision for decades while taking daily steps toward its realization.",
+      "intensity": 0.86,
+      "triggers": [
+        "long_term_projects",
+        "patience_tests",
+        "delayed_gratification"
+      ],
+      "supports": [
+        "patience_cultivation",
+        "milestone_planning",
+        "progress_tracking"
+      ],
+      "challenges": [
+        "impatience",
+        "timeline_anxiety",
+        "present_moment_loss"
+      ]
+    },
+    {
+      "category": "innovation_building",
+      "insight": "22s don't just build what exists - they **create new categories of possibility**. They are the ones who build the first skyscraper, the first internet, the first sustainable city - setting templates others follow.",
+      "intensity": 0.91,
+      "triggers": [
+        "innovation_opportunities",
+        "paradigm_creation",
+        "first_mover_advantage"
+      ],
+      "supports": [
+        "innovative_thinking",
+        "risk_management",
+        "prototype_development"
+      ],
+      "challenges": [
+        "uncharted_territory",
+        "criticism_management",
+        "failure_risk"
+      ]
+    },
+    {
+      "category": "completion_mastery",
+      "insight": "Unlike many visionaries who struggle with completion, 22s have the unique ability to **see projects through to the end**. They understand that true mastery lies not in starting but in finishing.",
+      "intensity": 0.88,
+      "triggers": [
+        "project_completion",
+        "final_phases",
+        "launch_moments"
+      ],
+      "supports": [
+        "completion_rituals",
+        "persistence_practices",
+        "celebration_planning"
+      ],
+      "challenges": [
+        "completion_anxiety",
+        "perfectionism_paralysis",
+        "letting_go_difficulty"
+      ]
+    },
+    {
+      "category": "resource_magnetism",
+      "insight": "22s have a magnetic ability to **attract resources** - people, money, and materials seem to appear when needed. This is because the universe recognizes them as reliable channels for manifesting collective good.",
+      "intensity": 0.85,
+      "triggers": [
+        "resource_needs",
+        "funding_requirements",
+        "support_gathering"
+      ],
+      "supports": [
+        "abundance_practices",
+        "network_cultivation",
+        "resource_appreciation"
+      ],
+      "challenges": [
+        "resource_dependence",
+        "entitlement_shadows",
+        "stewardship_pressure"
+      ]
+    },
+    {
+      "category": "ultimate_purpose",
+      "insight": "Master Number 22's ultimate purpose is to **build heaven on earth** - to take divine blueprints and construct them in physical reality. They are the architects of humanity's evolution, building the structures for our collective ascension.",
+      "intensity": 0.98,
+      "triggers": [
+        "destiny_calling",
+        "life_purpose",
+        "soul_mission"
+      ],
+      "supports": [
+        "purpose_alignment",
+        "vision_clarity",
+        "divine_partnership"
+      ],
+      "challenges": [
+        "mission_weight",
+        "purpose_pressure",
+        "human_limitations"
+      ]
+    }
+  ],
+  "meta": {
+    "type": "master",
+    "archetype": "master_builder",
+    "base_number": 4,
+    "master_vibration": true,
+    "keywords": [
+      "master_builder",
+      "architect_of_dreams",
+      "practical_mystic",
+      "global_visionary",
+      "legacy_creator",
+      "material_master",
+      "systems_thinker",
+      "manifestation_expert",
+      "earth_element"
+    ],
+    "affirmations": [
+      "I am the Master Builder, constructing heaven on earth with divine precision.",
+      "I channel universal blueprints into lasting structures that serve humanity.",
+      "I balance spiritual vision with practical action, creating tangible miracles.",
+      "My projects ripple through generations, building legacy beyond my lifetime.",
+      "I attract all resources needed to manifest the highest good for all.",
+      "I lead with wisdom, delegating with trust while maintaining the vision.",
+      "I transform pressure into diamonds, using intensity as creative fuel.",
+      "I build on solid foundations of integrity, service, and love.",
+      "I am a co-creator with the universe, manifesting divine will in form."
+    ],
+    "compatibility": {
+      "most_compatible": [4, 6, 8, 11],
+      "moderately_compatible": [2, 7, 9],
+      "challenging": [3, 5, 1],
+      "notes": "22s need partners who understand their mission and can support their massive vision"
+    },
+    "rituals": [
+      "Foundation Ceremony - Ritual grounding before starting any major project",
+      "4:44 Building Hour - Daily power hour at 4:44 AM/PM for focused manifestation",
+      "Sacred Square Meditation - Visualizing perfect geometric forms for structural integrity",
+      "Monthly Master Builder Council - Gathering with other 22s for collective visioning"
+    ]
+  }
+}

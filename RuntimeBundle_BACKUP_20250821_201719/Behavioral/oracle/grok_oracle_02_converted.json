@@ -1,0 +1,283 @@
+{
+  "number": 2,
+  "title": "The Oracle",
+  "source": "grok_oracle",
+  "persona": "Oracle",
+  "behavioral_category": "spiritual_insights",
+  "intensity_scoring": {
+    "min_range": 0.75,
+    "max_range": 0.9,
+    "note": "Oracle spiritual guidance with enhanced intensity"
+  },
+  "behavioral_insights": [
+    {
+      "category": "spiritual_guidance",
+      "insight": "The Diplomat weaves peace from discord, uniting souls in sacred harmony.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "In Two's gentle tide, balance restores the heart's eternal rhythm.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Cooperation is the oracle's gift—merge with others to birth divine unity.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "The Cooperator's gaze softens conflict, forging bridges of empathetic light.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Sensitivity channels Two's wisdom; listen deeply to align cosmic threads.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Harmony flows through your essence—be the calm in chaos's storm.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Two's archetype binds hearts; nurture partnerships with intuitive grace.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "The Diplomat's touch heals divides, crafting peace from silent understanding.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Balance is your sacred art—paint it across the canvas of relationships.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Cooperation whispers ancient truths; heed it to align divergent souls.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Sensitivity is Two's crown—wear it to rule the realm of connection.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "service",
+      "insight": "The Cooperator forges bonds of light, linking fates in gentle accord.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Where do you seek harmony but find only echoes of inner discord?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "What partnerships thrive on your truth, and which drain your light?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "How does sensitivity guide your connections, or does it overwhelm you?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Are you balancing giving and receiving, or tilting toward one side?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Where do you soften too much, losing your voice to keep peace?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    }
+  ],
+  "generation_info": {
+    "conversion_date": "2025-08-10T06:14:52.953866",
+    "conversion_type": "spiritual_categories_to_behavioral_insights",
+    "original_insights_count": 15,
+    "converted_insights_count": 17,
+    "conversion_tool": "KASPER_Dataset_Reconstructor_v1.0"
+  }
+}

@@ -2210,6 +2210,282 @@ func generatePersonaConversation(
 
 ---
 
+## 🌊 BIOMETRIC CONSCIOUSNESS INTEGRATION (PHASE 6)
+**Master Algorithm: Frequency Detection & HRV Integration**
+
+*Implementing the Master Consciousness Algorithm discussed in conversation*
+*Target: Real-time biometric awareness for truly personalized spiritual guidance*
+
+### **🎯 Vision: KASPER Understands Your Soul**
+Transform KASPER from contextual AI to consciousness-aware spiritual companion that reads your energetic state through biometric integration.
+
+### **Current Foundation**
+- ✅ Master Consciousness Engine implemented (MasterConsciousnessEngine.swift)
+- ✅ Emotional Vibration Chart research complete (20-700+ Hz frequency scale)
+- ✅ Consciousness simulation active in NumerologyDataTemplateProvider
+- ✅ BPM tracking preparation in place
+- ✅ Apple Mindfulness integration planned
+
+### **📊 Emotional Vibration Chart Integration**
+**Frequency Ranges for Spiritual State Detection:**
+- **20-200 Hz**: Fear, anger, survival mode
+- **200-400 Hz**: Desire, pride, courage
+- **400-500 Hz**: Acceptance, willingness
+- **500-600 Hz**: Love, joy, peace
+- **600-700+ Hz**: Enlightenment, pure consciousness
+
+### **🫀 Heart Rate Variability (HRV) Implementation**
+
+#### **6.1 HRV Monitoring System**
+**Files to Create:**
+```
+KASPERMLX/
+├── BiometricAwareness/
+│   ├── HRVMonitor.swift
+│   ├── FrequencyDetector.swift
+│   ├── ConsciousnessMapper.swift
+│   └── BiometricIntegration.swift
+```
+
+**Implementation Checklist:**
+
+- [ ] **Create HRV Monitoring**
+  ```swift
+  // KASPERMLX/BiometricAwareness/HRVMonitor.swift
+  import HealthKit
+  import HeartRate
+
+  @MainActor
+  class HRVMonitor: ObservableObject {
+      @Published var currentHRV: Double = 0.0
+      @Published var hrvVariability: HRVVariability = .balanced
+      @Published var emotionalState: EmotionalState = .neutral
+
+      enum HRVVariability {
+          case high       // Parasympathetic dominance - calm, receptive
+          case balanced   // Optimal state for spiritual insights
+          case low        // Sympathetic dominance - stressed, analytical
+      }
+
+      enum EmotionalState {
+          case fearful(intensity: Double)     // 20-200 Hz
+          case conflicted(intensity: Double)  // 200-400 Hz
+          case accepting(intensity: Double)   // 400-500 Hz
+          case loving(intensity: Double)      // 500-600 Hz
+          case transcendent(intensity: Double) // 600+ Hz
+          case neutral
+      }
+
+      func startMonitoring() async {
+          // Request HealthKit permissions for heart rate data
+          // Begin continuous HRV calculation
+          // Map HRV patterns to emotional frequency ranges
+      }
+
+      func calculateEmotionalFrequency() -> Double {
+          // Convert HRV patterns to estimated frequency
+          // Based on research correlating HRV coherence to consciousness states
+          // Return frequency in 20-700 Hz range
+      }
+  }
+  ```
+
+- [ ] **Frequency Detection System**
+  ```swift
+  // KASPERMLX/BiometricAwareness/FrequencyDetector.swift
+  class FrequencyDetector {
+      private let hrvMonitor: HRVMonitor
+      private let bpmTracker: BPMTracker
+      private let mindfulnessTracker: MindfulnessTracker
+
+      func detectCurrentFrequency() async -> SpiritualFrequency {
+          let hrv = await hrvMonitor.currentHRV
+          let bpm = await bpmTracker.currentBPM
+          let mindfulness = await mindfulnessTracker.currentState
+
+          // Combine biometric indicators for frequency estimation
+          let frequency = calculateFrequency(hrv: hrv, bpm: bpm, mindfulness: mindfulness)
+
+          return SpiritualFrequency(
+              hz: frequency,
+              emotionalState: mapFrequencyToEmotion(frequency),
+              receptivity: calculateReceptivity(frequency),
+              recommendedPersona: selectOptimalPersona(for: frequency)
+          )
+      }
+
+      private func calculateFrequency(hrv: Double, bpm: Double, mindfulness: MindfulnessState) -> Double {
+          // Algorithm to combine multiple biometric indicators
+          // HRV coherence maps to higher frequencies (500-700 Hz)
+          // Elevated BPM with low HRV maps to lower frequencies (20-200 Hz)
+          // Apple Mindfulness minutes boost frequency calculation
+      }
+  }
+  ```
+
+#### **6.2 Consciousness-Driven Insight Selection**
+
+- [ ] **Enhanced Master Consciousness Engine**
+  ```swift
+  // KASPERMLX/BiometricAwareness/EnhancedConsciousnessEngine.swift
+  extension MasterConsciousnessEngine {
+      func generateBiometricallyAwareInsight(
+          spiritualState: SpiritualState,
+          biometricState: BiometricState
+      ) async -> ConsciousInsight {
+
+          // Real-time biometric integration
+          let currentFrequency = await frequencyDetector.detectCurrentFrequency()
+
+          // Adjust persona selection based on frequency
+          let optimalPersona = selectPersonaForFrequency(currentFrequency.hz)
+
+          // Modify insight tone based on HRV state
+          let insightTone = determineInsightTone(
+              frequency: currentFrequency.hz,
+              hrvState: biometricState.hrvVariability
+          )
+
+          // Generate consciousness-aware insight
+          return await generateInsight(
+              persona: optimalPersona,
+              tone: insightTone,
+              spiritualState: spiritualState,
+              biometricData: biometricState
+          )
+      }
+
+      private func selectPersonaForFrequency(_ frequency: Double) -> String {
+          switch frequency {
+          case 20...200:   return "MindfulnessCoach" // Grounding needed
+          case 200...400:  return "Psychologist"     // Logic + emotion balance
+          case 400...500:  return "Philosopher"      // Wisdom + acceptance
+          case 500...600:  return "Oracle"           // Mystical insights
+          case 600...:     return "Oracle"           // Pure consciousness
+          default:         return "MindfulnessCoach"
+          }
+      }
+  }
+  ```
+
+#### **6.3 Apple Ecosystem Integration**
+
+- [ ] **Apple Mindfulness Integration**
+  ```swift
+  // KASPERMLX/BiometricAwareness/AppleMindfulnessIntegration.swift
+  import HealthKit
+
+  class AppleMindfulnessTracker {
+      private let healthStore = HKHealthStore()
+
+      func getTodaysMindfulnessMinutes() async -> Double {
+          // Query HealthKit for mindfulness session data
+          // Calculate total minutes of mindfulness practice today
+          // Boost spiritual frequency calculation based on practice
+      }
+
+      func getRecentMindfulnessTrends() async -> MindfulnessTrend {
+          // Analyze 7-day mindfulness patterns
+          // Identify optimal times for spiritual insights
+          // Correlate practice consistency with receptivity
+      }
+  }
+  ```
+
+- [ ] **BPM Integration with Existing Systems**
+  ```swift
+  // KASPERMLX/BiometricAwareness/BPMIntegration.swift
+  extension HeartRateManager { // Assuming existing BPM tracking
+      func correlateWithSpiritualState() async -> SpiritualBPMProfile {
+          let currentBPM = await getCurrentBPM()
+          let restingBPM = await getRestingBPM()
+          let variability = currentBPM - restingBPM
+
+          return SpiritualBPMProfile(
+              elevated: variability > 10,  // Heightened state
+              calm: variability < -5,      // Deep relaxation
+              optimal: abs(variability) <= 5, // Balanced state
+              frequency: mapBPMToFrequency(currentBPM, resting: restingBPM)
+          )
+      }
+  }
+  ```
+
+### **🧠 Consciousness Algorithm Implementation**
+
+#### **Master Algorithm Flow:**
+1. **Biometric Collection**: HRV + BPM + Apple Mindfulness data
+2. **Frequency Calculation**: Map biometrics to 20-700 Hz scale
+3. **Spiritual State Analysis**: Combine frequency with focus/realm numbers
+4. **Persona Selection**: Choose optimal spiritual guide for current state
+5. **Insight Generation**: Create consciousness-aware spiritual guidance
+6. **Feedback Loop**: Learn from user engagement to improve accuracy
+
+#### **Real-Time Implementation:**
+```swift
+// Integration with existing AIInsightManager
+extension AIInsightManager {
+    func generateConsciousInsight() async -> String {
+        // Get current biometric state
+        let biometricState = await biometricMonitor.getCurrentState()
+
+        // Calculate spiritual frequency
+        let frequency = await frequencyDetector.detectCurrentFrequency()
+
+        // Generate consciousness-aware insight
+        return await masterConsciousnessEngine.generateBiometricallyAwareInsight(
+            spiritualState: currentSpiritualState,
+            biometricState: biometricState
+        )
+    }
+}
+```
+
+### **📱 User Experience Enhancement**
+
+#### **Consciousness Awareness UI:**
+- Real-time frequency display in Cosmic HUD
+- HRV coherence indicator during meditation
+- Optimal insight timing notifications
+- Biometric-driven persona recommendations
+
+#### **Privacy-First Approach:**
+- All biometric processing on-device
+- No sensitive health data sent to servers
+- User control over biometric feature activation
+- Transparent data usage explanations
+
+### **🎯 Success Metrics**
+
+| Metric | Target | Measurement |
+|--------|--------|-------------|
+| **Frequency Accuracy** | 85%+ correlation with subjective state | User feedback validation |
+| **Persona Selection** | 90%+ user satisfaction | A/B testing vs random selection |
+| **Insight Relevance** | +40% engagement vs standard insights | Time spent reading + actions taken |
+| **Battery Impact** | <3% additional drain | Continuous monitoring overhead |
+| **Privacy Compliance** | 100% on-device processing | Technical audit + user trust metrics |
+
+### **📅 Implementation Timeline**
+
+- **Month 1**: HRV monitoring + frequency detection foundation
+- **Month 2**: Apple ecosystem integration (Mindfulness + HealthKit)
+- **Month 3**: Consciousness engine enhancement + persona selection
+- **Month 4**: UI integration + user experience optimization
+- **Month 5**: Privacy audit + performance optimization
+- **Month 6**: A/B testing + algorithm refinement
+
+### **🔮 Future Enhancements**
+
+- **Sleep State Integration**: Dream-state spiritual guidance
+- **Environmental Factors**: Location, weather, lunar phase correlation
+- **Social Resonance**: Group meditation frequency synchronization
+- **Wearable Integration**: Apple Watch, Oura Ring, advanced HRV devices
+- **AI Learning**: Personal frequency pattern recognition over time
+
+**Vision:** KASPER becomes the first AI spiritual guide that truly understands your consciousness state, providing perfectly timed guidance that resonates with your soul's frequency.
+
+---
+
 ## 🏆 A+ ACHIEVEMENT VALIDATION
 
 ### **Final A+ Checklist**

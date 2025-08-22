@@ -1,0 +1,386 @@
+{
+  "number": 11,
+  "title": "The Intuitive Master",
+  "behavioral_category": "life_path_behavioral_analysis",
+  "master_number": true,
+  "intensity_scoring": {
+    "min_range": 0.7,
+    "max_range": 0.9,
+    "note": "Master numbers carry higher intensity and spiritual responsibility"
+  },
+  "behavioral_insights": [
+    {
+      "category": "intuitive_practices",
+      "insight": "Use an 11:11 checkpoint twice a day: name one truth you feel and one action you'll take before the next checkpoint.",
+      "intensity": 0.9,
+      "triggers": ["intuitive guidance", "decision points", "spiritual alignment"],
+      "supports": ["regular check-ins", "truth practice", "action grounding"],
+      "challenges": ["bypassing action", "spiritual overwhelm", "grounding difficulty"]
+    },
+    {
+      "category": "energy_management",
+      "insight": "Set phone 'quiet lanes' for the first and last 30 minutes of the day so external noise doesn't rewrite your agenda.",
+      "intensity": 0.8,
+      "triggers": ["sensory overwhelm", "agenda hijacking", "energy leakage"],
+      "supports": ["boundary setting", "energy protection", "morning/evening rituals"],
+      "challenges": ["FOMO", "urgency addiction", "boundary enforcement"]
+    },
+    {
+      "category": "insight_activation",
+      "insight": "Convert every insight into a first brick: write a one-sentence headline and one 10-minute task you'll do now.",
+      "intensity": 0.9,
+      "triggers": ["insight reception", "inspiration moments", "guidance clarity"],
+      "supports": ["action grounding", "practical application", "momentum building"],
+      "challenges": ["spiritual bypassing", "overwhelm", "perfectionism"]
+    },
+    {
+      "category": "communication_efficiency",
+      "insight": "Batch messages three times a day; make decisions using the triage: Handle, Schedule, or Decline.",
+      "intensity": 0.7,
+      "triggers": ["communication overwhelm", "decision fatigue", "scattered attention"],
+      "supports": ["batching systems", "decision frameworks", "priority clarity"],
+      "challenges": ["urgency pressure", "people-pleasing", "boundary maintenance"]
+    },
+    {
+      "category": "grounding_tools",
+      "insight": "Wear a clarity cue (ring, bracelet, hat) on high-input days; touch it when you need to recalibrate.",
+      "intensity": 0.6,
+      "triggers": ["sensory overwhelm", "clarity loss", "grounding needs"],
+      "supports": ["physical anchoring", "mindfulness cues", "somatic awareness"],
+      "challenges": ["forgetting to use", "skepticism", "reliance on external tools"]
+    },
+    {
+      "category": "meeting_effectiveness",
+      "insight": "End each meeting with three lines: what we decided, who owns it, when it's due.",
+      "intensity": 0.7,
+      "triggers": ["unclear outcomes", "responsibility confusion", "follow-through issues"],
+      "supports": ["clarity practices", "accountability systems", "communication skills"],
+      "challenges": ["time pressure", "conflict avoidance", "detail overwhelm"]
+    },
+    {
+      "category": "focus_protection",
+      "insight": "Use two calendars—focus and logistics—and don't let logistics invade the prime focus block.",
+      "intensity": 0.8,
+      "triggers": ["attention fragmentation", "priority confusion", "energy drain"],
+      "supports": ["system design", "priority protection", "energy management"],
+      "challenges": ["calendar complexity", "external demands", "boundary enforcement"]
+    },
+    {
+      "category": "energy_awareness",
+      "insight": "Do a 'light audit' at noon: list what's energizing vs draining; adjust one commitment accordingly.",
+      "intensity": 0.7,
+      "triggers": ["energy depletion", "misalignment", "sustainability issues"],
+      "supports": ["self-awareness", "energy tracking", "course correction"],
+      "challenges": ["commitment flexibility", "people-pleasing", "perfectionism"]
+    },
+    {
+      "category": "body_wisdom",
+      "insight": "Keep a signals log where you track bodily cues (chills, heaviness) and what they reliably mean for you.",
+      "intensity": 0.8,
+      "triggers": ["intuitive development", "body awareness", "pattern recognition"],
+      "supports": ["somatic intelligence", "self-knowledge", "decision-making"],
+      "challenges": ["body disconnection", "rationalization", "signal confusion"]
+    },
+    {
+      "category": "action_orientation",
+      "insight": "To stop overthinking, set a 10-minute timer and take the smallest physical action that points toward yes.",
+      "intensity": 0.8,
+      "triggers": ["analysis paralysis", "overthinking", "decision loops"],
+      "supports": ["action bias", "momentum building", "practical grounding"],
+      "challenges": ["perfectionism", "fear of wrong action", "preparation addiction"]
+    },
+    {
+      "category": "creative_protection",
+      "insight": "Protect 'deep work dawns' twice a week; no calls, no feeds, only the work that moves the needle.",
+      "intensity": 0.9,
+      "triggers": ["creative needs", "depth work", "inspiration cultivation"],
+      "supports": ["boundary setting", "priority clarity", "creative process"],
+      "challenges": ["external demands", "guilt", "morning discipline"]
+    },
+    {
+      "category": "learning_integration",
+      "insight": "Close the day with a truth sentence: 'Today I learned… so tomorrow I will…'",
+      "intensity": 0.7,
+      "triggers": ["learning consolidation", "growth tracking", "wisdom integration"],
+      "supports": ["reflection practice", "learning loops", "wisdom building"],
+      "challenges": ["time pressure", "depth requirement", "honest assessment"]
+    },
+    {
+      "category": "emotional_boundaries",
+      "insight": "State your state before the conversation: 'I'm clear/unclear/overstimulated; I need 10 minutes of quiet or a short walk first.'",
+      "intensity": 0.9,
+      "triggers": ["emotional overwhelm", "communication needs", "boundary setting"],
+      "supports": ["self-advocacy", "emotional intelligence", "proactive communication"],
+      "challenges": ["vulnerability fears", "people-pleasing", "time pressure"]
+    },
+    {
+      "category": "intuitive_sharing",
+      "insight": "Ask consent for intuitions: 'I have a read—want it now or later?' It keeps care from turning into pressure.",
+      "intensity": 0.8,
+      "triggers": ["intuitive guidance", "boundary respect", "consent culture"],
+      "supports": ["respectful sharing", "timing awareness", "consent practices"],
+      "challenges": ["urgency feelings", "helping compulsion", "boundary confusion"]
+    },
+    {
+      "category": "conflict_repair",
+      "insight": "Create a reconnection ritual after conflict: three breaths together, one apology or appreciation, one concrete next step.",
+      "intensity": 0.8,
+      "triggers": ["conflict resolution", "relationship repair", "connection restoration"],
+      "supports": ["ritual practice", "repair skills", "intentional reconnection"],
+      "challenges": ["pride", "conflict avoidance", "vulnerability resistance"]
+    },
+    {
+      "category": "clear_communication",
+      "insight": "Replace mind-reading with micro-requests: 'Can you text when you arrive?' 'Can we talk for 20 minutes at 7?'",
+      "intensity": 0.7,
+      "triggers": ["assumption patterns", "communication clarity", "expectation management"],
+      "supports": ["direct communication", "clarity practices", "boundary setting"],
+      "challenges": ["mind-reading habits", "fear of being needy", "assumption comfort"]
+    },
+    {
+      "category": "shared_visioning",
+      "insight": "Schedule a weekly 'vision share' where each person names one thing they're building and one way the other can help.",
+      "intensity": 0.7,
+      "triggers": ["partnership development", "mutual support", "vision alignment"],
+      "supports": ["collaboration practices", "support systems", "shared goals"],
+      "challenges": ["time commitment", "vulnerability", "different visions"]
+    },
+    {
+      "category": "boundary_systems",
+      "insight": "Build a shared 'boundary menu' (quiet time, tech-free dinners, early exits) and post it where plans get made.",
+      "intensity": 0.8,
+      "triggers": ["boundary communication", "needs clarity", "proactive planning"],
+      "supports": ["systematic boundaries", "visual reminders", "shared understanding"],
+      "challenges": ["boundary negotiation", "changing needs", "enforcement"]
+    },
+    {
+      "category": "nervous_system_regulation",
+      "insight": "Use back-to-back sits for three minutes when words fail; regulate first, negotiate second.",
+      "intensity": 0.8,
+      "triggers": ["emotional intensity", "communication breakdown", "overwhelm"],
+      "supports": ["co-regulation", "pause practices", "nervous system awareness"],
+      "challenges": ["time pressure", "resistance to slowing", "vulnerability"]
+    },
+    {
+      "category": "emotional_labor",
+      "insight": "If you carry the emotional load, move one task to shared ownership this week and document how it gets done.",
+      "intensity": 0.8,
+      "triggers": ["emotional labor imbalance", "resentment", "sustainability issues"],
+      "supports": ["labor redistribution", "documentation", "boundary setting"],
+      "challenges": ["control issues", "perfectionism", "conflict avoidance"]
+    },
+    {
+      "category": "dating_wisdom",
+      "insight": "Date by resonance, not résumé; after each date, write how your body felt around them—expansive, tense, grounded.",
+      "intensity": 0.9,
+      "triggers": ["partner selection", "body wisdom", "compatibility assessment"],
+      "supports": ["somatic awareness", "intuitive guidance", "authentic connection"],
+      "challenges": ["social pressure", "rationalization", "body disconnection"]
+    },
+    {
+      "category": "support_skills",
+      "insight": "Practice 'ask before advice': 'Do you need a witness, brainstorm, or decision?' Give what was asked for.",
+      "intensity": 0.8,
+      "triggers": ["support giving", "helping skills", "consent practices"],
+      "supports": ["effective helping", "boundary respect", "clear communication"],
+      "challenges": ["advice-giving compulsion", "assumption habits", "patience"]
+    },
+    {
+      "category": "daily_alignment",
+      "insight": "End evenings with a 11-Breath Sync and One-Minute Alignment Memo: what I appreciated today; what would help tomorrow.",
+      "intensity": 0.7,
+      "triggers": ["daily integration", "appreciation practice", "forward planning"],
+      "supports": ["reflection ritual", "gratitude practice", "intentional planning"],
+      "challenges": ["time pressure", "discipline", "depth requirement"]
+    },
+    {
+      "category": "partner_selection",
+      "insight": "Choose partners and friends who respect recovery time; sensitivity isn't fragility—it's your instrument.",
+      "intensity": 0.9,
+      "triggers": ["relationship selection", "sensitivity acceptance", "self-advocacy"],
+      "supports": ["boundary education", "self-worth", "relationship standards"],
+      "challenges": ["people-pleasing", "scarcity mindset", "sensitivity shame"]
+    },
+    {
+      "category": "purpose_clarity",
+      "insight": "Define your beacon: the single problem you illuminate regardless of role; let every project point at it.",
+      "intensity": 0.9,
+      "triggers": ["purpose alignment", "career focus", "mission clarity"],
+      "supports": ["purpose definition", "project filtering", "career coherence"],
+      "challenges": ["multi-interest", "opportunity scattered", "commitment fear"]
+    },
+    {
+      "category": "sustainable_rhythm",
+      "insight": "Use a 1-1-1 cadence: one focus project per quarter, one experiment per month, one public share per week.",
+      "intensity": 0.8,
+      "triggers": ["overwhelm prevention", "sustainable pace", "consistent output"],
+      "supports": ["rhythm creation", "priority focus", "regular sharing"],
+      "challenges": ["opportunity FOMO", "perfectionism", "consistency"]
+    },
+    {
+      "category": "hypothesis_testing",
+      "insight": "Turn hunches into tests: write your hypothesis, the signal you'll measure, and the date you'll decide.",
+      "intensity": 0.8,
+      "triggers": ["intuitive guidance", "decision-making", "testing mindset"],
+      "supports": ["scientific intuition", "experiment design", "decision frameworks"],
+      "challenges": ["attachment to hunches", "measurement difficulty", "timeline pressure"]
+    },
+    {
+      "category": "strategic_thinking",
+      "insight": "Block 'white room' strategy hours—blank page, no tabs—so intuition isn't buried under inputs.",
+      "intensity": 0.9,
+      "triggers": ["strategic needs", "clarity cultivation", "intuitive access"],
+      "supports": ["space creation", "input reduction", "deep thinking"],
+      "challenges": ["input addiction", "productivity guilt", "emptiness discomfort"]
+    },
+    {
+      "category": "value_creation",
+      "insight": "Create 'lighthouse artifacts': repeatable resources that solve a real problem and showcase your tone.",
+      "intensity": 0.8,
+      "triggers": ["value demonstration", "reputation building", "service delivery"],
+      "supports": ["asset creation", "problem-solving", "brand building"],
+      "challenges": ["perfectionism", "resource investment", "market timing"]
+    },
+    {
+      "category": "advisory_support",
+      "insight": "Form a calm council of three advisors; send them 60-second voice notes and ask for one actionable reply.",
+      "intensity": 0.7,
+      "triggers": ["decision support", "perspective gathering", "guidance needs"],
+      "supports": ["advisory systems", "efficient communication", "diverse input"],
+      "challenges": ["vulnerability", "advisor selection", "time coordination"]
+    },
+    {
+      "category": "environment_selection",
+      "insight": "Choose environments that prize clarity over speed; rushed cultures distort your signal.",
+      "intensity": 0.9,
+      "triggers": ["workplace selection", "culture fit", "signal protection"],
+      "supports": ["environment assessment", "culture alignment", "signal clarity"],
+      "challenges": ["economic pressure", "limited options", "compromise decisions"]
+    },
+    {
+      "category": "integrity_tracking",
+      "insight": "Track an integrity metric (promises kept, support tickets closed, testimonials) alongside revenue.",
+      "intensity": 0.8,
+      "triggers": ["value alignment", "integrity measurement", "holistic success"],
+      "supports": ["values tracking", "integrity awareness", "balanced metrics"],
+      "challenges": ["metric complexity", "measurement difficulty", "priority balance"]
+    },
+    {
+      "category": "gift_sharing",
+      "insight": "Give your gifts office hours; invite tough problems and offer one experiment to try for seven days.",
+      "intensity": 0.7,
+      "triggers": ["service delivery", "gift utilization", "structured helping"],
+      "supports": ["systematic service", "boundary setting", "experiment mindset"],
+      "challenges": ["time management", "energy drain", "boundary maintenance"]
+    },
+    {
+      "category": "communication_style",
+      "insight": "Tell stories more than stats when presenting; frameworks land better than spreadsheets for 11 energy.",
+      "intensity": 0.8,
+      "triggers": ["presentation needs", "communication effectiveness", "audience connection"],
+      "supports": ["storytelling skills", "framework thinking", "human connection"],
+      "challenges": ["data pressure", "credibility concerns", "story crafting"]
+    },
+    {
+      "category": "work_conditions",
+      "insight": "Negotiate for uninterrupted focus blocks in contracts; your best work requires quiet.",
+      "intensity": 0.9,
+      "triggers": ["work negotiations", "focus protection", "productivity optimization"],
+      "supports": ["boundary negotiation", "work design", "focus protection"],
+      "challenges": ["employer resistance", "team needs", "flexibility demands"]
+    },
+    {
+      "category": "signal_maintenance",
+      "insight": "Quarterly, ask: 'What should I stop doing so my signal stays sharp?' Then cut one thing.",
+      "intensity": 0.8,
+      "triggers": ["signal clarity", "life pruning", "priority refinement"],
+      "supports": ["regular evaluation", "elimination practice", "signal protection"],
+      "challenges": ["cutting difficulty", "opportunity cost", "perfectionism"]
+    },
+    {
+      "category": "perfectionism_antidote",
+      "insight": "Perfection is a signal jammer; publish at 80% and adjust with feedback instead of endless edits.",
+      "intensity": 0.9,
+      "triggers": ["perfectionism", "publication anxiety", "feedback avoidance"],
+      "supports": ["iteration mindset", "feedback culture", "progress tracking"],
+      "challenges": ["quality standards", "reputation fears", "criticism sensitivity"]
+    },
+    {
+      "category": "spiritual_balance",
+      "insight": "Beware spiritual overfunctioning: if you're always the seer, schedule time to be seen—therapy, peer groups, or honest friends.",
+      "intensity": 0.8,
+      "triggers": ["role imbalance", "caretaker fatigue", "mutuality needs"],
+      "supports": ["reciprocal relationships", "professional support", "vulnerability practice"],
+      "challenges": ["helper identity", "vulnerability resistance", "time investment"]
+    },
+    {
+      "category": "focus_tools",
+      "insight": "Tame the tab explosion with a capture pad; everything that isn't the current task goes there until the session ends.",
+      "intensity": 0.7,
+      "triggers": ["distraction management", "focus maintenance", "information overload"],
+      "supports": ["capture systems", "focus tools", "session boundaries"],
+      "challenges": ["capture discipline", "review time", "system maintenance"]
+    },
+    {
+      "category": "fear_processing",
+      "insight": "Name avoidance plainly: 'I'm delaying because I'm scared to be seen.' Take a 5-minute step while scared.",
+      "intensity": 0.8,
+      "triggers": ["procrastination", "fear recognition", "courage building"],
+      "supports": ["fear acknowledgment", "small steps", "courage practice"],
+      "challenges": ["fear intensity", "shame about fear", "action paralysis"]
+    },
+    {
+      "category": "state_shifting",
+      "insight": "Convert rumination into motion: a brisk walk, cold water on wrists, or 20 bodyweight squats shifts your state fast.",
+      "intensity": 0.7,
+      "triggers": ["rumination loops", "mental stuckness", "energy stagnation"],
+      "supports": ["state change tools", "embodied practice", "pattern interruption"],
+      "challenges": ["mental habits", "resistance to movement", "time constraints"]
+    },
+    {
+      "category": "social_connection",
+      "insight": "Guard against isolation by design: two standing weekly touchpoints with supportive people keep perspective sane.",
+      "intensity": 0.8,
+      "triggers": ["isolation tendency", "perspective loss", "support needs"],
+      "supports": ["connection systems", "regular check-ins", "perspective maintenance"],
+      "challenges": ["introversion", "time management", "vulnerability"]
+    }
+  ],
+  "life_cycles": {
+    "pinnacles": {
+      "first": "Developing intuitive abilities while learning to ground insights in practical action",
+      "second": "Mastering the balance between spiritual gifts and worldly responsibilities",
+      "third": "Teaching and inspiring others through refined intuitive mastery",
+      "fourth": "Becoming a wise guide who bridges spiritual and practical realms for collective benefit"
+    },
+    "challenges": {
+      "first": "Learning to trust and act on intuitive guidance despite doubt or external skepticism",
+      "second": "Balancing sensitivity with resilience, avoiding spiritual bypassing",
+      "third": "Managing the responsibility of spiritual gifts without becoming overwhelmed",
+      "fourth": "Integrating shadow aspects and maintaining humility in spiritual mastery"
+    },
+    "personal_year_11": {
+      "focus": "Spiritual awakening, intuitive development, and inspired teaching",
+      "practices": ["Meditation deepening", "intuitive training", "inspirational sharing", "light-working"],
+      "challenges": ["Spiritual overwhelm", "grounding difficulty", "responsibility weight"]
+    }
+  },
+  "compatibility": {
+    "natural_matches": [2, 6, 9, 22],
+    "growth_opportunities": [1, 7, 33],
+    "requires_work": [3, 8],
+    "complex_dynamics": [4, 5, 11]
+  },
+  "master_number_qualities": {
+    "spiritual_responsibility": "Called to use intuitive gifts for collective benefit and spiritual teaching",
+    "higher_vibration": "Operating at elevated spiritual frequency requiring careful energy management",
+    "service_orientation": "Natural inclination toward service and helping others awaken their own gifts",
+    "sensitivity_amplification": "Heightened sensitivity requiring strong boundaries and self-care"
+  },
+  "shadow_integration": {
+    "spiritual_bypassing": "Ground spiritual insights in practical action and emotional processing",
+    "perfectionism": "Embrace imperfection as part of the teaching and learning process",
+    "martyr_complex": "Balance giving with receiving and maintain healthy self-care",
+    "spiritual_superiority": "Maintain humility and remember everyone has their own spiritual path"
+  }
+}

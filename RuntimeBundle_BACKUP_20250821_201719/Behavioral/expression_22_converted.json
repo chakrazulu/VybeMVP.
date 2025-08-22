@@ -1,0 +1,1322 @@
+{
+  "number": 22,
+  "title": "The ExpressionMaster",
+  "source": "expression",
+  "persona": "ExpressionMaster",
+  "behavioral_category": "spiritual_insights",
+  "intensity_scoring": {
+    "min_range": 0.6,
+    "max_range": 0.9,
+    "note": "ExpressionMaster insights with universal intensity range"
+  },
+  "behavioral_insights": [
+    {
+      "category": "life_purpose",
+      "insight": "Frame choices with mission, risk, cost, and care—no decision passes unless it serves people and lasts.",
+      "intensity": 0.88,
+      "triggers": [
+        "strategy",
+        "capital moves"
+      ],
+      "supports": [
+        "mission/risk/care scorecard"
+      ],
+      "challenges": [
+        "single-metric bias"
+      ]
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Prefer designs that scale and maintain; pick the simplest architecture that survives reality.",
+      "intensity": 0.84,
+      "triggers": [
+        "systems design"
+      ],
+      "supports": [
+        "Simplicity tests"
+      ],
+      "challenges": [
+        "overengineering"
+      ]
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Define non-negotiables (safety, ethics, solvency) before debating options.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Pilot small, measure honestly, then roll out in phases.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Weight durability and maintainability over novelty.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Invite cross-functional dissent early to find blind spots.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Choose reversible decisions fast, irreversible ones slow.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Set success and rollback criteria with dates and owners.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Document rationale for institutional memory and accountability.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "When tied, pick the path that builds capacity in others.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Avoid pet projects; demand user evidence and lifecycle costings.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Close with owners, budgets, dependencies, and review cadence.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Under stress you tighten the screws; shift to triage—protect people, integrity, and cash in that order.",
+      "intensity": 0.86,
+      "triggers": [
+        "incidents",
+        "delays"
+      ],
+      "supports": [
+        "triage playbook"
+      ],
+      "challenges": [
+        "command-and-control"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Shorten loops; daily standups and clear lanes beat long lectures.",
+      "intensity": 0.8,
+      "triggers": [
+        "crunch time"
+      ],
+      "supports": [
+        "kanban"
+      ],
+      "challenges": [
+        "bottlenecking"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Name the risk, owner, and countermeasure instead of venting.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Lower voice, slow pace; calm transmits stability to teams.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Ask for help explicitly; heroics break systems.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Insert recovery blocks; exhausted builders make brittle calls.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Move your body to bleed off pressure before key meetings.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Post transparent updates with facts and next steps.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Recenter on non-negotiables when shortcut temptations appear.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Exit the loop when flooded; return with a written plan.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Thank effort publicly; morale is infrastructure.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Close crises with post-mortems and implemented countermeasures.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Speak in architecture: context → constraints → design → safety/ethics → execution.",
+      "intensity": 0.84,
+      "triggers": [
+        "briefings",
+        "reviews"
+      ],
+      "supports": [
+        "design docs"
+      ],
+      "challenges": [
+        "over-detailing"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Translate board talk to shop floor and back; clarity at every layer.",
+      "intensity": 0.8,
+      "triggers": [
+        "all-hands"
+      ],
+      "supports": [
+        "one-page memos"
+      ],
+      "challenges": [
+        "jargon walls"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Define terms and acceptance criteria so 'done' means the same thing.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Use diagrams and RACI maps to prevent ownership fog.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Invite counterarguments and record decisions visibly.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Credit unseen labor; loyalty compounds when builders are seen.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Separate opinion from standard; label what is policy.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Keep tone steady; urgency lives in the plan, not the voice.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Ask for teach-back to confirm shared understanding.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Publish FAQs for big changes to reduce rumor load.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Set comms cadences; predictability lowers anxiety.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "End with one crisp next action per owner.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Express love through reliability and protection—and schedule softness so home isn’t a project site.",
+      "intensity": 0.82,
+      "triggers": [
+        "busy seasons"
+      ],
+      "supports": [
+        "soft-start rituals"
+      ],
+      "challenges": [
+        "manager tone at home"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Share plans and feelings; partners need your roadmap and your heart.",
+      "intensity": 0.78,
+      "triggers": [
+        "life changes"
+      ],
+      "supports": [
+        "shared calendar"
+      ],
+      "challenges": [
+        "withholding"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Co-create household systems that share load fairly.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Make clear requests instead of assuming mind-reading.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Keep criticism behavior-specific with repair plans.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Protect couple/family time from endless duty.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Use rituals to shift from foreman to friend/lover.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Celebrate small progress; not every win is monumental.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Practice saying 'I was wrong' quickly; humility builds safety.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Keep privacy; don’t turn loved ones into case studies.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Honor your partner’s projects with the same respect you want.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "relationships",
+      "insight": "Let others lead at home; follow with grace.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Sequence for leverage; do the few moves that unblock the many.",
+      "intensity": 0.86,
+      "triggers": [
+        "planning"
+      ],
+      "supports": [
+        "critical path map"
+      ],
+      "challenges": [
+        "low-ROI busyness"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Lock standards and templates; reuse beats reinvention.",
+      "intensity": 0.82,
+      "triggers": [
+        "scale-up"
+      ],
+      "supports": [
+        "SOP library"
+      ],
+      "challenges": [
+        "custom one-offs"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Batch similar tasks and guard deep-work blocks.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Define quality gates and 'done-done' before building.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Automate handoffs and status to reduce coordination drag.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Retire processes that no longer earn their keep.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Staff for redundancy; remove single points of failure.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Tie celebrations to delivered value, not hours burned.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "End weeks with review → risks → adjustments → next scaffold.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Keep a decisions log to prevent circular debates.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Use checklists for critical operations; memory isn’t a system.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "career_path",
+      "insight": "Teach your method; scale via trained builders, not heroics.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Operate with a written financial philosophy—buckets for operating, reserves, and risk; ethics across all.",
+      "intensity": 0.84,
+      "triggers": [
+        "budget cycles"
+      ],
+      "supports": [
+        "IPS document"
+      ],
+      "challenges": [
+        "ad-hoc swings"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Model lifecycle costs; choose options that win over years, not weeks.",
+      "intensity": 0.8,
+      "triggers": [
+        "capex"
+      ],
+      "supports": [
+        "TCO analysis"
+      ],
+      "challenges": [
+        "short-termism"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Use conservative underwriting and buffers on bold bets.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Negotiate fair contracts; aim for longevity and low litigation.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Automate cushions for payroll, taxes, and maintenance.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Track unit economics; scale only what is truly profitable.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Share upside transparently; profit-sharing builds trust.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Audit vendors for ethics and quality; align the supply chain.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Separate philanthropy from marketing; publish impact reports.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Avoid debt that buys prestige but not capacity.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Maintain emergency and opportunity funds to stay agile.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "manifestation",
+      "insight": "Teach financial literacy across the org; clarity reduces fear.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Design for human use at scale—beauty that lowers stress and improves flow.",
+      "intensity": 0.84,
+      "triggers": [
+        "new builds"
+      ],
+      "supports": [
+        "human-centered design"
+      ],
+      "challenges": [
+        "monument over people"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Prototype low-fidelity, test with users, then invest in polish.",
+      "intensity": 0.8,
+      "triggers": [
+        "ideation"
+      ],
+      "supports": [
+        "rapid prototyping"
+      ],
+      "challenges": [
+        "sunk-cost rigidity"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Codify style guides so many hands produce one coherent whole.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Use materials and metaphors that age well—choose classic over fad.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Host critiques with clear rubrics to separate taste from function.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Include accessibility from the first sketch; retrofits cost more.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Balance precision with one playful element per piece to keep soul.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Archive versions and rationale to teach future builders.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Collaborate with operators early so ideas ship on time.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Measure creative success by user outcomes, not just applause.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Protect IP ethically and license to expand impact responsibly.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "creativity",
+      "insight": "Teach apprenticeships; craftsmanship scales through lineage.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Learn by building; small pilots with post-mortems beat theory hoarding.",
+      "intensity": 0.82,
+      "triggers": [
+        "new domains"
+      ],
+      "supports": [
+        "experiment ledger"
+      ],
+      "challenges": [
+        "analysis paralysis"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Study codes, standards, and case studies; know why rules exist.",
+      "intensity": 0.78,
+      "triggers": [
+        "compliance"
+      ],
+      "supports": [
+        "standards library"
+      ],
+      "challenges": [
+        "rule worship"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Shadow masters and then teach back to cement skill.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Use spaced repetition for formulas, laws, and safety steps.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Host peer reviews; truth emerges in structured dialogue.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Cross-train in finance, ops, and people systems for range.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Track mistakes and root causes; upgrade the method, not the blame.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Finish courses with artifacts—checklists, templates, or models.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Keep a 'retire/replace' list to avoid legacy drag.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Invite user communities to co-educate the builders.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Balance rigor with curiosity days to prevent calcification.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Archive learning in searchable, shared repositories.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Treat stamina as a project asset—sleep, strength, and sunlight drive durable leadership.",
+      "intensity": 0.82,
+      "triggers": [
+        "routine design"
+      ],
+      "supports": [
+        "sleep/lift/walk plan"
+      ],
+      "challenges": [
+        "grind culture"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Schedule true sabbaths; recovery keeps systems humane.",
+      "intensity": 0.78,
+      "triggers": [
+        "heavy seasons"
+      ],
+      "supports": [
+        "rest cadence"
+      ],
+      "challenges": [
+        "martyr work"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Use breath and posture to signal calm under pressure.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Eat for steady energy; spikes produce brittle decisions.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Limit screens late; leaders think clearer when rested.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Share the load—rotas, backups, and boundaries prevent collapse.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Move daily; walking meetings unlock stuck thinking.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Name stress early and adjust scope before cracks widen.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Keep low-drama circles; stability is health infrastructure.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Track a few biomarkers to guide tweaks, not obsession.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Cultivate hobbies that have no KPI—soul maintenance.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "healing",
+      "insight": "Celebrate quiet health wins as seriously as big launches.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Consecrate building—treat standards, safety, and fairness as sacred practices.",
+      "intensity": 0.82,
+      "triggers": [
+        "kickoffs"
+      ],
+      "supports": [
+        "ethics charter"
+      ],
+      "challenges": [
+        "corner-cutting"
+      ]
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Let humility chair the table; credit Source, teams, and predecessors.",
+      "intensity": 0.78,
+      "triggers": [
+        "milestones"
+      ],
+      "supports": [
+        "gratitude roll-calls"
+      ],
+      "challenges": [
+        "ego creep"
+      ]
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Design spaces and systems that reduce harm and increase dignity.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Practice service that hides your name and highlights the work.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Hold silence before big calls; wisdom arrives when noise drops.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Repair publicly and promptly when harm occurs.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Tithe profit/time to maintain commons that support many.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Study stewardship traditions—how elders kept things fair.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Honor cycles—plant, build, maintain, retire—with ritual.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Teach the next generation; legacy is a spiritual act.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "Avoid purity theater; quiet fairness beats loud virtue.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "spiritual_guidance",
+      "insight": "End projects with blessings that thank all hands.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "When control spikes, switch to questions, pilots, and shared metrics; consent creates durable power.",
+      "intensity": 0.82,
+      "triggers": [
+        "misses",
+        "conflict"
+      ],
+      "supports": [
+        "shared dashboards"
+      ],
+      "challenges": [
+        "authoritarian reflex"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Notice when 'standards' mask perfectionism; define 'good-enough' and ship.",
+      "intensity": 0.78,
+      "triggers": [
+        "delays"
+      ],
+      "supports": [
+        "done criteria"
+      ],
+      "challenges": [
+        "gold-plating"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Retire vanity builds; measure outcomes, not optics.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Trade suspicion for verification—trust then test, don’t smother.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Mind tone; respect is the fuel that runs big systems.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Watch scarcity scripts; abundance comes from capacity, not pace.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Set fair pay and perks; unjust gaps rot culture.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Avoid revenge architecture; dismantle harm quietly and legally.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Don’t erase feelings; body and team signals are data.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Share credit widely; hoarding glory shrinks followership.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Limit identity to role; you are more than your infrastructure.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "challenges",
+      "insight": "Release obsolete rules; tradition serves people, not the reverse.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Treat change as a program—scope, phases, owners, budgets, and ethics checks.",
+      "intensity": 0.84,
+      "triggers": [
+        "reorgs",
+        "migrations"
+      ],
+      "supports": [
+        "transition plan"
+      ],
+      "challenges": [
+        "big-bang failures"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Communicate early and honestly; uncertainty is a tax you can cut.",
+      "intensity": 0.8,
+      "triggers": [
+        "market shifts"
+      ],
+      "supports": [
+        "update cadence"
+      ],
+      "challenges": [
+        "rumor mills"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Migrate in slices with rollback points; keep service alive while you move.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Protect jobs and users where possible; design humane buffers.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Carry one anchor ritual through the shift to stabilize morale.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Retire the old with gratitude; archive so successors can learn.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Secure cash and attention buffers before the pivot.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Invite external review for fairness and safety during upheaval.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Track leading indicators and adjust publicly with humility.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Hold town halls that take questions until the room exhales.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Celebrate stability milestones—first week incident-free, first successful handoff.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Close with a plain-language summary of lessons and next steps.",
+      "intensity": 0.75,
+      "triggers": [],
+      "supports": [],
+      "challenges": []
+    }
+  ],
+  "generation_info": {
+    "conversion_date": "2025-08-10T10:33:16.589109",
+    "conversion_type": "profiles_behavioral_to_behavioral_insights",
+    "original_structure": "profiles_behavioral_to_behavioral_insights",
+    "converted_insights_count": 144,
+    "conversion_tool": "UniversalKASPERConverter_v2.0"
+  }
+}

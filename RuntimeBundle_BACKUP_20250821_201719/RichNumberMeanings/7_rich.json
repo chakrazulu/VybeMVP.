@@ -1,0 +1,454 @@
+{
+  "number": 7,
+  "title": "Number 7: The Mystic Seeker",
+  "source": "single_numbers",
+  "persona": "NumerologyMaster",
+  "behavioral_category": "spiritual_seeking",
+  "intensity_scoring": {
+    "min_range": 0.7,
+    "max_range": 0.9,
+    "note": "Number 7 operates with deep, introspective energy focused on spiritual seeking and wisdom"
+  },
+  "behavioral_insights": [
+    {
+      "category": "core_essence",
+      "insight": "Number 7 represents **pure spiritual seeking** - the eternal quest for truth, meaning, and connection to the divine. As the most mystical single digit, it embodies introspection, analysis, and the deep desire to understand life's mysteries.",
+      "intensity": 0.88,
+      "triggers": [
+        "spiritual_questions",
+        "mystery_encounters",
+        "truth_seeking"
+      ],
+      "supports": [
+        "meditation_practice",
+        "spiritual_study",
+        "contemplative_activities"
+      ],
+      "challenges": [
+        "superficial_interactions",
+        "material_focus",
+        "social_pressure"
+      ]
+    },
+    {
+      "category": "seeker_archetype",
+      "insight": "The Mystic Seeker archetype embodies **the eternal student of wisdom** - one who pursues truth through deep investigation, spiritual practice, and inner knowing. 7s are the philosophers and mystics of humanity.",
+      "intensity": 0.9,
+      "triggers": [
+        "wisdom_pursuit",
+        "philosophical_discussions",
+        "mystical_experiences"
+      ],
+      "supports": [
+        "wisdom_traditions",
+        "philosophical_study",
+        "mystical_practices"
+      ],
+      "challenges": [
+        "intellectual_pride",
+        "analysis_paralysis",
+        "isolation_tendency"
+      ]
+    },
+    {
+      "category": "neptune_intuition",
+      "insight": "Connected to **Neptune**, 7s possess deep intuitive abilities and psychic sensitivity. They can access information through non-rational channels and understand truth beyond logical analysis.",
+      "intensity": 0.85,
+      "triggers": [
+        "intuitive_hits",
+        "psychic_experiences",
+        "spiritual_insights"
+      ],
+      "supports": [
+        "intuitive_development",
+        "psychic_training",
+        "spiritual_guidance"
+      ],
+      "challenges": [
+        "reality_confusion",
+        "psychic_overwhelm",
+        "grounding_difficulty"
+      ]
+    },
+    {
+      "category": "analytical_mastery",
+      "insight": "7s possess **exceptional analytical abilities** - they can dissect complex problems, see patterns others miss, and understand the underlying principles that govern various phenomena.",
+      "intensity": 0.82,
+      "triggers": [
+        "complex_problems",
+        "pattern_recognition",
+        "system_analysis"
+      ],
+      "supports": [
+        "research_activities",
+        "analytical_work",
+        "problem_solving"
+      ],
+      "challenges": [
+        "over_analysis",
+        "paralysis_by_analysis",
+        "emotional_neglect"
+      ]
+    },
+    {
+      "category": "solitude_seeking",
+      "insight": "7s require **regular solitude** to recharge and process their deep thoughts. They are naturally introverted and need quiet time for reflection and spiritual connection.",
+      "intensity": 0.83,
+      "triggers": [
+        "overstimulation",
+        "social_exhaustion",
+        "inner_processing_needs"
+      ],
+      "supports": [
+        "solitary_activities",
+        "quiet_environments",
+        "meditation_practices"
+      ],
+      "challenges": [
+        "social_expectations",
+        "loneliness_fears",
+        "isolation_extremes"
+      ]
+    },
+    {
+      "category": "perfectionist_tendencies",
+      "insight": "7s have **high standards for truth and accuracy** - they cannot tolerate superficiality or half-truths. This perfectionism drives their quest for deeper understanding but can create paralysis.",
+      "intensity": 0.79,
+      "triggers": [
+        "inaccuracy_encounters",
+        "superficial_answers",
+        "incomplete_information"
+      ],
+      "supports": [
+        "quality_pursuits",
+        "accuracy_focus",
+        "truth_seeking"
+      ],
+      "challenges": [
+        "perfectionism_paralysis",
+        "never_good_enough",
+        "completion_difficulty"
+      ]
+    },
+    {
+      "category": "pisces_compassion",
+      "insight": "Connected to **Pisces**, 7s possess deep compassion and empathy. Their spiritual seeking is motivated by love for humanity and the desire to alleviate suffering through understanding.",
+      "intensity": 0.81,
+      "triggers": [
+        "suffering_encounters",
+        "compassion_calls",
+        "healing_opportunities"
+      ],
+      "supports": [
+        "compassionate_service",
+        "healing_practices",
+        "empathic_abilities"
+      ],
+      "challenges": [
+        "emotional_overwhelm",
+        "suffering_absorption",
+        "boundary_dissolution"
+      ]
+    },
+    {
+      "category": "research_mastery",
+      "insight": "7s are **natural researchers** who can investigate topics with extraordinary depth and persistence. They leave no stone unturned in their quest for complete understanding.",
+      "intensity": 0.84,
+      "triggers": [
+        "research_opportunities",
+        "investigation_needs",
+        "knowledge_gaps"
+      ],
+      "supports": [
+        "research_skills",
+        "investigation_abilities",
+        "knowledge_synthesis"
+      ],
+      "challenges": [
+        "research_rabbit_holes",
+        "information_overload",
+        "application_difficulty"
+      ]
+    },
+    {
+      "category": "spiritual_gifts",
+      "insight": "7s often possess **natural spiritual gifts** - clairvoyance, clairaudience, healing abilities, and other psychic talents that allow them to access higher dimensions of reality.",
+      "intensity": 0.87,
+      "triggers": [
+        "spiritual_activation",
+        "psychic_development",
+        "energy_work"
+      ],
+      "supports": [
+        "spiritual_training",
+        "psychic_development",
+        "energy_practices"
+      ],
+      "challenges": [
+        "gift_overwhelm",
+        "spiritual_bypassing",
+        "grounding_needs"
+      ]
+    },
+    {
+      "category": "mental_independence",
+      "insight": "7s value **intellectual freedom** above almost everything else. They form their own opinions through careful analysis and refuse to accept ideas simply because they're popular or traditional.",
+      "intensity": 0.8,
+      "triggers": [
+        "intellectual_pressure",
+        "groupthink",
+        "authority_demands"
+      ],
+      "supports": [
+        "independent_thinking",
+        "critical_analysis",
+        "original_conclusions"
+      ],
+      "challenges": [
+        "intellectual_arrogance",
+        "social_isolation",
+        "contrarian_tendency"
+      ]
+    },
+    {
+      "category": "teaching_wisdom",
+      "insight": "When 7s share their knowledge, they become **profound teachers** who can illuminate complex subjects and guide others toward deeper understanding and wisdom.",
+      "intensity": 0.86,
+      "triggers": [
+        "teaching_opportunities",
+        "wisdom_sharing",
+        "guidance_requests"
+      ],
+      "supports": [
+        "teaching_skills",
+        "wisdom_transmission",
+        "guidance_abilities"
+      ],
+      "challenges": [
+        "student_impatience",
+        "complexity_overwhelm",
+        "practical_application"
+      ]
+    },
+    {
+      "category": "mystery_attraction",
+      "insight": "7s are naturally **drawn to mysteries** - unsolved puzzles, ancient wisdom, metaphysical questions, and hidden truths fascinate them and drive their investigative nature.",
+      "intensity": 0.83,
+      "triggers": [
+        "mystery_encounters",
+        "unsolved_puzzles",
+        "hidden_knowledge"
+      ],
+      "supports": [
+        "mystery_investigation",
+        "puzzle_solving",
+        "truth_uncovering"
+      ],
+      "challenges": [
+        "obsessive_investigation",
+        "conspiracy_thinking",
+        "reality_distortion"
+      ]
+    },
+    {
+      "category": "quality_over_quantity",
+      "insight": "7s prefer **quality over quantity** in all areas of life - they would rather have one deep friendship than many superficial ones, one meaningful project than many trivial tasks.",
+      "intensity": 0.78,
+      "triggers": [
+        "depth_opportunities",
+        "meaningful_connections",
+        "quality_choices"
+      ],
+      "supports": [
+        "deep_relationships",
+        "meaningful_work",
+        "quality_focus"
+      ],
+      "challenges": [
+        "social_limitations",
+        "opportunity_restrictions",
+        "perfectionism_paralysis"
+      ]
+    },
+    {
+      "category": "shadow_integration",
+      "insight": "The shadow of 7 includes **isolation, analysis paralysis, and spiritual superiority**. When unintegrated, the seeking becomes endless searching without application, and wisdom becomes intellectual pride.",
+      "intensity": 0.76,
+      "triggers": [
+        "criticism_received",
+        "intellectual_challenges",
+        "spiritual_ego"
+      ],
+      "supports": [
+        "humility_practice",
+        "practical_application",
+        "social_connection"
+      ],
+      "challenges": [
+        "intellectual_arrogance",
+        "social_withdrawal",
+        "spiritual_bypass"
+      ]
+    },
+    {
+      "category": "inner_knowing",
+      "insight": "7s develop **profound inner knowing** - a deep wisdom that comes from years of spiritual seeking and inner work. This knowing often transcends logical understanding.",
+      "intensity": 0.89,
+      "triggers": [
+        "wisdom_activation",
+        "inner_guidance",
+        "spiritual_maturity"
+      ],
+      "supports": [
+        "inner_work",
+        "spiritual_practices",
+        "wisdom_cultivation"
+      ],
+      "challenges": [
+        "knowledge_integration",
+        "wisdom_sharing",
+        "practical_application"
+      ]
+    },
+    {
+      "category": "sacred_geometry",
+      "insight": "7s are drawn to **sacred geometry and universal patterns** - they understand that mathematical principles underlie spiritual truths and that number and form reveal divine order.",
+      "intensity": 0.82,
+      "triggers": [
+        "pattern_recognition",
+        "mathematical_beauty",
+        "geometric_harmony"
+      ],
+      "supports": [
+        "geometry_study",
+        "pattern_work",
+        "mathematical_meditation"
+      ],
+      "challenges": [
+        "abstract_complexity",
+        "practical_disconnect",
+        "intellectual_obsession"
+      ]
+    },
+    {
+      "category": "healing_wisdom",
+      "insight": "7s often become **healing practitioners** who integrate spiritual wisdom with practical healing modalities, understanding that true healing addresses body, mind, and spirit simultaneously.",
+      "intensity": 0.85,
+      "triggers": [
+        "healing_calls",
+        "suffering_encounters",
+        "wisdom_application"
+      ],
+      "supports": [
+        "healing_practices",
+        "therapeutic_wisdom",
+        "holistic_approaches"
+      ],
+      "challenges": [
+        "healing_perfectionism",
+        "patient_expectations",
+        "practical_limitations"
+      ]
+    },
+    {
+      "category": "ancient_wisdom",
+      "insight": "7s are **keepers of ancient wisdom** - they study traditional spiritual teachings, preserve esoteric knowledge, and serve as bridges between ancient wisdom and modern understanding.",
+      "intensity": 0.84,
+      "triggers": [
+        "ancient_texts",
+        "wisdom_traditions",
+        "esoteric_knowledge"
+      ],
+      "supports": [
+        "traditional_study",
+        "wisdom_preservation",
+        "knowledge_integration"
+      ],
+      "challenges": [
+        "modern_relevance",
+        "practical_application",
+        "knowledge_overwhelm"
+      ]
+    },
+    {
+      "category": "contemplative_practice",
+      "insight": "7s excel at **contemplative practices** - meditation, prayer, contemplation, and other spiritual disciplines that deepen their connection to divine wisdom and inner truth.",
+      "intensity": 0.87,
+      "triggers": [
+        "spiritual_practice",
+        "contemplative_calls",
+        "inner_journey"
+      ],
+      "supports": [
+        "meditation_practice",
+        "contemplative_study",
+        "spiritual_discipline"
+      ],
+      "challenges": [
+        "practice_perfectionism",
+        "spiritual_materialism",
+        "worldly_disconnection"
+      ]
+    },
+    {
+      "category": "ultimate_purpose",
+      "insight": "The ultimate purpose of Number 7 is to **bridge the gap between human and divine consciousness** - to seek, discover, and share the eternal truths that connect all beings to their divine source and highest potential.",
+      "intensity": 0.9,
+      "triggers": [
+        "consciousness_bridging",
+        "truth_revelation",
+        "divine_connection"
+      ],
+      "supports": [
+        "truth_seeking",
+        "consciousness_work",
+        "divine_service"
+      ],
+      "challenges": [
+        "truth_responsibility",
+        "consciousness_overwhelm",
+        "divine_pressure"
+      ]
+    }
+  ],
+  "meta": {
+    "type": "single",
+    "archetype": "mystic_seeker",
+    "element": "water_air",
+    "keywords": [
+      "seeker",
+      "mystic",
+      "analytical",
+      "intuitive",
+      "spiritual",
+      "researcher",
+      "contemplative",
+      "wise",
+      "introspective",
+      "perfectionist"
+    ],
+    "affirmations": [
+      "I am a seeker of truth, guided by wisdom and inner knowing.",
+      "My analytical mind and intuitive heart work together in perfect harmony.",
+      "I trust my inner guidance and honor my need for solitude and reflection.",
+      "My spiritual gifts are blessings I use in service of healing and understanding.",
+      "I balance my quest for perfection with acceptance of life's mysteries.",
+      "My research and study lead to practical wisdom that benefits all beings.",
+      "I am a bridge between ancient wisdom and modern understanding.",
+      "My contemplative practices deepen my connection to divine truth.",
+      "I share my wisdom with humility, compassion, and practical application."
+    ],
+    "compatibility": {
+      "most_compatible": [3, 5, 9],
+      "moderately_compatible": [1, 7, 11],
+      "challenging": [2, 4, 6, 8],
+      "notes": "7s thrive with partners who respect their spiritual path and can provide either intellectual stimulation or grounding support"
+    },
+    "rituals": [
+      "Daily Contemplation - Regular practice of meditation or reflective prayer",
+      "Truth Seeking Journal - Weekly writing practice exploring spiritual questions",
+      "Sacred Study Time - Monthly deep dive into wisdom traditions or spiritual texts",
+      "Solitude Retreat - Regular time alone in nature or sacred space for renewal"
+    ]
+  }
+}

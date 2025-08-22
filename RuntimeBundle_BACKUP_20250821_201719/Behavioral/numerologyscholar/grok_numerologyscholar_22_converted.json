@@ -1,0 +1,283 @@
+{
+  "number": 22,
+  "title": "The NumerologyScholar",
+  "source": "grok_numerologyscholar",
+  "persona": "NumerologyScholar",
+  "behavioral_category": "spiritual_insights",
+  "intensity_scoring": {
+    "min_range": 0.75,
+    "max_range": 0.9,
+    "note": "NumerologyScholar spiritual guidance with enhanced intensity"
+  },
+  "behavioral_insights": [
+    {
+      "category": "spiritual_guidance",
+      "insight": "Forge dreams into empires; 22 constructs visions with disciplined might.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Channel cosmic blueprints; 22 materializes heaven's designs on earth.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Awaken builder's potential; 22 turns ambitious goals into tangible legacies.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Embrace extremes boldly; 22 navigates success's peaks and failure's valleys.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Integrate spiritual wisdom; 22 balances ethereal insights with practical action.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Ignite innovative sparks; 22 revolutionizes worlds through visionary plans.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Harvest karmic rewards; 22 reaps abundance from ethical endeavors.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "Unite opposites masterfully; 22 harmonizes intuition with grounded strategy.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Radiate authoritative presence; 22 commands respect through achieved mastery.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Transform challenges swiftly; 22 alchemizes obstacles into stepping stones.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Expand humanitarian reach; 22 builds structures serving collective good.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "service",
+      "insight": "Dive into ambitious depths; 22 surfaces with profound architectural triumphs.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Ponder past ambitions realized; 22 mirrors growth in constructed realities.",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Examine disciplined choices; 22 reveals strength forged from perseverance.",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Weigh visionary risks taken; 22 affirms bold steps yielding grand fruits.",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Contemplate balanced integrations; 22 unifies spirit with material lessons.",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Assess humanitarian impacts; 22 traces ripples from selfless buildings.",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    }
+  ],
+  "generation_info": {
+    "conversion_date": "2025-08-10T06:14:52.933997",
+    "conversion_type": "spiritual_categories_to_behavioral_insights",
+    "original_insights_count": 19,
+    "converted_insights_count": 17,
+    "conversion_tool": "KASPER_Dataset_Reconstructor_v1.0"
+  }
+}

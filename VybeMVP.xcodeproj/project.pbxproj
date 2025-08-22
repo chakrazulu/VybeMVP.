@@ -546,6 +546,8 @@
 		4DF7A09D2E41822600D5AC19 /* MoonPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF7A0902E41822600D5AC19 /* MoonPhase.swift */; };
 		4DF7A09E2E41822600D5AC19 /* AstrologicalHouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF7A08D2E41822600D5AC19 /* AstrologicalHouse.swift */; };
 		4DF986912E554A1200BD720A /* KASPERFirebaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF986902E554A1200BD720A /* KASPERFirebaseProvider.swift */; };
+		4DF992372E57FC7800BD720A /* MasterConsciousnessEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF992362E57FC7800BD720A /* MasterConsciousnessEngine.swift */; };
+		4DF992392E58186D00BD720A /* VFIWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF992382E58186D00BD720A /* VFIWidget.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1134,6 +1136,8 @@
 		4DF7A0922E41822600D5AC19 /* PersonalizedInsightTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedInsightTemplate.swift; sourceTree = "<group>"; };
 		4DF7A0932E41822600D5AC19 /* ZodiacMeaning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZodiacMeaning.swift; sourceTree = "<group>"; };
 		4DF986902E554A1200BD720A /* KASPERFirebaseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERFirebaseProvider.swift; sourceTree = "<group>"; };
+		4DF992362E57FC7800BD720A /* MasterConsciousnessEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterConsciousnessEngine.swift; sourceTree = "<group>"; };
+		4DF992382E58186D00BD720A /* VFIWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VFIWidget.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -1433,6 +1437,7 @@
 		4D55BE552E3AC1DB00F7BE5B /* CosmicHUD */ = {
 			isa = PBXGroup;
 			children = (
+				4DF992382E58186D00BD720A /* VFIWidget.swift */,
 				4DF6AAC92E3AF79200E0937E /* CosmicInsightEngine.swift */,
 				4D55BE5E2E3AC55400F7BE5B /* CosmicHUDTypes.swift */,
 				4D55BE4F2E3AC1DB00F7BE5B /* CosmicHUDIntegration.swift */,
@@ -1940,6 +1945,7 @@
 		4DA359A02E3F135B0010101F /* MLXCore */ = {
 			isa = PBXGroup;
 			children = (
+				4DF992362E57FC7800BD720A /* MasterConsciousnessEngine.swift */,
 				4D65287F2E49A75100F521E1 /* KASPERInferenceProvider.swift */,
 				4D731EB42E4721AE0083C82C /* KASPERLifePathTrinity.swift */,
 				4D731DE12E46D4E20083C82C /* KASPERContentImporter.swift */,
@@ -2965,6 +2971,7 @@
 				4D2F223E2E347C0F0087B052 /* ArchetypeCodexSection.swift in Sources */,
 				4D5929AC2E4933BA002625DE /* RichContentValidator.swift in Sources */,
 				4D2F223F2E347C0F0087B052 /* ProfileSummarySection.swift in Sources */,
+				4DF992372E57FC7800BD720A /* MasterConsciousnessEngine.swift in Sources */,
 				4D2F22402E347C0F0087B052 /* ActionButtonsSection.swift in Sources */,
 				4D2F22412E347C0F0087B052 /* DivineTriangleSection.swift in Sources */,
 				4D5BEAF52E35A7AD00B56575 /* PostEntity+CoreDataClass.swift in Sources */,
@@ -3013,6 +3020,7 @@
 				4D6C7BA52DE47E99001036E5 /* OnboardingSpiritualModeView.swift in Sources */,
 				4D6C7BA62DE47E99001036E5 /* OnboardingFocusTagsView.swift in Sources */,
 				4D6C7BA72DE47E99001036E5 /* OnboardingNotificationsView.swift in Sources */,
+				4DF992392E58186D00BD720A /* VFIWidget.swift in Sources */,
 				4D0AF68F2E348B7D003E4838 /* SanctumDataStructures.swift in Sources */,
 				4DB233FD2E11F4CC004EC2BC /* TestCosmicAnimationView.swift in Sources */,
 				4D6C7BAA2DE47F1B001036E5 /* InsightFilterService.swift in Sources */,

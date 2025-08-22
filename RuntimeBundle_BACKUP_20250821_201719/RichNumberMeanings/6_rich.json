@@ -1,0 +1,454 @@
+{
+  "number": 6,
+  "title": "Number 6: The Nurturer",
+  "source": "single_numbers",
+  "persona": "NumerologyMaster",
+  "behavioral_category": "nurturing_responsibility",
+  "intensity_scoring": {
+    "min_range": 0.6,
+    "max_range": 0.85,
+    "note": "Number 6 operates with caring, responsible energy focused on nurturing and healing"
+  },
+  "behavioral_insights": [
+    {
+      "category": "core_essence",
+      "insight": "Number 6 represents **pure nurturing energy** - the universal parent who provides unconditional love, care, and healing to all beings. As the most harmonious single digit, it embodies responsibility, compassion, and the sacred duty of caring for others.",
+      "intensity": 0.82,
+      "triggers": [
+        "caregiving_needs",
+        "healing_opportunities",
+        "nurturing_calls"
+      ],
+      "supports": [
+        "caring_activities",
+        "healing_practices",
+        "family_harmony"
+      ],
+      "challenges": [
+        "neglect_situations",
+        "suffering_encounters",
+        "family_conflicts"
+      ]
+    },
+    {
+      "category": "nurturer_archetype",
+      "insight": "The Nurturer archetype embodies **divine parenting** - one who provides physical, emotional, and spiritual care to all who need it. 6s are the universal mothers and fathers of humanity.",
+      "intensity": 0.85,
+      "triggers": [
+        "parenting_opportunities",
+        "caretaking_needs",
+        "protective_instincts"
+      ],
+      "supports": [
+        "parenting_skills",
+        "caregiving_abilities",
+        "protective_presence"
+      ],
+      "challenges": [
+        "overprotectiveness",
+        "enabling_behaviors",
+        "codependency_patterns"
+      ]
+    },
+    {
+      "category": "venus_love",
+      "insight": "Ruled by **Venus**, 6s embody divine love in its most nurturing form. They create beauty, harmony, and comfort wherever they go, making others feel valued and cherished.",
+      "intensity": 0.83,
+      "triggers": [
+        "love_expression",
+        "beauty_creation",
+        "harmony_building"
+      ],
+      "supports": [
+        "love_practices",
+        "beauty_appreciation",
+        "harmony_cultivation"
+      ],
+      "challenges": [
+        "love_boundaries",
+        "beauty_obsession",
+        "harmony_forcing"
+      ]
+    },
+    {
+      "category": "responsibility_mastery",
+      "insight": "6s possess an **innate sense of responsibility** for the welfare of others. They naturally step up when others need care, often putting others' needs before their own.",
+      "intensity": 0.8,
+      "triggers": [
+        "responsibility_calls",
+        "duty_requirements",
+        "obligation_needs"
+      ],
+      "supports": [
+        "duty_fulfillment",
+        "responsibility_taking",
+        "obligation_meeting"
+      ],
+      "challenges": [
+        "over_responsibility",
+        "self_neglect",
+        "martyrdom_tendency"
+      ]
+    },
+    {
+      "category": "healing_presence",
+      "insight": "6s possess a **natural healing presence** that soothes pain and restores wholeness. Their very presence can calm anxiety, heal emotional wounds, and restore hope in dark times.",
+      "intensity": 0.84,
+      "triggers": [
+        "healing_needs",
+        "pain_encounters",
+        "restoration_opportunities"
+      ],
+      "supports": [
+        "healing_modalities",
+        "therapeutic_presence",
+        "restoration_work"
+      ],
+      "challenges": [
+        "healer_burnout",
+        "pain_absorption",
+        "boundary_dissolution"
+      ]
+    },
+    {
+      "category": "home_creation",
+      "insight": "6s excel at **creating homes** that are sanctuaries of peace, comfort, and love. They understand that home is not just a place but an energy of safety and belonging.",
+      "intensity": 0.78,
+      "triggers": [
+        "home_creation",
+        "space_design",
+        "sanctuary_building"
+      ],
+      "supports": [
+        "interior_design",
+        "hospitality_skills",
+        "comfort_creation"
+      ],
+      "challenges": [
+        "perfection_pressure",
+        "control_issues",
+        "material_attachment"
+      ]
+    },
+    {
+      "category": "community_service",
+      "insight": "Natural **community servants**, 6s are drawn to roles that benefit society - teaching, healthcare, social work, and community organization come naturally to them.",
+      "intensity": 0.81,
+      "triggers": [
+        "community_needs",
+        "service_opportunities",
+        "social_causes"
+      ],
+      "supports": [
+        "community_involvement",
+        "volunteer_work",
+        "social_service"
+      ],
+      "challenges": [
+        "service_overwhelm",
+        "boundary_issues",
+        "recognition_lack"
+      ]
+    },
+    {
+      "category": "virgo_perfection",
+      "insight": "Connected to **Virgo**, 6s have an eye for perfection and improvement. They see how things could be better and work tirelessly to create ideal conditions for growth and healing.",
+      "intensity": 0.76,
+      "triggers": [
+        "improvement_opportunities",
+        "perfection_pursuit",
+        "service_enhancement"
+      ],
+      "supports": [
+        "quality_improvement",
+        "service_excellence",
+        "perfection_balance"
+      ],
+      "challenges": [
+        "perfectionism_paralysis",
+        "criticism_tendency",
+        "never_good_enough"
+      ]
+    },
+    {
+      "category": "aesthetic_sensitivity",
+      "insight": "6s possess refined **aesthetic sensitivity** - they create beauty in their environment and appreciate the healing power of art, music, and natural beauty.",
+      "intensity": 0.79,
+      "triggers": [
+        "beauty_appreciation",
+        "aesthetic_creation",
+        "artistic_expression"
+      ],
+      "supports": [
+        "artistic_development",
+        "beauty_cultivation",
+        "aesthetic_refinement"
+      ],
+      "challenges": [
+        "beauty_obsession",
+        "superficial_aesthetics",
+        "materialistic_tendencies"
+      ]
+    },
+    {
+      "category": "sacrifice_wisdom",
+      "insight": "6s understand **sacred sacrifice** - the conscious choice to give of themselves for the greater good. However, they must learn to distinguish between healthy sacrifice and martyrdom.",
+      "intensity": 0.77,
+      "triggers": [
+        "sacrifice_opportunities",
+        "greater_good_needs",
+        "selfless_service"
+      ],
+      "supports": [
+        "conscious_sacrifice",
+        "service_balance",
+        "giving_wisdom"
+      ],
+      "challenges": [
+        "martyrdom_complex",
+        "self_sacrifice",
+        "resentment_buildup"
+      ]
+    },
+    {
+      "category": "emotional_intelligence",
+      "insight": "6s possess high **emotional intelligence** - they can read emotional needs accurately and respond with appropriate care and support, making them excellent counselors and friends.",
+      "intensity": 0.82,
+      "triggers": [
+        "emotional_needs",
+        "counseling_opportunities",
+        "support_requirements"
+      ],
+      "supports": [
+        "emotional_support",
+        "counseling_skills",
+        "empathic_abilities"
+      ],
+      "challenges": [
+        "emotional_overwhelm",
+        "boundary_confusion",
+        "caretaker_fatigue"
+      ]
+    },
+    {
+      "category": "justice_seeking",
+      "insight": "6s have a strong **sense of justice** and fairness. They cannot tolerate injustice or inequality and will fight tirelessly for what they believe is right and fair.",
+      "intensity": 0.8,
+      "triggers": [
+        "injustice_encounters",
+        "unfairness_situations",
+        "equality_needs"
+      ],
+      "supports": [
+        "justice_advocacy",
+        "fairness_promotion",
+        "equality_work"
+      ],
+      "challenges": [
+        "righteous_anger",
+        "judgmental_tendency",
+        "black_white_thinking"
+      ]
+    },
+    {
+      "category": "teaching_gifts",
+      "insight": "6s are natural **teachers and mentors** who can help others reach their potential through patient guidance, encouragement, and practical wisdom.",
+      "intensity": 0.78,
+      "triggers": [
+        "teaching_opportunities",
+        "mentoring_needs",
+        "guidance_requests"
+      ],
+      "supports": [
+        "teaching_skills",
+        "mentoring_abilities",
+        "guidance_wisdom"
+      ],
+      "challenges": [
+        "over_guidance",
+        "control_issues",
+        "student_dependence"
+      ]
+    },
+    {
+      "category": "shadow_integration",
+      "insight": "The shadow of 6 includes **martyrdom, control, and criticism**. When unintegrated, the nurturing drive becomes suffocating control, and care becomes judgmental criticism.",
+      "intensity": 0.75,
+      "triggers": [
+        "appreciation_lack",
+        "control_loss",
+        "imperfection_encounters"
+      ],
+      "supports": [
+        "boundary_work",
+        "control_release",
+        "acceptance_practice"
+      ],
+      "challenges": [
+        "martyr_complex",
+        "controlling_behavior",
+        "critical_judgment"
+      ]
+    },
+    {
+      "category": "family_harmony",
+      "insight": "6s are **family harmony creators** who work tirelessly to maintain peace and connection among family members. They often serve as the emotional center of their families.",
+      "intensity": 0.83,
+      "triggers": [
+        "family_conflicts",
+        "relationship_strain",
+        "harmony_disruption"
+      ],
+      "supports": [
+        "family_mediation",
+        "relationship_healing",
+        "harmony_restoration"
+      ],
+      "challenges": [
+        "family_burden",
+        "boundary_issues",
+        "identity_loss"
+      ]
+    },
+    {
+      "category": "hospitality_mastery",
+      "insight": "6s excel at **hospitality** - making others feel welcome, comfortable, and cared for. Their homes become gathering places where people come to recharge and reconnect.",
+      "intensity": 0.79,
+      "triggers": [
+        "hosting_opportunities",
+        "guest_care",
+        "welcoming_needs"
+      ],
+      "supports": [
+        "hospitality_skills",
+        "entertaining_abilities",
+        "guest_comfort"
+      ],
+      "challenges": [
+        "hosting_pressure",
+        "people_pleasing",
+        "exhaustion_risk"
+      ]
+    },
+    {
+      "category": "creative_nurturing",
+      "insight": "6s express their nurturing through **creative activities** - cooking, gardening, crafting, and other hands-on activities that create beauty and nourishment for others.",
+      "intensity": 0.81,
+      "triggers": [
+        "creative_expression",
+        "nurturing_activities",
+        "care_giving"
+      ],
+      "supports": [
+        "creative_skills",
+        "nurturing_arts",
+        "care_crafts"
+      ],
+      "challenges": [
+        "perfectionist_crafting",
+        "comparison_trap",
+        "creativity_blocks"
+      ]
+    },
+    {
+      "category": "conflict_resolution",
+      "insight": "6s are natural **conflict resolvers** who can see all sides of a situation and help parties find common ground. Their diplomatic skills restore harmony in troubled relationships.",
+      "intensity": 0.77,
+      "triggers": [
+        "conflict_situations",
+        "relationship_problems",
+        "mediation_needs"
+      ],
+      "supports": [
+        "mediation_skills",
+        "conflict_resolution",
+        "peace_making"
+      ],
+      "challenges": [
+        "taking_sides",
+        "conflict_avoidance",
+        "peace_at_any_cost"
+      ]
+    },
+    {
+      "category": "material_comfort",
+      "insight": "6s understand the importance of **material comfort** and security. They work to create financial stability that allows them to care for their loved ones properly.",
+      "intensity": 0.76,
+      "triggers": [
+        "security_needs",
+        "comfort_requirements",
+        "stability_desires"
+      ],
+      "supports": [
+        "financial_planning",
+        "security_building",
+        "comfort_creation"
+      ],
+      "challenges": [
+        "material_attachment",
+        "security_obsession",
+        "comfort_dependence"
+      ]
+    },
+    {
+      "category": "ultimate_purpose",
+      "insight": "The ultimate purpose of Number 6 is to **heal and nurture humanity** - to demonstrate that love is the most powerful force in the universe and that caring for others is our highest calling and greatest joy.",
+      "intensity": 0.85,
+      "triggers": [
+        "healing_purpose",
+        "nurturing_mission",
+        "love_service"
+      ],
+      "supports": [
+        "healing_service",
+        "nurturing_leadership",
+        "love_embodiment"
+      ],
+      "challenges": [
+        "purpose_overwhelm",
+        "healing_burden",
+        "love_exhaustion"
+      ]
+    }
+  ],
+  "meta": {
+    "type": "single",
+    "archetype": "nurturer",
+    "element": "earth_water",
+    "keywords": [
+      "nurturer",
+      "healer",
+      "caregiver",
+      "responsible",
+      "loving",
+      "harmonious",
+      "protective",
+      "compassionate",
+      "service_oriented",
+      "family_focused"
+    ],
+    "affirmations": [
+      "I am a healing presence bringing love and comfort to all I encounter.",
+      "My nurturing gifts create safe spaces where others can grow and thrive.",
+      "I balance caring for others with honoring my own needs and boundaries.",
+      "My home is a sanctuary of peace, beauty, and unconditional love.",
+      "I serve others while maintaining my own physical and emotional health.",
+      "My responsibility to others enhances rather than diminishes my own life.",
+      "I create harmony through understanding, compassion, and wise action.",
+      "I am appreciated and valued for the love and care I freely give.",
+      "My healing presence transforms pain into wisdom and wounds into gifts."
+    ],
+    "compatibility": {
+      "most_compatible": [2, 4, 8],
+      "moderately_compatible": [1, 6, 9],
+      "challenging": [3, 5, 7],
+      "notes": "6s thrive with partners who appreciate their nurturing and can provide either stability or reciprocal care"
+    },
+    "rituals": [
+      "Home Blessing - Weekly ritual creating sacred space and harmony in living environment",
+      "Caregiver Self-Care - Daily practices for maintaining personal health while serving others",
+      "Beauty Appreciation - Regular time for aesthetic pleasure and creative expression",
+      "Service Gratitude - Monthly acknowledgment of the joy found in helping others"
+    ]
+  }
+}

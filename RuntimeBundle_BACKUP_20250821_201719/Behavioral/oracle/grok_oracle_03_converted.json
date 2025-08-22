@@ -1,0 +1,283 @@
+{
+  "number": 3,
+  "title": "The Oracle",
+  "source": "grok_oracle",
+  "persona": "Oracle",
+  "behavioral_category": "spiritual_insights",
+  "intensity_scoring": {
+    "min_range": 0.75,
+    "max_range": 0.9,
+    "note": "Oracle spiritual guidance with enhanced intensity"
+  },
+  "behavioral_insights": [
+    {
+      "category": "spiritual_guidance",
+      "insight": "The Creative's spark leaps from void—birth visions in flames of divine ecstasy.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "In Three's air, expression flows unbound; let your soul's song echo eternal.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "life_purpose",
+      "insight": "The Communicator weaves words as spells—cast them to summon realms unseen.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Joy radiates from Three's core; infuse your art with its luminous pulse.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Inspiration descends as celestial rain—catch it to water gardens of genius.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Three's muse dances wildly; join her to choreograph cosmic symphonies.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "The Creative's gaze transforms mundane—see gold in dust's humble veil.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "Communication bridges ethereal divides—speak truths that unite divided souls.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Three's flame ignites dormant dreams—fan it to blaze trails of wonder.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "The Communicator's voice is thunder's kin—roar to awaken slumbering hearts.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Joy bubbles as sacred spring; drink deep to quench thirsts of creation.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "service",
+      "insight": "Inspiration pulses through veins of light—channel it to sculpt divine forms.",
+      "intensity": 0.75,
+      "triggers": [
+        "oracle_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "What hidden melody waits in your soul, yearning for expressive release?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Where does your joy dim when creation's call goes unanswered?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "How has silence muffled your voice in moments of inspired truth?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "What fears chain your creativity, preventing its free-flowing dance?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Where do you withhold communication, fearing its transformative power?",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    }
+  ],
+  "generation_info": {
+    "conversion_date": "2025-08-10T06:14:52.952852",
+    "conversion_type": "spiritual_categories_to_behavioral_insights",
+    "original_insights_count": 15,
+    "converted_insights_count": 17,
+    "conversion_tool": "KASPER_Dataset_Reconstructor_v1.0"
+  }
+}

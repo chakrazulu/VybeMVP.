@@ -422,7 +422,7 @@ struct CosmicData: Codable, Equatable {
     // MARK: - Planetary Aspects
 
     /// Major aspect types with their angles and meanings
-    enum AspectType: String, CaseIterable {
+    enum CosmicAspectType: String, CaseIterable {
         case conjunction = "Conjunction"
         case opposition = "Opposition"
         case trine = "Trine"
@@ -479,7 +479,7 @@ struct CosmicData: Codable, Equatable {
     struct PlanetaryAspect {
         let planet1: String
         let planet2: String
-        let aspectType: AspectType
+        let aspectType: CosmicAspectType
         let angle: Double
         let orb: Double
         let isExact: Bool
@@ -532,7 +532,7 @@ struct CosmicData: Codable, Equatable {
                 let separation = calculateAngularSeparation(pos1: pos1, pos2: pos2)
 
                 // Check for aspects
-                for aspectType in AspectType.allCases {
+                for aspectType in CosmicAspectType.allCases {
                     let targetAngle = aspectType.angle
                     let _ = aspectType.orb
 
@@ -687,7 +687,7 @@ struct CosmicData: Codable, Equatable {
             guard let planetPosition = position(for: planet) else { continue }
 
             // Check if Moon will make any major aspects before changing signs
-            for aspectType in AspectType.allCases {
+            for aspectType in CosmicAspectType.allCases {
                 let targetAngle = aspectType.angle
                 let _ = aspectType.orb
 

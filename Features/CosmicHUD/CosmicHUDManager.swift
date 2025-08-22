@@ -200,10 +200,16 @@ class CosmicHUDManager: ObservableObject {
         userDefaults.set(hudData.element.emoji, forKey: "CosmicHUD_Element")
         userDefaults.set(Date(), forKey: "CosmicHUD_LastUpdate")
 
+        // VFI data for widget
+        userDefaults.set(hudData.vfi, forKey: "CosmicHUD_VFI")
+        userDefaults.set(hudData.vfiDisplay, forKey: "CosmicHUD_VFIDisplay")
+        userDefaults.set(hudData.consciousnessState, forKey: "CosmicHUD_ConsciousnessState")
+        userDefaults.set(hudData.sacredNumber, forKey: "CosmicHUD_SacredNumber")
+
         // Claude: Force widget timeline reload to show updated data immediately
         WidgetCenter.shared.reloadAllTimelines()
 
-        print("📱 HUD: Updated shared UserDefaults for widget consistency and reloaded widget timelines")
+        print("📱 HUD: Updated shared UserDefaults for widget consistency and reloaded widget timelines (including VFI: \(Int(hudData.vfi)) VHz)")
     }
 
     /// Generates mini insight for expanded HUD state
@@ -272,14 +278,18 @@ class CosmicHUDManager: ObservableObject {
         let aspects = await calculateMajorAspects()  // LIVE SwiftAA calculations (no longer throws)
         let dominantAspect = selectDominantAspect(from: aspects)
 
-        print("📊 HUD: Calculated HUD data - Ruler: \(rulerNumber), Element: \(element), Aspects: \(aspects.count)")
+        // Calculate VFI using Master Consciousness Algorithm
+        let vfi = await calculateVFI(rulerNumber: rulerNumber)
+
+        print("📊 HUD: Calculated HUD data - Ruler: \(rulerNumber), Element: \(element), Aspects: \(aspects.count), VFI: \(Int(vfi)) VHz")
 
         return HUDData(
             rulerNumber: rulerNumber,
             dominantAspect: dominantAspect,
             element: element,
             lastCalculated: Date(),
-            allAspects: aspects
+            allAspects: aspects,
+            vfi: vfi
         )
     }
 
@@ -370,6 +380,197 @@ class CosmicHUDManager: ObservableObject {
             .replacingOccurrences(of: "{planet2}", with: aspectData.planet2.rawValue.capitalized)
     }
 
+    /// Calculate VFI using existing RealmNumberManager calculation + Master Algorithm extensions
+    private func calculateVFI(rulerNumber: Int) async -> Double {
+        // STEP 1: GET BASE CONSCIOUSNESS CALCULATION FROM REALM MANAGER
+        // RealmNumberManager already does sophisticated calculation with:
+        // - Time (hour + minute) reduced to singularity
+        // - Date (day + month) reduced to singularity
+        // - Location coordinates (GPS lat/lon) broken down numerologically
+        // - Real heart rate from HealthKit reduced to singularity
+        // - Dynamic factors based on BPM variability
+
+        let realmSingularity = getCurrentRealmNumber() // Already includes all above factors
+        let focusNumber = focusNumberManager.selectedFocusNumber
+
+        // STEP 2: MASTER SINGULARITY SYNTHESIS
+        // Combine RealmManager's sophisticated calculation with Focus number
+        let coreSum = realmSingularity + focusNumber + rulerNumber
+        let masterSingularity = reduceToSingularity(coreSum)
+
+        // STEP 3: VFI FREQUENCY MAPPING
+        // Map singularity (1-9) to consciousness frequency zones (20-1000+ VHz)
+        let baseVFI = Double(masterSingularity * 100)
+        let harmonicRefinement = Double(coreSum % 100)
+
+        // STEP 4: SACRED PATTERNS BONUS (using RealmManager components)
+        // Extract the individual components that RealmManager already calculated
+        let singularities = [realmSingularity, focusNumber, rulerNumber]
+        let patternBonus = calculatePatternBonuses(singularities: singularities)
+
+        // STEP 5: PLANETARY & ZODIAC ENHANCEMENT (Using existing SwiftAA integration)
+        let cosmicModifier = await calculateCosmicModifier()
+
+        // STEP 6: LOCATION HARMONIC AMPLIFICATION
+        // RealmManager already includes location in realmSingularity,
+        // but we can add harmonic amplification based on location patterns
+        let locationAmplifier = 1.0 + (Double(rulerNumber) * 0.05) // 5% per ruler number
+
+        let finalVFI = (baseVFI + harmonicRefinement + patternBonus + cosmicModifier) * locationAmplifier
+
+        print("🧮 VFI Calculation (Using RealmManager + SwiftAA):")
+        print("   Realm Singularity (time+date+location+BPM+dynamic): \(realmSingularity)")
+        print("   Focus Number: \(focusNumber)")
+        print("   Ruler Number: \(rulerNumber)")
+        print("   Master Singularity: \(coreSum) → \(masterSingularity)")
+        print("   Pattern Bonus: +\(Int(patternBonus)) VHz")
+        print("   Cosmic Modifier (planetary/zodiac): +\(Int(cosmicModifier)) VHz")
+        print("   Location Amplifier: ×\(String(format: "%.2f", locationAmplifier))")
+        print("   Final VFI: \(Int(finalVFI)) VHz")
+
+        return finalVFI
+    }
+
+    /// Reduce number to single digit (1-9) following traditional numerology
+    private func reduceToSingularity(_ number: Int) -> Int {
+        var result = abs(number)
+        while result > 9 {
+            let digits = String(result).compactMap { Int(String($0)) }
+            result = digits.reduce(0, +)
+        }
+        return max(result, 1) // Ensure never 0, minimum is 1
+    }
+
+    /// Calculate pattern bonuses from sacred mathematical patterns in singularities
+    private func calculatePatternBonuses(singularities: [Int]) -> Double {
+        var bonus = 0.0
+
+        // Fibonacci singularities (1, 2, 3, 5, 8)
+        let fibSingularities = [1, 2, 3, 5, 8]
+        let fibMatches = singularities.filter { fibSingularities.contains($0) }.count
+        if fibMatches > 0 {
+            bonus += Double(fibMatches * 12) // 12 VHz per Fibonacci match
+        }
+
+        // Prime singularities (2, 3, 5, 7)
+        let primeSingularities = [2, 3, 5, 7]
+        let primeMatches = singularities.filter { primeSingularities.contains($0) }.count
+        if primeMatches > 0 {
+            bonus += Double(primeMatches * 15) // 15 VHz per prime match
+        }
+
+        // Tesla 3-6-9 pattern
+        let teslaSet = Set([3, 6, 9])
+        let teslaMatches = Set(singularities).intersection(teslaSet).count
+        if teslaMatches == 3 {
+            bonus += 50.0 // Complete Tesla pattern
+        } else if teslaMatches >= 2 {
+            bonus += 25.0 // Partial Tesla pattern
+        }
+
+        // Master number potential (if any singularity appears multiple times)
+        let frequency = Dictionary(grouping: singularities, by: { $0 }).mapValues { $0.count }
+        for (digit, count) in frequency {
+            if count >= 2 {
+                bonus += Double(digit * count * 8) // Master number energy
+            }
+        }
+
+        return bonus
+    }
+
+    /// Calculate cosmic modifier using existing Sanctum/CosmicService infrastructure
+    private func calculateCosmicModifier() async -> Double {
+        // USE EXISTING SANCTUM INFRASTRUCTURE - NO DUPLICATION!
+        // SanctumDataManager already has: Houses, Aspects, Planets, Signs data loaded
+        // CosmicService already provides: todaysCosmic data with live planetary positions
+        // AstrologyService already handles: planetary interpretations, house analysis
+
+        // Get today's cosmic data from existing CosmicService
+        let cosmicService = CosmicService.shared
+        let todaysCosmic = cosmicService.todaysCosmic ?? CosmicData.fromSwiftAACalculations(for: Date())
+
+        // Extract planetary data that Sanctum already calculates
+        let sunLongitude = todaysCosmic.planetaryPositions["sun"] ?? 0.0
+        let moonLongitude = todaysCosmic.planetaryPositions["moon"] ?? 0.0
+        let mercuryLongitude = todaysCosmic.planetaryPositions["mercury"] ?? 0.0
+
+        // Use ZodiacSignCalculator's existing zodiac analysis
+        let sunSign = ZodiacSignCalculator.zodiacSign(forLongitude: sunLongitude)
+        let moonSign = ZodiacSignCalculator.zodiacSign(forLongitude: moonLongitude)
+        let mercurySign = ZodiacSignCalculator.zodiacSign(forLongitude: mercuryLongitude)
+
+        // Leverage existing MegaCorpus planetary/sign data from Sanctum
+        var cosmicModifier = 0.0
+
+        await MainActor.run {
+            let sanctumData = SanctumDataManager.shared
+
+            // Moon phase influence using existing cosmic data
+            cosmicModifier += (todaysCosmic.moonIllumination ?? 50.0) / 100.0 * 30.0 // 0-30 VHz
+
+            // Zodiac elemental influence using existing MegaCorpus data
+            let sunElement = sanctumData.getSignElement(for: sunSign.rawValue)
+            let moonElement = sanctumData.getSignElement(for: moonSign.rawValue)
+
+            // Traditional astrological elemental VHz bonuses
+            cosmicModifier += getElementalBonus(sunElement)    // Solar element influence
+            cosmicModifier += getElementalBonus(moonElement) * 0.7  // Lunar element (reduced)
+
+            // Planetary harmony using existing sign calculations
+            if sunSign == moonSign {
+                cosmicModifier += 25.0 // Sun-Moon same sign harmony
+            } else if areCompatibleSigns(sunSign.rawValue, moonSign.rawValue) {
+                cosmicModifier += 15.0 // Compatible signs harmony
+            }
+
+            // Mercury communication enhancement
+            if mercurySign == sunSign || mercurySign == moonSign {
+                cosmicModifier += 10.0 // Clear communication flow
+            }
+        }
+
+        print("🌟 Cosmic Modifier (Using Sanctum Data):")
+        print("   Using CosmicService.todaysCosmic + SanctumDataManager")
+        print("   Sun in \(sunSign.rawValue) → \(getElementalBonus(await getSignElement(sunSign.rawValue))) VHz")
+        print("   Moon in \(moonSign.rawValue) → \(getElementalBonus(await getSignElement(moonSign.rawValue)) * 0.7) VHz")
+        print("   Moon Phase: \(String(format: "%.1f", todaysCosmic.moonIllumination ?? 50.0))% → +\(Int((todaysCosmic.moonIllumination ?? 50.0) / 100.0 * 30.0)) VHz")
+        print("   Total Cosmic Modifier: +\(Int(cosmicModifier)) VHz")
+
+        return cosmicModifier
+    }
+
+    /// Get elemental bonus using traditional astrological correspondences
+    private func getElementalBonus(_ element: String) -> Double {
+        switch element.lowercased() {
+        case "fire": return 25.0    // Aries, Leo, Sagittarius - Dynamic energy
+        case "water": return 30.0   // Cancer, Scorpio, Pisces - Intuitive flow
+        case "air": return 20.0     // Gemini, Libra, Aquarius - Mental clarity
+        case "earth": return 15.0   // Taurus, Virgo, Capricorn - Grounding
+        default: return 10.0
+        }
+    }
+
+    /// Check sign compatibility using traditional astrological elements
+    private func areCompatibleSigns(_ sign1: String, _ sign2: String) -> Bool {
+        // Fire + Air, Earth + Water are traditionally compatible
+        let fireAir = ["aries", "leo", "sagittarius", "gemini", "libra", "aquarius"]
+        let earthWater = ["taurus", "virgo", "capricorn", "cancer", "scorpio", "pisces"]
+
+        let sign1Lower = sign1.lowercased()
+        let sign2Lower = sign2.lowercased()
+
+        return (fireAir.contains(sign1Lower) && fireAir.contains(sign2Lower)) ||
+               (earthWater.contains(sign1Lower) && earthWater.contains(sign2Lower))
+    }
+
+    /// Get sign element using existing SanctumDataManager
+    private func getSignElement(_ sign: String) async -> String {
+        await MainActor.run {
+            return SanctumDataManager.shared.getSignElement(for: sign)
+        }
+    }
+
     private func loadFallbackData() async {
         // Claude: FIXED - Use LIVE data even in fallback scenarios
         print("⚠️ HUD: Loading fallback data with LIVE ruler/realm numbers")
@@ -377,13 +578,15 @@ class CosmicHUDManager: ObservableObject {
         let fallbackAspect = createFallbackAspect()
         let liveRulerNumber = getCurrentRulerNumber()  // Still get LIVE ruler number
         let liveElement = getCurrentElement()          // Still get LIVE element
+        let fallbackVFI = await calculateVFI(rulerNumber: liveRulerNumber) // Calculate VFI even in fallback
 
         let fallbackData = HUDData(
             rulerNumber: liveRulerNumber,              // LIVE data
             dominantAspect: fallbackAspect,            // Fallback aspect only
             element: liveElement,                      // LIVE element
             lastCalculated: Date(),
-            allAspects: [fallbackAspect]
+            allAspects: [fallbackAspect],
+            vfi: fallbackVFI                           // LIVE VFI calculation
         )
 
         currentHUDData = fallbackData
@@ -391,7 +594,7 @@ class CosmicHUDManager: ObservableObject {
         // Claude: Update shared UserDefaults even with fallback data for widget consistency
         updateSharedUserDefaults(with: fallbackData)
 
-        print("✅ HUD: Fallback data loaded with live ruler: \(liveRulerNumber), element: \(liveElement)")
+        print("✅ HUD: Fallback data loaded with live ruler: \(liveRulerNumber), element: \(liveElement), VFI: \(Int(fallbackVFI)) VHz")
     }
 }
 

@@ -1,0 +1,283 @@
+{
+  "number": 11,
+  "title": "The NumerologyScholar",
+  "source": "grok_numerologyscholar",
+  "persona": "NumerologyScholar",
+  "behavioral_category": "spiritual_insights",
+  "intensity_scoring": {
+    "min_range": 0.75,
+    "max_range": 0.9,
+    "note": "NumerologyScholar spiritual guidance with enhanced intensity"
+  },
+  "behavioral_insights": [
+    {
+      "category": "spiritual_guidance",
+      "insight": "Awaken psychic gateways; 11 bridges realms with flashes of divine knowing.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "inner_wisdom",
+      "insight": "Channel visionary light; 11 ignites innovations that reshape realities.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "life_purpose",
+      "insight": "Embrace sensitive vibes; 11 attunes souls to cosmic whispers daily.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "relationships",
+      "insight": "Illuminate hidden truths; 11 pierces illusions with intuitive lasers.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "career_path",
+      "insight": "Inspire collective shifts; 11 catalyzes awakenings through shared visions.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "personal_growth",
+      "insight": "Merge dual pillars; 11 unites opposites in enlightened harmony.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "challenges",
+      "insight": "Heighten spiritual antennae; 11 receives messages from higher planes.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "gifts",
+      "insight": "Spark creative genius; 11 fuels inventions born of inner revelations.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "manifestation",
+      "insight": "Navigate emotional depths; 11 guides through sensitivity's profound waters.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "healing",
+      "insight": "Radiate charismatic energy; 11 draws seekers to your luminous path.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "creativity",
+      "insight": "Transcend rational limits; 11 leaps into realms of pure intuition.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "service",
+      "insight": "Foster idealistic dreams; 11 manifests utopias from inspired thoughts.",
+      "intensity": 0.75,
+      "triggers": [
+        "numerologyscholar_guidance"
+      ],
+      "supports": [
+        "meditation",
+        "reflection"
+      ],
+      "challenges": [
+        "doubt",
+        "resistance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Ponder past intuitions; 11 affirms ignored hunches as valid guidance.",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Examine visionary moments; 11 reveals patterns in inspired ideas.",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Weigh sensitivity's gifts; 11 balances empathy with self-protection.",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Review enlightenment glimpses; 11 integrates them into daily life.",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    },
+    {
+      "category": "contemplation",
+      "insight": "Assess charismatic impacts; 11 measures influence on others' growth.",
+      "intensity": 0.8,
+      "triggers": [
+        "self_reflection"
+      ],
+      "supports": [
+        "journaling"
+      ],
+      "challenges": [
+        "avoidance"
+      ]
+    }
+  ],
+  "generation_info": {
+    "conversion_date": "2025-08-10T06:14:52.954948",
+    "conversion_type": "spiritual_categories_to_behavioral_insights",
+    "original_insights_count": 19,
+    "converted_insights_count": 17,
+    "conversion_tool": "KASPER_Dataset_Reconstructor_v1.0"
+  }
+}
