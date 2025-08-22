@@ -316,21 +316,28 @@ struct HomeView: View {
                             /// Font sizing follows Apple's Human Interface Guidelines:
                             /// - "Vybe" brand: 32pt bold system font for strong brand presence
                             /// - Subtitle: Title2 (22pt) for clear feature identification
-                            HStack {
+                            ZStack {
+                                // Centered app title
                                 VStack(spacing: 8) {
                                     Text("Vybe")
-                                        .font(.system(size: 32, weight: .bold)) // Back to original size
+                                        .font(.system(size: 32, weight: .bold))
 
                                     Text("Your Focus Number")
-                                        .font(.title2) // Back to original size
+                                        .font(.title2)
                                 }
 
-                                Spacer()
-
-                                // VFI Widget in top-right corner
-                                VFIWidget()
+                                // VFI Widget positioned high in top-right (closer to battery)
+                                VStack {
+                                    HStack {
+                                        Spacer()
+                                        VFIWidget()
+                                            .padding(.trailing, 20)
+                                            .padding(.top, -15) // Move up closer to status bar
+                                    }
+                                    Spacer()
+                                }
                             }
-                            .padding(.top, 5) // Move higher towards status bar
+                            .padding(.top, 5)
 
                             // MARK: ––– SACRED GEOMETRY SECTION START –––
                             // 🌟 SACRED GEOMETRY CONTAINER: 350×350pt with 40pt vertical padding
