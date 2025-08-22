@@ -1,15 +1,89 @@
 import SwiftUI
 
-// MARK: - VFI Pill Widget
-/// VFI (Vybe Frequency Index) pill widget for top-right corner of home view
-/// Displays real-time consciousness frequency calculated by Master Algorithm
-/// Minimal, elegant design that doesn't interfere with main app UX
+/**
+ * VFI Widget - Real-Time Consciousness Frequency Display
+ * =====================================================
+ *
+ * The VFI (Vybe Frequency Index) Widget provides users with immediate awareness
+ * of their current consciousness frequency, calculated in real-time by the
+ * Master Consciousness Algorithm. This elegant pill widget appears in the
+ * top-right corner of the home screen, displaying the format: [7 523 VHz]
+ *
+ * ## Architecture Overview
+ *
+ * The widget consists of two main components:
+ * 1. **VFIWidget** - Minimal pill display for home screen
+ * 2. **VFIDetailView** - Comprehensive expanded view with algorithm insights
+ *
+ * ## Technical Implementation
+ *
+ * **Data Source:** CosmicHUDManager.shared provides HUDData containing:
+ * - VFI frequency (Double): Consciousness frequency in VHz (20-1000+)
+ * - Sacred number (Int): Numerological significance (1-9, 11, 22, 33, etc.)
+ * - Consciousness state (String): Human-readable state description
+ *
+ * **UI Architecture:**
+ * - Minimal pill: 8pt horizontal padding, .ultraThinMaterial background
+ * - Color system: Chakra-inspired gradients for sacred numbers
+ * - Animations: .spring(duration: 0.3) for smooth interactions
+ * - Modal presentation: .sheet for expanded detail view
+ *
+ * ## Master Algorithm Integration
+ *
+ * The VFI calculation leverages existing Vybe infrastructure:
+ * - RealmNumberManager: GPS coordinates, time, heart rate integration
+ * - FocusNumberManager: User's selected spiritual focus
+ * - CosmicService: Live planetary positions and lunar phases
+ * - Pattern detection: Fibonacci, Tesla 3-6-9, prime singularities
+ *
+ * ## Performance Considerations
+ *
+ * - Lazy loading: Widget appears only when HUDData is available
+ * - Shared manager: CosmicHUDManager.shared prevents duplicate calculations
+ * - Efficient updates: @StateObject ensures proper SwiftUI lifecycle
+ * - Memory optimization: Sheet presentation releases resources when dismissed
+ *
+ * ## User Experience
+ *
+ * **Interaction Patterns:**
+ * - Tap: Opens detailed insight view with algorithm breakdown
+ * - Loading state: Shows "• VHz" placeholder during calculation
+ * - Error handling: Graceful fallback to cached data
+ * - Accessibility: Full VoiceOver support with descriptive labels
+ *
+ * **Visual Design:**
+ * - Sacred number: Color-coded by chakra system (1=red, 2=orange, etc.)
+ * - VFI frequency: Secondary color for subtle presence
+ * - Consciousness glow: Border color reflects frequency zone
+ * - Material design: .ultraThinMaterial for modern iOS aesthetic
+ *
+ * Created: August 2025
+ * Last Updated: August 22, 2025
+ * Version: 1.0.0 - Initial implementation with Master Algorithm
+ */
 
+// MARK: - VFI Pill Widget
+
+/// Minimal consciousness frequency display widget for home screen
+///
+/// Displays real-time VFI (Vybe Frequency Index) in format: [7 523 VHz]
+/// where 7 is the sacred number and 523 VHz is the consciousness frequency.
+/// Tapping the widget opens a detailed view with algorithm insights.
 struct VFIWidget: View {
+    // MARK: - Dependencies
+
+    /// Shared manager providing real-time HUD data including VFI calculations
     @StateObject private var hudManager = CosmicHUDManager.shared
+
+    // MARK: - UI State
+
+    /// Controls visibility of the detailed insight modal
     @State private var showingDetail = false
 
+    // MARK: - View Body
+
     var body: some View {
+        // Conditional rendering: Show pill with data or loading state
         if let hudData = hudManager.currentHUDData {
             vfiPill(hudData: hudData)
         } else {
@@ -17,7 +91,17 @@ struct VFIWidget: View {
         }
     }
 
-    // MARK: - VFI Pill Display
+    // MARK: - Private Views
+
+    /// Creates the main VFI pill display with sacred number and frequency
+    ///
+    /// Displays a capsule-shaped button containing:
+    /// - Sacred number (1-9, 11, 22, 33, etc.) with chakra-inspired gradient
+    /// - VFI frequency in VHz format (e.g., "523 VHz")
+    /// - Consciousness glow border reflecting frequency zone
+    ///
+    /// - Parameter hudData: Current HUD data containing VFI and sacred number
+    /// - Returns: Interactive button view that opens detailed modal
     private func vfiPill(hudData: HUDData) -> some View {
         Button(action: {
             withAnimation(.spring(duration: 0.3)) {
@@ -56,7 +140,13 @@ struct VFIWidget: View {
         }
     }
 
-    // MARK: - Loading State
+    /// Loading state pill displayed while HUD data is being calculated
+    ///
+    /// Shows a minimalist placeholder with "• VHz" format to indicate
+    /// the widget is active but data is not yet available. Uses reduced
+    /// opacity and triggers data refresh on appearance.
+    ///
+    /// - Returns: Placeholder view with loading indicator
     private var loadingPill: some View {
         HStack(spacing: 4) {
             Text("•")
@@ -83,6 +173,18 @@ struct VFIWidget: View {
 
     // MARK: - Visual Styling
 
+    /// Generates chakra-inspired color gradients for sacred numbers
+    ///
+    /// Provides visual differentiation based on numerological significance:
+    /// - Numbers 1-9: Individual chakra colors (1=red, 2=orange, etc.)
+    /// - Master numbers (11, 22, 33, etc.): Golden rainbow gradient
+    /// - Default: Gray-white gradient for unknown numbers
+    ///
+    /// The color system follows traditional chakra associations for
+    /// immediate spiritual recognition and energetic resonance.
+    ///
+    /// - Parameter number: Sacred number to generate gradient for
+    /// - Returns: LinearGradient with appropriate spiritual colors
     private func sacredNumberGradient(_ number: Int) -> LinearGradient {
         switch number {
         case 1...9:
@@ -105,6 +207,15 @@ struct VFIWidget: View {
         }
     }
 
+    /// Retrieves specific chakra color pairs for single-digit sacred numbers
+    ///
+    /// Maps each number (1-9) to its corresponding chakra color system:
+    /// 1: Root (red-orange), 2: Sacral (orange-yellow), 3: Solar Plexus (yellow-green),
+    /// 4: Heart (green-blue), 5: Throat (blue-indigo), 6: Third Eye (indigo-purple),
+    /// 7: Crown (purple-white), 8: Earth Power (brown-orange), 9: Universal (white-cyan)
+    ///
+    /// - Parameter number: Sacred number (1-9) to get colors for
+    /// - Returns: Array of two colors for gradient creation
     private func getChakraColors(for number: Int) -> [Color] {
         switch number {
         case 1: return [.red, .orange]          // Root chakra
@@ -120,6 +231,17 @@ struct VFIWidget: View {
         }
     }
 
+    /// Determines border glow color based on consciousness frequency zones
+    ///
+    /// Maps VFI ranges to appropriate spiritual colors:
+    /// - 20-200 VHz: Red (Lower frequencies - Survival & Security)
+    /// - 200-400 VHz: Orange (Growth frequencies - Building Courage)
+    /// - 400-600 VHz: Green (Love frequencies - Heart-centered Awareness)
+    /// - 600-800 VHz: Blue (Joy frequencies - Elevated Consciousness)
+    /// - 800+ VHz: Purple (Unity frequencies - Transcendence)
+    ///
+    /// - Parameter vfi: Current consciousness frequency in VHz
+    /// - Returns: Color with appropriate opacity for border glow effect
     private func consciousnessGlow(_ vfi: Double) -> Color {
         switch vfi {
         case 20..<200: return .red.opacity(0.3)      // Lower frequencies
@@ -134,10 +256,56 @@ struct VFIWidget: View {
 }
 
 // MARK: - VFI Detail Sheet
+
+/**
+ * VFI Detail View - Comprehensive Consciousness Algorithm Insights
+ * ==============================================================
+ *
+ * Expanded modal view providing deep insights into the VFI calculation
+ * and consciousness algorithm. Presented as a sheet when users tap the
+ * VFI pill widget, offering educational and spiritual value.
+ *
+ * ## Content Sections
+ *
+ * 1. **Hero Section**: Animated VFI display with pulsing gradient effects
+ * 2. **Sacred Number**: Detailed meaning and significance
+ * 3. **Algorithm Breakdown**: Interactive 4-step process explanation
+ * 4. **Frequency Zone**: Visual representation of consciousness state
+ * 5. **Spiritual Insights**: Personalized guidance based on current frequency
+ *
+ * ## Technical Features
+ *
+ * - **Smooth Animations**: Gradient pulsing, scale effects, rotation
+ * - **Interactive Elements**: Expandable algorithm breakdown
+ * - **Scrollable Content**: Handles varying insight lengths
+ * - **Accessibility**: Full VoiceOver support with semantic labels
+ * - **Performance**: Optimized rendering with proper state management
+ *
+ * ## Algorithm Transparency
+ *
+ * Provides complete visibility into the Master Consciousness Algorithm:
+ * 1. Temporal Essence: Date & time → spiritual singularities
+ * 2. Sacred Detection: Fibonacci, Tesla 3-6-9, prime patterns
+ * 3. Cosmic Alignment: Planetary positions & lunar phases
+ * 4. Consciousness Map: 20-1000+ VHz frequency spectrum
+ */
 struct VFIDetailView: View {
+    // MARK: - Dependencies
+
+    /// HUD data containing VFI calculation results and metadata
     let hudData: HUDData
+
+    // MARK: - Environment
+
+    /// Dismissal environment for modal presentation
     @Environment(\.dismiss) private var dismiss
+
+    // MARK: - Animation State
+
+    /// Controls gradient animation cycling for visual appeal
     @State private var animateGradient = false
+
+    /// Controls visibility of algorithm breakdown section
     @State private var showBreakdown = false
 
     var body: some View {
