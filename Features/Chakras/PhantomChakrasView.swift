@@ -155,7 +155,7 @@ struct PhantomChakrasView: View {
             }
         }
         .sheet(isPresented: $showingMeditation) {
-            MeditationView()
+            MeditationSelectionView()
                 .environmentObject(chakraManager)
         }
         .onAppear {
@@ -382,6 +382,7 @@ struct MeditationView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var meditationProgress: Double = 0
     @State private var pulseAnimation = false
+    @State private var showHRVBiofeedback = false
 
     var body: some View {
         NavigationView {
@@ -452,6 +453,30 @@ struct MeditationView: View {
 
                     Spacer()
 
+                    // HRV Biofeedback Toggle
+                    Button(action: {
+                        showHRVBiofeedback.toggle()
+                    }) {
+                        HStack {
+                            Image(systemName: showHRVBiofeedback ? "waveform.path.ecg" : "waveform.path")
+                                .font(.title2)
+                            Text(showHRVBiofeedback ? "Hide Heart Waves" : "Show Heart Waves")
+                                .font(.subheadline)
+                                .fontWeight(.medium)
+                        }
+                        .foregroundColor(.cyan)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .background(
+                            Capsule()
+                                .fill(Color.white.opacity(0.1))
+                                .overlay(
+                                    Capsule()
+                                        .stroke(Color.cyan.opacity(0.3), lineWidth: 1)
+                                )
+                        )
+                    }
+
                     // Controls
                     HStack(spacing: 40) {
                         Button(action: {
@@ -477,6 +502,9 @@ struct MeditationView: View {
                     }
                     .padding(.bottom, 40)
                 }
+
+                // HRV Biofeedback Overlay
+                HRVBiofeedbackView.asOverlay(isVisible: $showHRVBiofeedback)
             }
             .navigationBarHidden(true)
             .onAppear {

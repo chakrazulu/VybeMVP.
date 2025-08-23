@@ -1,0 +1,338 @@
+{
+  "consciousness_zones": {
+    "survival": {
+      "range": [20, 100],
+      "description": "Survival and fear states - primal consciousness",
+      "color": "#FF0000",
+      "gradient": ["#8B0000", "#FF0000", "#FF4500"],
+      "chakra": "root",
+      "emotions": ["shame", "guilt", "apathy", "grief"],
+      "hrv_pattern": "erratic",
+      "biometric_markers": {
+        "hrv_coherence": [0.0, 0.2],
+        "heart_rate_elevation": [15, 30],
+        "breathing_rate": [18, 24]
+      }
+    },
+    "courage": {
+      "range": [100, 200],
+      "description": "Building courage and taking action",
+      "color": "#FFA500",
+      "gradient": ["#FF8C00", "#FFA500", "#FFD700"],
+      "chakra": "sacral",
+      "emotions": ["fear", "desire", "anger", "pride"],
+      "hrv_pattern": "transitional",
+      "biometric_markers": {
+        "hrv_coherence": [0.2, 0.35],
+        "heart_rate_elevation": [10, 20],
+        "breathing_rate": [14, 18]
+      }
+    },
+    "neutrality": {
+      "range": [200, 350],
+      "description": "Neutrality and willingness - balanced state",
+      "color": "#FFFF00",
+      "gradient": ["#FFD700", "#FFFF00", "#FFFFE0"],
+      "chakra": "solar_plexus",
+      "emotions": ["courage", "neutrality", "willingness"],
+      "hrv_pattern": "stabilizing",
+      "biometric_markers": {
+        "hrv_coherence": [0.35, 0.5],
+        "heart_rate_elevation": [5, 15],
+        "breathing_rate": [12, 16]
+      }
+    },
+    "acceptance": {
+      "range": [350, 400],
+      "description": "Acceptance and reason - mental clarity",
+      "color": "#90EE90",
+      "gradient": ["#228B22", "#90EE90", "#98FB98"],
+      "chakra": "heart_transition",
+      "emotions": ["acceptance", "reason"],
+      "hrv_pattern": "harmonizing",
+      "biometric_markers": {
+        "hrv_coherence": [0.5, 0.6],
+        "heart_rate_elevation": [0, 10],
+        "breathing_rate": [10, 14]
+      }
+    },
+    "love": {
+      "range": [400, 600],
+      "description": "Love and reverence - heart-centered awareness",
+      "color": "#00FF00",
+      "gradient": ["#006400", "#00FF00", "#00FA9A"],
+      "chakra": "heart",
+      "emotions": ["love", "reverence", "gratitude"],
+      "hrv_pattern": "coherent",
+      "biometric_markers": {
+        "hrv_coherence": [0.6, 0.75],
+        "heart_rate_elevation": [-5, 5],
+        "breathing_rate": [8, 12]
+      }
+    },
+    "joy": {
+      "range": [600, 700],
+      "description": "Joy and peace - elevated consciousness",
+      "color": "#0000FF",
+      "gradient": ["#000080", "#0000FF", "#00BFFF"],
+      "chakra": "throat",
+      "emotions": ["joy", "serenity", "peace"],
+      "hrv_pattern": "highly_coherent",
+      "biometric_markers": {
+        "hrv_coherence": [0.75, 0.85],
+        "heart_rate_elevation": [-10, 0],
+        "breathing_rate": [6, 10]
+      }
+    },
+    "enlightenment": {
+      "range": [700, 1000],
+      "description": "Enlightenment and unity - transcendent awareness",
+      "color": "#9400D3",
+      "gradient": ["#4B0082", "#9400D3", "#DDA0DD"],
+      "chakra": "crown",
+      "emotions": ["bliss", "enlightenment", "pure_consciousness"],
+      "hrv_pattern": "transcendent",
+      "biometric_markers": {
+        "hrv_coherence": [0.85, 1.0],
+        "heart_rate_elevation": [-15, -5],
+        "breathing_rate": [4, 8]
+      }
+    }
+  },
+  "numerology_mapping": {
+    "0": {
+      "zone": "void",
+      "baseline_frequency": 0,
+      "description": "The Void - Infinite potential beyond the chart",
+      "zone_modifier": 0.0,
+      "color": "#000000",
+      "special_properties": ["quantum_potential", "pre_manifestation"]
+    },
+    "1": {
+      "zone": "courage",
+      "baseline_frequency": 200,
+      "description": "Initiating energy - Leadership and new beginnings",
+      "zone_modifier": 1.0,
+      "color": "#FF0000",
+      "chakra": "root",
+      "archetypal_qualities": ["pioneer", "leader", "innovator"],
+      "hrv_amplifier": 1.1
+    },
+    "2": {
+      "zone": "acceptance",
+      "baseline_frequency": 350,
+      "description": "Balance and cooperation - Partnership energy",
+      "zone_modifier": 0.95,
+      "color": "#FFA500",
+      "chakra": "sacral",
+      "archetypal_qualities": ["diplomat", "peacemaker", "partner"],
+      "hrv_amplifier": 1.05
+    },
+    "3": {
+      "zone": "joy",
+      "baseline_frequency": 540,
+      "description": "Creative expression - Joyful manifestation",
+      "zone_modifier": 1.15,
+      "color": "#FFFF00",
+      "chakra": "solar_plexus",
+      "archetypal_qualities": ["artist", "communicator", "entertainer"],
+      "hrv_amplifier": 1.2
+    },
+    "4": {
+      "zone": "neutrality",
+      "baseline_frequency": 400,
+      "description": "Structure and stability - Foundation building",
+      "zone_modifier": 0.9,
+      "color": "#00FF00",
+      "chakra": "heart",
+      "archetypal_qualities": ["builder", "organizer", "stabilizer"],
+      "hrv_amplifier": 0.95
+    },
+    "5": {
+      "zone": "neutrality",
+      "baseline_frequency": 250,
+      "description": "Freedom and curiosity - Dynamic exploration",
+      "zone_modifier": 1.25,
+      "color": "#00FFFF",
+      "chakra": "throat",
+      "archetypal_qualities": ["explorer", "adventurer", "freedom_seeker"],
+      "hrv_amplifier": 1.3
+    },
+    "6": {
+      "zone": "love",
+      "baseline_frequency": 500,
+      "description": "Harmony and nurturing - Unconditional love",
+      "zone_modifier": 1.0,
+      "color": "#0000FF",
+      "chakra": "third_eye",
+      "archetypal_qualities": ["nurturer", "healer", "teacher"],
+      "hrv_amplifier": 1.15
+    },
+    "7": {
+      "zone": "joy",
+      "baseline_frequency": 600,
+      "description": "Inner knowing - Spiritual wisdom",
+      "zone_modifier": 1.1,
+      "color": "#4B0082",
+      "chakra": "crown",
+      "archetypal_qualities": ["mystic", "seeker", "philosopher"],
+      "hrv_amplifier": 1.25
+    },
+    "8": {
+      "zone": "courage",
+      "baseline_frequency": 175,
+      "description": "Power and mastery - Material and spiritual balance",
+      "zone_modifier": 1.35,
+      "color": "#8B4513",
+      "chakra": "earth_star",
+      "archetypal_qualities": ["master", "authority", "manifestor"],
+      "hrv_amplifier": 1.4
+    },
+    "9": {
+      "zone": "enlightenment",
+      "baseline_frequency": 700,
+      "description": "Universal consciousness - Completion and transcendence",
+      "zone_modifier": 1.5,
+      "color": "#FFFFFF",
+      "chakra": "soul_star",
+      "archetypal_qualities": ["humanitarian", "universalist", "sage"],
+      "hrv_amplifier": 1.5
+    },
+    "11": {
+      "zone": "bridge",
+      "baseline_frequency": 445,
+      "description": "Master Intuition - Bridge between acceptance and joy",
+      "zone_modifier": 1.11,
+      "color": "#FFD700",
+      "special_properties": ["intuitive_mastery", "psychic_awareness"],
+      "bridge_zones": ["acceptance", "joy"],
+      "hrv_amplifier": 1.33
+    },
+    "22": {
+      "zone": "bridge",
+      "baseline_frequency": 425,
+      "description": "Master Builder - Bridge between willingness and love",
+      "zone_modifier": 1.22,
+      "color": "#FF69B4",
+      "special_properties": ["practical_mastery", "manifestation_power"],
+      "bridge_zones": ["neutrality", "love"],
+      "hrv_amplifier": 1.44
+    },
+    "33": {
+      "zone": "bridge",
+      "baseline_frequency": 520,
+      "description": "Master Teacher - Bridge between love and joy",
+      "zone_modifier": 1.33,
+      "color": "#FF1493",
+      "special_properties": ["compassion_mastery", "healing_wisdom"],
+      "bridge_zones": ["love", "joy"],
+      "hrv_amplifier": 1.55
+    },
+    "44": {
+      "zone": "bridge",
+      "baseline_frequency": 500,
+      "description": "Master Healer - Bridge between reason and peace",
+      "zone_modifier": 1.44,
+      "color": "#00CED1",
+      "special_properties": ["healing_mastery", "earth_wisdom"],
+      "bridge_zones": ["acceptance", "joy"],
+      "hrv_amplifier": 1.66
+    },
+    "55": {
+      "zone": "enlightenment",
+      "baseline_frequency": 750,
+      "description": "Master of Freedom - Pure liberation consciousness",
+      "zone_modifier": 1.55,
+      "color": "#E6E6FA",
+      "special_properties": ["freedom_mastery", "quantum_awareness"],
+      "hrv_amplifier": 1.77
+    },
+    "66": {
+      "zone": "love",
+      "baseline_frequency": 550,
+      "description": "Master Nurturer - Divine maternal consciousness",
+      "zone_modifier": 1.66,
+      "color": "#FFC0CB",
+      "special_properties": ["nurturing_mastery", "cosmic_mother"],
+      "hrv_amplifier": 1.88
+    },
+    "77": {
+      "zone": "enlightenment",
+      "baseline_frequency": 777,
+      "description": "Master Mystic - Direct cosmic consciousness",
+      "zone_modifier": 1.77,
+      "color": "#DA70D6",
+      "special_properties": ["mystical_mastery", "akashic_access"],
+      "hrv_amplifier": 1.99
+    }
+  },
+  "biometric_fusion_algorithm": {
+    "base_calculation": "baseline_frequency + (hrv_coherence * 200) + (breathing_coherence * 50)",
+    "modifiers": {
+      "heart_rate_variance": {
+        "low": -50,
+        "normal": 0,
+        "high": -30
+      },
+      "mindfulness_minutes": {
+        "formula": "log(minutes + 1) * 20"
+      },
+      "activity_level": {
+        "sedentary": 0,
+        "light": 10,
+        "moderate": 15,
+        "vigorous": -10
+      }
+    },
+    "personalization": {
+      "baseline_calibration_period_days": 14,
+      "user_specific_weights": {
+        "hrv_weight": 0.4,
+        "numerology_weight": 0.3,
+        "cosmic_weight": 0.2,
+        "pattern_weight": 0.1
+      }
+    }
+  },
+  "coherence_patterns": {
+    "incoherent": {
+      "description": "Erratic, jagged heart rhythm - stress/frustration",
+      "frequency_modifier": -100,
+      "hrv_signature": "high_variability_chaotic"
+    },
+    "transitional": {
+      "description": "Moving toward coherence - mixed emotional state",
+      "frequency_modifier": 0,
+      "hrv_signature": "moderate_variability_organizing"
+    },
+    "coherent": {
+      "description": "Smooth, sine-wave rhythm - positive emotions",
+      "frequency_modifier": 100,
+      "hrv_signature": "regular_sine_wave_0.1hz"
+    },
+    "super_coherent": {
+      "description": "Perfect resonance - peak performance state",
+      "frequency_modifier": 200,
+      "hrv_signature": "perfect_sine_wave_sustained"
+    }
+  },
+  "visualization_config": {
+    "frequency_meter": {
+      "min": 20,
+      "max": 1000,
+      "logarithmic_scale": true,
+      "color_gradient": "zone_based",
+      "animation_speed": 0.5
+    },
+    "coherence_display": {
+      "waveform_type": "real_time_hrv",
+      "color_mapping": "coherence_based",
+      "particle_effects": true
+    },
+    "sacred_geometry": {
+      "patterns": ["flower_of_life", "metatron_cube", "sri_yantra"],
+      "rotation_speed": "frequency_dependent",
+      "opacity": "coherence_dependent"
+    }
+  }
+}

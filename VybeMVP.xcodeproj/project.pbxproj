@@ -548,6 +548,20 @@
 		4DF986912E554A1200BD720A /* KASPERFirebaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF986902E554A1200BD720A /* KASPERFirebaseProvider.swift */; };
 		4DF992372E57FC7800BD720A /* MasterConsciousnessEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF992362E57FC7800BD720A /* MasterConsciousnessEngine.swift */; };
 		4DF992392E58186D00BD720A /* VFIWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF992382E58186D00BD720A /* VFIWidget.swift */; };
+		4DF9923D2E591F5100BD720A /* HawkinsNumerologyMapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 4DF9923B2E591F5100BD720A /* HawkinsNumerologyMapping.json */; };
+		4DF9923E2E591F5100BD720A /* HawkinsConsciousnessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF9923A2E591F5100BD720A /* HawkinsConsciousnessModel.swift */; };
+		4DF992402E59275B00BD720A /* VFIModelCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF9923F2E59275B00BD720A /* VFIModelCard.swift */; };
+		4DF992422E59318D00BD720A /* HRVBiofeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF992412E59318D00BD720A /* HRVBiofeedbackView.swift */; };
+		4DF992472E5948C700BD720A /* MeditationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF992452E5948C700BD720A /* MeditationType.swift */; };
+		4DF992482E5948C700BD720A /* MeditationSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF992442E5948C700BD720A /* MeditationSessionView.swift */; };
+		4DF992492E5948C700BD720A /* MeditationSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF992432E5948C700BD720A /* MeditationSelectionView.swift */; };
+		4DF9924B2E5971D200BD720A /* MeditationHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF9924A2E5971D200BD720A /* MeditationHistoryView.swift */; };
+		4DF9924D2E5978DE00BD720A /* MeditationSessionConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF9924C2E5978DE00BD720A /* MeditationSessionConfig.swift */; };
+		4DF9924F2E597C1900BD720A /* MeditationHistoryViewSimple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF9924E2E597C1900BD720A /* MeditationHistoryViewSimple.swift */; };
+		4DF992512E59E6B200BD720A /* MeditationSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF992502E59E6B200BD720A /* MeditationSession.swift */; };
+		4DF99C372E59F0D100BD720A /* MeditationHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF99C362E59F0D100BD720A /* MeditationHistoryManager.swift */; };
+		4DF99C392E5A147700BD720A /* MEDITATION_SYSTEM_DOCUMENTATION.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DF99C382E5A147700BD720A /* MEDITATION_SYSTEM_DOCUMENTATION.md */; };
+		4DF99C3B2E5A18D500BD720A /* MeditationConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF99C3A2E5A18D500BD720A /* MeditationConfigurationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1138,6 +1152,20 @@
 		4DF986902E554A1200BD720A /* KASPERFirebaseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KASPERFirebaseProvider.swift; sourceTree = "<group>"; };
 		4DF992362E57FC7800BD720A /* MasterConsciousnessEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterConsciousnessEngine.swift; sourceTree = "<group>"; };
 		4DF992382E58186D00BD720A /* VFIWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VFIWidget.swift; sourceTree = "<group>"; };
+		4DF9923A2E591F5100BD720A /* HawkinsConsciousnessModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HawkinsConsciousnessModel.swift; sourceTree = "<group>"; };
+		4DF9923B2E591F5100BD720A /* HawkinsNumerologyMapping.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = HawkinsNumerologyMapping.json; sourceTree = "<group>"; };
+		4DF9923F2E59275B00BD720A /* VFIModelCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VFIModelCard.swift; sourceTree = "<group>"; };
+		4DF992412E59318D00BD720A /* HRVBiofeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVBiofeedbackView.swift; sourceTree = "<group>"; };
+		4DF992432E5948C700BD720A /* MeditationSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationSelectionView.swift; sourceTree = "<group>"; };
+		4DF992442E5948C700BD720A /* MeditationSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationSessionView.swift; sourceTree = "<group>"; };
+		4DF992452E5948C700BD720A /* MeditationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationType.swift; sourceTree = "<group>"; };
+		4DF9924A2E5971D200BD720A /* MeditationHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationHistoryView.swift; sourceTree = "<group>"; };
+		4DF9924C2E5978DE00BD720A /* MeditationSessionConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationSessionConfig.swift; sourceTree = "<group>"; };
+		4DF9924E2E597C1900BD720A /* MeditationHistoryViewSimple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationHistoryViewSimple.swift; sourceTree = "<group>"; };
+		4DF992502E59E6B200BD720A /* MeditationSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationSession.swift; sourceTree = "<group>"; };
+		4DF99C362E59F0D100BD720A /* MeditationHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationHistoryManager.swift; sourceTree = "<group>"; };
+		4DF99C382E5A147700BD720A /* MEDITATION_SYSTEM_DOCUMENTATION.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MEDITATION_SYSTEM_DOCUMENTATION.md; sourceTree = "<group>"; };
+		4DF99C3A2E5A18D500BD720A /* MeditationConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationConfigurationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -1250,6 +1278,7 @@
 		4D2DB47D2DFF43390003353E /* Chakras */ = {
 			isa = PBXGroup;
 			children = (
+				4DF992412E59318D00BD720A /* HRVBiofeedbackView.swift */,
 				4D2DB4782DFF43390003353E /* ChakraManager.swift */,
 				4D2DB4792DFF43390003353E /* ChakraModel.swift */,
 				4D2DB47A2DFF43390003353E /* ChakraSymbolView.swift */,
@@ -1590,6 +1619,7 @@
 		4D6528992E49AC1500F521E1 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				4DF9923F2E59275B00BD720A /* VFIModelCard.swift */,
 				4D6528982E49AC1500F521E1 /* KASPERProviderSettingsView.swift */,
 			);
 			path = Settings;
@@ -2000,6 +2030,7 @@
 		4DA359AE2E3F135B0010101F /* KASPERMLX */ = {
 			isa = PBXGroup;
 			children = (
+				4DF9923C2E591F5100BD720A /* ConsciousnessMapping */,
 				4D5545AF2E54219500369B4D /* QualityGate */,
 				4DAAD7432E4EE4FE00B064C1 /* FirebaseInsights */,
 				4D7CCC822E4EC8D5001642EF /* ContentSelection */,
@@ -2109,6 +2140,7 @@
 		4DC6022E2D34440900B5E4A9 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4DF992462E5948C700BD720A /* Meditation */,
 				4D55BE552E3AC1DB00F7BE5B /* CosmicHUD */,
 				4D6308D92DFFCB2C00FD32E9 /* Social */,
 				4D2DB4892DFF6ABA0003353E /* Sightings */,
@@ -2376,6 +2408,32 @@
 			path = SpiritualDatabase;
 			sourceTree = "<group>";
 		};
+		4DF9923C2E591F5100BD720A /* ConsciousnessMapping */ = {
+			isa = PBXGroup;
+			children = (
+				4DF9923A2E591F5100BD720A /* HawkinsConsciousnessModel.swift */,
+				4DF9923B2E591F5100BD720A /* HawkinsNumerologyMapping.json */,
+			);
+			path = ConsciousnessMapping;
+			sourceTree = "<group>";
+		};
+		4DF992462E5948C700BD720A /* Meditation */ = {
+			isa = PBXGroup;
+			children = (
+				4DF99C3A2E5A18D500BD720A /* MeditationConfigurationView.swift */,
+				4DF99C382E5A147700BD720A /* MEDITATION_SYSTEM_DOCUMENTATION.md */,
+				4DF99C362E59F0D100BD720A /* MeditationHistoryManager.swift */,
+				4DF9924E2E597C1900BD720A /* MeditationHistoryViewSimple.swift */,
+				4DF992502E59E6B200BD720A /* MeditationSession.swift */,
+				4DF9924C2E5978DE00BD720A /* MeditationSessionConfig.swift */,
+				4DF9924A2E5971D200BD720A /* MeditationHistoryView.swift */,
+				4DF992432E5948C700BD720A /* MeditationSelectionView.swift */,
+				4DF992442E5948C700BD720A /* MeditationSessionView.swift */,
+				4DF992452E5948C700BD720A /* MeditationType.swift */,
+			);
+			path = Meditation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2550,6 +2608,7 @@
 				4DCB39432E1F78AE00311D51 /* mystery_magic.svg in Resources */,
 				4DCB39442E1F78AE00311D51 /* trinity_logos.svg in Resources */,
 				4DDA0A452E47CC3800449F20 /* expression_33_behavioral.json in Resources */,
+				4DF9923D2E591F5100BD720A /* HawkinsNumerologyMapping.json in Resources */,
 				4DCB39452E1F78AE00311D51 /* void_crystal.svg in Resources */,
 				4DDA0A2A2E47C77900449F20 /* soulUrge_33_v3.0_converted.json in Resources */,
 				4DCB39462E1F78AE00311D51 /* duality_mirror.svg in Resources */,
@@ -2573,6 +2632,7 @@
 				4D5929AB2E4933BA002625DE /* VybeCore-Overview.md in Resources */,
 				4D731FD82E474A0F0083C82C /* lifePath_03_v2.0_converted.json in Resources */,
 				4DDA0A592E47CEB300449F20 /* expression_08_converted.json in Resources */,
+				4DF99C392E5A147700BD720A /* MEDITATION_SYSTEM_DOCUMENTATION.md in Resources */,
 				4D731FD92E474A0F0083C82C /* grok_mindfulnesscoach_33_converted.json in Resources */,
 				4D6528C12E4C0F4F00F521E1 /* LlmVybeCommands.md in Resources */,
 				4D731FDB2E474A0F0083C82C /* NumerologyScholar_Number_33_original.md in Resources */,
@@ -2858,6 +2918,7 @@
 				4DDCE0062E3146B4005FDD32 /* TestConfiguration.swift in Sources */,
 				4DCB38742E1B4CDB00311D51 /* ProfileSetupView.swift in Sources */,
 				4DCB38722E1B3CDD00311D51 /* KASPERManager.swift in Sources */,
+				4DF99C372E59F0D100BD720A /* MeditationHistoryManager.swift in Sources */,
 				4D3727082DE48D7100B5A02B /* NotificationNames.swift in Sources */,
 				4DF77E482E35660500B6D45E /* VybeConstants.swift in Sources */,
 				4DA98F972E0722E800FAE5FF /* Comment.swift in Sources */,
@@ -2867,6 +2928,9 @@
 				4DA642642D8122590047287B /* HealthKitManaging.swift in Sources */,
 				4DF986912E554A1200BD720A /* KASPERFirebaseProvider.swift in Sources */,
 				4DB233FF2E121BF7004EC2BC /* PerformanceMonitor.swift in Sources */,
+				4DF992472E5948C700BD720A /* MeditationType.swift in Sources */,
+				4DF992482E5948C700BD720A /* MeditationSessionView.swift in Sources */,
+				4DF992492E5948C700BD720A /* MeditationSelectionView.swift in Sources */,
 				4DAAD7442E4EE4FE00B064C1 /* DeployMultiplicationAgents.swift in Sources */,
 				4DAAD7452E4EE4FE00B064C1 /* NumberMultiplicationSystem.swift in Sources */,
 				4DBD0A8F2D3DBF8B00AD51D6 /* RealmNumberView.swift in Sources */,
@@ -2906,6 +2970,7 @@
 				4D2CC6F22E08680400BDF100 /* MandalaBackgroundView.swift in Sources */,
 				4D3055EB2D3CF492009A7BBD /* NumberCell.swift in Sources */,
 				4D3055DF2D3CE8AE009A7BBD /* JournalView.swift in Sources */,
+				4DF9924B2E5971D200BD720A /* MeditationHistoryView.swift in Sources */,
 				4D3727102DE5407100B5A02B /* InsightHistoryView.swift in Sources */,
 				4D6528762E49A59300F521E1 /* NumberRichContent.swift in Sources */,
 				4D80E0FD2D3F1B0B0020F7BB /* RealmNumberDetailView.swift in Sources */,
@@ -2913,6 +2978,7 @@
 				4D731D642E45A7230083C82C /* KASPERAppleFoundationIntegration.swift in Sources */,
 				4D731D652E45A7230083C82C /* KASPERMegaCorpusProcessor.swift in Sources */,
 				4D731D662E45A7230083C82C /* KASPERRLHFSystem.swift in Sources */,
+				4DF992422E59318D00BD720A /* HRVBiofeedbackView.swift in Sources */,
 				4D2CC70E2E0B9E5200BDF100 /* RealmSample.swift in Sources */,
 				4D3055E72D3CEEC9009A7BBD /* JournalEntryDetailView.swift in Sources */,
 				4DCB38782E1F647B00311D51 /* SVGPathExtractor.swift in Sources */,
@@ -2925,6 +2991,7 @@
 				4D2DB4912DFF70E00003353E /* SharedUIComponents.swift in Sources */,
 				4D3055EE2D3CF838009A7BBD /* OldLogger.swift in Sources */,
 				4D2CC7122E0B9EDF00BDF100 /* DynamicAssetMandalaView.swift in Sources */,
+				4DF99C3B2E5A18D500BD720A /* MeditationConfigurationView.swift in Sources */,
 				4D37271C2DE554B700B5A02B /* ActivityView.swift in Sources */,
 				4DB1B4C42E4850F900F1585A /* KASPERLinguisticEnhancerV2.swift in Sources */,
 				4D6C7BAD2DE47F55001036E5 /* AuthService.swift in Sources */,
@@ -2948,6 +3015,7 @@
 				4DA98F992E07230500FAE5FF /* CommentManager.swift in Sources */,
 				4DDCE0042E31468A005FDD32 /* AstrologyHouseCalculator.swift in Sources */,
 				4D2CC7032E08C78C00BDF100 /* UserProfile.swift in Sources */,
+				4DF9924D2E5978DE00BD720A /* MeditationSessionConfig.swift in Sources */,
 				4D65289A2E49AC1500F521E1 /* KASPERProviderSettingsView.swift in Sources */,
 				4DF6AACA2E3AF79200E0937E /* CosmicInsightEngine.swift in Sources */,
 				4DF7A0952E41822600D5AC19 /* AstrologicalMode.swift in Sources */,
@@ -2980,6 +3048,7 @@
 				4DCEE4802E3433CF007CA451 /* AstrologyService.swift in Sources */,
 				4D6C7B5F2DE45C07001036E5 /* AuthenticationWrapperView.swift in Sources */,
 				4DA01CB22D8534BF0070309D /* NumberMatchNotificationView.swift in Sources */,
+				4DF9924F2E597C1900BD720A /* MeditationHistoryViewSimple.swift in Sources */,
 				4DDCDFCD2E2C63D9005FDD32 /* FriendRequest.swift in Sources */,
 				4D6C7B572DE4546C001036E5 /* ResonanceMatch.swift in Sources */,
 				4D6528CB2E4C478200F521E1 /* KASPERPersonaTrainingManager.swift in Sources */,
@@ -3034,6 +3103,7 @@
 				4D6C7B512DE453B1001036E5 /* UserArchetypeManager.swift in Sources */,
 				4D6528A42E4B86D500F521E1 /* KASPERInsightEvaluator.swift in Sources */,
 				4D6528A52E4B86D500F521E1 /* EvaluationIntegrationTest.swift in Sources */,
+				4DF992512E59E6B200BD720A /* MeditationSession.swift in Sources */,
 				4D92F4BA2D4DE1E80001A16E /* FocusNumberManager.swift in Sources */,
 				4DB233FB2E11F400004EC2BC /* ScrollSafeCosmicView.swift in Sources */,
 				4DCB38762E1B637400311D51 /* EditPostView.swift in Sources */,
@@ -3070,6 +3140,7 @@
 				4D1AB6ED2E48DCA300E6982A /* KASPERRuntimeBundleDebug.swift in Sources */,
 				4DCB386C2E1AAF1C00311D51 /* UserProfileView.swift in Sources */,
 				4D1AB5F42E48CC2700E6982A /* KASPERContentRouter.swift in Sources */,
+				4DF992402E59275B00BD720A /* VFIModelCard.swift in Sources */,
 				4D2CC70C2E08EAD200BDF100 /* StaticAssetMandalaView.swift in Sources */,
 				4D2CC6F02E079B6D00BDF100 /* SacredGeometry3DView.swift in Sources */,
 				4DDCE0082E3146DC005FDD32 /* NumberPatternGenerator.swift in Sources */,
@@ -3079,6 +3150,7 @@
 				4D65287A2E49A5E900F521E1 /* NumberMeaningViewModel.swift in Sources */,
 				4DF77E4D2E358B2E00B6D45E /* FirebasePostRepository.swift in Sources */,
 				4D6528972E49AAB500F521E1 /* KASPEROrchestrator.swift in Sources */,
+				4DF9923E2E591F5100BD720A /* HawkinsConsciousnessModel.swift in Sources */,
 				4D65288E2E49A95D00F521E1 /* CosmicDataProvider.swift in Sources */,
 				4D65288F2E49A95D00F521E1 /* MegaCorpusDataProvider.swift in Sources */,
 				4D6528902E49A95D00F521E1 /* KASPERTemplateProvider.swift in Sources */,

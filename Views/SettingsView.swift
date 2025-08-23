@@ -273,6 +273,20 @@ struct SettingsView: View {
             // Claude: 🌌 COSMIC HUD - Revolutionary Omnipresent Spiritual Awareness
             CosmicHUDSettings()
 
+            // VFI Transparency Section
+            Section(header: Text("CONSCIOUSNESS")) {
+                NavigationLink(destination: VFIModelCard()) {
+                    Label("About VFI System", systemImage: "waveform.path.ecg")
+                        .foregroundColor(.purple)
+                }
+
+                // TODO: Re-enable once KASPER consciousness integration complete
+                // NavigationLink(destination: ConsciousnessCalibrationView()) {
+                //     Label("Learning & Calibration", systemImage: "brain.head.profile")
+                //         .foregroundColor(.blue)
+                // }
+            }
+
             // Testing Section
             Section(header: Text("TESTING")) {
                 NavigationLink(destination: TestingView()) {

@@ -140,6 +140,10 @@ struct RealmNumberView: View {
                         .shadow(color: .white.opacity(0.3), radius: 5, x: 0, y: 2)
                         .padding(.top, 50)
 
+                    // VFI Consciousness HUD Widget - Unified consciousness indicator
+                    VFIWidget()
+                        .environmentObject(CosmicHUDManager.shared)
+
                     // Enhanced glowing realm number display (FIXED - removed outer circle)
                     mysticalRealmNumberDisplay
 

@@ -2,7 +2,46 @@
 **From B+ (83/100) to A+ (95/100) Architectural Mastery**
 
 *Generated from comprehensive codebase audit and ChatGPT-4o validation*
-*Last Updated: August 13, 2025*
+*Updated with Hawkins Consciousness Integration Audit: August 22, 2025*
+
+---
+
+## 🚨 **CRITICAL TECHNICAL DEBT AUDIT (August 22, 2025)**
+
+### **Hawkins Consciousness Integration Issues**
+
+#### **🚫 Build-Breaking Issues (RESOLVED)**
+- ✅ **SwiftData Container Error**: Fixed undefined `Container.schema` in ConsciousnessCalibrationView
+- ✅ **Missing Type References**: Fixed `FrequencyDetector` and `CoherenceAnalysis` scope issues
+- ✅ **Commented Core Functionality**: Cleaned up disabled ConsciousnessMapper references
+
+#### **⚠️ Architecture Concerns**
+1. **Singleton Pattern Overuse**: 4+ consciousness classes using `static let shared`
+   - Risk: Circular dependencies, memory leaks, testing difficulties
+   - Impact: `ConsciousnessMapper` → 4 different singletons
+   - **Action Required**: Convert to dependency injection pattern
+
+2. **Mixed Architecture Patterns**
+   - SwiftData models mixed with singleton managers
+   - Old Core Data alongside new SwiftData
+   - Manual JSON loading vs automated persistence
+   - **Action Required**: Consolidate data layer approach
+
+3. **Thread Safety Issues**
+   - `FrequencyDetector.swift:257-263` - Array mutations without synchronization
+   - Missing `@MainActor` on some UI-updating methods
+   - **Action Required**: Add proper async/await patterns
+
+#### **📋 47 TODO Comments Requiring Attention**
+- **High Priority**: ConsciousnessMapper re-enablement, user authentication integration
+- **Medium Priority**: Firebase TODOs, birth chart data persistence
+- **Low Priority**: Various navigation and UI polish items
+
+#### **🔍 Immediate Action Items**
+1. **Dependency Injection Refactor**: Replace consciousness singletons with proper DI
+2. **SwiftData Migration Completion**: Finish AdaptiveLearningEngine integration
+3. **Thread Safety Audit**: Review all biometric processing for race conditions
+4. **Memory Leak Prevention**: Audit singleton retain cycles and timer cleanup
 
 ---
 

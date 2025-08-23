@@ -418,55 +418,85 @@ class CosmicHUDManager: ObservableObject {
             .replacingOccurrences(of: "{planet2}", with: aspectData.planet2.rawValue.capitalized)
     }
 
-    /// Calculate VFI using existing RealmNumberManager calculation + Master Algorithm extensions
+    /// Calculate VFI using Hawkins consciousness mapping + biometric fusion
     private func calculateVFI(rulerNumber: Int) async -> Double {
         // STEP 1: GET BASE CONSCIOUSNESS CALCULATION FROM REALM MANAGER
-        // RealmNumberManager already does sophisticated calculation with:
-        // - Time (hour + minute) reduced to singularity
-        // - Date (day + month) reduced to singularity
-        // - Location coordinates (GPS lat/lon) broken down numerologically
-        // - Real heart rate from HealthKit reduced to singularity
-        // - Dynamic factors based on BPM variability
-
         let realmSingularity = getCurrentRealmNumber() // Already includes all above factors
         let focusNumber = focusNumberManager.selectedFocusNumber
 
         // STEP 2: MASTER SINGULARITY SYNTHESIS
-        // Combine RealmManager's sophisticated calculation with Focus number
         let coreSum = realmSingularity + focusNumber + rulerNumber
         let masterSingularity = reduceToSingularity(coreSum)
 
-        // STEP 3: VFI FREQUENCY MAPPING
-        // Map singularity (1-9) to consciousness frequency zones (20-1000+ VHz)
-        let baseVFI = Double(masterSingularity * 100)
+        // STEP 3: HAWKINS CONSCIOUSNESS MAPPING
+        // Uses Hawkins consciousness zones to map numerological archetypes to frequency ranges
+        // This provides more meaningful consciousness-aware baseline frequencies than simple multiplication
+        let hawkinsManager = HawkinsConsciousnessManager.shared
+
+        var baseVFI: Double
+        if let numerologyMapping = hawkinsManager.getNumerologyMapping(for: masterSingularity) {
+            // Primary path: Use Hawkins consciousness zone mapping for archetypal baseline
+            baseVFI = numerologyMapping.baselineFrequency
+            print("🔢 VFI: Using Hawkins consciousness baseline: \(Int(baseVFI)) VHz (Zone: \(numerologyMapping.zone))")
+        } else {
+            // Fallback: Original calculation method for unmapped numbers
+            baseVFI = Double(masterSingularity * 100)
+            print("⚠️ VFI: Using fallback calculation: \(Int(baseVFI)) VHz (Master: \(masterSingularity))")
+        }
+
+        // NOTE: Full biometric integration will be handled by KASPER unified consciousness engine
+        // Currently using Hawkins numerological baseline as foundation for consciousness-aware VFI
+
         let harmonicRefinement = Double(coreSum % 100)
 
-        // STEP 4: SACRED PATTERNS BONUS (using RealmManager components)
-        // Extract the individual components that RealmManager already calculated
+        // STEP 4: SACRED PATTERNS BONUS
         let singularities = [realmSingularity, focusNumber, rulerNumber]
         let patternBonus = calculatePatternBonuses(singularities: singularities)
 
-        // STEP 5: PLANETARY & ZODIAC ENHANCEMENT (Using existing SwiftAA integration)
+        // STEP 5: PLANETARY & ZODIAC ENHANCEMENT
         let cosmicModifier = await calculateCosmicModifier()
 
-        // STEP 6: LOCATION HARMONIC AMPLIFICATION
-        // RealmManager already includes location in realmSingularity,
-        // but we can add harmonic amplification based on location patterns
-        let locationAmplifier = 1.0 + (Double(rulerNumber) * 0.05) // 5% per ruler number
+        // STEP 6: CONSCIOUSNESS ZONE ADJUSTMENT
+        // Apply zone-specific amplification based on current consciousness state
+        let zoneAmplifier = getZoneAmplifier(for: baseVFI)
 
-        let finalVFI = (baseVFI + harmonicRefinement + patternBonus + cosmicModifier) * locationAmplifier
+        let finalVFI = (baseVFI + harmonicRefinement + patternBonus + cosmicModifier) * zoneAmplifier
 
-        print("🧮 VFI Calculation (Using RealmManager + SwiftAA):")
-        print("   Realm Singularity (time+date+location+BPM+dynamic): \(realmSingularity)")
+        print("🧮 VFI Calculation (Hawkins + Biometric + Cosmic):")
+        print("   Realm Singularity: \(realmSingularity)")
         print("   Focus Number: \(focusNumber)")
         print("   Ruler Number: \(rulerNumber)")
         print("   Master Singularity: \(coreSum) → \(masterSingularity)")
+        print("   Base VFI (Hawkins): \(Int(baseVFI)) VHz")
         print("   Pattern Bonus: +\(Int(patternBonus)) VHz")
-        print("   Cosmic Modifier (planetary/zodiac): +\(Int(cosmicModifier)) VHz")
-        print("   Location Amplifier: ×\(String(format: "%.2f", locationAmplifier))")
+        print("   Cosmic Modifier: +\(Int(cosmicModifier)) VHz")
+        print("   Zone Amplifier: ×\(String(format: "%.2f", zoneAmplifier))")
         print("   Final VFI: \(Int(finalVFI)) VHz")
 
+        // Update Hawkins manager with current zone
+        if let zone = HawkinsConsciousnessManager.shared.getZone(for: finalVFI) {
+            print("   Consciousness Zone: \(zone.description)")
+        }
+
         return finalVFI
+    }
+
+    /// Get zone-specific amplifier based on consciousness state
+    private func getZoneAmplifier(for vfi: Double) -> Double {
+        switch vfi {
+        case 20..<200:
+            return 1.05  // Slight boost for lower frequencies to encourage growth
+        case 200..<400:
+            return 1.10  // Growth zone gets moderate amplification
+        case 400..<600:
+            return 1.15  // Love zone gets good amplification
+        case 600..<800:
+            return 1.20  // Joy zone gets strong amplification
+        case 800...:
+            return 1.25  // Unity consciousness gets maximum amplification
+        default:
+            return 1.0
+        }
     }
 
     /// Reduce number to single digit (1-9) following traditional numerology
