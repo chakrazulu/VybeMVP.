@@ -1,10 +1,41 @@
-//
-//  SpiritualFont.swift
-//  VybeMVP
-//
-//  Created by Claude on 8/7/25.
-//  Spiritual typography system for cosmic consciousness UI
-//
+/**
+ * Filename: SpiritualFont.swift
+ *
+ * Purpose: Comprehensive spiritual typography system that channels mystical energy through
+ * font consciousness, providing a complete sacred font library for VybeMVP's cosmic UI.
+ *
+ * Key Responsibilities:
+ * • Define 10 primary sacred fonts with specific spiritual purposes
+ * • Map spiritual intentions to appropriate typography choices
+ * • Provide spiritual frequency alignment (528Hz-963Hz range)
+ * • Enable chakra-aligned font selection for energy resonance
+ * • Offer font fallback mechanisms for system compatibility
+ * • Manage spiritual font loading and activation
+ *
+ * Architecture Notes:
+ * • Enum-based design pattern for type safety and clarity
+ * • SwiftUI View extensions for easy spiritual font application
+ * • SpiritualFontManager singleton for font lifecycle management
+ * • Fallback system ensuring compatibility across all iOS devices
+ * • Integration with VybeFonts spiritual typography manifesto
+ *
+ * Usage:
+ * • Text("Sacred Message").spiritualFont(.sacredGeometry)
+ * • Apply different fonts based on content type and spiritual intention
+ * • Use SpiritualFontManager.shared to check font availability
+ * • Access spiritual properties (frequency, purpose, chakra alignment)
+ *
+ * Dependencies:
+ * • SwiftUI framework for font application
+ * • ChakraType enum for chakra alignment system
+ * • System fonts as fallbacks for spiritual typography
+ *
+ * Sacred Typography Principles:
+ * • Each font carries specific vibrational frequencies (396Hz-963Hz)
+ * • Fonts align with chakra energy centers for holistic design
+ * • Typography choices enhance spiritual user experience
+ * • Sacred geometry principles guide font selection and spacing
+ */
 
 import SwiftUI
 

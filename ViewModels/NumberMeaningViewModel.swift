@@ -1,15 +1,32 @@
-//
-//  NumberMeaningViewModel.swift
-//  VybeMVP
-//
-//  Created by KASPER MLX Team on August 2025.
-//  Copyright © 2025 Vybe. All rights reserved.
-//
-//  PURPOSE:
-//  ViewModel for NumberMeaningsView that handles async loading of rich content
-//  from KASPERContentRouter. Implements proper Swift 6 concurrency patterns
-//  with weak self in Task blocks per CLAUDE.md requirements.
-//
+/**
+ * Filename: NumberMeaningViewModel.swift
+ *
+ * Purpose: ViewModel for NumberMeaningsView that handles async loading of rich numerological content
+ * from KASPERContentRouter with proper Swift 6 concurrency patterns and memory management.
+ *
+ * Key Responsibilities:
+ * • Async loading of rich numerological content for numbers 1-9
+ * • Smart caching system for improved performance
+ * • State management for loading, success, empty, and error states
+ * • Swift 6 compliant concurrency with @MainActor and weak self patterns
+ * • Fallback mechanisms for content loading (direct bundle → router → live templates)
+ *
+ * Architecture Notes:
+ * • @MainActor class ensuring all UI updates occur on main thread
+ * • Uses KASPERContentRouter.shared for content access
+ * • Implements comprehensive error handling and logging
+ * • Memory-efficient caching with clearCache() method
+ *
+ * Usage:
+ * • Primary ViewModel for NumberMeaningsView
+ * • Call load(number:) to fetch content for specific numbers
+ * • Observe @Published state property for UI updates
+ *
+ * Dependencies:
+ * • KASPERContentRouter for content loading
+ * • NumberRichContent model for structured data
+ * • Logger for debugging and performance tracking
+ */
 
 import Foundation
 import os.log
