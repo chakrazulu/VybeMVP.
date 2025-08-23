@@ -164,6 +164,12 @@ git status
 2. Test new navigation
 3. Take same screenshots
 4. Compare - they should look identical
+5. **Test VoiceOver accessibility:**
+   - Enable VoiceOver (Settings → Accessibility → VoiceOver)
+   - Verify Settings gear icon is accessible
+   - Verify Meanings button has proper focus order
+   - Test home grid navigation with VoiceOver
+   - Confirm swipe gesture fallbacks work
 
 **If they don't match:** Use the emergency rollback (see below).
 
@@ -273,6 +279,15 @@ CRITICAL: Do not modify any existing view files (JournalView.swift,
 TimelineView.swift, etc.). Only change navigation structure.
 Use the 'moving furniture, not remodeling' approach."
 ```
+
+### **Code Review Protection (CODEOWNERS)**
+Your repository has automatic protection via `.github/CODEOWNERS`:
+- **Sacred View Files**: Any changes to JournalView, TimelineView, SanctumView, MeditationView require your review
+- **Navigation Files**: ContentView*.swift changes automatically request your approval
+- **A+ Roadmap Docs**: Strategy document changes need your sign-off
+- **Pre-commit Hooks**: Block accidental modifications to protected files
+
+This double-layer protection (pre-commit + PR review) ensures no unauthorized changes.
 
 ---
 

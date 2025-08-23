@@ -34,6 +34,26 @@ CHANGELOG.md @Maniac_Magee
 *.xcworkspace/ @Maniac_Magee
 VybeMVP.xcodeproj/ @Maniac_Magee
 
+# =========================
+# A+ ROADMAP CRITICAL FILES
+# =========================
+
+# Navigation Shell Files (Phase 1 changes)
+/Views/ContentView*.swift @Maniac_Magee
+/Views/Navigation/ @Maniac_Magee
+
+# Sacred View Files (MUST NEVER be modified during refactor)
+/Views/JournalView.swift @Maniac_Magee
+/Features/Journal/JournalView.swift @Maniac_Magee
+/Features/Social/SocialViews/SocialTimelineView.swift @Maniac_Magee
+/Features/UserProfile/SanctumView.swift @Maniac_Magee
+/Features/Meditation/ @Maniac_Magee
+
+# A+ Roadmap Strategy Documents
+/KASPERMLX/APlusRoadmap.md @Maniac_Magee
+/KASPERMLX/APlusRoadmapWorkflow.md @Maniac_Magee
+/README-VybeAPlus.md @Maniac_Magee
+
 # Sensitive Configuration (extra scrutiny)
 /.vscode/ @Maniac_Magee
 .gitignore @Maniac_Magee

@@ -1,0 +1,338 @@
+# VybeMVP A+ Roadmap - GitHub Project Kanban Template
+# Import this YAML into GitHub Projects for automated task management
+
+name: "VybeMVP A+ Roadmap Execution"
+description: "Daily executable tasks for achieving A+ architectural excellence"
+
+# Column Configuration
+columns:
+  - name: "Backlog"
+    description: "All tasks not yet started"
+  - name: "In Progress"
+    description: "Active work (limit 1-2 items)"
+  - name: "Review"
+    description: "Needs testing/screenshot comparison"
+  - name: "Done"
+    description: "Fully verified, passes success criteria"
+
+# Swimlanes by Risk Level
+swimlanes:
+  - name: "🟢 Low Risk / Setup"
+    description: "Git safety, documentation, audits"
+  - name: "🟡 Medium Risk / Navigation"
+    description: "Container changes, router, home grid"
+  - name: "🔴 High Value / Validation"
+    description: "Snapshot tests, performance validation"
+  - name: "🔬 Spike / R&D"
+    description: "HRV experiments, LLM integration, exploratory work"
+
+# Task Cards Structure
+cards:
+  # ========================
+  # PHASE 0: SMART REORGANIZATION
+  # ========================
+  phase_0:
+    name: "Phase 0: Smart Reorganization"
+    swimlane: "🟢 Low Risk / Setup"
+
+    tasks:
+      - name: "📋 Document Current 14 Tabs"
+        description: "Create comprehensive tab inventory before changes"
+        checklist:
+          - "Create /Docs/Navigation/CurrentTabs.md"
+          - "Mark which tabs → Home grid vs 5 final tabs"
+          - "Document current user flow patterns"
+          - "Screenshot existing navigation for reference"
+        acceptance_criteria:
+          - "All 14 tabs documented with purpose"
+          - "Clear mapping to new 5-tab structure"
+        estimated_time: "2 hours"
+
+      - name: "📊 JSON Content Audit"
+        description: "Analyze 992 JSON files for optimization strategy"
+        checklist:
+          - "Count total JSON files (verify 992)"
+          - "Identify ~50 essential startup files"
+          - "Draft RuntimeContentIndex.json manifest"
+          - "Document lazy loading strategy"
+        acceptance_criteria:
+          - "Essential content manifest complete"
+          - "Loading strategy documented"
+        estimated_time: "4 hours"
+
+      - name: "🧹 Remove Test/Dev Code"
+        description: "Clean production code of development artifacts"
+        checklist:
+          - "Search for #if DEBUG, DevPanel, TestView"
+          - "Quarantine test code in /Dev/ folder"
+          - "Remove ContentView test button (lines 333-395)"
+          - "Clean up temporary state variables"
+        acceptance_criteria:
+          - "Zero test code in production builds"
+          - "App still functions normally"
+        estimated_time: "3 hours"
+
+      - name: "📑 Persistence Authority Matrix"
+        description: "Define data ownership boundaries"
+        checklist:
+          - "Create /Docs/Architecture/DataOwnership.md"
+          - "Assign each model → SwiftData OR Firebase"
+          - "Document sync strategies"
+          - "Define conflict resolution"
+        acceptance_criteria:
+          - "Clear data ownership strategy"
+          - "No ambiguous data boundaries"
+        estimated_time: "2 hours"
+
+  # ========================
+  # PHASE 1: NAVIGATION + UI PRESERVATION
+  # ========================
+  phase_1_setup:
+    name: "Phase 1: Git Safety Net"
+    swimlane: "🟢 Low Risk / Setup"
+
+    tasks:
+      - name: "🛡️ Git Safety Net Setup"
+        description: "Create bulletproof rollback capability"
+        commands: |
+          cd /Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP
+          git checkout -b feature/navigation-refactor-ui-safe
+          git tag UI_BEFORE_A_PLUS_REFACTOR
+          git push origin UI_BEFORE_A_PLUS_REFACTOR
+        acceptance_criteria:
+          - "Tag visible in: git tag --list"
+          - "Rollback command tested and documented"
+        estimated_time: "15 minutes"
+
+      - name: "📸 Add Snapshot Tests"
+        description: "Automated UI regression prevention"
+        checklist:
+          - "Create Tests/UISnapshots/ directory"
+          - "Add JournalView snapshot test"
+          - "Add TimelineView snapshot test"
+          - "Add SanctumView snapshot test"
+          - "Add MeditationView snapshot test"
+          - "Add UserProfileView snapshot test"
+          - "Test in Light/Dark mode"
+          - "Test on iPhone SE + iPhone 16 Pro Max"
+        acceptance_criteria:
+          - "Baseline screenshots captured"
+          - "Tests pass in CI"
+        estimated_time: "6 hours"
+
+  phase_1_navigation:
+    name: "Phase 1: Navigation Implementation"
+    swimlane: "🟡 Medium Risk / Navigation"
+
+    tasks:
+      - name: "🧭 Create NavigationRouter"
+        description: "Central navigation state management"
+        checklist:
+          - "Add NavigationRouter.swift"
+          - "Implement AppTab enum (Home, Journal, Timeline, Sanctum, Meditation)"
+          - "Implement HomeGridItem enum (Realms, Activity, etc.)"
+          - "Add @MainActor compliance"
+          - "Add comprehensive documentation"
+        acceptance_criteria:
+          - "Router compiles without errors"
+          - "Enums cover all current features"
+        estimated_time: "4 hours"
+
+      - name: "🏠 Create Home Grid View"
+        description: "3x3 dashboard for quick access"
+        checklist:
+          - "Add HomeGridView.swift"
+          - "Implement 3x3 LazyVGrid layout"
+          - "Add HomeGridButton component"
+          - "Add haptic feedback on tap"
+          - "Add spiritual color coding"
+          - "Add proper SF Symbols icons"
+        acceptance_criteria:
+          - "Grid renders correctly on all devices"
+          - "Buttons respond with haptic feedback"
+        estimated_time: "6 hours"
+
+      - name: "📱 Create Parallel Container"
+        description: "Test new navigation without breaking current"
+        checklist:
+          - "Copy ContentView.swift → ContentViewNew.swift"
+          - "Add 5-tab skeleton structure"
+          - "Preserve ALL existing @StateObject managers"
+          - "Add NavigationRouter integration"
+          - "Add HomeGridView integration"
+        acceptance_criteria:
+          - "ContentViewNew compiles successfully"
+          - "Can switch between old/new via feature flag"
+        estimated_time: "4 hours"
+
+      - name: "🔄 Incremental View Integration"
+        description: "Move views one at a time with validation"
+        tasks:
+          - name: "Journal Integration"
+            checklist:
+              - "Replace placeholder with JournalView()"
+              - "Run snapshot test → must pass"
+              - "Manual testing → no visual changes"
+          - name: "Timeline Integration"
+            checklist:
+              - "Replace placeholder with SocialTimelineView()"
+              - "Run snapshot test → must pass"
+              - "Manual testing → no visual changes"
+          - name: "Sanctum Integration"
+            checklist:
+              - "Replace placeholder with SanctumView()"
+              - "Run snapshot test → must pass"
+              - "Manual testing → no visual changes"
+          - name: "Meditation Integration"
+            checklist:
+              - "Replace placeholder with MeditationView()"
+              - "Run snapshot test → must pass"
+              - "Manual testing → no visual changes"
+        acceptance_criteria:
+          - "All snapshot tests pass"
+          - "Zero pixel differences detected"
+        estimated_time: "8 hours"
+
+      - name: "🏠 Wire Home Grid Buttons"
+        description: "Connect grid buttons to existing views"
+        checklist:
+          - "Wire Realms button → RealmsView"
+          - "Wire Activity button → ActivityView"
+          - "Wire Sightings button → SightingsView"
+          - "Wire Analytics button → AnalyticsView"
+          - "Wire Chakras button → ChakrasView"
+          - "Wire Profile button → UserProfileView"
+          - "Test navigation to all views"
+        acceptance_criteria:
+          - "All buttons navigate to correct views"
+          - "Navigation stack works properly"
+        estimated_time: "3 hours"
+
+  phase_1_validation:
+    name: "Phase 1: Validation & Testing"
+    swimlane: "🔴 High Value / Validation"
+
+    tasks:
+      - name: "👆 Swipe Gestures + Fallbacks"
+        description: "Settings and Meanings access via gestures"
+        checklist:
+          - "Add SwipeGestureOverlay component"
+          - "Left→Right swipe → Settings sheet"
+          - "Right→Left swipe → Meanings sheet"
+          - "Add gear icon fallback in header"
+          - "Add Meanings fallback in Home grid"
+          - "Test VoiceOver accessibility"
+        acceptance_criteria:
+          - "Gestures work without conflicting with iOS back gesture"
+          - "Fallback buttons always accessible"
+        estimated_time: "4 hours"
+
+      - name: "📸 Screenshot Comparison"
+        description: "Pixel-perfect UI preservation verification"
+        checklist:
+          - "Take before screenshots (ContentView)"
+          - "Take after screenshots (ContentViewNew)"
+          - "Compare Journal view → must be identical"
+          - "Compare Timeline view → must be identical"
+          - "Compare Sanctum view → must be identical"
+          - "Compare Meditation view → must be identical"
+          - "Test Light/Dark mode preservation"
+          - "Verify VoiceOver focus order for Settings gear icon"
+          - "Verify VoiceOver focus order for Meanings button"
+          - "Test VoiceOver navigation through home grid"
+        acceptance_criteria:
+          - "Zero pixel differences in core views"
+          - "Color schemes preserved exactly"
+          - "VoiceOver accessibility maintained/improved"
+        estimated_time: "2.5 hours"
+
+      - name: "🚀 Performance Validation"
+        description: "Ensure navigation improvements don't slow app"
+        checklist:
+          - "Measure cold startup time (before/after)"
+          - "Measure tab switching latency"
+          - "Measure memory usage at idle"
+          - "Run all 434 tests → must pass"
+          - "Profile app launch in Instruments"
+        acceptance_criteria:
+          - "Startup time: <3 seconds"
+          - "Tab switching: <200ms"
+          - "Memory usage: <50MB idle"
+          - "All tests passing"
+        estimated_time: "3 hours"
+
+      - name: "✅ Final Cutover"
+        description: "Replace old navigation with new (reversible)"
+        checklist:
+          - "Update VybeMVPApp.swift to use ContentViewNew"
+          - "Run final test suite"
+          - "Deploy to TestFlight for validation"
+          - "Monitor crash reports for 24 hours"
+          - "Delete ContentView.swift (keep backup)"
+          - "Rename ContentViewNew.swift → ContentView.swift"
+        acceptance_criteria:
+          - "App launches successfully"
+          - "Zero crashes in 24-hour monitoring"
+          - "All features accessible and working"
+        rollback_plan: "git reset --hard UI_BEFORE_A_PLUS_REFACTOR"
+        estimated_time: "2 hours"
+
+# Success Criteria for Complete Phase
+phase_completion:
+  phase_0_complete:
+    criteria:
+      - "14→5 tab plan documented"
+      - "JSON audit + manifest complete"
+      - "Test code removed from production"
+      - "Ownership matrix documented"
+
+  phase_1_complete:
+    criteria:
+      - "5 tabs working (Home, Journal, Timeline, Sanctum, Meditation)"
+      - "All 14 sections accessible via grid/context"
+      - "Swipe gestures + fallbacks working"
+      - "All UI identical (0 pixel difference)"
+      - "Startup < 3 seconds"
+      - "Idle memory < 50MB"
+      - "All 434 tests pass"
+
+# Emergency Procedures
+emergency:
+  rollback_commands: |
+    # EMERGENCY ROLLBACK
+    git reset --hard UI_BEFORE_A_PLUS_REFACTOR
+    git clean -fd
+
+    # Verify rollback successful
+    git status
+    # Should show: nothing to commit, working tree clean
+
+  rollback_triggers:
+    - "Any test failure"
+    - "Performance regression >10%"
+    - "User confusion >5% in first week"
+    - "Any functionality loss"
+    - "Visual regression detected"
+
+# Import Instructions
+import_instructions: |
+  To import this into GitHub Projects:
+
+  1. Go to your VybeMVP repository
+  2. Click "Projects" tab
+  3. Click "New Project"
+  4. Choose "Board" template
+  5. Import this YAML file
+  6. Customize columns and swimlanes as needed
+
+  Or manually create:
+  - Backlog → In Progress → Review → Done columns
+  - Add swimlanes for risk levels
+  - Create cards from task definitions above
+
+# Automation Rules (GitHub Projects)
+automation:
+  - rule: "Move to 'Review' when all checklist items complete"
+  - rule: "Move to 'Done' when acceptance criteria verified"
+  - rule: "Auto-assign based on swimlane"
+  - rule: "Alert on tasks in progress >3 days"
