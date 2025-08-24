@@ -1514,129 +1514,48 @@ struct HomeView: View {
         }
     }
 
-    // MARK: - Phase 13: Organic Edge Buttons
+    // MARK: - Phase 13: Optimized Cosmic Button Layout
 
-    /// January 20, 2025: Kabalistic organic arrangement - mystical positioning around the sacred mandala
-    /// Creates an esoteric, natural flow that feels intuitive and spiritually aligned
+    /// January 24, 2025: Cleaned up layout after removing duplicate tabs (Chakras, Sanctum)
+    /// 9 cosmic buttons arranged in balanced sacred geometry around the central mandala
     private var organicEdgeButtons: some View {
         GeometryReader { geometry in
             let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
 
             ZStack {
-                // KABALISTIC ARRANGEMENT: Organic positioning for mystical flow
+                // IPHONE 14 PRO MAX OPTIMIZED LAYOUT: Clean circular arrangement
 
-                // Sightings - Top center (unchanged)
+                // TOP ARC - Discovery & Settings (12 o'clock area)
+
+                // Sightings - Top center
                 cosmicEdgeButton(
                     icon: "🔭",
                     title: "Sightings",
                     color: .cyan,
-                    destination: .sightings
+                    destination: .sightings,
+                    size: .compact
                 )
                 .position(
                     x: center.x,
-                    y: center.y - 190
+                    y: center.y - 140
                 )
 
-                // Settings - SPREAD OUT MORE (top row wider)
+                // Settings - Top right (2 o'clock)
                 cosmicEdgeButton(
                     icon: "⚙️",
                     title: "Settings",
                     color: .gray,
-                    destination: .settings
-                )
-                .position(
-                    x: center.x + 140, // Spread out from +120 to +140
-                    y: center.y - 150 // Higher than before
-                )
-
-                // Sanctum - CLOSER TO SCREEN EDGE
-                cosmicEdgeButton(
-                    icon: "🏛️",
-                    title: "Sanctum",
-                    color: .indigo,
-                    destination: .sanctum,
-                    size: .compact // 25% smaller
-                )
-                .position(
-                    x: center.x + 165, // Closer to right edge (from +140 to +165)
-                    y: center.y + 20
-                )
-
-                // Create - LOWER (pushed down further)
-                cosmicEdgeButton(
-                    icon: "✍️",
-                    title: "Create",
-                    color: .orange,
-                    destination: .create
-                )
-                .position(
-                    x: center.x + 135,
-                    y: center.y + 180 // Even lower than before
-                )
-
-                // Analytics - Bottom center (unchanged)
-                cosmicEdgeButton(
-                    icon: "📈",
-                    title: "Analytics",
-                    color: .pink,
-                    destination: .analytics
-                )
-                .position(
-                    x: center.x,
-                    y: center.y + 190
-                )
-
-                // Graph - LOWER (pushed down further)
-                cosmicEdgeButton(
-                    icon: "📊",
-                    title: "Graph",
-                    color: .green,
-                    destination: .graph
-                )
-                .position(
-                    x: center.x - 135,
-                    y: center.y + 180 // Even lower than before
-                )
-
-                // Activity - CLOSER TO SCREEN EDGE
-                cosmicEdgeButton(
-                    icon: "📱",
-                    title: "Activity",
-                    color: .yellow,
-                    destination: .activity,
-                    size: .compact // 25% smaller
-                )
-                .position(
-                    x: center.x - 165, // Closer to left edge (from -140 to -165)
-                    y: center.y + 20
-                )
-
-                // Chakras - SPREAD OUT MORE (top row wider)
-                cosmicEdgeButton(
-                    icon: "🌈",
-                    title: "Chakras",
-                    color: .purple,
-                    destination: .chakras
-                )
-                .position(
-                    x: center.x - 140, // Spread out from -120 to -140
-                    y: center.y - 150 // Higher than before
-                )
-
-                // Profile - NEW BUTTON: Left side middle
-                cosmicEdgeButton(
-                    icon: "👤",
-                    title: "Profile",
-                    color: .blue,
-                    destination: .profile,
+                    destination: .settings,
                     size: .compact
                 )
                 .position(
-                    x: center.x - 165, // Further left, matching Sanctum distance
-                    y: center.y + 80   // Below center, different from other buttons
+                    x: center.x + 100,
+                    y: center.y - 100
                 )
 
-                // Realms - NEW BUTTON: Right side middle (balances Profile)
+                // MIDDLE RIGHT ARC (3-4 o'clock area)
+
+                // Realms - Right middle
                 cosmicEdgeButton(
                     icon: "✨",
                     title: "Realms",
@@ -1645,11 +1564,80 @@ struct HomeView: View {
                     size: .compact
                 )
                 .position(
-                    x: center.x + 120, // Right side, different from Settings
-                    y: center.y + 80   // Same level as Profile for balance
+                    x: center.x + 140,
+                    y: center.y - 20
                 )
 
-                // Meanings - NEW BUTTON: Center left mid-level (avoids all overlap)
+                // Create - Right lower (5 o'clock)
+                cosmicEdgeButton(
+                    icon: "✍️",
+                    title: "Create",
+                    color: .orange,
+                    destination: .create,
+                    size: .compact
+                )
+                .position(
+                    x: center.x + 100,
+                    y: center.y + 100
+                )
+
+                // BOTTOM ARC (6 o'clock area)
+
+                // Analytics - Bottom center
+                cosmicEdgeButton(
+                    icon: "📈",
+                    title: "Analytics",
+                    color: .pink,
+                    destination: .analytics,
+                    size: .compact
+                )
+                .position(
+                    x: center.x,
+                    y: center.y + 140
+                )
+
+                // MIDDLE LEFT ARC (7-9 o'clock area)
+
+                // Graph - Left lower (7 o'clock)
+                cosmicEdgeButton(
+                    icon: "📊",
+                    title: "Graph",
+                    color: .green,
+                    destination: .graph,
+                    size: .compact
+                )
+                .position(
+                    x: center.x - 100,
+                    y: center.y + 100
+                )
+
+                // Profile - Left middle (9 o'clock)
+                cosmicEdgeButton(
+                    icon: "👤",
+                    title: "Profile",
+                    color: .blue,
+                    destination: .profile,
+                    size: .compact
+                )
+                .position(
+                    x: center.x - 140,
+                    y: center.y - 20
+                )
+
+                // Activity - Left upper (10 o'clock)
+                cosmicEdgeButton(
+                    icon: "📱",
+                    title: "Activity",
+                    color: .yellow,
+                    destination: .activity,
+                    size: .compact
+                )
+                .position(
+                    x: center.x - 100,
+                    y: center.y - 100
+                )
+
+                // Meanings - Left inner (8 o'clock, closer to center)
                 cosmicEdgeButton(
                     icon: "🔢",
                     title: "Meanings",
@@ -1658,8 +1646,8 @@ struct HomeView: View {
                     size: .compact
                 )
                 .position(
-                    x: center.x - 120,  // Center left side, between Chakras and Graph
-                    y: center.y + 50   // Mid-level, between Chakras (-150) and Activity (+20)
+                    x: center.x - 80,
+                    y: center.y + 60
                 )
             }
         }
@@ -1714,7 +1702,7 @@ struct HomeView: View {
 
     /// January 20, 2025: Navigation destinations for edge buttons
     private enum CosmicDestination {
-        case sightings, chakras, sanctum, create, graph, activity, settings, analytics, profile, realms, meanings
+        case sightings, create, graph, activity, settings, analytics, profile, realms, meanings
     }
 
     /// Button size options for different positioning needs
@@ -1781,22 +1769,6 @@ struct HomeView: View {
                 ]
             )
 
-        case .chakras:
-            print("🌈 Navigating to Chakras/Meditation with required userInfo")
-            // ContentView handler requires: number, chakra
-            NotificationCenter.default.post(
-                name: Notification.Name("NavigateToMeditation"),
-                object: nil,
-                userInfo: [
-                    "number": focusNumberManager.selectedFocusNumber,
-                    "chakra": "Root" // Default chakra for meditation
-                ]
-            )
-
-        case .sanctum:
-            print("🏛️ Navigating to My Sanctum")
-            // Our custom handler - no special userInfo required
-            NotificationCenter.default.post(name: Notification.Name("NavigateToSanctum"), object: nil)
 
         case .create:
             print("✍️ Navigating to Timeline and opening Post Composer")
