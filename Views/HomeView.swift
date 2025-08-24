@@ -1622,6 +1622,45 @@ struct HomeView: View {
                     x: center.x - 140, // Spread out from -120 to -140
                     y: center.y - 150 // Higher than before
                 )
+
+                // Profile - NEW BUTTON: Left side middle
+                cosmicEdgeButton(
+                    icon: "👤",
+                    title: "Profile",
+                    color: .blue,
+                    destination: .profile,
+                    size: .compact
+                )
+                .position(
+                    x: center.x - 165, // Further left, matching Sanctum distance
+                    y: center.y + 80   // Below center, different from other buttons
+                )
+
+                // Realms - NEW BUTTON: Right side middle (balances Profile)
+                cosmicEdgeButton(
+                    icon: "✨",
+                    title: "Realms",
+                    color: .teal,
+                    destination: .realms,
+                    size: .compact
+                )
+                .position(
+                    x: center.x + 120, // Right side, different from Settings
+                    y: center.y + 80   // Same level as Profile for balance
+                )
+
+                // Meanings - NEW BUTTON: Center left mid-level (avoids all overlap)
+                cosmicEdgeButton(
+                    icon: "🔢",
+                    title: "Meanings",
+                    color: .orange,
+                    destination: .meanings,
+                    size: .compact
+                )
+                .position(
+                    x: center.x - 120,  // Center left side, between Chakras and Graph
+                    y: center.y + 50   // Mid-level, between Chakras (-150) and Activity (+20)
+                )
             }
         }
         .frame(width: 350, height: 350)
@@ -1675,7 +1714,7 @@ struct HomeView: View {
 
     /// January 20, 2025: Navigation destinations for edge buttons
     private enum CosmicDestination {
-        case sightings, chakras, sanctum, create, graph, activity, settings, analytics
+        case sightings, chakras, sanctum, create, graph, activity, settings, analytics, profile, realms, meanings
     }
 
     /// Button size options for different positioning needs
@@ -1789,6 +1828,21 @@ struct HomeView: View {
                     "number": focusNumberManager.selectedFocusNumber
                 ]
             )
+
+        case .profile:
+            print("👤 Navigate to Profile view")
+            // Use notification center like other cosmic buttons
+            NotificationCenter.default.post(name: Notification.Name("NavigateToProfile"), object: nil)
+
+        case .realms:
+            print("✨ Navigate to Realms view")
+            // Use notification center for realms
+            NotificationCenter.default.post(name: Notification.Name("NavigateToRealms"), object: nil)
+
+        case .meanings:
+            print("🔢 Navigate to Number Meanings")
+            // Use notification center for meanings
+            NotificationCenter.default.post(name: Notification.Name("NavigateToMeanings"), object: nil)
         }
     }
 

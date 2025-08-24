@@ -181,8 +181,7 @@
 - **Primary Access:** Settings/Meanings available via Home grid and header buttons
 - **Swipe gestures are "nice to have" bonus, not required functionality**
 - **System edge-swipe conflicts:** iOS back gesture takes precedence
-- **Accessibility:** VoiceOver actions provided for both Settings and Meanings
-- **Fallback strategy:** If swipe implementation conflicts, grid buttons ensure 100% accessibility
+- **Accessibility:** All standards per [Appendix B: UX Standards](#-appendix-b-ux-standards--policies)
 
 ### **Home Screen Grid Layout (3x3)**
 ```
@@ -343,135 +342,28 @@ git push -u origin feature/navigation-consolidation
 **Validation:** Confirm rollback works before proceeding
 
 ### **Step 2: Navigation Router Creation (Day 1-2)**
-```swift
-// KASPERMLX/Navigation/NavigationRouter.swift - NEW FILE
-@MainActor
-class NavigationRouter: ObservableObject {
-    // Why: Centralized navigation state management
-    // Benefit: Single source of truth, easier testing
+**Implementation:** Create centralized navigation state management with type-safe routing.
 
-    @Published var selectedTab: AppTab = .home
-    @Published var homeGridSelection: HomeGridItem?
+**Key Components:**
+- NavigationRouter.swift with @MainActor and @Published state
+- AppTab enum for 5 primary tabs
+- HomeGridItem enum for contextual navigation
+- Comprehensive state management for tab and grid selections
 
-    // Why enum over strings: Type safety, compile-time validation
-    enum AppTab: String, CaseIterable {
-        case home = "Home"      // Why: Central dashboard concept
-        case journal = "Journal" // Why: Daily practice hub
-        case timeline = "Timeline" // Why: Social consciousness feed
-        case sanctum = "Sanctum"  // Why: Spiritual identity focus
-        case meditation = "Meditation" // Why: Biometric session hub
-    }
-
-    // Why separate enum: Grid items have different lifecycle than tabs
-    enum HomeGridItem: String, CaseIterable {
-        case realms = "Realms"     // Why: Spiritual discovery primary
-        case activity = "Activity" // Why: Progress tracking essential
-        case sightings = "Sightings" // Why: Community engagement
-        case analytics = "Analytics" // Why: Self-knowledge tools
-        case chakras = "Chakras"   // Why: Energy center mapping
-        case profile = "Profile"   // Why: Social identity management
-        case settings = "Settings" // Why: Utility access
-        case meanings = "Meanings" // Why: Symbol reference
-    }
-}
-```
-
-**Implementation Notes:**
-- **Why @MainActor:** All navigation state affects UI, needs main thread safety
-- **Why @Published:** SwiftUI needs change notifications for view updates
-- **Why enums:** Compile-time safety prevents navigation to non-existent views
-- **Testing Strategy:** Unit tests for state transitions before UI integration
+**Detailed Implementation:** See [NavigationImplementationDetails.md](../Docs/Examples/NavigationImplementationDetails.md) for complete code examples and rationale.
 
 ### **Step 3: Home Grid View Creation (Day 3-4)**
-```swift
-// Views/Home/HomeGridView.swift - NEW FILE
-struct HomeGridView: View {
-    // Why @EnvironmentObject: Shared navigation state across view hierarchy
-    @EnvironmentObject var router: NavigationRouter
+**Implementation:** Create responsive 3x3 grid for quick feature access.
 
-    // Why 3x3 grid: Optimal for single-hand iPhone usage
-    let gridLayout = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+**Key Components:**
+- HomeGridView.swift with LazyVGrid performance optimization
+- HomeGridButton with spiritual iconography and color coding
+- Haptic feedback and proper spacing for iOS design standards
+- Icon mapping and color categorization for visual hierarchy
 
-    var body: some View {
-        LazyVGrid(columns: gridLayout, spacing: 20) {
-            // Why LazyVGrid: Performance optimization for grid rendering
-            ForEach(NavigationRouter.HomeGridItem.allCases, id: \.rawValue) { item in
-                HomeGridButton(item: item)
-                    .onTapGesture {
-                        // Why haptic feedback: Confirms user action
-                        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-                        impactFeedback.impactOccurred()
+**Design Strategy:** 3x3 grid optimized for single-hand usage with spiritual symbolism and accessibility.
 
-                        // Why router.homeGridSelection: State management consistency
-                        router.homeGridSelection = item
-                    }
-            }
-        }
-        .padding(.horizontal, 30)
-        // Why horizontal padding: Prevents edge collision on smaller devices
-    }
-}
-
-struct HomeGridButton: View {
-    let item: NavigationRouter.HomeGridItem
-
-    var body: some View {
-        VStack(spacing: 12) {
-            // Why VStack: Vertical icon + text layout standard
-            Image(systemName: iconFor(item))
-                .font(.system(size: 32, weight: .medium))
-                .foregroundColor(colorFor(item))
-
-            Text(item.rawValue)
-                .font(.system(size: 14, weight: .semibold))
-                .multilineTextAlignment(.center)
-        }
-        .frame(height: 100)
-        .frame(maxWidth: .infinity)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(.ultraThinMaterial)
-                .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
-        )
-        // Why .ultraThinMaterial: iOS 15+ glass effect, spiritual aesthetic
-        // Why shadow: Depth perception improves usability
-    }
-
-    private func iconFor(_ item: NavigationRouter.HomeGridItem) -> String {
-        // Why custom icon mapping: Spiritual symbolism important for app identity
-        switch item {
-        case .realms: return "globe.americas.fill"      // Why: World of spiritual dimensions
-        case .activity: return "chart.line.uptrend.xyaxis" // Why: Progress visualization
-        case .sightings: return "eye.circle.fill"      // Why: Spiritual observation
-        case .analytics: return "brain.head.profile"    // Why: Consciousness analysis
-        case .chakras: return "circle.grid.cross.fill"  // Why: Energy center geometry
-        case .profile: return "person.circle.fill"      // Why: Social identity
-        case .settings: return "gearshape.fill"         // Why: System configuration
-        case .meanings: return "book.circle.fill"       // Why: Reference/dictionary
-        }
-    }
-
-    private func colorFor(_ item: NavigationRouter.HomeGridItem) -> Color {
-        // Why color coding: Visual hierarchy and feature categorization
-        switch item {
-        case .realms, .chakras, .meanings: return .purple  // Spiritual features
-        case .activity, .analytics: return .blue           // Analysis features
-        case .sightings: return .green                      // Community features
-        case .profile, .settings: return .gray             // Utility features
-        }
-    }
-}
-```
-
-**Design Rationale:**
-- **Why 3x3 Grid:** Fits iPhone screen without scrolling, thumb-reachable zones
-- **Why VStack Layout:** Icon above text follows iOS design patterns
-- **Why Color Coding:** Visual categorization reduces cognitive load
-- **Why Haptic Feedback:** Confirms user interaction, premium app experience
+**Detailed Implementation:** See [NavigationImplementationDetails.md](../Docs/Examples/NavigationImplementationDetails.md) for complete code and design rationale.
 
 ### **Step 4: Parallel ContentView Implementation (Day 5-7)**
 ```swift
@@ -695,24 +587,7 @@ func testStartupTimeThreshold() {
 - [ ] Dashboard tracking of performance metrics over time
 
 #### **Performance Contracts & Enforcement**
-**Startup Content Manifest:**
-- **Top 50 Critical Files:** <2MB total, loaded in <1 second
-- **Byte Budget:** Home grid icons <100KB, spiritual content <500KB initial
-- **Loading Strategy:** Essential first, progressive enhancement for rest
-- **Performance Targets:**
-  - App launch to Home grid: <3 seconds
-  - Tab switching: <200ms
-  - Home grid interaction: <100ms
-
-**CI Performance Gates:**
-```yaml
-# .github/workflows/performance.yml
-performance_tests:
-  - startup_time_limit: 3000ms
-  - memory_usage_limit: 150MB
-  - tab_switch_time: 200ms
-  - grid_response_time: 100ms
-```
+**Reference:** See [Appendix A: Performance Gates](#-appendix-a-performance-gates--benchmarks) for complete performance thresholds and CI integration details.
 
 #### **Pre-commit Hook Enforcement**
 **Protected View Files Guard:**
@@ -822,9 +697,8 @@ Firebase (Social/Sync):          CoreData (Performance):
 - [ ] **Navigation Speed:** Average task completion 50% faster
 
 ### **Performance Benchmarks**
-- [ ] **Cold Startup:** <3 seconds to usable state (vs 15+ seconds current)
-- [ ] **Memory Efficiency:** <50MB background usage (vs 200MB+ current)
-- [ ] **Battery Impact:** <1% drain per hour (vs 5%+ current)
+- [ ] All performance targets per [Appendix A: Performance Gates](#-appendix-a-performance-gates--benchmarks)
+- [ ] CI performance gates integrated and enforcing quality standards
 
 ### **Code Quality Metrics**
 - [ ] **Test Coverage:** Maintain 434/434 passing tests
@@ -833,7 +707,7 @@ Firebase (Social/Sync):          CoreData (Performance):
 
 ### **User Experience Validation**
 - [ ] **Zero Feature Loss:** Every current feature accessible
-- [ ] **Accessibility:** VoiceOver navigation improved
+- [ ] **Accessibility:** Standards per [Appendix B](#-appendix-b-ux-standards--policies)
 - [ ] **Muscle Memory:** Existing users adapt within 1 session
 
 ---
@@ -890,19 +764,10 @@ git checkout feature/navigation-consolidation~1 -- ContentView.swift
 - [ ] Swipe gestures maintain accessibility without cluttering tabs
 - [ ] Sanctum spiritual focus reinforces app's core differentiator
 
-### **Badge Policy Implementation**
-**Tab Badge Rules (UX Acceptance Criteria):**
-- **Timeline:** New posts from followed users (red badge with count)
-- **Journal:** Daily prompt available (orange badge, no count)
-- **Meditation:** Streak reminder (blue badge when >24h since last session)
-- **Sanctum:** Milestone achievements only (gold badge, rare)
-- **Home:** No badges (keeps dashboard clean)
-
-**Implementation Requirements:**
-- [ ] Badge state persists across app launches
-- [ ] Badges clear when user accesses relevant content
-- [ ] Maximum 2 badges visible simultaneously (priority: Timeline > Journal > Meditation > Sanctum)
-- [ ] Accessibility labels for all badges
+### **UX Standards Compliance**
+- [ ] All UX standards per [Appendix B: UX Standards](#-appendix-b-ux-standards--policies)
+- [ ] Badge policy implementation validated
+- [ ] Accessibility compliance verified
 
 ---
 
@@ -990,135 +855,28 @@ quality_gates:
 
 #### **3.2 Developer Experience Revolution**
 **Enhanced Development Tools:**
-- [ ] **Enhance Makefile with A+ Commands**
-  ```makefile
-  # Add to existing Makefile
+- [ ] **Enhanced Development Tools & Makefile Commands**
+  - A+ excellence checks and spiritual validation
+  - Performance profiling and architecture auditing
+  - Code generation and quality gates
+  - Automated development environment setup
 
-  # === DEVELOPMENT WORKFLOW ===
-  dev-setup: ## One-command development environment setup
-  	@echo "🚀 Setting up VybeMVP development environment..."
-  	@brew install swiftlint swiftformat
-  	@pip3 install -r scripts/requirements.txt
-  	@pre-commit install
-  	@make content-lint
-  	@make build
-  	@echo "✅ Development environment ready!"
+  **Implementation:** See [NavigationImplementationDetails.md](../Docs/Examples/NavigationImplementationDetails.md) for complete Makefile enhancements and script examples.
 
-  spiritual-validate: ## Validate spiritual authenticity of insights
-  	@echo "🔮 Validating spiritual authenticity..."
-  	@python scripts/validate_spiritual_content.py
-  	@python scripts/check_numerology_accuracy.py
-  	@swiftlint --quiet
-  	@echo "✅ Spiritual validation complete!"
+- [ ] **Performance Analysis & Monitoring Tools**
+  - SwiftUI, Memory, and Core Data performance tracking
+  - Automated trace analysis and reporting
+  - 60-second profiling sessions with comprehensive metrics
 
-  performance-profile: ## Profile app performance
-  	@echo "📊 Profiling VybeMVP performance..."
-  	@scripts/dev-tools/run_performance_analysis.sh
-  	@echo "📈 Performance report generated: reports/performance.html"
+  **Implementation:** Complete script examples in [NavigationImplementationDetails.md](../Docs/Examples/NavigationImplementationDetails.md)
 
-  a-plus-check: ## Complete A+ readiness check
-  	@echo "🏆 Running A+ Excellence Check..."
-  	@make spiritual-validate
-  	@make performance-profile
-  	@make test
-  	@python scripts/architecture_audit.py
-  	@echo "🎯 A+ readiness score: $(shell python scripts/calculate_grade.py)"
+- [ ] **Architecture Audit & Quality Analysis**
+  - Repository pattern compliance checking
+  - Dependency injection vs singleton analysis
+  - Performance anti-pattern detection
+  - Comprehensive scoring and recommendations
 
-  # === CODE GENERATION ===
-  codegen: ## Generate Swift models from spiritual schemas
-  	@echo "⚙️ Generating Swift models from spiritual schemas..."
-  	@python scripts/codegen/generate_insight_models.py
-  	@python scripts/codegen/generate_repository_protocols.py
-  	@swiftformat . --swiftversion 6
-
-  # === QUALITY ASSURANCE ===
-  quality-gate: ## Run all quality checks before commit
-  	@echo "🚨 Running quality gate..."
-  	@make spiritual-validate
-  	@make test
-  	@make build
-  	@echo "✅ Quality gate passed!"
-  ```
-
-- [ ] **Create Performance Analysis Script**
-  ```bash
-  #!/bin/bash
-  # scripts/dev-tools/run_performance_analysis.sh
-
-  echo "📊 Starting comprehensive performance analysis..."
-
-  # SwiftUI Performance
-  instruments -t "SwiftUI" -D reports/swiftui.trace VybeMVP.app &
-  SWIFTUI_PID=$!
-
-  # Memory Usage
-  instruments -t "Allocations" -D reports/memory.trace VybeMVP.app &
-  MEMORY_PID=$!
-
-  # Core Data Performance
-  instruments -t "Core Data" -D reports/coredata.trace VybeMVP.app &
-  COREDATA_PID=$!
-
-  echo "Running app for 60 seconds to gather performance data..."
-  sleep 60
-
-  # Kill instruments
-  kill $SWIFTUI_PID $MEMORY_PID $COREDATA_PID
-
-  # Analyze results
-  python scripts/performance/analyze_traces.py reports/
-
-  echo "📈 Performance analysis complete! Check reports/performance.html"
-  ```
-
-- [ ] **Create Architecture Audit Script**
-  ```python
-  # scripts/architecture_audit.py
-  import os
-  import re
-  from pathlib import Path
-
-  class ArchitectureAuditor:
-      def __init__(self, project_path):
-          self.project_path = Path(project_path)
-          self.issues = []
-          self.score = 100
-
-      def audit_repository_pattern(self):
-          """Check if repository pattern is properly implemented"""
-          repo_files = list(self.project_path.glob("**/Repositories/*.swift"))
-          if len(repo_files) < 4:
-              self.issues.append("Missing repository implementations")
-              self.score -= 10
-
-      def audit_dependency_injection(self):
-          """Check for singleton usage vs DI"""
-          swift_files = list(self.project_path.glob("**/*.swift"))
-          singleton_count = 0
-
-          for file in swift_files:
-              content = file.read_text()
-              singleton_count += len(re.findall(r'\.shared', content))
-
-          if singleton_count > 20:  # Threshold for acceptable singletons
-              self.issues.append(f"Too many singletons found: {singleton_count}")
-              self.score -= 15
-
-      def audit_performance_patterns(self):
-          """Check for performance anti-patterns"""
-          # Check for non-lazy views in large lists
-          # Check for missing @StateObject usage
-          # Check for retain cycles
-          pass
-
-      def generate_report(self):
-          """Generate comprehensive architecture report"""
-          return {
-              'score': self.score,
-              'issues': self.issues,
-              'recommendations': self.get_recommendations()
-          }
-  ```
+  **Implementation:** Complete Python audit script in [NavigationImplementationDetails.md](../Docs/Examples/NavigationImplementationDetails.md)
 
 **Code Generation Tools:**
 - [ ] Auto-generated Swift models from schemas
@@ -1300,119 +1058,6 @@ struct PerformanceMetrics {
 - [ ] Monitor UI performance in critical views
 - [ ] Add telemetry to authentication flows
 
-### **PHASE 5: SOCIAL NETWORK OPTIMIZATION (LAST)**
-*Timeline: 3-4 weeks | Focus: Optimize & Enhance Existing Social Layer*
-*This is intentionally LAST to ensure stable foundation*
-
-**IMPORTANT:** PostManager, CommentManager, and FriendManager already exist and work. This phase is about OPTIMIZATION not implementation.
-
-#### **5.1 Social Repository Pattern Enhancement**
-**Optimize Existing Social Architecture:**
-- [ ] PostRepository optimization with enhanced caching
-- [ ] CommentRepository with improved real-time updates
-- [ ] FriendRepository with optimized relationship management
-- [ ] Activity feed performance tuning
-
-**Social Repository Implementation:**
-```swift
-class PostRepository: Repository {
-    private let firebase: FirebaseManager
-    private let cache: PostCache
-
-    func getTimelinePosts(for user: User) async -> [Post] {
-        // Optimized timeline loading with predictive caching
-    }
-}
-```
-
-#### **5.2 Social Performance**
-**Timeline Optimization:**
-- [ ] Infinite scroll performance improvement
-- [ ] Image caching strategies implementation
-- [ ] Real-time update efficiency
-- [ ] Background sync optimization
-
-#### **5.3 Firebase Social Enhancement**
-**Backend Optimization (Not Implementation):**
-- [ ] Firebase social enhancements (optimize sync, PostRepository refinement, performance tuning)
-- [ ] Firestore query optimization for existing social feeds
-- [ ] Cloud Functions enhancement for current notifications
-- [ ] Push notification efficiency improvements
-- [ ] Social analytics optimization
-
-#### **5.4 Social UX Enhancements**
-**Advanced Social Features:**
-- [ ] Quick interaction patterns (like, comment, share)
-- [ ] Rich previews for shared content
-- [ ] Social insights and friendship analytics
-- [ ] Community features and group interactions
-
-## **🎯 SUCCESS METRICS FOR EACH PHASE**
-
-### **Phase 2 Success Metrics:**
-- [ ] App startup time <3 seconds (from 15+ seconds)
-- [ ] Memory usage <50MB background (from 200MB+)
-- [ ] All 434 tests continue passing
-- [ ] Repository pattern implemented for 4 core areas
-- [ ] KASPER MLX files consolidated from 56 → 20
-
-### **Phase 3 Success Metrics:**
-- [ ] Test coverage >95%
-- [ ] Zero memory leaks detected
-- [ ] Zero circular references
-- [ ] Complete documentation coverage
-- [ ] Automated quality gates passing
-
-### **Phase 4 Success Metrics:**
-- [ ] HealthKit integration functional
-- [ ] Biometric consciousness correlation working
-- [ ] Advanced meditation features complete
-- [ ] Apple Intelligence shortcuts implemented
-- [ ] User engagement metrics improved
-
-### **Phase 5 Success Metrics:**
-- [ ] Timeline loading time <2 seconds
-- [ ] Social repository pattern complete
-- [ ] Real-time social features optimized
-- [ ] Social analytics dashboard functional
-- [ ] Community features fully integrated
-
-## **📋 RATIONALE FOR PHASE ORDER**
-
-**Why Social Features are LAST (Phase 5):**
-
-1. **Foundation First:** Establish solid architecture before complex social systems
-2. **Performance Base:** Optimize core app before adding social overhead
-3. **Testing Infrastructure:** Build robust testing before social feature complexity
-4. **Innovation Ready:** Advanced features established before social integration
-5. **Risk Mitigation:** Social features are most complex - tackle when everything else is stable
-
-**Progressive Complexity Management:**
-```
-Phase 1: Navigation (Simple) →
-Phase 2: Performance (Medium) →
-Phase 3: Testing (Medium) →
-Phase 4: Innovation (Hard) →
-Phase 5: Social (Very Hard)
-```
-
-This ensures maximum stability and all architectural patterns are established before tackling the most complex system (social networking).
-
----
-
-## 🎯 Mission Statement
-
-Transform VybeMVP from an already exceptional B+ spiritual iOS app into A+ architectural mastery while preserving the authentic spiritual essence, KASPER MLX intelligence, and self-healing RuntimeBundle foundation that makes this app revolutionary.
-
-**Foundation Strengths (Already A+ Grade):**
-- ✅ Swift 6 concurrency with flawless `@MainActor` usage
-- ✅ KASPER MLX provider abstraction architecture
-- ✅ 434/434 passing tests with comprehensive coverage
-- ✅ Security hardening (Firebase, debug logs, Local LLM config)
-- ✅ Self-healing content pipeline with schema validation
-- ✅ RuntimeBundle v2.1.4 production-ready spiritual content
-
----
 
 ## 🔮 ON-DEVICE LLM FUSION ROADMAP (IMMEDIATE PRIORITY)
 *Transform Shadow Mode → Production-Ready On-Device Intelligence*
@@ -1429,8 +1074,8 @@ Your curated RuntimeBundle remains the source of truth, with a tiny on-device LL
 ---
 
 
-### **PHASE 2: PERFORMANCE MASTERY & ON-DEVICE LLM INTEGRATION**
-*Target: +15 Points | Advanced performance optimization + 1-3B model integration | Timeline: 3-4 weeks | Risk: Medium*
+### **PHASE 2A: PERFORMANCE MASTERY**
+*Target: +8 Points | Advanced performance optimization | Timeline: 3-4 weeks | Risk: Medium*
 
 #### **2.1 Memory Optimization Enhancement 🧠**
 **Current State:** Good patterns in `PersistenceController.swift` but no pressure handling
@@ -1480,6 +1125,11 @@ class AdvancedMemoryManager: ObservableObject {
     }
 }
 ```
+
+---
+
+### **PHASE 2B: ON-DEVICE LLM INTEGRATION**
+*Target: +7 Points | Local LLM composer system integration | Timeline: 3-4 weeks | Risk: Medium*
 
 #### Technology Stack Selection
 
@@ -1902,12 +1552,19 @@ class PostRepository: Repository {
 - [ ] Response variety significantly improved
 - [ ] Template fallback system operational
 
-### **Phase 2 Success Metrics:**
+### **Phase 2A Success Metrics:**
 - [ ] App startup time <3 seconds (from 15+ seconds)
 - [ ] Memory usage <50MB background (from 200MB+)
+- [ ] Predictive caching system achieving >80% hit rate
+- [ ] Advanced memory management with pressure response
+- [ ] All performance gates integrated per [Appendix A](#-appendix-a-performance-gates--benchmarks)
+
+### **Phase 2B Success Metrics:**
 - [ ] On-device LLM integration functional
 - [ ] Shadow mode comparison system working
-- [ ] KASPER MLX files consolidated and optimized
+- [ ] Local LLM generation <2 seconds for 3-4 sentences
+- [ ] Persona-specific fine-tuning operational
+- [ ] Fallback system maintaining quality >75%
 
 ### **Phase 3 Success Metrics:**
 - [ ] Test coverage >95%
@@ -1949,7 +1606,8 @@ class PostRepository: Repository {
 Phase 0: Smart Reorganization (Simple) →
 Phase 1: Navigation + UI Preservation (Simple) →
 Phase 1.5: RuntimeSelector (Simple) →
-Phase 2: Performance Mastery & LLM Integration (Medium) →
+Phase 2A: Performance Mastery (Medium) →
+Phase 2B: LLM Integration (Medium) →
 Phase 3: Testing, QA & Developer Experience (Medium) →
 Phase 4: Advanced Features & Production Excellence (Hard) →
 Phase 5: Social Optimization & Spiritual Plugin System (Very Hard) →
@@ -2005,15 +1663,90 @@ Transform VybeMVP from an already exceptional B+ spiritual iOS app into A+ archi
 - **Phase 0:** Smart Reorganization (1-2 weeks)
 - **Phase 1:** Navigation + UI Preservation (2-3 weeks)
 - **Phase 1.5:** RuntimeSelector Enhancement (1 week)
-- **Phase 2:** Performance Mastery & LLM Integration (4-5 weeks) *[Buffer week added for dual scope]*
+- **Phase 2A:** Performance Mastery (3-4 weeks)
+- **Phase 2B:** LLM Integration (3-4 weeks)
 - **Phase 3:** Testing, QA & Developer Experience (2-3 weeks)
 - **Phase 4:** Advanced Features & Production Excellence (3-4 weeks)
 - **Phase 5:** Social Optimization & Spiritual Plugin System (3-4 weeks)
 - **Phase 6:** Biometric R&D (Exploratory, timeline TBD)
 
 **Target Grade:** A+ (95/100) Architectural Excellence
-**Timeline:** 16-21 weeks total
+**Timeline:** 18-23 weeks total (adjusted for Phase 2 split)
 **Risk Mitigation:** Progressive complexity with solid foundations
+
+---
+
+## 📊 APPENDIX A: PERFORMANCE GATES & BENCHMARKS
+
+### **Critical Performance Thresholds**
+*All phases must meet these performance contracts. CI builds fail if thresholds exceeded.*
+
+#### **Startup Performance**
+- **Cold Launch:** <3 seconds to usable state
+- **Content Loading:** Essential files <2MB total, loaded <1 second
+- **Byte Budget:** Home grid icons <100KB, initial spiritual content <500KB
+- **Target Improvement:** 15+ seconds → <3 seconds (83% improvement)
+
+#### **Memory Efficiency**
+- **Background Usage:** <50MB (target: 200MB+ → 50MB, 75% reduction)
+- **Peak Usage:** <150MB during heavy operations
+- **Memory Pressure Response:** Progressive purging strategy implemented
+- **Leak Detection:** Zero memory leaks tolerated
+
+#### **UI Performance**
+- **Tab Switching:** <200ms response time
+- **Home Grid Interaction:** <100ms response time
+- **60fps Target:** All animations and transitions
+- **Battery Impact:** <1% drain per hour (<2% during active LLM generation)
+
+#### **Feature-Specific Performance**
+- **JSON Loading:** 992 files → lazy loading strategy, 50 essential files immediate
+- **LLM Generation:** <2 seconds for 3-4 sentences
+- **Timeline Loading:** <2 seconds for social feed
+- **Cache Hit Rate:** >80% for predictive content caching
+
+#### **CI Performance Gates**
+**Reference:** All performance thresholds and CI configuration detailed in [Appendix A: Performance Gates](#-appendix-a-performance-gates--benchmarks).
+
+#### **Performance Testing Matrix**
+- **XCTestPerformance Integration:** All thresholds automated
+- **Device Coverage:** iPhone SE (baseline) to iPhone 16 Pro Max
+- **Regression Detection:** >10% performance degradation = automatic rollback
+- **Monitoring:** Real-time telemetry dashboard with alerts
+
+#### **Quality Acceptance Criteria**
+- **Test Coverage:** Maintain 434/434 passing tests
+- **Build Performance:** No increase in compile time
+- **Code Complexity:** Reduced cyclomatic complexity in ContentView
+- **Documentation:** Complete coverage for all performance optimizations
+
+---
+
+## 📱 APPENDIX B: UX STANDARDS & POLICIES
+
+### **Badge Policy & Notification Rules**
+*Consistent badge behavior across all tabs and features*
+
+#### **Tab Badge Rules**
+- **Timeline:** New posts from followed users (red badge with count)
+- **Journal:** Daily prompt available (orange badge, no count)
+- **Meditation:** Streak reminder (blue badge when >24h since last session)
+- **Sanctum:** Milestone achievements only (gold badge, rare)
+- **Home:** No badges (keeps dashboard clean)
+
+#### **Badge Implementation Requirements**
+- Badge state persists across app launches
+- Badges clear when user accesses relevant content
+- Maximum 2 badges visible simultaneously (priority: Timeline > Journal > Meditation > Sanctum)
+- Accessibility labels for all badges
+- VoiceOver compatibility for all badge interactions
+
+#### **Accessibility Standards**
+- **VoiceOver Navigation:** All features accessible via VoiceOver
+- **Dynamic Type Support:** Extra Large (XL) to Extra Extra Large (XXL)
+- **Gesture Fallbacks:** Swipe gestures have button alternatives
+- **Color Independence:** No information conveyed by color alone
+- **Focus Management:** Proper focus order for all interactions
 
 ---
 

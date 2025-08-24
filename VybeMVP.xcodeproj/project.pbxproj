@@ -330,6 +330,9 @@
 		4D7320B92E474A0F0083C82C /* grok_oracle_05_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D731F072E474A0F0083C82C /* grok_oracle_05_converted.json */; };
 		4D7320BE2E47561D0083C82C /* lifePath_04_v2.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D7320BD2E47561D0083C82C /* lifePath_04_v2.0_converted.json */; };
 		4D7320C32E4756600083C82C /* lifePath_06_v2.0_converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D7320C02E4756600083C82C /* lifePath_06_v2.0_converted.json */; };
+		4D7C31CA2E5A9CDB00DD697A /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C31C92E5A9CDB00DD697A /* NavigationRouter.swift */; };
+		4D7C31CC2E5A9CFD00DD697A /* HomeGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C31CB2E5A9CFD00DD697A /* HomeGridView.swift */; };
+		4D7C31CE2E5A9D8600DD697A /* ContentViewNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C31CD2E5A9D8600DD697A /* ContentViewNew.swift */; };
 		4D7CCC842E4EC8D5001642EF /* RuntimeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7CCC802E4EC8D5001642EF /* RuntimeSelector.swift */; };
 		4D7CCC852E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CCC7F2E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md */; };
 		4D80E0FD2D3F1B0B0020F7BB /* RealmNumberDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E0FC2D3F1B0B0020F7BB /* RealmNumberDetailView.swift */; };
@@ -937,6 +940,9 @@
 		4D731FA72E474A0F0083C82C /* Psychologist_Number_44_original.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Psychologist_Number_44_original.md; sourceTree = "<group>"; };
 		4D7320BD2E47561D0083C82C /* lifePath_04_v2.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lifePath_04_v2.0_converted.json; sourceTree = "<group>"; };
 		4D7320C02E4756600083C82C /* lifePath_06_v2.0_converted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lifePath_06_v2.0_converted.json; sourceTree = "<group>"; };
+		4D7C31C92E5A9CDB00DD697A /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
+		4D7C31CB2E5A9CFD00DD697A /* HomeGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGridView.swift; sourceTree = "<group>"; };
+		4D7C31CD2E5A9D8600DD697A /* ContentViewNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewNew.swift; sourceTree = "<group>"; };
 		4D7CCC7F2E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PHASE_1_5_SUMMARY.md; sourceTree = "<group>"; };
 		4D7CCC802E4EC8D5001642EF /* RuntimeSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeSelector.swift; sourceTree = "<group>"; };
 		4D80E0FC2D3F1B0B0020F7BB /* RealmNumberDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberDetailView.swift; sourceTree = "<group>"; };
@@ -2158,6 +2164,9 @@
 		4DC602302D34440900B5E4A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4D7C31CD2E5A9D8600DD697A /* ContentViewNew.swift */,
+				4D7C31CB2E5A9CFD00DD697A /* HomeGridView.swift */,
+				4D7C31C92E5A9CDB00DD697A /* NavigationRouter.swift */,
 				4D65289F2E49B9EC00F521E1 /* NumberMeaningsView.swift */,
 				4D65289D2E49ACC000F521E1 /* NumberRichContentView.swift */,
 				4D6528992E49AC1500F521E1 /* Settings */,
@@ -2952,6 +2961,7 @@
 				4D2DB47F2DFF43390003353E /* ChakraSymbolView.swift in Sources */,
 				4D2DB4802DFF43390003353E /* ChakraModel.swift in Sources */,
 				4DCB38702E1B3C8F00311D51 /* KASPERPrimingPayload.swift in Sources */,
+				4D7C31CC2E5A9CFD00DD697A /* HomeGridView.swift in Sources */,
 				4D2DB4812DFF43390003353E /* PhantomChakrasView.swift in Sources */,
 				4D5BEAF92E35A81400B56575 /* HybridPostRepository.swift in Sources */,
 				4D2CC7162E0C37F200BDF100 /* RulingNumberChartDetailView.swift in Sources */,
@@ -2962,6 +2972,7 @@
 				4DA359B52E3F135B0010101F /* KASPERMLXEngine.swift in Sources */,
 				4DA359B62E3F135B0010101F /* KASPERMLXManager.swift in Sources */,
 				4DA98FCA2E073CB100FAE5FF /* Report.swift in Sources */,
+				4D7C31CE2E5A9D8600DD697A /* ContentViewNew.swift in Sources */,
 				4D2DB4822DFF43390003353E /* ChakraManager.swift in Sources */,
 				4D2DB4842DFF43B10003353E /* ContentView.swift in Sources */,
 				4D6528732E49781400F521E1 /* RuntimeBundleDiagnostic.swift in Sources */,
@@ -3006,6 +3017,7 @@
 				4DC6023C2D345E2000B5E4A9 /* MainView.swift in Sources */,
 				4DCEE47C2E3432A0007CA451 /* SanctumDataManager.swift in Sources */,
 				4D3055E92D3CEF45009A7BBD /* EditJournalEntryView.swift in Sources */,
+				4D7C31CA2E5A9CDB00DD697A /* NavigationRouter.swift in Sources */,
 				4D6308DA2DFFCB2C00FD32E9 /* ReactionPickerView.swift in Sources */,
 				4D6308DB2DFFCB2C00FD32E9 /* Reaction.swift in Sources */,
 				4DA359B92E3FF6160010101F /* KASPERTrainingDataManager.swift in Sources */,

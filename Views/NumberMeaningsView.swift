@@ -14,9 +14,11 @@ import SwiftUI
 /// When a number is selected, navigates to NumberRichContentView for detailed content display.
 struct NumberMeaningsView: View {
     let initialSelectedNumber: Int?
+    let isModalPresentation: Bool
 
-    init(initialSelectedNumber: Int? = nil) {
+    init(initialSelectedNumber: Int? = nil, isModalPresentation: Bool = false) {
         self.initialSelectedNumber = initialSelectedNumber
+        self.isModalPresentation = isModalPresentation
     }
 
     var body: some View {
@@ -24,79 +26,90 @@ struct NumberMeaningsView: View {
         if let selectedNumber = initialSelectedNumber {
             NumberRichContentView(number: selectedNumber)
         } else {
-            // Otherwise show the full number meanings browser
-            NavigationView {
-                ZStack {
-                    CosmicBackgroundView().ignoresSafeArea()
-
-                    ScrollView {
-                        VStack(spacing: 30) {
-                        // Header Section
-                        VStack(alignment: .center, spacing: 16) {
-                            Text("Number Meanings")
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-
-                            Text("Explore the rich spiritual meanings and correspondences of each sacred number")
-                                .font(.subheadline)
-                                .foregroundColor(.white.opacity(0.8))
-                                .multilineTextAlignment(.center)
-                        }
-                        .padding()
-                        .background(Color.black.opacity(0.3))
-                        .cornerRadius(12)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.purple.opacity(0.5), lineWidth: 1)
-                        )
-
-                        // Core Numbers Section
-                        VStack(alignment: .leading, spacing: 15) {
-                            Text("Core Numbers (1-9)")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-
-                            Text("The fundamental building blocks of numerological wisdom, each carrying unique energetic signatures.")
-                                .foregroundColor(.white.opacity(0.7))
-
-                            NumberRichContentGrid(numbers: Array(1...9))
-                        }
-                        .padding()
-                        .background(Color.black.opacity(0.3))
-                        .cornerRadius(12)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.purple.opacity(0.5), lineWidth: 1)
-                        )
-
-                        // Master Numbers Section
-                        VStack(alignment: .leading, spacing: 15) {
-                            Text("Master Numbers")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-
-                            Text("Elevated spiritual frequencies that carry intensified power and responsibility. These numbers remain unreduced for their sacred significance.")
-                                .foregroundColor(.white.opacity(0.7))
-
-                            NumberRichContentGrid(numbers: [11, 22, 33, 44])
-                        }
-                        .padding()
-                        .background(Color.black.opacity(0.3))
-                        .cornerRadius(12)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.gold.opacity(0.5), lineWidth: 1)
-                        )
-                    }
-                    .padding()
+            // Conditionally wrap in NavigationView based on presentation mode
+            if isModalPresentation {
+                // When presented as modal, don't wrap in NavigationView (parent already has one)
+                contentView
+            } else {
+                // When used in regular tab navigation, wrap in NavigationView
+                NavigationView {
+                    contentView
+                        .navigationTitle("Number Meanings")
+                        .navigationBarTitleDisplayMode(.inline)
                 }
-                .navigationTitle("Number Meanings")
-                .navigationBarTitleDisplayMode(.inline)
             }
         }
+    }
+
+    // MARK: - Content View
+    private var contentView: some View {
+        ZStack {
+            CosmicBackgroundView().ignoresSafeArea()
+
+            ScrollView {
+                VStack(spacing: 30) {
+                // Header Section
+                VStack(alignment: .center, spacing: 16) {
+                    Text("Number Meanings")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+
+                    Text("Explore the rich spiritual meanings and correspondences of each sacred number")
+                        .font(.subheadline)
+                        .foregroundColor(.white.opacity(0.8))
+                        .multilineTextAlignment(.center)
+                }
+                .padding()
+                .background(Color.black.opacity(0.3))
+                .cornerRadius(12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.purple.opacity(0.5), lineWidth: 1)
+                )
+
+                // Core Numbers Section
+                VStack(alignment: .leading, spacing: 15) {
+                    Text("Core Numbers (1-9)")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+
+                    Text("The fundamental building blocks of numerological wisdom, each carrying unique energetic signatures.")
+                        .foregroundColor(.white.opacity(0.7))
+
+                    NumberRichContentGrid(numbers: Array(1...9))
+                }
+                .padding()
+                .background(Color.black.opacity(0.3))
+                .cornerRadius(12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.purple.opacity(0.5), lineWidth: 1)
+                )
+
+                // Master Numbers Section
+                VStack(alignment: .leading, spacing: 15) {
+                    Text("Master Numbers")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+
+                    Text("Elevated spiritual frequencies that carry intensified power and responsibility. These numbers remain unreduced for their sacred significance.")
+                        .foregroundColor(.white.opacity(0.7))
+
+                    NumberRichContentGrid(numbers: [11, 22, 33, 44])
+                }
+                .padding()
+                .background(Color.black.opacity(0.3))
+                .cornerRadius(12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.gold.opacity(0.5), lineWidth: 1)
+                )
+                }
+            }
+            .padding()
         }
     }
 }

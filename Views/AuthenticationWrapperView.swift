@@ -125,7 +125,7 @@ struct AuthenticationWrapperView: View {
 
                             NavigationLink("🌌 Main App (HomeView with cosmic animations)") {
                                 // Show the real ContentView (full app)
-                                ContentView()
+                                ContentViewNew()
                             }
                             .font(.title3)
                             .foregroundColor(.white)
@@ -145,7 +145,7 @@ struct AuthenticationWrapperView: View {
                 // User is authenticated - check if they've completed onboarding
                 if hasCompletedOnboarding {
                     // User has completed onboarding - show main app content
-                    ContentView()
+                    ContentViewNew()
                         .environmentObject(signInViewModel)
                 } else {
                     // User needs to complete onboarding - show full onboarding flow

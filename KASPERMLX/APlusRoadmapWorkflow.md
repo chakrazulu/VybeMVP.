@@ -129,12 +129,23 @@ NEW FILES:
 **What AI does:** Creates NavigationRouter.swift, HomeGridView.swift, and ContentViewNew.swift
 
 ### **Step 2: Test New Navigation (Parallel System)**
-**AI will ask you to test:**
+**Testing requires changing AuthenticationWrapperView.swift:**
 1. Open Xcode
-2. Temporarily change VybeMVPApp.swift to use ContentViewNew instead of ContentView
-3. Build and run app
-4. Test that all your views still work perfectly
-5. Change back to ContentView when done testing
+2. Open `Views/AuthenticationWrapperView.swift`
+3. **Change line 128**: `ContentViewNew()` (already set for testing)
+4. **Change line 148**: `ContentViewNew()` (already set for testing)
+5. Build and run app
+6. Test that all your views still work perfectly
+7. **IMPORTANT: When testing complete, change both lines back to `ContentView()`**
+
+**Rollback Commands:**
+```swift
+// Line 128: Change back from ContentViewNew() to:
+ContentView()
+
+// Line 148: Change back from ContentViewNew() to:
+ContentView()
+```
 
 **Purpose:** We test the new system without affecting the old system.
 
@@ -310,6 +321,20 @@ This double-layer protection (pre-commit + PR review) ensures no unauthorized ch
 - [ ] Memory usage <50MB when idle
 - [ ] All tests passing (434/434)
 
+**Phase 2A Complete When (Performance Optimization):**
+- [ ] JSON lazy loading implemented (50 files on startup)
+- [ ] Memory consumption <45MB (10% reduction)
+- [ ] App startup <2.5 seconds (20% improvement)
+- [ ] Background processing optimized
+- [ ] Cache management strategy active
+
+**Phase 2B Complete When (LLM Integration):**
+- [ ] KASPER-Apple Intelligence synergy operational
+- [ ] Local/cloud hybrid responses optimized
+- [ ] Privacy-preserving LLM interactions verified
+- [ ] Personalized spiritual insights enhanced
+- [ ] Real-time reflection generation working
+
 ---
 
 ## 💡 **UNDERSTANDING WHAT'S HAPPENING (FOR NON-TECHNICAL OWNERS)**
@@ -411,4 +436,267 @@ When Phase 1 is complete, you'll have:
 
 ---
 
-*This workflow ensures your app's spiritual authenticity and technical excellence are preserved while achieving architectural mastery. Every step is reversible, every change is tested, and your vision remains intact.*
+## 🚀 **OWNER COMMAND INDEX**
+*Quick reference for critical commands - copy-paste ready*
+
+### **Safety Net Commands**
+```bash
+# Create feature branch + safety tag
+git checkout -b feature/navigation-refactor-ui-safe
+git tag UI_BEFORE_A_PLUS_REFACTOR
+git push origin UI_BEFORE_A_PLUS_REFACTOR
+
+# Emergency rollback to perfect state
+git reset --hard UI_BEFORE_A_PLUS_REFACTOR
+git clean -fd
+
+# Check which files changed
+git status
+git diff
+
+# Partial file rollback
+git checkout HEAD -- Views/JournalView.swift
+```
+
+### **Phase-Specific Safety Commands**
+```bash
+# Phase 2A (Performance) safety nets
+git checkout -b feature/performance-optimization
+git tag BEFORE_PHASE_2A_PERFORMANCE
+
+# Phase 2B (LLM Integration) safety nets
+git checkout -b feature/llm-integration
+git tag BEFORE_PHASE_2B_LLM
+
+# Performance baseline validation
+git tag performance-baseline-$(date +%Y%m%d)
+
+# Accessibility compliance checkpoint
+git tag accessibility-validated-$(date +%Y%m%d)
+```
+
+### **Testing & Validation Commands**
+```bash
+# Navigate to project
+cd /Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP
+
+# Check current branch
+git branch
+
+# Ensure clean state
+git status
+
+# Run tests (must show 434/434 passing)
+# Use Cmd+U in Xcode
+
+# Check performance
+# Use Instruments or built-in profiler
+```
+
+### **Branch Management Commands**
+```bash
+# Phase 1: Navigation Consolidation
+git checkout -b nav-step-1-router
+git checkout -b nav-step-2-home-grid
+git checkout -b nav-step-3-content-view
+
+# Phase 2A: Performance Optimization
+git checkout -b perf-step-1-json-lazy-loading
+git checkout -b perf-step-2-memory-optimization
+git checkout -b perf-step-3-startup-acceleration
+
+# Phase 2B: LLM Integration
+git checkout -b llm-step-1-kasper-ai-synergy
+git checkout -b llm-step-2-hybrid-responses
+git checkout -b llm-step-3-privacy-framework
+
+# Tag critical milestones
+git tag phase-1-complete
+git tag phase-2a-performance-complete
+git tag phase-2b-llm-complete
+git tag performance-baseline
+git tag ui-preserved
+
+# Push all tags
+git push --tags
+```
+
+### **Quality Assurance Commands**
+```bash
+# Pre-commit safety check
+git diff --cached --name-only
+
+# Verify protected files unchanged
+ls -la Views/JournalView.swift Views/TimelineView.swift Views/SanctumView.swift
+
+# Check app binary size
+ls -la /path/to/VybeMVP.app
+
+# Memory profiling command
+# Use Xcode Instruments → Allocations
+
+# Performance validation commands
+# Startup time measurement (in Xcode Debug Navigator)
+# Memory usage baseline (Instruments → Activity Monitor)
+# JSON loading performance (Instruments → Time Profiler)
+
+# Accessibility validation
+# VoiceOver testing protocol
+# Switch Control navigation verification
+# Dynamic Type scaling confirmation
+```
+
+---
+
+## 🤖 **CI/CD HOOK REFERENCE**
+*Automated enforcement for quality gates*
+
+### **Pre-Commit Hooks Active**
+```bash
+# Location: .git/hooks/pre-commit
+# Blocks modifications to protected view files
+# Validates performance thresholds
+# Checks test coverage requirements
+```
+
+**Protected Files (Auto-Blocked):**
+- `Views/JournalView.swift`
+- `Views/TimelineView.swift`
+- `Views/SanctumView.swift`
+- `Views/MeditationView.swift`
+- All files in `AllowedViews/` directory
+
+**Performance Gates (Auto-Enforced):**
+- **Phase 1:** Startup time >3 seconds → Build fails
+- **Phase 2A:** Startup time >2.5 seconds → Build fails (20% improvement)
+- **Phase 2B:** Startup time >2 seconds → Build fails (33% improvement)
+- **Phase 1:** Memory usage >50MB background → Build fails
+- **Phase 2A:** Memory usage >45MB background → Build fails (10% reduction)
+- **Phase 2B:** Memory usage >40MB background → Build fails (20% reduction)
+- Test coverage <95% → Build fails
+- Memory leaks detected → Build fails
+- JSON loading >1 second → Build fails (Phase 2A)
+- LLM response time >3 seconds → Build fails (Phase 2B)
+
+### **Pull Request Automation**
+```yaml
+# .github/workflows/a-plus-validation.yml
+on: pull_request
+jobs:
+  - pixel_diff_validation
+  - performance_regression_check
+  - ui_preservation_test
+  - accessibility_validation
+  - memory_leak_detection
+  - startup_time_benchmark
+  - json_loading_performance
+  - llm_integration_testing (Phase 2B+)
+  - kasper_ai_synergy_validation (Phase 2B+)
+```
+
+**CODEOWNERS Enforcement:**
+- Navigation changes require owner approval
+- View file changes require explicit sign-off
+- Performance modifications need validation
+- Documentation updates need review
+
+---
+
+## ✋ **HUMAN SIGN-OFF POINTS**
+*Critical checkpoints requiring Maniac Magee approval*
+
+### **Mandatory Owner Approval Required:**
+
+1. **Before Any Phase Implementation**
+   - [ ] Owner reviews phase plan and objectives
+   - [ ] Owner confirms understanding of changes scope
+   - [ ] Owner approves risk mitigation strategy
+   - **Sign-off required before proceeding**
+
+2. **UI Changes & Screenshots**
+   - [ ] **Owner must approve all screenshots before merge**
+   - [ ] Side-by-side before/after comparison required
+   - [ ] Dark mode and accessibility validation
+   - [ ] VoiceOver testing confirmation
+   - **No UI changes merge without explicit owner approval**
+
+3. **Performance Modifications**
+   - [ ] Owner reviews performance impact analysis
+   - [ ] Benchmark comparisons validated by owner
+   - [ ] Memory usage changes approved
+   - [ ] Battery impact assessment confirmed
+   - **Performance changes require owner validation**
+
+4. **Navigation Structure Changes**
+   - [ ] Owner tests new navigation flows personally
+   - [ ] Feature accessibility verified by owner
+   - [ ] User experience impact approved
+   - [ ] Muscle memory disruption minimized
+   - **Navigation changes need hands-on owner testing**
+
+5. **Critical Milestone Sign-offs**
+   - [ ] Phase completion requires owner validation
+   - [ ] Success metrics verified by owner
+   - [ ] Quality gates passed and confirmed
+   - [ ] Ready for next phase approval
+   - **Phase progression blocked without owner sign-off**
+
+### **Owner Decision Points**
+```
+🔄 CHECKPOINT: Does this change preserve app's spiritual authenticity?
+🔄 CHECKPOINT: Will existing users adapt easily to this change?
+🔄 CHECKPOINT: Does this maintain technical excellence standards?
+🔄 CHECKPOINT: Are we following the "moving furniture, not remodeling" principle?
+```
+
+### **Sign-off Documentation Template**
+```markdown
+## Phase [X] Completion Sign-off
+
+**Owner:** Maniac Magee
+**Date:** [Date]
+**Phase:** [Phase Name]
+
+**Validated Items:**
+- [ ] All deliverables completed per specification
+- [ ] UI preservation confirmed (screenshot comparison)
+- [ ] Performance targets achieved
+- [ ] No functionality regression detected
+- [ ] User experience maintained or improved
+- [ ] Spiritual authenticity preserved
+
+**Owner Notes:**
+[Any observations, concerns, or additional requirements]
+
+**Final Approval:** ✅ APPROVED / ❌ REQUIRES CHANGES
+
+**Signature:** Maniac Magee
+```
+
+---
+
+## 🔗 **CROSS-REFERENCES & APPENDIX**
+
+### **Related Documentation**
+- **Strategy Document**: `KASPERMLX/APlusRoadmap.md` - Comprehensive implementation guide
+- **Execution Templates**: `KASPERMLX/VybeKanbanTemplate.yml` - GitHub Projects setup
+- **Performance Examples**: `Docs/Examples/PerformanceOptimizationExamples.md`
+- **Navigation Rationale**: `Docs/Examples/NavigationDesignRationale.md`
+- **DevTools Reference**: `KASPERMLX/DevTools.md`
+- **Repository Protection**: `.github/CODEOWNERS`
+
+### **Quick Navigation**
+- **Safety Commands**: Lines 417-434 (Emergency procedures)
+- **Testing Checklists**: Lines 207-233 (Quality validation)
+- **Phase Progression**: Lines 296-320 (Completion criteria)
+- **AI Collaboration**: Lines 237-281 (Working with assistants)
+- **Owner Sign-offs**: Lines 530-599 (Approval requirements)
+
+### **Support Contacts**
+- **Technical Issues**: Reference emergency rollback (Lines 178-204)
+- **Process Questions**: Owner decision checkpoints (Lines 569-575)
+- **Performance Concerns**: Quality assurance commands (Lines 470-483)
+
+---
+
+*This workflow ensures your app's spiritual authenticity and technical excellence are preserved while achieving architectural mastery. Every step is reversible, every change is tested, your vision remains intact, and your approval gates are enforced.*
