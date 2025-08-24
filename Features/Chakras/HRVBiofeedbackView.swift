@@ -184,6 +184,9 @@ struct HRVBiofeedbackView: View {
     /// Dismissal callback
     let onDismiss: (() -> Void)?
 
+    /// Flag to prevent duplicate dismissals
+    @State private var hasDismissed: Bool = false
+
     /// Session tracking state
     @State private var sessionStartBPM: Double = 0
     @State private var sessionAvgBPM: Double = 0
@@ -1324,6 +1327,9 @@ struct HRVBiofeedbackView: View {
                 // Action buttons
                 VStack(spacing: 12) {
                     Button(action: {
+                        // Prevent duplicate dismissals
+                        guard !hasDismissed else { return }
+                        hasDismissed = true
                         onDismiss?()
                     }) {
                         Text("Finished")
@@ -1691,10 +1697,8 @@ struct HRVBiofeedbackView: View {
         print("   Meditation Type: \(meditationType.displayName)")
 
         // Pre-warm HealthKit connection
-        if healthKitManager != nil {
-            // HealthKit manager will start getting readings when biofeedback session starts
-            print("   HealthKit: Ready")
-        }
+        // HealthKit manager will start getting readings when biofeedback session starts
+        print("   HealthKit: Ready")
     }
 
     // MARK: - Horizontal Chakras Display

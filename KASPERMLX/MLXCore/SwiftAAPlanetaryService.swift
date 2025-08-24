@@ -19,7 +19,7 @@ final class SwiftAAPlanetaryService: ObservableObject {
 
     // MARK: - Types
 
-    struct PlanetarySnapshot {
+    struct InternalPlanetarySnapshot {
         let julianDay: Double
         let date: Date
         let location: CLLocation?
@@ -39,7 +39,7 @@ final class SwiftAAPlanetaryService: ObservableObject {
         let planetaryPositions: [Planet: PlanetPosition]
 
         // Active Aspects
-        let aspects: [PlanetaryAspect]
+        let aspects: [InternalPlanetaryAspect]
 
         // Retrogrades
         let retrogradeplanets: [Planet]
@@ -114,7 +114,7 @@ final class SwiftAAPlanetaryService: ObservableObject {
         }
     }
 
-    struct PlanetaryAspect: Codable, Sendable {
+    struct InternalPlanetaryAspect: Codable, Sendable {
         let planet1: String
         let planet2: String
         let type: AspectType
@@ -158,7 +158,7 @@ final class SwiftAAPlanetaryService: ObservableObject {
 
     // MARK: - Published Properties
 
-    @Published private(set) var currentSnapshot: PlanetarySnapshot?
+    @Published private(set) var currentSnapshot: InternalPlanetarySnapshot?
     @Published private(set) var isComputing = false
     @Published private(set) var lastComputeTime: Date?
 
@@ -178,7 +178,7 @@ final class SwiftAAPlanetaryService: ObservableObject {
     // MARK: - Public API
 
     /// Compute current planetary snapshot
-    func computeSnapshot(for date: Date = Date(), location: CLLocation? = nil) async throws -> PlanetarySnapshot {
+    func computeSnapshot(for date: Date = Date(), location: CLLocation? = nil) async throws -> InternalPlanetarySnapshot {
         let cacheKey = "\(date.timeIntervalSince1970)_\(location?.coordinate.latitude ?? 0)_\(location?.coordinate.longitude ?? 0)"
 
         // Check cache first
@@ -209,7 +209,7 @@ final class SwiftAAPlanetaryService: ObservableObject {
     }
 
     /// Get aspects between two planets
-    func getAspect(between planet1: Planet, and planet2: Planet, on date: Date = Date()) async throws -> PlanetaryAspect? {
+    func getAspect(between planet1: Planet, and planet2: Planet, on date: Date = Date()) async throws -> InternalPlanetaryAspect? {
         let snapshot = try await computeSnapshot(for: date)
 
         return snapshot.aspects.first { aspect in
@@ -231,7 +231,7 @@ final class SwiftAAPlanetaryService: ObservableObject {
         snapshotCache.totalCostLimit = 5 * 1024 * 1024 // 5MB
     }
 
-    private func getCachedSnapshot(for key: String) -> PlanetarySnapshot? {
+    private func getCachedSnapshot(for key: String) -> InternalPlanetarySnapshot? {
         guard let wrapper = snapshotCache.object(forKey: key as NSString) else { return nil }
 
         // Check if cache is still valid
@@ -243,14 +243,14 @@ final class SwiftAAPlanetaryService: ObservableObject {
         return wrapper.snapshot
     }
 
-    private func cacheSnapshot(_ snapshot: PlanetarySnapshot, for key: String) {
+    private func cacheSnapshot(_ snapshot: InternalPlanetarySnapshot, for key: String) {
         let wrapper = SnapshotWrapper(snapshot: snapshot, cachedAt: Date())
         snapshotCache.setObject(wrapper, forKey: key as NSString)
     }
 
     // MARK: - Mock Implementation (Replace with SwiftAA)
 
-    private func computeMockSnapshot(for date: Date, location: CLLocation?) async throws -> PlanetarySnapshot {
+    private func computeMockSnapshot(for date: Date, location: CLLocation?) async throws -> InternalPlanetarySnapshot {
         // This is a mock implementation for testing
         // In production, integrate with SwiftAA for real calculations
 
@@ -267,7 +267,7 @@ final class SwiftAAPlanetaryService: ObservableObject {
 
         // Mock aspects
         let aspects = [
-            PlanetaryAspect(
+            InternalPlanetaryAspect(
                 planet1: "Moon",
                 planet2: "Mars",
                 type: .square,
@@ -275,7 +275,7 @@ final class SwiftAAPlanetaryService: ObservableObject {
                 isApplying: true,
                 exactAt: date.addingTimeInterval(3600)
             ),
-            PlanetaryAspect(
+            InternalPlanetaryAspect(
                 planet1: "Sun",
                 planet2: "Jupiter",
                 type: .trine,
@@ -285,7 +285,7 @@ final class SwiftAAPlanetaryService: ObservableObject {
             )
         ]
 
-        return PlanetarySnapshot(
+        return InternalPlanetarySnapshot(
             julianDay: jd,
             date: date,
             location: location,
@@ -331,10 +331,10 @@ final class SwiftAAPlanetaryService: ObservableObject {
 // MARK: - Supporting Types
 
 private final class SnapshotWrapper {
-    let snapshot: SwiftAAPlanetaryService.PlanetarySnapshot
+    let snapshot: SwiftAAPlanetaryService.InternalPlanetarySnapshot
     let cachedAt: Date
 
-    init(snapshot: SwiftAAPlanetaryService.PlanetarySnapshot, cachedAt: Date) {
+    init(snapshot: SwiftAAPlanetaryService.InternalPlanetarySnapshot, cachedAt: Date) {
         self.snapshot = snapshot
         self.cachedAt = cachedAt
     }
@@ -343,7 +343,7 @@ private final class SnapshotWrapper {
 // MARK: - Protocol Conformance
 
 extension SwiftAAPlanetaryService: PlanetaryService {
-    func currentSnapshot() async throws -> PlanetarySnapshot {
+    public func currentSnapshot() async throws -> PlanetarySnapshot {
         // Convert to InsightContext PlanetarySnapshot type
         let snapshot = try await computeSnapshot()
 
@@ -354,7 +354,7 @@ extension SwiftAAPlanetaryService: PlanetaryService {
             moonSign: snapshot.moonSign,
             risingSign: snapshot.ascendant,
             activeAspects: snapshot.aspects.map { aspect in
-                InsightContext.PlanetaryAspect(
+                PlanetaryAspect(
                     planet1: aspect.planet1,
                     aspectType: aspect.type.rawValue,
                     planet2: aspect.planet2,

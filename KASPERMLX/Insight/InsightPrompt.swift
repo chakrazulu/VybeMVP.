@@ -11,43 +11,67 @@ import Foundation
 
 /// Normalized, prompt-ready view of InsightContext for LLM consumption
 /// Contains only the data needed for insight generation without PII
-struct InsightPrompt: Sendable, Codable {
+public struct InsightPrompt: Sendable, Codable {
     // MARK: - Numerology
-    let focusNumber: Int
-    let realmNumber: Int
-    let lifePathNumber: Int
-    let expressionNumber: Int
-    let soulUrgeNumber: Int
+    public let focusNumber: Int
+    public let realmNumber: Int
+    public let lifePathNumber: Int
+    public let expressionNumber: Int
+    public let soulUrgeNumber: Int
 
     // MARK: - Planetary (from SwiftAAPlanetaryService)
-    let currentTransits: [String]        // e.g., ["Mars sextile Sun", "Moon square Venus"]
-    let rulingPlanet: String             // e.g., "Jupiter"
-    let lunarPhase: String               // e.g., "Waxing Gibbous"
-    let sunSign: String                  // Current sun sign
-    let moonSign: String                 // Current moon sign
-    let retrogrades: [String]            // Planets in retrograde
+    public let currentTransits: [String]        // e.g., ["Mars sextile Sun", "Moon square Venus"]
+    public let rulingPlanet: String             // e.g., "Jupiter"
+    public let lunarPhase: String               // e.g., "Waxing Gibbous"
+    public let sunSign: String                  // Current sun sign
+    public let moonSign: String                 // Current moon sign
+    public let retrogrades: [String]            // Planets in retrograde
 
     // MARK: - User State (privacy-safe)
-    let recentJournalThemes: [String]    // Distilled keywords, no raw text
-    let meditationStreakDays: Int
-    let activeIntentions: [String]       // Sanctum intentions (sanitized)
-    let currentMode: String              // "home", "meditation", "journal"
-    let locale: String                   // "en-US" for stylistic tone
-    let persona: String                  // "Oracle", "Coach", "Psychologist", etc.
+    public let recentJournalThemes: [String]    // Distilled keywords, no raw text
+    public let meditationStreakDays: Int
+    public let activeIntentions: [String]       // Sanctum intentions (sanitized)
+    public let currentMode: String              // "home", "meditation", "journal"
+    public let locale: String                   // "en-US" for stylistic tone
+    public let persona: String                  // "Oracle", "Coach", "Psychologist", etc.
 
     // MARK: - Generation Constraints
-    let maxSentences: Int
-    let temperature: Double              // 0.5-0.7 for consistency
-    let includeAffirmation: Bool
-    let focusArea: FocusArea?
+    public let maxSentences: Int
+    public let temperature: Double              // 0.5-0.7 for consistency
+    public let includeAffirmation: Bool
+    public let focusArea: FocusArea?
 
-    enum FocusArea: String, Codable {
+    public enum FocusArea: String, Codable, Sendable {
         case relationships = "relationships"
         case career = "career"
         case spiritual = "spiritual"
         case health = "health"
         case shadow = "shadow"
         case growth = "growth"
+    }
+
+    public init(focusNumber: Int, realmNumber: Int, lifePathNumber: Int, expressionNumber: Int, soulUrgeNumber: Int, currentTransits: [String], rulingPlanet: String, lunarPhase: String, sunSign: String, moonSign: String, retrogrades: [String], recentJournalThemes: [String], meditationStreakDays: Int, activeIntentions: [String], currentMode: String, locale: String, persona: String, maxSentences: Int, temperature: Double, includeAffirmation: Bool, focusArea: FocusArea?) {
+        self.focusNumber = focusNumber
+        self.realmNumber = realmNumber
+        self.lifePathNumber = lifePathNumber
+        self.expressionNumber = expressionNumber
+        self.soulUrgeNumber = soulUrgeNumber
+        self.currentTransits = currentTransits
+        self.rulingPlanet = rulingPlanet
+        self.lunarPhase = lunarPhase
+        self.sunSign = sunSign
+        self.moonSign = moonSign
+        self.retrogrades = retrogrades
+        self.recentJournalThemes = recentJournalThemes
+        self.meditationStreakDays = meditationStreakDays
+        self.activeIntentions = activeIntentions
+        self.currentMode = currentMode
+        self.locale = locale
+        self.persona = persona
+        self.maxSentences = maxSentences
+        self.temperature = temperature
+        self.includeAffirmation = includeAffirmation
+        self.focusArea = focusArea
     }
 }
 
@@ -204,16 +228,29 @@ struct PromptMapper {
 extension InsightPrompt {
     /// Redact any potentially identifying information before cloud transmission
     func redacted() -> InsightPrompt {
-        var copy = self
-
-        // Clear any free-text fields
-        copy.recentJournalThemes = copy.recentJournalThemes.map { _ in "theme" }
-        copy.activeIntentions = copy.activeIntentions.map { _ in "intention" }
-
-        // Generalize location
-        copy.locale = Locale.current.languageCode ?? "en"
-
-        return copy
+        return InsightPrompt(
+            focusNumber: focusNumber,
+            realmNumber: realmNumber,
+            lifePathNumber: lifePathNumber,
+            expressionNumber: expressionNumber,
+            soulUrgeNumber: soulUrgeNumber,
+            currentTransits: currentTransits,
+            rulingPlanet: rulingPlanet,
+            lunarPhase: lunarPhase,
+            sunSign: sunSign,
+            moonSign: moonSign,
+            retrogrades: retrogrades,
+            recentJournalThemes: recentJournalThemes.map { _ in "theme" },
+            meditationStreakDays: meditationStreakDays,
+            activeIntentions: activeIntentions.map { _ in "intention" },
+            currentMode: currentMode,
+            locale: Locale.current.language.languageCode?.identifier ?? "en",
+            persona: persona,
+            maxSentences: maxSentences,
+            temperature: temperature,
+            includeAffirmation: includeAffirmation,
+            focusArea: focusArea
+        )
     }
 
     /// Check if prompt contains any PII

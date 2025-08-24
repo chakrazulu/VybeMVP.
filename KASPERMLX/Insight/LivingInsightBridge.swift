@@ -226,7 +226,7 @@ private class VybeMVPUserStateAdapter: UserStateManager {
         self.focusManager = focus
     }
 
-    func currentState(mode: UserMode) async -> UserState {
+    func currentState(mode: UserMode) async -> UserSession {
         // Extract current user state from existing managers
 
         let currentFocus = focusManager?.currentFocus ?? 1
@@ -235,15 +235,15 @@ private class VybeMVPUserStateAdapter: UserStateManager {
         // Get recent activity from existing systems
         var recentActivity: [String] = []
 
-        if let lastMeditation = meditationManager?.lastSession {
+        if meditationManager?.lastSession != nil {
             recentActivity.append("meditation")
         }
 
-        if let recentJournal = journalManager?.recentEntries?.first {
+        if journalManager?.recentEntries.first != nil {
             recentActivity.append("journal")
         }
 
-        return UserState(
+        return UserSession(
             currentFocus: currentFocus,
             currentRealm: currentRealm,
             sessionDuration: nil,
@@ -287,7 +287,7 @@ struct LivingInsightModifier: ViewModifier {
             .onAppear {
                 loadInsight()
             }
-            .onChange(of: bridge.lastInsight) { _ in
+            .onChange(of: bridge.lastInsight) {
                 loadInsight()
             }
     }

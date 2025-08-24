@@ -67,7 +67,7 @@ struct LivingInsightView: View {
         .onAppear {
             loadInitialInsight()
         }
-        .onChange(of: bridge.lastInsight) { _ in
+        .onChange(of: bridge.lastInsight) {
             updateInsightText()
         }
     }
@@ -145,7 +145,7 @@ struct CompactLivingInsightView: View {
         .onAppear {
             loadInsight()
         }
-        .onChange(of: bridge.lastInsight) { _ in
+        .onChange(of: bridge.lastInsight) {
             loadInsight()
         }
     }

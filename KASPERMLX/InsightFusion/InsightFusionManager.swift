@@ -1113,3 +1113,19 @@ public struct FusionStatistics {
  * // Result: Unique spiritual guidance combining leadership + creativity in Oracle voice
  * // Ready for 405 total combinations across all personas and number pairs
  */
+
+// MARK: - Phase 2B Compatibility Extensions
+
+public extension FusedInsight {
+    /// Compatibility adapter for Phase 2B backend system
+    var text: String { fusedContent }
+    var insightMetadata: [String: Any] {
+        [
+            "focus": focusNumber,
+            "realm": realmNumber,
+            "persona": persona,
+            "confidence": confidence,
+            "fusionTime": fusionTime
+        ]
+    }
+}

@@ -126,8 +126,8 @@ final class RuntimeBundleIndexer: ObservableObject {
         let data = try await loadFile(at: entry.path)
 
         // Cache for future use
-        cacheQueue.async(flags: .barrier) {
-            self.contentCache.setObject(data as NSData, forKey: cacheKey)
+        Task { @MainActor in
+            self.contentCache.setObject(data as NSData, forKey: cacheKey as NSString)
         }
 
         return data
@@ -325,14 +325,18 @@ enum RuntimeBundleError: LocalizedError {
 // MARK: - Extension for Purgable Protocol
 
 extension RuntimeBundleIndexer: Purgable {
-    func purgeNonEssential() {
-        // Remove 50% of cached content
-        let currentLimit = contentCache.countLimit
-        contentCache.countLimit = max(1, currentLimit / 2)
-        contentCache.countLimit = currentLimit
+    nonisolated func purgeNonEssential() {
+        Task { @MainActor in
+            // Remove 50% of cached content
+            let currentLimit = contentCache.countLimit
+            contentCache.countLimit = max(1, currentLimit / 2)
+            contentCache.countLimit = currentLimit
+        }
     }
 
-    func purgeAll() {
-        contentCache.removeAllObjects()
+    nonisolated func purgeAll() {
+        Task { @MainActor in
+            contentCache.removeAllObjects()
+        }
     }
 }

@@ -120,9 +120,13 @@ final class AdvancedMemoryManager: ObservableObject {
 
         case .warning:
             purgeNonEssentialCache()
+            // Notify ModelStore to unload models
+            NotificationCenter.default.post(name: .memoryPressureWarning, object: nil)
 
         case .critical:
             purgeAllNonActiveContent()
+            // Notify ModelStore to force unload models
+            NotificationCenter.default.post(name: .memoryPressureCritical, object: nil)
         }
 
         lastPurgeTime = Date()
@@ -299,6 +303,8 @@ private struct WeakPurgableReference {
 extension Notification.Name {
     static let reduceThermalLoad = Notification.Name("com.vybe.reduceThermalLoad")
     static let memoryPressureChanged = Notification.Name("com.vybe.memoryPressureChanged")
+    static let memoryPressureWarning = Notification.Name("com.vybe.memoryPressureWarning")
+    static let memoryPressureCritical = Notification.Name("com.vybe.memoryPressureCritical")
 }
 
 // MARK: - Debug Helpers

@@ -14,7 +14,7 @@ import os.log
 // MARK: - Core Types
 
 /// Method used to generate the insight
-public enum InsightMethod: String, Codable {
+public enum InsightMethod: String, Codable, Sendable {
     case localLLM = "local_llm"        // On-device AI model
     case template = "template"         // Template fusion fallback
     case runtimeOnly = "runtime_only"  // Pure RuntimeBundle selection
@@ -23,19 +23,27 @@ public enum InsightMethod: String, Codable {
 }
 
 /// Result of insight generation with metadata
-public struct InsightResult: Sendable {
+public struct InsightResult: Sendable, Equatable {
     public let text: String
     public let method: InsightMethod
     public let quality: Double        // 0.0 to 1.0
     public let latency: TimeInterval
-    public let metadata: [String: Any]
+    public let metadata: [String: String]  // Simplified for Sendable compliance
 
-    public init(text: String, method: InsightMethod, quality: Double, latency: TimeInterval, metadata: [String: Any] = [:]) {
+    public init(text: String, method: InsightMethod, quality: Double, latency: TimeInterval, metadata: [String: String] = [:]) {
         self.text = text
         self.method = method
         self.quality = quality
         self.latency = latency
         self.metadata = metadata
+    }
+
+    // Custom Equatable implementation (ignores metadata which can't be compared)
+    public static func == (lhs: InsightResult, rhs: InsightResult) -> Bool {
+        return lhs.text == rhs.text &&
+               lhs.method == rhs.method &&
+               lhs.quality == rhs.quality &&
+               abs(lhs.latency - rhs.latency) < 0.001
     }
 }
 
@@ -64,20 +72,116 @@ public final class HybridInsightEngine: InsightEngine, ObservableObject {
     private let mapper = PromptMapper()
     private let logger = Logger(subsystem: "com.vybe.insights", category: "HybridEngine")
 
+    // Phase 2B: Ordered backend system
+    private var backends: [InsightEngineBackend] = []
+    private let modelStore: ModelStore
+
     // Metrics tracking
     private var metrics = GenerationMetrics()
 
     // MARK: - Initialization
 
     public init() {
-        self.selector = RuntimeSelector.shared
+        self.selector = RuntimeSelector()
         self.composer = LocalComposer()
-        self.evaluator = InsightQualityGateManager.shared
+        let fusionManager = InsightFusionManager()
+        let fusionEvaluator = FusionEvaluator()
+        self.evaluator = InsightQualityGateManager(fusionManager: fusionManager, fusionEvaluator: fusionEvaluator)
+        self.modelStore = ModelStore()
+
+        // Phase 2B: Initialize ordered backends
+        setupOrderedBackends()
+    }
+
+    /// Phase 2B: Setup ordered backend chain
+    private func setupOrderedBackends() {
+        backends = [
+            LocalComposerBackend(store: modelStore, selector: selector),
+            TemplateFusionBackend(selector: selector, fusionManager: InsightFusionManager())
+        ].sorted { $0.priority > $1.priority } // Sort by priority (highest first)
+
+        logger.info("🔗 Initialized backend chain: \(self.backends.map { $0.id }.joined(separator: " → "))")
     }
 
     // MARK: - InsightEngine Protocol
 
+    /// Phase 2B: Generate using ordered backend system
+    public func generateWithBackends(from context: InsightContext) async throws -> InsightResult {
+        let startTime = Date()
+        generationCount += 1
+
+        logger.info("🎯 Starting backend-based generation #\(self.generationCount)")
+
+        // Convert context to prompt
+        let prompt = mapper.makePrompt(from: context)
+
+        // Try backends in priority order
+        for backend in backends {
+            guard await backend.isReady else {
+                logger.debug("Backend \(backend.id) not ready, skipping")
+                continue
+            }
+
+            do {
+                let result = try await backend.generate(prompt)
+
+                // Check quality gates using existing evaluator
+                let qualityScore = await evaluator.evaluateInsight(result.text, persona: prompt.persona)
+                let meetsQuality = qualityScore >= LLMFeatureFlags.minQualityThreshold
+                let meetsLatency = result.latency <= LLMFeatureFlags.maxLatencySeconds
+
+                if meetsQuality && meetsLatency {
+                    // Success! Update metrics and return
+                    let finalResult = InsightResult(
+                        text: result.text,
+                        method: InsightMethod(rawValue: result.method.rawValue) ?? .hybrid,
+                        quality: qualityScore,
+                        latency: Date().timeIntervalSince(startTime),
+                        metadata: result.metadata.merging([
+                            "backend_id": backend.id,
+                            "backend_priority": String(backend.priority),
+                            "generation_count": String(generationCount)
+                        ]) { _, new in new }
+                    )
+
+                    lastResult = finalResult
+                    await recordMetrics(finalResult)
+
+                    logger.info("✅ Generated via \(backend.id) - quality: \(String(format: "%.2f", qualityScore)), latency: \(String(format: "%.3f", result.latency))s")
+                    return finalResult
+
+                } else {
+                    logger.warning("Backend \(backend.id) failed gates - quality: \(String(format: "%.2f", qualityScore)), latency: \(String(format: "%.3f", result.latency))s")
+
+                    // Log for shadow mode analysis
+                    if LLMFeatureFlags.shadowModeEnabled {
+                        await logBackendAttempt(backend: backend.id, result: result, quality: qualityScore, passed: false)
+                    }
+                }
+
+            } catch {
+                logger.error("Backend \(backend.id) failed: \(error.localizedDescription)")
+                continue
+            }
+        }
+
+        // Absolute fallback: use legacy method
+        logger.warning("All backends failed, using legacy fallback")
+        return try await generateLegacy(from: context)
+    }
+
+    /// Original generate method (preserved for compatibility)
     public func generate(from context: InsightContext) async throws -> InsightResult {
+        // Use new backend system if feature flag enabled, otherwise legacy
+        if LLMFeatureFlags.isLocalComposerEnabled {
+            return try await generateWithBackends(from: context)
+        } else {
+            return try await generateLegacy(from: context)
+        }
+    }
+
+    /// Legacy generation method (original implementation)
+    private func generateLegacy(from context: InsightContext) async throws -> InsightResult {
         let startTime = Date()
         generationCount += 1
 
@@ -90,7 +194,7 @@ public final class HybridInsightEngine: InsightEngine, ObservableObject {
         let sentences = await selectSentences(for: prompt)
 
         // Step 2: Try local LLM if available and loaded
-        if composer.isLoaded && FeatureFlags.localLLMEnabled {
+        if await composer.isLoaded && FeatureFlags.localLLMEnabled {
             do {
                 let (text, compositionTime) = try await composer.compose(
                     persona: prompt.persona,
@@ -109,8 +213,8 @@ public final class HybridInsightEngine: InsightEngine, ObservableObject {
                         quality: score,
                         latency: Date().timeIntervalSince(startTime),
                         metadata: [
-                            "compositionTime": compositionTime,
-                            "sentenceCount": sentences.count
+                            "compositionTime": String(compositionTime),
+                            "sentenceCount": String(sentences.count)
                         ]
                     )
 
@@ -136,8 +240,8 @@ public final class HybridInsightEngine: InsightEngine, ObservableObject {
             quality: 0.75, // Template fusion baseline quality
             latency: Date().timeIntervalSince(startTime),
             metadata: [
-                "sentenceCount": sentences.count,
-                "fallbackReason": composer.isLoaded ? "quality" : "not_loaded"
+                "sentenceCount": String(sentences.count),
+                "fallbackReason": await composer.isLoaded ? "quality" : "not_loaded"
             ]
         )
 
@@ -151,21 +255,37 @@ public final class HybridInsightEngine: InsightEngine, ObservableObject {
     public func warmup() async {
         logger.info("🔥 Warming up insight engine")
 
-        // Preload composer model
+        // Legacy warmup
         await composer.loadIfNeeded()
-
-        // Warm up selector cache
         await selector.warmupCache()
 
+        // Phase 2B: Warm up backends
+        for backend in backends {
+            do {
+                try await backend.warmup()
+                logger.debug("✅ Warmed up backend: \(backend.id)")
+            } catch {
+                logger.warning("⚠️ Failed to warm up backend \(backend.id): \(error.localizedDescription)")
+            }
+        }
+
         isReady = true
-        logger.info("✅ Insight engine ready")
+        logger.info("✅ Insight engine ready with \(self.backends.count) backends")
     }
 
     public func shutdown() async {
         logger.info("🛑 Shutting down insight engine")
 
+        // Legacy shutdown
         await composer.unload()
+
+        // Phase 2B: Shutdown backends
+        for backend in backends {
+            await backend.shutdown()
+        }
+
         isReady = false
+        logger.info("✅ Insight engine shutdown complete")
     }
 
     // MARK: - Private Methods
@@ -186,23 +306,28 @@ public final class HybridInsightEngine: InsightEngine, ObservableObject {
 
     private func generateTemplateFusion(sentences: [String], persona: String) async -> String {
         // Use existing template fusion system
-        let fusionManager = InsightFusionManager.shared
+        let fusionManager = InsightFusionManager()
 
-        let insight = await fusionManager.generateInsight(
-            focus: sentences.first ?? "",
-            realm: sentences.last ?? "",
-            persona: persona
-        )
-
-        return insight.text
+        do {
+            let insight = try await fusionManager.generateFusedInsight(
+                focusNumber: 1,
+                realmNumber: 1,
+                persona: persona,
+                userContext: [:]
+            )
+            return insight.text
+        } catch {
+            // Fallback to simple template
+            return "Trust in your spiritual path. \(sentences.first ?? "Your wisdom guides you.")"
+        }
     }
 
     private func recordMetrics(_ result: InsightResult) async {
-        metrics.record(result)
+        self.metrics.record(result)
 
         // Log if we're hitting performance targets
-        if metrics.averageLatency > 2.0 {
-            logger.warning("⚠️ Average latency exceeds 2s target: \(metrics.averageLatency)s")
+        if self.metrics.averageLatency > 2.0 {
+            logger.warning("⚠️ Average latency exceeds 2s target: \(self.metrics.averageLatency)s")
         }
 
         // Shadow mode logging for comparison
@@ -216,6 +341,20 @@ public final class HybridInsightEngine: InsightEngine, ObservableObject {
         Task.detached(priority: .background) {
             // Log for analysis without affecting user experience
             await ShadowModeLogger.log(result)
+        }
+    }
+
+    /// Phase 2B: Log backend attempts for shadow mode analysis
+    private func logBackendAttempt(backend: String, result: InsightResult, quality: Double, passed: Bool) async {
+        guard LLMFeatureFlags.shadowModeEnabled else { return }
+
+        Task.detached(priority: .background) {
+            await ShadowModeLogger.logBackendAttempt(
+                backendId: backend,
+                result: result,
+                evaluatedQuality: quality,
+                passedGates: passed
+            )
         }
     }
 }
@@ -309,7 +448,7 @@ enum ShadowModeLogger {
         // Log to analytics for A/B comparison
         // This helps determine when to graduate from stub to production
 
-        let event = AnalyticsEvent(
+        let _ = AnalyticsEvent(
             name: "insight_generated",
             parameters: [
                 "method": result.method.rawValue,
@@ -320,6 +459,26 @@ enum ShadowModeLogger {
         )
 
         // Send to your analytics service
+        // await Analytics.log(event)
+    }
+
+    /// Phase 2B: Log backend attempt for shadow mode analysis
+    static func logBackendAttempt(backendId: String, result: InsightResult, evaluatedQuality: Double, passedGates: Bool) async {
+        let _ = AnalyticsEvent(
+            name: "backend_attempt",
+            parameters: [
+                "backend_id": backendId,
+                "method": result.method.rawValue,
+                "result_quality": result.quality,
+                "evaluated_quality": evaluatedQuality,
+                "latency": result.latency,
+                "passed_gates": passedGates,
+                "text_length": result.text.count,
+                "timestamp": Date().timeIntervalSince1970
+            ]
+        )
+
+        // Send to analytics for backend performance comparison
         // await Analytics.log(event)
     }
 }

@@ -657,35 +657,6 @@ struct InsightRequest {
  * This rich contextual foundation ensures that every insight feels personally
  * crafted for the user's current spiritual needs and circumstances.
  */
-struct InsightContext {
-    /// Claude: Core spiritual data directly relevant to the guidance request
-    /// Examples: {"focusNumber": 7, "entryText": "Today I felt...", "timeOfDay": 14}
-    let primaryData: [String: Any]
-
-    /// Claude: User's natural language expression of their spiritual inquiry
-    /// Examples: "What spiritual lesson is emerging?", "How should I respond to this situation?"
-    let userQuery: String?
-
-    /// Claude: Previous spiritual interactions and patterns for continuity and growth
-    /// Examples: {"recentInsights": [...], "feedbackRatings": [...], "spiritualMilestones": [...]}
-    let historicalContext: [String: Any]?
-
-    /// Claude: Technical and preference requirements for the generated insight
-    let constraints: InsightConstraints?
-
-    /// Claude: Initialize context with flexible spiritual data and optional personalization
-    init(
-        primaryData: [String: Any],
-        userQuery: String? = nil,
-        historicalContext: [String: Any]? = nil,
-        constraints: InsightConstraints? = nil
-    ) {
-        self.primaryData = primaryData
-        self.userQuery = userQuery
-        self.historicalContext = historicalContext
-        self.constraints = constraints
-    }
-}
 
 /**
  * Claude: InsightConstraints - The Sacred Parameters for Spiritual Guidance Delivery

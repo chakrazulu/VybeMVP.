@@ -304,7 +304,9 @@ extension NavigationRouter {
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.navigateToGridItem(.activity)
+            Task { @MainActor in
+                self?.navigateToGridItem(.activity)
+            }
         }
 
         NotificationCenter.default.addObserver(
@@ -312,7 +314,9 @@ extension NavigationRouter {
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.navigateToTab(.meditation)
+            Task { @MainActor in
+                self?.navigateToTab(.meditation)
+            }
         }
 
         NotificationCenter.default.addObserver(
@@ -320,7 +324,9 @@ extension NavigationRouter {
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.navigateToTab(.journal)
+            Task { @MainActor in
+                self?.navigateToTab(.journal)
+            }
         }
 
         NotificationCenter.default.addObserver(
@@ -328,7 +334,9 @@ extension NavigationRouter {
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.navigateToGridItem(.sightings)
+            Task { @MainActor in
+                self?.navigateToGridItem(.sightings)
+            }
         }
 
         NotificationCenter.default.addObserver(
@@ -336,7 +344,9 @@ extension NavigationRouter {
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.navigateToTab(.timeline)
+            Task { @MainActor in
+                self?.navigateToTab(.timeline)
+            }
         }
 
         NotificationCenter.default.addObserver(
@@ -344,7 +354,9 @@ extension NavigationRouter {
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.navigateToGridItem(.analytics)
+            Task { @MainActor in
+                self?.navigateToGridItem(.analytics)
+            }
         }
 
         NotificationCenter.default.addObserver(
@@ -352,7 +364,9 @@ extension NavigationRouter {
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.navigateToSettings()
+            Task { @MainActor in
+                self?.navigateToSettings()
+            }
         }
 
         NotificationCenter.default.addObserver(
@@ -360,7 +374,9 @@ extension NavigationRouter {
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.navigateToTab(.sanctum)
+            Task { @MainActor in
+                self?.navigateToTab(.sanctum)
+            }
         }
     }
 }

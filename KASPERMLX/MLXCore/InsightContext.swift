@@ -14,43 +14,124 @@ import SwiftUI
 
 /// Unified context for generating personalized spiritual insights
 /// Combines numerology, planetary data, and user state
-struct InsightContext: Sendable, Codable {
+public struct InsightContext: Sendable, Codable {
     // MARK: - Core Numerology (from Sanctum)
-    let lifePath: Int
-    let expression: Int
-    let soulUrge: Int
-    let destiny: Int
-    let personality: Int
-    let maturity: Int
+    public let lifePath: Int
+    public let expression: Int
+    public let soulUrge: Int
+    public let destiny: Int
+    public let personality: Int
+    public let maturity: Int
 
     // MARK: - Current Focus & Realm
-    let focus: Int
-    let realm: Int
+    public let focus: Int
+    public let realm: Int
 
     // MARK: - Planetary Context (SwiftAA snapshot)
-    let julianDay: Double               // Julian Day for astronomical calculations
-    let sunSign: String                  // Current sun sign (e.g., "Leo")
-    let moonPhase: String                // Current moon phase (e.g., "Waxing Crescent")
-    let moonSign: String                 // Current moon sign
-    let risingSign: String?              // Ascendant if birth time known
-    let aspects: [PlanetaryAspect]       // Active planetary aspects
-    let retrogrades: [String]            // Planets currently in retrograde
+    public let julianDay: Double               // Julian Day for astronomical calculations
+    public let sunSign: String                  // Current sun sign (e.g., "Leo")
+    public let moonPhase: String                // Current moon phase (e.g., "Waxing Crescent")
+    public let moonSign: String                 // Current moon sign
+    public let risingSign: String?              // Ascendant if birth time known
+    public let aspects: [PlanetaryAspect]       // Active planetary aspects
+    public let retrogrades: [String]            // Planets currently in retrograde
 
     // MARK: - User State (bounded, private)
-    let mode: UserMode                   // Current app mode (meditate, journal, home)
-    let localTime: Date                  // User's local time
-    let sessionDuration: TimeInterval?   // Duration if in active session
-    let recentActivity: [String]         // Last 3-5 user actions (privacy-safe)
+    public let mode: UserMode                   // Current app mode (meditate, journal, home)
+    public let localTime: Date                  // User's local time
+    public let sessionDuration: TimeInterval?   // Duration if in active session
+    public let recentActivity: [String]         // Last 3-5 user actions (privacy-safe)
 
     // MARK: - Optional Enhancement Data
-    let chakraStates: [ChakraState]?     // Current chakra balance if available
-    let consciousnessLevel: Int?         // Hawkins scale calibration if measured
-    let biometrics: BiometricSnapshot?   // Heart rate, HRV if available
+    public let chakraStates: [ChakraBalance]?     // Current chakra balance if available
+    public let consciousnessLevel: Int?         // Hawkins scale calibration if measured
+    public let biometrics: BiometricSnapshot?   // Heart rate, HRV if available
+
+    public init(lifePath: Int, expression: Int, soulUrge: Int, destiny: Int, personality: Int, maturity: Int, focus: Int, realm: Int, julianDay: Double, sunSign: String, moonPhase: String, moonSign: String, risingSign: String?, aspects: [PlanetaryAspect], retrogrades: [String], mode: UserMode, localTime: Date, sessionDuration: TimeInterval?, recentActivity: [String], chakraStates: [ChakraBalance]?, consciousnessLevel: Int?, biometrics: BiometricSnapshot?) {
+        self.lifePath = lifePath
+        self.expression = expression
+        self.soulUrge = soulUrge
+        self.destiny = destiny
+        self.personality = personality
+        self.maturity = maturity
+        self.focus = focus
+        self.realm = realm
+        self.julianDay = julianDay
+        self.sunSign = sunSign
+        self.moonPhase = moonPhase
+        self.moonSign = moonSign
+        self.risingSign = risingSign
+        self.aspects = aspects
+        self.retrogrades = retrogrades
+        self.mode = mode
+        self.localTime = localTime
+        self.sessionDuration = sessionDuration
+        self.recentActivity = recentActivity
+        self.chakraStates = chakraStates
+        self.consciousnessLevel = consciousnessLevel
+        self.biometrics = biometrics
+    }
 }
+
+// MARK: - Compatibility Extensions for Legacy Code
+
+extension InsightContext {
+    /// Legacy compatibility - simulate primaryData dictionary
+    public var primaryData: [String: Any] {
+        return [
+            "focusNumber": focus,
+            "realmNumber": realm,
+            "lifePath": lifePath,
+            "mode": mode.rawValue
+        ]
+    }
+
+    /// Legacy compatibility - simulate userQuery
+    public var userQuery: String? {
+        return "Generate spiritual insight for focus \(focus), realm \(realm)"
+    }
+
+    /// Legacy compatibility - provide default constraints
+    var constraints: InsightConstraints? {
+        return InsightConstraints(
+            maxLength: 150,
+            tone: "encouraging",
+            includeEmojis: true
+        )
+    }
+
+    /// Legacy constructor for backwards compatibility
+    init(primaryData: [String: Any], userQuery: String? = nil, constraints: InsightConstraints? = nil) {
+        // Extract values from legacy format with sensible defaults
+        self.focus = primaryData["focusNumber"] as? Int ?? 1
+        self.realm = primaryData["realmNumber"] as? Int ?? 1
+        self.lifePath = primaryData["lifePath"] as? Int ?? 1
+        self.expression = 1
+        self.soulUrge = 1
+        self.destiny = 1
+        self.personality = 1
+        self.maturity = 1
+        self.julianDay = 2460000.0 // Current approximate Julian day
+        self.sunSign = "Leo"
+        self.moonPhase = "Waxing"
+        self.moonSign = "Sagittarius"
+        self.risingSign = nil
+        self.aspects = []
+        self.retrogrades = []
+        self.mode = .home
+        self.localTime = Date()
+        self.sessionDuration = nil
+        self.recentActivity = []
+        self.chakraStates = nil
+        self.consciousnessLevel = nil
+        self.biometrics = nil
+    }
+}
+
 
 // MARK: - Supporting Types
 
-enum UserMode: String, Codable, CaseIterable {
+public enum UserMode: String, Codable, CaseIterable, Sendable {
     case home = "home"
     case meditate = "meditate"
     case journal = "journal"
@@ -60,14 +141,14 @@ enum UserMode: String, Codable, CaseIterable {
     case reflect = "reflect"
 }
 
-struct PlanetaryAspect: Codable, Sendable {
-    let planet1: String
-    let aspectType: String  // conjunction, square, trine, opposition, sextile
-    let planet2: String
-    let orb: Double        // Degrees of exactness
-    let applying: Bool     // Whether aspect is strengthening
+public struct PlanetaryAspect: Codable, Sendable {
+    public let planet1: String
+    public let aspectType: String  // conjunction, square, trine, opposition, sextile
+    public let planet2: String
+    public let orb: Double        // Degrees of exactness
+    public let applying: Bool     // Whether aspect is strengthening
 
-    var symbol: String {
+    public var symbol: String {
         switch aspectType {
         case "conjunction": return "☌"
         case "opposition": return "☍"
@@ -78,22 +159,43 @@ struct PlanetaryAspect: Codable, Sendable {
         }
     }
 
-    var description: String {
+    public var description: String {
         "\(planet1) \(symbol) \(planet2)"
+    }
+
+    public init(planet1: String, aspectType: String, planet2: String, orb: Double, applying: Bool) {
+        self.planet1 = planet1
+        self.aspectType = aspectType
+        self.planet2 = planet2
+        self.orb = orb
+        self.applying = applying
     }
 }
 
-struct ChakraState: Codable, Sendable {
-    let chakra: String
-    let balance: Double  // 0.0 to 1.0
-    let frequency: Double?
+public struct ChakraBalance: Codable, Sendable {
+    public let chakra: String
+    public let balance: Double  // 0.0 to 1.0
+    public let frequency: Double?
+
+    public init(chakra: String, balance: Double, frequency: Double?) {
+        self.chakra = chakra
+        self.balance = balance
+        self.frequency = frequency
+    }
 }
 
-struct BiometricSnapshot: Codable, Sendable {
-    let heartRate: Double?
-    let hrv: Double?
-    let respirationRate: Double?
-    let timestamp: Date
+public struct BiometricSnapshot: Codable, Sendable {
+    public let heartRate: Double?
+    public let hrv: Double?
+    public let respirationRate: Double?
+    public let timestamp: Date
+
+    public init(heartRate: Double?, hrv: Double?, respirationRate: Double?, timestamp: Date) {
+        self.heartRate = heartRate
+        self.hrv = hrv
+        self.respirationRate = respirationRate
+        self.timestamp = timestamp
+    }
 }
 
 // MARK: - Selection Request/Response
@@ -115,12 +217,6 @@ enum SelectionIntent: String {
     case growth = "growth"
 }
 
-struct SelectionResult {
-    let lines: [String]        // Selected content lines
-    let tags: [String]         // Explanation tags (why selected)
-    let confidence: Double     // Selection confidence score
-    let metadata: [String: Any]
-}
 
 // MARK: - Context Provider Protocol
 
@@ -193,8 +289,12 @@ final class DefaultContextProvider: ContextProvider, ObservableObject {
         _ = try await current(for: .home)
     }
 
-    func cached() -> InsightContext? {
-        lastContext
+    nonisolated func cached() -> InsightContext? {
+        // Need to hop to MainActor to read the cached value
+        let context = MainActor.assumeIsolated {
+            return lastContext
+        }
+        return context
     }
 }
 
@@ -204,12 +304,12 @@ protocol NumerologyManager {
     func currentProfile() async -> NumerologyProfile
 }
 
-protocol PlanetaryService {
+public protocol PlanetaryService {
     func currentSnapshot() async throws -> PlanetarySnapshot
 }
 
-protocol UserStateManager {
-    func currentState(mode: UserMode) async -> UserState
+public protocol UserStateManager {
+    func currentState(mode: UserMode) async -> UserSession
 }
 
 // MARK: - Placeholder Data Types
@@ -223,22 +323,42 @@ struct NumerologyProfile {
     let maturity: Int
 }
 
-struct PlanetarySnapshot {
-    let julianDay: Double
-    let sunSign: String
-    let moonPhase: String
-    let moonSign: String
-    let risingSign: String?
-    let activeAspects: [PlanetaryAspect]
-    let retrogrades: [String]
+public struct PlanetarySnapshot {
+    public let julianDay: Double
+    public let sunSign: String
+    public let moonPhase: String
+    public let moonSign: String
+    public let risingSign: String?
+    public let activeAspects: [PlanetaryAspect]
+    public let retrogrades: [String]
+
+    public init(julianDay: Double, sunSign: String, moonPhase: String, moonSign: String, risingSign: String?, activeAspects: [PlanetaryAspect], retrogrades: [String]) {
+        self.julianDay = julianDay
+        self.sunSign = sunSign
+        self.moonPhase = moonPhase
+        self.moonSign = moonSign
+        self.risingSign = risingSign
+        self.activeAspects = activeAspects
+        self.retrogrades = retrogrades
+    }
 }
 
-struct UserState {
-    let currentFocus: Int
-    let currentRealm: Int
-    let sessionDuration: TimeInterval?
-    let recentActivity: [String]
-    let chakraStates: [ChakraState]?
-    let consciousnessLevel: Int?
-    let biometrics: BiometricSnapshot?
+public struct UserSession {
+    public let currentFocus: Int
+    public let currentRealm: Int
+    public let sessionDuration: TimeInterval?
+    public let recentActivity: [String]
+    public let chakraStates: [ChakraBalance]?
+    public let consciousnessLevel: Int?
+    public let biometrics: BiometricSnapshot?
+
+    public init(currentFocus: Int, currentRealm: Int, sessionDuration: TimeInterval?, recentActivity: [String], chakraStates: [ChakraBalance]?, consciousnessLevel: Int?, biometrics: BiometricSnapshot?) {
+        self.currentFocus = currentFocus
+        self.currentRealm = currentRealm
+        self.sessionDuration = sessionDuration
+        self.recentActivity = recentActivity
+        self.chakraStates = chakraStates
+        self.consciousnessLevel = consciousnessLevel
+        self.biometrics = biometrics
+    }
 }

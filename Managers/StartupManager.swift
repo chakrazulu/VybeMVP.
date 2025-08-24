@@ -76,7 +76,7 @@ final class StartupManager: ObservableObject {
 
         // Phase 2: User Content (async, medium priority)
         Task(priority: .high) {
-            await runPhase(.userContent)
+            runPhase(.userContent)
         }
 
         // Phase 3: Enhancement (background, low priority)

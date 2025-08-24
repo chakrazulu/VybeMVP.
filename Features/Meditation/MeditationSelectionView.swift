@@ -119,7 +119,11 @@ struct MeditationSelectionView: View {
                     meditationType: meditationType,
                     duration: getDurationInMinutes(from: config)
                 ) {
-                    activeSheet = nil
+                    // Safely dismiss only if sheet is still active
+                    // This prevents duplicate dismissal attempts
+                    if activeSheet != nil {
+                        activeSheet = nil
+                    }
                 }
                 .environmentObject(FocusNumberManager.shared)
             case .history:
