@@ -63,8 +63,7 @@ struct NeonTracerView: View {
         self.bpm = bpm
         self.color = color
 
-        let patternDescription = NumberPatternGenerator.getPatternDescription(for: realmNumber)
-        print("🌟 PHASE 8I: NeonTracerView using \(patternDescription) for realm number \(realmNumber)")
+        _ = NumberPatternGenerator.getPatternDescription(for: realmNumber)
     }
 
     // Phase 8H: Legacy initializer for SVG asset-based tracing (backward compatibility)

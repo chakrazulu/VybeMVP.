@@ -69,36 +69,33 @@ struct MeditationSelectionView: View {
 
 
     var body: some View {
-        NavigationView {
-            ScrollView {
-                LazyVStack(spacing: 20) {
+        ScrollView {
+            LazyVStack(spacing: 20) {
 
-                    // MARK: - Header
-                    headerSection
+                // MARK: - Header
+                headerSection
 
-                    // MARK: - Personalized Recommendations
-                    recommendedSection
+                // MARK: - Personalized Recommendations
+                recommendedSection
 
-                    // MARK: - All Meditation Types
-                    allMeditationTypesSection
+                // MARK: - All Meditation Types
+                allMeditationTypesSection
 
-                }
-                .padding()
             }
-            .navigationTitle("Choose Your Practice")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(
-                leading: Button("Close") {
-                    presentationMode.wrappedValue.dismiss()
-                },
-                trailing: Button(action: {
+            .padding()
+        }
+        .navigationTitle("Choose Your Practice")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
                     activeSheet = .history
                 }) {
                     Image(systemName: "clock.arrow.circlepath")
                         .font(.title3)
                         .foregroundColor(.blue)
                 }
-            )
+            }
         }
         .sheet(item: $activeSheet) { sheet in
             switch sheet {
