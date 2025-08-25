@@ -352,6 +352,9 @@
 		4D7C36FB2E5BD71800DD697A /* RuntimeBundleManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C36FA2E5BD71800DD697A /* RuntimeBundleManifest.swift */; };
 		4D7C36FD2E5BD73100DD697A /* RuntimeBundleEssentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C36FC2E5BD73100DD697A /* RuntimeBundleEssentials.swift */; };
 		4D7C36FF2E5BD75000DD697A /* RuntimeBundleLoadOrchestrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C36FE2E5BD75000DD697A /* RuntimeBundleLoadOrchestrator.swift */; };
+		4D7C37082E5BF76800DD697A /* PromptTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C37062E5BF76700DD697A /* PromptTemplates.swift */; };
+		4D7C37092E5BF76800DD697A /* LlamaRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C37042E5BF76700DD697A /* LlamaRunner.swift */; };
+		4D7C370A2E5BF76800DD697A /* LLMFeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C37052E5BF76700DD697A /* LLMFeatureFlags.swift */; };
 		4D7CCC842E4EC8D5001642EF /* RuntimeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7CCC802E4EC8D5001642EF /* RuntimeSelector.swift */; };
 		4D7CCC852E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CCC7F2E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md */; };
 		4D80E0FD2D3F1B0B0020F7BB /* RealmNumberDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E0FC2D3F1B0B0020F7BB /* RealmNumberDetailView.swift */; };
@@ -981,6 +984,9 @@
 		4D7C36FA2E5BD71800DD697A /* RuntimeBundleManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeBundleManifest.swift; sourceTree = "<group>"; };
 		4D7C36FC2E5BD73100DD697A /* RuntimeBundleEssentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeBundleEssentials.swift; sourceTree = "<group>"; };
 		4D7C36FE2E5BD75000DD697A /* RuntimeBundleLoadOrchestrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeBundleLoadOrchestrator.swift; sourceTree = "<group>"; };
+		4D7C37042E5BF76700DD697A /* LlamaRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlamaRunner.swift; sourceTree = "<group>"; };
+		4D7C37052E5BF76700DD697A /* LLMFeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMFeatureFlags.swift; sourceTree = "<group>"; };
+		4D7C37062E5BF76700DD697A /* PromptTemplates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptTemplates.swift; sourceTree = "<group>"; };
 		4D7CCC7F2E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PHASE_1_5_SUMMARY.md; sourceTree = "<group>"; };
 		4D7CCC802E4EC8D5001642EF /* RuntimeSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeSelector.swift; sourceTree = "<group>"; };
 		4D80E0FC2D3F1B0B0020F7BB /* RealmNumberDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberDetailView.swift; sourceTree = "<group>"; };
@@ -2034,6 +2040,16 @@
 			path = Performance;
 			sourceTree = "<group>";
 		};
+		4D7C37072E5BF76700DD697A /* LLM */ = {
+			isa = PBXGroup;
+			children = (
+				4D7C37042E5BF76700DD697A /* LlamaRunner.swift */,
+				4D7C37052E5BF76700DD697A /* LLMFeatureFlags.swift */,
+				4D7C37062E5BF76700DD697A /* PromptTemplates.swift */,
+			);
+			path = LLM;
+			sourceTree = "<group>";
+		};
 		4D7CCC822E4EC8D5001642EF /* ContentSelection */ = {
 			isa = PBXGroup;
 			children = (
@@ -2100,6 +2116,7 @@
 		4DA359AE2E3F135B0010101F /* KASPERMLX */ = {
 			isa = PBXGroup;
 			children = (
+				4D7C37072E5BF76700DD697A /* LLM */,
 				4D7C31DD2E5B810400DD697A /* Insight */,
 				4DF9923C2E591F5100BD720A /* ConsciousnessMapping */,
 				4D5545AF2E54219500369B4D /* QualityGate */,
@@ -3199,6 +3216,9 @@
 				4D2DB48F2DFF70490003353E /* LocationManager.swift in Sources */,
 				4D6C7BAF2DE47FC2001036E5 /* InsightTemplate.swift in Sources */,
 				4D3727172DE551E100B5A02B /* ActivityNavigationManager.swift in Sources */,
+				4D7C37082E5BF76800DD697A /* PromptTemplates.swift in Sources */,
+				4D7C37092E5BF76800DD697A /* LlamaRunner.swift in Sources */,
+				4D7C370A2E5BF76800DD697A /* LLMFeatureFlags.swift in Sources */,
 				4D3727192DE5538A00B5A02B /* NumerologyInsightService.swift in Sources */,
 				4D92F4BB2D4DE1E80001A16E /* JournalManager.swift in Sources */,
 				4D55BE5F2E3AC55400F7BE5B /* CosmicHUDTypes.swift in Sources */,

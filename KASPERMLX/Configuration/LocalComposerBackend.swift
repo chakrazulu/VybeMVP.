@@ -2,8 +2,15 @@
 //  LocalComposerBackend.swift
 //  VybeMVP
 //
-//  On-device LLM backend for insight generation
-//  Stub implementation ready for MLC/llama.cpp integration
+//  Created by Claude on 1/24/25.
+//  Purpose: Phase 2C on-device LLM backend for insight generation
+//
+//  PHASE 2C INTEGRATION:
+//  - Real LlamaRunner with Metal-accelerated llama.cpp
+//  - Structured PromptTemplate system for consistent generation
+//  - LLMFeatureFlags for rollout control and A/B testing
+//  - Quality gate integration with fallback ladder
+//  - Memory pressure handling with graceful degradation
 //
 
 import Foundation
@@ -20,14 +27,33 @@ public final class LocalComposerBackend: InsightEngineBackend {
 
     public var isReady: Bool {
         get async {
-            return store.isLocalLLMReady && !isMemoryConstrained
+            // Phase 2C: Check feature flags and device capability
+            guard featureFlags.shouldRunInference else {
+                return false
+            }
+
+            guard featureFlags.isDeviceCapable && !isMemoryConstrained else {
+                return false
+            }
+
+            return true
         }
     }
 
     // MARK: - Properties
 
-    private let store: ModelStore
+    /// Phase 2C: Real LlamaRunner for on-device inference
+    private let llamaRunner = LlamaRunner.shared
+
+    /// Feature flags for rollout control
+    private let featureFlags = LLMFeatureFlags.shared
+
+    /// Runtime content selector
     private let selector: RuntimeSelector
+
+    /// Legacy model store (kept for compatibility)
+    private let store: ModelStore
+
     private let logger = Logger(subsystem: "com.vybe.llm", category: "LocalComposerBackend")
 
     // State tracking
@@ -50,80 +76,128 @@ public final class LocalComposerBackend: InsightEngineBackend {
         let startTime = Date()
         generationCount += 1
 
-        logger.info("🧠 Starting local composition #\(self.generationCount)")
+        logger.info("🧠 Starting Phase 2C local composition #\(self.generationCount)")
+
+        // Feature flag check for shadow mode
+        if featureFlags.isInShadowMode {
+            logger.info("🔬 Running in shadow mode - will generate but not surface")
+        }
 
         // Capability checks
         guard await isReady else {
+            logger.warning("⚠️ LocalComposer not ready")
             throw LocalComposerError.notReady
         }
 
-        // Load model if needed
-        try await store.loadModelIfNeeded()
+        // Load model on-demand (Phase 2C: lazy loading)
+        if !llamaRunner.isModelLoaded && featureFlags.shouldRunInference {
+            logger.info("📥 Loading LLM model on-demand")
+            let loaded = await llamaRunner.loadModel()
+            guard loaded else {
+                logger.error("❌ Failed to load LLM model")
+                throw LocalComposerError.generationFailed("Model loading failed")
+            }
+        }
 
         // Get curated sentences from RuntimeSelector
         let sentences = await selectSentences(for: prompt)
 
-        // Generate insight using stub LLM (replace with real implementation)
-        let (composedText, metadata) = try await composeInsight(
-            persona: prompt.persona,
+        // Build wisdom context from selected sentences
+        let wisdom = PromptTemplate.WisdomContext(
+            primaryInsight: sentences.first,
+            supportingTheme: sentences.dropFirst().first,
+            planetaryGuidance: sentences.dropFirst(2).first
+        )
+
+        // Phase 2C: Real LLM generation with structured prompts
+        let (composedText, metadata) = try await composeWithLLM(
+            prompt: prompt,
             sentences: sentences,
-            constraints: GenerationConstraints(
-                maxSentences: prompt.maxSentences,
-                temperature: prompt.temperature,
-                maxTokens: LLMFeatureFlags.maxContextTokens
-            )
+            wisdom: wisdom
         )
 
         let generationTime = Date().timeIntervalSince(startTime)
 
-        // Quality evaluation (uses existing evaluator)
+        // Quality evaluation with existing quality gate
         let quality = await evaluateQuality(composedText, sentences: sentences, persona: prompt.persona)
 
+        // Check quality threshold from feature flags
+        if quality < featureFlags.qualityThreshold {
+            logger.warning("⚠️ Generation quality \(String(format: "%.2f", quality)) below threshold \(String(format: "%.2f", featureFlags.qualityThreshold))")
+
+            // Fallback to template if quality too low
+            throw LocalComposerError.qualityThresholdNotMet
+        }
+
         lastGenerationTime = Date()
+
+        // Add Phase 2C telemetry
+        var telemetryMetadata = metadata
+        if let llmMetrics = llamaRunner.lastMetrics {
+            telemetryMetadata["llm_load_ms"] = String(llmMetrics.loadTimeMs)
+            telemetryMetadata["llm_gen_ms"] = String(llmMetrics.generationMs)
+            telemetryMetadata["llm_tokens_per_sec"] = String(format: "%.1f", llmMetrics.tokensPerSecond)
+            telemetryMetadata["llm_memory_mb"] = String(llmMetrics.memoryUsedMB)
+            telemetryMetadata["device_class"] = llmMetrics.deviceClass
+        }
+
+        telemetryMetadata["feature_flags_stage"] = featureFlags.rolloutStage.rawValue
+        telemetryMetadata["runtime"] = featureFlags.runtime.rawValue
+        telemetryMetadata["shadow_mode"] = String(featureFlags.isInShadowMode)
 
         let result = InsightResult.localLLM(
             text: composedText,
             quality: quality,
             latency: generationTime,
-            metadata: metadata.merging([
+            metadata: telemetryMetadata.merging([
                 "generation_count": String(generationCount),
-                "device_capability": store.deviceCapability.maxModelSize,
-                "memory_pressure": String(isMemoryConstrained)
+                "memory_pressure": String(isMemoryConstrained),
+                "phase": "2C"
             ]) { _, new in new }
         )
 
-        logger.info("✅ Local composition complete - quality: \(String(format: "%.2f", quality)), latency: \(String(format: "%.3f", generationTime))s")
+        if featureFlags.collectTelemetry {
+            logger.info("📊 Phase 2C metrics: quality=\(String(format: "%.2f", quality)), latency=\(String(format: "%.3f", generationTime))s")
+        }
 
         return result
     }
 
     public func warmup() async throws {
-        logger.info("🔥 Warming up local composer")
+        logger.info("🔥 Warming up Phase 2C local composer")
 
-        // Preload model if enabled
-        if store.isLocalLLMReady {
-            try await store.loadModelIfNeeded()
+        // Phase 2C: Preload model only if feature flags allow
+        if featureFlags.shouldAutoPreload {
+            logger.info("📥 Auto-preloading LLM model")
+            let loaded = await llamaRunner.loadModel()
+            if !loaded {
+                logger.warning("⚠️ Failed to preload model during warmup")
+            }
+        } else {
+            logger.info("🎛 Preload disabled by feature flags")
         }
 
         // Warm up selector cache for common personas
-        let commonPersonas = ["Oracle", "Coach", "Psychologist", "Philosopher", "Poet"]
+        let commonPersonas = ["Oracle", "MindfulnessCoach", "Psychologist", "Philosopher", "NumerologyScholar"]
         for persona in commonPersonas {
             _ = await selector.selectSentences(focus: 1, realm: 1, persona: persona)
         }
 
-        logger.info("✅ Local composer warmed up")
+        logger.info("✅ Phase 2C local composer warmed up")
     }
 
     public func shutdown() async {
-        logger.info("🛑 Shutting down local composer")
+        logger.info("🛑 Shutting down Phase 2C local composer")
 
-        await store.unloadModel()
+        // Phase 2C: Unload LlamaRunner model
+        llamaRunner.unloadModel()
+
         generationCount = 0
         isMemoryConstrained = false
 
         NotificationCenter.default.removeObserver(self)
 
-        logger.info("✅ Local composer shutdown complete")
+        logger.info("✅ Phase 2C local composer shutdown complete")
     }
 
     // MARK: - Private Methods
@@ -139,37 +213,118 @@ public final class LocalComposerBackend: InsightEngineBackend {
         return Array(result.sentences.prefix(6))
     }
 
-    private func composeInsight(
-        persona: String,
+    /// Phase 2C: Real LLM composition with structured prompts
+    private func composeWithLLM(
+        prompt: InsightPrompt,
         sentences: [String],
-        constraints: GenerationConstraints
+        wisdom: PromptTemplate.WisdomContext
     ) async throws -> (String, [String: String]) {
-
-        // STUB IMPLEMENTATION - Replace with real LLM inference
 
         guard !sentences.isEmpty else {
             throw LocalComposerError.noContentAvailable
         }
 
-        // Simulate generation with persona-appropriate style
-        let composed = await generatePersonaStyledInsight(
-            persona: persona,
-            sentences: sentences,
-            maxSentences: constraints.maxSentences
+        // Build spiritual facts from prompt
+        let facts = PromptTemplate.SpiritualFacts(
+            focusNumber: prompt.focusNumber,
+            realmNumber: prompt.realmNumber,
+            lifePathNumber: nil, // TODO: Get from user profile
+            soulUrgeNumber: nil,  // TODO: Get from user profile
+            currentPlanet: nil,   // TODO: Get from cosmic data
+            moonPhase: nil,       // TODO: Get from cosmic data
+            dominantElement: nil, // TODO: Get from elements
+            vfiLevel: nil         // TODO: Get from VFI calculation
         )
 
-        // Simulate LLM processing time (0.2-0.8 seconds)
-        let processingTime = 0.2 + Double.random(in: 0...0.6)
-        try await Task.sleep(nanoseconds: UInt64(processingTime * 1_000_000_000))
+        // Create appropriate style for persona
+        let style = PromptTemplate.StyleGuide(
+            persona: mapPersonaToStyle(prompt.persona),
+            tone: getPersonaTone(prompt.persona),
+            maxSentences: prompt.maxSentences
+        )
 
+        // Build structured prompt template
+        let template = PromptTemplate(
+            facts: facts,
+            style: style,
+            wisdom: wisdom,
+            query: getPersonaQuery(prompt.persona)
+        )
+
+        // Get LLM configuration from feature flags
+        let config = featureFlags.getLLMConfig()
+
+        // Phase 2C: Real LLM inference with 2.0s budget
+        let generatedText = await llamaRunner.generate(
+            prompt: template.buildPrompt(),
+            config: config
+        )
+
+        guard let text = generatedText, !text.isEmpty else {
+            logger.error("❌ LLM generation returned empty result")
+            throw LocalComposerError.generationFailed("Empty generation result")
+        }
+
+        // Build telemetry metadata
         let metadata: [String: String] = [
             "source_sentences": String(sentences.count),
-            "processing_time": String(processingTime),
-            "persona": persona,
-            "stub_implementation": "true"
+            "persona": prompt.persona,
+            "llm_implementation": "llamacpp",
+            "prompt_tokens": String(template.estimateTokens()),
+            "quality_threshold": String(format: "%.2f", featureFlags.qualityThreshold),
+            "temperature": String(format: "%.1f", config.temperature),
+            "max_tokens": String(config.maxTokens)
         ]
 
-        return (composed, metadata)
+        return (text, metadata)
+    }
+
+    // MARK: - Persona Mapping Helpers
+
+    /// Map internal persona names to user-friendly styles
+    private func mapPersonaToStyle(_ persona: String) -> String {
+        switch persona.lowercased() {
+        case "oracle": return "mystical oracle"
+        case "coach", "mindfulnesscoach": return "spiritual coach"
+        case "psychologist": return "depth psychologist"
+        case "philosopher": return "wisdom philosopher"
+        case "poet": return "spiritual poet"
+        case "numerologyscholar": return "numerology expert"
+        default: return "spiritual guide"
+        }
+    }
+
+    /// Get tone for each persona
+    private func getPersonaTone(_ persona: String) -> String {
+        switch persona.lowercased() {
+        case "oracle": return "mystical, prophetic, cosmic"
+        case "coach", "mindfulnesscoach": return "encouraging, practical, supportive"
+        case "psychologist": return "insightful, analytical, integrative"
+        case "philosopher": return "wise, contemplative, profound"
+        case "poet": return "lyrical, inspiring, beautiful"
+        case "numerologyscholar": return "knowledgeable, precise, educational"
+        default: return "warm, grounded, encouraging"
+        }
+    }
+
+    /// Generate appropriate query for persona
+    private func getPersonaQuery(_ persona: String) -> String {
+        switch persona.lowercased() {
+        case "oracle":
+            return "What spiritual guidance does the universe offer based on these energies?"
+        case "coach", "mindfulnesscoach":
+            return "How can I use this spiritual insight for practical growth today?"
+        case "psychologist":
+            return "What psychological patterns and spiritual integration opportunities are present?"
+        case "philosopher":
+            return "What deeper meaning and wisdom can be drawn from this spiritual state?"
+        case "poet":
+            return "How can this spiritual energy be expressed through creative inspiration?"
+        case "numerologyscholar":
+            return "What does the numerological significance reveal about my spiritual path?"
+        default:
+            return "How can this spiritual insight guide my next steps with clarity?"
+        }
     }
 
     private func generatePersonaStyledInsight(
@@ -297,7 +452,8 @@ public final class LocalComposerBackend: InsightEngineBackend {
         isMemoryConstrained = true
 
         Task {
-            await store.unloadModel()
+            // Phase 2C: Use LlamaRunner memory pressure handling
+            llamaRunner.handleMemoryPressure(level: .warning)
         }
     }
 
@@ -306,7 +462,8 @@ public final class LocalComposerBackend: InsightEngineBackend {
         isMemoryConstrained = true
 
         Task {
-            await store.forceUnloadModel()
+            // Phase 2C: Immediately unload model
+            llamaRunner.handleMemoryPressure(level: .critical)
         }
     }
 }
