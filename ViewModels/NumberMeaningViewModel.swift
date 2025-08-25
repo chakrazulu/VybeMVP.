@@ -67,22 +67,17 @@ final class NumberMeaningViewModel: ObservableObject {
         Task { [weak self] in
             guard let self else { return }
 
-            // DEBUG: Check if RuntimeBundle files are accessible directly
-            if let bundleURL = Bundle.main.url(forResource: "\(number)_rich", withExtension: "json", subdirectory: "KASPERMLXRuntimeBundle/RichNumberMeanings") {
-                self.log.info("🎯 Found direct bundle file for \(number): \(bundleURL.path)")
-
-                do {
-                    let data = try Data(contentsOf: bundleURL)
-                    let decoded = try JSONDecoder().decode(NumberRichContent.self, from: data)
-                    self.cache[number] = decoded
-                    self.state = .loaded(decoded)
-                    self.log.info("✅ Loaded rich content directly for number \(number)")
-                    return
-                } catch {
-                    self.log.error("❌ Direct load failed: \(error.localizedDescription)")
-                }
-            } else {
-                self.log.warning("❌ No direct bundle file found for \(number)_rich.json")
+            // Phase 2A: Use lazy loading system instead of direct bundle access
+            do {
+                let indexer = RuntimeBundleIndexer.shared
+                let data = try await indexer.loadFile(at: "RichNumberMeanings/\(number)_rich.json")
+                let decoded = try JSONDecoder().decode(NumberRichContent.self, from: data)
+                self.cache[number] = decoded
+                self.state = .loaded(decoded)
+                self.log.info("✅ Loaded rich content via lazy loading for number \(number)")
+                return
+            } catch {
+                self.log.error("❌ Lazy loading failed: \(error.localizedDescription)")
             }
 
             // Wait for router initialization if needed

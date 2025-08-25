@@ -3,8 +3,12 @@
 //  VybeMVP
 //
 //  Created by Claude on 1/24/25.
-//  Purpose: Fast indexing system for 992 RuntimeBundle JSON files
-//  Reduces startup from loading all files to just loading index (<5ms)
+//  Purpose: Fast indexing system for 199 RuntimeBundle JSON files
+//
+//  PHASE 2A STATUS: READY FOR LAZY LOADING INTEGRATION
+//  - Baseline: 1767ms startup, 204MB memory (4x over target)
+//  - Solution: RuntimeBundleManifest.json with 3-tier loading (13→26→199 files)
+//  - Next: Integrate manifest-aware buildIndex() and tiered loading
 //
 
 import Foundation
@@ -291,7 +295,7 @@ final class RuntimeBundleIndexer: ObservableObject {
         return String(string.prefix(100))
     }
 
-    private func loadFile(at path: String) async throws -> Data {
+    public func loadFile(at path: String) async throws -> Data {
         guard let bundlePath = Bundle.main.path(forResource: "KASPERMLXRuntimeBundle", ofType: nil) else {
             throw RuntimeBundleError.bundleNotFound
         }
@@ -299,7 +303,14 @@ final class RuntimeBundleIndexer: ObservableObject {
         let fullPath = bundlePath + "/" + path
         let url = URL(fileURLWithPath: fullPath)
 
-        return try Data(contentsOf: url)
+        // Phase 2A: File I/O performance tracking
+        let startTime = CFAbsoluteTimeGetCurrent()
+        let data = try Data(contentsOf: url)
+        let loadTime = CFAbsoluteTimeGetCurrent() - startTime
+
+        FileIOTracker.tracedLoad(path: path, data: data, loadTime: loadTime)
+
+        return data
     }
 }
 

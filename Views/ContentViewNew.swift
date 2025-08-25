@@ -28,6 +28,11 @@
 
 import SwiftUI
 
+// Phase 2A Performance Tracking
+#if DEBUG
+import os.log
+#endif
+
 /**
  * 🌟 CONTENTVIEWNEW - A+ NAVIGATION EXCELLENCE TESTING 🌟
  *
@@ -387,6 +392,15 @@ struct ContentViewNew: View {
     /// Initialize the new navigation system
     private func setupNewNavigationSystem() {
         print("🚀 ContentViewNew initializing - A+ Navigation System Active")
+
+        // Phase 2A Performance Tracking
+        LaunchMetrics.mark("First frame shown")
+        MemoryTracker.reportMem("First frame")
+        print("🚀 PHASE 2A: First frame loaded - check LaunchMetrics above")
+
+        // Phase 2A: Start lazy loading system immediately
+        StartupManager.shared.boot()
+        print("🚀 Phase 2A: StartupManager boot sequence initiated")
 
         // Setup navigation router notification observers
         navigationRouter.setupNavigationObservers()

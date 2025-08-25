@@ -348,6 +348,10 @@
 		4D7C34772E5B937A00DD697A /* TemplateFusionBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C34762E5B937A00DD697A /* TemplateFusionBackend.swift */; };
 		4D7C34792E5B93A400DD697A /* ModelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C34782E5B93A400DD697A /* ModelStore.swift */; };
 		4D7C347B2E5B9FD700DD697A /* Phase2BAdapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C347A2E5B9FD700DD697A /* Phase2BAdapters.swift */; };
+		4D7C347E2E5BC9AE00DD697A /* LaunchMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C347C2E5BC9AE00DD697A /* LaunchMetrics.swift */; };
+		4D7C36FB2E5BD71800DD697A /* RuntimeBundleManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C36FA2E5BD71800DD697A /* RuntimeBundleManifest.swift */; };
+		4D7C36FD2E5BD73100DD697A /* RuntimeBundleEssentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C36FC2E5BD73100DD697A /* RuntimeBundleEssentials.swift */; };
+		4D7C36FF2E5BD75000DD697A /* RuntimeBundleLoadOrchestrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C36FE2E5BD75000DD697A /* RuntimeBundleLoadOrchestrator.swift */; };
 		4D7CCC842E4EC8D5001642EF /* RuntimeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7CCC802E4EC8D5001642EF /* RuntimeSelector.swift */; };
 		4D7CCC852E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CCC7F2E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md */; };
 		4D80E0FD2D3F1B0B0020F7BB /* RealmNumberDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E0FC2D3F1B0B0020F7BB /* RealmNumberDetailView.swift */; };
@@ -973,6 +977,10 @@
 		4D7C34762E5B937A00DD697A /* TemplateFusionBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateFusionBackend.swift; sourceTree = "<group>"; };
 		4D7C34782E5B93A400DD697A /* ModelStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelStore.swift; sourceTree = "<group>"; };
 		4D7C347A2E5B9FD700DD697A /* Phase2BAdapters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase2BAdapters.swift; sourceTree = "<group>"; };
+		4D7C347C2E5BC9AE00DD697A /* LaunchMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchMetrics.swift; sourceTree = "<group>"; };
+		4D7C36FA2E5BD71800DD697A /* RuntimeBundleManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeBundleManifest.swift; sourceTree = "<group>"; };
+		4D7C36FC2E5BD73100DD697A /* RuntimeBundleEssentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeBundleEssentials.swift; sourceTree = "<group>"; };
+		4D7C36FE2E5BD75000DD697A /* RuntimeBundleLoadOrchestrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeBundleLoadOrchestrator.swift; sourceTree = "<group>"; };
 		4D7CCC7F2E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PHASE_1_5_SUMMARY.md; sourceTree = "<group>"; };
 		4D7CCC802E4EC8D5001642EF /* RuntimeSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeSelector.swift; sourceTree = "<group>"; };
 		4D80E0FC2D3F1B0B0020F7BB /* RealmNumberDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberDetailView.swift; sourceTree = "<group>"; };
@@ -2018,6 +2026,14 @@
 			path = Insight;
 			sourceTree = "<group>";
 		};
+		4D7C347D2E5BC9AE00DD697A /* Performance */ = {
+			isa = PBXGroup;
+			children = (
+				4D7C347C2E5BC9AE00DD697A /* LaunchMetrics.swift */,
+			);
+			path = Performance;
+			sourceTree = "<group>";
+		};
 		4D7CCC822E4EC8D5001642EF /* ContentSelection */ = {
 			isa = PBXGroup;
 			children = (
@@ -2030,6 +2046,9 @@
 		4DA359A02E3F135B0010101F /* MLXCore */ = {
 			isa = PBXGroup;
 			children = (
+				4D7C36FE2E5BD75000DD697A /* RuntimeBundleLoadOrchestrator.swift */,
+				4D7C36FC2E5BD73100DD697A /* RuntimeBundleEssentials.swift */,
+				4D7C36FA2E5BD71800DD697A /* RuntimeBundleManifest.swift */,
 				4D7C31D72E5B7EC300DD697A /* SwiftAAPlanetaryService.swift */,
 				4D7C31D52E5B7E9F00DD697A /* RuntimeBundleIndexer.swift */,
 				4D7C31CF2E5B7CD000DD697A /* InsightContext.swift */,
@@ -2180,6 +2199,7 @@
 		4DC6022D2D34440900B5E4A9 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				4D7C347D2E5BC9AE00DD697A /* Performance */,
 				4D731D2B2E44A34F0083C82C /* UI */,
 				4D3055972D3C941B009A7BBD /* Data */,
 				4DC602322D34552200B5E4A9 /* KeychainHelper.swift */,
@@ -3160,6 +3180,7 @@
 				4DF992392E58186D00BD720A /* VFIWidget.swift in Sources */,
 				4D0AF68F2E348B7D003E4838 /* SanctumDataStructures.swift in Sources */,
 				4DB233FD2E11F4CC004EC2BC /* TestCosmicAnimationView.swift in Sources */,
+				4D7C36FF2E5BD75000DD697A /* RuntimeBundleLoadOrchestrator.swift in Sources */,
 				4D6C7BAA2DE47F1B001036E5 /* InsightFilterService.swift in Sources */,
 				4DC602392D345A3500B5E4A9 /* SignInView.swift in Sources */,
 				4DC6023A2D345C9E00B5E4A9 /* KeychainHelper.swift in Sources */,
@@ -3208,7 +3229,9 @@
 				4D3055E12D3CE90C009A7BBD /* FocusNumberContent.swift in Sources */,
 				4D7C31D02E5B7CD000DD697A /* InsightContext.swift in Sources */,
 				4DF7A0772E41754000D5AC19 /* SpiritualDataController.swift in Sources */,
+				4D7C36FD2E5BD73100DD697A /* RuntimeBundleEssentials.swift in Sources */,
 				4D1AB6ED2E48DCA300E6982A /* KASPERRuntimeBundleDebug.swift in Sources */,
+				4D7C347E2E5BC9AE00DD697A /* LaunchMetrics.swift in Sources */,
 				4DCB386C2E1AAF1C00311D51 /* UserProfileView.swift in Sources */,
 				4D1AB5F42E48CC2700E6982A /* KASPERContentRouter.swift in Sources */,
 				4DF992402E59275B00BD720A /* VFIModelCard.swift in Sources */,
@@ -3218,6 +3241,7 @@
 				4D6C7B4D2DE45381001036E5 /* UserArchetype.swift in Sources */,
 				4D37270A2DE50FEC00B5A02B /* OnboardingCompletionView.swift in Sources */,
 				4DF77E4C2E358B2E00B6D45E /* PostRepository.swift in Sources */,
+				4D7C36FB2E5BD71800DD697A /* RuntimeBundleManifest.swift in Sources */,
 				4D65287A2E49A5E900F521E1 /* NumberMeaningViewModel.swift in Sources */,
 				4DF77E4D2E358B2E00B6D45E /* FirebasePostRepository.swift in Sources */,
 				4D7C31D62E5B7E9F00DD697A /* RuntimeBundleIndexer.swift in Sources */,

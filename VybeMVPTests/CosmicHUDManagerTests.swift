@@ -116,7 +116,7 @@ class CosmicHUDManagerTests: XCTestCase {
         let element = hudManager.getCurrentElement()
 
         // Should return valid cosmic element
-        let validElements: [CosmicElement] = [.fire, .earth, .air, .water]
+        let validElements: [HUDElement] = [.fire, .earth, .air, .water]
         XCTAssertTrue(validElements.contains(element), "Should return valid cosmic element")
     }
 
@@ -244,7 +244,7 @@ class CosmicHUDManagerTests: XCTestCase {
         XCTAssertFalse(hudData.allAspects.isEmpty, "Should have aspects")
 
         // Test element is valid
-        let validElements: [CosmicElement] = [.fire, .earth, .air, .water]
+        let validElements: [HUDElement] = [.fire, .earth, .air, .water]
         XCTAssertTrue(validElements.contains(hudData.element), "Element should be valid")
     }
 

@@ -215,6 +215,74 @@ git checkout HEAD -- Views/TimelineView.swift
 
 ---
 
+## 📊 **PHASE 2A: PERFORMANCE MEASUREMENT WORKFLOW**
+
+### **How to Collect Performance Metrics (Owner Instructions)**
+
+**When Claude says "run the app to collect baseline data", here's what to do:**
+
+#### **Step 1: Launch Xcode Console**
+1. **Open Xcode**
+2. **Go to**: Window → Devices and Simulators → Open Console
+3. **OR** press `Cmd+Shift+2` in Xcode
+4. **Filter by**: Type "com.vybe.performance" in search box
+
+#### **Step 2: Run the App**
+```bash
+# In Terminal:
+cd /Users/Maniac_Magee/Documents/XcodeProjects/VybeMVP
+```
+- Press **Play** button in Xcode (▶️)
+- Wait for app to fully load (about 30 seconds)
+- Navigate to Home tab if not already there
+- Wait for "🎯 Match detection system enabled" message
+
+#### **Step 3: Collect Console Output**
+Look for these key metrics in Console:
+```
+⏱ App didFinishLaunching: XXXms
+⏱ First frame shown: XXXms
+🧠 First frame: XX MB
+🧠 Startup complete: XX MB
+📄 [filename].json: XXkB in XXms (multiple entries)
+```
+
+#### **Step 4: Report Back to Claude**
+Copy ALL performance lines from Console and paste them in chat:
+- All `⏱` timing entries
+- All `🧠` memory entries
+- Top 20 slowest `📄` file loading entries
+
+**Example format to copy:**
+```
+⏱ App didFinishLaunching: 45ms
+⏱ First frame shown: 2847ms
+🧠 First frame: 67 MB
+📄 Oracle_Number_1.json: 45KB in 23ms
+📄 Psychologist_Number_5.json: 38KB in 18ms
+🧠 Startup complete: 71 MB
+```
+
+#### **Step 5: ANALYSIS COMPLETE ✅**
+
+**BASELINE DATA COLLECTED (Jan 24, 2025):**
+```
+⏱ App didFinishLaunching: 0ms
+⏱ First frame shown: 1767ms (1.77s) ❌ TARGET: <500ms
+🧠 First frame: 204 MB ❌ TARGET: <50MB
+```
+
+**FINDINGS:**
+- **Performance Issue**: 204MB memory (4x over target), 1.77s startup (3.5x slower)
+- **Root Cause**: Loading 199 JSON files synchronously at startup
+- **Solution**: RuntimeBundleManifest.json created (13 essential files vs 199)
+
+**NEXT PHASE**: Implement lazy loading system
+- Design JSON lazy loading strategy
+- Set performance improvement targets
+
+---
+
 ## 📱 **TESTING CHECKLIST FOR EACH PHASE**
 
 ### **After Any Changes, Test These (5 minutes):**

@@ -129,6 +129,41 @@ final class StartupManager: ObservableObject {
             progressStart = 0.3
             progressEnd = 0.7
 
+            // Phase 2A: Runtime Bundle Lazy Loading Integration
+            print("🚀 Phase 2A: Entering userContent phase - starting lazy loading")
+            Task.detached(priority: .userInitiated) {
+                print("🚀 Phase 2A: Inside async task - loading manifest")
+                do {
+                    print("🚀 Phase 2A: About to call ManifestLoader.load()")
+                    let manifest = try ManifestLoader.load()
+                    print("🚀 Phase 2A: ManifestLoader.load() returned successfully")
+                    print("🚀 Phase 2A: Manifest loaded successfully")
+                    print("🚀 Phase 2A: Manifest has \(manifest.essential.count) essential, \(manifest.near_term.count) near_term, \(manifest.on_demand.count) on_demand")
+                    // Pull real numbers from managers (fallbacks shown)
+                    await MainActor.run {
+                        print("🚀 Phase 2A: Creating orchestrator")
+                        let profile = RuntimeUserProfile(
+                            lifePathNumber: 7,  // TODO: Get from SanctumNumerologyManager.shared.lifePathNumber
+                            soulUrgeNumber: 3,  // TODO: Get from SanctumNumerologyManager.shared.soulUrgeNumber
+                            focusNumber: 1      // TODO: Get from FocusNumberManager.shared.selectedFocusNumber
+                        )
+                        let orchestrator = RuntimeBundleLoadOrchestrator(indexer: RuntimeBundleIndexer.shared, budgetMs: 500)
+                        print("🚀 Phase 2A: About to call orchestrator.loadTiered")
+                        Task {
+                            await orchestrator.loadTiered(manifest: manifest, user: profile)
+                        }
+                    }
+                } catch {
+                    print("❌ Phase 2A: Manifest loading failed: \(error)")
+                    print("❌ Phase 2A: Error details: \(error.localizedDescription)")
+                    if let manifestError = error as? ManifestLoader.ManifestError {
+                        print("❌ Phase 2A: ManifestError: \(manifestError.localizedDescription)")
+                    }
+                    Logger(subsystem: "VybeMVP", category: "RuntimeLoad")
+                        .error("Failed to load manifest: \(error.localizedDescription, privacy: .public)")
+                }
+            }
+
         case .enhancement:
             managers = enhancementManagers
             progressStart = 0.7

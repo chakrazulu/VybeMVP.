@@ -66,6 +66,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     var healthKitManager: HealthKitManager?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        // Phase 2A: Performance profiling
+        LaunchMetrics.mark("App didFinishLaunching")
+
         // CONFIGURE FIREBASE HERE - This is the most reliable place
         FirebaseApp.configure()
 
@@ -293,6 +296,10 @@ struct VybeMVPApp: App {
                                 healthManager: self.healthKitManager
                             )
                             print("🔮 KASPER MLX configured with app managers")
+
+                            // Phase 2A: Start lazy loading system
+                            StartupManager.shared.boot()
+                            print("🚀 Phase 2A: StartupManager boot sequence initiated")
 
                         }
 

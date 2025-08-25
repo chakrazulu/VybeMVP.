@@ -168,15 +168,17 @@ public class InsightFusionManager: ObservableObject {
 
     public init() {
         logger.info("🔮 Initializing Insight Fusion Manager for Phase 1.5 with RuntimeSelector")
-        Task {
-            await loadRuntimeBundleCache()
-            // Pre-warm RuntimeSelector cache for optimal performance
-            await runtimeSelector.prewarmCache(
-                for: supportedPersonas,
-                numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-            )
-            logger.info("✅ RuntimeSelector cache pre-warmed and ready")
-        }
+        // Phase 2A: Disable aggressive preloading for lazy loading performance
+        // Task {
+        //     await loadRuntimeBundleCache()
+        //     // Pre-warm RuntimeSelector cache for optimal performance
+        //     await runtimeSelector.prewarmCache(
+        //         for: supportedPersonas,
+        //         numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        //     )
+        //     logger.info("✅ RuntimeSelector cache pre-warmed and ready")
+        // }
+        logger.info("🚀 Phase 2A: Lazy loading enabled - cache will load on-demand")
     }
 
     // MARK: - Public Fusion Interface

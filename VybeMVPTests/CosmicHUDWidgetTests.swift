@@ -42,7 +42,8 @@ class CosmicHUDWidgetTests: XCTestCase {
             dominantAspect: testAspect,
             element: .fire,
             lastCalculated: Date(),
-            allAspects: [testAspect]
+            allAspects: [testAspect],
+            vfi: 432.0
         )
 
         // Test all required properties are present
@@ -382,7 +383,8 @@ class CosmicHUDWidgetTests: XCTestCase {
             dominantAspect: nil,
             element: .fire,
             lastCalculated: Date(),
-            allAspects: []
+            allAspects: [],
+            vfi: 0.0
         )
 
         // Should store values without crashing (validation happens elsewhere)
@@ -434,7 +436,8 @@ class CosmicHUDWidgetTests: XCTestCase {
                     dominantAspect: testAspect,
                     element: HUDElement.allCases[i % 4],
                     lastCalculated: Date(),
-                    allAspects: [testAspect]
+                    allAspects: [testAspect],
+                    vfi: Double(i) * 0.1
                 )
             }
         }

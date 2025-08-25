@@ -31,7 +31,7 @@ final class KASPERInferenceProvidersTests: XCTestCase {
         // Initialize providers
         templateProvider = KASPERTemplateProvider()
         stubProvider = KASPERStubProvider()
-        orchestrator = KASPEROrchestrator.shared
+        // Note: orchestrator will be initialized in async test methods
 
         print("🧪 KASPERInferenceProvidersTests: Setup complete")
     }
@@ -167,7 +167,7 @@ final class KASPERInferenceProvidersTests: XCTestCase {
         // Test that the stub provider produces varied output
         var insights: Set<String> = []
 
-        for i in 0..<10 {
+        for _ in 0..<10 {
             let insight = try await stubProvider.generateInsight(
                 context: "dailycard",
                 focus: 4,
@@ -186,21 +186,31 @@ final class KASPERInferenceProvidersTests: XCTestCase {
     // MARK: - Orchestrator Tests
 
     func testOrchestratorBasicFunctionality() async throws {
+        orchestrator = await KASPEROrchestrator.shared
+
         // Test initial state
-        XCTAssertEqual(orchestrator.currentStrategy, .automatic)
-        XCTAssertFalse(orchestrator.isProcessing)
+        await MainActor.run {
+            XCTAssertEqual(orchestrator.currentStrategy, .automatic)
+            XCTAssertFalse(orchestrator.isProcessing)
+        }
 
         // Test strategy change
         await orchestrator.setStrategy(.mlxStub)
-        XCTAssertEqual(orchestrator.currentStrategy, .mlxStub)
+        await MainActor.run {
+            XCTAssertEqual(orchestrator.currentStrategy, .mlxStub)
+        }
 
         await orchestrator.setStrategy(.template)
-        XCTAssertEqual(orchestrator.currentStrategy, .template)
+        await MainActor.run {
+            XCTAssertEqual(orchestrator.currentStrategy, .template)
+        }
 
         print("✅ Orchestrator basic functionality validated")
     }
 
     func testOrchestratorInsightGeneration() async throws {
+        orchestrator = await KASPEROrchestrator.shared
+
         // Test MLX stub strategy
         await orchestrator.setStrategy(.mlxStub)
 
@@ -278,9 +288,11 @@ final class KASPERInferenceProvidersTests: XCTestCase {
         _ = try await orchestrator.generateInsight(context: "soulurge", focus: 3, realm: 3)
 
         // Check that metrics are being recorded
-        XCTAssertFalse(orchestrator.providerMetrics.isEmpty, "Metrics should be recorded")
+        await MainActor.run {
+            XCTAssertFalse(orchestrator.providerMetrics.isEmpty, "Metrics should be recorded")
+        }
 
-        let report = orchestrator.getPerformanceReport()
+        let report = await orchestrator.getPerformanceReport()
         XCTAssertFalse(report.isEmpty, "Performance report should not be empty")
         XCTAssertTrue(report.contains("MLX Stub"), "Report should contain stub provider metrics")
 
@@ -292,14 +304,16 @@ final class KASPERInferenceProvidersTests: XCTestCase {
 
     func testProviderIntegrationWithEngine() async throws {
         // Test that the engine can use the provider system
-        let engine = KASPERMLXEngine.shared
+        let engine = await KASPERMLXEngine.shared
 
         // Set strategy through engine
         await engine.setProviderStrategy(.mlxStub)
-        XCTAssertEqual(engine.getCurrentStrategy(), .mlxStub)
+        let strategy1 = await engine.getCurrentStrategy()
+        XCTAssertEqual(strategy1, .mlxStub)
 
         await engine.setProviderStrategy(.template)
-        XCTAssertEqual(engine.getCurrentStrategy(), .template)
+        let strategy2 = await engine.getCurrentStrategy()
+        XCTAssertEqual(strategy2, .template)
 
         // Test available strategies
         let strategies = await engine.getAvailableStrategies()
@@ -310,7 +324,7 @@ final class KASPERInferenceProvidersTests: XCTestCase {
 
     func testEndToEndProviderFlow() async throws {
         // Test complete flow: Engine -> Orchestrator -> Provider -> Insight
-        let engine = KASPERMLXEngine.shared
+        let engine = await KASPERMLXEngine.shared
 
         // Configure engine to use template provider
         await engine.setProviderStrategy(.template)
@@ -334,11 +348,11 @@ final class KASPERInferenceProvidersTests: XCTestCase {
         let insight = try await engine.generateInsight(for: request)
 
         // Validate result
-        XCTAssertFalse(insight.text.isEmpty, "End-to-end flow should produce insight")
+        XCTAssertFalse(insight.content.isEmpty, "End-to-end flow should produce insight")
         XCTAssertEqual(insight.feature, .dailyCard, "Insight should match requested feature")
 
         print("✅ End-to-end provider flow validated")
-        print("🎯 Generated insight: \(insight.text)")
+        print("🎯 Generated insight: \(insight.content)")
     }
 
     // MARK: - Performance Tests

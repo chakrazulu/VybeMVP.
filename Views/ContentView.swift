@@ -426,6 +426,11 @@ struct ContentView: View {
             }
         }
         .onAppear {
+            // Phase 2A: Performance profiling - first frame timing
+            LaunchMetrics.mark("First frame shown")
+            MemoryTracker.reportMem("First frame")
+            print("🚀 PHASE 2A: First frame loaded - check LaunchMetrics above")
+
             print("🔍 ContentView appeared")
             print("📊 Current Realm Number: \(realmNumberManager.currentRealmNumber)")
 
@@ -466,6 +471,9 @@ struct ContentView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + VybeConstants.extendedStartupDelay) {
                 FocusNumberManager.shared.enableMatchDetection()
                 print("🎯 Match detection system enabled after startup stabilization")
+
+                // Phase 2A: Memory tracking after full initialization
+                MemoryTracker.reportMem("Startup complete")
             }
 
             // Step 5: Cosmic background starts immediately (no performance issues detected)
