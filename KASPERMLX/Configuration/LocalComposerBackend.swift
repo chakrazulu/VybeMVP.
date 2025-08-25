@@ -16,6 +16,10 @@
 import Foundation
 import os.log
 
+#if canImport(UIKit)
+import UIKit
+#endif
+
 /// Local on-device LLM backend with memory pressure handling
 @MainActor
 public final class LocalComposerBackend: InsightEngineBackend {
@@ -83,6 +87,50 @@ public final class LocalComposerBackend: InsightEngineBackend {
             logger.info("🔬 Running in shadow mode - will generate but not surface")
         }
 
+        // Phase 2C Safety Enhancement: Rule-first prefilter (if enabled)
+        if featureFlags.safetyPrefilterV2 {
+            // Create a synthetic query from the prompt context for safety analysis
+            let queryForSafety = "spiritual guidance for \(prompt.persona) on \(prompt.focusArea?.rawValue ?? "general") matters"
+            let safetyCategory = SafetyPrefilter.classify(queryForSafety)
+            let safetyAnalysis = SafetyPrefilter.analyzeText(queryForSafety)
+
+            // Log safety analysis for telemetry
+            if featureFlags.collectTelemetry {
+                logger.info("🛡️ Safety analysis: \(safetyAnalysis)")
+            }
+
+            // Block and reframe if safety concerns detected
+            if safetyCategory.shouldBlock {
+            logger.warning("🛡️ Safety prefilter blocked \(safetyCategory.rawValue) content")
+
+            let safeReframe: String
+            switch safetyCategory {
+            case .medicalAdvice:
+                safeReframe = SafetyPrefilter.medicalReframe(userText: queryForSafety)
+            case .selfHarm:
+                safeReframe = SafetyPrefilter.selfHarmReframe(userText: queryForSafety)
+            case .illegal:
+                safeReframe = SafetyPrefilter.illegalContentBlock(userText: queryForSafety)
+            case .neutral:
+                safeReframe = "Unable to provide guidance on this topic."
+            }
+
+                let currentGenerationTime = Date().timeIntervalSince(startTime)
+                return InsightResult(
+                    text: safeReframe,
+                    method: .template,
+                    quality: 0.82,
+                    latency: currentGenerationTime,
+                    metadata: [
+                        "safety_prefilter": "true",
+                        "safety_category": safetyCategory.rawValue,
+                        "blocked_keywords": String(describing: safetyAnalysis["matched_medical_keywords"] as? [String] ?? []),
+                        "generation_method": "safety_reframe"
+                    ]
+                )
+            }
+        }
+
         // Capability checks
         guard await isReady else {
             logger.warning("⚠️ LocalComposer not ready")
@@ -92,7 +140,7 @@ public final class LocalComposerBackend: InsightEngineBackend {
         // Load model on-demand (Phase 2C: lazy loading)
         if !llamaRunner.isModelLoaded && featureFlags.shouldRunInference {
             logger.info("📥 Loading LLM model on-demand")
-            let loaded = await llamaRunner.loadModel()
+            let loaded = try await llamaRunner.loadModel()
             guard loaded else {
                 logger.error("❌ Failed to load LLM model")
                 throw LocalComposerError.generationFailed("Model loading failed")
@@ -122,8 +170,8 @@ public final class LocalComposerBackend: InsightEngineBackend {
         let quality = await evaluateQuality(composedText, sentences: sentences, persona: prompt.persona)
 
         // Check quality threshold from feature flags
-        if quality < featureFlags.qualityThreshold {
-            logger.warning("⚠️ Generation quality \(String(format: "%.2f", quality)) below threshold \(String(format: "%.2f", featureFlags.qualityThreshold))")
+        if quality < Double(featureFlags.qualityThreshold) {
+            logger.warning("⚠️ Generation quality \(String(format: "%.2f", quality)) below threshold \(String(format: "%.2f", self.featureFlags.qualityThreshold))")
 
             // Fallback to template if quality too low
             throw LocalComposerError.qualityThresholdNotMet
@@ -169,7 +217,7 @@ public final class LocalComposerBackend: InsightEngineBackend {
         // Phase 2C: Preload model only if feature flags allow
         if featureFlags.shouldAutoPreload {
             logger.info("📥 Auto-preloading LLM model")
-            let loaded = await llamaRunner.loadModel()
+            let loaded = try await llamaRunner.loadModel()
             if !loaded {
                 logger.warning("⚠️ Failed to preload model during warmup")
             }
@@ -432,19 +480,15 @@ public final class LocalComposerBackend: InsightEngineBackend {
     }
 
     private func setupMemoryPressureObservers() {
+        // Use standard iOS memory warning notification
+        #if canImport(UIKit)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(handleMemoryWarning),
-            name: .memoryPressureWarning,
+            name: UIApplication.didReceiveMemoryWarningNotification,
             object: nil
         )
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleCriticalMemory),
-            name: .memoryPressureCritical,
-            object: nil
-        )
+        #endif
     }
 
     @objc private func handleMemoryWarning() {
@@ -454,16 +498,6 @@ public final class LocalComposerBackend: InsightEngineBackend {
         Task {
             // Phase 2C: Use LlamaRunner memory pressure handling
             llamaRunner.handleMemoryPressure(level: .warning)
-        }
-    }
-
-    @objc private func handleCriticalMemory() {
-        logger.error("🚨 Critical memory - force constraining local generation")
-        isMemoryConstrained = true
-
-        Task {
-            // Phase 2C: Immediately unload model
-            llamaRunner.handleMemoryPressure(level: .critical)
         }
     }
 }

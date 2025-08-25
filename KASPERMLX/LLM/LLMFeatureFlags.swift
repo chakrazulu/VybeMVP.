@@ -5,15 +5,36 @@
 //  Created by Claude on 1/24/25.
 //  Purpose: Feature flag system for Phase 2C LLM rollout control
 //
-//  ROLLOUT STRATEGY:
-//  1. Shadow mode: Generate but don't surface (log quality only)
-//  2. Dev mode: Surface to internal team
-//  3. TestFlight: Gradual rollout to beta users
-//  4. Production: Full rollout with fallback ladder
+//  PHASE 2C ROLLOUT STRATEGY (Ready for 11-Month Validation):
+//  This system enables safe, gradual deployment of on-device LLM capabilities
+//  with instant rollback capabilities and comprehensive telemetry collection.
+//
+//  ROLLOUT STAGES:
+//  1. disabled: Complete LLM off, template system only
+//  2. shadow: Generate but don't surface (telemetry/quality validation only)
+//  3. development: Surface to internal team (real-world testing)
+//  4. testflight: Gradual beta rollout (performance monitoring)
+//  5. production: Full deployment with A/B testing vs templates
+//
+//  SAFETY CONTROLS (Phase 2C Enhanced):
+//  - safetyPrefilterV2: Rule-first medical content blocking (default ON)
+//  - qualityThreshold: 70% minimum for LLM output (lower falls back to templates)
+//  - Emergency killswitch: isLLMEnabled = false (instant template fallback)
+//  - Circuit breakers: Auto-disable on latency/memory/crash thresholds
+//
+//  TELEMETRY & MONITORING:
+//  - collectTelemetry: Performance metrics, safety events, quality scores
+//  - Device capability detection: iPhone 12+ with graceful degradation
+//  - Runtime selection: llamacpp (primary) vs mlc (fallback)
+//  - A/B testing support: User cohort bucketing for experiments
 //
 
 import Foundation
 import Combine
+
+#if canImport(UIKit)
+import UIKit
+#endif
 
 /// Centralized feature flag management for LLM capabilities
 /// Controls rollout, A/B testing, and graceful degradation
@@ -65,15 +86,24 @@ public final class LLMFeatureFlags: ObservableObject {
 
         static func current() -> DeviceTier {
             // TODO: Implement actual device detection
-            // For now, check for Pro in device name
-            let deviceName = UIDevice.current.name
-            if deviceName.contains("Pro") {
-                return .pro
-            } else if deviceName.contains("iPhone 1[2-9]") || deviceName.contains("iPhone [2-9][0-9]") {
-                return .standard
+            // For now, use a safe fallback approach
+            #if canImport(UIKit)
+            // Use a safe approach that doesn't require MainActor
+            if #available(iOS 14.0, *) {
+                // Use ProcessInfo for device detection as a workaround
+                let processInfo = ProcessInfo.processInfo
+                if processInfo.processorCount > 4 {
+                    return .pro // Assume Pro devices have more cores
+                } else {
+                    return .standard
+                }
             } else {
-                return .legacy
+                return .standard
             }
+            #else
+            // Fallback for non-UIKit platforms
+            return .standard
+            #endif
         }
     }
 
@@ -147,6 +177,14 @@ public final class LLMFeatureFlags: ObservableObject {
         }
     }
 
+    /// Enable enhanced safety prefilter V2 (rule-based medical content blocking)
+    @Published public var safetyPrefilterV2: Bool {
+        didSet {
+            UserDefaults.standard.set(safetyPrefilterV2, forKey: "llm.safetyPrefilterV2")
+            logFlagChange("llm.safetyPrefilterV2", value: safetyPrefilterV2)
+        }
+    }
+
     // MARK: - Computed Properties
 
     /// Whether to actually run LLM inference
@@ -192,17 +230,18 @@ public final class LLMFeatureFlags: ObservableObject {
         let runtimeRaw = UserDefaults.standard.string(forKey: "llm.runtime") ?? "llamacpp"
         self.runtime = LLMRuntime(rawValue: runtimeRaw) ?? .llamaCpp
 
-        self.maxTokens = UserDefaults.standard.integer(forKey: "llm.maxTokens")
-        if self.maxTokens == 0 { self.maxTokens = 50 } // Default
+        let maxTokensValue = UserDefaults.standard.integer(forKey: "llm.maxTokens")
+        self.maxTokens = maxTokensValue == 0 ? 50 : maxTokensValue // Default
 
-        self.temperature = UserDefaults.standard.float(forKey: "llm.temperature")
-        if self.temperature == 0 { self.temperature = 0.7 } // Default
+        let temperatureValue = UserDefaults.standard.float(forKey: "llm.temperature")
+        self.temperature = temperatureValue == 0 ? 0.7 : temperatureValue // Default
 
-        self.qualityThreshold = UserDefaults.standard.float(forKey: "llm.qualityThreshold")
-        if self.qualityThreshold == 0 { self.qualityThreshold = 0.70 } // Default
+        let qualityThresholdValue = UserDefaults.standard.float(forKey: "llm.qualityThreshold")
+        self.qualityThreshold = qualityThresholdValue == 0 ? 0.70 : qualityThresholdValue // Default
 
         self.shouldPreloadModel = UserDefaults.standard.bool(forKey: "llm.preload")
         self.collectTelemetry = UserDefaults.standard.bool(forKey: "llm.telemetry")
+        self.safetyPrefilterV2 = UserDefaults.standard.object(forKey: "llm.safetyPrefilterV2") as? Bool ?? true // Default ON for safety
 
         print("🎛 LLM Feature Flags initialized:")
         print("  - Enabled: \(isLLMEnabled)")

@@ -355,6 +355,8 @@
 		4D7C37082E5BF76800DD697A /* PromptTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C37062E5BF76700DD697A /* PromptTemplates.swift */; };
 		4D7C37092E5BF76800DD697A /* LlamaRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C37042E5BF76700DD697A /* LlamaRunner.swift */; };
 		4D7C370A2E5BF76800DD697A /* LLMFeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C37052E5BF76700DD697A /* LLMFeatureFlags.swift */; };
+		4D7C370C2E5BF9C900DD697A /* LLMDebugPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C370B2E5BF9C900DD697A /* LLMDebugPanel.swift */; };
+		4D7C370E2E5BFC9300DD697A /* SafetyFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C370D2E5BFC9300DD697A /* SafetyFilters.swift */; };
 		4D7CCC842E4EC8D5001642EF /* RuntimeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7CCC802E4EC8D5001642EF /* RuntimeSelector.swift */; };
 		4D7CCC852E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CCC7F2E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md */; };
 		4D80E0FD2D3F1B0B0020F7BB /* RealmNumberDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80E0FC2D3F1B0B0020F7BB /* RealmNumberDetailView.swift */; };
@@ -987,6 +989,8 @@
 		4D7C37042E5BF76700DD697A /* LlamaRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlamaRunner.swift; sourceTree = "<group>"; };
 		4D7C37052E5BF76700DD697A /* LLMFeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMFeatureFlags.swift; sourceTree = "<group>"; };
 		4D7C37062E5BF76700DD697A /* PromptTemplates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptTemplates.swift; sourceTree = "<group>"; };
+		4D7C370B2E5BF9C900DD697A /* LLMDebugPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMDebugPanel.swift; sourceTree = "<group>"; };
+		4D7C370D2E5BFC9300DD697A /* SafetyFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyFilters.swift; sourceTree = "<group>"; };
 		4D7CCC7F2E4EC8D5001642EF /* PHASE_1_5_SUMMARY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PHASE_1_5_SUMMARY.md; sourceTree = "<group>"; };
 		4D7CCC802E4EC8D5001642EF /* RuntimeSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeSelector.swift; sourceTree = "<group>"; };
 		4D80E0FC2D3F1B0B0020F7BB /* RealmNumberDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNumberDetailView.swift; sourceTree = "<group>"; };
@@ -2043,6 +2047,8 @@
 		4D7C37072E5BF76700DD697A /* LLM */ = {
 			isa = PBXGroup;
 			children = (
+				4D7C370D2E5BFC9300DD697A /* SafetyFilters.swift */,
+				4D7C370B2E5BF9C900DD697A /* LLMDebugPanel.swift */,
 				4D7C37042E5BF76700DD697A /* LlamaRunner.swift */,
 				4D7C37052E5BF76700DD697A /* LLMFeatureFlags.swift */,
 				4D7C37062E5BF76700DD697A /* PromptTemplates.swift */,
@@ -2999,12 +3005,14 @@
 				4DB1DF942E23540B001A9EA5 /* CosmicData.swift in Sources */,
 				4DC602402D34651C00B5E4A9 /* SettingsView.swift in Sources */,
 				4DCEE4842E3438DB007CA451 /* SanctumTabView.swift in Sources */,
+				4D7C370E2E5BFC9300DD697A /* SafetyFilters.swift in Sources */,
 				4D5BEB312E372A5E00B56575 /* CosmicDataRepository.swift in Sources */,
 				4DB1DF962E235450001A9EA5 /* CosmicService.swift in Sources */,
 				4DC6023E2D34650400B5E4A9 /* HomeView.swift in Sources */,
 				4D6C7B592DE45517001036E5 /* ResonanceEngine.swift in Sources */,
 				4D3055FA2D3D899A009A7BBD /* JournalMood.swift in Sources */,
 				4D6529DB2E4D6A6300F521E1 /* FusionEvaluator.swift in Sources */,
+				4D7C370C2E5BF9C900DD697A /* LLMDebugPanel.swift in Sources */,
 				4D92F48C2D49E9C90001A16E /* TestingView.swift in Sources */,
 				4DDCE0062E3146B4005FDD32 /* TestConfiguration.swift in Sources */,
 				4DCB38742E1B4CDB00311D51 /* ProfileSetupView.swift in Sources */,

@@ -10,15 +10,7 @@ import Foundation
 import SwiftUI
 import os.log
 
-/// Feature flags for LLM functionality
-public struct LLMFeatureFlags {
-    @AppStorage("local_llm_available") public static var isLocalLLMAvailable: Bool = false
-    @AppStorage("local_composer_enabled") public static var isLocalComposerEnabled: Bool = false
-    @AppStorage("shadow_mode_enabled") public static var shadowModeEnabled: Bool = false
-    @AppStorage("max_context_tokens") public static var maxContextTokens: Int = 2048
-    @AppStorage("max_latency_seconds") public static var maxLatencySeconds: Double = 2.0
-    @AppStorage("min_quality_threshold") public static var minQualityThreshold: Double = 0.70
-}
+// Legacy feature flags moved to KASPERMLX/LLM/LLMFeatureFlags.swift
 
 /// Model capability and loading manager
 @MainActor
@@ -81,8 +73,8 @@ public final class ModelStore: ObservableObject {
 
     /// Check if local LLM is available and enabled
     public var isLocalLLMReady: Bool {
-        return LLMFeatureFlags.isLocalLLMAvailable &&
-               LLMFeatureFlags.isLocalComposerEnabled &&
+        return LLMFeatureFlags.shared.isLLMEnabled &&
+               LLMFeatureFlags.shared.shouldRunInference &&
                memoryPressureLevel != .critical &&
                deviceCapability != .incompatible
     }
@@ -142,9 +134,9 @@ public final class ModelStore: ObservableObject {
     /// Get model generation capabilities
     public var generationCapabilities: GenerationCapabilities {
         return GenerationCapabilities(
-            maxTokens: LLMFeatureFlags.maxContextTokens,
-            maxLatency: LLMFeatureFlags.maxLatencySeconds,
-            qualityThreshold: LLMFeatureFlags.minQualityThreshold,
+            maxTokens: LLMFeatureFlags.shared.maxTokens,
+            maxLatency: 2.0, // Hard timeout from feature flags
+            qualityThreshold: Double(LLMFeatureFlags.shared.qualityThreshold),
             deviceCapability: deviceCapability,
             memoryPressure: memoryPressureLevel
         )
@@ -214,8 +206,8 @@ public final class ModelStore: ObservableObject {
         // Update availability based on device capability
         let shouldBeAvailable = deviceCapability.recommendedEnabled
 
-        if LLMFeatureFlags.isLocalLLMAvailable != shouldBeAvailable {
-            LLMFeatureFlags.isLocalLLMAvailable = shouldBeAvailable
+        if LLMFeatureFlags.shared.isLLMEnabled != shouldBeAvailable {
+            LLMFeatureFlags.shared.isLLMEnabled = shouldBeAvailable
             logger.info("📝 Updated LLM availability to: \(shouldBeAvailable)")
         }
     }

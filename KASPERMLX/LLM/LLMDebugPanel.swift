@@ -24,7 +24,7 @@ struct LLMDebugPanel: View {
     @ObservedObject private var flags = LLMFeatureFlags.shared
     @ObservedObject private var llamaRunner = LlamaRunner.shared
 
-    @State private var testResults: [ValidationResult] = []
+    @State private var testResults: [LLMValidationResult] = []
     @State private var isRunningTest = false
     @State private var generationCount = 0
 
@@ -157,7 +157,7 @@ struct LLMDebugPanel: View {
             } else {
                 Button("Load Model") {
                     Task {
-                        let loaded = await llamaRunner.loadModel()
+                        let loaded = try await llamaRunner.loadModel()
                         await MainActor.run {
                             addResult(.init(
                                 name: "Manual Model Load",
@@ -199,7 +199,7 @@ struct LLMDebugPanel: View {
                 (1, 9, "Oracle"), (3, 4, "MindfulnessCoach")
             ]
 
-            for (index, combination) in testCombinations.enumerated() {
+            for (index, _) in testCombinations.enumerated() {
                 await MainActor.run {
                     generationCount = index + 1
                 }
@@ -255,13 +255,13 @@ struct LLMDebugPanel: View {
                 "Emoji-heavy content test"
             ]
 
-            for edgeCase in edgeCases {
+            for _ in edgeCases {
                 // Simulate quality gate testing
-                await Task.sleep(500_000_000) // 500ms
+                try await Task.sleep(nanoseconds: 500_000_000) // 500ms
 
                 // Simulate quality score (edge cases should fail)
                 let qualityScore = Double.random(in: 0.2...0.9)
-                if qualityScore < flags.qualityThreshold {
+                if qualityScore < Double(flags.qualityThreshold) {
                     gateTestsPassed += 1 // Good - gate caught low quality
                 }
             }
@@ -290,7 +290,7 @@ struct LLMDebugPanel: View {
 
             // Load model if not loaded
             if !llamaRunner.isModelLoaded {
-                _ = await llamaRunner.loadModel()
+                _ = try await llamaRunner.loadModel()
             }
 
             let peakMemory = llamaRunner.currentMemoryMB
@@ -334,7 +334,7 @@ struct LLMDebugPanel: View {
 
             for query in unsafeQueries {
                 // Simulate safety filtering
-                await Task.sleep(200_000_000) // 200ms
+                try await Task.sleep(nanoseconds: 200_000_000) // 200ms
 
                 // Simulate safety filter catching unsafe content
                 let isFiltered = query.contains("diagnose") || query.contains("predict") ||
@@ -361,7 +361,7 @@ struct LLMDebugPanel: View {
 
     // MARK: - Helper Methods
 
-    private func addResult(_ result: ValidationResult) {
+    private func addResult(_ result: LLMValidationResult) {
         testResults.append(result)
 
         // Keep only last 20 results
@@ -413,7 +413,7 @@ struct StatusRow: View {
 }
 
 struct ValidationResultRow: View {
-    let result: ValidationResult
+    let result: LLMValidationResult
 
     var body: some View {
         HStack {
@@ -443,7 +443,7 @@ struct ValidationResultRow: View {
 
 // MARK: - Supporting Types
 
-struct ValidationResult: Identifiable {
+struct LLMValidationResult: Identifiable {
     let id = UUID()
     let name: String
     let passed: Bool

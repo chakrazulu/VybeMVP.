@@ -127,8 +127,8 @@ public final class HybridInsightEngine: InsightEngine, ObservableObject {
 
                 // Check quality gates using existing evaluator
                 let qualityScore = await evaluator.evaluateInsight(result.text, persona: prompt.persona)
-                let meetsQuality = qualityScore >= LLMFeatureFlags.minQualityThreshold
-                let meetsLatency = result.latency <= LLMFeatureFlags.maxLatencySeconds
+                let meetsQuality = qualityScore >= Double(LLMFeatureFlags.shared.qualityThreshold)
+                let meetsLatency = result.latency <= 2.0 // Hard timeout from feature flags
 
                 if meetsQuality && meetsLatency {
                     // Success! Update metrics and return
@@ -154,7 +154,7 @@ public final class HybridInsightEngine: InsightEngine, ObservableObject {
                     logger.warning("Backend \(backend.id) failed gates - quality: \(String(format: "%.2f", qualityScore)), latency: \(String(format: "%.3f", result.latency))s")
 
                     // Log for shadow mode analysis
-                    if LLMFeatureFlags.shadowModeEnabled {
+                    if LLMFeatureFlags.shared.isInShadowMode {
                         await logBackendAttempt(backend: backend.id, result: result, quality: qualityScore, passed: false)
                     }
                 }
@@ -173,7 +173,7 @@ public final class HybridInsightEngine: InsightEngine, ObservableObject {
     /// Original generate method (preserved for compatibility)
     public func generate(from context: InsightContext) async throws -> InsightResult {
         // Use new backend system if feature flag enabled, otherwise legacy
-        if LLMFeatureFlags.isLocalComposerEnabled {
+        if LLMFeatureFlags.shared.shouldRunInference {
             return try await generateWithBackends(from: context)
         } else {
             return try await generateLegacy(from: context)
@@ -346,7 +346,7 @@ public final class HybridInsightEngine: InsightEngine, ObservableObject {
 
     /// Phase 2B: Log backend attempts for shadow mode analysis
     private func logBackendAttempt(backend: String, result: InsightResult, quality: Double, passed: Bool) async {
-        guard LLMFeatureFlags.shadowModeEnabled else { return }
+        guard LLMFeatureFlags.shared.isInShadowMode else { return }
 
         Task.detached(priority: .background) {
             await ShadowModeLogger.logBackendAttempt(

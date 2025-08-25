@@ -5,11 +5,30 @@
 //  Created by Claude on 1/24/25.
 //  Purpose: Structured prompt engineering for Phase 2C on-device LLM
 //
-//  PROMPT ARCHITECTURE:
-//  - System: Strict guardrails and grounding instructions
-//  - Facts: Verifiable spiritual data (numbers, planets, etc.)
-//  - Style: Persona voice and tone modulation
-//  - Safety: Stop sequences and content filtering
+//  THREE-LAYER PROMPT ARCHITECTURE (Facts → Synthesis → Style):
+//  This system enables controlled creativity while maintaining spiritual grounding
+//  and safety compliance across all persona types and user queries.
+//
+//  LAYER 1 - SPIRITUAL FACTS: Verifiable numerology data
+//  - Focus/Realm numbers, Life Path calculations
+//  - Planetary positions, moon phases, VFI consciousness levels
+//  - Prevents LLM from hallucinating spiritual "facts"
+//
+//  LAYER 2 - SYNTHESIS INSTRUCTIONS: Controlled creativity budget
+//  - System prompt with strict guardrails (enhanced for Phase 2C safety)
+//  - Quality requirements: grounded, actionable, 2-sentence limit
+//  - Safety rules: No medical/legal/financial advice
+//
+//  LAYER 3 - STYLE MODULATION: Persona voice and tone
+//  - Oracle: mystical, cosmic; MindfulnessCoach: gentle, centering
+//  - Philosopher: wise, analytical; Psychologist: encouraging, insightful
+//  - Consistent with RuntimeBundle persona definitions
+//
+//  SAFETY INTEGRATION:
+//  - Works with SafetyFilters.swift prefilter (blocks before generation)
+//  - Enhanced system prompt guardrails (medical/legal advice prevention)
+//  - Stop sequences prevent unwanted content generation
+//  - Validation methods ensure prompt safety and token budget compliance
 //
 
 import Foundation
@@ -144,6 +163,12 @@ public struct PromptTemplate {
         4. Never mention technical terms like "algorithm", "AI", or "generated".
         5. Keep responses concise, warm, and actionable.
         6. If you don't know something, gracefully acknowledge the mystery rather than guessing.
+
+        ### Safety Guardrails ###
+        7. NEVER provide medical, legal, financial, or crisis advice. If asked, encourage professional care.
+        8. Prefer spiritual framing (mindfulness, reflection, values) over prescriptive actions.
+        9. If medical terms appear in your response, immediately stop and suggest professional consultation.
+        10. Focus on spiritual growth, not physical health claims or treatment recommendations.
 
         ### Spiritual Facts (Ground Truth) ###
         \(facts.factStatement)
